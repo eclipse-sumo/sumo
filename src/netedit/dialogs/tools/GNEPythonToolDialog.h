@@ -59,6 +59,15 @@ public:
     /// @name FOX-callbacks
     /// @{
 
+    /// @brief save options
+    long onCmdSave(FXObject*, FXSelector, void*);
+
+    /// @brief load options
+    long onCmdLoad(FXObject*, FXSelector, void*);
+
+    /// @brief set visualization (sorting and grouping)
+    long onCmdSetVisualization(FXObject*, FXSelector, void*);
+
     /// @brief event after press run button
     long onCmdRun(FXObject*, FXSelector, void*);
 
@@ -76,19 +85,16 @@ protected:
 
     public:
         /// @brief constructor
-        CategoryOptions(const std::string &category) :
-            std::string(category) {
-        }
+        CategoryOptions(const std::string &category);
 
         /// @brief add option
-        void addOption(const std::string &name, Option* option) {
-            myOptions.push_back(std::make_pair(name, option));
-        }
+        void addOption(const std::string &name, Option* option);
 
         /// @brief get options
-        const std::vector<std::pair<std::string, Option*> > &getOptions() const {
-            return myOptions;
-        }
+        const std::vector<std::pair<std::string, Option*> > &getOptions() const;
+
+        /// @brief sort options by name
+        void sortByName();
 
     private:
         /// @brief options for this category
@@ -102,10 +108,13 @@ protected:
     GNEPythonToolDialog();
 
     /// @brief build arguments
-    virtual void buildArguments();
+    virtual void buildArguments(bool sortByName, bool groupedByCategories);
 
     /// @brief adjust parameter column
     void adjustParameterColumn();
+
+    /// @brief get options
+    std::vector<GNEPythonToolDialog::CategoryOptions> getOptions(OptionsCont& optionsCont) const;
 
     /// @brief get options sorted by category
     std::vector<CategoryOptions> getOptionsByCategories(OptionsCont& optionsCont) const;
@@ -128,6 +137,15 @@ private:
 
     /// @brief vertical frames for rows
     std::vector<FXVerticalFrame*> myRowFrames;
+
+    /// @brief options frame (Save, load, sorting and grouping)
+    FXHorizontalFrame* myOptionsFrame = nullptr;
+
+    /// @brief check button to enable/diasble sorting
+    FXCheckButton* mySortedCheckButton = nullptr;
+
+    /// @brief check button to enable/diasble grouping
+    FXCheckButton* myGroupedCheckButton = nullptr;
 
     /// @brief tool
     GNEPythonTool* myPythonTool = nullptr;

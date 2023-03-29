@@ -35,6 +35,9 @@
 
 FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
     FXMAPFUNC(SEL_CLOSE,    0,                      GNEPythonToolDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,       GNEPythonToolDialog::onCmdSave),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,       GNEPythonToolDialog::onCmdLoad),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEPythonToolDialog::onCmdSetVisualization),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNEPythonToolDialog::onCmdRun),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEPythonToolDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEPythonToolDialog::onCmdReset)
@@ -52,6 +55,17 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     myGNEApp(GNEApp) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
+    // create options
+    myOptionsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    // build options
+    new FXButton(myOptionsFrame, (TL("Save") + std::string("\t\t") + TL("Save options")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonAccept);
+    new FXButton(myOptionsFrame, (TL("Load") + std::string("\t\t") + TL("Load options")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonAccept);
+    mySortedCheckButton = new FXCheckButton(myOptionsFrame, TL("Sorted by name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myGroupedCheckButton = new FXCheckButton(myOptionsFrame, TL("Grouped by categories"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    // add separator
+    mySeparator = new FXSeparator(this);
     // build row frames
     auto horizontalFrameRows = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     for (int i = 0; i < MAXNUMCOLUMNS; i++) {
@@ -85,8 +99,11 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     myPythonTool = tool;
     // set title
     setTitle(myPythonTool->getToolName().c_str());
+    // reset checkboxes
+    mySortedCheckButton->setCheck(FALSE);
+    myGroupedCheckButton->setCheck(TRUE);
     // build arguments
-    buildArguments();
+    buildArguments(false, true);
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
@@ -101,9 +118,29 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
         }
     }
     // resize dialog (rowFramesWidth, Marging + rowFramesHeight + MARGING separator + MARGING + buttonsFrame + MARGING)
-    resize(rowFramesWidth, rowFramesHeight + mySeparator->getHeight() + myButtonsFrame->getHeight() + (4 * MARGING));
+    resize(rowFramesWidth, myOptionsFrame->getHeight() + rowFramesHeight + (2 * mySeparator->getHeight()) + myButtonsFrame->getHeight() + (4 * MARGING));
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     return myGNEApp->getApp()->runModalFor(this);
+}
+
+
+long
+GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEPythonToolDialog::onCmdLoad(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEPythonToolDialog::onCmdSetVisualization(FXObject*, FXSelector, void*) {
+    // rebuild arguments
+    buildArguments((mySortedCheckButton->getCheck()), (myGroupedCheckButton->getCheck() == TRUE));
+    return 1;
 }
 
 
@@ -151,13 +188,37 @@ GNEPythonToolDialog::getNumRowColums() const {
 }
 
 
+GNEPythonToolDialog::CategoryOptions::CategoryOptions(const std::string &category) :
+    std::string(category) {
+}
+
+
+void
+GNEPythonToolDialog::CategoryOptions::addOption(const std::string &name, Option* option) {
+    myOptions.push_back(std::make_pair(name, option));
+}
+
+
+const std::vector<std::pair<std::string, Option*> > &
+GNEPythonToolDialog::CategoryOptions::getOptions() const {
+    return myOptions;
+}
+
+
+void
+GNEPythonToolDialog::CategoryOptions::sortByName() {
+    // just sort vector with options
+    std::sort(myOptions.begin(), myOptions.end());
+}
+
+
 GNEPythonToolDialog::GNEPythonToolDialog() :
     myGNEApp(nullptr) {
 }
 
 
 void
-GNEPythonToolDialog::buildArguments() {
+GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
     // clear arguments and categories
     for (const auto& argument : myArguments) {
         delete argument;
@@ -167,12 +228,18 @@ GNEPythonToolDialog::buildArguments() {
     }
     myArguments.clear();
     myCategories.clear();
-    // get argument sorted by categories
-    const auto categoryOptions = getOptionsByCategories(myPythonTool->getToolsOptions());
-    // iterate over options
-    for (const auto &categoryOption : categoryOptions) {
+    // get argument sorted by name and grouped by categories
+    auto categoryOptions = groupedByCategories? getOptionsByCategories(myPythonTool->getToolsOptions()) : getOptions(myPythonTool->getToolsOptions());
+    // iterate over category options
+    for (auto &categoryOption : categoryOptions) {
         // add category
-        myCategories.push_back(new GNEPythonToolDialogElements::Category(this, categoryOption));
+        if (categoryOption.size() > 0) {
+            myCategories.push_back(new GNEPythonToolDialogElements::Category(this, categoryOption));
+        }
+        // check if sort by name
+        if (sortByName) {
+            categoryOption.sortByName();
+        }
         // add options
         for (const auto &option : categoryOption.getOptions()) {
             if (option.second->isInteger()) {
@@ -220,6 +287,18 @@ GNEPythonToolDialog::adjustParameterColumn() {
             myRowFrames.at(i)->setHeight(0);
         }
     }
+}
+
+
+std::vector<GNEPythonToolDialog::CategoryOptions>
+GNEPythonToolDialog::getOptions(OptionsCont& optionsCont) const {
+    // use a vector with only one empty category to reuse code of buildArguments
+    std::vector<GNEPythonToolDialog::CategoryOptions> result = {GNEPythonToolDialog::CategoryOptions("")};
+    // add all options to result
+    for (const auto &option : optionsCont) {
+        result.front().addOption(option.first, option.second);
+    }
+    return result;
 }
 
 
