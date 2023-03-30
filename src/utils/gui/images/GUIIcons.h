@@ -208,7 +208,7 @@ enum class GUIIcon {
     FLAG_MINUS,
     /// @}
 
-    /// @name windows icosn
+    /// @name windows icons
     /// @{
     WINDOWS_CASCADE,
     WINDOWS_TILE_VERT,

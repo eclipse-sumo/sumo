@@ -216,7 +216,7 @@ GNEPythonToolDialogElements::FileNameArgument::FileNameArgument(GNEPythonToolDia
     }
     // Create Open button
     myOpenFilenameButton = new FXButton(myElementsFrame, (std::string("\t\t") + TL("Select filename")).c_str(), 
-        GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), this, MID_GNE_SELECT, GUIDesignButtonIcon);
+        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SELECT, GUIDesignButtonIcon);
     myOpenFilenameButton->create();
     // create text field for filename
     myFilenameTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
