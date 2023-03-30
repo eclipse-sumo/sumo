@@ -3495,10 +3495,11 @@ MSLCM_SL2015::getDesiredAlignment() const {
     LatAlignmentDefinition align = MSAbstractLaneChangeModel::getDesiredAlignment();
     // Check whether the vehicle should adapt its alignment to an upcoming turn
     if (myTurnAlignmentDist > 0) {
-        const std::pair<double, LinkDirection>& turnInfo = myVehicle.getNextTurn();
+        const std::pair<double, const MSLink*>& turnInfo = myVehicle.getNextTurn();
+        LinkDirection turnDir = turnInfo.second == nullptr ? LinkDirection::NODIR : turnInfo.second->getDirection();
         if (turnInfo.first < myTurnAlignmentDist) {
             // Vehicle is close enough to the link to change its default alignment
-            switch (turnInfo.second) {
+            switch (turnDir) {
                 case LinkDirection::TURN:
                 case LinkDirection::LEFT:
                 case LinkDirection::PARTLEFT:

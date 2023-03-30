@@ -969,7 +969,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     myLastBestLanesEdge(nullptr),
     myLastBestLanesInternalLane(nullptr),
     myAcceleration(0),
-    myNextTurn(0., LinkDirection::NODIR),
+    myNextTurn(0., nullptr),
     mySignals(0),
     myAmOnNet(false),
     myAmIdling(false),
@@ -2084,7 +2084,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 }
 
 void
-MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& newStopDist, std::pair<double, LinkDirection>& nextTurn) const {
+MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& newStopDist, std::pair<double, const MSLink*>& nextTurn) const {
     lfLinks.clear();
     newStopDist = std::numeric_limits<double>::max();
     //
@@ -2154,7 +2154,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     // the distance already "seen"; in the following always up to the end of the current "lane"
     double seen = opposite ? myState.myPos : myLane->getLength() - myState.myPos;
     nextTurn.first = seen;
-    nextTurn.second = LinkDirection::NODIR;
+    nextTurn.second = nullptr;
     bool encounteredTurn = (MSGlobals::gLateralResolution <= 0); // next turn is only needed for sublane
     double seenNonInternal = 0;
     double seenInternal = myLane->isInternal() ? seen : 0;
@@ -2459,11 +2459,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         break;
                     default:
                         nextTurn.first = seen;
-                        nextTurn.second = linkDir;
+                        nextTurn.second = *link;
                         encounteredTurn = true;
 #ifdef DEBUG_NEXT_TURN
                         if (DEBUG_COND) {
-                            std::cout << SIMTIME << " veh '" << getID() << "' nextTurn: " << toString(nextTurn.second)
+                            std::cout << SIMTIME << " veh '" << getID() << "' nextTurn: " << toString(linkDir)
                                       << " at " << nextTurn.first << "m." << std::endl;
                         }
 #endif

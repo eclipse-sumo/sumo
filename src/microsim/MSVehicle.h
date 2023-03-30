@@ -827,7 +827,7 @@ public:
     /** @brief Get the distance and direction of the next upcoming turn for the vehicle (within its look-ahead range)
      *  @return The first entry of the returned pair is the distance for the upcoming turn, the second is the link direction
      */
-    const std::pair<double, LinkDirection>& getNextTurn() {
+    const std::pair<double, const MSLink*>& getNextTurn() {
         return myNextTurn;
     }
 
@@ -1899,7 +1899,7 @@ protected:
 
     /// @brief the upcoming turn for the vehicle
     /// @todo calculate during plan move
-    std::pair<double, LinkDirection> myNextTurn;
+    std::pair<double, const MSLink*> myNextTurn;
 
     /// @brief The information into which lanes the vehicle laps into
     std::vector<MSLane*> myFurtherLanes;
@@ -2010,7 +2010,7 @@ protected:
     DriveItemVector::iterator myNextDriveItem;
 
     /// @todo: documentation
-    void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, LinkDirection>& myNextTurn) const;
+    void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, const MSLink*>& myNextTurn) const;
 
     /// @brief runs heuristic for keeping the intersection clear in case of downstream jamming
     void checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const;
