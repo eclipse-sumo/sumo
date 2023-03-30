@@ -204,6 +204,38 @@ public:
      */
     virtual bool isFileName() const;
 
+    /** @brief Returns the information whether this option is a network file
+     *
+     * Returns false. Only Option_Network overrides this method returning true.
+     *
+     * @return true if the Option is an Option_Network, false otherwise
+     */
+    virtual bool isNetwork() const;
+
+    /** @brief Returns the information whether this option is an additional file
+     *
+     * Returns false. Only Option_Additional overrides this method returning true.
+     *
+     * @return true if the Option is an Option_Additional, false otherwise
+     */
+    virtual bool isAdditional() const;
+
+    /** @brief Returns the information whether this option is a route file
+     *
+     * Returns false. Only Option_Route overrides this method returning true.
+     *
+     * @return true if the Option is an Option_Route, false otherwise
+     */
+    virtual bool isRoute() const;
+
+    /** @brief Returns the information whether this option is a data file
+     *
+     * Returns false. Only Option_Data overrides this method returning true.
+     *
+     * @return true if the Option is an Option_Data, false otherwise
+     */
+    virtual bool isData() const;
+
     /** @brief Returns the information whether the option may be set a further time
      *
      * This method returns whether the option was not already set using command line
@@ -632,6 +664,146 @@ public:
      * @see std::string StringVector::getValueString()
      * @return Returns comma-separated string of the stored filenames
      * @deprecated Legacy method used when Option_FileName was still derived from Option_String;
+     * not in line with code style of the Options sub-system.
+     */
+    std::string getString() const;
+};
+
+// -------------------------------------------------------------------------
+// Option_Network
+// -------------------------------------------------------------------------
+
+class Option_Network : public Option_StringVector {
+
+public:
+    /// @brief Constructor for an option with no default value
+    Option_Network();
+
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_Network(const StringVector& value);
+
+    /** @brief Returns true, the information whether this option is a file name
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isNetwork() const;
+
+    /** @brief Legacy method that returns the stored filenames as a comma-separated string.
+     *
+     * @see std::string Option::getString()
+     * @see std::string StringVector::getValueString()
+     * @return Returns comma-separated string of the stored filenames
+     * @deprecated Legacy method used when Option_Network was still derived from Option_String;
+     * not in line with code style of the Options sub-system.
+     */
+    std::string getString() const;
+};
+
+// -------------------------------------------------------------------------
+// Option_Additional
+// -------------------------------------------------------------------------
+
+class Option_Additional : public Option_StringVector {
+
+public:
+    /// @brief Constructor for an option with no default value
+    Option_Additional();
+
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_Additional(const StringVector& value);
+
+    /** @brief Returns true, the information whether this option is a file name
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isAdditional() const;
+
+    /** @brief Legacy method that returns the stored filenames as a comma-separated string.
+     *
+     * @see std::string Option::getString()
+     * @see std::string StringVector::getValueString()
+     * @return Returns comma-separated string of the stored filenames
+     * @deprecated Legacy method used when Option_Additional was still derived from Option_String;
+     * not in line with code style of the Options sub-system.
+     */
+    std::string getString() const;
+};
+
+// -------------------------------------------------------------------------
+// Option_Route
+// -------------------------------------------------------------------------
+
+class Option_Route : public Option_StringVector {
+
+public:
+    /// @brief Constructor for an option with no default value
+    Option_Route();
+
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_Route(const StringVector& value);
+
+    /** @brief Returns true, the information whether this option is a file name
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isRoute() const;
+
+    /** @brief Legacy method that returns the stored filenames as a comma-separated string.
+     *
+     * @see std::string Option::getString()
+     * @see std::string StringVector::getValueString()
+     * @return Returns comma-separated string of the stored filenames
+     * @deprecated Legacy method used when Option_Route was still derived from Option_String;
+     * not in line with code style of the Options sub-system.
+     */
+    std::string getString() const;
+};
+
+// -------------------------------------------------------------------------
+// Option_Data
+// -------------------------------------------------------------------------
+
+class Option_Data : public Option_StringVector {
+
+public:
+    /// @brief Constructor for an option with no default value
+    Option_Data();
+
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_Data(const StringVector& value);
+
+    /** @brief Returns true, the information whether this option is a file name
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isData() const;
+
+    /** @brief Legacy method that returns the stored filenames as a comma-separated string.
+     *
+     * @see std::string Option::getString()
+     * @see std::string StringVector::getValueString()
+     * @return Returns comma-separated string of the stored filenames
+     * @deprecated Legacy method used when Option_Data was still derived from Option_String;
      * not in line with code style of the Options sub-system.
      */
     std::string getString() const;

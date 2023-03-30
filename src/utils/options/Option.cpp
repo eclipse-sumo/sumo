@@ -141,6 +141,30 @@ Option::isFileName() const {
 
 
 bool
+Option::isNetwork() const {
+    return false;
+}
+
+
+bool
+Option::isAdditional() const {
+    return false;
+}
+
+
+bool
+Option::isRoute() const {
+    return false;
+}
+
+
+bool
+Option::isData() const {
+    return false;
+}
+
+
+bool
 Option::isWriteable() const {
     return myAmWritable;
 }
@@ -437,13 +461,121 @@ Option_FileName::Option_FileName(const StringVector& value) :
 }
 
 
-bool Option_FileName::isFileName() const {
+bool
+Option_FileName::isFileName() const {
     return true;
 }
 
 
 std::string
 Option_FileName::getString() const {
+    return joinToString(getStringVector(), ",");
+}
+
+// -------------------------------------------------------------------------
+// Option_Network - methods
+// -------------------------------------------------------------------------
+
+Option_Network::Option_Network() :
+    Option_StringVector() {
+    myTypeName = "NETWORK";
+}
+
+
+Option_Network::Option_Network(const StringVector& value) :
+    Option_StringVector(value) {
+    myTypeName = "NETWORK";
+}
+
+
+bool Option_Network::isNetwork() const {
+    return true;
+}
+
+
+std::string
+Option_Network::getString() const {
+    return joinToString(getStringVector(), ",");
+}
+
+// -------------------------------------------------------------------------
+// Option_Additional - methods
+// -------------------------------------------------------------------------
+
+Option_Additional::Option_Additional() :
+    Option_StringVector() {
+    myTypeName = "ADDITIONAL";
+}
+
+
+Option_Additional::Option_Additional(const StringVector& value) :
+    Option_StringVector(value) {
+    myTypeName = "ADDITIONAL";
+}
+
+
+bool
+Option_Additional::isAdditional() const {
+    return true;
+}
+
+
+std::string
+Option_Additional::getString() const {
+    return joinToString(getStringVector(), ",");
+}
+
+// -------------------------------------------------------------------------
+// Option_Route - methods
+// -------------------------------------------------------------------------
+
+Option_Route::Option_Route() :
+    Option_StringVector() {
+    myTypeName = "ROUTE";
+}
+
+
+Option_Route::Option_Route(const StringVector& value) :
+    Option_StringVector(value) {
+    myTypeName = "ROUTE";
+}
+
+
+bool
+Option_Route::isRoute() const {
+    return true;
+}
+
+
+std::string
+Option_Route::getString() const {
+    return joinToString(getStringVector(), ",");
+}
+
+// -------------------------------------------------------------------------
+// Option_Data - methods
+// -------------------------------------------------------------------------
+
+Option_Data::Option_Data() :
+    Option_StringVector() {
+    myTypeName = "DATA";
+}
+
+
+Option_Data::Option_Data(const StringVector& value) :
+    Option_StringVector(value) {
+    myTypeName = "DATA";
+}
+
+
+bool
+Option_Data::isData() const {
+    return true;
+}
+
+
+std::string
+Option_Data::getString() const {
     return joinToString(getStringVector(), ",");
 }
 
