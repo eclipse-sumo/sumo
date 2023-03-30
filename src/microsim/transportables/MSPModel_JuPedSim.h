@@ -119,6 +119,7 @@ private:
     std::vector<geos::geom::Geometry*> myGEOSBufferedGeometriesDump;
     std::vector<geos::geom::Geometry*> myGEOSGeometryCollectionsDump;
     std::vector<geos::geom::Geometry*> myGEOSConvexHullsDump;
+    std::vector<geos::geom::Geometry*> myGEOSConvertedLinearRingsDump;
     geos::geom::Geometry* myGEOSPedestrianNetwork;
     bool myIsPedestrianNetworkConnected;
 
@@ -149,6 +150,9 @@ private:
     geos::geom::Geometry* createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle);
     geos::geom::Geometry* createShapeFromAnchors(Position anchor, MSLane* lane, Position otherAnchor, MSLane* otherLane);
     geos::geom::Geometry* buildPedestrianNetwork(MSNet* network);
+    static PositionVector getCoordinates(const geos::geom::Geometry* geometry);
     static std::vector<double> getFlattenedCoordinates(const geos::geom::Geometry* geometry);
+    geos::geom::Polygon* toPolygon(const geos::geom::LinearRing* linearRing);
+    void renderPolygon(const geos::geom::Polygon* polygon, const std::string& polygonId);
     void preparePolygonForJPS(const geos::geom::Polygon* polygon) const;
 };
