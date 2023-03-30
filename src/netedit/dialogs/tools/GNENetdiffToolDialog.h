@@ -46,6 +46,6 @@ protected:
     OptionsCont myNetdiffOptions;
 
     /// @brief build arguments
-    virtual void buildArguments();
+    void buildArguments();
 };
 
