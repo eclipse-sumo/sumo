@@ -37,7 +37,7 @@
  */
 class Shape : public Named {
 public:
-    /// @nane default shape's values
+    /// @name default shape's values
     /// @{
     static const std::string DEFAULT_TYPE;
     static const double DEFAULT_LAYER;
