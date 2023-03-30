@@ -48,19 +48,24 @@ COMPRESSION_WEIGHT = 0.01
 STRAIGHT_WEIGHT = 2
 OTHER_WEIGHT = 1
 
+NETCONVERT = sumolib.checkBinary('netconvert')
+STATION_DISTRICTS = os.path.join(SUMO_HOME, 'tools', 'district', 'stationDistricts.py')
 
 def get_options():
     ap = ArgumentParser()
     ap.add_option("-v", "--verbose", action="store_true", default=False,
                   help="tell me what you are doing")
-    ap.add_option("-n", "--net-file", dest="netfile",
+    ap.add_option("-n", "--net-file", dest="netfile", required=True,
                   help="the network to read lane and edge permissions")
-    ap.add_option("-s", "--stop-file", dest="stopfile",
+    ap.add_option("-s", "--stop-file", dest="stopfile", required=True,
                   help="the additional file with stops")
     ap.add_option("-a", "--region-file", dest="regionfile",
                   help="Load network regions from additional file (as taz elements)")
-    ap.add_option("-o", "--output-prefix", dest="prefix",
+    ap.add_option("-o", "--output-prefix", dest="prefix", required=True,
                   help="output prefix for patch files")
+    ap.add_option("--split", action="store_true", default=False,
+                  help="automatically create a region file from the loaded stops,"
+                  + " automatically split the network if needed")
     ap.add_option("--filter-regions", dest="filterRegions",
                   help="filter regions by name or id")
     ap.add_option("--keep-all", action="store_true", dest="keepAll", default=False,
@@ -94,6 +99,9 @@ def get_options():
     if not options.prefix:
         ap.print_help()
         ap.exit("Error! setting output is mandatory")
+    if options.regionfile and options.split:
+        ap.print_help()
+        ap.exit("Error! Only one of the options --split or --region-file may be given")
 
     options.output_nodes = options.prefix + ".nod.xml"
     options.output_edges = options.prefix + ".edg.xml"
@@ -505,8 +513,52 @@ def cleanShapes(options, net, nodeCoords, edgeShapes):
 def shapeStr(shape):
     return ' '.join(["%.2f,%.2f" % coord for coord in shape])
 
+def splitNet(options):
+    # 1. create region file from stops
+    options.regionfile = options.prefix + ".taz.xml"
+    splitfile = options.prefix + ".split.edg.xml"
+    oldNet = options.netfile
+    oldStops = options.stopfile
+
+    if options.verbose:
+        print("Creating region file '%s'" % options.regionfile)
+    subprocess.call([STATION_DISTRICTS,
+                     '-n', options.netfile,
+                     '-s', options.stopfile,
+                     '-o', options.regionfile,
+                     '--split-output', splitfile])
+
+    # 2. optionally split the network if regions have shared edges
+    numSplits = len(list(sumolib.xml.parse(splitfile, 'edge')))
+    if numSplits > 0:
+        if options.verbose:
+            print("Splitting %s edges to ensure distinct regions" % numSplits)
+
+        # rebuilt the network and stop file
+        options.netfile = options.netfile[:-8] + ".split.net.xml"
+        if options.stopfile[-8:] == ".add.xml":
+            options.stopfile = options.stopfile[:-8] + ".split.add.xml"
+        else:
+            options.stopfile = options.stopfile[:-4] + ".split.xml"
+
+        subprocess.call([NETCONVERT,
+                         '-e', splitfile,
+                         '-s', oldNet,
+                         '-o', options.netfile,
+                         '--ptstop-files', oldStops,
+                         '--ptstop-output', options.stopfile])
+
+        if options.verbose:
+            print("Re-creating region file '%s' after splitting network" % options.regionfile)
+        subprocess.call([STATION_DISTRICTS,
+                         '-n', options.netfile,
+                         '-s', options.stopfile,
+                         '-o', options.regionfile])
+
 
 def main(options):
+    if options.split:
+        splitNet(options)
 
     if options.verbose:
         print("Reading net")
@@ -564,7 +616,7 @@ def main(options):
         if options.verbose:
             print("Building new net")
         sys.stderr.flush()
-        subprocess.call([sumolib.checkBinary('netconvert'),
+        subprocess.call([NETCONVERT,
                          '-s', options.netfile,
                          '-n', options.output_nodes,
                          '-e', options.output_edges,

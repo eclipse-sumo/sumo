@@ -39,9 +39,12 @@ def get_options():
     ap = ArgumentParser()
     ap.add_option("-v", "--verbose", action="store_true", default=False,
                   help="tell me what you are doing")
-    ap.add_option("-n", "--net-file", dest="netfile", help="the network to read lane and edge permissions")
-    ap.add_option("-s", "--stop-file", dest="stopfile", help="the additional file with stops")
-    ap.add_option("-o", "--output", help="output taz file")
+    ap.add_option("-n", "--net-file", dest="netfile", required=True,
+                  help="the network to read lane and edge permissions")
+    ap.add_option("-s", "--stop-file", dest="stopfile", required=True,
+                  help="the additional file with stops")
+    ap.add_option("-o", "--output", required=True,
+                  help="output taz file")
     ap.add_option("--split-output", dest="splitOutput",
                   help="generate splits for edges assigned to multiple stations")
     ap.add_option("--poi-output", dest="poiOutput",
