@@ -1,8 +1,8 @@
 <configuration>
-    <net-file value="net2.net.xml" category="processing"/>
-    <additional-files value="input_additional.add.xml" category="processing"/>
-    <route-file value="out.rou.xml" category="processing"/>
-    <trip-attributes value="type=&quot;truck&quot;" category="processing"/>
-    <end value="10" category="processing"/>
-    <vclass value="truck" category="processing"/>
+    <net-file value="net2.net.xml"/>
+    <additional-files value="input_additional.add.xml"/>
+    <route-file value="out.rou.xml"/>
+    <trip-attributes value="type=&quot;truck&quot;"/>
+    <end value="10"/>
+    <vclass value="truck"/>
 </configuration>
