@@ -176,6 +176,11 @@ class ArgumentParser(argparse.ArgumentParser):
     def edgedata_file(s):
         return s
 
+    @staticmethod
+    def data_file(s):
+        # arbitrary data file (i.e. for attributeStats.py and plotXMLAttributes.py)
+        return s
+
     def __init__(self, allowed_programs=[], *args, **kwargs):
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
         # add common argument for loading configuration
@@ -286,8 +291,7 @@ class ArgumentParser(argparse.ArgumentParser):
                                     typeName = 'time'
                                 knownTypes = ['bool', 'float', 'int',
                                               'time', 'file', 'net_file', 'route_file',
-                                              'additional_file', 'edgedata_file',
-                                              'data_file']
+                                              'additional_file', 'edgedata_file', 'data_file']
                                 if typeName not in knownTypes:
                                     typeName = 'string'
                             typeStr = ' type="%s"' % typeName

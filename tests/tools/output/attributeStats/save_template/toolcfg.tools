@@ -1,5 +1,5 @@
 <configuration>
-    <datafiles value="None" type="edgedata_file" help="XML files to analyze" category="input" required="true"/>
+    <datafiles value="None" type="data_file" help="XML files to analyze" category="input" required="true"/>
     <verbose value="False" type="bool" help="Give more output"/>
     <element value="None" type="string" help="element to analyze" category="input"/>
     <attribute value="None" type="string" help="attribute to analyze" category="input"/>
