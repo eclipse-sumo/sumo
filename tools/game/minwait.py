@@ -28,6 +28,9 @@ import os
 import subprocess
 import sys
 import glob
+import pickle
+
+from runner import computeScoreFromWaitingTime, _SCOREFILE
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -36,6 +39,7 @@ import sumolib  # noqa
 
 
 base = os.path.dirname(sys.argv[0])
+high = {}
 for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
     tls = None
     for a in sumolib.xml.parse_fast(config, "additional-files", "value"):
@@ -43,7 +47,6 @@ for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
             if ".tll" in f or ".tls" in f:
                 tls = f
                 break
-    print(tls)
     if tls:
         with open(tls) as tls_in, open(tls + ".act", "w") as tls_out:
             for line in tls_in:
@@ -51,4 +54,12 @@ for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
                 if "phase" in line:
                     line = line.replace('duration="10000"', 'duration="10" minDur="0" maxDur="10000"')
                 tls_out.write(line)
-        subprocess.call([sumolib.checkBinary("sumo"), "-c", config, "-a", a.value.replace(tls, tls + ".act")])
+        scen = os.path.basename(config)[:-8]
+        subprocess.call([sumolib.checkBinary("sumo"), "-c", config, "-a", a.value.replace(tls, tls + ".act"),
+                         '--duration-log.statistics', '--statistic-output', scen + '.stats.xml',
+                         '--tripinfo-output.write-unfinished'])
+        score = computeScoreFromWaitingTime(scen)
+        high[scen] = [("actuated", "", score[0])]
+print(high)
+with open(_SCOREFILE, 'wb') as pkl:
+    pickle.dump(high, pkl)
