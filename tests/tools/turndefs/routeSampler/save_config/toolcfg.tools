@@ -1,6 +1,6 @@
 <configuration>
-    <route-files value="input_routes.rou.xml"/>
-    <turn-files value="input_turns.xml"/>
-    <prefix value="foo"/>
-    <attributes value="color=&quot;blue&quot;"/>
+    <route-files value="input_routes.rou.xml" category="processing"/>
+    <turn-files value="input_turns.xml" category="processing"/>
+    <prefix value="foo" category="processing"/>
+    <attributes value="color=&quot;blue&quot;" category="processing"/>
 </configuration>

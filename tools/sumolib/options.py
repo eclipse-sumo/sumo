@@ -261,7 +261,7 @@ class ArgumentParser(argparse.ArgumentParser):
                 key = k
                 help = ''
                 typeStr = ''
-                category = ''
+                category = ' category="processing"'
                 required = ''
                 for a in self._actions:
                     if a.dest == k:

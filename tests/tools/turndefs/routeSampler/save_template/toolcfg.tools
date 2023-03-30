@@ -32,7 +32,7 @@
     <begin value="None" type="string" help="custom begin time (seconds or H:M:S)" category="time"/>
     <end value="None" type="string" help="custom end time (seconds or H:M:S)" category="time"/>
     <interval value="None" type="string" help="custom aggregation interval (seconds or H:M:S)" category="time"/>
-    <verbose value="False" type="bool" help="tell me what you are doing"/>
-    <verbose.histograms value="False" type="bool" help="print histograms of edge numbers and detector passing count"/>
+    <verbose value="False" type="bool" help="tell me what you are doing" category="processing"/>
+    <verbose.histograms value="False" type="bool" help="print histograms of edge numbers and detector passing count" category="processing"/>
     <threads value="1" type="int" help="If parallelization is desired, enter the number of CPUs to use. Set to a value >> then your machines CPUs if you want to utilize all CPUs (Default is 1)" category="processing"/>
 </configuration>
