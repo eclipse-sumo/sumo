@@ -148,7 +148,7 @@ TemplateHandler::addOption(const std::string value, const std::string& synonymes
         } else if (type == "STR[]") {
             option = new Option_StringVector();
         } else if ((type == "FILE") || (type == "file") || (type == "net_file") || (type == "additional_file") ||
-                   (type == "route_file") || (type == "edgedata_file")) {
+                   (type == "route_file") || (type == "data_file") || (type == "edgedata_file")) {
             option = new Option_FileName();
         } else if (type.size() > 0) {
             WRITE_WARNING(type + " is an invalid type");
