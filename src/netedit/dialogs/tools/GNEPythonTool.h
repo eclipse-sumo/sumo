@@ -74,6 +74,9 @@ private:
     /// @brief tools options
     OptionsCont myPythonToolsOptions;
 
+    /// @brief original tools options
+    OptionsCont myPythonToolsOptionsOriginal;
+
     /// @brief python path
     const std::string myPythonPath;
 
