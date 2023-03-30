@@ -329,9 +329,12 @@ GNEPythonToolDialog::getOptionsByCategories(OptionsCont& optionsCont) const {
         category->addOption(option.first, option.second);
     }
     // drop empty categories
-    for (auto it = result.begin(); it != result.end(); it++) {
+    auto it = result.begin();
+    while (it != result.end()) {
         if (it->getOptions().empty()) {
             it = result.erase(it);
+        } else {
+            it++;
         }
     }
     return result;
