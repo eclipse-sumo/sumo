@@ -65,7 +65,7 @@ use the following gifs as a guide. Otherwise you can skip this section.
 #### Creating the taxi and person
 Key participants within the simulation are people waiting and taxis.   
 To create a vehicle of type taxi you have to add the key parameter:   
-```
+```xml
 <!-- Route -->
    <route edges="-gneE2 gneE0 -gneE0 gneE2 -gneE2" color="yellow" id="route_0"/>
 
@@ -80,7 +80,7 @@ There are other options to define the taxis behavior. You can decide when the ta
 Next you can create a person, which departs at the start and heads to the designated bus stop.
 
 The third line here is essential, declaring that the person wants to go by taxi to edge gneE2. The `lines` parameter is also essential here.  
-```
+```xml
 <person id="HeadingBusstop1" depart="0.00" color="green">
     <walk from="-gneE1" busStop="busStop_gneE0_0_0"/>
     <ride from="gneE0" to="gneE2" lines="taxi"/>   
@@ -89,7 +89,7 @@ The third line here is essential, declaring that the person wants to go by taxi 
 It is also possible to define personTrips for intermodal routing or group several people together.   
 As shown in the beginner traci tutorials, you can create a `runner.py` file to manage the taxi creation in your project.
 Within the example method, four taxis are created and dispatched at a given time.  
-```
+```python
 # Creating 4 taxis
 def createTaxi(time):
     for i in range(0, 20, 5):
@@ -100,7 +100,7 @@ def createTaxi(time):
 #### Dispatch and Pickup
 For this example we are using "-device.taxi.dispatch-algorithm traci". Within this algorithm, one has to declare which customers should be picked up by which taxi. Meaning you have to pass the existing reservations to the designated taxi you'd like to use for the pick up. There are other algorithms like greedy, greedyClosest etc. that work differently with the reservations.   
 Next, the taxi fleet (containing all taxis in the map) are saved into "fleet", while all reservations are saved into "reservations". Afterwards the first taxi in the fleet is called and given the first reservation from "reservation_ids".
-```
+```python
 fleet = traci.vehicle.getTaxiFleet(0)
 reservations = traci.person.getTaxiReservations(0)
 reservation_ids = [r.id for r in reservations]
@@ -113,7 +113,7 @@ In the second part of the tutorial, a bus stop is overflowing with people waitin
 For this part of the tutorial you can add another method to monitor the bus stops and start the emergency taxi function if needed.
 In this example we are targeting one bus stop with too many people waiting for a transport.   
 As you can see in the code below, for all the bus stops, where the personCount is equal or larger than four, the method emergencyTaxi(i) is called.
-```
+```python
 # checks if busstop is "overflowing"
 def busstopCheck():
     # getting all bus stops on the map
@@ -129,7 +129,7 @@ def busstopCheck():
 The fleet consists only out of unoccupied taxis. Getting unoccupied taxis(0).
 If one wants to add further reservations to a assigned taxi, filter for the occupied(2) or those in pickup-modus(1).
 The id of the bus stop in question is given to the emergencyTaxi method, to specifically plan a pick up.
-```
+```python
 # Dispatching taxis to cater to people waiting at a bus stop
 def emergencyTaxi(busstopID):
     # getting a Id-list of people waiting at the busstop
@@ -153,11 +153,11 @@ The taxi from the list with listposition i is dispatched to pick up the person f
 
 It is also possible to let one taxi pick up and drop off all the people, if the vehicle capacity is sufficient.
 
-```
+```python
 pickup.extend(pickup)
 ```
 Might look like this:   
-```
+```python
 pickup = [a,b,c,a,b,c]
 ```
 The passengers are dropped of in the order of the extension.
@@ -168,7 +168,7 @@ To be able to use traci.taxis, one has to add an algorithm to the config files.
 Furthermore, to prevent the taxis simply vanishing after dropping of their person(s), the line declaring
 randomCircling has been added. After delivering the person to the right position the taxi starts
 driving around in the network after a short break.
-```
+```xml
 <configuration>
             <input>
                 <net-file value="net.net.xml"/>
@@ -182,7 +182,7 @@ driving around in the network after a short break.
 </configuration>
 ```
 Another way to use the algorithms is to add them to the traci.start in the script:
-```
+```python
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
             "-c", "sumo.sumocfg",

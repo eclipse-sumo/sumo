@@ -62,7 +62,7 @@ When saving the net you should save your additionals as well.
 Bus stops should be written in the `additional.add.xml` file to provide the stops for the people and vehicles.   
 An example xml code for the bus stop may look like this:
 
-```
+```xml
     <busStop id="A_bus" lane="-E1_1" startPos="14.42" endPos="24.42"/>
     <busStop id="A_tram1" lane="-E4_0" startPos="13.43" endPos="43.43">
         <access lane="E1_0" pos="175.00"/>
@@ -85,7 +85,7 @@ To obtain a repeating schedule multiple approaches are feasible:
 - define repeating vehicles (`<flow>`) that disappear after running the route once. This is useful if the network does not contain the full circuit of the route
 - define a single vehicle with a repeating route. This is ideal for letting delays from one round of the schedule carry over to the next round
 
-```
+```xml
     <vType id="bus" vClass="bus"/>
     <vType id="tram" vClass="tram"/>
 
@@ -114,7 +114,7 @@ A vehicle following this schedule can't leave this stop until this time ('until'
 
 The travel demand consists of persons that can choose their mode of transport freely 
 
-```
+```xml
    <personFlow id="AB" begin="0" end="3600" probability="0.1">
         <personTrip from="-E1" to="-E0" arrivalPos="-20" modes="public"/>
     </personFlow>
@@ -123,7 +123,7 @@ The travel demand consists of persons that can choose their mode of transport fr
 Instead of flows, all persons and vehicles can also be defined individually and person plans can be defined with explicit steps.
 Use the sumo option **--vehroute** output to learn how a `<personFlow>` is expanded into multiple travel stages during the simulation.
 
-```
+```xml
 <person id="HeadingBusstop20" depart="1.00" color="green">
      <walk from="gneE1" busStop="busStop_-gneE10_1_6"/>
      <ride busStop="busStop_-gneE10_1_5" lines="tram"/>    
@@ -148,7 +148,7 @@ with a sumocfg. Within this, you set the net, route and additional files.
 Afterwards, you can start your simulation by clicking on it or starting it over on the
 command line.
 
-```
+```xml
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>

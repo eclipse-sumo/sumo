@@ -12,7 +12,7 @@ One simply has to define a node to have the
 `type` *rail_signal*, as in the following
 example:
 
-```
+```xml
 <nodes> <!-- The opening tag -->
 
     <node id="1" x="-500.0" y="0.0" type="rail_signal"/>

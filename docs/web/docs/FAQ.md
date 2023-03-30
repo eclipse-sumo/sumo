@@ -945,7 +945,7 @@ of a 1km highway, do the following:
 - you can use insertion method 'last' which places vehicles at their
   desired headway for a given speed (repeat for every lane):
 
-```
+```xml
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="1" number="65" departPos="last" departSpeed="7.885" departLane="0"/>
 ```
 
@@ -956,7 +956,7 @@ density:
   equilibrium speed from above: 15.385m / 7.885m/s = 1.951s
 - use the equilibrium speed as departSpeed
 
-```
+```xml
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="3600" period="1.951" departPos="base" departSpeed="7.885" departLane="0"/>
 ```
 !!! caution

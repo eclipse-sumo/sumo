@@ -49,7 +49,7 @@ of vehicle variability, we recommend using the script
 
 Create a routes-file `autobahn.rou.xml` with the following content:
 
-```
+```xml
 <routes>
     <vType id="normal_car" vClass="passenger" maxSpeed="40" speedFactor="0.9" speedDev="0.2" sigma="0.5" />
     <vType id="sporty_car" vClass="passenger" maxSpeed="60" speedFactor="1.3" speedDev="0.1" sigma="0.1" />
@@ -66,7 +66,7 @@ Create a routes-file `autobahn.rou.xml` with the following content:
 
 Create a config-file `autobahn.sumocfg`:
 
-```
+```xml
 <configuration>
    <input>
        <net-file value="autobahn.net.xml"/>
@@ -96,7 +96,7 @@ click on the floppy-icon in the View Settings dialog and save it as
 `autobahn.view.xml`. Then adapt the configuration to load the view
 settings by adding a `<gui-settings-file ... />`-element:
 
-```
+```xml
 <configuration>
    <input>
        <net-file value="autobahn.net.xml"/>

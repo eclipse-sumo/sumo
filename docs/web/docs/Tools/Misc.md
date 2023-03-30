@@ -219,7 +219,7 @@ However it can also be customized or created from scratch for a non OSM network.
 
 A minimal description for a bus line looks like this:
 
-```
+```xml
 <additional>
     <ptLine id="0" line="123" type="bus">
         <busStop id="stopA"/>
@@ -234,7 +234,7 @@ A minimal description for a bus line looks like this:
 The used busStops must be defined in an additional file and passed with option **-s** when running the tool.
 The resulting bus definition may look like this:
 
-```
+```xml
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="bus" vClass="bus"/>
     <route id="bus_123:0"" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >

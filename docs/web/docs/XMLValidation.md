@@ -22,7 +22,7 @@ and attributes which should have been placed within another element.
 Another prerequisite for validation is a schema declaration within the
 root element of the input file such as
 
-```
+```xml
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 ```
 
@@ -49,7 +49,7 @@ receive the appropriate schema declaration. When writing an input file
 from scratch the schema declaration must be added manually to the root
 element as follows:
 
-```
+```xml
     <ROOT_ELEMENT xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/SCHEMA_FILE">
 ```

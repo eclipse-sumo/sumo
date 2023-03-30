@@ -255,7 +255,7 @@ python tools/addParkingAreaStops2Routes.py -r <route-file> -p <parking-areas
 
 The stop will be added to the vehicles route, if the id of the given parking area is part of the vehicle id. Example:
 
-```
+```xml
 <routes>
     <vehicle id="0_parkingAreaA" depart="0">
       <route edges="e1 e2 e3"/>
@@ -270,7 +270,7 @@ The stop will be added to the vehicles route, if the id of the given parking are
 python tools/route/addParkingAreaStops2Routes.py -r <route-file> -p ParkingAreaA -d 3600 [-o <output-file>]
 ```
 
-```
+```xml
 <routes>
     <vehicle id="0_parkingAreaA" depart="0">
       <route edges="e1 e2 e3"/>
@@ -296,7 +296,7 @@ python tools/route/addParkingAreaStops2Trips.py -r <route-file> -p <parking-
 
 The stop will be added to the trip route.
 
-```
+```xml
 <routes>
     <trip id="vehicle_0" depart="0.00" from="WC" to="CN"/>
 </routes>
@@ -306,7 +306,7 @@ The stop will be added to the trip route.
 python tools/route/addParkingAreaStops2Routes.py -r <route-file> -p <parkings-file> -d 1800 [-o <output-file>]
 ```
 
-```
+```xml
 <routes>
     <trip depart="0.00" from="WC" id="vehicle_0" to="CN">
         <stop duration="1800" parkingArea="parkingArea_WC_3_0"/>
@@ -328,7 +328,7 @@ python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vTyp
 
 Either the "duration" or "until" for stop must be given. Using the option **-p**, the vehicle stops besides the road without blocking other vehicles. Example:
 
-```
+```xml
 <routes>
     <vehicle id="0" depart="0">
       <route edges="e1 e2 e3"/>
@@ -340,7 +340,7 @@ Either the "duration" or "until" for stop must be given. Using the option **-p**
 python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vType-file> -o <output-file> -p --duration 1800 --until 12:0:0
 ```
 
-```
+```xml
 <routes>
     <vehicle depart="0" id="0" type="type1">
         <route edges="SC CN"/>
@@ -392,7 +392,7 @@ As an alternative input, [fcd-output](../Simulation/Output/FCDOutput.md) files (
 
 The output is a standard sumo route file
 
-```
+```xml
 <routes>
     <route id="vehicle1" edges="beg rend"/>
     <route id="vehicle2" edges="beg left2end rend"/>

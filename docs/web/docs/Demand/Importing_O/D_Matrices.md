@@ -66,7 +66,7 @@ If you do not want to distinguish between source and sink edges and give
 all edges the same probability you can use the following abbreviated
 form:
 
-```
+```xml
 <tazs>
     <taz id="<TAZ_ID>" edges="<EDGE_ID> <EDGE_ID> ..."/>
 
@@ -80,7 +80,7 @@ form:
 To distinguish the set of source and sink edges (or their probabilities
 respectively) use the following definition:
 
-```
+```xml
 <tazs>
     <taz id="<TAZ_ID>">
       <tazSource id="<EDGE_ID>" weight="<PROBABILITY_TO_USE>"/>
@@ -142,7 +142,7 @@ destination district within the described time period.
 The tazRelation format defines the demand per OD pair in time slices for
 every a given vehicle type as follows:
 
-```
+```xml
 <data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="car" begin="0" end="1:0:0">
       <tazRelation count="2000" from="1" to="2"/>
@@ -272,7 +272,7 @@ $OR;D2
 The Amitran format defines the demand per OD pair in time slices for
 every vehicle type as follows:
 
-```
+```xml
 <demand xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/od.xsd">
    <actorConfig id="0">
        <timeSlice duration="86400000" startTime="0">

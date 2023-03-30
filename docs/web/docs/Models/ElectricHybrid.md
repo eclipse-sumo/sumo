@@ -53,7 +53,7 @@ the following meanings:
 
 An example of a vehicle with hybrid electric attribute is almost identical with that of an electric vehicle:
 
-```
+```xml
 <routes>
     <vType id="trolleybus" accel="0.8" decel="1.0" length="12" maxSpeed="18.0" sigma="0.0" minGap="2.5"
            emissionClass="Energy/unknown"  vClass="bus" guiShape="bus/trolley" color="0,1,0">
@@ -77,7 +77,7 @@ An example of a vehicle with hybrid electric attribute is almost identical with 
 
 The initial energy content of the battery (by default 0.0 Wh) can be set in the vehicle definitions:
 
-```
+```xml
 <routes>
     <vehicle id="0" type="trolleybus" depart="0" route="route1" color="1,0,0">
         <param key="actualBatteryCapacity" value="5000"/>
@@ -99,7 +99,7 @@ that can be drawn from the feeder (this imposes a maximum power limit on that su
 | **voltage**         | float      | voltage \> 0      | 600 V   | Voltage of at connection point for the overhead wire                 |
 | **currentLimit**    | float      | currentLimit \> 0 | 400 A   | Current limit of the feeder line                                     |
 
-```
+```xml
 <additionals>
     <tractionSubstation id="Sub1" voltage="600" currentLimit="1000"/>
 </additionals>
@@ -147,7 +147,7 @@ are put on/off the overhead wire. At least one such segment has to be connected 
 
 
 Overhead wire segments are defined in an additional file using the following format:
-```
+```xml
 <additionals>
     <overheadWireSegment id="ovrhdSgmnt_gneE0_0" lane="gneE0_0" voltageSource="true" />
     <overheadWireSegment id="ovrhdSgmnt_gneE1_0" lane="gneE1_0" />
@@ -172,7 +172,7 @@ selected overhead wire segments (these are typically overhead wire segments in t
 
 An example of using the `<overheadWireClamp>` element connecting the contact line segments on
 lanes `-gneE0_0` and `gneE0_0` is given below:
-```
+```xml
 <additionals>
     <overheadWireClamp id="clamp1" substationId="Sub1" 
         idSegmentStartClamp="ovrhdSgmnt_-gneE0_0" idSegmentEndClamp="ovrhdSgmnt_gneE0_0" />
@@ -189,7 +189,7 @@ using the `<overheadWire>` element with the following attributes:
 | **clamps**              | string[]   | list of overhead wire clamp IDs   |         | Overhead wire clamps which interconnect overhead wire segments |
 | **forbiddenInnerLanes** | string[]   | list of forbidden lane IDs        |         | Inner lanes, where placing of overhead wire is restricted      |
 
-```
+```xml
 <additionals>
     <overheadWire segments="ovrhdSgmnt_gneE0_0 ovrhdSgmnt_gneE1_0 ovrhdSgmnt_gneE3_0 ovrhdSgmnt_gneE4_0 ovrhdSgmnt_gneE5_0 ovrhdSgmnt_-gneE3_0 ovrhdSgmnt_-gneE1_0 ovrhdSgmnt_-gneE0_0"
                   substationId="Sub1" clamps="clamp1" forbiddenInnerLanes=":gneJ4_2_0" />
@@ -212,7 +212,7 @@ Color of overhead wire in case that some power is supplied to a vehicle
 
 It is possible to activate or deactivate overhead wire solver, enable or disable the recuperation of energy from vehicles to overhead wire, and apply or ignore substation's electric current limits in the overhead wire solver. The above mentioned properties are set in configuration file using the following format. 
 
-```
+```xml
 <configuration>
     ...
     <processing>
@@ -236,7 +236,7 @@ The *device.elechybrid* and its related objects provide several output streams:
 ### Overhead wire segments output
 
 The option `--overheadwiresegments-output "overheadWires.out.xml"` or its config file equivalent
-```
+```xml
 <output>
     <overheadwiresegments-output value="overheadWires.out.xml"/>
 </output>
@@ -245,7 +245,7 @@ generates a full report of energy provided by overhead wire segments.
 
 The output file `overheadWires.out.xml` has the following structure:
 
-```
+```xml
 <overheadWireSegments-export>
     <overheadWireSegment id="ovrhdSgmnt_gneE0_0" tractionSubstationId="Sub1" totalEnergyCharged="0.00" chargingSteps="0" lane="gneE0_0"/>
     <overheadWireSegment id="ovrhdSgmnt_gneE1_0" tractionSubstationId="Sub1" totalEnergyCharged="0.00" chargingSteps="0" lane="gneE1_0"/>
@@ -303,7 +303,7 @@ For every time step in that the vehicle is being powered by the segment:
 
 Option `--substations-output "nameOfFile.xml"` generates a full report of energy provided by substations:
 
-```
+```xml
 <output>
     <substations-output value="substations.out.xml"/>
 </output>
@@ -311,7 +311,7 @@ Option `--substations-output "nameOfFile.xml"` generates a full report of energy
 
 File `substations.out.xml` has the following structure:
 
-```
+```xml
 <substations-export>
     <tractionSubstation id="Sub1" totalEnergyCharged="-1360.85" length="316.63" numVoltageSources="2" numClamps="1" chargingSteps="50">
         <step time="1.00" vehicleIDs="elecHybrid_0" numVehicles="1" chargingStatus="" energyCharged="-15.13" current="90.75" currents="80.1860 10.5661" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
@@ -360,7 +360,7 @@ Every time step in which the substation is active is represented by the `<step>`
 
 There are three output parameters to be set in the SUMO configuration file to collect the statistics from the *device.elechybrid*. 
 The typical usage will be
-```
+```xml
 <configuration>
     ...
     <output>
@@ -377,7 +377,7 @@ The typical usage will be
 This declaration will activate an *aggregated* ElectricHybrid output into `trolleybus.elecHybrid.out.xml` file
 with floats being represented up to 4 decimal places:
 
-```
+```xml
 <elecHybrid-export-aggregated>
     <timestep time="0.00">
         <vehicle id="test1" maximumBatteryCapacity="46000.0000" actualBatteryCapacity="23000.0000" energyConsumed="0.0000" energyCharged="0.0000" power="-nan(ind)" overheadWireId="" tractionSubstationId="" current="-nan(ind)" circuitVoltage="-nan(ind)" alphaCircuitSolver="-nan(ind)" speed="0.0000" acceleration="0.0000" distance="0.0000" x="-1.4500" y="46.3800" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="0.0000"/>
@@ -431,7 +431,7 @@ filename = `elechybrid-output` value + "_" + `id` of vehicle + ".xml".
 
 The non-aggregated output files have the following structure:
 
-```
+```xml
 <elecHybrid-export vehicle="test1" maximumBatteryCapacity="46000.00" recuperationEnabled="1">
     <timestep time="0.00" actualBatteryCapacity="23000.0000" energyConsumed="0.0000" energyCharged="0.0000" power="-nan(ind)" overheadWireId="" tractionSubstationId="" current="-nan(ind)" circuitVoltage="-nan(ind)" alphaCircuitSolver="-nan(ind)" speed="0.0000" acceleration="0.0000" distance="0.0000" x="-1.4500" y="46.3800" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="0.0000"/>
     <timestep time="1.00" actualBatteryCapacity="23011.1111" energyConsumed="5.0570" energyCharged="11.1111" power="58205.3716" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="83.1523" circuitVoltage="699.9850" alphaCircuitSolver="1.0000" speed="0.8000" acceleration="0.8000" distance="0.8000" x="-0.6502" y="46.3729" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="0.8000"/>

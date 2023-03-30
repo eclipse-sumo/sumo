@@ -38,7 +38,7 @@ vehicles and the run configuration.
 First, we edit `circles.rou.xml` and define a vehicle flow of five
 standard passenger cars. The file contents should look like this:
 
-```
+```xml
 <routes>
    <vType id="car" type="passenger" length="5" accel="3.5" decel="2.2" sigma="1.0"/>
    <flow id="carflow" type="car" beg="0" end="0" number="5"/>
@@ -55,7 +55,7 @@ To use the route-file and the generated net-file with SUMO, we edit the
 configuration-file `circles.sumocfg` to tell SUMO where it should look for vehicle
 and net definitions:
 
-```
+```xml
 <configuration>
     <input>
        <net-file value="circles.net.xml"/>
@@ -103,7 +103,7 @@ Renaming an edge in netedit
 Now we add the from-edge and the to-edge to the flow in
 `circles.rou.xml`:
 
-```
+```xml
  ...
     <flow id="carflow" type="car" beg="0" end="0" number="5" from="edge1" to="edge2"/>
  ...
@@ -142,7 +142,7 @@ the net, we have to specify them in a separate file (the
 Destination](../Simulation/Rerouter.md#assigning_a_new_destination)
 for details):
 
-```
+```xml
 <additionals>
     <rerouter id="rerouter_0" edges="edge1">
         <interval end="1e9">
@@ -161,7 +161,7 @@ Then we have to tell SUMO to include the rerouters into the simulation
 by adding a line to the config `circles.sumocfg`. Within the `<input>` tag
 add a child:
 
-```
+```xml
 <additional-files value="circles.add.xml"/>
 ```
 

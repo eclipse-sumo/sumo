@@ -80,7 +80,7 @@ automatically generate sidewalks for residential streets while omitting
 them for motorways when importing OSM data. An example type file can be
 found in [{{SUMO}}/data/typemap/osmNetconvertPedestrians.typ.xml]({{Source}}data/typemap/osmNetconvertPedestrians.typ.xml).
 
-```
+```xml
 <types>
   <type id="highway.motorway" numLanes="3" speed="44.44" priority="13" oneway="true" disallow="pedestrian bicycle"/>
   <type id="highway.unclassified"   numLanes="1" speed="13.89" priority="5" sidewalkWidth="2" disallow="pedestrian"/>

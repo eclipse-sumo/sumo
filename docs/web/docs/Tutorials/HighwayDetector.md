@@ -41,7 +41,7 @@ it usually requires some manual work to locate the detectors in the
 network. A starting point can be to use the python sumolib to match the
 positions to the network:
 
-```
+```python
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
     import sumolib
 
@@ -70,7 +70,7 @@ default. The default output file name is set as none. Detector type
 (source, sink, between) can also be given if it is available. An example
 of the output file is shown below.
 
-```
+```xml
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 <e1Detector id=""det0"" lane="262667814#2.7_0" pos="80.2550814486" period="60" file="NUL" friendlyPos="True"/>
 <e1Detector id=""det1"" lane="262667814#2.7_1" pos="90.2522181762" period="60" file="NUL" friendlyPos="True"/>
@@ -97,7 +97,7 @@ following formats:
 In addition to the above mentioned detector definition, the following
 definition can also be applied.
 
-```
+```xml
 <detectors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/detectors_file.xsd">
 <detectorDefinition id="MQ11Fs1" lane="ErnstRuska2O_0" pos="5.00" type="source"/>
 <detectorDefinition id="MQ12Fs1" lane="ErnstRuska2W_0" pos="-5.00" type="between"/>

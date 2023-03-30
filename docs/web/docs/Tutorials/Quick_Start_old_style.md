@@ -107,7 +107,7 @@ The complete node file of the example network is shown in Listing 1.1.
 **Listing 1.1 Format of the node file of the example network
 (*quickstart.nod.xml*)**
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
@@ -155,7 +155,7 @@ southbound roads with a lower priority.
 **Listing 1.2 Link type file of the example network
 (*quickstart.typ.xml*)**
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <types>
     <type id="a" priority="3" numLanes="3" speed="13.889"/>
@@ -179,7 +179,7 @@ is generated and shown in Listing 1.3. The defined attributes include:
 
 **Listing 1.3 Link file of the example network (*quickstart.edg.xml*)**
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
@@ -247,7 +247,7 @@ executing network generation. Explanation will be provided in Section
 **Listing 1.4 Specification of traffic movements
 (*quickstart.con.xml*)**
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd">
@@ -321,7 +321,7 @@ of u-turn movements can only be conducted globally.
 **Listing 1.6 Configuration file for generating the network file
 (quickstart.netc.cfg)**
 
-```
+```xml
 <configuration>
     <input>
         <edge-files value="quickstart.edg.xml"/>
@@ -404,7 +404,7 @@ assigned as 0.5 for all vehicle types.
 
 **Listing 1.5 Traffic demand and route data (quickstart.rou.xml)**
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <routes>
   <vType accel="3.0" decel="6.0" id="CarA" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.5" />
@@ -496,7 +496,7 @@ sumo –c quickstart.sumocfg
 **Listing 1.7 Configuration file for the traffic simulation of the
 example network (quickstart.sumo.cfg)**
 
-```
+```xml
 <?xml version="1.0" encoding="iso-8859-1"?>
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">

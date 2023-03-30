@@ -242,7 +242,7 @@ assigned as 0.5 for all vehicle types.
 
 **Listing 1.5. Traffic demand and route data (quickstart.rou.xml)**
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <routes>
   <vType accel="3.0" decel="6.0" id="CarA" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.5" />
@@ -327,7 +327,7 @@ the simulation time period is specified in a configuration file.
 **Listing 1.7. Configuration file for the traffic simulation of the
 example network (quickstart.sumocfg)**
 
-```
+```xml
 <?xml version="1.0" encoding="iso-8859-1"?>
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">

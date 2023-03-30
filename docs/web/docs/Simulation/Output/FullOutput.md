@@ -21,7 +21,7 @@ The full dump is a xml-file containing informtation about every edge,
 lane, vehicle and traffic light for each time step. A full dump-file
 looks like this:
 
-```
+```xml
 <full-export>
     <data timestep="<TIME_STEP>">
 

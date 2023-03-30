@@ -60,7 +60,7 @@ SUMO-network, is supplied to the [dfrouter](../dfrouter.md) as
 usual using the **--net-file <SUMO_NET_FILE\>** (**-n**) option, the list of induction loops using **--detector-files <DETECTOR_FILE\>[,<DETECTOR_FILE\>]+** (**-d** for
 short). A detector file should look as follows:
 
-```
+```xml
 <detectors>
     <detectorDefinition id="<DETECTOR_ID>" lane="<LANE_ID>" pos="<POS>"/>
 ... further detectors ...

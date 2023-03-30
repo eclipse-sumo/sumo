@@ -42,7 +42,7 @@ Both sender and receiver devices may also be [enable for persons](../Specificati
 
 The option **--bt-output** generates an XML output file of the following form:
 
-```
+```xml
 <bt-output>
     <bt id="<VEHICLE_ID>">
         <seen id="<VEHICLE_ID>" tBeg="<TIME>" observerPosBeg="<COORD>" observerSpeedBeg="<SPEED>" observerLaneIDBeg="<LANE_ID>" observerLanePosBeg="<LANE_POS>"
