@@ -41,6 +41,9 @@ import sumolib  # noqa
 base = os.path.dirname(sys.argv[0])
 high = {}
 for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
+    scen = os.path.basename(config)[:-8]
+    if "demo" in scen:
+        continue
     tls = None
     for a in sumolib.xml.parse_fast(config, "additional-files", "value"):
         for f in a.value.split(","):
@@ -48,18 +51,19 @@ for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
                 tls = f
                 break
     if tls:
-        with open(tls) as tls_in, open(tls + ".act", "w") as tls_out:
-            for line in tls_in:
-                line = line.replace('type="static"', 'type="actuated"')
-                if "phase" in line:
-                    line = line.replace('duration="10000"', 'duration="10" minDur="0" maxDur="10000"')
-                tls_out.write(line)
-        scen = os.path.basename(config)[:-8]
-        subprocess.call([sumolib.checkBinary("sumo"), "-c", config, "-a", a.value.replace(tls, tls + ".act"),
-                         '--duration-log.statistics', '--statistic-output', scen + '.stats.xml',
-                         '--tripinfo-output.write-unfinished'])
-        score = computeScoreFromWaitingTime(scen)
-        high[scen] = [("actuated", "", score[0])]
+        high[scen] = []
+        for alg in ("actuated", "delay_based"):
+            with open(tls) as tls_in, open(tls + "." + alg, "w") as tls_out:
+                for line in tls_in:
+                    line = line.replace('type="static"', 'type="%s"' % alg)
+                    if "phase" in line:
+                        line = line.replace('duration="10000"', 'duration="10" minDur="1" maxDur="10000"')
+                    tls_out.write(line)
+            subprocess.call([sumolib.checkBinary("sumo"), "-c", config, "-a", a.value.replace(tls, tls_out.name),
+                            '--duration-log.statistics', '--statistic-output', scen + '.stats.xml',
+                            '--tripinfo-output.write-unfinished'])
+            score = computeScoreFromWaitingTime(scen)
+            high[scen].append(("SUMO " + alg, "", score[0]))
 print(high)
 with open(_SCOREFILE, 'wb') as pkl:
     pickle.dump(high, pkl)
