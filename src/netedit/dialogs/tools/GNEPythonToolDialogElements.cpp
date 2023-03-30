@@ -150,10 +150,10 @@ GNEPythonToolDialogElements::Argument::onCmdResetValue(FXObject*, FXSelector, vo
 
 long
 GNEPythonToolDialogElements::Argument::onUpdResetValue(FXObject*, FXSelector, void*) {
-    if (getValue() != myDefaultValue) {
-        return myResetButton->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else {
+    if (myOption->isDefault()) {
         return myResetButton->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return myResetButton->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -221,8 +221,8 @@ GNEPythonToolDialogElements::FileNameArgument::FileNameArgument(GNEPythonToolDia
     // create text field for filename
     myFilenameTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myFilenameTextField->create();
-    // reset after creation
-    reset();
+    // set value
+    myFilenameTextField->setText(option->getValueString().c_str());
 }
 
 const std::string
@@ -411,8 +411,8 @@ GNEPythonToolDialogElements::StringArgument::StringArgument(GNEPythonToolDialog*
     // create text field for string
     myStringTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myStringTextField->create();
-    // reset after creation
-    reset();
+    // set value
+    myStringTextField->setText(option->getValueString().c_str());
 }
 
 
@@ -420,7 +420,6 @@ void
 GNEPythonToolDialogElements::StringArgument::reset() {
     myStringTextField->setText(myDefaultValue.c_str());
     myOption->set(myDefaultValue, myDefaultValue, false);
-    myOption->resetDefault();
 }
 
 
@@ -450,8 +449,8 @@ GNEPythonToolDialogElements::IntArgument::IntArgument(GNEPythonToolDialog* toolD
     // create text field for int
     myIntTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
     myIntTextField->create();
-    // reset after creation
-    reset();
+    // set value
+    myIntTextField->setText(option->getValueString().c_str());
 }
 
 
@@ -463,7 +462,6 @@ GNEPythonToolDialogElements::IntArgument::reset() {
     } else {
         myOption->set(myDefaultValue, myDefaultValue, false);
     }
-    myOption->resetDefault();
 }
 
 
@@ -493,8 +491,8 @@ GNEPythonToolDialogElements::FloatArgument::FloatArgument(GNEPythonToolDialog* t
     // create text field for float
     myFloatTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myFloatTextField->create();
-    // reset after creation
-    reset();
+    // set value
+    myFloatTextField->setText(option->getValueString().c_str());
 }
 
 
@@ -506,7 +504,6 @@ GNEPythonToolDialogElements::FloatArgument::reset() {
     } else {
         myOption->set(myDefaultValue, myDefaultValue, false);
     }
-    myOption->resetDefault();
 }
 
 
@@ -536,8 +533,14 @@ GNEPythonToolDialogElements::BoolArgument::BoolArgument(GNEPythonToolDialog* too
     // create check button
     myCheckButton = new FXCheckButton(myElementsFrame, "" , this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCheckButton->create();
-    // reset after creation
-    reset();
+    // set value
+    if (option->getBool()) {
+        myCheckButton->setCheck(TRUE);
+        myCheckButton->setText(TL("true"));
+    } else {
+        myCheckButton->setCheck(FALSE);
+        myCheckButton->setText(TL("false"));
+    }
 }
 
 
@@ -551,7 +554,6 @@ GNEPythonToolDialogElements::BoolArgument::reset() {
         myCheckButton->setText(TL("false"));
     }
     myOption->set(myDefaultValue, myDefaultValue, false);
-    myOption->resetDefault();
 }
 
 
