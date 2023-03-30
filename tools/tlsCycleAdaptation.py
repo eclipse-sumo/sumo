@@ -85,7 +85,7 @@ def get_options(args=None):
                          help="use the calculated max cycle length as the cycle length for all intersections")
     optParser.add_option("--sorted", category="processing", action="store_true", default=False,
                          help="assume the route file is sorted (aborts reading earlier)")
-    optParser.add_option("--skip", category="processing", dest="skip", type=str,
+    optParser.add_option("--skip", category="processing", dest="skip",
                          default='', help="the tls ids, which are skipped and seperated by comma")
     optParser.add_option("-v", "--verbose", category="processing", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
