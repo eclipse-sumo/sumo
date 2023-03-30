@@ -67,15 +67,11 @@ public:
     /// @brief Destructor
     ~TesselatedPolygon() {}
 
-    // @brief perform the tesselation / drawing
+    /// @brief perform the tesselation / drawing
     void drawTesselation(const PositionVector& shape) const;
 
     /// @brief id of the display list for the cached tesselation
     mutable std::vector<GLPrimitive> myTesselation;
-
-    PositionVector& getShapeRef() {
-        return myShape;
-    }
 };
 
 /*
