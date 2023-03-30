@@ -59,7 +59,7 @@ public:
     std::string getCommand() const;
     
     /// @brief load configuration
-    void loadConfiguration(const std::string &file) const;
+    bool loadConfiguration(const std::string &file);
 
     /// @brief save configuration
     void saveConfiguration(const std::string &file) const;

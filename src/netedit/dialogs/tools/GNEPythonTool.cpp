@@ -20,10 +20,16 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/handlers/TemplateHandler.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SysUtils.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/handlers/TemplateHandler.h>
+#include <utils/options/OptionsLoader.h>
+#include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/SAXException.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
 
 #include "GNEPythonTool.h"
 
@@ -100,11 +106,31 @@ GNEPythonTool::getCommand() const {
 }
 
 
-void
-GNEPythonTool::loadConfiguration(const std::string &/*file*/) const {
-
+bool
+GNEPythonTool::loadConfiguration(const std::string &file) {
+    // make all options writables
+    myPythonToolsOptions.resetWritable();
+    // build parser
+    XERCES_CPP_NAMESPACE::SAXParser parser;
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+    parser.setDisableDefaultEntityResolution(true);
+    // start the parsing
+    OptionsLoader handler(myPythonToolsOptions);
+    try {
+        parser.setDocumentHandler(&handler);
+        parser.setErrorHandler(&handler);
+        parser.parse(StringUtils::transcodeToLocal(file).c_str());
+        if (handler.errorOccurred()) {
+            WRITE_ERROR(TL("Could not load netedit configuration '") + file + "'.");
+            return false;
+        }
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+        WRITE_ERROR(TL("Could not load netedit configuration '") + file + "':\n " + StringUtils::transcode(e.getMessage()));
+        return false;
+    }
     // write info
     WRITE_MESSAGE(TLF("Loaded % configuration.", myPythonToolName));
+    return true;
 }
 
 

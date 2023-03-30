@@ -145,8 +145,9 @@ GNEPythonToolDialog::onCmdLoad(FXObject*, FXSelector, void*) {
     // open file dialog
     const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, false);
     // check file
-    if (file.size() > 0) {
-        myPythonTool->loadConfiguration(file);
+    if ((file.size() > 0) && myPythonTool->loadConfiguration(file)) {
+        // rebuild arguments
+        buildArguments((mySortedCheckButton->getCheck() == TRUE), (myGroupedCheckButton->getCheck() == TRUE));
     }
     return 1;
 }
@@ -155,7 +156,7 @@ GNEPythonToolDialog::onCmdLoad(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdSetVisualization(FXObject*, FXSelector, void*) {
     // rebuild arguments
-    buildArguments((mySortedCheckButton->getCheck()), (myGroupedCheckButton->getCheck() == TRUE));
+    buildArguments((mySortedCheckButton->getCheck() == TRUE), (myGroupedCheckButton->getCheck() == TRUE));
     return 1;
 }
 
