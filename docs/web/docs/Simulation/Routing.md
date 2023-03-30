@@ -92,14 +92,8 @@ Randomized edge weights can be useful in grid networks where there are many path
   It is also possible to [set the device travel time directly via TraCI](../TraCI/Change_Vehicle_State.md#supported_device_parameters).
 - When using the TraCI method rerouteTraveltime from the [python TraCI library](../TraCI/Interfacing_TraCI_from_Python.md), the
   command supports an additional boolean parameter *currentTravelTime*
-  (default *True*). When this parameter is set to *True*, the global
-  edge weights are replaced by the currently measured travel times
-  before rerouting. To replicate this behavior with other TraCI
-  clients, all edges in the network must be called with *change global
-  travel time information* using the value of *current travel time*.
-  Note that the travel time values which are set in this way are used
-  for the full duration of the simulation unless updated again.
-
+  (default *True*). When this parameter is set to *True*, the vehicle will temporarily use ROUTING_MODE_AGGREGATED
+  
 # Routing by Traveltime and Edge Priority
 Sometimes it is useful to guide route search with additional information while still taking travel times into account.
 For this use case the option **--weights.priority-factor FLOAT** can be used with [sumo](../sumo.md) and [duarouter](../duarouter.md).
