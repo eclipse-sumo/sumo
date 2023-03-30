@@ -22,6 +22,7 @@ If a vehicle is assigned a vType with vClass="emergency", the following features
 
 A [Blue light device](../sumo.md#bluelight_device) indicates that the emergency
 vehicle is driving with special rights (using a siren and blue flashing lights).
+See [here](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#assignment_by_generic_parameters) for how to define this device for specific vehicle types or individual vehicles.
 The device activates the following features:
 
 - the vehicle will ignore red traffic lights.
