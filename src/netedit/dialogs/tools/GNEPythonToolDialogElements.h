@@ -198,6 +198,90 @@ public:
         NetworkArgument& operator=(const NetworkArgument&) = delete;
     };
 
+    /// @brief network argument
+    class AdditionalArgument : public FileNameArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::AdditionalArgument)
+
+    public:
+        /// @brief constructor
+        AdditionalArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
+                         const std::string name, Option* option);
+
+        /// @brief Called when user press open filename button
+        long onCmdOpenFilename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press open filename button
+        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        AdditionalArgument();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        AdditionalArgument(const AdditionalArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        AdditionalArgument& operator=(const AdditionalArgument&) = delete;
+    };
+
+    /// @brief network argument
+    class RouteArgument : public FileNameArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::RouteArgument)
+
+    public:
+        /// @brief constructor
+        RouteArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
+                         const std::string name, Option* option);
+
+        /// @brief Called when user press open filename button
+        long onCmdOpenFilename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press open filename button
+        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        RouteArgument();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        RouteArgument(const RouteArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        RouteArgument& operator=(const RouteArgument&) = delete;
+    };
+
+    /// @brief network argument
+    class DataArgument : public FileNameArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::DataArgument)
+
+    public:
+        /// @brief constructor
+        DataArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
+                         const std::string name, Option* option);
+
+        /// @brief Called when user press open filename button
+        long onCmdOpenFilename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press open filename button
+        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        DataArgument();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        DataArgument(const DataArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        DataArgument& operator=(const DataArgument&) = delete;
+    };
+
     /// @brief string argument
     class StringArgument : public Argument {
 

@@ -49,13 +49,33 @@ FXDEFMAP(GNEPythonToolDialogElements::FileNameArgument) FileNameArgumentMap[] = 
 };
 
 FXDEFMAP(GNEPythonToolDialogElements::NetworkArgument) NetworkArgumentMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,  GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,         GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::NetworkArgument::onCmdUseCurrent),
+};
+
+FXDEFMAP(GNEPythonToolDialogElements::AdditionalArgument) AdditionalArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,         GNEPythonToolDialogElements::AdditionalArgument::onCmdOpenFilename),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::AdditionalArgument::onCmdUseCurrent),
+};
+
+FXDEFMAP(GNEPythonToolDialogElements::RouteArgument) RouteArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,         GNEPythonToolDialogElements::RouteArgument::onCmdOpenFilename),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::RouteArgument::onCmdUseCurrent),
+};
+
+FXDEFMAP(GNEPythonToolDialogElements::DataArgument) DataArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,         GNEPythonToolDialogElements::DataArgument::onCmdOpenFilename),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::DataArgument::onCmdUseCurrent),
 };
 
 // Object implementation
-FXIMPLEMENT_ABSTRACT(GNEPythonToolDialogElements::Argument, FXHorizontalFrame,                              ArgumentMap,            ARRAYNUMBER(ArgumentMap))
-FXIMPLEMENT(GNEPythonToolDialogElements::FileNameArgument,  GNEPythonToolDialogElements::Argument,          FileNameArgumentMap,    ARRAYNUMBER(FileNameArgumentMap))
-FXIMPLEMENT(GNEPythonToolDialogElements::NetworkArgument,   GNEPythonToolDialogElements::FileNameArgument,  NetworkArgumentMap,     ARRAYNUMBER(NetworkArgumentMap))
+FXIMPLEMENT_ABSTRACT(GNEPythonToolDialogElements::Argument,     FXHorizontalFrame,                              ArgumentMap,            ARRAYNUMBER(ArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::FileNameArgument,      GNEPythonToolDialogElements::Argument,          FileNameArgumentMap,    ARRAYNUMBER(FileNameArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::NetworkArgument,       GNEPythonToolDialogElements::FileNameArgument,  NetworkArgumentMap,     ARRAYNUMBER(NetworkArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::AdditionalArgument,    GNEPythonToolDialogElements::FileNameArgument,  AdditionalArgumentMap,  ARRAYNUMBER(AdditionalArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::RouteArgument,         GNEPythonToolDialogElements::FileNameArgument,  RouteArgumentMap,       ARRAYNUMBER(RouteArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::DataArgument,          GNEPythonToolDialogElements::FileNameArgument,  DataArgumentMap,        ARRAYNUMBER(DataArgumentMap))
+
 
 // ===========================================================================
 // member method definitions
@@ -222,6 +242,78 @@ GNEPythonToolDialogElements::NetworkArgument::onCmdUseCurrent(FXObject*, FXSelec
 
 
 GNEPythonToolDialogElements::NetworkArgument::NetworkArgument() {}
+
+// ---------------------------------------------------------------------------
+// GNEPythonToolDialogElements::FileNameArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEPythonToolDialogElements::AdditionalArgument::AdditionalArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
+        const std::string name, Option* option) :
+    FileNameArgument(toolDialogParent, parent, name, option, TL("network")) {
+}
+
+
+long
+GNEPythonToolDialogElements::AdditionalArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::AdditionalArgument::onCmdUseCurrent(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+GNEPythonToolDialogElements::AdditionalArgument::AdditionalArgument() {}
+
+// ---------------------------------------------------------------------------
+// GNEPythonToolDialogElements::FileNameArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEPythonToolDialogElements::RouteArgument::RouteArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
+        const std::string name, Option* option) :
+    FileNameArgument(toolDialogParent, parent, name, option, TL("network")) {
+}
+
+
+long
+GNEPythonToolDialogElements::RouteArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::RouteArgument::onCmdUseCurrent(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+GNEPythonToolDialogElements::RouteArgument::RouteArgument() {}
+
+// ---------------------------------------------------------------------------
+// GNEPythonToolDialogElements::FileNameArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEPythonToolDialogElements::DataArgument::DataArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
+        const std::string name, Option* option) :
+    FileNameArgument(toolDialogParent, parent, name, option, TL("network")) {
+}
+
+
+long
+GNEPythonToolDialogElements::DataArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::DataArgument::onCmdUseCurrent(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+GNEPythonToolDialogElements::DataArgument::DataArgument() {}
 
 // ---------------------------------------------------------------------------
 // GNEPythonToolDialogElements::StringArgument - methods
