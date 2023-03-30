@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-30 10:42:53 by Eclipse SUMO netedit Version v1_16_0+1783-5406cb4
+<!-- generated on 2023-03-30 10:44:52 by Eclipse SUMO netedit Version v1_16_0+1783-5406cb4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -159,8 +159,8 @@
         <request index="6"  response="00001010000001000" foes="10001111000001111" cont="0"/>
         <request index="7"  response="01101010000001000" foes="01101111000001110" cont="1"/>
         <request index="8"  response="01100000000000000" foes="01100000000000000" cont="0"/>
-        <request index="9"  response="11100000011110000" foes="11100000011111000" cont="0"/>
-        <request index="10" response="11100100011100111" foes="11100100011101111" cont="1"/>
+        <request index="9"  response="11100000011110000" foes="11100010011111000" cont="0"/>
+        <request index="10" response="11100101011100111" foes="11100101011101111" cont="1"/>
         <request index="11" response="11100000011110000" foes="11100010011111000" cont="0"/>
         <request index="12" response="11100000011100111" foes="11100000011100111" cont="1"/>
         <request index="13" response="00000000000000000" foes="00000000000000110" cont="0"/>
@@ -183,7 +183,7 @@
 
     <junction id=":C_17_0" type="internal" x="99.11" y="105.44" incLanes=":C_3_0 SC_0 SC_1" intLanes=":C_5_0 :C_5_1 :C_7_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_14_0 :C_14_1 :C_16_0"/>
     <junction id=":C_18_0" type="internal" x="105.44" y="100.89" incLanes=":C_7_0 WC_0 WC_1" intLanes=":C_1_0 :C_1_1 :C_3_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_14_1"/>
-    <junction id=":C_19_0" type="internal" x="108.85" y="104.84" incLanes=":C_10_0 EC_0 EC_1 NC_0 NC_1 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_11_0 :C_14_0 :C_14_1 :C_16_0"/>
+    <junction id=":C_19_0" type="internal" x="108.85" y="104.84" incLanes=":C_10_0 NC_0 NC_1 SC_0 SC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_9_0 :C_11_0 :C_14_0 :C_14_1 :C_16_0"/>
     <junction id=":C_20_0" type="internal" x="100.89" y="94.56" incLanes=":C_12_0 NC_0 NC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_5_0 :C_5_1 :C_7_0 :C_14_0 :C_14_1 :C_16_0"/>
     <junction id=":C_21_0" type="internal" x="94.56" y="99.11" incLanes=":C_16_0 EC_0 EC_1" intLanes=":C_1_0 :C_1_1 :C_3_0 :C_4_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_11_0 :C_12_0"/>
 
@@ -201,7 +201,7 @@
     <connection from="NC" to="CE" fromLane="1" toLane="1" via=":C_3_0" tl="C" linkIndex="3" dir="l" state="o"/>
     <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_8_0" tl="C" linkIndex="8" dir="r" state="o"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="9" dir="s" state="o"/>
-    <connection from="SC" to="CW" fromLane="0" toLane="0" contPos="18.00" allow="moped" shape="104.80,89.60 110.31,100.86 110.33,104.84 89.60,104.80" via=":C_10_0" tl="C" linkIndex="10" linkIndex2="5" dir="l" state="o"/>
+    <connection from="SC" to="CW" fromLane="0" toLane="0" contPos="18.00" allow="moped" shape="104.80,89.60 110.31,100.86 110.33,104.84 89.60,104.80" indirect="1" via=":C_10_0" tl="C" linkIndex="10" linkIndex2="5" dir="l" state="o"/>
     <connection from="SC" to="CN" fromLane="1" toLane="1" via=":C_11_0" tl="C" linkIndex="11" dir="s" state="o"/>
     <connection from="SC" to="CW" fromLane="1" toLane="1" allow="passenger" via=":C_12_0" tl="C" linkIndex="12" dir="l" state="o"/>
     <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_13_0" tl="C" linkIndex="13" dir="r" state="O"/>
