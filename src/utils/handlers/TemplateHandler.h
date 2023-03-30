@@ -106,8 +106,8 @@ private:
     /// @brief The options to fill
     OptionsCont& myOptions;
 
-    /// @brief The name of the currently topic
-    std::string myTopic;
+    /// @brief The name of the current option
+    std::string myOptionName;
 
     /// @brief current subtopic
     std::string mySubTopic;

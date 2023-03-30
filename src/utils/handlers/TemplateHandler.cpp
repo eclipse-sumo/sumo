@@ -85,14 +85,14 @@ TemplateHandler::~TemplateHandler() {}
 void
 TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes) {
     // get current topic
-    myTopic = StringUtils::transcode(name);
+    myOptionName = StringUtils::transcode(name);
     if (myLevel++ == 0) {
         // skip root elemnt
         return;
     }
     // check if this is a subtopic
     if (attributes.getLength() == 0) {
-        mySubTopic = myTopic;
+        mySubTopic = myOptionName;
         myOptions.addOptionSubTopic(mySubTopic);
     } else {
         std::vector<std::string> optionAttrs;
@@ -119,8 +119,8 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
 bool
 TemplateHandler::addOption(const std::string value, const std::string& synonymes,
                            const std::string& type, const std::string& help, const std::string& category) const {
-    if (myOptions.exists(myTopic)) {
-        WRITE_WARNING(myTopic + " already exists");
+    if (myOptions.exists(myOptionName)) {
+        WRITE_WARNING(myOptionName + " already exists");
         return false;
     } else {
         // declare option
@@ -166,18 +166,18 @@ TemplateHandler::addOption(const std::string value, const std::string& synonymes
             if (!option->isSet()) {
                 option->set(value, "", true);
             }
-            myOptions.doRegister(myTopic, option);
+            myOptions.doRegister(myOptionName, option);
             // check if add synonyme
             if (synonymes.size() > 0) {
-                myOptions.addSynonyme(myTopic, synonymes);
+                myOptions.addSynonyme(myOptionName, synonymes);
             }
             // check if add help
             if (help.size() > 0) {
-                myOptions.addDescription(myTopic, mySubTopic, help);
+                myOptions.addDescription(myOptionName, mySubTopic, help);
             }
             // check if add category
             if (category.size() > 0) {
-                myOptions.addCategory(myTopic, mySubTopic, category);
+                myOptions.addCategory(myOptionName, mySubTopic, category);
             }
             return true;
         } else {
@@ -190,10 +190,10 @@ TemplateHandler::addOption(const std::string value, const std::string& synonymes
 void
 TemplateHandler::endElement(const XMLCh* const /*name*/) {
     myLevel--;
-    if (myTopic.length() == 0) {
+    if (myOptionName.length() == 0) {
         return;
     }
-    myTopic = "";
+    myOptionName = "";
 }
 
 
