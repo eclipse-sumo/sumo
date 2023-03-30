@@ -28,13 +28,6 @@ import os
 import subprocess
 import sys
 import glob
-try:
-    import Tkinter
-except ImportError:
-    import tkinter as Tkinter
-from optparse import OptionParser
-from xml.dom import pulldom
-from collections import defaultdict
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -59,4 +52,3 @@ for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
                     line = line.replace('duration="10000"', 'duration="10" minDur="0" maxDur="10000"')
                 tls_out.write(line)
         subprocess.call([sumolib.checkBinary("sumo"), "-c", config, "-a", a.value.replace(tls, tls + ".act")])
-

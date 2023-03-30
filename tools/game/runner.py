@@ -35,7 +35,6 @@ try:
     import Tkinter
 except ImportError:
     import tkinter as Tkinter
-from optparse import OptionParser
 from xml.dom import pulldom
 from collections import defaultdict
 
@@ -330,7 +329,6 @@ class StartDialog(Tkinter.Frame):
             row=0, rowspan=numButtons, column=COL_SUMOLOGO)
         haveOSG = "OSG" in subprocess.check_output(sumolib.checkBinary("sumo"), universal_newlines=True)
 
-
         # 2 button for each config (start, highscore)
         for row, cfg in enumerate(configs):
             if "bs3" in cfg and not haveOSG:
@@ -531,8 +529,8 @@ def main():
     stereoModes = ('ANAGLYPHIC', 'QUAD_BUFFER', 'VERTICAL_SPLIT', 'HORIZONTAL_SPLIT')
     optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-s", "--stereo", metavar="OSG_STEREO_MODE",
-                        help="Defines the stereo mode to use for 3D output; unique prefix of %s" % (
-                            ", ".join(stereoModes)))
+                         help="Defines the stereo mode to use for 3D output; unique prefix of %s" % (
+                         ", ".join(stereoModes)))
     options = optParser.parse_args()
 
     if options.stereo:
@@ -554,7 +552,7 @@ def main():
     IMAGE.dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
     IMAGE.sumoLogo = Tkinter.PhotoImage(file='sumo_logo.gif')
     IMAGE.qrCode = Tkinter.PhotoImage(file='qr_sumo.dlr.de.gif')
-    start = StartDialog(root, lang)
+    StartDialog(root, lang)
     root.mainloop()
 
 
