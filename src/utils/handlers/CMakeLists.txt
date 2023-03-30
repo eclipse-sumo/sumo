@@ -11,8 +11,6 @@ set(utils_handlers_STAT_SRCS
    MeanDataHandler.cpp
    TemplateHandler.h
    TemplateHandler.cpp
-   OptionHandler.h
-   OptionHandler.cpp
 )
 
 add_library(utils_handlers STATIC ${utils_handlers_STAT_SRCS})
