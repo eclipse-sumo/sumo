@@ -261,7 +261,7 @@ class ArgumentParser(argparse.ArgumentParser):
                 key = k
                 help = ''
                 typeStr = ''
-                category = ' category="processing"'
+                category = ''
                 required = ''
                 for a in self._actions:
                     if a.dest == k:
@@ -279,8 +279,7 @@ class ArgumentParser(argparse.ArgumentParser):
 
                             # note: missing time, filename, list of vehicles, edges and lanes
                             # category
-                            if a.category is not None:
-                                category = ' category="%s"' % a.category
+                            category = ' category="%s"' % (a.category if a.category is not None else 'processing')
                             if a.boolean:
                                 typeName = "bool"
                             elif a.type is None:
