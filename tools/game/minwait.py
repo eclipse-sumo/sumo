@@ -12,10 +12,9 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    runner.py
+# @file    minwait.py
 # @author  Michael Behrisch
-# @author  Jakob Erdmann
-# @date    2010-01-30
+# @date    2023-03-29
 
 """
 This script runs the gaming GUI for the LNdW traffic light game.
