@@ -509,7 +509,7 @@ OptionsCont::addDescription(const std::string& name,
         throw ProcessError("Option doesn't exist");
     }
     if (find(mySubTopics.begin(), mySubTopics.end(), subtopic) == mySubTopics.end()) {
-        throw ProcessError("SubTopic doesn't exist");
+        throw ProcessError("SubTopic '" + subtopic + "' doesn't exist");
     }
     o->setDescription(description);
     mySubTopicEntries[subtopic].push_back(name);

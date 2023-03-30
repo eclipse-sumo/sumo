@@ -49,8 +49,8 @@ GNEPythonTool::GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string &py
     if (templateStr.size() > 0) {
         try {
             TemplateHandler::parseTemplate(myPythonToolsOptions, templateStr);
-        } catch (ProcessError&) {
-            WRITE_ERROR("Error parsing template of tool: " + myPythonToolName);
+        } catch (ProcessError& e) {
+            WRITE_ERROR("Error parsing template of tool: " + myPythonToolName + " (" + e.what() + ")");
         }
     }
 
