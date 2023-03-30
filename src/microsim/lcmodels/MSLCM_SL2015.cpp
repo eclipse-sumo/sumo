@@ -3496,7 +3496,8 @@ MSLCM_SL2015::getDesiredAlignment() const {
     // Check whether the vehicle should adapt its alignment to an upcoming turn
     if (myTurnAlignmentDist > 0) {
         const std::pair<double, const MSLink*>& turnInfo = myVehicle.getNextTurn();
-        LinkDirection turnDir = turnInfo.second == nullptr ? LinkDirection::NODIR : turnInfo.second->getDirection();
+        const LinkDirection turnDir = turnInfo.second == nullptr ? LinkDirection::NODIR : turnInfo.second->getDirection();
+        const bool indirect = turnInfo.second == nullptr ? false : turnInfo.second->isIndirect();
         if (turnInfo.first < myTurnAlignmentDist) {
             // Vehicle is close enough to the link to change its default alignment
             switch (turnDir) {
@@ -3505,13 +3506,13 @@ MSLCM_SL2015::getDesiredAlignment() const {
                 case LinkDirection::PARTLEFT:
                     if (myVehicle.getLane()->getBidiLane() == nullptr) {
                         // no left alignment on bidi lane to avoid blocking oncoming traffic
-                        align = MSGlobals::gLefthand ? LatAlignmentDefinition::RIGHT : LatAlignmentDefinition::LEFT;
+                        align = MSGlobals::gLefthand != indirect ? LatAlignmentDefinition::RIGHT : LatAlignmentDefinition::LEFT;
                     }
                     break;
                 case LinkDirection::TURN_LEFTHAND:
                 case LinkDirection::RIGHT:
                 case LinkDirection::PARTRIGHT:
-                    align = MSGlobals::gLefthand ? LatAlignmentDefinition::LEFT : LatAlignmentDefinition::RIGHT;
+                    align = MSGlobals::gLefthand != indirect ? LatAlignmentDefinition::LEFT : LatAlignmentDefinition::RIGHT;
                     break;
                 case LinkDirection::STRAIGHT:
                 case LinkDirection::NODIR:
