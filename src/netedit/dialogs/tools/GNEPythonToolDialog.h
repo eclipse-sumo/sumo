@@ -56,6 +56,9 @@ public:
     /// @brief open dialog
     long openDialog(GNEPythonTool* tool);
 
+    /// @brief get pointer to GNEApplicationWindow
+    GNEApplicationWindow* getGNEApplicationWindow() const;
+
     /// @name FOX-callbacks
     /// @{
 

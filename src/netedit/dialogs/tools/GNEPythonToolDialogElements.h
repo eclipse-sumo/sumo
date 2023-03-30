@@ -100,6 +100,9 @@ public:
         /// @brief get value
         virtual const std::string getValue() const = 0;
 
+        /// @brief tool dialog parent
+        GNEPythonToolDialog* myToolDialogParent;
+
         /// @brief option
         Option* myOption;
 
@@ -153,15 +156,15 @@ public:
         /// @brief get value
         const std::string getValue() const;
 
+        /// @brief filename textField
+        FXTextField* myFilenameTextField = nullptr;
+
     private:
         /// @brief current button
         FXButton* myCurrentButton = nullptr;
 
         /// @brief filename button
         FXButton* myOpenFilenameButton = nullptr;
-
-        /// @brief filename textField
-        FXTextField* myFilenameTextField = nullptr;
 
         /// @brief Invalidated copy constructor.
         FileNameArgument(const FileNameArgument&) = delete;
@@ -183,8 +186,11 @@ public:
         /// @brief Called when user press open filename button
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
-        /// @brief Called when user press open filename button
+        /// @brief Called when user press use current button
         long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use current button
+        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -211,8 +217,11 @@ public:
         /// @brief Called when user press open filename button
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
-        /// @brief Called when user press open filename button
+        /// @brief Called when user press use current button
         long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use current button
+        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -239,8 +248,11 @@ public:
         /// @brief Called when user press open filename button
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
-        /// @brief Called when user press open filename button
+        /// @brief Called when user press use current button
         long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use current button
+        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -267,8 +279,11 @@ public:
         /// @brief Called when user press open filename button
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
-        /// @brief Called when user press open filename button
+        /// @brief Called when user press use current button
         long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use current button
+        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this

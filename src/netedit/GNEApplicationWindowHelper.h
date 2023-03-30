@@ -1127,6 +1127,9 @@ struct GNEApplicationWindowHelper {
     /// @brief check if a string ends with another string
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
+    /// @brief open general file dialog
+    static std::string openFileDialog(FXWindow* window, const bool save);
+
     /// @brief open netconvert file dialog
     static std::string openNetworkFileDialog(FXWindow* window, const bool save);
 
@@ -1171,9 +1174,6 @@ struct GNEApplicationWindowHelper {
 
     /// @brief open option dialog
     static std::string openOptionFileDialog(FXWindow* window, const bool save);
-
-    /// @brief open output file dialog
-    static std::string openOutputFileDialog(FXWindow* window);
 
 private:
     /// @brief open filename dialog

@@ -128,6 +128,12 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
 }
 
 
+GNEApplicationWindow*
+GNEPythonToolDialog::getGNEApplicationWindow() const {
+    return myGNEApp;
+}
+
+
 long
 GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
     // open save dialog
@@ -253,7 +259,15 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
             } else if (option.second->isBool()) {
                 myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, getRowFrame(), option.first, option.second));
             } else if (option.second->isFileName()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, getRowFrame(), option.first, option.second));       
+                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, getRowFrame(), option.first, option.second));   
+            } else if (option.second->isNetwork()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::NetworkArgument(this, getRowFrame(), option.first, option.second));   
+            } else if (option.second->isAdditional()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::AdditionalArgument(this, getRowFrame(), option.first, option.second));   
+            } else if (option.second->isRoute()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, getRowFrame(), option.first, option.second));   
+            } else if (option.second->isData()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, getRowFrame(), option.first, option.second));   
             } else {
                 myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, getRowFrame(), option.first, option.second));
             }

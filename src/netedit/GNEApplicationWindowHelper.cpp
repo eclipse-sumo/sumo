@@ -2683,6 +2683,20 @@ GNEApplicationWindowHelper::stringEndsWith(const std::string& str, const std::st
 
 
 std::string
+GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const bool save) {
+    if (save) {
+        return openFileDialog(window, TL("Save file as"), GUIIcon::SAVE,
+            TL("XML files (*.xml)") + std::string("\n") +
+            TL("All files (*)"), true);
+    } else {
+        return openFileDialog(window, TL("Open file"), GUIIcon::OPEN_SUMOCONFIG,
+            TL("XML files (*.xml)") + std::string("\n") +
+            TL("All files (*)"), false);
+    }
+}
+
+
+std::string
 GNEApplicationWindowHelper::openNetworkFileDialog(FXWindow* window, const bool save) {
     if (save) {
         return openFileDialog(window, TL("Save Network file as"), GUIIcon::SAVE_NETWORKELEMENTS,
@@ -2872,15 +2886,6 @@ GNEApplicationWindowHelper::openOptionFileDialog(FXWindow* window, const bool sa
             TL("XML files (*.xml)") + std::string("\n") +
             TL("All files (*)"), false);
     }
-}
-
-
-std::string
-GNEApplicationWindowHelper::openOutputFileDialog(FXWindow* window) {
-    return openFileDialog(window, TL("Save output file"), GUIIcon::SAVE,
-        TL("SUMO Network files (*.net.xml)") + std::string("\n") +
-        TL("XML files (*.xml)") + std::string("\n") +
-        TL("All files (*)"), true);
 }
 
 
