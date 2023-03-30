@@ -38,6 +38,7 @@
 #include "libsumo/Person.h"
 #include "utils/geom/Position.h"
 #include "utils/geom/PositionVector.h"
+#include "utils/shapes/ShapeContainer.h"
 #include "MSPModel_JuPedSim.h"
 #include "MSPerson.h"
 
@@ -66,6 +67,9 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
     JPS_GeometryBuilder_Free(myJPSGeometryBuilder);
 
     myGEOSGeometryFactory->destroyGeometry(myGEOSPedestrianNetwork);
+    for (geos::geom::Geometry* geometry : myGEOSConvertedLinearRingsDump) {
+        myGEOSGeometryFactory->destroyGeometry(geometry);
+    }
     for (geos::geom::Geometry* geometry : myGEOSConvexHullsDump) {
         myGEOSGeometryFactory->destroyGeometry(geometry);
     }
@@ -429,12 +433,24 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
 }
 
 
-std::vector<double> MSPModel_JuPedSim::getFlattenedCoordinates(const geos::geom::Geometry* geometry)
-{
+PositionVector 
+MSPModel_JuPedSim::getCoordinates(const geos::geom::Geometry* geometry) {
+    PositionVector coordinates;
+    std::unique_ptr<geos::geom::CoordinateSequence> coordsSeq = geometry->getCoordinates();
+    for (size_t i = 0; i < coordsSeq->getSize(); i++) {
+        geos::geom::Coordinate c = coordsSeq->getAt(i);
+        coordinates.push_back(Position(c.x, c.y));
+    }
+    return coordinates;
+}
+
+std::vector<double> 
+MSPModel_JuPedSim::getFlattenedCoordinates(const geos::geom::Geometry* geometry) {
     std::vector<double> flattenedCoordinates;
-    std::unique_ptr<geos::geom::CoordinateSequence> coordinates = geometry->getCoordinates();
-    for (size_t i = 0; i < coordinates->getSize()-1; i++) {
-        geos::geom::Coordinate c = coordinates->getAt(i);
+    std::unique_ptr<geos::geom::CoordinateSequence> coordsSeq = geometry->getCoordinates();
+    // Remove the last point so that CGAL doesn't complain of the simplicity of the polygon downstream.
+    for (size_t i = 0; i < coordsSeq->getSize()-1; i++) {
+        geos::geom::Coordinate c = coordsSeq->getAt(i);
         flattenedCoordinates.push_back(c.x);
         flattenedCoordinates.push_back(c.y);
     }
@@ -442,7 +458,36 @@ std::vector<double> MSPModel_JuPedSim::getFlattenedCoordinates(const geos::geom:
 }
 
 
-void MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon) const {
+geos::geom::Polygon* 
+MSPModel_JuPedSim::toPolygon(const geos::geom::LinearRing* linearRing) {
+    geos::geom::Polygon* polygon = myGEOSGeometryFactory->createPolygon(*linearRing, {});
+    myGEOSConvertedLinearRingsDump.push_back(polygon);
+    return polygon;
+}
+
+
+void 
+MSPModel_JuPedSim::renderPolygon(const geos::geom::Polygon* polygon, const std::string& polygonId) {
+    const geos::geom::LinearRing* exterior = polygon->getExteriorRing();
+    PositionVector shape = getCoordinates(exterior);
+    
+    std::vector<PositionVector> holes;
+    for (size_t k = 0; k < polygon->getNumInteriorRing(); k++) {
+        const geos::geom::LinearRing* interior = polygon->getInteriorRingN(k);
+        if (toPolygon(interior)->getArea() > GEOS_MIN_AREA) {
+            PositionVector hole = getCoordinates(interior);
+            holes.push_back(hole);
+        }
+    }
+
+    ShapeContainer& shapeContainer = myNetwork->getShapeContainer();
+    shapeContainer.addPolygon(polygonId, std::string("pedestrian_network"), RGBColor(255, 0, 0, 255), 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
+    shapeContainer.getPolygons().get(polygonId)->setHoles(holes);
+}
+
+
+void 
+MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon) const {
     const geos::geom::LinearRing* exterior = polygon->getExteriorRing();
     std::vector<double> exteriorCoordinates = getFlattenedCoordinates(exterior);
     JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size() / 2);
@@ -473,6 +518,8 @@ MSPModel_JuPedSim::initialize() {
     myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
     for (size_t i = 0; i < myGEOSPedestrianNetwork->getNumGeometries(); i++) {
         const geos::geom::Polygon* connectedComponentPolygon = dynamic_cast<const geos::geom::Polygon*>(myGEOSPedestrianNetwork->getGeometryN(i));
+        std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
+        renderPolygon(connectedComponentPolygon, polygonId);
         preparePolygonForJPS(connectedComponentPolygon);
     }
 
