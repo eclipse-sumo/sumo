@@ -215,7 +215,12 @@ a hybrid of multiple schematic pieces being oriented in a roughly geodetical man
 
 Example call:
 ```
-python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_additional.add.xml --region-file stations.taz.xml -o abstract.net.xml
+python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_additional.add.xml --region-file stations.taz.xml --output-prefix abstract
+```
+
+It is also possible to to automatically segment the network:
+```
+python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_additional.add.xml --split --output-prefix abstract
 ```
 
 ## Further options
@@ -225,6 +230,10 @@ python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_addition
 - **--horizontal**: The abstract network is aligned on the horizontal
 - **--track-offset**: Define the offset between parallel tracks in m (default 20)
 - **--skip-building**: Only create patch files but do not assemble the new network
+- **--skip**: creates a region file (taz) from the stop-file, optionally splits network edges to ensure that each edge belongs to a single station
 
 !!! caution
     If the network is large and not segmented or if the individual station segments are large, the conversion process can take a long time. The option **--skip-large INT** can be used to selective skip large regions (measured by the number of optimization constraints, reported via **--verbose** output).
+
+!!! caution
+    If option **--skip** is used the original network may be split (under an new name) and the generated abstract network will have the same edges as the split net. The input stop-file will also be adapted for the split net (under a new name) but any traffic demand (route files) have to be adapted for the split network.
