@@ -46,6 +46,6 @@ protected:
     OptionsCont myNetdiffOptions;
 
     /// @brief build arguments
-    void buildArguments();
+    void buildArguments(bool sortByName, bool groupedByCategories);
 };
 

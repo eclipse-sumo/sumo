@@ -64,7 +64,7 @@ GNENetdiffToolDialog::~GNENetdiffToolDialog() {}
 
 
 void
-GNENetdiffToolDialog::buildArguments() {
+GNENetdiffToolDialog::buildArguments(bool /*sortByName*/, bool /*groupedByCategories*/) {
     // first clear arguments
     for (const auto& argument : myArguments) {
         delete argument;
