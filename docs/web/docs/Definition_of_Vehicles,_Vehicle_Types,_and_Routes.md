@@ -1269,7 +1269,7 @@ defining them for the vehicle or the vehicle type in the following way:
     <vehicle id="v1" route="route0" depart="0" type="t1"/>
     
     <vType id="t2">
-        <param key="device.<DEVICENAME>.probablity" value="0.5"/>
+        <param key="device.<DEVICENAME>.probability" value="0.5"/>
     </vType>
 
     <vehicle id="v2" route="route0" depart="0" type="t2"/>
