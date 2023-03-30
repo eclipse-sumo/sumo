@@ -251,6 +251,13 @@ Vehicle::getFollower(const std::string& vehID, double dist) {
 }
 
 
+std::vector<libsumo::TraCIJunctionFoe>
+Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
+    std::vector<libsumo::TraCIJunctionFoe> result;
+    return result;
+}
+
+
 double
 Vehicle::getWaitingTime(const std::string& vehID) {
     return Dom::getDouble(libsumo::VAR_WAITING_TIME, vehID);
