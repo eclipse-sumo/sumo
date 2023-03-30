@@ -276,9 +276,20 @@ class ArgumentParser(argparse.ArgumentParser):
                             # category
                             if a.category is not None:
                                 category = ' category="%s"' % a.category
-                            typeName = "string" if a.type is None else a.type.__name__
                             if a.boolean:
                                 typeName = "bool"
+                            elif a.type is None:
+                                typeName = "string"
+                            else:
+                                typeName = a.type.__name__
+                                if typeName == 'parseTime':
+                                    typeName = 'time'
+                                knownTypes = ['bool', 'float', 'int',
+                                              'time', 'file', 'net_file', 'route_file',
+                                              'additional_file', 'edgedata_file',
+                                              'data_file']
+                                if typeName not in knownTypes:
+                                    typeName = 'string'
                             typeStr = ' type="%s"' % typeName
                             if a.isRequired:
                                 required = ' required="true"'
