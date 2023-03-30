@@ -166,6 +166,7 @@
 #include "collapse.xpm"
 #include "uncollapse.xpm"
 #include "extend.xpm"
+#include "current.xpm"
 
 #include "arrowup.xpm"
 #include "arrowdown.xpm"
@@ -653,6 +654,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::COLLAPSE] = new FXXPMIcon(a, collapse_xpm);
     myIcons[GUIIcon::UNCOLLAPSE] = new FXXPMIcon(a, uncollapse_xpm);
     myIcons[GUIIcon::EXTEND] = new FXXPMIcon(a, extend_xpm);
+    myIcons[GUIIcon::CURRENT] = new FXXPMIcon(a, current_xpm);
 
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID] = new FXXPMIcon(a, checkbox_grid_xpm);
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE] = new FXXPMIcon(a, checkbox_drawjunctionshapes_xpm);
