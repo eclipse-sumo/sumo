@@ -992,6 +992,8 @@ enum {
     MID_GNE_RESET_GEOMETRYPOINT,
     /// @brief set zero fringe probabilities (used in TAZ Frame)
     MID_GNE_SET_ZEROFRINGEPROB,
+    /// @brief use current network/additional/route/edgedata
+    MID_GNE_USE_CURRENT,
 
     /// @}
 

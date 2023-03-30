@@ -48,9 +48,14 @@ FXDEFMAP(GNEPythonToolDialogElements::FileNameArgument) FileNameArgumentMap[] = 
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,  GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename),
 };
 
+FXDEFMAP(GNEPythonToolDialogElements::NetworkArgument) NetworkArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,  GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename),
+};
+
 // Object implementation
-FXIMPLEMENT_ABSTRACT(GNEPythonToolDialogElements::Argument,   FXHorizontalFrame,                  ArgumentMap,            ARRAYNUMBER(ArgumentMap))
-FXIMPLEMENT(GNEPythonToolDialogElements::FileNameArgument,    GNEPythonToolDialogElements::Argument,    FileNameArgumentMap,    ARRAYNUMBER(FileNameArgumentMap))
+FXIMPLEMENT_ABSTRACT(GNEPythonToolDialogElements::Argument, FXHorizontalFrame,                              ArgumentMap,            ARRAYNUMBER(ArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::FileNameArgument,  GNEPythonToolDialogElements::Argument,          FileNameArgumentMap,    ARRAYNUMBER(FileNameArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::NetworkArgument,   GNEPythonToolDialogElements::FileNameArgument,  NetworkArgumentMap,     ARRAYNUMBER(NetworkArgumentMap))
 
 // ===========================================================================
 // member method definitions
@@ -60,7 +65,7 @@ FXIMPLEMENT(GNEPythonToolDialogElements::FileNameArgument,    GNEPythonToolDialo
 // GNEPythonToolDialogElements::Category - methods
 // ---------------------------------------------------------------------------
 
-GNEPythonToolDialogElements::Category::Category(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string &category) :
+GNEPythonToolDialogElements::Category::Category(GNEPythonToolDialog* toolDialogParent, FXComposite */*parent*/, const std::string &category) :
     FXHorizontalFrame(toolDialogParent->getRowFrame(), GUIDesignAuxiliarHorizontalFrame) {
     // create category label
     new FXLabel(this, category.c_str(), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
@@ -83,7 +88,7 @@ GNEPythonToolDialogElements::Argument::Argument(GNEPythonToolDialog* toolDialogP
     myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->myGNEApp->getStaticTooltipMenu(), parameter.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
     myParameterLabel->setTipText((option->getTypeName() + ": " + option->getDescription()).c_str());
     // create horizontal frame for textField
-    myAuxiliarTextFieldFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrameFixedWidth(250));
+    myElementsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrameFixedWidth(250));
     // Create reset button
     myResetButton = new FXButton(this, (std::string("\t\t") + TL("Reset value")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
     // create argument
@@ -136,16 +141,7 @@ GNEPythonToolDialogElements::Argument::Argument() {}
 
 GNEPythonToolDialogElements::FileNameArgument::FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
         const std::string name, Option* option) :
-    Argument(toolDialogParent, parent, name, option) {
-    // Create Open button
-    myFilenameButton = new FXButton(myAuxiliarTextFieldFrame, (std::string("\t\t") + TL("Select filename")).c_str(), 
-        GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GNE_SELECT, GUIDesignButtonIcon);
-    myFilenameButton->create();
-    // create text field for filename
-    myFilenameTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myFilenameTextField->create();
-    // reset after creation
-    reset();
+    FileNameArgument(toolDialogParent, parent, name, option, "") {
 }
 
 
@@ -178,10 +174,54 @@ GNEPythonToolDialogElements::FileNameArgument::onCmdSetValue(FXObject*, FXSelect
 GNEPythonToolDialogElements::FileNameArgument::FileNameArgument() {}
 
 
+GNEPythonToolDialogElements::FileNameArgument::FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
+        const std::string name, Option* option, const std::string &useCurrent) :
+    Argument(toolDialogParent, parent, name, option) {
+    // check if create current button
+    if (useCurrent.size() > 0) {
+        myCurrentButton = new FXButton(myElementsFrame, (std::string("\t\t") + TLF("Use current % file", useCurrent)).c_str(), 
+            GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), this, MID_GNE_USE_CURRENT, GUIDesignButtonIcon);
+        myCurrentButton->create();
+    }
+    // Create Open button
+    myOpenFilenameButton = new FXButton(myElementsFrame, (std::string("\t\t") + TL("Select filename")).c_str(), 
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), this, MID_GNE_SELECT, GUIDesignButtonIcon);
+    myOpenFilenameButton->create();
+    // create text field for filename
+    myFilenameTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myFilenameTextField->create();
+    // reset after creation
+    reset();
+}
+
 const std::string
 GNEPythonToolDialogElements::FileNameArgument::getValue() const {
     return myFilenameTextField->getText().text();
 }
+
+// ---------------------------------------------------------------------------
+// GNEPythonToolDialogElements::FileNameArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEPythonToolDialogElements::NetworkArgument::NetworkArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
+        const std::string name, Option* option) :
+    FileNameArgument(toolDialogParent, parent, name, option, TL("network")) {
+}
+
+
+long
+GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::NetworkArgument::onCmdUseCurrent(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+GNEPythonToolDialogElements::NetworkArgument::NetworkArgument() {}
 
 // ---------------------------------------------------------------------------
 // GNEPythonToolDialogElements::StringArgument - methods
@@ -190,7 +230,7 @@ GNEPythonToolDialogElements::FileNameArgument::getValue() const {
 GNEPythonToolDialogElements::StringArgument::StringArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string name, Option* option) :
     Argument(toolDialogParent, parent, name, option) {
     // create text field for string
-    myStringTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myStringTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myStringTextField->create();
     // reset after creation
     reset();
@@ -229,7 +269,7 @@ GNEPythonToolDialogElements::StringArgument::getValue() const {
 GNEPythonToolDialogElements::IntArgument::IntArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string name, Option* option) :
     Argument(toolDialogParent, parent, name, option) {
     // create text field for int
-    myIntTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
+    myIntTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
     myIntTextField->create();
     // reset after creation
     reset();
@@ -272,7 +312,7 @@ GNEPythonToolDialogElements::IntArgument::getValue() const {
 GNEPythonToolDialogElements::FloatArgument::FloatArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string name, Option* option) :
     Argument(toolDialogParent, parent, name, option) {
     // create text field for float
-    myFloatTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
+    myFloatTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myFloatTextField->create();
     // reset after creation
     reset();
@@ -315,7 +355,7 @@ GNEPythonToolDialogElements::FloatArgument::getValue() const {
 GNEPythonToolDialogElements::BoolArgument::BoolArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string name, Option* option) :
     Argument(toolDialogParent, parent, name, option) {
     // create check button
-    myCheckButton = new FXCheckButton(myAuxiliarTextFieldFrame, "" , this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCheckButton = new FXCheckButton(myElementsFrame, "" , this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCheckButton->create();
     // reset after creation
     reset();

@@ -106,8 +106,8 @@ public:
         /// @brief default value
         const std::string myDefaultValue;
 
-        /// @brief auxliar text field for textfield frames
-        FXHorizontalFrame* myAuxiliarTextFieldFrame = nullptr;
+        /// @brief auxiliar elements frame
+        FXHorizontalFrame* myElementsFrame = nullptr;
 
     private:
         /// @brief parameter label
@@ -130,7 +130,8 @@ public:
 
     public:
         /// @brief constructor
-        FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string name, Option* option);
+        FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
+                         const std::string name, Option* option);
     
         /// @brief reset to default value
         void reset();
@@ -145,12 +146,19 @@ public:
         /// @brief FOX need this
         FileNameArgument();
 
+        /// @brief constructor for current buttons
+        FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
+                         const std::string name, Option* option, const std::string &useCurrent);
+
         /// @brief get value
         const std::string getValue() const;
 
     private:
+        /// @brief current button
+        FXButton* myCurrentButton = nullptr;
+
         /// @brief filename button
-        FXButton* myFilenameButton = nullptr;
+        FXButton* myOpenFilenameButton = nullptr;
 
         /// @brief filename textField
         FXTextField* myFilenameTextField = nullptr;
@@ -160,6 +168,34 @@ public:
 
         /// @brief Invalidated assignment operator.
         FileNameArgument& operator=(const FileNameArgument&) = delete;
+    };
+
+    /// @brief network argument
+    class NetworkArgument : public FileNameArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::NetworkArgument)
+
+    public:
+        /// @brief constructor
+        NetworkArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, 
+                         const std::string name, Option* option);
+
+        /// @brief Called when user press open filename button
+        long onCmdOpenFilename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press open filename button
+        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        NetworkArgument();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        NetworkArgument(const NetworkArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        NetworkArgument& operator=(const NetworkArgument&) = delete;
     };
 
     /// @brief string argument
