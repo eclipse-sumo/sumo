@@ -327,8 +327,8 @@ GNEPythonToolDialog::getOptionsByCategories(OptionsCont& optionsCont) const {
     // fill categories
     std::vector<std::string> categories = commonCategories;
     for (const auto &option : optionsCont) {
-        if (std::find(categories.begin(), categories.end(), option.second->getCategory()) == categories.end()) {
-            categories.push_back(option.second->getCategory());
+        if (std::find(categories.begin(), categories.end(), option.second->getSubTopic()) == categories.end()) {
+            categories.push_back(option.second->getSubTopic());
         }
     }
     // declare vector of category options and fill
@@ -338,7 +338,7 @@ GNEPythonToolDialog::getOptionsByCategories(OptionsCont& optionsCont) const {
     }
     // fill result with options
     for (const auto &option : optionsCont) {
-        auto category = std::find(result.begin(), result.end(), option.second->getCategory());
+        auto category = std::find(result.begin(), result.end(), option.second->getSubTopic());
         // add option in category
         category->addOption(option.first, option.second);
     }

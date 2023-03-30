@@ -391,7 +391,7 @@ public:
      * @return category
      * @exception InvalidArgument If the named option does not exist
      **/
-    const std::string& getCategory(const std::string& name) const;
+    const std::string& getSubTopic(const std::string& name) const;
 
     /** @brief Returns the information whether the named option may be set
      *

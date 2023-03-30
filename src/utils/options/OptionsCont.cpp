@@ -306,8 +306,8 @@ OptionsCont::getDescription(const std::string& name) const {
 
 
 const std::string&
-OptionsCont::getCategory(const std::string& name) const {
-    return getSecure(name)->getCategory();
+OptionsCont::getSubTopic(const std::string& name) const {
+    return getSecure(name)->getSubTopic();
 }
 
 
@@ -512,22 +512,7 @@ OptionsCont::addDescription(const std::string& name,
         throw ProcessError("SubTopic '" + subtopic + "' doesn't exist");
     }
     o->setDescription(description);
-    mySubTopicEntries[subtopic].push_back(name);
-}
-
-
-void
-OptionsCont::addCategory(const std::string& name,
-                            const std::string& subtopic,
-                            const std::string& category) {
-    Option* o = getSecure(name);
-    if (o == nullptr) {
-        throw ProcessError("Option doesn't exist");
-    }
-    if (find(mySubTopics.begin(), mySubTopics.end(), subtopic) == mySubTopics.end()) {
-        throw ProcessError("SubTopic doesn't exist");
-    }
-    o->setCategory(category);
+    o->setSubtopic(subtopic);
     mySubTopicEntries[subtopic].push_back(name);
 }
 
@@ -939,9 +924,6 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 os << "\" type=\"" << o->getTypeName();
                 if (!addComments) {
                     os << "\" help=\"" << StringUtils::escapeXML(o->getDescription());
-                }
-                if (o->getCategory().size() > 0) {
-                    os << "\" category=\"" << o->getCategory();
                 }
             }
             os << "\"/>" << std::endl;

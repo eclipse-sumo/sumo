@@ -275,21 +275,11 @@ public:
      */
     void setDescription(const std::string& desc);
 
-    /** @brief Returns the category of what this option does
-     *
-     * The category stored in myDescription is returned.
-     *
-     * @return The category of this option's purpose
-     */
-    const std::string& getCategory() const;
+    /// @brief Returns the subtopic to which this option belongs
+    const std::string& getSubTopic() const;
 
-    /** @brief Sets the category of what this option does
-     *
-     * The category stored in myCategory is returned.
-     *
-     * @return The category of this option's purpose
-     */
-    void setCategory(const std::string& desc);
+    /// @brief Sets the subtopic to which this option belongs
+    void setSubtopic(const std::string& subtopic);
 
     /** @brief Returns the mml-type name of this option
      *
@@ -336,8 +326,8 @@ private:
     /// @brief The description what this option does
     std::string myDescription;
 
-    /// @brief The category what this option does
-    std::string myCategory;
+    /// @brief The subtopic to which this option belongs
+    std::string mySubTopic;
 };
 
 // -------------------------------------------------------------------------

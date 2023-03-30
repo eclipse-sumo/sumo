@@ -195,14 +195,14 @@ Option::setDescription(const std::string& desc) {
 
 
 const std::string&
-Option::getCategory() const {
-    return myCategory;
+Option::getSubTopic() const {
+    return mySubTopic;
 }
 
 
 void
-Option::setCategory(const std::string& desc) {
-    myCategory = desc;
+Option::setSubtopic(const std::string& subtopic) {
+    mySubTopic = subtopic;
 }
 
 

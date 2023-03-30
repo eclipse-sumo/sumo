@@ -95,30 +95,37 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
         mySubTopic = myOptionName;
         myOptions.addOptionSubTopic(mySubTopic);
     } else {
-        std::vector<std::string> optionAttrs;
-        optionAttrs.resize(5);
+        std::string value;
+        std::string synonymes;
+        std::string type;
+        std::string help;
         for (int i = 0; i < (int)attributes.getLength(); i++) {
             if (StringUtils::transcode(attributes.getName(i)) == "value") {
-                optionAttrs.at(0) = StringUtils::transcode(attributes.getValue(i));
+                value = StringUtils::transcode(attributes.getValue(i));
             } else if (StringUtils::transcode(attributes.getName(i)) == "synonymes") {
-                optionAttrs.at(1) = StringUtils::transcode(attributes.getValue(i));
+                synonymes = StringUtils::transcode(attributes.getValue(i));
             } else if (StringUtils::transcode(attributes.getName(i)) == "type") {
-                optionAttrs.at(2) = StringUtils::transcode(attributes.getValue(i));
+                type = StringUtils::transcode(attributes.getValue(i));
             } else if (StringUtils::transcode(attributes.getName(i)) == "help") {
-                optionAttrs.at(3) = StringUtils::transcode(attributes.getValue(i));
+                help = StringUtils::transcode(attributes.getValue(i));
             } else if (StringUtils::transcode(attributes.getName(i)) == "category") {
-                optionAttrs.at(4) = StringUtils::transcode(attributes.getValue(i));
+                // tool templates have subtopic as attribute
+                mySubTopic = StringUtils::transcode(attributes.getValue(i));
+                const auto& topics = myOptions.getSubTopics();
+                if (std::find(topics.begin(), topics.end(), mySubTopic) == topics.end()) {
+                    myOptions.addOptionSubTopic(mySubTopic);
+                }
             }
         }
         // add option
-        addOption(optionAttrs.at(0), optionAttrs.at(1), optionAttrs.at(2), optionAttrs.at(3), optionAttrs.at(4));
+        addOption(value, synonymes, type, help);
     }
 }
 
 
 bool
-TemplateHandler::addOption(const std::string value, const std::string& synonymes,
-                           const std::string& type, const std::string& help, const std::string& category) const {
+TemplateHandler::addOption(const std::string& value, const std::string& synonymes,
+                           const std::string& type, const std::string& help) const {
     if (myOptions.exists(myOptionName)) {
         WRITE_WARNING(myOptionName + " already exists");
         return false;
@@ -174,10 +181,6 @@ TemplateHandler::addOption(const std::string value, const std::string& synonymes
             // check if add help
             if (help.size() > 0) {
                 myOptions.addDescription(myOptionName, mySubTopic, help);
-            }
-            // check if add category
-            if (category.size() > 0) {
-                myOptions.addCategory(myOptionName, mySubTopic, category);
             }
             return true;
         } else {
