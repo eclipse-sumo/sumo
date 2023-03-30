@@ -282,7 +282,7 @@ GUIDialog_Options::GUIDialog_Options(GUIMainWindow* parent, OptionsCont* options
                     const std::string type = myOptionsContainer->getTypeName(entry);
                     if (type == "STR") {
                         new InputString(this, tabContent, entry);
-                    } else if (type == "FILE") {
+                    } else if ((type == "FILE") || (type == "NETWORK") || (type == "ADDITIONAL") || (type == "ROUTE") || (type == "DATA")) {
                         new InputFilename(this, tabContent, entry);
                     } else if (type == "BOOL") {
                         new InputBool(this, tabContent, entry);
