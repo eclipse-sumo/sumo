@@ -539,8 +539,8 @@ def main():
     stereoModes = ('ANAGLYPHIC', 'QUAD_BUFFER', 'VERTICAL_SPLIT', 'HORIZONTAL_SPLIT')
     optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-s", "--stereo", metavar="OSG_STEREO_MODE",
-                         help="Defines the stereo mode to use for 3D output; unique prefix of %s" % (
-                         ", ".join(stereoModes)))
+                         help=("Defines the stereo mode to use for 3D output; unique prefix of %s" % (
+                               ", ".join(stereoModes))))
     options = optParser.parse_args()
 
     if options.stereo:

@@ -62,8 +62,8 @@ for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
                         line = line.replace('duration="10000"', 'duration="10" minDur="1" maxDur="10000"')
                     tls_out.write(line)
             subprocess.call([sumolib.checkBinary("sumo"), "-c", config, "-a", ",".join(add).replace(tls, tls_out.name),
-                            '--duration-log.statistics', '--statistic-output', scen_path + '.stats.xml',
-                            '--tripinfo-output.write-unfinished'])
+                             '--duration-log.statistics', '--statistic-output', scen_path + '.stats.xml',
+                             '--tripinfo-output.write-unfinished'])
             score = computeScoreFromWaitingTime(scen_path)
             high[scen].append(("SUMO " + alg, "", score[0]))
 print(high)

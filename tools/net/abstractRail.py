@@ -51,6 +51,7 @@ OTHER_WEIGHT = 1
 NETCONVERT = sumolib.checkBinary('netconvert')
 STATION_DISTRICTS = os.path.join(SUMO_HOME, 'tools', 'district', 'stationDistricts.py')
 
+
 def get_options():
     ap = ArgumentParser()
     ap.add_option("-v", "--verbose", action="store_true", default=False,
@@ -512,6 +513,7 @@ def cleanShapes(options, net, nodeCoords, edgeShapes):
 
 def shapeStr(shape):
     return ' '.join(["%.2f,%.2f" % coord for coord in shape])
+
 
 def splitNet(options):
     # 1. create region file from stops
