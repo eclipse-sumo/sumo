@@ -151,7 +151,7 @@ pip install eclipse-sumo
     In order to use the Python wheels on macOS you need to have all the dependencies installed and up to date via brew for instance by following the [standard installation](Installing/index.md#macos) once.
 
 ## Additional Tools
-To take full advantage of all [Python tools](../Tools/index.md)
+To take full advantage of all [Python tools](Tools/index.md)
 please install the dependencies via `pip install -r $SUMO_HOME/tools/requirements.txt`.
 
 # SUMO - Latest Development Version
