@@ -431,10 +431,10 @@ MSNet::loadRoutes() {
 
 
 const std::string
-MSNet::generateStatistics(SUMOTime start) {
+MSNet::generateStatistics(const SUMOTime start, const long now) {
     std::ostringstream msg;
     if (myLogExecutionTime) {
-        long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
+        const long duration = now - mySimBeginMillis;
         // print performance notice
         msg << "Performance: " << "\n" << " Duration: " << elapsedMs2string(duration) << "\n";
         if (duration != 0) {
@@ -520,6 +520,7 @@ MSNet::generateStatistics(SUMOTime start) {
     return msg.str();
 }
 
+
 void
 MSNet::writeCollisions() const {
     OutputDevice& od = OutputDevice::getDeviceByOption("collision-output");
@@ -539,12 +540,25 @@ MSNet::writeCollisions() const {
             od.closeTag();
         }
     }
-
 }
 
+
 void
-MSNet::writeStatistics() const {
+MSNet::writeStatistics(const SUMOTime start, const long now) const {
+    const long duration = now - mySimBeginMillis;
     OutputDevice& od = OutputDevice::getDeviceByOption("statistic-output");
+    od.openTag("performance");
+    od.writeAttr("clockBegin", time2string(mySimBeginMillis));
+    od.writeAttr("clockEnd", time2string(now));
+    od.writeAttr("clockDuration", time2string(duration));
+    od.writeAttr("traciDuration", time2string(myTraCIMillis));
+    od.writeAttr("realTimeFactor", duration != 0 ? (double)(myStep - start) / (double)duration : -1);
+    od.writeAttr("vehicleUpdatesPerSecond", duration != 0 ? (double)myVehiclesMoved / ((double)duration / 1000) : -1);
+    od.writeAttr("personUpdatesPerSecond", duration != 0 ? (double)myPersonsMoved / ((double)duration / 1000) : -1);
+    od.writeAttr("begin", time2string(start));
+    od.writeAttr("end", time2string(myStep));
+    od.writeAttr("duration", time2string(myStep - start));
+    od.closeTag();
     od.openTag("vehicles");
     od.writeAttr("loaded", myVehicleControl->getLoadedVehicleNo());
     od.writeAttr("inserted", myVehicleControl->getDepartedVehicleNo());
@@ -669,11 +683,12 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
         writeRailSignalBlocks();
     }
+    const long now = SysUtils::getCurrentMillis();
     if (myLogExecutionTime || OptionsCont::getOptions().getBool("duration-log.statistics")) {
-        WRITE_MESSAGE(generateStatistics(start));
+        WRITE_MESSAGE(generateStatistics(start, now));
     }
     if (OptionsCont::getOptions().isSet("statistic-output")) {
-        writeStatistics();
+        writeStatistics(start, now);
     }
 }
 
