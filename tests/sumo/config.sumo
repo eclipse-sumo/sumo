@@ -194,6 +194,7 @@ weights:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 ps:%%CreationDate
 ps2:%%CreationDate
+statistic:<performance
 
 [floating_point_tolerance]
 output:0.0101
