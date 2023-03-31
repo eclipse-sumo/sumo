@@ -53,7 +53,7 @@ for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
                 tls = add[-1]
     if tls:
         high[scen] = []
-        for alg in ("actuated", "delay_based"):
+        for alg, minDur in (("actuated", 3), ("delay_based", 1)):
             print("running scenario '%s' with algorithm '%s'" % (scen, alg))
             with open(tls) as tls_in, open(tls + "." + alg, "w") as tls_out:
                 sumo = 'sumo'
@@ -62,7 +62,7 @@ for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
                 for line in tls_in:
                     line = line.replace('type="static"', 'type="%s"' % alg)
                     if "phase" in line:
-                        line = line.replace('duration="10000"', 'duration="10" minDur="1" maxDur="10000"')
+                        line = line.replace('duration="10000"', 'duration="10" minDur="%s" maxDur="10000"' % minDur)
                     tls_out.write(line)
             subprocess.call([sumolib.checkBinary(sumo), "-c", config, "-a", ",".join(add).replace(tls, tls_out.name),
                              '--duration-log.statistics', '--statistic-output', scen_path + '.stats.xml',
