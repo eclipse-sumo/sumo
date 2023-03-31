@@ -87,7 +87,7 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
     // get current topic
     myOptionName = StringUtils::transcode(name);
     if (myLevel++ == 0) {
-        // skip root elemnt
+        // skip root element
         return;
     }
     // check if this is a subtopic
@@ -95,10 +95,11 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
         mySubTopic = myOptionName;
         myOptions.addOptionSubTopic(mySubTopic);
     } else {
-        // declare options parameters (by default all empty)
+        // declare options parameters
         std::string value;
         std::string synonymes;
         std::string type;
+        std::string category = mySubTopic;
         std::string help;
         bool requiered = false;
         // iterate over attributes
@@ -115,24 +116,25 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
             } else if (attributeName == "help") {
                 help = attributeValue;
             } else if (attributeName == "category") {
+                category = attributeValue;
                 // tool templates have subtopic as attribute category
                 const auto& topics = myOptions.getSubTopics();
-                if (std::find(topics.begin(), topics.end(), attributeValue) == topics.end()) {
-                    myOptions.addOptionSubTopic(attributeValue);
+                if (std::find(topics.begin(), topics.end(), category) == topics.end()) {
+                    myOptions.addOptionSubTopic(category);
                 }
             } else if (attributeName == "required") {
                 requiered = ((attributeValue == "true") || (attributeValue == "1"))? true : false;
             }
         }
         // add option
-        addOption(value, synonymes, type, help, requiered);
+        addOption(value, synonymes, type, category, help, requiered);
     }
 }
 
 
 bool
 TemplateHandler::addOption(const std::string& value, const std::string& synonymes, const std::string& type,
-                           const std::string& help, const bool requiered) const {
+                           const std::string& category, const std::string& help, const bool requiered) const {
     if (myOptions.exists(myOptionName)) {
         WRITE_WARNING(myOptionName + " already exists");
         return false;
@@ -187,11 +189,11 @@ TemplateHandler::addOption(const std::string& value, const std::string& synonyme
             }
             // check if add help
             if (help.size() > 0) {
-                myOptions.addDescription(myOptionName, mySubTopic, help);
+                myOptions.addDescription(myOptionName, category, help);
             }
             // check if option is required
             if (requiered) {
-                myOptions.setRequired(myOptionName, mySubTopic);
+                myOptions.setRequired(myOptionName, category);
             }
             return true;
         } else {
