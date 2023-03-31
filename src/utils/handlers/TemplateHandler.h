@@ -63,8 +63,8 @@ private:
     void startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes);
 
     /// @brief add option
-    bool addOption(const std::string& value, const std::string& synonymes,
-                   const std::string& type, const std::string& help) const;
+    bool addOption(const std::string& value, const std::string& synonymes, const std::string& type,
+                   const std::string& help, const bool requiered) const;
 
     /** @brief Called on the end of an element
      *

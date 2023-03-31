@@ -95,37 +95,44 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
         mySubTopic = myOptionName;
         myOptions.addOptionSubTopic(mySubTopic);
     } else {
+        // declare options parameters (by default all empty)
         std::string value;
         std::string synonymes;
         std::string type;
         std::string help;
+        bool requiered = false;
+        // iterate over attributes
         for (int i = 0; i < (int)attributes.getLength(); i++) {
-            if (StringUtils::transcode(attributes.getName(i)) == "value") {
-                value = StringUtils::transcode(attributes.getValue(i));
-            } else if (StringUtils::transcode(attributes.getName(i)) == "synonymes") {
-                synonymes = StringUtils::transcode(attributes.getValue(i));
-            } else if (StringUtils::transcode(attributes.getName(i)) == "type") {
-                type = StringUtils::transcode(attributes.getValue(i));
-            } else if (StringUtils::transcode(attributes.getName(i)) == "help") {
-                help = StringUtils::transcode(attributes.getValue(i));
-            } else if (StringUtils::transcode(attributes.getName(i)) == "category") {
-                // tool templates have subtopic as attribute
-                mySubTopic = StringUtils::transcode(attributes.getValue(i));
+            const std::string attributeName = StringUtils::transcode(attributes.getName(i));
+            const std::string attributeValue = StringUtils::transcode(attributes.getValue(i));
+            // check attribute name
+            if (attributeName == "value") {
+                value = attributeValue;
+            } else if (attributeName == "synonymes") {
+                synonymes = attributeValue;
+            } else if (attributeName == "type") {
+                type = attributeValue;
+            } else if (attributeName == "help") {
+                help = attributeValue;
+            } else if (attributeName == "category") {
+                // tool templates have subtopic as attribute category
                 const auto& topics = myOptions.getSubTopics();
-                if (std::find(topics.begin(), topics.end(), mySubTopic) == topics.end()) {
-                    myOptions.addOptionSubTopic(mySubTopic);
+                if (std::find(topics.begin(), topics.end(), attributeValue) == topics.end()) {
+                    myOptions.addOptionSubTopic(attributeValue);
                 }
+            } else if (attributeName == "required") {
+                requiered = ((attributeValue == "true") || (attributeValue == "1"))? true : false;
             }
         }
         // add option
-        addOption(value, synonymes, type, help);
+        addOption(value, synonymes, type, help, requiered);
     }
 }
 
 
 bool
-TemplateHandler::addOption(const std::string& value, const std::string& synonymes,
-                           const std::string& type, const std::string& help) const {
+TemplateHandler::addOption(const std::string& value, const std::string& synonymes, const std::string& type,
+                           const std::string& help, const bool requiered) const {
     if (myOptions.exists(myOptionName)) {
         WRITE_WARNING(myOptionName + " already exists");
         return false;
@@ -181,6 +188,10 @@ TemplateHandler::addOption(const std::string& value, const std::string& synonyme
             // check if add help
             if (help.size() > 0) {
                 myOptions.addDescription(myOptionName, mySubTopic, help);
+            }
+            // check if option is required
+            if (requiered) {
+                myOptions.setRequired(myOptionName, mySubTopic);
             }
             return true;
         } else {
