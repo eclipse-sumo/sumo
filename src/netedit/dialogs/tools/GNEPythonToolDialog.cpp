@@ -108,6 +108,10 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     myGroupedCheckButton->setCheck(TRUE);
     // build arguments
     buildArguments(false, true);
+    // get maximum height
+    const int maximumHeight = myArgumentFrameLeft->numChildren() * GUIDesignHeight + 100;
+    // resize
+    resize(1024, maximumHeight <= 768 ? maximumHeight : 768);
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
@@ -261,7 +265,7 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
         auto argumentFrame = (numInsertedArguments < halfNumArguments)? myArgumentFrameLeft : myArgumentFrameRight;
         // add category
         if (categoryOption.size() > 0) {
-            myCategories.push_back(new GNEPythonToolDialogElements::Category(this, argumentFrame, categoryOption));
+            myCategories.push_back(new GNEPythonToolDialogElements::Category(argumentFrame, categoryOption));
             numInsertedArguments++;
         }
         // check if sort by name
@@ -271,7 +275,7 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
         // add options
         for (const auto &option : categoryOption.getOptions()) {
             // get argument frame (again)
-            argumentFrame = (numInsertedArguments <= halfNumArguments)? myArgumentFrameLeft : myArgumentFrameRight;
+            argumentFrame = (numInsertedArguments < halfNumArguments)? myArgumentFrameLeft : myArgumentFrameRight;
             // continue depending of type
             if (option.second->isInteger()) {
                 myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, argumentFrame, option.first, option.second));
