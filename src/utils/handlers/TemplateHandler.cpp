@@ -116,6 +116,7 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
                 help = attributeValue;
             } else if (attributeName == "category") {
                 // tool templates have subtopic as attribute category
+                mySubTopic = attributeValue;
                 const auto& topics = myOptions.getSubTopics();
                 if (std::find(topics.begin(), topics.end(), attributeValue) == topics.end()) {
                     myOptions.addOptionSubTopic(attributeValue);
