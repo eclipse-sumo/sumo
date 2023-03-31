@@ -61,8 +61,6 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
 
     JPS_Simulation_Free(myJPSSimulation);
     JPS_OperationalModel_Free(myJPSModel);
-    JPS_Areas_Free(myJPSAreas);
-    JPS_AreasBuilder_Free(myJPSAreasBuilder);
     JPS_Geometry_Free(myJPSGeometry);
     JPS_GeometryBuilder_Free(myJPSGeometryBuilder);
 
@@ -107,9 +105,10 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     const MSLane* arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().back());
     Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
 
-	JPS_Waypoint waypoints[] = { {{arrivalPosition.x(), arrivalPosition.y()}, JPS_EXIT_TOLERANCE} };
-	JPS_Journey journey = JPS_Journey_Create_SimpleJourney(waypoints, sizeof(waypoints));
+	JPS_Journey journey = JPS_Journey_Create();
+    JPS_Journey_AddWaypoint(journey, {arrivalPosition.x(), arrivalPosition.y()}, JPS_EXIT_TOLERANCE);
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, nullptr);
+    JPS_Journey_Free(journey);
 
 	JPS_VelocityModelAgentParameters agent_parameters{};
 	agent_parameters.journeyId = journeyId;
@@ -609,8 +608,6 @@ MSPModel_JuPedSim::initialize() {
         WRITE_ERROR(oss.str());
     }
 
-    myJPSAreasBuilder = JPS_AreasBuilder_Create();
-    myJPSAreas = JPS_AreasBuilder_Build(myJPSAreasBuilder, nullptr);
 
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
     myJPSParameterProfileId = 1;
@@ -624,7 +621,7 @@ MSPModel_JuPedSim::initialize() {
         WRITE_ERROR(oss.str());
     }
 
-	myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, myJPSAreas, STEPS2TIME(JPS_DELTA_T), &message);
+	myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(JPS_DELTA_T), &message);
     if (myJPSSimulation == nullptr) {
         std::ostringstream oss;
         oss << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(message);
