@@ -100,7 +100,7 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
         std::string synonymes;
         std::string type;
         std::string help;
-        bool requiered = false;
+        bool required = false;
         // iterate over attributes
         for (int i = 0; i < (int)attributes.getLength(); i++) {
             const std::string attributeName = StringUtils::transcode(attributes.getName(i));
@@ -122,18 +122,18 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
                     myOptions.addOptionSubTopic(attributeValue);
                 }
             } else if (attributeName == "required") {
-                requiered = ((attributeValue == "true") || (attributeValue == "1"))? true : false;
+                required = ((attributeValue == "true") || (attributeValue == "1"))? true : false;
             }
         }
         // add option
-        addOption(value, synonymes, type, help, requiered);
+        addOption(value, synonymes, type, help, required);
     }
 }
 
 
 bool
 TemplateHandler::addOption(const std::string& value, const std::string& synonymes, const std::string& type,
-                           const std::string& help, const bool requiered) const {
+                           const std::string& help, const bool required) const {
     if (myOptions.exists(myOptionName)) {
         WRITE_WARNING(myOptionName + " already exists");
         return false;
@@ -191,7 +191,7 @@ TemplateHandler::addOption(const std::string& value, const std::string& synonyme
                 myOptions.addDescription(myOptionName, mySubTopic, help);
             }
             // check if option is required
-            if (requiered) {
+            if (required) {
                 myOptions.setRequired(myOptionName, mySubTopic);
             }
             return true;

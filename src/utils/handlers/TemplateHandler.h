@@ -64,7 +64,7 @@ private:
 
     /// @brief add option
     bool addOption(const std::string& value, const std::string& synonymes, const std::string& type,
-                   const std::string& help, const bool requiered) const;
+                   const std::string& help, const bool required) const;
 
     /** @brief Called on the end of an element
      *
