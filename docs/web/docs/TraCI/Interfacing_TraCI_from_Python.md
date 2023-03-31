@@ -283,9 +283,18 @@ while traci.simulation.getMinExpectedNumber() > 0:
 traci.close()
 ```
 
-## Embedded Python
+## Concurrent access to the same TraCI connection
 
-This feature has been removed Please use [libsumo](../Libsumo.md) instead.
+Before SUMO 1.17.0 the pure Python client as well as the libtraci implementation
+will probably crash if you try to access the same connection from different
+threads.
+
+Currently there are some measures implemented which at least prevent the direct
+conflicts when accessing the socket. It is however still encouraged to use the
+multi-client approach from the previous section. It is the only way to ensure
+that commands are sent in the expected order. If there is only one thread issuing
+the simulationStep command and the others only query
+the simulation also multi threaded access should work.
 
 ## Additional Functions
 

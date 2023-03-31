@@ -125,6 +125,15 @@ won't work
 
 - [BSD License](https://github.com/google/googletest/blob/main/LICENSE)
 
+### [GNU gettext](https://www.gnu.org/software/gettext/) - Multiple Language support
+
+- [GNU Lesser General Public
+  License](https://www.gnu.org/software/gettext/manual/html_node/GNU-LGPL.html) for the libintl part (the distributed runtime)
+
+Please note that the tools needed for processing the translation files (so for compiling SUMO)
+are distributed under GPL and are not part of the SUMO download.
+
+
 ## Data and Documentation
 
 Unless otherwise noted all documentation (including the files in this directory and below) and data

@@ -259,7 +259,7 @@ SUMO is licensed under the
 source libraries](Libraries_Licenses.md).
 
 The standard Windows build only contains code and Windows binaries with Eclipse
-approved licenses (especially no GPL and LGPL code). If you need
+approved licenses (especially no GPL code). If you need
 features like shapefile import, GeoTIFF processing, the OpenSceneGraph 3D GUI, or
 video generation, download the "extra" build.
 

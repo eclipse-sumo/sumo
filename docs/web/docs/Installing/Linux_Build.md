@@ -198,6 +198,7 @@ Other useful cmake options:
 - `-D FOX_CONFIG=` disable FOX toolkit (GUI and multithreading)
 - `-D PYTHON_EXECUTABLE=/usr/bin/python3` select a different python version (also for libsumo / libtraci)
 - `-D MVN_EXECUTABLE=` disable maven packaging (especially useful if you have no network connection)
+- `-D ENABLE_CS_BINDINGS=ON` enable C# bindings when compiling libsumo / libtraci
 
 
 ## Building with clang
