@@ -65,7 +65,11 @@ for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
                              '--duration-log.statistics', '--statistic-output', scen_path + '.stats.xml',
                              '--tripinfo-output.write-unfinished'])
             score = computeScoreFromWaitingTime(scen_path)
-            high[scen].append(("SUMO " + alg, "", score[0]))
+            i = 0
+            for i, s in enumerate(high[scen]):
+                if s[2] < score[0]:
+                    break
+            high[scen].insert(i, ("SUMO " + alg, "", score[0]))
 print(high)
 with open(os.path.join(base, MAXSCOREFILE), 'wb') as pkl:
     pickle.dump(high, pkl)

@@ -456,6 +456,8 @@ class ScoreDialog:
 
         if category not in self.high:
             self.high[category] = _SCORES * [("", "", -1.)]
+        if len(self.high[category]) < _SCORES:
+            self.high[category] += (_SCORES - len(self.high[category])) * [("", "", -1.)]
         idx = 0
         for n, g, p in self.high[category]:
             if not haveHigh and score is not None and p < score:
