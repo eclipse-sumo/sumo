@@ -77,8 +77,8 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     // Create scroll frame for content rows
     auto contentScrollWindow = new FXScrollWindow(verticalContentFrame, GUIDesignScrollWindow);
     auto horizontalRowFrames = new FXHorizontalFrame(contentScrollWindow, LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH);
-    myContentFrameLeft = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
-    myContentFrameRight = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
+    myArgumentFrameLeft = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
+    myArgumentFrameRight = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
     // add separator
     new FXSeparator(verticalContentFrame);
     // create buttons centered
@@ -247,11 +247,22 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
     myCategories.clear();
     // get argument sorted by name and grouped by categories
     auto categoryOptions = groupedByCategories? getOptionsByCategories(myPythonTool->getToolsOptions()) : getOptions(myPythonTool->getToolsOptions());
+    // calculate number of arguments
+    int numArguments = 0;
+    for (auto &categoryOption : categoryOptions) {
+        numArguments += (int)categoryOption.getOptions().size() + 1;
+    }
+    const int halfNumArguments = numArguments / 2;
+    // declare counter for number of inserted arguments        
+    int numInsertedArguments = 0;
     // iterate over category options
     for (auto &categoryOption : categoryOptions) {
+        // get argument frame
+        auto argumentFrame = (numInsertedArguments < halfNumArguments)? myArgumentFrameLeft : myArgumentFrameRight;
         // add category
         if (categoryOption.size() > 0) {
-            myCategories.push_back(new GNEPythonToolDialogElements::Category(this, categoryOption));
+            myCategories.push_back(new GNEPythonToolDialogElements::Category(this, argumentFrame, categoryOption));
+            numInsertedArguments++;
         }
         // check if sort by name
         if (sortByName) {
@@ -259,25 +270,29 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
         }
         // add options
         for (const auto &option : categoryOption.getOptions()) {
+            // get argument frame (again)
+            argumentFrame = (numInsertedArguments <= halfNumArguments)? myArgumentFrameLeft : myArgumentFrameRight;
+            // continue depending of type
             if (option.second->isInteger()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, getContentFrame(), option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, argumentFrame, option.first, option.second));
             } else if (option.second->isFloat()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, getContentFrame(), option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, argumentFrame, option.first, option.second));
             } else if (option.second->isBool()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, getContentFrame(), option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, argumentFrame, option.first, option.second));
             } else if (option.second->isFileName()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, getContentFrame(), option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, argumentFrame, option.first, option.second));   
             } else if (option.second->isNetwork()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::NetworkArgument(this, getContentFrame(), option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::NetworkArgument(this, argumentFrame, option.first, option.second));   
             } else if (option.second->isAdditional()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::AdditionalArgument(this, getContentFrame(), option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::AdditionalArgument(this, argumentFrame, option.first, option.second));   
             } else if (option.second->isRoute()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, getContentFrame(), option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, argumentFrame, option.first, option.second));   
             } else if (option.second->isData()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, getContentFrame(), option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, argumentFrame, option.first, option.second));   
             } else {
-                myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, getContentFrame(), option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, argumentFrame, option.first, option.second));
             }
+            numInsertedArguments++;
         }
     }
     // adjust parameter column (call always after create elements)
@@ -358,8 +373,14 @@ GNEPythonToolDialog::getNumRowColums() const {
 
 
 FXVerticalFrame*
-GNEPythonToolDialog::getContentFrame() {
-    return myContentFrameLeft;
+GNEPythonToolDialog::getArgumentFrameLeft() const {
+    return myArgumentFrameLeft;
+}
+
+
+FXVerticalFrame*
+GNEPythonToolDialog::getArgumentFrameRight() const {
+    return myArgumentFrameRight;
 }
 
 /****************************************************************************/

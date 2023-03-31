@@ -89,8 +89,8 @@ FXIMPLEMENT(GNEPythonToolDialogElements::DataArgument,          GNEPythonToolDia
 // GNEPythonToolDialogElements::Category - methods
 // ---------------------------------------------------------------------------
 
-GNEPythonToolDialogElements::Category::Category(GNEPythonToolDialog* toolDialogParent, const std::string &category) :
-    FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame) {
+GNEPythonToolDialogElements::Category::Category(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string &category) :
+    FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame) {
     // create category label
     new FXLabel(this, category.c_str(), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
     // create category

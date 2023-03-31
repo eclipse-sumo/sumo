@@ -70,19 +70,24 @@ GNENetdiffToolDialog::buildArguments(bool /*sortByName*/, bool /*groupedByCatego
         delete argument;
     }
     myArguments.clear();
+    // declare counters for inserted arguments
+    int numInsertedArguments = 0;
     // create specific netdiff options
     for (const auto &option : myNetdiffOptions) {
+        // get argument frame
+        auto argumentFrame = numInsertedArguments <= 4? getArgumentFrameLeft() : getArgumentFrameRight();
         if (option.second->isInteger()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, getContentFrame(), option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, argumentFrame, option.first, option.second));
         } else if (option.second->isFloat()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, getContentFrame(), option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, argumentFrame, option.first, option.second));
         } else if (option.second->isBool()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, getContentFrame(), option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, argumentFrame, option.first, option.second));
         } else if (option.second->isFileName()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, getContentFrame(), option.first, option.second));       
+            myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, argumentFrame, option.first, option.second));       
         } else {
-            myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, getContentFrame(), option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, argumentFrame, option.first, option.second));
         }
+        numInsertedArguments++;
     }
     // adjust parameter column (call always after create elements)
     adjustParameterColumn();

@@ -131,8 +131,11 @@ protected:
     /// @brief get number of row colums
     int getNumRowColums() const;
 
-    /// @brief get horizontal frame
-    FXVerticalFrame* getContentFrame();
+    /// @brief get argument frame left
+    FXVerticalFrame* getArgumentFrameLeft() const;
+
+    /// @brief get argument frame right  
+    FXVerticalFrame* getArgumentFrameRight() const;
 
     /// @brief list of arguments sorted by categories
     std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
@@ -150,11 +153,11 @@ private:
     /// @brief check button to enable/diasble grouping
     FXCheckButton* myGroupedCheckButton = nullptr;
 
-    /// @brief content frame left
-    FXVerticalFrame* myContentFrameLeft = nullptr;
+    /// @brief argument frame left
+    FXVerticalFrame* myArgumentFrameLeft = nullptr;
 
-    /// @brief content frame right  
-    FXVerticalFrame* myContentFrameRight = nullptr;
+    /// @brief argument frame right  
+    FXVerticalFrame* myArgumentFrameRight = nullptr;
 
     /// @brief python tool
     GNEPythonTool* myPythonTool = nullptr;
