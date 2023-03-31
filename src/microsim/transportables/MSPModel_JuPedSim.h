@@ -124,8 +124,6 @@ private:
 
     JPS_GeometryBuilder myJPSGeometryBuilder;
     JPS_Geometry myJPSGeometry;
-    JPS_AreasBuilder myJPSAreasBuilder;
-    JPS_Areas myJPSAreas;
     JPS_OperationalModel myJPSModel;
     JPS_ModelParameterProfileId myJPSParameterProfileId;
     JPS_Simulation myJPSSimulation;
