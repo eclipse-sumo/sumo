@@ -2685,6 +2685,14 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
 #endif
     if (want1) {
         if (want2) {
+            if ((sd1.state & LCA_TRACI) != 0 && (sd2.state & LCA_TRACI) != 0) {
+                // influencer may assign LCA_WANTS_LANECHANGE despite latDist = 0
+                if (sd1.latDist == 0 && sd2.latDist != 0) {
+                    return sd2;
+                } else if (sd2.latDist == 0 && sd1.latDist != 0) {
+                    return sd1;
+                }
+            }
             // decide whether right or left has higher priority (lower value in enum LaneChangeAction)
             if (reason1 < reason2) {
                 //if (DEBUG_COND) std::cout << "   " << (sd1.state & LCA_CHANGE_REASONS) << " < " << (sd2.state & LCA_CHANGE_REASONS) << "\n";
@@ -2703,14 +2711,6 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
                     } else if (sd2.dir == 0) {
                         return sd1;
                     } else {
-                        if ((sd1.state & LCA_TRACI) != 0 && (sd2.state & LCA_TRACI) != 0) {
-                            // influencer may assign LCA_WANTS_LANECHANGE despite latDist = 0
-                            if (sd1.latDist == 0 && sd2.latDist != 0) {
-                                return sd2;
-                            } else if (sd2.latDist == 0 && sd1.latDist != 0) {
-                                return sd1;
-                            }
-                        }
                         // prefer action that knows more about the desired direction
                         // @note when deciding between right and left, right is always given as sd1
                         assert(sd1.dir == -1);
