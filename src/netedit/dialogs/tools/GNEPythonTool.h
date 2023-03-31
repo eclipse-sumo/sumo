@@ -58,6 +58,9 @@ public:
     /// @brief get command (python + script + arguments)
     std::string getCommand() const;
     
+    /// @brief get default value of the given parameter
+    const std::string getDefaultValue(const std::string &name) const;
+
     /// @brief load configuration
     bool loadConfiguration(const std::string &file);
 

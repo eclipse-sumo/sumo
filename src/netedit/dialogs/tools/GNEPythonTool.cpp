@@ -107,6 +107,18 @@ GNEPythonTool::getCommand() const {
 }
 
 
+const std::string
+GNEPythonTool::getDefaultValue(const std::string &name) const {
+    const auto value = myPythonToolsOptionsOriginal.getValueString(name);
+    // filter "none" values
+    if (value == "none") {
+        return "";
+    } else {
+        return value;
+    }
+}
+
+
 bool
 GNEPythonTool::loadConfiguration(const std::string &file) {
     // make all options writables

@@ -45,7 +45,7 @@ public:
 
     public:
         /// @brief constructor
-        Category(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string &category);
+        Category(GNEPythonToolDialog* toolDialogParent, const std::string &category);
 
         /// @brief destructor
         ~Category();

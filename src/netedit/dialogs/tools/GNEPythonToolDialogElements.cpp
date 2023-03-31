@@ -25,7 +25,7 @@
 
 #include "GNEPythonToolDialogElements.h"
 #include "GNEPythonToolDialog.h"
-
+#include "GNEPythonTool.h"
 
 // ===========================================================================
 // static members
@@ -89,7 +89,7 @@ FXIMPLEMENT(GNEPythonToolDialogElements::DataArgument,          GNEPythonToolDia
 // GNEPythonToolDialogElements::Category - methods
 // ---------------------------------------------------------------------------
 
-GNEPythonToolDialogElements::Category::Category(GNEPythonToolDialog* toolDialogParent, FXComposite */*parent*/, const std::string &category) :
+GNEPythonToolDialogElements::Category::Category(GNEPythonToolDialog* toolDialogParent, const std::string &category) :
     FXHorizontalFrame(toolDialogParent->getRowFrame(), GUIDesignAuxiliarHorizontalFrame) {
     // create category label
     new FXLabel(this, category.c_str(), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
@@ -108,7 +108,7 @@ GNEPythonToolDialogElements::Argument::Argument(GNEPythonToolDialog* toolDialogP
     FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
     myToolDialogParent(toolDialogParent),
     myOption(option),
-    myDefaultValue((option->getValueString() == "None")? "" : option->getValueString()) {
+    myDefaultValue(toolDialogParent->getPythonTool()->getDefaultValue(parameter)) {
     // create parameter label
     myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->myGNEApp->getStaticTooltipMenu(), parameter.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
     myParameterLabel->setTipText((option->getTypeName() + ": " + option->getDescription()).c_str());
@@ -420,6 +420,7 @@ void
 GNEPythonToolDialogElements::StringArgument::reset() {
     myStringTextField->setText(myDefaultValue.c_str());
     myOption->set(myDefaultValue, myDefaultValue, false);
+    myOption->resetDefault();
 }
 
 
@@ -462,6 +463,7 @@ GNEPythonToolDialogElements::IntArgument::reset() {
     } else {
         myOption->set(myDefaultValue, myDefaultValue, false);
     }
+    myOption->resetDefault();
 }
 
 
@@ -504,6 +506,7 @@ GNEPythonToolDialogElements::FloatArgument::reset() {
     } else {
         myOption->set(myDefaultValue, myDefaultValue, false);
     }
+    myOption->resetDefault();
 }
 
 
@@ -554,6 +557,7 @@ GNEPythonToolDialogElements::BoolArgument::reset() {
         myCheckButton->setText(TL("false"));
     }
     myOption->set(myDefaultValue, myDefaultValue, false);
+    myOption->resetDefault();
 }
 
 

@@ -59,6 +59,9 @@ public:
     /// @brief get pointer to GNEApplicationWindow
     GNEApplicationWindow* getGNEApplicationWindow() const;
 
+    /// @brief get python tool
+    const GNEPythonTool* getPythonTool() const;
+
     /// @name FOX-callbacks
     /// @{
 
@@ -150,7 +153,7 @@ private:
     /// @brief check button to enable/diasble grouping
     FXCheckButton* myGroupedCheckButton = nullptr;
 
-    /// @brief tool
+    /// @brief python tool
     GNEPythonTool* myPythonTool = nullptr;
 
     /// @brief parameter label

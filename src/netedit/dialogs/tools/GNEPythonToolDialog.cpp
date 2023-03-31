@@ -134,6 +134,12 @@ GNEPythonToolDialog::getGNEApplicationWindow() const {
 }
 
 
+const GNEPythonTool*
+GNEPythonToolDialog::getPythonTool() const {
+    return myPythonTool;
+}
+
+
 long
 GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
     // open save dialog
@@ -244,7 +250,7 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
     for (auto &categoryOption : categoryOptions) {
         // add category
         if (categoryOption.size() > 0) {
-            myCategories.push_back(new GNEPythonToolDialogElements::Category(this, getRowFrame(), categoryOption));
+            myCategories.push_back(new GNEPythonToolDialogElements::Category(this, categoryOption));
         }
         // check if sort by name
         if (sortByName) {
