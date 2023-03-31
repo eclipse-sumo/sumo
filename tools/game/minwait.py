@@ -54,14 +54,19 @@ for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
     if tls:
         high[scen] = []
         for alg in ("actuated", "delay_based"):
+            print("running scenario '%s' with algorithm '%s'" % (scen, alg))
             with open(tls) as tls_in, open(tls + "." + alg, "w") as tls_out:
+                sumo = 'sumo'
+                if scen == "cross" and alg == "actuated" and False:
+                    sumo = 'sumo-gui'
                 for line in tls_in:
                     line = line.replace('type="static"', 'type="%s"' % alg)
                     if "phase" in line:
                         line = line.replace('duration="10000"', 'duration="10" minDur="1" maxDur="10000"')
                     tls_out.write(line)
-            subprocess.call([sumolib.checkBinary("sumo"), "-c", config, "-a", ",".join(add).replace(tls, tls_out.name),
+            subprocess.call([sumolib.checkBinary(sumo), "-c", config, "-a", ",".join(add).replace(tls, tls_out.name),
                              '--duration-log.statistics', '--statistic-output', scen_path + '.stats.xml',
+                             '-v', 'false', '--no-warnings', '--no-step-log',
                              '--tripinfo-output.write-unfinished'])
             score = computeScoreFromWaitingTime(scen_path)
             i = 0
