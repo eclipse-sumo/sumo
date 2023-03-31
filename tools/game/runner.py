@@ -46,7 +46,7 @@ import sumolib  # noqa
 
 _UPLOAD = False if "noupload" in sys.argv else True
 _SCOREFILE = "scores.pkl"
-MAXSCOREFILE = "maxscores.pkl"
+REFSCOREFILE = "refscores.pkl"
 if _UPLOAD:
     _TIMEOUT = 5
     _SCORESERVER = "sumo.dlr.de"
@@ -282,8 +282,8 @@ def loadHighscore():
     except Exception as e:
         print(e)
         pass
-    if os.path.exists(MAXSCOREFILE):
-        with open(MAXSCOREFILE, 'rb') as sf:
+    if os.path.exists(REFSCOREFILE):
+        with open(REFSCOREFILE, 'rb') as sf:
             return pickle.load(sf)
     return {}
 
@@ -392,8 +392,8 @@ class StartDialog(Tkinter.Frame):
 
     def clear(self):
         self.high.clear()
-        if os.path.exists(MAXSCOREFILE):
-            with open(MAXSCOREFILE, 'rb') as sf:
+        if os.path.exists(REFSCOREFILE):
+            with open(REFSCOREFILE, 'rb') as sf:
                 self.high.update(pickle.load(sf))
 
     def start_cfg(self, cfg):

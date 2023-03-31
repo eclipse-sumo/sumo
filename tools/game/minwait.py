@@ -17,10 +17,9 @@
 # @date    2023-03-29
 
 """
-This script runs the gaming GUI for the LNdW traffic light game.
-It checks for possible scenarios in the current working directory
-and lets the user start them as a game. Furthermore it
-saves highscores to local disc and to the central highscore server.
+This script runs the gaming scenarios which have a custom tls file
+with the "actuated" and the "delay_based" control and inserts the resulting scores
+as a reference into the refscores.pkl file.
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -30,7 +29,7 @@ import sys
 import glob
 import pickle
 
-from runner import computeScoreFromWaitingTime, MAXSCOREFILE
+from runner import computeScoreFromWaitingTime, REFSCOREFILE
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -71,5 +70,5 @@ for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
                     break
             high[scen].insert(i, ("SUMO " + alg, "", score[0]))
 print(high)
-with open(os.path.join(base, MAXSCOREFILE), 'wb') as pkl:
+with open(os.path.join(base, REFSCOREFILE), 'wb') as pkl:
     pickle.dump(high, pkl)
