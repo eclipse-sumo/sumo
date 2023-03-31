@@ -42,9 +42,7 @@
 // -------------------------------------------------------------------------
 
 Option::Option(bool set) : 
-    myAmSet(set), 
-    myHaveTheDefaultValue(true), 
-    myAmWritable(true) {
+    myAmSet(set) {
 }
 
 
@@ -191,6 +189,18 @@ Option::getDescription() const {
 void
 Option::setDescription(const std::string& desc) {
     myDescription = desc;
+}
+
+
+bool
+Option::isRequired() const {
+    return myRequired;
+}
+
+
+void
+Option::setRequired() {
+    myRequired = true;
 }
 
 

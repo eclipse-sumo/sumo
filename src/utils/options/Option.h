@@ -275,6 +275,12 @@ public:
      */
     void setDescription(const std::string& desc);
 
+    /// @brief check if option is required
+    bool isRequired() const;
+
+    /// @brief mark option as required
+    void setRequired();
+
     /// @brief Returns the subtopic to which this option belongs
     const std::string& getSubTopic() const;
 
@@ -318,13 +324,16 @@ private:
     bool myAmSet;
 
     /// @brief information whether the value is the default value (is then set)
-    bool myHaveTheDefaultValue;
+    bool myHaveTheDefaultValue = true;
 
     /// @brief information whether the value may be changed
-    bool myAmWritable;
+    bool myAmWritable = true;
 
     /// @brief The description what this option does
     std::string myDescription;
+
+    /// @brief this option is required (needed for python tools)
+    bool myRequired = false;
 
     /// @brief The subtopic to which this option belongs
     std::string mySubTopic;

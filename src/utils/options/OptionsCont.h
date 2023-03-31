@@ -258,6 +258,19 @@ public:
      */
     void addDescription(const std::string& name, const std::string& subtopic, const std::string& description);
 
+    /** @brief mark option as required
+     *
+     * Tries to retrieve the named option and set as required. Adds
+     *  the name to the list of option names to be located in the named subtopic.
+     *
+     * Throws an InvalidArgument if the option is not known
+     *
+     * @param[in] name The option's name
+     * @param[in] subtopic The subtopic to locate the description within
+     * @exception InvalidArgument If none of the synonymes or both synonymes with different options were registered before
+     */
+    void setRequired(const std::string& name, const std::string& subtopic);
+
     /** @brief Adds a category for an option
      *
      * Tries to retrieve the named option and to set the given category. Adds

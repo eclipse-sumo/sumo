@@ -501,8 +501,7 @@ OptionsCont::clear() {
 
 
 void
-OptionsCont::addDescription(const std::string& name,
-                            const std::string& subtopic,
+OptionsCont::addDescription(const std::string& name, const std::string& subtopic,
                             const std::string& description) {
     Option* o = getSecure(name);
     if (o == nullptr) {
@@ -512,6 +511,21 @@ OptionsCont::addDescription(const std::string& name,
         throw ProcessError("SubTopic '" + subtopic + "' doesn't exist");
     }
     o->setDescription(description);
+    o->setSubtopic(subtopic);
+    mySubTopicEntries[subtopic].push_back(name);
+}
+
+
+void
+OptionsCont::setRequired(const std::string& name, const std::string& subtopic ) {
+    Option* o = getSecure(name);
+    if (o == nullptr) {
+        throw ProcessError("Option doesn't exist");
+    }
+    if (find(mySubTopics.begin(), mySubTopics.end(), subtopic) == mySubTopics.end()) {
+        throw ProcessError("SubTopic '" + subtopic + "' doesn't exist");
+    }
+    o->setRequired();
     o->setSubtopic(subtopic);
     mySubTopicEntries[subtopic].push_back(name);
 }
