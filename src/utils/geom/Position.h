@@ -161,11 +161,13 @@ public:
         myZ -= pos.myZ;
     }
 
-    /// @brief
+    /// @brief Normalises the given 2d position
     void norm2d() {
         const double val = sqrt(myX * myX + myY * myY);
-        myX /= val;
-        myY /= val;
+        if (val != 0.0) {
+            myX /= val;
+            myY /= val;
+        }
     }
 
     /// @brief output operator
