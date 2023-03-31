@@ -133,11 +133,13 @@ def computeScoreFromWaitingTime(gamename):
     totalArrived = 0
     totalWaitingTime = 0
     complete = True
-    for s in sumolib.xml.parse(os.path.join(BASE, gamename + ".stats.xml"), "vehicleTripStatistics"):
-        totalWaitingTime = float(s.waitingTime) * float(s.count)
-        totalArrived = float(s.count)
-    # doing nothing gives a waitingTime of 6033 for cross and 6700 for
-    # square
+    for s in sumolib.xml.parse(os.path.join(BASE, gamename + ".stats.xml"), ("performance", "vehicleTripStatistics")):
+        if s.name == "performance":
+            if float(s.end) != parseEndTime(gamename + ".sumocfg"):
+                return 0, 0, False
+        else:
+            totalWaitingTime = float(s.waitingTime) * float(s.count)
+            totalArrived = float(s.count)
     score = 10000 - totalWaitingTime
     return score, totalArrived, complete
 
