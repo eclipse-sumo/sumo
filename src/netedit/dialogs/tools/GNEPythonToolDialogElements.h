@@ -79,6 +79,9 @@ public:
         /// @brief get argument
         const std::string getArgument() const;
 
+        /// @brief check if required attribute is set
+        bool requiredAttributeSet() const;
+
         /// @name FOX-callbacks
         /// @{
 

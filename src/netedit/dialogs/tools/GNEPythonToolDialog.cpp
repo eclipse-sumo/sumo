@@ -40,9 +40,11 @@
 FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
     FXMAPFUNC(SEL_CLOSE,    0,                      GNEPythonToolDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,       GNEPythonToolDialog::onCmdSave),
+    FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SAVE,       GNEPythonToolDialog::onUpdRequiredAttributes),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,       GNEPythonToolDialog::onCmdLoad),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEPythonToolDialog::onCmdSetVisualization),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNEPythonToolDialog::onCmdRun),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_RUN,     GNEPythonToolDialog::onUpdRequiredAttributes),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEPythonToolDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEPythonToolDialog::onCmdReset)
 };
@@ -201,6 +203,18 @@ GNEPythonToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
         argument->reset();
     }
     return 1;
+}
+
+
+long
+GNEPythonToolDialog::onUpdRequiredAttributes(FXObject* sender, FXSelector, void*) {
+    // iterate over all arguments and check if required attribute is set
+    for (const auto& argument : myArguments) {
+        if (argument->requiredAttributeSet() == false) {
+            return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        }
+    }
+    return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
 }
 
 

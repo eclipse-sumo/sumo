@@ -112,6 +112,10 @@ GNEPythonToolDialogElements::Argument::Argument(GNEPythonToolDialog* toolDialogP
     // create parameter label
     myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->myGNEApp->getStaticTooltipMenu(), parameter.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
     myParameterLabel->setTipText((option->getTypeName() + ": " + option->getDescription()).c_str());
+    // set color if is required
+    if (option->isRequired()) {
+        myParameterLabel->setTextColor(FXRGB(0, 0, 255));
+    }
     // create horizontal frame for textField
     myElementsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrameFixedWidth(250));
     // Create reset button
@@ -136,6 +140,16 @@ GNEPythonToolDialogElements::Argument::getArgument() const {
         return ("-" + std::string(myParameterLabel->getText().text()) + " " + getValue() + " ");
     } else {
         return "";
+    }
+}
+
+
+bool
+GNEPythonToolDialogElements::Argument::requiredAttributeSet() const {
+    if (myOption->isRequired()) {
+        return getValue() != myDefaultValue;
+    } else {
+        return true;
     }
 }
 

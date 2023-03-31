@@ -83,6 +83,9 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
+    /// @brief event for check if required attributes was set
+    long onUpdRequiredAttributes(FXObject* sender, FXSelector, void*);
+
     /// @}
 
 protected:
