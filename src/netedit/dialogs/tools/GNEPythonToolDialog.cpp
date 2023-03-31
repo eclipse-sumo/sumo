@@ -57,42 +57,40 @@ FXIMPLEMENT(GNEPythonToolDialog, FXDialogBox, GNEPythonToolDialogMap, ARRAYNUMBE
 // ===========================================================================
 
 GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
-    FXDialogBox(GNEApp->getApp(), "Tool", GUIDesignDialogBoxExplicit(0, 0)),
+    FXDialogBox(GNEApp->getApp(), "Tool", GUIDesignAuxiliarDialogBoxResizable),
     myGNEApp(GNEApp) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
+    // create main content frame
+    auto verticalContentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // create options
-    myOptionsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    auto horizontalOptionsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrame);
     // build options
-    new FXButton(myOptionsFrame, (TL("Save") + std::string("\t\t") + TL("Save options")).c_str(),
+    new FXButton(horizontalOptionsFrame, (TL("Save") + std::string("\t\t") + TL("Save options")).c_str(),
         GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonAccept);
-    new FXButton(myOptionsFrame, (TL("Load") + std::string("\t\t") + TL("Load options")).c_str(),
+    new FXButton(horizontalOptionsFrame, (TL("Load") + std::string("\t\t") + TL("Load options")).c_str(),
         GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonAccept);
-    mySortedCheckButton = new FXCheckButton(myOptionsFrame, TL("Sorted by name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myGroupedCheckButton = new FXCheckButton(myOptionsFrame, TL("Grouped by categories"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    mySortedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Sorted by name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myGroupedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Grouped by categories"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    // add separators
+    new FXSeparator(verticalContentFrame);
+    // Create scroll frame for content rows
+    auto contentScrollWindow = new FXScrollWindow(verticalContentFrame, GUIDesignScrollWindow);
+    auto horizontalRowFrames = new FXHorizontalFrame(contentScrollWindow, LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH);
+    myContentFrameLeft = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
+    myContentFrameRight = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
     // add separator
-    mySeparator = new FXSeparator(this);
-    // build row frames
-    auto horizontalFrameRows = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    for (int i = 0; i < MAXNUMCOLUMNS; i++) {
-        myRowFrames.push_back(new FXVerticalFrame(horizontalFrameRows, GUIDesignAuxiliarFrameFixed));
-    }
-    // add header
-    auto horizontalFrameLabel = new FXHorizontalFrame(getRowFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myParameterLabel = new FXLabel(horizontalFrameLabel, TL("Parameter"), nullptr, GUIDesignLabelThickedFixed(0));
-    new FXLabel(horizontalFrameLabel, TL("Value"), nullptr, GUIDesignLabelThickedFixed(250));
-    // add separator
-    mySeparator = new FXSeparator(this);
+    new FXSeparator(verticalContentFrame);
     // create buttons centered
-    myButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(myButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myButtonsFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),
+    auto horizontalButtonsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrame);
+    new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(horizontalButtonsFrame, (TL("Run") + std::string("\t\t") + TL("run python tool")).c_str(),
         GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
-    new FXButton(myButtonsFrame, (TL("Cancel") + std::string("\t\t") + TL("close discarding changes")).c_str(),
+    new FXButton(horizontalButtonsFrame, (TL("Close") + std::string("\t\t") + TL("close tool dialog")).c_str(),
         GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXButton(myButtonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to previous values")).c_str(), 
+    new FXButton(horizontalButtonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to default values")).c_str(), 
         GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
-    new FXHorizontalFrame(myButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
 
@@ -114,17 +112,6 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
-    // resize dialog (Marging + contentFrame + MARGING separator + MARGING + buttonsFrame + MARGING)
-    int rowFramesWidth = 0;
-    int rowFramesHeight = 0;
-    for (const auto &rowFrame : myRowFrames) {
-        rowFramesWidth += rowFrame->getWidth();
-        if (rowFrame->getHeight() > rowFramesHeight) {
-            rowFramesHeight = rowFrame->getHeight();
-        }
-    }
-    // resize dialog (rowFramesWidth, Marging + rowFramesHeight + MARGING separator + MARGING + buttonsFrame + MARGING)
-    resize(rowFramesWidth, myOptionsFrame->getHeight() + rowFramesHeight + (2 * mySeparator->getHeight()) + myButtonsFrame->getHeight() + (4 * MARGING));
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     return myGNEApp->getApp()->runModalFor(this);
 }
@@ -273,23 +260,23 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
         // add options
         for (const auto &option : categoryOption.getOptions()) {
             if (option.second->isInteger()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, getRowFrame(), option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, getContentFrame(), option.first, option.second));
             } else if (option.second->isFloat()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, getRowFrame(), option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, getContentFrame(), option.first, option.second));
             } else if (option.second->isBool()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, getRowFrame(), option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, getContentFrame(), option.first, option.second));
             } else if (option.second->isFileName()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, getRowFrame(), option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, getContentFrame(), option.first, option.second));   
             } else if (option.second->isNetwork()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::NetworkArgument(this, getRowFrame(), option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::NetworkArgument(this, getContentFrame(), option.first, option.second));   
             } else if (option.second->isAdditional()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::AdditionalArgument(this, getRowFrame(), option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::AdditionalArgument(this, getContentFrame(), option.first, option.second));   
             } else if (option.second->isRoute()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, getRowFrame(), option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, getContentFrame(), option.first, option.second));   
             } else if (option.second->isData()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, getRowFrame(), option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, getContentFrame(), option.first, option.second));   
             } else {
-                myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, getRowFrame(), option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, getContentFrame(), option.first, option.second));
             }
         }
     }
@@ -312,18 +299,6 @@ GNEPythonToolDialog::adjustParameterColumn() {
     // set maximum width for all parameter labels
     for (const auto& argument : myArguments) {
         argument->getParameterLabel()->setWidth(maximumWidth);
-    }
-    // set parameter label width
-    myParameterLabel->setWidth(maximumWidth);
-    // set content frame size (MARGING + Parameter + TextField + MARGING)
-    for (int i = 0; i < MAXNUMCOLUMNS; i++) {
-        if (i <= getNumRowColums()) {
-            myRowFrames.at(i)->setWidth(MARGING + maximumWidth + 250 + GUIDesignHeight + MARGING);
-            myRowFrames.at(i)->setHeight(GUIDesignHeight * myRowFrames.at(i)->numChildren());
-        } else {
-            myRowFrames.at(i)->setWidth(0);
-            myRowFrames.at(i)->setHeight(0);
-        }
     }
 }
 
@@ -383,8 +358,8 @@ GNEPythonToolDialog::getNumRowColums() const {
 
 
 FXVerticalFrame*
-GNEPythonToolDialog::getRowFrame() {
-    return myRowFrames.at(getNumRowColums());
+GNEPythonToolDialog::getContentFrame() {
+    return myContentFrameLeft;
 }
 
 /****************************************************************************/

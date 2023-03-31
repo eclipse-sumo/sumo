@@ -354,11 +354,14 @@ class MFXMenuCheckIcon;
 /// @brief design for frames area
 #define GUIDesignFrameArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, DEFAULT_SPACING, GUIDesignFrameAreaMarging, DEFAULT_SPACING, DEFAULT_SPACING
 
-/// @brief design for viewn area
+/// @brief design for view area
 #define GUIDesignViewnArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
 
-/// @brief design for the content scroll of every frame
-#define GUIDesignContentsScrollWindow           (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
+/// @brief design for scroll windows extended over Y and y
+#define GUIDesignScrollWindow                   (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
+
+/// @brief design for scroll windows extended over Y and fix width
+#define GUIDesignScrollWindowFixed              (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
 
 /// @brief design for the content scroll of UndoList
 #define GUIDesignContentsScrollUndoList         (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
@@ -583,6 +586,9 @@ class MFXMenuCheckIcon;
 
 /// @brief design for standard dialog box (for example, about dialog)
 #define GUIDesignDialogBoxResizable                             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)
+
+/// @brief design for standard dialog box (for example, about dialog)
+#define GUIDesignAuxiliarDialogBoxResizable                     (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE), 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for dialog box with specific width and height (for example, additional dialogs)
 #define GUIDesignDialogBoxExplicit(width, height)               (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT), 0, 0, width, height, 4, 4, 4, 4, 4, 4

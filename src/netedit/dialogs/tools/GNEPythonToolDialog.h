@@ -131,8 +131,8 @@ protected:
     /// @brief get number of row colums
     int getNumRowColums() const;
 
-    /// @brief get row frame
-    FXVerticalFrame* getRowFrame();
+    /// @brief get horizontal frame
+    FXVerticalFrame* getContentFrame();
 
     /// @brief list of arguments sorted by categories
     std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
@@ -144,30 +144,21 @@ private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief vertical frames for rows
-    std::vector<FXVerticalFrame*> myRowFrames;
-
-    /// @brief options frame (Save, load, sorting and grouping)
-    FXHorizontalFrame* myOptionsFrame = nullptr;
-
     /// @brief check button to enable/diasble sorting
     FXCheckButton* mySortedCheckButton = nullptr;
 
     /// @brief check button to enable/diasble grouping
     FXCheckButton* myGroupedCheckButton = nullptr;
 
+    /// @brief content frame left
+    FXVerticalFrame* myContentFrameLeft = nullptr;
+
+    /// @brief content frame right  
+    FXVerticalFrame* myContentFrameRight = nullptr;
+
     /// @brief python tool
     GNEPythonTool* myPythonTool = nullptr;
 
-    /// @brief parameter label
-    FXLabel* myParameterLabel = nullptr;
-
-    /// @brief separator
-    FXSeparator* mySeparator = nullptr;
-
-    /// @brief buttons frame
-    FXHorizontalFrame* myButtonsFrame = nullptr;
-    
     /// @brief Invalidated copy constructor.
     GNEPythonToolDialog(const GNEPythonToolDialog&) = delete;
 

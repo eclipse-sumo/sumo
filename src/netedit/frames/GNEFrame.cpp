@@ -79,8 +79,8 @@ GNEFrame::GNEFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, const std::st
     // Add separator
     new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
 
-    // Create frame for contents
-    myScrollWindowsContents = new FXScrollWindow(this, GUIDesignContentsScrollWindow);
+    // Create scroll windows with fixed width for contents
+    myScrollWindowsContents = new FXScrollWindow(this, GUIDesignScrollWindowFixed);
 
     // Create frame for contents (in which GroupBox will be placed)
     myContentFrame = new FXVerticalFrame(myScrollWindowsContents, GUIDesignAuxiliarFrameFixedWidth(0));
