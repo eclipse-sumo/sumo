@@ -16,7 +16,7 @@
     </report>
 
     <output>
-        <statistic-output value="summary.xml"/>
+        <statistic-output value="statistics.xml"/>
     </output>
 
     <gui_only>
