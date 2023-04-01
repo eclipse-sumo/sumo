@@ -19,6 +19,7 @@ title: ChangeLog
   - Fixed collision on junction between two conflicting links with internal junction. Issue #12715
   - Fixed invalid error about disconnected walk for person. Issue #12744
   - Fixed invalid error: "Disconnected walk for person". Issue #12744
+  - vType attribute `lcTurnAlignmentDistance` now works for indirect left turns. Issue #8500
   - Railway simualation:
     - Simulation now terminates even when a stop with `triggered="join"` fails. Issue #12668
     - Stop attribute `extension` now works for `triggered="join"`. Issue #12666
@@ -82,6 +83,8 @@ title: ChangeLog
   - libtraci.lane.setAllowed has been fixed
   - libtraci.simulation.getCollisions returns meaningful results Issue #12861
   - Error messages concerning subscription filters now use the correct command id
+  - Fixed bug where user-triggered lane-change were not executed when using the sublane model. Issue #12810, #12944
+  - `trafficlight.swapConstraints` now returns constraint parameters for derived constraints. Issue #12935
 
 - tools
   - Fixed invalid error when calling option **--save-template**. Issue #12589
@@ -101,6 +104,8 @@ title: ChangeLog
   - Public transport vehicles may now slow down by a configurable factor when they are ahead of their schedule. (using new vType attribute `speedFactorPremature`). This is based on optional stop attribute `arrival`.  If the new option **--use-stop-started** is set, this is instead based on the optional `started` attribute of the stop. Issue #11899
   - Simulating a Two-way-left-turn-lane is now supported. Issues #12924
   - Added option **--personinfo-output** to separate `<personinfo>` elements from `<tripinfo>` elements. Issue #12929
+  - vType attribute `startupDelay` is now apply to scheduled stops when using `carFolowModel="Rail"`. Issue #12943
+  - Statistics-output now includes performance metrics (i.e. clockTime). Issue #12946
 
 - netconvert
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575
@@ -127,6 +132,7 @@ title: ChangeLog
   - Option **--alternative-net-file** can now be used to load secondary network shapes. Hotkey CTRL+K can be used to switch between primary and secondary shapes. This is intended to support rail simulations where geographical and abstract shapes are available. Issue #11551
   - Added `.gif`-file support to 3D view. Issue #12672
   - Improved position and scale of vehicle lights in 3D View #12752
+  - Add 3D person shapes for 3D View. Issue #11144
   - Background images can now be added via file-dialog. Issue #1627 (also for netedit)
   - Edge context-menu function *select-reachable* now ignores lane direction when selecting vClass "pedestrian". Issue #12801
   - Polygons are moved to the lowest layer upon pressing 'ALT'. Issue #12134
@@ -161,6 +167,8 @@ title: ChangeLog
   - tlsCycleAdaptation.py now supports more inputs (i.e. TLS with unused stats). Issue #12777
   - routeSampler.py: Now supports option **--keep-stops** to preserve stops from the route input (*only* when the stops are child element of a route). Issue #12901
   - new research intersection Ingolstadt scenario for the SUMO game
+  - Traffic light game now supports showing score for built-in adaptive algorithms. Issue #12915
+  - Fixed bug where users could skip yellow phase in traffic light game. Issue #12971
   - plotXMLAttributes.py:
     - can plot by sorting rank with attribute value `@RANK`. Issue #12607
     - can plot by input order with attribute value `@INDEX` (note that this was the behavior of @RANK in 1.16.0). Issue #12607
