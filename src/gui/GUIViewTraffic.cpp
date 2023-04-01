@@ -457,8 +457,51 @@ GUIViewTraffic::onGamingClick(Position pos) {
                 // MSRailSignal
                 return;
             }
-            const int nextPhase = (minTll->getCurrentPhaseIndex() + 1) % minTll->getPhaseNumber();
-            minTll->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), nextPhase, -1);
+            const int ci = minTll->getCurrentPhaseIndex();
+            const int n = minTll->getPhaseNumber();
+            int nextPhase = (ci + 1) % n;
+            SUMOTime nextDuration = 0;
+            if (minTll->getCurrentPhaseDef().isGreenPhase()) {
+                nextDuration = minTll->getPhase(nextPhase).duration;
+            } else {
+                // we are in transition to a green phase
+                // -> skip forward to the transtion into the next green phase
+                // but ensure that the total transition time is maintained
+                // taking into account how much time was already spent
+                SUMOTime spentTransition = minTll->getSpentDuration();
+                // the transition may consist of more than one phase so we
+                // search backwards until the prior green phase
+                for (int i = ci - 1; i != ci; i--) {
+                    if (i < 0) {
+                        i = n - 1;
+                    }
+                    if (minTll->getPhase(i).isGreenPhase()) {
+                        break;
+                    }
+                    spentTransition += minTll->getPhase(i).duration;
+                }
+                // now we skip past the next greenphase
+                int numGreen = 0;
+                int i = nextPhase;
+                for (; numGreen < 2; i = (i + 1) % n) {
+                    if (minTll->getPhase(i).isGreenPhase()) {
+                        numGreen++;
+                        continue;
+                    }
+                    // transition after the next green
+                    if (numGreen == 1) {
+                        SUMOTime dur = minTll->getPhase(i).duration;
+                        if (dur <= spentTransition) {
+                            spentTransition -= dur;
+                        } else {
+                            nextPhase = i;
+                            nextDuration = dur - spentTransition;
+                            break;
+                        }
+                    }
+                }
+            }
+            minTll->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), nextPhase, nextDuration);
             update();
         }
     } else {
