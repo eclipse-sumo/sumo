@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-28 15:53+0000\n"
+"PO-Revision-Date: 2023-04-01 09:14+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -2945,19 +2945,19 @@ msgstr "参数'%'的bool值'%'无效"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice.cpp:227
 msgid "Invalid time value '%'for parameter '%'"
-msgstr ""
+msgstr "参数'%'的时间值'%'无效"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:65
 msgid "The range of the bt receiver"
-msgstr ""
+msgstr "bt接收器的范围"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:68
 msgid "Whether all recognition point shall be written"
-msgstr ""
+msgstr "是否所有的识别点都要写上"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:71
 msgid "The offtime used for calculating detection probability (in seconds)"
-msgstr ""
+msgstr "用于计算检测概率的关闭时间（秒）"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:295
 msgid ""
@@ -2969,46 +2969,46 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:436
 msgid ""
 "btreceiver: Can not update position of vehicle '%' which is not on the road."
-msgstr ""
+msgstr "bt接收器： 无法更新不在路上的车辆'%'的位置。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTsender.cpp:120
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTsender.cpp:134
 msgid ""
 "btsender: Can not update position of vehicle '%' which is not on the road."
-msgstr ""
+msgstr "bt发送器： 无法更新不在路上的车辆'%'的位置。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Battery.cpp:52
 msgid "Track fuel consumption for non-electric vehicles"
-msgstr ""
+msgstr "跟踪非电动汽车的燃料消耗"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Battery.cpp:109
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Battery.cpp:122
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Battery.cpp:128
 msgid ""
 "Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."
-msgstr ""
+msgstr "电池制造商： 车辆'%'的参数%（%）没有有效值。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Battery.cpp:199
 #, c-format
 msgid "Battery of vehicle '%' is depleted."
-msgstr ""
+msgstr "车辆'%'的电池已耗尽。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Battery.cpp:309
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Battery.cpp:319
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Battery.cpp:329
 msgid "Trying to set into the battery device of vehicle '%' an invalid % (%)."
-msgstr ""
+msgstr "试图在车辆'%'的电池设备中设置一个无效的%（%）。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Bluelight.cpp:59
 msgid ""
 "Set the distance at which other drivers react to the blue light and siren "
 "sound"
-msgstr ""
+msgstr "设置其他司机对蓝光和警笛声的反应距离"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Bluelight.cpp:68
 msgid ""
 "bluelight device is not compatible with mesosim (ignored for vehicle '%')"
-msgstr ""
+msgstr "蓝光设备与mesosim不兼容（对于车辆'%'，忽略不计）。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:66
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:68
@@ -3028,7 +3028,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:68
 msgid "Time scale for the error process."
-msgstr ""
+msgstr "误差过程的时间刻度。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:70
 msgid "Noise intensity driving the error process."
@@ -3050,28 +3050,28 @@ msgstr ""
 msgid ""
 "Base threshold for recognizing changes in the speed difference (threshold "
 "also scales with distance)."
-msgstr ""
+msgstr "识别速度差变化的基本阈值（阈值也随距离变化而变化）。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:78
 msgid ""
 "Base threshold for recognizing changes in the headway (threshold also scales "
 "with distance)."
-msgstr ""
+msgstr "识别行进中的变化的基本阈值（阈值也随着距离的增加而变化）。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:80
 msgid "Minimal admissible value for the driver's awareness."
-msgstr ""
+msgstr "驾驶员意识的最小可接受值。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:82
 msgid ""
 "Maximal reaction time (~action step length) induced by decreased awareness "
 "level (reached for awareness=minAwareness)."
-msgstr ""
+msgstr "意识水平下降引起的最大反应时间（~动作步长）（达到的意识= minAwareness）。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:102
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:116
 msgid "Invalid value '%'for vType parameter '%'"
-msgstr ""
+msgstr "vType参数'%'的无效值'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:166
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:179
@@ -3085,7 +3085,7 @@ msgstr ""
 msgid ""
 "The resistivity of overhead wire segment connected to vehicle % is < 0. Set "
 "to 1e-6."
-msgstr ""
+msgstr "与车辆连接的架空线段的电阻率%<0。 设置为1e-6。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:432
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:528
