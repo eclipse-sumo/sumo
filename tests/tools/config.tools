@@ -305,6 +305,11 @@ xmlstats0:<!-- generated on{[->]}-->
 xmlstats1:<!-- generated on{[->]}-->
 xmlstats2:<!-- generated on{[->]}-->
 xmlstats3:<!-- generated on{[->]}-->
+xmlstats:<performance
+xmlstats0:<performance
+xmlstats1:<performance
+xmlstats2:<performance
+xmlstats3:<performance
 edgedata:<!-- generated on{[->]}-->
 od:<!-- generated on{[->]}-->
 net:<!--{[->]}-->
