@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-01 09:22+0000\n"
+"PO-Revision-Date: 2023-04-01 11:15+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3024,7 +3024,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:66
 msgid "Initial value assigned to the driver's awareness."
-msgstr ""
+msgstr "分配给司机的意识的初始值。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:68
 msgid "Time scale for the error process."
@@ -3078,7 +3078,7 @@ msgstr "vType参数'%'的无效值'%'。"
 msgid ""
 "ElecHybrid builder: Vehicle '%' doesn't have a valid value for parameter % "
 "(%)."
-msgstr ""
+msgstr "ElecHybrid builder： 车辆'%'没有有效的参数%（%）值。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:374
 #, c-format
@@ -3185,11 +3185,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:54
 msgid "The period with which the vehicle shall be rerouted"
-msgstr ""
+msgstr "车辆应改道的时间"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:58
 msgid "The rerouting period before depart"
-msgstr ""
+msgstr "出发前的改道期"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:62
 msgid "The weight of prior edge weights for exponential moving average"
@@ -3201,11 +3201,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:70
 msgid "The interval for updating the edge weights"
-msgstr ""
+msgstr "更新路段权重的时间间隔"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:75
 msgid "Use zones (districts) as routing start- and endpoints"
-msgstr ""
+msgstr "使用区域（地区）作为路径的起点和终点"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:78
 msgid ""
@@ -3219,11 +3219,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:85
 msgid "Let rerouting happen at the same time for all vehicles"
-msgstr ""
+msgstr "让所有车辆在同一时间进行改道"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:88
 msgid "Allow rerouting triggered by rail signals."
-msgstr ""
+msgstr "允许由铁路信号引发的改道。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:91
 msgid "Compute separate average speeds for bicycles"
@@ -3231,7 +3231,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:94
 msgid "Save adapting weights to FILE"
-msgstr ""
+msgstr "将适应的权重保存到文件中"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:102
 msgid ""
@@ -3255,7 +3255,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:120
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:243
 msgid "Parallel routing is only possible when compiled with Fox."
-msgstr ""
+msgstr "平行路径只有在用Fox编译时才能实现。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:125
 msgid "Adapting number of routing threads to number of simulation threads."
@@ -3284,13 +3284,13 @@ msgstr ""
 msgid ""
 "Specifies the detection range in meters. For vehicles below this distance "
 "from the equipped vehicle, SSM values are traced."
-msgstr ""
+msgstr "以米为单位指定检测范围。对于低于此距离的配备车辆，SSM值会被追踪。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:228
 msgid ""
 "Specifies the time in seconds to be logged after a conflict is over. "
 "Required >0 if PET is to be calculated for crossing conflicts."
-msgstr ""
+msgstr "指定冲突结束后记录的时间（秒）。如果要计算交叉冲突的PET，要求>0。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:230
 msgid "Give a global default filename for the SSM output"
@@ -3298,15 +3298,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:232
 msgid "Whether to use coordinates of the original reference system in output"
-msgstr ""
+msgstr "是否在输出中使用原始参考系的坐标"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:234
 msgid "Whether to write positions (coordinates) for each timestep"
-msgstr ""
+msgstr "是否写入每个时间段的位置（坐标）"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:236
 msgid "Whether to write lanes and their positions for each timestep"
-msgstr ""
+msgstr "是否写入每个时间段的车道和其位置"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:247
 msgid "Could not load names of edges for filtering SSM device output from '%'."
@@ -3315,7 +3315,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:1057
 msgid ""
 "SSM device of vehicle '%' detected collision with vehicle '%' at time=%."
-msgstr ""
+msgstr "无法从'%'加载用于过滤SSM设备输出的路段的名称。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:2188
 msgid ""
@@ -3334,7 +3334,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3692
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.measures'."
-msgstr ""
+msgstr "车辆参数'ssm.measures'的数值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3496
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3698
