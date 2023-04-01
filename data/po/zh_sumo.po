@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-01 09:14+0000\n"
+"PO-Revision-Date: 2023-04-01 09:22+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3102,44 +3102,44 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Emissions.cpp:47
 msgid "Recording begin time for emission-data"
-msgstr ""
+msgstr "排放数据的记录开始时间"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Emissions.cpp:50
 msgid "Recording period for emission-output"
-msgstr ""
+msgstr "排放-输出的记录期"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Example.cpp:48
 msgid "Example Device"
-msgstr ""
+msgstr "示例装置"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Example.cpp:48
 msgid ""
 "An exemplary parameter which can be used by all instances of the example "
 "device"
-msgstr ""
+msgstr "一个可由示例设备的所有实例使用的示范性参数"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Example.cpp:63
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'example'"
-msgstr ""
+msgstr "车辆参数'示范（example）'的数值'%'无效"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Example.cpp:75
 #, c-format
 msgid "Invalid value '%'for vType parameter 'example'"
-msgstr ""
+msgstr "vType参数'示范（example）'的无效值'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:67
 msgid "Recording begin time for FCD-data"
-msgstr ""
+msgstr "浮动车（FCD）数据的记录开始时间"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:70
 #: /home/micha/programming/sumo/src\microsim\devices\MSTransportableDevice_FCD.cpp:49
 msgid "Recording period for FCD-data"
-msgstr ""
+msgstr "浮动车（FCD）数据的记录期"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:73
 msgid "Record objects in a radius around equipped vehicles"
-msgstr ""
+msgstr "记录装备车辆周围半径内的物体"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:123
 #, c-format
@@ -3168,15 +3168,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_GLOSA.cpp:49
 msgid "The communication range to the traffic light"
-msgstr ""
+msgstr "与交通信号灯的通信范围"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_GLOSA.cpp:52
 msgid "The maximum speed factor when approaching a green light"
-msgstr ""
+msgstr "接近绿灯时的最高速度系数"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_GLOSA.cpp:55
 msgid "Minimum speed when coasting towards a red light"
-msgstr ""
+msgstr "向红灯滑行时的最低速度"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_GLOSA.cpp:171
 msgid ""
