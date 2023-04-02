@@ -923,7 +923,11 @@ bool
 GNEVType::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            if ((id == DEFAULT_VTYPE_ID) || (id == DEFAULT_PEDTYPE_ID) || (id == DEFAULT_BIKETYPE_ID)) {
+            if (id == DEFAULT_VTYPE_ID
+                    || id == DEFAULT_PEDTYPE_ID
+                    || id == DEFAULT_BIKETYPE_ID
+                    || id == DEFAULT_TAXITYPE_ID
+                    || id == DEFAULT_RAILTYPE_ID) {
                 return false;
             } else {
                 return true;

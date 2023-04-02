@@ -88,6 +88,10 @@ MSVehicleControl::initDefaultTypes() {
     defTaxiType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_TAXITYPE_ID] = MSVehicleType::build(defTaxiType);
 
+    SUMOVTypeParameter defRailType(DEFAULT_RAILTYPE_ID, SVC_RAIL);
+    defRailType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+    myVTypeDict[DEFAULT_RAILTYPE_ID] = MSVehicleType::build(defRailType);
+
     SUMOVTypeParameter defContainerType(DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
     // ISO Container TEU (cannot set this based on vClass)
     defContainerType.length = 6.1;

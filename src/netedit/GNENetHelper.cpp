@@ -1491,8 +1491,13 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
 
     // Create default taxi Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultTaxiType = new GNEVType(myNet, DEFAULT_TAXITYPE_ID, SVC_TAXI);
-    myDemandElements.at(defaultBikeType->getTagProperty().getTag()).insert(defaultTaxiType);
+    myDemandElements.at(defaultTaxiType->getTagProperty().getTag()).insert(defaultTaxiType);
     defaultTaxiType->incRef("GNENet::DEFAULT_TAXITYPE_ID");
+
+    // Create default rail Type (it has to be created here due myViewNet was previously nullptr)
+    GNEVType* defaultRailType = new GNEVType(myNet, DEFAULT_RAILTYPE_ID, SVC_RAIL);
+    myDemandElements.at(defaultRailType->getTagProperty().getTag()).insert(defaultRailType);
+    defaultRailType->incRef("GNENet::DEFAULT_RAILTYPE_ID");
 
     // Create default person Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultPersonType = new GNEVType(myNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
