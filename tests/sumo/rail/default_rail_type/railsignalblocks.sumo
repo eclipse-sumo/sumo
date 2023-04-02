@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-02 16:06:12 by Eclipse SUMO sumo Version v1_16_0+1858-4454714
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="cluster_gneJ19_gneJ21">
+        <link linkIndex="0" from="-gneE16_0" to=":cluster_gneJ19_gneJ21_0_0"/>
+        <link linkIndex="1" from="gneE14_0" to=":cluster_gneJ19_gneJ21_1_0">
+            <driveWay edges="gneE16">
+                <forward lanes=":cluster_gneJ19_gneJ21_1_0 gneE16_0"/>
+                <bidi lanes="-gneE16_0"/>
+                <flank lanes=":gneJ22_0_0"/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals="gneJ22_0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="gneJ18">
+        <link linkIndex="0" from="gneE20_0" to=":gneJ18_0_0">
+            <driveWay edges="gneE14">
+                <forward lanes=":gneJ18_0_0 gneE14_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals=""/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="gneJ22">
+        <link linkIndex="0" from="gneE18_0" to=":gneJ22_0_0"/>
+        <link linkIndex="1" from="gneE16_0" to=":gneJ22_1_0">
+            <driveWay edges="gneE17">
+                <forward lanes=":gneJ22_1_0 gneE17_0"/>
+                <bidi lanes=""/>
+                <flank lanes=":gneJ22_0_0"/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals="gneJ22_0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="gneJ24">
+        <link linkIndex="0" from="gneE19_0" to=":gneJ24_0_0"/>
+    </railSignal>
+</railsignal-block-output>
