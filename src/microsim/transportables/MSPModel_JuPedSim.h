@@ -152,5 +152,5 @@ private:
     static std::vector<double> getFlattenedCoordinates(const geos::geom::Geometry* geometry);
     geos::geom::Polygon* toPolygon(const geos::geom::LinearRing* linearRing);
     void renderPolygon(const geos::geom::Polygon* polygon, const std::string& polygonId);
-    void preparePolygonForJPS(const geos::geom::Polygon* polygon) const;
+    void preparePolygonForJPS(const geos::geom::Polygon* polygon);
 };
