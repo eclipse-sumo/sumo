@@ -13,7 +13,7 @@ documentation](http://sumo.dlr.de/pydoc/sumolib.html). You can
 To use the library, the {{SUMO}}/tools directory must be on the python load
 path. This is typically done with a stanza like this:
 
-```
+```python
 import os, sys
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -24,7 +24,7 @@ else:   
 
 # loading a network file
 
-```
+```python
 # import the library
 import sumolib
 # parse the net
@@ -44,7 +44,7 @@ The following named arguments may be given to the `readNet` function (i.e. `read
 
 ## import a network and retrieve nodes and edges
 
-```
+```python
 # import the library
 import sumolib
 # parse the net
@@ -59,7 +59,7 @@ nextNodeID = net.getEdge('myEdgeID').getToNode().getID()
 
 ## compute the average edge speed in a *plain xml* edge file
 
-```
+```python
 speedSum = 0.0
 edgeCount = 0
 for edge in sumolib.xml.parse('myNet.edg.xml', ['edge']):
@@ -73,7 +73,7 @@ avgSpeed = speedSum / edgeCount
 
 ## compute the median speed using the [Statistics](http://sumo.dlr.de/pydoc/sumolib.miscutils.html#Statistics) module
 
-```
+```python
 edgeStats = sumolib.miscutils.Statistics("edge speeds")
 for edge in sumolib.xml.parse('myNet.edg.xml', ['edge']):
     edgeStats.add(float(edge.speed))
@@ -87,7 +87,7 @@ avgSpeed = edgeStats.median()
 This requires the module [pyproj](https://github.com/pyproj4/pyproj) to be installed.
 For larger networks [rtree](https://pypi.org/project/Rtree/) is also strongly recommended.
 
-```
+```python
 net = sumolib.net.readNet('myNet.net.xml')
 radius = 0.1
 x, y = net.convertLonLat2XY(lon, lat)
@@ -100,7 +100,7 @@ if len(edges) > 0:
 
 ## parse all edges in a route file
 
-```
+```python
 for route in sumolib.xml.parse_fast("myRoutes.rou.xml", 'route', ['edges']):
     edge_ids = route.edges.split()
     # do something with the vector of edge ids
@@ -108,7 +108,7 @@ for route in sumolib.xml.parse_fast("myRoutes.rou.xml", 'route', ['edges'])
 
 ## parse vehicles and their route edges in a route file
 
-```
+```python
 for vehicle in sumolib.xml.parse("myRoutes.rou.xml", "vehicle"):
     route = vehicle.route[0] # access the first (and only) child element with name 'route'
     edges = route.edges.split()
@@ -116,7 +116,7 @@ for vehicle in sumolib.xml.parse("myRoutes.rou.xml", "vehicle"):
 
 with automatic data conversions (including depart time as "HH:MM:SS"):
 
-```
+```python
 from sumolib.miscutils import parseTime
 for vehicle in sumolib.xml.parse("myRoutes.rou.xml", "vehicle", attr_conversions={
             'depart' : parseTime,
@@ -129,7 +129,7 @@ for vehicle in sumolib.xml.parse("myRoutes.rou.xml", "vehicle", attr_convers
 
 ## parse all edges in a edge data (meanData) file
 
-```
+```python
 for interval in sumolib.xml.parse("edgedata.xml", "interval"):
     for edge in interval.edge:    
         # do something with the edge attributes i.e. edge.entered
@@ -137,7 +137,7 @@ for interval in sumolib.xml.parse("edgedata.xml", "interval"):
 
 ## coordinate transformations
 
-```
+```python
 net = sumolib.net.readNet('myNet.net.xml')
 
 # network coordinates (lower left network corner is at x=0, y=0)
@@ -161,7 +161,7 @@ see also
 
 ## Manipulating and writing xml
 
-```
+```python
 with open("patched.nod.xml", 'w') as outf:
     # setting attrs is optional, it results in a cleaner patch file
     attrs = {'node': ['id', 'x', 'y']}  # other attrs are not needed for patching
@@ -172,7 +172,6 @@ with open("patched.nod.xml", 'w') as outf:
         node.x = float(node.x) + random.randint(-20, 20)
         node.y = float(node.y) + random.randint(-20, 20)
     outf.write(nodes.toXML())
-
 ```
 
 # Further Examples

@@ -55,7 +55,7 @@ The traffic light follows a fixed cycle of phases of as defined below.
 The definition below is taken from
 [pedcrossing.tll.xml]({{Source}}tests/complex/tutorial/traci_pedestrian_crossing/data/pedcrossing.tll.xml)
 
-```
+```xml
 <tlLogic id="C" type="static" programID="custom" offset="0">
   <phase duration="100000" state="GGGGr"/>
   <phase duration="4" state="yyyyr"/>

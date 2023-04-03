@@ -156,7 +156,7 @@ the speed for all network edges to the same value.
 A simpler solution is to define a vehicle type that travels with the
 same speed on all edges:
 
-```
+```xml
 <vType id="routeByDistance" maxSpeed="1"/>
 ```
 

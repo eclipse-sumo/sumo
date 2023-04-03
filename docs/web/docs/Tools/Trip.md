@@ -135,7 +135,7 @@ starting edges and inserted with high speed on a reasonable lane.
 If the generated vehicles should have a specific vehicle type, an {{AdditionalFile}} needs
 to be prepared:
 
-```
+```xml
 <additional>
   <vType id="myType" maxSpeed="27" vClass="passenger"/>
 </additional>
@@ -173,7 +173,7 @@ python tools/randomTrips.py --vehicle-class bus ...
 
 will add
 
-```
+```xml
 <vType id="bus" vClass="bus"/>
 ```
 
@@ -186,7 +186,7 @@ python tools/randomTrips.py --vehicle-class bus --trip-attributes="maxSpeed=\
 
 will add
 
-```
+```xml
 <vType id="bus" vClass="bus" maxSpeed="random"/>
 ```
 
@@ -264,7 +264,7 @@ python tools/randomTrips.py --weights-prefix example  ...<other options>...
 
 and define only the file *example.src.xml* as follows:
 
-```
+```xml
 <edgedata>
   <interval begin="0" end="10"/>
     <edge id="a" value="0.5"/>

@@ -185,7 +185,7 @@ Ok, let's solve these problems one after another.
   have to be translated into XML. The generated file (*frida.typ.xml*)
   looks like this:
 
-```
+```xml
 <types>
   <!-- "noch nicht attributiert" (= not yet attributed) -->
   <type id="0"  priority="1" numLanes="1" speed="13.89"/>

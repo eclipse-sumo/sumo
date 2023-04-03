@@ -100,7 +100,7 @@ system.
 
 **Example:**
 
-```
+```xml
 <simulation>
    <input>
       <lisa>lisaDirectory</lisa>

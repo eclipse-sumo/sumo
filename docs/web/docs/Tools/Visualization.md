@@ -158,7 +158,7 @@ Call `python tools/visualization/plotXMLAttributes.py -i id -x depart -y departD
 ### Time to collision over simulation time
 
 The plot is created from the output file of a SUMO simulation for which a global [SSM device](https://sumo.dlr.de/docs/Simulation/Output/SSM_Device.html) has been added. For this example, starting from the [Bologna "acosta" scenario](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta), the SUMO configuration file had been modified in order to compute time to collision:
-```
+```xml
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 	
 	<device.ssm.deterministic value="true"/>

@@ -44,7 +44,7 @@ Some parameters are *special* and affect (or reflect) simulation behavior in the
 Parameters are always defined as child elements of the respective
 object:
 
-```
+```xml
 <vehicle id="v0" route="route0" depart="0">
   <param key="answer to everything" value="42"/>
 </vehicle>

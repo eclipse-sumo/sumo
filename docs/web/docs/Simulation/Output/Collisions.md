@@ -12,7 +12,7 @@ information about each [collision](../Safety.md#collisions) during the simulatio
 
 The format is the following:
 
-```
+```xml
 <collisions>
     <collision ''ATTRIBUTES''...\>
     ...

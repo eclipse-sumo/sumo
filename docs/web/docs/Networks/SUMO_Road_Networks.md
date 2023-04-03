@@ -135,7 +135,7 @@ differ by the mandatory and used attributes.
 
 A "normal" edge is a connection between two nodes ("junctions").
 
-```
+```xml
 <edge id="<ID>" from="<FROM_NODE_ID>" to="<TO_NODE_ID>" priority="<PRIORITY>">
     ... one or more lanes ...
 </edge>
@@ -184,7 +184,7 @@ Each edge includes the definitions of lanes it consists of. The
 following example shows a single edge with two lanes. Note, that
 coordinates may be 2D as well as 3D.
 
-```
+```xml
     <edge id="<ID>" from="<FROM_NODE_ID>" to="<TO_NODE_ID>" priority="<PRIORITY>">
         <lane id="<ID>_0" index="0" speed="<SPEED>" length="<LENGTH>" shape="0.00,495.05 248.50,495.05"/>
         <lane id="<ID>_1" index="1" speed="<SPEED>" length="<LENGTH>" shape="0.00,498.35,2.00 248.50,498.35,3.00"/>
@@ -225,7 +225,7 @@ An internal edge lies within an intersection and connects and incoming
 included if the network was built using the **--no-internal-links** option. An example of an
 internal edge may look like this:
 
-```
+```xml
 <edge id="<ID>" function="internal">
     ... one lane ...
 </edge>
@@ -269,7 +269,7 @@ The exact syntax is explained at [stopOffset](../Networks/PlainXML.md#stop_offse
 
 A traffic light program defines the phases of a traffic light.
 
-```
+```xml
     <tlLogic id="<ID>" type="<ALGORITHM_ID>" programID="<PROGRAM_ID>" offset="<TIME_OFFSET>">
         <phase duration="<DURATION#1>" state="<STATE#1>"/>
         <phase duration="<DURATION#1>" state="<STATE#1>"/>
@@ -290,7 +290,7 @@ Junctions represent the area where different streams cross, including
 the right-of-way rules vehicles have to follow when crossing the
 intersection. An example may be:
 
-```
+```xml
 <junction id="<ID>" type="<JUNCTION_TYPE>" x="<X-POSITION>" y="<Y-POSITION>"
           incLanes="<INCOMING_LANES>" intLanes="<INTERNAL_LANES>"
           shape="<SHAPE>">
@@ -322,7 +322,7 @@ have the same position.
 
 What follows are "`request`"s, looking like:
 
-```
+```xml
   <request index="<INDEX>" response="<RELATIVE_MAJOR_LINKS>" foes="<FOE_LINKS>" cont="<MAY_ENTER>"/>
 ```
 
@@ -345,7 +345,7 @@ direction the connection follows, starting by the right-most.
 The same order is applied in the "response" and the "foes" field,
 starting from right. This means:
 
-```
+```xml
   <request index="2" response="001" foes="011" cont="0"/>
 ```
 
@@ -386,7 +386,7 @@ information
 
 An internal junction is encoded like this:
 
-```
+```xml
 <junction id="<ID>" type="internal" x="<X-POSITION>" y="<Y-POSITION>"
           incLanes="<INCOMING_PROHIBITING_LANES>"
           intLanes="<INTERNAL_PROHIBITING_LANES>"/>
@@ -418,7 +418,7 @@ controlled by a traffic light, the name of the traffic light and the
 index of the signal that controls this connection within the traffic
 light's phase definition is given. A connection is encoded as:
 
-```
+```xml
 <connection from="<FROM_EDGE_ID>" to="<TO_EDGE_ID>" fromLane="<FROM_LANE_INDEX>" toLane="<TO_LANE_INDEX>"
             via="<VIA_LANE_ID>" tl="<TRAFFIC_LIGHT_ID>" linkIndex="12" dir="r" state="o"/>
 ```
@@ -485,7 +485,7 @@ reasons:
 Each roundabout is defined (somewhat redundantly) by its nodes and
 edges:
 
-```
+```xml
 <roundabout nodes="nodeID1 nodeID2 ..." edges="edgeID1 edgeID2 ..."/>
 ```
 

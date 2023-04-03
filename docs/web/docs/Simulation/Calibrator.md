@@ -21,7 +21,7 @@ invalid jams do not grow upstream past a calibrator. This behavior can be contro
 
 If no target flow is given, the provided type information will instead be used to modify the type of vehicles that are passing the calibrator.
 
-```
+```xml
 <additional>
   <vType id="t0" speedDev="0.1" speedFactor="1.2" sigma="0"/>
   <route id="c1" edges="beg middle end rend"/>
@@ -106,7 +106,7 @@ the name of a route distribution.
 
 If attribute 'speed' is omitted from the `<flow>` definition, the calibrator will only affect flow by removing or insertion vehicles:
 
-```
+```xml
 <additional>
   <vType id="t0" speedDev="0.1" speedFactor="1.2" sigma="0"/>
   <route id="c1" edges="beg middle end rend"/>
@@ -122,7 +122,7 @@ If attribute 'speed' is omitted from the `<flow>` definition, the calibrator wil
 
 If only attribute 'speed' is given in the `<flow>` definition, the calibrator acts similar to a [variableSpeedSign](Variable_Speed_Signs.md):
 
-```
+```xml
 <additional>
   <calibrator id="calibtest_edge" edge="beg" pos="0" output="detector.xml">
     <flow begin="0"    end="1800" speed="10"/>
@@ -153,7 +153,7 @@ Both can be accomplished by using the `vTypes` attribute of the calibrator to ma
 For a dependent mapping, multiple calibrators (each with a different `vTypes` attribute) may be defined.
 However, if there are very many types this may be cumbersome to define. In this case it may be better to define a mapping between type distributions as described below.
 
-```
+```xml
 <additional>
   ... 
   <calibrator id="forCars" edge="E1" pos="0" type="myCarType">
@@ -176,14 +176,14 @@ In this case, the new type of the passing vehicle will be mapped to a specific t
 
 Example route-file input:
 
-```
+```xml
     <vTypeDistribution id="dist1">
         <vType id="car" probability="70"/>
         <vType id="truck" maxSpeed="10" probability="30" vClass="truck"/>
     </vTypeDistribution>
 ```
 Example additional-file input: 
-```   
+```xml
     <vTypeDistribution id="bad_weather">
         <vType id="car2" speedFactor="0.8" decel="3"/>
         <vType id="truck2" decel="2" tau="1.5" vClass="truck"/>
@@ -217,7 +217,7 @@ needs a *fall back* route which just needs to consist of a single edge
 
 Example {{AdditionalFile}}:
 
-```
+```xml
 <additional>
    <vType id="t0" speedDev="0.1"/>
    <routeProbe id="cali_edge1_probe" edge="edge1" period="60" file="output.xml"/>

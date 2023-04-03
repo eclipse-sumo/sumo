@@ -22,7 +22,7 @@ represent auxiliary devices such as air conditioning, and the battery.
 
 To utilise MMPEVEM, set `emissionClass="MMPEVEM"` in the `vType` definitions of
 the vehicles you are interested in and add the following parameter:
-```
+```xml
 <param key="has.battery.device" value="true"/>
 ```
 Equipping the `vType` with a battery device is necessary because it triggers the
@@ -123,7 +123,7 @@ script require MATLAB® 2017 or newer.
 
 This is an example `vType` definition of a generic electric SUV and was taken
 from `{SUMO_HOME}/data/emissions/MMPEVEM/SUV.xml`.
-```
+```xml
 <vType id="SUV" vClass="passenger" emissionClass="MMPEVEM" actionStepLength="1.0">
   <param key="has.battery.device" value="true"/>
   <param key="vehicleMass" value="2100"/>

@@ -95,7 +95,7 @@ user has to issue a take-over request (TOR) via
 [TraCI](TraCI.md). The corresponding command is (here exemplary
 for the python client)
 
-```
+```python
 traci.vehicle.setParameter(<VEHICLE_ID>, "device.toc.requestToC", <AVAILABLE_LEAD_TIME>)
 ```
 

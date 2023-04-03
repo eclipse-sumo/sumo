@@ -45,7 +45,7 @@ These values have the following meanings (the defaults are from the Kia below):
 
 An example of a vehicle with electric attribute (those are the values for a city bus from the original publication):
 
-```
+```xml
 <routes>
     <vType id="ElectricBus" accel="1.0" decel="1.0" length="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" color="1,1,1">
         <param key="has.battery.device" value="true"/>
@@ -68,7 +68,7 @@ An example of a vehicle with electric attribute (those are the values for a city
 The initial energy content of the battery (by default MaxBatKap/2) can
 be set in the vehicle definitions
 
-```
+```xml
 <routes>
     <vehicle id="0" type="type1" depart="0" color="1,0,0">
         <param key="actualBatteryCapacity" value="500"/>
@@ -100,7 +100,7 @@ of bus stops were used for the implementation of charging stations.
 
 Charging stations are defined in additional using the following format:
 
-```
+```xml
 <additional>
     <chargingStation chargeDelay="2" chargeInTransit="0" power="200000" efficiency="0.95" endPos="25" id="cS_2to19_0a" lane="2to19_0" startPos="10"/>
 </additional>
@@ -120,7 +120,7 @@ A stop at a charging station may occur due to traffic conditions,
 stopping at a defined location or stopping at an explicit
 chargingStation as defined below:
 
-```
+```xml
 <routes>
     <vehicle id="v0" route="route0" depart="0">
         <stop chargingStation="myChargingStationID" until="50"/>
@@ -133,7 +133,7 @@ chargingStation as defined below:
 Option --chargingstations-output "nameOfFile.xml" generates a full
 report of energy charged by charging stations:
 
-```
+```xml
 <output>
     <battery-output value="battery.xml"/>
     <chargingstations-output value="chargingstations.xml"/>
@@ -142,7 +142,7 @@ report of energy charged by charging stations:
 
 File chargingstations.xml has the following structure:
 
-```
+```xml
 <chargingstations-export>
     <chargingStation id="CS1" totalEnergyCharged="71.25" chargingSteps="27">
         <vehicle id="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="15.83" chargingBegin="12.00" chargingEnd="17.00">
@@ -198,7 +198,7 @@ For every charging timeStep:
 There are three output parameters to be set in the SUMO configuration to
 use the battery device:
 
-```
+```xml
 <configuration>
     <input>
         <net-file value="netFile.xml"/>
@@ -216,7 +216,7 @@ use the battery device:
 
 The battery-output generates a file with this structure:
 
-```
+```xml
 <battery-export>
     <timestep time="0.00">
         <vehicle id="vehicle01" Consum="0.00" actualBatteryCapacity="17500.00" maximumBatteryCapacity="35000.00"
@@ -278,7 +278,7 @@ declared](#emission_output).
 ## Calculating the remaining Range:
 
 After the vehicle has been driving for a while, the remaining range can be computed based on previous consumption and distance:
-```
+```python
 mWh = traci.vehicle.getDistance(vehID) / float(traci.vehicle.getParameter(vehID, "device.battery.totalEnergyConsumed"))
 remainingRange = float(traci.vehicle.getParameter(vehID, "device.battery.actualBatteryCapacity")) * mWh
 ```

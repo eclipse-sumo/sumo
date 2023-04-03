@@ -26,7 +26,7 @@ An example would be patching the type of a node.
 
 prepare a file like this: patch.nod.xml :
 
-```
+```xml
 <nodes>
     <node id="id_of_the_node_you_want_to_modify" type="right_before_left"/>
 <nodes>

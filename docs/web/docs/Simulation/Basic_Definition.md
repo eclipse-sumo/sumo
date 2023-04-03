@@ -151,7 +151,7 @@ considers the acceleration constant during one time step. It can be
 activated by giving the option **--step-method.ballistic** or including the following into the
 configuration file:
 
-```
+```xml
 <processing>
    <step-method.ballistic value="true"/>
 </processing>

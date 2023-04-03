@@ -220,7 +220,7 @@ are generated.
 It is possible to refer to environment variables in configuration files. The syntax to refer to an environment variable is **${VARNAME}**.
 For example, your configuration file may reference a variable called **NETFILENAME**, containing the name of a network file, with the following configuration settings.
 
-```
+```xml
 <configuration>
     <input>
         <net-file value="${NETFILENAME}.net.xml"/>

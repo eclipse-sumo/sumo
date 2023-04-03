@@ -28,7 +28,7 @@ python tools/drt/drtOnline.py -n <net-file> -r <route-file> -v <vehicle-file>
 The route file contains the requests, which are defined as persons with ride
 elements with the lines of the drt vehicles. For example:
 
-```
+```xml
 <routes>
     <person id="0" depart="0.00">
         <ride from="edgeStart" to="edgeEnd" lines="taxi"/>
@@ -39,7 +39,7 @@ elements with the lines of the drt vehicles. For example:
 The vehicle file contains the drt vehicles, which must be equipped with a taxi
 device. The file should looks like:
 
-```
+```xml
 <routes>
     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>

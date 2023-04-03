@@ -36,7 +36,7 @@ There are two styles in which to declare rerouters.
 
 The {{AdditionalFile}} looks like this:
 
-```
+```xml
 <additional>
    <rerouter id="<REROUTER_ID>" edges="<EDGE_ID>[;<EDGE_ID>]*" [probability="<PROBABILITY>"]>
       <interval begin="<BEGIN_TIME>" end="<END_TIME>">
@@ -54,7 +54,7 @@ The {{AdditionalFile}} looks like this:
 
 The {{AdditionalFile}} looks like this:
 
-```
+```xml
 <additional>   
    <rerouter id="<REROUTER_ID>" edges="<EDGE_ID>[;<EDGE_ID>]*" [probability="<PROBABILITY>"]>
      <include href="definitions.xml"/>      
@@ -67,7 +67,7 @@ The {{AdditionalFile}} looks like this:
 And the file `definitions.xml` (which describes the actions over time) looks
 like this:
 
-```
+```xml
    <interval begin="<BEGIN_TIME>" end="<END_TIME>">
       ... action description ...
    </interval>
@@ -93,7 +93,7 @@ same as described at
 with the additional constraint that closed edges must be avoided. A
 closingReroute definition may look like this:
 
-```
+```xml
 <rerouter>
    <interval begin="<BEGIN_TIME>" end="<END_TIME>">
       <closingReroute id="<EDGE_ID>"/>
@@ -133,7 +133,7 @@ soon as they reach one of the edges given in the edges-attribute of the
 rerouter's declaration. A closingLaneReroute definition may look like
 this:
 
-```
+```xml
 <rerouter>
    <interval begin="<BEGIN_TIME>" end="<END_TIME>">
       <closingLaneReroute id="<LANE_ID>"/>
@@ -167,7 +167,7 @@ Two `closingLaneReroute` definitions may be used to simulate a reversible lane i
 
 To change their direction for a specific duration, the following rerouter may be used:
 
-```
+```xml
 <rerouter id="example" edges="E1 -E1">
       <interval begin="7:0:0" end="8:30:0">
             <closingLaneReroute id="E1_1" allow="all"/>
@@ -186,7 +186,7 @@ vehicles that pass one of the edges defined in the edges-attribute of
 the rerouter's declaration. A new route destination is used, defined by
 the name of a new destination in the according element:
 
-```
+```xml
 <rerouter>
    <interval begin="<BEGIN_TIME>" end="<END_TIME>">
       <destProbReroute id="<EDGE_ID1>" probability="<PROBABILITY1>"/>
@@ -235,7 +235,7 @@ vehicles which pass one of the edges defined in the edges-attribute of
 the rerouter's declaration. In this case, the id of a complete route
 must be supplied instead of a new destination:
 
-```
+```xml
 <rerouter>
    <interval begin="<BEGIN_TIME>" end="<END_TIME>">
       <routeProbReroute id="<ROUTE_ID1>" probability="<PROBABILITY1>"/>
@@ -282,7 +282,7 @@ cases:
 
 The definition looks like this:
 
-```
+```xml
    <rerouter id="myRerouter" edges="a b">
       <interval begin="0" end="2000">
          <parkingAreaReroute id="ParkAreaA"/>
@@ -306,7 +306,7 @@ The attributes used within such definitions are:
 
 Parking search refers to the situation where a vehicle encounters an occupied parkingArea and has to pick among a list of alternative destinations without knowing their occupancy state. The vehicle has to iteratively drive to alternative destinations until a free parking space is found. ParkingAreas that were visited earlier (and occupied) might be reasonably visited again with the expectation that they have cleared up since the last visit. By default, vehicles will not visit an occupied parkingArea again for 600s. This can be modified with vehicle-param or vType-param as follows:
 
-```
+```xml
    <vehicle ...>
       <param key="parking.memory" value="300"/>
    </vehicle

@@ -148,7 +148,7 @@ and intermodal traffic. This is done automatically when using the
 
 The ptline data format is described below:
 
-```
+```xml
 <ptLines>
     <ptLine id="0" name="M2: Alexanderplatz to Heinersdorf" line="M2"
       type="tram" period="1200" completeness="0.11">

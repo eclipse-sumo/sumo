@@ -17,7 +17,7 @@ You can decide, if you want to use *release* or *snapshot* builds of `libsumo` o
 
 In order to use those repositories in your `pom.xml` file, you just have to add one of the repositories to your configuration inside the `<project>` element.
 
-```
+```xml
 <repositories>
     <repository>
         <id>eclipse-sumo</id>
@@ -27,7 +27,7 @@ In order to use those repositories in your `pom.xml` file, you just have to add 
 </repositories>
 ```
 or
-```
+```xml
 <repositories>
     <repository>
         <id>eclipse-sumo</id>
@@ -37,7 +37,7 @@ or
 </repositories>
 ```
 You are then able to reference `libsumo` or `libtraci` as a dependency in our `pom.xml` file.
-```
+```xml
 <dependencies>
    ...
    <dependency>

@@ -16,7 +16,7 @@ this name will be overwritten, the destination folder must exist.
 
 The generated XML file looks like this:
 
-```
+```xml
 <trajectories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/trajectories.xsd" timeStepSize="1000">
     <actorConfig id="0" vehicleClass="Passenger" fuel="Gasoline" emissionClass="Euro0" ref="DEFAULT_VEHTYPE"/>
     <vehicle id="0" actorConfig="0" startTime="100000" ref="always_left.0"/>
