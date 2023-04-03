@@ -19,7 +19,7 @@ The standard installation of Visual Studio Code does provide only basic support 
 
 * **C/C++** from Microsoft to simplify code browsing, enable code completion and debugging
 * **CMake Tools** from Microsoft to benefit from CMake build support 
-* **Python** by Microsoft to benefit from code browing, code completion and debugging in Python
+* **Python** by Microsoft to benefit from code browsing, code completion and debugging in Python
 * **CMake** by twxs to have support for the CMake specification language when editing `CMakeLists.txt` files
 
 You do not need to select them manually. Usually it is also fine if you open some .cpp and some .py file and just install the plugins Visual Studio Code recommends.

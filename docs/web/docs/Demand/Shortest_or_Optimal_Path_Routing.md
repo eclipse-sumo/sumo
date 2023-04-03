@@ -66,7 +66,7 @@ By setting the option **--mapmatch.junctions**, positions are mapped to junction
 
 If any trips use the `type` attribute, the
 referenced `vType` element must be put into
-the input file containting the trips / flow  or into an additionally loaded *rou.xml*-file or
+the input file containing the trips / flow  or into an additionally loaded *rou.xml*-file or
 into an {{AdditionalFile}}.
 
 !!! note

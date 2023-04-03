@@ -59,7 +59,7 @@ to collapse the static test suites on program start. E.g.:
 
 ## Recommended python packages
 
-The following packes are used by some of the tools under test
+The following packages are used by some of the tools under test
 
 `pip install pyproj rtree numpy scipy`
 

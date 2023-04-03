@@ -177,7 +177,7 @@ PTV. Herein, only the supported variants are described.
 
 The vehicle type information is used by [od2trips](../../od2trips.md)
 by passing it to the generated vehicles. The type definition itself will
-not be generated, but the vehicle will have set the attribute `type="<TYPE>"`. The time informations are
+not be generated, but the vehicle will have set the attribute `type="<TYPE>"`. The time information are
 assumed to be in the form <HOURS\>.<MINUTES\>. Please note that the end is
 exclusive; for example, if
 

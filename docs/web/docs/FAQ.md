@@ -1011,7 +1011,7 @@ Calculated as ` 24 * 3600 * 80000 / 1800 = 3840000 `
 By default, the same configuration will result in the same behavior even though many parts of the simulation are [randomized](Simulation/Randomness.md).
 To change this, either option **--seed** or option **--random** must be used.
 In order to collect distinct output from multiple runs, it is advisable to set option **--output-prefix**.
-Running a simulation 3 times with differen results could be done in a batch file like this:
+Running a simulation 3 times with different results could be done in a batch file like this:
 
 ```
 sumo -c run.sumocfg --seed 1 --output-prefix 1.
@@ -1124,7 +1124,7 @@ to set the integrated graphics as preferred. (Thanks @palvarezlopez for finding 
 There is a know problem in Windows 10 with scaling and flickering in certain applications. 
 If scaling is greater than 100%, a flickering may appear in SUMO-GUI and NETEDIT during mouse movement.
 The only known solution is leaving Scaling at 100%. Another cause is the use of a modern graphics card. 
-If your computer supports it, run SUMO using the integrated graphics card (Control panel->NVidia Control Panel->Select integrated graphid card->apply)
+If your computer supports it, run SUMO using the integrated graphics card (Control panel->NVidia Control Panel->Select integrated graphic card->apply)
 
 ### Missing Characters in Parameter Dialogs (i.e. Chinese Street names) on Linux
 

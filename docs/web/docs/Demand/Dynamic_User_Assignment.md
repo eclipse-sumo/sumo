@@ -107,7 +107,7 @@ T_d(s, i+1) = beta * Tau_d(s, i) + (1 - beta) * T_d(s, i-1) ---(2)
 
 , where s is one of the routes, which are not selected to use in Iteration i, in Driver d's route set.
 
-The aforementioned update rules also apply when other travel cost units are used. The way to use simulated link costs for calcuating route costs may result in cost underestimation especially when significant congestion only on one of traffic movenents (e.g. left-turn or right-turn) exists. The existing ticket #2566 deals with this issue. In Formula (1), it is also possible to use Driver d's actual travel cost in Iteration i as Tau_d(r, i).
+The aforementioned update rules also apply when other travel cost units are used. The way to use simulated link costs for calculating route costs may result in cost underestimation especially when significant congestion only on one of traffic movements (e.g. left-turn or right-turn) exists. The existing ticket #2566 deals with this issue. In Formula (1), it is also possible to use Driver d's actual travel cost in Iteration i as Tau_d(r, i).
 
 ### Logit
 
@@ -138,7 +138,7 @@ By default, a fixed number of iterations, configured via **--first-step** and **
 ### Deviation in Average Travel times
 
 The option **--max-convergence-deviation** may be used to detect convergence and abort iterations
-automatically. In each iteration, the average travel time of all trips is computed. From the sequence of these values (one per iteration), the relative standard deviation is computed. Onece a minimum number of iterations has been computed (**--convergence-iterations**, default 10) and this deviation falls below the max-convergence deviation threshold, iterations are aborted 
+automatically. In each iteration, the average travel time of all trips is computed. From the sequence of these values (one per iteration), the relative standard deviation is computed. Once a minimum number of iterations has been computed (**--convergence-iterations**, default 10) and this deviation falls below the max-convergence deviation threshold, iterations are aborted 
 
 ### Forced convergence
 

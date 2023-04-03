@@ -89,7 +89,7 @@ the vstudio.sln from the same dir to build the libpng project
 <libpng\>\\projects\\vstudio\\Debug\\
 - if you want to be really sure, you can build the pngtest project as
 well and check the output
-- you can build / add futher configurations / platforms if needed
+- you can build / add further configurations / platforms if needed
 - Open the Fox project solution and edit properties of foxdll
   - in the C++/General section add the <libpng\> dir to the include
     path

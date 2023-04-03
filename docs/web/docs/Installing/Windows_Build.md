@@ -102,7 +102,7 @@ folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
 
 ## Install python packages
 
-Compiling netedit requieres a list of python packages to generate templates. Install it using pip:
+Compiling netedit requires a list of python packages to generate templates. Install it using pip:
 
 ```
 pip install google lxml rtree pandas matplotlib pulp pyproj ezdxf scipy fmpy ortools texttest pyautogui pyperclip

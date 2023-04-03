@@ -20,7 +20,7 @@ title: ChangeLog
   - Fixed invalid error about disconnected walk for person. Issue #12744
   - Fixed invalid error: "Disconnected walk for person". Issue #12744
   - vType attribute `lcTurnAlignmentDistance` now works for indirect left turns. Issue #8500
-  - Railway simualation:
+  - Railway simulation:
     - Simulation now terminates even when a stop with `triggered="join"` fails. Issue #12668
     - Stop attribute `extension` now works for `triggered="join"`. Issue #12666
     - Fixed unsafe train insertion that could cause a follower train to collide. Issue #12857
@@ -454,7 +454,7 @@ title: ChangeLog
   - Added new tool [filterElements.py](Tools/Xml.md#filterelementspy) to filter elements from an xml file (either all instances or filtered by attribute value). Issue #12304
   - Added new tool [attributeDiff.py](Tools/Output.md#attributediffpy) to compute the numerical difference between two xml files with the same structure. Issue #12318
   - Added new tool [fcdDiff.py](Tools/Output.md#fcddiffpy) to compare two fcd-output files (by vehicle id and time). Issue #12233
-  - Added new tool [fcdReplay.py](Tools/Visualization.md#visulizing_fcd-data_as_moving_pois) to review a fcd recording as moving POIs (optionally alongside a running simulation. Issue #12433
+  - Added new tool [fcdReplay.py](Tools/Visualization.md#visulizing_fcd-data_as_moving_pois) to review a fcd recording as moving POIs (optionally alongside a running simulation). Issue #12433
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976

@@ -112,7 +112,7 @@ been defined as follows:
     combustion engine and to electric motor (EM)
 3.  Additional vehicle weight due to EM and battery considered
 4.  Application of generic parallel hybrid operation strategy
-    (recuperation, boosting, charching etc.)
+    (recuperation, boosting, charging etc.)
 
 Also note that plugin hybrids (where the main powertrain is electric)
 should be modelled as battery vehicles and need to switch their emission

@@ -133,7 +133,7 @@ and console shows "/home/<user\>/sumo-<version\>"
 
 ## Install python packages
 
-Compiling netedit requieres a list of python packages to generate templates. Install it using pip:
+Compiling netedit requires a list of python packages to generate templates. Install it using pip:
 
 ```
 pip install google lxml rtree pandas matplotlib pulp pyproj ezdxf scipy fmpy ortools texttest pyautogui pyperclip
