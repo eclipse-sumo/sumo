@@ -321,7 +321,7 @@ protected:
             speed(0), width(NBEdge::UNSPECIFIED_WIDTH), permission(0) { }
 
         /// @brief compute the actual SUMO lane permissions given the lane type as a start solution
-        SVCPermissions computePermission(const NBTypeCont& tc, std::vector<std::string> allowed, std::vector<std::string> denied);
+        SVCPermissions computePermission(const NBTypeCont& tc, const std::vector<std::string>& allowed, const std::vector<std::string>& denied) const;
 
         int id; //!< The lane's id
         std::string level; //!< The lane's level (not used)

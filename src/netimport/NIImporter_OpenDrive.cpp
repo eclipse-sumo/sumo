@@ -2004,71 +2004,72 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneSection(const NBTypeCont& t
 
 
 SVCPermissions
-NIImporter_OpenDrive::OpenDriveLane::computePermission(const NBTypeCont& tc, std::vector<std::string> allowed, std::vector<std::string> denied) {
-    SVCPermissions permission = tc.getEdgeTypePermissions(type);
+NIImporter_OpenDrive::OpenDriveLane::computePermission(const NBTypeCont& tc, const std::vector<std::string>& allowed,
+                                                       const std::vector<std::string>& denied) const {
+    SVCPermissions perms = tc.getEdgeTypePermissions(type);
     if (allowed.size() > 0 && denied.size() > 0) {
         WRITE_WARNING(TL("Will discard access settings as both denied and allowed classes have been specified."));
     } else if (allowed.size() > 0) {
-        permission = SVC_IGNORING;
-        for (std::string allow : allowed) {
+        perms = SVC_IGNORING;
+        for (const std::string& allow : allowed) {
             if (allow == "simulator") {
-                permission = SVC_IGNORING;
+                perms = SVC_IGNORING;
                 break;
             } else if (allow == "autonomousTraffic" || allow == "autonomous traffic" || allow == "throughTraffic") {
-                permission = tc.getEdgeTypePermissions(type);
+                perms = tc.getEdgeTypePermissions(type);
                 break;
             } else if (allow == "pedestrian") {
-                permission |= SVC_PEDESTRIAN;
+                perms |= SVC_PEDESTRIAN;
             } else if (allow == "passengerCar") {
-                permission |= SVC_PASSENGER;
+                perms |= SVC_PASSENGER;
             } else if (allow == "bus") {
-                permission |= SVC_BUS;
+                perms |= SVC_BUS;
             } else if (allow == "delivery") {
-                permission |= SVC_DELIVERY;
+                perms |= SVC_DELIVERY;
             } else if (allow == "emergency") {
-                permission |= SVC_EMERGENCY;
+                perms |= SVC_EMERGENCY;
             } else if (allow == "taxi") {
-                permission |= SVC_TAXI;
+                perms |= SVC_TAXI;
             } else if (allow == "bicycle") {
-                permission |= SVC_BICYCLE;
+                perms |= SVC_BICYCLE;
             } else if (allow == "motorcycle") {
-                permission |= SVC_MOTORCYCLE;
+                perms |= SVC_MOTORCYCLE;
             } else if (allow == "truck" || allow == "trucks") {
-                permission |= SVC_TRUCK;
-                permission |= SVC_TRAILER;
+                perms |= SVC_TRUCK;
+                perms |= SVC_TRAILER;
             }
         }
     } else if(denied.size() > 0) {
-        for (std::string deny : denied) {
+        for (const std::string& deny : denied) {
             if (deny == "none") {
-                permission = tc.getEdgeTypePermissions(type);
+                perms = tc.getEdgeTypePermissions(type);
                 break;
             } else if (deny == "autonomousTraffic" || deny == "autonomous traffic" || deny == "throughTraffic") {
-                permission = SVC_IGNORING;
+                perms = SVC_IGNORING;
                 break;
             } else if (deny == "pedestrian") {
-                permission &= ~SVC_PEDESTRIAN;
+                perms &= ~SVC_PEDESTRIAN;
             } else if (deny == "passengerCar") {
-                permission &= ~SVC_PASSENGER;
+                perms &= ~SVC_PASSENGER;
             } else if (deny == "bus") {
-                permission &= ~SVC_BUS;
+                perms &= ~SVC_BUS;
             } else if (deny == "delivery") {
-                permission &= ~SVC_DELIVERY;
+                perms &= ~SVC_DELIVERY;
             } else if (deny == "emergency") {
-                permission &= ~SVC_EMERGENCY;
+                perms &= ~SVC_EMERGENCY;
             } else if (deny == "taxi") {
-                permission &= ~SVC_TAXI;
+                perms &= ~SVC_TAXI;
             } else if (deny == "bicycle") {
-                permission &= ~SVC_BICYCLE;
+                perms &= ~SVC_BICYCLE;
             } else if (deny == "motorcycle") {
-                permission &= ~SVC_MOTORCYCLE;
+                perms &= ~SVC_MOTORCYCLE;
             } else if (deny == "truck" || deny == "trucks") {
-                permission &= ~SVC_TRUCK;
-                permission &= ~SVC_TRAILER;
+                perms &= ~SVC_TRUCK;
+                perms &= ~SVC_TRAILER;
             }
         }
     }
-    return permission;
+    return perms;
 }
 
 
