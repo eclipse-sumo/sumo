@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-29 07:42:11.542366 by gtfs2pt.py v1_16_0+1736-9c5fd8d5432
+<!-- generated on 2023-04-03 14:11:21.900681 by gtfs2pt.py v1_16_0+1865-5e4833479ea
 <configuration>
     <gtfs value="https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip"/>
     <date value="20160713"/>
@@ -9,12 +9,12 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="120410" edges="-4612981#1 195401006 1113401735#1 139877314#1 783042668 112128419#1 112128419#2 -1133992822#0 -979668824#0 -1133992735#0 -168942727#0 -743631784#1 -743631784#0 -316746323#3 183415643 46140382 1120993114#0 1120993114#1 1120993114#2 1120993114#3 30721660#1 30721660#2 30721660#3 30721660#4 437325047#0 437325047#2 437325047#3 51167934#3 51167934#4 51167934#5 51167934#6 507023458 4610375 -24243107#2 -24243107#1 -24243107#0 -1114798610#1 -1114798610#0 -24243101 339201185 1151064395 4610472#1 4610472#2 1151064396#0 1151064397#2 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3">
+    <route id="120410" edges="-4612981#1 195401006 1113401735#1 139877314#1 783042668 112128419#1 112128419#2 -1133992822#0 -979668824#0 -1133992735#0 -168942727#0 -743631784#1 -743631784#0 -316746323#3 183415643 46140382 1120993114#0 1120993114#1 1120993114#2 30721660#1 30721660#2 30721660#3 30721660#4 437325047#0 437325047#2 437325047#3 51167934#3 51167934#4 51167934#5 51167934#6 507023458#0 507023458#1 4610375 -24243107#2 -24243107#1 -24243107#0 -1114798610#1 -1114798610#0 -24243101 339201185 1158584613 1151064395#1 4610472#2 1151064396#0 1151064397#2 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3">
         <stop busStop="-4612981#1:13.00" duration="10" until="0"/>
         <stop busStop="194073677#3:13.00" duration="10" until="300"/>
     </route>
     <route id="122409" edges="24240246#0 1125871007#1 1125871262#1 1125871417 1125871619#1 1125871619#2 1125871619#3 1125871619#4 236092221#0 236092221#1 342968607#1 461526152#1 1126234503#0 1126237668#1 1079495669#0 1079495669#1 340498982#0 340498982#1 340498982#4 340498982#5 251884680#0 251884680#1 1126246695#1 339201217 1126244314#1 54048862#2 831694400 23013165#1 23013165#2 4611698 202156994#0 72157174#1 171826984#2 195401006 1113401735#1">
-        <stop busStop="24240246#0:75.62" duration="10" until="0"/>
+        <stop busStop="24240246#0:74.74" duration="10" until="0"/>
         <stop busStop="461526152#1:13.00" duration="10" until="120"/>
         <stop busStop="340498982#1:93.30" duration="10" until="240"/>
         <stop busStop="1126244314#1:73.74" duration="10" until="300"/>
@@ -27,20 +27,20 @@
         <stop busStop="24913519#1:13.00" duration="10" until="180"/>
         <stop busStop="61584187#1:30.39" duration="10" until="240"/>
         <stop busStop="169195795#0:13.00" duration="10" until="300"/>
-        <stop busStop="340498988#0:39.18" duration="10" until="420"/>
+        <stop busStop="340498988#0:39.33" duration="10" until="420"/>
         <stop busStop="24913304#4:92.46" duration="10" until="480"/>
     </route>
     <route id="144589" edges="-1100903092 -169719829#1 -169719829#0 -1100903095 -1100903094#3 -1100903094#1 -1100903094#0 -32805741#3 -32805741#2 169717723#1">
         <stop busStop="-1100903092:36.25" duration="10" until="0"/>
         <stop busStop="169717723#1:13.00" duration="10" until="60"/>
     </route>
-    <route id="20322" edges="300401898 1101404262#1 24914141#1 24914141#2 24914141#4 24914141#5 1133761630#0 1133761630#1 112128825#3 112128825#4 4613299#2 4613299#3 4613299#4 -4613300#4 -4613300#2 -4613300#0">
-        <stop busStop="300401898:105.68" duration="10" until="0"/>
-        <stop busStop="-4613300#0:87.23" duration="10" until="120"/>
+    <route id="20322" edges="713576589#0 713576589#1 713576589#2 -153692976#5 -153692976#4 -153692976#0 -1158892059#1 -1158892059#0 -1158892057#0 -1158892055#0 -1158892054#2 -1158892054#0 -1158892039#0 1020077809 489068253 465376253#1 169717723#1">
+        <stop busStop="713576589#0:22.92" duration="10" until="0"/>
+        <stop busStop="169717723#1:13.00" duration="10" until="60"/>
     </route>
-    <route id="20582.trimmed" edges="300401898 1101404262#1 24914141#1 24914141#2 24914141#4 24914141#5 1133761630#0 1133761630#1 112128825#3 112128825#4 4613299#2 4613299#3 4613299#4 -4613300#4 -4613300#2 -4613300#0">
-        <stop busStop="300401898:105.68" duration="10" until="0"/>
-        <stop busStop="-4613300#0:87.23" duration="10" until="120"/>
+    <route id="20582.trimmed" edges="713576589#0 713576589#1 713576589#2 -153692976#5 -153692976#4 -153692976#0 -1158892059#1 -1158892059#0 -1158892057#0 -1158892055#0 -1158892054#2 -1158892054#0 -1158892039#0 1020077809 489068253 465376253#1 169717723#1">
+        <stop busStop="713576589#0:22.92" duration="10" until="0"/>
+        <stop busStop="169717723#1:13.00" duration="10" until="60"/>
     </route>
     <route id="145069" edges="-4612414#1 -4612414#0 -339201210 1040934262#0 1040934262#1 30705211#1 1102369964 1102369963#1 328426193#0 52328295#0 1151326815 755551646#1 1127597264#1 1127596842#2 120675240#0 120675240#3 120675240#4 -8008608 -4611696#5 -4611696#4 -4611696#3 -23755950#3 -23755950#0 -1127602336 -66071366#4 -66071366#2 -66071366#1 -66071366#0 -389101365#3 -35557143#4">
         <stop busStop="-4612414#1:13.00" duration="10" until="0"/>
@@ -54,7 +54,7 @@
         <stop busStop="194069450#0:59.04" duration="10" until="180"/>
         <stop busStop="194073677#3:13.00" duration="10" until="240"/>
     </route>
-    <route id="145071" edges="194073677#3 194073677#4 1151064403 1151064402#0 465376254#0 222328410 -6228081#1 541295974 30720544#0 30720544#1 42103020#0 42103020#2 111251382#1 111251382#3 1100889498 1100824590#1 176043806#0 176043806#2 176043807#0 176043807#1 176043807#5 176043807#6 176043807#7 176043807#8 176043807#9 176043807#10 -176043807#12 -176043807#9 -176043807#8 -176043807#7 -176043807#6 -176043807#5 -176043807#4 1155226002#0 1155226002#1 1155226002#2 1155226002#3 1155226002#4 4592725#0 4592725#1 4592725#2 4592725#3 4592725#5">
+    <route id="145071" edges="194073677#3 194073677#4 1151064403 1151064402#0 465376254#0 222328410 -6228081#1 541295974#0 30720544#0 30720544#1 42103020#0 42103020#2 111251382#1 111251382#3 1100889498 1100824590#1 176043806#0 176043806#2 176043807#0 176043807#1 176043807#5 176043807#6 176043807#7 176043807#8 176043807#9 176043807#10 -176043807#12 -176043807#9 -176043807#8 -176043807#7 -176043807#6 -176043807#5 -176043807#4 1155226002#0 1155226002#1 1155226002#2 1155226002#3 1155226002#4 4592725#0 4592725#1 4592725#2 4592725#3 4592725#5">
         <stop busStop="194073677#3:13.00" duration="10" until="0"/>
         <stop busStop="1100889498:13.00" duration="10" until="60"/>
         <stop busStop="-176043807#4:20.54" duration="10" until="120"/>
@@ -70,7 +70,7 @@
     <route id="145642" edges="-176043807#4">
         <stop busStop="-176043807#4:20.54" duration="10" until="0"/>
     </route>
-    <route id="145643" edges="-176043807#4 -176043807#0 -176043806#2 -176043806#0 -1100824590#1 -1100824590#0 -111251382#3 -111251382#2 541295978#1 1097921784#1 -541295974 6228081#0 -222328410 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3 194073677#4 190447768#1 195411602#0 195411602#1 465376240#0 195411604 11483007#0 -1119933622 -194069450#1 -882389497 171423001#0 171423001#1 171423001#2 35557143#1 389101365#0 66071366#0 66071366#1 66071366#2 66071366#3 1127602336 23755950#0 23755950#1 4611696#1 4611696#4 4611696#5 8008608 -120675240#4 -120675240#3 -120675240#2 -43156728#2 -1127596842#0 -1127597264#0 -755551646#0 -52328295#2 -328426193#2 -1102369963#1 -1102369964 -30705211#1 -30705211#0 -1040934262#0 339201210 4612414#0 4612414#1">
+    <route id="145643" edges="-176043807#4 -176043807#0 -176043806#2 -176043806#0 -1100824590#1 -1100824590#0 -111251382#3 -111251382#2 541295978#1 1097921784#1 -541295974#0 6228081#0 -222328410 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3 194073677#4 190447768#1 195411602#0 195411602#1 465376240#0 195411604 11483007#0 -1119933622 -194069450#1 -882389497 171423001#0 171423001#1 171423001#2 35557143#1 389101365#0 66071366#0 66071366#1 66071366#2 66071366#3 1127602336 23755950#0 23755950#1 4611696#1 4611696#4 4611696#5 8008608 -120675240#4 -120675240#3 -120675240#2 -43156728#2 -1127596842#0 -1127597264#0 -755551646#0 -52328295#2 -328426193#2 -1102369963#1 -1102369964 -30705211#1 -30705211#0 -1040934262#0 339201210 4612414#0 4612414#1">
         <stop busStop="-176043807#4:20.54" duration="10" until="0"/>
         <stop busStop="-1100824590#0:63.47" duration="10" until="60"/>
         <stop busStop="194073677#3:13.00" duration="10" until="180"/>
@@ -81,7 +81,7 @@
         <stop busStop="-1102369963#1:13.34" duration="10" until="660"/>
         <stop busStop="4612414#1:30.33" duration="10" until="720"/>
     </route>
-    <route id="145810" edges="-176043807#4 -176043807#0 -176043806#2 -176043806#0 -1100824590#1 -1100824590#0 -111251382#3 -111251382#2 541295978#1 1097921784#1 -541295974 6228081#0 -222328410 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3 194073677#4 190447768#1 195411602#0 195411602#1 465376240#0 195411604 11483007#0 -1119933622 -194069450#1 -882389497 171423001#0 171423001#1 171423001#2 35557143#1 389101365#0 66071366#0 66071366#1 66071366#2 66071366#3 1127602336 23755950#0 23755950#1 4611696#1 4611696#4 4611696#5 8008608 -120675240#4 -120675240#3 -120675240#2 -43156728#2 -1127596842#0 -1127597264#0 -755551646#0 -52328295#2 -328426193#2 -1102369963#1 -1102369964 -30705211#1 -30705211#0 -1040934262#0 339201210 4612414#0 4612414#1">
+    <route id="145810" edges="-176043807#4 -176043807#0 -176043806#2 -176043806#0 -1100824590#1 -1100824590#0 -111251382#3 -111251382#2 541295978#1 1097921784#1 -541295974#0 6228081#0 -222328410 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3 194073677#4 190447768#1 195411602#0 195411602#1 465376240#0 195411604 11483007#0 -1119933622 -194069450#1 -882389497 171423001#0 171423001#1 171423001#2 35557143#1 389101365#0 66071366#0 66071366#1 66071366#2 66071366#3 1127602336 23755950#0 23755950#1 4611696#1 4611696#4 4611696#5 8008608 -120675240#4 -120675240#3 -120675240#2 -43156728#2 -1127596842#0 -1127597264#0 -755551646#0 -52328295#2 -328426193#2 -1102369963#1 -1102369964 -30705211#1 -30705211#0 -1040934262#0 339201210 4612414#0 4612414#1">
         <stop busStop="-176043807#4:20.54" duration="10" until="0"/>
         <stop busStop="-1100824590#0:63.47" duration="10" until="60"/>
         <stop busStop="194073677#3:13.00" duration="10" until="180"/>
@@ -92,7 +92,7 @@
         <stop busStop="-1102369963#1:13.34" duration="10" until="600"/>
         <stop busStop="4612414#1:30.33" duration="10" until="720"/>
     </route>
-    <route id="145828.trimmed" edges="-1100824590#0 -111251382#3 -111251382#2 541295978#1 1097921784#1 -541295974 6228081#0 -222328410 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3 194073677#4 190447768#1 195411602#0 195411602#1 465376240#0 195411604 11483007#0 -1119933622 -194069450#1 -882389497 171423001#0 171423001#1 171423001#2 35557143#1 389101365#0 66071366#0 66071366#1 66071366#2 66071366#3 1127602336 23755950#0 23755950#1 4611696#1 4611696#4 4611696#5 8008608 -120675240#4 -120675240#3 -120675240#2 -43156728#2 -1127596842#0 -1127597264#0 -755551646#0 -52328295#2 -328426193#2 -1102369963#1 -1102369964 -30705211#1 -30705211#0 -1040934262#0 339201210 4612414#0 4612414#1">
+    <route id="145828.trimmed" edges="-1100824590#0 -111251382#3 -111251382#2 541295978#1 1097921784#1 -541295974#0 6228081#0 -222328410 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3 194073677#4 190447768#1 195411602#0 195411602#1 465376240#0 195411604 11483007#0 -1119933622 -194069450#1 -882389497 171423001#0 171423001#1 171423001#2 35557143#1 389101365#0 66071366#0 66071366#1 66071366#2 66071366#3 1127602336 23755950#0 23755950#1 4611696#1 4611696#4 4611696#5 8008608 -120675240#4 -120675240#3 -120675240#2 -43156728#2 -1127596842#0 -1127597264#0 -755551646#0 -52328295#2 -328426193#2 -1102369963#1 -1102369964 -30705211#1 -30705211#0 -1040934262#0 339201210 4612414#0 4612414#1">
         <stop busStop="-1100824590#0:63.47" duration="10" until="0"/>
         <stop busStop="194073677#3:13.00" duration="10" until="120"/>
         <stop busStop="-194069450#1:13.00" duration="10" until="240"/>
@@ -145,7 +145,7 @@
         <stop busStop="24913519#1:13.00" duration="10" until="120"/>
         <stop busStop="61584187#1:30.39" duration="10" until="180"/>
         <stop busStop="169195795#0:13.00" duration="10" until="240"/>
-        <stop busStop="340498988#0:39.18" duration="10" until="360"/>
+        <stop busStop="340498988#0:39.33" duration="10" until="360"/>
         <stop busStop="335462916:20.18" duration="10" until="540"/>
     </route>
     <route id="169105" edges="85255870#0 85255869#0 1110752486#0 1110752486#1 1110752772 710761407#0 -710761407#2">
@@ -159,7 +159,7 @@
         <stop busStop="24913519#1:13.00" duration="10" until="300"/>
         <stop busStop="61584187#1:30.39" duration="10" until="360"/>
         <stop busStop="169195795#0:13.00" duration="10" until="420"/>
-        <stop busStop="340498988#0:39.18" duration="10" until="540"/>
+        <stop busStop="340498988#0:39.33" duration="10" until="540"/>
         <stop busStop="335462916:20.18" duration="10" until="660"/>
     </route>
     <route id="169715" edges="300401898 1101404262#1 24914141#1 24914141#2 24914141#4 24914141#5 24914141#8 112128419#1 112128419#2 415280722 195401013#2 171826985#2 24913519#1 1144362247#1 541763975 202156995#0 202156995#1 4067932#0 4067932#1 541763974 61584187#0 61584187#1 1126245113 4611699#0 4611699#1 1149417521#0 1149417521#1 169195795#0 169195795#1 169195795#2 1113726463 1077923225#0 882389494#1 340498988#0">
@@ -169,7 +169,7 @@
         <stop busStop="24913519#1:13.00" duration="10" until="300"/>
         <stop busStop="61584187#1:30.39" duration="10" until="420"/>
         <stop busStop="169195795#0:13.00" duration="10" until="540"/>
-        <stop busStop="340498988#0:39.18" duration="10" until="660"/>
+        <stop busStop="340498988#0:39.33" duration="10" until="660"/>
     </route>
     <route id="28740.trimmed" edges="-335462916">
         <stop busStop="-335462916:13.00" duration="10" until="0"/>
@@ -302,7 +302,7 @@
         <stop busStop="24913519#1:13.00" duration="10" until="60"/>
         <stop busStop="61584187#1:30.39" duration="10" until="120"/>
         <stop busStop="169195795#0:13.00" duration="10" until="180"/>
-        <stop busStop="340498988#0:39.18" duration="10" until="240"/>
+        <stop busStop="340498988#0:39.33" duration="10" until="240"/>
         <stop busStop="335462916:20.18" duration="10" until="360"/>
         <stop busStop="-710761407#2:13.00" duration="10" until="480"/>
     </route>
@@ -316,7 +316,7 @@
         <stop busStop="24913519#1:13.00" duration="10" until="240"/>
         <stop busStop="61584187#1:30.39" duration="10" until="300"/>
         <stop busStop="169195795#0:13.00" duration="10" until="360"/>
-        <stop busStop="340498988#0:39.18" duration="10" until="420"/>
+        <stop busStop="340498988#0:39.33" duration="10" until="420"/>
         <stop busStop="335462916:20.18" duration="10" until="540"/>
         <stop busStop="-710761407#2:13.00" duration="10" until="660"/>
     </route>
@@ -341,14 +341,14 @@
         <stop busStop="4773465#1:13.00" duration="10" until="120"/>
         <stop busStop="743631784#0:19.24" duration="10" until="180"/>
     </route>
-    <route id="235071" edges="-169717723#2 6227654#1 1102154074#1 465376252 1102154075 388702039#0 388702039#1 388702039#8 388702039#9 541295978#1 1097921784#1 -541295974 6228081#0 -222328410 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3 194073677#4 190447768#1 195411602#0 195411602#1 465376240#0 195411604 11483007#0 -1119933622 -194069450#1 -882389497 4588217#1 874528353#0 874528353#1 874528353#2 -4588220#2 -1155757392 -1155757393#2 -168935756#2 -1110748916 -681299267 1110749960 753316506 168935757#0 -47755711#2 -47755711#1 -47755711#0 1073015934 47707171#0 47707171#1 47707171#2 1136657264#1 1136657264#2 1136657261">
+    <route id="235071" edges="-169717723#2 6227654#1 1102154074#1 465376252 1102154075 388702039#0 388702039#1 388702039#8 388702039#9 541295978#1 1097921784#1 -541295974#0 6228081#0 -222328410 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3 194073677#4 190447768#1 195411602#0 195411602#1 465376240#0 195411604 11483007#0 -1119933622 -194069450#1 -882389497 4588217#1 874528353#0 874528353#1 874528353#2 -4588220#2 -1155757392 -1155757393#2 -168935756#2 -1110748916 -681299267 1110749960 753316506 168935757#0 -47755711#2 -47755711#1 -47755711#0 1073015934 47707171#0 47707171#1 47707171#2 1136657264#1 1136657264#2 1136657261">
         <stop busStop="-169717723#2:44.48" duration="10" until="0"/>
         <stop busStop="388702039#9:13.00" duration="10" until="60"/>
         <stop busStop="194073677#3:13.00" duration="10" until="120"/>
         <stop busStop="-194069450#1:13.00" duration="10" until="240"/>
         <stop busStop="1136657261:13.00" duration="10" until="300"/>
     </route>
-    <route id="235080" edges="1136657261 -24997595#1 -24997595#0 -1149365724#2 -1149365724#1 -1149365724#0 -1149365723#1 -22972473#2 -35557143#4 196850609#0 196850609#1 196850609#2 882389497 194069450#0 169999355#1 -11483007#2 22972195#2 465376239 465376255#2 190447767 190447766#1 1151064403 1151064402#0 465376254#0 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3 194073677#4 1151064403 1151064402#0 465376254#0 222328410 -6228081#1 541295974 30720544#0 30720544#1 42103020#0 42103020#2 478432725 35269774#0 35269774#2 35269774#3 35269774#4 465376253#1 169717723#1">
+    <route id="235080" edges="1136657261 -24997595#1 -24997595#0 -1149365724#2 -1149365724#1 -1149365724#0 -1149365723#1 -22972473#2 -35557143#4 196850609#0 196850609#1 196850609#2 882389497 194069450#0 169999355#1 -11483007#2 22972195#2 465376239 465376255#2 190447767 190447766#1 1151064403 1151064402#0 465376254#0 34848160#2 1151064405#1 194073677#0 194073677#1 194073677#3 194073677#4 1151064403 1151064402#0 465376254#0 222328410 -6228081#1 541295974#0 30720544#0 30720544#1 42103020#0 42103020#2 478432725 35269774#0 35269774#2 35269774#3 35269774#4 465376253#1 169717723#1">
         <stop busStop="1136657261:13.00" duration="10" until="0"/>
         <stop busStop="194069450#0:59.04" duration="10" until="120"/>
         <stop busStop="194073677#3:13.00" duration="10" until="240"/>
@@ -435,7 +435,7 @@
         <stop busStop="82652397#1:70.25" duration="10" until="60"/>
     </route>
     <route id="237460" edges="24240246#0 1125871007#1 1125871262#1 1125871417 1125871619#1 1125871619#2 1125871619#3 1125871619#4 236092221#0 236092221#1 342968607#1 461526152#1 1126234503#0 1126237668#1 1079495669#0 1079495669#1 340498982#0 340498982#1 340498982#4 340498982#5 251884680#0 251884680#1 1126246695#1 339201217 1126244314#1 54048862#2 831694400 23013165#1 23013165#2 4611698 202156994#0 72157174#1 171826984#2 195401006 1113401735#1">
-        <stop busStop="24240246#0:75.62" duration="10" until="0"/>
+        <stop busStop="24240246#0:74.74" duration="10" until="0"/>
         <stop busStop="461526152#1:13.00" duration="10" until="120"/>
         <stop busStop="340498982#1:93.30" duration="10" until="240"/>
         <stop busStop="202156994#0:75.72" duration="10" until="360"/>
@@ -446,7 +446,7 @@
         <stop busStop="195401013#2:74.69" duration="10" until="60"/>
         <stop busStop="24913519#1:13.00" duration="10" until="120"/>
         <stop busStop="169195795#0:13.00" duration="10" until="240"/>
-        <stop busStop="340498988#0:39.18" duration="10" until="360"/>
+        <stop busStop="340498988#0:39.33" duration="10" until="360"/>
         <stop busStop="24913304#4:92.46" duration="10" until="420"/>
     </route>
     <route id="54587.trimmed" edges="461526152#1 1126234503#0 1126237668#1 1079495669#0 1079495669#1 340498982#0 340498982#1 340498982#4 340498982#5 251884680#0 251884680#1 1126246695#1 339201217 1126244314#1 54048862#2 831694400 23013165#1 23013165#2 4611698 202156994#0 72157174#1 171826984#2 195401006 1113401735#1">
@@ -786,7 +786,7 @@
         <stop busStop="144014230#3:60.00" duration="10" until="0"/>
         <stop busStop="167272512#2:60.00" duration="10" until="120"/>
         <stop busStop="195411594#1:68.98" duration="10" until="300"/>
-        <stop busStop="388702049#1:84.66" duration="10" until="420"/>
+        <stop busStop="388702049#1:84.64" duration="10" until="420"/>
     </route>
     <route id="260256" edges="421641064 30721657#1 30721657#2 30721657#3 46140385 46140379#0 46140379#1 46140379#2 46140393 101694131#0 101699679#2 101699679#3 101699679#6 154321040#2 154321040#3 154321040#4 154321040#5 154321040#6 154321040#7 154321040#8 154321040#9 1053166658#1 167140670#0 167140670#1 167140670#3 167140670#4 30122986#0 30122986#1 168453605#0 388702047#1 388702047#2 93584120#2 93584120#3 93584120#4 93584120#5 195411601#4 195411601#3 195411601#2 195411601#0 22820560#3 22820560#2 22820560#1 22820560#0 93584121#1 144014237#0 144014237#2 144014233#0 144014233#2 144014233#3 144014233#5 144014230#0 144014230#1 144014230#2 144014230#3">
         <stop busStop="421641064:60.00" duration="10" until="0"/>
@@ -2221,239 +2221,239 @@
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S Ostbahnhof"/>
     </vehicle>
-    <vehicle id="20322.0" route="20322" type="bus" depart="71450" line="20322">
+    <vehicle id="20322.0" route="20322" type="bus" depart="71810" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20328.0" route="20322" type="bus" depart="21950" line="20322">
+    <vehicle id="20328.0" route="20322" type="bus" depart="22310" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20331.0" route="20322" type="bus" depart="72650" line="20322">
+    <vehicle id="20331.0" route="20322" type="bus" depart="73010" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20337.0" route="20322" type="bus" depart="22730" line="20322">
+    <vehicle id="20337.0" route="20322" type="bus" depart="23090" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20340.0" route="20322" type="bus" depart="23450" line="20322">
+    <vehicle id="20340.0" route="20322" type="bus" depart="23810" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20343.0" route="20322" type="bus" depart="24650" line="20322">
+    <vehicle id="20343.0" route="20322" type="bus" depart="25010" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20346.0" route="20322" type="bus" depart="25850" line="20322">
+    <vehicle id="20346.0" route="20322" type="bus" depart="26210" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20349.0" route="20322" type="bus" depart="27050" line="20322">
+    <vehicle id="20349.0" route="20322" type="bus" depart="27410" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20352.0" route="20322" type="bus" depart="28250" line="20322">
+    <vehicle id="20352.0" route="20322" type="bus" depart="28610" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20355.0" route="20322" type="bus" depart="29450" line="20322">
+    <vehicle id="20355.0" route="20322" type="bus" depart="29810" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20358.0" route="20322" type="bus" depart="30650" line="20322">
+    <vehicle id="20358.0" route="20322" type="bus" depart="31010" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20361.0" route="20322" type="bus" depart="31850" line="20322">
+    <vehicle id="20361.0" route="20322" type="bus" depart="32210" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20364.0" route="20322" type="bus" depart="33050" line="20322">
+    <vehicle id="20364.0" route="20322" type="bus" depart="33410" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20367.0" route="20322" type="bus" depart="64250" line="20322">
+    <vehicle id="20367.0" route="20322" type="bus" depart="64610" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20370.0" route="20322" type="bus" depart="65450" line="20322">
+    <vehicle id="20370.0" route="20322" type="bus" depart="65810" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20373.0" route="20322" type="bus" depart="66650" line="20322">
+    <vehicle id="20373.0" route="20322" type="bus" depart="67010" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20376.0" route="20322" type="bus" depart="67850" line="20322">
+    <vehicle id="20376.0" route="20322" type="bus" depart="68210" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20379.0" route="20322" type="bus" depart="69050" line="20322">
+    <vehicle id="20379.0" route="20322" type="bus" depart="69410" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20382.0" route="20322" type="bus" depart="70250" line="20322">
+    <vehicle id="20382.0" route="20322" type="bus" depart="70610" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20385.0" route="20322" type="bus" depart="34250" line="20322">
+    <vehicle id="20385.0" route="20322" type="bus" depart="34610" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20388.0" route="20322" type="bus" depart="35450" line="20322">
+    <vehicle id="20388.0" route="20322" type="bus" depart="35810" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20391.0" route="20322" type="bus" depart="36650" line="20322">
+    <vehicle id="20391.0" route="20322" type="bus" depart="37010" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20394.0" route="20322" type="bus" depart="37850" line="20322">
+    <vehicle id="20394.0" route="20322" type="bus" depart="38210" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20397.0" route="20322" type="bus" depart="39050" line="20322">
+    <vehicle id="20397.0" route="20322" type="bus" depart="39410" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20400.0" route="20322" type="bus" depart="40250" line="20322">
+    <vehicle id="20400.0" route="20322" type="bus" depart="40610" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20403.0" route="20322" type="bus" depart="41450" line="20322">
+    <vehicle id="20403.0" route="20322" type="bus" depart="41810" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20406.0" route="20322" type="bus" depart="42650" line="20322">
+    <vehicle id="20406.0" route="20322" type="bus" depart="43010" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20409.0" route="20322" type="bus" depart="43850" line="20322">
+    <vehicle id="20409.0" route="20322" type="bus" depart="44210" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20412.0" route="20322" type="bus" depart="45050" line="20322">
+    <vehicle id="20412.0" route="20322" type="bus" depart="45410" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20415.0" route="20322" type="bus" depart="46250" line="20322">
+    <vehicle id="20415.0" route="20322" type="bus" depart="46610" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20418.0" route="20322" type="bus" depart="47450" line="20322">
+    <vehicle id="20418.0" route="20322" type="bus" depart="47810" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20421.0" route="20322" type="bus" depart="48650" line="20322">
+    <vehicle id="20421.0" route="20322" type="bus" depart="49010" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20424.0" route="20322" type="bus" depart="49850" line="20322">
+    <vehicle id="20424.0" route="20322" type="bus" depart="50210" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20427.0" route="20322" type="bus" depart="51050" line="20322">
+    <vehicle id="20427.0" route="20322" type="bus" depart="51410" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20430.0" route="20322" type="bus" depart="52250" line="20322">
+    <vehicle id="20430.0" route="20322" type="bus" depart="52610" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20433.0" route="20322" type="bus" depart="53450" line="20322">
+    <vehicle id="20433.0" route="20322" type="bus" depart="53810" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20436.0" route="20322" type="bus" depart="54650" line="20322">
+    <vehicle id="20436.0" route="20322" type="bus" depart="55010" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20439.0" route="20322" type="bus" depart="55850" line="20322">
+    <vehicle id="20439.0" route="20322" type="bus" depart="56210" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20442.0" route="20322" type="bus" depart="57050" line="20322">
+    <vehicle id="20442.0" route="20322" type="bus" depart="57410" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20445.0" route="20322" type="bus" depart="58250" line="20322">
+    <vehicle id="20445.0" route="20322" type="bus" depart="58610" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20448.0" route="20322" type="bus" depart="59450" line="20322">
+    <vehicle id="20448.0" route="20322" type="bus" depart="59810" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20451.0" route="20322" type="bus" depart="60650" line="20322">
+    <vehicle id="20451.0" route="20322" type="bus" depart="61010" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20454.0" route="20322" type="bus" depart="61850" line="20322">
+    <vehicle id="20454.0" route="20322" type="bus" depart="62210" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20457.0" route="20322" type="bus" depart="63050" line="20322">
+    <vehicle id="20457.0" route="20322" type="bus" depart="63410" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20460.0" route="20322" type="bus" depart="73550" line="20322">
+    <vehicle id="20460.0" route="20322" type="bus" depart="73910" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20463.0" route="20322" type="bus" depart="74750" line="20322">
+    <vehicle id="20463.0" route="20322" type="bus" depart="75110" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="U Leopoldplatz via Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20598.0" route="20322" type="bus" depart="17150" line="20322">
+    <vehicle id="20598.0" route="20322" type="bus" depart="17510" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20600.0" route="20322" type="bus" depart="18350" line="20322">
+    <vehicle id="20600.0" route="20322" type="bus" depart="18710" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20602.0" route="20322" type="bus" depart="19550" line="20322">
+    <vehicle id="20602.0" route="20322" type="bus" depart="19910" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20604.0" route="20322" type="bus" depart="75950" line="20322">
+    <vehicle id="20604.0" route="20322" type="bus" depart="76310" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20606.0" route="20322" type="bus" depart="77150" line="20322">
+    <vehicle id="20606.0" route="20322" type="bus" depart="77510" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20608.0" route="20322" type="bus" depart="78350" line="20322">
+    <vehicle id="20608.0" route="20322" type="bus" depart="78710" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20610.0" route="20322" type="bus" depart="79550" line="20322">
+    <vehicle id="20610.0" route="20322" type="bus" depart="79910" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20612.0" route="20322" type="bus" depart="80750" line="20322">
+    <vehicle id="20612.0" route="20322" type="bus" depart="81110" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20614.0" route="20322" type="bus" depart="81950" line="20322">
+    <vehicle id="20614.0" route="20322" type="bus" depart="82310" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20616.0" route="20322" type="bus" depart="83150" line="20322">
+    <vehicle id="20616.0" route="20322" type="bus" depart="83510" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20618.0" route="20322" type="bus" depart="84350" line="20322">
+    <vehicle id="20618.0" route="20322" type="bus" depart="84710" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20620.0" route="20322" type="bus" depart="85550" line="20322">
+    <vehicle id="20620.0" route="20322" type="bus" depart="85910" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="20630.0" route="20322" type="bus" depart="20750" line="20322">
+    <vehicle id="20630.0" route="20322" type="bus" depart="21110" line="20322">
         <param key="gtfs.route_name" value="142"/>
         <param key="gtfs.trip_headsign" value="S+U Hauptbahnhof"/>
     </vehicle>
