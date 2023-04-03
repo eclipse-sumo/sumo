@@ -486,16 +486,16 @@ MSPModel_JuPedSim::renderPolygon(const geos::geom::Polygon* polygon, const std::
 
 
 void 
-MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon) const {
+MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon) {
     const geos::geom::LinearRing* exterior = polygon->getExteriorRing();
     std::vector<double> exteriorCoordinates = getFlattenedCoordinates(exterior);
     JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size() / 2);
 
     for (size_t k = 0; k < polygon->getNumInteriorRing(); k++) {
         const geos::geom::LinearRing* interior = polygon->getInteriorRingN(k);
-        if (interior->getArea() > GEOS_MIN_AREA) {
-            std::vector<double> hole = getFlattenedCoordinates(interior);
-            JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, hole.data(), hole.size() / 2);
+        if (toPolygon(interior)->getArea() > GEOS_MIN_AREA) {
+            std::vector<double> holeCoordinates = getFlattenedCoordinates(interior);
+            JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, holeCoordinates.data(), holeCoordinates.size() / 2);
         }
     }
 }
