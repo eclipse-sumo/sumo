@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-01 11:15+0000\n"
+"PO-Revision-Date: 2023-04-04 10:30+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3346,55 +3346,55 @@ msgstr ""
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.file'. Using "
 "default of '%'."
-msgstr ""
+msgstr "车辆'%'没有提供车辆参数'device.ssm.file'文件。使用默认的'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3524
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.geo'."
-msgstr ""
+msgstr "车辆参数'ssm.geo'的数值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3530
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.geo'."
-msgstr ""
+msgstr "vType参数'ssm.geo'的无效值'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3535
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.geo'. Using "
 "default of '%'."
-msgstr ""
+msgstr "车辆'%'不提供车辆参数'device.sm.geo'。使用默认的'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3551
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.write-positions'."
-msgstr ""
+msgstr "车辆参数'SSM.Write-positions'的值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3557
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.write-positions'."
-msgstr ""
+msgstr "vType参数'ssm.write-positions'的值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3562
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3589
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-positions'. "
 "Using default of '%'."
-msgstr ""
+msgstr "车辆'%'没有提供车辆参数'device.sm.write-positions'记录的位置。使用默认的'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3578
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.write-lane-positions'."
-msgstr ""
+msgstr "车辆参数'ssm.write-lan-positions'记录的位置值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3584
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.write-lane-positions'."
-msgstr ""
+msgstr "vType参数'ssm.write-lan-positions'记录的位置值'%无效'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3605
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.range'."
-msgstr ""
+msgstr "车辆参数'ssm.range'的值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3611
 #, c-format
