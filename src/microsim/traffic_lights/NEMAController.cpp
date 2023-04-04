@@ -1446,11 +1446,25 @@ NEMAPhase::exit(NEMALogic* controller, PhaseTransitionLogic* nextPhases[2]) {
             transitionActive = true;
         } else {
             if (controller->getCurrentTime() - myLastEnd >= (yellow + red)) {
-                // triggers the entry to the next target phase.
-                readyToSwitch = false;
-                transitionActive = false;
-                // Enter into the next phase, setting it to Green
-                nextPhases[ringNum]->getToPhase()->enter(controller, this);
+                // red xfer check. This happens at a barrier phase when the other phase is transitioning, but the yellow times are different.
+                // the phase quicker to the red should enter a redxfer state, which just means that it cannot transition out of the 
+                // phase until the other phase is done.
+                PhasePtr otherPhase = controller->getOtherPhase(this);
+                if (otherPhase->isAtBarrier && isAtBarrier && barrierNum == otherPhase->barrierNum && otherPhase->getTransitionTime(controller) >= DELTA_T) {
+                    myLightState = LightState::RedXfer;
+                }
+                else {
+                    // check if the other phase is in redxfer and if it is, set it to red. 
+                    // This needs to be done before the next phase is entered
+                    if (otherPhase->getCurrentState() == LightState::RedXfer) {
+                        otherPhase->exit(controller, nextPhases);
+                    }
+                    // triggers the entry to the next target phase.
+                    readyToSwitch = false;
+                    transitionActive = false;
+                    // Enter into the next phase, setting it to Green
+                    nextPhases[ringNum]->getToPhase()->enter(controller, this);
+                }
             } else if (controller->getCurrentTime() - myLastEnd >= yellow) {
                 // set the light to red
                 myLightState = LightState::Red;
@@ -1490,7 +1504,7 @@ NEMAPhase::getTransitionTime(NEMALogic* controller) {
         return (yellow + red);
     }
     // if a transition is active, then return the time left in the transition
-    return MAX2(TIME2STEPS(0), ((controller->getCurrentTime() - myLastEnd) - (yellow + red)));
+    return MAX2(TIME2STEPS(0), ((yellow + red) - (controller->getCurrentTime() - myLastEnd)));
 }
 
 SUMOTime
@@ -1677,8 +1691,8 @@ PhaseTransitionLogic::freeBase(NEMALogic* controller) {
         // would the transition be a barrier cross?
         if (fromPhase->barrierNum != toPhase->barrierNum) {
             PhasePtr otherPhase = controller->getOtherPhase(fromPhase);
-            // If it is a barrier cross, the cross is only allowed if the transition times are ==
-            if (otherPhase->readyToSwitch && otherPhase->getTransitionTime(controller) == fromPhase->getTransitionTime(controller)) {
+            // If it is a barrier cross
+            if (otherPhase->readyToSwitch) {
                 okay = true;
             }
         } else {
