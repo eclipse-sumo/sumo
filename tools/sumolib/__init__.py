@@ -165,7 +165,7 @@ class TeeFile:
     def close(self):
         """closes all closable outputs"""
         for fp in self.files:
-            if hasattr(fp, "close"):
+            if fp not in (sys.__stdout__, sys.__stderr__) and hasattr(fp, "close"):
                 fp.close()
 
 
