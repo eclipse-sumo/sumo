@@ -544,7 +544,7 @@ MSRouteHandler::closeVehicle() {
         route = MSRoute::dictionary(embeddedRouteID, &myParsingRNG);
     }
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
-    if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN || myVehicleParameter->departProcedure == DepartDefinition::BEGIN) {
+    if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
         if (!(myAddVehiclesDirectly || checkLastDepart()) || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
             return;

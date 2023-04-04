@@ -596,6 +596,7 @@
                     <xsd:enumeration value="triggered"/>
                     <xsd:enumeration value="containerTriggered"/>
                     <xsd:enumeration value="split"/>
+                    <xsd:enumeration value="begin"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>
