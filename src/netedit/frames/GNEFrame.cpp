@@ -36,6 +36,7 @@
 // ===========================================================================
 
 FXFont* GNEFrame::myFrameHeaderFont = nullptr;
+FXFont* GNEFrame::myFrameHeader2Font = nullptr;
 
 // ===========================================================================
 // method definitions
@@ -60,6 +61,8 @@ GNEFrame::GNEFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, const std::st
     // Create font only one time
     if (myFrameHeaderFont == nullptr) {
         myFrameHeaderFont = new FXFont(getApp(), "Arial", 14, FXFont::Bold);
+        myFrameHeader2Font = new FXFont(getApp(), "Arial", 10, FXFont::Bold);
+
     }
 
     // Create frame for header
@@ -101,6 +104,8 @@ GNEFrame::~GNEFrame() {
     if (myFrameHeaderFont) {
         delete myFrameHeaderFont;
         myFrameHeaderFont = nullptr;
+        delete myFrameHeader2Font;
+        myFrameHeader2Font = nullptr;
     }
 }
 
@@ -167,6 +172,11 @@ GNEFrame::getFrameHeaderLabel() const {
 FXFont*
 GNEFrame::getFrameHeaderFont() const {
     return myFrameHeaderFont;
+}
+
+FXFont*
+GNEFrame::getFrameHeader2Font() const {
+    return myFrameHeader2Font;
 }
 
 

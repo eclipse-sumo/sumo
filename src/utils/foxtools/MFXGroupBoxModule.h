@@ -91,12 +91,14 @@ protected:
     /// @brief enable or disable save buttons
     void toggleSaveButton(const bool value);
 
+    /// @brief GNEFrame in which this GroupBox is placed
+    GNEFrame* myFrameParent = nullptr;
+
 private:
     /// @brief GroupBoxModule options
     const int myOptions;
 
-    /// @brief GNEFrame in which this GroupBox is placed
-    GNEFrame* myFrameParent = nullptr;
+    
 
     /// @brief vertical collapsable frame
     FXVerticalFrame* myCollapsableFrame = nullptr;

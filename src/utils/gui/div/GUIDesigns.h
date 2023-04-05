@@ -34,7 +34,9 @@ class MFXMenuCheckIcon;
 // ===========================================================================
 
 /// @brief define a standard height for all elements (Change it carefully)
-#define GUIDesignHeight 23
+#define GUIDesignHeight 27
+#define GUIDesignHeight2 27
+#define GUIDesignHeight3 20
 
 /// @brief define the default frames area width
 #define GUIDesignFramesAreaDefaultWidth 220
@@ -45,28 +47,28 @@ class MFXMenuCheckIcon;
 /// @name FXTextFields
 /// @{
 /// @brief text field extended over Frame with thick frame
-#define GUIDesignTextField              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextField              (FRAME_SUNKEN  | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief text field extended over Frame with thick frame (int)
-#define GUIDesignTextFieldInt           (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_INTEGER), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFieldInt           (FRAME_SUNKEN  | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_INTEGER), 0, 0, 0, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief text field extended over Frame with thick frame (real)
-#define GUIDesignTextFieldReal          (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFieldReal          (FRAME_SUNKEN  | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief text field with thick frame and width 50
-#define GUIDesignTextFielWidth50        (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFielWidth50        (FRAME_SUNKEN  | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief text field with thick frame and width 70
-#define GUIDesignTextFielWidth70        (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 70, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFielWidth70        (FRAME_SUNKEN  | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 70, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief text field with thick frame and width 50 and limited to doubles
-#define GUIDesignTextFielWidth50Real    (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFielWidth50Real    ( LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief text field with thick frame, width of 180 (Used in type frame)
-#define GUIDesignTextFielWidth180       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFielWidth180       (FRAME_SUNKEN  | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief text field used in TLSTable
-#define GUIDesignTextFieldTLSTable      (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFieldTLSTable      (FRAME_SUNKEN  | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol          1
@@ -136,8 +138,8 @@ class MFXMenuCheckIcon;
 /// @{
 /// @brief MFX Checkable Button with icon placed in navigation toolbar
 #define GUIDesignMFXCheckableButtonSquare       (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight
-#define GUIDesignMFXCheckableButtonSquare2       (BUTTON_TOOLBAR  | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT|JUSTIFY_LEFT |ICON_BEFORE_TEXT), 0, 0, 150, GUIDesignHeight
-#define GUIDesignMFXCheckableButtonSquare3       (BUTTON_NORMAL  | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT|JUSTIFY_LEFT), 0, 0, 150, GUIDesignHeight
+#define GUIDesignMFXCheckableButtonSquare2       (BUTTON_TOOLBAR  | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT|JUSTIFY_LEFT |ICON_BEFORE_TEXT), 0, 0, 150, GUIDesignHeight3
+#define GUIDesignMFXCheckableButtonSquare3       (BUTTON_NORMAL  | LAYOUT_FIX_WIDTH | JUSTIFY_LEFT), 0, 0, 150, GUIDesignHeight3
 
 
 /// @brief checkable button with icon placed in navigation toolbar for supermodes
@@ -184,22 +186,22 @@ class MFXMenuCheckIcon;
 /// @{
 
 /// @brief checkButton placed in left position
-#define GUIDesignCheckButton                (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignCheckButton                (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief checkButton placed in left position with double size
-#define GUIDesignCheckButtonExtraHeight     (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight + 10, 2, 2, 2, 2
+#define GUIDesignCheckButtonExtraHeight     (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight2 + 10, 2, 2, 2, 2
 
 /// @brief checkButton without thick extended over the frame used for attributes
-#define GUIDesignCheckButtonAttribute       (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT | FRAME_THICK), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignCheckButtonAttribute       (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT  ), 0, 0, 100, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief checkButton placed in center position with size GUIDesignHeight x GUIDesignHeight
-#define GUIDesignCheckButtonIcon            (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_X), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignCheckButtonIcon            (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_X), 0, 0, GUIDesignHeight2, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief CheckButton for Frames without thick extended over the frame
 #define GUIDesignCheckButtonViewSettings    (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
 
 /// @brief design for check button with fixed height (used in fix elements dialogs)
-#define GUIDesignCheckButtonFix             (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT), 0, 0, 200, GUIDesignHeight - 2, 2, 2, 2, 2
+#define GUIDesignCheckButtonFix             (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT), 0, 0, 200, GUIDesignHeight2 - 2, 2, 2, 2, 2
 
 /// @}
 
@@ -256,7 +258,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignLabelIconThick         (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label extended over the matrix column with thick frame
-#define GUIDesignLabelAttribute         (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelAttribute         ( LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 100, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief label extended over the matrix column with thick frame
 #define GUIDesignLabelAttribute150      (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 150, GUIDesignHeight, 2, 2, 2, 2
@@ -321,22 +323,22 @@ class MFXMenuCheckIcon;
 /// @name FXComboBox
 /// @{
 /// @brief Combo box editable extended over the all frame
-#define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief Combo box static (not editable)
-#define GUIDesignComboBoxStatic             (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBoxStatic             (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief Combo box static (not editable) extended over the all frame
-#define GUIDesignComboBoxStaticExtended     (COMBOBOX_STATIC | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBoxStaticExtended     (COMBOBOX_STATIC | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief Combo box static     (cannot be edited) extended over the matrix column
-#define GUIDesignComboBoxAttribute          (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBoxAttribute          (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief comboBox with thick frame, width 180
-#define GUIDesignComboBoxWidth180           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBoxWidth180           (COMBOBOX_NORMAL  | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief comboBox with thick frame, width 100
-#define GUIDesignComboBoxWidth100           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBoxWidth100           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight2, 2, 2, 2, 2
 
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol               1
@@ -359,7 +361,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignVerticalFrame              (LAYOUT_FILL_Y), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
 /// @brief Horizontal frame used for pack icons
-#define GUIDesignHorizontalFrameIcons       (LAYOUT_FILL_X | FRAME_THICK), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2
+#define GUIDesignHorizontalFrameIcons       (LAYOUT_FILL_X ), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2
 
 /// @brief Horizontal frame used in status bar
 #define GUIDesignHorizontalFrameStatusBar   (LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN | LAYOUT_FIX_HEIGHT), 0, 0, 20, GUIDesignHeight, 0, 0, 0, 0, 0, 0
@@ -444,10 +446,10 @@ class MFXMenuCheckIcon;
 #define GUIDesignToolbarMenuBarNetedit      (LAYOUT_SIDE_TOP | FRAME_RAISED)
 
 /// @brief design for default toolbar
-#define GUIDesignToolBar                    (FRAME_NORMAL)
+#define GUIDesignToolBar                    (LAYOUT_FILL_Y | LAYOUT_FILL_X |  FRAME_NORMAL)
 
 /// @brief design for toolbar
-#define GUIDesignToolBarRaisedSame          (LAYOUT_DOCK_SAME | FRAME_RAISED)
+#define GUIDesignToolBarRaisedSame          (LAYOUT_FILL_X   | LAYOUT_DOCK_SAME | FRAME_RAISED)
 
 /// @brief design for first toolbar shell positioned in the next position of dock
 #define GUIDesignToolBarRaisedNext          (LAYOUT_DOCK_NEXT | FRAME_RAISED)

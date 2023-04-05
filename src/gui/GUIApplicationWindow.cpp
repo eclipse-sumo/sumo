@@ -1139,16 +1139,33 @@ GUIApplicationWindow::onCmdOpen3d(FXObject* d, FXSelector, void*) {
     
     if (sumoPath != nullptr) {
 
-        std::string newPath = std::string(sumoPath) + "\\bin\\Sumo-UnityPython";
+        std::string newPath = std::string(sumoPath) + "/bin/Sumo-UnityPython";
 
         if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
-            sumoUnity = newPath + ".exe";
+            sumoUnity = "\""+newPath + ".exe"+ "\"" ;
         }
     }
     std::string cmd = sumoUnity;
     // start in background
+    
+    cmd = cmd + " -n " + currentConfig ;
+    //std::vector<GUISUMOAbstractView::Decal> myDecals = GUISettingsHandler::getDecals();
 
-    cmd = cmd + " -n \"" + currentConfig + "\"";
+
+
+    //GUISettingsHandler::getDecals()
+    //    3:31 PM
+
+
+    //    Behrisch, Michael
+
+
+
+    //    GUISUMOAbstractView::drawDecals()
+
+    //// GUISettingsHandler::getDecals();
+    
+    // traci.simulation.getOption
 
     WRITE_MESSAGE(TL("Running ") + cmd);
     // yay! fun with dangerous commands... Never use this over the internet
@@ -1846,6 +1863,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     mTime = MAX2(mTime, SysUtils::getModifiedTime(fname));
                 }
             }
+            
             // always reload if settings were modified or to restore multiple views
             if (ec->mySettingsFiles.size() > 0 && (!myIsReload || myGuiSettingsFileMTime < mTime || ec->mySettingsFiles.size() > 1)) {
                 gSchemeStorage.clearDecals();

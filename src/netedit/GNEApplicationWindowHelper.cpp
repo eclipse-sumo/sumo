@@ -56,15 +56,17 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildMenuToolbarsGrip() {
 void
 GNEApplicationWindowHelper::ToolbarsGrip::buildMenuToolbarsGrip2() {
     // build menu bar (for File, edit, processing...) using specify design
-    leftToolBarShellMenu = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    //leftToolBarShellMenu = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
      
 }
 
 void
 GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips2() {
      
+    
     // build menu bar for modes
     myToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    
     // create modes depending of option "gui-testing" (note: Used for NETEDIT test)
     if (OptionsCont::getOptions().getBool("gui-testing")) {
         modes = new FXMenuBar(myGNEApp->getLeftDock(), myToolBarShellModes, GUIDesignToolBarRaisedNext);

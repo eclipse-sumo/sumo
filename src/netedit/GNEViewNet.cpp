@@ -1973,8 +1973,8 @@ GNEViewNet::onCmdSetMode(FXObject* Button, FXSelector sel, void*) {
         myEditModes.setSupermode(Supermode::DATA, true);
 
         myNetworkCheckableButtons.disableNetworkCheckableButtons();
-        myDemandCheckableButtons.demandButton->setChecked(false);
-        myDataCheckableButtons.disableDataCheckableButtons();
+        myDemandCheckableButtons.disableDemandCheckableButtons();
+        myDataCheckableButtons.dataButton->setChecked(true);
     }
 
     if (myEditModes.isCurrentSupermodeNetwork()) {

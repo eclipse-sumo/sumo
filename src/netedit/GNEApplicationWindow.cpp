@@ -460,7 +460,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     a->setTooltipPause(1000000000);
     // set SUMO Options descriptions
     mySUMOOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
-    mySUMOOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
+    mySUMOOptions.setApplicationName("sumo-Anka", "Eclipse SUMO sumo Version " VERSION_STRING);
     // parse sumo options
     TemplateHandler::parseTemplate(mySUMOOptions, sumoTemplate);
 }
@@ -1128,10 +1128,10 @@ GNEApplicationWindow::onCmdReportsApp(FXObject* sender, FXSelector sel, void* e)
 
     if (sumoPath != nullptr) {
 
-        std::string newPath = std::string(sumoPath) + "\\bin\\Sumo_ReportPython";
+        std::string newPath = std::string(sumoPath) + "/bin/Sumo_ReportPython";
 
         if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
-            sumoReport = newPath + ".exe";
+            sumoReport = "\"" + newPath + ".exe"+ "\"";
         }
     }
     std::string cmd = sumoReport;
