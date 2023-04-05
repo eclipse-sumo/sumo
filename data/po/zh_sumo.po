@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-05 10:48+0000\n"
+"PO-Revision-Date: 2023-04-05 12:17+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3595,7 +3595,7 @@ msgstr "如果设置，车辆在MRM期间试图到达指定的停车地点。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:138
 msgid "Duration the vehicle stays at the safe spot after an MRM."
-msgstr ""
+msgstr "在MRM之后，车辆停留在安全停车点的持续时间。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:140
 msgid ""
@@ -3625,11 +3625,11 @@ msgstr ""
 msgid ""
 "Whether a coloring scheme shall by applied to indicate the different ToC "
 "stages."
-msgstr ""
+msgstr "是否应采用着色方案来表示不同的ToC阶段。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:152
 msgid "Switches on output by specifying an output filename."
-msgstr ""
+msgstr "通过指定一个输出文件名来打开输出。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:161
 msgid "ToC device is not supported by the mesoscopic simulation."
@@ -3638,12 +3638,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:200
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.measures'"
-msgstr ""
+msgstr "车辆参数'ssm.measures'的值'%'无效"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:206
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.measures'"
-msgstr ""
+msgstr "vType参数'ssm.measures'的值'%'无效"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:220
 msgid ""
