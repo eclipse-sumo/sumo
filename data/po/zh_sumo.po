@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-04 10:30+0000\n"
+"PO-Revision-Date: 2023-04-05 10:12+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3399,58 +3399,59 @@ msgstr "车辆参数'ssm.range'的值'%'无效。"
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3611
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.range'."
-msgstr ""
+msgstr "vType参数'ssm.range'的值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3616
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.range'. Using "
 "default of '%'."
-msgstr ""
+msgstr "车辆'%'不提供车辆参数'device.sm.range'。使用默认的'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3632
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.extratime'."
-msgstr ""
+msgstr "车辆参数'ssm.extratime'的值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3638
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.extratime'."
-msgstr ""
+msgstr "vType参数'ssm.extratime'的值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3643
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.extratime'. Using "
 "default of '%'."
-msgstr ""
+msgstr "车辆'%'没有提供车辆参数'device.sm.extratime'。使用默认的'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3649
 #, c-format
 msgid ""
 "Negative (or no) value encountered for vehicle parameter 'device.ssm."
 "extratime' in vehicle '%' using default value % instead."
-msgstr ""
+msgstr "车辆参数'device.sm."
+"extratime'在车辆'%'中遇到了负值（或没有），使用默认值%代替。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3663
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.trajectories'."
-msgstr ""
+msgstr "车辆参数'ssm.trajectories'的值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3669
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.trajectories'."
-msgstr ""
+msgstr "vType参数'SSM.trajectories'的无效值'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3674
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.trajectories'. "
 "Using default of '%'."
-msgstr ""
+msgstr "车辆'%'不提供车辆参数'device.sm.trajectories'。使用默认的'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3703
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.measures'. Using "
 "default of '%'."
-msgstr ""
+msgstr "车辆'%'不提供车辆参数'device.sm.measures'。使用默认的'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3720
 msgid ""
@@ -3460,18 +3461,18 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3731
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.thresholds'."
-msgstr ""
+msgstr "车辆参数'ssm.thresholds'的值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3737
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.thresholds'."
-msgstr ""
+msgstr "vType参数'ssm.thresholds'的无效值'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3742
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.thresholds'. Using "
 "default of '%'."
-msgstr ""
+msgstr "车辆'%'不提供车辆参数'device.sm.thresholds'。使用默认的'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3757
 msgid ""
@@ -3500,7 +3501,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:94
 msgid "The behavior of idle taxis [stop|randomCircling]"
-msgstr ""
+msgstr "无载客出租车的行为[停车|巡游揽客]"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:97
 msgid "Write information from the idling algorithm to FILE"
@@ -3514,12 +3515,12 @@ msgstr ""
 msgid ""
 "Vehicle '%' with personCapacity % and containerCapacity % is not usable as "
 "taxi."
-msgstr ""
+msgstr "车辆'%'的人员载量%和货箱容量%不能作为出租车使用。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:147
 #, c-format
 msgid "Dispatch algorithm '%' is not known"
-msgstr ""
+msgstr "调度算法'%'不详"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:313
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
@@ -3531,16 +3532,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:453
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
-msgstr ""
+msgstr "无法为车辆'%'添加出租车停靠点至%。时间=% 错误=%。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:569
 msgid "Taxi '%' reaches scheduled end of service at time=%."
-msgstr ""
+msgstr "出租车'%'在时间=%时达到预定的服务终点。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:645
 msgid ""
 "All customers left vehicle '%' at time=% but there are % remaining stops"
-msgstr ""
+msgstr "所有客户在时间=%时离开车辆'%'，但还有%的剩余站点"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:116
 msgid "Vehicle type for manual driving regime."
@@ -3548,11 +3549,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:118
 msgid "Vehicle type for automated driving regime."
-msgstr ""
+msgstr "自动驾驶系统的车辆类型。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:120
 msgid "Average response time needed by a driver to take back control."
-msgstr ""
+msgstr "司机收回控制权所需的平均反应时间。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:122
 msgid "Recovery rate for the driver's awareness after a ToC."
@@ -3562,7 +3563,7 @@ msgstr ""
 msgid ""
 "Attention level below which a driver restrains from performing lane changes "
 "(value in [0,1])."
-msgstr ""
+msgstr "注意力水平，低于此水平时，驾驶员会限制其进行车道变换（数值为[0,1]）。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:126
 msgid "Average awareness a driver has initially after a ToC (value in [0,1])."
