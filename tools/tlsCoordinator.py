@@ -52,13 +52,13 @@ def logAddedPair(TLSP, sets, operation):
 
 def get_options(args=None):
     optParser = ArgumentParser()
-    optParser.add_option("-n", "--net-file", category="input", dest="netfile", required=True, category="input",
+    optParser.add_option("-n", "--net-file", category="input", dest="netfile", required=True,
                          type=ArgumentParser.net_file, help="define the net file (mandatory)")
-    optParser.add_option("-o", "--output-file", category="output", dest="outfile", category="output",
+    optParser.add_option("-o", "--output-file", category="output", dest="outfile",
                          default="tlsOffsets.add.xml", type=ArgumentParser.file, help="define the output filename")
-    optParser.add_option("-r", "--route-file", category="input", dest="routefile", required=True, category="input",
+    optParser.add_option("-r", "--route-file", category="input", dest="routefile", required=True,
                          type=ArgumentParser.route_file, help="define the input route file (mandatory)")
-    optParser.add_option("-a", "--additional-file", category="input", dest="addfile", category="input",
+    optParser.add_option("-a", "--additional-file", category="input", dest="addfile",
                          type=ArgumentParser.additional_file, help="define replacement tls plans to be coordinated")
     optParser.add_option("-v", "--verbose", category="processing", action="store_true",
                          default=False, help="tell me what you are doing")
