@@ -24,13 +24,12 @@ the relevant taz.
 """
 from __future__ import print_function
 from __future__ import absolute_import
-import os
 import sys
 import argparse
 import collections
 from xml.sax import parse
-sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
-import sumolib  # noqa
+
+import sumolib
 
 
 # written into the net. All members are "private".
