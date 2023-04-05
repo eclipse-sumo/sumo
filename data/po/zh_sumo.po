@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-05 12:17+0000\n"
+"PO-Revision-Date: 2023-04-05 14:41+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3664,7 +3664,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:731
 #, c-format
 msgid "vType '%' for vehicle '%' is not known."
-msgstr ""
+msgstr "不知道车辆'%'的v类型'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:933
 msgid ""
