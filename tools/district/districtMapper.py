@@ -15,6 +15,7 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2007-07-26
 
 """
@@ -24,8 +25,12 @@ identified by the user as reference points.
 """
 from __future__ import absolute_import
 from __future__ import print_function
+import os, sys
 from xml.sax import make_parser, handler
-from optparse import OptionParser
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+from sumolib.options import ArgumentParser  # noqa
 
 
 def parseShape(shape):
@@ -126,24 +131,24 @@ class DistrictMapper(handler.ContentHandler):
 
 
 if __name__ == "__main__":
-    optParser = OptionParser()
-    optParser.add_option("-v", "--verbose", action="store_true",
+    ap = ArgumentParser()
+    ap.add_argument("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
-    optParser.add_option("-1", "--net-file1", dest="netfile1",
+    ap.add_argument("-1", "--net-file1", dest="netfile1", category="input", type=ArgumentParser.net_file, required=True,
                          help="read first SUMO network from FILE (mandatory)", metavar="FILE")
-    optParser.add_option("-2", "--net-file2", dest="netfile2",
+    ap.add_argument("-2", "--net-file2", dest="netfile2", category="input", type=ArgumentParser.net_file, required=True,
                          help="read second SUMO network from FILE (mandatory)", metavar="FILE")
-    optParser.add_option("-o", "--output", default="districts.add.xml",
+    ap.add_argument("-o", "--output", default="districts.add.xml", category="output", type=ArgumentParser.file,
                          help="write resulting districts to FILE (default: %default)", metavar="FILE")
-    optParser.add_option("-p", "--polyoutput",
+    ap.add_argument("-p", "--polyoutput", category="output", type=ArgumentParser.file,
                          help="write districts as polygons to FILE", metavar="FILE")
-    optParser.add_option("-a", "--junctions1",
+    ap.add_argument("-a", "--junctions1", type=str, required=True,
                          help="list of junction ids to use from first network (mandatory)")
-    optParser.add_option("-b", "--junctions2",
+    ap.add_argument("-b", "--junctions2", type=str, required=True,
                          help="list of junction ids to use from second network (mandatory)")
-    optParser.add_option("-c", "--color", default="1,0,0",
+    ap.add_argument("--color", default="1,0,0", type=str,
                          help="Assign this color to districts (default: %default)")
-    (options, args) = optParser.parse_args()
+    options = ap.parse_args()
     if not options.netfile1 or not options.netfile2 or not options.junctions1 or not options.junctions2:
         optParser.print_help()
         optParser.exit(

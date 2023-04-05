@@ -14,13 +14,16 @@
 # @file    countConnectionsInDistricts.py
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2007-07-26
 
 from __future__ import absolute_import
 from __future__ import print_function
 from xml.sax import make_parser, handler
-from optparse import OptionParser
-
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+from sumolib.options import ArgumentParser  # noqa
 
 # written into the net. All members are "private".
 class NetDistrictConnectionCountingHandler(handler.ContentHandler):
@@ -54,14 +57,14 @@ class NetDistrictConnectionCountingHandler(handler.ContentHandler):
         fd.close()
 
 
-optParser = OptionParser()
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+ap = ArgumentParser()
+ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
-optParser.add_option("-n", "--net-file", dest="netfile",
+ap.add_argument("-n", "--net-file", dest="netfile", category="input", type=ArgumentParser.net_file, required=True,
                      help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
-optParser.add_option("-o", "--output", dest="output",
+ap.add_argument("-o", "--output", dest="output", category="output", type=ArgumentParser.net_file, required=True,
                      help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
-(options, args) = optParser.parse_args()
+options = ap.parse_args()
 
 parser = make_parser()
 reader = NetDistrictConnectionCountingHandler()
