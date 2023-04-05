@@ -31,6 +31,7 @@ from argparse import RawDescriptionHelpFormatter  # noqa
 from copy import deepcopy
 from functools import wraps
 from .miscutils import openz
+from .miscutils import parseTime
 
 
 class ConfigurationReader(handler.ContentHandler):
@@ -154,7 +155,7 @@ class ArgumentParser(argparse.ArgumentParser):
 
     @staticmethod
     def time(s):
-        return s
+        return parseTime(s)
 
     @staticmethod
     def file(s):
