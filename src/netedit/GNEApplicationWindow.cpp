@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    GNEApplicationWindow.cpp
 /// @author  Pablo Alvarez Lopez
+/// @author  Mirko Barthauer
 /// @date    mar 2020
 ///
 // Functions from main window of netedit
@@ -3611,16 +3612,27 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
     } else {
         // Start saving additionals
         getApp()->beginWaitCursor();
-        // compute before saving (for detectors positions)
-        myNet->computeNetwork(this);
-        // save additionals
-        myNet->saveAdditionals();
-        // show info
-        WRITE_MESSAGE(TL("Additionals saved in '") + neteditOptions.getString("additional-files") + "'");
-        // end saving additionals
+        try {
+            // compute before saving (for detectors positions)
+            myNet->computeNetwork(this);
+            // save additionals
+            myNet->saveAdditionals();
+            // show info
+            WRITE_MESSAGE(TL("Additionals saved in '") + neteditOptions.getString("additional-files") + "'");
+            // end saving additionals
+            getApp()->endWaitCursor();
+            // restore focus
+            setFocus();
+        }
+        catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving additionals'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, TL("Saving additionals failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving additionals' with 'OK'");
+        }
         getApp()->endWaitCursor();
-        // restore focus
-        setFocus();
         return 1;
     }
 }
@@ -3762,16 +3774,27 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     } else {
         // Start saving demand elements
         getApp()->beginWaitCursor();
-        // compute before saving
-        myNet->computeNetwork(this);
-        // save demand elements
-        myNet->saveDemandElements();
-        // show info
-        WRITE_MESSAGE(TL("Demand elements saved in '") + neteditOptions.getString("route-files") + "'");
-        // end saving demand elements
+        try {
+            // compute before saving
+            myNet->computeNetwork(this);
+            // save demand elements
+            myNet->saveDemandElements();
+            // show info
+            WRITE_MESSAGE(TL("Demand elements saved in '") + neteditOptions.getString("route-files") + "'");
+            // end saving demand elements
+            getApp()->endWaitCursor();
+            // restore focus
+            setFocus();
+        }
+        catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving demand elements'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving demand elements' with 'OK'");
+        }
         getApp()->endWaitCursor();
-        // restore focus
-        setFocus();
         return 1;
     }
 }
