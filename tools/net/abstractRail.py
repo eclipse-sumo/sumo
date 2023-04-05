@@ -524,7 +524,7 @@ def splitNet(options):
 
     if options.verbose:
         print("Creating region file '%s'" % options.regionfile)
-    subprocess.call([STATION_DISTRICTS,
+    subprocess.call([sys.executable, STATION_DISTRICTS,
                      '-n', options.netfile,
                      '-s', options.stopfile,
                      '-o', options.regionfile,
@@ -552,7 +552,7 @@ def splitNet(options):
 
         if options.verbose:
             print("Re-creating region file '%s' after splitting network" % options.regionfile)
-        subprocess.call([STATION_DISTRICTS,
+        subprocess.call([sys.executable, STATION_DISTRICTS,
                          '-n', options.netfile,
                          '-s', options.stopfile,
                          '-o', options.regionfile])
