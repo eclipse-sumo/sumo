@@ -46,7 +46,7 @@ SOURCE_DEST_SEP = ';'
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser(usage="%(prog)s <options> <test directory>")
+    optParser = sumolib.options.ArgumentParser(usage="%(prog)s <options> [<test directory>[;<target_directory>]]*")
     optParser.add_option("-o", "--output", category="output",  default=".", help="send output to directory")
     optParser.add_option("-f", "--file", category="input", help="read list of source and target dirs from")
     optParser.add_option("-p", "--python-script", category="input",
@@ -64,11 +64,10 @@ def get_options(args=None):
                          default=False, help="store test files directly in the output directory")
     optParser.add_option("--depth", category="processing", type=int, default=1,
                          help="maximum depth when descending into testsuites")
-    options, args = optParser.parse_known_args(args)
-    if not options.file and len(args) == 0:
-        optParser.print_help()
-        sys.exit(1)
-    options.args = args
+    optParser.add_option("test_dir", nargs="*", category="input", help="read list of source and target dirs from")
+    options = optParser.parse_args(args)
+    if not options.file and not options.test_dir:
+        optParser.error("Please specify either an input file or a test directory")
     return options
 
 
@@ -104,7 +103,7 @@ def main(options):
                 ls[0] = join(dirname, ls[0])
                 ls[1] = join(dirname, ls[1])
                 targets.append(ls[:3])
-    for val in options.args:
+    for val in options.test_dir:
         source_and_maybe_target = val.split(SOURCE_DEST_SEP) + ["", ""]
         targets.append(source_and_maybe_target[:3])
     depth = options.depth
