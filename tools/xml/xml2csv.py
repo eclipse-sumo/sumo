@@ -254,8 +254,6 @@ def get_options(arglist=None):
         options.source = getSocketStream(int(options.source))
     elif options.source.endswith(".gz"):
         options.source = gzip.open(options.source)
-    else:
-        options.source = options.source
     if options.output and options.output.isdigit() and options.split:
         print("it is not possible to use splitting together with stream output", file=sys.stderr)
         sys.exit()
