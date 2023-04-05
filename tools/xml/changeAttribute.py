@@ -37,15 +37,12 @@ import sumolib  # noqa
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Set or remove an attribute for the specified XML element.")
-    optParser.add_argument("-f", "--file", category="input", dest="file", type=optParser.data_file, help="define the XML input file")
+    optParser.add_argument("-f", "--file", category="input", dest="file", required=True, type=optParser.data_file, help="define the XML input file")
     optParser.add_argument("-o", "--output", category="output", dest="output", type=optParser.data_file, help="define the XML output file")
     optParser.add_argument("-t", "--tag", category="processing", dest="tag", type=str, help="tag to edit")
     optParser.add_argument("-a", "--attribute", category="processing", dest="attribute", type=str, help="attribute to edit")
     optParser.add_argument("-v", "--value", category="processing", dest="value", type=str, help="value to update (deletes attribute if not specified)")
     options = optParser.parse_args(args=args)
-    if not options.file:
-        optParser.print_help()
-        sys.exit()
     return options
 
 
