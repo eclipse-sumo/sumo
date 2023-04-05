@@ -1448,9 +1448,10 @@ NEMAPhase::exit(NEMALogic* controller, PhaseTransitionLogic* nextPhases[2]) {
             if (controller->getCurrentTime() - myLastEnd >= (yellow + red)) {
                 // red xfer check. This happens at a barrier phase when the other phase is transitioning, but the yellow times are different.
                 // the phase quicker to the red should enter a redxfer state, which just means that it cannot transition out of the 
-                // phase until the other phase is done.
+                // phase until the other phase is done. Only enters a redxfer if the next phases is a barrier cross
                 PhasePtr otherPhase = controller->getOtherPhase(this);
-                if (otherPhase->isAtBarrier && isAtBarrier && barrierNum == otherPhase->barrierNum && otherPhase->getTransitionTime(controller) >= DELTA_T) {
+                bool barrierCross = nextPhases[ringNum]->getToPhase()->barrierNum != barrierNum;
+                if (barrierCross && otherPhase->isAtBarrier && isAtBarrier && barrierNum == otherPhase->barrierNum && otherPhase->getTransitionTime(controller) >= DELTA_T) {
                     myLightState = LightState::RedXfer;
                 }
                 else {
