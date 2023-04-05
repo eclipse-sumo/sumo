@@ -181,7 +181,11 @@ class ArgumentParser(argparse.ArgumentParser):
         # arbitrary data file (i.e. for attributeStats.py and plotXMLAttributes.py)
         return s
 
-    def __init__(self, allowed_programs=[], *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        self._allowed_programs = kwargs.get("allowed_programs", [])
+        if "allowed_programs" in kwargs:
+            del kwargs["allowed_programs"]
+        self._catch_all = None
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
         # add common argument for loading configuration
         self.add_argument('-c', '--configuration-file', help='read configuration from FILE', metavar="FILE")
@@ -190,7 +194,6 @@ class ArgumentParser(argparse.ArgumentParser):
         # add common argument for save template
         self.add_argument('--save-template', help='save configuration template to FILE and exit', metavar="FILE")
         self._fix_path_args = set()
-        self._allowed_programs = allowed_programs
 
     def add_argument(self, *args, **kwargs):
         # due argparse only accept certains values (action, choices, type, help...),
@@ -202,6 +205,9 @@ class ArgumentParser(argparse.ArgumentParser):
         category = kwargs.get("category")
         if "category" in kwargs:
             del kwargs["category"]
+        catch_all = kwargs.get("catch_all", False)
+        if "catch_all" in kwargs:
+            del kwargs["catch_all"]
         # get action
         action = kwargs.get("action")
         # parse argument
@@ -217,13 +223,15 @@ class ArgumentParser(argparse.ArgumentParser):
         a.boolean = ((action == "store_true") or (action == "store_false"))
         # the value of a.required is lost during parsing
         a.isRequired = a.required
+        if catch_all:
+            self._catch_all = a
 
     def add_option(self, *args, **kwargs):
         """alias for compatibility with OptionParser"""
         self.add_argument(*args, **kwargs)
 
-    def add_mutually_exclusive_group(self):
-        group = argparse.ArgumentParser.add_mutually_exclusive_group(self)
+    def add_mutually_exclusive_group(self, required=False):
+        group = argparse.ArgumentParser.add_mutually_exclusive_group(self, required)
         group.add_argument = handleCatoryWrapper(group.add_argument)
         return group
 
@@ -310,7 +318,11 @@ class ArgumentParser(argparse.ArgumentParser):
             args = map(str, args)
         args_namespace, unknown_args = self.parse_known_args(args, namespace)
         if unknown_args:
-            self.error('unrecognized arguments: %s' % ' '.join(unknown_args))
+            if self._catch_all:
+                setattr(args_namespace, self._catch_all.dest,
+                        getattr(args_namespace, self._catch_all.dest) + unknown_args)
+            else:
+                self.error('unrecognized arguments: %s' % ' '.join(unknown_args))
         return args_namespace
 
     def parse_known_args(self, args=None, namespace=None):

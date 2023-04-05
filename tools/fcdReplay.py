@@ -36,10 +36,11 @@ def main():
                         help="use fcd data in lon,lat format")
     parser.add_argument("-v", "--verbose", category="processing", action="store_true", default=False,
                         help="tell me what you are doing")
-    options, args = parser.parse_known_args()
+    parser.add_argument("sumo_args", nargs="*", catch_all=True, help="additional sumo arguments")
+    options = parser.parse_args()
 
     sumoBinary = sumolib.checkBinary("sumo-gui")
-    traci.start([sumoBinary, "-c", options.sumo_config] + args)
+    traci.start([sumoBinary, "-c", options.sumo_config] + options.sumo_args)
     t = traci.simulation.getTime()
     deltaT = traci.simulation.getDeltaT()
 
