@@ -15,21 +15,24 @@ on("ready", function(){
     Settings.prototype = {
         init: function(display, internal, fringeFactor, count, enabled){
             this.internal = internal;
+            
+            var tranlate = {"Cars":"Arabalar","Trucks":"Kamyonlar","Bus":"Otobüslar","Motorcycles":"Motorsikletler","Bicycles":"Bisikletler",
+            "Pedestrians":"Yayalar","Trams":"Tramvaylar","Urban trains":"Şehiriçi Trenler","Trains":"Trenler","Ships":"Gemiler"}
 
             var node = elem("<div>", {className: "container"});
-            var header = elem("<h4>", {textContent: display});
+            var header = elem("<h4>", {textContent: tranlate[display]});
             header.append("<img>", {src: "images/" + internal + ".png"});
             node.append(header);
             this.enable = elem("<input>", {type: "checkbox", checked: enabled});
             node.append(this.enable);
 
             var options = elem("<div>", {className: "options"});
-            var label = elem("<label>", {textContent: "Through Traffic Factor"});
+            var label = elem("<label>", {textContent: "Trafik faktörü"});
             this.fringeFactor = elem("<input>", {type: "number", min: .5, max: 100, step: .1, value: fringeFactor});
             label.append(this.fringeFactor);
             options.append(label);
 
-            label = elem("<label>", {textContent: "Count", title: "Count per hour per kilometer"});
+            label = elem("<label>", {textContent: "Sayısı", title: "Kilometre saat başına düşen araç sayısı"});
             this.count = elem("<input>", {type: "number", min: .2, max: 100, step: .1, value: count});
             label.append(this.count);
             options.append(label);
@@ -71,8 +74,58 @@ on("ready", function(){
             this.category = category;
             this.typeList = typeList;
 
+            translations = {
+                "Highway": "Otoban",
+                "motorway": "Otoyol",
+                "trunk": "Ana Yol",
+                "primary": "Birincil Yol",
+                "secondary": "İkincil Yol",
+                "tertiary": "Üçüncül Yol",
+                "unclassified": "Sınıflandırılmamış Yol",
+                "residential": "Kentsel Yol",
+                "living_street": "Yaşam Yolu",
+                "unsurfaced": "Kaplamasız  Yol",
+                "service": "Hizmet Yolu",
+                "raceway": "Yarış Pisti",
+                "bus_guideway": "Kılavuzlu Otobüs Yolu",
+                "Pedestrians": "Yaya Yolu",
+                "track": "Yol",
+                "footway": "Kaldırım",
+                "pedestrian": "Yaya Yolu",
+                "path": "Patika",
+                "bridleway": "At Yolu",
+                "cycleway": "Bisiklet Yolu",
+                "step": "Merdiven",
+                "steps": "Merdivenler",
+                "stairs": "Merdivenler",
+                "Railway": "Demiryolu",
+                "preserved": "Tarihi Demiryolu",
+                "tram": "Tramvay",
+                "subway": "Metro",
+                "light_rail": "Hafif Raylı Sistem",
+                "rail": "Demiryolu",
+                "highspeed": "Yüksek Hızlı Tren",
+                "monorail": "Tek Raylı Tren",
+                "Aeroway": "Hava Taşımacılığı",
+                "stopway": "Duraklama Alanı",
+                "parking_position": "Park Yeri",
+                "taxiway": "Taksi Yolu",
+                "taxilane": "Taksi Şeridi",
+                "runway": "Pist",
+                "highway_strip": "Yol Şeridi",
+                "Waterway": "Su Yolu",
+                "river": "Nehir",
+                "canal": "Kanal",
+                "Aerialway": "Hava Taşımacılığı",
+                "cable_car": "Teleferik",
+                "gondola": "Gondol",
+                "Route": "Rota",
+                "ferry": "Feribot"
+            }
+            
+
             var node = elem("<div>", {className: "container"});
-            var header = elem("<h4>", {textContent: category});
+            var header = elem("<h4>", {textContent: translations[category]});
             var checkbox = elem("<input>",{type: "checkbox", checked:true, className: "checkAll", id: category.toLowerCase()});
             node.append(header);
             node.append(checkbox);
@@ -81,7 +134,7 @@ on("ready", function(){
             var label = elem("<label>");
 
             for (var i = 0; i < typeList.length; i++) {
-                label = elem("<label>", {textContent: typeList[i]});
+                label = elem("<label>", {textContent: translations[typeList[i]]});
                 let roadTypeId = this.category + "_" + typeList[i]
                 this.roadTypeCheck = elem("<input>",{type: "checkbox", checked:true, id: roadTypeId});
 
@@ -375,7 +428,7 @@ on("ready", function(){
             map.getProjectionObject() // to Spherical Mercator Projection
         );
 
-        map.setCenter(lonLat, 16);
+        map.setCenter(lonLat, 12);
     }
 
     function setPositionByString() {
@@ -419,7 +472,7 @@ on("ready", function(){
     
 
     // set default position to center Berlin
-    setPosition(13.4, 52.52);
+    setPosition(28.989557,41.016887);
 
     /**
      * @listener

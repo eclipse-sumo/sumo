@@ -66,7 +66,7 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
     zipfile.ZipFile(sourceZip).extractall(tmpDir)
     sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
     fragments = [buildFragment(wixBin, os.path.join(sumoRoot, d), "INSTALLDIR", tmpDir)
-                 for d in ["bin", "data", "share", "include", "tools"]]
+                 for d in ["bin", "data", "share", "tools"]]
     for d in ["userdoc", "pydoc", "javadoc", "tutorial", "examples"]:
         docDir = os.path.join(sumoRoot, "docs", d)
         if os.path.exists(docDir):

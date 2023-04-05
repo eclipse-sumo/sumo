@@ -21,6 +21,7 @@ Prepare gettext pot and po files for all languages.
 from __future__ import absolute_import
 from __future__ import print_function
 import os
+import io
 import subprocess
 import difflib
 from glob import glob
@@ -47,9 +48,11 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, fuzzy):
     for f in sorted(glob(sumo_home + "/src/*.cpp") +
                     glob(sumo_home + "/src/*/*.cpp") +
                     glob(sumo_home + "/src/*/*/*.cpp") +
+                    glob(sumo_home + "/src/*/*/*/*.cpp") +
                     glob(sumo_home + "/src/*.h") +
                     glob(sumo_home + "/src/*/*.h") +
-                    glob(sumo_home + "/src/*/*/*.h")):
+                    glob(sumo_home + "/src/*/*/*.h") +
+                    glob(sumo_home + "/src/*/*/*/*.h")):
         if "gui" in f[len(sumo_home):] or "netedit" in f[len(sumo_home):]:
             print(f, file=pots[gui_pot_file])
         else:
@@ -57,12 +60,12 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, fuzzy):
     for pot, sources in pots.items():
         sources.close()
         subprocess.check_call([path + "xgettext", "--files-from=" + sources.name, "--from-code=UTF-8",
-                              "--keyword=TL", "--keyword=TLF", "--output=" + pot + ".new", "--package-name=sumo",
-                               "--msgid-bugs-address=sumo-dev@eclipse.org"])
+                               "--keyword=TL", "--keyword=TLC:1c,2", "--keyword=TLF", "--output=" + pot + ".new",
+                               "--package-name=sumo", "--msgid-bugs-address=sumo-dev@eclipse.org"])
         os.remove(sources.name)
         has_diff = True
         if os.path.exists(pot):
-            with open(pot) as old, open(pot + ".new") as new:
+            with io.open(pot, encoding="utf-8") as old, io.open(pot + ".new", encoding="utf-8") as new:
                 a = [s for s in old.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
                 b = [s for s in new.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
                 has_diff = list(difflib.unified_diff(a, b))
