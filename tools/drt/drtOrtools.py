@@ -15,6 +15,7 @@
 # @file    drtOrtools.py
 # @author  Philip Ritzer
 # @author  Johannes Rummel
+# @author  Mirko Barthauer
 # @date    2021-12-16
 
 """
@@ -39,6 +40,7 @@ else:
 # SUMO modules
 import sumolib  # noqa
 import traci  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 verbose = False
 
@@ -427,19 +429,19 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
 
 def get_arguments():
     """Get command line arguments."""
-    ap = sumolib.options.ArgumentParser()
-    ap.add_argument("-s", "--sumo-config", required=True, help="sumo config file to run")
-    ap.add_argument("-e", "--end", type=float,
+    ap = ArgumentParser()
+    ap.add_argument("-s", "--sumo-config", required=True, category="input", type=ArgumentParser.file, help="sumo config file to run")
+    ap.add_argument("-e", "--end", type=ArgumentParser.time,
                     help="time step to end simulation at")
-    ap.add_argument("-i", "--interval", type=float, default=30,
+    ap.add_argument("-i", "--interval", type=ArgumentParser.time, default=30,
                     help="dispatching interval in s")
     ap.add_argument("-n", "--nogui", action="store_true", default=False,
                     help="run the commandline version of sumo")
     ap.add_argument("-v", "--verbose", action="store_true", default=False,
                     help="print debug information")
-    ap.add_argument("-t", "--time-limit", type=float, default=10,
+    ap.add_argument("-t", "--time-limit", type=ArgumentParser.time, default=10,
                     help="time limit for solver in s")
-    ap.add_argument("-d", "--cost-type", default="distance",
+    ap.add_argument("-d", "--cost-type", default="distance", type=str,
                     help="type of costs to minimize (distance or time)")
     ap.add_argument("-f", "--drf", type=float, default=1.5,
                     help="direct route factor to calculate maximum cost "

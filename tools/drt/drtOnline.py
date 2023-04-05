@@ -13,6 +13,7 @@
 
 # @file    drtOnline.py
 # @author  Giuliana Armellini
+# @author  Mirko Barthauer
 # @date    2021-02-15
 
 """
@@ -23,7 +24,6 @@ Track progress https://github.com/eclipse/sumo/issues/8256
 from __future__ import print_function
 import os
 import sys
-from argparse import ArgumentParser
 from itertools import combinations
 import subprocess
 import shutil
@@ -38,6 +38,7 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 from sumolib import checkBinary  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
+from sumolib.options import ArgumentParser  # noqa
 import traci  # noqa
 findRoute = traci.simulation.findRoute
 
@@ -45,21 +46,21 @@ findRoute = traci.simulation.findRoute
 def initOptions():
     ap = ArgumentParser()
 
-    ap.add_argument("-n", "--network", dest="network", metavar="FILE",
+    ap.add_argument("-n", "--network", dest="network", category="input", type=ArgumentParser.net_file, metavar="FILE",
                     help="SUMO network file")
-    ap.add_argument("-r", "--reservations", metavar="FILE",
+    ap.add_argument("-r", "--reservations", category="input", type=ArgumentParser.file, metavar="FILE",
                     help="File with reservations (persons)")
-    ap.add_argument("-v", "--taxis", metavar="FILE",
+    ap.add_argument("--taxis", category="input", type=ArgumentParser.file, metavar="FILE",
                     help="File with drt vehicles")
-    ap.add_argument("-c", dest="sumocfg", metavar="FILE",
+    ap.add_argument("--sumocfg", category="input", type=ArgumentParser.file, metavar="FILE",
                     help="Sumo configuration file")
-    ap.add_argument("-s", dest="sumo", default="sumo",
+    ap.add_argument("-s", dest="sumo", default="sumo", type=str, choices=('sumo', 'sumo-gui'),
                     help="Run with sumo (default) or sumo-gui")
-    ap.add_argument("-g", dest="gui_settings", metavar="FILE",
+    ap.add_argument("-g", dest="gui_settings", category="input", type=ArgumentParser.net_file, metavar="FILE",
                     help="Load visualization settings from FILE")
-    ap.add_argument("-o", dest="output", default='tripinfos.xml',
+    ap.add_argument("-o", dest="output", default='tripinfos.xml', category="output", type=ArgumentParser.net_file,
                     help="Name of output file")
-    ap.add_argument("--darp-solver", default='exhaustive_search',
+    ap.add_argument("--darp-solver", default='exhaustive_search', type=str,
                     help="Method to solve the DARP problem. Available: exhaustive_search and simple_rerouting")
     ap.add_argument("--rtv-time", type=float, default=5,
                     help="Timeout for exhaustive search (default 5 seconds)")
@@ -71,27 +72,27 @@ def initOptions():
                     help="Cost to avoid using multiple vehicles if the travel time of trips is similar (default 600 seconds)")  # noqa
     ap.add_argument("--drf", dest="drf", type=float, default=2,
                     help="Factor by which the DRT travel time should not exceed the one of a direct connection (default 2)")  # noqa
-    ap.add_argument("--drf-min", type=int, default=600,
+    ap.add_argument("--drf-min", type=ArgumentParser.time, default=600,
                     help="Minimum time difference allowed between DRT travel time and direct connection for the cases of short trips (default 600 seconds)")  # noqa
-    ap.add_argument("--max-wait", type=int, default=900,
+    ap.add_argument("--max-wait", type=ArgumentParser.time, default=900,
                     help="Maximum waiting time for pickup (default 900 seconds)")
     ap.add_argument("--max-processing", type=int,
                     help="Maximum number of attempts to process a request (default unlimited)")
     ap.add_argument("--sim-step", type=int, default=30,
                     help="Step time to collect new reservations (default 30 seconds)")
-    ap.add_argument("--end-time", type=int, default=90000,
+    ap.add_argument("--end-time", type=ArgumentParser.time, default=90000,
                     help="Maximum simulation time to close Traci (default 90000 sec - 25h)")
-    ap.add_argument("--routing-algorithm", default='dijkstra',
+    ap.add_argument("--routing-algorithm", default='dijkstra', type=str, choices=('dijkstra', 'astar', 'CH', 'CHWrapper'),
                     help="Algorithm for shortest path routing. Support: dijkstra (default), astar, CH and CHWrapper")
     ap.add_argument("--routing-mode", type=int, default=0,
                     help="Mode for shortest path routing. Support: 0 (default) for routing with loaded or default speeds and 1 for routing with averaged historical speeds")  # noqa
     ap.add_argument("--dua-times", action='store_true',
                     help="Calculate travel time between edges with duarouter")
-    ap.add_argument("--tracefile",
+    ap.add_argument("--tracefile", category="output", type=ArgumentParser.file,
                     help="log traci commands to the given FILE")
-    ap.add_argument("--tracegetters", action='store_true',
+    ap.add_argument("--tracegetters", action='store_true', 
                     help="include get-methods in tracefile")
-    ap.add_argument("--verbose", action='store_true')
+    ap.add_argument("-v", "--verbose", action='store_true')
 
     return ap
 
