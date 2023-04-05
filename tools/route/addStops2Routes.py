@@ -74,7 +74,7 @@ def get_options(args=None):
     op.add_option("-v", "--verbose", dest="verbose", action="store_true",
                   default=False, help="tell me what you are doing")
 
-    options, args = op.parse_known_args(args=args)
+    options = op.parse_args()
 
     if options.parkingareas:
         options.parkingareas = options.parkingareas.split(",")
@@ -308,5 +308,5 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
+    options = get_options()
     main(options)
