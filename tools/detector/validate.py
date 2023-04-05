@@ -24,23 +24,25 @@ from __future__ import absolute_import
 import sys
 import os
 import collections
-from optparse import OptionParser
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt  # noqa
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
+from sumolib.options import ArgumentParser
 
-optParser = OptionParser(usage="usage: %prog [options] <input_flows.csv>")
-optParser.add_option(
-    "-d", "--detectorfile", help="read detector list from file")
-optParser.add_option(
-    "-v", "--validation", help="read validation data from file")
-optParser.add_option("-i", "--interval", default=15,
+parser = ArgumentParser(usage="usage: %prog [options] <input_flows.csv>")
+parser.add_argument(
+    "-d", "--detectorfile", type=ArgumentParser.file, help="read detector list from file")
+parser.add_argument(
+    "-v", "--validation", type=ArgumentParser.file, help="read validation data from file")
+parser.add_argument("-i", "--interval", default=15, type=ArgumentParser.time,
                      help="aggregation interval in minutes (default: %default)")
-optParser.add_option("-l", "--legacy", action="store_true", default=False,
+parser.add_argument("-l", "--legacy", action="store_true", default=False,
                      help="legacy style, input file is whitespace separated, detector_definition")
-(options, args) = optParser.parse_args()
+parser.add_argument("input-flows", dest="inputFlows", category="input", nargs=1, type=ArgumentParser.file,
+                     help="csv file with flow input", metavar="FILE")
+options = parser.parse_args()
 
 sources = set()
 sinks = set()
@@ -59,7 +61,7 @@ countIn = 0
 countOut = 0
 start = 0
 end = options.interval
-with open(args[0]) as f:
+with open(options.inputFlows) as f:
     skipFirst = True
     for line in f:
         if skipFirst:

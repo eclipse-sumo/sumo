@@ -14,6 +14,7 @@
 
 # @file    mapDetectors.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2022-04-25
 
 """
@@ -35,26 +36,26 @@ import sumolib  # noqa
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(
             description="Map detector locations to a network and write inductionLoop-definitions")  # noqa
-    optParser.add_argument("-n", "--net-file", dest="netfile",
+    optParser.add_argument("-n", "--net-file", dest="netfile", category="input", type=ArgumentParser.net_file,
                            help="define the net file (mandatory)")
-    optParser.add_argument("-d", "--detector-file", dest="detfile",
+    optParser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=ArgumentParser.file,
                            help="csv input file with detector ids and coordinates")
-    optParser.add_argument("--delimiter", default=";",
+    optParser.add_argument("--delimiter", default=";", type=str,
                            help="the field separator of the detector input file")
-    optParser.add_argument("-o", "--output-file", dest="outfile",
+    optParser.add_argument("-o", "--output-file", dest="outfile", category="output", type=ArgumentParser.file,
                            help="define the output file for generated mapped detectors")
-    optParser.add_argument("-i", "--id-column", default="id", dest="id",
+    optParser.add_argument("-i", "--id-column", default="id", dest="id", type=str,
                            help="Read detector ids from the given column")
-    optParser.add_argument("-x", "--longitude-column", default="lon", dest="lon",
+    optParser.add_argument("-x", "--longitude-column", default="lon", dest="lon", type=str,
                            help="Read detector x-coordinate (lon) from the given column")
-    optParser.add_argument("-y", "--latitude-column", default="lat", dest="lat",
+    optParser.add_argument("-y", "--latitude-column", default="lat", dest="lat", type=str,
                            help="Read detector y-coordinate (lat) from the given column")
-    optParser.add_argument("--vclass", default="passenger",
+    optParser.add_argument("--vclass", default="passenger", type=str,
                            help="only consider edges that permit the given vClass")
-    optParser.add_argument("--det-output-file", dest="detOut", default="detector.out.xml",
-                           help="Define the output file that generated detectors shall write to")
-    optParser.add_argument("--interval", default="3600",
-                           help="Define the aggregation internval of generated detectors")
+    optParser.add_argument("--det-output-file", dest="detOut", default="detector.out.xml", category="output",
+                           type=ArgumentParser.file, help="Define the output file that generated detectors shall write to")
+    optParser.add_argument("--interval", default="3600", type=ArgumentParser.time,
+                           help="Define the aggregation interval of generated detectors")
     optParser.add_argument("-v", "--verbose", action="store_true",
                            default=False, help="tell me what you are doing")
     options = optParser.parse_args(args=args)
