@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-05 10:12+0000\n"
+"PO-Revision-Date: 2023-04-05 10:48+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3585,13 +3585,13 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:134
 msgid "If true, the vehicle tries to change to the right during an MRM."
-msgstr ""
+msgstr "如果为真，车辆在MRM期间试图向右改变。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:136
 msgid ""
 "If set, the vehicle tries to reach the given named stopping place during an "
 "MRM."
-msgstr ""
+msgstr "如果设置，车辆在MRM期间试图到达指定的停车地点。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:138
 msgid "Duration the vehicle stays at the safe spot after an MRM."
