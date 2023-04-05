@@ -16,7 +16,7 @@
 # @date    2023-01-11
 
 """
-Replay an fcd-file as moving POIs on top of a simulation (or emtpy network)
+Replay an fcd-file as moving POIs on top of a simulation (or empty network)
 """
 
 from __future__ import print_function
