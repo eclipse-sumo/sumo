@@ -171,6 +171,6 @@ def main(options):
 
 if __name__ == "__main__":
     try:
-        main(get_options(sys.argv))
+        main(get_options())
     except ValueError as e:
         sys.exit(e)
