@@ -36,7 +36,7 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser()
+    optParser = sumolib.options.ArgumentParser(description="Remove elements in a XML file that match a certain attribute")
     optParser.add_argument("-f", "--file", category="input", dest="file", required=True, type=optParser.data_file, 
                            help="define the XML input file")
     optParser.add_argument("-o", "--output", category="output", dest="output", type=optParser.data_file,
