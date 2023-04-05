@@ -231,7 +231,7 @@ class ArgumentParser(argparse.ArgumentParser):
         self.add_argument(*args, **kwargs)
 
     def add_mutually_exclusive_group(self, required=False):
-        group = argparse.ArgumentParser.add_mutually_exclusive_group(self, required)
+        group = argparse.ArgumentParser.add_mutually_exclusive_group(self, required=required)
         group.add_argument = handleCatoryWrapper(group.add_argument)
         return group
 
