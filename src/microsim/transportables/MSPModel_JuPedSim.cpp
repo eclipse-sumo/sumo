@@ -486,18 +486,33 @@ MSPModel_JuPedSim::renderPolygon(const geos::geom::Polygon* polygon, const std::
 
 
 void 
-MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon) {
+MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon, const std::string& polygonId) {
+    std::ofstream dumpFile;
+    dumpFile.open(polygonId + std::string(".txt"));
+
     const geos::geom::LinearRing* exterior = polygon->getExteriorRing();
     std::vector<double> exteriorCoordinates = getFlattenedCoordinates(exterior);
     JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size() / 2);
+
+    for (auto c : exteriorCoordinates) {
+        dumpFile << c << std::endl;
+    }
+    dumpFile << std::endl;
 
     for (size_t k = 0; k < polygon->getNumInteriorRing(); k++) {
         const geos::geom::LinearRing* interior = polygon->getInteriorRingN(k);
         if (toPolygon(interior)->getArea() > GEOS_MIN_AREA) {
             std::vector<double> holeCoordinates = getFlattenedCoordinates(interior);
             JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, holeCoordinates.data(), holeCoordinates.size() / 2);
+
+            for (auto c : holeCoordinates) {
+                dumpFile << c << std::endl;
+            }
+            dumpFile << std::endl;
         }
     }
+
+    dumpFile.close();
 }
 
 
@@ -519,7 +534,7 @@ MSPModel_JuPedSim::initialize() {
         const geos::geom::Polygon* connectedComponentPolygon = dynamic_cast<const geos::geom::Polygon*>(myGEOSPedestrianNetwork->getGeometryN(i));
         std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
         renderPolygon(connectedComponentPolygon, polygonId);
-        preparePolygonForJPS(connectedComponentPolygon);
+        preparePolygonForJPS(connectedComponentPolygon, polygonId);
     }
 
 //	for (const MSEdge* const edge : (myNetwork->getEdgeControl()).getEdges()) {
