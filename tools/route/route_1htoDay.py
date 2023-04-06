@@ -23,9 +23,14 @@ Uses "route_departOffset.py" for building 24 route files which describe
 from __future__ import absolute_import
 from __future__ import print_function
 
-import sys
+import sys, os
 import route_departOffset
-from sumolib.options import ArgumentParser
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(os.path.join(tools))
+    from sumolib.options import ArgumentParser
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 
 def get_options(args=sys.argv[1:]):
     optParser = ArgumentParser()
