@@ -3072,6 +3072,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             myMessageWindow->addSeparator();
         } else {
             PROGRESS_FAILED_MESSAGE();
+            WRITE_ERROR(TL("Could not save network in '") + neteditOptions.getString("net-file") + "'");
         }
         // end save network
         getApp()->endWaitCursor();
@@ -3220,7 +3221,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
             // After saving a config successfully, add it into recent configs
             myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
         } else {
-            WRITE_MESSAGE(TL("Could not save netedit configuration in '") + neteditConfigFile + "'");
+            WRITE_ERROR(TL("Could not save netedit configuration in '") + neteditConfigFile + "'");
         }
         out.close();
         return 1;
