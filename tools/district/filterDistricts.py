@@ -35,10 +35,12 @@ def getOptions():
     ap.add_argument(
         "-v", "--verbose", action="store_true", default=False,
         help="tell me what you are doing")
-    ap.add_argument("-n", "--net-file", dest="netfile", category="input", type=ArgumentParser.net_file, required=True, help="the network to read lane and edge permissions")
-    ap.add_argument("-t", "--taz-file", dest="tazfile", category="input", type=ArgumentParser.file, required=True, help="the district file to be filtered")
+    ap.add_argument("-n", "--net-file", dest="netfile", category="input", type=ArgumentParser.net_file,
+                    required=True, help="the network to read lane and edge permissions")
+    ap.add_argument("-t", "--taz-file", dest="tazfile", category="input", type=ArgumentParser.file,
+                    required=True, help="the district file to be filtered")
     ap.add_argument("-o", "--output", default="taz_filtered.add.xml", category="output", type=ArgumentParser.file,
-                         help="write filtered districts to FILE (default: %default)", metavar="FILE")
+                    help="write filtered districts to FILE (default: %default)", metavar="FILE")
     ap.add_argument("--vclass", type=str, required=True, help="filter taz edges that allow the given vehicle class")
     options = ap.parse_args()
     if not options.netfile or not options.tazfile or not options.vclass:

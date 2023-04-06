@@ -33,7 +33,7 @@ generate trip files.
 """
 from __future__ import absolute_import
 from __future__ import print_function
-
+import os
 import sys
 from xml.sax import make_parser, handler
 SUMO_HOME = os.environ.get('SUMO_HOME',
@@ -43,16 +43,16 @@ from sumolib.options import ArgumentParser  # noqa
 
 OUTPUTDIR = "./input/"
 ap = ArgumentParser()
-ap.add_argument("-m", "--matrix-file", dest="mtxpsfile", category="input", type=ArgumentParser.file, required=True,
-                     help="read OD matrix for passenger vehicles(long dist.) from FILE (mandatory)", metavar="FILE")
-ap.add_argument("-z", "--districts-file", dest="districtsfile", category="input", type=ArgumentParser.file, required=True,
-                     help="read connecting links from FILE (mandatory)", metavar="FILE")
-ap.add_argument("-t", "--timeSeries-file", dest="timeseries", category="input", type=ArgumentParser.file,
-                     help="read hourly traffic demand rate from FILE", metavar="FILE")
+ap.add_argument("-m", "--matrix-file", dest="mtxpsfile", category="input", type=ap.file, required=True,
+                help="read OD matrix for passenger vehicles(long dist.) from FILE (mandatory)", metavar="FILE")
+ap.add_argument("-z", "--districts-file", dest="districtsfile", category="input", type=ap.file, required=True,
+                help="read connecting links from FILE (mandatory)", metavar="FILE")
+ap.add_argument("-t", "--timeSeries-file", dest="timeseries", category="input", type=ap.file,
+                help="read hourly traffic demand rate from FILE", metavar="FILE")
 ap.add_argument("-d", "--dir", dest="OUTPUTDIR", default=OUTPUTDIR, category="output", type=str,
-                     help="Directory to store the output files. Default: " + OUTPUTDIR)
+                help="Directory to store the output files. Default: " + OUTPUTDIR)
 ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
+                default=False, help="tell me what you are doing")
 
 options = ap.parse_args()
 

@@ -48,18 +48,20 @@ class TAZ:
 def getOptions():
     ap = ArgumentParser()
     ap.add_argument("-v", "--verbose", action="store_true", default=False,
-                         help="tell me what you are doing")
-    ap.add_argument("-n", "--net-file", dest="netfile", category="input", type=ArgumentParser.net_file, required=True, help="the network to read lane and edge permissions")
-    ap.add_argument("-o", "--output", category="output", type=ArgumentParser.file, required=True, help="output taz file")
+                    help="tell me what you are doing")
+    ap.add_argument("-n", "--net-file", dest="netfile", category="input", type=ArgumentParser.net_file,
+                    required=True, help="the network to read lane and edge permissions")
+    ap.add_argument("-o", "--output", category="output", type=ArgumentParser.file,
+                    required=True, help="output taz file")
     ap.add_argument("-w", "--grid-width", dest="gridWidth", type=float, default=100.0,
-                         help="width of gride cells in m")
+                    help="width of gride cells in m")
     ap.add_argument("--vclass", type=str, help="Include only edges allowing VCLASS")
     ap.add_argument("-u", "--hue", default="random", type=str,
-                         help="hue for taz (float from [0,1] or 'random')")
+                    help="hue for taz (float from [0,1] or 'random')")
     ap.add_argument("-s", "--saturation", default=1, type=str,
-                         help="saturation for taz (float from [0,1] or 'random')")
+                    help="saturation for taz (float from [0,1] or 'random')")
     ap.add_argument("-b", "--brightness", default=1, type=str,
-                         help="brightness for taz (float from [0,1] or 'random')")
+                    help="brightness for taz (float from [0,1] or 'random')")
     ap.add_argument("--seed", type=int, default=42, help="random seed")
     options = ap.parse_args()
     if not options.netfile or not options.output:

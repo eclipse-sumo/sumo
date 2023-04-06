@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+import os
+import sys
 from xml.sax import make_parser, handler
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -26,6 +28,8 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 from sumolib.options import ArgumentParser  # noqa
 
 # written into the net. All members are "private".
+
+
 class NetDistrictConnectionCountingHandler(handler.ContentHandler):
 
     def __init__(self):
@@ -59,11 +63,11 @@ class NetDistrictConnectionCountingHandler(handler.ContentHandler):
 
 ap = ArgumentParser()
 ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
-ap.add_argument("-n", "--net-file", dest="netfile", category="input", type=ArgumentParser.net_file, required=True,
-                     help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
-ap.add_argument("-o", "--output", dest="output", category="output", type=ArgumentParser.net_file, required=True,
-                     help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
+                default=False, help="tell me what you are doing")
+ap.add_argument("-n", "--net-file", dest="netfile", category="input", type=ap.net_file, required=True,
+                help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
+ap.add_argument("-o", "--output", dest="output", category="output", type=ap.net_file, required=True,
+                help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
 options = ap.parse_args()
 
 parser = make_parser()

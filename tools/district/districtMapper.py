@@ -25,7 +25,8 @@ identified by the user as reference points.
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import os, sys
+import os
+import sys
 from xml.sax import make_parser, handler
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -133,26 +134,22 @@ class DistrictMapper(handler.ContentHandler):
 if __name__ == "__main__":
     ap = ArgumentParser()
     ap.add_argument("-v", "--verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
-    ap.add_argument("-1", "--net-file1", dest="netfile1", category="input", type=ArgumentParser.net_file, required=True,
-                         help="read first SUMO network from FILE (mandatory)", metavar="FILE")
-    ap.add_argument("-2", "--net-file2", dest="netfile2", category="input", type=ArgumentParser.net_file, required=True,
-                         help="read second SUMO network from FILE (mandatory)", metavar="FILE")
-    ap.add_argument("-o", "--output", default="districts.add.xml", category="output", type=ArgumentParser.file,
-                         help="write resulting districts to FILE (default: %default)", metavar="FILE")
-    ap.add_argument("-p", "--polyoutput", category="output", type=ArgumentParser.file,
-                         help="write districts as polygons to FILE", metavar="FILE")
+                    default=False, help="tell me what you are doing")
+    ap.add_argument("-1", "--net-file1", dest="netfile1", category="input", type=ap.net_file, required=True,
+                    help="read first SUMO network from FILE (mandatory)", metavar="FILE")
+    ap.add_argument("-2", "--net-file2", dest="netfile2", category="input", type=ap.net_file, required=True,
+                    help="read second SUMO network from FILE (mandatory)", metavar="FILE")
+    ap.add_argument("-o", "--output", default="districts.add.xml", category="output", type=ap.file,
+                    help="write resulting districts to FILE (default: %default)", metavar="FILE")
+    ap.add_argument("-p", "--polyoutput", category="output", type=ap.file,
+                    help="write districts as polygons to FILE", metavar="FILE")
     ap.add_argument("-a", "--junctions1", type=str, required=True,
-                         help="list of junction ids to use from first network (mandatory)")
+                    help="list of junction ids to use from first network (mandatory)")
     ap.add_argument("-b", "--junctions2", type=str, required=True,
-                         help="list of junction ids to use from second network (mandatory)")
+                    help="list of junction ids to use from second network (mandatory)")
     ap.add_argument("--color", default="1,0,0", type=str,
-                         help="Assign this color to districts (default: %default)")
+                    help="Assign this color to districts (default: %default)")
     options = ap.parse_args()
-    if not options.netfile1 or not options.netfile2 or not options.junctions1 or not options.junctions2:
-        optParser.print_help()
-        optParser.exit(
-            "Error! Providing two networks and junction lists is mandatory")
     parser = make_parser()
     if options.verbose:
         print("Reading net#1")
