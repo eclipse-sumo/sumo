@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-05 14:41+0000\n"
+"PO-Revision-Date: 2023-04-07 11:09+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3713,12 +3713,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSIdling.cpp:63
 msgid "Idle taxi '%' has no next segment to stop. time=%."
-msgstr ""
+msgstr "空载的出租车'%'没有下一个区段要停。 时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSIdling.cpp:102
 #, c-format
 msgid "Idle taxi '%' could not stop within %m"
-msgstr ""
+msgstr "空载的出租车'%'无法在%米（m）内停下。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSIdling.cpp:155
 #, c-format
@@ -3731,25 +3731,26 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSRoutingEngine.cpp:148
 msgid "weights.priority-factor cannot be negative."
-msgstr ""
+msgstr "权重。优先因子（weights.priority-factor）不能是负数。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSRoutingEngine.cpp:152
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority"
-msgstr ""
+msgstr "选项权重。优先因子（weights.priority-"
+"factor）不生效，因为所有路段都有相同的优先级。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSRoutingEngine.cpp:411
 msgid "Unknown routing algorithm '%'!"
-msgstr ""
+msgstr "未知的路径算法'%'!"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSTransportableDevice_Routing.cpp:46
 msgid "The period with which the person shall be rerouted"
-msgstr ""
+msgstr "该人应改道的期间"
 
 #: /home/micha/programming/sumo/src\microsim\engine\VehicleEngineHandler.cpp:157
 msgid "Invalid engine map type. Only \"poly\" is supported for now"
-msgstr ""
+msgstr "无效的引擎地图类型。目前只支持 \"poly\"。"
 
 #: /home/micha/programming/sumo/src\microsim\engine\VehicleEngineHandler.cpp:197
 msgid "Unknown tag '%' while parsing."
@@ -3763,23 +3764,24 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\lcmodels\MSAbstractLaneChangeModel.cpp:98
 #, c-format
 msgid "Lane change model '%' not implemented"
-msgstr ""
+msgstr "未实施车道变更模式'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\output\MSE2Collector.cpp:124
 msgid ""
 "No valid detector length and start position given. Assuming startPos = 0 and "
 "length = end position"
-msgstr ""
+msgstr "没有给出有效的检测器长度和起始位置。假设开始位置（startPos）=0，长度=结束位置"
 
 #: /home/micha/programming/sumo/src\microsim\output\MSE2Collector.cpp:128
 msgid ""
 "No valid detector length and end position given. Assuming endPos = lane "
 "length and length = endPos-startPos"
-msgstr ""
+msgstr "没有给出有效的检测器长度和终点位置。假设终点位置（endPos）=车道长度，长度=终"
+"点位置-开始位置（endPos-startPos）"
 
 #: /home/micha/programming/sumo/src\microsim\output\MSE2Collector.cpp:908
 msgid "Multi-lane e2Detector does not support detecting persons yet"
-msgstr ""
+msgstr "多车道的e2D检测器还不支持检测人员"
 
 #: /home/micha/programming/sumo/src\microsim\output\MSMeanData.cpp:160
 msgid "Negative vehicle step fraction for '%' on lane '%'."
@@ -3791,7 +3793,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\output\MSMeanData.cpp:733
 msgid "Unknown attribute '%' to write in meanData '%'."
-msgstr ""
+msgstr "在meanData'%'中写入未知属性'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\output\MSStopOut.cpp:69
 msgid "Vehicle '%' stops on edge '%', time=% without ending the previous stop."
