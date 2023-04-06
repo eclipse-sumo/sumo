@@ -36,7 +36,7 @@ else:
 import sumolib  # noqa
 
 
-def get_options(args=None):
+def get_options(args=sys.argv[1:]):
     optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-r", "--route-file", category='input', dest="routefile",
                          help="define the input route file with trips")
@@ -58,7 +58,7 @@ def get_options(args=None):
                          help="tell me what you are doing")
     optParser.add_option("--random", action="store_true", default=False,
                          help="use a random seed to initialize the random number generator")
-    optParser.add_option("-s", "--seed", type="int", default=42,
+    optParser.add_option("-s", "--seed", type=int, default=42,
                          help="random seed")
     options = optParser.parse_args(args=args)
     # check route file and parkings
