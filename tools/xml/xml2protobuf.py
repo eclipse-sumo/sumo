@@ -115,7 +115,7 @@ def get_options():
                            help="xsd schema to use (mandatory)")
     optParser.add_argument("-a", "--validation", category="processing", action="store_true", default=False, 
                            help="enable schema validation")
-    optParser.add_argument("-o", "--output", category="output", type=optParser.data_file
+    optParser.add_argument("-o", "--output", category="output", type=optParser.data_file,
                            help="output file name")
     options = optParser.parse_args()
     if options.validation and not haveLxml:
