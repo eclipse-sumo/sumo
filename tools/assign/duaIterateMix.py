@@ -98,7 +98,8 @@ def initOptions():
                            type=int, default=10, help="Number of iterations to use for convergence calculation")
     argParser.add_argument("--max-convergence-deviation", dest="convDev",
                            type=float, help="Maximum relative standard deviation in travel times")
-    argParser.add_argument("-D", "--districts", help="use districts as sources and targets", type=ArgumentParser.file, metavar="FILE")
+    argParser.add_argument("-D", "--districts", help="use districts as sources and targets",
+                           type=ArgumentParser.file, metavar="FILE")
     argParser.add_argument("-x", "--vehroute-file",  dest="routefile", type=str,
                            choices=['None', 'routesonly', 'detailed'],
                            default='None', help="choose the format of the route file")
@@ -137,8 +138,10 @@ def initOptions():
                            help="alias for --gzip")
     argParser.add_argument("--gzip", action="store_true", default=False,
                            help="writing intermediate and resulting route files in gzipped format")
-    argParser.add_argument("--dualog", default="dua.log", type=ArgumentParser.file, help="log file path (default 'dua.log')")
-    argParser.add_argument("--log", default="stdout.log", type=ArgumentParser.file, help="stdout log file path (default 'stdout.log')")
+    argParser.add_argument("--dualog", default="dua.log", type=ArgumentParser.file,
+                           help="log file path (default 'dua.log')")
+    argParser.add_argument("--log", default="stdout.log", type=ArgumentParser.file,
+                           help="stdout log file path (default 'stdout.log')")
     argParser.add_argument("--marginal-cost", action="store_true", default=False,
                            help="use marginal cost to perform system optimal traffic assignment")
     argParser.add_argument("--marginal-cost-reverse", action="store_true", default=False,

@@ -918,65 +918,65 @@ def addFlowFile(option, opt_str, value, parser):
 
 parser = ArgumentParser()
 parser.add_argument("-n", "--net-file", dest="netfile", category="input", type=ArgumentParser.net_file,
-                     help="read SUMO network from FILE (mandatory)", metavar="FILE")
+                    help="read SUMO network from FILE (mandatory)", metavar="FILE")
 parser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=ArgumentParser.additional_file,
-                     help="read detectors from FILE (mandatory)", metavar="FILE")
+                    help="read detectors from FILE (mandatory)", metavar="FILE")
 parser.add_argument("--revalidate-detectors", action="store_true", dest="revalidate",
-                     default=False, help="ignore source and sink information in detector file")
+                    default=False, help="ignore source and sink information in detector file")
 parser.add_argument("-f", "--detector-flow-files", dest="flowfiles", type=ArgumentParser.file,
-                     nargs="+", category="input",
-                     help="read detector flows from FILE(s) (mandatory)", metavar="FILE")
+                    nargs="+", category="input",
+                    help="read detector flows from FILE(s) (mandatory)", metavar="FILE")
 parser.add_argument("--flow-column", dest="flowcol", default="qPKW", type=str,
-                     help="which column contains flows", metavar="STRING")
+                    help="which column contains flows", metavar="STRING")
 parser.add_argument("-o", "--routes-output", dest="routefile", category="output", type=ArgumentParser.route_file,
-                     help="write routes to FILE", metavar="FILE")
+                    help="write routes to FILE", metavar="FILE")
 parser.add_argument("-e", "--emitters-output", dest="emitfile", category="output", type=ArgumentParser.file,
-                     help="write emitters to FILE and create files per emitter (needs -o)", metavar="FILE")
+                    help="write emitters to FILE and create files per emitter (needs -o)", metavar="FILE")
 parser.add_argument("-y", "--params", help="vehicle / flow params to use (vType, departPos etc.)", type=str,
-                     default='departSpeed="max" departPos="last" departLane="best"', metavar="STRING")
+                    default='departSpeed="max" departPos="last" departLane="best"', metavar="STRING")
 parser.add_argument("-t", "--trimmed-output", dest="trimfile", category="output", type=ArgumentParser.file,
-                     help="write edges of trimmed network to FILE", metavar="FILE")
+                    help="write edges of trimmed network to FILE", metavar="FILE")
 parser.add_argument("-p", "--flow-poi-output", dest="flowpoifile", category="output", type=ArgumentParser.file,
-                     help="write resulting flows as SUMO POIs to FILE", metavar="FILE")
+                    help="write resulting flows as SUMO POIs to FILE", metavar="FILE")
 parser.add_argument("--source-sink-output", dest="source_sink_output", category="output", type=ArgumentParser.file,
-                     help="write sources and sinks in detector format to FILE", metavar="FILE")
+                    help="write sources and sinks in detector format to FILE", metavar="FILE")
 parser.add_argument("-m", "--min-speed", type=float, dest="minspeed",
-                     default=0.0, help="only consider edges where the fastest lane allows at least this " +
-                                       "maxspeed (m/s)")
+                    default=0.0, help="only consider edges where the fastest lane allows at least this " +
+                    "maxspeed (m/s)")
 parser.add_argument("-M", "--max-flow", type=int, dest="maxflow",
-                     help="limit the number of vehicles per lane and hour to this value")
+                    help="limit the number of vehicles per lane and hour to this value")
 parser.add_argument("--max-turn-flow", type=int, dest="maxturnflow",
-                     help="limit the number of vehicles per turn-around connection and hour to this value")
+                    help="limit the number of vehicles per turn-around connection and hour to this value")
 parser.add_argument("-r", "--flow-restrictions", dest="restrictionfile", nargs="+", type=ArgumentParser.file,
-                     help="read edge and route restrictions from FILEs (each line starts with '<maxHourlyFlow> ' " +
-                           "followed by <edgeID> or '<originEdgeID> <destEdgeID>' or '<e1> <e2> ... <en>')",
-                           metavar="FILE+")
+                    help="read edge and route restrictions from FILEs (each line starts with '<maxHourlyFlow> ' " +
+                    "followed by <edgeID> or '<originEdgeID> <destEdgeID>' or '<e1> <e2> ... <en>')",
+                    metavar="FILE+")
 parser.add_argument("-s", "--synthetic-flows", dest="syntheticflowfile", type=ArgumentParser.file,
-                     help="read artificial detector values from FILE (lines of the form '<dailyFlow> <edgeID>')",
-                     metavar="FILE")
+                    help="read artificial detector values from FILE (lines of the form '<dailyFlow> <edgeID>')",
+                    metavar="FILE")
 parser.add_argument("--timeline", default=("0.9,0.5,0.2,0.2,0.5,1.3,7.0,9.3,6.7,4.2,4.0,3.8," +
-                                            "4.1,4.6,5.0,6.7,9.6,9.2,7.1,4.8,3.5,2.7,2.2,1.9"), type=str,
-                     help="use time line for artificial detector values")
+                                           "4.1,4.6,5.0,6.7,9.6,9.2,7.1,4.8,3.5,2.7,2.2,1.9"), type=str,
+                    help="use time line for artificial detector values")
 parser.add_argument("-D", "--keep-det", action="store_true", dest="keepdet",
-                     default=False, help='keep edges with detectors when deleting "slow" edges')
+                    default=False, help='keep edges with detectors when deleting "slow" edges')
 parser.add_argument("-z", "--respect-zero", action="store_true", dest="respectzero",
-                     default=False, help="respect detectors without data (or with permanent zero) with zero flow")
+                    default=False, help="respect detectors without data (or with permanent zero) with zero flow")
 parser.add_argument("-l", "--lane-based", action="store_true", dest="lanebased",
-                     default=False, help="do not aggregate detector data and connections to edges")
+                    default=False, help="do not aggregate detector data and connections to edges")
 parser.add_argument("-i", "--interval", type=ArgumentParser.time, help="aggregation interval in minutes")
 parser.add_argument("-b", "--begin", type=ArgumentParser.time, help="begin time in minutes")
 parser.add_argument("--pedestrians", action="store_true",
-                     default=False, help="write pedestrian flows instead of vehicles flows")
+                    default=False, help="write pedestrian flows instead of vehicles flows")
 parser.add_argument("--limit", type=int, help="limit the amount of flow assigned in a single step")
 parser.add_argument("--vclass", help="only consider lanes that allow the given vehicle class")
 parser.add_argument("-q", "--quiet", action="store_true", dest="quiet",
-                     default=False, help="suppress warnings")
+                    default=False, help="suppress warnings")
 parser.add_argument("--random", action="store_true", dest="random",
-                     default=False, help="write route distributions instead of separate flows")
+                    default=False, help="write route distributions instead of separate flows")
 parser.add_argument("--via-detectors", action="store_true", dest="viadetectors",
-                     default=False, help="set used detectors as via-edges for generated flows")
+                    default=False, help="set used detectors as via-edges for generated flows")
 parser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
+                    default=False, help="tell me what you are doing")
 parser.add_argument("--debug", action="store_true", default=False, help="tell me what you are doing in high detail")
 options = parser.parse_args()
 if not options.netfile or not options.detfile or not options.flowfiles:

@@ -27,7 +27,6 @@ from datetime import datetime
 from xml.sax import make_parser, handler
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib  # noqa
-from sumolib.options import ArgumentParser
 
 
 def call(command, log):
@@ -134,46 +133,46 @@ def generateWeights(step, options, edges, weights, costFunction):
     fd.close()
 
 
-parser = ArgumentParser()
+parser = sumolib.options.ArgumentParser()
 parser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
+                    default=False, help="tell me what you are doing")
 parser.add_argument("--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
-                     default=False, help="continues on unbuild routes")
+                    default=False, help="continues on unbuild routes")
 parser.add_argument("-w", "--disable-warnings", action="store_true", dest="noWarnings",
-                     default=False, help="disables warnings")
+                    default=False, help="disables warnings")
 
-parser.add_argument("-n", "--net-file", dest="net", type=ArgumentParser.net_file,
-                     help="SUMO network (mandatory)", metavar="FILE")
-parser.add_argument("-t", "--trips", dest="trips", type=ArgumentParser.route_file,
-                     help="trips in step 0 (this or flows is mandatory)", metavar="FILE")
-parser.add_argument("-F", "--flows", type=ArgumentParser.route_file,
-                     help="flows in step 0 (this or trips is mandatory)", metavar="FILE")
-parser.add_argument("-+", "--additional", dest="additional", type=ArgumentParser.additional_file,
-                     default="", help="Additional files")
+parser.add_argument("-n", "--net-file", dest="net", type=parser.net_file,
+                    help="SUMO network (mandatory)", metavar="FILE")
+parser.add_argument("-t", "--trips", dest="trips", type=parser.route_file,
+                    help="trips in step 0 (this or flows is mandatory)", metavar="FILE")
+parser.add_argument("-F", "--flows", type=parser.route_file,
+                    help="flows in step 0 (this or trips is mandatory)", metavar="FILE")
+parser.add_argument("-+", "--additional", dest="additional", type=parser.additional_file,
+                    default="", help="Additional files")
 
 parser.add_argument("-b", "--begin", dest="begin",
-                     type=ArgumentParser.time, default=0, help="Set simulation/routing begin [default: %default]")
+                    type=parser.time, default=0, help="Set simulation/routing begin [default: %default]")
 parser.add_argument("-e", "--end", dest="end",
-                     type=ArgumentParser.time, help="Set simulation/routing end [default: %default]")
+                    type=parser.time, help="Set simulation/routing end [default: %default]")
 parser.add_argument("-R", "--route-steps", dest="routeSteps",
-                     type=int, default=200, help="Set simulation route steps [default: %default]")
+                    type=int, default=200, help="Set simulation route steps [default: %default]")
 parser.add_argument("-a", "--aggregation", dest="aggregation",
-                     type=ArgumentParser.time, default=900, help="Set main weights aggregation period [default: %default]")
+                    type=parser.time, default=900, help="Set main weights aggregation period [default: %default]")
 parser.add_argument("-A", "--gA", dest="gA",
-                     type=float, default=.5, help="Sets Gawron's Alpha [default: %default]")
+                    type=float, default=.5, help="Sets Gawron's Alpha [default: %default]")
 parser.add_argument("-B", "--gBeta", dest="gBeta",
-                     type=float, default=.9, help="Sets Gawron's Beta [default: %default]")
+                    type=float, default=.9, help="Sets Gawron's Beta [default: %default]")
 
 parser.add_argument("-f", "--first-step", dest="firstStep",
-                     type=int, default=0, help="First DUA step [default: %default]")
+                    type=int, default=0, help="First DUA step [default: %default]")
 parser.add_argument("-l", "--last-step", dest="lastStep",
-                     type=int, default=50, help="Last DUA step [default: %default]")
+                    type=int, default=50, help="Last DUA step [default: %default]")
 parser.add_argument("-p", "--path", dest="path", type=str, help="Path to binaries")
 
 parser.add_argument("-y", "--absrand", dest="absrand", action="store_true",
-                     default=False, help="use current time to generate random number")
+                    default=False, help="use current time to generate random number")
 parser.add_argument("--cost-function", dest="costfunc", type=str,
-                     default="identity", help="(python) function to use as cost function")
+                    default="identity", help="(python) function to use as cost function")
 
 options = parser.parse_args()
 

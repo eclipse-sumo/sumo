@@ -33,35 +33,35 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.xml import parse  # noqa
 from sumolib.miscutils import parseTime  # noqa
-from sumolib.options import ArgumentParser  # noqa
 DEBUG = False
 
 
 def get_options(args=None):
-    parser = ArgumentParser()
-    parser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=ArgumentParser.additional_file,
-                         help="read detectors from FILE (mandatory)", metavar="FILE")
-    parser.add_argument("-e", "--edgedata-file", dest="edgeDataFile", category="input", type=ArgumentParser.edgedata_file,
-                         help="read edgeData from FILE (mandatory)", metavar="FILE")
-    parser.add_argument("-f", "--detector-flow-file", dest="flowfile", category="input", type=ArgumentParser.file,
-                         help="read detector flows to compare to from FILE (mandatory)", metavar="FILE")
+    parser = sumolib.options.ArgumentParser()
+    parser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=parser.additional_file,
+                        help="read detectors from FILE (mandatory)", metavar="FILE")
+    parser.add_argument("-e", "--edgedata-file", dest="edgeDataFile", category="input", type=parser.edgedata_file,
+                        help="read edgeData from FILE (mandatory)", metavar="FILE")
+    parser.add_argument("-f", "--detector-flow-file", dest="flowfile", category="input", type=parser.file,
+                        help="read detector flows to compare to from FILE (mandatory)", metavar="FILE")
     parser.add_argument("--flow-column", dest="flowcol", default="qPKW", type=str,
-                         help="which column contains flows", metavar="STRING")
+                        help="which column contains flows", metavar="STRING")
     parser.add_argument("-z", "--respect-zero", action="store_true", dest="respectzero",
-                         default=False, help="respect detectors without data (or with permanent zero) with zero flow")
-    parser.add_argument("-i", "--interval", type=ArgumentParser.time, default="1440", help="aggregation interval in minutes")
+                        default=False, help="respect detectors without data (or with permanent zero) with zero flow")
+    parser.add_argument("-i", "--interval", type=parser.time,
+                        default="1440", help="aggregation interval in minutes")
     parser.add_argument("--long-names", action="store_true", dest="longnames",
-                         default=False, help="do not use abbreviated names for detector groups")
+                        default=False, help="do not use abbreviated names for detector groups")
     parser.add_argument("--edge-names", action="store_true", dest="edgenames",
-                         default=False, help="include detector group edge name in output")
-    parser.add_argument("-b", "--begin", type=ArgumentParser.time, default=0, help="begin time in minutes")
-    parser.add_argument("--end", type=ArgumentParser.time, default=None, help="end time in minutes")
-    parser.add_argument("-o", "--output-file", dest="output", category="output", type=ArgumentParser.file,
-                         help="write output to file instead of printing it to console", metavar="FILE")
-    parser.add_argument("--flow-output", dest="flowout", category="output", type=ArgumentParser.file,
-                         help="write output in flowfile format to FILE", metavar="FILE")
+                        default=False, help="include detector group edge name in output")
+    parser.add_argument("-b", "--begin", type=parser.time, default=0, help="begin time in minutes")
+    parser.add_argument("--end", type=parser.time, default=None, help="end time in minutes")
+    parser.add_argument("-o", "--output-file", dest="output", category="output", type=parser.file,
+                        help="write output to file instead of printing it to console", metavar="FILE")
+    parser.add_argument("--flow-output", dest="flowout", category="output", type=parser.file,
+                        help="write output in flowfile format to FILE", metavar="FILE")
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
-                         default=False, help="tell me what you are doing")
+                        default=False, help="tell me what you are doing")
     options = parser.parse_args()
     if not options.detfile or not options.edgeDataFile or (not options.flowfile and
                                                            not options.flowout):

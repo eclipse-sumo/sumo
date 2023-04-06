@@ -27,7 +27,6 @@ import subprocess
 from datetime import datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib  # noqa
-from sumolib.options import ArgumentParser
 
 
 def call(command, log):
@@ -104,55 +103,55 @@ def writeSUMOConf(step, options, files):
         fd.close()
 
 
-parser = ArgumentParser()
+parser = sumolib.options.ArgumentParser()
 parser.add_argument("-W", "--with-warnings", action="store_true", dest="withWarnings",
-                     default=False, help="enables warnings")
+                    default=False, help="enables warnings")
 
-parser.add_argument("-n", "--net-file", dest="net", category="input", type=ArgumentParser.net_file,
-                     help="SUMO network (mandatory)", metavar="FILE")
-parser.add_argument("-t", "--trips", dest="trips", category="input",type=ArgumentParser.route_file,
-                     help="trips in step 0", metavar="FILE")
+parser.add_argument("-n", "--net-file", dest="net", category="input", type=parser.net_file,
+                    help="SUMO network (mandatory)", metavar="FILE")
+parser.add_argument("-t", "--trips", dest="trips", category="input", type=parser.route_file,
+                    help="trips in step 0", metavar="FILE")
 
 parser.add_argument("-b", "--begin", dest="begin",
-                     type=ArgumentParser.time, default=0, help="Set simulation/routing begin")
+                    type=parser.time, default=0, help="Set simulation/routing begin")
 parser.add_argument("-e", "--end", dest="end",
-                     type=ArgumentParser.time, help="Set simulation/routing end")
+                    type=parser.time, help="Set simulation/routing end")
 parser.add_argument("-R", "--route-steps", dest="routeSteps",
-                     type=int, default=200, help="Set simulation route steps")
+                    type=int, default=200, help="Set simulation route steps")
 parser.add_argument("-a", "--aggregation", dest="aggregation",
-                     type=ArgumentParser.time, default=900, help="Set main weights aggregation period")
+                    type=parser.time, default=900, help="Set main weights aggregation period")
 parser.add_argument("-f", "--frequencies", dest="frequencies", type=str,
-                     default="-1,1800,300,15", help="Set the frequencies to iterate over")
+                    default="-1,1800,300,15", help="Set the frequencies to iterate over")
 parser.add_argument("-i", "--adaptation-interval", dest="updateInterval",
-                     type=ArgumentParser.time, default=1, help="Set edge weight adaptation interval")
+                    type=parser.time, default=1, help="Set edge weight adaptation interval")
 
 parser.add_argument("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
-                     default=False, category="output", help="No summaries are written by the simulation")
+                    default=False, category="output", help="No summaries are written by the simulation")
 parser.add_argument("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
-                     default=False, help="No tripinfos are written by the simulation")
+                    default=False, help="No tripinfos are written by the simulation")
 parser.add_argument("-m", "--mesosim", action="store_true", dest="mesosim",
-                     default=False, help="Whether mesosim shall be used")
+                    default=False, help="Whether mesosim shall be used")
 parser.add_argument("-w", "--with-taz", action="store_true", dest="withtaz",
-                     default=False, help="Whether districts shall be used")
-parser.add_argument("-+", "--additional", dest="additional", category="input", type=ArgumentParser.additional_file,
-                     default="", help="Additional files")
+                    default=False, help="Whether districts shall be used")
+parser.add_argument("-+", "--additional", dest="additional", category="input", type=parser.additional_file,
+                    default="", help="Additional files")
 parser.add_argument("-L", "--lastRoutes", action="store_true", dest="lastRoutes",
-                     default=False, help="only save the last routes in the vehroute-output")
-parser.add_argument("-F", "--weight-files", dest="weightfiles", type=ArgumentParser.file,
-                     help="Load edge/lane weights from FILE", metavar="FILE")
+                    default=False, help="only save the last routes in the vehroute-output")
+parser.add_argument("-F", "--weight-files", dest="weightfiles", type=parser.file,
+                    help="Load edge/lane weights from FILE", metavar="FILE")
 parser.add_argument("-A", "--routing-algorithm", dest="routingalgorithm", type=str,
-                     choices=('dijkstra', 'astar'),
-                     default="astar", help="type of routing algorithm [default: %default]")
+                    choices=('dijkstra', 'astar'),
+                    default="astar", help="type of routing algorithm [default: %default]")
 parser.add_argument("-r", "--rerouting-explicit", dest="reroutingexplicit", type=str,
-                     default="", help="define the ids of the vehicles that should be re-routed.")
+                    default="", help="define the ids of the vehicles that should be re-routed.")
 parser.add_argument("-x", "--with-exittime", action="store_true", dest="withexittime",
-                     default=False, help="Write the exit times for all edges")
+                    default=False, help="Write the exit times for all edges")
 parser.add_argument("-s", "--route-sorted", action="store_true", dest="routesorted",
-                     default=False, help="sorts the output by departure time")
-parser.add_argument("-p", "--path", dest="path", type=ArgumentParser.file, help="Path to binaries")
+                    default=False, help="sorts the output by departure time")
+parser.add_argument("-p", "--path", dest="path", type=parser.file, help="Path to binaries")
 parser.add_argument("--cost-modifier", dest="costmodifier", type=str,
-                     choices=('grohnde', 'isar', 'None'),
-                     default='None', help="Whether to modify link travel costs of the given routes")
+                    choices=('grohnde', 'isar', 'None'),
+                    default='None', help="Whether to modify link travel costs of the given routes")
 options = parser.parse_args()
 
 sumo = "sumo"

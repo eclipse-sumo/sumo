@@ -49,9 +49,9 @@ def initOptions():
         glob.glob(os.path.join(TOOLS_DIR, "..", "bin", "*.jar"))
     argParser = sumolib.options.ArgumentParser()
     addGenericOptions(argParser)
-    argParser.add_argument("-r", "--route-alternatives", dest="routes", type=ArgumentParser.route_file,
+    argParser.add_argument("-r", "--route-alternatives", dest="routes", type=argParser.route_file,
                            help="route alternatives from sumo (comma separated list, mandatory)", metavar="FILE")
-    argParser.add_argument("-d", "--detector-values", dest="detvals", type=ArgumentParser.file,
+    argParser.add_argument("-d", "--detector-values", dest="detvals", type=argParser.file,
                            help="adapt to the flow on the given edges", metavar="FILE")
     argParser.add_argument("--classpath", dest="classpath", default=os.pathsep.join(jars), type=str,
                            help="classpath for the calibrator [default: %default]")

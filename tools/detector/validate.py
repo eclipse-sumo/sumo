@@ -29,19 +29,18 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt  # noqa
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
-from sumolib.options import ArgumentParser
 
-parser = ArgumentParser(usage="usage: %prog [options] <input_flows.csv>")
+parser = sumolib.options.ArgumentParser(usage="usage: %prog [options] <input_flows.csv>")
 parser.add_argument(
-    "-d", "--detectorfile", type=ArgumentParser.file, help="read detector list from file")
+    "-d", "--detectorfile", type=parser.file, help="read detector list from file")
 parser.add_argument(
-    "-v", "--validation", type=ArgumentParser.file, help="read validation data from file")
-parser.add_argument("-i", "--interval", default=15, type=ArgumentParser.time,
-                     help="aggregation interval in minutes (default: %default)")
+    "-v", "--validation", type=parser.file, help="read validation data from file")
+parser.add_argument("-i", "--interval", default=15, type=parser.time,
+                    help="aggregation interval in minutes (default: %default)")
 parser.add_argument("-l", "--legacy", action="store_true", default=False,
-                     help="legacy style, input file is whitespace separated, detector_definition")
-parser.add_argument("input-flows", dest="inputFlows", category="input", nargs=1, type=ArgumentParser.file,
-                     help="csv file with flow input", metavar="FILE")
+                    help="legacy style, input file is whitespace separated, detector_definition")
+parser.add_argument("input-flows", dest="inputFlows", category="input", nargs=1, type=parser.file,
+                    help="csv file with flow input", metavar="FILE")
 options = parser.parse_args()
 
 sources = set()

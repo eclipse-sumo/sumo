@@ -33,20 +33,19 @@ from sumolib.options import ArgumentParser  # noqa
 
 def parse_args():
     parser = ArgumentParser()
-    parser.add_argument("--stdout", type=ArgumentParser.file,
-                         help="also parse the given FILE containing stdout of duaIterate")
-    parser.add_argument("-o", "--output", category="output", default="plot", type=str,
-                         help="output prefix for plotting with gnuplot")
+    parser.add_argument("--stdout", type=parser.file,
+                        help="also parse the given FILE containing stdout of duaIterate")
+    parser.add_argument("-o", "--output", category="output", default="plot",
+                        help="output prefix for plotting with gnuplot")
     parser.add_argument("-l", "--label-size", default=40, dest="label_size", type=int,
-                         help="limit length of the plot label to this size")
+                        help="limit length of the plot label to this size")
     parser.add_argument("--limit", type=int, default=uMax,
-                         help="only parse the first INT number of iterations")
-    parser.add_argument("--teleports", category="output", default="teleplot", type=str,
-                         help="output prefix for plotting teleport-prone edges")
-    parser.add_argument(
-        "--mpl", category="output", type=str, help="output prefix for matplotlib plots or SHOW for plotting to the display")
-    parser.add_argument(
-        "dualog", category="output", nargs=1, type=ArgumentParser.file, help="file path to dua log file")
+                        help="only parse the first INT number of iterations")
+    parser.add_argument("--teleports", category="output", default="teleplot",
+                        help="output prefix for plotting teleport-prone edges")
+    parser.add_argument("--mpl", category="output",
+                        help="output prefix for matplotlib plots or SHOW for plotting to the display")
+    parser.add_argument("dualog", category="output", nargs=1, type=parser.file, help="file path to dua log file")
     options = parser.parse_args()
     options.dualog = options.dualog[0]
     return options

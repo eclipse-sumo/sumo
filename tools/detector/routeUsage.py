@@ -21,7 +21,6 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-from optparse import OptionParser
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -29,24 +28,25 @@ if 'SUMO_HOME' in os.environ:
     import sumolib  # noqa
     from sumolib.output import parse  # noqa
     from sumolib.miscutils import Statistics  # noqa
-    from sumolib.options import ArgumentParser  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
 def get_options():
     USAGE = """Usage %prog <emitters.xml> [<routes.xml>]"""
-    parser = ArgumentParser(usage=USAGE)
+    parser = sumolib.options.ArgumentParser(usage=USAGE)
     parser.add_argument("-v", "--verbose", action="store_true",
-                         default=False, help="Give more output")
+                        default=False, help="Give more output")
     parser.add_argument("--threshold", type=int, default=0,
-                         help="Output routes that are used less than the threshold value")
-    parser.add_argument("--unused-output", category="output", type=ArgumentParser.file,
-                         help="Output route ids that are used less than the threshold value to file")
-    parser.add_argument("-r", "--flow-restrictions", dest="restrictionfile", category="output", type=ArgumentParser.file,
-                         help="Output route ids that are used more often than the threshold value given in file")
-    parser.add_argument("emitters", dest="emitters", type=ArgumentParser.file, help="file path to emitter file", metavar="FILE")
-    parser.add_argument("routes", dest="routes", nargs="?", type=ArgumentParser.file, help="file path to route file", metavar="FILE")
+                        help="Output routes that are used less than the threshold value")
+    parser.add_argument("--unused-output", category="output", type=parser.file,
+                        help="Output route ids that are used less than the threshold value to file")
+    parser.add_argument("-r", "--flow-restrictions", dest="restrictionfile", category="output", type=parser.file,
+                        help="Output route ids that are used more often than the threshold value given in file")
+    parser.add_argument("emitters", dest="emitters", type=parser.file,
+                        help="file path to emitter file", metavar="FILE")
+    parser.add_argument("routes", dest="routes", nargs="?", type=parser.file,
+                        help="file path to route file", metavar="FILE")
     options = parser.parse_args()
 
     return options

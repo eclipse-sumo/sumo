@@ -22,7 +22,6 @@ import math
 import sys
 import os
 
-from optparse import OptionParser
 import matplotlib.pyplot as plt
 
 import detector
@@ -31,40 +30,44 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
-from sumolib.options import ArgumentParser
 
 
 def get_options(args=None):
-    parser = ArgumentParser()
-    parser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=ArgumentParser.additional_file,
-                         help="read detectors from FILE (mandatory)", metavar="FILE")
+    parser = sumolib.options.ArgumentParser()
+    parser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=parser.additional_file,
+                        help="read detectors from FILE (mandatory)", metavar="FILE")
     parser.add_argument("-c", "--flow-column", dest="flowcol", default="qPKW", type=str,
-                         help="which column contains flows", metavar="STRING")
+                        help="which column contains flows", metavar="STRING")
     parser.add_argument("-z", "--respect-zero", action="store_true", dest="respectzero",
-                         default=False, help="respect detectors without data (or with permanent zero) with zero flow")
-    parser.add_argument("-i", "--interval", type=ArgumentParser.time, default=60, help="aggregation interval in minutes")
+                        default=False, help="respect detectors without data (or with permanent zero) with zero flow")
+    parser.add_argument("-i", "--interval", type=parser.time,
+                        default=60, help="aggregation interval in minutes")
     parser.add_argument("--long-names", action="store_true", dest="longnames",
-                         default=False, help="do not use abbreviated names for detector groups")
+                        default=False, help="do not use abbreviated names for detector groups")
     parser.add_argument("--edge-names", action="store_true", dest="edgenames",
-                         default=False, help="include detector group edge name in output")
-    parser.add_argument("-b", "--begin", type=ArgumentParser.time, default=0, help="begin time in minutes")
-    parser.add_argument("-e", "--end", type=ArgumentParser.time, default=None, help="end time in minutes")
-    parser.add_argument("-o", "--csv-output", dest="csv_output", type=str, help="write plot data with prefix", category="output", metavar="FILE")
+                        default=False, help="include detector group edge name in output")
+    parser.add_argument("-b", "--begin", type=parser.time, default=0, help="begin time in minutes")
+    parser.add_argument("-e", "--end", type=parser.time, default=None, help="end time in minutes")
+    parser.add_argument("-o", "--csv-output", dest="csv_output", type=str,
+                        help="write plot data with prefix", category="output", metavar="FILE")
     parser.add_argument("--extension", help="extension for saving plots", default="png", type=str, category="output")
     parser.add_argument("-s", "--show", action="store_true", default=False, help="show plot directly")
-    parser.add_argument("-g", "--group-by", dest="groupby", help="group detectors (all, none, type) ", default="all", type=str)
+    parser.add_argument("-g", "--group-by", dest="groupby",
+                        help="group detectors (all, none, type) ", default="all", type=str)
     parser.add_argument("-t", "--type-filter", dest="typefilter", type=str, help="only show selected types")
-    parser.add_argument("-r", "--reference-flow", dest="reference", type=ArgumentParser.file,
-                         help="reference flow file that should not be grouped", metavar="FILE")
+    parser.add_argument("-r", "--reference-flow", dest="reference", type=parser.file,
+                        help="reference flow file that should not be grouped", metavar="FILE")
     parser.add_argument("--id-filter", dest="idfilter", type=str, help="filter detector ids")
     parser.add_argument("--single-plot", action="store_true", dest="singleplot",
-                         default=False, help="put averything in a single plot")
+                        default=False, help="put averything in a single plot")
     # parser.add_argument("--boxplot", action="store_true", dest="boxplot", default=False, help="boxplot")
-    parser.add_argument("-m", "--max-files", type=int, dest="maxfiles", help="limit number of input files"), category="input",
+    parser.add_argument("-m", "--max-files", type=int, dest="maxfiles",
+                        category="input", help="limit number of input files")
     parser.add_argument("-n", "--no-legend", dest="nolegend", action="store_true",
-                         default=False, help="dont draw legend")
+                        default=False, help="dont draw legend")
     parser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
-    parser.add_argument("flowfiles", help="read flows from FILE(s) (mandatory)", nargs="+", category="input", type=ArgumentParser.file, metavar="FILE+")
+    parser.add_argument("flowfiles", help="read flows from FILE(s) (mandatory)", nargs="+",
+                        category="input", type=parser.file, metavar="FILE+")
     options = parser.parse_args()
     if options.maxfiles is not None:
         options.flowfiles = options.flowfiles[:options.maxfiles]

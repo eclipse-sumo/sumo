@@ -48,16 +48,17 @@ def addGenericOptions(argParser):
     # add options which are used by duaIterate and cadytsIterate
     argParser.add_argument("-w", "--disable-warnings", action="store_true", dest="noWarnings",
                            default=False, help="disables warnings")
-    argParser.add_argument("-n", "--net-file", dest="net", category="input", type=ArgumentParser.net_file,
+    argParser.add_argument("-n", "--net-file", dest="net", category="input", type=argParser.net_file,
                            help="SUMO network (mandatory)", metavar="FILE")
-    argParser.add_argument("-+", "--additional", category="input",default="", type=ArgumentParser.additional_file, help="Additional files")
+    argParser.add_argument("-+", "--additional", category="input", default="",
+                           type=argParser.additional_file, help="Additional files")
     argParser.add_argument("-b", "--begin",
-                           type=ArgumentParser.time, default=0, help="Set simulation/routing begin")
+                           type=argParser.time, default=0, help="Set simulation/routing begin")
     argParser.add_argument("-e", "--end",
-                           type=ArgumentParser.time, help="Set simulation/routing end")
+                           type=argParser.time, help="Set simulation/routing end")
     argParser.add_argument("-R", "--route-steps", type=int, default=200, help="Set simulation route steps")
     argParser.add_argument("-a", "--aggregation",
-                           type=ArgumentParser.time, default=900, help="Set main weights aggregation period")
+                           type=argParser.time, default=900, help="Set main weights aggregation period")
     argParser.add_argument("-m", "--mesosim", action="store_true",
                            default=False, help="Whether mesosim shall be used")
     argParser.add_argument("-p", "--path", type=str, help="Path to binaries")
@@ -83,10 +84,10 @@ def addGenericOptions(argParser):
                            help="define the applied eco measure, e.g. fuel, CO2, noise")
     argParser.add_argument("--eager-insert", action="store_true",
                            default=False, help="eager insertion tests (may slow down the sim considerably)")
-    argParser.add_argument("--time-to-teleport", dest="timetoteleport", type=ArgumentParser.time, default=300,
+    argParser.add_argument("--time-to-teleport", dest="timetoteleport", type=argParser.time, default=300,
                            help="Delay before blocked vehicles are teleported (negative value disables teleporting)")
-    argParser.add_argument("--time-to-teleport.highways", dest="timetoteleport_highways", type=ArgumentParser.time, default=0,
-                           help="Delay before blocked vehicles are teleported on wrong highway lanes")
+    argParser.add_argument("--time-to-teleport.highways", dest="timetoteleport_highways", type=argParser.time,
+                           default=0, help="Delay before blocked vehicles are teleported on wrong highway lanes")
     argParser.add_argument("--measure-vtypes", dest="measureVTypes", type=str,
                            help="Restrict edgeData measurements to the given vehicle types")
     argParser.add_argument("-7", "--zip", action="store_true",
@@ -116,8 +117,8 @@ def initOptions():
                            type=float, default=.5, help="Sets Gawron's Alpha")
     argParser.add_argument("-B", "--gBeta",
                            type=float, default=.9, help="Sets Gawron's Beta")
-    argParser.add_argument("-E", "--disable-summary", "--disable-emissions", category="output", action="store_true", dest="noSummary",
-                           default=False, help="No summaries are written by the simulation")
+    argParser.add_argument("-E", "--disable-summary", "--disable-emissions", category="output", action="store_true",
+                           dest="noSummary", default=False, help="No summaries are written by the simulation")
     argParser.add_argument("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                            default=False, help="No tripinfos are written by the simulation")
     argParser.add_argument("--tripinfo-filter", dest="tripinfoFilter",
@@ -177,7 +178,8 @@ def initOptions():
     argParser.add_argument("--gzip", action="store_true", default=False,
                            help="writing intermediate and resulting route files in gzipped format")
     argParser.add_argument("--dualog", default="dua.log", category="output", help="log file path (default 'dua.log')")
-    argParser.add_argument("--log", default="stdout.log", category="output", help="stdout log file path (default 'stdout.log')")
+    argParser.add_argument("--log", default="stdout.log", category="output",
+                           help="stdout log file path (default 'stdout.log')")
     argParser.add_argument("--marginal-cost", action="store_true", default=False,
                            help="use marginal cost to perform system optimal traffic assignment")
     argParser.add_argument("--marginal-cost.exp", type=float, default=0, dest="mcExp",

@@ -25,7 +25,6 @@ import sys
 import os
 
 from xml.sax import make_parser, handler
-from optparse import OptionParser
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -219,36 +218,36 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
 
 parser = ArgumentParser()
 parser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=ArgumentParser.additional_file,
-                     help="read detectors from FILE (mandatory)", metavar="FILE")
+                    help="read detectors from FILE (mandatory)", metavar="FILE")
 parser.add_argument("-r", "--routes", dest="routefile", category="input", type=ArgumentParser.route_file,
-                     help="read routes from FILE (mandatory)", metavar="FILE")
+                    help="read routes from FILE (mandatory)", metavar="FILE")
 parser.add_argument("-e", "--emitters", dest="emitfile", category="input", type=ArgumentParser.file,
-                     help="read emitters from FILE (mandatory)", metavar="FILE")
+                    help="read emitters from FILE (mandatory)", metavar="FILE")
 parser.add_argument("-f", "--detector-flow-file", dest="flowfile", category="input", type=ArgumentParser.file,
-                     help="read detector flows to compare to from FILE", metavar="FILE")
+                    help="read detector flows to compare to from FILE", metavar="FILE")
 parser.add_argument("--flow-column", dest="flowcol", default="qPKW", type=str,
-                     help="which column contains flows", metavar="STRING")
+                    help="which column contains flows", metavar="STRING")
 parser.add_argument("-z", "--respect-zero", action="store_true", dest="respectzero",
-                     default=False, help="respect detectors without data (or with permanent zero) with zero flow")
+                    default=False, help="respect detectors without data (or with permanent zero) with zero flow")
 parser.add_argument("-D", "--dfrouter-style", action="store_true", dest="dfrstyle",
-                     default=False, help="emitter files in dfrouter style (explicit routes)")
+                    default=False, help="emitter files in dfrouter style (explicit routes)")
 parser.add_argument("-i", "--interval", type=ArgumentParser.time, help="aggregation interval in minutes")
 parser.add_argument("--long-names", action="store_true", dest="longnames",
-                     default=False, help="do not use abbreviated names for detector groups")
+                    default=False, help="do not use abbreviated names for detector groups")
 parser.add_argument("--first-name", action="store_true", dest="firstname",
-                     default=False, help="use first id in group as representative")
+                    default=False, help="use first id in group as representative")
 parser.add_argument("--edge-names", action="store_true", dest="edgenames",
-                     default=False, help="include detector group edge name in output")
+                    default=False, help="include detector group edge name in output")
 parser.add_argument("-b", "--begin", type=ArgumentParser.time, default=0, help="begin time in minutes")
 parser.add_argument("--end", type=ArgumentParser.time, default=None, help="end time in minutes")
 parser.add_argument("--geh", action="store_true", dest="geh",
-                     default=False, help="compare flows using GEH measure")
+                    default=False, help="compare flows using GEH measure")
 parser.add_argument("--geh-threshold", type=float, default=5, dest="geh_threshold",
-                     help="report percentage of detectors below threshold")
+                    help="report percentage of detectors below threshold")
 parser.add_argument("--write-time", action="store_true", dest="writetime",
-                     default=False, help="write time in output")
+                    default=False, help="write time in output")
 parser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
+                    default=False, help="tell me what you are doing")
 options = parser.parse_args()
 if not options.detfile or not options.routefile or not options.emitfile:
     parser.print_help()

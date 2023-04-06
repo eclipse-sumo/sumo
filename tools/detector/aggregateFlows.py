@@ -32,7 +32,7 @@ import zipfile
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
-from sumolib.options import sumolib  # noqa
+import sumolib  # noqa
 
 
 class Entry:
@@ -67,11 +67,11 @@ def readLines(lines):
                 int(flowDef[1]), int(flowDef[2]), float(flowDef[3]), float(flowDef[4]))
 
 
-parser = ArgumentParser(usage="usage: %prog [options] [flow.txt|flows.zip]+")
-parser.add_option("-d", "--det-file", dest="detfile", category="input", type=ArgumentParser.file, 
-                     help="read detectors of interest from FILE", metavar="FILE")
-parser.add_option("flow-files", dest="flowFiles", category="input", nargs="+", type=ArgumentParser.file, 
-                     help="one or more flow input files", metavar="FILE")
+parser = sumolib.options.ArgumentParser(usage="usage: %prog [options] [flow.txt|flows.zip]+")
+parser.add_option("-d", "--det-file", dest="detfile", category="input", type=parser.file,
+                  help="read detectors of interest from FILE", metavar="FILE")
+parser.add_option("flow-files", dest="flowFiles", category="input", nargs="+", type=parser.file,
+                  help="one or more flow input files", metavar="FILE")
 options = parser.parse_args()
 
 if options.detfile:

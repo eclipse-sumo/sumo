@@ -17,8 +17,8 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 import sys
-from optparse import OptionParser
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -26,12 +26,12 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 from sumolib.options import ArgumentParser  # noqa
 
 parser = ArgumentParser(usage="usage: %prog [options]")
-parser.add_argument(
-    "-f", "--flows", type=ArgumentParser.file, help="read detector flows from FILE(s) (mandatory)", category="input", metavar="FILE")
-parser.add_argument("-o", "--output", type=ArgumentParser.file, category="output", help="filtered file", metavar="FILE")
-parser.add_argument("-d", "--detectors", help="list of detectors to keep (defaults to *all*)", type=str)
-parser.add_argument("-b", "--begin", type=ArgumentParser.time, default=0, help="begin interval in minutes (inclusive)")
-parser.add_argument("-e", "--end", type=ArgumentParser.time, default=1440, help="end interval in minutes (exclusive)")
+parser.add_argument("-f", "--flows", type=parser.file, category="input", metavar="FILE",
+                    help="read detector flows from FILE(s) (mandatory)")
+parser.add_argument("-o", "--output", type=parser.file, category="output", help="filtered file", metavar="FILE")
+parser.add_argument("-d", "--detectors", help="list of detectors to keep (defaults to *all*)")
+parser.add_argument("-b", "--begin", type=parser.time, default=0, help="begin interval in minutes (inclusive)")
+parser.add_argument("-e", "--end", type=parser.time, default=1440, help="end interval in minutes (exclusive)")
 options = parser.parse_args()
 
 if options.flows is None:
