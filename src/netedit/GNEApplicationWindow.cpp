@@ -3017,6 +3017,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
         mySumoOptions.set("net-file", neteditOptions.getString("net-file"));
         // begin save network
         getApp()->beginWaitCursor();
+        bool saved = false;
         try {
             // obtain invalid networkElements (currently only edges or crossings
             std::vector<GNENetworkElement*> invalidNetworkElements;
@@ -3044,12 +3045,14 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
                 } else {
                     // Save network
                     myNet->saveNetwork();
+                    saved = true;
                     // show debug information
                     WRITE_DEBUG("network elements saved after dialog");
                 }
             } else {
                 // Save network
                 myNet->saveNetwork();
+                saved = true;
                 // show debug information
                 WRITE_DEBUG("network elements saved");
             }
@@ -3061,11 +3064,15 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving network' with 'OK'");
         }
-        // write info
-        WRITE_MESSAGE(TL("Network saved in '") + neteditOptions.getString("net-file") + "'.");
-        // After saving a net successfully, add it into Recent Nets list.
-        myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
-        myMessageWindow->addSeparator();
+        if (saved) {
+            // write info
+            WRITE_MESSAGE(TL("Network saved in '") + neteditOptions.getString("net-file") + "'.");
+            // After saving a net successfully, add it into Recent Nets list.
+            myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
+            myMessageWindow->addSeparator();
+        } else {
+            PROGRESS_FAILED_MESSAGE();
+        }
         // end save network
         getApp()->endWaitCursor();
         // update view
@@ -3109,6 +3116,8 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
         getApp()->beginWaitCursor();
         try {
             myNet->savePlain(plainXMLFile);
+            // write info
+            WRITE_MESSAGE(TL("Plain XML saved with prefix '") + plainXMLFile + "'");
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
@@ -3119,8 +3128,7 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
         }
         // end saving plain XML
         getApp()->endWaitCursor();
-        // write info
-        WRITE_MESSAGE(TL("Plain XML saved with prefix '") + plainXMLFile + "'");
+
         // restore focus
         setFocus();
     }
@@ -3137,6 +3145,8 @@ GNEApplicationWindow::onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*) {
         getApp()->beginWaitCursor();
         try {
             myNet->saveJoined(joinedJunctionsFile);
+            // write info
+            WRITE_MESSAGE(TL("Joined junctions saved to '") + joinedJunctionsFile + "'");
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
@@ -3146,8 +3156,7 @@ GNEApplicationWindow::onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*) {
             WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
         }
         getApp()->endWaitCursor();
-        // write info
-        WRITE_MESSAGE(TL("Joined junctions saved to '") + joinedJunctionsFile + "'");
+
         // restore focus
         setFocus();
     }
