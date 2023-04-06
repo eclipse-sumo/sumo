@@ -3954,10 +3954,19 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     } else {
         // Start saving data elements
         getApp()->beginWaitCursor();
-        // save data elements
-        myNet->saveDataElements();
-        // write einfo
-        WRITE_MESSAGE(TL("Data elements saved in '") + neteditOptions.getString("data-files") + "'");
+        try {
+            // save data elements
+            myNet->saveDataElements();
+            // write einfo
+            WRITE_MESSAGE(TL("Data elements saved in '") + neteditOptions.getString("data-files") + "'");
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving data elements'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, TL("Saving data elements failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving data elements' with 'OK'");
+        }
         // end saving
         getApp()->endWaitCursor();
         // restore focus
@@ -4102,10 +4111,19 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void*
     } else {
         // Start saving meanDatas
         getApp()->beginWaitCursor();
-        // save mean datas
-        myNet->saveMeanDatas();
-        // write info
-        WRITE_MESSAGE(TL("MeanDatas saved in '") + neteditOptions.getString("meandata-files") + "'");
+        try {
+            // save mean datas
+            myNet->saveMeanDatas();
+            // write info
+            WRITE_MESSAGE(TL("MeanDatas saved in '") + neteditOptions.getString("meandata-files") + "'");
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving meanData'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, TL("Saving meanData failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving meanDara' with 'OK'");
+        }
         // end saving
         getApp()->endWaitCursor();
         // restore focus
