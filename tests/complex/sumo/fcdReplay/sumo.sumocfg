@@ -4,7 +4,7 @@
 
     <input>
         <net-file value="net.net.xml"/>
-        <route-files value="routes.rou.xml"/>
+        <route-files value="input_routes.rou.xml"/>
     </input>
 
 </configuration>
