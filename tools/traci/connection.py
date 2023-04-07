@@ -398,6 +398,6 @@ class Connection(StepManager):
             self._process.wait()
         self.simulation._setConnection(None)
         if self._label is not None:
-            if _connections[""] == self:
+            if _connections.get("") == self:
                 del _connections[""]
             del _connections[self._label]
