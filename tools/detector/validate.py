@@ -76,7 +76,7 @@ with open(options.inputFlows) as f:
             counts[start] = countIn - countOut
             start = end
             end += options.interval
-            for det, vals in dets.iteritems():
+            for det, vals in dets.items():
                 if c[det] > 0:
                     vals.append((time, c[det], v[det] / c[det]))
             c.clear()
@@ -112,7 +112,7 @@ if options.validation:
         if time >= end:
             start = end
             end += options.interval
-            for det, vals in sims.iteritems():
+            for det, vals in sims.items():
                 if c[det] > 0:
                     vals.append((time, c[det], v[det] / c[det]))
             c.clear()
@@ -126,7 +126,7 @@ if options.validation:
             countOut += int(interval.nVehEntered)
     print("simIn: %s simOut: %s" % (countIn, countOut))
 
-for det, vals in dets.iteritems():
+for det, vals in dets.items():
     print("Plotting", det, 'totaldet', totals[det], 'totalSim', totalSim[det])
     plt.bar(*(zip(*vals)[:2]))  # select first and second entry (time and flow)
     if det in sims:
