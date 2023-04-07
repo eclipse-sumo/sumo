@@ -41,12 +41,6 @@ jobs:
         python build/version.py build/setup-traci.py ./setup.py
         python -m build --wheel
 
-    - name: Uploading artifacts (Helper wheels)
-      uses: actions/upload-artifact@v3
-      with:
-        name: helper-wheels
-        path: tools/dist
-
     - name: Building Python wheels (latest manylinux docker)
       # if: github.repository == 'DLR-TS/sumo'
       uses: docker://quay.io/pypa/manylinux2014_x86_64
@@ -70,7 +64,9 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: manylinux-wheels
-        path: wheelhouse
+        path: |
+          wheelhouse
+          tools/dist
 
   test-wheels:
     needs: [build-manylinux-wheels]
@@ -113,7 +109,7 @@ jobs:
 
     - name: Running libsumo tests
       run: |
-        python -m pip install helper-wheels/sumolib-* helper-wheels/traci-*
+        python -m pip install manylinux-wheels/sumolib-* manylinux-wheels/traci-*
         PYTHON_VERSION=${{ matrix.python }}
         python -m pip install manylinux-wheels/libsumo-*cp3${PYTHON_VERSION:2}*
         cd tests
@@ -145,13 +141,13 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.TEST_PYPI_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
-        skip_existing: true
-        packages_dir: manylinux-wheels/
+        repository-url: https://test.pypi.org/legacy/
+        skip-existing: true
+        packages-dir: manylinux-wheels/
 
     - name: Publish to PyPI
       if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_TOKEN }}
-        packages_dir: manylinux-wheels/
+        packages-dir: manylinux-wheels/
