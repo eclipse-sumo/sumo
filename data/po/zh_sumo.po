@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-07 11:09+0000\n"
+"PO-Revision-Date: 2023-04-07 19:48+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3797,11 +3797,11 @@ msgstr "在meanData'%'中写入未知属性'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\output\MSStopOut.cpp:69
 msgid "Vehicle '%' stops on edge '%', time=% without ending the previous stop."
-msgstr ""
+msgstr "车辆'%'停在路段'%'上，时间=%，没有结束前一次停车。"
 
 #: /home/micha/programming/sumo/src\microsim\output\MSStopOut.cpp:105
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
-msgstr ""
+msgstr "车辆'%'在路段'%'上结束停车，时间=%，没有进入停车。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:139
 #, c-format
@@ -3812,7 +3812,8 @@ msgstr ""
 msgid ""
 "Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', "
 "program '%."
-msgstr ""
+msgstr "未知的感应线圈（inductionLoop） "
+"'%'作为自定义检测器，用于驱动的信号逻辑（tlLogic） '%'，程序'%。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:241
 msgid ""
@@ -3825,7 +3826,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:443
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."
-msgstr ""
+msgstr "在执行信号逻辑（tlLogic） '%'时，linkIndex %没有控制的探测器。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:452
 msgid ""
@@ -3872,7 +3873,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1313
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
-msgstr ""
+msgstr "检索信号逻辑（tlLogic）'%'的条件'%'时出错 (%)"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSDelayBasedTrafficLightLogic.cpp:96
 msgid ""
@@ -3908,7 +3909,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
-msgstr ""
+msgstr "列表输出车道"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSOTLTrafficLightLogic.cpp:243
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSOTLTrafficLightLogic.cpp:277
