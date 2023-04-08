@@ -28,7 +28,7 @@ import os
 import sys
 import codecs
 
-from optparse import OptionParser
+from sumolib.options import ArgumentParser
 from collections import defaultdict
 import sort_routes
 
@@ -46,19 +46,18 @@ def get_options(args=sys.argv[1:]):
 If the given routes contain exit times these will be used to compute new
 departure times. If the option --orig-net is given departure times will be
 extrapolated based on edge-lengths and maximum speeds multiplied with --speed-factor"""
-    optParser = OptionParser(usage=USAGE)
+    optParser = ArgumentParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
-    optParser.add_option("-o", "--trips-output", help="output trip file")
-    optParser.add_option("-a", "--additional-input", help="additional file for taz (must already be cut)")
+    optParser.add_option("-o", "--trips-output", category='output', help="output trip file")
+    optParser.add_option("-a", "--additional-input", category='input', help="additional file for taz (must already be cut)")
     optParser.add_option("-b", "--big", action="store_true", default=False,
                          help="Perform out-of-memory sort using module sort_routes (slower but more memory efficient)")
-    options, args = optParser.parse_args(args=args)
-    try:
-        options.network = args[0]
-        options.routeFiles = args[1:]
-    except Exception:
-        sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))
+    optParser.add_argument("network", category='input', help="Provide an input network")
+    optParser.add_argument("routeFiles", nargs="*", category='input', help="If the given routes contain exit times, these will be used to compute new departure times")
+
+    options = optParser.parse_args(args=args)
+    
     options.output = options.trips_output
     return options
 

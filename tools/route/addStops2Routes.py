@@ -34,13 +34,13 @@ import sumolib  # noqa
 
 def get_options(args=None):
     op = ArgumentParser()
-    op.add_option("-n", "--net-file", dest="netfile",
+    op.add_option("-n", "--net-file", category='input', dest="netfile",
                   help="define the net filename (mandatory)")
-    op.add_option("-r", "--route-files", dest="routefiles",
+    op.add_option("-r", "--route-files", category='input', dest="routefiles",
                   help="define the route file separated by comma (mandatory)")
-    op.add_option("-o", "--output-file", dest="outfile",
+    op.add_option("-o", "--output-file", category='output', dest="outfile",
                   help="define the output filename")
-    op.add_option("-t", "--typesfile", dest="typesfile",
+    op.add_option("-t", "--typesfile", category='input', dest="typesfile",
                   help="Give a typesfile")
     op.add_option("-d", "--duration",
                   help="Define duration of vehicle stop (setting 'X-Y' picks randomly from [X,Y[)")
@@ -74,7 +74,7 @@ def get_options(args=None):
     op.add_option("-v", "--verbose", dest="verbose", action="store_true",
                   default=False, help="tell me what you are doing")
 
-    (options, args) = op.parse_known_args(args=args)
+    options = op.parse_args()
 
     if options.parkingareas:
         options.parkingareas = options.parkingareas.split(",")
@@ -308,5 +308,5 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
+    options = get_options()
     main(options)

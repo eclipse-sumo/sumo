@@ -23,7 +23,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import optparse
 from random import Random
 
 # (seed)
@@ -37,13 +36,13 @@ else:
 import sumolib  # noqa
 
 
-def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("-r", "--route-file", dest="routefile",
+def get_options(args=sys.argv[1:]):
+    optParser = sumolib.options.ArgumentParser()
+    optParser.add_option("-r", "--route-file", category='input', dest="routefile",
                          help="define the input route file with trips")
-    optParser.add_option("-o", "--output-file", dest="outfile",
+    optParser.add_option("-o", "--output-file", category='output', dest="outfile",
                          help="output route file with trips with parking stops")
-    optParser.add_option("-p", "--parking-areas", dest="parking",
+    optParser.add_option("-p", "--parking-areas", category='input', dest="parking",
                          help="define the parking areas separated by comma")
     optParser.add_option("-d", "--parking-duration", dest="duration",
                          help="define the parking duration (in seconds)", default=3600)
@@ -59,9 +58,9 @@ def get_options(args=None):
                          help="tell me what you are doing")
     optParser.add_option("--random", action="store_true", default=False,
                          help="use a random seed to initialize the random number generator")
-    optParser.add_option("-s", "--seed", type="int", default=42,
+    optParser.add_option("-s", "--seed", type=int, default=42,
                          help="random seed")
-    (options, args) = optParser.parse_args(args=args)
+    options = optParser.parse_args(args=args)
     # check route file and parkings
     if not options.routefile or not options.parking:
         optParser.print_help()
@@ -115,5 +114,5 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
+    options = get_options()
     main(options)

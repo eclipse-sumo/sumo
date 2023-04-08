@@ -35,9 +35,9 @@ from sumolib.miscutils import parseTime  # noqa
 
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Sample routes to match counts")
-    parser.add_argument("-r", "--route-file", dest="routeFile",
+    parser.add_argument("-r", "--route-file", category='input', dest="routeFile",
                         help="Input route file")
-    parser.add_argument("-o", "--output-file", dest="out", default="out.rou.xml",
+    parser.add_argument("-o", "--output-file", category='output', dest="out", default="out.rou.xml",
                         help="Output route file")
     parser.add_argument("-s", "--seed", type=int, default=42,
                         help="random seed")
