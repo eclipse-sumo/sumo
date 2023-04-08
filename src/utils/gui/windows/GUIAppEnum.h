@@ -1525,6 +1525,8 @@ enum {
     MID_LANGUAGE_ES,
     /// @brief change language to french
     MID_LANGUAGE_FR,
+    /// @brief change language to italian
+    MID_LANGUAGE_IT,
     /// @brief change language to chinese (simplified)
     MID_LANGUAGE_ZH,
     /// @brief change language to chinese (traditional)
