@@ -38,12 +38,14 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 import sumolib  # noqa
 
+
 def get_options():
     optParser = sumolib.options.ArgumentParser(description="Convert a protocol buffer to an XML file.")
     optParser.add_argument("source", category="input", type=optParser.data_file, help="the input protobuf file")
     optParser.add_argument("-p", "--protodir", category="input", default=".", help="where to put and read .proto files")
     optParser.add_argument("-x", "--xsd", category="processing", required=True, help="xsd schema to use")
-    optParser.add_argument("-o", "--output", category="output", type=optParser.data_file, help="name for generic output file")
+    optParser.add_argument("-o", "--output", category="output",
+                           type=optParser.data_file, help="name for generic output file")
     options = optParser.parse_args()
     if not options.output:
         options.output = os.path.splitext(options.source)[0] + ".xml"

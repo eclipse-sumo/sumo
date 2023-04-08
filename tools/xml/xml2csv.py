@@ -230,16 +230,17 @@ def getOutStream(output):
 
 def get_options(arglist=None):
     optParser = sumolib.options.ArgumentParser(description="Convert a XML file to a CSV file")
-    optParser.add_argument("source", category="input", type=optParser.data_file, help="the input data (stream given by digits or file")
+    optParser.add_argument("source", category="input", type=optParser.data_file,
+                           help="the input data (stream given by digits or file")
     optParser.add_argument("-s", "--separator", category="processing", default=";",
                            help="separating character for fields")
     optParser.add_argument("-q", "--quotechar", category="processing", default='',
                            help="quoting character for fields")
-    optParser.add_argument("-x", "--xsd", category="processing", 
+    optParser.add_argument("-x", "--xsd", category="processing",
                            help="xsd schema to use")
-    optParser.add_argument("-a", "--validation", category="processing", action="store_true", default=False, 
+    optParser.add_argument("-a", "--validation", category="processing", action="store_true", default=False,
                            help="enable schema validation")
-    optParser.add_argument("-p", "--split", category="processing", action="store_true", default=False, 
+    optParser.add_argument("-p", "--split", category="processing", action="store_true", default=False,
                            help="split in different files for the first hierarchy level")
     optParser.add_argument("-o", "--output", category="output", type=optParser.data_file,
                            help="base name for output")

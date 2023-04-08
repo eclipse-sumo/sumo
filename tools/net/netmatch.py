@@ -24,17 +24,16 @@ import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
-from sumolib.options import ArgumentParser
 from sumolib.geomhelper import distance  # noqa
 
 
-argParser = ArgumentParser()
+argParser = sumolib.options.ArgumentParser()
 argParser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, category="processing", help="tell me what you are doing")
-argParser.add_argument("-1", "--net1", dest="net1", required=True,
-                     category="input", type=argParser.net_file, help="SUMO network to use (mandatory)", metavar="FILE")
-argParser.add_argument("-2", "--net2", dest="net2", required=True,
-                     category="input", type=argParser.net_file, help="SUMO network to use (mandatory)", metavar="FILE")
+                       default=False, category="processing", help="tell me what you are doing")
+argParser.add_argument("-1", "--net1", dest="net1", required=True, category="input", type=argParser.net_file,
+                       help="first SUMO network to use (mandatory)", metavar="FILE")
+argParser.add_argument("-2", "--net2", dest="net2", required=True, category="input", type=argParser.net_file,
+                       help="second SUMO network to use (mandatory)", metavar="FILE")
 # argParser.add_argument("-t", "--trips", dest="trips",
 #                    category="input", type=argParser.route_file, help="Trips to remap (mandatory)", metavar="FILE")
 # argParser.add_argument("-a", "--nodes1", dest="nodes1",
@@ -44,11 +43,13 @@ argParser.add_argument("-2", "--net2", dest="net2", required=True,
 # argParser.add_argument("-d", "--dump", dest="dump",
 #                     category="output", type=argParser.file, help="dump file to use", metavar="FILE")
 argParser.add_argument("-d", "--delta", default=1,
-                     type=float, category="processing", help="maximum distance between end points")
+                       type=float, category="processing", help="maximum distance between end points")
 argParser.add_argument("-o", "--output", dest="output", required=True,
-                     category="output", type=argParser.file, help="(base) name for the output", metavar="FILE")
-argParser.add_argument("--edges1", category="output", type=argParser.file, help="matched edges in net 1", metavar="FILE")
-argParser.add_argument("--edges2", category="output", type=argParser.file, help="matched edges in net 2", metavar="FILE")
+                       category="output", type=argParser.file, help="(base) name for the output", metavar="FILE")
+argParser.add_argument("--edges1", category="output", type=argParser.file,
+                       help="matched edges in net 1", metavar="FILE")
+argParser.add_argument("--edges2", category="output", type=argParser.file,
+                       help="matched edges in net 2", metavar="FILE")
 options = argParser.parse_args()
 
 

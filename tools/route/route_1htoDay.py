@@ -23,7 +23,8 @@ Uses "route_departOffset.py" for building 24 route files which describe
 from __future__ import absolute_import
 from __future__ import print_function
 
-import sys, os
+import sys
+import os
 import route_departOffset
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -32,12 +33,12 @@ if 'SUMO_HOME' in os.environ:
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
-def get_options(args=sys.argv[1:]):
+
+def get_options(args=None):
     optParser = ArgumentParser()
     optParser.add_argument("input_network", category='input', help="Provide an input network")
-    options = optParser.parse_args(args=args)
-    
-    return options
+    return optParser.parse_args(args=args)
+
 
 def main(options):
     for i in range(0, 24):
@@ -50,6 +51,7 @@ def main(options):
                 "--output-file", out,
                 "--depart-offset", str(i * 3600),
                 "--modify-ids"]))
+
 
 if __name__ == "__main__":
     main(get_options())

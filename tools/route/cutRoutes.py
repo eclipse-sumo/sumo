@@ -30,14 +30,13 @@ import copy
 import itertools
 import io
 
-from sumolib.options import ArgumentParser
 from collections import defaultdict
 import sort_routes
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
-    from sumolib.xml import parse, parse_fast, writeHeader  # noqa
+    from sumolib.xml import parse, writeHeader  # noqa
     from sumolib.net import readNet  # noqa
     from sumolib.miscutils import parseTime  # noqa
     import sumolib  # noqa
@@ -62,12 +61,12 @@ class Statistics:
         return self.num_vehicles + self.num_persons + self.num_flows
 
 
-def get_options(args=sys.argv[1:]):
+def get_options(args=None):
     USAGE = """Usage %prog [options] <new_net.xml> <routes> [<routes2> ...]
 If the given routes contain exit times these will be used to compute new
 departure times. If the option --orig-net is given departure times will be
 extrapolated based on edge-lengths and maximum speeds multiplied with --speed-factor"""
-    optParser = ArgumentParser(usage=USAGE)
+    optParser = sumolib.options.ArgumentParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
     optParser.add_option("--trips-output", category='output', help="output trip file")
@@ -79,7 +78,8 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                          default=0., help="minimum route length in the subnetwork (in meters)")
     optParser.add_option("-o", "--routes-output", category='output', help="output route file")
     optParser.add_option("--stops-output", category='output', help="output filtered stop file")
-    optParser.add_option("-a", "--additional-input", category='input', help="additional file (for bus stop locations)")
+    optParser.add_option("-a", "--additional-input", category='input',
+                         help="additional file (for bus stop locations)")
     optParser.add_option("--speed-factor", type=float, default=1.0,
                          help="Factor for modifying maximum edge speeds when extrapolating new departure times " +
                               "(default 1.0)")
@@ -104,7 +104,9 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     optParser.add_option("--discard-exit-times", action="store_true",
                          default=False, help="do not use exit times")
     optParser.add_argument("network", category='input', help="Provide an input network")
-    optParser.add_argument("routeFiles", nargs="*", category='input', help="If the given routes contain exit times, these will be used to compute new departure times")
+    optParser.add_argument("routeFiles", nargs="*", category='input',
+                           help="If the given routes contain exit times, "
+                                "these will be used to compute new departure times")
     # optParser.add_option("--orig-weights",
     # help="weight file for the original network for extrapolating new departure times")
     options = optParser.parse_args(args=args)

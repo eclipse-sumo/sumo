@@ -35,8 +35,9 @@ import sumolib  # noqa
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser()
-    optParser.add_option("-r", "--route-file", category='input',dest="routefile", help="define the route file")
-    optParser.add_option("-o", "--output-file", category='output',dest="outfile", help="output route file including parking")
+    optParser.add_option("-r", "--route-file", category='input', dest="routefile", help="define the route file")
+    optParser.add_option("-o", "--output-file", category='output', dest="outfile",
+                         help="output route file including parking")
     optParser.add_option("-p", "--parking-areas", category='input', dest="parking",
                          help="define the parking areas separated by comma")
     optParser.add_option("-d", "--parking-duration", dest="duration",

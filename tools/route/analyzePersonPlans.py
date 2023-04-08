@@ -23,7 +23,6 @@ from __future__ import print_function
 
 import os
 import sys
-from sumolib.options import ArgumentParser
 from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
@@ -32,7 +31,7 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    parser = ArgumentParser(description="Analyze person plans")
+    parser = sumolib.options.ArgumentParser(description="Analyze person plans")
     parser.add_argument("-r", "--route-files", category='input', dest="routeFiles", help="Input route files")
     parser.add_argument("-w", "--merge-walks", dest="mergeWalks", action="store_true", help="merge subsequent walks")
     parser.add_argument("-p", "--public-prefixes", dest="public", help="Distinguish public transport modes by prefix")

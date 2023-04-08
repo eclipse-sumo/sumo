@@ -34,14 +34,16 @@ def parse_args():
     argParser = sumolib.options.ArgumentParser(usage=USAGE)
     argParser.add_argument("-n", "--net-file", dest="netFile", required=True,
                            category="input", type=argParser.net_file, help="The .net.xml file to convert")
-    argParser.add_argument("-o", "--output-file", dest="outFile", category="output", type=argParser.file, help="The polygon output file name")
+    argParser.add_argument("-o", "--output-file", dest="outFile", category="output",
+                           type=argParser.file, help="The polygon output file name")
     argParser.add_argument("-l", "--lanes", action="store_true", default=False,
                            category="processing", help="Export lane geometries instead of edge geometries")
     argParser.add_argument("-i", "--internal", action="store_true", default=False,
                            category="processing", help="Export internal geometries")
     argParser.add_argument("--layer", default="10", category="processing", type=str, help="Layer for normal edges")
     argParser.add_argument("--color", default="red", category="processing", type=str, help="Color for normal edges")
-    argParser.add_argument("--internal-color", dest="iColor", default="orange", category="processing", type=str, help="Color for internal edges")
+    argParser.add_argument("--internal-color", dest="iColor", default="orange",
+                           category="processing", type=str, help="Color for internal edges")
     return argParser.parse_args()
 
 

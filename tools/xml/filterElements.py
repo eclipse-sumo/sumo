@@ -36,21 +36,22 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser(description="Remove elements in a XML file that match a certain attribute")
-    optParser.add_argument("-f", "--file", category="input", dest="file", required=True, type=optParser.data_file, 
+    optParser = sumolib.options.ArgumentParser(
+        description="Remove elements in a XML file that match a certain attribute")
+    optParser.add_argument("-f", "--file", category="input", dest="file", required=True, type=optParser.data_file,
                            help="define the XML input file")
     optParser.add_argument("-o", "--output", category="output", dest="output", type=optParser.data_file,
                            help="define the XML output file")
-    optParser.add_argument("-t", "--tag", category="processing", dest="tag", 
+    optParser.add_argument("-t", "--tag", category="processing", dest="tag",
                            help="tag to edit")
-    optParser.add_argument("-a", "--attribute", category="processing", dest="attribute", 
+    optParser.add_argument("-a", "--attribute", category="processing", dest="attribute",
                            help="attribute to edit")
     optParser.add_argument("-r", "--remove-values", category="processing", dest="values",
                            help="comma-separated list of values to filter by (deletes all occurences of tag if not specified)")  # noqa
     optParser.add_argument("-k", "--keep-values", category="processing", dest="keepValues",
                            help="comma-separated list of values to keep (deletes all non-matching elements")  # noqa
     options = optParser.parse_args(args=args)
-    
+
     if options.values is not None:
         options.values = set(options.values.split(','))
     if options.keepValues is not None:

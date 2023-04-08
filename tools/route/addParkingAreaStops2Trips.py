@@ -36,13 +36,13 @@ else:
 import sumolib  # noqa
 
 
-def get_options(args=sys.argv[1:]):
+def get_options(args=None):
     optParser = sumolib.options.ArgumentParser()
-    optParser.add_option("-r", "--route-file", category='input', dest="routefile",
+    optParser.add_option("-r", "--route-file", category='input', dest="routefile", required=True,
                          help="define the input route file with trips")
     optParser.add_option("-o", "--output-file", category='output', dest="outfile",
                          help="output route file with trips with parking stops")
-    optParser.add_option("-p", "--parking-areas", category='input', dest="parking",
+    optParser.add_option("-p", "--parking-areas", category='input', dest="parking", required=True,
                          help="define the parking areas separated by comma")
     optParser.add_option("-d", "--parking-duration", dest="duration",
                          help="define the parking duration (in seconds)", default=3600)
@@ -60,12 +60,7 @@ def get_options(args=sys.argv[1:]):
                          help="use a random seed to initialize the random number generator")
     optParser.add_option("-s", "--seed", type=int, default=42,
                          help="random seed")
-    options = optParser.parse_args(args=args)
-    # check route file and parkings
-    if not options.routefile or not options.parking:
-        optParser.print_help()
-        sys.exit()
-    return options
+    return optParser.parse_args(args=args)
 
 
 def main(options):

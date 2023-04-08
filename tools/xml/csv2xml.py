@@ -28,7 +28,6 @@ import contextlib
 import io
 
 from collections import OrderedDict
-from optparse import OptionParser
 
 import xsd
 import xml2csv
@@ -46,14 +45,14 @@ def get_options():
                            help="the quoting character for fields")
     optParser.add_argument("-d", "--delimiter", category="processing", default=";",
                            help="the field separator of the input file")
-    optParser.add_argument("-p", "--skip-root", category="processing", action="store_true", default=False, 
+    optParser.add_argument("-p", "--skip-root", category="processing", action="store_true", default=False,
                            help="the root element is not contained")
-    optParser.add_argument("-o", "--output", category="output", 
+    optParser.add_argument("-o", "--output", category="output",
                            help="name for generic output file")
     group = optParser.add_mutually_exclusive_group(required=True)
     group.add_argument("-t", "--type", category="processing",
                        help="convert the given csv-file into the specified format")
-    group.add_argument("-x", "--xsd", category="processing", 
+    group.add_argument("-x", "--xsd", category="processing",
                        help="xsd schema to use")
     options = optParser.parse_args()
     if not options.output:

@@ -32,7 +32,7 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
-def get_options(args=sys.argv[1:]):
+def get_options(args=None):
     optParser = ArgumentParser()
     optParser.add_option("-r", "--input-file", dest="infile",
                          help="the input route file (mandatory)")
@@ -66,8 +66,7 @@ def get_options(args=sys.argv[1:]):
 
     if ((options.offset is None and options.interval is None) or
             (options.offset is not None and options.interval is not None)):
-        print(
-            "Either one of the options --depart-offset or --depart-interval must be given")
+        print("Either one of the options --depart-offset or --depart-interval must be given")
         sys.exit()
 
     if options.offset is not None:

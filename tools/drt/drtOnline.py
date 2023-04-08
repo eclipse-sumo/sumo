@@ -68,12 +68,12 @@ def initOptions():
                     help="Timeout for ILP solver (default 5 seconds)")
     ap.add_argument("--c-ko", type=int, default=1000000000000,
                     help="Cost of ignoring a reservation")
-    ap.add_argument("--cost-per-trip", type=int, default=600,
-                    help="Cost to avoid using multiple vehicles if the travel time of trips is similar (default 600 seconds)")  # noqa
-    ap.add_argument("--drf", dest="drf", type=float, default=2,
-                    help="Factor by which the DRT travel time should not exceed the one of a direct connection (default 2)")  # noqa
-    ap.add_argument("--drf-min", type=ArgumentParser.time, default=600,
-                    help="Minimum time difference allowed between DRT travel time and direct connection for the cases of short trips (default 600 seconds)")  # noqa
+    ap.add_argument("--cost-per-trip", type=int, default=600, help="Cost to avoid using multiple vehicles"
+                    " if the travel time of trips is similar (default 600 seconds)")
+    ap.add_argument("--drf", dest="drf", type=float, default=2, help="Factor by which the DRT travel time "
+                    "should not exceed the one of a direct connection (default 2)")
+    ap.add_argument("--drf-min", type=ArgumentParser.time, default=600, help="Minimum time difference allowed "
+                    "between DRT travel time and direct connection for the cases of short trips (default 600 seconds)")
     ap.add_argument("--max-wait", type=ArgumentParser.time, default=900,
                     help="Maximum waiting time for pickup (default 900 seconds)")
     ap.add_argument("--max-processing", type=int,
@@ -82,15 +82,15 @@ def initOptions():
                     help="Step time to collect new reservations (default 30 seconds)")
     ap.add_argument("--end-time", type=ArgumentParser.time, default=90000,
                     help="Maximum simulation time to close Traci (default 90000 sec - 25h)")
-    ap.add_argument("--routing-algorithm", default='dijkstra', type=str, choices=('dijkstra', 'astar', 'CH', 'CHWrapper'),
+    ap.add_argument("--routing-algorithm", default='dijkstra', choices=('dijkstra', 'astar', 'CH', 'CHWrapper'),
                     help="Algorithm for shortest path routing. Support: dijkstra (default), astar, CH and CHWrapper")
-    ap.add_argument("--routing-mode", type=int, default=0,
-                    help="Mode for shortest path routing. Support: 0 (default) for routing with loaded or default speeds and 1 for routing with averaged historical speeds")  # noqa
+    ap.add_argument("--routing-mode", type=int, default=0, help="Mode for shortest path routing. Support: 0 (default) "
+                    "for routing with loaded or default speeds and 1 for routing with averaged historical speeds")
     ap.add_argument("--dua-times", action='store_true',
                     help="Calculate travel time between edges with duarouter")
     ap.add_argument("--tracefile", category="output", type=ArgumentParser.file,
                     help="log traci commands to the given FILE")
-    ap.add_argument("--tracegetters", action='store_true', 
+    ap.add_argument("--tracegetters", action='store_true',
                     help="include get-methods in tracefile")
     ap.add_argument("-v", "--verbose", action='store_true')
 

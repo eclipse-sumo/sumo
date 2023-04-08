@@ -108,12 +108,13 @@ class ProtoWriter(xml.sax.handler.ContentHandler):
 
 def get_options():
     optParser = sumolib.options.ArgumentParser(description="Convert a XML file to a protocol buffer")
-    optParser.add_argument("source", category="input", type=optParser.data_file, help="the input data (given by digits or a file")
+    optParser.add_argument("source", category="input", type=optParser.data_file,
+                           help="the input data (given by digits or a file")
     optParser.add_argument("-p", "--protodir", category="input", default=".",
                            help="where to put and read .proto files")
-    optParser.add_argument("-x", "--xsd", category="processing", required=True, 
+    optParser.add_argument("-x", "--xsd", category="processing", required=True,
                            help="xsd schema to use (mandatory)")
-    optParser.add_argument("-a", "--validation", category="processing", action="store_true", default=False, 
+    optParser.add_argument("-a", "--validation", category="processing", action="store_true", default=False,
                            help="enable schema validation")
     optParser.add_argument("-o", "--output", category="output", type=optParser.data_file,
                            help="output file name")
