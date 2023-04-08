@@ -347,6 +347,8 @@ GUIMainWindow::buildLanguageMenu(FXMenuBar* menuBar) {
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES), this, MID_LANGUAGE_ES);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Français", "", TL("Change language to french. (fr)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR), this, MID_LANGUAGE_FR);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Italiano", "", TL("Change language to italian. (it)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_IT), this, MID_LANGUAGE_IT);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "简体中文", "", TL("简体中文 (zh)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), this, MID_LANGUAGE_ZH);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "繁體中文", "", TL("繁體中文 (zh-Hant)"),
@@ -376,6 +378,10 @@ GUIMainWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
         case MID_LANGUAGE_FR:
             langID = "fr";
             lang = TL("french");
+            break;
+        case MID_LANGUAGE_IT:
+            langID = "it";
+            lang = TL("italian");
             break;
         case MID_LANGUAGE_ZH:
             langID = "zh";
@@ -444,6 +450,8 @@ GUIMainWindow::onUpdChangeLanguage(FXObject* obj, FXSelector, void*) {
         } else if ((gLanguage == "es") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
         } else if ((gLanguage == "fr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "it") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_IT))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
         } else if ((gLanguage == "zh") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
