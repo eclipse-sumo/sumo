@@ -37,9 +37,9 @@ jobs:
         cd tools
         python -m pip install build
         python build/version.py build/setup-sumolib.py ./setup.py
-        python -m build --wheel
+        python -m build --wheel -o ../wheelhouse
         python build/version.py build/setup-traci.py ./setup.py
-        python -m build --wheel
+        python -m build --wheel -o ../wheelhouse
 
     - name: Building Python wheels (latest manylinux docker)
       # if: github.repository == 'DLR-TS/sumo'
@@ -64,9 +64,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: manylinux-wheels
-        path: |
-          wheelhouse
-          tools/dist
+        path: wheelhouse
 
   test-wheels:
     needs: [build-manylinux-wheels]
