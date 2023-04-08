@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-07 19:48+0000\n"
+"PO-Revision-Date: 2023-04-08 15:51+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3918,7 +3918,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:57
 msgid "NO VALID POLICY LIST READ"
-msgstr ""
+msgstr "未读到有效的政策清单。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:81
 msgid "VEHICLE TYPES WEIGHT only works with phase policy, which is missing"
@@ -3940,7 +3940,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
-msgstr ""
+msgstr "***交叉口%将使用MSSwarmTrafficLightLogic运行 ***"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:202
 msgid "TL % time 0 Policy: % (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: % ."
@@ -3952,7 +3952,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSTLLogicControl.cpp:116
 msgid "No initial signal plan loaded for tls '%'."
-msgstr ""
+msgstr "没有为tls '%'加载初始信号方案。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSTLLogicControl.cpp:163
 msgid "Could not build an off-state for tls '%'."
@@ -4017,7 +4017,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Remote.cpp:209
 #, c-format
 msgid "Edge: % does not allow pedestrians."
-msgstr ""
+msgstr "路段：%不允许有行人。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Remote.cpp:299
 msgid "Pedestrian model 'remote' does not support simulation.loadState state\n"
@@ -4032,12 +4032,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Striping.cpp:179
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
-msgstr ""
+msgstr "行人'%'无法在路段'%'找到人行道，时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Striping.cpp:463
 #, c-format
 msgid "Invalid walkingarea '%' does not allow continuation."
-msgstr ""
+msgstr "无效的步行区域'%'不允许继续。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Striping.cpp:1905
 msgid "Disconnected walk for person '%'."
@@ -4045,7 +4045,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Striping.cpp:2106
 msgid "Person '%' is jammed on edge '%', time=%."
-msgstr ""
+msgstr "行人'%'被卡在路段'%'，时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPerson.cpp:90
 msgid "Adjusting departPos for cloned walk with routeDistribution '%'"
@@ -4063,11 +4063,11 @@ msgstr ""
 msgid ""
 "Ignoring vehicle type '%' when routing person '%' because it is not allowed "
 "on the start edge."
-msgstr ""
+msgstr "在为行人\"%\"安排路径时，忽略了车辆类型\"%\"，因为它不允许出现在起始路段。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSTransportable.cpp:134
 msgid "Changing a transportable ID is not permitted"
-msgstr ""
+msgstr "不允许更换可运输的ID"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSTransportable.cpp:256
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
@@ -4079,16 +4079,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSTransportableControl.cpp:68
 msgid "Unknown pedestrian model '%'"
-msgstr ""
+msgstr "未知的行人模型'%'"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:142
 msgid "No flow intervals in calibrator '%'."
-msgstr ""
+msgstr "校准器中没有流量间隔'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:161
 #, c-format
 msgid "Calibrator '%' has no active or upcoming interval"
-msgstr ""
+msgstr "校准器'%'没有活动或即将到来的间隔时间"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:209
 msgid "Insertion lane may differ from calibrator lane for calibrator '%'."
@@ -4096,22 +4096,22 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:213
 msgid "Unknown vehicle type '%' in calibrator '%'."
-msgstr ""
+msgstr "校准器'%'中的未知车辆类型'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:216
 msgid "Mandatory attribute missing in definition of calibrator '%'."
-msgstr ""
+msgstr "校准器'%'的定义中缺少强制性属性。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:218
 msgid ""
 "Non-numeric value for numeric attribute in definition of calibrator '%'."
-msgstr ""
+msgstr "校准器'%'定义中的数字属性为非数字值。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:221
 msgid ""
 "Either 'vehsPerHour',  'speed' or 'type' has to be set in flow definition of "
 "calibrator '%'."
-msgstr ""
+msgstr "在校准器'%'的流量定义中，必须设置'车辆每小时'、'速度'或'类型'。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:224
 msgid "Type calibration is not supported in meso for calibrator '%'."
@@ -4119,11 +4119,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:318
 msgid "Calibrator '%' could not remove vehicle '%' time=%."
-msgstr ""
+msgstr "校准器'%'无法移除车辆'%'时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:699
 msgid "Cannot set flow for calibrator '%' with overlapping interval."
-msgstr ""
+msgstr "无法为校准器'%'设置流量，且间隔时间重叠。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:701
 msgid "Cannot set flow for calibrator '%' with negative interval."
