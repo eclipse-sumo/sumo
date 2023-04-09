@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-08 15:51+0000\n"
+"PO-Revision-Date: 2023-04-10 15:51+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -4127,7 +4127,7 @@ msgstr "无法为校准器'%'设置流量，且间隔时间重叠。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:701
 msgid "Cannot set flow for calibrator '%' with negative interval."
-msgstr ""
+msgstr "无法为校验器'%'设置负间隔的流量。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSLaneSpeedTrigger.cpp:176
 msgid "Invalid or unsorted time entry in vss '%'."
@@ -4159,7 +4159,7 @@ msgstr ""
 msgid ""
 "The requested total power could not be delivered by the overhead wire. Only "
 "% of originally requested power was provided."
-msgstr ""
+msgstr "要求的总功率无法通过架空线输送。只提供了最初要求的电力的%。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:127
 msgid "MSTriggeredRerouter %: No destination edge id given."
@@ -4178,11 +4178,11 @@ msgstr ""
 msgid ""
 "Cannot keep destination edge '%' for vehicle '%' due to closed edges. "
 "Terminating route."
-msgstr ""
+msgstr "由于封闭路段，无法为车辆'%'保留目的地路段'%'。终止路径。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:604
 msgid "Invalid value '%' for vehicle parameter '%'"
-msgstr ""
+msgstr "车辆参数'%'的数值无效"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:612
 msgid "Invalid value '%' for vType parameter '%'"
@@ -4193,17 +4193,17 @@ msgstr ""
 msgid ""
 "Parkingarea '%' along the way cannot be used by vehicle '%' for unknown "
 "reason"
-msgstr ""
+msgstr "沿途的停车区'%'不能被车辆'%'使用，原因不明"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:1105
 msgid ""
 "Invalid distance computation for vehicle '%' to parkingArea '%' at time=%."
-msgstr ""
+msgstr "车辆'%'到停车区'%'的距离计算无效，时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:1160
 msgid ""
 "Invalid distance computation for vehicle '%' from parkingArea '%' at time=%."
-msgstr ""
+msgstr "在时间=%时，从停车区'%'出发，对车辆'%'的距离计算无效。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:1236
 msgid ""
@@ -4221,14 +4221,14 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms.cpp:273
 msgid "Converting invalid rail_crossing to traffic_light at junction '%'."
-msgstr ""
+msgstr "在路口'%'处将无效的铁路交叉口转换为交通灯。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms.cpp:282
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:1739
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:423
 #: /home/micha/programming/sumo/src\netimport\NIXMLNodesHandler.cpp:355
 msgid "Could not allocate tls '%'."
-msgstr ""
+msgstr "无法分配tls '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:173
 msgid ""
@@ -4263,7 +4263,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:406
 msgid "Found % railway edges and % railway nodes (% signals)."
-msgstr ""
+msgstr "发现%的铁路路段和%的铁路路口（%的信号）。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:523
 msgid "Added % bidi-edges as extension of existing bidi edges."
