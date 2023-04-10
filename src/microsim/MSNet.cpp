@@ -843,10 +843,10 @@ MSNet::postMoveStep() {
         removeOutdatedCollisions();
     }
     // update and write (if needed) detector values
+    mySimStepDuration = SysUtils::getCurrentMillis() - mySimStepDuration;
     writeOutput();
 
     if (myLogExecutionTime) {
-        mySimStepDuration = SysUtils::getCurrentMillis() - mySimStepDuration;
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
         if (myPersonControl != nullptr) {
             myPersonsMoved += myPersonControl->getRunningNumber();
