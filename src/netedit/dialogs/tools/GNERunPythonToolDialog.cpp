@@ -117,8 +117,8 @@ GNERunPythonToolDialog::runTool(GNEPythonTool* tool) {
     myPythonTool = tool;
     // run tool
     myRunTool->runTool(tool);
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    myGNEApp->getApp()->runModalFor(this);
+    // open dialog
+    myGNEApp->getApp()->run();
 }
 
 
