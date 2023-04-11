@@ -116,8 +116,6 @@ GNERunNetgenerateDialog::run(const OptionsCont *netgenerateOptions) {
     myNetgenerateOptions = netgenerateOptions;
     // run tool
     myRunNetgenerate->run(myNetgenerateOptions);
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    myGNEApp->getApp()->runModalFor(this);
 }
 
 

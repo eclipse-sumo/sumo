@@ -117,8 +117,6 @@ GNERunPythonToolDialog::runTool(GNEPythonTool* tool) {
     myPythonTool = tool;
     // run tool
     myRunTool->runTool(tool);
-    // open dialog
-    myGNEApp->getApp()->run();
 }
 
 
