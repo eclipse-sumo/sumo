@@ -1170,7 +1170,7 @@ However, it is also possible to set other requirements that must be met for the 
   - the list of necessary and eligible persons can be further customized with attributes `expected` and `permitted`
 - `"container"`: the vehicle stops until at least one container has been loaded
   - the list of necessary and eligible containers can be further customized with attributes `expectedContainers` and `permitted`
-- `"join"`: the vehicle stops until having [joined with another vehicle](../Simulation/Railways.md#joining_two_trains)
+- `"join"`: the vehicle stops until having [joined with another vehicle](Simulation/Railways.md#joining_two_trains)
 - `"true"`: alias for `"person"`
 - `"false"`: alias for not defining any trigger conditions
 
