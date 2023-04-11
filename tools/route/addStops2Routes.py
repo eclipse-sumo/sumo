@@ -47,7 +47,7 @@ def get_options(args=None):
     op.add_option("-u", "--until",
                   help="Define end time of vehicle stop")
     op.add_option("-p", "--parking", dest="parking", action="store_true",
-                  default=False, help="where is the vehicle parking")
+                  default=False, help="Let the vehicle stop beside the road")
     op.add_option("--relpos",
                   help="relative stopping position along the edge [0,1] or 'random'")
     op.add_option("--lane", default="0",
