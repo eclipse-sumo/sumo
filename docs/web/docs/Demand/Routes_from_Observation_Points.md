@@ -148,11 +148,9 @@ The following columns may optionally be included:
 - vLKW: The average speed of transport vehicles that drove over the
   detector within this time period in km/h
 
-These are not quite the values to be found in induction loop output. We
-had to constrain the <DETECTOR_FLOWS\> files this way because dfrouter is
-meant to read very many of such definitions and to do this as fast as
-possible.
-
+!!! caution
+    [dfrouter](../dfrouter.md) assumes that counts are given once per minute. To handle data with a different granularity, option **--time-step SECONDS** must be used.
+    
 Because in some cases one reads detector flow definitions starting at a
 certain time but wants the simulation to begin at another, it is
 possible to add a time offset using **--time-offset** {{DT_INT}} which is the number of seconds to
