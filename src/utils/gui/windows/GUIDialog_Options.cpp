@@ -42,43 +42,13 @@ FXDEFMAP(GUIDialog_Options) GUIDialogOptionsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE, GUIDialog_Options::onCmdRunNetgenerate),
 };
 
-FXDEFMAP(GUIDialog_Options::InputString) InputStringMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputString::onCmdSetOption),
-};
-
-FXDEFMAP(GUIDialog_Options::InputStringVector) InputStringVectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputStringVector::onCmdSetOption),
-};
-
-FXDEFMAP(GUIDialog_Options::InputBool) InputBoolMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputBool::onCmdSetOption),
-};
-
-FXDEFMAP(GUIDialog_Options::InputInt) InputIntMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputInt::onCmdSetOption),
-};
-
-FXDEFMAP(GUIDialog_Options::InputIntVector) InputIntVectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputIntVector::onCmdSetOption),
-};
-
-FXDEFMAP(GUIDialog_Options::InputFloat) InputFloatMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputFloat::onCmdSetOption),
-};
-
-FXDEFMAP(GUIDialog_Options::InputFilename) InputFilenameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputFilename::onCmdSetOption),
+FXDEFMAP(GUIDialog_Options::InputOption) InputOptionMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputOption::onCmdSetOption),
 };
 
 // Object implementation
-FXIMPLEMENT(GUIDialog_Options,                      FXDialogBox,        GUIDialogOptionsMap,    ARRAYNUMBER(GUIDialogOptionsMap))
-FXIMPLEMENT(GUIDialog_Options::InputString,         FXHorizontalFrame,  InputStringMap,         ARRAYNUMBER(InputStringMap))
-FXIMPLEMENT(GUIDialog_Options::InputStringVector,   FXHorizontalFrame,  InputStringVectorMap,   ARRAYNUMBER(InputStringVectorMap))
-FXIMPLEMENT(GUIDialog_Options::InputBool,           FXHorizontalFrame,  InputBoolMap,           ARRAYNUMBER(InputBoolMap))
-FXIMPLEMENT(GUIDialog_Options::InputInt,            FXHorizontalFrame,  InputIntMap,            ARRAYNUMBER(InputIntMap))
-FXIMPLEMENT(GUIDialog_Options::InputIntVector,      FXHorizontalFrame,  InputIntVectorMap,      ARRAYNUMBER(InputIntVectorMap))
-FXIMPLEMENT(GUIDialog_Options::InputFloat,          FXHorizontalFrame,  InputFloatMap,          ARRAYNUMBER(InputFloatMap))
-FXIMPLEMENT(GUIDialog_Options::InputFilename,       FXHorizontalFrame,  InputFilenameMap,       ARRAYNUMBER(InputFilenameMap))
+FXIMPLEMENT(GUIDialog_Options,                          FXDialogBox,        GUIDialogOptionsMap,    ARRAYNUMBER(GUIDialogOptionsMap))
+FXIMPLEMENT_ABSTRACT(GUIDialog_Options::InputOption,    FXHorizontalFrame,  InputOptionMap,         ARRAYNUMBER(InputOptionMap))
 
 // ===========================================================================
 // method definitions
@@ -123,24 +93,33 @@ GUIDialog_Options::InputOption::InputOption(GUIDialog_Options* GUIDialogOptions,
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myGUIDialogOptions(GUIDialogOptions),
     myName(name) {
+    // build label with name
     new FXLabel(this, (name + "\t\t" + myGUIDialogOptions->myOptionsContainer->getDescription(name)).c_str());
 }
 
+
+long
+GUIDialog_Options::InputOption::onCmdSetOption(FXObject*, FXSelector, void*) {
+    // try to set option and mark as modified if was sucessfully
+    if (setOption()) {
+        myGUIDialogOptions->myModified = true;
+    }
+    return 1;
+}
+
+
 GUIDialog_Options::InputString::InputString(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    InputOption(GUIDialogOptions, parent, name),
-    myGUIDialogOptions(GUIDialogOptions),
-    myName(name) {
+    InputOption(GUIDialogOptions, parent, name) {
     myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_NORMAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
     myTextField->setText(myGUIDialogOptions->myOptionsContainer->getString(name).c_str());
 }
 
 
-long
-GUIDialog_Options::InputString::onCmdSetOption(FXObject*, FXSelector, void*) {
+bool
+GUIDialog_Options::InputString::setOption() {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    myGUIDialogOptions->myModified = true;
-    return 1;
+    return true;
 }
 
 
@@ -151,12 +130,11 @@ GUIDialog_Options::InputStringVector::InputStringVector(GUIDialog_Options* GUIDi
 }
 
 
-long
-GUIDialog_Options::InputStringVector::onCmdSetOption(FXObject*, FXSelector, void*) {
+bool
+GUIDialog_Options::InputStringVector::setOption() {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    myGUIDialogOptions->myModified = true;
-    return 1;
+    return true;
 }
 
 
@@ -167,11 +145,10 @@ GUIDialog_Options::InputBool::InputBool(GUIDialog_Options* GUIDialogOptions, FXC
 }
 
 
-long
-GUIDialog_Options::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
+bool
+GUIDialog_Options::InputBool::setOption() {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myCheck->getCheck() ? "true" : "false");
-    myGUIDialogOptions->myModified = true;
     // special checks for Debug flags
     if ((myName == "gui-testing-debug") && myGUIDialogOptions->myOptionsContainer->isSet("gui-testing-debug")) {
         MsgHandler::enableDebugMessages(myGUIDialogOptions->myOptionsContainer->getBool("gui-testing-debug"));
@@ -179,7 +156,7 @@ GUIDialog_Options::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     if ((myName == "gui-testing-debug-gl") && myGUIDialogOptions->myOptionsContainer->isSet("gui-testing-debug-gl")) {
         MsgHandler::enableDebugGLMessages(myGUIDialogOptions->myOptionsContainer->getBool("gui-testing-debug-gl"));
     }
-    return 1;
+    return true;
 }
 
 
@@ -190,12 +167,11 @@ GUIDialog_Options::InputInt::InputInt(GUIDialog_Options* GUIDialogOptions, FXCom
 }
 
 
-long
-GUIDialog_Options::InputInt::onCmdSetOption(FXObject*, FXSelector, void*) {
+bool
+GUIDialog_Options::InputInt::setOption() {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    myGUIDialogOptions->myModified = true;
-    return 1;
+    return true;
 }
 
 
@@ -206,8 +182,8 @@ GUIDialog_Options::InputIntVector::InputIntVector(GUIDialog_Options* GUIDialogOp
 }
 
 
-long
-GUIDialog_Options::InputIntVector::onCmdSetOption(FXObject*, FXSelector, void*) {
+bool
+GUIDialog_Options::InputIntVector::setOption() {
     try {
         // check that int vector can be parsed
         const auto intVector = StringTokenizer(myTextField->getText().text()).getVector();
@@ -217,11 +193,11 @@ GUIDialog_Options::InputIntVector::onCmdSetOption(FXObject*, FXSelector, void*) 
         myGUIDialogOptions->myOptionsContainer->resetWritable();
         myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
         myTextField->setTextColor(FXRGB(0, 0, 0));
-        myGUIDialogOptions->myModified = true;
+        return true;
     } catch (...) {
         myTextField->setTextColor(FXRGB(255, 0, 0));
     }
-    return 1;
+    return false;
 }
 
 
@@ -232,12 +208,11 @@ GUIDialog_Options::InputFloat::InputFloat(GUIDialog_Options* GUIDialogOptions, F
 }
 
 
-long
-GUIDialog_Options::InputFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
+bool
+GUIDialog_Options::InputFloat::setOption() {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    myGUIDialogOptions->myModified = true;
-    return 1;
+    return true;
 }
 
 
@@ -248,17 +223,17 @@ GUIDialog_Options::InputFilename::InputFilename(GUIDialog_Options* GUIDialogOpti
 }
 
 
-long
-GUIDialog_Options::InputFilename::onCmdSetOption(FXObject*, FXSelector, void*) {
+bool
+GUIDialog_Options::InputFilename::setOption() {
     if (SUMOXMLDefinitions::isValidFilename(myTextField->getText().text())) {
         myGUIDialogOptions->myOptionsContainer->resetWritable();
         myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
         myTextField->setTextColor(FXRGB(0, 0, 0));
-        myGUIDialogOptions->myModified = true;
+        return true;
     } else {
         myTextField->setTextColor(FXRGB(255, 0, 0));
+        return false;
     }
-    return 1;
 }
 
 

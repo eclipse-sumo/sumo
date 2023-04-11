@@ -71,13 +71,15 @@ public:
     // ===========================================================================
 
     class InputOption : public FXHorizontalFrame {
+        /// @brief FOX-declaration
+        FXDECLARE_ABSTRACT(GUIDialog_Options::InputOption)
 
     public:
         /// @brief constructor
         InputOption(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
-        virtual long onCmdSetOption(FXObject*, FXSelector, void*) = 0;
+        long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief FOX needs this
@@ -88,150 +90,106 @@ public:
 
         /// @brief name
         const std::string myName;
+
+    private:
+        /// @brief set new option value
+        virtual bool setOption() = 0;
     };
 
     class InputString : public InputOption {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputString)
 
     public:
         /// @brief constructor
         InputString(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputString)
-
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
+        /// @brief set new option value
+        bool setOption();
 
         /// @brief text field
         FXTextField* myTextField;
     };
 
     class InputStringVector : public InputOption {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputStringVector)
 
     public:
         /// @brief constructor
         InputStringVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputStringVector)
-
     private:
+        /// @brief set new option value
+        bool setOption();
+
         /// @brief text field
         FXTextField* myTextField;
     };
 
     class InputBool : public InputOption {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputBool)
 
     public:
         /// @brief constructor
         InputBool(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputBool)
-
     private:
+        /// @brief set new option value
+        bool setOption();
+
         /// @brief menu check
         FXMenuCheck* myCheck;
     };
 
     class InputInt : public InputOption {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputInt)
 
     public:
         /// @brief
         InputInt(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputInt)
-
     private:
+        /// @brief set new option value
+        bool setOption();
+
         /// @brief text field
         FXTextField* myTextField;
     };
 
     class InputIntVector : public InputOption {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputIntVector)
 
     public:
         /// @brief
         InputIntVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputIntVector)
-
     private:
+        /// @brief set new option value
+        bool setOption();
+
         /// @brief text field
         FXTextField* myTextField;
     };
 
     class InputFloat : public InputOption {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputFloat)
 
     public:
         /// @brief constructor
         InputFloat(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputFloat)
-
     private:
+        /// @brief set new option value
+        bool setOption();
+
         /// @brief text field
         FXTextField* myTextField;
     };
 
     class InputFilename : public InputOption {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputFilename)
 
     public:
         /// @brief constructor
         InputFilename(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputFilename)
-
     private:
+        /// @brief set new option value
+        bool setOption();
+
         /// @brief text field
         FXTextField* myTextField;
     };
