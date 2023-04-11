@@ -2954,7 +2954,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     }
 #if defined(DEBUG_STRATEGIC_CHANGE) || defined(DEBUG_TRACI)
     if (gDebugFlag2) {
-        std::cout << " reqAfterInfluence=" << ret << " ret=" << ret << "\n";
+        std::cout << " reqAfterInfluence=" << toString((LaneChangeAction)retTraCI) << " ret=" << toString((LaneChangeAction)ret) << "\n";
     }
 #endif
     return ret;
@@ -3077,6 +3077,8 @@ MSLCM_SL2015::keepLatGap(int state,
     double gapFactor = computeGapFactor(state);
     const double oldLatDist = latDist;
     const double oldManeuverDist = maneuverDist;
+    /// passed state is without traci-influence but we need it here
+    const int traciState = myVehicle.influenceChangeDecision(state);
 
     // compute gaps after maneuver
     const double halfWidth = getWidth() * 0.5;
@@ -3088,8 +3090,8 @@ MSLCM_SL2015::keepLatGap(int state,
     double surplusGapRight = oldCenter - halfWidth;
     double surplusGapLeft = getLeftBorder(laneOffset != 0) - oldCenter - halfWidth;
     const bool stayInLane = (laneOffset == 0
-                             || ((state & LCA_STRATEGIC) != 0
-                                 && (state & LCA_STAY) != 0
+                             || ((traciState & LCA_STRATEGIC) != 0
+                                 && (traciState & LCA_STAY) != 0
                                  // permit wide vehicles to stay on the road
                                  && (surplusGapLeft >= 0 && surplusGapRight >= 0)));
 
@@ -3102,6 +3104,7 @@ MSLCM_SL2015::keepLatGap(int state,
                   << " latDist=" << latDist
                   << " maneuverDist=" << maneuverDist
                   << " state=" << toString((LaneChangeAction)state)
+                  << " traciState=" << toString((LaneChangeAction)traciState)
                   << " blocked=" << toString((LaneChangeAction)blocked)
                   << " gapFactor=" << gapFactor
                   << " stayInLane=" << stayInLane << "\n"
@@ -3211,7 +3214,7 @@ MSLCM_SL2015::keepLatGap(int state,
     }
     // if we cannot move in the desired direction, consider the maneuver blocked anyway
     const bool nonSublaneChange = (state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT)) != 0;
-    const bool traciChange = (state & LCA_TRACI) != 0;
+    const bool traciChange = ((state | traciState) & LCA_TRACI) != 0;
     if (nonSublaneChange && !traciChange) {
         if ((latDist < NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) && (oldLatDist > 0)) {
 #ifdef DEBUG_KEEP_LATGAP
