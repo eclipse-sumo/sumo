@@ -101,6 +101,12 @@ GUIDialog_Options::Run(GUIMainWindow *windows, OptionsCont* optionsContainer, co
 GUIDialog_Options::~GUIDialog_Options() { }
 
 
+bool
+GUIDialog_Options::wasModified() const {
+    return myModified;
+}
+
+
 long
 GUIDialog_Options::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
     // close dialog accepting changes
@@ -113,11 +119,17 @@ GUIDialog_Options::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
 // Option input classes method definitions
 // ===========================================================================
 
-GUIDialog_Options::InputString::InputString(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputOption::InputOption(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myGUIDialogOptions(GUIDialogOptions),
     myName(name) {
     new FXLabel(this, (name + "\t\t" + myGUIDialogOptions->myOptionsContainer->getDescription(name)).c_str());
+}
+
+GUIDialog_Options::InputString::InputString(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
+    InputOption(GUIDialogOptions, parent, name),
+    myGUIDialogOptions(GUIDialogOptions),
+    myName(name) {
     myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_NORMAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
     myTextField->setText(myGUIDialogOptions->myOptionsContainer->getString(name).c_str());
 }
@@ -127,15 +139,13 @@ long
 GUIDialog_Options::InputString::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
+    myGUIDialogOptions->myModified = true;
     return 1;
 }
 
 
 GUIDialog_Options::InputStringVector::InputStringVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    FXHorizontalFrame(parent, LAYOUT_FILL_X),
-    myGUIDialogOptions(GUIDialogOptions),
-    myName(name) {
-    new FXLabel(this, (name + "\t\t" + myGUIDialogOptions->myOptionsContainer->getDescription(name)).c_str());
+    InputOption(GUIDialogOptions, parent, name) {
     myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_NORMAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
     myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getStringVector(name)).c_str());
 }
@@ -145,15 +155,13 @@ long
 GUIDialog_Options::InputStringVector::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
+    myGUIDialogOptions->myModified = true;
     return 1;
 }
 
 
 GUIDialog_Options::InputBool::InputBool(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    FXHorizontalFrame(parent, LAYOUT_FILL_X),
-    myGUIDialogOptions(GUIDialogOptions),
-    myName(name) {
-    new FXLabel(this, (name + "\t\t" + myGUIDialogOptions->myOptionsContainer->getDescription(name)).c_str());
+    InputOption(GUIDialogOptions, parent, name) {
     myCheck = new FXMenuCheck(this, "", this, MID_GNE_SET_ATTRIBUTE);
     myCheck->setCheck(myGUIDialogOptions->myOptionsContainer->getBool(name));
 }
@@ -163,6 +171,7 @@ long
 GUIDialog_Options::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myCheck->getCheck() ? "true" : "false");
+    myGUIDialogOptions->myModified = true;
     // special checks for Debug flags
     if ((myName == "gui-testing-debug") && myGUIDialogOptions->myOptionsContainer->isSet("gui-testing-debug")) {
         MsgHandler::enableDebugMessages(myGUIDialogOptions->myOptionsContainer->getBool("gui-testing-debug"));
@@ -175,10 +184,7 @@ GUIDialog_Options::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
 
 
 GUIDialog_Options::InputInt::InputInt(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    FXHorizontalFrame(parent, LAYOUT_FILL_X),
-    myGUIDialogOptions(GUIDialogOptions),
-    myName(name) {
-    new FXLabel(this, (name + "\t\t" + myGUIDialogOptions->myOptionsContainer->getDescription(name)).c_str());
+    InputOption(GUIDialogOptions, parent, name) {
     myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_INTEGER | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
     myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getInt(name)).c_str());
 }
@@ -188,15 +194,13 @@ long
 GUIDialog_Options::InputInt::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
+    myGUIDialogOptions->myModified = true;
     return 1;
 }
 
 
 GUIDialog_Options::InputIntVector::InputIntVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    FXHorizontalFrame(parent, LAYOUT_FILL_X),
-    myGUIDialogOptions(GUIDialogOptions),
-    myName(name) {
-    new FXLabel(this, (name + "\t\t" + myGUIDialogOptions->myOptionsContainer->getDescription(name)).c_str());
+    InputOption(GUIDialogOptions, parent, name) {
     myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_NORMAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
     myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getIntVector(name)).c_str());
 }
@@ -213,6 +217,7 @@ GUIDialog_Options::InputIntVector::onCmdSetOption(FXObject*, FXSelector, void*) 
         myGUIDialogOptions->myOptionsContainer->resetWritable();
         myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
         myTextField->setTextColor(FXRGB(0, 0, 0));
+        myGUIDialogOptions->myModified = true;
     } catch (...) {
         myTextField->setTextColor(FXRGB(255, 0, 0));
     }
@@ -221,10 +226,7 @@ GUIDialog_Options::InputIntVector::onCmdSetOption(FXObject*, FXSelector, void*) 
 
 
 GUIDialog_Options::InputFloat::InputFloat(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    FXHorizontalFrame(parent, LAYOUT_FILL_X),
-    myGUIDialogOptions(GUIDialogOptions),
-    myName(name) {
-    new FXLabel(this, (name + "\t\t" + myGUIDialogOptions->myOptionsContainer->getDescription(name)).c_str());
+    InputOption(GUIDialogOptions, parent, name) {
     myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_REAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
     myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getFloat(name)).c_str());
 }
@@ -234,15 +236,13 @@ long
 GUIDialog_Options::InputFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
+    myGUIDialogOptions->myModified = true;
     return 1;
 }
 
 
 GUIDialog_Options::InputFilename::InputFilename(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    FXHorizontalFrame(parent, LAYOUT_FILL_X),
-    myGUIDialogOptions(GUIDialogOptions),
-    myName(name) {
-    new FXLabel(this, (name + "\t\t" + myGUIDialogOptions->myOptionsContainer->getDescription(name)).c_str());
+    InputOption(GUIDialogOptions, parent, name) {
     myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_NORMAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
     myTextField->setText(myGUIDialogOptions->myOptionsContainer->getString(name).c_str());
 }
@@ -254,6 +254,7 @@ GUIDialog_Options::InputFilename::onCmdSetOption(FXObject*, FXSelector, void*) {
         myGUIDialogOptions->myOptionsContainer->resetWritable();
         myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
         myTextField->setTextColor(FXRGB(0, 0, 0));
+        myGUIDialogOptions->myModified = true;
     } else {
         myTextField->setTextColor(FXRGB(255, 0, 0));
     }

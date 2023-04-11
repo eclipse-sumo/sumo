@@ -60,6 +60,9 @@ public:
     /// @brief Destructor
     ~GUIDialog_Options();
 
+    /// @brief check if options were modified
+    bool wasModified() const;
+
     /// @brief called when user press run netgenerate button
     long onCmdRunNetgenerate(FXObject*, FXSelector, void*);
 
@@ -67,7 +70,27 @@ public:
     // Option input classes
     // ===========================================================================
 
-    class InputString : public FXHorizontalFrame {
+    class InputOption : public FXHorizontalFrame {
+
+    public:
+        /// @brief constructor
+        InputOption(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
+
+        /// @brief try to set new attribute value
+        virtual long onCmdSetOption(FXObject*, FXSelector, void*) = 0;
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(InputOption)
+
+        /// @brief GUIDialog_Options parent
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
+
+        /// @brief name
+        const std::string myName;
+    };
+
+    class InputString : public InputOption {
         /// @brief FOX-declaration
         FXDECLARE(GUIDialog_Options::InputString)
 
@@ -93,7 +116,7 @@ public:
         FXTextField* myTextField;
     };
 
-    class InputStringVector : public FXHorizontalFrame {
+    class InputStringVector : public InputOption {
         /// @brief FOX-declaration
         FXDECLARE(GUIDialog_Options::InputStringVector)
 
@@ -109,17 +132,11 @@ public:
         FOX_CONSTRUCTOR(InputStringVector)
 
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
-
         /// @brief text field
         FXTextField* myTextField;
     };
 
-    class InputBool : public FXHorizontalFrame {
+    class InputBool : public InputOption {
         /// @brief FOX-declaration
         FXDECLARE(GUIDialog_Options::InputBool)
 
@@ -135,17 +152,11 @@ public:
         FOX_CONSTRUCTOR(InputBool)
 
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
-
         /// @brief menu check
         FXMenuCheck* myCheck;
     };
 
-    class InputInt : public FXHorizontalFrame {
+    class InputInt : public InputOption {
         /// @brief FOX-declaration
         FXDECLARE(GUIDialog_Options::InputInt)
 
@@ -161,17 +172,11 @@ public:
         FOX_CONSTRUCTOR(InputInt)
 
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
-
         /// @brief text field
         FXTextField* myTextField;
     };
 
-    class InputIntVector : public FXHorizontalFrame {
+    class InputIntVector : public InputOption {
         /// @brief FOX-declaration
         FXDECLARE(GUIDialog_Options::InputIntVector)
 
@@ -187,17 +192,11 @@ public:
         FOX_CONSTRUCTOR(InputIntVector)
 
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
-
         /// @brief text field
         FXTextField* myTextField;
     };
 
-    class InputFloat : public FXHorizontalFrame {
+    class InputFloat : public InputOption {
         /// @brief FOX-declaration
         FXDECLARE(GUIDialog_Options::InputFloat)
 
@@ -213,17 +212,11 @@ public:
         FOX_CONSTRUCTOR(InputFloat)
 
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
-
         /// @brief text field
         FXTextField* myTextField;
     };
 
-    class InputFilename : public FXHorizontalFrame {
+    class InputFilename : public InputOption {
         /// @brief FOX-declaration
         FXDECLARE(GUIDialog_Options::InputFilename)
 
@@ -239,12 +232,6 @@ public:
         FOX_CONSTRUCTOR(InputFilename)
 
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
-
         /// @brief text field
         FXTextField* myTextField;
     };
@@ -258,6 +245,9 @@ protected:
 
     /// @brief refecente to edited Option container
     OptionsCont* myOptionsContainer;
+
+    /// @brief flag for check if value was modified
+    bool myModified = false;
 
 private:
     /**@brief Constructor
