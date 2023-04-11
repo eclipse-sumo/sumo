@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-29 21:17+0000\n"
+"PO-Revision-Date: 2023-04-11 07:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -16081,7 +16081,6 @@ msgstr "Option Fensterposition erfordert INT,INT"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:340
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:340
-#, fuzzy
 msgid "Langua&ge"
 msgstr "Sprach&e"
 
