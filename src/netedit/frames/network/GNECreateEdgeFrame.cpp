@@ -31,6 +31,7 @@
 #include <netedit/elements/network/GNELaneTemplate.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/options/OptionsCont.h>
 
 
 #include "GNECreateEdgeFrame.h"
@@ -78,7 +79,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     // checkboxes
     myNoPedestriansCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Disallow for pedestrians"),
             this, MID_GNE_CREATEEDGEFRAME_CHECKBUTTON, GUIDesignCheckButton);
-    myAddSidewalkCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Add Sidewalk"),
+    myAddSidewalkCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Add sidewalk"),
             this, MID_GNE_CREATEEDGEFRAME_CHECKBUTTON, GUIDesignCheckButton);
     // use custom edge radio button
     myUseCustomEdgeType = new FXRadioButton(getCollapsableFrame(), TL("Use edgeType/template"),
@@ -864,6 +865,8 @@ GNECreateEdgeFrame::addSidewalk(GNEEdge* edge) const {
         edge->setAttribute(SUMO_ATTR_NUMLANES, toString(edge->getLanes().size() + 1), myViewNet->getUndoList());
         // set last lane allow attribute
         edge->getLanes().front()->setAttribute(SUMO_ATTR_ALLOW, "pedestrian", myViewNet->getUndoList());
+        // set width
+        edge->getLanes().front()->setAttribute(SUMO_ATTR_WIDTH, toString(OptionsCont::getOptions().getFloat("default.sidewalk-width")), myViewNet->getUndoList());
     }
 }
 
