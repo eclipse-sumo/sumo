@@ -1163,8 +1163,8 @@ Stops can be childs of vehicles, routes, persons or containers.
 
 ## triggered stops
 
-Typically, a planned stop ends based on a time related conditions (a scheduled departure time give as `until` or a minimum stopping `duration` or both).
-However, it is also possible to set other requirements that must be met for the stop to end and for these the attribute `triggered` is used. It defines a list of conditions and each keyword is explained in the following:
+Typically, a planned stop ends based on a time related condition (a scheduled departure time give as `until` or a minimum stopping `duration` or both).
+However, it is also possible to set other requirements that must be met for the stop to end and these are defined with attribute `triggered`. The attribute defines a list of conditions and each keyword is explained in the following:
 
 - `"person"`: the vehicle stops until at least one person has entered
   - the list of necessary and eligible persons can be further customized with attributes `expected` and `permitted`
