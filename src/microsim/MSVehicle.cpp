@@ -1430,7 +1430,14 @@ MSVehicle::computeAngle() const {
         p1 = getPosition();
     }
 
-    Position p2 = getBackPosition();
+    Position p2;
+    if (getVehicleType().getParameter().locomotiveLength > 0) {
+        // articulated vehicle should use the heading of the first part
+        const double locoLength = MIN2(getVehicleType().getParameter().locomotiveLength, getLength());
+        p2 = getPosition(-locoLength);
+    } else {
+        p2 = getBackPosition();
+    }
     if (p2 == Position::INVALID) {
         // Handle special case of vehicle's back reaching out of the network
         if (myFurtherLanes.size() > 0) {
