@@ -1127,7 +1127,7 @@ Stops can be childs of vehicles, routes, persons or containers.
 | started            | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the known time of arrival for the stop (i.e. as recorded by a prior simulation). Can be used to overrule 'arrival' by setting option **--use-stop-started** (i.e. when trying to reproduce known timings)                                                                          |
 | extension          | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the maximum time by which to extend the stop duration due to boarding persons and when waiting for expected persons / triggered stopping
 | index              | int, "end", "fit" | 0≤index≤number of stops in the route                                                         | "end"              | where to insert the stop in the vehicle's list of stops                                                                |
-| triggered          | bool              | true,false                                                                                   | false              | whether a person may end the stop                                                                                      |
+| triggered          | string list              | "person", "container", "join", "true", "false"   | "false"   | List of necessary conditions for ending a stop ([see below](#triggered_stps))                                                                                      |
 | expected           | string            | list of person IDs                                                                           |                    | list of persons that must board the vehicle before it may continue (only takes effect for triggered stops)             |
 | expectedContainers | string            | list of container IDs                                                                        |                    | list of containers that must be loaded onto the vehicle before it may continue (only takes effect for triggered stops) |
 | permitted | string            | list of person and container IDs                                                                        |                    | list of transportables that are permitted to enter the vehicle at this stop |
@@ -1160,6 +1160,19 @@ Stops can be childs of vehicles, routes, persons or containers.
 - if the vehicle comes to a halt earlier (i.e. due to a jam) then the stop counts as reached if the vehicle front is between startPos and endPos
 - if the vehicle picks up a person or container, it can do so as long as the person is between startPos and endPos
 - if the stop uses attribute 'speed', than that speed will be maintained between startPos and endPos
+
+## triggered stops
+
+Typically, a planned stop ends based on a time related conditions (a scheduled departure time give as `until` or a minimum stopping `duration` or both).
+However, it is also possible to set other requirements that must be met for the stop to end and for these the attribute `triggered` is used. It defines a list of conditions and each keyword is explained in the following:
+
+- `"person"`: the vehicle stops until at least one person has entered
+  - the list of necessary and eligible persons can be further customized with attributes `expected` and `permitted`
+- `"container"`: the vehicle stops until at least one container has been loaded
+  - the list of necessary and eligible containers can be further customized with attributes `expectedContainers` and `permitted`
+- `"join"`: the vehicle stops until having [joined with another vehicle](../Simulation/Railways.md#joining_two_trains)
+- `"true"`: alias for `"person"`
+- `"false"`: alias for not defining giving any trigger conditions
 
 ## Waypoints
 By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep the defined speed while between startPos end endPos. 
