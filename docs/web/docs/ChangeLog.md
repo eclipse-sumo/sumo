@@ -175,7 +175,7 @@ title: ChangeLog
     - can plot number of occurrences (histogram) with attribute value `@COUNT`. Issue #11971
     - supports binning of data via options **--xbin** and **--ybin** (i.e. for making histograms)
     - supports bar plots via option **--barplot** and **--hbarplot**. Issue #12612, #12833
-    - supports box plots via option **-x @BOX** or **-y @BOX**. Issue #11994
+    - supports box plots via option **-x \@BOX** or **-y \@BOX**. Issue #11994
     - supports clamping of data range via option **--xclamp A:B** and **--yclamp C:D**
 
 - Other
