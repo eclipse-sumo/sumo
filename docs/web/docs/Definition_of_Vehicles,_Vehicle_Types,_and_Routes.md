@@ -1172,7 +1172,7 @@ However, it is also possible to set other requirements that must be met for the 
   - the list of necessary and eligible containers can be further customized with attributes `expectedContainers` and `permitted`
 - `"join"`: the vehicle stops until having [joined with another vehicle](../Simulation/Railways.md#joining_two_trains)
 - `"true"`: alias for `"person"`
-- `"false"`: alias for not defining giving any trigger conditions
+- `"false"`: alias for not defining any trigger conditions
 
 ## Waypoints
 By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep the defined speed while between startPos end endPos. 
