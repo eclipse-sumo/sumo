@@ -320,7 +320,7 @@ Note, that the lane of that parking area must belong to one of the edges
 
 # addStops2Routes.py
 
-Declares vehicles to stop at the end of their route.
+Declares vehicles to stop at the end of their route (or at some other defined / random location).
 
 ```
 python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vType-file> -o <output-file> -d <stop duration in seconds> -u <stop until time>
@@ -348,6 +348,23 @@ python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vTyp
     </vehicle>
 </routes>
 ```
+
+## Random stopping
+
+The following options can be used to randomize the added stops:
+
+- **--probability**: Randomly adds a stop for each vehicle with probability in `[0,1]`
+- **--reledge random**: Adds stop on a random edge along the route
+- **--relpos random**: Adds stop on random offset along the edge
+- **--lane random**: Adds stop on random (permitted) lane of the stop edge
+
+## Stationary traffic
+
+Instead of modifying a given route file by adding stops, the tool can also synthesize vehicles to fill up a given list of parkingAreas. This requires the option **--parking-areas FILE** to be set. The generated vehicles will have a stop with the configured duration/until time and leave the simulation after stopping.
+
+- **--abs-occupancy** : generate the given number of vehicles for each parkingArea
+- **--rel-occupancy** : generate vehicles to fill each parkingArea to the given relative capacity
+- **--abs-free** : generate vehicles to have the given number of free spaces for each parking area
 
 ## Further Options
 
