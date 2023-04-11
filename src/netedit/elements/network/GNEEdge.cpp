@@ -518,17 +518,25 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             // snap new position to grid
             newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
             undoList->begin(GUIIcon::EDGE, "set endpoint");
-            int index = geom.indexOfClosest(pos, true);
-            // check if snap to existing geometry
-            if (geom[index].distanceSquaredTo2D(pos) < getSnapRadius(true)) {
-                pos = geom[index];
-            }
-            Position destPos = getToJunction()->getNBNode()->getPosition();
-            Position sourcePos = getFromJunction()->getNBNode()->getPosition();
+            const int index = geom.indexOfClosest(pos, true);
+            const Position destPos = getToJunction()->getNBNode()->getPosition();
+            const Position sourcePos = getFromJunction()->getNBNode()->getPosition();
             if (pos.distanceTo2D(destPos) < pos.distanceTo2D(sourcePos)) {
+                // check if snap to existing geometrypoint
+                if (geom[index].distanceSquaredTo2D(pos) < getSnapRadius(true)) {
+                    newPos = geom[index];
+                    // remove existent geometry point to avoid double points
+                    removeGeometryPoint(newPos, undoList);
+                }
                 setAttribute(GNE_ATTR_SHAPE_END, toString(newPos), undoList);
                 getToJunction()->invalidateShape();
             } else {
+                // check if snap to existing geometry point
+                if (geom[index].distanceSquaredTo2D(pos) < getSnapRadius(true)) {
+                    newPos = geom[index];
+                    // remove existent geometry point to avoid double points
+                    removeGeometryPoint(newPos, undoList);
+                }
                 setAttribute(GNE_ATTR_SHAPE_START, toString(newPos), undoList);
                 getFromJunction()->invalidateShape();
             }
