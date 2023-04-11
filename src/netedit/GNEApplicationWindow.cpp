@@ -1702,7 +1702,7 @@ GNEApplicationWindow::loadOSM(const std::string &OSMFile) {
     neteditOptions.set("tls.guess-signals", "true");
     neteditOptions.set("tls.discard-simple", "true");
     // open wizard dialog
-    if (GUIDialog_Options::Options(this, &OptionsCont::getOptions(), TL("Select Import Options"))) {
+    if (GUIDialog_Options::Options(this, &OptionsCont::getOptions(), TL("Select Import Options")).first == TRUE) {
         NIFrame::checkOptions(); // needed to set projection parameters
         // set file to load
         neteditOptions.resetWritable();
@@ -2315,11 +2315,16 @@ GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
-    if (GUIDialog_Options::Options(this, &OptionsCont::getOptions(), TL("Netedit options"))) {
+    const auto dialog = GUIDialog_Options::Options(this, &OptionsCont::getOptions(), TL("Netedit options"));
+    if (dialog.first == TRUE) {
         NIFrame::checkOptions(); // needed to set projection parameters
         NBFrame::checkOptions();
         NWFrame::checkOptions();
         SystemFrame::checkOptions(); // needed to set precision
+        // check if mar netedit config as unsaved
+        if (dialog.second) {
+            myNet->getSavingStatus()->requireSaveNeteditConfig();
+        }
     }
     return 1;
 }
@@ -2327,7 +2332,12 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
-    return GUIDialog_Options::Options(this, &mySumoOptions, TL("Sumo options"));
+    const auto dialog = GUIDialog_Options::Options(this, &mySumoOptions, TL("Sumo options"));
+    // check if mark sumoConfig as unsaved
+    if ((dialog.first == TRUE) && dialog.second) {
+        myNet->getSavingStatus()->requireSaveSumoConfig();
+    }
+    return 1;
 }
 
 
@@ -2339,7 +2349,7 @@ GNEApplicationWindow::onCmdOpenNetgenerateDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*) {
-    return GUIDialog_Options::Run(this, &myNetgenerateOptions, TL("Netgenerate options"));
+    return GUIDialog_Options::Run(this, &myNetgenerateOptions, TL("Netgenerate options")).first;
 }
 
 

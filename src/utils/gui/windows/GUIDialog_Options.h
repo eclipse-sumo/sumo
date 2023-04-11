@@ -46,22 +46,21 @@ public:
      * @param[in] parent The parent window
      * @param[in] optionsContainer edited option container
      * @param[in] name The title to show
+     * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static int Options(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
+    static std::pair<int, bool> Options(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
 
     /**@brief Constructor for run dialogs
      *
      * @param[in] parent The parent window
      * @param[in] optionsContainer edited option container
      * @param[in] name The title to show
+     * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static int Run(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
+    static std::pair<int, bool> Run(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
 
     /// @brief Destructor
     ~GUIDialog_Options();
-
-    /// @brief check if options were modified
-    bool wasModified() const;
 
     /// @brief called when user press run netgenerate button
     long onCmdRunNetgenerate(FXObject*, FXSelector, void*);
