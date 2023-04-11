@@ -206,9 +206,9 @@ public:
     void removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /**@brief remove geometry point
-    * @param objectsUnderCursor objects under cursors
-    */
-    void removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+     * @param objectsUnderCursor objects under cursors
+     */
+    bool removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get delete options modul
     DeleteOptions* getDeleteOptions() const;

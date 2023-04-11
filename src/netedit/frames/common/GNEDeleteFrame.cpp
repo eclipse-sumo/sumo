@@ -393,18 +393,24 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
 }
 
 
-void
+bool
 GNEDeleteFrame::removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get clicked position
     const Position clickedPosition = myViewNet->getPositionInformation();
-    // check type of of object under cursor object with geometry points
-    if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isNetworkElement()) {
-        objectsUnderCursor.getNetworkElementFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
-    } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_POLY) {
-        objectsUnderCursor.getPolyFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
-    } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-        objectsUnderCursor.getTAZFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+    // filter elements with geometry points
+    for (const auto &AC : objectsUnderCursor.getClickedAttributeCarriers()) {
+        if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+            objectsUnderCursor.getEdgeFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+            return true;
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
+            objectsUnderCursor.getPolyFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+            return true;
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+            objectsUnderCursor.getTAZFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+            return true;
+        }
     }
+    return false;
 }
 
 
