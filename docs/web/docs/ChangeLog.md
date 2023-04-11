@@ -82,6 +82,7 @@ title: ChangeLog
   - Function `vehicle.setStopParameter` now takes effect when setting "duration". Issue #12630
   - libtraci.lane.setAllowed has been fixed
   - libtraci.simulation.getCollisions returns meaningful results Issue #12861
+  - Function `vehicle.setStopParameter` now works correctly with key 'triggered'. Issue #12664
   - Error messages concerning subscription filters now use the correct command id
   - Fixed bug where user-triggered lane-change were not executed when using the sublane model. Issue #12810, #12944
   - `trafficlight.swapConstraints` now returns constraint parameters for derived constraints. Issue #12935
@@ -142,8 +143,7 @@ title: ChangeLog
 
 - TraCI
   - Added function `vehicle.setLateralLanePosition`. Issue #12568
-  - Function `vehicle.setStopParameter` now supports "onDemand". Issue #12632
-  - Function `vehicle.setStopParameter` now works correctly with key 'triggered'. Issue #12664
+  - Function `vehicle.setStopParameter` now supports "onDemand". Issue #12632  
   - Functions [vehicle.getParameter](TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters) and [simulation.getParameter](TraCI/Simulation_Value_Retrieval.md#device_parameter_retrieval) can now retrieve various aggregated trip statistics. Issue #12631
   - TraCIConstants are now available as static values for the Java bindings. Issue #12371
 
