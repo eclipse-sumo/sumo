@@ -134,7 +134,7 @@ GNENetgenerateDialog::openDialog() {
 long
 GNENetgenerateDialog::onCmdOpenOutputFile(FXObject*, FXSelector, void*) {
     // get output file
-    const auto outputFile = GNEApplicationWindowHelper::openFileDialog(this, true);
+    const auto outputFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, true);
     // check file
     if (!outputFile.empty()) {
         myOutputTextField->setText(outputFile.c_str(), TRUE);
