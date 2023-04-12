@@ -30,6 +30,7 @@
 
 class GNEApplicationWindow;
 class GNEPythonTool;
+class MFXCheckableButton;
 
 // ===========================================================================
 // class definitions
@@ -64,6 +65,9 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+
+    /// @brief enable/disable show toolTip
+    long onCmdShowToolTipsMenu(FXObject*, FXSelector, void*);
 
     /// @brief save options
     long onCmdSave(FXObject*, FXSelector, void*);
@@ -146,6 +150,9 @@ protected:
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
+
+    /// @brief menu for tooltips menu
+    MFXCheckableButton* myShowToolTipsMenu = nullptr;
 
     /// @brief check button to enable/diasble sorting
     FXCheckButton* mySortedCheckButton = nullptr;

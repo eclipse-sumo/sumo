@@ -197,6 +197,12 @@ GUIGlChildWindow::getColoringSchemesCombo() {
 }
 
 
+MFXCheckableButton*
+GUIGlChildWindow::getShowToolTipsMenu() const {
+    return myShowToolTipsMenu;
+}
+
+
 long
 GUIGlChildWindow::onCmdRecenterView(FXObject*, FXSelector, void*) {
     myView->recenterView();

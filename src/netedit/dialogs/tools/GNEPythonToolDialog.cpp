@@ -19,9 +19,12 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <fstream>
 #include <sstream>
@@ -39,6 +42,9 @@
 
 FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
     FXMAPFUNC(SEL_CLOSE,    0,                      GNEPythonToolDialog::onCmdCancel),
+
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,  GNEPythonToolDialog::onCmdShowToolTipsMenu),
+
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,       GNEPythonToolDialog::onCmdSave),
     FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SAVE,       GNEPythonToolDialog::onUpdRequiredAttributes),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,       GNEPythonToolDialog::onCmdLoad),
@@ -66,6 +72,9 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     // create options
     auto horizontalOptionsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrame);
     // build options
+    myShowToolTipsMenu = new MFXCheckableButton(false, horizontalOptionsFrame,
+            GNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
+            GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
     new FXButton(horizontalOptionsFrame, (TL("Save") + std::string("\t\t") + TL("Save options")).c_str(),
         GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonAccept);
     new FXButton(horizontalOptionsFrame, (TL("Load") + std::string("\t\t") + TL("Load options")).c_str(),
@@ -106,6 +115,8 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     // reset checkboxes
     mySortedCheckButton->setCheck(FALSE);
     myGroupedCheckButton->setCheck(TRUE);
+    // set myShowToolTipsMenu
+    myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
     // build arguments
     buildArguments(false, true);
     // get maximum height
@@ -130,6 +141,26 @@ GNEPythonToolDialog::getGNEApplicationWindow() const {
 const GNEPythonTool*
 GNEPythonToolDialog::getPythonTool() const {
     return myPythonTool;
+}
+
+
+long
+GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject* sender, FXSelector sel, void* ptr) {
+    // toggle check
+    myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
+    myGNEApp->getViewNet()->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
+    myGNEApp->getViewNet()->getViewParent()->getShowToolTipsMenu()->update();
+    // enable/disable static tooltip in viewParent
+    //myGNEApp->getViewNet()->getViewParent()->onCmdShowToolTipsMenu(sender, sel, ptr);
+
+
+    // enable/disable static tooltip
+    myGNEApp->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
+    // save in registry
+    getApp()->reg().writeIntEntry("gui", "menuToolTips", myShowToolTipsMenu->amChecked() ? 0 : 1);
+    update();
+
+    return 1;
 }
 
 
