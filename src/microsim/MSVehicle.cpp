@@ -5214,6 +5214,10 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         std::cout << SIMTIME << " enterLaneAtLaneChange entered=" << Named::getIDSecure(enteredLane) << " oldFurther=" << toString(myFurtherLanes) << "\n";
     }
 #endif
+    if (!isRailway(getVClass()) && myLane->getBidiLane() != nullptr) {
+        // railways don't need to "see" each other when moving in opposite directions on the same track (efficiency)
+        myLane->getBidiLane()->setPartialOccupation(this);
+    }
     for (int i = 0; i < (int)myFurtherLanes.size(); i++) {
         if (lane != nullptr) {
             lane = lane->getLogicalPredecessorLane(myFurtherLanes[i]->getEdge());
