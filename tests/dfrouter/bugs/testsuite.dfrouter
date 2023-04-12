@@ -12,3 +12,6 @@ ticket134_empty_lines
 
 # Test for #6931 dfrouter breaks on inpput files with byte order marker
 ticket6931BOM
+
+# invalid detector classification when there are unconvered entries to the network
+ticket13020
