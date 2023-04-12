@@ -291,6 +291,11 @@ public:
         return myLoadedVehNo - (myWaitingForTransportable + myEndedVehNo);
     }
 
+    /// @brief return the number of vehicles that are waiting for a transportable or a join
+    int getTriggeredVehicleCount() const {
+        return myWaitingForTransportable;
+    }
+
 
     /// @brief return the number of collisions
     int getCollisionCount() const {
