@@ -14,7 +14,7 @@ network (option **-n**).
 Flowrouter works by solving a maximum flow problem in the given network
 assuming the measured flows as capacity. The input data is by default
 aggregated over the whole file but can be split into intervals by
-setting **-i**. Example call for hourly aggregation:
+setting **-i** as time **in minutes**. Example call for hourly aggregation:
 
 ```
 <SUMO_HOME>/tools/detector/flowrouter.py -n input_net.net.xml -d detectors.xml -f flows20140520.csv -o routes.xml -e flows.xml -i 60
