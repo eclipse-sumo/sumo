@@ -1664,33 +1664,35 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
             }
         } else {
-            if (stop.triggered && !myAmRegisteredAsWaiting && stop.duration <= DELTA_T) {
+            if (stop.triggered) {
                 if (getVehicleType().getPersonCapacity() == getPersonNumber()) {
                     WRITE_WARNINGF(TL("Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."), getID(), stop.lane->getID());
                     stop.triggered = false;
-                }
-                // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
-                MSNet::getInstance()->getVehicleControl().registerOneWaiting();
-                myAmRegisteredAsWaiting = true;
+                } else if (!myAmRegisteredAsWaiting && stop.duration <= DELTA_T) {
+                    // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
+                    MSNet::getInstance()->getVehicleControl().registerOneWaiting();
+                    myAmRegisteredAsWaiting = true;
 #ifdef DEBUG_STOPS
-                if (DEBUG_COND) {
-                    std::cout << SIMTIME << " vehicle '" << getID() << "' registers as waiting for person." << std::endl;
-                }
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " vehicle '" << getID() << "' registers as waiting for person." << std::endl;
+                    }
 #endif
+                }
             }
-            if (stop.containerTriggered && !myAmRegisteredAsWaiting && stop.duration <= DELTA_T) {
+            if (stop.containerTriggered) {
                 if (getVehicleType().getContainerCapacity() == getContainerNumber()) {
                     WRITE_WARNINGF(TL("Vehicle '%' ignores container triggered stop on lane '%' due to capacity constraints."), getID(), stop.lane->getID());
                     stop.containerTriggered = false;
-                }
-                // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
-                MSNet::getInstance()->getVehicleControl().registerOneWaiting();
-                myAmRegisteredAsWaiting = true;
+                } else if (stop.containerTriggered && !myAmRegisteredAsWaiting && stop.duration <= DELTA_T) {
+                    // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
+                    MSNet::getInstance()->getVehicleControl().registerOneWaiting();
+                    myAmRegisteredAsWaiting = true;
 #ifdef DEBUG_STOPS
-                if (DEBUG_COND) {
-                    std::cout << SIMTIME << " vehicle '" << getID() << "' registers as waiting for container." << std::endl;
-                }
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " vehicle '" << getID() << "' registers as waiting for container." << std::endl;
+                    }
 #endif
+                }
             }
             // joining only takes place after stop duration is over
             if (stop.joinTriggered && !myAmRegisteredAsWaiting
