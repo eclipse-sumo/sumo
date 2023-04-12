@@ -210,8 +210,6 @@ long
 GNERunPythonToolDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // abort tool
     myRunTool->abortTool();
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
     // hide dialog
     hide();
     return 1;

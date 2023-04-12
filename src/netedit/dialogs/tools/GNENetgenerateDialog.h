@@ -52,7 +52,7 @@ public:
     ~GNENetgenerateDialog();
 
     /// @brief open dialog
-    long openDialog();
+    void openDialog();
 
     /// @name FOX-callbacks
     /// @{

@@ -55,7 +55,7 @@ public:
     ~GNEPythonToolDialog();
 
     /// @brief open dialog
-    long openDialog(GNEPythonTool* tool);
+    void openDialog(GNEPythonTool* tool);
 
     /// @brief get pointer to GNEApplicationWindow
     GNEApplicationWindow* getGNEApplicationWindow() const;

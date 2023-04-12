@@ -2028,10 +2028,11 @@ GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) c
         if (tool->getMenuCommand() == menuCommand) {
             // special case for netdiff
             if (tool->getToolName() == "netdiff") {
-                return myNetdiffToolDialog->openDialog(tool);
+                myNetdiffToolDialog->openDialog(tool);
             } else {
-                return myPythonToolDialog->openDialog(tool);
+                myPythonToolDialog->openDialog(tool);
             }
+            return 1;
         }
     }
     return 0;
@@ -2040,7 +2041,8 @@ GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) c
 
 long
 GNEApplicationWindowHelper::ToolsMenuCommands::showNetgenerateDialog() const {
-    return myNetgenerateDialog->openDialog();
+    myNetgenerateDialog->openDialog();
+    return 1;
 }
 
 

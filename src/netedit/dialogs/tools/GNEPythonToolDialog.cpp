@@ -106,7 +106,7 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
 GNEPythonToolDialog::~GNEPythonToolDialog() {}
 
 
-long
+void
 GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     // set tool
     myPythonTool = tool;
@@ -127,8 +127,6 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    return myGNEApp->getApp()->runModalFor(this);
 }
 
 
@@ -201,8 +199,6 @@ GNEPythonToolDialog::onCmdSetVisualization(FXObject*, FXSelector, void*) {
 
 long
 GNEPythonToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
     // hide dialog
     hide();
     // run tool
@@ -212,8 +208,6 @@ GNEPythonToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
 
 long
 GNEPythonToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
     // hide dialog
     hide();
     return 1;

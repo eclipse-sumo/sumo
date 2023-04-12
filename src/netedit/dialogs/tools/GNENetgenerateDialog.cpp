@@ -101,7 +101,7 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
 GNENetgenerateDialog::~GNENetgenerateDialog() {}
 
 
-long
+void
 GNENetgenerateDialog::openDialog() {
     auto &generateOptions = myGNEApp->getNetgenerateOptions();
     // reset buttons
@@ -126,8 +126,6 @@ GNENetgenerateDialog::openDialog() {
     FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    return myGNEApp->getApp()->runModalFor(this);
 }
 
 
@@ -252,8 +250,6 @@ GNENetgenerateDialog::onCmdSetRandom(FXObject*, FXSelector, void*) {
 
 long
 GNENetgenerateDialog::onCmdRun(FXObject*, FXSelector, void*) {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
     // hide dialog
     hide();
     // run netgenerate
@@ -263,8 +259,6 @@ GNENetgenerateDialog::onCmdRun(FXObject*, FXSelector, void*) {
 
 long
 GNENetgenerateDialog::onCmdAdvanced(FXObject*, FXSelector, void*) {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
     // hide dialog
     hide();
     // open netgenerate option dialog
@@ -290,8 +284,6 @@ GNENetgenerateDialog::onUpdSettingsConfigured(FXObject* sender, FXSelector, void
 
 long
 GNENetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
     // hide dialog
     hide();
     return 1;

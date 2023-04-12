@@ -218,8 +218,6 @@ long
 GNERunNetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // abort tool
     myRunNetgenerate->abort();
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
     // hide dialog
     hide();
     return 1;
