@@ -11,6 +11,7 @@ triggered_duration_abort
 # expecting persons
 simple_stop_expecting0
 simple_stop_expecting1
+simple_stop_expecting2
 
 # wait for 2 persons but also wait at least 250s
 simple_stop_expecting2_duration

@@ -70,7 +70,6 @@ teleport_across_stopped
 
 # waiting for the stop to be free
 occupied
-simple_stop_expecting2
 
 # teleport should remove stops from the list
 teleport
