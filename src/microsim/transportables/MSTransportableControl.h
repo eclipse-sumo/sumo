@@ -283,6 +283,14 @@ public:
         myDiscardedNumber++;
     }
 
+    void startedAccess() {
+        myAccessNumber++;
+    }
+
+    void endedAccess() {
+        myAccessNumber--;
+    }
+
     /** @brief Saves the current state into the given stream
      */
     void saveState(OutputDevice& out);
@@ -331,6 +339,9 @@ protected:
 
     /// @brief The number of transportables waiting for a specified time
     int myWaitingUntilNumber;
+
+    /// @brief The number of transportables currently in an access stage
+    int myAccessNumber;
 
     /// @brief The number of transportables that exited the simulation
     int myEndedNumber;

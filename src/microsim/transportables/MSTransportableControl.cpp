@@ -50,6 +50,7 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
     myWaitingForDepartureNumber(0),
     myWaitingForVehicleNumber(0),
     myWaitingUntilNumber(0),
+    myAccessNumber(0),
     myEndedNumber(0),
     myArrivedNumber(0),
     myTeleportsAbortWait(0),
@@ -322,7 +323,7 @@ MSTransportableControl::hasTransportables() const {
 
 bool
 MSTransportableControl::hasNonWaiting() const {
-    return !myWaiting4Departure.empty() || myWaitingForVehicleNumber < myRunningNumber || myHaveNewWaiting;
+    return !myWaiting4Departure.empty() || getMovingNumber() > 0 || myWaitingUntilNumber > 0 || myHaveNewWaiting;
 }
 
 
@@ -334,7 +335,7 @@ MSTransportableControl::getActiveCount() {
 
 int
 MSTransportableControl::getMovingNumber() const {
-    return myMovementModel->getActiveNumber();
+    return myMovementModel->getActiveNumber() + myAccessNumber;
 }
 
 

@@ -459,6 +459,7 @@ MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUM
     myDeparted = now;
     myEstimatedArrival = now + TIME2STEPS(myDist / person->getMaxSpeed());
     net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, &myDestinationStop->getLane().getEdge()), myEstimatedArrival);
+    net->getPersonControl().startedAccess();
     myDestinationStop->getLane().getEdge().addTransportable(person);
 }
 
@@ -506,6 +507,7 @@ MSPerson::MSPersonStage_Access::tripInfoOutput(OutputDevice& os, const MSTranspo
 
 SUMOTime
 MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
+    MSNet::getInstance()->getPersonControl().endedAccess();
     myStopEdge->removeTransportable(myPerson);
     if (!myPerson->proceed(MSNet::getInstance(), currentTime)) {
         MSNet::getInstance()->getPersonControl().erase(myPerson);
