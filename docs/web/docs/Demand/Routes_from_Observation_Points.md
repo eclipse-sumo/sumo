@@ -135,7 +135,7 @@ included:
 
 - Detector: A string holding the id of the detector this line
   describes; should be one of the ids used in <DETECTOR_FILE\>
-- Time: The time period begin that this entry describes (in minutes)
+- Time: The time period begin that this entry describes (**in minutes**)
 - qPKW: The number of passenger cars that drove over the detector
   within this time period
 - vPKW: The average speed of passenger cars that drove over the
