@@ -137,7 +137,7 @@ public:
      * @param[in] oc The options container holding options needed during the building
      * @return The built logic (may be 0)
      */
-    NBTrafficLightLogic* compute(OptionsCont& oc);
+    NBTrafficLightLogic* compute(const OptionsCont& oc);
 
     /// @name Access to controlled nodes
     /// @{

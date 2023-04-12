@@ -975,7 +975,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
         if (lDef == nullptr) {
             def->setParticipantsInformation();
-            NBTrafficLightLogic* logic = def->compute(const_cast<OptionsCont&>(oc));
+            NBTrafficLightLogic* logic = def->compute(oc);
             if (logic != nullptr) {
                 lDef = new NBLoadedSUMOTLDef(*def, *logic);  
                 lDef->setParticipantsInformation();
