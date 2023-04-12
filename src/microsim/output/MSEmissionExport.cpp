@@ -92,6 +92,9 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
             }
             of.writeAttr(SUMO_ATTR_X, pos.x());
             of.writeAttr(SUMO_ATTR_Y, pos.y());
+            if (MSNet::getInstance()->hasElevation()) {
+                of.writeAttr(SUMO_ATTR_Z, pos.z());
+            }
             of.setPrecision(precision);
 
             of.closeTag();
