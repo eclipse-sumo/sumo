@@ -1,3 +1,5 @@
+abort_inactive
+
 # aborted triggered stop when full
 abort_full
 

@@ -5,8 +5,6 @@
    </containerFlow>
    <vehicle id="v1" depart="20" departPos="30">
        <route edges="beg"/>
-       <!-- vehicle would wait indefinitely because 'dummy' never comes but
-            eventually is filled to capacity -->
-       <stop lane="beg_0" endPos="50" triggered="container" expected="dummy"/>
+       <stop lane="beg_0" endPos="50" triggered="container" expected="dummy" extension="1000"/>
    </vehicle>
 </routes>
