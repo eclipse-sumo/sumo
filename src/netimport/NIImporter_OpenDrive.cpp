@@ -41,7 +41,6 @@
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBOwnTLDef.h>
-#include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -49,7 +48,6 @@
 #include <foreign/eulerspiral/odrSpiral.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/geom/Boundary.h>
 #include "NILoader.h"
@@ -93,8 +91,6 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "access",           NIImporter_OpenDrive::OPENDRIVE_TAG_ACCESS },
     { "signal",           NIImporter_OpenDrive::OPENDRIVE_TAG_SIGNAL },
     { "signalReference",  NIImporter_OpenDrive::OPENDRIVE_TAG_SIGNALREFERENCE },
-    { "controller",       NIImporter_OpenDrive::OPENDRIVE_TAG_CONTROLLER },
-    { "control",          NIImporter_OpenDrive::OPENDRIVE_TAG_CONTROL },
     { "validity",         NIImporter_OpenDrive::OPENDRIVE_TAG_VALIDITY },
     { "junction",         NIImporter_OpenDrive::OPENDRIVE_TAG_JUNCTION },
     { "connection",       NIImporter_OpenDrive::OPENDRIVE_TAG_CONNECTION },
@@ -163,7 +159,6 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "rule",           NIImporter_OpenDrive::OPENDRIVE_ATTR_RULE },
     { "restriction",    NIImporter_OpenDrive::OPENDRIVE_ATTR_RESTRICTION },
     { "name",           NIImporter_OpenDrive::OPENDRIVE_ATTR_NAME },
-    { "signalId",       NIImporter_OpenDrive::OPENDRIVE_ATTR_SIGNALID },
     // towards xodr v1.4 speed:unit
     { "unit",           NIImporter_OpenDrive::OPENDRIVE_ATTR_UNIT },
 
@@ -175,7 +170,6 @@ bool NIImporter_OpenDrive::myImportAllTypes;
 bool NIImporter_OpenDrive::myImportWidths;
 double NIImporter_OpenDrive::myMinWidth;
 bool NIImporter_OpenDrive::myImportInternalShapes;
-NIImporter_OpenDrive::OpenDriveController NIImporter_OpenDrive::myDummyController;
 
 // ===========================================================================
 // method definitions
@@ -219,7 +213,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     signal.type = ref.type;
                     signal.name = ref.name;
                     signal.dynamic = ref.dynamic;
-                    signal.controller = ref.controller;
                 }
             }
         }
@@ -782,35 +775,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // -------------------------
     // traffic lights
     // -------------------------
-    std::map<std::string, std::string> signal2junction;
-    std::map<std::string, std::vector<std::string>>& junction2controllers = handler.getJunctions2Controllers();
-
-    std::map<std::string, OpenDriveSignal>& signals = handler.getSignals();
-    std::map<std::string, OpenDriveController>& controllers = handler.getControllers();
-
-    for (const auto& it : edges) {
-        const OpenDriveEdge* e = it.second;
-        for (const OpenDriveSignal& signal : e->signals) { // signal for which junction?
-            if (signal.controller.size() == 0) {
-                continue;
-            }
-            std::string junctionID;
-            for (auto connection : e->connections) {
-                if ((connection.fromLane < 0 && signal.orientation < 0) || (connection.fromLane > 0 && signal.orientation > 0)) {
-                    continue;
-                }
-                if ((signal.minLane == 0 && signal.maxLane == 0) || (signal.maxLane >= connection.fromLane && signal.minLane <= connection.fromLane)) {
-                    const OpenDriveEdge* connectedEdge = edges[connection.toEdge];
-                    if (controllers[signal.controller].junction.size() > 0 && controllers[signal.controller].junction != connectedEdge->junction) {
-                        WRITE_WARNINGF(TL("Controlling multiple junctions by the same controller %' is currently not implemented."), signal.controller);
-                    }
-                    controllers[signal.controller].junction = connectedEdge->junction;
-                }
-            }
-        }
-    }
-
-    std::set<std::string> junctionsWithControllers;
+    std::map<std::string, std::string> tlsControlled;
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
         for (const OpenDriveSignal& signal : e->signals) {
@@ -906,19 +871,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                     c.setParameter("signalID", signal.id);
                                 }
                             }
-                            // set tlIndex to allow signal groups (defined in OpenDRIVE controller elements)
-                            OpenDriveController& controller = handler.getController(signal.id);
-                            if (controller.id != "") {
-                                junctionsWithControllers.insert(from->getToNode()->getID());
-                                int tlIndex = handler.getTLIndexForController(controller.id);
-                                c.tlLinkIndex = tlIndex;
-                                c.setParameter("controllerID", controller.id);
-                            }
                         }
-                        
                     }
                     getTLSSecure(from, nb);
-
                     //std::cout << "odrEdge=" << e->id << " fromID=" << fromID << " toID=" << toID << " from=" << from->getID() << " to=" << to->getID()
                     //    << " signal=" << signal.id << " minLane=" << signal.minLane << " maxLane=" << signal.maxLane << "\n";
                 } else {
@@ -936,7 +891,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     WRITE_WARNINGF(TL("Could not find edge '%' for signal '%'."), id, signal.id);
                     continue;
                 }
-                
+                getTLSSecure(edge, nb);
                 /// XXX consider lane validity
                 for (NBEdge::Connection& c : edge->getConnections()) {
                     int odLane = laneIndexMap[std::make_pair(edge, c.fromLane)];
@@ -947,70 +902,13 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             c.setParameter("signalID", signal.id);
                         }
                     }
-                    // set tlIndex to allow signal groups (defined in OpenDRIVE controller elements)
-                    OpenDriveController& controller = handler.getController(signal.id);
-                    if (controller.id != "") {
-                        junctionsWithControllers.insert(edge->getToNode()->getID());
-                        int tlIndex = handler.getTLIndexForController(controller.id);
-                        c.tlLinkIndex = tlIndex;
-                        c.setParameter("controllerID", controller.id);
-                    }
-                    
                 }
-                getTLSSecure(edge, nb);
                 //std::cout << "odrEdge=" << e->id << " sumoID=" << (*k).sumoID << " sumoEdge=" << edge->getID()
                 //    << " signal=" << signal.id << " minLane=" << signal.minLane << " maxLane=" << signal.maxLane << "\n";
             }
             // @note: tls 'signalID' parameters are set via NBTrafficLightLogicCont::setOpenDriveSignalParameters
         }
     }
-
-    // -------------------------
-    // implement signal groups = OpenDRIVE controllers in traffic lights
-    // -------------------------
-
-    // iterate through traffic lights from junctionsWithControllers list
-    for (auto& junctionID : junctionsWithControllers) {
-        NBTrafficLightDefinition* def = *nb.getNodeCont().retrieve(junctionID)->getControllingTLS().begin();
-        NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
-        if (lDef == nullptr) {
-            def->setParticipantsInformation();
-            NBTrafficLightLogic* logic = def->compute(oc);
-            if (logic != nullptr) {
-                lDef = new NBLoadedSUMOTLDef(*def, *logic);  
-                lDef->setParticipantsInformation();
-                for (NBNode* node : lDef->getNodes()) {
-                    node->removeTrafficLight(def);
-                    node->addTrafficLight(lDef);
-                    for (NBEdge* edge : node->getIncomingEdges()) {
-                        for (NBEdge::Connection& c : edge->getConnections()) {
-                            if (c.knowsParameter("controllerID")) { // add connections again with custom tlIndex
-                                lDef->addConnection(edge, c.toEdge, c.fromLane, c.toLane, handler.getTLIndexForController(c.getParameter("controllerID")), -1, false);
-                            }
-                        }
-                    }
-                }
-                lDef->cleanupStates();
-                nb.getTLLogicCont().removeProgram(def->getID(), def->getProgramID());
-                nb.getTLLogicCont().insert(lDef);
-                // TODO: repair the phase generation / replace the single "off" phase 
-                int phaseCount = lDef->getLogic()->getPhases().size();
-                if (phaseCount > 1) {
-                    for (int i = phaseCount - 1; i >= 1; i--) {
-                        lDef->getLogic()->deletePhase(i);
-                    }
-                }
-                lDef->getLogic()->overrideState(0, LINKSTATE_TL_OFF_NOSIGNAL);
-                delete logic;
-            }
-        }
-    }
-    
-    // transform into NBLoadedSUMOTLDef like the example from the input option tls.group-signals
-    // remove phases
-    // use methods like delete...Index to recreate the signal groups as defined
-    // create a program with one phase per signal group
-
 
     // -------------------------
     // clean up
@@ -1037,7 +935,7 @@ NIImporter_OpenDrive::retrieveSignalEdges(NBNetBuilder& nb, const std::string& f
 
 
 NBTrafficLightDefinition*
-NIImporter_OpenDrive::getTLSSecure(NBEdge* inEdge, /*const NBEdge::Connection& conn,*/ NBNetBuilder& nb) {
+NIImporter_OpenDrive::getTLSSecure(NBEdge* inEdge, NBNetBuilder& nb) {
     NBNode* toNode = inEdge->getToNode();
     if (!toNode->isTLControlled()) {
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
@@ -2282,7 +2180,7 @@ NIImporter_OpenDrive::OpenDriveEdge::getPriority(OpenDriveXMLTag dir) const {
 // ---------------------------------------------------------------------------
 NIImporter_OpenDrive::NIImporter_OpenDrive(const NBTypeCont& tc, std::map<std::string, OpenDriveEdge*>& edges)
     : GenericSAXHandler(openDriveTags, OPENDRIVE_TAG_NOTHING, openDriveAttrs, OPENDRIVE_ATTR_NOTHING, "opendrive"),
-      myTypeContainer(tc), myCurrentEdge("", "", "", -1), myCurrentController("", ""), myEdges(edges), myOffset(0, 0) {
+      myTypeContainer(tc), myCurrentEdge("", "", "", -1), myEdges(edges), myOffset(0, 0) {
 }
 
 
@@ -2472,7 +2370,6 @@ NIImporter_OpenDrive::myStartElement(int element,
             bool dynamic = attrs.get<std::string>(OPENDRIVE_ATTR_DYNAMIC, myCurrentEdge.id.c_str(), ok) == "no" ? false : true;
             OpenDriveSignal signal = OpenDriveSignal(id, type, name, orientationCode, dynamic, s);
             myCurrentEdge.signals.push_back(signal);
-            myCurrentEdge.signals.back().type = ""; // to get updated just like OPENDRIVE_TAG_SIGNALREFERENCE
             mySignals[id] = signal;
         }
         break;
@@ -2483,22 +2380,6 @@ NIImporter_OpenDrive::myStartElement(int element,
             double s = attrs.get<double>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
             OpenDriveSignal signal = OpenDriveSignal(id, "", "", orientationCode, false, s);
             myCurrentEdge.signals.push_back(signal);
-        }
-        break;
-        case OPENDRIVE_TAG_CONTROLLER: {
-            std::string id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, nullptr, ok);
-            std::string name = attrs.getOpt<std::string>(OPENDRIVE_ATTR_NAME, nullptr, ok, "", false);
-            myCurrentController = OpenDriveController(id, name);
-        }
-        break;
-        case OPENDRIVE_TAG_CONTROL: {
-            std::string signalID = attrs.get<std::string>(OPENDRIVE_ATTR_SIGNALID, myCurrentController.id.c_str(), ok);
-            myCurrentController.signalIDs.push_back(signalID);
-            if (mySignals.find(signalID) != mySignals.end()) {
-                mySignals[signalID].controller = myCurrentController.id;
-            } else {
-                WRITE_WARNINGF(TL("Ignoring missing signal '%' in controller '%'."), signalID, myCurrentController.id);
-            }
         }
         break;
         case OPENDRIVE_TAG_VALIDITY: {
@@ -2739,10 +2620,6 @@ NIImporter_OpenDrive::myEndElement(int element) {
                 }
             }
             break;
-        case OPENDRIVE_TAG_CONTROLLER: {
-            myControllers.insert({ myCurrentController.id, myCurrentController });
-        }
-        break;
         case OPENDRIVE_TAG_LANESECTION: {
             myCurrentEdge.laneSections.back().buildLaneMapping(myTypeContainer);
         }
@@ -3118,14 +2995,6 @@ NIImporter_OpenDrive::recomputeWidths(std::vector<OpenDriveLane>& lanes, double 
             }
         }
     }
-}
-
-NIImporter_OpenDrive::OpenDriveController& 
-NIImporter_OpenDrive::getController(std::string signalID) {
-    if (mySignals.find(signalID) != mySignals.end() && myControllers.find(mySignals[signalID].controller) != myControllers.end()) {
-        return myControllers[mySignals[signalID].controller];
-    }
-    return myDummyController;
 }
 
 /****************************************************************************/

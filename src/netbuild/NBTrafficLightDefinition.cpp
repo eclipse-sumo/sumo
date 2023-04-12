@@ -450,9 +450,9 @@ NBTrafficLightDefinition::getIncomingEdges() const {
 
 
 void
-NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {  
+NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
     int tlIndex = 0;
-    // build the list of links which are controlled by the traffic light
+    // build the list of links which are controled by the traffic light
     std::vector<int> indirectLeft;
     for (EdgeVector::iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         NBEdge* incoming = *i;
