@@ -631,28 +631,22 @@ RODFNet::getDetectorEdge(const RODFDetector& det) const {
 
 bool
 RODFNet::hasApproaching(ROEdge* edge) const {
-    return
-        myApproachingEdges.find(edge) != myApproachingEdges.end()
-        &&
-        myApproachingEdges.find(edge)->second.size() != 0;
+    return myApproachingEdges.find(edge) != myApproachingEdges.end()
+        && myApproachingEdges.find(edge)->second.size() != 0;
 }
 
 
 bool
 RODFNet::hasApproached(ROEdge* edge) const {
-    return
-        myApproachedEdges.find(edge) != myApproachedEdges.end()
-        &&
-        myApproachedEdges.find(edge)->second.size() != 0;
+    return myApproachedEdges.find(edge) != myApproachedEdges.end()
+        && myApproachedEdges.find(edge)->second.size() != 0;
 }
 
 
 bool
 RODFNet::hasDetector(ROEdge* edge) const {
-    return
-        myDetectorsOnEdges.find(edge) != myDetectorsOnEdges.end()
-        &&
-        myDetectorsOnEdges.find(edge)->second.size() != 0;
+    return myDetectorsOnEdges.find(edge) != myDetectorsOnEdges.end()
+        && myDetectorsOnEdges.find(edge)->second.size() != 0;
 }
 
 
@@ -674,15 +668,13 @@ bool
 RODFNet::isSource(const RODFDetector& det, const RODFDetectorCon& detectors,
                   bool strict) const {
     ROEdgeVector seen;
-    return
-        isSource(det, getDetectorEdge(det), seen, detectors, strict);
+    return isSource(det, getDetectorEdge(det), seen, detectors, strict);
 }
 
 bool
 RODFNet::isFalseSource(const RODFDetector& det, const RODFDetectorCon& detectors) const {
     ROEdgeVector seen;
-    return
-        isFalseSource(det, getDetectorEdge(det), seen, detectors);
+    return isFalseSource(det, getDetectorEdge(det), seen, detectors);
 }
 
 bool
