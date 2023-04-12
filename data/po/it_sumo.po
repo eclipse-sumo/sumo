@@ -8,18 +8,20 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-19 15:02+0100\n"
-"PO-Revision-Date: 2023-02-19 15:02+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-04-13 06:57+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CP1252\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
-msgstr ""
+msgstr "Lettura ingresso"
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\AGActivityGen.cpp:54
 msgid "Consolidating statistics"
@@ -56,52 +58,57 @@ msgstr ""
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\AGActivityGenHandler.cpp:178
 #, c-format
 msgid "Edge '%' is not known."
-msgstr ""
+msgstr "L'arco '%' è sconosciuto."
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\AGActivityGenHandler.cpp:329
 msgid "Unknown bus station '%'."
-msgstr ""
+msgstr "Fermata di autobus '%' sconosciuta."
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\activitygen_main.cpp:64
 #: D:\SUMO\sumo-eclipse-github\sumo/src\router\ROLoader.cpp:111
 msgid "Missing definition of network to load!"
-msgstr ""
+msgstr "La definizione della rete da caricare manca!"
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\activitygen_main.cpp:67
 #, c-format
 msgid "The network file '%' could not be accessed."
-msgstr ""
+msgstr "Il file della rete '%' non è accessibile."
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\activitygen_main.cpp:69
 #: D:\SUMO\sumo-eclipse-github\sumo/src\router\ROLoader.cpp:116
 msgid "Loading net"
-msgstr ""
+msgstr "Caricamento della rete"
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\activitygen_main.cpp:79
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netload\NLEdgeControlBuilder.cpp:227
 #: D:\SUMO\sumo-eclipse-github\sumo/src\router\ROLoader.cpp:133
 #, c-format
 msgid "Deprecated vehicle classes '%' in input network."
-msgstr ""
+msgstr "Ci sono le classi di veicoli obsolete '%' nella rete di ingresso."
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\activitygen_main.cpp:89
 msgid ""
 "Generates trips of persons throughout a day for the microscopic, multi-modal "
 "traffic simulation SUMO."
 msgstr ""
+"Genera corse di persone per un giorno intero simulato nella simulazione del "
+"traffico microscopica e multimodale SUMO."
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\activitygen_main.cpp:113
 #, c-format
 msgid "Loaded % edges."
-msgstr ""
+msgstr "% archi caricati."
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\city\AGCity.cpp:427
 msgid "No street that allows passenger vehicles found in this city."
 msgstr ""
+"Non è stata trovata nessuna via accessibile a veicoli passeggeri in questa "
+"città."
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\activitygen\city\AGWorkPosition.cpp:126
 msgid "Work position already occupied. Cannot give it to another adult."
 msgstr ""
+"Posizione di lavoro già presa. Non può essere assegnata ad un altro adulto."
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\dfrouter\RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
