@@ -452,6 +452,7 @@ protected:
         std::string junction;
     };
 
+    static OpenDriveController myDummyController;
 
     /**
      * @struct Connection
@@ -637,12 +638,7 @@ protected:
         return myJunctions2Controllers;
     }
 
-    OpenDriveController& getController(std::string signalID) {
-        if (mySignals.find(signalID) != mySignals.end() && myControllers.find(mySignals[signalID].controller) != myControllers.end()) {
-            return myControllers[mySignals[signalID].controller];
-        }
-        return OpenDriveController("", "");
-    }
+    OpenDriveController& getController(std::string signalID); 
 
     int getTLIndexForController(std::string controllerID) {
         // sort them by their id

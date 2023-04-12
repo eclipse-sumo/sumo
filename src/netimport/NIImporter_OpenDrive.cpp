@@ -175,6 +175,7 @@ bool NIImporter_OpenDrive::myImportAllTypes;
 bool NIImporter_OpenDrive::myImportWidths;
 double NIImporter_OpenDrive::myMinWidth;
 bool NIImporter_OpenDrive::myImportInternalShapes;
+NIImporter_OpenDrive::OpenDriveController NIImporter_OpenDrive::myDummyController;
 
 // ===========================================================================
 // method definitions
@@ -3119,5 +3120,12 @@ NIImporter_OpenDrive::recomputeWidths(std::vector<OpenDriveLane>& lanes, double 
     }
 }
 
+NIImporter_OpenDrive::OpenDriveController& 
+NIImporter_OpenDrive::getController(std::string signalID) {
+    if (mySignals.find(signalID) != mySignals.end() && myControllers.find(mySignals[signalID].controller) != myControllers.end()) {
+        return myControllers[mySignals[signalID].controller];
+    }
+    return myDummyController;
+}
 
 /****************************************************************************/
