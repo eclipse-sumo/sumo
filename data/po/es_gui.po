@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-02-21 15:59+0000\n"
+"PO-Revision-Date: 2023-04-12 12:59+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:291
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:294
@@ -13165,55 +13165,57 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:445
 msgid "Currently unsupported. Create calibratorFlows using calibrator dialog"
 msgstr ""
+"Actualmente no está soportado. Crea calibratorFlows usando el cuadro de "
+"diálogo para calibradores"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:66
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:66
 msgid "Lane"
-msgstr ""
+msgstr "Carril (lane)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:68
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:78
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:68
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:78
 msgid "No lane selected"
-msgstr ""
+msgstr "No se ha seleccionado ningún carril (lane)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:80
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:80
 msgid "Current Lane: "
-msgstr ""
+msgstr "Carril (lane) actual: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:89
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:395
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:89
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:395
 msgid "Modifications"
-msgstr ""
+msgstr "Modificaciones"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:93
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:93
 msgid "Discard connection modifications (Esc)"
-msgstr ""
+msgstr "Descartar modificaciones en las conexiones (Esc)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:96
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:96
 msgid "Save connection modifications (Enter)"
-msgstr ""
+msgstr "Guardar modificaciones en las conexiones (Enter)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:100
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:100
 msgid "Protect routes"
-msgstr ""
+msgstr "Proteger rutas"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:112
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:112
 msgid "Changes reverted"
-msgstr ""
+msgstr "Cambios revertidos"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:129
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:129
 msgid "Error saving connection operations"
-msgstr ""
+msgstr "Error guardando las operaciones de las conexiones"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:130
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:130
@@ -13223,22 +13225,22 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:130
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:130
 msgid "' is broken."
-msgstr ""
+msgstr "' está roto."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:138
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:138
 msgid "Changes accepted"
-msgstr ""
+msgstr "Cambios guardados"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:151
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:151
 msgid "Operations"
-msgstr ""
+msgstr "Operaciones"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:155
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:155
 msgid "Select Dead Ends"
-msgstr ""
+msgstr "Seleccionar finales muertos"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:155
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:155
@@ -13250,7 +13252,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:158
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:158
 msgid "Select Dead Starts"
-msgstr ""
+msgstr "Seleccionar inicios muertos"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:158
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:158
@@ -13262,7 +13264,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:161
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:161
 msgid "Select Conflicts"
-msgstr ""
+msgstr "Seleccionar conflictos"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:161
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:161
@@ -13537,37 +13539,37 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:624
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:624
 msgid "- Control+Click:"
-msgstr ""
+msgstr "- Control+Click:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:625
 msgid "  Move view"
-msgstr ""
+msgstr "  Mover vista"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:626
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:626
 msgid "- Shift+Click:"
-msgstr ""
+msgstr "- Shift+Click:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:627
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:627
 msgid "  Splits edge in both directions"
-msgstr ""
+msgstr "  Dividir calles (edges) en ambas direcciones"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:628
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:628
 msgid "- Alt+Shift+Click:"
-msgstr ""
+msgstr "- Alt+Shift+Click:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:629
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:629
 msgid "  Splits edge in one direction"
-msgstr ""
+msgstr "  Dividir calle (edge) en una dirección"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:642
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:642
 msgid "Create Edge"
-msgstr ""
+msgstr "Crear calle (edge)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:666
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:666
@@ -13577,19 +13579,19 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:668
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:668
 msgid "Invalid edge attributes"
-msgstr ""
+msgstr "Atributos de la calle inválidos"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:670
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:670
 msgid "Invalid lane attributes"
-msgstr ""
+msgstr "Atributos del carril (lane) inválidos"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:681
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:746
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:681
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:746
 msgid "create new edge"
-msgstr ""
+msgstr "crear nueva calle (edge)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:751
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:751
