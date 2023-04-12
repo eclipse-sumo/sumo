@@ -1,1 +1,1 @@
-Warning: Vehicle 'v1' ignores triggered stop on lane 'beg_0' due to capacity constraints.
+Warning: Vehicle 'v1' aborted waiting for a person or container that will never come.
