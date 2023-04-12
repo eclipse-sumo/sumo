@@ -32,65 +32,34 @@
 
 GNENetdiffToolDialog::GNENetdiffToolDialog(GNEApplicationWindow* GNEApp) :
     GNEPythonToolDialog(GNEApp) {
-    // build options for netdiff
-    myNetdiffOptions.addOptionSubTopic("Configuration");
-    myNetdiffOptions.doRegister("original-net", new Option_FileName());
-    myNetdiffOptions.addDescription("original-net", "Configuration", TL("Original network"));
+    // build custom options for netdiff
+    myCustomToolsOptions.addOptionSubTopic("Configuration");
+    myCustomToolsOptions.doRegister("original-net", new Option_Network());
+    myCustomToolsOptions.addDescription("original-net", "Configuration", TL("Original network"));
 
-    myNetdiffOptions.doRegister("modified-net", new Option_FileName());
-    myNetdiffOptions.addDescription("modified-net", "Configuration", TL("Modified network"));
+    myCustomToolsOptions.doRegister("modified-net", new Option_Network());
+    myCustomToolsOptions.addDescription("modified-net", "Configuration", TL("Modified network"));
 
-    myNetdiffOptions.doRegister("select-modified", new Option_Bool(false));
-    myNetdiffOptions.addDescription("select-modified", "Configuration", TL("Select modified elements"));
+    myCustomToolsOptions.doRegister("select-modified", new Option_Bool(false));
+    myCustomToolsOptions.addDescription("select-modified", "Configuration", TL("Select modified elements"));
     
-    myNetdiffOptions.doRegister("select-added", new Option_Bool(false));
-    myNetdiffOptions.addDescription("select-added", "Configuration", TL("Select added elements"));
+    myCustomToolsOptions.doRegister("select-added", new Option_Bool(false));
+    myCustomToolsOptions.addDescription("select-added", "Configuration", TL("Select added elements"));
     
-    myNetdiffOptions.doRegister("select-deleted", new Option_Bool(false));
-    myNetdiffOptions.addDescription("select-deleted", "Configuration", TL("Select deleted elements"));
+    myCustomToolsOptions.doRegister("select-deleted", new Option_Bool(false));
+    myCustomToolsOptions.addDescription("select-deleted", "Configuration", TL("Select deleted elements"));
     
-    myNetdiffOptions.doRegister("load-shapes-modified", new Option_Bool(false));
-    myNetdiffOptions.addDescription("load-shapes-modified", "Configuration", TL("Load shapes for elements"));
+    myCustomToolsOptions.doRegister("load-shapes-modified", new Option_Bool(false));
+    myCustomToolsOptions.addDescription("load-shapes-modified", "Configuration", TL("Load shapes for elements"));
 
-    myNetdiffOptions.doRegister("load-shapes-added", new Option_Bool(false));
-    myNetdiffOptions.addDescription("load-shapes-added", "Configuration", TL("Load shapes for added"));
+    myCustomToolsOptions.doRegister("load-shapes-added", new Option_Bool(false));
+    myCustomToolsOptions.addDescription("load-shapes-added", "Configuration", TL("Load shapes for added"));
 
-    myNetdiffOptions.doRegister("load-shapes-deleted", new Option_Bool(false));
-    myNetdiffOptions.addDescription("load-shapes-deleted", "Configuration", TL("Load shapes for deleted elements"));
+    myCustomToolsOptions.doRegister("load-shapes-deleted", new Option_Bool(false));
+    myCustomToolsOptions.addDescription("load-shapes-deleted", "Configuration", TL("Load shapes for deleted elements"));
 }
 
 
 GNENetdiffToolDialog::~GNENetdiffToolDialog() {}
-
-
-void
-GNENetdiffToolDialog::buildArguments(bool /*sortByName*/, bool /*groupedByCategories*/) {
-    // first clear arguments
-    for (const auto& argument : myArguments) {
-        delete argument;
-    }
-    myArguments.clear();
-    // declare counters for inserted arguments
-    int numInsertedArguments = 0;
-    // create specific netdiff options
-    for (const auto &option : myNetdiffOptions) {
-        // get argument frame
-        auto argumentFrame = numInsertedArguments <= 4? getArgumentFrameLeft() : getArgumentFrameRight();
-        if (option.second->isInteger()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, argumentFrame, option.first, option.second));
-        } else if (option.second->isFloat()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, argumentFrame, option.first, option.second));
-        } else if (option.second->isBool()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, argumentFrame, option.first, option.second));
-        } else if (option.second->isFileName()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, argumentFrame, option.first, option.second));       
-        } else {
-            myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, argumentFrame, option.first, option.second));
-        }
-        numInsertedArguments++;
-    }
-    // adjust parameter column (call always after create elements)
-    adjustParameterColumn();
-}
 
 /****************************************************************************/

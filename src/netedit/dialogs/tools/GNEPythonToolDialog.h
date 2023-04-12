@@ -63,6 +63,9 @@ public:
     /// @brief get python tool
     const GNEPythonTool* getPythonTool() const;
 
+    /// @brief check if use custom python tool options
+    bool hasCustomToolOptions() const;
+
     /// @name FOX-callbacks
     /// @{
 
@@ -121,10 +124,13 @@ protected:
     GNEPythonToolDialog();
 
     /// @brief build arguments
-    virtual void buildArguments(bool sortByName, bool groupedByCategories);
+    void buildArguments(bool sortByName, bool groupedByCategories);
 
     /// @brief adjust parameter column
     void adjustParameterColumn();
+
+    /// @brief custom tools options
+    OptionsCont myCustomToolsOptions;
 
     /// @brief get options
     std::vector<GNEPythonToolDialog::CategoryOptions> getOptions(OptionsCont& optionsCont) const;

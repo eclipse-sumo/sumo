@@ -652,6 +652,9 @@ public:
     /// @brief get options full name
     const std::string& getFullName() const;
 
+    /// @brief check if options container is empty
+    bool isEmpty() const;
+
     /// @brief get begin adresses iterator 
     std::vector<std::pair<std::string, Option*> >::const_iterator begin() const;
 

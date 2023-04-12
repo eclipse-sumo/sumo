@@ -108,7 +108,7 @@ GNEPythonToolDialogElements::Argument::Argument(GNEPythonToolDialog* toolDialogP
     FXHorizontalFrame(argumentFrame, GUIDesignAuxiliarHorizontalFrame),
     myToolDialogParent(toolDialogParent),
     myOption(option),
-    myDefaultValue(toolDialogParent->getPythonTool()->getDefaultValue(parameter)) {
+    myDefaultValue(toolDialogParent->hasCustomToolOptions()? getDefaultValue(option) : toolDialogParent->getPythonTool()->getDefaultValue(parameter)) {
     // create parameter label
     myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->myGNEApp->getStaticTooltipMenu(), parameter.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
     myParameterLabel->setTipText((option->getTypeName() + ": " + option->getDescription()).c_str());
@@ -173,6 +173,20 @@ GNEPythonToolDialogElements::Argument::onUpdResetValue(FXObject*, FXSelector, vo
 
 
 GNEPythonToolDialogElements::Argument::Argument() {}
+
+
+std::string
+GNEPythonToolDialogElements::Argument::getDefaultValue(Option* option) const {
+    if (option->isBool()) {
+        return "false";
+    } else if (option->isInteger()) {
+        return "0";
+    } else if (option->isFloat()) {
+        return "0.0";
+    } else {
+        return "";
+    }
+}
 
 // ---------------------------------------------------------------------------
 // GNEPythonToolDialogElements::FileNameArgument - methods

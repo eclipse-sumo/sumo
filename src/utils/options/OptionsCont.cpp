@@ -740,6 +740,12 @@ OptionsCont::getFullName() const {
 }
 
 
+bool
+OptionsCont::isEmpty() const {
+    return myAddresses.size() == 0;
+}
+
+
 std::vector<std::pair<std::string, Option*> >::const_iterator
 OptionsCont::begin() const {
     return myAddresses.cbegin();

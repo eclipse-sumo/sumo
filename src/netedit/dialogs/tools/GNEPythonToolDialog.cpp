@@ -144,6 +144,12 @@ GNEPythonToolDialog::getPythonTool() const {
 }
 
 
+bool
+GNEPythonToolDialog::hasCustomToolOptions() const {
+    return !myCustomToolsOptions.isEmpty();
+}
+
+
 long
 GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject* sender, FXSelector sel, void* ptr) {
     // toggle check
@@ -276,8 +282,10 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
     }
     myArguments.clear();
     myCategories.clear();
+    // get options depending of myCustomToolsOptions
+    auto &options = myCustomToolsOptions.isEmpty()? myPythonTool->getToolsOptions() : myCustomToolsOptions;
     // get argument sorted by name and grouped by categories
-    auto categoryOptions = groupedByCategories? getOptionsByCategories(myPythonTool->getToolsOptions()) : getOptions(myPythonTool->getToolsOptions());
+    auto categoryOptions = groupedByCategories? getOptionsByCategories(options) : getOptions(options);
     // calculate number of arguments
     int numArguments = 0;
     for (auto &categoryOption : categoryOptions) {

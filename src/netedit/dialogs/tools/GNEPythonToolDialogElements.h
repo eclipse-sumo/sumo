@@ -116,6 +116,9 @@ public:
         FXHorizontalFrame* myElementsFrame = nullptr;
 
     private:
+        /// @brief get default value
+        std::string getDefaultValue(Option* option) const;
+
         /// @brief parameter label
         MFXLabelTooltip* myParameterLabel = nullptr;
 

@@ -40,12 +40,5 @@ public:
 
     /// @brief destructor
     ~GNENetdiffToolDialog();
-
-protected:
-    /// @brief netdiff options
-    OptionsCont myNetdiffOptions;
-
-    /// @brief build arguments
-    void buildArguments(bool sortByName, bool groupedByCategories);
 };
 
