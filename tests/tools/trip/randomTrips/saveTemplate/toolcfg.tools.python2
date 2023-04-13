@@ -27,7 +27,7 @@
     <maxtries value="100" type="int" help="number of attemps for finding a trip which meets the distance constraints" category="processing"/>
     <min-distance.fringe value="None" type="float" help="require start and end edges for each fringe to fringe trip to be at least 'FLOAT' m apart" category="processing"/>
     <min-distance value="0.0" type="float" help="require start and end edges for each trip to be at least 'FLOAT' m apart" category="processing"/>
-    <net-file value="None" type="net_file" help="define the net file (mandatory)" category="input"/>
+    <net-file value="None" type="net_file" help="define the net file (mandatory)" category="input" required="true"/>
     <pedestrians value="False" type="bool" help="create a person file with pedestrian trips instead of vehicle trips" category="processing"/>
     <period value="None" type="string" help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period." category="flow"/>
     <personrides value="None" type="string" help="create a person file with rides using STR as lines attribute" category="processing"/>
@@ -47,7 +47,7 @@
     <prefix value="" type="string" help="prefix for the trip ids" category="processing"/>
     <validate value="False" type="bool" help="Whether to produce trip output that is already checked for connectivity" category="processing"/>
     <vclass value="passenger" type="string" help="only from and to edges which permit the given vehicle class" category="processing"/>
-    <vehicle-class value="None" type="string" help="The vehicle class assigned to the generated trips (adds a standard vType definition to the output file)."/>
+    <vehicle-class value="None" type="string" help="The vehicle class assigned to the generated trips (adds a standard vType definition to the output file)." category="processing"/>
     <verbose value="False" type="bool" help="tell me what you are doing" category="processing"/>
     <via-edge-types value="None" type="string" help="Set list of edge types that cannot be used for departure or arrival (unless being on the fringe)" category="processing"/>
     <vtype-output value="None" type="string" help="Store generated vehicle types in a separate file" category="output"/>
