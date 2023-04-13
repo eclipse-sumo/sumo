@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 #include <fxkeys.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -325,7 +326,7 @@ GUIDialog_ChooserAbstract::refreshList(const std::vector<GUIGlID>& ids) {
         GUIGlObjectStorage::gIDStorage.unblockObject(i);
     }
     myList->update();
-    myCountLabel->setText((toString(ids.size()) + " objects").c_str());
+    myCountLabel->setText(TLF("% objects", toString(ids.size())).c_str());
 }
 
 
