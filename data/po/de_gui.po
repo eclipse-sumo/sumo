@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-12 09:29+0000\n"
+"PO-Revision-Date: 2023-04-13 08:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -15236,9 +15236,8 @@ msgstr "Element anhand des Namens lokalisieren"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:93
-#, fuzzy
 msgid "&Select/deselect"
-msgstr "&Ausgewählt/abgewählt"
+msgstr "&Auswählen/abwählen"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:93
@@ -15247,15 +15246,13 @@ msgstr "Aktuelles Objekt auswählen/abwählen"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:94
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:94
-#, fuzzy
 msgid "&Filter substring"
-msgstr "&Filter Substring"
+msgstr "Nach Zeichenkette &filtern"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:95
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:95
-#, fuzzy
 msgid "Select &all"
-msgstr "&alle auswählen"
+msgstr "&Alle auswählen"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:95
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:95
@@ -15264,9 +15261,8 @@ msgstr "Alle Elemente der Liste auswählen"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:96
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:96
-#, fuzzy
 msgid "&Deselect all"
-msgstr "&alles abwählen"
+msgstr "Alles ab&wählen"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:96
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:96
