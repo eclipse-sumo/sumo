@@ -123,7 +123,7 @@ GNERunPythonTool::run() {
     myRunPythonToolDialog->updateDialog();
     return 1;
 #else
-    myRunNetgenerateDialog->appendInfoMessage(TL("starting process silently...\n"));
+    myRunPythonToolDialog->appendInfoMessage(TL("starting process silently...\n"));
     myRunning = false;
 #endif
 }
