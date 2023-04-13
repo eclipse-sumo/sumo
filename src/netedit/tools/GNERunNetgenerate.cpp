@@ -90,17 +90,14 @@ GNERunNetgenerate::errorOccurred() const {
 
 FXint
 GNERunNetgenerate::run() {
+#ifdef WIN32
     // declare buffer
     char buffer[128];
     for (int i = 0; i < 128; i++) {
         buffer[i] = '\0';
     }
     // open process showing std::err in console
-#ifdef WIN32
     myPipe = _popen((myNetgenerateCommand + " 2>&1").c_str(), "r");
-#else
-    myPipe = popen((myNetgenerateCommand + " 2>&1").c_str(), "r");
-#endif 
     if (!myPipe) {
         myRunNetgenerateDialog->appendErrorMessage(TL("popen() failed!"));
         // set error ocurred flag
@@ -123,11 +120,7 @@ GNERunNetgenerate::run() {
             myRunNetgenerateDialog->appendBuffer(buffer);
         } catch (...) {
             // close process
-        #ifdef WIN32
             _pclose(myPipe);
-        #else
-            pclose(myPipe);
-        #endif
             myRunNetgenerateDialog->appendErrorMessage(TL("error processing command\n"));
             // set flags
             myRunning = false;
@@ -137,11 +130,7 @@ GNERunNetgenerate::run() {
         }
     }
     // close process
-#ifdef WIN32
     _pclose(myPipe);
-#else
-    pclose(myPipe);
-#endif
     myPipe = nullptr;
     // end process
     myRunNetgenerateDialog->appendInfoMessage(TL("process finished\n"));
@@ -149,6 +138,10 @@ GNERunNetgenerate::run() {
     myRunning = false;
     myRunNetgenerateDialog->updateDialog();
     return 1;
+#else
+    myRunNetgenerateDialog->appendInfoMessage(TL("starting process silently...\n"));
+    myRunning = false;
+#endif
 }
 
 /****************************************************************************/
