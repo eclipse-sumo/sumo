@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-13 08:17+0000\n"
+"PO-Revision-Date: 2023-04-13 08:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -12889,7 +12889,7 @@ msgstr "Auswählen"
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1129
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1139
 msgid "Unselect"
-msgstr "Nicht ausgewählt"
+msgstr "Abwählen"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEEdgeDataFrame.cpp:51
