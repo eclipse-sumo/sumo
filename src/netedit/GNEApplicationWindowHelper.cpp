@@ -18,7 +18,7 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 
-#include <netedit/dialogs/tools/GNEPythonTool.h>
+#include <netedit/tools/GNEPythonTool.h>
 #include <netedit/dialogs/tools/GNENetdiffToolDialog.h>
 #include <netedit/dialogs/tools/GNENetgenerateDialog.h>
 #include <netedit/dialogs/tools/GNERunPythonToolDialog.h>

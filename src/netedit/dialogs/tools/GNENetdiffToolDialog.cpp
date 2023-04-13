@@ -19,12 +19,11 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/tools/GNEPythonTool.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNENetdiffToolDialog.h"
-#include "GNEPythonTool.h"
-
 
 // ============================================-===============================
 // member method definitions

@@ -19,12 +19,11 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/tools/GNEPythonTool.h>
+#include <netedit/tools/GNERunPythonTool.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNERunPythonToolDialog.h"
-#include "GNERunPythonTool.h"
-#include "GNEPythonTool.h"
-
 
 #define MARGING 4
 

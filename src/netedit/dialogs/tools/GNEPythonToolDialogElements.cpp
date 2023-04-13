@@ -20,12 +20,12 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/tools/GNEPythonTool.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEPythonToolDialogElements.h"
 #include "GNEPythonToolDialog.h"
-#include "GNEPythonTool.h"
 
 // ===========================================================================
 // static members

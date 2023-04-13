@@ -21,6 +21,7 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/tools/GNEPythonTool.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
@@ -30,7 +31,6 @@
 #include <sstream>
 
 #include "GNEPythonToolDialog.h"
-#include "GNEPythonTool.h"
 
 #define MARGING 4
 #define MAXNUMCOLUMNS 4

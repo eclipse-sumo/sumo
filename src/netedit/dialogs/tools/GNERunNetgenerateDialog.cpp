@@ -19,11 +19,10 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/tools/GNERunNetgenerate.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNERunNetgenerateDialog.h"
-#include "GNERunNetgenerate.h"
-
 
 #define MARGING 4
 

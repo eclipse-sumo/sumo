@@ -11,35 +11,51 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNERunPythonTool.cpp
+/// @file    GNERunNetgenerate.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2023
 ///
-// Thread for run tool
+// Thread for run netgenerate tool
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
 
-#include "GNEPythonTool.h"
-#include "GNERunPythonTool.h"
-#include "GNERunPythonToolDialog.h"
+#include "GNERunNetgenerate.h"
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
-GNERunPythonTool::GNERunPythonTool(GNERunPythonToolDialog* runToolDialog) :
-    MFXSingleEventThread(runToolDialog->getGNEApp()->getApp(), runToolDialog->getGNEApp()),
-    myRunPythonToolDialog(runToolDialog) {
+GNERunNetgenerate::GNERunNetgenerate(GNERunNetgenerateDialog* runDialog) :
+    MFXSingleEventThread(runDialog->getGNEApp()->getApp(), runDialog->getGNEApp()),
+    myRunNetgenerateDialog(runDialog) {
 }
 
 
-GNERunPythonTool::~GNERunPythonTool() {}
+GNERunNetgenerate::~GNERunNetgenerate() {}
 
 
 void
-GNERunPythonTool::runTool(const GNEPythonTool* tool) {
-    myPythonTool = tool;
+GNERunNetgenerate::run(const OptionsCont *netgenerateOptions) {
+    // set command
+#ifdef WIN32
+    myNetgenerateCommand = getenv("SUMO_HOME") + std::string("/bin/netgenerate.exe");
+#else
+    myNetgenerateCommand = getenv("SUMO_HOME") + std::string("/bin/netgenerate");
+#endif
+    // iterate over all topics
+    for (const auto& topic : netgenerateOptions->getSubTopics()) {
+        // ignore configuration
+        if (topic != "Configuration") {
+            const std::vector<std::string> entries = netgenerateOptions->getSubTopicsEntries(topic);
+            for (const auto& entry : entries) {
+                if (!netgenerateOptions->isDefault(entry)) {
+                    myNetgenerateCommand += " --" + entry + " " + netgenerateOptions->getValueString(entry);
+                }
+            }
+        }
+    }
     // reset flags
     myRunning = false;
     myErrorOccurred = false;
@@ -48,32 +64,32 @@ GNERunPythonTool::runTool(const GNEPythonTool* tool) {
 
 
 void
-GNERunPythonTool::abortTool() {
+GNERunNetgenerate::abort() {
     // cancel thread
     cancel();
     // show info
-    myRunPythonToolDialog->appendErrorMessage(TL("cancelled by user\n"));
+    myRunNetgenerateDialog->appendErrorMessage(TL("cancelled by user\n"));
     // reset flags
     myRunning = false;
     myErrorOccurred = false;
-    myRunPythonToolDialog->updateDialog();
+    myRunNetgenerateDialog->updateDialog();
 }
 
 
 bool
-GNERunPythonTool::isRunning() const {
+GNERunNetgenerate::isRunning() const {
     return myRunning;
 }
 
 
 bool
-GNERunPythonTool::errorOccurred() const {
+GNERunNetgenerate::errorOccurred() const {
     return myErrorOccurred;
 }
 
 
 FXint
-GNERunPythonTool::run() {
+GNERunNetgenerate::run() {
     // declare buffer
     char buffer[128];
     for (int i = 0; i < 128; i++) {
@@ -81,30 +97,30 @@ GNERunPythonTool::run() {
     }
     // open process showing std::err in console
 #ifdef WIN32
-    myPipe = _popen((myPythonTool->getCommand() + " 2>&1").c_str(), "r");
+    myPipe = _popen((myNetgenerateCommand + " 2>&1").c_str(), "r");
 #else
-    myPipe = popen((myPythonTool->getCommand() + " 2>&1").c_str(), "r");
+    myPipe = popen((myNetgenerateCommand + " 2>&1").c_str(), "r");
 #endif 
     if (!myPipe) {
-        myRunPythonToolDialog->appendErrorMessage(TL("popen() failed!"));
+        myRunNetgenerateDialog->appendErrorMessage(TL("popen() failed!"));
         // set error ocurred flag
         myErrorOccurred = true;
-        myRunPythonToolDialog->updateDialog();
+        myRunNetgenerateDialog->updateDialog();
         return 1;
     } else {
         // set running flag
         myRunning = true;
-        myRunPythonToolDialog->updateDialog();
+        myRunNetgenerateDialog->updateDialog();
         // Show command
-        myRunPythonToolDialog->appendBuffer((myPythonTool->getCommand() + "\n").c_str());
+        myRunNetgenerateDialog->appendBuffer((myNetgenerateCommand + "\n").c_str());
         // start process
-        myRunPythonToolDialog->appendInfoMessage(TL("starting process...\n"));
+        myRunNetgenerateDialog->appendInfoMessage(TL("starting process...\n"));
         try {
             // add buffer
             while (fgets(buffer, sizeof buffer, myPipe) != NULL) {
-                myRunPythonToolDialog->appendBuffer(buffer);
+                myRunNetgenerateDialog->appendBuffer(buffer);
             }
-            myRunPythonToolDialog->appendBuffer(buffer);
+            myRunNetgenerateDialog->appendBuffer(buffer);
         } catch (...) {
             // close process
         #ifdef WIN32
@@ -112,11 +128,11 @@ GNERunPythonTool::run() {
         #else
             pclose(myPipe);
         #endif
-            myRunPythonToolDialog->appendErrorMessage(TL("error processing command\n"));
+            myRunNetgenerateDialog->appendErrorMessage(TL("error processing command\n"));
             // set flags
             myRunning = false;
             myErrorOccurred = true;
-            myRunPythonToolDialog->updateDialog();
+            myRunNetgenerateDialog->updateDialog();
             return 1;
         }
     }
@@ -128,10 +144,10 @@ GNERunPythonTool::run() {
 #endif
     myPipe = nullptr;
     // end process
-    myRunPythonToolDialog->appendInfoMessage(TL("process finished\n"));
+    myRunNetgenerateDialog->appendInfoMessage(TL("process finished\n"));
     // set running flag
     myRunning = false;
-    myRunPythonToolDialog->updateDialog();
+    myRunNetgenerateDialog->updateDialog();
     return 1;
 }
 
