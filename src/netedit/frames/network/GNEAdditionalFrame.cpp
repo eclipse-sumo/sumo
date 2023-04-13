@@ -21,6 +21,8 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 
 #include "GNEAdditionalFrame.h"
@@ -218,6 +220,8 @@ GNEAdditionalFrame::tagSelected() {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
             myE2DetectorLegendModule->showE2DetectorLegend();
             myLanesSelector->hideNetworkElementsSelector();
+            // recompute network
+            myViewNet->getNet()->computeNetwork(myViewNet->getViewParent()->getGNEAppWindows());
         } else if (templateAC->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
             myE2DetectorLegendModule->hideE2DetectorLegend();
