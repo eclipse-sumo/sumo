@@ -646,8 +646,8 @@ TRACI_CONST int TRAFFICLIGHT_TYPE_DELAYBASED = 0x04;
 // ****************************************
 // Lane change directions
 // ****************************************
-TRACI_CONST int LANECHANGE_LEFT = 0x00;
-TRACI_CONST int LANECHANGE_RIGHT = 0x01;
+TRACI_CONST int LANECHANGE_LEFT = 0x01;
+TRACI_CONST int LANECHANGE_RIGHT = -0x01;
 
 // ****************************************
 // FILTER TYPES (for context subscription filters)

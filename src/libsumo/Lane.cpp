@@ -130,8 +130,10 @@ std::vector<std::string>
 Lane::getChangePermissions(const std::string& laneID, const int direction) {
     if (direction == libsumo::LANECHANGE_LEFT) {
         return getVehicleClassNamesList(getLane(laneID)->getChangeLeft());
-    } else {
+    } else if (direction == libsumo::LANECHANGE_RIGHT) {
         return getVehicleClassNamesList(getLane(laneID)->getChangeRight());
+    } else {
+        throw TraCIException("Invalid direction for change permission (must be " + toString(libsumo::LANECHANGE_LEFT) + " or " + toString(libsumo::LANECHANGE_RIGHT));
     }
 }
 
@@ -363,8 +365,10 @@ Lane::setChangePermissions(const std::string& laneID, std::vector<std::string> a
     MSLane* const l = getLane(laneID);
     if (direction == libsumo::LANECHANGE_LEFT) {
         l->setChangeLeft(parseVehicleClasses(allowedClasses));
-    } else {
+    } else if (direction == libsumo::LANECHANGE_RIGHT) {
         l->setChangeRight(parseVehicleClasses(allowedClasses));
+    } else {
+        throw TraCIException("Invalid direction for change permission (must be " + toString(libsumo::LANECHANGE_LEFT) + " or " + toString(libsumo::LANECHANGE_RIGHT));
     }
 }
 
