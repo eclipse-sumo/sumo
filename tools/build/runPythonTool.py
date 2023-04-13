@@ -28,14 +28,12 @@ import sys
 import os
 import re
 from os.path import dirname, join
-from subprocess import check_output, CalledProcessError
+import subprocess
 from glob import glob
 
 def main():
-    if len(sys.argv) == 2:
-        sys.exit("Arguments: <pathToSumo> <pathToNetgenerate>")
-
-
+    # open tool process
+    subprocess.call(sys.argv[1:])
 
 if __name__ == "__main__":
     main()
