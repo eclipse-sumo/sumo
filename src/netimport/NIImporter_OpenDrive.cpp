@@ -60,9 +60,10 @@
 //#define DEBUG_INTERNALSHAPES
 //#define DEBUG_SHAPE
 
-#define DEBUG_COND(road) ((road)->id == "32")
-#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "67"))
-#define DEBUG_COND3(roadID) (roadID == "32")
+#define DEBUG_ID ""
+#define DEBUG_COND(road) ((road)->id == DEBUG_ID)
+#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), DEBUG_ID))
+#define DEBUG_COND3(roadID) (roadID == DEBUG_ID)
 
 // ===========================================================================
 // definitions
@@ -1016,7 +1017,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c,
         auto innerEdgesIt = innerEdges.find(destCon.toEdge);
 #ifdef DEBUG_CONNECTIONS
         if (DEBUG_COND3(c.fromEdge)) {
-            std::cout << "      toInner=" << (innerEdgesIt != innerEdges.end()) << " destCon " << (*i).getDescription() << "\n";
+            std::cout << "      toInner=" << (innerEdgesIt != innerEdges.end()) << " destCon " << destCon.getDescription() << "\n";
         }
 #endif
         if (innerEdgesIt != innerEdges.end()) {
