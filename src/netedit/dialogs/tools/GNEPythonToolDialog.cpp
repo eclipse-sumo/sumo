@@ -149,7 +149,7 @@ GNEPythonToolDialog::hasCustomToolOptions() const {
 
 
 long
-GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject* sender, FXSelector sel, void* ptr) {
+GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
     // toggle check
     myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
     myGNEApp->getViewNet()->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
