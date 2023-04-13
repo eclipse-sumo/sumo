@@ -3340,8 +3340,8 @@ msgstr "車輛 '%' 的 SSM 裝置在時間= % 偵測到與車輛 '%' 的碰撞�
 msgid ""
 "Cannot classify SSM encounter between ego vehicle % and foe vehicle % at "
 "time=%\n"
-msgstr "無法對自我(ego)車輛 % 和敵方(foe)車輛 % 在時間 = %\n 相遇時"
-"之間的 SSM 進行分類"
+msgstr "無法對自我(ego)車輛 % 和對方(foe)車輛 % 在時間 = % 相遇時"
+"兩者之間的 SSM 進行分類\n"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:2366
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:2390
@@ -4708,35 +4708,35 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:92
 msgid "The default for allowed vehicle classes"
-msgstr ""
+msgstr "允許的車輛類別的預設值"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:95
 msgid "The default for disallowed vehicle classes"
-msgstr ""
+msgstr "不允許的車輛類別的預設值"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:98
 msgid "Whether junctions should be kept clear by default"
-msgstr ""
+msgstr "在預設情況下,路口是否應保持暢通(clear)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:101
 msgid "The default turning radius of intersections"
-msgstr ""
+msgstr "路口的預設轉彎半徑"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:104
 msgid "The default length when overriding connection lengths"
-msgstr ""
+msgstr "覆蓋連接線(connection)長度時的預設長度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:107
 msgid ""
 "The default algorithm for computing right of way rules ('default', "
 "'edgePriority')"
-msgstr ""
+msgstr "計算路權規則的預設演算法('預設(default)'，'路段優先級別(edgePriority)')"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:110
 msgid ""
 "Allow building right-before-left junctions when the incoming edge speeds are "
 "below FLOAT (m/s)"
-msgstr ""
+msgstr "當進入(incoming)路段速度低於 FLOAT (米/秒)時，允許建立right-before-left路口"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:113
 msgid ""
@@ -4769,297 +4769,300 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:134
 msgid "Removes vehicle class restrictions from imported edges"
-msgstr ""
+msgstr "從導入(imported)的路段中刪除車輛類別限制"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:138
 msgid "Disables building turnarounds"
-msgstr ""
+msgstr "禁止構建迴轉(turnarounds)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:142
 msgid "Disables building turnarounds at tls-controlled junctions"
-msgstr ""
+msgstr "禁止在號誌控制路口構建迴轉(turnarounds)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:145
 msgid "Disables building turnarounds at geometry-like junctions"
-msgstr ""
+msgstr "禁止在幾何形狀相似的路口構建迴轉(turnarounds)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:148
 msgid "Disables building turnarounds except at dead end junctions"
-msgstr ""
+msgstr "禁止在終端路口構建迴轉(turnarounds)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:151
 msgid ""
 "Disables building turnarounds except at at junctions with a dedicated "
 "turning lane"
-msgstr ""
+msgstr "除了在有專用轉向車道的路口外,其餘禁止構建迴轉(turnarounds)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:154
 msgid "Disables building turnarounds at fringe junctions"
-msgstr ""
+msgstr "禁止在邊緣(fringe)路口構建迴轉(turnarounds)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:157
 msgid "Disables building connections to left"
-msgstr ""
+msgstr "禁止構建左轉連接線"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:161
 msgid "Splits edges across geometry nodes"
-msgstr ""
+msgstr "跨多個幾何節點分割(split)路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:165
 msgid ""
 "Replace nodes which only define edge geometry by geometry points (joins "
 "edges)"
-msgstr ""
+msgstr "用幾何點（合併(joins)路段）替換僅定義路段幾何形狀的節點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:168
 msgid "Ensure that the given list of edges is not modified"
-msgstr ""
+msgstr "確保給定的路段清單未被修改"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:176
 msgid "Ensure that edges with public transport stops are not modified"
-msgstr ""
+msgstr "確保有大眾運輸停靠站的路段未被修改"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:188
 msgid "splits geometry to restrict segment length"
-msgstr ""
+msgstr "分割幾何以限制區段長度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:192
 msgid "reduces too similar geometry points"
-msgstr ""
+msgstr "減少過於相似的幾何點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:195
 msgid ""
 "Warn about edge geometries with an angle above DEGREES in successive segments"
-msgstr ""
+msgstr "警告連續段中角度超過 DEGREES 的路段幾何形狀"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:198
 msgid ""
 "Warn about edge geometries with a turning radius less than METERS at the "
 "start or end"
-msgstr ""
+msgstr "警告開始或結束時,轉彎半徑小於 METERS 的路段幾何形狀"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:201
 msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius"
-msgstr ""
+msgstr "拉直路段幾何以避免轉彎半徑小於 geometry.min-radius "
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:204
 msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius (only railways)"
-msgstr ""
+msgstr "拉直路段幾何以避免轉彎半徑小於 geometry.min-radius （僅限鐵路）"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:207
 msgid ""
 "Warn if the junction shape is to far away from the original node position"
-msgstr ""
+msgstr "如果路口形狀離原始節點位置太遠，則發出警告"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:210
 msgid "Warn if edges overlap by more than the given threshold value"
-msgstr ""
+msgstr "如果路段重疊超過給定的閾值，則發出警告"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:213
 msgid ""
 "Ignore overlapping edges if they are separated vertically by the given "
 "threshold."
-msgstr ""
+msgstr "如果它們被給定的閾值垂直地分開，則忽略重疊路段。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:216
 msgid "Modify edge geometries to avoid overlap at junctions"
-msgstr ""
+msgstr "修改路段幾何形狀以避免在路口處重疊"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:219
 msgid ""
 "join adjacent lanes that have the same permissions and which do not admit "
 "lane-changing (sidewalks and disallowed lanes)"
-msgstr ""
+msgstr "合併(join)具有相同權限且不允許變換車道的相鄰車道(人行道和禁止車道)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:222
 msgid ""
 "Matches stops outside the road network to the referencing pt line when below "
 "the given distance"
-msgstr ""
+msgstr "當低於給定的距離時，將路網外的停靠點與參考的大眾運輸路線相配對"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:226
 msgid "Repair topology of the railway network"
-msgstr ""
+msgstr "修復鐵路路網拓撲"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:229
 msgid ""
 "Repair topology of the railway network just enough to let loaded public "
 "transport lines to work"
-msgstr ""
+msgstr "修復鐵路路網拓撲以至足以讓載入的大眾運輸路線正常運作"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:232
 msgid ""
 "Allow bidirectional rail use wherever rails with opposite directions meet at "
 "a straight angle"
-msgstr ""
+msgstr "允許雙向火車在與相反方向行駛的火車以直角相遇的任何地方使用"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:235
 msgid "Add turn-around connections at all loaded stops."
-msgstr ""
+msgstr "在所有載入的停靠點增加迴轉的連接線(turn-around connections)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:238
 msgid "Make all rails usable in both direction"
-msgstr ""
+msgstr "使所有鐵路可用於兩個方向"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:241
 msgid "Make all rails edge ids from FILE usable in both direction"
-msgstr ""
+msgstr "使檔案中所有鐵路路段識別名(ids)可用於兩個方向"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:244
 msgid "Set edge priority values based on estimated main direction"
-msgstr ""
+msgstr "根據估計的主方向來設定路段的優先級別值"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:247
 msgid "Extend loaded edge priority values based on estimated main direction"
-msgstr ""
+msgstr "根據估計的主方向來擴展載入的路段的優先級別值"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:250
 msgid "The search radius for finding suitable road accesses for rail stops"
-msgstr ""
+msgstr "為鐵路車站尋找合適的通行途徑(access)的搜索半徑"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:254
 msgid "The maximum road accesses registered per rail stops"
-msgstr ""
+msgstr "每個鐵路站點登錄的最大道路通行途徑(road accesses)數量"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:258
 msgid ""
 "The walking length of the access is computed as air-line distance multiplied "
 "by FLOAT"
-msgstr ""
+msgstr "通行途徑(access)的步行長度計算為航線距離乘以 FLOAT"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:262
 msgid "Skips automatic generation of stops on the bidi-edge of a loaded stop"
-msgstr ""
+msgstr "跳過在載入的停靠點的雙向路段(bidi-edge)上自動產生停靠點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:266
 #, c-format
 msgid "Warn about edge geometries with a grade in % above FLOAT."
-msgstr ""
+msgstr "警告 % 百分比的路段幾何形狀高於 FLOAT。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:269
 msgid "Smooth edge geometries with a grade above the warning threshold."
-msgstr ""
+msgstr "用高於警告閾值的度數(grade)平滑路段的幾何形狀。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:273
 msgid "Turn off normalizing node positions"
-msgstr ""
+msgstr "關閉標準化節點位置"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:277
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:186
 msgid "Adds FLOAT to net x-positions"
-msgstr ""
+msgstr "將 FLOAT 增加到路網 x 位置"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:281
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:190
 msgid "Adds FLOAT to net y-positions"
-msgstr ""
+msgstr "將 FLOAT 增加到路網 y 位置"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:284
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:193
 msgid "Adds FLOAT to net z-positions"
-msgstr ""
+msgstr "將 FLOAT 增加到路網 z 位置"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:288
 msgid "Flips the y-coordinate along zero"
-msgstr ""
+msgstr "沿著 0 翻轉 y 坐標"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:292
 msgid "Enable roundabout-guessing"
-msgstr ""
+msgstr "啟用圓環的猜測"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:295
 msgid "Default visibility when approaching a roundabout"
-msgstr ""
+msgstr "當接近圓環時,預設的能見度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:298
 msgid "Enable guessing of opposite direction lanes usable for overtaking"
-msgstr ""
+msgstr "啟用對可用於超車的相反方向車道的猜測"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:301
 msgid "Ensure that opposite edges have the same length"
-msgstr ""
+msgstr "確保對向路段具有相同的長度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:304
 msgid "Enable guessing of network fringe nodes"
-msgstr ""
+msgstr "啟用路網邊緣的節點的猜測"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:307
 msgid "Guess disconnected edges above the given speed as outer fringe"
-msgstr ""
+msgstr "猜測高於給定速度的不連接路段為外部邊緣(outer fringe)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:310
 msgid "Assumes left-hand traffic on the network"
-msgstr ""
+msgstr "假設路網內為左行(left-hand)交通"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:326
 msgid "Interprets STR[] as list of junctions to exclude from joining"
-msgstr ""
+msgstr "將 STR[] 解釋為要從整合(joining)中排除的路口清單"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:338
 msgid "Modifies all edge speeds by adding FLOAT"
-msgstr ""
+msgstr "通過增加 FLOAT 修改所有路段速度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:341
 msgid "Modifies all edge speeds by multiplying by FLOAT"
-msgstr ""
+msgstr "通過乘以 FLOAT 修改所有路段速度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:344
 msgid "Modifies all edge speeds to at least FLOAT"
-msgstr ""
+msgstr "將所有路段速度修改為至少 FLOAT"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:352
 msgid "Generate INT intermediate points to smooth out intersection corners"
-msgstr ""
+msgstr "產生 INT 中間點以平滑路口角落的曲線"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:355
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the intersection"
-msgstr ""
+msgstr "產生 INT 中間點以平滑路口內的車道曲線"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:358
 msgid ""
 "Generate longer intersections to allow for smooth s-curves when the number "
 "of lanes changes"
-msgstr ""
+msgstr "產生較長的路口，以便在車道數量發生變化時能允許有平滑的 s 曲線"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:398
 msgid "Forces rectangular cuts between lanes and intersections"
-msgstr ""
+msgstr "強制在車道和路口之間進行矩形切割"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:457
 msgid "Always build walking areas even if there are no crossings"
-msgstr ""
+msgstr "即使沒有人行穿越道，也要一直建立步行區"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:460
 msgid ""
 "Do not create a walkingarea between sidewalks that are connected by a "
 "pedestrian junction within FLOAT"
-msgstr ""
+msgstr "不要在 FLOAT 中由行人路口連接的人行道之間建立步行區"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:605
 msgid "Only keep edges with speed in meters/second > FLOAT"
-msgstr ""
+msgstr "只保留以米/秒為單位的速度 > FLOAT 的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:609
 msgid "Remove edges in STR[]"
-msgstr ""
+msgstr "移除在 STR[]中的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:613
 msgid ""
 "Only keep edges in STR[] or those which are kept due to other keep-edges or "
 "remove-edges options"
-msgstr ""
+msgstr "僅保留 STR[] 中的路段或由於其他保留路段(keep-edges)或"
+"刪除路段(remove-edges)選項而保留的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:616
 msgid ""
 "Only keep edges in FILE (Each id on a single line. Selection files from sumo-"
 "gui are also supported) or those which are kept due to other keep-edges or "
 "remove-edges options"
-msgstr ""
+msgstr "只保留檔案內的路段（每個識別名(id)在每個單一的列上。也支援"
+"來自 sumo-gui 的選擇檔案(Selection files)）或由於其他保留路段(keep-edges)或"
+"刪除路段(remove-edges)選項而保留的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:619
 msgid ""
@@ -10704,6 +10707,7 @@ msgid ""
 "SAX error occured while parsing '%':\n"
 " %"
 msgstr "SAX 錯誤發生於解析 '%' 時:\n"
+" %"
 
 #: /home/micha/programming/sumo/src\utils\xml\XMLSubSys.cpp:195
 msgid "Unspecified error occurred wile parsing '%'"
