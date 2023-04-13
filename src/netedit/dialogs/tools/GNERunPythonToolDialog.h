@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/MFXInterThreadEventClient.h>
 
 // ===========================================================================
 // class declarations
