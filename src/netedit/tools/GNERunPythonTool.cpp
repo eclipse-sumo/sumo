@@ -29,7 +29,7 @@
 // ===========================================================================
 
 GNERunPythonTool::GNERunPythonTool(GNERunPythonToolDialog* runToolDialog) :
-    MFXSingleEventThread(runToolDialog->getGNEApp()->getApp(), runToolDialog),
+    MFXSingleEventThread(runToolDialog->getGNEApp()->getApp(), runToolDialog->getGNEApp()),
     myRunPythonToolDialog(runToolDialog) {
 }
 

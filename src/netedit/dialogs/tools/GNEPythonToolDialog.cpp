@@ -56,14 +56,14 @@ FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPythonToolDialog, FXMainWindow, GNEPythonToolDialogMap, ARRAYNUMBER(GNEPythonToolDialogMap))
+FXIMPLEMENT(GNEPythonToolDialog, FXDialogBox, GNEPythonToolDialogMap, ARRAYNUMBER(GNEPythonToolDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
 GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
-    FXMainWindow(GNEApp->getApp(), "Tool"),
+    FXDialogBox(GNEApp->getApp(), "Tool", GUIDesignAuxiliarDialogBoxResizable),
     myGNEApp(GNEApp) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
@@ -124,7 +124,7 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     // resize
     resize(1024, maximumHeight <= 768 ? maximumHeight : 768);
     // show dialog
-    show(PLACEMENT_SCREEN);
+    FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
 }
@@ -145,12 +145,6 @@ GNEPythonToolDialog::getPythonTool() const {
 bool
 GNEPythonToolDialog::hasCustomToolOptions() const {
     return !myCustomToolsOptions.isEmpty();
-}
-
-
-void
-GNEPythonToolDialog::eventOccurred() {
-    //
 }
 
 
@@ -282,10 +276,10 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
     }
     myArguments.clear();
     myCategories.clear();
-    // get optionContainer depending of myCustomToolsOptions
-    auto &optionContainer = myCustomToolsOptions.isEmpty()? myPythonTool->getToolsOptions() : myCustomToolsOptions;
+    // get options depending of myCustomToolsOptions
+    auto &options = myCustomToolsOptions.isEmpty()? myPythonTool->getToolsOptions() : myCustomToolsOptions;
     // get argument sorted by name and grouped by categories
-    auto categoryOptions = groupedByCategories? getOptionsByCategories(optionContainer) : getOptions(optionContainer);
+    auto categoryOptions = groupedByCategories? getOptionsByCategories(options) : getOptions(options);
     // calculate number of arguments
     int numArguments = 0;
     for (auto &categoryOption : categoryOptions) {

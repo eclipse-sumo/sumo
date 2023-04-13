@@ -37,7 +37,7 @@ class GNEApplicationWindow;
  * @class GNENetgenerateDialog
  * @brief Dialog for netgenerate tool dialog
  */
-class GNENetgenerateDialog : protected FXMainWindow {
+class GNENetgenerateDialog : protected FXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNENetgenerateDialog)
 

@@ -24,12 +24,9 @@
 class MFXInterThreadEventClient {
 
 public:
-    /// @brief constructor
     MFXInterThreadEventClient() {}
 
-    /// @brief destructor
     virtual ~MFXInterThreadEventClient() { }
 
-    /// @brief called when an event occurred
     virtual void eventOccurred() = 0;
 };

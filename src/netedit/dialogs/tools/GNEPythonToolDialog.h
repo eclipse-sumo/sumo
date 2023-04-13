@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
-#include <utils/foxtools/MFXInterThreadEventClient.h>
 
 #include "GNEPythonToolDialogElements.h"
 
@@ -41,7 +40,7 @@ class MFXCheckableButton;
  * @class GNEPythonToolDialog
  * @brief Dialog for python tool dialog
  */
-class GNEPythonToolDialog : protected MFXInterThreadEventClient, public FXMainWindow {
+class GNEPythonToolDialog : protected FXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEPythonToolDialog)
 
@@ -66,9 +65,6 @@ public:
 
     /// @brief check if use custom python tool options
     bool hasCustomToolOptions() const;
-
-    /// @brief called when an event occurred
-    void eventOccurred();
 
     /// @name FOX-callbacks
     /// @{

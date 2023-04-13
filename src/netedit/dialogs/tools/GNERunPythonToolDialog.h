@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <utils/foxtools/fxheader.h>
-#include <utils/foxtools/MFXInterThreadEventClient.h>
 
 // ===========================================================================
 // class declarations
@@ -39,7 +38,7 @@ class GNEPythonTool;
  * @class GNERunPythonToolDialog
  * @brief Abstract dialog for tools
  */
-class GNERunPythonToolDialog : public MFXInterThreadEventClient, protected FXMainWindow {
+class GNERunPythonToolDialog : protected FXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNERunPythonToolDialog)
 
@@ -67,9 +66,6 @@ public:
 
     /// @brief update toolDialog
     void updateDialog();
-
-    /// @brief called when an event occurred
-    void eventOccurred();
 
     /// @name FOX-callbacks
     /// @{
