@@ -28,7 +28,7 @@
 // ===========================================================================
 
 GNERunNetgenerate::GNERunNetgenerate(GNERunNetgenerateDialog* runDialog) :
-    MFXSingleEventThread(runDialog->getGNEApp()->getApp(), runDialog->getGNEApp()),
+    MFXSingleEventThread(runDialog->getGNEApp()->getApp(), runDialog),
     myRunNetgenerateDialog(runDialog) {
 }
 

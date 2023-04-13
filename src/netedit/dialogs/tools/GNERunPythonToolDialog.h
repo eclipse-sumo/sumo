@@ -38,7 +38,7 @@ class GNEPythonTool;
  * @class GNERunPythonToolDialog
  * @brief Abstract dialog for tools
  */
-class GNERunPythonToolDialog : protected FXDialogBox {
+class GNERunPythonToolDialog : public MFXInterThreadEventClient, protected FXMainWindow {
     /// @brief FOX-declaration
     FXDECLARE(GNERunPythonToolDialog)
 
@@ -66,6 +66,9 @@ public:
 
     /// @brief update toolDialog
     void updateDialog();
+
+    /// @brief called when an event occurred
+    void eventOccurred();
 
     /// @name FOX-callbacks
     /// @{
