@@ -1276,7 +1276,19 @@ GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS(FXObject*, FXSelector, void*) {
     myTLSEditorParent->myTLSDefinition->discardChanges(false);
     // begin undo list
     myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TL("disjoin TLS"));
-    // remove tl from TLNBNode
+    // the disjoint tlIds will be the junction ids. Ensure that there is no name clash with the current tlId
+    NBTrafficLightLogicCont& tllCont = myTLSEditorParent->getViewNet()->getNet()->getTLLogicCont();
+    const std::string oldId = currentJunction->getAttribute(SUMO_ATTR_TLID);
+    const std::string tmpIdBase = oldId + "_TMP";
+    int tmpIndex = 0;
+    std::string tmpId = tmpIdBase + toString(tmpIndex);
+    while (tllCont.exist(tmpId)) {
+        tmpId = tmpIdBase + toString(++tmpIndex);
+    }
+    for (NBTrafficLightDefinition* tlDef : currentJunction->getNBNode()->getControllingTLS()) {
+        myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(currentJunction, tlDef, tmpId), true);
+    }
+    // remove tl from TLNBNode and the re-initialize as single traffic light
     for (const auto& resetTLJunction : resetTLJunctions) {
         resetTLJunction->setAttribute(SUMO_ATTR_TYPE, "priority", myTLSEditorParent->getViewNet()->getUndoList());
         resetTLJunction->setAttribute(SUMO_ATTR_TYPE, type, myTLSEditorParent->getViewNet()->getUndoList());
