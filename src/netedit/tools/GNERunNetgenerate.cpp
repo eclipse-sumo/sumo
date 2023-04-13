@@ -141,7 +141,7 @@ GNERunNetgenerate::run() {
     return 1;
 #else
     myRunNetgenerateDialog->appendInfoMessage(TL("starting process silently...\n"));
-    const std::string pythonScript = "python " + toString(getenv("SUMO_HOME")) + "\\tools\\build\\runPythonTool.py";
+    const std::string pythonScript = "python " + toString(getenv("SUMO_HOME")) + "/tools/build/runPythonTool.py";
     // show info
     myRunNetgenerateDialog->appendInfoMessage(pythonScript + " " + myNetgenerateCommand + "\n");
     myRunning = false;
