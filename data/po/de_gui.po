@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-13 08:53+0000\n"
+"PO-Revision-Date: 2023-04-13 11:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1122,11 +1122,11 @@ msgstr "LSA-Auswahl"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:257
 msgid "Additional Objects Chooser"
-msgstr "Zusätzliche Objektewähler"
+msgstr "Auswahl weiterer Objekte"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:261
 msgid "POI Chooser"
-msgstr "Polauswahl"
+msgstr "Pol-Auswahl"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:265
 msgid "Polygon Chooser"
