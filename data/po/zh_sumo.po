@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-14 12:25+0000\n"
+"PO-Revision-Date: 2023-04-14 16:20+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3833,7 +3833,7 @@ msgstr "在执行触动式信号逻辑（tlLogic ）'%'时，最小时间（minD
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:406
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
-msgstr ""
+msgstr "在执行触动式信号逻辑tlLogic '%'时，触动的相位%没有控制的探测器。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:443
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."
@@ -3920,7 +3920,7 @@ msgstr "在铁路信号（RailSignal）%（边缘%，长度%）处找到圆形�
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSRailSignalConstraint.cpp:147
 #, c-format
 msgid "Unknown tracker lane '%' in loaded state."
-msgstr ""
+msgstr "在载入状态内，未知的追踪车道(tracker lane)'%'"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
@@ -3929,7 +3929,7 @@ msgstr "列表输出车道"
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSOTLTrafficLightLogic.cpp:243
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSOTLTrafficLightLogic.cpp:277
 msgid "Unrecognized traffic threshold calculation mode"
-msgstr ""
+msgstr "无法辨识的交通流量阈值计算模式"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:57
 msgid "NO VALID POLICY LIST READ"
@@ -3937,21 +3937,21 @@ msgstr "未读到有效的政策清单。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:81
 msgid "VEHICLE TYPES WEIGHT only works with phase policy, which is missing"
-msgstr ""
+msgstr "车辆类型权重（VEHICLE TYPES WEIGHT）仅适用于相位策略，缺失中"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:160
 #, c-format
 msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneInputLanes: lane "
 "% not allowed"
-msgstr ""
+msgstr "MSSwarmTrafficLightLogic::init 路口  % pheromoneInputLanes: 车道 % 不被允许"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:182
 #, c-format
 msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneOutputLanes lane "
 "% not allowed"
-msgstr ""
+msgstr "MSSwarmTrafficLightLogic::init 路口  % pheromoneOutputLanes 车道 % 不被允许"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
@@ -3959,11 +3959,11 @@ msgstr "***交叉口%将使用MSSwarmTrafficLightLogic运行 ***"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:202
 msgid "TL % time 0 Policy: % (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: % ."
-msgstr ""
+msgstr "交通信号(TL) % 时间 0 政策: % (pheroIn= 0 ,pheroOut= 0 ) 旧政策: % 。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSTLLogicControl.cpp:81
 msgid "Mismatching phase size in tls '%', program '%'."
-msgstr ""
+msgstr "在交通信号(tls) '%' 未配对的相位大小,时制方案(program) '%'。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSTLLogicControl.cpp:116
 msgid "No initial signal plan loaded for tls '%'."
@@ -3971,7 +3971,7 @@ msgstr "没有为tls '%'加载初始信号方案。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSTLLogicControl.cpp:163
 msgid "Could not build an off-state for tls '%'."
-msgstr ""
+msgstr "交通信号(tls) '%' 无法建立一个关闭状态(off-state)。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSTLLogicControl.cpp:487
 #, c-format
@@ -3979,38 +3979,43 @@ msgid ""
 "The computed factor sum in WAUT '%' at time '%' equals zero;\n"
 " assuming an error in WAUT definition."
 msgstr ""
+"在时间 '%' 时, WAUT '%' 中计算的系数总和等于零；\n"
+"假设WAUT 定义內有错误。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:159
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
-msgstr ""
+msgstr "信号逻辑（tlLogic）'%'的未使用的状态， 其发生在信号索引(tl-index) % 后的相位 "
+"% 內的时制方案'%' 內"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:178
 msgid ""
 "Missing yellow phase in tlLogic '%', program '%' for tl-index % when "
 "switching% to phase %."
-msgstr ""
+msgstr "信号逻辑(tlLogic) '%' 缺少黄灯相位,其发生在切换到相位 % 时，信号索引(tl-"
+"index) % 的时制方案 '%' 內。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:200
 msgid "Missing green phase in tlLogic '%', program '%' for tl-index %."
-msgstr ""
+msgstr "信号逻辑(tlLogic) '%' 缺少绿灯相位, 其发生于信号索引(tl-index) % 的时制方案 "
+"'%' 內。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:461
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
-msgstr ""
+msgstr "在信号逻辑(tlLogic) '%' 的时制方案 '%' 內, 连接线(link) % 的绿灯部分仅为 1%。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\NEMAController.cpp:164
 msgid ""
 "At NEMA tlLogic '%', different sizes of NEMA phase states. Please check the "
 "NEMA XML"
-msgstr ""
+msgstr "在NEMA 信号逻辑tlLogic '%'，不同大小的NEMA相位状态。请检查NEMA的XML"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\NEMAController.cpp:566
 msgid "At NEMA tlLogic '%', actuated phase % has no controlling detector"
-msgstr ""
+msgstr "在NEMA信号逻辑 tlLogic'%'，执行的相位%没有控制的探测器"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\NEMAController.cpp:584
 msgid "At NEMA tlLogic '%, linkIndex % has no controlling detector"
-msgstr ""
+msgstr "在NEMA 信号逻辑（tlLogic）'%，路段索引（linkIndex） %没有控制的检测器"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\NEMAController.cpp:630
 #, c-format
@@ -4019,7 +4024,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\NEMAController.cpp:959
 msgid "I am starting in the coordinated phases"
-msgstr ""
+msgstr "我开始在协调相位"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel.h:180
 msgid "moveTo is ignored by the current movement model"
@@ -4043,7 +4048,8 @@ msgstr ""
 msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
 "and this may cause collisions with vehicles."
-msgstr ""
+msgstr "行人vType'%'宽度%大于pedestrian.striping.stripe-"
+"width，这可能导致与车辆发生碰撞。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Striping.cpp:179
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
@@ -4597,7 +4603,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1739
 msgid "Edge '%' overlaps with edge '%' by %."
-msgstr ""
+msgstr "路段'%'与路段'%'重叠在%。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1755
 #, c-format
@@ -4621,11 +4627,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1801
 msgid "Not joining tram edge '%' with % lanes."
-msgstr ""
+msgstr "没有将电车路段'%'与%车道连接起来。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1875
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
-msgstr ""
+msgstr "车道'%'的电车路段'%'和'%'模糊不清。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:2029
 #: /home/micha/programming/sumo/src\netimport\NIImporter_SUMO.cpp:138
