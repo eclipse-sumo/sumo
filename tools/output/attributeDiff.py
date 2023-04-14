@@ -113,7 +113,7 @@ def main():
             if options.idAttribute:
                 for ids in idStack:
                     if ids:
-                        elementDescription += '|' + '.'.join(ids)
+                        elementDescription += '|' + '|'.join(ids)
 
             if options.attribute is None:
                 for k, v in node.items():
