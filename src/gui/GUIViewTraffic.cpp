@@ -111,47 +111,47 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow* v) {
     }
     // for junctions
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
-                         "\tLocate Junctions\tLocate a junction within the network.",
+                         (std::string("\t") + TL("Locate Junctions") + std::string("\t") + TL("Locate a junction within the network.")).c_str(),
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,
                          GUIDesignButtonPopup);
     // for edges
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
-                         "\tLocate Edges\tLocate an edge within the network.",
+                         (std::string("\t") + TL("Locate Edges") + std::string("\t") + TL("Locate an edge within the network.")).c_str(),
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_HOTKEY_SHIFT_E_LOCATEEDGE,
                          GUIDesignButtonPopup);
     // for vehicles
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
-                         "\tLocate Vehicles\tLocate a vehicle within the network.",
+                         (std::string("\t") + TL("Locate Vehicles") + std::string("\t") + TL("Locate a vehicle within the network.")).c_str(),
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
                          GUIDesignButtonPopup);
     // for persons
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
-                         "\tLocate Persons\tLocate a person within the network.",
+                         (std::string("\t") + TL("Locate Persons") + std::string("\t") + TL("Locate a person within the network.")).c_str(),
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_HOTKEY_SHIFT_P_LOCATEPERSON,
                          GUIDesignButtonPopup);
     // for containers
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
-                         "\tLocate Container\tLocate a container within the network.",
+                         (std::string("\t") + TL("Locate Container") + std::string("\t") + TL("Locate a container within the network.")).c_str(),
                          GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_HOTKEY_SHIFT_C_LOCATECONTAINER,
                          GUIDesignButtonPopup);
     // for tls
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
-                         "\tLocate TLS\tLocate a tls within the network.",
+                         (std::string("\t") + TL("Locate TLS") + std::string("\t") + TL("Locate a tls within the network.")).c_str(),
                          GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_HOTKEY_SHIFT_T_LOCATETLS,
                          GUIDesignButtonPopup);
     // for additional stuff
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
-                         "\tLocate Additional\tLocate an additional structure within the network.",
+                         (std::string("\t") + TL("Locate Additional") + std::string("\t") + TL("Locate an additional structure within the network.")).c_str(),
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,
                          GUIDesignButtonPopup);
     // for pois
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
-                         "\tLocate PoI\tLocate a PoI within the network.",
+                         (std::string("\t") + TL("Locate PoI") + std::string("\t") + TL("Locate a PoI within the network.")).c_str(),
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_HOTKEY_SHIFT_O_LOCATEPOI,
                          GUIDesignButtonPopup);
     // for polygons
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
-                         "\tLocate Polygon\tLocate a Polygon within the network.",
+                         (std::string("\t") + TL("Locate Polygon") + std::string("\t") + TL("Locate a Polygon within the network.")).c_str(),
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_HOTKEY_SHIFT_L_LOCATEPOLY,
                          GUIDesignButtonPopup);
 }
