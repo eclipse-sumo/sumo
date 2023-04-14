@@ -19,6 +19,9 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SysUtils.h>
@@ -57,6 +60,26 @@ GNENetDiffTool::setCurrentValues() {
         myPythonToolsOptions.set("outprefix", "");
     } else {
         myPythonToolsOptions.set("outprefix", FileHelpers::getFilePath(networkPath) + "diff");
+    }
+}
+
+
+void
+GNENetDiffTool::postProcessing() {
+    // first check if there is a network
+    if (myGNEApp->getViewNet()) {
+        // get selector operator modul from selector frame
+        auto selectorModul = myGNEApp->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionOperationModul();
+        // select elements
+        if (myPythonToolsOptions.getBool("select-modified")) {
+            selectorModul->loadFromFile(myPythonToolsOptions.getString("outprefix") + ".changed.sel.txt");
+        }
+        if (myPythonToolsOptions.getBool("select-added")) {
+            selectorModul->loadFromFile(myPythonToolsOptions.getString("outprefix") + ".created.sel.txt");
+        }
+        if (myPythonToolsOptions.getBool("select-deleted")) {
+            selectorModul->loadFromFile(myPythonToolsOptions.getString("outprefix") + ".deleted.sel.txt");
+        }
     }
 }
 
