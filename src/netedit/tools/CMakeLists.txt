@@ -1,6 +1,8 @@
 set(netedit_tools_SRCS
    GNEPythonTool.h
    GNEPythonTool.cpp
+   GNENetDiffTool.h
+   GNENetDiffTool.cpp
    GNERunPythonTool.h
    GNERunPythonTool.cpp
    GNERunNetgenerate.h
