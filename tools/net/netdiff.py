@@ -41,6 +41,49 @@ import sumolib  # noqa
 from sumolib.datastructures.OrderedMultiSet import OrderedMultiSet  # noqa
 from sumolib.options import ArgumentParser  # noqa
 
+
+def parse_args():
+    optParser = ArgumentParser()
+    optParser.add_argument("source", help="original network")
+    optParser.add_argument("dest", help="modified network")
+    optParser.add_argument("outprefix", help="prefix for the diff files")
+    optParser.add_option("-v", "--verbose", action="store_true",
+                         default=False, help="Give more output")
+    optParser.add_option("-p", "--use-prefix", action="store_true",
+                         default=False, help="interpret source and dest as plain-xml prefix instead of network names")
+    optParser.add_option("-d", "--direct", action="store_true",
+                         default=False, help="compare source and dest files directly")
+    optParser.add_option("-i", "--patch-on-import", action="store_true",
+                         default=False, help="generate patch that can be applied during initial network import" +
+                         " (exports additional connection elements)")
+    optParser.add_option("--copy",
+                         help="comma-separated list of element names to copy (if they are unchanged)")
+    optParser.add_option("--path", dest="path", help="Path to binaries")
+    optParser.add_option("--remove-plain", action="store_true",
+                         help="avoid saving plain xml files of source and destination networks")
+    optParser.add_option("-l", "--write-selections", action="store_true", default=False,
+                         help="Write selection files for created, deleted and changed elements")
+    optParser.add_option("-s", "--write-shapes", action="store_true", default=False,
+                         help="Write shape files for created, deleted and changed elements")
+    optParser.add_option("-g", "--plain-geo", action="store_true", default=False,
+                         help="Write geo coordinates instead of network coordinates")
+    options = optParser.parse_args()
+    if options.use_prefix and options.direct:
+        optParser.error(
+            "Options --use-prefix and --direct are mutually exclusive")
+
+    if options.write_shapes:
+        if options.direct:
+            optParser.error(
+                "Options --write-shapes and --direct are mutually exclusive")
+        if options.use_prefix:
+            optParser.error(
+                "Options --write-shapes and --use-prefix are mutually exclusive")
+
+    return options
+
+# CONSTANTS
+
 INDENT = 4
 
 # file types to compare
@@ -496,47 +539,6 @@ class AttributeStore:
             shape = ' '.join([','.join(map(lambda x: "%.2f" % x, pos)) for pos in shape])
             file.write('    <poly id="%s" type="%s" shape="%s" fill="%s" layer="%s" color="%s"/>\n' % (
                 ":".join(id2), tag, shape, fill, layer, color))
-
-
-def parse_args():
-    optParser = ArgumentParser()
-    optParser.add_argument("source", help="original network")
-    optParser.add_argument("dest", help="modified network")
-    optParser.add_argument("outprefix", help="prefix for the diff files")
-    optParser.add_option("-v", "--verbose", action="store_true",
-                         default=False, help="Give more output")
-    optParser.add_option("-p", "--use-prefix", action="store_true",
-                         default=False, help="interpret source and dest as plain-xml prefix instead of network names")
-    optParser.add_option("-d", "--direct", action="store_true",
-                         default=False, help="compare source and dest files directly")
-    optParser.add_option("-i", "--patch-on-import", action="store_true",
-                         default=False, help="generate patch that can be applied during initial network import" +
-                         " (exports additional connection elements)")
-    optParser.add_option("--copy",
-                         help="comma-separated list of element names to copy (if they are unchanged)")
-    optParser.add_option("--path", dest="path", help="Path to binaries")
-    optParser.add_option("--remove-plain", action="store_true",
-                         help="avoid saving plain xml files of source and destination networks")
-    optParser.add_option("-l", "--write-selections", action="store_true", default=False,
-                         help="Write selection files for created, deleted and changed elements")
-    optParser.add_option("-s", "--write-shapes", action="store_true", default=False,
-                         help="Write shape files for created, deleted and changed elements")
-    optParser.add_option("-g", "--plain-geo", action="store_true", default=False,
-                         help="Write geo coordinates instead of network coordinates")
-    options = optParser.parse_args()
-    if options.use_prefix and options.direct:
-        optParser.error(
-            "Options --use-prefix and --direct are mutually exclusive")
-
-    if options.write_shapes:
-        if options.direct:
-            optParser.error(
-                "Options --write-shapes and --direct are mutually exclusive")
-        if options.use_prefix:
-            optParser.error(
-                "Options --write-shapes and --use-prefix are mutually exclusive")
-
-    return options
 
 
 def create_plain(netfile, netconvert, plain_geo):
