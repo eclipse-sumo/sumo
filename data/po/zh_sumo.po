@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-14 08:10+0000\n"
+"PO-Revision-Date: 2023-04-14 08:13+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3148,7 +3148,7 @@ msgstr "找不到用于过滤浮动车资料（fcd）输出的指定形状'%'。
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:148
 msgid "Could not load names of edges for filtering fcd-output from '%'."
-msgstr ""
+msgstr "无法从'%'中载入用于过滤浮动车资料（fcd）输出的路段名称。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:167
 #, c-format
