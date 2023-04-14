@@ -42,9 +42,7 @@
 
 FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
     FXMAPFUNC(SEL_CLOSE,    0,                      GNEPythonToolDialog::onCmdCancel),
-
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,  GNEPythonToolDialog::onCmdShowToolTipsMenu),
-
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,       GNEPythonToolDialog::onCmdSave),
     FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SAVE,       GNEPythonToolDialog::onUpdRequiredAttributes),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,       GNEPythonToolDialog::onCmdLoad),
@@ -139,12 +137,6 @@ GNEPythonToolDialog::getGNEApplicationWindow() const {
 const GNEPythonTool*
 GNEPythonToolDialog::getPythonTool() const {
     return myPythonTool;
-}
-
-
-bool
-GNEPythonToolDialog::hasCustomToolOptions() const {
-    return !myCustomToolsOptions.isEmpty();
 }
 
 
@@ -276,10 +268,8 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
     }
     myArguments.clear();
     myCategories.clear();
-    // get options depending of myCustomToolsOptions
-    auto &options = myCustomToolsOptions.isEmpty()? myPythonTool->getToolsOptions() : myCustomToolsOptions;
     // get argument sorted by name and grouped by categories
-    auto categoryOptions = groupedByCategories? getOptionsByCategories(options) : getOptions(options);
+    auto categoryOptions = groupedByCategories? getOptionsByCategories(myPythonTool->getToolsOptions()) : getOptions(myPythonTool->getToolsOptions());
     // calculate number of arguments
     int numArguments = 0;
     for (auto &categoryOption : categoryOptions) {

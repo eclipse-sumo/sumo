@@ -40,6 +40,9 @@ public:
     std::string getCommand() const;
     
 private:
+    /// @brief fill netDiff options
+    void fillNetDiffOptions(OptionsCont &options);
+
     /// @brief Invalidated copy constructor.
     GNENetDiffTool(const GNENetDiffTool&) = delete;
 

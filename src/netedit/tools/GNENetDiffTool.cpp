@@ -39,6 +39,9 @@
 
 GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, FXMenuPane* menu) :
     GNEPythonTool(GNEApp, pythonPath, "", menu) {
+    // fill options
+    fillNetDiffOptions(myPythonToolsOptions);
+    fillNetDiffOptions(myPythonToolsOptionsOriginal);
 }
 
 
@@ -64,6 +67,38 @@ GNENetDiffTool::getCommand() const {
         }
     }
     return command + " " + arguments;
+}
+
+
+void
+GNENetDiffTool::fillNetDiffOptions(OptionsCont &options) {
+    // build custom options for netdiff
+    options.addOptionSubTopic("Input");
+    options.doRegister("original-net", new Option_Network());
+    options.addDescription("original-net", "Input", TL("Original network"));
+
+    options.doRegister("modified-net", new Option_Network());
+    options.addDescription("modified-net", "Input", TL("Modified network"));
+
+    options.addOptionSubTopic("Select");
+    options.doRegister("select-modified", new Option_Bool(false));
+    options.addDescription("select-modified", "Select", TL("Select modified elements"));
+    
+    options.doRegister("select-added", new Option_Bool(false));
+    options.addDescription("select-added", "Select", TL("Select added elements"));
+    
+    options.doRegister("select-deleted", new Option_Bool(false));
+    options.addDescription("select-deleted", "Select", TL("Select deleted elements"));
+    
+    options.addOptionSubTopic("Load");
+    options.doRegister("load-shapes-modified", new Option_Bool(false));
+    options.addDescription("load-shapes-modified", "Load", TL("Load shapes for elements"));
+
+    options.doRegister("load-shapes-added", new Option_Bool(false));
+    options.addDescription("load-shapes-added", "Load", TL("Load shapes for added"));
+
+    options.doRegister("load-shapes-deleted", new Option_Bool(false));
+    options.addDescription("load-shapes-deleted", "Load", TL("Load shapes for deleted elements"));
 }
 
 /****************************************************************************/
