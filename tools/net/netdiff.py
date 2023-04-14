@@ -657,13 +657,13 @@ def main(options):
     selectionOutputFiles = []
     shapeOutputFiles = []
     if options.write_selections:
-        selectionOutputFiles.append(codecs.open('created.sel.txt', 'w', 'utf-8'))
-        selectionOutputFiles.append(codecs.open('deleted.sel.txt', 'w', 'utf-8'))
-        selectionOutputFiles.append(codecs.open('changed.sel.txt', 'w', 'utf-8'))
+        selectionOutputFiles.append(codecs.open(options.outprefix + '.created.sel.txt', 'w', 'utf-8'))
+        selectionOutputFiles.append(codecs.open(options.outprefix + '.deleted.sel.txt', 'w', 'utf-8'))
+        selectionOutputFiles.append(codecs.open(options.outprefix + '.changed.sel.txt', 'w', 'utf-8'))
     if options.write_shapes:
-        shapeOutputFiles.append(codecs.open('created.shape.xml', 'w', 'utf-8'))
-        shapeOutputFiles.append(codecs.open('deleted.shape.xml', 'w', 'utf-8'))
-        shapeOutputFiles.append(codecs.open('changed.shape.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(codecs.open(options.outprefix + '.created.shape.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(codecs.open(options.outprefix + '.deleted.shape.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(codecs.open(options.outprefix + '.changed.shape.xml', 'w', 'utf-8'))
         for f in shapeOutputFiles:
             sumolib.writeXMLHeader(f, "$Id$", "additional", options=options)  # noqa
 
