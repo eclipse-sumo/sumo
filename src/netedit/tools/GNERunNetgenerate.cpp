@@ -20,7 +20,6 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
-#include <utils/common/SysUtils.h>
 
 #include "GNERunNetgenerate.h"
 

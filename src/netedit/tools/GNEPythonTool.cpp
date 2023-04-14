@@ -26,10 +26,6 @@
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/options/OptionsLoader.h>
 #include <xercesc/parsers/SAXParser.hpp>
-#include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax/SAXException.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
 
 #include "GNEPythonTool.h"
 

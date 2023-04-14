@@ -22,13 +22,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/tools/GNEPythonTool.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
-#include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <fstream>
-#include <sstream>
 
 #include "GNEPythonToolDialog.h"
 
