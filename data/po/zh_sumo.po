@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-14 08:46+0000\n"
+"PO-Revision-Date: 2023-04-14 09:18+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3252,7 +3252,7 @@ msgstr "device.rerouting.adaptation-interval 的值为负值!"
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:115
 msgid ""
 "The value for device.rerouting.adaptation-weight must be between 0 and 1!"
-msgstr ""
+msgstr "device.rerouting.adaptation-weight 的值必须在 0 和 1 之间!"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:120
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:243
@@ -3261,26 +3261,28 @@ msgstr "平行路径只有在用Fox编译时才能实现。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:125
 msgid "Adapting number of routing threads to number of simulation threads."
-msgstr ""
+msgstr "将路径搜寻的线程(threads)数调整为仿真的线程(threads)数。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:220
 msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
 "sequence of IDs in ('TTC', 'DRAC', 'PET'))"
-msgstr ""
+msgstr "指定将记录哪些指标值（在('TTC', 'DRAC', "
+"'PET')中作为以空格或逗号分隔的识别名(ID)序列）"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:222
 msgid ""
 "Specifies space or comma-separated thresholds corresponding to the specified "
 "measures (see documentation and watch the order!). Only events exceeding the "
 "thresholds will be logged."
-msgstr ""
+msgstr "指定与指定指标相对应的阈值，并用空格或逗号分隔（参见说明文档并注意顺序！）。"
+"只有超过阈值的事件(event)才会被记录下来。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:224
 msgid ""
 "Specifies whether trajectories will be logged (if false, only the extremal "
 "values and times are reported)."
-msgstr ""
+msgstr "指定是否要记录轨迹（如果为否的，则仅报告极端值和时间）。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:226
 msgid ""
@@ -3296,7 +3298,7 @@ msgstr "指定冲突结束后记录的时间（秒）。如果要计算交叉冲
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:230
 msgid "Give a global default filename for the SSM output"
-msgstr ""
+msgstr "为SSM输出给定一个总体(global)预设档案名称"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:232
 msgid "Whether to use coordinates of the original reference system in output"
@@ -3312,7 +3314,7 @@ msgstr "是否写入每个时间段的车道和其位置"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:247
 msgid "Could not load names of edges for filtering SSM device output from '%'."
-msgstr ""
+msgstr "无法从'%'载入路段名称以过滤SSM装置的输出。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:1057
 msgid ""
@@ -3323,14 +3325,15 @@ msgstr "无法从'%'加载用于过滤SSM设备输出的路段的名称。"
 msgid ""
 "Cannot classify SSM encounter between ego vehicle % and foe vehicle % at "
 "time=%\n"
-msgstr ""
+msgstr "无法对自我(ego)车辆%和对方(foe)车辆% 在时间=% 相遇时两者之间的SSM进行分类。\n"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:2366
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:2390
 msgid ""
 "Cannot compute SSM due to bad internal lane geometry at junction '%'. "
 "Crossing point between traffic from links % and % not found."
-msgstr ""
+msgstr "由于路口'%'处的内部车道几何形状不佳，无法计算SSM。未找到从路段%和%的交通流之"
+"间的交叉点。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3490
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3692
@@ -3342,7 +3345,7 @@ msgstr "车辆参数'ssm.measures'的数值'%'无效。"
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3698
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.measures'."
-msgstr ""
+msgstr "车辆类型（vType）参数'ssm.measures'的值'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3501
 msgid ""
@@ -3458,7 +3461,7 @@ msgstr "车辆'%'不提供车辆参数'device.sm.measures'。使用默认的'%'�
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3720
 msgid ""
 "SSM identifier '%' is not supported. Aborting construction of SSM device '%'."
-msgstr ""
+msgstr "不支持SSM标识符'%'。正在终止SSM装置'%'的构建。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:3731
 #, c-format
@@ -3482,24 +3485,26 @@ msgid ""
 "measures ('%').\n"
 "Please specify exactly one threshold for each measure."
 msgstr ""
+"给定的阈值列表（'%'）与量测 (measures)的清单（'%'）大小不同。\n"
+"请为每项量测准确指定一个阈值。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:82
 msgid ""
 "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
-msgstr ""
+msgstr "調度演算法 [greedy|greedyClosest|greedyShared|routeExtension|traci]"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:85
 msgid "Write information from the dispatch algorithm to FILE"
-msgstr ""
+msgstr "将调度算法的信息写到文档中"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:88
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
-msgstr ""
+msgstr "以KEY1:VALUE1[,KEY2:VALUE]的格式载入调度算法参数。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:91
 msgid "The period between successive calls to the dispatcher"
-msgstr ""
+msgstr "逐次呼叫调度器之间的时间间隔"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:94
 msgid "The behavior of idle taxis [stop|randomCircling]"
@@ -3507,7 +3512,7 @@ msgstr "无载客出租车的行为[停车|巡游揽客]"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:97
 msgid "Write information from the idling algorithm to FILE"
-msgstr ""
+msgstr "将空置算法的信息写入文档中"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:115
 msgid "Vehicle '%' with device.taxi should have vClass taxi instead of '%'."
