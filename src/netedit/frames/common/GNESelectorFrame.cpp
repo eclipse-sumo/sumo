@@ -265,27 +265,14 @@ GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame* selec
 GNESelectorFrame::SelectionOperation::~SelectionOperation() {}
 
 
-long
-GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
-    // get the new file name
-    FXFileDialog opendialog(getCollapsableFrame(), "Open List of Selected Items");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Selection files (*.txt)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        std::vector<GNEAttributeCarrier*> loadedACs;
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
-        std::ostringstream msg;
-        std::ifstream strm(file.c_str());
-        // check if file can be opened
-        if (!strm.good()) {
-            WRITE_ERRORF(TL("Could not open '%'."), file);
-            return 0;
-        }
+void
+GNESelectorFrame::SelectionOperation::loadFromFile(const std::string &file) const {
+    std::vector<GNEAttributeCarrier*> loadedACs;
+    std::ifstream strm(file.c_str());
+    // check if file can be opened
+    if (!strm.good()) {
+        WRITE_ERRORF(TL("Could not open '%'."), file);
+    } else {
         // convert all glObjects into GNEAttributeCarriers
         std::map<const std::string, GNEAttributeCarrier*> GLFUllNameAC;
         const auto GLObjects = GUIGlObjectStorage::gIDStorage.getAllGLObjects();
@@ -322,8 +309,25 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
             mySelectorFrameParent->handleIDs(loadedACs);
             mySelectorFrameParent->myViewNet->getUndoList()->end();
         }
+        mySelectorFrameParent->myViewNet->updateViewNet();
     }
-    mySelectorFrameParent->myViewNet->updateViewNet();
+}
+
+
+long
+GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
+    // get the new file name
+    FXFileDialog opendialog(getCollapsableFrame(), TL("Open List of Selected Items"));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("Selection files (*.txt)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        gCurrentFolder = opendialog.getDirectory();
+        loadFromFile(opendialog.getFilename().text());
+    }
     return 1;
 }
 
@@ -1735,8 +1739,14 @@ GNESelectorFrame::getContentFrame() const {
 
 
 GNESelectorFrame::ModificationMode*
-GNESelectorFrame::getModificationModeModule() const {
+GNESelectorFrame::getModificationModeModul() const {
     return myModificationMode;
+}
+
+
+GNESelectorFrame::SelectionOperation*
+GNESelectorFrame::getSelectionOperationModul() const {
+    return mySelectionOperation;
 }
 
 
