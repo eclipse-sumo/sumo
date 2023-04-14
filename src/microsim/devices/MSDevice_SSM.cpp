@@ -2759,7 +2759,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
         }
         myOutputFile->openTag("foeVelocity").writeAttr("values", ::toString(e->foeTrajectory.v)).closeTag();
 
-        myOutputFile->openTag("conflictPoint").writeAttr("values", makeStringWithNAs(e->conflictPointSpan, myUseGeoCoords ? gPrecisionGeo : gPrecision)).closeTag();
+        myOutputFile->openTag("conflictPoint").writeAttr("values", makeStringWithNAs(e->conflictPointSpan)).closeTag();
     }
 
     if (myComputeTTC) {
@@ -2832,7 +2832,8 @@ MSDevice_SSM::makeStringWithNAs(const std::vector<double>& v, const std::vector<
 }
 
 std::string
-MSDevice_SSM::makeStringWithNAs(const PositionVector& v, const int precision) {
+MSDevice_SSM::makeStringWithNAs(const PositionVector& v) {
+    const int precision = myUseGeoCoords ? gPrecisionGeo : gPrecision;
     std::string res = "";
     for (PositionVector::const_iterator i = v.begin(); i != v.end(); ++i) {
         res += (i == v.begin() ? "" : " ") + (*i == Position::INVALID ? "NA" : ::toString(*i, precision));
