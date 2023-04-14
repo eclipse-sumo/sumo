@@ -179,7 +179,9 @@ bool
 MSDevice_Tripinfo::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/,
                               double /*newPos*/, double newSpeed) {
     if (veh.isStopped()) {
-        myStoppingTime += DELTA_T;
+        if (newSpeed <= SUMO_const_haltingSpeed) {
+            myStoppingTime += DELTA_T;
+        }
     } else if (newSpeed <= SUMO_const_haltingSpeed && lowAcceleration(veh)) {
         myWaitingTime += DELTA_T;
         if (!myAmWaiting) {
