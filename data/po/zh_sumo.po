@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-14 10:15+0000\n"
+"PO-Revision-Date: 2023-04-14 12:25+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3153,18 +3153,18 @@ msgstr "无法从'%'中载入用于过滤浮动车资料（fcd）输出的路段
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:167
 #, c-format
 msgid "Unknown attribute '%' to write in fcd output."
-msgstr ""
+msgstr "将未知属性'%'写入浮动车（FCD）输出数据中。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Friction.cpp:48
 msgid ""
 "The measurement noise parameter which can be applied to the friction device"
-msgstr ""
+msgstr "可应用于摩擦装置的测量噪音参数"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Friction.cpp:50
 msgid ""
 "The measurement offset parameter which can be applied to the friction device "
 "-> e.g. to force false measurements"
-msgstr ""
+msgstr "可应用于摩擦装置的测量偏移参数------例如，强迫错误的测量值"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_GLOSA.cpp:49
 msgid "The communication range to the traffic light"
@@ -3181,7 +3181,7 @@ msgstr "向红灯滑行时的最低速度"
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_GLOSA.cpp:171
 msgid ""
 "Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"
-msgstr ""
+msgstr "交通信号灯'%'的参数'device.glosa.range'的值'%'无效"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:54
 msgid "The period with which the vehicle shall be rerouted"
@@ -3193,11 +3193,11 @@ msgstr "出发前的改道期"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:62
 msgid "The weight of prior edge weights for exponential moving average"
-msgstr ""
+msgstr "指数移动平均值的先前(prior)路段权重的权重"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:66
 msgid "The number of steps for moving average weight of prior edge weights"
-msgstr ""
+msgstr "先前(prior)路段权重的移动平均权重的次数(number of steps)"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:70
 msgid "The interval for updating the edge weights"
@@ -3211,11 +3211,11 @@ msgstr "使用区域（地区）作为路径的起点和终点"
 msgid ""
 "Use weight files given with option --weight-files for initializing edge "
 "weights"
-msgstr ""
+msgstr "使用选项--weight-files指定权重文件，以进行路段权重的初始化。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:82
 msgid "The number of parallel execution threads used for rerouting"
-msgstr ""
+msgstr "用于重新搜寻路径的平行执行的线程(threads)数量"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:85
 msgid "Let rerouting happen at the same time for all vehicles"
@@ -3227,7 +3227,7 @@ msgstr "允许由铁路信号引发的改道。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:91
 msgid "Compute separate average speeds for bicycles"
-msgstr ""
+msgstr "计算自行车的个别平均速度"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:94
 msgid "Save adapting weights to FILE"
@@ -3828,7 +3828,8 @@ msgstr "未知的感应线圈（inductionLoop） "
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:241
 msgid ""
 "At actuated tlLogic '%', minDur % is too short for a detector gap of %m."
-msgstr ""
+msgstr "在执行触动式信号逻辑（tlLogic ）'%'时，最小时间（minDur "
+"）%对于%米的检测器间距来说太短。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:406
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
@@ -3843,43 +3844,46 @@ msgid ""
 "Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"指定为触动式信号逻辑（tlLogic）'%' ，时制方案(program) '%' "
+"的linkMaxDur参数的连接(link) '%' 无效。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:462
 msgid ""
 "Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', "
 "program '%."
-msgstr ""
+msgstr "指定为触动式信号逻辑（tlLogic）'%'，时制方案(program）'%'的linkMinDur参数的连"
+"接'%'无效。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:903
 msgid ""
 "At actuated tlLogic '%', transition phase % should not have multiple next "
 "phases"
-msgstr ""
+msgstr "在执行触动式信号逻辑（tlLogic）'%'，过渡相位%不应该有多个下一相位"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1061
 msgid "Unmatched parentheses in condition %'"
-msgstr ""
+msgstr "条件式%'中不配对的括号"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1076
 msgid "Invalid empty condition '%'"
-msgstr ""
+msgstr "无效的空条件式'%'"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1091
 msgid "Unsupported condition '%'"
-msgstr ""
+msgstr "不支持的条件式'%'"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1154
 msgid "Division by 0 in condition '%'"
-msgstr ""
+msgstr "在条件'式%'中除以0"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1205
 #, c-format
 msgid "Modifying global condition '%' is forbidden"
-msgstr ""
+msgstr "禁止修改总体条件(global condition）'%'"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1217
 msgid "Invalid empty expression"
-msgstr ""
+msgstr "无效的空表式"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1313
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
@@ -3889,28 +3893,29 @@ msgstr "检索信号逻辑（tlLogic）'%'的条件'%'时出错 (%)"
 msgid ""
 "Unknown laneAreaDetector '%' given as custom detector for delay_based "
 "tlLogic '%', program '%."
-msgstr ""
+msgstr "未知的车道区域检测器'%'作为基于延迟_的触动式信号逻辑（tlLogic）'%'的自定检测"
+"器，时制方案'%。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSOffTrafficLightLogic.cpp:80
 msgid "Invalid 'off'-state for link % at junction '%'"
-msgstr ""
+msgstr "路口'%'处的连接线%的'关闭'状态('off'-state)无效"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSOffTrafficLightLogic.cpp:84
 msgid "Inconsistent 'off'-states for linkIndex % at tlLogic '%'"
-msgstr ""
+msgstr "信号逻辑（tlLogic）'%'处的连接索引（linkIndex) %的'关闭'状态不一致"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSRailSignal.cpp:109
 #, c-format
 msgid "Rail signal at junction '%' does not control any links"
-msgstr ""
+msgstr "路口'%'的铁路信号不控制任何路段"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSRailSignal.cpp:1195
 msgid "Found circular block after railSignal % (% edges, length %)"
-msgstr ""
+msgstr "在铁路信号（RailSignal）%（边缘%，长度%）之后找到圆形区块"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSRailSignal.cpp:1306
 msgid "Found circular block at railSignal % (% edges, length %)"
-msgstr ""
+msgstr "在铁路信号（RailSignal）%（边缘%，长度%）处找到圆形区块"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSRailSignalConstraint.cpp:147
 #, c-format
