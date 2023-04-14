@@ -58,6 +58,9 @@ public:
     /// @brief set current values (used for set values like current folder and similar)
     virtual void setCurrentValues();
     
+    /// @brief execute post processing
+    virtual void postProcessing();
+
     /// @brief get command (python + script + arguments)
     virtual std::string getCommand() const;
     

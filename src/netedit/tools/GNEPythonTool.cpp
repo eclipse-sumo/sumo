@@ -91,6 +91,12 @@ GNEPythonTool::setCurrentValues() {
 }
 
 
+void
+GNEPythonTool::postProcessing() {
+    // nothing to do here, use in children
+}
+
+
 std::string
 GNEPythonTool::getCommand() const {
     // add python script

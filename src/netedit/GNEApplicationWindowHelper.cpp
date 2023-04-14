@@ -2056,6 +2056,20 @@ GNEApplicationWindowHelper::ToolsMenuCommands::runToolDialog(FXObject* menuComma
 
 
 long
+GNEApplicationWindowHelper::ToolsMenuCommands::postProcessing(FXObject* menuCommand) const {
+    // iterate over all tools and find menu command
+    for (const auto &tool : myPythonTools) {
+        if (tool->getMenuCommand() == menuCommand) {
+            // execute postProcessing
+            tool->postProcessing();
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+long
 GNEApplicationWindowHelper::ToolsMenuCommands::runNetgenerateDialog(const OptionsCont *netgenerateOptions) const {
     myRunNetgenerateDialog->run(netgenerateOptions);
     return 0;

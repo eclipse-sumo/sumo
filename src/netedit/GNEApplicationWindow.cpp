@@ -1148,9 +1148,8 @@ GNEApplicationWindow::onCmdRunPythonTool(FXObject* obj, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdPostProcessingPythonTool(FXObject*, FXSelector, void*) {
-    // currently only for netdiff
-    return 1;
+GNEApplicationWindow::onCmdPostProcessingPythonTool(FXObject* obj, FXSelector, void*) {
+    return myToolsMenuCommands.postProcessing(obj);
 }
 
 

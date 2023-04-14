@@ -206,9 +206,14 @@ GNERunPythonToolDialog::onCmdBack(FXObject*, FXSelector, void*) {
 
 
 long
-GNERunPythonToolDialog::onCmdClose(FXObject*, FXSelector, void*) {
+GNERunPythonToolDialog::onCmdClose(FXObject* obj, FXSelector, void*) {
     // abort tool
     myRunTool->abortTool();
+    // check if we're closing using "close" button
+    if (obj == myCloseButton) {
+        // execute post processing
+        myGNEApp->handle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL), nullptr);
+    }
     // hide dialog
     hide();
     return 1;

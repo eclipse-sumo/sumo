@@ -180,7 +180,7 @@ public:
     long onCmdRunPythonTool(FXObject* obj, FXSelector, void*);
 
     /// @brief post processing after run tool
-    long onCmdPostProcessingPythonTool(FXObject*, FXSelector, void*);
+    long onCmdPostProcessingPythonTool(FXObject* obj, FXSelector, void*);
 
     /// @brief called when the command/FXCall python tool is updated
     long onUpdPythonTool(FXObject*, FXSelector, void*);
