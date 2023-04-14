@@ -76,13 +76,18 @@ GNENetDiffTool::getCommand() const {
     arguments += (myPythonToolsOptions.getString("original-net") + " ");
     arguments += (myPythonToolsOptions.getString("modified-net") + " ");
     arguments += myPythonToolsOptions.getString("outprefix") + " ";
+    // check if save selection
+    if (myPythonToolsOptions.getBool("select-modified") ||
+        myPythonToolsOptions.getBool("select-added") ||
+        myPythonToolsOptions.getBool("select-deleted")) {
+        arguments += "--write-selections ";
+    }
     // check if save shapes
     if (myPythonToolsOptions.getBool("load-shapes-modified") ||
         myPythonToolsOptions.getBool("load-shapes-added") ||
-        myPythonToolsOptions.getBool("load-shapes-added")) {
-        arguments += "--write-shapes";
+        myPythonToolsOptions.getBool("load-shapes-deleted")) {
+        arguments += "--write-shapes ";
     }
-
     return command + " " + arguments;
 }
 
