@@ -43,7 +43,6 @@ class GNELoadThread;
 class GNENet;
 class GNEPythonTool;
 class GNEPythonToolDialog;
-class GNENetdiffToolDialog;
 class GNENetgenerateDialog;
 class GNERunPythonToolDialog;
 class GNERunNetgenerateDialog;
@@ -981,9 +980,6 @@ struct GNEApplicationWindowHelper {
 
         /// @brief python tool dialog
         GNEPythonToolDialog* myPythonToolDialog = nullptr;
-        
-        /// @brief netdiff tool dialog
-        GNENetdiffToolDialog* myNetdiffToolDialog = nullptr;
         
         /// @brief netgenerate dialog
         GNENetgenerateDialog* myNetgenerateDialog = nullptr;

@@ -18,8 +18,8 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 
-#include <netedit/tools/GNEPythonTool.h>
-#include <netedit/dialogs/tools/GNENetdiffToolDialog.h>
+#include <netedit/tools/GNENetDiffTool.h>
+#include <netedit/dialogs/tools/GNEPythonToolDialog.h>
 #include <netedit/dialogs/tools/GNENetgenerateDialog.h>
 #include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
 #include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
@@ -1992,7 +1992,6 @@ GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
     }
     // delete dialogs
     delete myPythonToolDialog;
-    delete myNetdiffToolDialog;
     delete myNetgenerateDialog;
     delete myRunPythonToolDialog;
     delete myRunNetgenerateDialog;
@@ -2004,17 +2003,19 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
         const std::map<std::string, FXMenuPane*> &menuPaneToolMaps) {
     // build template tools
     for (const auto &templateTool : templateTools) {
-        if (menuPaneToolMaps.count(templateTool.subfolder) > 0) {
-            myPythonTools.push_back(new GNEPythonTool(myGNEApp, templateTool.pythonPath, 
-                              templateTool.templateStr, menuPaneToolMaps.at(templateTool.subfolder)));
+        if (templateTool.name == "netdiff") {
+            myPythonTools.push_back(new GNENetDiffTool(myGNEApp, templateTool.pythonPath, 
+                menuPaneToolMaps.at(templateTool.subfolder)));
+        } else if (menuPaneToolMaps.count(templateTool.subfolder) > 0) {
+            myPythonTools.push_back(new GNEPythonTool(myGNEApp, templateTool.pythonPath,
+                templateTool.templateStr, menuPaneToolMaps.at(templateTool.subfolder)));
         } else {
             myPythonTools.push_back(new GNEPythonTool(myGNEApp, templateTool.pythonPath, 
-                              templateTool.templateStr, toolsMenu));
+                templateTool.templateStr, toolsMenu));
         }
     }
     // build dialogs
     myPythonToolDialog = new GNEPythonToolDialog(myGNEApp);
-    myNetdiffToolDialog = new GNENetdiffToolDialog(myGNEApp);
     myNetgenerateDialog = new GNENetgenerateDialog(myGNEApp);
     myRunPythonToolDialog = new GNERunPythonToolDialog(myGNEApp);
     myRunNetgenerateDialog = new GNERunNetgenerateDialog(myGNEApp);
@@ -2026,12 +2027,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) c
     // iterate over all tools and find menu command
     for (const auto &tool : myPythonTools) {
         if (tool->getMenuCommand() == menuCommand) {
-            // special case for netdiff
-            if (tool->getToolName() == "netdiff") {
-                myNetdiffToolDialog->openDialog(tool);
-            } else {
-                myPythonToolDialog->openDialog(tool);
-            }
+            myPythonToolDialog->openDialog(tool);
             return 1;
         }
     }
