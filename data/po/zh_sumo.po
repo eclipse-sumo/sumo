@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-10 15:51+0000\n"
+"PO-Revision-Date: 2023-04-14 08:10+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -2963,7 +2963,7 @@ msgstr "用于计算检测概率的关闭时间（秒）"
 msgid ""
 "The vehicle '%' cannot be in the range of vehicle '%', leave, and enter it "
 "in one step."
-msgstr ""
+msgstr "车辆 '%' 不能在一个步长step)內离开且进入车辆 '%' 范围內。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:421
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:436
@@ -3020,7 +3020,7 @@ msgstr "蓝光设备与mesosim不兼容（对于车辆'%'，忽略不计）。"
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:80
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:82
 msgid "Driver State Device"
-msgstr ""
+msgstr "驾驶者状态装置"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:66
 msgid "Initial value assigned to the driver's awareness."
@@ -3032,19 +3032,19 @@ msgstr "误差过程的时间刻度。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:70
 msgid "Noise intensity driving the error process."
-msgstr ""
+msgstr "驱动错误过程的噪音强度。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:72
 msgid ""
 "General scaling coefficient for applying the error to the perceived speed "
 "difference (error also scales with distance)."
-msgstr ""
+msgstr "将误差应用于感知速度差异的一般比例系数（误差也与距离成比例）。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:74
 msgid ""
 "General scaling coefficient for applying the error to the perceived distance "
 "(error also scales with distance)."
-msgstr ""
+msgstr "将误差应用于感知距离的一般比例系数（误差也与距离成比例）。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:76
 msgid ""
@@ -3093,12 +3093,12 @@ msgstr "与车辆连接的架空线段的电阻率%<0。 设置为1e-6。"
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:848
 msgid ""
 "Overhead wire solver is on, but the Eigen library has not been compiled in!"
-msgstr ""
+msgstr "架空线解算器已打开，但Eigen库还没有被编译进去!"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:648
 #: /home/micha/programming/sumo/src\utils\traction_wire\Circuit.cpp:883
 msgid "The element or node with the last Id was not found in the circuit!"
-msgstr ""
+msgstr "在电路中找不到具有最后一个识别名（ID）的元素或节点!"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Emissions.cpp:47
 msgid "Recording begin time for emission-data"
@@ -3144,7 +3144,7 @@ msgstr "记录装备车辆周围半径内的物体"
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:123
 #, c-format
 msgid "Specified shape '%' for filtering fcd-output could not be found."
-msgstr ""
+msgstr "找不到用于过滤浮动车资料（fcd）输出的指定形状'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:148
 msgid "Could not load names of edges for filtering fcd-output from '%'."
