@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    templates.py
+# @file    runPythonTool.py
 # @author  Pablo Alvarez Lopez
 # @date    April 2023
 
@@ -25,15 +25,13 @@ from __future__ import print_function
 from __future__ import absolute_import
 
 import sys
-import os
-import re
-from os.path import dirname, join
 import subprocess
-from glob import glob
+
 
 def main():
     # open tool process
     subprocess.call(sys.argv[1:])
+
 
 if __name__ == "__main__":
     main()
