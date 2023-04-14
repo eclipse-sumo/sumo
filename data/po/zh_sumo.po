@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-14 08:13+0000\n"
+"PO-Revision-Date: 2023-04-14 08:46+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3238,14 +3238,16 @@ msgid ""
 "Only one of the options 'device.rerouting.adaptation-steps' or 'device."
 "rerouting.adaptation-weight' may be given."
 msgstr ""
+"只有给定一个选项 'device.rerouting.adaptation-steps' 或是'devicererouting."
+"adaptation-weight' 。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:106
 msgid "weights.random-factor cannot be less than 1"
-msgstr ""
+msgstr "weights.random-factor 不能小于 1"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:110
 msgid "Negative value for device.rerouting.adaptation-interval!"
-msgstr ""
+msgstr "device.rerouting.adaptation-interval 的值为负值!"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:115
 msgid ""
