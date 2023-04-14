@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-14 09:18+0000\n"
+"PO-Revision-Date: 2023-04-14 10:15+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3516,7 +3516,7 @@ msgstr "将空置算法的信息写入文档中"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:115
 msgid "Vehicle '%' with device.taxi should have vClass taxi instead of '%'."
-msgstr ""
+msgstr "带有device.taxi的车辆'%'应该有车辆类别（vClass ）出租车（taxi）而不是'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:122
 msgid ""
@@ -3535,7 +3535,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:346
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
-msgstr ""
+msgstr "重新派送时没有提及接取现有客户'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:453
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
@@ -3552,7 +3552,7 @@ msgstr "所有客户在时间=%时离开车辆'%'，但还有%的剩余站点"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:116
 msgid "Vehicle type for manual driving regime."
-msgstr ""
+msgstr "手动驾驶状态(regime)的车辆类型。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:118
 msgid "Vehicle type for automated driving regime."
@@ -3564,7 +3564,7 @@ msgstr "司机收回控制权所需的平均反应时间。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:122
 msgid "Recovery rate for the driver's awareness after a ToC."
-msgstr ""
+msgstr "ToC(take-Over of Control)后司机意识/认知的恢复率。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:124
 msgid ""
@@ -3574,21 +3574,21 @@ msgstr "注意力水平，低于此水平时，驾驶员会限制其进行车道
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:126
 msgid "Average awareness a driver has initially after a ToC (value in [0,1])."
-msgstr ""
+msgstr "司机最初在ToC之后的平均意识/认知程度（数值为[0,1]）。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:128
 msgid "Deceleration rate applied during a 'minimum risk maneuver'."
-msgstr ""
+msgstr "在 \"最小风险操作(minimum risk maneuver) \"期间使用的减速率。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:130
 msgid ""
 "Time, which the vehicle requires to have ahead to continue in automated "
 "mode. The default value of 0 indicates no dynamic triggering of ToCs."
-msgstr ""
+msgstr "车辆需要的时间以继续自动模式。预设值为0，表示没有动态触发ToCs。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:132
 msgid "Probability that a dynamically triggered TOR is not answered in time."
-msgstr ""
+msgstr "未及时回答动态触发的TOR概率。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:134
 msgid "If true, the vehicle tries to change to the right during an MRM."
@@ -3607,26 +3607,26 @@ msgstr "在MRM之后，车辆停留在安全停车点的持续时间。"
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:140
 msgid ""
 "Maximal acceleration that may be applied during the ToC preparation phase."
-msgstr ""
+msgstr "在ToC准备阶段可能使用的最大加速度。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:142
 msgid "Timegap for ToC preparation phase."
-msgstr ""
+msgstr "ToC准备阶段的时间间隔。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:144
 msgid "Additional spacing for ToC preparation phase."
-msgstr ""
+msgstr "ToC准备阶段的额外间距(spacing)。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:146
 msgid ""
 "Maximal deceleration applied for establishing increased gap in ToC "
 "preparation phase."
-msgstr ""
+msgstr "最大减速应用于在ToC准备阶段建立增加的差距(gap)。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:148
 msgid ""
 "Rate of adaptation towards the increased headway during ToC preparation."
-msgstr ""
+msgstr "在ToC准备期间对增加的车间距的调整率。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:150
 msgid ""
@@ -3640,7 +3640,7 @@ msgstr "通过指定一个输出文件名来打开输出。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:161
 msgid "ToC device is not supported by the mesoscopic simulation."
-msgstr ""
+msgstr "中观仿真(mesoscopic simulation)不支持ToC装置。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:200
 #, c-format
@@ -3656,17 +3656,20 @@ msgstr "vType参数'ssm.measures'的值'%'无效"
 msgid ""
 "Given value for ToC device parameter 'dynamicMRMProbability' (=%) is not in "
 "the admissible range [0,0.5]. Truncated to %."
-msgstr ""
+msgstr "ToC装置参数'dynamicMRMProbability'（=%）的给定值不在允许的范围内[0,0."
+"5]。被截断为%。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:246
 msgid ""
 "If any openGap parameters for the ToC model are specified, then at least one "
 "of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined."
 msgstr ""
+"如果指定了ToC模式的任何openGap参数，那么必须至少定义toc.ogNewTimeHeadway和toc"
+".ogNewSpaceHeadway中的一个。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:578
 msgid "Ignoring unknown safe spot '%' for vehicle '%'."
-msgstr ""
+msgstr "忽略车辆'%'的未知安全点'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:731
 #, c-format
@@ -3676,47 +3679,47 @@ msgstr "不知道车辆'%'的v类型'%'。"
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:933
 msgid ""
 "Setting device.toc.currentAwareness during automated mode has no effect."
-msgstr ""
+msgstr "在自动模式下，设定device.toc.currentAwareness无效。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:950
 #, c-format
 msgid ""
 "Value of dynamicToCThreshold must be non-negative. (Given value % for "
 "vehicle % is ignored)"
-msgstr ""
+msgstr "dynamicToCThreshold的值必须为非负值。(忽略车辆%的给定值%)"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:961
 #, c-format
 msgid ""
 "Value of dynamicMRMProbability must be non-negative. (Given value % for "
 "vehicle % is ignored)"
-msgstr ""
+msgstr "dynamicMRMProbability的值必须是非负的。(忽略车辆%的给定值%)"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:975
 #, c-format
 msgid ""
 "Value of maxPreparationAccel must be non-negative. (Given value % for "
 "vehicle % is ignored)"
-msgstr ""
+msgstr "maxPreparationAccel的值必须为非负数。(忽略车辆%的给定值%)"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:1000
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:1021
 msgid "Unknown ToCState '%'"
-msgstr ""
+msgstr "未知的ToC状态(ToCState)'%'"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDispatch.cpp:97
 msgid ""
 "Mixing reservations of persons and containers with the same group is not "
 "supported for % and %"
-msgstr ""
+msgstr "不支持%和%的同一群组的人员和货箱混合预约。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDispatch.cpp:200
 msgid "Inconsistent group reservations."
-msgstr ""
+msgstr "不一致的群组保留(eservations)。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDispatch.cpp:204
 msgid "Inconsistent group reservations (2)."
-msgstr ""
+msgstr "不一致的群组保留(eservations)(2)。"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSIdling.cpp:63
 msgid "Idle taxi '%' has no next segment to stop. time=%."
@@ -3730,11 +3733,11 @@ msgstr "空载的出租车'%'无法在%米（m）内停下。"
 #: /home/micha/programming/sumo/src\microsim\devices\MSIdling.cpp:155
 #, c-format
 msgid "Vehicle '%' ends idling in a cul-de-sac"
-msgstr ""
+msgstr "车辆'%'在囊底路停止空转结束/怠速"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSRoutingEngine.cpp:96
 msgid "Rerouting is useless if the edge weights do not get updated!"
-msgstr ""
+msgstr "如果路段的权重没有得到更新，重新搜寻路径是没有用的！"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSRoutingEngine.cpp:148
 msgid "weights.priority-factor cannot be negative."
@@ -3761,12 +3764,12 @@ msgstr "无效的引擎地图类型。目前只支持 \"poly\"。"
 
 #: /home/micha/programming/sumo/src\microsim\engine\VehicleEngineHandler.cpp:197
 msgid "Unknown tag '%' while parsing."
-msgstr ""
+msgstr "解析(parsing时出现未知的标记'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\lcmodels\MSAbstractLaneChangeModel.cpp:82
 #, c-format
 msgid "Lane change model '%' is not compatible with sublane simulation"
-msgstr ""
+msgstr "车道变化模式'%'与子车道(sublane)模拟不兼容"
 
 #: /home/micha/programming/sumo/src\microsim\lcmodels\MSAbstractLaneChangeModel.cpp:98
 #, c-format
@@ -3792,11 +3795,11 @@ msgstr "多车道的e2D检测器还不支持检测人员"
 
 #: /home/micha/programming/sumo/src\microsim\output\MSMeanData.cpp:160
 msgid "Negative vehicle step fraction for '%' on lane '%'."
-msgstr ""
+msgstr "车道'%'上 '%' 的负车辆步长分数(step fraction)。"
 
 #: /home/micha/programming/sumo/src\microsim\output\MSMeanData.cpp:538
 msgid "aggregated meanData output not yet implemented for trackVehicles"
-msgstr ""
+msgstr "尚未为trackVehicles完成汇总(aggregated)的平均资料（meanData）输出"
 
 #: /home/micha/programming/sumo/src\microsim\output\MSMeanData.cpp:733
 msgid "Unknown attribute '%' to write in meanData '%'."
@@ -3813,7 +3816,7 @@ msgstr "车辆'%'在路段'%'上结束停车，时间=%，没有进入停车。"
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:139
 #, c-format
 msgid "Traffic light '%' does not control any links"
-msgstr ""
+msgstr "交通灯'%'不控制任何路段"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:227
 msgid ""
