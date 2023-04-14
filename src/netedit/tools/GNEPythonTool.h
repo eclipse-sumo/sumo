@@ -54,7 +54,10 @@ public:
 
     /// @brief get menu command
     FXMenuCommand *getMenuCommand() const;
-
+    
+    /// @brief set current values (used for set values like current folder and similar)
+    virtual void setCurrentValues();
+    
     /// @brief get command (python + script + arguments)
     virtual std::string getCommand() const;
     

@@ -115,10 +115,12 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     myGroupedCheckButton->setCheck(TRUE);
     // set myShowToolTipsMenu
     myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
+    // set current values in options (like current folders and similar)
+    myPythonTool->setCurrentValues();
     // build arguments
     buildArguments(false, true);
     // get maximum height
-    const int maximumHeight = myArgumentFrameLeft->numChildren() * GUIDesignHeight + 100;
+    const int maximumHeight = myArgumentFrameLeft->numChildren() * GUIDesignHeight + 120;
     // resize
     resize(1024, maximumHeight <= 768 ? maximumHeight : 768);
     // show dialog

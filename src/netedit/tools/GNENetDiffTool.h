@@ -36,6 +36,9 @@ public:
     /// @brief destructor
     ~GNENetDiffTool();
 
+    /// @brief set current values (used for set values like current folder and similar)
+    void setCurrentValues();
+
     /// @brief get command (python + script + arguments)
     std::string getCommand() const;
     

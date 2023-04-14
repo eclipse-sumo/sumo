@@ -85,6 +85,12 @@ GNEPythonTool::getMenuCommand() const {
 }
 
 
+void
+GNEPythonTool::setCurrentValues() {
+    // nothing to do here, use in children
+}
+
+
 std::string
 GNEPythonTool::getCommand() const {
     // add python script

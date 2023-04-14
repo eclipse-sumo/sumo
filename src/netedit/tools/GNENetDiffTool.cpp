@@ -48,6 +48,19 @@ GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string &
 GNENetDiffTool::~GNENetDiffTool() {}
 
 
+void
+GNENetDiffTool::setCurrentValues() {
+    myPythonToolsOptions.resetWritable();
+    // obtain curren network folder
+    const auto networkPath = OptionsCont::getOptions().getString("net-file");
+    if (networkPath.empty()) {
+        myPythonToolsOptions.set("outprefix", "");
+    } else {
+        myPythonToolsOptions.set("outprefix", FileHelpers::getFilePath(networkPath) + "diff");
+    }
+}
+
+
 std::string
 GNENetDiffTool::getCommand() const {
     // add python script
@@ -60,12 +73,16 @@ GNENetDiffTool::getCommand() const {
     // declare arguments
     std::string arguments;
     // add arguments
-    for (const auto &option : myPythonToolsOptions) {
-        // only add modified values
-        if (!option.second->isDefault()) {
-            arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
-        }
+    arguments += (myPythonToolsOptions.getString("original-net") + " ");
+    arguments += (myPythonToolsOptions.getString("modified-net") + " ");
+    arguments += myPythonToolsOptions.getString("outprefix") + " ";
+    // check if save shapes
+    if (myPythonToolsOptions.getBool("load-shapes-modified") ||
+        myPythonToolsOptions.getBool("load-shapes-added") ||
+        myPythonToolsOptions.getBool("load-shapes-added")) {
+        arguments += "--write-shapes";
     }
+
     return command + " " + arguments;
 }
 
@@ -79,6 +96,9 @@ GNENetDiffTool::fillNetDiffOptions(OptionsCont &options) {
 
     options.doRegister("modified-net", new Option_Network());
     options.addDescription("modified-net", "Input", TL("Modified network"));
+
+    options.doRegister("outprefix", new Option_FileName());
+    options.addDescription("outprefix", "Input", TL("Output prefix network"));
 
     options.addOptionSubTopic("Select");
     options.doRegister("select-modified", new Option_Bool(false));
