@@ -71,7 +71,7 @@ def write(fname, values, root):
             elem = parts[0]
             f.write('    <%s' % elem)
             if len(parts) > 1:
-                f.write(' id="%s"' % parts[1])
+                f.write(' id="%s"' % '|'.join(parts[1:]))
             for attr, d in sorted(values[elem_id].items()):
                 f.write(' %s="%s"' % (attr, d))
             f.write('/>\n')
