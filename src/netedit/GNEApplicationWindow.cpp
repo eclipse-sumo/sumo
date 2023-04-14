@@ -26,7 +26,6 @@
 #include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netedit/dialogs/GNEOverwriteElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
-#include <netedit/dialogs/tools/GNEPythonToolDialog.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -59,7 +58,6 @@
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/xml/XMLSubSys.h>
-#include <xercesc/parsers/SAXParser.hpp>
 
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"

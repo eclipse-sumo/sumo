@@ -49,6 +49,9 @@ private:
     /// @brief fill netDiff options
     void fillNetDiffOptions(OptionsCont &options);
 
+    /// @brief load shapes
+    void loadShapes(const std::string &file);
+
     /// @brief Invalidated copy constructor.
     GNENetDiffTool(const GNENetDiffTool&) = delete;
 

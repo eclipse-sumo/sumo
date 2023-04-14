@@ -19,10 +19,13 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include "GNENetDiffTool.h"
 
@@ -69,6 +72,16 @@ GNENetDiffTool::postProcessing() {
         }
         if (myPythonToolsOptions.getBool("select-deleted")) {
             selectorModul->loadFromFile(myPythonToolsOptions.getString("outprefix") + ".deleted.sel.txt");
+        }
+        // load shapes
+        if (myPythonToolsOptions.getBool("load-shapes-modified")) {
+            loadShapes(myPythonToolsOptions.getString("outprefix") + ".changed.shape.xml");
+        }
+        if (myPythonToolsOptions.getBool("load-shapes-added")) {
+            loadShapes(myPythonToolsOptions.getString("outprefix") + ".created.shape.xml");
+        }
+        if (myPythonToolsOptions.getBool("load-shapes-deleted")) {
+            loadShapes(myPythonToolsOptions.getString("outprefix") + ".deleted.shape.xml");
         }
     }
 }
@@ -137,6 +150,33 @@ GNENetDiffTool::fillNetDiffOptions(OptionsCont &options) {
 
     options.doRegister("load-shapes-deleted", new Option_Bool(false));
     options.addDescription("load-shapes-deleted", "Load", TL("Load shapes for deleted elements"));
+}
+
+
+void
+GNENetDiffTool::loadShapes(const std::string &file) {
+    // get undo list
+    auto undoList = myGNEApp->getUndoList();
+    // disable validation for additionals
+    XMLSubSys::setValidation("never", "auto", "auto");
+    // Create additional handler
+    GNEGeneralHandler generalHandler(myGNEApp->getViewNet()->getNet(), file, true, true);
+    // begin undoList operation
+    undoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("load shapes from '") + file + "'");
+    // Run parser
+    if (!generalHandler.parse()) {
+        // write error
+        WRITE_ERROR(TL("Loading of shape file failed: ") + file);
+    } else {
+        // write info
+        WRITE_MESSAGE(TL("Loading of shape file sucessfully: ") + file);
+    }
+    // end undoList operation
+    undoList->end();
+    // restore validation for additionals
+    XMLSubSys::setValidation("auto", "auto", "auto");
+    // update view
+    myGNEApp->getViewNet()->update();
 }
 
 /****************************************************************************/
