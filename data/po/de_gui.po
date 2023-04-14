@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-04-13 11:25+0000\n"
+"PO-Revision-Date: 2023-04-14 07:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -15680,7 +15680,7 @@ msgstr "'Dreiecke'"
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2012
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2135
 msgid "'boxes'"
-msgstr "'Kisten'"
+msgstr "'Rechtecke'"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1842
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1925
