@@ -2674,7 +2674,7 @@ MSDevice_SSM::flushGlobalMeasures() {
                 if (myUseGeoCoords) {
                     toGeo(myMaxBR.first.second);
                 }
-                myOutputFile->openTag("maxBR").writeAttr("time", myMaxBR.first.first).writeAttr("position", ::toString(myMaxBR.first.second)).writeAttr("value", myMaxBR.second).closeTag();
+                myOutputFile->openTag("maxBR").writeAttr("time", myMaxBR.first.first).writeAttr("position", makeStringWithNAs(myMaxBR.first.second)).writeAttr("value", myMaxBR.second).closeTag();
             }
         }
 
@@ -2685,7 +2685,7 @@ MSDevice_SSM::flushGlobalMeasures() {
                     toGeo(myMinSGAP.first.first.second);
                 }
                 myOutputFile->openTag("minSGAP").writeAttr("time", myMinSGAP.first.first.first)
-                .writeAttr("position", ::toString(myMinSGAP.first.first.second))
+                .writeAttr("position", makeStringWithNAs(myMinSGAP.first.first.second))
                 .writeAttr("value", myMinSGAP.first.second)
                 .writeAttr("leader", myMinSGAP.second).closeTag();
             }
@@ -2698,7 +2698,7 @@ MSDevice_SSM::flushGlobalMeasures() {
                     toGeo(myMinTGAP.first.first.second);
                 }
                 myOutputFile->openTag("minTGAP").writeAttr("time", myMinTGAP.first.first.first)
-                .writeAttr("position", ::toString(myMinTGAP.first.first.second))
+                .writeAttr("position", makeStringWithNAs(myMinTGAP.first.first.second))
                 .writeAttr("value", myMinTGAP.first.second)
                 .writeAttr("leader", myMinTGAP.second).closeTag();
             }
@@ -2775,7 +2775,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             if (myUseGeoCoords) {
                 toGeo(e->minTTC.pos);
             }
-            std::string position = ::toString(e->minTTC.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
+            std::string position = makeStringWithNAs(e->minTTC.pos);
             myOutputFile->openTag("minTTC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
     }
@@ -2792,7 +2792,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             if (myUseGeoCoords) {
                 toGeo(e->maxDRAC.pos);
             }
-            std::string position = ::toString(e->maxDRAC.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
+            std::string position = makeStringWithNAs(e->maxDRAC.pos);
             myOutputFile->openTag("maxDRAC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
     }
@@ -2838,6 +2838,12 @@ MSDevice_SSM::makeStringWithNAs(const PositionVector& v, const int precision) {
         res += (i == v.begin() ? "" : " ") + (*i == Position::INVALID ? "NA" : ::toString(*i, precision));
     }
     return res;
+}
+
+std::string
+MSDevice_SSM::makeStringWithNAs(const Position& p) {
+    const int precision = myUseGeoCoords ? gPrecisionGeo : gPrecision;
+    return p == Position::INVALID ? "NA" : toString(p, precision);
 }
 
 
