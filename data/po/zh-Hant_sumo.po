@@ -4019,155 +4019,157 @@ msgstr "在號誌邏輯(tlLogic) '%' 的時相計畫 '%' 內, 連接線(link) % 
 msgid ""
 "At NEMA tlLogic '%', different sizes of NEMA phase states. Please check the "
 "NEMA XML"
-msgstr ""
+msgstr "在 NEMA 號誌邏輯(tlLogic) '%',不同大小的 NEMA 相位狀態。 請檢查 NEMA XML"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\NEMAController.cpp:566
 msgid "At NEMA tlLogic '%', actuated phase % has no controlling detector"
-msgstr ""
+msgstr "在 NEMA 號誌邏輯(tlLogic) '%',觸動時相  % 沒有控制的偵測器"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\NEMAController.cpp:584
 msgid "At NEMA tlLogic '%, linkIndex % has no controlling detector"
-msgstr ""
+msgstr "在 NEMA 號誌邏輯(tlLogic) '%',連接索引(linkIndex) % 沒有控制的偵測器"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\NEMAController.cpp:630
 #, c-format
 msgid "NEMA tlLogic '%' is not coordinated but an offset was set."
-msgstr ""
+msgstr "EMA 號誌邏輯(tlLogic) '%' 沒有被協調控制(coordinated),但設置了偏移值(offset)。"
 
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\NEMAController.cpp:959
 msgid "I am starting in the coordinated phases"
-msgstr ""
+msgstr "我正在從協調階段(coordinated phases)開始"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel.h:180
 msgid "moveTo is ignored by the current movement model"
-msgstr ""
+msgstr "移動到(moveTo)被目前的移動模式(movement model)忽略"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel.h:196
 msgid "moveToXY is ignored by the current movement model"
-msgstr ""
+msgstr "移動到XY(moveToXY)被目前的移動模式(movement model)忽略"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Remote.cpp:209
 #, c-format
 msgid "Edge: % does not allow pedestrians."
-msgstr ""
+msgstr "路段: % 不允許行人使用。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Remote.cpp:299
 msgid "Pedestrian model 'remote' does not support simulation.loadState state\n"
-msgstr ""
+msgstr "行人模式 '遠程(remote)' 不支援 simulation.loadState 狀態\n"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Striping.cpp:124
 #: /home/micha/programming/sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:871
 msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
 "and this may cause collisions with vehicles."
-msgstr ""
+msgstr "行人類型(vType) '%' 寬度 % 大於 pedestrian.striping.stripe-width, "
+"這可能會導致與車輛發生碰撞。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Striping.cpp:179
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
-msgstr ""
+msgstr "人員 '%' 無法在路段 '%' 上發現人行道, 時間=%。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Striping.cpp:463
 #, c-format
 msgid "Invalid walkingarea '%' does not allow continuation."
-msgstr ""
+msgstr "無效的行走區域 '%' 不允許繼續。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Striping.cpp:1905
 msgid "Disconnected walk for person '%'."
-msgstr ""
+msgstr "人員 '%' 有不連接的步行。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPModel_Striping.cpp:2106
 msgid "Person '%' is jammed on edge '%', time=%."
-msgstr ""
+msgstr "人員 '%' 在路段 '%' 上被壅塞住，時間=%。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPerson.cpp:90
 msgid "Adjusting departPos for cloned walk with routeDistribution '%'"
-msgstr ""
+msgstr "使用路徑分配(routeDistribution) '%' 調整複製的步行的出發位置(departPos)"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPerson.cpp:94
 msgid "Adjusting arrivalPos for cloned walk with routeDistribution '%'"
-msgstr ""
+msgstr "使用路徑分配(routeDistribution) '%' 調整複製的步行的抵達位置(arrivalPos)"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSPerson.cpp:98
 msgid "Adjusting departLane for cloned walk with routeDistribution '%'"
-msgstr ""
+msgstr "使用路徑分配(routeDistribution) '%' 調整複製的步行的出發車道(departLane)"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSStageTrip.cpp:174
 msgid ""
 "Ignoring vehicle type '%' when routing person '%' because it is not allowed "
 "on the start edge."
-msgstr ""
+msgstr "當搜尋人員路徑時,忽略車輛類型 '%', 因為它不允許出現在起始路段。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSTransportable.cpp:134
 msgid "Changing a transportable ID is not permitted"
-msgstr ""
+msgstr "不允許更改可運輸的識別名(ID)"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSTransportable.cpp:256
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
-msgstr ""
+msgstr "移送(teleporting) % '%'; 等待太久,從路段 '%', 時間=%。"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSTransportable.cpp:391
 msgid "parkingAreaReroute not support for containers"
-msgstr ""
+msgstr "停車區域重新導引(parkingAreaReroute)不支援貨櫃"
 
 #: /home/micha/programming/sumo/src\microsim\transportables\MSTransportableControl.cpp:68
 msgid "Unknown pedestrian model '%'"
-msgstr ""
+msgstr "未知的行人模式 '%'"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:142
 msgid "No flow intervals in calibrator '%'."
-msgstr ""
+msgstr "校估器 '%' 中沒有流量時間間隔。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:161
 #, c-format
 msgid "Calibrator '%' has no active or upcoming interval"
-msgstr ""
+msgstr "校估器 '%' 沒有現用(active)或即將到來(upcoming)的時間間隔"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:209
 msgid "Insertion lane may differ from calibrator lane for calibrator '%'."
-msgstr ""
+msgstr "插入的車道(insertion lane)可能不同於校估器 '%' 的校估車道。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:213
 msgid "Unknown vehicle type '%' in calibrator '%'."
-msgstr ""
+msgstr "校估器 '%' 中未知的車輛類型 '%'。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:216
 msgid "Mandatory attribute missing in definition of calibrator '%'."
-msgstr ""
+msgstr "校估器 '%' 的定義中缺少必備屬性(mandatory attribute)"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:218
 msgid ""
 "Non-numeric value for numeric attribute in definition of calibrator '%'."
-msgstr ""
+msgstr "在校估器 '%' 的定義中,數值屬性有非數字值。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:221
 msgid ""
 "Either 'vehsPerHour',  'speed' or 'type' has to be set in flow definition of "
 "calibrator '%'."
-msgstr ""
+msgstr "必須在校估器 '%' 的流量定義中設定 '每小時車輛(vehsPerHour)', "
+"'速度(speed)' 或 '類型(type)'。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:224
 msgid "Type calibration is not supported in meso for calibrator '%'."
-msgstr ""
+msgstr "中觀模擬(meso)不支援校估器 '%' 的類型(type)校估。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:318
 msgid "Calibrator '%' could not remove vehicle '%' time=%."
-msgstr ""
+msgstr "校估器 '%' 無法移除車輛  '%' 時間e=%。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:699
 msgid "Cannot set flow for calibrator '%' with overlapping interval."
-msgstr ""
+msgstr "無法為具有重疊時間間隔(overlapping interval)的校估器 '%' 設定流量。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:701
 msgid "Cannot set flow for calibrator '%' with negative interval."
-msgstr ""
+msgstr "無法為負的時間間隔(negative interval)的校估器 '%' 設定流量。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSLaneSpeedTrigger.cpp:176
 msgid "Invalid or unsorted time entry in vss '%'."
-msgstr ""
+msgstr "可變速標誌(vss) '%' 中的時間項無效或未排序。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSLaneSpeedTrigger.cpp:192
 msgid "Time % was set twice for vss '%'; replacing first entry."
-msgstr ""
+msgstr "為 可變速標誌(vss) '%' 設定了兩次時間 % ; 替換第一個登錄項。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSOverheadWire.cpp:354
 #: /home/micha/programming/sumo/src\microsim\trigger\MSOverheadWire.cpp:409
@@ -4180,214 +4182,218 @@ msgstr ""
 msgid ""
 "Overhead circuit solver requested, but solver support (Eigen) not compiled "
 "in."
-msgstr ""
+msgstr "已請求架空線路解算器(solver),但解算器的支援 (Eigen) 尚未編譯"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSOverheadWire.cpp:579
 msgid "Overhead circuit solver requested, but solver support not compiled in."
-msgstr ""
+msgstr "已請求架空線路解算器(solver),但解算器支援未被編譯。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSOverheadWire.cpp:690
 #, c-format
 msgid ""
 "The requested total power could not be delivered by the overhead wire. Only "
 "% of originally requested power was provided."
-msgstr ""
+msgstr "請求的總功率無法通過架空線傳送。僅提供了最初請求的功率的 %。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:127
 msgid "MSTriggeredRerouter %: No destination edge id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: 未提供目標路段識別名(id)。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:192
 msgid "MSTriggeredRerouter %: No route id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: 未提供路徑。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:217
 msgid "MSTriggeredRerouter %: No parking area id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: 未提供停車區域。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:505
 #, c-format
 msgid ""
 "Cannot keep destination edge '%' for vehicle '%' due to closed edges. "
 "Terminating route."
-msgstr ""
+msgstr "由於路段封閉,無法保留車輛 '%' 的目標路段 '%'。終止路線。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:604
 msgid "Invalid value '%' for vehicle parameter '%'"
-msgstr ""
+msgstr "車輛參數 '%' 的值 '%' 無效"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:612
 msgid "Invalid value '%' for vType parameter '%'"
-msgstr ""
+msgstr "車輛類型(vType)參數 '%' 的值 '%' 無效"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:784
 #, c-format
 msgid ""
 "Parkingarea '%' along the way cannot be used by vehicle '%' for unknown "
 "reason"
-msgstr ""
+msgstr "由於未知原因, 車輛 '%' 無法使用沿途的停車區域 '%'"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:1105
 msgid ""
 "Invalid distance computation for vehicle '%' to parkingArea '%' at time=%."
-msgstr ""
+msgstr "車輛 '%' 到停車區域 '%' 的距離計算無效,在時間=%。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:1160
 msgid ""
 "Invalid distance computation for vehicle '%' from parkingArea '%' at time=%."
-msgstr ""
+msgstr "車輛 '%' 從停車區域 '%' 的距離計算無效,在時間=%。"
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:1236
 msgid ""
 "ParkingArea '%' is targeted by rerouter '%' but doesn't have it's own "
 "rerouter. This may cause parking search to abort."
-msgstr ""
+msgstr "停車區域 '%' 是改道裝置(rerouter) '%' 的目標，但它沒有自己的改道裝置。"
+"這可能會導致終止停車位的搜尋。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms.cpp:119
 msgid "Ambiguity in turnarounds computation at junction '%'."
-msgstr ""
+msgstr "路口 '%' 處的迴轉(turnarounds)計算不明確。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms.cpp:269
 msgid "Converting invalid rail_crossing to priority junction '%'."
-msgstr ""
+msgstr "將無效的平交道(rail_crossing)轉換為以優先等級(priority)控制的路口 '%' 。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms.cpp:273
 msgid "Converting invalid rail_crossing to traffic_light at junction '%'."
-msgstr ""
+msgstr "將路口 '%' 處的無效平交道(rail_crossing)轉換為 交通號誌。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms.cpp:282
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:1739
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:423
 #: /home/micha/programming/sumo/src\netimport\NIXMLNodesHandler.cpp:355
 msgid "Could not allocate tls '%'."
-msgstr ""
+msgstr "無法定位交通號誌 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:173
 msgid ""
 "Added % bidi-edges to ensure that all tracks are usable in both directions."
-msgstr ""
+msgstr "新增 % 雙向路段(bidi-edges)以確保所有軌道都可以在兩個方向上使用。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:175
 #, c-format
 msgid "Ignore % edges because they have the wrong spreadType"
-msgstr ""
+msgstr "忽略 % 路段,因為它們有錯誤的分散類型(spreadType)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:197
 #, c-format
 msgid "Bidi-edge '%' prevented by filtering rules."
-msgstr ""
+msgstr "雙向路段(bidi-edges) '%' 被過濾規則阻止。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:211
 msgid "Could not add bidi-edge '%'."
-msgstr ""
+msgstr "無法新增雙向路段(bidi-edges) '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:272
 msgid "Railway nodes by number of incoming,outgoing edges:"
-msgstr ""
+msgstr "按進出路段數排列的鐵路節點："
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:370
 msgid "Found % railway nodes marked as buffer_stop"
-msgstr ""
+msgstr "找到標記為 buffer_stop 的 % 鐵路節點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:380
 msgid "Found % bidirectional rail edges"
-msgstr ""
+msgstr "找到 % 雙向鐵路路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:406
 msgid "Found % railway edges and % railway nodes (% signals)."
-msgstr ""
+msgstr "找到 % 鐵路路段和 % 鐵路節點 (% 信號)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:523
 msgid "Added % bidi-edges as extension of existing bidi edges."
-msgstr ""
+msgstr "增加 % 雙向路段(bidi-edges)作為現有雙向路段的延伸。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:534
 msgid "Could not find bidi-edge for edge '%'"
-msgstr ""
+msgstr "無法發現路段 '%' 的雙向路段(bidi-edges)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:639
 msgid "Found % reversible edge sequences between broken rail nodes"
-msgstr ""
+msgstr "在斷的(broken)火車軌道節點之間找到 % 可反向的路段序列(sequence)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:668
 msgid "Reversed % sequences (count by length: %)"
-msgstr ""
+msgstr "反向 % 序列 (按長度計數：%)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:689
 msgid "Ignoring buffer stop junction '%' with % edges."
-msgstr ""
+msgstr "忽略連接 % 路段的緩衝停止路口(buffer stop junction) '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:746
 msgid "Added % edges to connect % buffer stops in both directions."
-msgstr ""
+msgstr "增加 % 路段以在兩個方向上連接 % 緩衝站(buffer stops)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:827
 msgid ""
 "Added % bidi-edges between % pairs of railway switches (count by length: %)"
-msgstr ""
+msgstr "在 % 對(pairs)的鐵路道岔之間增加了 % 雙向路段(bidi-edges)"
+"(按長度計數： %)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:974
 msgid ""
 "Edge sequence is not consistent with stop sequence in line '%', not adding "
 "bidi edges."
-msgstr ""
+msgstr "在路線(line) '%' 內,路段順序與停靠順序不一致，"
+"未添加雙向路段(bidi edges)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:1016
 #, c-format
 msgid ""
 "Stop on edge '%' can only be reached in reverse but edge has the wrong "
 "spreadType."
-msgstr ""
+msgstr "路段 '%' 的停靠點只能反向到達,但路段有錯誤的分散類型(spreadType)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:1037
 msgid "No connection found between stops on edge '%' and edge '%'."
-msgstr ""
+msgstr "在路段 '%' 和路段 '%' 上的停靠點之間找不到連接線(connection)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:1147
 msgid ""
 "Added % bidi-edges to ensure connectivity of straight tracks at geometry-"
 "like nodes."
-msgstr ""
+msgstr "增加 % 雙向路段(bidi-edges)以確保直線軌道在類似幾何的節點處的連通性。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:1149
 msgid ""
 "Added % bidi-edges to ensure connectivity of straight tracks at switches."
-msgstr ""
+msgstr "增加 % 雙向路段(bidi-edges)以確保直線軌道在鐵路道岔處的連通性。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:1209
 msgid ""
 "Cannot extend track direction priority because there are no track edges with "
 "positive priority"
-msgstr ""
+msgstr "無法擴展軌道方向優先級別，因為沒有具有正的(positive)優先級別的軌道路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Railway.cpp:1265
 msgid ""
 "Edge '%' was loaded with undefined priority (%) but has unambiguous main "
 "direction (no bidi edge)"
-msgstr ""
+msgstr "路段 '%' 以未定義的優先級別 (%) 被載入，但具有明確的主方向"
+"(無雙向路段(bidi edge))"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Ramps.cpp:111
 #, c-format
 msgid "Can not build ramp on edge '%' - the edge is unsuitable."
-msgstr ""
+msgstr "無法在路段 '%' 上建立匝道 - 路段不合適。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Ramps.cpp:115
 #, c-format
 msgid "Can not build on ramp on edge '%' - the edge is not known."
-msgstr ""
+msgstr "無法在路段 '%' 上建立入口匝道 - 路段未知。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Ramps.cpp:126
 #, c-format
 msgid "Can not build off ramp on edge '%' - the edge is not known."
-msgstr ""
+msgstr "無法在路段 '%' 上建立出口匝道 - 路段未知。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Ramps.cpp:239
 msgid "Ups - could not build on-ramp for edge '%' (node could not be build)!"
-msgstr ""
+msgstr "糟糕 - 無法在路段 '%' 建立入口匝道 (無法建立節點)!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Ramps.cpp:244
 msgid "Ups - could not build on-ramp for edge '%'!"
-msgstr ""
+msgstr "糟糕 - 無法在路段 '%' 建立入口匝道!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Ramps.cpp:274
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Ramps.cpp:279
@@ -4395,316 +4401,319 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Ramps.cpp:393
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:710
 msgid "Could not set connection!"
-msgstr ""
+msgstr "無法設定連接線(connection)!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Ramps.cpp:346
 msgid "Ups - could not build off-ramp for edge '%' (node could not be build)!"
-msgstr ""
+msgstr "糟糕 - 無法為路段 '%' 建立出口匝道 (無法建立節點)!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Ramps.cpp:351
 msgid "Ups - could not build off-ramp for edge '%'!"
-msgstr ""
+msgstr "糟糕 - 無法為路段 '%' 建立出口匝道!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBAlgorithms_Ramps.cpp:413
 msgid "For edge '%': could not compute shape."
-msgstr ""
+msgstr "路段 '%':無法計算形狀。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:431
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:459
 #, c-format
 msgid "At least one of edge's '%' nodes is not known."
-msgstr ""
+msgstr "至少有一個路段的 '%' 節點未知。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:456
 #, c-format
 msgid "Edge '%' needs at least one lane."
-msgstr ""
+msgstr "路段 '%' 至少需要一個車道。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:462
 msgid "Invalid edge id '%'."
-msgstr ""
+msgstr "無效的路段識別名(id) '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:492
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:626
 #, c-format
 msgid "Edge's '%' from- and to-node are at the same position."
-msgstr ""
+msgstr "路段的 '%' 起點及迄點在相同的位置。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:994
 msgid "Found angle of % degrees at edge '%', segment %."
-msgstr ""
+msgstr "在路段 '%',區段 % 處找到 % 度的角度。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:1150
 msgid "Could not set connection from '%' to '%'."
-msgstr ""
+msgstr "無法從 '%' 到 '%' 設定連接線(connection)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:1662
 msgid "Connection '%_%->%_%' is only %m short."
-msgstr ""
+msgstr "接線(connection) '%_%->%_%' 只有 % 米短。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:1763
 msgid ""
 "Intersecting left turns at junction '%' from lane '%' and lane '%' (increase "
 "junction radius to avoid this)."
-msgstr ""
+msgstr "從車道 '%' 和車道 '%' 在路口 '%' 與左轉交會 "
+"(增加路口半徑以避免這種情況)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:1863
 msgid ""
 "Speed of % connection '%' reduced by % due to turning radius of % (length=%, "
 "angle=%)."
-msgstr ""
+msgstr "由於轉彎半徑為 %,連接線 '%' 的速度 % 降低了 % （長度=%，角度=%）。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:2203
 msgid "In lane '%': lane shape could not be determined (%)."
-msgstr ""
+msgstr "在車道 '%':無法確定車道形狀 (%)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:2216
 msgid "In lane '%': Could not build shape (%)."
-msgstr ""
+msgstr "在車道 '%':無法建立形狀 (%)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:2624
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions but only % targets"
-msgstr ""
+msgstr "無法在路段 '%' 上應用轉彎標誌資訊,因為有 % 的方向,但只有 % 的目標(targets)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:2665
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions and % targets (after target pruning)"
-msgstr ""
+msgstr "無法在路段 '%' 上應用轉彎標誌資訊,因為有 % 的方向,但只有 % 的目標(targets)"
+"(目標修剪後)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:2684
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "connections with directions '%' but target edge '%' has only % suitable lanes"
-msgstr ""
+msgstr "無法在路段 '%' 上應用轉彎標誌資訊,因為有具有 '%' 方向的 % 連接線,"
+"但目標路段 '%' 只有 % 合適的車道"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:2711
 msgid ""
 "Cannot apply turn sign information for edge '%' because not enough target "
 "lanes could be determined for direction '%'"
-msgstr ""
+msgstr "無法在路段 '%' 上應用轉向標誌資訊,因為無法為方向 '%' 確定足夠的目標車道"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:2950
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
-msgstr ""
+msgstr "路段 '%' 在路口 '%' 未與任何離開(outgoing)路段連接。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:2964
 msgid "Lane '%' is not connected from any incoming edge at junction '%'."
-msgstr ""
+msgstr "車道 '%' 在路口 '%' 未與任何進入(incoming)路段連接。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:2981
 #, c-format
 msgid "Ignoring changeLeft prohibition for '%' to avoid dead-end"
-msgstr ""
+msgstr "忽略 '%' 的 禁止換左(changeLeft)以避免造成死結(dead-end)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:2984
 #, c-format
 msgid "Ignoring changeRight prohibition for '%' to avoid dead-end"
-msgstr ""
+msgstr "忽略 '%' 的 禁止換右(changeRight)以避免造成死結(dead-end)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:3585
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
-msgstr ""
+msgstr "路段 '%' 上的車道 '%'已經有交通號誌。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:3591
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
-msgstr ""
+msgstr "無法設定號誌邏輯(tlLogic) '%' 的任何信號 （未知群組）。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:4074
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
-msgstr ""
+msgstr "忽略路段 '%' 的無效 stopOffset （負偏移值(offset)）。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:4083
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
-msgstr ""
+msgstr "忽略車道 '%' 的無效 stopOffset （負偏移值(offset)）。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:4089
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
-msgstr ""
+msgstr "忽略車道 '%' 的無效 stopOffset （無效的車道索引）。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:4352
 #, c-format
 msgid "Edge % allows pedestrians on all lanes"
-msgstr ""
+msgstr "路段 '%' 允許行人在所有車道上"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:4410
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
-msgstr ""
+msgstr "路段 '%' 已經有用於 %s 的專用車道。不再增加另一個。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:4447
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
-msgstr ""
+msgstr "路段 '%' 沒有用於 %s 的專用車道。無法恢復。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:4495
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
-msgstr ""
+msgstr "無法避免在路段 '%' 的節點 '%' 上重疊形狀(shape)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:121
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:140
 msgid "Invalid boundary: need at least 2 coordinates"
-msgstr ""
+msgstr "無效邊界:至少需要2個坐標"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:142
 msgid "Invalid boundary: malformed coordinate"
-msgstr ""
+msgstr "無效邊界:格式錯誤的坐標"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:259
 msgid ""
 "Cannot prune edges using a geo-boundary because no projection has been loaded"
-msgstr ""
+msgstr "無法使用地理邊界修剪路段，因為尚未載入投影(projection)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:438
 msgid "Attempt to rename edge using existing id '%'"
-msgstr ""
+msgstr "企圖使用現有識別名(id) '%' 重新命名路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:498
 #: /home/micha/programming/sumo/src\netimport\NIXMLEdgesHandler.cpp:488
 #: /home/micha/programming/sumo/src\netimport\NIXMLEdgesHandler.cpp:490
 msgid "Error on parsing a split (edge '%')."
-msgstr ""
+msgstr "解析一個分割(split)時,發生錯誤 (路段 '%')。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:556
 msgid "Split at '%' lies beyond the edge's length (edge '%')."
-msgstr ""
+msgstr "在 '%' 處的分割(split)超出路段的長度(路段 '%')。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:639
 msgid "Could not insert edge '%' before split of edge '%'."
-msgstr ""
+msgstr "無法在分割路段 '%' 之前,插入路段 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:643
 msgid "Could not insert edge '%' after split of edge '%'."
-msgstr ""
+msgstr "無法在分割路段 '%' 之後,插入路段 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:880
 msgid "Moving opposite lane '%' from invalid lane '%' to lane index %."
-msgstr ""
+msgstr "將對向車道 '%' 從無效車道 '%' 移動到車道索引(lane index) %。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:882
 msgid "Removing opposite lane '%' for invalid lane '%'."
-msgstr ""
+msgstr "移除無效車道 '%' 的對向車道 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:891
 msgid "Removing unknown opposite lane '%' for edge '%'."
-msgstr ""
+msgstr "移除路段 '%' 的未知對向車道 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:896
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
-msgstr ""
+msgstr "將路段 '%' 的無效對向車道 '%' 調整為 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:902
 msgid "Adapting missing opposite lane '%' for edge '%'."
-msgstr ""
+msgstr "為路段 '%' 調整缺失的對向車道“ '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:908
 msgid "Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."
-msgstr ""
+msgstr "車道 '%' (長度 %)和路段 '%' (長度 %)的平均路段長度。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:921
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
-msgstr ""
+msgstr "對面車道 '%' 與路段 '%' 沒有連接到相同的節點!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1421
 msgid "Replacing loaded roundabout '%' with '%'."
-msgstr ""
+msgstr "正在用 '%' 替換載入的圓環 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1739
 msgid "Edge '%' overlaps with edge '%' by %."
-msgstr ""
+msgstr "路段 '%' 與路段 '%' 重疊 %。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1755
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
-msgstr ""
+msgstr "路段 '%' 有一個 % 米的垂直跳位(jump)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1757
 #, c-format
 msgid "Edge '%' has a grade of %%."
-msgstr ""
+msgstr "路段 '%' 的坡度(grade)為 %%。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1767
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
-msgstr ""
+msgstr "連接線(connection) '%' 有一個 % 米的垂直跳位(jump)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1769
 #, c-format
 msgid "Connection '%' has a grade of %%."
-msgstr ""
+msgstr "連接線(connection) '%' 的坡度(grade)為 %%。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1801
 msgid "Not joining tram edge '%' with % lanes."
-msgstr ""
+msgstr "不結合(joining)有 % 車道的輕軌電車(tram)路段 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1875
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
-msgstr ""
+msgstr "車道 '%'上的輕軌電車(tram)路段 '%' 和 '%' 不明確。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:2029
 #: /home/micha/programming/sumo/src\netimport\NIImporter_SUMO.cpp:138
 #: /home/micha/programming/sumo/src\netimport\NIXMLEdgesHandler.cpp:543
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
-msgstr ""
+msgstr "路段的 '%' 從節點(from-node)'%' 未知"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:2033
 #: /home/micha/programming/sumo/src\netimport\NIImporter_SUMO.cpp:142
 #: /home/micha/programming/sumo/src\netimport\NIXMLEdgesHandler.cpp:555
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
-msgstr ""
+msgstr "路段的 '%' 到節點(to-node)'%' 未知"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
-msgstr ""
+msgstr "在一個路段上的預設車道數"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:56
 msgid "The default width of lanes"
-msgstr ""
+msgstr "車道的預設寬度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:59
 msgid "The default method for computing lane shapes from edge shapes"
-msgstr ""
+msgstr "從路段形狀計算車道形狀的預設方法"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:63
 msgid "The default speed on an edge (in m/s)"
-msgstr ""
+msgstr "路段的預設速度 (以米/秒為單位)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:67
 msgid "The default friction on an edge"
-msgstr ""
+msgstr "路段的預設摩擦力"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:71
 msgid "The default priority of an edge"
-msgstr ""
+msgstr "路段的預設優先級別"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:74
 msgid "The default edge type"
-msgstr ""
+msgstr "預設的路段類型"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:77
 msgid "The default width of added sidewalks"
-msgstr ""
+msgstr "增加的人行道的預設寬度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:80
 msgid "The default width of added bike lanes"
-msgstr ""
+msgstr "增加的自行車道的預設寬度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:83
 msgid "The default width of a pedestrian crossing"
-msgstr ""
+msgstr "人行穿越道的預設寬度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:86
 msgid "The default speed 'limit' on a pedestrian crossing (in m/s)"
-msgstr ""
+msgstr "人行穿越道上的預設速度 '限制(limit)' (以米/秒為單位)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:89
 msgid "The default speed 'limit' on a pedestrian walkingarea (in m/s)"
-msgstr ""
+msgstr "行人步行區域的預設速度 '限制(limit)' (以米/秒為單位)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:92
 msgid "The default for allowed vehicle classes"
@@ -4736,36 +4745,39 @@ msgstr "計算路權規則的預設演算法('預設(default)'，'路段優先�
 msgid ""
 "Allow building right-before-left junctions when the incoming edge speeds are "
 "below FLOAT (m/s)"
-msgstr "當進入(incoming)路段速度低於 FLOAT (米/秒)時，允許建立right-before-left路口"
+msgstr "當進入(incoming)路段速度低於 FLOAT (米/秒)時，允許建立"
+"右方車輛優先(right-before-left)的路口"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:113
 msgid ""
 "Build left-before-right junctions instead of right-before-left junctions"
-msgstr ""
+msgstr "建立左方車輛優先(left-before-right)的路口,"
+"而不是右方車輛優先(right-before-left)的路口"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:117
 msgid "Omits internal links"
-msgstr ""
+msgstr "省略內部路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:120
 msgid ""
 "Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are "
 "integers"
-msgstr ""
+msgstr "重新映射(remap)節點和路段的字母數字識別名(IDs),以確保所有識別名都是整數"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:123
 msgid "Remaps IDs of nodes to integers starting at INT"
-msgstr ""
+msgstr "將節點的識別名(IDs)重新映射(remap)為以 INT 開頭的整數"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:126
 msgid "Remaps IDs of edges to integers starting at INT"
-msgstr ""
+msgstr "將路段的識別名(IDs)重新映射(remap)為以 INT 開頭的整數"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:130
 msgid ""
 "Ensures that generated ids do not included any of the typed IDs from FILE "
 "(sumo-gui selection file format)"
-msgstr ""
+msgstr "確保產生的識別名(ids)不包含來自檔案內的任何類型化識別名(ids)"
+"(sumo-gui的選擇檔案(selection file)格式)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:134
 msgid "Removes vehicle class restrictions from imported edges"
@@ -5060,7 +5072,7 @@ msgid ""
 "Only keep edges in FILE (Each id on a single line. Selection files from sumo-"
 "gui are also supported) or those which are kept due to other keep-edges or "
 "remove-edges options"
-msgstr "只保留檔案內的路段（每個識別名(id)在每個單一的列上。也支援"
+msgstr "只保留檔案內的路段 （每個識別名(id)在每個單一的列上。也支援"
 "來自 sumo-gui 的選擇檔案(Selection files)）或由於其他保留路段(keep-edges)或"
 "刪除路段(remove-edges)選項而保留的路段"
 
@@ -5068,645 +5080,658 @@ msgstr "只保留檔案內的路段（每個識別名(id)在每個單一的列�
 msgid ""
 "Remove edges in FILE. (Each id on a single line. Selection files from sumo-"
 "gui are also supported)"
-msgstr ""
+msgstr "移除檔案內的路段。 (每個識別名(id)在每個單一的列上。"
+"也支援來自 sumo-gui 的選擇檔案(Selection files))"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:623
 msgid "Remove edges after joining"
-msgstr ""
+msgstr "合併後,移除路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:627
 msgid ""
 "Only keep edges which are located within the given boundary (given either as "
 "CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,"
 "y1,...>)"
-msgstr ""
+msgstr "僅保留位於給定邊界內的路段(邊界以笛卡爾端點坐標 <xmin,ymin,xmax,ymax> 或）"
+"多邊形 <x0,y0,x1, y1,...> 給定)"
+
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:630
 msgid ""
 "Only keep edges which are located within the given boundary (given either as "
 "GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon "
 "<lon0,lat0,lon1,lat1,...>)"
-msgstr ""
+msgstr "僅保留位於給定邊界內的路段（邊界以大地(GEODETIC)端點坐標 "
+"<lon-min,lat-min,lon-max,lat-max> 或多邊形 <lon0,lat0,lon1,lat1,...> 給定)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:634
 msgid "Only keep edges which allow one of the vclasses in STR[]"
-msgstr ""
+msgstr "僅保留允許在 STR[] 內其中一個車輛類別(vclass)的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:637
 msgid "Remove edges which allow only vclasses from STR[]"
-msgstr ""
+msgstr "移除只允許在 STR[] 內的車輛類別(vclasses)的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:640
 msgid "Only keep edges where type is in STR[]"
-msgstr ""
+msgstr "僅保留類型(type)在 STR[] 內的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:643
 msgid "Only keep the INT largest weakly connected components"
-msgstr ""
+msgstr "僅保留 INT 最大的弱連接組件(connected components)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:646
 msgid "Remove edges where type is in STR[]"
-msgstr ""
+msgstr "移除類型(type)在 STR[] 內的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:650
 msgid "Removes isolated edges"
-msgstr ""
+msgstr "移除孤立的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:657
 msgid "All nodes will be unregulated"
-msgstr ""
+msgstr "所有節點將不受控制(unregulated)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:662
 msgid "Do not regulate nodes in STR[]"
-msgstr ""
+msgstr "不控制在 STR[] 內的節點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:666
 msgid "Do not regulate district nodes"
-msgstr ""
+msgstr "不控制分區節點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:672
 msgid "Enable ramp-guessing"
-msgstr ""
+msgstr "啟用匝道猜測"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:675
 msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
-msgstr ""
+msgstr "猜測入口匝道並標記加速車道（如果存在）,但不增加新的車道"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:679
 msgid "Treat edges with speed > FLOAT as no ramps"
-msgstr ""
+msgstr "將速度 > FLOAT 的路段視為非匝道"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:683
 msgid "Treat edges with speed < FLOAT as no highways"
-msgstr ""
+msgstr "將速度 < FLOAT 的路段視為非高速公路"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:687
 msgid "Use FLOAT as ramp-length"
-msgstr ""
+msgstr "使用 FLOAT 為匝道長度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:691
 msgid "Use FLOAT as minimum ramp-length"
-msgstr ""
+msgstr "使用 FLOAT 為最短匝道長度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:695
 msgid "Tries to handle the given edges as ramps"
-msgstr ""
+msgstr "嘗試將給定的路段設定為匝道"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:698
 msgid "Do not consider the given edges as ramps"
-msgstr ""
+msgstr "不將給定的路段視為匝道"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:702
 msgid "Avoids edge splitting"
-msgstr ""
+msgstr "避免路段分割(splitting)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:713
 #, c-format
 msgid "unsupported value '%' for option '--tls.default-type'"
-msgstr ""
+msgstr "不支援選項'--tls.default-type' 的值 '%'"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:717
 msgid ""
 "only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-"
 "boundary' may be given"
-msgstr ""
+msgstr "只能給定 'keep-edges.in-boundary' 或 'keep-edges.in-geo-boundary' "
+"其中一個選項"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:721
 msgid ""
 "only one of the options 'no-internal-links' or 'crossings.guess' may be given"
-msgstr ""
+msgstr "只能給定 'no-internal-links' 或 'crossings.guess' "
+"其中一個選項"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:725
 msgid "only one of the options 'no-internal-links' or 'walkareas' may be given"
-msgstr ""
+msgstr "只能給定 'no-internal-links' 或 'walkareas' "
+"其中一個選項"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:729
 msgid ""
 "only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"
-msgstr ""
+msgstr "只能給定 'tls.green.time' 或 'tls.cycle.time' "
+"其中一個選項"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:733
 msgid "default.lanenumber must be at least 1"
-msgstr ""
+msgstr "default.lanenumber 必須至少為 1"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:741
 msgid ""
 "only one of the options 'default.disallow' or 'default.allow' may be given"
-msgstr ""
+msgstr "只能給定 'default.disallow' 或 'default.allow' "
+"其中一個選項"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:745
 msgid "junctions.internal-link-detail must >= 2"
-msgstr ""
+msgstr "junctions.internal-link-detail 必須 >= 2"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:750
 msgid ""
 "Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--"
 "no-internal-links' will be disabled."
-msgstr ""
+msgstr "選項 'junctions.scurve-stretch' 需要內部車道才能使用。 "
+"選項 '--no-internal-links' 將被禁用。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:757
 msgid ""
 "option 'default.junctions.radius' is smaller than option 'junctions.small-"
 "radius'"
-msgstr ""
+msgstr "選項 'default.junctions.radius' 小於選項 'junctions.small-radius'"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:765
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
-msgstr ""
+msgstr "tls.layout 必須是 'opposites', 'incoming' 或 'alternateOneWay'"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:770
 msgid "default.right-of-way must be one of '%'"
-msgstr ""
+msgstr "default.right-of-way 必須是 '%' 其中之一"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:774
 msgid "roundabouts.visibility-distance must be positive or -1"
-msgstr ""
+msgstr "roundabouts.visibility-distance 必須為正數或 -1"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:790
 msgid "Unknown value for default.spreadtype '%'."
-msgstr ""
+msgstr "default.spreadtype '%' 的值未知。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHeightMapper.cpp:88
 msgid "Cannot supply height since no height data was loaded"
-msgstr ""
+msgstr "無法提供高度, 因為未載入高度資料"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHeightMapper.cpp:136
 msgid "Could not get height data for coordinate %"
-msgstr ""
+msgstr "無法取得坐標 % 的高度資料"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHeightMapper.cpp:190
 msgid "Could not open shape file '%'."
-msgstr ""
+msgstr "無法開啟形狀(shape)檔案 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHeightMapper.cpp:204
 msgid ""
 "Could not create geocoordinates converter; check whether proj.4 is installed."
-msgstr ""
+msgstr "無法建立地理坐標轉換器; 檢查是否已安裝 proj.4。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHeightMapper.cpp:231
 msgid "Ignored heightmap feature type %"
-msgstr ""
+msgstr "忽略的高度地圖(heightmap)特徵類型 %"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHeightMapper.cpp:276
 msgid "Cannot load shape file since SUMO was compiled without GDAL support."
-msgstr ""
+msgstr "無法載入形狀檔案，因為 SUMO 是在沒有 GDAL 支援的情況下編譯的。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHeightMapper.cpp:288
 msgid "Cannot load GeoTIFF file."
-msgstr ""
+msgstr "無法載入 GeoTIFF 檔案。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHeightMapper.cpp:303
 msgid "Could not parse geo information from %."
-msgstr ""
+msgstr "無法解析來自 % 的地理資訊。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHeightMapper.cpp:312
 msgid "Unknown color band in %."
-msgstr ""
+msgstr " % 中有未知色帶。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHeightMapper.cpp:319
 msgid "Failure in reading %."
-msgstr ""
+msgstr "讀取 % 失敗。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHeightMapper.cpp:348
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
-msgstr ""
+msgstr "無法載入 GeoTIFF 檔案，因為 SUMO 是在沒有 GDAL 支援的情況下編譯的。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHelpers.cpp:89
 msgid "Could not load names of edges too keep from '%'."
-msgstr ""
+msgstr "無法從 '%' 載入要保留的路段的名稱。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHelpers.cpp:107
 msgid "Could not load IDs from '%'."
-msgstr ""
+msgstr "無法從 '%' 載入識別名(IDs)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHelpers.cpp:123
 msgid "Invalid lane id '%' (missing '_')."
-msgstr ""
+msgstr "無效的車道識別名(id) '%' (缺少 '_')。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBHelpers.cpp:130
 msgid "Invalid lane index '%' for lane '%'."
-msgstr ""
+msgstr "車道 '%' 的車道索引(index) '%' 無效。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBLoadedSUMOTLDef.cpp:359
 #, c-format
 msgid "Could not patch tlLogic '%' for changed crossings"
-msgstr ""
+msgstr "無法為更改人行穿越道而修補號誌邏輯(tlLogic) '%'"
 
 #: /home/micha/programming/sumo/src\netbuild\NBLoadedSUMOTLDef.cpp:889
 msgid "Unused state in tlLogic '%', program '%' at tl-index %"
-msgstr ""
+msgstr "號誌邏輯(tlLogic) '%' 有未使用的狀態(state), "
+"在號誌索引(tl-index) % 的時制計畫(program) '%'"
 
 #: /home/micha/programming/sumo/src\netbuild\NBLoadedTLDef.cpp:83
 msgid ""
 "TYellow of signal group '%' was less than the computed one; patched (was:%, "
 "is:%)"
-msgstr ""
+msgstr "黃燈號誌組 '%' 小於計算值；已修補 （過去是: %, 現在是: %）"
 
 #: /home/micha/programming/sumo/src\netbuild\NBLoadedTLDef.cpp:300
 msgid "During computation of traffic light '%'."
-msgstr ""
+msgstr "在計算號誌 '%' 期間。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBLoadedTLDef.cpp:514
 msgid "Could not set signal on connection (signal: %, group: %)"
-msgstr ""
+msgstr "無法設定連接線(connection)的號誌 （號誌: %, 群組: %）"
 
 #: /home/micha/programming/sumo/src\netbuild\NBLoadedTLDef.cpp:612
 msgid "myNeedsContRelation was not propperly initialized\n"
-msgstr ""
+msgstr "myNeedsContRelation 未被正確初始化\n"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:94
 msgid "Removing self-loops"
-msgstr ""
+msgstr "移除自我迴圈(self-loops)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:98
 msgid "Finding isolated roads"
-msgstr ""
+msgstr "尋找孤立的道路"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:103
 msgid "Finding largest components"
-msgstr ""
+msgstr "尋找最大的組件(components)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:110
 msgid "Removing unwished edges"
-msgstr ""
+msgstr "移除不需要的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:117
 msgid "Processing public transport stops"
-msgstr ""
+msgstr "正在處理大眾運輸停靠站"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:132
 msgid "Revising public transport stops based on pt lines"
-msgstr ""
+msgstr "根據大眾運輸路線修改大眾運輸停靠點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:138
 msgid "Cleaning up public transport stops that are not served by any line"
-msgstr ""
+msgstr "清除沒有服務任何路線的大眾運輸停靠點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:144
 #, c-format
 msgid "Removed % pt stops because they could not be assigned to the network"
-msgstr ""
+msgstr "刪除了 % 個大眾運輸停靠點，因為它們無法在路網上定位"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:149
 msgid "Align pt stop id signs with corresponding edge id signs"
-msgstr ""
+msgstr "將大眾運輸停靠點識別名(id)標誌與相應的路段識別名(id)標誌對齊"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:186
 msgid "Joining tram edges"
-msgstr ""
+msgstr "正在合併輕軌電車(tram)路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:190
 msgid " Joined % tram edges into roads."
-msgstr ""
+msgstr "% 輕軌電車(tram)路段合併於道路內"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:228
 msgid "Joining junction clusters"
-msgstr ""
+msgstr "正在合併路口群集(clusters)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:233
 #, c-format
 msgid " Joined % junction cluster(s)."
-msgstr ""
+msgstr "合併的 % 路口群集(cluster(s))。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:236
 msgid "Joining junctions with identical coordinates"
-msgstr ""
+msgstr "正在合併具有相同坐標的路口"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:240
 #, c-format
 msgid " Joined % junctions."
-msgstr ""
+msgstr "合併的 % 路口。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:245
 msgid "Joining lanes"
-msgstr ""
+msgstr "正在合併車道"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:248
 #, c-format
 msgid "   Joined lanes on % edges."
-msgstr ""
+msgstr "   在 % 路段上合併的車道。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:258
 #, c-format
 msgid "   % nodes removed."
-msgstr ""
+msgstr "   % 節點已移除。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:278
 msgid "Reducing geometries"
-msgstr ""
+msgstr "正在減少幾何形狀"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:285
 msgid "Joining similar edges"
-msgstr ""
+msgstr "正在合併相似路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:295
 msgid "guessing opposite direction edges"
-msgstr ""
+msgstr "正在猜測對向路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:301
 msgid "Splitting geometry edges"
-msgstr ""
+msgstr "正在分割(splitting)幾何路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:308
 #, c-format
 msgid " Joined % junctions after splitting geometry."
-msgstr ""
+msgstr "分割(split)幾何後,合併的 % 路口。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:313
 msgid "Computing turning directions"
-msgstr ""
+msgstr "正在計算轉彎方向"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:322
 msgid "Assigning nodes to traffic lights"
-msgstr ""
+msgstr "正在將節點指派分配給交通號誌"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:345
 msgid "Guessing and setting on-/off-ramps"
-msgstr ""
+msgstr "正在猜測及設定進出口匝道"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:361
 msgid "Guessed % bike lanes."
-msgstr ""
+msgstr "猜測的 % 腳踏車道。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:372
 #, c-format
 msgid "Guessed % sidewalks."
-msgstr ""
+msgstr "猜測的 % 人行道。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:382
 #, c-format
 msgid "Remapped % edge IDs and % node IDs."
-msgstr ""
+msgstr "重新映射的(remapped) % 路段識別名(IDs)和 % 節點識別名(IDs)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:397
 msgid "Sorting nodes' edges"
-msgstr ""
+msgstr "正在排序節點的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:402
 msgid "Computing node shapes"
-msgstr ""
+msgstr "正在計算節點形狀"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:410
 msgid "Computing edge shapes"
-msgstr ""
+msgstr "正在計算路段形狀"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:423
 msgid "Applying speed modifications"
-msgstr ""
+msgstr "使用修改後的速度"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:436
 msgid "Computing node types"
-msgstr ""
+msgstr "正在計算節點類型"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:447
 #, c-format
 msgid "Guessed % pedestrian crossings."
-msgstr ""
+msgstr "猜測的 % 行人穿越道。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:475
 msgid "Computing priorities"
-msgstr ""
+msgstr "正在計算優先順序等級"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:479
 msgid "Computing approached edges"
-msgstr ""
+msgstr "正在計算接近的(approached)路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:484
 msgid "Guessing and setting roundabouts"
-msgstr ""
+msgstr "正在猜測及設定圓環"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:487
 msgid " Guessed % roundabout(s)."
-msgstr ""
+msgstr "猜測的 % 圓環。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:493
 msgid "Computing approaching lanes"
-msgstr ""
+msgstr "正在計算接近的(approached)車道"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:497
 msgid "Dividing of lanes on approached lanes"
-msgstr ""
+msgstr "在接近的(approached)車道上劃分(divide)車道"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:503
 msgid "Guessing Network fringe"
-msgstr ""
+msgstr "正在猜測路網邊緣"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:506
 #, c-format
 msgid " Guessed % fringe nodes."
-msgstr ""
+msgstr "猜測的 % 邊緣節點。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:511
 msgid "Processing turnarounds"
-msgstr ""
+msgstr "正在處理迴轉(turnarounds)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:529
 msgid "Rechecking of lane endings"
-msgstr ""
+msgstr "重新檢查車道末端"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:551
 msgid "Joining traffic light nodes"
-msgstr ""
+msgstr "正在合併交通號誌節點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:558
 msgid "Computing traffic light control information"
-msgstr ""
+msgstr "正在計算交通號誌控制資訊"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:565
 msgid "Computing node logics"
-msgstr ""
+msgstr "正在計算節點邏輯"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:570
 msgid "Computing traffic light logics"
-msgstr ""
+msgstr "正在計算交通號誌邏輯"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:577
 msgid " % traffic light(s) %computed."
-msgstr ""
+msgstr " % 交通號誌%已計算完成。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:585
 msgid "Building inner edges"
-msgstr ""
+msgstr "正在建立內部路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:598
 msgid "stretching junctions to smooth geometries"
-msgstr ""
+msgstr "拉伸路口以平滑幾何形狀"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:627
 msgid "Generating street signs"
-msgstr ""
+msgstr "正在產生街道標誌"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:638
 msgid "Checking overlapping edges"
-msgstr ""
+msgstr "正在檢查重疊的路段"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:643
 msgid "Checking edge grade"
-msgstr ""
+msgstr "正在檢查路段坡度(grade)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:658
 msgid "Find accesses for pt rail stops"
-msgstr ""
+msgstr "尋找火車站停靠點的連通通道(accesses)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:681
 msgid ""
 "Network contains very large coordinates and will probably flicker in the "
 "GUI. Check for outlying nodes and make sure the network is shifted to the "
 "coordinate origin"
-msgstr ""
+msgstr "路網包含非常大的坐標，且可能會在 GUI 中閃爍(flicker)。"
+"檢查外圍節點,並確保路網已移動到坐標原點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:688
 msgid "Moving network to origin"
-msgstr ""
+msgstr "正在移動路網到坐標原點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:299
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:321
 msgid "Invalid node id '%'."
-msgstr ""
+msgstr "無效的節點識別名(id) '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:465
 msgid " Removing self-looping edge '%'"
-msgstr ""
+msgstr "移除自我迴圈(self-looping)路段 '%'"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:744
 msgid "Could not compute indirect left turn shape at node '%'"
-msgstr ""
+msgstr "無法計算節點 '%' 處間接左轉形狀"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:760
 #, c-format
 msgid "Connection '%' starts at a non-existant lane."
-msgstr ""
+msgstr "連接線 '%' 從一個不存在的車道開始。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:763
 #, c-format
 msgid "Connection '%' targets a non-existant lane."
-msgstr ""
+msgstr "連接線 '%' 以一個不存在的車道為目標。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:777
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:795
 msgid "Could not use custom shape for connection %."
-msgstr ""
+msgstr "無法於連接線 % 使用自定形狀。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:786
 msgid "Custom shape has distance % to incoming lane for connection %."
-msgstr ""
+msgstr "自定形狀與連接線 % 的進入(incoming)車道的距離為 %。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:803
 msgid "Custom shape has distance % to outgoing lane for connection %."
-msgstr ""
+msgstr "自定形狀與連接線 % 的離開(outgoing)車道的距離為 %。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:1003
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
-msgstr ""
+msgstr "路口 '%' 太複雜 (% 連接線，最大 %); 將被設定為 %。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:1144
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
-msgstr ""
+msgstr "路口 '%' 的形狀與其給定位置的距離為 %。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:1148
 msgid "For junction '%': could not compute shape."
-msgstr ""
+msgstr "路口 '%': 無法計算形狀。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:1849
 msgid "Something went wrong during the building of a connection..."
-msgstr ""
+msgstr "建立連接線(connection)時,發生了問題..."
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:2868
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
-msgstr ""
+msgstr "廢除連接路段 [%] 的路口 '%' 處的無效穿越道 '%' （未找到步行區域）。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:3044
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
-msgstr ""
+msgstr "在具有路段 [%] 的路口 '%' 處廢除無效的人行道 '%' （無車道可穿越）。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:3063
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
-msgstr ""
+msgstr "在具有路段 [%] 的路口 '%' 處廢除無效的人行道 '%' （無效的形狀(shape)）。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:3214
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
-msgstr ""
+msgstr "路口 '%' 處的行人拓撲結構(topology)無效； 穿越道 '%' 目標 '%' 和 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:3237
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
-msgstr ""
+msgstr "路口 '%' 處的行人拓撲結構(topology)無效； 穿越道 '%' 是 '%' 和 '%' 的目標。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:3242
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
-msgstr ""
+msgstr "路口 '%'處的行人拓撲結構(topology)無效；"
+"穿越道 '%' 的起點和終點都在步行區域 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:3462
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
-msgstr ""
+msgstr "無效的行人拓撲結構(topology): 跨越 [%] 的人行穿越道 '%'沒有目標。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:3682
 msgid "Request for unknown crossing '%'"
-msgstr ""
+msgstr "請求未知人行穿越道 '%'"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:3698
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:3709
 msgid "Request for unknown crossing for the given Edges"
-msgstr ""
+msgstr "請求給定路段的未知人行穿越道"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:319
 msgid "Removed a road without junctions: %."
-msgstr ""
+msgstr "移除了沒有路口的道路: %。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:406
 msgid "Found % components and removed % (% edges)."
-msgstr ""
+msgstr "找到 % 組件並移除 % (% 路段)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:447
 msgid "Removed % railway components (% edges)."
-msgstr ""
+msgstr "移除了 % 火車組件 (% 路段)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:658
 #, c-format
 msgid ""
 "Ignoring join exclusion for junction '%' since it already occurred in a list "
 "of nodes to be joined."
-msgstr ""
+msgstr "忽略路口 '%' 的合併排除,因為它已經出現在要連接的節點清單中。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:691
 msgid ""
 "Ignoring join-cluster because junction '%' was already excluded from joining."
-msgstr ""
+msgstr "忽略合併群集(join-cluster),因為聯路口 '%' 已被排除在合併之外。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:694
 #, c-format
 msgid ""
 "Ignoring join-cluster because junction '%' already occurred in another join-"
 "cluster."
-msgstr ""
+msgstr "忽略合併群集(join-cluster),因為路口 '%' 已出現在另一個合併群集中。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:700
 #, c-format
 msgid "Unknown junction '%' in join-cluster."
-msgstr ""
+msgstr "有未知的路口 '%' 在合併群集(join-cluster)內。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:708
 msgid "Ignoring join-cluster '%' because it has size '%'."
-msgstr ""
+msgstr "忽略合併群集(join-cluster) '%' ,因為它的大小為 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:722
 msgid "unknown junction '%' while joining."
-msgstr ""
+msgstr "當合併時,未知的路口 '%'"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:780
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:821
@@ -5714,484 +5739,493 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:833
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:840
 msgid "Not joining junctions % (%)."
-msgstr ""
+msgstr "沒有合併的路口"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:800
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:814
 msgid "Reducing junction cluster % (%)."
-msgstr ""
+msgstr "減少路口群集(cluster) % (%)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:1709
 msgid "Could not join junctions %."
-msgstr ""
+msgstr "無法合併路口 %。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:1909
 msgid "Ambiguous traffic light type for node cluster '%', setting to '%'."
-msgstr ""
+msgstr "節點群集(cluster) '%' 的交通號誌類型不明確, 設定為 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2005
 #, c-format
 msgid " The junction '%' to set as not-controlled is not known."
-msgstr ""
+msgstr "設置為不受控制的路口 '%' 為未知。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2174
 msgid "Could not build joined tls '%'."
-msgstr ""
+msgstr "無法建立合併的交通號誌(tls) '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2219
 msgid "Could not build guessed, joined tls."
-msgstr ""
+msgstr "無法建立猜測的,合併的交通號誌(tls)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2335
 msgid "Could not build a joined tls."
-msgstr ""
+msgstr "無法建立一個合併的交通號誌(tls)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2352
 msgid "Building a tl-logic for junction '%' twice is not possible."
-msgstr ""
+msgstr "不可能為路口 '%' 建立一個號誌邏輯(tl-logic)兩次。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2434
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2526
 msgid "-----------------------------------------------------"
-msgstr ""
+msgstr "-----------------------------------------------------"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2435
 msgid "Summary:"
-msgstr ""
+msgstr "彙總:"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2493
 msgid " Node type statistics:"
-msgstr ""
+msgstr " 節點類型統計:"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2522
 msgid " Network boundaries:"
-msgstr ""
+msgstr " 路網邊界:"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2555
 msgid "Attempt to rename node using existing id '%'"
-msgstr ""
+msgstr "嘗試使用現有識別名(id) '%' 去重新命名節點"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeShapeComputer.cpp:441
 msgid "Fixing offset for edge '%' at node '%."
-msgstr ""
+msgstr "正在修復節點 '%' 處的路段 '%' 的偏移量。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBOwnTLDef.cpp:561
 #, c-format
 msgid ""
 "Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane "
 "is missing."
-msgstr ""
+msgstr "從路段 '%' 到路段 '%' 的次要綠燈超過 %。可能缺少左轉車道。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBOwnTLDef.cpp:773
 msgid ""
 "Generating NEMA phases is not support for traffic light '%' with % incoming "
 "edges. Using tlType 'actuated' as fallback"
-msgstr ""
+msgstr "產生的 NEMA 時相不支援具有 % 進入車道的交通號誌 '%'。"
+"使用 號誌類型(tlType) '觸動式(actuated)' 作為應變"
 
 #: /home/micha/programming/sumo/src\netbuild\NBOwnTLDef.cpp:799
 msgid "The traffic light '%' cannot be adapted to a cycle time of %."
-msgstr ""
+msgstr "交通號誌 '%' 無法調適配合 % 的週期時間。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBOwnTLDef.cpp:818
 msgid "The traffic light '%' has a high cycle time of %."
-msgstr ""
+msgstr "交通號誌 '%' 有長的週期時間, 為 %。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLine.cpp:197
 msgid "Could not retrieve edge '%' for first stop of line '%'."
-msgstr ""
+msgstr "無法提取(retrieve)路線 '%' 的第一個停靠點的路段 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLine.cpp:203
 msgid "First stop edge '%' is not part of the route of line '%'."
-msgstr ""
+msgstr "第一個停靠點路段 '%' 不是路線 '%' 路徑的一部分。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLine.cpp:227
 msgid "Could not retrieve edge '%' for last stop of line '%'."
-msgstr ""
+msgstr "無法提取(retrieve)路線 '%' 的最後一個停靠點的路段 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLine.cpp:233
 msgid "Last stop edge '%' is not part of the route of line '%'."
-msgstr ""
+msgstr "最後一個停靠點路段 '%' 不是路線 '%' 路徑的一部分。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLine.cpp:294
 msgid "Removed invalid stop '%' from line '%'."
-msgstr ""
+msgstr "從路線 '%' 內移除了無效的停靠點 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLine.cpp:312
 msgid "Removed duplicate stop '%' at area '%' from line '%'."
-msgstr ""
+msgstr "從路線 '%' 內移除了在區域 '%' 中的重複停靠點 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLine.cpp:315
 msgid "Removed duplicate stop '%' named '%' from line '%'."
-msgstr ""
+msgstr "從路線 '%' 內移除了名為 '%' 的重複停靠點 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLineCont.cpp:99
 msgid ""
 "Cannot revise pt stop localization for pt line '%', which consist of one way "
 "only. Ignoring!"
-msgstr ""
+msgstr "無法修改大眾運輸路線 '%' 的停靠點定位,它僅包含單向。 忽略!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLineCont.cpp:103
 msgid ""
 "Cannot revise pt stop localization for pt line '%', which has no route "
 "edges. Ignoring!"
-msgstr ""
+msgstr "無法修改大眾運輸路線 '%' 的停靠點定位,它沒有路徑路段。 忽略!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLineCont.cpp:122
 msgid ""
 "Cannot assign stop '%' on edge '%' to pt line '%' (wayNodes not found). "
 "Ignoring!"
-msgstr ""
+msgstr "無法指派停靠點 '%' 到路段 '%' 給大眾運輸路線 '%' （找不到路徑節點"
+"(wayNodes)）。 忽略!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLineCont.cpp:137
 #: /home/micha/programming/sumo/src\netbuild\NBPTLineCont.cpp:151
 msgid ""
 "Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!"
-msgstr ""
+msgstr "無法為不完整的大眾運輸路線 '%' 修改停靠站定位。 忽略!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLineCont.cpp:162
 msgid "Could not re-assign PT stop '%', probably broken osm file."
-msgstr ""
+msgstr "無法重新指派大眾運輸停靠點 '%',可能由於損壞的 osm 檔案。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLineCont.cpp:171
 msgid "PT stop '%' has been moved to edge '%'."
-msgstr ""
+msgstr "大眾運輸停靠點 '%' 已被移至路段 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLineCont.cpp:243
 msgid ""
 "Could not assign stop '%' to pt line '%' (closest edge '%', distance %). "
 "Ignoring!"
-msgstr ""
+msgstr "無法指派停靠點 '%' 給大眾運輸路線 '%' （最近的路段 '%', 距離 %）。"
+"忽略!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLineCont.cpp:275
 msgid "Cannot assign stop % on edge '%' to pt line '%'. Ignoring!"
-msgstr ""
+msgstr "無法指派停靠點 '%' 到路段 '%' 給大眾運輸路線 '%'。 忽略!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLineCont.cpp:458
 msgid ""
 "Could not determine vehicle class for public transport line of type '%'."
-msgstr ""
+msgstr "無法確定類型為 '%' 的大眾運輸路線的車輛類別。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTLineCont.cpp:523
 msgid "Could not determine direction for line '%' at stop '%'."
-msgstr ""
+msgstr "無法在停靠點 '%' 處確定路線 '%' 的方向。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTStopCont.cpp:110
 msgid ""
 "Could not find corresponding edge or compatible lane for pt stop '%' (%). "
 "Thus, it will be removed!"
-msgstr ""
+msgstr "無法找到大眾運輸停靠點 '%' (%) 的對應路段或合適車道。"
+"因此，它將被刪除!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTStopCont.cpp:136
 msgid ""
 "Could not create reverse-direction stop for superposed edge '%' (origStop "
 "'%'). Stop id '%' already in use by stop on edge '%'."
-msgstr ""
+msgstr "無法為疊加路段 '%' 建立反向停靠點 (原始停靠點(origStop) '%')。"
+"停靠點識別名(id) '%' 已被路段 '%' 上的停靠點使用。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTStopCont.cpp:170
 #, c-format
 msgid "Added % stops for superposed rail edges."
-msgstr ""
+msgstr "為疊加(superposed)的軌道路段增加了 % 停靠點。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTStopCont.cpp:272
 msgid "Could not determine cross product for edge '%'."
-msgstr ""
+msgstr "無法確定路段 '%' 的交叉乘積(cross product)。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTStopCont.cpp:326
 msgid "Removing pt stop '%' on non existing edge '%'."
-msgstr ""
+msgstr "移除在不存在路段 '%' 上的大眾運輸停靠點 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTStopCont.cpp:357
 msgid "Could not re-assign pt stop '%' after replacing edge '%'."
-msgstr ""
+msgstr "替換路段 '%' 後,無法重新指派分配大眾運輸停靠點 '%'。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBPTStopCont.cpp:446
 msgid ""
 "Could not find corresponding edge or compatible lane for free-floating pt "
 "stop '%' (%). Thus, it will be removed!"
-msgstr ""
+msgstr "無法找到自由移動(free-floating)的大眾運輸停靠點 '%' (%) 的對應路段"
+"或合適車道。因此，它將被刪除!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBParking.cpp:44
 #, c-format
 msgid "Ignoring parking area on edge '%' due to invalid permissions."
-msgstr ""
+msgstr "由於無效的權限,忽略路段 '%' 上的停車區域。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBParking.cpp:51
 #, c-format
 msgid "Ignoring parking area on edge '%' due to insufficient space."
-msgstr ""
+msgstr "由於空間不足,忽略路段 '%' 上的停車區域。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBParking.cpp:71
 msgid "Could not find edge for parkingArea '%'."
-msgstr ""
+msgstr "無法為停車區域 '%' 發現路段。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBTrafficLightDefinition.cpp:115
 #, c-format
 msgid "The traffic light '%' does not control any links; it will not be build."
-msgstr ""
+msgstr "交通號誌 '%' 沒有控制任何路段; 它將不會被建立。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBTrafficLightDefinition.cpp:229
 msgid "Unreachable edge '%' within tlLogic '%'"
-msgstr ""
+msgstr "號誌邏輯(tlLogic) '%' 內無法到達的路段 '%'"
 
 #: /home/micha/programming/sumo/src\netbuild\NBTrafficLightDefinition.cpp:509
 #, c-format
 msgid "The rail crossing '%' does not have any roads."
-msgstr ""
+msgstr "火車平交道 '%' 沒有任何道路。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBTrafficLightLogic.cpp:100
 #, c-format
 msgid "When adding phase: illegal character '%' in state"
-msgstr ""
+msgstr "當增加時相: 狀態(state)中有非法字元 '%'"
 
 #: /home/micha/programming/sumo/src\netbuild\NBTrafficLightLogic.cpp:233
 #, c-format
 msgid "Non-static traffic light '%' does not define variable phase length."
-msgstr ""
+msgstr "非定時交通號誌 '%' 未定義可變相位長度。"
 
 #: /home/micha/programming/sumo/src\netbuild\NBTrafficLightLogicCont.cpp:235
 msgid "Could not build program '%' for traffic light '%'"
-msgstr ""
+msgstr "無法建立交通號誌 '%' 的時制計畫 '%'"
 
 #: /home/micha/programming/sumo/src\netbuild\NBTrafficLightLogicCont.cpp:376
 msgid "Guessing signalID for link index % at traffic light '%'."
-msgstr ""
+msgstr "正在猜測交通號誌 '%' 處連接索引(link index) % 的號誌識別名(ID)。"
 
 #: /home/micha/programming/sumo/src\netconvert_main.cpp:97
 msgid ""
 "Network importer / builder for the microscopic, multi-modal traffic "
 "simulation SUMO."
-msgstr ""
+msgstr "微觀多模式交通模擬 SUMO 的路網導入器/構建器。"
 
 #: /home/micha/programming/sumo/src\netconvert_main.cpp:120
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:273
 #: /home/micha/programming/sumo/src\utils\geom\GeoConvHelper.cpp:92
 msgid "Could not build projection!"
-msgstr ""
+msgstr "無法建立投影!"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:41
 msgid "Read edge-type defs from FILE"
-msgstr ""
+msgstr "從檔案中讀取路段類型定義(edge-type defs)"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:44
 msgid ""
 "The Ids of generated nodes use an alphanumerical code for easier readability "
 "when possible"
-msgstr ""
+msgstr "產生的節點的識別名(ids)使用字母數字代碼，以便在可能的情況下更易於閱讀"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:48
 msgid "Generate INT left-turn lanes"
-msgstr ""
+msgstr "產生 INT 左轉車道"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:50
 msgid "Set the length of generated turning lanes to FLOAT"
-msgstr ""
+msgstr "將產生的轉向車道的長度設定為 FLOAT"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:53
 msgid ""
 "Apply random spatial perturbation in x direction according the the given "
 "distribution"
-msgstr ""
+msgstr "根據給定的分配,在 x 方向使用隨機空間擾動"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:55
 msgid ""
 "Apply random spatial perturbation in y direction according the the given "
 "distribution"
-msgstr ""
+msgstr "根據給定的分配,在 y 方向使用隨機空間擾動"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:57
 msgid ""
 "Apply random spatial perturbation in z direction according the the given "
 "distribution"
-msgstr ""
+msgstr "根據給定的分配,在 z 方向使用隨機空間擾動"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:63
 msgid "Forces NETGEN to build a grid-like network"
-msgstr ""
+msgstr "強制 NETGEN 建立格狀網絡"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:68
 msgid "The number of junctions in both dirs"
-msgstr ""
+msgstr "在兩個方向上的路口數量"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:73
 msgid "The length of streets in both dirs"
-msgstr ""
+msgstr "在兩個方向上的街道長度"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:78
 msgid "The number of junctions in x-dir; Overrides --grid-number"
-msgstr ""
+msgstr "在 x 方向上的路口數量; 覆蓋 --grid-number"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:83
 msgid "The number of junctions in y-dir; Overrides --grid-number"
-msgstr ""
+msgstr "在 y 方向上的路口數量; 覆蓋 --grid-number"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:88
 msgid "The length of horizontal streets; Overrides --grid-length"
-msgstr ""
+msgstr "水平街道的長度; 覆蓋 --grid-length"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:93
 msgid "The length of vertical streets; Overrides --grid-length"
-msgstr ""
+msgstr "垂直街道的長度; 覆蓋 --grid-length"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:97
 msgid ""
 "The length of streets attached at the boundary; 0 means no streets are "
 "attached"
-msgstr ""
+msgstr "附加到邊界上的街道長度； 0 表示沒有附加任何街道"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:100
 msgid ""
 "The length of streets attached at the boundary in x direction; 0 means no "
 "streets are attached"
-msgstr ""
+msgstr "附加到 x 方向邊界上的街道長度； 0 表示沒有附加任何街道"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:102
 msgid ""
 "The length of streets attached at the boundary in y direction; 0 means no "
 "streets are attached"
-msgstr ""
+msgstr "附加到 y 方向邊界上的街道長度； 0 表示沒有附加任何街道"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:107
 msgid "Forces NETGEN to build a spider-net-like network"
-msgstr ""
+msgstr "強制 NETGEN 建立蜘蛛網狀的路網"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:112
 msgid "The number of axes within the net"
-msgstr ""
+msgstr "路網內的軸(axes)數"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:117
 msgid "The number of circles of the net"
-msgstr ""
+msgstr "路網的圓圈數量"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:122
 msgid "The distances between the circles"
-msgstr ""
+msgstr "圓圈之間的距離"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:127
 msgid "Omit the central node of the network"
-msgstr ""
+msgstr "省略路網的中心節點"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:133
 msgid "Forces NETGEN to build a random network"
-msgstr ""
+msgstr "強制 NETGEN 構建隨機路網"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:138
 msgid "Describes how many times an edge shall be added to the net"
-msgstr ""
+msgstr "描述應將一個路段增加到路網中的次數"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:144
 msgid "Defines the probability to build a reverse edge"
-msgstr ""
+msgstr "定義建立反向路段的機率"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:149
 msgid "The maximum distance for each edge"
-msgstr ""
+msgstr "每個路段的最大距離"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:154
 msgid "The minimum distance for each edge"
-msgstr ""
+msgstr "每個路段的最小距離"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:159
 msgid "The minimum angle for each pair of (bidirectional) roads in DEGREES"
-msgstr ""
+msgstr "每對(雙向)道路的最小角度,以 DEGREES 為單位"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:164
 msgid "The number of tries for creating each node"
-msgstr ""
+msgstr "建立每個節點的嘗試次數"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:169
 msgid "Probability for roads to continue at each node"
-msgstr ""
+msgstr "道路在每個節點連續的機率"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:174
 msgid "Probability for a node having exactly 1 neighbor"
-msgstr ""
+msgstr "節點恰好有 1 個鄰居的機率"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:179
 msgid "Probability for a node having exactly 2 neighbors"
-msgstr ""
+msgstr "節點恰好有 2 個鄰居的機率"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:184
 msgid "Probability for a node having exactly 3 neighbors"
-msgstr ""
+msgstr "節點恰好有 3 個鄰居的機率"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:189
 msgid "Probability for a node having exactly 4 neighbors"
-msgstr ""
+msgstr "節點恰好有 4 個鄰居的機率"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:194
 msgid "Probability for a node having exactly 5 neighbors"
-msgstr ""
+msgstr "節點恰好有 5 個鄰居的機率"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:199
 msgid "Probability for a node having exactly 6 neighbors"
-msgstr ""
+msgstr "節點恰好有 6 個鄰居的機率"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:203
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
-msgstr ""
+msgstr "從 [1,default.lanenumber] 中隨機抽取車道數"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:207
 msgid "Draw edge priority randomly from [1,default.priority]"
-msgstr ""
+msgstr "從 [1,default.priority] 中隨機抽取邊優先級別"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:210
 msgid "Draw edge type randomly from all loaded types"
-msgstr ""
+msgstr "從所有載入的類型中隨機抽取路段類型"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:213
 msgid "Place nodes on a regular grid with spacing rand.min-distance"
-msgstr ""
+msgstr "將節點放置在間距為 rand.min-distance 的規則路網上"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:233
 msgid "You have to specify the type of network to generate."
-msgstr ""
+msgstr "您必須指定要產生的路網類型。"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:237
 msgid "You may specify only one type of network to generate at once."
-msgstr ""
+msgstr "您一次只能指定產生一種類型的路網。"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:272
 msgid "Option 'random-type' takes no effect unless 'type-files' are loaded"
-msgstr ""
+msgstr "除非已載入'類型檔案(type-files)'，否則選項'隨機類型(random-type)'無效"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:90
 msgid ""
 "[traffic_light|priority|right_before_left|left_before_right|"
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines "
 "junction type (see wiki/Networks/PlainXML#Node_types)"
-msgstr ""
+msgstr "[交通號誌|優先級別|右方車輛優先|左方車輛優先|"
+"紅燈可右行號誌|依優先等級停等|一直停等|...] 決定 "
+"路口類型 (請參見 wiki/Networks/PlainXML#Node_types)"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:119
 msgid "Spider networks need at least 3 arms."
-msgstr ""
+msgstr "蜘蛛型網絡至少需要 3 個手臂。"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:123
 msgid "Spider networks with many arms should use option ommit-center"
-msgstr ""
+msgstr "多臂的蜘蛛型網絡應該使用選項 ommit-center"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:126
 msgid "Spider networks need at least one circle."
-msgstr ""
+msgstr "蜘蛛型路網至少需要一個圓圈。"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:134
 #, c-format
 msgid ""
 "The radius of spider networks should be at least % for the given lanenumber, "
 "lanewidth and junction radius"
-msgstr ""
+msgstr "對於給定的車道數、車道寬度和交叉路口半徑，蜘蛛型路網的半徑應至少為 %"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:175
 msgid ""
 "The number of nodes must be positive and at least 2 in one direction if "
 "there are no attachments."
-msgstr ""
+msgstr "如果沒有附加物件(attachments)，節點數必須為正數,且在一個方向上至少"
+"有 2 個。"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:183
 #, c-format
 msgid ""
 "The distance between nodes should be at least % for the given lanenumber, "
 "lanewidth and junction radius"
-msgstr ""
+msgstr "對於給定的車道數、車道寬度和路口半徑，節點之間的距離應至少為 %"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:189
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:194
@@ -6199,63 +6233,63 @@ msgstr ""
 msgid ""
 "The length of attached streets should be at least % for the given "
 "lanenumber, lanewidth and junction radius"
-msgstr ""
+msgstr "對於給定的車道數、車道寬度和路口半徑，街道的長度應至少為 %"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:229
 msgid ""
 "Synthetic network generator for the microscopic, multi-modal traffic "
 "simulation SUMO."
-msgstr ""
+msgstr "用於微觀多模式交通模擬 SUMO 的合成(synthetic)路網產生器。"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:265
 msgid " Generation done;"
-msgstr ""
+msgstr "產生完成;"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:266
 #, c-format
 msgid "   % nodes generated."
-msgstr ""
+msgstr "已產生 % 節點。"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:267
 #, c-format
 msgid "   % edges generated."
-msgstr ""
+msgstr "   已產生 % 路段。"
 
 #: /home/micha/programming/sumo/src\netgen\netgen_main.cpp:272
 msgid " Removed % traffic lights at geometry-like nodes"
-msgstr ""
+msgstr "在幾何相似的節點處移除 % 交通號誌"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:53
 msgid "Read SUMO-net from FILE"
-msgstr ""
+msgstr "從檔案讀取SUMO路網(SUMO-net)"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:60
 msgid "Read XML-node defs from FILE"
-msgstr ""
+msgstr "從檔案讀取 XML 節點的定義(XML-node defs)"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:66
 msgid "Read XML-edge defs from FILE"
-msgstr ""
+msgstr "從檔案讀取 XML 路段的定義(XML-edge defs)"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:72
 msgid "Read XML-connection defs from FILE"
-msgstr ""
+msgstr "從檔案讀取 XML 連接線的定義(XML-connection defs)"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:75
 msgid "Read XML-traffic light defs from FILE"
-msgstr ""
+msgstr "從檔案讀取 XML 交通號誌的定義(XML-traffic light defs)"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:81
 msgid "Read XML-type defs from FILE"
-msgstr ""
+msgstr "從檔案讀取 XML 類型的定義(XML-type defs)"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:86
 msgid "Reads public transport stops from FILE"
-msgstr ""
+msgstr "從檔案讀取大眾運輸停靠點"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:88
 msgid "Reads public transport lines from FILE"
-msgstr ""
+msgstr "從檔案讀取大眾運輸路線"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:90
 msgid "Reads polygons from FILE for embedding in network where applicable"
@@ -6590,79 +6624,80 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:360
 msgid "Import internal lane shapes"
-msgstr ""
+msgstr "導入內部車道形狀"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:362
 msgid "Sets edge-id based on road-id and offset in m (legacy)"
-msgstr ""
+msgstr "根據道路識別名(id)和以米為單位的偏移量設定路段識別名(id) （舊版）"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:364
 msgid "Use custom lane shapes to compensate discarded lane types"
-msgstr ""
+msgstr "使用自定車道形狀來補償廢除的車道類型"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:375
 msgid ""
 "Discard all railway signal information loaded from other formats than plain-"
 "xml"
-msgstr ""
+msgstr "廢除所有從除了 plain-xml 以外的其他格式所載入的鐵路號誌資訊"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:397
 msgid ""
 "Cannot import network data without PROJ-Library. Please install package proj "
 "before building sumo"
-msgstr ""
+msgstr "沒有 PROJ-Library 無法導入路網資料。請在構建 sumo 之前安裝 package proj"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:422
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:314
 msgid "Environment variable SUMO_HOME is not set, using built in type maps."
-msgstr ""
+msgstr "未設定環境變數 SUMO_HOME, 將使用內置類型映射(maps)。"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:455
 msgid "It is recommend to use option osm.crossings with osm.sidewalks"
-msgstr ""
+msgstr "建議使用選項 osm.crossings 和 osm.sidewalks"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:138
 #: /home/micha/programming/sumo/src\polyconvert\PCLoaderArcView.cpp:139
 msgid "Could not open shape description '%'."
-msgstr ""
+msgstr "無法打開形狀描述 '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:187
 msgid "Needed field '%' (street-id) is missing."
-msgstr ""
+msgstr "缺少所需欄位(field) '%' (街道識別名(street-id))。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:198
 msgid "Needed field '%' (from node id) is missing."
-msgstr ""
+msgstr "缺少所需欄位(field) '%' (起始節點識別名(from node id))。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:202
 msgid "Needed field '%' (to node id) is missing."
-msgstr ""
+msgstr "缺少所需欄位(field) '%' (到達節點識別名(to node id))。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:218
 msgid "Unknown type '%' for edge '%'"
-msgstr ""
+msgstr "路段 '%' 的類型 '%' 未知"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:233
 #, c-format
 msgid ""
 "Required field '%' or '%' is missing (add fields or set option --shapefile."
 "use-defaults-on-failure)."
-msgstr ""
+msgstr "缺少必填欄位 '%' 或 '%' (增加欄位(fields)或設定選項 --shapefile。"
+"use-defaults-on-failure)。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:249
 msgid ""
 "Road geometry must be of type 'linestring' or 'linestring25D' (found '%')"
-msgstr ""
+msgstr "道路幾何必須是 'linestring' 或 'linestring25D' 類型 (找到 '%')"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:261
 #: /home/micha/programming/sumo/src\polyconvert\PCLoaderArcView.cpp:90
 msgid "No coordinate system found and coordinates look already projected."
-msgstr ""
+msgstr "未找到坐標系統，坐標看起來已經投影。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:264
 #: /home/micha/programming/sumo/src\polyconvert\PCLoaderArcView.cpp:93
 msgid "Could not find geo coordinate system, assuming WGS84."
-msgstr ""
+msgstr "無法找到地理坐標系統,假設為 WGS84。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:277
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenDrive.cpp:1482
@@ -6670,103 +6705,103 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimAbstractEdge.cpp:44
 #: /home/micha/programming/sumo/src\polyconvert\PCLoaderVisum.cpp:171
 msgid "Unable to project coordinates for edge '%'."
-msgstr ""
+msgstr "無法投影路段 '%' 的坐標。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:290
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:304
 #, c-format
 msgid "Node '%' could not be added"
-msgstr ""
+msgstr "無法增加節點 '%'"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:312
 #, c-format
 msgid "Edge '%' connects identical nodes, skipping."
-msgstr ""
+msgstr "路段 '%' 連接相同的節點, 跳過。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:329
 #, c-format
 msgid "Edge '% is not unique."
-msgstr ""
+msgstr "路段 '%' 不是唯一的。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:338
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
-msgstr ""
+msgstr "路段 '%' 不是唯一的。 將隨後的路段重新命名為 '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:354
 msgid "Could not create edge '%'. An edge with the same id already exists."
-msgstr ""
+msgstr "無法建立路段 '%'。 已存在具有相同識別名(id)的路段。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:368
 msgid "Could not create edge '-%'. An edge with the same id already exists."
-msgstr ""
+msgstr "無法建立路段  '-%'。 已存在具有相同識別名(id)的路段。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:382
 #: /home/micha/programming/sumo/src\polyconvert\PCLoaderArcView.cpp:331
 msgid "SUMO was compiled without GDAL support."
-msgstr ""
+msgstr "SUMO 是在沒有 GDAL 支援的情況下編譯的。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:76
 msgid "Loading nodes"
-msgstr ""
+msgstr "正在載入節點"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:80
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:105
 #, c-format
 msgid "The file '%' could not be opened."
-msgstr ""
+msgstr "無法開啟檔案 '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:90
 msgid "Loading street names"
-msgstr ""
+msgstr "正在載入街道名稱"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:95
 msgid "Output will not contain street names because the file '%' was not found"
-msgstr ""
+msgstr "輸出將不包含街道名稱，因為未找到檔案 '%'"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:100
 msgid "Loading edges"
-msgstr ""
+msgstr "正在載入路段"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:114
 msgid "Loading traffic lights"
-msgstr ""
+msgstr "正在載入交通號誌"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:123
 msgid "Loading prohibited manoeuvres"
-msgstr ""
+msgstr "正在載入禁止的運轉行為(manoeuvres)"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:132
 msgid "Loading connected lanes"
-msgstr ""
+msgstr "正在載入連接的車道"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:141
 msgid "Loading time restrictions"
-msgstr ""
+msgstr "正在載入時間限制"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:210
 msgid "Non-numerical value for intermediate status in node %."
-msgstr ""
+msgstr "節點 % 的中間狀態為非數字值。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:215
 msgid "Non-numerical value for number of geometries in node %."
-msgstr ""
+msgstr "節點 % 的幾何(geometries)數量為非數字值。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:222
 msgid "Non-numerical value for x-position in node %."
-msgstr ""
+msgstr "節點 % 的 x 位置為非數字值。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:226
 msgid "Non-numerical value for y-position in node %."
-msgstr ""
+msgstr "節點 % 的 y 位置為非數字值。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:230
 #: /home/micha/programming/sumo/src\netimport\NIImporter_VISUM.cpp:321
 msgid "Unable to project coordinates for node %."
-msgstr ""
+msgstr "無法投影節點 % 的坐標。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
 msgid "Could not add add node '%'"
-msgstr ""
+msgstr "無法增加節點 '%'"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:242
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenDrive.cpp:254
@@ -6774,143 +6809,143 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenDrive.cpp:468
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenDrive.cpp:1344
 msgid "Could not add node '%'."
-msgstr ""
+msgstr "無法增加節點 '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:299
 msgid "Missing version string in file '%'."
-msgstr ""
+msgstr "檔案 '%' 中缺少版本字串(version string)。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:309
 msgid "Non-numerical value for form_of_way of link '%'."
-msgstr ""
+msgstr "路段 '%' 的道路型式(form_of_way)為非數字值。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:316
 msgid "Non-numerical value for brunnel_type of link '%'."
-msgstr ""
+msgstr "路段 '%' 的橋/隧道類型(brunnel_type)為非數字值。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:329
 msgid "Non-numerical value for street_type of link '%')."
-msgstr ""
+msgstr "路段 '%' 的街道類型(street_type)為非數字值。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:351
 msgid "Non-numerical value for the SPEED_RESTRICTION of link '%'."
-msgstr ""
+msgstr "路段 '%' 的速度限制(SPEED_RESTRICTION)為非數字值。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:366
 msgid "Non-numerical value for the number of lanes of link '%'."
-msgstr ""
+msgstr "路段 '%' 的車道數為非數字值。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:420
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenDrive.cpp:532
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenDrive.cpp:590
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:759
 msgid "Could not add edge '%'."
-msgstr ""
+msgstr "無法增加路段 '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:431
 msgid "Missing column %."
-msgstr ""
+msgstr "缺少行(column) %。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:442
 msgid "Missing optional column % without default value."
-msgstr ""
+msgstr "缺少沒有預設值的選項行(column) %。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:499
 #, c-format
 msgid "The traffic light edge '%' could not be found."
-msgstr ""
+msgstr "無法找到交通號誌路段 '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:511
 msgid "Could not allocate tls for '%'."
-msgstr ""
+msgstr "無法分配交通號誌(tls)給 '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:702
 msgid "Could not parse YYYY-MM-DD date '%'"
-msgstr ""
+msgstr "無法解析 YYYY-MM-DD 日期 '%'"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:747
 msgid "Ignoring temporary prohibited manoeuvre (%)."
-msgstr ""
+msgstr "忽略臨時禁止的運轉操作 (%)。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:756
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:801
 msgid "Ignoring prohibition from unknown start edge '%'."
-msgstr ""
+msgstr "忽略來自未知起始路段 '%' 的禁止。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:761
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:806
 msgid "Ignoring prohibition from unknown end edge '%'."
-msgstr ""
+msgstr "忽略來自未知結束路段 '%' 的禁止。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:811
 msgid ""
 "Ignoring invalid lane index '%' in connection from edge '%' with % lanes."
-msgstr ""
+msgstr "忽略與有 % 車道的起始路段 '%' 連接的無效車道索引 '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:816
 msgid "Ignoring invalid lane index '%' in connection to edge '%' with % lanes"
-msgstr ""
+msgstr "忽略與有 % 車道的結束路段 '%' 連接的無效車道索引 '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_DlrNavteq.cpp:821
 msgid "Could not set loaded connection from '%' to '%'."
-msgstr ""
+msgstr "無法設定從 '%' 到 '%' 的載入連接線(loaded connection)。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:117
 msgid "Could not open itsumo-file '%'."
-msgstr ""
+msgstr "無法開啟檔案 itsumo-file '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:217
 #: /home/micha/programming/sumo/src\netimport\NIImporter_MATSim.cpp:180
 msgid "Could not add edge '%'. Probably declared twice."
-msgstr ""
+msgstr "無法增加路段 '%'。可能已經宣告了兩次。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:232
 #: /home/micha/programming/sumo/src\netimport\NIImporter_MATSim.cpp:142
 #: /home/micha/programming/sumo/src\netimport\NIImporter_VISUM.cpp:703
 #: /home/micha/programming/sumo/src\netimport\NIXMLNodesHandler.cpp:145
 msgid "Unable to project coordinates for node '%'."
-msgstr ""
+msgstr "無法投影節點 '%' 的坐標。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:237
 #: /home/micha/programming/sumo/src\netimport\NIImporter_MATSim.cpp:147
 msgid "Could not add node '%'. Probably declared twice."
-msgstr ""
+msgstr "無法增加節點 '%'。可能已經宣告了兩次。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:240
 msgid "Not numeric position information for node '%'."
-msgstr ""
+msgstr "節點 '%' 沒有數值的位置資訊。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:242
 msgid "Missing data in node '%'."
-msgstr ""
+msgstr "節點 '%' 內缺少資料。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:260
 msgid "Missing node in laneset '%'."
-msgstr ""
+msgstr "車道集合(laneset) '%' 內缺少節點"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:263
 msgid "Fond laneset-id '%' twice."
-msgstr ""
+msgstr "已發現兩次車道集合識別名(laneset-id) '%'"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:277
 msgid "Not numeric value in laneset '%'."
-msgstr ""
+msgstr "車道集合(laneset) '%' 內不是數字值。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:279
 msgid "Missing data in laneset '%'."
-msgstr ""
+msgstr "缺少車道集合(laneset) '%' 的資料。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:290
 msgid "Not numeric value in lane '%'."
-msgstr ""
+msgstr "車道 '%' 內不是數字值。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ITSUMO.cpp:292
 msgid "Missing data in lane '%'."
-msgstr ""
+msgstr "車道 '%' 內缺少資料。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_MATSim.cpp:202
 msgid "Bogus capacity period format; requires 'hh:mm:ss'."
-msgstr ""
+msgstr "偽造容量週期格式; 需要 'hh:mm:ss'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_MATSim.cpp:234
 msgid "Could not find from-node for edge '%'."
@@ -7228,68 +7263,69 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1984
 #: /home/micha/programming/sumo/src\netimport\NIXMLPTHandler.cpp:222
 msgid "Ignoring duplicate PT line '%'."
-msgstr ""
+msgstr "忽略重複的大眾運輸列(PT line) '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1999
 msgid "Via-node '%' was not instantiated"
-msgstr ""
+msgstr "通過節點(Via-node) '%' 未實例化(instantiated)"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2005
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
-msgstr ""
+msgstr "無法確定限制關係的起始路段(from-edge) '%'"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2009
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
-msgstr ""
+msgstr "無法確定限制關係的到達路段(to-edge) '%'"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2039
 msgid "direction of restriction relation could not be determined%"
-msgstr ""
+msgstr "限制關係的方向無法確定%"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2060
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
-msgstr ""
+msgstr "限制關係中的不明確的路徑(way)參照(reference) '%' "
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2311
 msgid ""
 "Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "廢棄在類型 '%' 中的未知複合物(compound) '%' (在路段 '%' 第一次出現)。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2315
 msgid "Discarding unusable type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "廢棄未使用的類型 '%' (在路段 '%' 第一次出現)。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2364
 msgid "Discarding compound type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "廢棄複合類型(compound type) '%' (在路段 '%' 第一次出現)。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2369
 msgid "Adding new type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "新增新的類型 '%' (在路段 '%' 第一次出現)。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2404
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
-msgstr ""
+msgstr "路徑(way) '%' 的鐵路里程方向不明確（假設向前）"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2411
 msgid "Inconsistent railway kilometrage direction for way '%': % (skipping)"
-msgstr ""
+msgstr "路徑(way) '%' 的鐵路公里方向不一致: % (跳過)"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2456
 msgid "Value of railway:position is not numeric ('%') in node '%'."
-msgstr ""
+msgstr "railway:position 的值在節點 '%' 處不是數字('%')。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2548
 msgid ""
 "Ignoring turn sign information for % lanes on edge % with % driving lanes"
-msgstr ""
+msgstr "在有 % 行駛車道(driving lanes)的路段(edges) % 上的 % 車道(lanes)"
+"忽略轉向標誌信息"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_SUMO.cpp:118
 msgid "Could not open sumo-net-file '%'."
-msgstr ""
+msgstr "無法開啟sumo的路網檔案(sumo-net-file) '%'。"
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_SUMO.cpp:146
 #, c-format
