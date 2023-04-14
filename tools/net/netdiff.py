@@ -553,7 +553,7 @@ def create_plain(netfile, netconvert, plain_geo):
 
 # creates diff of a flat xml structure
 # (only children of the root element and their attrs are compared)
-def xmldiff(source, dest, diff, type, copy_tags, patchImport,
+def xmldiff(options, source, dest, diff, type, copy_tags, patchImport,
             selectionOutputFiles, shapeOutputFiles,
             sourceNet=None, destNet=None):
     attributeStore = AttributeStore(type, copy_tags)
@@ -581,7 +581,7 @@ def xmldiff(source, dest, diff, type, copy_tags, patchImport,
             print("Dest file %s is missing. Assuming all elements are deleted." % dest)
 
         with codecs.open(diff, 'w', 'utf-8') as diff_file:
-            sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, rootAttrs=version)
+            sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, rootAttrs=version, options=options)
             if copy_tags:
                 attributeStore.write(diff_file, "<!-- Copied Elements -->\n")
                 attributeStore.writeCopies(diff_file, copy_tags)
@@ -671,7 +671,8 @@ def main(options):
 
     if options.direct:
         type = '.xml'
-        xmldiff(options.source,
+        xmldiff(options,
+                options.source,
                 options.dest,
                 options.outprefix + type,
                 type,
@@ -691,7 +692,8 @@ def main(options):
             options.dest = create_plain(options.dest, netconvert, options.plain_geo)
 
         for type in PLAIN_TYPES:
-            xmldiff(options.source + type,
+            xmldiff(options,
+                    options.source + type,
                     options.dest + type,
                     options.outprefix + type,
                     type,
