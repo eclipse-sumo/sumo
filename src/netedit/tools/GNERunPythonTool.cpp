@@ -121,11 +121,11 @@ GNERunPythonTool::run() {
     // set running flag
     myRunning = false;
     myRunPythonToolDialog->updateDialog();
-    return 1;
 #else
     myRunPythonToolDialog->appendInfoMessage(TL("starting process silently...\n"));
     myRunning = false;
 #endif
+    return 1;
 }
 
 /****************************************************************************/
