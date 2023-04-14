@@ -41,7 +41,7 @@ public:
                   const std::string &templateStr, FXMenuPane* menu);
 
     /// @brief destructor
-    ~GNEPythonTool();
+    virtual ~GNEPythonTool();
 
     /// @brief get to GNEApplicationWindow
     GNEApplicationWindow* getGNEApp() const;
@@ -56,7 +56,7 @@ public:
     FXMenuCommand *getMenuCommand() const;
 
     /// @brief get command (python + script + arguments)
-    std::string getCommand() const;
+    virtual std::string getCommand() const;
     
     /// @brief get default value of the given parameter
     const std::string getDefaultValue(const std::string &name) const;
@@ -67,7 +67,7 @@ public:
     /// @brief save configuration
     void saveConfiguration(const std::string &file) const;
 
-private:
+protected:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
@@ -86,6 +86,7 @@ private:
     /// @brief tool name
     const std::string myPythonToolName;
 
+private:
     /// @brief Invalidated copy constructor.
     GNEPythonTool(const GNEPythonTool&) = delete;
 

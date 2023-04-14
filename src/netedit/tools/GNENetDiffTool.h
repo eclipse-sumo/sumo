@@ -20,25 +20,21 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
-#include <utils/options/OptionsCont.h>
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEApplicationWindow;
+#include "GNEPythonTool.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNENetDiffTool {
+class GNENetDiffTool : public GNEPythonTool {
 
 public:
     /// @brief Constructor
     GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
-                  const std::string &templateStr, FXMenuPane* menu);
+                   FXMenuPane* menu);
+    
+    /// @brief destructor
+    ~GNENetDiffTool();
 
     /// @brief get command (python + script + arguments)
     std::string getCommand() const;

@@ -33,28 +33,12 @@
 
 #include "GNENetDiffTool.h"
 
-// ============================================-===============================
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
-        const std::string &templateStr, FXMenuPane* menu) :
-    myGNEApp(GNEApp),
-    myPythonPath(pythonPath),
-    myPythonToolName(FileHelpers::getFileFromPath(pythonPath, true)) {
-    // build menu command
-    myMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(menu, myPythonToolName, "", TL("Execute python tool '") + myPythonToolName + "'.",
-        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, MID_GNE_OPENPYTHONTOOLDIALOG);
-    // parse tool options
-    if (templateStr.size() > 0) {
-        try {
-            TemplateHandler::parseTemplate(myPythonToolsOptions, templateStr);
-            // make a copy (needed for reset)
-            TemplateHandler::parseTemplate(myPythonToolsOptionsOriginal, templateStr);
-        } catch (ProcessError& e) {
-            WRITE_ERROR("Error parsing template of tool: " + myPythonToolName + " (" + e.what() + ")");
-        }
-    }
+GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, FXMenuPane* menu) :
+    GNEPythonTool(GNEApp, pythonPath, "", menu) {
 }
 
 
