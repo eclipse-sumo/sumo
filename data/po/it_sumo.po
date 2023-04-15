@@ -58,7 +58,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGenHandler.cpp:178
 #, c-format
 msgid "Edge '%' is not known."
-msgstr "L'arco '%' è sconosciuto."
+msgstr ""
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGenHandler.cpp:329
 msgid "Unknown bus station '%'."
@@ -99,7 +99,7 @@ msgstr "La definizione della rete da caricare manca!"
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:67
 #, c-format
 msgid "The network file '%' could not be accessed."
-msgstr "Il file della rete '%' non è accessibile."
+msgstr ""
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:69
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:116
@@ -129,13 +129,10 @@ msgstr "% archi caricati."
 #: /home/micha/programming/sumo/src/activitygen/city/AGCity.cpp:427
 msgid "No street that allows passenger vehicles found in this city."
 msgstr ""
-"Non è stata trovata nessuna via accessibile a veicoli passeggeri in questa "
-"città."
 
 #: /home/micha/programming/sumo/src/activitygen/city/AGWorkPosition.cpp:126
 msgid "Work position already occupied. Cannot give it to another adult."
 msgstr ""
-"Posizione di lavoro già presa. Non può essere assegnata ad un altro adulto."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
