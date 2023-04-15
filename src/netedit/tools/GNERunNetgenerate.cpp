@@ -17,7 +17,7 @@
 ///
 // Thread for run netgenerate tool
 /****************************************************************************/
-
+#include <utils/common/SysUtils.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
 
