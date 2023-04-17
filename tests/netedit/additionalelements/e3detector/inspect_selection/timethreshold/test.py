@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# apply zoom
+netedit.setZoom("0", "0", "25")
+
 # go to select mode
 netedit.selectMode()
 
@@ -38,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E3s
-netedit.leftClick(referencePosition, 160, 245)
+netedit.leftClick(referencePosition, 722, 295)
 
 # Set invalid time treshold
 netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "dummySpeedTreshold", True)

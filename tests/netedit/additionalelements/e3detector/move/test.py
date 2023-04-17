@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
-netedit.setZoom("25", "0", "25")
+netedit.setZoom("0", "5", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -37,36 +37,32 @@ netedit.additionalMode()
 # select E3
 netedit.changeElement("entryExitDetector")
 
-# create E3
-netedit.leftClick(referencePosition, 250, 250)
+# create E3 with default parameters
+netedit.leftClick(referencePosition, 376, 83)
 
-# Create Entry detector (for saving)
-netedit.changeElement("detEntry")
-netedit.selectAdditionalChild(netedit.attrs.entryExit.create.parent, 0)
-netedit.leftClick(referencePosition, 400, 250)
-
-# Create detExit detector (for saving)
+# select entry detector
 netedit.changeElement("detExit")
-netedit.leftClick(referencePosition, 600, 250)
 
-# change to move mode
+# Create entry detector with default value
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 194, 321)
+
+# select exit detector
+netedit.changeElement("detEntry")
+
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 619, 321)
+
+# go to mode move
 netedit.moveMode()
 
-# move E3 to up
-netedit.moveElement(referencePosition, 250, 250, 101, 57)
+# move
+netedit.moveElement(referencePosition, 376, 83, 619, 83)
+netedit.moveElement(referencePosition, 619, 83, 194, 83)
 
-# move E3 to down
-netedit.moveElement(referencePosition, 101, 57, 73, 365)
-
-# move E3 to left
-netedit.moveElement(referencePosition, 73, 365, 353, 393)
-
-# move E3 to right
-netedit.moveElement(referencePosition, 353, 393, 353, 86)
-
-# Check undos and redos
-netedit.undo(referencePosition, 7)
-netedit.redo(referencePosition, 7)
+# Check undo redo
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

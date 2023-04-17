@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
-netedit.setZoom("25", "0", "25")
+netedit.setZoom("0", "5", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -41,27 +41,26 @@ netedit.changeElement("entryExitDetector")
 netedit.changeDefaultValue(netedit.attrs.E3.create.name, "\"\"\";;")
 
 # try to create E3 with invalid frequency
-netedit.leftClick(referencePosition, 100, 85)
+netedit.leftClick(referencePosition, 376, 83)
 
 # set valid name
 netedit.changeDefaultValue(netedit.attrs.E3.create.name, "customName")
 
 # create E3 with valid frequency
-netedit.leftClick(referencePosition, 100, 85)
-
-# select entry detector
-netedit.changeElement("detEntry")
-
-# Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 85)  # select E3
-netedit.leftClick(referencePosition, 300, 250)
+netedit.leftClick(referencePosition, 376, 83)
 
 # select entry detector
 netedit.changeElement("detExit")
 
-# Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 85)  # select E3
-netedit.leftClick(referencePosition, 300, 370)
+# Create entry detector with default value
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 194, 321)
+
+# select exit detector
+netedit.changeElement("detEntry")
+
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 619, 321)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
