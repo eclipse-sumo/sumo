@@ -32,6 +32,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()
 
+# fix positions
+netedit.typeSpace()
+
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
 

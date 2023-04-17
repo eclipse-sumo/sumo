@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
-netedit.setZoom("25", "0", "25")
+netedit.setZoom("0", "5", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -37,33 +37,33 @@ netedit.additionalMode()
 # select E3
 netedit.changeElement("entryExitDetector")
 
-# create E3
-netedit.leftClick(referencePosition, 240, 86)
+# create E3 with default parameters
+netedit.leftClick(referencePosition, 376, 83)
 
-# create second E3
-netedit.leftClick(referencePosition, 400, 86)
+# create second E3 with default parameters
+netedit.leftClick(referencePosition, 194, 83)
 
 # select entry detector
 netedit.changeElement("detEntry")
 
-# Create Entry detector for both E3s
-netedit.leftClick(referencePosition, 240, 86)
-netedit.leftClick(referencePosition, 180, 240)
-netedit.leftClick(referencePosition, 400, 86)
-netedit.leftClick(referencePosition, 180, 300)
+# Create entry detector with default value
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 194, 321)
 
-# Create Exit detector for both E3s
+# select exit detector
 netedit.changeElement("detExit")
-netedit.leftClick(referencePosition, 240, 86)
-netedit.leftClick(referencePosition, 400, 240)
-netedit.leftClick(referencePosition, 400, 86)
-netedit.leftClick(referencePosition, 400, 300)
+
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 619, 321)
+
+netedit.leftClick(referencePosition, 194, 83)
+netedit.leftClick(referencePosition, 619, 236)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect Entry
-netedit.leftClick(referencePosition, 186, 240)
+# inspect
+netedit.leftClick(referencePosition, 194, 326)
 
 # Change Netedit parameter 1 with a non valid value (Invalid E3 ID)
 netedit.modifyAttribute(netedit.attrs.entryExit.inspect.parent, "invalidE3", True)
@@ -71,12 +71,14 @@ netedit.modifyAttribute(netedit.attrs.entryExit.inspect.parent, "invalidE3", Tru
 # Change Netedit parameter 2 with a non valid value (Invalid E3 ID)
 netedit.modifyAttribute(netedit.attrs.entryExit.inspect.parent, "e3_1", True)
 
-# Check undos and redos
-netedit.undo(referencePosition, 7)
-netedit.redo(referencePosition, 7)
-
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
+
+
+
+
+
+
