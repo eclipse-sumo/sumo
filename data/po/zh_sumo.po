@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-17 08:11+0000\n"
+"PO-Revision-Date: 2023-04-17 13:06+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.17\n"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -4676,17 +4676,17 @@ msgstr "路段 '%' 有一个% 米的垂直跳位(jump)"
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1757
 #, c-format
 msgid "Edge '%' has a grade of %%."
-msgstr ""
+msgstr "路段 '%' 的坡度(grade)为%%。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1767
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
-msgstr ""
+msgstr "连接线(connection) '%' 有一个 % 米的垂直跳位(jump)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1769
 #, c-format
 msgid "Connection '%' has a grade of %%."
-msgstr ""
+msgstr "连接线(connection) '%' 的坡度(grade)为%%。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1809
 msgid "Not joining tram edge '%' with % lanes."
@@ -4701,22 +4701,22 @@ msgstr "车道'%'的电车路段'%'和'%'模糊不清。"
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
-msgstr ""
+msgstr "路段的 '%' 从节点(from-node)'%' 未知"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:2041
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:142
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:566
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
-msgstr ""
+msgstr "路段的 '%' 到节点(to-node)'%' 未知"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
-msgstr ""
+msgstr "在一个路段上的预设车道数"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:56
 msgid "The default width of lanes"
-msgstr ""
+msgstr "车道的预设宽度"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:59
 msgid "The default method for computing lane shapes from edge shapes"
@@ -4768,11 +4768,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:98
 msgid "Whether junctions should be kept clear by default"
-msgstr ""
+msgstr "在预设情況下,路口是否应保持畅通(clear)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:101
 msgid "The default turning radius of intersections"
-msgstr ""
+msgstr "路口的预设转弯半径"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:104
 msgid "The default length when overriding connection lengths"
@@ -4934,113 +4934,113 @@ msgstr "合并(join)具有相同权限且不允许变换车道的相邻车道(�
 msgid ""
 "Matches stops outside the road network to the referencing pt line when below "
 "the given distance"
-msgstr ""
+msgstr "当低于给定的距离时，將路网外的停靠点与参考的大众运输路线相配对"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:226
 msgid "Repair topology of the railway network"
-msgstr ""
+msgstr "修复铁路路网拓扑"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:229
 msgid ""
 "Repair topology of the railway network just enough to let loaded public "
 "transport lines to work"
-msgstr ""
+msgstr "修复铁路网的拓扑结构，使之足以让加载的大众运输路线正常运作"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:232
 msgid ""
 "Allow bidirectional rail use wherever rails with opposite directions meet at "
 "a straight angle"
-msgstr ""
+msgstr "允许双向火车在与相反方向行驶的火车以直角相遇的任何地方使用"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:235
 msgid "Add turn-around connections at all loaded stops."
-msgstr ""
+msgstr "在所有载入的停靠点增加回转的连接线(turn-around connections)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:238
 msgid "Make all rails usable in both direction"
-msgstr ""
+msgstr "使所有铁路可用与两个方向"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:241
 msgid "Make all rails edge ids from FILE usable in both direction"
-msgstr ""
+msgstr "使文件中所有铁路路段识别名(ids)可用于两个方向"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:244
 msgid "Set edge priority values based on estimated main direction"
-msgstr ""
+msgstr "根据估计的主方向来设定路段的优先级别值"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:247
 msgid "Extend loaded edge priority values based on estimated main direction"
-msgstr ""
+msgstr "根据估计的主方向来扩展载入的路段的优先级别值"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:250
 msgid "The search radius for finding suitable road accesses for rail stops"
-msgstr ""
+msgstr "为铁路车站寻找合适的通行途径(access)的搜索半径"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:254
 msgid "The maximum road accesses registered per rail stops"
-msgstr ""
+msgstr "每个铁路站点登录的最大道路通行途径(road accesses)数量"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:258
 msgid ""
 "The walking length of the access is computed as air-line distance multiplied "
 "by FLOAT"
-msgstr ""
+msgstr "通行途径access)的步行长度计算为航线距离乘以 FLOAT"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:262
 msgid "Skips automatic generation of stops on the bidi-edge of a loaded stop"
-msgstr ""
+msgstr "跳过在载入的停靠点的双向路段(bidi-edge)上自动产生停靠点"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:266
 #, c-format
 msgid "Warn about edge geometries with a grade in % above FLOAT."
-msgstr ""
+msgstr "警告 % 百分比的路段几何形狀高于 FLOAT。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:269
 msgid "Smooth edge geometries with a grade above the warning threshold."
-msgstr ""
+msgstr "用高于警告阈值的度数(grade)平滑路段的几何形狀。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:273
 msgid "Turn off normalizing node positions"
-msgstr ""
+msgstr "关闭标准化的节点位置"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:277
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:186
 msgid "Adds FLOAT to net x-positions"
-msgstr ""
+msgstr "將 FLOAT 增加到路网x 位置"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:281
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:190
 msgid "Adds FLOAT to net y-positions"
-msgstr ""
+msgstr "將 FLOAT增加到路网 y 位置"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:284
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:193
 msgid "Adds FLOAT to net z-positions"
-msgstr ""
+msgstr "將 FLOAT增加到路网 z 位置"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:288
 msgid "Flips the y-coordinate along zero"
-msgstr ""
+msgstr "沿着 0 翻转y 坐标"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:292
 msgid "Enable roundabout-guessing"
-msgstr ""
+msgstr "启用圆环的猜测"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:295
 msgid "Default visibility when approaching a roundabout"
-msgstr ""
+msgstr "当接近圆环时,预设的能见度"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:298
 msgid "Enable guessing of opposite direction lanes usable for overtaking"
-msgstr ""
+msgstr "启用对可用于超车的相反方向车道的猜测"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:301
 msgid "Ensure that opposite edges have the same length"
-msgstr ""
+msgstr "确保对向路段具有相同的长度"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:304
 msgid "Enable guessing of network fringe nodes"
-msgstr ""
+msgstr "启用路网边缘的节点的猜测"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:307
 msgid "Guess disconnected edges above the given speed as outer fringe"
@@ -5325,50 +5325,51 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:312
 msgid "Unknown color band in %."
-msgstr ""
+msgstr "% 中有未知色帶。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:319
 msgid "Failure in reading %."
-msgstr ""
+msgstr "读取 % 失败。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:348
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
-msgstr ""
+msgstr "无法载入 GeoTIFF 文件，因为 SUMO 是在沒有 GDAL 支持的情況下编译的。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHelpers.cpp:89
 msgid "Could not load names of edges too keep from '%'."
-msgstr ""
+msgstr "无法从 '%' 载入要保留的路段的名称。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHelpers.cpp:107
 msgid "Could not load IDs from '%'."
-msgstr ""
+msgstr "无法 '%'载入识别名(IDs)。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHelpers.cpp:123
 msgid "Invalid lane id '%' (missing '_')."
-msgstr ""
+msgstr "无效的车道识别名(id) '%' (缺少 '_')。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHelpers.cpp:130
 msgid "Invalid lane index '%' for lane '%'."
-msgstr ""
+msgstr "车道 '%' 的车道索引(index) '%' 无效。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedSUMOTLDef.cpp:359
 #, c-format
 msgid "Could not patch tlLogic '%' for changed crossings"
-msgstr ""
+msgstr "无法为更改人行穿越道而修补信号逻辑(tlLogic) '%'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedSUMOTLDef.cpp:889
 msgid "Unused state in tlLogic '%', program '%' at tl-index %"
-msgstr ""
+msgstr "信号逻辑(tlLogic) '%' 有未使用的状态(state), 在信号索引(tl-index) % "
+"的时制方案(program) '%'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedTLDef.cpp:83
 msgid ""
 "TYellow of signal group '%' was less than the computed one; patched (was:%, "
 "is:%)"
-msgstr ""
+msgstr "黄灯信号组 '%' 小于计算值；已修补 （过去是: %, 现在是: %）"
 
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedTLDef.cpp:300
 msgid "During computation of traffic light '%'."
-msgstr ""
+msgstr "在计算信号 '%' 期间。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedTLDef.cpp:514
 msgid "Could not set signal on connection (signal: %, group: %)"
@@ -5586,27 +5587,27 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:577
 msgid " % traffic light(s) %computed."
-msgstr ""
+msgstr " % 交通信号%已计算完成。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:585
 msgid "Building inner edges"
-msgstr ""
+msgstr "正在建立內部路段"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:598
 msgid "stretching junctions to smooth geometries"
-msgstr ""
+msgstr "拉伸路口以平滑几何形狀"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:627
 msgid "Generating street signs"
-msgstr ""
+msgstr "正在产生街道标志"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:638
 msgid "Checking overlapping edges"
-msgstr ""
+msgstr "正在检查重叠的路段"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:643
 msgid "Checking edge grade"
-msgstr ""
+msgstr "正在检查路段坡度(grade)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:658
 msgid "Find accesses for pt rail stops"
