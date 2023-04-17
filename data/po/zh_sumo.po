@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-17 13:44+0000\n"
+"PO-Revision-Date: 2023-04-18 06:16+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -5706,30 +5706,31 @@ msgstr "路口 '%' 处的行人拓扑结构(topology)无效； 穿越道 '%' 目
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
-msgstr ""
+msgstr "路口 '%' 处的行人拓扑结构(topology)无效； 穿越道 '%' 是 '%' 和 '%' 的目标。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3245
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
-msgstr ""
+msgstr "路口 '%'处的行人拓扑结构(topology)无效；穿越道 '%' 的起点和终点都在步行区域 "
+"'%'。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3465
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
-msgstr ""
+msgstr "无效的行人拓扑结构(topology): 跨越 [%] 的人行穿越道 '%'沒有目标。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3685
 msgid "Request for unknown crossing '%'"
-msgstr ""
+msgstr "请求未知人行穿越道 '%'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3701
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3712
 msgid "Request for unknown crossing for the given Edges"
-msgstr ""
+msgstr "请求给定路段的未知人行穿越道"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:319
 msgid "Removed a road without junctions: %."
-msgstr ""
+msgstr "移除了沒有路口的道路: %。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:406
 msgid "Found % components and removed % (% edges)."
@@ -5995,165 +5996,165 @@ msgstr "无法为停车区域 '%' 发现路段。"
 #: /home/micha/programming/sumo/src/netbuild/NBTrafficLightDefinition.cpp:115
 #, c-format
 msgid "The traffic light '%' does not control any links; it will not be build."
-msgstr ""
+msgstr "交通信号'%' 沒有控制任何路段; 它將不会被建立。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBTrafficLightDefinition.cpp:229
 msgid "Unreachable edge '%' within tlLogic '%'"
-msgstr ""
+msgstr "信号逻辑(tlLogic) '%' 內无法到达的路段 '%'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBTrafficLightDefinition.cpp:509
 #, c-format
 msgid "The rail crossing '%' does not have any roads."
-msgstr ""
+msgstr "火车平交道 '%' 沒有任何道路。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBTrafficLightLogic.cpp:100
 #, c-format
 msgid "When adding phase: illegal character '%' in state"
-msgstr ""
+msgstr "当增加相位: 状态(state)中有非法字元 '%'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBTrafficLightLogic.cpp:233
 #, c-format
 msgid "Non-static traffic light '%' does not define variable phase length."
-msgstr ""
+msgstr "非定时交通信号 '%' 未定义可变相位长度。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBTrafficLightLogicCont.cpp:235
 msgid "Could not build program '%' for traffic light '%'"
-msgstr ""
+msgstr "无法建立交通信号 '%' 的时制方案 '%'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBTrafficLightLogicCont.cpp:376
 msgid "Guessing signalID for link index % at traffic light '%'."
-msgstr ""
+msgstr "正在猜测交通信号 '%' 处连接索引(link index) % 的信号识别名(ID)。"
 
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:97
 msgid ""
 "Network importer / builder for the microscopic, multi-modal traffic "
 "simulation SUMO."
-msgstr ""
+msgstr "微观多模式交通仿真 SUMO 的路网导入器/构建器。"
 
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:120
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:273
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:93
 msgid "Could not build projection!"
-msgstr ""
+msgstr "无法建立投影!"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:41
 msgid "Read edge-type defs from FILE"
-msgstr ""
+msgstr "从文件中读取路段类型定义(edge-type defs)"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:44
 msgid ""
 "The Ids of generated nodes use an alphanumerical code for easier readability "
 "when possible"
-msgstr ""
+msgstr "产生的节点的识别名(ids)使用字母数字代码，以便在可能的情況下更易于阅读"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:48
 msgid "Generate INT left-turn lanes"
-msgstr ""
+msgstr "产生 INT左转车道"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:50
 msgid "Set the length of generated turning lanes to FLOAT"
-msgstr ""
+msgstr "將产生的转向车道的长度設定为 FLOAT"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:53
 msgid ""
 "Apply random spatial perturbation in x direction according the the given "
 "distribution"
-msgstr ""
+msgstr "根据给定的分配,在 x 方向使用随机空间扰动"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:55
 msgid ""
 "Apply random spatial perturbation in y direction according the the given "
 "distribution"
-msgstr ""
+msgstr "根据给定的分配,在 y 方向使用随机空间扰动"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:57
 msgid ""
 "Apply random spatial perturbation in z direction according the the given "
 "distribution"
-msgstr ""
+msgstr "根据给定的分配,在 z 方向使用随机空间扰动"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:63
 msgid "Defines the probability to build a reverse edge"
-msgstr ""
+msgstr "定义建立反向路段的机率"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:67
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
-msgstr ""
+msgstr "从[1,default.lanenumber] 中随机抽取车道数"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:71
 msgid "Draw edge priority randomly from [1,default.priority]"
-msgstr ""
+msgstr "从 [1,default.priority] 中随机抽取路段的优先级别"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:74
 msgid "Draw edge type randomly from all loaded types"
-msgstr ""
+msgstr "从所有载入的类型中随机抽取路段类型"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:80
 msgid "Forces NETGEN to build a grid-like network"
-msgstr ""
+msgstr "强制NETGEN 建立格狀网络"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:85
 msgid "The number of junctions in both dirs"
-msgstr ""
+msgstr "在两个方向上的路口数量"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:90
 msgid "The length of streets in both dirs"
-msgstr ""
+msgstr "在两个方向上的街道长度"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:95
 msgid "The number of junctions in x-dir; Overrides --grid-number"
-msgstr ""
+msgstr "在 x 方向上的路口数量; 覆盖 --grid-number"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:100
 msgid "The number of junctions in y-dir; Overrides --grid-number"
-msgstr ""
+msgstr "在 y 方向上的路口数量; 覆盖 --grid-number"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:105
 msgid "The length of horizontal streets; Overrides --grid-length"
-msgstr ""
+msgstr "水平街道的长度; 覆盖 --grid-length"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:110
 msgid "The length of vertical streets; Overrides --grid-length"
-msgstr ""
+msgstr "垂直街道的长度; 覆盖 --grid-length"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:114
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:147
 msgid ""
 "The length of streets attached at the boundary; 0 means no streets are "
 "attached"
-msgstr ""
+msgstr "附加到边界上的街道长度； 0 表示沒有附加任何街道"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:117
 msgid ""
 "The length of streets attached at the boundary in x direction; 0 means no "
 "streets are attached"
-msgstr ""
+msgstr "附加到 x 方向边界上的街道长度； 0 表示沒有附加任何街道"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:119
 msgid ""
 "The length of streets attached at the boundary in y direction; 0 means no "
 "streets are attached"
-msgstr ""
+msgstr "附加到 y 方向边界上的街道长度； 0 表示沒有附加任何街道"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:124
 msgid "Forces NETGEN to build a spider-net-like network"
-msgstr ""
+msgstr "強制 NETGEN 建立蜘蛛网状的路网"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:129
 msgid "The number of axes within the net"
-msgstr ""
+msgstr "路网內的轴(axes)数"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:134
 msgid "The number of circles of the net"
-msgstr ""
+msgstr "路网的圆圈数量"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:139
 msgid "The distances between the circles"
-msgstr ""
+msgstr "圆圈之见的距离"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:144
 msgid "Omit the central node of the network"
-msgstr ""
+msgstr "省略路网的中心节点"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:152
 msgid "Forces NETGEN to build a random network"
