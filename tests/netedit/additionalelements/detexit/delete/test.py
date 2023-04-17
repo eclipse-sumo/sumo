@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
-netedit.setZoom("25", "0", "25")
+netedit.setZoom("0", "5", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -37,60 +37,41 @@ netedit.additionalMode()
 # select E3
 netedit.changeElement("entryExitDetector")
 
-# create E3 1
-netedit.leftClick(referencePosition, 100, 50)
+# create E3 with default parameters
+netedit.leftClick(referencePosition, 376, 83)
 
-# create E3 2
-netedit.leftClick(referencePosition, 200, 50)
+# select entry detector
+netedit.changeElement("detEntry")
 
-# Create Exit detector for E3 3
+# Create entry detector with default value
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 194, 321)
+
+# select exit detector
 netedit.changeElement("detExit")
-netedit.selectAdditionalChild(netedit.attrs.entryExit.create.parent, 2)
-netedit.leftClick(referencePosition, 75, 200)
 
-# Create Exit detectors for E3 4
-netedit.changeElement("detExit")
-netedit.selectAdditionalChild(netedit.attrs.entryExit.create.parent, 3)
-netedit.leftClick(referencePosition, 250, 200)
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 619, 321)
 
-# Change to delete
+# go to delete mode
 netedit.deleteMode()
 
-# disable 'Automatically delete additionals'
-netedit.changeProtectAdditionalElements(referencePosition)
+# delete both
+netedit.leftClick(referencePosition, 194, 326)
+netedit.leftClick(referencePosition, 377, 439)
 
-# delete created E3 1
-netedit.leftClick(referencePosition, 100, 50)
+# undo
+netedit.undo(referencePosition, 1)
 
-# delete Exit detector of E3 2 (E3 will not be removed)
-netedit.leftClick(referencePosition, 250, 200)
-
-# delete loaded E3 1
-netedit.leftClick(referencePosition, 400, 50)
-
-# delete Exit detector of loaded E3 2 (E3 will not be removed)
-netedit.leftClick(referencePosition, 550, 200)
-
-# delete lane with the last loaded entry
-netedit.leftClick(referencePosition, 400, 300)
-
-# Check undo
-netedit.undo(referencePosition, 5)
-
-# Change to delete
+# go to delete mode
 netedit.deleteMode()
 
-# disable 'Automatically delete additionals'
-netedit.changeProtectAdditionalElements(referencePosition)
+# delete E3
+netedit.leftClick(referencePosition, 497, 84)
 
-# try to delete lane with the second loaded entry (doesn't allowed)
-netedit.leftClick(referencePosition, 400, 300)
-
-# wait warning
-netedit.waitDeleteWarning()
-
-# check redo
-netedit.redo(referencePosition, 5)
+# Check undo redo
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
