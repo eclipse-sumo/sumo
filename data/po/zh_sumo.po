@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-17 13:06+0000\n"
+"PO-Revision-Date: 2023-04-17 13:34+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -5640,25 +5640,25 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:760
 #, c-format
 msgid "Connection '%' starts at a non-existant lane."
-msgstr ""
+msgstr "连接线 '%' 从一个不存在的车道开始。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:763
 #, c-format
 msgid "Connection '%' targets a non-existant lane."
-msgstr ""
+msgstr "连接线 '%' 以一个不存在的车道为目标。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:777
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:795
 msgid "Could not use custom shape for connection %."
-msgstr ""
+msgstr "无法与连接线% 使用自定形狀。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:786
 msgid "Custom shape has distance % to incoming lane for connection %."
-msgstr ""
+msgstr "自定形狀与连接线 % 的进入(incoming)车道的距离为 %。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:803
 msgid "Custom shape has distance % to outgoing lane for connection %."
-msgstr ""
+msgstr "自定形狀与连接线 % 的离开(outgoing)车道的距离为 %。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:1003
 msgid ""
