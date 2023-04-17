@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-17 13:34+0000\n"
+"PO-Revision-Date: 2023-04-17 13:44+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -5663,44 +5663,44 @@ msgstr "自定形狀与连接线 % 的离开(outgoing)车道的距离为 %。"
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:1003
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
-msgstr ""
+msgstr "路口 '%' 太复杂 (% 连接线，最大 %); 將被設定为 %。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:1144
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
-msgstr ""
+msgstr "路口 '%' 的形狀与其給定位置的距离为 %。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:1148
 msgid "For junction '%': could not compute shape."
-msgstr ""
+msgstr "路口 '%': 无法计算形狀。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:1852
 msgid "Something went wrong during the building of a connection..."
-msgstr ""
+msgstr "建立连接线(connection)时,发生了问题..."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:2871
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
-msgstr ""
+msgstr "废除连接路段 [%] 的路口 '%' 处的无效穿越道 '%' （未找到步行区域）。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3047
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
-msgstr ""
+msgstr "在具有路段 [%] 的路口 '%' 处废除无效的人行道 '%' （无车道可穿越）。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3066
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
-msgstr ""
+msgstr "在具有路段 [%] 的路口 '%' 处废除无效的人行道 '%' （无效的形狀(shape)）。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3217
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
-msgstr ""
+msgstr "路口 '%' 处的行人拓扑结构(topology)无效； 穿越道 '%' 目标 '%' 和 '%'。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3240
 msgid ""
