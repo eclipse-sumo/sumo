@@ -43,7 +43,7 @@ netedit.leftClick(referencePosition, 496, 208)
 netedit.typeEnter()
 
 # create second  with default parameters (for ID)
-netedit.leftClick(referencePosition, 426, 253)
+netedit.leftClick(referencePosition, 586, 253)
 netedit.leftClick(referencePosition, 496, 208)
 netedit.typeEnter()
 
