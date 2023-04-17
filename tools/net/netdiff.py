@@ -82,8 +82,8 @@ def parse_args():
 
     return options
 
-# CONSTANTS
 
+# CONSTANTS
 INDENT = 4
 
 # file types to compare

@@ -99,7 +99,7 @@ def main():
                     if node.get(attr) is not None or options.element is not None:
                         yield elementDescription, attr, node.get(attr), jointID
 
-    values = defaultdict(lambda : defaultdict(lambda : Statistics(printDev=True)))  # elem->attr->values
+    values = defaultdict(lambda: defaultdict(lambda: Statistics(printDev=True)))  # elem->attr->values
     invalidType = defaultdict(set)
 
     for fname in options.datafiles:
@@ -111,10 +111,8 @@ def main():
                         raise Exception
                     val = sumolib.miscutils.parseTime(stringVal)
                     values[tag][attr].add(val, jointID)
-                except Exception as e:
+                except Exception:
                     invalidType[attr].add(stringVal)
-            else:
-                missingAttr[attr].add(tag)
 
     if options.verbose or options.xml_output is None:
         for tag in sorted(values.keys()):
@@ -143,6 +141,7 @@ def main():
                     f.write(stats.toXML(tag=attr, indent=8, label=''))
                 f.write('     </%s>\n' % elem)
             f.write('</%s>\n' % root)
+
 
 if __name__ == "__main__":
     main()
