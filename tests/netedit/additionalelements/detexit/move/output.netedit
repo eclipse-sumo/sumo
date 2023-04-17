@@ -6,10 +6,10 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 25
 entryExitDetector
 TestFunctions: Clicked over position 680 - 251
-detEntry
+detExit
 TestFunctions: Clicked over position 680 - 251
 TestFunctions: Clicked over position 498 - 489
-detExit
+detEntry
 TestFunctions: Clicked over position 680 - 251
 TestFunctions: Clicked over position 923 - 489
 TestFunctions: Clicked over position 304 - 168

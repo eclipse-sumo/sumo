@@ -4,14 +4,14 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detentry\load\parent_invalid\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detentry\load\parent_invalid\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detentry\load\parent_invalid\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detentry\load\parent_invalid\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detExit\load\parent_invalid\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detExit\load\parent_invalid\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detExit\load\parent_invalid\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detExit\load\parent_invalid\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detentry\load\parent_invalid\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detExit\load\parent_invalid\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,16 +33,16 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detentry\load\parent_invalid\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detExit\load\parent_invalid\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detentry\load\parent_invalid\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detExit\load\parent_invalid\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detentry\load\parent_invalid\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr101325.3172\netedit.gui\additionalelements\detExit\load\parent_invalid\log.txt"/>
     </report>
 
 </configuration>

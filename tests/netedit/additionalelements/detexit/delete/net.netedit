@@ -4,14 +4,14 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detentry\create\default\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detentry\create\default\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detentry\create\default\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detentry\create\default\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detExit\create\default\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detExit\create\default\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detExit\create\default\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detExit\create\default\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detentry\create\default\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detExit\create\default\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,16 +33,16 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detentry\create\default\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detExit\create\default\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detentry\create\default\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detExit\create\default\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detentry\create\default\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Apr090950.6532\netedit.gui\additionalelements\detExit\create\default\log.txt"/>
     </report>
 
 </configuration>
