@@ -1688,7 +1688,7 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
         //  note that the route ("edges") is not changed in this case
 
         found = Helper::moveToXYMap_matchingRoutePosition(pos, origID,
-                veh->getRoute().getEdges(), (int)(veh->getCurrentRouteEdge() - veh->getRoute().begin()),
+                veh->getRoute().getEdges(), veh->getRoutePosition(),
                 vClass, setLateralPos,
                 bestDistance, &lane, lanePos, routeOffset);
         // @note silenty ignoring mapping failure
