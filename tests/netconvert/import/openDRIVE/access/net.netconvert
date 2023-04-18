@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-28 15:24:49 by Eclipse SUMO netconvert Version v1_14_1+6130-de76d0a15ca
+<!-- generated on 2023-04-18 08:54:26 by Eclipse SUMO netconvert Version v1_14_1+6645-40d51fde2c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,7 +24,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <junctions>
-        <no-turnarounds.except-deadend value="true"/>
+        <no-turnarounds value="true"/>
     </junctions>
 
     <report>
@@ -73,12 +73,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id=":1#2_1" function="internal">
         <lane id=":1#2_1_0" index="0" allow="bus" speed="13.89" length="0.30" width="3.00" shape="29.85,-1.50 30.15,-1.50"/>
     </edge>
-    <edge id=":1.begin_0" function="internal">
-        <lane id=":1.begin_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.53" length="4.38" width="3.00" shape="0.00,1.50 -1.12,0.75 -1.50,0.00 -1.12,-0.75 0.00,-1.50"/>
-    </edge>
-    <edge id=":1.end_0" function="internal">
-        <lane id=":1.end_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.53" length="4.38" width="3.00" shape="50.00,-1.50 51.12,-0.75 51.50,0.00 51.12,0.75 50.00,1.50"/>
-    </edge>
 
     <edge id="-1#0" from="1.begin" to="1#1" priority="1" type="driving">
         <lane id="-1#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.85" width="3.00" shape="0.00,-1.50 9.85,-1.50" type="driving"/>
@@ -107,17 +101,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="1.begin" type="priority" x="0.00" y="0.00" incLanes="1#0_0" intLanes=":1.begin_0_0" shape="0.00,0.00 0.00,3.00 0.00,0.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
-    <junction id="1.end" type="priority" x="50.00" y="0.00" incLanes="-1#2_0" intLanes=":1.end_0_0" shape="50.00,0.00 50.00,-3.00 50.00,0.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
+    <junction id="1.begin" type="dead_end" x="0.00" y="0.00" incLanes="1#0_0" intLanes="" shape="0.00,0.00 0.00,3.00 0.00,0.00"/>
+    <junction id="1.end" type="dead_end" x="50.00" y="0.00" incLanes="-1#2_0" intLanes="" shape="50.00,0.00 50.00,-3.00 50.00,0.00"/>
 
     <connection from="-1#0" to="-1#1" fromLane="0" toLane="0" via=":1#1_1_0" dir="s" state="M"/>
     <connection from="-1#1" to="-1#2" fromLane="0" toLane="0" via=":1#2_1_0" dir="s" state="M"/>
-    <connection from="-1#2" to="1#2" fromLane="0" toLane="0" via=":1.end_0_0" dir="t" state="M"/>
-    <connection from="1#0" to="-1#0" fromLane="0" toLane="0" via=":1.begin_0_0" dir="t" state="M"/>
     <connection from="1#1" to="1#0" fromLane="0" toLane="0" via=":1#1_0_0" dir="s" state="M"/>
     <connection from="1#2" to="1#1" fromLane="0" toLane="0" via=":1#2_0_0" dir="s" state="M"/>
 
@@ -125,7 +113,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":1#1_1" to="-1#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1#2_0" to="1#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1#2_1" to="-1#2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":1.begin_0" to="-1#0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":1.end_0" to="1#2" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>
