@@ -702,23 +702,6 @@ def openNetworkAs(waitTime=2):
     # wait for saving
     time.sleep(waitTime)
 
-
-def openNeteditConfigAs(waitTime=2):
-    """
-    @brief load netedit config using dialog
-    """
-    # open save network as dialog
-    typeTwoKeys('ctrl', 'e')
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    pasteIntoTextField(_TEXTTEST_SANDBOX)
-    typeEnter()
-    pasteIntoTextField("netedit_loadedmanually.neteditcfg")
-    typeEnter()
-    # wait for saving
-    time.sleep(waitTime)
-
-
 def saveNetwork(referencePosition, clickOverReference=False, posX=0, posY=0):
     """
     @brief save network
@@ -877,6 +860,39 @@ def changeEditMode(key):
     # Configs
 #################################################
 
+def openNeteditConfigAs(waitTime=2):
+    """
+    @brief load netedit config using dialog
+    """
+    # open save network as dialog
+    typeTwoKeys('ctrl', 'e')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("netedit_loadedmanually.neteditcfg")
+    typeEnter()
+    # wait for saving
+    time.sleep(waitTime)
+
+
+def openSumoConfigAs(referencePosition):
+    """
+    @brief load netedit config using dialog
+    """
+    # click over reference (to avoid problem with undo-redo)
+    leftClick(referencePosition, 0, 0)
+    # open save network as dialog
+    typeTwoKeys('ctrl', 'm')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("sumo_loadedmanually.sumocfg")
+    typeEnter()
+    # wait for saving
+    time.sleep(DELAY_SAVING)
+
 
 def saveNeteditConfig(referencePosition, clickOverReference=False):
     """
@@ -888,6 +904,24 @@ def saveNeteditConfig(referencePosition, clickOverReference=False):
         leftClick(referencePosition, 0, 0)
     # save netedit config using hotkey
     typeThreeKeys('ctrl', 'shift', 'e')
+    # wait for saving
+    time.sleep(DELAY_SAVING)
+
+
+def saveNeteditConfigAs(referencePosition):
+    """
+    @brief save netedit config as
+    """
+    # click over reference (to avoid problem with undo-redo)
+    leftClick(referencePosition, 0, 0)
+    # save netedit config using hotkey
+    typeThreeKeys('ctrl', 'shift', 'e')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("netedit_savedmanually.neteditcfg")
+    typeEnter()
     # wait for saving
     time.sleep(DELAY_SAVING)
 

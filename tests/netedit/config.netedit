@@ -16,6 +16,7 @@ copy_test_path:net.tll.xml
 copy_test_path:net.net.xml
 copy_test_path:net_loadedmanually.net.xml
 copy_test_path:netedit_loadedmanually.neteditcfg
+copy_test_path:sumo_loadedmanually.sumocfg
 copy_test_path:additionals.add.xml
 copy_test_path:routes.rou.xml
 copy_test_path:vtypes.rou.xml
@@ -33,6 +34,7 @@ copy_test_path:errorScreenshot.png
 net:net.net.xml
 net:netedit.net.xml
 net:net_loadedmanually.net.xml
+configmanually:netedit_savedmanually.neteditcfg
 netcon:net.con.xml
 netedg:net.edg.xml
 netnod:net.nod.xml
