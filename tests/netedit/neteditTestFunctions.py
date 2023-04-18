@@ -926,16 +926,20 @@ def saveNeteditConfigAs(referencePosition):
     time.sleep(DELAY_SAVING)
 
 
-def saveSumoConfig(referencePosition, clickOverReference=False):
+def saveSumoConfig(referencePosition):
     """
     @brief save sumo config
     """
-    # check if clickOverReference is enabled
-    if clickOverReference:
-        # click over reference (to avoid problem with undo-redo)
-        leftClick(referencePosition, 0, 0)
-    # save netedit config using hotkey
+    # click over reference (to avoid problem with undo-redo)
+    leftClick(referencePosition, 0, 0)
+    # save sumo config using hotkey
     typeThreeKeys('ctrl', 'shift', 's')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("sumo_savedmanually.sumocfg")
+    typeEnter()
     # wait for saving
     time.sleep(DELAY_SAVING)
 

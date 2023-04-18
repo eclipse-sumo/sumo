@@ -35,6 +35,7 @@ net:net.net.xml
 net:netedit.net.xml
 net:net_loadedmanually.net.xml
 configmanually:netedit_savedmanually.neteditcfg
+configmanually:sumo_savedmanually.sumocfg
 netcon:net.con.xml
 netedg:net.edg.xml
 netnod:net.nod.xml
