@@ -32,13 +32,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 300, 180)
+netedit.leftClick(referencePosition, 450, 180)
 
 # Change parameter length
 netedit.modifyAttribute(netedit.attrs.edge.inspect.length, "25", False)
 
 # inspect edge
-netedit.leftClick(referencePosition, 300, 280)
+netedit.leftClick(referencePosition, 450, 280)
 
 # Change parameter length
 netedit.modifyAttribute(netedit.attrs.edge.inspect.length, "25", False)
