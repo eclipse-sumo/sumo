@@ -2126,7 +2126,6 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildAttributeChanges(const NBTypeCo
                 if (l.speed == 0) {
                     if (i > 0) {
                         l.speed = newSections[i - 1].lanesByDir[k.first][j].speed;
-                        l.predecessor = newSections[i - 1].lanesByDir[k.first][j].id;
                     } else {
                         tc.getEdgeTypeSpeed(l.type);
                     }
@@ -2134,7 +2133,6 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildAttributeChanges(const NBTypeCo
                 if (l.permission == 0) {
                     if (i > 0) {
                         l.permission = newSections[i - 1].lanesByDir[k.first][j].permission;
-                        l.predecessor = newSections[i - 1].lanesByDir[k.first][j].id;
                         l.type = newSections[i - 1].lanesByDir[k.first][j].type;
                     } else {
                         tc.getEdgeTypePermissions(l.type);
