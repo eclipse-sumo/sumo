@@ -221,7 +221,7 @@ MSPModel_Striping::remove(MSTransportableStateAdapter* state) {
 
 
 bool
-MSPModel_Striping::blockedAtDist(const MSLane* lane, double vehSide, double vehWidth,
+MSPModel_Striping::blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
                                  double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
     const Pedestrians& pedestrians = getPedestrians(lane);
     for (Pedestrians::const_iterator it_ped = pedestrians.begin(); it_ped != pedestrians.end(); ++it_ped) {
@@ -240,6 +240,9 @@ MSPModel_Striping::blockedAtDist(const MSLane* lane, double vehSide, double vehW
                 && (leaderFrontDist < 0
                     // give right of way to (close) approaching pedestrians unless they are standing
                     || (leaderFrontDist <= oncomingGap && ped.myWaitingTime < TIME2STEPS(2.0)))) {
+            if (MSLink::ignoreFoe(ego, ped.myPerson)) {
+                continue;
+            }
             // found one pedestrian that is not completely past the crossing point
             //std::cout << SIMTIME << " blocking pedestrian foeLane=" << lane->getID() << " ped=" << ped.myPerson->getID() << " dir=" << ped.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() << " fDTC=" << distToCrossing << " lBD=" << leaderBackDist << "\n";
             if (collectBlockers == nullptr) {
