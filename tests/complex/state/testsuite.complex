@@ -22,6 +22,9 @@ disconnected
 # two vehicles saved and reloaded with xml output
 xml
 
+# ensure correct exitTimes after loading state
+vehroute_exit_times
+
 # include route and vtype dists with xml output
 dists_xml
 
