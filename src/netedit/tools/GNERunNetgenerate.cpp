@@ -20,6 +20,7 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
+#include <utils/gui/events/GUIEvent_Message.h>
 
 #include "GNERunNetgenerate.h"
 
@@ -27,9 +28,10 @@
 // member method definitions
 // ===========================================================================
 
-GNERunNetgenerate::GNERunNetgenerate(GNERunNetgenerateDialog* runDialog) :
+GNERunNetgenerate::GNERunNetgenerate(GNERunNetgenerateDialog* runDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
     MFXSingleEventThread(runDialog->getGNEApp()->getApp(), runDialog->getGNEApp()),
-    myRunNetgenerateDialog(runDialog) {
+    myEventQueue(eq),
+    myEventThrow(ev) {
 }
 
 
@@ -67,12 +69,12 @@ void
 GNERunNetgenerate::abort() {
     // cancel thread
     cancel();
-    // show info
-    myRunNetgenerateDialog->appendErrorMessage(TL("cancelled by user\n"));
     // reset flags
     myRunning = false;
     myErrorOccurred = false;
-    myRunNetgenerateDialog->updateDialog();
+    // show info
+    myEventQueue.push_back(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, std::string(TL("cancelled by user\n"))));
+    myEventThrow.signal();
 }
 
 
@@ -102,25 +104,28 @@ GNERunNetgenerate::run() {
     myPipe = popen((myNetgenerateCommand + " 2>&1").c_str(), "r");
 #endif
     if (!myPipe) {
-        myRunNetgenerateDialog->appendErrorMessage(TL("popen() failed!"));
         // set error ocurred flag
         myErrorOccurred = true;
-        myRunNetgenerateDialog->updateDialog();
+        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, "popen() failed!"));
+        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::TOOL_ENDED, ""));
+        myEventThrow.signal();
         return 1;
     } else {
         // set running flag
         myRunning = true;
-        myRunNetgenerateDialog->updateDialog();
         // Show command
-        myRunNetgenerateDialog->appendBuffer((myNetgenerateCommand + "\n").c_str());
+        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, myNetgenerateCommand + "\n"));
         // start process
-        myRunNetgenerateDialog->appendInfoMessage(TL("starting process...\n"));
+        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("starting process...\n"))));
+        myEventThrow.signal();
         try {
             // add buffer
             while (fgets(buffer, sizeof buffer, myPipe) != NULL) {
-                myRunNetgenerateDialog->appendBuffer(buffer);
+                myEventQueue.push_back(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, buffer));
+                myEventThrow.signal();
             }
-            myRunNetgenerateDialog->appendBuffer(buffer);
+            myEventQueue.push_back(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, buffer));
+            myEventThrow.signal();
         } catch (...) {
             // close process
         #ifdef WIN32
@@ -128,11 +133,11 @@ GNERunNetgenerate::run() {
         #else
             pclose(myPipe);
         #endif
-            myRunNetgenerateDialog->appendErrorMessage(TL("error processing command\n"));
             // set flags
             myRunning = false;
             myErrorOccurred = true;
-            myRunNetgenerateDialog->updateDialog();
+            myEventQueue.push_back(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, std::string(TL("error processing command\n"))));
+            myEventThrow.signal();
             return 1;
         }
     }
@@ -143,11 +148,11 @@ GNERunNetgenerate::run() {
     pclose(myPipe);
 #endif
     myPipe = nullptr;
-    // end process
-    myRunNetgenerateDialog->appendInfoMessage(TL("process finished\n"));
     // set running flag
     myRunning = false;
-    myRunNetgenerateDialog->updateDialog();
+    // end process
+    myEventQueue.push_back(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("process finished\n"))));
+    myEventThrow.signal();
     return 1;
 }
 

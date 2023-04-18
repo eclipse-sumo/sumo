@@ -20,6 +20,7 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
+#include <utils/gui/events/GUIEvent_Message.h>
 
 #include "GNEPythonTool.h"
 #include "GNERunPythonTool.h"
@@ -28,9 +29,10 @@
 // member method definitions
 // ===========================================================================
 
-GNERunPythonTool::GNERunPythonTool(GNERunPythonToolDialog* runToolDialog) :
+GNERunPythonTool::GNERunPythonTool(GNERunPythonToolDialog* runToolDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
     MFXSingleEventThread(runToolDialog->getGNEApp()->getApp(), runToolDialog->getGNEApp()),
-    myRunPythonToolDialog(runToolDialog) {
+    myEventQueue(eq),
+    myEventThrow(ev) {
 }
 
 
@@ -51,12 +53,12 @@ void
 GNERunPythonTool::abortTool() {
     // cancel thread
     cancel();
-    // show info
-    myRunPythonToolDialog->appendErrorMessage(TL("cancelled by user\n"));
     // reset flags
     myRunning = false;
     myErrorOccurred = false;
-    myRunPythonToolDialog->updateDialog();
+    // show info
+    myEventQueue.push_back(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, std::string(TL("cancelled by user\n"))));
+    myEventThrow.signal();
 }
 
 
@@ -86,25 +88,28 @@ GNERunPythonTool::run() {
     myPipe = popen((myPythonTool->getCommand() + " 2>&1").c_str(), "r");
 #endif
     if (!myPipe) {
-        myRunPythonToolDialog->appendErrorMessage(TL("popen() failed!"));
         // set error ocurred flag
         myErrorOccurred = true;
-        myRunPythonToolDialog->updateDialog();
+        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, "popen() failed!"));
+        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::TOOL_ENDED, ""));
+        myEventThrow.signal();
         return 1;
     } else {
         // set running flag
         myRunning = true;
-        myRunPythonToolDialog->updateDialog();
         // Show command
-        myRunPythonToolDialog->appendBuffer((myPythonTool->getCommand() + "\n").c_str());
+        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, myPythonTool->getCommand()));
         // start process
-        myRunPythonToolDialog->appendInfoMessage(TL("starting process...\n"));
+        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("starting process...\n"))));
+        myEventThrow.signal();
         try {
             // add buffer
             while (fgets(buffer, sizeof buffer, myPipe) != NULL) {
-                myRunPythonToolDialog->appendBuffer(buffer);
+                myEventQueue.push_back(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, buffer));
+                myEventThrow.signal();
             }
-            myRunPythonToolDialog->appendBuffer(buffer);
+            myEventQueue.push_back(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, buffer));
+            myEventThrow.signal();
         } catch (...) {
             // close process
         #ifdef WIN32
@@ -112,11 +117,11 @@ GNERunPythonTool::run() {
         #else
             pclose(myPipe);
         #endif
-            myRunPythonToolDialog->appendErrorMessage(TL("error processing command\n"));
             // set flags
             myRunning = false;
             myErrorOccurred = true;
-            myRunPythonToolDialog->updateDialog();
+            myEventQueue.push_back(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, std::string(TL("error processing command\n"))));
+            myEventThrow.signal();
             return 1;
         }
     }
@@ -127,11 +132,11 @@ GNERunPythonTool::run() {
     pclose(myPipe);
 #endif
     myPipe = nullptr;
-    // end process
-    myRunPythonToolDialog->appendInfoMessage(TL("process finished\n"));
     // set running flag
     myRunning = false;
-    myRunPythonToolDialog->updateDialog();
+    // end process
+    myEventQueue.push_back(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("process finished\n"))));
+    myEventThrow.signal();
     return 1;
 }
 

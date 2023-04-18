@@ -40,7 +40,7 @@ class GNERunPythonTool : protected MFXSingleEventThread  {
 
 public:
     /// @brief Constructor
-    GNERunPythonTool(GNERunPythonToolDialog* runToolDialog);
+    GNERunPythonTool(GNERunPythonToolDialog* runToolDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev);
 
     /// @brief destructor
     ~GNERunPythonTool();
@@ -58,9 +58,6 @@ public:
     bool errorOccurred() const;
 
 private:
-    /// @brief pointer to run tool dialog
-    GNERunPythonToolDialog* myRunPythonToolDialog;
-
     /// @brief tool
     const GNEPythonTool* myPythonTool = nullptr;
 
@@ -72,6 +69,12 @@ private:
 
     /// @brief pipe file
     FILE* myPipe = nullptr;
+
+    /// @brief event Queue
+    MFXSynchQue<GUIEvent*>& myEventQueue;
+
+    /// @brief event throw
+    FXEX::MFXThreadEvent& myEventThrow;
 
     /// @brief starts the thread. The thread ends after the tool is finished
     FXint run();

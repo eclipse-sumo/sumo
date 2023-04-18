@@ -41,7 +41,7 @@ class GNERunNetgenerate : protected MFXSingleEventThread  {
 
 public:
     /// @brief Constructor
-    GNERunNetgenerate(GNERunNetgenerateDialog* runDialog);
+    GNERunNetgenerate(GNERunNetgenerateDialog* runDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev);
 
     /// @brief destructor
     ~GNERunNetgenerate();
@@ -59,9 +59,6 @@ public:
     bool errorOccurred() const;
 
 private:
-    /// @brief pointer to run netgenerate dialog
-    GNERunNetgenerateDialog* myRunNetgenerateDialog;
-
     /// @brief netgenerate command
     std::string myNetgenerateCommand;
 
@@ -73,6 +70,12 @@ private:
 
     /// @brief pipe file
     FILE* myPipe = nullptr;
+
+    /// @brief event Queue
+    MFXSynchQue<GUIEvent*>& myEventQueue;
+
+    /// @brief event throw
+    FXEX::MFXThreadEvent& myEventThrow;
 
     /// @brief starts the thread. The thread ends after the netgenerate is finished
     FXint run();
