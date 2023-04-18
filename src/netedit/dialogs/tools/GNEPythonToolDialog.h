@@ -126,6 +126,9 @@ protected:
     /// @brief adjust parameter column
     void adjustParameterColumn();
 
+    /// @brief custom tools options
+    OptionsCont myCustomToolsOptions;
+
     /// @brief get options
     std::vector<GNEPythonToolDialog::CategoryOptions> getOptions(OptionsCont& optionsCont) const;
 
