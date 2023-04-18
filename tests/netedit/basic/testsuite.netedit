@@ -6,8 +6,10 @@ reload
 
 quit
 
-pyautogui_error
+configs
+
+modes
 
 about_dialog
 
-modes
+pyautogui_error
