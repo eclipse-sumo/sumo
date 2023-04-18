@@ -6188,6 +6188,7 @@ MSVehicle::getDistanceToPosition(double destPos, const MSEdge* destEdge) const {
     if (isOnRoad() && destEdge != nullptr) {
         if (myLane->isInternal()) {
             // vehicle is on inner junction edge
+            assert(myCurrEdge + 1 != myRoute->end());
             distance = myLane->getLength() - getPositionOnLane();
             distance += myRoute->getDistanceBetween(0, destPos, *(myCurrEdge + 1), destEdge);
         } else {
