@@ -743,11 +743,11 @@ NBEdge::isBidiEdge(bool checkPotential) const {
            && myPossibleTurnDestination->getLaneSpreadFunction() == myLaneSpreadFunction
            // geometry check a) full overlap geometry
            && ((myLaneSpreadFunction == LaneSpreadFunction::CENTER
-                       && (myPossibleTurnDestination->getGeometry().reverse() == getGeometry()
-                           || (checkPotential && getGeometry().size() == 2 && myPossibleTurnDestination->getGeometry().size() == 2)))
+                && (myPossibleTurnDestination->getGeometry().reverse() == getGeometry()
+                    || (checkPotential && getGeometry().size() == 2 && myPossibleTurnDestination->getGeometry().size() == 2)))
                // b) TWLT (Two-Way-Left-Turn-lane)
                || (myLanes.back().shape.reverse().almostSame(myPossibleTurnDestination->myLanes.back().shape, POSITION_EPS))
-               );
+              );
 
 }
 

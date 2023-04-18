@@ -726,7 +726,7 @@ enum SumoXMLAttr {
     /// @brief Stopping threshold
     SUMO_ATTR_STOPPINGTHRESHOLD,
     /// @}
-    
+
     /// @name tripinfo output attributes
     /// @{
     SUMO_ATTR_WAITINGCOUNT,

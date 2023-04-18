@@ -126,8 +126,8 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
             for (const auto& i : myConnectorFrameParent->myCurrentEditedLane->getParentEdge()->getChildDemandElements()) {
                 if (i->isDemandElementValid() != GNEDemandElement::Problem::OK) {
                     FXMessageBox::warning(getApp(), MBOX_OK,
-                        TL("Error saving connection operations"), "%s",
-                        (TL("Connection edition  cannot be saved because route '") + i->getID() + TL("' is broken.")).c_str());
+                                          TL("Error saving connection operations"), "%s",
+                                          (TL("Connection edition  cannot be saved because route '") + i->getID() + TL("' is broken.")).c_str());
                     return 1;
                 }
             }

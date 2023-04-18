@@ -199,7 +199,7 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
               << "mySpeedDifferenceChangePerceptionThreshold=" << mySpeedDifferenceChangePerceptionThreshold << ", "
               << "myHeadwayChangePerceptionThreshold=" << myHeadwayChangePerceptionThreshold << ", "
               << "myHeadwayErrorCoefficient=" << myHeadwayErrorCoefficient << std::endl;
-              << "myFreeSpeedErrorCoefficient=" << myFreeSpeedErrorCoefficient << std::endl;
+            << "myFreeSpeedErrorCoefficient=" << myFreeSpeedErrorCoefficient << std::endl;
 #endif
 
 }

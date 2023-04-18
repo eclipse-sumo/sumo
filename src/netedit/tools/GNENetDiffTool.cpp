@@ -33,7 +33,7 @@
 // member method definitions
 // ===========================================================================
 
-GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, FXMenuPane* menu) :
+GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string& pythonPath, FXMenuPane* menu) :
     GNEPythonTool(GNEApp, pythonPath, "", menu) {
     // fill options
     fillNetDiffOptions(myPythonToolsOptions);
@@ -91,9 +91,9 @@ std::string
 GNENetDiffTool::getCommand() const {
     // add python script
     const char* pythonEnv = getenv("PYTHON");
-    const std::string python = (pythonEnv == nullptr)? "python" : pythonEnv;
+    const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
     const char* sumoHomeEnv = getenv("SUMO_HOME");
-    const std::string sumoHome = (sumoHomeEnv == nullptr)? "" : sumoHomeEnv + std::string("/");
+    const std::string sumoHome = (sumoHomeEnv == nullptr) ? "" : sumoHomeEnv + std::string("/");
     // get command
     std::string command = python + " " + sumoHome + myPythonPath;
     // declare arguments
@@ -104,14 +104,14 @@ GNENetDiffTool::getCommand() const {
     arguments += myPythonToolsOptions.getString("outprefix") + " ";
     // check if save selection
     if (myPythonToolsOptions.getBool("select-modified") ||
-        myPythonToolsOptions.getBool("select-added") ||
-        myPythonToolsOptions.getBool("select-deleted")) {
+            myPythonToolsOptions.getBool("select-added") ||
+            myPythonToolsOptions.getBool("select-deleted")) {
         arguments += "--write-selections ";
     }
     // check if save shapes
     if (myPythonToolsOptions.getBool("load-shapes-modified") ||
-        myPythonToolsOptions.getBool("load-shapes-added") ||
-        myPythonToolsOptions.getBool("load-shapes-deleted")) {
+            myPythonToolsOptions.getBool("load-shapes-added") ||
+            myPythonToolsOptions.getBool("load-shapes-deleted")) {
         arguments += "--write-shapes ";
     }
     return command + " " + arguments;
@@ -119,7 +119,7 @@ GNENetDiffTool::getCommand() const {
 
 
 void
-GNENetDiffTool::fillNetDiffOptions(OptionsCont &options) {
+GNENetDiffTool::fillNetDiffOptions(OptionsCont& options) {
     // build custom options for netdiff
     options.addOptionSubTopic("Input");
     options.doRegister("original-net", new Option_Network());
@@ -134,13 +134,13 @@ GNENetDiffTool::fillNetDiffOptions(OptionsCont &options) {
     options.addOptionSubTopic("Select");
     options.doRegister("select-modified", new Option_Bool(false));
     options.addDescription("select-modified", "Select", TL("Select modified elements"));
-    
+
     options.doRegister("select-added", new Option_Bool(false));
     options.addDescription("select-added", "Select", TL("Select added elements"));
-    
+
     options.doRegister("select-deleted", new Option_Bool(false));
     options.addDescription("select-deleted", "Select", TL("Select deleted elements"));
-    
+
     options.addOptionSubTopic("Load");
     options.doRegister("load-shapes-modified", new Option_Bool(false));
     options.addDescription("load-shapes-modified", "Load", TL("Load shapes for elements"));
@@ -154,7 +154,7 @@ GNENetDiffTool::fillNetDiffOptions(OptionsCont &options) {
 
 
 void
-GNENetDiffTool::loadShapes(const std::string &file) {
+GNENetDiffTool::loadShapes(const std::string& file) {
     // get undo list
     auto undoList = myGNEApp->getUndoList();
     // disable validation for additionals

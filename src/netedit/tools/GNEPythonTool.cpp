@@ -33,14 +33,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEPythonTool::GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
-        const std::string &templateStr, FXMenuPane* menu) :
+GNEPythonTool::GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string& pythonPath,
+                             const std::string& templateStr, FXMenuPane* menu) :
     myGNEApp(GNEApp),
     myPythonPath(pythonPath),
     myPythonToolName(FileHelpers::getFileFromPath(pythonPath, true)) {
     // build menu command
     myMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(menu, myPythonToolName, "", TL("Execute python tool '") + myPythonToolName + "'.",
-        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, MID_GNE_OPENPYTHONTOOLDIALOG);
+                    GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, MID_GNE_OPENPYTHONTOOLDIALOG);
     // parse tool options
     if (templateStr.size() > 0) {
         try {
@@ -97,15 +97,15 @@ std::string
 GNEPythonTool::getCommand() const {
     // add python script
     const char* pythonEnv = getenv("PYTHON");
-    const std::string python = (pythonEnv == nullptr)? "python" : pythonEnv;
+    const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
     const char* sumoHomeEnv = getenv("SUMO_HOME");
-    const std::string sumoHome = (sumoHomeEnv == nullptr)? "" : sumoHomeEnv + std::string("/");
+    const std::string sumoHome = (sumoHomeEnv == nullptr) ? "" : sumoHomeEnv + std::string("/");
     // get command
     std::string command = python + " " + sumoHome + myPythonPath;
     // declare arguments
     std::string arguments;
     // add arguments
-    for (const auto &option : myPythonToolsOptions) {
+    for (const auto& option : myPythonToolsOptions) {
         // only add modified values
         if (!option.second->isDefault()) {
             arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
@@ -116,7 +116,7 @@ GNEPythonTool::getCommand() const {
 
 
 const std::string
-GNEPythonTool::getDefaultValue(const std::string &name) const {
+GNEPythonTool::getDefaultValue(const std::string& name) const {
     const auto value = myPythonToolsOptionsOriginal.getValueString(name);
     // filter "none" values
     if (value == "none") {
@@ -128,7 +128,7 @@ GNEPythonTool::getDefaultValue(const std::string &name) const {
 
 
 bool
-GNEPythonTool::loadConfiguration(const std::string &file) {
+GNEPythonTool::loadConfiguration(const std::string& file) {
     // make all options writables
     myPythonToolsOptions.resetWritable();
     // build parser
@@ -156,16 +156,16 @@ GNEPythonTool::loadConfiguration(const std::string &file) {
 
 
 void
-GNEPythonTool::saveConfiguration(const std::string &file) const {
+GNEPythonTool::saveConfiguration(const std::string& file) const {
     // add python script
     const char* pythonEnv = getenv("PYTHON");
-    const std::string python = (pythonEnv == nullptr)? "python" : pythonEnv;
+    const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
     const char* sumoHomeEnv = getenv("SUMO_HOME");
-    const std::string sumoHome = (sumoHomeEnv == nullptr)? "" : sumoHomeEnv + std::string("/");
+    const std::string sumoHome = (sumoHomeEnv == nullptr) ? "" : sumoHomeEnv + std::string("/");
     // get command
     std::string command = python + " " + sumoHome + myPythonPath + " -C " + file + " ";
     // add arguments
-    for (const auto &option : myPythonToolsOptions) {
+    for (const auto& option : myPythonToolsOptions) {
         // only write modified values
         if (!option.second->isDefault()) {
             command += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");

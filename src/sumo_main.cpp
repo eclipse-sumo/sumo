@@ -56,7 +56,7 @@ signalHandler(int signum) {
             case SIGUSR1:
                 std::cout << "Step #" << SIMSTEP << std::endl;
                 std::cout << MSNet::getInstance()->generateStatistics(string2time(OptionsCont::getOptions().getString("begin")),
-                                                                      SysUtils::getCurrentMillis()) << std::endl;
+                          SysUtils::getCurrentMillis()) << std::endl;
                 break;
             case SIGUSR2:
                 //TODO reload sim

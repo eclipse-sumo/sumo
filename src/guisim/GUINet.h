@@ -290,12 +290,12 @@ public:
     /** @brief Returns the RTree used for visualisation speed-up
      * @return The visualisation speed-up
      */
-    const SUMORTree& getVisualisationSpeedUp(bool secondary=false) const {
+    const SUMORTree& getVisualisationSpeedUp(bool secondary = false) const {
         return secondary ? myGrid2 : myGrid;
     }
 
     /// @brief add object into rtree
-    void registerRenderedObject(GUIGlObject *o);
+    void registerRenderedObject(GUIGlObject* o);
 
     /** @brief Returns the vehicle control
      * @return The vehicle control

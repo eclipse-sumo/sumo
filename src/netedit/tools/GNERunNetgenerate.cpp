@@ -39,7 +39,7 @@ GNERunNetgenerate::~GNERunNetgenerate() {}
 
 
 void
-GNERunNetgenerate::run(const OptionsCont *netgenerateOptions) {
+GNERunNetgenerate::run(const OptionsCont* netgenerateOptions) {
     // set command
 #ifdef WIN32
     myNetgenerateCommand = getenv("SUMO_HOME") + std::string("/bin/netgenerate.exe");
@@ -128,11 +128,11 @@ GNERunNetgenerate::run() {
             myEventThrow.signal();
         } catch (...) {
             // close process
-        #ifdef WIN32
+#ifdef WIN32
             _pclose(myPipe);
-        #else
+#else
             pclose(myPipe);
-        #endif
+#endif
             // set flags
             myRunning = false;
             myErrorOccurred = true;

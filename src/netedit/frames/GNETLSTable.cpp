@@ -675,39 +675,39 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     myMenuButtonPopup = new FXPopup(TLSTable->myColumns.at(col)->getVerticalCellFrame(), POPUP_HORIZONTAL);
     // build menu button
     myAddButton = new MFXMenuButtonTooltip(TLSTable->myColumns.at(col)->getVerticalCellFrame(),
-        myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        (std::string("\t") + TL("Add phase") + std::string("\t") + TL("Add new phase.")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::ADD), myMenuButtonPopup, TLSTable, GUIDesignTLSTableCheckableButtonIcon);
+                                           myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                           (std::string("\t") + TL("Add phase") + std::string("\t") + TL("Add new phase.")).c_str(),
+                                           GUIIconSubSys::getIcon(GUIIcon::ADD), myMenuButtonPopup, TLSTable, GUIDesignTLSTableCheckableButtonIcon);
     // default phase
     myAddPhaseButton = new MFXButtonTooltip(myMenuButtonPopup,
-        myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        (std::string("\t") + TL("Default phase") + std::string("\t") + TL("Add default phase.")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEDEFAULT), TLSTable, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
+                                            myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                            (std::string("\t") + TL("Default phase") + std::string("\t") + TL("Add default phase.")).c_str(),
+                                            GUIIconSubSys::getIcon(GUIIcon::TLSPHASEDEFAULT), TLSTable, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
     // duplicate phase
     myDuplicatePhaseButton = new MFXButtonTooltip(myMenuButtonPopup,
-        myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        (std::string("\t") + TL("Duplicate phase") + std::string("\t") + TL("Duplicate this phase.")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::TLSPHASECOPY), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+            myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            (std::string("\t") + TL("Duplicate phase") + std::string("\t") + TL("Duplicate this phase.")).c_str(),
+            GUIIconSubSys::getIcon(GUIIcon::TLSPHASECOPY), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
     // red phase
     myAddAllRedButton = new MFXButtonTooltip(myMenuButtonPopup,
-        myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        (std::string("\t") + TL("Red phase") + std::string("\t") + TL("Add red phase.")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLRED), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLRED, GUIDesignButtonIcon);
+            myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            (std::string("\t") + TL("Red phase") + std::string("\t") + TL("Add red phase.")).c_str(),
+            GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLRED), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLRED, GUIDesignButtonIcon);
     // yellow phase
     myAddAllYellowButton = new MFXButtonTooltip(myMenuButtonPopup,
-        myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        (std::string("\t") + TL("Yellow phase") + std::string("\t") + TL("Add yellow phase.")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLYELLOW), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLYELLOW, GUIDesignButtonIcon);
+            myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            (std::string("\t") + TL("Yellow phase") + std::string("\t") + TL("Add yellow phase.")).c_str(),
+            GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLYELLOW), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLYELLOW, GUIDesignButtonIcon);
     // green phase
     myAddAllGreenButton = new MFXButtonTooltip(myMenuButtonPopup,
-        myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        (std::string("\t") + TL("Green phase") + std::string("\t") + TL("Add green phase.")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREEN), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLGREEN, GUIDesignButtonIcon);
+            myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            (std::string("\t") + TL("Green phase") + std::string("\t") + TL("Add green phase.")).c_str(),
+            GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREEN), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLGREEN, GUIDesignButtonIcon);
     // green priority phase
     myAddAllGreenPriorityButton = new MFXButtonTooltip(myMenuButtonPopup,
-        myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        (std::string("\t") + TL("Green priority phase") + std::string("\t") + TL("Add green priority phase.")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREENPRIORITY), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLGREENPRIORITY, GUIDesignButtonIcon);
+            myTLSTable->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            (std::string("\t") + TL("Green priority phase") + std::string("\t") + TL("Add green priority phase.")).c_str(),
+            GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREENPRIORITY), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLGREENPRIORITY, GUIDesignButtonIcon);
     // create elements
     myMenuButtonPopup->create();
     myAddButton->create();
@@ -1248,27 +1248,27 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('d'): {
                 // create button for delete phase
                 auto button = new MFXButtonTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                    (std::string("\t") + TL("Delete phase") + std::string("\t") + TL("Delete this phase.")).c_str(),
-                    GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
+                                                   table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                                   (std::string("\t") + TL("Delete phase") + std::string("\t") + TL("Delete this phase.")).c_str(),
+                                                   GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
             case ('t'): {
                 // create button for move up phase
                 auto button = new MFXButtonTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                    (std::string("\t") + TL("Move phase up") + std::string("\t") + TL("Move this phase up.")).c_str(),
-                    GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), table, MID_GNE_TLSTABLE_MOVEUPPHASE, GUIDesignButtonIcon);
+                                                   table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                                   (std::string("\t") + TL("Move phase up") + std::string("\t") + TL("Move this phase up.")).c_str(),
+                                                   GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), table, MID_GNE_TLSTABLE_MOVEUPPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
             case ('b'): {
                 // create button for move down phase
                 auto button = new MFXButtonTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                    (std::string("\t") + TL("Move phase down") + std::string("\t") + TL("Move this phase down.")).c_str(),
-                    GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), table, MID_GNE_TLSTABLE_MOVEDOWNPHASE, GUIDesignButtonIcon);
+                                                   table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                                   (std::string("\t") + TL("Move phase down") + std::string("\t") + TL("Move this phase down.")).c_str(),
+                                                   GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), table, MID_GNE_TLSTABLE_MOVEDOWNPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }

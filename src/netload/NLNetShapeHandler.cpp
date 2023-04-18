@@ -47,7 +47,7 @@ NLNetShapeHandler::~NLNetShapeHandler() {}
 
 void
 NLNetShapeHandler::myStartElement(int element,
-                          const SUMOSAXAttributes& attrs) {
+                                  const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_LANE:
             addLane(attrs);

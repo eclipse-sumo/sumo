@@ -2006,7 +2006,7 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneSection(const NBTypeCont& t
 
 SVCPermissions
 NIImporter_OpenDrive::OpenDriveLane::computePermission(const NBTypeCont& tc, const std::vector<std::string>& allowed,
-                                                       const std::vector<std::string>& denied) const {
+        const std::vector<std::string>& denied) const {
     SVCPermissions perms = tc.getEdgeTypePermissions(type);
     if (allowed.size() > 0 && denied.size() > 0) {
         WRITE_WARNING(TL("Will discard access settings as both denied and allowed classes have been specified."));
@@ -2040,7 +2040,7 @@ NIImporter_OpenDrive::OpenDriveLane::computePermission(const NBTypeCont& tc, con
                 perms |= SVC_TRAILER;
             }
         }
-    } else if(denied.size() > 0) {
+    } else if (denied.size() > 0) {
         for (const std::string& deny : denied) {
             if (deny == "none") {
                 perms = tc.getEdgeTypePermissions(type);
@@ -2457,7 +2457,7 @@ NIImporter_OpenDrive::myStartElement(int element,
         case OPENDRIVE_TAG_ACCESS: {
             if (myElementStack.size() >= 2 && myElementStack[myElementStack.size() - 1] == OPENDRIVE_TAG_LANE) {
                 const double pos = attrs.get<double>(OPENDRIVE_ATTR_SOFFSET, myCurrentEdge.id.c_str(), ok);
-                std::string rule = attrs.getOpt<std::string>(OPENDRIVE_ATTR_RULE, nullptr, ok, "allow", false); // OpenDRIVE 1.4 without rule value 
+                std::string rule = attrs.getOpt<std::string>(OPENDRIVE_ATTR_RULE, nullptr, ok, "allow", false); // OpenDRIVE 1.4 without rule value
                 std::string vClass = attrs.get<std::string>(OPENDRIVE_ATTR_RESTRICTION, myCurrentEdge.id.c_str(), ok);
 
                 std::vector < std::pair<double, LaneAttributeChange >>& attributeChanges = myCurrentEdge.laneSections.back().lanesByDir[myCurrentLaneDirection].back().attributeChanges;
@@ -2472,8 +2472,7 @@ NIImporter_OpenDrive::myStartElement(int element,
                     LaneAttributeChange lac = LaneAttributeChange(0);
                     if (rule == "allow") {
                         lac.allowed.push_back(vClass);
-                    }
-                    else if (rule == "deny") {
+                    } else if (rule == "deny") {
                         lac.denied.push_back(vClass);
                     }
                     attributeChanges.push_back(std::make_pair(pos, lac));

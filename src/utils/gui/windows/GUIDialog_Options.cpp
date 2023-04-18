@@ -55,14 +55,14 @@ FXIMPLEMENT_ABSTRACT(GUIDialog_Options::InputOption,    FXHorizontalFrame,  Inpu
 // ===========================================================================
 
 std::pair<int, bool>
-GUIDialog_Options::Options(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName) {
+GUIDialog_Options::Options(GUIMainWindow* windows, OptionsCont* optionsContainer, const char* titleName) {
     GUIDialog_Options* optionsDialog = new GUIDialog_Options(windows, optionsContainer, titleName, false);
     return std::make_pair(optionsDialog->execute(), optionsDialog->myModified);
 }
 
 
 std::pair<int, bool>
-GUIDialog_Options::Run(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName) {
+GUIDialog_Options::Run(GUIMainWindow* windows, OptionsCont* optionsContainer, const char* titleName) {
     GUIDialog_Options* optionsDialog = new GUIDialog_Options(windows, optionsContainer, titleName, true);
     return std::make_pair(optionsDialog->execute(), optionsDialog->myModified);
 }

@@ -281,7 +281,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     }
                     const double foeEndPos = foeStartPos + foeConflictSize;
                     haveIntersection = ((foeStartPos > 0 && foeStartPos < foeLane->getLength())
-                            || (foeEndPos > 0 && foeEndPos < foeLane->getLength()));
+                                        || (foeEndPos > 0 && foeEndPos < foeLane->getLength()));
                 }
                 if (haveIntersection) {
                     myConflicts.push_back(ConflictInfo(lane->getLength() - startPos, conflictSize));
@@ -290,10 +290,10 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 }
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout << " " << lane->getID() << " custom conflict with " << foeLane->getID() << " customReverse=" << (rcc != nullptr)
-                    << " haveIntersection=" << haveIntersection
-                    << " startPos=" << startPos << " conflictSize=" << conflictSize
-                    << " lbc=" << myConflicts.back().lengthBehindCrossing
-                    << "\n";
+                          << " haveIntersection=" << haveIntersection
+                          << " startPos=" << startPos << " conflictSize=" << conflictSize
+                          << " lbc=" << myConflicts.back().lengthBehindCrossing
+                          << "\n";
 #endif
                 continue;
             }
@@ -376,8 +376,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 }
 
                 myConflicts.push_back(ConflictInfo(
-                                      lane->getLength() - intersections1.back(),
-                                      conflictSize, flag));
+                                          lane->getLength() - intersections1.back(),
+                                          conflictSize, flag));
 
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout
@@ -1630,9 +1630,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     continue;
                 }
                 const int llFlags = ((fromLeft ? LL_FROM_LEFT : 0) |
-                        (inTheWay ? LL_IN_THE_WAY : 0) |
-                        (sameSource ? LL_SAME_SOURCE : 0) |
-                        (sameTarget ? LL_SAME_TARGET : 0));
+                                     (inTheWay ? LL_IN_THE_WAY : 0) |
+                                     (sameSource ? LL_SAME_SOURCE : 0) |
+                                     (sameTarget ? LL_SAME_TARGET : 0));
                 result.emplace_back(leader, gap, stopAsap ? -1 : distToCrossing, llFlags, leader->getLatOffset(foeLane));
             }
 

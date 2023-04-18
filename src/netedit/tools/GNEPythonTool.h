@@ -37,8 +37,8 @@ class GNEPythonTool {
 
 public:
     /// @brief Constructor
-    GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
-                  const std::string &templateStr, FXMenuPane* menu);
+    GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string& pythonPath,
+                  const std::string& templateStr, FXMenuPane* menu);
 
     /// @brief destructor
     virtual ~GNEPythonTool();
@@ -47,31 +47,31 @@ public:
     GNEApplicationWindow* getGNEApp() const;
 
     /// @brief get tool name
-    const std::string &getToolName() const;
+    const std::string& getToolName() const;
 
     /// @brief get tools options
-    OptionsCont &getToolsOptions();
+    OptionsCont& getToolsOptions();
 
     /// @brief get menu command
-    FXMenuCommand *getMenuCommand() const;
-    
+    FXMenuCommand* getMenuCommand() const;
+
     /// @brief set current values (used for set values like current folder and similar)
     virtual void setCurrentValues();
-    
+
     /// @brief execute post processing
     virtual void postProcessing();
 
     /// @brief get command (python + script + arguments)
     virtual std::string getCommand() const;
-    
+
     /// @brief get default value of the given parameter
-    const std::string getDefaultValue(const std::string &name) const;
+    const std::string getDefaultValue(const std::string& name) const;
 
     /// @brief load configuration
-    bool loadConfiguration(const std::string &file);
+    bool loadConfiguration(const std::string& file);
 
     /// @brief save configuration
-    void saveConfiguration(const std::string &file) const;
+    void saveConfiguration(const std::string& file) const;
 
 protected:
     /// @brief pointer to GNEApplicationWindow

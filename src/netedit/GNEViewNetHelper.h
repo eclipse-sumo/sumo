@@ -224,7 +224,7 @@ struct GNEViewNetHelper {
 
         /// @brief filter locked elements
         void filterLockedElements(const GNEViewNetHelper::LockManager& lockManager, std::vector<GUIGlObjectType> forcedIgnoredTiped = {});
-        
+
         /// @brief short data elements by begin
         void shortDataElements();
 

@@ -278,8 +278,8 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
         }
         // stop if currently there isn't a valid selected parent
         if (mySelectorAdditionalParent->getIdSelected().empty()) {
-            myAdditionalAttributes->showWarningMessage(toString(tagProperty.getParentTags().front()) + 
-                TL(" must be selected before insertion of ") + myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + ".");
+            myAdditionalAttributes->showWarningMessage(toString(tagProperty.getParentTags().front()) +
+                    TL(" must be selected before insertion of ") + myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + ".");
             return false;
         } else {
             // create baseAdditional parent

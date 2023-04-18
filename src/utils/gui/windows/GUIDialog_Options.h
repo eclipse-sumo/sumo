@@ -48,7 +48,7 @@ public:
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Options(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
+    static std::pair<int, bool> Options(GUIMainWindow* windows, OptionsCont* optionsContainer, const char* titleName);
 
     /**@brief Constructor for run dialogs
      *
@@ -57,7 +57,7 @@ public:
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Run(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
+    static std::pair<int, bool> Run(GUIMainWindow* windows, OptionsCont* optionsContainer, const char* titleName);
 
     /// @brief Destructor
     ~GUIDialog_Options();

@@ -96,7 +96,7 @@ public:
 
     /// @brief fix additional problem
     void fixAdditionalProblem();
-    
+
     /// @}
 
     /// @brief update pre-computed geometry information
@@ -110,7 +110,7 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
-    
+
     /// @}
 
     /// @name inherited from GNEPathManager::PathElement
@@ -164,7 +164,7 @@ public:
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
-    
+
     /// @}
 
 protected:

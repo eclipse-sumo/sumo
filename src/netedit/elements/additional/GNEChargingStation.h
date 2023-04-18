@@ -63,7 +63,7 @@ public:
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
-    
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -74,7 +74,7 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
-    
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

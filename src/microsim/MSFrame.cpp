@@ -942,7 +942,7 @@ MSFrame::checkOptions() {
         }
     }
     if (!SUMOXMLDefinitions::CarFollowModels.hasString(oc.getString("carfollow.model"))) {
-        WRITE_ERRORF(TL("Unknown model '%' for option 'carfollow.model'."), oc.getString("carfollow.model") );
+        WRITE_ERRORF(TL("Unknown model '%' for option 'carfollow.model'."), oc.getString("carfollow.model"));
         ok = false;
     }
     if (oc.isSet("default.emergencydecel")) {

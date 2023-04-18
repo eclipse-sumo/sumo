@@ -215,9 +215,9 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 lanechange.setLaneChangeMode(1605);//todo change lane back
                 // the vehicles should react according to the distance to the emergency vehicle taken from real world data
                 double reactionProb = (
-                        distanceDelta < getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.near-dist", 12.5, false)
-                        ? getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.reaction-prob-near", 0.577, false)
-                        : getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.reaction-prob-far", 0.189, false));
+                                          distanceDelta < getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.near-dist", 12.5, false)
+                                          ? getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.reaction-prob-near", 0.577, false)
+                                          : getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.reaction-prob-far", 0.189, false));
                 // todo works only for one second steps
                 //std::cout << SIMTIME << " veh2=" << veh2->getID() << " distanceDelta=" << distanceDelta << " reaction=" << reaction << " reactionProb=" << reactionProb << "\n";
                 if (veh2->isActionStep(SIMSTEP) && reaction < reactionProb * veh2->getActionStepLengthSecs()) {

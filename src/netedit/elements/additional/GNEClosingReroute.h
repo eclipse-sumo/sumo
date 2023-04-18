@@ -85,7 +85,7 @@ public:
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
-    
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -101,12 +101,12 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
-    
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
-    
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -141,7 +141,7 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
-    
+
     /// @}
 
 protected:

@@ -284,8 +284,8 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                                || (myFunction == SumoXMLEdgeFunc::INTERNAL && !s.drawJunctionShape)
                                || ((myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA) && s.drawCrossingsAndWalkingareas));
     const bool drawEdgeScaleValue = s.edgeScaleValue.show(selCheck) && (myFunction == SumoXMLEdgeFunc::NORMAL
-                               || (myFunction == SumoXMLEdgeFunc::INTERNAL && !s.drawJunctionShape)
-                               || ((myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA) && s.drawCrossingsAndWalkingareas));
+                                    || (myFunction == SumoXMLEdgeFunc::INTERNAL && !s.drawJunctionShape)
+                                    || ((myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA) && s.drawCrossingsAndWalkingareas));
     if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName || drawEdgeValue || drawEdgeScaleValue) {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
         if (lane1 != nullptr && lane2 != nullptr) {

@@ -109,7 +109,7 @@ public:
     /// @brief handle keys
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
 
-        /// @brief The text colors used
+    /// @brief The text colors used
     static FXHiliteStyle* getStyles();
 
 protected:
@@ -119,7 +119,7 @@ protected:
 private:
     /// @brief class MsgOutputDevice
     class MsgOutputDevice : public OutputDevice {
-    
+
     public:
         /// @brief constructor
         MsgOutputDevice(GUIMessageWindow* msgWindow, GUIEventType type) :
@@ -153,7 +153,7 @@ private:
 
     /// @brief get active string object
     const GUIGlObject* getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
-    
+
     /// @brief get time string object
     SUMOTime getTimeString(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
 

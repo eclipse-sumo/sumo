@@ -90,7 +90,7 @@ public:
 
     /// @brief fix additional problem (must be reimplemented in all detector children)
     virtual void fixAdditionalProblem() = 0;
-    
+
     /// @}
 
     /// @brief get lane
@@ -116,7 +116,7 @@ public:
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
-    
+
     /// @}
 
     /// @name inherited from GUIGLObject
@@ -132,7 +132,7 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
-    
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -172,7 +172,7 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
-    
+
     /// @}
 
 protected:

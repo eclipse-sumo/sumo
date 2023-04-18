@@ -159,7 +159,7 @@ public:
 
     /// @brief split geometry
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
-    
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -296,7 +296,7 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
-    
+
     /// @}
 
     /// @brief draw parent and child lines

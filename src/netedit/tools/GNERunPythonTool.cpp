@@ -112,11 +112,11 @@ GNERunPythonTool::run() {
             myEventThrow.signal();
         } catch (...) {
             // close process
-        #ifdef WIN32
+#ifdef WIN32
             _pclose(myPipe);
-        #else
+#else
             pclose(myPipe);
-        #endif
+#endif
             // set flags
             myRunning = false;
             myErrorOccurred = true;

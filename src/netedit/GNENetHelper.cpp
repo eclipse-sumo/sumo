@@ -1954,7 +1954,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfGenericDatas() const {
     int counter = 0;
     // iterate over all generic datas
-    for (const auto &genericDataTag : myGenericDatas) {
+    for (const auto& genericDataTag : myGenericDatas) {
         counter += (int)genericDataTag.second.size();
     }
     return counter;

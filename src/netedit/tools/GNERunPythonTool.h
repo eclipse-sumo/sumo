@@ -44,7 +44,7 @@ public:
 
     /// @brief destructor
     ~GNERunPythonTool();
-    
+
     /// @brief run tool
     void runTool(const GNEPythonTool* tool);
 

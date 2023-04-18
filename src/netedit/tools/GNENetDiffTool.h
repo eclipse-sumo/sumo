@@ -30,9 +30,9 @@ class GNENetDiffTool : public GNEPythonTool {
 
 public:
     /// @brief Constructor
-    GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
+    GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string& pythonPath,
                    FXMenuPane* menu);
-    
+
     /// @brief destructor
     ~GNENetDiffTool();
 
@@ -44,13 +44,13 @@ public:
 
     /// @brief get command (python + script + arguments)
     std::string getCommand() const;
-    
+
 private:
     /// @brief fill netDiff options
-    void fillNetDiffOptions(OptionsCont &options);
+    void fillNetDiffOptions(OptionsCont& options);
 
     /// @brief load shapes
-    void loadShapes(const std::string &file);
+    void loadShapes(const std::string& file);
 
     /// @brief Invalidated copy constructor.
     GNENetDiffTool(const GNENetDiffTool&) = delete;

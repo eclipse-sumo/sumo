@@ -632,21 +632,21 @@ RODFNet::getDetectorEdge(const RODFDetector& det) const {
 bool
 RODFNet::hasApproaching(ROEdge* edge) const {
     return myApproachingEdges.find(edge) != myApproachingEdges.end()
-        && myApproachingEdges.find(edge)->second.size() != 0;
+           && myApproachingEdges.find(edge)->second.size() != 0;
 }
 
 
 bool
 RODFNet::hasApproached(ROEdge* edge) const {
     return myApproachedEdges.find(edge) != myApproachedEdges.end()
-        && myApproachedEdges.find(edge)->second.size() != 0;
+           && myApproachedEdges.find(edge)->second.size() != 0;
 }
 
 
 bool
 RODFNet::hasDetector(ROEdge* edge) const {
     return myDetectorsOnEdges.find(edge) != myDetectorsOnEdges.end()
-        && myDetectorsOnEdges.find(edge)->second.size() != 0;
+           && myDetectorsOnEdges.find(edge)->second.size() != 0;
 }
 
 

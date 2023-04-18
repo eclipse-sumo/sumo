@@ -61,13 +61,13 @@ public:
     void createNewNetwork();
 
     /// @brief load network
-    void loadNetwork(const std::string &networkFile);
+    void loadNetwork(const std::string& networkFile);
 
     /// @brief starts to load a configuration
-    void loadConfiguration(const std::string &configurationFile);
+    void loadConfiguration(const std::string& configurationFile);
 
     /// @brief starts to load a OSM File
-    void loadOSM(const std::string &OSMFile);
+    void loadOSM(const std::string& OSMFile);
 
     /// @brief build dependent
     void dependentBuild();
@@ -598,41 +598,41 @@ protected:
 
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr,
-        *myFileMenuNeteditConfig = nullptr,
-        *myFileMenuSumoConfig = nullptr,
-        *myFileMenuTLS = nullptr,
-        *myFileMenuEdgeTypes = nullptr,
-        *myFileMenuAdditionals = nullptr,
-        *myFileMenuDemandElements = nullptr,
-        *myFileMenuDataElements = nullptr,
-        *myFileMenuMeanDataElements = nullptr,
-        *myFileMenuRecentNetworks = nullptr,
-        *myFileMenuRecentConfigs = nullptr,
-        *myModesMenu = nullptr,
-        *myEditMenu = nullptr,
-        *myLockMenu = nullptr,
-        *myProcessingMenu = nullptr,
-        *myLocatorMenu = nullptr,
-        *myToolsMenu = nullptr,
-        *myToolsDetectorMenu = nullptr,
-        *myToolsDistrictMenu = nullptr,
-        *myToolsDRTMenu = nullptr,
-        *myToolsEmissionsMenu = nullptr,
-        *myToolsImportMenu = nullptr,
-        *myToolsImportCityBrainMenu = nullptr,
-        *myToolsImportGTFSMenu = nullptr,
-        *myToolsImportVissim = nullptr,
-        *myToolsImportVisum = nullptr,
-        *myToolsNetMenu = nullptr,
-        *myToolsRouteMenu = nullptr,
-        *myToolsOutputMenu = nullptr,
-        *myToolsShapes = nullptr,
-        *myToolsTLS = nullptr,
-        *myToolsTurnDefs = nullptr,
-        *myToolsVisualizationMenu = nullptr,
-        *myToolsXML = nullptr,
-        *myWindowMenu = nullptr,
-        *myHelpMenu = nullptr;
+                *myFileMenuNeteditConfig = nullptr,
+                 *myFileMenuSumoConfig = nullptr,
+                  *myFileMenuTLS = nullptr,
+                   *myFileMenuEdgeTypes = nullptr,
+                    *myFileMenuAdditionals = nullptr,
+                     *myFileMenuDemandElements = nullptr,
+                      *myFileMenuDataElements = nullptr,
+                       *myFileMenuMeanDataElements = nullptr,
+                        *myFileMenuRecentNetworks = nullptr,
+                         *myFileMenuRecentConfigs = nullptr,
+                          *myModesMenu = nullptr,
+                           *myEditMenu = nullptr,
+                            *myLockMenu = nullptr,
+                             *myProcessingMenu = nullptr,
+                              *myLocatorMenu = nullptr,
+                               *myToolsMenu = nullptr,
+                                *myToolsDetectorMenu = nullptr,
+                                 *myToolsDistrictMenu = nullptr,
+                                  *myToolsDRTMenu = nullptr,
+                                   *myToolsEmissionsMenu = nullptr,
+                                    *myToolsImportMenu = nullptr,
+                                     *myToolsImportCityBrainMenu = nullptr,
+                                      *myToolsImportGTFSMenu = nullptr,
+                                       *myToolsImportVissim = nullptr,
+                                        *myToolsImportVisum = nullptr,
+                                         *myToolsNetMenu = nullptr,
+                                          *myToolsRouteMenu = nullptr,
+                                           *myToolsOutputMenu = nullptr,
+                                            *myToolsShapes = nullptr,
+                                             *myToolsTLS = nullptr,
+                                              *myToolsTurnDefs = nullptr,
+                                               *myToolsVisualizationMenu = nullptr,
+                                                *myToolsXML = nullptr,
+                                                 *myWindowMenu = nullptr,
+                                                  *myHelpMenu = nullptr;
 
     /// @brief map with menu pane tools and strings
     std::map<std::string, FXMenuPane*> myMenuPaneToolMaps;

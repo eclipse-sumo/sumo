@@ -165,11 +165,11 @@ GUISUMOAbstractView::~GUISUMOAbstractView() {
     delete myGUIDialogEditViewport;
     delete myGUIDialogViewSettings;
     // cleanup decals
-    for (auto &decal : myDecals) {
+    for (auto& decal : myDecals) {
         delete decal.image;
     }
     // remove all elements
-    for (auto &additional : myAdditionallyDrawn) {
+    for (auto& additional : myAdditionallyDrawn) {
         additional.first->removeActiveAddVisualisation(this, ~0);
     }
 }
@@ -1156,8 +1156,8 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector, void* ptr) {
         // upddate viewport
         if (myGUIDialogEditViewport != nullptr) {
             myGUIDialogEditViewport->setValues(myChanger->getZoom(),
-                                         myChanger->getXPos(), myChanger->getYPos(),
-                                         myChanger->getRotation());
+                                               myChanger->getXPos(), myChanger->getYPos(),
+                                               myChanger->getRotation());
         }
         updatePositionInformationLabel();
     }
@@ -1184,8 +1184,8 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* ptr) {
         }
         if (myGUIDialogEditViewport != nullptr) {
             myGUIDialogEditViewport->setValues(myChanger->getZoom(),
-                                         myChanger->getXPos(), myChanger->getYPos(),
-                                         myChanger->getRotation());
+                                               myChanger->getXPos(), myChanger->getYPos(),
+                                               myChanger->getRotation());
         }
         updatePositionInformationLabel();
     }
@@ -1594,8 +1594,8 @@ GUISUMOAbstractView::getViewportEditor() {
 
 void GUISUMOAbstractView::updateViewportValues() {
     myGUIDialogEditViewport->setValues(myChanger->getZoom(),
-                                 myChanger->getXPos(), myChanger->getYPos(),
-                                 myChanger->getRotation());
+                                       myChanger->getXPos(), myChanger->getYPos(),
+                                       myChanger->getRotation());
 }
 
 
@@ -1792,7 +1792,7 @@ void
 GUISUMOAbstractView::drawDecals() {
     GLHelper::pushName(0);
     myDecalsLockMutex.lock();
-    for (auto &decal : myDecals) {
+    for (auto& decal : myDecals) {
         if (decal.skip2D || decal.filename.empty()) {
             continue;
         }
@@ -1988,7 +1988,7 @@ GUISUMOAbstractView::filterGUIGLObjectsByLayer(const std::vector<GUIGlObject*>& 
     // declare vector for saving object filtered by layer
     std::vector<GUIGlObject*> objectsFiltered;
     // insert in objects filtered sorted from bot to top
-    for (const auto &object : layerObjects) {
+    for (const auto& object : layerObjects) {
         objectsFiltered.push_back(object.getGLObject());
     }
     // reverse objets filtered to top from bot

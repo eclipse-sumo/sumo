@@ -845,12 +845,12 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
     if ((sources.size() + sinks.size()) > 0) {
         // build the text
         const std::string text = (TAZs.size() == 1) ?
-            // single TAZ
-            TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
-            toString(sinks.size()) + TL(" sinks from TAZ '") + (*TAZs.begin())->getID() + "'?" :
-            // multiple TAZs
-            TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
-            toString(sinks.size()) + TL(" sinks from ") + toString(TAZs.size()) + TL(" TAZs?");
+                                 // single TAZ
+                                 TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
+                                 toString(sinks.size()) + TL(" sinks from TAZ '") + (*TAZs.begin())->getID() + "'?" :
+                                 // multiple TAZs
+                                 TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
+                                 toString(sinks.size()) + TL(" sinks from ") + toString(TAZs.size()) + TL(" TAZs?");
         // ask if continue
         const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, TL("Set zero fringe probabilities"), "%s", text.c_str());
         if (answer == 1) { // 1:yes, 2:no, 4:esc

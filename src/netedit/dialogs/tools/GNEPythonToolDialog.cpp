@@ -69,9 +69,9 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
             GNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
             GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
     new FXButton(horizontalOptionsFrame, (TL("Save") + std::string("\t\t") + TL("Save options")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonAccept);
+                 GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonAccept);
     new FXButton(horizontalOptionsFrame, (TL("Load") + std::string("\t\t") + TL("Load options")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonAccept);
+                 GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonAccept);
     mySortedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Sorted by name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myGroupedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Grouped by categories"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // add separators
@@ -87,11 +87,11 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     auto horizontalButtonsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXButton(horizontalButtonsFrame, (TL("Run") + std::string("\t\t") + TL("run python tool")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
+                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
     new FXButton(horizontalButtonsFrame, (TL("Close") + std::string("\t\t") + TL("close tool dialog")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXButton(horizontalButtonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to default values")).c_str(), 
-        GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+                 GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    new FXButton(horizontalButtonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to default values")).c_str(),
+                 GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
@@ -225,18 +225,18 @@ GNEPythonToolDialog::onUpdRequiredAttributes(FXObject* sender, FXSelector, void*
 }
 
 
-GNEPythonToolDialog::CategoryOptions::CategoryOptions(const std::string &category) :
+GNEPythonToolDialog::CategoryOptions::CategoryOptions(const std::string& category) :
     std::string(category) {
 }
 
 
 void
-GNEPythonToolDialog::CategoryOptions::addOption(const std::string &name, Option* option) {
+GNEPythonToolDialog::CategoryOptions::addOption(const std::string& name, Option* option) {
     myOptions.push_back(std::make_pair(name, option));
 }
 
 
-const std::vector<std::pair<std::string, Option*> > &
+const std::vector<std::pair<std::string, Option*> >&
 GNEPythonToolDialog::CategoryOptions::getOptions() const {
     return myOptions;
 }
@@ -266,19 +266,19 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
     myArguments.clear();
     myCategories.clear();
     // get argument sorted by name and grouped by categories
-    auto categoryOptions = groupedByCategories? getOptionsByCategories(myPythonTool->getToolsOptions()) : getOptions(myPythonTool->getToolsOptions());
+    auto categoryOptions = groupedByCategories ? getOptionsByCategories(myPythonTool->getToolsOptions()) : getOptions(myPythonTool->getToolsOptions());
     // calculate number of arguments
     int numArguments = 0;
-    for (auto &categoryOption : categoryOptions) {
+    for (auto& categoryOption : categoryOptions) {
         numArguments += (int)categoryOption.getOptions().size() + 1;
     }
     const int halfNumArguments = numArguments / 2;
-    // declare counter for number of inserted arguments        
+    // declare counter for number of inserted arguments
     int numInsertedArguments = 0;
     // iterate over category options
-    for (auto &categoryOption : categoryOptions) {
+    for (auto& categoryOption : categoryOptions) {
         // get argument frame
-        auto argumentFrame = (numInsertedArguments < halfNumArguments)? myArgumentFrameLeft : myArgumentFrameRight;
+        auto argumentFrame = (numInsertedArguments < halfNumArguments) ? myArgumentFrameLeft : myArgumentFrameRight;
         // add category
         if (categoryOption.size() > 0) {
             myCategories.push_back(new GNEPythonToolDialogElements::Category(argumentFrame, categoryOption));
@@ -289,9 +289,9 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
             categoryOption.sortByName();
         }
         // add options
-        for (const auto &option : categoryOption.getOptions()) {
+        for (const auto& option : categoryOption.getOptions()) {
             // get argument frame (again)
-            argumentFrame = (numInsertedArguments < halfNumArguments)? myArgumentFrameLeft : myArgumentFrameRight;
+            argumentFrame = (numInsertedArguments < halfNumArguments) ? myArgumentFrameLeft : myArgumentFrameRight;
             // continue depending of type
             if (option.second->isInteger()) {
                 myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, argumentFrame, option.first, option.second));
@@ -300,15 +300,15 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
             } else if (option.second->isBool()) {
                 myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, argumentFrame, option.first, option.second));
             } else if (option.second->isFileName()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, argumentFrame, option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, argumentFrame, option.first, option.second));
             } else if (option.second->isNetwork()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::NetworkArgument(this, argumentFrame, option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::NetworkArgument(this, argumentFrame, option.first, option.second));
             } else if (option.second->isAdditional()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::AdditionalArgument(this, argumentFrame, option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::AdditionalArgument(this, argumentFrame, option.first, option.second));
             } else if (option.second->isRoute()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, argumentFrame, option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, argumentFrame, option.first, option.second));
             } else if (option.second->isData()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, argumentFrame, option.first, option.second));   
+                myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, argumentFrame, option.first, option.second));
             } else {
                 myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, argumentFrame, option.first, option.second));
             }
@@ -343,7 +343,7 @@ GNEPythonToolDialog::getOptions(OptionsCont& optionsCont) const {
     // use a vector with only one empty category to reuse code of buildArguments
     std::vector<GNEPythonToolDialog::CategoryOptions> result = {GNEPythonToolDialog::CategoryOptions("")};
     // add all options to result
-    for (const auto &option : optionsCont) {
+    for (const auto& option : optionsCont) {
         result.front().addOption(option.first, option.second);
     }
     return result;
@@ -356,18 +356,18 @@ GNEPythonToolDialog::getOptionsByCategories(OptionsCont& optionsCont) const {
     const std::vector<std::string> commonCategories = {"input", "output", "processing", "time"};
     // fill categories
     std::vector<std::string> categories = commonCategories;
-    for (const auto &option : optionsCont) {
+    for (const auto& option : optionsCont) {
         if (std::find(categories.begin(), categories.end(), option.second->getSubTopic()) == categories.end()) {
             categories.push_back(option.second->getSubTopic());
         }
     }
     // declare vector of category options and fill
     std::vector<GNEPythonToolDialog::CategoryOptions> result;
-    for (const auto &category : categories) {
+    for (const auto& category : categories) {
         result.push_back(GNEPythonToolDialog::CategoryOptions(category));
     }
     // fill result with options
-    for (const auto &option : optionsCont) {
+    for (const auto& option : optionsCont) {
         auto category = std::find(result.begin(), result.end(), option.second->getSubTopic());
         // add option in category
         category->addOption(option.first, option.second);
@@ -388,7 +388,7 @@ GNEPythonToolDialog::getOptionsByCategories(OptionsCont& optionsCont) const {
 int
 GNEPythonToolDialog::getNumRowColums() const {
     const int column = (int)myArguments.size() / NUMROWSBYCOLUMN;
-    return (column < MAXNUMCOLUMNS)? column : (MAXNUMCOLUMNS - 1);
+    return (column < MAXNUMCOLUMNS) ? column : (MAXNUMCOLUMNS - 1);
 }
 
 

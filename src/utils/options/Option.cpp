@@ -41,7 +41,7 @@
 // Option - methods
 // -------------------------------------------------------------------------
 
-Option::Option(bool set) : 
+Option::Option(bool set) :
     myAmSet(set) {
 }
 
@@ -226,7 +226,7 @@ Option::getTypeName() const {
 // -------------------------------------------------------------------------
 
 Option_Integer::Option_Integer(int value) :
-    Option(true), 
+    Option(true),
     myValue(value) {
     myTypeName = "INT";
     myValueString = toString(value);
@@ -260,14 +260,14 @@ Option_Integer::isInteger() const {
 // Option_String - methods
 // -------------------------------------------------------------------------
 
-Option_String::Option_String() : 
+Option_String::Option_String() :
     Option() {
     myTypeName = "STR";
 }
 
 
 Option_String::Option_String(const std::string& value, std::string typeName) :
-    Option(true), 
+    Option(true),
     myValue(value) {
     myTypeName = typeName;
     myValueString = value;
@@ -290,8 +290,8 @@ Option_String::set(const std::string& v, const std::string& orig, const bool /* 
 // Option_Float - methods
 // -------------------------------------------------------------------------
 
-Option_Float::Option_Float(double value) : 
-    Option(true), 
+Option_Float::Option_Float(double value) :
+    Option(true),
     myValue(value) {
     myTypeName = "FLOAT";
     std::ostringstream oss;
@@ -360,7 +360,7 @@ Option_Bool::isBool() const {
 // Option_BoolExtended - methods
 // -------------------------------------------------------------------------
 
-Option_BoolExtended::Option_BoolExtended(bool value) : 
+Option_BoolExtended::Option_BoolExtended(bool value) :
     Option_Bool(value) {
 }
 

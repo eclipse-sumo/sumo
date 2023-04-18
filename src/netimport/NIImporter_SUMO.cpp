@@ -625,12 +625,12 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (myCurrentEdge == nullptr) {
-        WRITE_ERRORF(TL("Found lane '%' not within edge element."), id );
+        WRITE_ERRORF(TL("Found lane '%' not within edge element."), id);
         return;
     }
     const std::string expectedID = myCurrentEdge->id + "_" + toString(myCurrentEdge->lanes.size());
     if (id != expectedID) {
-        WRITE_WARNINGF(TL("Renaming lane '%' to '%'."), id , expectedID);
+        WRITE_WARNINGF(TL("Renaming lane '%' to '%'."), id, expectedID);
     }
     myCurrentLane = new LaneAttrs();
     myLastParameterised.push_back(myCurrentLane);

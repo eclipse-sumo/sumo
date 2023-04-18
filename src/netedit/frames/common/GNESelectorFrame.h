@@ -198,7 +198,7 @@ public:
         ~SelectionOperation();
 
         /// @brief load from file
-        void loadFromFile(const std::string &file) const;
+        void loadFromFile(const std::string& file) const;
 
         /// @name FOX-callbacks
         /// @{

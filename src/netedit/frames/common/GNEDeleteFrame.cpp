@@ -398,7 +398,7 @@ GNEDeleteFrame::removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& 
     // get clicked position
     const Position clickedPosition = myViewNet->getPositionInformation();
     // filter elements with geometry points
-    for (const auto &AC : objectsUnderCursor.getClickedAttributeCarriers()) {
+    for (const auto& AC : objectsUnderCursor.getClickedAttributeCarriers()) {
         if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             objectsUnderCursor.getEdgeFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;

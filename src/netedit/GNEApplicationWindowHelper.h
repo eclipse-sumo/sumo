@@ -960,7 +960,7 @@ struct GNEApplicationWindowHelper {
         ~ToolsMenuCommands();
 
         /// @brief build tools (and menu commands)
-        void buildTools(FXMenuPane* toolsMenu, const std::map<std::string, FXMenuPane*> &menuPaneToolMaps);
+        void buildTools(FXMenuPane* toolsMenu, const std::map<std::string, FXMenuPane*>& menuPaneToolMaps);
 
         /// @brief show tool
         long showTool(FXObject* menuCommand) const;
@@ -970,12 +970,12 @@ struct GNEApplicationWindowHelper {
 
         /// @brief run tool dialog
         long runToolDialog(FXObject* menuCommand) const;
-        
-        /// @brief run postprocessing 
+
+        /// @brief run postprocessing
         long postProcessing(FXObject* menuCommand) const;
-        
+
         /// @brief run netgenerate dialog
-        long runNetgenerateDialog(const OptionsCont *netgenerateOptions) const;
+        long runNetgenerateDialog(const OptionsCont* netgenerateOptions) const;
 
     private:
         /// @brief map with python tools
@@ -983,10 +983,10 @@ struct GNEApplicationWindowHelper {
 
         /// @brief python tool dialog
         GNEPythonToolDialog* myPythonToolDialog = nullptr;
-        
+
         /// @brief netgenerate dialog
         GNENetgenerateDialog* myNetgenerateDialog = nullptr;
-        
+
         /// @brief run python tool dialog
         GNERunPythonToolDialog* myRunPythonToolDialog = nullptr;
 

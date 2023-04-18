@@ -1122,7 +1122,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             myCurrentEdge->setParameter(key, attrs.get<std::string>(SUMO_ATTR_V, info.c_str(), ok, false));
         }
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
-        if (!StringUtils::endsWith(key, "way") 
+        if (!StringUtils::endsWith(key, "way")
                 && !StringUtils::startsWith(key, "lanes")
                 && key != "maxspeed" && key != "maxspeed:type"
                 && key != "zone:maxspeed"

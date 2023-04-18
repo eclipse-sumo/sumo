@@ -598,7 +598,8 @@ MSMeanData::writeEdge(OutputDevice& dev,
                       MSEdge* edge, SUMOTime startTime, SUMOTime stopTime) {
     if (MSGlobals::gUseMesoSim) {
         MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
-        for (MeanDataValues* data : edgeValues) {;
+        for (MeanDataValues* data : edgeValues) {
+            ;
             while (s != nullptr) {
                 s->prepareDetectorForWriting(*data);
                 s = s->getNextSegment();
@@ -608,9 +609,9 @@ MSMeanData::writeEdge(OutputDevice& dev,
             MeanDataValues* data = edgeValues.front();
             if (writePrefix(dev, *data, SUMO_TAG_EDGE, getEdgeID(edge))) {
                 data->write(dev, myWrittenAttributes, stopTime - startTime,
-                        (double)edge->getLanes().size(),
-                        edge->getSpeedLimit(),
-                        myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
+                            (double)edge->getLanes().size(),
+                            edge->getSpeedLimit(),
+                            myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             data->reset(true);
             return;

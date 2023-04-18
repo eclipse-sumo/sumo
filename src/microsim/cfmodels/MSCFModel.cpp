@@ -1048,7 +1048,7 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
 
 
 void
-MSCFModel::applyOwnSpeedPerceptionError(const MSVehicle* const veh, double &speed) const {
+MSCFModel::applyOwnSpeedPerceptionError(const MSVehicle* const veh, double& speed) const {
     if (!veh->hasDriverState()) {
         return;
     }

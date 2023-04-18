@@ -426,13 +426,13 @@ Vehicle::getNextLinks(const std::string& vehID) {
         double length = ret.readDouble();
 
         result.push_back(libsumo::TraCIConnection(approachedLane,
-            hasPrio,
-            isOpen,
-            hasFoe,
-            approachedLaneInternal,
-            state,
-            direction,
-            length));
+                         hasPrio,
+                         isOpen,
+                         hasFoe,
+                         approachedLaneInternal,
+                         state,
+                         direction,
+                         length));
     }
     return result;
 }

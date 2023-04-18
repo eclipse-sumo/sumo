@@ -111,9 +111,9 @@ GUILane::~GUILane() {
 
 void
 GUILane::initRotations(const PositionVector& shape,
-        std::vector<double>& rotations,
-        std::vector<double>& lengths,
-        std::vector<RGBColor>& colors) {
+                       std::vector<double>& rotations,
+                       std::vector<double>& lengths,
+                       std::vector<RGBColor>& colors) {
     rotations.clear();
     lengths.clear();
     colors.clear();
@@ -323,7 +323,7 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     const double isRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
     double w = myWidth / (double) noLinks;
     if (isRailSignal && noLinks > 1 && myLinks.back()->isTurnaround() && s.showRails) {
-        w = myWidth / (double) (noLinks - 1);
+        w = myWidth / (double)(noLinks - 1);
     }
     double x1 = isRailSignal ? -myWidth * 0.5 : 0;
     for (int i = 0; i < noLinks; ++i) {

@@ -63,7 +63,7 @@ RONet::getInstance(void) {
 
 RONet::RONet() :
     myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
-    myDefaultPedTypeMayBeDeleted(true), 
+    myDefaultPedTypeMayBeDeleted(true),
     myDefaultBikeTypeMayBeDeleted(true),
     myDefaultTaxiTypeMayBeDeleted(true),
     myDefaultRailTypeMayBeDeleted(true),

@@ -653,7 +653,7 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
         geode->addDrawable(brake);
         setShapeState(brake);
         m.lights->addChild(geode);
-    
+
         osg::Vec3d center(0, -type.getLength() / 2., 0.);
         osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
         ellipse->addChild(geode);

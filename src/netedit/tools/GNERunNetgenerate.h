@@ -45,9 +45,9 @@ public:
 
     /// @brief destructor
     ~GNERunNetgenerate();
-    
+
     /// @brief run netgenerate
-    void run(const OptionsCont *netgenerateOptions);
+    void run(const OptionsCont* netgenerateOptions);
 
     /// @brief abort netgenerate running
     void abort();

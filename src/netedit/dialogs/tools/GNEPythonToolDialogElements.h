@@ -45,7 +45,7 @@ public:
 
     public:
         /// @brief constructor
-        Category(FXVerticalFrame *argumentFrame, const std::string &category);
+        Category(FXVerticalFrame* argumentFrame, const std::string& category);
 
         /// @brief destructor
         ~Category();
@@ -65,7 +65,7 @@ public:
 
     public:
         /// @brief constructor
-        Argument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame *argumentFrame, const std::string &parameter, Option* option);
+        Argument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string& parameter, Option* option);
 
         /// @brief destructor
         ~Argument();
@@ -136,9 +136,9 @@ public:
 
     public:
         /// @brief constructor
-        FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame *argumentFrame, 
+        FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
                          const std::string name, Option* option);
-    
+
         /// @brief reset to default value
         void reset();
 
@@ -153,8 +153,8 @@ public:
         FileNameArgument();
 
         /// @brief constructor for current buttons
-        FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame *argumentFrame, 
-                         const std::string name, Option* option, const std::string &useCurrent);
+        FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                         const std::string name, Option* option, const std::string& useCurrent);
 
         /// @brief get value
         const std::string getValue() const;
@@ -183,8 +183,8 @@ public:
 
     public:
         /// @brief constructor
-        NetworkArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame *argumentFrame, 
-                         const std::string name, Option* option);
+        NetworkArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                        const std::string name, Option* option);
 
         /// @brief Called when user press open filename button
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
@@ -214,8 +214,8 @@ public:
 
     public:
         /// @brief constructor
-        AdditionalArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame *argumentFrame, 
-                         const std::string name, Option* option);
+        AdditionalArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                           const std::string name, Option* option);
 
         /// @brief Called when user press open filename button
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
@@ -245,8 +245,8 @@ public:
 
     public:
         /// @brief constructor
-        RouteArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame *argumentFrame, 
-                         const std::string name, Option* option);
+        RouteArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                      const std::string name, Option* option);
 
         /// @brief Called when user press open filename button
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
@@ -276,8 +276,8 @@ public:
 
     public:
         /// @brief constructor
-        DataArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame *argumentFrame, 
-                         const std::string name, Option* option);
+        DataArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                     const std::string name, Option* option);
 
         /// @brief Called when user press open filename button
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
@@ -305,7 +305,7 @@ public:
 
     public:
         /// @brief constructor
-        StringArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame *argumentFrame, const std::string name, Option* option);
+        StringArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -333,7 +333,7 @@ public:
 
     public:
         /// @brief constructor
-        IntArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame *argumentFrame, const std::string name, Option* option);
+        IntArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -364,8 +364,8 @@ public:
 
     public:
         /// @brief constructor
-        FloatArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame *argumentFrame, const std::string name, Option* option);
-    
+        FloatArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option);
+
         /// @brief reset to default value
         void reset();
 
@@ -396,7 +396,7 @@ public:
 
     public:
         /// @brief constructor
-        BoolArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame *argumentFrame, const std::string name, Option* option);
+        BoolArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();

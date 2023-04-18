@@ -624,9 +624,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                     nextLane = link->getViaLaneOrLane();
                 } else {
                     WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID()
-                            + "' from walkingArea '" + currentEdge->getID()
-                            + "' to edge '" + nextRouteEdge->getID() + "', time=" +
-                            time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                                  + "' from walkingArea '" + currentEdge->getID()
+                                  + "' to edge '" + nextRouteEdge->getID() + "', time=" +
+                                  time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                     // error indicated by nextDir == UNDEFINED_DIRECTION
                     nextLane = nextRouteLane;
                 }
@@ -1978,8 +1978,8 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
 int
 MSPModel_Striping::getReserved(int stripes, double factor) {
     return MIN2(
-            (int)floor(stripes * factor),
-            (int)floor(RESERVE_FOR_ONCOMING_MAX / stripeWidth));
+               (int)floor(stripes * factor),
+               (int)floor(RESERVE_FOR_ONCOMING_MAX / stripeWidth));
 }
 
 void

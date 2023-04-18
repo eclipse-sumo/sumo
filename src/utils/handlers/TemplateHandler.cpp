@@ -122,7 +122,7 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
                     myOptions.addOptionSubTopic(attributeValue);
                 }
             } else if (attributeName == "required") {
-                required = ((attributeValue == "true") || (attributeValue == "1"))? true : false;
+                required = ((attributeValue == "true") || (attributeValue == "1")) ? true : false;
             }
         }
         // add option
@@ -170,7 +170,7 @@ TemplateHandler::addOption(const std::string& value, const std::string& synonyme
             option = new Option_Additional();
         } else if ((type == "ROUTE") || (type == "route_file")) {
             option = new Option_Route();
-        } else if ((type == "DATA") || (type == "data_file") ||  (type == "edgedata_file")) {
+        } else if ((type == "DATA") || (type == "data_file") || (type == "edgedata_file")) {
             option = new Option_Data();
         } else if (type.size() > 0) {
             WRITE_WARNING(type + " is an invalid type");

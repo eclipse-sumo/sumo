@@ -243,7 +243,7 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
             }
             if (probs.size() > 0 && probIndex != (int)probs.size()) {
                 WRITE_WARNING("Got " + toString(probs.size()) + " probabilities for " + toString(probIndex) +
-                        " types in vTypeDistribution '" + myCurrentVTypeDistributionID + "'");
+                              " types in vTypeDistribution '" + myCurrentVTypeDistributionID + "'");
             }
         }
     }

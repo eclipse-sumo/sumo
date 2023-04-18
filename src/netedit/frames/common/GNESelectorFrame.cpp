@@ -266,7 +266,7 @@ GNESelectorFrame::SelectionOperation::~SelectionOperation() {}
 
 
 void
-GNESelectorFrame::SelectionOperation::loadFromFile(const std::string &file) const {
+GNESelectorFrame::SelectionOperation::loadFromFile(const std::string& file) const {
     std::vector<GNEAttributeCarrier*> loadedACs;
     std::ifstream strm(file.c_str());
     // check if file can be opened

@@ -86,7 +86,7 @@ public:
      * secondary shape
      * @return The vehicle's current angle
      */
-    double getVisualAngle(bool s2) const; 
+    double getVisualAngle(bool s2) const;
 
     /** @brief Draws the route
      * @param[in] r The route to draw

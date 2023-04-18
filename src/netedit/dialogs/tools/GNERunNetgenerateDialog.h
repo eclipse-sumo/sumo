@@ -57,7 +57,7 @@ public:
     GNEApplicationWindow* getGNEApp() const;
 
     /// @brief run tool (this open windows)
-    void run(const OptionsCont *netgenerateOptions);
+    void run(const OptionsCont* netgenerateOptions);
 
     /// @name FOX-callbacks
     /// @{
@@ -114,7 +114,7 @@ private:
     FXButton* myCloseButton = nullptr;
 
     /// @brief netgenerate options
-    const OptionsCont *myNetgenerateOptions;
+    const OptionsCont* myNetgenerateOptions;
 
     /// @brief List of received events
     MFXSynchQue<GUIEvent*> myEvents;

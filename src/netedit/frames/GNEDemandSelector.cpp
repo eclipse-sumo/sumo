@@ -133,10 +133,10 @@ DemandElementSelector::setDemandElements(const std::vector<GNEDemandElement*>& d
     myDemandElementsMatchBox->setCustomText(TL("select sub-item..."));
     // set info label
     const std::string info =
-        TL("-Clicked over multiple") + std::string("\n") + 
-        TL("elements") + std::string("\n") + 
-        TL(" - Select an item in the") + std::string("\n") + 
-        TL(" list or click over an") + std::string("\n") + 
+        TL("-Clicked over multiple") + std::string("\n") +
+        TL("elements") + std::string("\n") +
+        TL(" - Select an item in the") + std::string("\n") +
+        TL(" list or click over an") + std::string("\n") +
         TL(" element in view");
     myInfoLabel->setText(info.c_str());
     myInfoLabel->show();

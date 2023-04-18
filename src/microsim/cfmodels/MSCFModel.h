@@ -662,7 +662,7 @@ protected:
      * @param[in] veh The vehicle (EGO)
      * @param[in, out] speed The vehicle's speed
      */
-    void applyOwnSpeedPerceptionError(const MSVehicle* const veh, double &speed) const;
+    void applyOwnSpeedPerceptionError(const MSVehicle* const veh, double& speed) const;
 
     /** @brief Overwrites gap2pred and predSpeed by the perceived values obtained from the vehicle's driver state,
      *  @see MSCFModel_Krauss::stopSpeed() and MSCFModel_Krauss::followSpeed() for integration into a CF model

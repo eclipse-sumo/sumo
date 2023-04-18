@@ -363,7 +363,7 @@ GUINet::initGUIStructures() {
 
 
 void
-GUINet::registerRenderedObject(GUIGlObject *o) {
+GUINet::registerRenderedObject(GUIGlObject* o) {
     getVisualisationSpeedUp().addAdditionalGLObject(o);
     if (OptionsCont::getOptions().isSet("alternative-net-file")) {
         GUIGlobals::gSecondaryShape = true;

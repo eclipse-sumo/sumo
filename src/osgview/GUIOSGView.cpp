@@ -508,7 +508,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                 RGBColor col;
 
                 if (!GUIBaseVehicle::setFunctionalColor(myVisualizationSettings->vehicleColorer.getActive(), veh, col)) {
-                    col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));   
+                    col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));
                 }
                 myVehicles[veh].mat->setDiffuse(osg::Material::FRONT_AND_BACK, osg::Vec4d(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
                 myVehicles[veh].lights->setValue(0, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
@@ -574,7 +574,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
             RGBColor col;
             GUIPerson* actualPerson = dynamic_cast<GUIPerson*>(person);
             if (!GUIPerson::setFunctionalColor(myVisualizationSettings->personColorer.getActive(), actualPerson, col)) {
-                col = myVisualizationSettings->personColorer.getScheme().getColor(actualPerson->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));  
+                col = myVisualizationSettings->personColorer.getScheme().getColor(actualPerson->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));
             }
             myPersons[person].mat->setDiffuse(osg::Material::FRONT_AND_BACK, osg::Vec4d(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
         }
@@ -626,7 +626,7 @@ void GUIOSGView::updateViewportValues() {
     osg::Vec3d lookFrom, lookAt, up;
     myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
     myGUIDialogEditViewport->setValues(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
-                                 Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
+                                       Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
 }
 
 

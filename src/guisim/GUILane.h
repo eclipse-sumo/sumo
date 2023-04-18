@@ -332,9 +332,9 @@ private:
 
 private:
     void initRotations(const PositionVector& shape,
-            std::vector<double>& rotations,
-            std::vector<double>& lengths,
-            std::vector<RGBColor>& colors);
+                       std::vector<double>& rotations,
+                       std::vector<double>& lengths,
+                       std::vector<RGBColor>& colors);
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
     bool setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const;

@@ -165,7 +165,7 @@ public:
      * @return The stored value encoded into a string-
      */
     const std::string& getValueString() const;
-    
+
     /** @brief Returns the information whether the option holds the default value
     *
     * @return true if the option was not set from command line / configuration, false otherwise

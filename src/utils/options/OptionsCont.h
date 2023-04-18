@@ -418,7 +418,7 @@ public:
      * @exception InvalidArgument If the option does not exist
      */
     bool isWriteable(const std::string& name);
-    
+
     /// @}
 
     /// @name Methods for retrieving values from options
@@ -531,7 +531,7 @@ public:
      * @todo Try to optimize - at each call, the vector is rebuilt
      */
     bool isInStringVector(const std::string& optionName, const std::string& itemName) const;
-    
+
     /// @}
 
     /// @name Methods for setting values into options
@@ -592,7 +592,7 @@ public:
      * @see OptionsCont::set(const std::string &, const std::string &)
      */
     bool setByRootElement(const std::string& name, const std::string& value);
-    
+
     /// @}
 
     /** @brief Resets all options to be writeable
@@ -655,7 +655,7 @@ public:
     /// @brief check if options container is empty
     bool isEmpty() const;
 
-    /// @brief get begin adresses iterator 
+    /// @brief get begin adresses iterator
     std::vector<std::pair<std::string, Option*> >::const_iterator begin() const;
 
     /// @brief get begin adresses iterator

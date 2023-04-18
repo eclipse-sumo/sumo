@@ -816,7 +816,7 @@ MSDevice_Tripinfo::getGlobalParameter(const std::string& prefixedKey) {
         throw InvalidArgument(err);
 
     } else if (StringUtils::startsWith(key, "rideStatistics.") ||
-            StringUtils::startsWith(key, "transportStatistics.")) {
+               StringUtils::startsWith(key, "transportStatistics.")) {
         int index = 0;
         if (StringUtils::startsWith(key, "rideStatistics.")) {
             key = prefixedKey.substr(15);

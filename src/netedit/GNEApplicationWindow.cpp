@@ -1062,8 +1062,8 @@ GNEApplicationWindow::onUpdReloadNetwork(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
         sender->handle(this, FXSEL(SEL_COMMAND, ID_HIDE), nullptr);
-    } else if ((neteditOptions.getString("net-file").size() > 0) && 
-        ((neteditOptions.getString("configuration-file").size() > 0) || (neteditOptions.getString("sumocfg-file").size() > 0))) {
+    } else if ((neteditOptions.getString("net-file").size() > 0) &&
+               ((neteditOptions.getString("configuration-file").size() > 0) || (neteditOptions.getString("sumocfg-file").size() > 0))) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         sender->handle(this, FXSEL(SEL_COMMAND, ID_SHOW), nullptr);
     } else {
@@ -1083,9 +1083,9 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
         // get filedata
         const std::string recentFile = ((const char*)fileData);
         // check if we're loading a network o a config
-        if ((recentFile.find(".neteditcfg") != std::string::npos) || 
-            (recentFile.find(".sumocfg") != std::string::npos) ||
-            (recentFile.find(".netccfg") != std::string::npos)) {
+        if ((recentFile.find(".neteditcfg") != std::string::npos) ||
+                (recentFile.find(".sumocfg") != std::string::npos) ||
+                (recentFile.find(".netccfg") != std::string::npos)) {
             // load config
             loadConfiguration(recentFile);
         } else {
@@ -1151,7 +1151,7 @@ GNEApplicationWindow::onCmdPostProcessingPythonTool(FXObject* obj, FXSelector, v
 }
 
 
-long 
+long
 GNEApplicationWindow::onUpdPythonTool(FXObject*, FXSelector, void*) {
     // currently always enabled
     return 1;
@@ -1625,7 +1625,7 @@ GNEApplicationWindow::createNewNetwork() {
 
 
 void
-GNEApplicationWindow::loadNetwork(const std::string &networkFile) {
+GNEApplicationWindow::loadNetwork(const std::string& networkFile) {
     if (networkFile.empty()) {
         WRITE_ERROR(TL("Trying to load an empty network"));
     } else {
@@ -1653,7 +1653,7 @@ GNEApplicationWindow::loadNetwork(const std::string &networkFile) {
 
 
 void
-GNEApplicationWindow::loadConfiguration(const std::string &configurationFile) {
+GNEApplicationWindow::loadConfiguration(const std::string& configurationFile) {
     if (configurationFile.empty()) {
         WRITE_ERROR(TL("Trying to load an empty configuration"));
     } else {
@@ -1681,7 +1681,7 @@ GNEApplicationWindow::loadConfiguration(const std::string &configurationFile) {
 
 
 void
-GNEApplicationWindow::loadOSM(const std::string &OSMFile) {
+GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
     auto& neteditOptions = OptionsCont::getOptions();
     // store size, position and viewport
     storeWindowSizeAndPos();
@@ -1730,7 +1730,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     WRITE_DEBUG("Opening FXMessageBox 'Volatile Recomputing'");
     // open question dialog box
     answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Recompute with volatile options"),
-        TL("Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?"));
+                                    TL("Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?"));
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // write warning if netedit is running in testing mode
         if (answer == 2) {
@@ -1985,7 +1985,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr)
     std::string inputParameters;
     // if we have only a network, then load directly without creating a SumoConfig
     if ((myNet->getAttributeCarriers()->getNumberOfAdditionals() == 0 && myNet->getAttributeCarriers()->getNumberOfDemandElements() == 0) ||
-        ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) && (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE))) {
+            ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) && (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE))) {
         // force save network
         if (onCmdSaveNetwork(obj, sel, ptr) == 0) {
             // network wasn't saved, then stop
@@ -2138,7 +2138,7 @@ GNEApplicationWindow::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdPostprocessingNetgenerate(FXObject*obj, FXSelector, void* ptr) {
+GNEApplicationWindow::onCmdPostprocessingNetgenerate(FXObject* obj, FXSelector, void* ptr) {
     return onCmdNewWindow(obj, MID_GNE_POSTPROCESSINGNETGENERATE, ptr);
 }
 
@@ -3269,8 +3269,8 @@ GNEApplicationWindow::onUpdSaveNeteditConfig(FXObject* sender, FXSelector, void*
     }
     // check if enable/disable save individual files
     if (myNet) {
-        if (myNet->getSavingStatus()->isAdditionalsSaved() && myNet->getSavingStatus()->isDemandElementsSaved() && 
-            myNet->getSavingStatus()->isDataElementsSaved() && myNet->getSavingStatus()->isMeanDatasSaved()) {
+        if (myNet->getSavingStatus()->isAdditionalsSaved() && myNet->getSavingStatus()->isDemandElementsSaved() &&
+                myNet->getSavingStatus()->isDataElementsSaved() && myNet->getSavingStatus()->isMeanDatasSaved()) {
             myViewNet->getSaveElements().setSaveIndividualFiles(false);
         } else {
             myViewNet->getSaveElements().setSaveIndividualFiles(true);
@@ -3293,8 +3293,8 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
     } else {
         // check if ignore additionals and demand elements (only used open SUMO-GUI from netedit)
         const FXSelector openSUMO = FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
-        const bool ignoreAdditionals = (sel == openSUMO)? (myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) : false;
-        const bool ignoreDemandElements = (sel == openSUMO)? (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE) : false;
+        const bool ignoreAdditionals = (sel == openSUMO) ? (myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) : false;
+        const bool ignoreDemandElements = (sel == openSUMO) ? (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE) : false;
         // get SumoConfig file
         const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
         // get config file without extension
@@ -3420,7 +3420,7 @@ GNEApplicationWindow::onUpdSaveTLSPrograms(FXObject* sender, FXSelector, void*) 
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         // check if there is at least one TLS
-        for (const auto &junction : myNet->getAttributeCarriers()->getJunctions()) {
+        for (const auto& junction : myNet->getAttributeCarriers()->getJunctions()) {
             if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
                 return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
             }
@@ -3526,7 +3526,7 @@ GNEApplicationWindow::onUpdSaveEdgeTypesAs(FXObject* sender, FXSelector, void*) 
 
 long
 GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // get file
     const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, false);
     // check file
@@ -3642,8 +3642,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, voi
             getApp()->endWaitCursor();
             // restore focus
             setFocus();
-        }
-        catch (IOError& e) {
+        } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving additionals'");
             // open error message box
@@ -3804,8 +3803,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
             getApp()->endWaitCursor();
             // restore focus
             setFocus();
-        }
-        catch (IOError& e) {
+        } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving demand elements'");
             // open error message box
@@ -4018,7 +4016,7 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, 
 
 long
 GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // get file
     const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, false);
     // check file
@@ -4062,7 +4060,7 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
             }
         }
         // end undoList operation
-        myUndoList->end();        
+        myUndoList->end();
         // restore validation for meanDatas
         XMLSubSys::setValidation("auto", "auto", "auto");
         // update view
@@ -4190,9 +4188,9 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Confirm close network' with 'Quit'");
             if (continueWithUnsavedAdditionalChanges() &&
-                continueWithUnsavedDemandElementChanges() &&
-                continueWithUnsavedDataElementChanges() &&
-                continueWithUnsavedMeanDataElementChanges()) {
+                    continueWithUnsavedDemandElementChanges() &&
+                    continueWithUnsavedDataElementChanges() &&
+                    continueWithUnsavedMeanDataElementChanges()) {
                 // clear undo list
                 clearUndoList();
                 return true;
@@ -4204,9 +4202,9 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             onCmdSaveNetwork(nullptr, 0, nullptr);
             // check
             if (continueWithUnsavedAdditionalChanges() &&
-                continueWithUnsavedDemandElementChanges() &&
-                continueWithUnsavedDataElementChanges() &&
-                continueWithUnsavedMeanDataElementChanges()) {
+                    continueWithUnsavedDemandElementChanges() &&
+                    continueWithUnsavedDataElementChanges() &&
+                    continueWithUnsavedMeanDataElementChanges()) {
                 // clear undo list
                 clearUndoList();
                 return true;
@@ -4225,9 +4223,9 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
         }
     } else {
         if (continueWithUnsavedAdditionalChanges() &&
-            continueWithUnsavedDemandElementChanges() &&
-            continueWithUnsavedDataElementChanges() &&
-            continueWithUnsavedMeanDataElementChanges()) {
+                continueWithUnsavedDemandElementChanges() &&
+                continueWithUnsavedDataElementChanges() &&
+                continueWithUnsavedMeanDataElementChanges()) {
             // clear undo list
             clearUndoList();
             return true;
@@ -4687,7 +4685,7 @@ GNEApplicationWindow::loadMeanDataElements() {
     const auto meanDataFiles = neteditOptions.getStringVector("meandata-files");
     // continue depending of network and additional files
     if (myNet && (meanDataFiles.size() > 0)) {
-            // use first file as output
+        // use first file as output
         neteditOptions.resetWritable();
         neteditOptions.set("meandata-files", meanDataFiles.front());
         // begin undolist

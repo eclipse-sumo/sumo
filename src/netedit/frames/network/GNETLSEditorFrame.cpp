@@ -192,8 +192,8 @@ GNETLSEditorFrame::isTLSSaved() {
         WRITE_DEBUG("Opening question FXMessageBox 'save TLS'");
         // open question box
         FXuint answer = FXMessageBox::question(this, MBOX_YES_NO_CANCEL,
-            TL("Save TLS Changes"), "%s",
-            TL("There is unsaved changes in current edited traffic light.\nDo you want to save it before changing mode?"));
+                                               TL("Save TLS Changes"), "%s",
+                                               TL("There is unsaved changes in current edited traffic light.\nDo you want to save it before changing mode?"));
         if (answer == MBOX_CLICKED_YES) { //1:yes, 2:no, 4:esc/cancel
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'save TLS' with 'YES'");
@@ -558,11 +558,11 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myParametersTextField->disable();
     // create Checkable button
     mySetDetectorsToggleButton = new MFXToggleButtonTooltip(getCollapsableFrame(),
-        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        TL("Assign E1 detectors") + std::string("\t") + TL("Enable assign E1 mode") + std::string("\t") + TL("Assign E1 detectors to the current TLS"),
-        TL("Assign E1 detectors") + std::string("\t") + TL("Disable assign E1 mode") + std::string("\t") + TL("Assign E1 detectors to the current TLS"),
-        GUIIconSubSys::getIcon(GUIIcon::E1), GUIIconSubSys::getIcon(GUIIcon::E1),
-        this, MID_GNE_TLSFRAME_ATTRIBUTES_TOGGLEDETECTOR, GUIDesignButton);
+            TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            TL("Assign E1 detectors") + std::string("\t") + TL("Enable assign E1 mode") + std::string("\t") + TL("Assign E1 detectors to the current TLS"),
+            TL("Assign E1 detectors") + std::string("\t") + TL("Disable assign E1 mode") + std::string("\t") + TL("Assign E1 detectors to the current TLS"),
+            GUIIconSubSys::getIcon(GUIIcon::E1), GUIIconSubSys::getIcon(GUIIcon::E1),
+            this, MID_GNE_TLSFRAME_ATTRIBUTES_TOGGLEDETECTOR, GUIDesignButton);
 }
 
 
@@ -906,15 +906,15 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     FXHorizontalFrame* joinButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     // create join states button
     myJoinTLSToggleButton = new MFXToggleButtonTooltip(joinButtons,
-        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        TL("Join") + std::string("\t") + TL("Enable join mode") + std::string("\t") + TL("Join TLS and junctions in the current junction."),
-        TL("Join") + std::string("\t") + TL("Disable join mode") + std::string("\t") + TL("Join TLS and junctions in the current junction."),
-        GUIIconSubSys::getIcon(GUIIcon::JOIN), GUIIconSubSys::getIcon(GUIIcon::JOIN),
-        this, MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN, GUIDesignButton);
+            TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            TL("Join") + std::string("\t") + TL("Enable join mode") + std::string("\t") + TL("Join TLS and junctions in the current junction."),
+            TL("Join") + std::string("\t") + TL("Disable join mode") + std::string("\t") + TL("Join TLS and junctions in the current junction."),
+            GUIIconSubSys::getIcon(GUIIcon::JOIN), GUIIconSubSys::getIcon(GUIIcon::JOIN),
+            this, MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN, GUIDesignButton);
     myDisjoinTLSButton = new MFXButtonTooltip(joinButtons,
-        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        TL("Disjoin") + std::string("\t") + TL("Disjoin current TLS") + std::string("\t") + TL("Disjoin current TLS."),
-        GUIIconSubSys::getIcon(GUIIcon::DISJOIN), this, MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN, GUIDesignButton);
+            TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            TL("Disjoin") + std::string("\t") + TL("Disjoin current TLS") + std::string("\t") + TL("Disjoin current TLS."),
+            GUIIconSubSys::getIcon(GUIIcon::DISJOIN), this, MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN, GUIDesignButton);
     // update junction description after creation
     updateJunctionDescription();
     // show TLS Junction
@@ -1502,9 +1502,9 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
         WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
         // open question box
         FXMessageBox::warning(this, MBOX_OK,
-            TL("TLS cannot be created"), "%s",
-            (TL("Traffic Light cannot be created because junction must have") + std::string("\n") +
-             TL("at least one incoming edge and one outgoing edge.")).c_str());
+                              TL("TLS cannot be created"), "%s",
+                              (TL("Traffic Light cannot be created because junction must have") + std::string("\n") +
+                               TL("at least one incoming edge and one outgoing edge.")).c_str());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'invalid TLS'");
         return 1;
@@ -1515,9 +1515,9 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
         WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
         // open question box
         FXMessageBox::warning(this, MBOX_OK,
-            TL("TLS cannot be created"), "%s",
-            (TL("Traffic Light cannot be created because junction") + std::string("\n") + 
-             TL("must have at least one connection.")).c_str());
+                              TL("TLS cannot be created"), "%s",
+                              (TL("Traffic Light cannot be created because junction") + std::string("\n") +
+                               TL("must have at least one connection.")).c_str());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'invalid TLS'");
         return 1;
@@ -1534,9 +1534,9 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
         WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
         // open question box
         FXMessageBox::warning(this, MBOX_OK,
-            TL("TLS cannot be created"), "%s",
-            (TL("Traffic Light cannot be created because junction") + std::string("\n") + 
-             TL("must have at least one controlled connection.")).c_str());
+                              TL("TLS cannot be created"), "%s",
+                              (TL("Traffic Light cannot be created because junction") + std::string("\n") +
+                               TL("must have at least one controlled connection.")).c_str());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'invalid TLS'");
         return 1;
@@ -1888,28 +1888,28 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // right button column
     // create cleanup states button
     new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        TL("Clean States") + std::string("\t") +
-        TL("Clean unused states from all phase") + std::string("\t") +
-        TL("Clean unused states from all phase. (Not allowed for multiple programs)"),
-        nullptr, this, MID_GNE_TLSFRAME_PHASES_CLEANUP, GUIDesignButton);
+                         TL("Clean States") + std::string("\t") +
+                         TL("Clean unused states from all phase") + std::string("\t") +
+                         TL("Clean unused states from all phase. (Not allowed for multiple programs)"),
+                         nullptr, this, MID_GNE_TLSFRAME_PHASES_CLEANUP, GUIDesignButton);
     // add unused states button
     new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        TL("Add States") + std::string("\t") +
-        TL("Extend the state vector for all phases by one entry") + std::string("\t")+
-        TL("Extend the state vector for all phases by one entry. (Unused until a connection or crossing is assigned to the new index)"),
-        nullptr, this, MID_GNE_TLSFRAME_PHASES_ADDUNUSED, GUIDesignButton);
+                         TL("Add States") + std::string("\t") +
+                         TL("Extend the state vector for all phases by one entry") + std::string("\t") +
+                         TL("Extend the state vector for all phases by one entry. (Unused until a connection or crossing is assigned to the new index)"),
+                         nullptr, this, MID_GNE_TLSFRAME_PHASES_ADDUNUSED, GUIDesignButton);
     // group states button
     new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        TL("Group Sig.") + std::string("\t") +
-        TL("Shorten state definition by letting connections with the same signal states use the same index") + std::string("\t") +
-        TL("Shorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)"),
-        nullptr, this, MID_GNE_TLSFRAME_PHASES_GROUPSTATES, GUIDesignButton);
+                         TL("Group Sig.") + std::string("\t") +
+                         TL("Shorten state definition by letting connections with the same signal states use the same index") + std::string("\t") +
+                         TL("Shorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)"),
+                         nullptr, this, MID_GNE_TLSFRAME_PHASES_GROUPSTATES, GUIDesignButton);
     // ungroup states button
     new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        TL("Ungroup Sig.") + std::string("\t") +
-        TL("Let every connection use a distinct index (reverse state grouping)") + std::string("\t") +
-        TL("Let every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)"),
-        nullptr, this, MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES, GUIDesignButton);
+                         TL("Ungroup Sig.") + std::string("\t") +
+                         TL("Let every connection use a distinct index (reverse state grouping)") + std::string("\t") +
+                         TL("Let every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)"),
+                         nullptr, this, MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES, GUIDesignButton);
     // show TLSFile
     show();
 }

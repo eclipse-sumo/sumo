@@ -262,7 +262,7 @@ public:
     /** @brief Performs a single simulation step
      * @todo Which exceptions may occur?
      */
-    void simulationStep(const bool onlyMove=false);
+    void simulationStep(const bool onlyMove = false);
 
     /** @brief loads routes for the next few steps */
     void loadRoutes();

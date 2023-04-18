@@ -98,13 +98,13 @@ protected:
 
     public:
         /// @brief constructor
-        CategoryOptions(const std::string &category);
+        CategoryOptions(const std::string& category);
 
         /// @brief add option
-        void addOption(const std::string &name, Option* option);
+        void addOption(const std::string& name, Option* option);
 
         /// @brief get options
-        const std::vector<std::pair<std::string, Option*> > &getOptions() const;
+        const std::vector<std::pair<std::string, Option*> >& getOptions() const;
 
         /// @brief sort options by name
         void sortByName();
@@ -141,7 +141,7 @@ protected:
     /// @brief get argument frame left
     FXVerticalFrame* getArgumentFrameLeft() const;
 
-    /// @brief get argument frame right  
+    /// @brief get argument frame right
     FXVerticalFrame* getArgumentFrameRight() const;
 
     /// @brief list of arguments sorted by categories
@@ -166,7 +166,7 @@ private:
     /// @brief argument frame left
     FXVerticalFrame* myArgumentFrameLeft = nullptr;
 
-    /// @brief argument frame right  
+    /// @brief argument frame right
     FXVerticalFrame* myArgumentFrameRight = nullptr;
 
     /// @brief python tool

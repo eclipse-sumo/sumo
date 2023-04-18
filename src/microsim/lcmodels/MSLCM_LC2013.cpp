@@ -1239,9 +1239,9 @@ MSLCM_LC2013::_wantsChange(
     laDist += myVehicle.getVehicleType().getLengthWithGap() *  2.;
     const bool hasStoppedLeader = leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane);
     const bool hasBidiLeader = (myVehicle.getLane()->getBidiLane() != nullptr
-            && leader.first != nullptr
-            && leader.first->getLane()->getBidiLane() != nullptr
-            && std::find(curr.bestContinuations.begin(), curr.bestContinuations.end(), leader.first->getLane()->getBidiLane()) != curr.bestContinuations.end());
+                                && leader.first != nullptr
+                                && leader.first->getLane()->getBidiLane() != nullptr
+                                && std::find(curr.bestContinuations.begin(), curr.bestContinuations.end(), leader.first->getLane()->getBidiLane()) != curr.bestContinuations.end());
 
     if (bestLaneOffset == 0 && hasBidiLeader) {
         // getting out of the way is enough to clear the blockage

@@ -31,7 +31,7 @@ class MFXListIcon : public FXList {
 
 public:
     /// @brief Construct new item with given text, icon, and user-data
-    MFXListIcon(FXComposite *p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = LIST_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0,FXint h = 0);
+    MFXListIcon(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = LIST_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
     /// @brief Get default height
     FXint getDefaultHeight();

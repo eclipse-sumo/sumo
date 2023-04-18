@@ -342,15 +342,15 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
 std::vector<std::pair<std::string, std::string> >
 TrafficLight::getSwapParams(int constraintType) {
     std::vector<std::pair<std::string, std::string> > result({
-            {"vehID", "foeID"},
-            {"line", "foeLine"},
-            {"arrival", "foeArrival"}});
+        {"vehID", "foeID"},
+        {"line", "foeLine"},
+        {"arrival", "foeArrival"}});
 
     if (constraintType == MSRailSignalConstraint::ConstraintType::BIDI_PREDECESSOR) {
         std::vector<std::pair<std::string, std::string> > special({
-                {"busStop", "busStop2"},
-                {"priorStop", "priorStop2"},
-                {"stopArrival", "foeStopArrival"}});
+            {"busStop", "busStop2"},
+            {"priorStop", "priorStop2"},
+            {"stopArrival", "foeStopArrival"}});
         result.insert(result.end(), special.begin(), special.end());
     }
     return result;

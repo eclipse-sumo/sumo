@@ -83,7 +83,7 @@ OptionsCont::doRegister(const std::string& name, Option* o) {
     }
     // check if previously was inserted in addresses (to avoid synonyms in addresses)
     bool isSynonym = false;
-    for (const auto &addresse : myAddresses) {
+    for (const auto& addresse : myAddresses) {
         if (addresse.second == o) {
             isSynonym = true;
         }
@@ -169,15 +169,15 @@ OptionsCont::isDefault(const std::string& name) const {
 
 Option*
 OptionsCont::getSecure(const std::string& name) const {
-    const auto &valuesFinder = myValues.find(name);
+    const auto& valuesFinder = myValues.find(name);
     if (valuesFinder == myValues.end()) {
         throw ProcessError(TLF("No option with the name '%' exists.", name));
     }
-    const auto &synonymFinder = myDeprecatedSynonymes.find(name);
+    const auto& synonymFinder = myDeprecatedSynonymes.find(name);
     if ((synonymFinder != myDeprecatedSynonymes.end()) && !synonymFinder->second) {
         std::string defaultName;
-        for (const auto &subtopicEntry : mySubTopicEntries) {
-            for (const auto &value : subtopicEntry.second) {
+        for (const auto& subtopicEntry : mySubTopicEntries) {
+            for (const auto& value : subtopicEntry.second) {
                 const auto l = myValues.find(value);
                 if ((l != myValues.end()) && (l->second == valuesFinder->second)) {
                     defaultName = value;
@@ -290,7 +290,7 @@ std::vector<std::string>
 OptionsCont::getSynonymes(const std::string& name) const {
     Option* o = getSecure(name);
     std::vector<std::string> synonymes;
-    for (const auto &value : myValues) {
+    for (const auto& value : myValues) {
         if ((value.second == o) && (name != value.first)) {
             synonymes.push_back(value.first);
         }
@@ -315,8 +315,8 @@ std::ostream&
 operator<<(std::ostream& os, const OptionsCont& oc) {
     std::vector<std::string> done;
     os << "Options set:" << std::endl;
-    for (const auto &value : oc.myValues) {
-        const auto &finder = std::find(done.begin(), done.end(), value.first);
+    for (const auto& value : oc.myValues) {
+        const auto& finder = std::find(done.begin(), done.end(), value.first);
         if (finder == done.end()) {
             std::vector<std::string> synonymes = oc.getSynonymes(value.first);
             if (synonymes.size() != 0) {
@@ -346,10 +346,10 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
 
 void
 OptionsCont::relocateFiles(const std::string& configuration) const {
-    for (const auto &addresse : myAddresses) {
+    for (const auto& addresse : myAddresses) {
         if (addresse.second->isFileName() && addresse.second->isSet()) {
             StringVector fileList = StringVector(addresse.second->getStringVector());
-            for (auto &file : fileList) {
+            for (auto& file : fileList) {
                 file = FileHelpers::checkForRelativity(file, configuration);
                 try {
                     file = StringUtils::urlDecode(file);
@@ -358,7 +358,7 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
                 }
             }
             StringVector rawList = StringTokenizer(addresse.second->getValueString(), ",").getVector();
-            for (auto &file : rawList) {
+            for (auto& file : rawList) {
                 file = FileHelpers::checkForRelativity(file, configuration);
             }
             const std::string conv = joinToString(fileList, ',');
@@ -387,7 +387,7 @@ OptionsCont::isUsableFileList(const std::string& name) const {
         WRITE_ERRORF(TL("The file list for '%' is empty."), name);
         ok = false;
     }
-    for (const auto &file : files) {
+    for (const auto& file : files) {
         if (!FileHelpers::isReadable(file)) {
             if (file != "") {
                 WRITE_ERRORF(TL("File '%' is not accessible (%)."), file, std::strerror(errno));
@@ -409,7 +409,7 @@ OptionsCont::checkDependingSuboptions(const std::string& name, const std::string
     }
     bool ok = true;
     std::vector<std::string> seenSynonymes;
-    for (const auto &value : myValues) {
+    for (const auto& value : myValues) {
         if (std::find(seenSynonymes.begin(), seenSynonymes.end(), value.first) != seenSynonymes.end()) {
             continue;
         }
@@ -517,7 +517,7 @@ OptionsCont::addDescription(const std::string& name, const std::string& subtopic
 
 
 void
-OptionsCont::setRequired(const std::string& name, const std::string& subtopic ) {
+OptionsCont::setRequired(const std::string& name, const std::string& subtopic) {
     Option* o = getSecure(name);
     if (o == nullptr) {
         throw ProcessError("Option doesn't exist");
@@ -768,14 +768,14 @@ OptionsCont::printHelp(std::ostream& os) {
     //  we want to know how large the largest not-too-large-entry will be
     int tooLarge = 40;
     int maxSize = 0;
-    for (const auto &subTopic : mySubTopics) {
-        for (const auto &entry : mySubTopicEntries[subTopic]) {
+    for (const auto& subTopic : mySubTopics) {
+        for (const auto& entry : mySubTopicEntries[subTopic]) {
             Option* o = getSecure(entry);
             // name, two leading spaces and "--"
             int csize = (int)entry.length() + 2 + 4;
             // abbreviation length ("-X, "->4chars) if any
             const auto synonymes = getSynonymes(entry);
-            for (const auto &synonym : synonymes) {
+            for (const auto& synonym : synonymes) {
                 if (synonym.length() == 1 && myDeprecatedSynonymes.count(synonym) == 0) {
                     csize += 4;
                     break;
@@ -796,7 +796,7 @@ OptionsCont::printHelp(std::ostream& os) {
     const std::string helpTopic = StringUtils::to_lower_case(getSecure("help")->getValueString());
     if (helpTopic != "") {
         bool foundTopic = false;
-        for (const auto &topic : mySubTopics) {
+        for (const auto& topic : mySubTopics) {
             if (StringUtils::to_lower_case(topic).find(helpTopic) != std::string::npos) {
                 foundTopic = true;
                 printHelpOnTopic(topic, tooLarge, maxSize, os);
@@ -818,14 +818,14 @@ OptionsCont::printHelp(std::ostream& os) {
         os << myAdditionalMessage << std::endl << ' ' << std::endl;
     }
     // print the options
-    for (const auto &subTopic : mySubTopics) {
+    for (const auto& subTopic : mySubTopics) {
         printHelpOnTopic(subTopic, tooLarge, maxSize, os);
     }
     os << std::endl;
     // print usage examples, calc size first
     if (myCallExamples.size() != 0) {
         os << "Examples:" << std::endl;
-        for (const auto &callExample : myCallExamples) {
+        for (const auto& callExample : myCallExamples) {
             os << "  " << myAppName << ' ' << callExample.first << std::endl;
             os << "    " << callExample.second << std::endl;
         }
@@ -839,14 +839,14 @@ OptionsCont::printHelp(std::ostream& os) {
 void
 OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSize, std::ostream& os) {
     os << topic << " Options:" << std::endl;
-    for (const auto &entry : mySubTopicEntries[topic]) {
+    for (const auto& entry : mySubTopicEntries[topic]) {
         // start length computation
         int csize = (int)entry.length() + 2;
         Option* o = getSecure(entry);
         os << "  ";
         // write abbreviation if given
         const auto synonymes = getSynonymes(entry);
-        for (const auto &synonym : synonymes) {
+        for (const auto& synonym : synonymes) {
             if (synonym.length() == 1 && myDeprecatedSynonymes.count(synonym) == 0) {
                 os << '-' << synonym << ", ";
                 csize += 4;
@@ -921,9 +921,9 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
             if (o->isSet() && (filled || o->isDefault())) {
                 if (o->isFileName() && relativeTo != "") {
                     StringVector fileList = StringTokenizer(o->getValueString(), ",").getVector();
-                    for (auto &file : fileList) {
+                    for (auto& file : fileList) {
                         file = FileHelpers::fixRelative(StringUtils::urlEncode(file, " ;%"), relativeTo,
-                                                     forceRelative || getBool("save-configuration.relative"));
+                                                        forceRelative || getBool("save-configuration.relative"));
                     }
                     os << StringUtils::escapeXML(joinToString(fileList, ','), inComment);
                 } else {
@@ -987,7 +987,7 @@ OptionsCont::writeSchema(std::ostream& os) {
         subtopic = StringUtils::to_lower_case(subtopic);
         os << "    <xsd:complexType name=\"" << subtopic << "TopicType\">\n";
         os << "        <xsd:all>\n";
-        for (const auto &entry : mySubTopicEntries[subtopic]) {
+        for (const auto& entry : mySubTopicEntries[subtopic]) {
             Option* o = getSecure(entry);
             std::string type = o->getTypeName();
             type = StringUtils::to_lower_case(type);
