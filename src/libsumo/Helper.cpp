@@ -1710,7 +1710,9 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass
             }
             for (const MSLink* const link : l->getLinkCont()) {
                 if (link->isInternalJunctionLink()) {
-                    findCloserLane(&link->getViaLane()->getEdge(), pos, vClass, bestDistance, lane);
+                    if (findCloserLane(&link->getViaLane()->getEdge(), pos, vClass, bestDistance, lane)) {
+                        newBest = true;
+                    }
                 }
             }
         }
