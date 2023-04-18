@@ -689,7 +689,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
 def openNetworkAs(waitTime=2):
     """
-    @brief load network as
+    @brief load network using dialog
     """
     # open save network as dialog
     typeTwoKeys('ctrl', 'o')
@@ -698,6 +698,22 @@ def openNetworkAs(waitTime=2):
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
     pasteIntoTextField("net_loadedmanually.net.xml")
+    typeEnter()
+    # wait for saving
+    time.sleep(waitTime)
+
+
+def openNeteditConfigAs(waitTime=2):
+    """
+    @brief load netedit config using dialog
+    """
+    # open save network as dialog
+    typeTwoKeys('ctrl', 'e')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("netedit_loadedmanually.neteditcfg")
     typeEnter()
     # wait for saving
     time.sleep(waitTime)
