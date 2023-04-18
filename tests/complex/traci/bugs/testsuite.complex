@@ -136,3 +136,6 @@ ticket12810
 # failure to perform traci lane change (like 12810 but with different additional
 # change motivations)
 ticket12944
+
+# invalid route offset after moveToXY moves backwards onto internal lane
+ticket13053
