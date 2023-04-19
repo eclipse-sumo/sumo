@@ -141,8 +141,9 @@ TOOLS = [
     # "output/aggregateBatteryOutput.py",             NO CONFIG
     # "output/analyze_pedestrian_jam.py",             NO CONFIG
     "output/analyze_teleports.py",
-    "output/attributeDiff.py",
     "output/attributeStats.py",
+    "output/attributeDiff.py",
+    "output/attributeCompare.py",
     "output/computeCoordination.py",
     "output/computePassengerCounts.py",
     "output/computeStoppingPlaceUsage.py",
@@ -186,16 +187,16 @@ TOOLS = [
     # "tls/createTlsCsv.py",          NO CONFIG
     # "tls/tls_check.py",             NO CONFIG
     # "tls/tls_csv2SUMO.py",          NO CONFIG
-    # "tls/tls_csvSignalGroups.py",   NO CONFIG
+    "tls/tls_csvSignalGroups.py",
 
     # turn-defs
     # "turn-defs/collectinghandler.py",       NO CONFIG
     # "turn-defs/connections.py",             NO CONFIG
     # "turn-defs/generateTurnDefs.py",        NO CONFIG
-    # "turn-defs/generateTurnRatios.py",      NO CONFIG
-    # "turn-defs/turnCount2EdgeCount.py",     NO CONFIG
+    "turn-defs/generateTurnRatios.py",
+    "turn-defs/turnCount2EdgeCount.py",
     # "turn-defs/turndefinitions.py",         NO CONFIG
-    # "turn-defs/turnFile2EdgeRelations.py",  NO CONFIG
+    "turn-defs/turnFile2EdgeRelations.py",
 
     # visualization
     # "visualization/macrOutput.py",                  NO CONFIG
@@ -206,7 +207,7 @@ TOOLS = [
     # "visualization/plot_csv_bars.py",               NO CONFIG
     # "visualization/plot_csv_pie.py",                NO CONFIG
     # "visualization/plot_csv_timeline.py",           NO CONFIG
-    # "visualization/plot_net_dump.py",               NO CONFIG
+    "visualization/plot_net_dump.py",
     # "visualization/plot_net_selection.py",          NO CONFIG
     # "visualization/plot_net_speeds.py",             NO CONFIG
     # "visualization/plot_net_trafficLights.py",      NO CONFIG
@@ -217,11 +218,11 @@ TOOLS = [
     # xml
     # "xml/addSchema.py",         NO CONFIG
     # "xml/binary2plain.py",      NO CONFIG
-    # "xml/changeAttribute.py",   NO CONFIG
-    # "xml/csv2xml.py",           NO CONFIG
-    # "xml/filterElements.py",    NO CONFIG
+    "xml/csv2xml.py",
+    "xml/xml2csv.py",
+    "xml/changeAttribute.py",
+    "xml/filterElements.py",
     # "xml/protobuf2xml.py",      NO CONFIG
-    # "xml/xml2csv.py",           NO CONFIG
     # "xml/xml2protobuf.py",      NO CONFIG
     # "xml/xsd.py",               NO CONFIG
 
