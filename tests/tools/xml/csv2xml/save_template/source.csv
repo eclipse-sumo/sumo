@@ -1,0 +1,9 @@
+edges_version;edge_from;edge_id;edge_numLanes;edge_priority;edge_speed;edge_to
+1.1;C;CE;2;2;13.89;E
+1.1;C;CN;2;2;13.89;N
+1.1;C;CS;2;2;13.89;S
+1.1;C;CW;2;2;13.89;W
+1.1;E;EC;2;2;13.89;C
+1.1;N;NC;2;2;13.89;C
+1.1;S;SC;2;2;13.89;C
+1.1;W;WC;2;2;13.89;C
