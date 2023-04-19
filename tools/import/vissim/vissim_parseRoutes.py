@@ -30,10 +30,13 @@ The read routes are saved as <OUTPUT_PREFIX>.rou.xml
 from __future__ import absolute_import
 from __future__ import print_function
 
+import os
 import sys
-import optparse
 import random
 import codecs
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 
 def getName(vals, beg):
@@ -123,18 +126,12 @@ def sorter(idx):
             return 0
 
 
-optParser = optparse.OptionParser(
-    usage="%prog <VISSIM_NETWORK> <test directory>")
-optParser.add_option(
-    "-o", "--output", default="out", help="output filename prefix")
-optParser.add_option(
-    "-e", "--edgemap", help="mapping of edge names for renamed edges (orig1:renamed1,orig2:renamed2,...)")
-optParser.add_option("-s", "--seed", type=int, default=42, help="random seed")
-options, args = optParser.parse_args()
-
-if len(args) < 1:
-    optParser.print_help
-    sys.exit()
+op = sumolib.options.ArgumentParser(description="parse routes from a VISSIM network")
+op.add_option("vissimNet", type=op.file, help="the VISSIM network file")
+op.add_option("-o", "--output", default="out", help="output filename prefix")
+op.add_option("-e", "--edgemap", help="mapping of edge names for renamed edges (orig1:renamed1,orig2:renamed2,...)")
+op.add_option("-s", "--seed", type=int, default=42, help="random seed")
+options = op.parse_args()
 
 random.seed(options.seed)
 edgemap = {}
@@ -180,14 +177,14 @@ fd.close()
 # process inflows
 print("Writing flows...")
 fdo = open(options.output + ".flows.xml", "w")
-fdo.write("<flowdefs>\n")
+sumolib.writeXMLHeader(fdo, "$Id$", "routes", options=options)
 flow_sn = 0
 for inflow in inflows:
     (name, strecke, q, von, bis) = parseInFlow(inflow, str(flow_sn))
     fdo.write('    <flow id="' + name + '" from="' + strecke + '" begin="' +
               str(von) + '" end="' + str(bis) + '" no="' + str(int(q)) + '"/>\n')
     flow_sn = flow_sn + 1
-fdo.write("</flowdefs>\n")
+fdo.write("</routes>\n")
 fdo.close()
 
 # process combinations
@@ -235,7 +232,7 @@ emissions.sort(key=sorter(0))
 # save emissions
 print("Writing routes...")
 fdo = open(options.output + ".rou.xml", "w")
-fdo.write("<routes>\n")
+sumolib.writeXMLHeader(fdo, "$Id$", "routes", options=options)
 for emission in emissions:
     if len(emission[2]) < 2:
         continue

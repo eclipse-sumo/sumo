@@ -24,15 +24,21 @@ This script converts edge type definitions (STRECKENTYP) into their
 from __future__ import absolute_import
 from __future__ import print_function
 
+import os
 import sys
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
-if len(sys.argv) < 3:
-    print("Usage: " + sys.argv[0] + " <VISUM-NET> <OUTPUT>")
-    sys.exit()
+op = sumolib.options.ArgumentParser(description="Convert VISUM edge type defintions into sumo edge type")
+op.add_option("visumNet", type=op.file, help="the VISUM network file")
+op.add_option("output", type=op.file, help="the output xml file")
+options = op.parse_args()
+
 print("Reading VISUM...")
-fd = open(sys.argv[1])
-fdo = open(sys.argv[2], "w")
-fdo.write("<types>\n")
+fd = sumolib.miscutils.openz(options.visumNet, encoding='latin1')
+fdo = sumolib.miscutils.openz(options.output, 'w', encoding='utf8')
+sumolib.writeXMLHeader(fdo, "$Id$", "types", options=options)
 parsingTypes = False
 attributes = []
 for line in fd:
@@ -55,3 +61,5 @@ for line in fd:
         parsingTypes = True
         attributes = line[len("$STRECKENTYP:"):].lower().split(";")
 fdo.write("</types>\n")
+fdo.close()
+fd.close()
