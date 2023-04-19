@@ -124,8 +124,6 @@ GNERunNetgenerate::run() {
                 myEventQueue.push_back(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, buffer));
                 myEventThrow.signal();
             }
-            myEventQueue.push_back(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, buffer));
-            myEventThrow.signal();
         } catch (...) {
             // close process
 #ifdef WIN32
