@@ -21,7 +21,6 @@ from __future__ import print_function
 
 import sys
 import subprocess
-import warnings
 from collections import namedtuple
 
 import sumolib
@@ -221,7 +220,7 @@ def getTLSInRoute(net, edge_ids):
         edge = net.getEdge(edgeID)
         nextEdge = net.getEdge(nextEdgeID)
         if nextEdge not in edge.getOutgoing():
-            warnings.warn("Skipping disconnected route!")
+            sys.stderr.write("Warning: Skipping disconnected route (edges %s, %s)\n" % (edgeID, nextEdgeID))
             return []
         connection = edge.getOutgoing()[nextEdge][0]
 
