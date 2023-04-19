@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-19 08:22+0000\n"
+"PO-Revision-Date: 2023-04-19 08:46+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -4757,19 +4757,19 @@ msgstr "人行穿越道的预设宽度"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:86
 msgid "The default speed 'limit' on a pedestrian crossing (in m/s)"
-msgstr ""
+msgstr "人行穿越道上的预设速度 '限制(limit)' (以米/秒为单位)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:89
 msgid "The default speed 'limit' on a pedestrian walkingarea (in m/s)"
-msgstr ""
+msgstr "行人步行区域的预设速度 '限制(limit)' (以米/秒为单位)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:92
 msgid "The default for allowed vehicle classes"
-msgstr ""
+msgstr "允许的车辆类型的预设值"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:95
 msgid "The default for disallowed vehicle classes"
-msgstr ""
+msgstr "不允许的车辆类别的预设值"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:98
 msgid "Whether junctions should be kept clear by default"
@@ -5049,31 +5049,31 @@ msgstr "启用路网边缘的节点的猜测"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:307
 msgid "Guess disconnected edges above the given speed as outer fringe"
-msgstr ""
+msgstr "猜测高于给定速度的不连接路段为外部边缘(outer fringe)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:310
 msgid "Assumes left-hand traffic on the network"
-msgstr ""
+msgstr "假设路网內为左行(left-hand)交通"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:326
 msgid "Interprets STR[] as list of junctions to exclude from joining"
-msgstr ""
+msgstr "將 STR[]解释为要从整合(joining)中排除的路口清单"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:338
 msgid "Modifies all edge speeds by adding FLOAT"
-msgstr ""
+msgstr "通过增加 FLOAT 修改所有路段速度"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:341
 msgid "Modifies all edge speeds by multiplying by FLOAT"
-msgstr ""
+msgstr "通过乘以 FLOAT 修改所有路段速度"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:344
 msgid "Modifies all edge speeds to at least FLOAT"
-msgstr ""
+msgstr "將所有路段速度修改为至少 FLOAT"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:352
 msgid "Generate INT intermediate points to smooth out intersection corners"
-msgstr ""
+msgstr "产生 INT 中间点以平滑路口角落的曲线"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:355
 msgid ""
@@ -5243,7 +5243,7 @@ msgstr "只能給定 'keep-edges.in-boundary' 或 'keep-edges.in-geo-boundary' "
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:721
 msgid ""
 "only one of the options 'no-internal-links' or 'crossings.guess' may be given"
-msgstr ""
+msgstr "只能给定 'no-internal-links' 或 'crossings.guess' 其中一个选项"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:725
 msgid "only one of the options 'no-internal-links' or 'walkareas' may be given"
