@@ -111,8 +111,7 @@ title: ChangeLog
   - Selected python tools now handle 'stdout' and 'stderr' as magic file names (i.e. *gtfs2pt.py* with more tools to follow). Issue #12588
   - Fixed broken routes for public transport from GTFS caused by invalid permissions. Issue #12276
   - tlsCoordinator.py now handles disconnected routes. Issue #11255
-  - tlsCycleAdaptation.py: fixed ZeroDivisionError. Issue #12760
-  - attributeDiff.py: Fixed incomplete id value when setting multi-level id. Issue #13032
+  - tlsCycleAdaptation.py: fixed ZeroDivisionError. Issue #12760  
 
 ### Enhancements
 
