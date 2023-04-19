@@ -53,8 +53,8 @@ netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.pos, "5000", T
 netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.pos, "10", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
