@@ -19,6 +19,9 @@ approach_slow_lane
 # test option --random-depart-offset
 depart_random
 
+# test departure at simulation begin
+depart_begin
+
 # test option --extrapolate-departpos
 extrapolate_departpos
 
