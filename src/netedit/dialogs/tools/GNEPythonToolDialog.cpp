@@ -141,8 +141,10 @@ long
 GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
     // toggle check
     myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
-    myGNEApp->getViewNet()->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
-    myGNEApp->getViewNet()->getViewParent()->getShowToolTipsMenu()->update();
+    if (myGNEApp->getViewNet()) {
+        myGNEApp->getViewNet()->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
+        myGNEApp->getViewNet()->getViewParent()->getShowToolTipsMenu()->update();
+    }
     // enable/disable static tooltip
     myGNEApp->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
     // save in registry
