@@ -68,9 +68,9 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     myShowToolTipsMenu = new MFXCheckableButton(false, horizontalOptionsFrame,
             GNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
             GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
-    new FXButton(horizontalOptionsFrame, (TL("Save configuration") + std::string("\t\t") + TL("Save file with tool configuration")).c_str(),
+    new FXButton(horizontalOptionsFrame, (TL("Save toolcfg") + std::string("\t\t") + TL("Save file with tool configuration")).c_str(),
                  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
-    new FXButton(horizontalOptionsFrame, (TL("Load configuration") + std::string("\t\t") + TL("Load file with tool configuration")).c_str(),
+    new FXButton(horizontalOptionsFrame, (TL("Load toolcfg") + std::string("\t\t") + TL("Load file with tool configuration")).c_str(),
                  GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
     mySortedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Sorted by name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myGroupedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Grouped by categories"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
