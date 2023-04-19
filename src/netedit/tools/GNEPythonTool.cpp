@@ -108,7 +108,12 @@ GNEPythonTool::getCommand() const {
     for (const auto& option : myPythonToolsOptions) {
         // only add modified values
         if (!option.second->isDefault()) {
-            arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+            // for boolean values avoid use "true"
+            if (option.second->isBool()) {
+                arguments += ("--" + option.first + " ");
+            } else {
+                arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+            }
         }
     }
     return command + " " + arguments;
