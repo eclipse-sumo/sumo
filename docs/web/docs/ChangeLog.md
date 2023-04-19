@@ -176,6 +176,7 @@ title: ChangeLog
   - Added function `vehicle.getNextLinks` to retrieve all upcoming intersections. Issue #12551
   - Added functions `lane.setChangePermissions` and `lane.getChangePermissions` to dynamically modify 'changeLeft' and 'changeRight' attributes. Issue #12562
   - Simpla can now report platoon-based information and statistics. Issue #12124
+  - Added function `traci.executeMove` to only do vehicle movements and allow further interaction before writing the outputs at `simulationStep`. Issue #11091
 
 - tools
   - gtfs2pt.py: multiple improvements to route matching. Issue #12834 (Thanks to Gladys McGan)
