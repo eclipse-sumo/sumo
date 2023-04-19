@@ -169,13 +169,13 @@ TemplateHandler::addOption(std::string value, const std::string& synonymes, cons
         } else if ((type == "FILE") || (type == "file")) {
             option = new Option_FileName();
         } else if ((type == "NETWORK") || (type == "net_file")) {
-            option = new Option_Network();
+            option = new Option_Network(value);
         } else if ((type == "ADDITIONAL") || (type == "additional_file")) {
-            option = new Option_Additional();
+            option = new Option_Additional(value);
         } else if ((type == "ROUTE") || (type == "route_file")) {
-            option = new Option_Route();
+            option = new Option_Route(value);
         } else if ((type == "DATA") || (type == "data_file") || (type == "edgedata_file")) {
-            option = new Option_Data();
+            option = new Option_Data(value);
         } else if (type.size() > 0) {
             WRITE_WARNING(type + " is an invalid type");
         }
@@ -183,7 +183,7 @@ TemplateHandler::addOption(std::string value, const std::string& synonymes, cons
         if (option) {
             // set value
             if (!option->isSet()) {
-                option->set(value, "", true);
+                option->set(value, "", false);
             }
             myOptions.doRegister(myOptionName, option);
             // check if add synonyme
