@@ -21,3 +21,6 @@ id_attribute
 
 # id attribute occurs in multiple elements
 id_attribute_multi_level
+
+# id attribute occurs in multiple elements
+id_attribute_multi_level2
