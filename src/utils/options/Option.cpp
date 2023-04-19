@@ -486,15 +486,8 @@ Option_FileName::getString() const {
 // Option_Network - methods
 // -------------------------------------------------------------------------
 
-Option_Network::Option_Network() :
-    Option_StringVector() {
-    myTypeName = "NETWORK";
-}
-
-
-Option_Network::Option_Network(const StringVector& value) :
-    Option_StringVector(value) {
-    myTypeName = "NETWORK";
+Option_Network::Option_Network(const std::string& value) :
+    Option_String(value, "NETWORK") {
 }
 
 
@@ -512,15 +505,8 @@ Option_Network::getString() const {
 // Option_Additional - methods
 // -------------------------------------------------------------------------
 
-Option_Additional::Option_Additional() :
-    Option_StringVector() {
-    myTypeName = "ADDITIONAL";
-}
-
-
-Option_Additional::Option_Additional(const StringVector& value) :
-    Option_StringVector(value) {
-    myTypeName = "ADDITIONAL";
+Option_Additional::Option_Additional(const std::string& value) :
+    Option_String(value, "ADDITIONAL") {
 }
 
 
@@ -539,15 +525,8 @@ Option_Additional::getString() const {
 // Option_Route - methods
 // -------------------------------------------------------------------------
 
-Option_Route::Option_Route() :
-    Option_StringVector() {
-    myTypeName = "ROUTE";
-}
-
-
-Option_Route::Option_Route(const StringVector& value) :
-    Option_StringVector(value) {
-    myTypeName = "ROUTE";
+Option_Route::Option_Route(const std::string& value) :
+    Option_String(value, "ROUTE") {
 }
 
 
@@ -566,15 +545,8 @@ Option_Route::getString() const {
 // Option_Data - methods
 // -------------------------------------------------------------------------
 
-Option_Data::Option_Data() :
-    Option_StringVector() {
-    myTypeName = "DATA";
-}
-
-
-Option_Data::Option_Data(const StringVector& value) :
-    Option_StringVector(value) {
-    myTypeName = "DATA";
+Option_Data::Option_Data(const std::string& value) :
+    Option_String(value, "DATA") {
 }
 
 

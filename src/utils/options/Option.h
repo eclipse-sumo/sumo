@@ -672,17 +672,14 @@ public:
 // Option_Network
 // -------------------------------------------------------------------------
 
-class Option_Network : public Option_StringVector {
+class Option_Network : public Option_String {
 
 public:
-    /// @brief Constructor for an option with no default value
-    Option_Network();
-
     /** @brief Constructor for an option with a default value
      *
      * @param[in] value This option's default value
      */
-    Option_Network(const StringVector& value);
+    Option_Network(const std::string& value);
 
     /** @brief Returns true, the information whether this option is a file name
      *
@@ -707,17 +704,14 @@ public:
 // Option_Additional
 // -------------------------------------------------------------------------
 
-class Option_Additional : public Option_StringVector {
+class Option_Additional : public Option_String {
 
 public:
-    /// @brief Constructor for an option with no default value
-    Option_Additional();
-
     /** @brief Constructor for an option with a default value
      *
      * @param[in] value This option's default value
      */
-    Option_Additional(const StringVector& value);
+    Option_Additional(const std::string& value);
 
     /** @brief Returns true, the information whether this option is a file name
      *
@@ -742,17 +736,14 @@ public:
 // Option_Route
 // -------------------------------------------------------------------------
 
-class Option_Route : public Option_StringVector {
+class Option_Route : public Option_String {
 
 public:
-    /// @brief Constructor for an option with no default value
-    Option_Route();
-
     /** @brief Constructor for an option with a default value
      *
      * @param[in] value This option's default value
      */
-    Option_Route(const StringVector& value);
+    Option_Route(const std::string& value);
 
     /** @brief Returns true, the information whether this option is a file name
      *
@@ -777,17 +768,14 @@ public:
 // Option_Data
 // -------------------------------------------------------------------------
 
-class Option_Data : public Option_StringVector {
+class Option_Data : public Option_String {
 
 public:
-    /// @brief Constructor for an option with no default value
-    Option_Data();
-
     /** @brief Constructor for an option with a default value
      *
      * @param[in] value This option's default value
      */
-    Option_Data(const StringVector& value);
+    Option_Data(const std::string& value);
 
     /** @brief Returns true, the information whether this option is a file name
      *
