@@ -41,17 +41,17 @@ netedit.leftClick(referencePosition, 475, 256)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference right")
 
 # create parkingArea in mode "reference right"
-netedit.leftClick(referencePosition, 475, 256)
+netedit.leftClick(referencePosition, 485, 256)
 
 # change reference to center
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")
 
 # create parkingArea in mode "reference center"
-netedit.leftClick(referencePosition, 475, 256)
+netedit.leftClick(referencePosition, 495, 256)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

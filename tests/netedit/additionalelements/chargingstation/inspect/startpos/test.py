@@ -56,7 +56,7 @@ netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.startPos, "-5", Tr
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.startPos, "400", True)
 
 # Change parameter startPos with a valid value
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.startPos, "20", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.startPos, "8", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)
