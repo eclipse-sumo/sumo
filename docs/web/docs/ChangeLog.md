@@ -129,6 +129,7 @@ title: ChangeLog
   - The z value is now included in emission-output if the network has elevation data. Issue #13022
   - The time spent while passing a [waypoint](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#waypoints) is no longer counted as 'stoppedTime' in tripinfo-output. Issue #13037
   - Junction model [params](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#transient_parameters) `ignoreIDs` and `ignoreTypes` can now be used to ignore pedstrians. Issue #13057
+  - Vehicle attribute `depart` now understands the new value `begin` referring to the start of the simulation. Issue #12270
 
 - netconvert
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575
