@@ -132,7 +132,7 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
 
 
 bool
-TemplateHandler::addOption(const std::string& value, const std::string& synonymes, const std::string& type,
+TemplateHandler::addOption(std::string value, const std::string& synonymes, const std::string& type,
                            const std::string& help, const bool required) const {
     if (myOptions.exists(myOptionName)) {
         WRITE_WARNING(myOptionName + " already exists");
@@ -140,22 +140,26 @@ TemplateHandler::addOption(const std::string& value, const std::string& synonyme
     } else {
         // declare option
         Option* option = nullptr;
+        // handle "None" as empty
+        if (value == "None") {
+            value.clear();
+        }
         // create register depending of type
         if ((type == "STR") || (type == "string")) {
             option = new Option_String(value);
         } else if ((type == "INT") || (type == "int")) {
             option = new Option_Integer(0);
-            if (value.empty() || (value == "None")) {
+            if (value.empty()) {
                 option->set(INVALID_INT_STR, "", true);
             }
         } else if ((type == "FLOAT") || (type == "float") || (type == "TIME") || (type == "time")) {
             option = new Option_Float(0);
-            if (value.empty() || (value == "None")) {
+            if (value.empty()) {
                 option->set(INVALID_DOUBLE_STR, "", true);
             }
         } else if ((type == "BOOL") || (type == "bool")) {
             option = new Option_Bool(false);
-            if (value.empty() || (value == "None")) {
+            if (value.empty()) {
                 option->set("false", "", true);
             }
         } else if (type == "INT[]") {
