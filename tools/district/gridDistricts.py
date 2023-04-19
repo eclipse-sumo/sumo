@@ -102,7 +102,7 @@ if __name__ == "__main__":
         odpairs[ii].edges.append(edge.getID())
 
     with open(options.output, 'w') as outf:
-        outf.write("<tazs>\n")
+        sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
         for ii, taz in sorted(odpairs.items()):
             taz.write(outf)
-        outf.write("</tazs>\n")
+        outf.write("</additional>\n")

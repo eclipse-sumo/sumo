@@ -56,7 +56,7 @@ if __name__ == "__main__":
         print("Reading net")
     net = sumolib.net.readNet(options.netfile)
     with open(options.output, 'w') as outf:
-        outf.write("<tazs>\n")
+        sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
         for taz in sumolib.output.parse(options.tazfile, "taz"):
             if taz.edges is not None:
                 taz.edges = " ".join(
@@ -69,4 +69,4 @@ if __name__ == "__main__":
                 taz.tazSource = [s for s in taz.tazSource if net.hasEdge(
                     s.id) and net.getEdge(s.id).allows(options.vclass)]
             outf.write(taz.toXML(initialIndent=" " * 4))
-        outf.write("</tazs>\n")
+        outf.write("</additional>\n")
