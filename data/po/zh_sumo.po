@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-19 13:45+0000\n"
+"PO-Revision-Date: 2023-04-19 14:11+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -6499,78 +6499,79 @@ msgstr "是否应导入附加属性"
 msgid ""
 "List of additional attributes that shall be imported from OSM via osm.all-"
 "attributes (set 'all' to import all)"
-msgstr ""
+msgstr "应透过osm.all-attributes 从开放街图OSM)导入的附加属性清单设定 'all' "
+"以导入全部)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:224
 msgid ""
 "The speed limit to be set when there is no actual speed limit in reality"
-msgstr ""
+msgstr "针对现实中沒有实际限速时所设置的限速"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:228
 msgid "The edge lengths given in the MATSIM-file will be kept"
-msgstr ""
+msgstr "MATSIM 文件中所给定路段长度將被保留"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:231
 msgid "The lane number will be computed from the capacity"
-msgstr ""
+msgstr "车道数將根据容量计算"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:237
 msgid "Read edge ids from column STR"
-msgstr ""
+msgstr "从行(column) STR 中读取路段识别名(ids)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:241
 msgid "Read from-node ids from column STR"
-msgstr ""
+msgstr "从行(column) STR 中读取起始节点识别名(from-node ids)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:245
 msgid "Read to-node ids from column STR"
-msgstr ""
+msgstr "从行(column) STR 中读取到达节点识别名(to-node ids)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:249
 msgid "Read type ids from column STR"
-msgstr ""
+msgstr "从行(column) STR 中读取类型识别名(ids)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:252
 msgid "Read lane number from column STR"
-msgstr ""
+msgstr "从行(column) STR 中读取车道编号(lane number)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:255
 msgid "Read speed from column STR"
-msgstr ""
+msgstr "从行(column) STR 中读取速度"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:258
 msgid "Read custom edge length from column STR"
-msgstr ""
+msgstr "从行(column) STR 中读取自定的路段长度"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:261
 msgid "Read total edge width from column STR"
-msgstr ""
+msgstr "从行(column) STR 中读取总路段宽度"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:264
 msgid "Read (non-unique) name from column STR"
-msgstr ""
+msgstr "从行(column) STR 中读取（非唯一）名称"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:267
 msgid ""
 "Distance threshold for determining whether distinct shapes are connected "
 "(used when from-id and to-id are not available)"
-msgstr ""
+msgstr "用以确定不同形狀是否相连的距离阈值(当沒有 from-id 及 to-id 的时候使用)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:270
 msgid "Add the list of field names as edge params"
-msgstr ""
+msgstr "增加字段名的列表作为路段参数"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:274
 msgid "Uses edge type defaults on problems"
-msgstr ""
+msgstr "遇到问题时,使用路段型预设值"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:279
 msgid "Insert edges in both directions"
-msgstr ""
+msgstr "在双向上插入路段"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:283
 msgid "Guess the proper projection"
-msgstr ""
+msgstr "猜测正确的投影"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:286
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:125
