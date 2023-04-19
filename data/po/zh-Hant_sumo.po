@@ -8577,244 +8577,246 @@ msgstr "具有起始段 '%' 的連接架空線是定義給架空線夾 '%', 其�
 msgid ""
 "A connecting overhead wire end segment '%' defined for overhead wire clamp "
 "'%' is not assigned to the traction substation '%'."
-msgstr ""
+msgstr "具有結束段 '%' 的連接架空線是定義給架空線夾 '%', 其未指派給牽引變電站 '%'。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:382
 msgid ""
 "The overhead wire clamp '%' defined in an overhead wire section was not "
 "assigned to the substation '%'. Please define proper <overheadWireClamp .../"
 "> in additional files before defining overhead wire section."
-msgstr ""
+msgstr "在架空電線部分中定義的高架線夾 '%' 未分配給變電站的 '%'。在定義架空電線部分之前"
+"，請在額外檔案(additional files)中定義適當的<topheadwireclamp .../>。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:397
 msgid ""
 "Cannot check circuit, overhead circuit solver support (Eigen) not compiled "
 "in."
-msgstr ""
+msgstr "無法檢查電路，架空電路解算器的支援 (Eigen) 未編譯。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:469
 msgid ""
 "Not building overhead wire clamps, overhead wire solver support (Eigen) not "
 "compiled in."
-msgstr ""
+msgstr "不構建架空線夾，架空線解算器的支援 (Eigen) 未編譯。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:472
 msgid ""
 "Ignoring overhead wire clamps, they make no sense when overhead wire circuit "
 "solver is off."
-msgstr ""
+msgstr "忽略架空線夾，當架空線電路解算器關閉時，它們沒有任何意義。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:526
 msgid "Ignoring invalid access from non-pedestrian lane '%' in busStop '%'."
-msgstr ""
+msgstr "忽略來自非人行步道 '%' 的無效連接通道(access); 在公車站(busStop) '%'。"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:54
 msgid "The generated net will be written to FILE"
-msgstr ""
+msgstr "產生的路網將被寫入檔案內"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:59
 msgid "Prefix of files to write plain xml nodes, edges and connections to"
-msgstr ""
+msgstr "檔案的字首,用來寫出一般(plain)的XML格式的節點，路段和連接線"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:62
 msgid "Write all lanes and their attributes even when they are not customized"
-msgstr ""
+msgstr "即使未自訂，也要寫出所有車道及它們的屬性"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:69
 msgid "Defines a prefix for edge and junction names"
-msgstr ""
+msgstr "定義路段與路口名稱的字首(prefix)"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:74
 msgid "Write geo coordinates in plain-xml"
-msgstr ""
+msgstr "在純 xml 檔案 (plain-xml) 內寫地理坐標"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:79
 msgid "The generated net will be written to FILE using Amitran format"
-msgstr ""
+msgstr "產生的路網將依 Amitran 格式寫入檔案內"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:82
 msgid "The generated net will be written to FILE using MATsim format"
-msgstr ""
+msgstr "產生的路網將依 MATsim 格式寫入檔案內"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:85
 msgid "The generated net will be written to FILE using OpenDRIVE format"
-msgstr ""
+msgstr "產生的路網將依 OpenDRIVE 格式寫入檔案內"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:88
 msgid ""
 "The generated net will be written to dlr-navteq files with the given PREFIX"
-msgstr ""
+msgstr "產生的路網將按照給定的字首(PREFIX) 及 dlr-navteq 格式寫入檔案內"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:91
 msgid ""
 "The network coordinates are written with the specified level of output "
 "precision"
-msgstr ""
+msgstr "路網坐標依據指定的輸出精確度數寫出"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:94
 msgid "Street names will be included in the output (if available)"
-msgstr ""
+msgstr "街道名稱將包含在輸出檔案內 (如果有)"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:97
 msgid "Writes original names, if given, as parameter"
-msgstr ""
+msgstr "寫出原始名稱（如果給定）作為參數"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:100
 msgid "Writes street signs as POIs to FILE"
-msgstr ""
+msgstr "將街道標誌作為興趣點(POIs)寫入檔案"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:104
 msgid "Writes public transport stops to FILE"
-msgstr ""
+msgstr "將大眾運輸停靠點寫入檔案"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:106
 msgid "Writes public transport lines to FILE"
-msgstr ""
+msgstr "將大眾運輸路線寫入檔案"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:108
 msgid "Clean-up pt stops that are not served by any line"
-msgstr ""
+msgstr "清理未提供服務的路線停靠點"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:111
 msgid "Writes parking areas to FILE"
-msgstr ""
+msgstr "將停車區域寫入檔案"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:114
 msgid "Analyze topology of the railway network"
-msgstr ""
+msgstr "分析鐵路路網的拓撲結構(topology)"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:118
 msgid ""
 "Write shapes that are embedded in the network input and that are not "
 "supported by polyconvert (OpenDRIVE)"
-msgstr ""
+msgstr "寫出在路網輸入內且不受 polyconvert 支援的形狀 (OpenDRIVE)"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:123
 msgid ""
 "Builds parameterized curves whenever the angular change  between straight "
 "segments exceeds FLOAT degrees"
-msgstr ""
+msgstr "當直線段之間的角度變化超過 FLOAT 度時,構建參數化曲線"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:127
 msgid "Write lanes in lefthand networks on the left side (positive indices)"
-msgstr ""
+msgstr "在左行(lefthand)路網內的左側寫入車道 (正索引值)"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:130
 msgid ""
 "Match loaded shapes to the closest edge within FLOAT and export as road "
 "objects"
-msgstr ""
+msgstr "將載入的形狀在 FLOAT 範圍內與最近的路段匹配並導出(export)為道路物件"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:154
 msgid "OpenDRIVE export needs internal links computation."
-msgstr ""
+msgstr "exportOpenDRIVE 導出需要內部路段計算。"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:164
 msgid ""
 "OpenDRIVE cannot represent oblique lane cuts and should use option "
 "'rectangular-lane-cut'."
-msgstr ""
+msgstr "OpenDRIVE 不能表示出斜的車道切割，應該使用選項 'rectangular-lane-cut'。"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:173
 msgid "public transport lines output requires 'ptstop-output' to be set"
-msgstr ""
+msgstr "大眾運輸路線輸出需要設置 'ptstop-output'"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:177
 msgid ""
 "'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring "
 "invalid option."
-msgstr ""
+msgstr "'ptline-clean-up' 只能與 'ptline-output' 一起結合使用。忽略無效選項。"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:186
 msgid "Writing network"
-msgstr ""
+msgstr "正在寫出路網"
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_DlrNavteq.cpp:91
 msgid ""
 "DlrNavteq node data will be written in (floating point) cartesian coordinates"
-msgstr ""
+msgstr "DlrNavteq 節點資料將以(浮點數(floating point))笛卡爾坐標寫入"
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_DlrNavteq.cpp:155
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_DlrNavteq.cpp:162
 msgid "Could not reconstruct shape for edge:'%' (%)."
-msgstr ""
+msgstr "無法重建路段的形狀：'%' (%)。"
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_OpenDrive.cpp:307
 msgid "Could not compute smooth shape for edge '%'."
-msgstr ""
+msgstr "無法計算路段 '%' 的平滑形狀。"
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_OpenDrive.cpp:450
 msgid ""
 "Could not compute smooth shape from lane '%' to lane '%'. Use option "
 "'junctions.scurve-stretch' or increase radius of junction '%' to fix this."
-msgstr ""
+msgstr "無法計算從車道 '%' 到車道 '%' 的平滑形狀。 使用選項 "
+"'junctions.scurve-stretch' 或增加連接點 '%' 的半徑來解決這個問題。"
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_OpenDrive.cpp:957
 msgid ""
 "Uneven stop line at lane '%' (dist=%) cannot be represented in OpenDRIVE."
-msgstr ""
+msgstr "OpenDRIVE 中無法表示出車道 '%' (距離=%) 處的不均勻停止線。"
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_SUMO.cpp:231
 msgid ""
 "Embedding TAZ-data inside the network is deprecated. Use option --taz-output "
 "instead"
-msgstr ""
+msgstr "在路網中嵌入 的分區(TAZ)資料已不適用。 使用選項 --taz-output 代替"
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_SUMO.cpp:351
 msgid "Could not find bidi-connection for edge '%'"
-msgstr ""
+msgstr "找不到路段 '%' 的雙向連接線 (bidi/connection)"
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_SUMO.cpp:517
 #, c-format
 msgid "Lane '%' has a maximum allowed speed of 0."
-msgstr ""
+msgstr "車道 '%' 的最大允許速度為 0。"
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_XML.cpp:88
 #: /home/micha/programming/sumo/src/polyconvert/PCPolyContainer.cpp:105
 msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
-msgstr ""
+msgstr "忽略選項 \"proj.plain-geo\", 因為沒有定義地理坐標轉換"
 
 #: /home/micha/programming/sumo/src/od/ODAmitranHandler.cpp:48
 msgid "Invalid duration for timeSlice starting %."
-msgstr ""
+msgstr "開始於 % 的時間片斷(timeSlice) 的持續時間無效。"
 
 #: /home/micha/programming/sumo/src/od/ODDistrictCont.cpp:72
 #, c-format
 msgid "Could not access network file '%' to load."
-msgstr ""
+msgstr "無法存取網路檔案 '%' 以進行載入"
 
 #: /home/micha/programming/sumo/src/od/ODDistrictHandler.cpp:130
 msgid "'probability' must be positive (in definition of % '%')."
-msgstr ""
+msgstr "'probability' 必須為正值 （在 % '%' 的定義中）。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:80
 msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr ""
+msgstr "缺少出發地 '%' 和目的地 '%' （% 車輛）。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:86
 msgid "Missing origin '%' (% vehicles)."
-msgstr ""
+msgstr "缺少出發地 '%' （% 車輛）。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:91
 msgid "Missing destination '%' (% vehicles)."
-msgstr ""
+msgstr "缺少目的地 '%' （% 車輛）。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:97
 #, c-format
 msgid "District '%' has no source."
-msgstr ""
+msgstr "分區 '%' 沒有起點。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:101
 #, c-format
 msgid "District '%' has no sink."
-msgstr ""
+msgstr "分區 '%' 沒有迄點。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:193
 msgid ""
 "Cannot find different source and sink edge for origin '%' and destination "
 "'%'."
-msgstr ""
+msgstr "無法為出發地 '%' 和目的地 '%' 找到不同的起始及結束路段"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:364
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:384
@@ -8822,139 +8824,139 @@ msgstr ""
 msgid ""
 "Flow density of % vehicles per second, cannot be represented with a simple "
 "probability. Falling back to even spacing."
-msgstr ""
+msgstr "每秒 % 車輛的流量密度不能用簡單的姬率表示。 設定回到均勻間距(even spacing)。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:434
 msgid "End of file while reading %."
-msgstr ""
+msgstr "讀取 % 時,到了文件結尾。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:461
 msgid "Broken period definition '%'."
-msgstr ""
+msgstr "損壞的期間定義 '%'。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:475
 msgid "Broken factor: '%'."
-msgstr ""
+msgstr "損壞的係數(factor)： '%'。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:509
 #, c-format
 msgid "Missing line with % district names."
-msgstr ""
+msgstr "缺少帶有 % 分區名稱的列(line)。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:519
 msgid "Missing line for district %."
-msgstr ""
+msgstr "缺少分區 % 的列(line)。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:533
 msgid "More entries than districts found."
-msgstr ""
+msgstr "找到比分區更多的輸入項目(entries)。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:538
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:586
 msgid "Not numeric vehicle number in line '%'."
-msgstr ""
+msgstr " 在 '%' 列中有不是數字的車輛編號。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:584
 msgid "Missing at least one information in line '%'."
-msgstr ""
+msgstr "在列 '%' 中至少缺少一項資訊。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:647
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:154
 msgid "Could not open '%'."
-msgstr ""
+msgstr "無法開啟 '%'。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:658
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:664
 #, c-format
 msgid "'%' does not contain the needed information about the time described."
-msgstr ""
+msgstr "'%' 不包含有關所描述時間的必要資訊。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:674
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:687
 #, c-format
 msgid "Could not access matrix file '%' to load."
-msgstr ""
+msgstr "無法讀取要載入的矩陣(matrix)檔案 '%' 。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:714
 #, c-format
 msgid "Could not access route file '%' to load."
-msgstr ""
+msgstr "無法讀取要載入的路徑檔案 '%'。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:731
 msgid "Assuming 24 entries for a day timeline, but got %."
-msgstr ""
+msgstr "假設一天時間線有 24 個登錄項目，但得到 %。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:741
 msgid "Broken time line definition: missing a value in '%'."
-msgstr ""
+msgstr "損壞的時間線定義: '%' 中缺少一個值。"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
-msgstr ""
+msgstr "從檔案載入 TAZ （分區; 也來自路網）"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:102
 msgid "Writes trip definitions into FILE"
-msgstr ""
+msgstr "將旅次定義寫入檔案"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:105
 msgid "Writes flow definitions into FILE"
-msgstr ""
+msgstr "將流量定義寫入檔案"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:108
 msgid "Writes probabilistic flow instead of evenly spaced flow"
-msgstr ""
+msgstr "寫入機率流量而不是均勻間隔流量"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:111
 msgid "Writes pedestrians instead of vehicles"
-msgstr ""
+msgstr "寫入行人而不是車輛"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:114
 msgid "Writes persontrips instead of vehicles"
-msgstr ""
+msgstr "寫入個人旅次(persontrips)而不是車輛"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:117
 msgid "Add modes attribute to personTrips"
-msgstr ""
+msgstr "將模式屬性(modes attribute)增加到 人旅次(personTrips)"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:124
 msgid "Writes trips between junctions"
-msgstr ""
+msgstr "寫入路口之間的旅次"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:129
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:116
 msgid "Defines the begin time; Previous trips will be discarded"
-msgstr ""
+msgstr "定義開始時間; 其先前的旅次(trips)將被廢棄"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:132
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:119
 msgid ""
 "Defines the end time; Later trips will be discarded; Defaults to the maximum "
 "time that SUMO can represent"
-msgstr ""
+msgstr "定義結束時間; 後面的旅次將被廢棄; 預設值為 SUMO 可以表示的最大時間"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:140
 msgid "Spreads trips uniformly over each time period"
-msgstr ""
+msgstr "將旅次均勻地(uniformly)分佈在每個時間段內"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:143
 msgid "Always choose source and sink edge which are not identical"
-msgstr ""
+msgstr "一直選擇不相同的起始和結束路段"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:149
 msgid "Defines the prefix for vehicle names"
-msgstr ""
+msgstr "定義車輛名稱的字首(prefix)"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:162
 msgid "Disable console output of current time step"
-msgstr ""
+msgstr "禁用目前時間步長的控制台輸出(console output)"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:193
 msgid "No TAZ input file (-n) specified."
-msgstr ""
+msgstr "未指定分區(TAZ)輸入檔案 (-n)。"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:197
 msgid "No input specified."
-msgstr ""
+msgstr "未指定輸入檔案。"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:201
 msgid "No trip table output file (-o) or flow-output is specified."
@@ -10638,152 +10640,157 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:252
 msgid "Polygon's shape cannot be empty."
-msgstr ""
+msgstr "多邊形的形狀不可以是空的。"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:257
 msgid "Polygon's lineWidth must be greater than 0."
-msgstr ""
+msgstr "多邊形的線寬(lineWidth) 必須大於 0。"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:262
 #, c-format
 msgid "Polygon '%' already exists."
-msgstr ""
+msgstr "多邊形 '%' 已經存在。"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:279
 #, c-format
 msgid "Loading of shapes from % failed."
-msgstr ""
+msgstr "從 % 中載入形狀(shapes)失敗。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:44
 #, c-format
 msgid "The node: '%' already exists."
-msgstr ""
+msgstr "節點: '%' 已經存在。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:239
 msgid "Index of renumbered node exceeded the reduced number of equations."
-msgstr ""
+msgstr "重新編號的節點的索引(index)超出了已減少的方程式數量。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:250
 msgid "Index of renumbered element exceeded the reduced number of equations."
-msgstr ""
+msgstr "重新編號的元素的索引(index)超出了已減少的方程式數量。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:257
 msgid "Structural error in reduced circuit matrix."
-msgstr ""
+msgstr "簡化電路矩陣中的結構錯誤。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:288
 msgid "Initial solution x used during solving DC circuit is out of bounds.\n"
-msgstr ""
+msgstr "求解 DC 電路時,使用的初始解 x 超出邊界限。\n"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:312
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:456
 msgid "wrongly assigned row of matrix A during solving the circuit"
-msgstr ""
+msgstr "求解電路時,錯誤指派矩陣 A 的列(row)"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:354
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:479
 msgid "The negative node of current source is not the groud."
-msgstr ""
+msgstr "電流源的負節點不與地面連接。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:508
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:518
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:526
 msgid "Results deployment during circuit evaluation was unsuccessful."
-msgstr ""
+msgstr "電路評估期間的結果部署不成功。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:576
 msgid ""
 "Cannot assign unambigous electric current value to two voltage sources "
 "connected in parallel at the same node."
-msgstr ""
+msgstr "不能指派明確的電流值給與同一節點平行連結的兩個電壓源。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:798
 msgid ""
 "Trying to add resistor element into the overhead wire circuit with "
 "resistance < 1e-6. "
-msgstr ""
+msgstr "嘗試在電阻 < 1e-6 的架空線電路中增加電阻元素(element)。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:800
 msgid ""
 "Trying to add resistor element into the overhead wire circuit with "
 "resistance < 0. "
-msgstr ""
+msgstr "嘗試在電阻 < 0 的架空線電路中增加電阻元素(element)。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:919
 msgid ""
 "Circuit Voltage Source '%' is connected to less than two nodes, please "
 "adjust the definition of the section (with substation '%')."
-msgstr ""
+msgstr "電路電壓源 '%' 連接到少於兩個節點, 請調整區段定義(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:927
 msgid ""
 "Circuit Element '%' is connected to less than two nodes, please adjust the "
 "definition of the section (with substation '%')."
-msgstr ""
+msgstr "電路元素 '%' 連接到少於兩個節點, 請調整區段定義(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:942
 msgid ""
 "Circuit Node with id '-1' is not the grounded, please adjust the definition "
 "of the section (with substation '%')."
-msgstr ""
+msgstr "帶有識別名(id) '-1' 的電路節點未連接到地面, 請調整區段定義(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:966
 msgid ""
 "A Circuit Resistor Element connects the ground, please adjust the definition "
 "of the section (with substation '%')."
-msgstr ""
+msgstr "電路電阻元素(Circuit Resistor Element)連接地面, 請調整區段定義"
+"(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:975
 msgid ""
 "Circuit Node or Voltage Source with internal id '%' has been not visited "
 "during checking of the circuit. The circuit is disconnected, please adjust "
 "the definition of the section (with substation '%')."
-msgstr ""
+msgstr "在電路檢查期間,未訪問到內部識別名(id)為 '%' 的電路節點或電壓源。"
+"電路已切斷,請調整區段(section)定義(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Element.cpp:53
 msgid "Undefined element type for '%'."
-msgstr ""
+msgstr " '%' 有未定義的元素類型。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteHandler.cpp:63
 msgid "Route file should be sorted by departure time, ignoring '%'!"
-msgstr ""
+msgstr "路徑檔案應按出發時間排序, 忽略 '%'!"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:653
 msgid "Invalid % % given for %. Using edge end instead."
-msgstr ""
+msgstr "無效的 % % 給定給 %。 改用路段末端。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:703
 msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
 "boolean"
-msgstr ""
+msgstr "停靠屬性 'trigger' 的值必須是 '人員(person)', '貨櫃(container)', '合併(join)'"
+"或一個布林值(boolean)"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:268
 msgid "Undefined end for % '%', defaulting to 24hour duration."
-msgstr ""
+msgstr " % '%' 的結束未定義, 預設為 24 小時持續時間。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:402
 msgid "Invalid % id '%'."
-msgstr ""
+msgstr "無效的 % 的識別名(id) '%'。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:404
 msgid "Invalid % id '%'. Contains invalid characters."
-msgstr ""
+msgstr "無效的 % 的識別名(id) '%'。 含有無效的字元。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:947
 msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
-msgstr ""
+msgstr "車道變化模式 'JE2013' 已經不適用。 改為使用預設模式。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1139
 msgid "maneuverAngleTimes format for vType '%' % contains an invalid triplet."
-msgstr ""
+msgstr "車輛類型(vType) '%' % 的 maneuverAngleTimes 格式含有一個無效的"
+"三個二進制元素位元組(Triplet)。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1148
 #, c-format
 msgid ""
 "Triplet '%' for vType '%' maneuverAngleTimes cannot be parsed as 'int double "
 "double'"
-msgstr ""
+msgstr "maneuverAngleTimes 的三個二進制元素位元組(Triplet) '%' (車輛類型(vType)為 '%')"
+"無法解析為 'int double double'"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1174
 msgid "Unknown car-following model % when parsing vType '%'"
