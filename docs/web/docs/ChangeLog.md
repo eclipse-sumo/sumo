@@ -26,6 +26,7 @@ title: ChangeLog
   - Setting attribute expected or expectedContainer now always marks the stop as triggered (for person or container respectively). Issue #13016
   - Persons during access stage are now counted as walking rather than riding. Issue #13019
   - Fixed bug where the simulation does not abort when the last active transportable is riding inside an inactive (triggered) vehicle. Issue #13017
+  - Fixed invalid strategic lane computation when lanes on the same edge differ in length. Issue #13021
   - Railway simulation:
     - Simulation now terminates even when a stop with `triggered="join"` fails. Issue #12668
     - Stop attribute `extension` now works for `triggered="join"`. Issue #12666
@@ -54,6 +55,7 @@ title: ChangeLog
   - Changing sumocfg options now always enables the "save sumocfg" button. Issue #12880
   - Shift-click on geometry point doesn't can now be used to make it the custom end point. Issue #12716
   - When activating sidewalks in the create edge frame, they now use the configured default sidewalk width. Issue #12449
+  - Fixed crash when unjoining a joint traffic light. Issue #12610
 
 - sumo-gui
   - Fixed invalid carriageLength for tram. Issue #13011 (regression in 1.11.0)
@@ -102,6 +104,7 @@ title: ChangeLog
   - Error messages concerning subscription filters now use the correct command id
   - Fixed bug where user-triggered lane-change were not executed when using the sublane model. Issue #12810, #12944
   - `trafficlight.swapConstraints` now returns constraint parameters for derived constraints. Issue #12935
+  - Fixed crash when using `vehicle.moveToXY`. Issue #13053
   
 - tools
   - Fixed invalid error when calling option **--save-template**. Issue #12589
@@ -109,6 +112,7 @@ title: ChangeLog
   - Fixed broken routes for public transport from GTFS caused by invalid permissions. Issue #12276
   - tlsCoordinator.py now handles disconnected routes. Issue #11255
   - tlsCycleAdaptation.py: fixed ZeroDivisionError. Issue #12760
+  - attributeDiff.py: Fixed incomplete id value when setting multi-level id. Issue #13032
 
 ### Enhancements
 
@@ -124,6 +128,8 @@ title: ChangeLog
   - vType attribute `startupDelay` is now apply to scheduled stops when using `carFolowModel="Rail"`. Issue #12943
   - Statistics-output now includes performance metrics (i.e. clockTime). Issue #12946
   - The z value is now included in emission-output if the network has elevation data. Issue #13022
+  - The time spent while passing a [waypoint](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#waypoints) is no longer counted as 'stoppedTime' in tripinfo-output. Issue #13037
+  - Junction model [params](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#transient_parameters) `ignoreIDs` and `ignoreTypes` can now be used to ignore pedstrians. Issue #13057
 
 - netconvert
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575
@@ -139,11 +145,13 @@ title: ChangeLog
 - netedit
   - Added menu entry for directly calling netgenerate and and instantly editing the generated network. Issue #2393
   - Added menu and dialogs for calling python tools without using the command line. Issue #4138
+  - When calling netdiff from a menu, the computed differences may be selectively imported for visualization (i.e. differently collored shapes for added, deleted and modified edges). Issue #2736
   - All objects with a name attribute can now be located by name using the locate-dialog. Issue #12686
   - Inspect now allows inspecting individual objects that are part of a selection via ALT+LEFT_CLICK. Issue #12690
   - In data mode, overlapped data elements list is now sorted by interval begin. Issue #11330
   - If a route is selected it will always be shown on top of other overlapping routes. Issue #12582
   - The vehicle type "DEFAULT_RAILTYPE" can now be used for defining trains. Issue #6752
+  - The network is automatically recomputed (if needed) when trying to create an E2 multilane detector. Issue #12763
 
 - sumo-gui
   - Dynamically modified values for `latAlignment` (i.e. when preparing to turn) are now listed in the type-parameter dialog. Issue #12579
@@ -181,6 +189,7 @@ title: ChangeLog
   - Improved compatibility between sumolib phase definitions and libsumo phase definitions. Issue #12131
   - Added tool [abstractRail.py](Tools/Net.md#abstractrailpy) to generate an abstract/schematic rail network based on a geodetic rail network. Issue #12662
   - Added tool [stationDistricts.py](Tools/District.md#stationdistrictspy) for segmenting a public transport network based public transport stations. Issue #12662
+  - Added tool [attributeCompare.py](Tools/Output.md#attributecomparepy) to compare matching attribute accross multiple files. Issue #13026
   - attributeDiff.py: Can now optionally group attributes by one or more id-attributes before comparing. #12794
   - attributeDiff.py: optionally write entries that could not be compared (via new options **-m** and **-M**. Issue #12798
   - attributeStats.py: Now supports option **--human-readable-time** (**-H**) to make attributes with large time values more legible. Issue #12822
@@ -191,6 +200,7 @@ title: ChangeLog
   - new research intersection Ingolstadt scenario for the SUMO game
   - Traffic light game now supports showing score for built-in adaptive algorithms. Issue #12915
   - Fixed bug where users could skip yellow phase in traffic light game. Issue #12971
+  - netdiff.py: Now writes configuration-style header in diff files. Issue #13036
   - plotXMLAttributes.py:
     - can plot by sorting rank with attribute value `@RANK`. Issue #12607
     - can plot by input order with attribute value `@INDEX` (note that this was the behavior of @RANK in 1.16.0). Issue #12607
