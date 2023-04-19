@@ -39,7 +39,7 @@ TOOLS = [
     # "detector/detector.py",         NO CONFIG
     "detector/edgeDataFromFlow.py",
     # "detector/filterFlows.py",      NO CONFIG
-    # "detector/flowFromEdgeData.py", NO CONFIG
+    "detector/flowFromEdgeData.py",
     # "detector/flowFromRoutes.py",   NO CONFIG
     # "detector/flowrouter.py",       NO CONFIG
     "detector/mapDetectors.py",
@@ -51,8 +51,8 @@ TOOLS = [
     # "district/aggregateAndSplitMatrices.py",    NO CONFIG
     # "district/countConnectionsInDistricts.py",  NO CONFIG
     # "district/districtMapper.py",               NO CONFIG
-    # "district/filterDistricts.py",              NO CONFIG
-    # "district/gridDistricts.py",                NO CONFIG
+    "district/filterDistricts.py",
+    "district/gridDistricts.py",
     "district/stationDistricts.py",
 
     # drt
@@ -76,9 +76,9 @@ TOOLS = [
     # "import/vissim/convert_vissimXML_flows_statRoutes.py",    NO CONFIG
     # "import/vissim/tls_vissimXML2SUMOnet_update.py",          NO CONFIG
     # "import/vissim/vissim_parseBusStops.py",                  NO CONFIG
-    # "import/vissim/vissim_parseRoutes.py",                    NO CONFIG
+    "import/vissim/vissim_parseRoutes.py",
     # "import/vissim/vissim2poly.py",                           NO CONFIG
-    # "import/visum/visum_convertEdgeTypes.py",                 NO CONFIG
+    "import/visum/visum_convertEdgeTypes.py",
     # "import/visum/visum_convertRoutes.py",                    NO CONFIG
     # "import/visum/visum_convertTurnPercentages.py",           NO CONFIG
     # "import/visum/visum_parseZaehlstelle.py",                 NO CONFIG
