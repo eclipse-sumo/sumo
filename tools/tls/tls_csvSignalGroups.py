@@ -62,7 +62,6 @@ import os
 import io
 import re
 import csv
-import argparse
 from collections import OrderedDict
 try:
     import xml.etree.cElementTree as ET
@@ -669,7 +668,7 @@ def toCsv(options):
 
 
 def getOptions():
-    ap = argparse.ArgumentParser()
+    ap = sumolib.options.ArgumentParser()
     ap.add_argument("-o", "--output", action="store", default="tls.add.xml",
                     help="File path to tll output file (SUMO additional file) / prefix for generated csv files")
     ap.add_argument("-i", "--input", action="store", default="",
