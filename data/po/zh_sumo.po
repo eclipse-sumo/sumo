@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-19 08:13+0000\n"
+"PO-Revision-Date: 2023-04-19 08:22+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -4741,19 +4741,19 @@ msgstr "路段的预设优先级别"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:74
 msgid "The default edge type"
-msgstr ""
+msgstr "预设的路段类型"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:77
 msgid "The default width of added sidewalks"
-msgstr ""
+msgstr "增加的人行道的预设宽度"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:80
 msgid "The default width of added bike lanes"
-msgstr ""
+msgstr "增加的自行车道的预设宽度"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:83
 msgid "The default width of a pedestrian crossing"
-msgstr ""
+msgstr "人行穿越道的预设宽度"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:86
 msgid "The default speed 'limit' on a pedestrian crossing (in m/s)"
