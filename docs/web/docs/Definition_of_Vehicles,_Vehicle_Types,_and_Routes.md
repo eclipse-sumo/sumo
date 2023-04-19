@@ -997,6 +997,9 @@ Example:
 </vehicle>
 ```
 
+!!! note
+    These parameters also apply to intermodal simulation. They may be used to let pedestrians ignore vehicles and vice versa.
+
 ## Default Vehicle Type
 
 If the `type` attribute of a vehicle is not
