@@ -185,6 +185,7 @@ GNENetgenerateDialog::onCmdSetSpider(FXObject*, FXSelector, void*) {
     generateOptions.resetWritable();
     generateOptions.set("grid", "false");
     generateOptions.set("spider", "true");
+    generateOptions.set("spider.omit-center", "true");
     generateOptions.set("rand", "false");
     generateOptions.set("rand.grid", "false");
     // set buttons
