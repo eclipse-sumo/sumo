@@ -348,6 +348,9 @@ class ArgumentParser(argparse.ArgumentParser):
         if '--save-template' in args:
             for a in self._actions:
                 a.required = False
+            for g in self._mutually_exclusive_groups:
+                g.required = False
+
         # add each config item to the commandline unless it's there already
         config_args = []
         pos_args = []
