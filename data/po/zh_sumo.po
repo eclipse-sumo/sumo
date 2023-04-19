@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-19 09:58+0000\n"
+"PO-Revision-Date: 2023-04-19 12:14+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -5642,7 +5642,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:744
 msgid "Could not compute indirect left turn shape at node '%'"
-msgstr ""
+msgstr "无法计算节点 '%' 处间接左转形狀"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:760
 #, c-format
@@ -6165,71 +6165,71 @@ msgstr "省略路网的中心节点"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:152
 msgid "Forces NETGEN to build a random network"
-msgstr ""
+msgstr "強制 NETGEN构建随机路网"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:157
 msgid "Describes how many times an edge shall be added to the net"
-msgstr ""
+msgstr "描述应将一个路段增加到路网中的次数"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:162
 msgid "The maximum distance for each edge"
-msgstr ""
+msgstr "每个路段的最大距离"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:167
 msgid "The minimum distance for each edge"
-msgstr ""
+msgstr "每个路段的最小距离"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:172
 msgid "The minimum angle for each pair of (bidirectional) roads in DEGREES"
-msgstr ""
+msgstr "每对(双向)道路的最小角度,以 DEGREES 为单位"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:177
 msgid "The number of tries for creating each node"
-msgstr ""
+msgstr "建立每个节点的尝试次数"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:182
 msgid "Probability for roads to continue at each node"
-msgstr ""
+msgstr "道路在每个节点连续的机率"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:187
 msgid "Probability for a node having exactly 1 neighbor"
-msgstr ""
+msgstr "节点恰好有 1 个邻居的机率"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:192
 msgid "Probability for a node having exactly 2 neighbors"
-msgstr ""
+msgstr "节点恰好有 2 个邻居的机率"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:197
 msgid "Probability for a node having exactly 3 neighbors"
-msgstr ""
+msgstr "节点恰好有 3 个邻居的机率"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:202
 msgid "Probability for a node having exactly 4 neighbors"
-msgstr ""
+msgstr "节点恰好有 4个邻居的机率"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:207
 msgid "Probability for a node having exactly 5 neighbors"
-msgstr ""
+msgstr "节点恰好有 5个邻居的机率"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:212
 msgid "Probability for a node having exactly 6 neighbors"
-msgstr ""
+msgstr "节点恰好有 6个邻居的机率"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:215
 msgid "Place nodes on a regular grid with spacing rand.min-distance"
-msgstr ""
+msgstr "将节点放置在间距为 rand.min-distance 的规则路网上"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:235
 msgid "You have to specify the type of network to generate."
-msgstr ""
+msgstr "您必须指定要产生的路网类型。"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:239
 msgid "You may specify only one type of network to generate at once."
-msgstr ""
+msgstr "您一次只能指定产生一种类型的路网。"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:274
 msgid "Option 'random-type' takes no effect unless 'type-files' are loaded"
-msgstr ""
+msgstr "除非已载入'类型文件(type-files)'，否则选项'随机类型(random-type)'无效"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:90
 msgid ""
@@ -6237,14 +6237,16 @@ msgid ""
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines "
 "junction type (see wiki/Networks/PlainXML#Node_types)"
 msgstr ""
+"[交通信号|优先级别|右方车辆优先|左方车辆优先|红灯可右行信号|依优先等級停等|一"
+"直停等|...] 決定 路口类型 (请参见wiki/Networks/PlainXML#Node_types)"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:119
 msgid "Spider networks need at least 3 arms."
-msgstr ""
+msgstr "蜘蛛型网络至少需要 3 个手臂。"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:123
 msgid "Spider networks with many arms should use option spider.omit-center"
-msgstr ""
+msgstr "多臂的蜘蛛型网络应该使用选项 ommit-center"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:126
 msgid "Spider networks need at least one circle."
@@ -6261,14 +6263,14 @@ msgstr "对于给定的车道数、车道宽度和交叉路口半径，蜘蛛型
 msgid ""
 "The number of nodes must be positive and at least 2 in one direction if "
 "there are no attachments."
-msgstr ""
+msgstr "如果沒有附加物件(attachments)，节点数必须为正数,且在一个方向上至少有 2 个。"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:184
 #, c-format
 msgid ""
 "The distance between nodes should be at least % for the given lanenumber, "
 "lanewidth and junction radius"
-msgstr ""
+msgstr "对于给定的车道数、车道宽度和路口半径，节点之间的距离应至少为 %"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:190
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:195
@@ -6276,39 +6278,39 @@ msgstr ""
 msgid ""
 "The length of attached streets should be at least % for the given "
 "lanenumber, lanewidth and junction radius"
-msgstr ""
+msgstr "对于给定的车道数、车道宽度和路口半径，街道的长度应至少为 %"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:230
 msgid ""
 "Synthetic network generator for the microscopic, multi-modal traffic "
 "simulation SUMO."
-msgstr ""
+msgstr "用于微观多模式交通仿真 SUMO 的合成(synthetic)路网产生器。"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:266
 msgid " Generation done;"
-msgstr ""
+msgstr " 产生完成;"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:267
 #, c-format
 msgid "   % nodes generated."
-msgstr ""
+msgstr "   已产生 % 节点。"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:268
 #, c-format
 msgid "   % edges generated."
-msgstr ""
+msgstr "   已产生 % 路段。"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:273
 msgid " Removed % traffic lights at geometry-like nodes"
-msgstr ""
+msgstr " 在几何相似的节点处移除 % 交通信号"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:53
 msgid "Read SUMO-net from FILE"
-msgstr ""
+msgstr "从文件读取SUMO路网SUMO-net)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:60
 msgid "Read XML-node defs from FILE"
-msgstr ""
+msgstr "从文件读取取 XML 节点的定义(XML-node defs)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:66
 msgid "Read XML-edge defs from FILE"
