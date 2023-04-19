@@ -53,8 +53,8 @@ netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "-5", T
 netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "11.3", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

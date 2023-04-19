@@ -50,8 +50,8 @@ netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.vTypes, "Type%%%%%1 T;
 netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.vTypes, "Type1 Type2 Type3", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

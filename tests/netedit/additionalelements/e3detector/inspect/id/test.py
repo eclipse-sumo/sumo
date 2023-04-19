@@ -75,8 +75,8 @@ netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "Id with spaces", False)
 netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "correctID", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 8)
-netedit.redo(referencePosition, 8)
+netedit.undo(referencePosition, 6)
+netedit.redo(referencePosition, 6)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

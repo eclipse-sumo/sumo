@@ -49,8 +49,8 @@ netedit.moveMode()
 netedit.moveElement(referencePosition, 426, 253, 496, 253)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

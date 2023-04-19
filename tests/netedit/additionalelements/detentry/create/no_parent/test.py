@@ -46,8 +46,8 @@ netedit.changeElement("detExit")
 netedit.leftClick(referencePosition, 619, 321)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

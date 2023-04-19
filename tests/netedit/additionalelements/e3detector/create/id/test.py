@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, 376, 83)
 netedit.changeDefaultValue(netedit.attrs.E3.create.id, "customID")
 
 # create E3 with valid frequency
-netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 396, 83)
 
 # select entry detector
 netedit.changeElement("detExit")
