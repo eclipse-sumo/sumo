@@ -87,7 +87,7 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     new FXSeparator(verticalContentFrame);
     // create buttons centered
     auto horizontalButtonsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrame);
-    auto blueLabel = new FXLabel(horizontalButtonsFrame, TL("Blue labels are mandatory"), nullptr, GUIDesignLabelFixed(200));
+    auto blueLabel = new FXLabel(horizontalButtonsFrame, TL("Blue options are mandatory"), nullptr, GUIDesignLabelFixed(200));
     blueLabel->setTextColor(FXRGB(0, 0, 255));
     new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXButton(horizontalButtonsFrame, (TL("Run") + std::string("\t\t") + TL("run python tool")).c_str(),
