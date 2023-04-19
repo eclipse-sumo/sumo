@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-19 12:14+0000\n"
+"PO-Revision-Date: 2023-04-19 13:26+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -6314,15 +6314,15 @@ msgstr "从文件读取取 XML 节点的定义(XML-node defs)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:66
 msgid "Read XML-edge defs from FILE"
-msgstr ""
+msgstr "从文件读取 XML 路段的定义(XML-edge defs)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:72
 msgid "Read XML-connection defs from FILE"
-msgstr ""
+msgstr "从文件读取 XML 连接线的定义(XML-connection defs)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:75
 msgid "Read XML-traffic light defs from FILE"
-msgstr ""
+msgstr "从文件读取XML 交通信号的定义(XML-traffic light defs)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:81
 msgid "Read XML-type defs from FILE"
