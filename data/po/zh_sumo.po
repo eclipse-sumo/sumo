@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-19 14:16+0000\n"
+"PO-Revision-Date: 2023-04-19 14:49+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -6617,39 +6617,39 @@ msgstr "使用类型中的车道编号"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:323
 msgid "Uses speeds from types"
-msgstr ""
+msgstr "使用类型的速度"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:326
 msgid "Sets connector speed"
-msgstr ""
+msgstr "设定连接器(connector)速度"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:330
 msgid "Sets connector lane number"
-msgstr ""
+msgstr "设定连接器(connector)车道编号"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:333
 msgid "Excludes connectors"
-msgstr ""
+msgstr "不包含连接器(connectors)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:337
 msgid "Computes the number of lanes from the edges' capacities"
-msgstr ""
+msgstr "根据路段的容量计算车道数"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:340
 msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
-msgstr ""
+msgstr "列印出所有警告，其中一些是由于 VISUM 不当行为引起的"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:345
 msgid "The factor for flow to no. lanes conversion"
-msgstr ""
+msgstr "流量的系数(factor)是沒有。车道转换"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:350
 msgid "Imports all lane types"
-msgstr ""
+msgstr "导入所有车道类型"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:352
 msgid "Whether lane widths shall be ignored."
-msgstr ""
+msgstr "是否应忽略车道宽度。"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:354
 msgid ""
