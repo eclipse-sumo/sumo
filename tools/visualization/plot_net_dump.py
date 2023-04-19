@@ -59,55 +59,54 @@ class WeightsReader(ContentHandler):
 def main(args=None):
     """The main function; parses options and plots"""
     # ---------- build and read options ----------
-    from optparse import OptionParser
-    optParser = OptionParser()
-    optParser.add_option("-n", "--net", dest="net", metavar="FILE",
-                         help="Defines the network to read")
-    optParser.add_option("-i", "--dump-inputs", dest="dumps", metavar="FILE",
-                         help="Defines the dump-output files to use as input")
-    optParser.add_option("-m", "--measures", dest="measures",
-                         default="speed,entered", help="Define which measure to plot")
-    optParser.add_option("--min-width", dest="minWidth",
-                         type="float", default=.5, help="Defines the minimum edge width")
-    optParser.add_option("--max-width", dest="maxWidth",
-                         type="float", default=3, help="Defines the maximum edge width")
-    optParser.add_option("--log-colors", dest="logColors", action="store_true",
-                         default=False, help="If set, colors are log-scaled")
-    optParser.add_option("--log-widths", dest="logWidths", action="store_true",
-                         default=False, help="If set, widths are log-scaled")
-    optParser.add_option("--min-color-value", dest="colorMin",
-                         type="float", default=None,
-                         help="If set, defines the minimum edge color value")
-    optParser.add_option("--max-color-value", dest="colorMax",
-                         type="float", default=None,
-                         help="If set, defines the maximum edge color value")
-    optParser.add_option("--min-width-value", dest="widthMin",
-                         type="float", default=None,
-                         help="If set, defines the minimum edge width value")
-    optParser.add_option("--max-width-value", dest="widthMax",
-                         type="float", default=None,
-                         help="If set, defines the maximum edge width value")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False,
-                         help="If set, the script says what it's doing")
-    optParser.add_option("--color-bar-label", dest="colorBarLabel", default="",
-                         help="The label to put on the color bar")
-    optParser.add_option("--internal", action="store_true",
-                         default=False, help="include internal edges in generated shapes")
+    ap = sumolib.options.ArgumentParser()
+    ap.add_option("-n", "--net", dest="net", metavar="FILE", required=True, type=ap.net_file,
+                  help="Defines the network to read")
+    ap.add_option("-i", "--dump-inputs", dest="dumps", metavar="FILE", required=True, type=ap.edgedata_file,
+                  help="Defines the dump-output files to use as input")
+    ap.add_option("-m", "--measures", dest="measures",
+                  default="speed,entered", help="Define which measure to plot")
+    ap.add_option("--min-width", dest="minWidth", type=float, default=.5,
+                  help="Defines the minimum edge width")
+    ap.add_option("--max-width", dest="maxWidth",
+                  type=float, default=3, help="Defines the maximum edge width")
+    ap.add_option("--log-colors", dest="logColors", action="store_true",
+                  default=False, help="If set, colors are log-scaled")
+    ap.add_option("--log-widths", dest="logWidths", action="store_true",
+                  default=False, help="If set, widths are log-scaled")
+    ap.add_option("--min-color-value", dest="colorMin",
+                  type=float, default=None,
+                  help="If set, defines the minimum edge color value")
+    ap.add_option("--max-color-value", dest="colorMax",
+                  type=float, default=None,
+                  help="If set, defines the maximum edge color value")
+    ap.add_option("--min-width-value", dest="widthMin",
+                  type=float, default=None,
+                  help="If set, defines the minimum edge width value")
+    ap.add_option("--max-width-value", dest="widthMax",
+                  type=float, default=None,
+                  help="If set, defines the maximum edge width value")
+    ap.add_option("-v", "--verbose", dest="verbose", action="store_true",
+                  default=False,
+                  help="If set, the script says what it's doing")
+    ap.add_option("--color-bar-label", dest="colorBarLabel", default="",
+                  help="The label to put on the color bar")
+    ap.add_option("--internal", action="store_true",
+                  default=False, help="include internal edges in generated shapes")
 
     # standard plot options
-    helpers.addInteractionOptions(optParser)
-    helpers.addPlotOptions(optParser)
-    helpers.addNetOptions(optParser)
+    helpers.addInteractionOptions(ap)
+    helpers.addPlotOptions(ap)
+    helpers.addNetOptions(ap)
 
     # Override the help string for the output option
-    outputOpt = optParser.get_option("--output")
+    outputOpt = ap.get_option("output")
     outputOpt.help = ("Comma separated list of filename(s) the figure shall be written to; " +
                       "for multiple time intervals use '%s' in the filename as a " +
                       "placeholder for the beginning of the time interval")
 
     # parse
-    options, _ = optParser.parse_args(args=args)
+    options = ap.parse_args(args=args)
 
     if options.net is None:
         print("Error: a network to load must be given.")
@@ -269,6 +268,6 @@ def main(args=None):
 
 if __name__ == "__main__":
     try:
-        main(sys.argv)
+        main()
     except ValueError as e:
         sys.exit(e)

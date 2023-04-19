@@ -231,6 +231,13 @@ class ArgumentParser(argparse.ArgumentParser):
         """alias for compatibility with OptionParser"""
         self.add_argument(*args, **kwargs)
 
+
+    def get_option(self, dest):
+        for action in self._actions:
+            if action.dest == dest:
+                return action
+        return None
+
     def add_mutually_exclusive_group(self, required=False):
         group = argparse.ArgumentParser.add_mutually_exclusive_group(self, required=required)
         group.add_argument = handleCatoryWrapper(group.add_argument)
