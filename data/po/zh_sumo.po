@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-19 08:46+0000\n"
+"PO-Revision-Date: 2023-04-19 09:58+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -5247,37 +5247,39 @@ msgstr "只能给定 'no-internal-links' 或 'crossings.guess' 其中一个选�
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:725
 msgid "only one of the options 'no-internal-links' or 'walkareas' may be given"
-msgstr ""
+msgstr "只能给定 'no-internal-links' 或 'walkareas' 其中一个选项"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:729
 msgid ""
 "only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"
-msgstr ""
+msgstr "只能给定 'tls.green.time' 或 'tls.cycle.time' 其中一个选项"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:733
 msgid "default.lanenumber must be at least 1"
-msgstr ""
+msgstr "default.lanenumber 必须至少为1"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:741
 msgid ""
 "only one of the options 'default.disallow' or 'default.allow' may be given"
-msgstr ""
+msgstr "只能给定 'default.disallow' 或 'default.allow' 其中一个选项"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:745
 msgid "junctions.internal-link-detail must >= 2"
-msgstr ""
+msgstr "junctions.internal-link-detail 必须>= 2"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:750
 msgid ""
 "Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--"
 "no-internal-links' will be disabled."
 msgstr ""
+"选项 'junctions.scurve-stretch' 需要內部车道才能使用。 选项 '--no-internal-"
+"links' 將被禁用。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:757
 msgid ""
 "option 'default.junctions.radius' is smaller than option 'junctions.small-"
 "radius'"
-msgstr ""
+msgstr "选项 'default.junctions.radius' 小于选项 'junctions.small-radius'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:765
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
