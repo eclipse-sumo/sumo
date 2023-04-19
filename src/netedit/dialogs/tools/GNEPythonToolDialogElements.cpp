@@ -164,7 +164,7 @@ GNEPythonToolDialogElements::Argument::onCmdResetValue(FXObject*, FXSelector, vo
 
 long
 GNEPythonToolDialogElements::Argument::onUpdResetValue(FXObject*, FXSelector, void*) {
-    if (myOption->isDefault()) {
+    if (getValue() == myDefaultValue) {
         return myResetButton->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return myResetButton->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
