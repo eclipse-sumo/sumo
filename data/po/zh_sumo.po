@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-19 14:11+0000\n"
+"PO-Revision-Date: 2023-04-19 14:16+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -6576,44 +6576,44 @@ msgstr "猜测正确的投影"
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:286
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:125
 msgid "Use traditional axis order (lon, lat)"
-msgstr ""
+msgstr "使用传统的轴顺序(经度(lon)、纬度(lat))"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:291
 msgid "Allow more vehicle classes by default"
-msgstr ""
+msgstr "预设允许更多车辆类型"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:294
 msgid "The edge lengths given in the DLR Navteq-file will be kept"
-msgstr ""
+msgstr "DLR-Navteq 文件中给定路段长度將被保留"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:300
 msgid "Structure join offset"
-msgstr ""
+msgstr "结构合并(join)的偏移量(offset)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:303
 msgid "Use FLOAT as default speed"
-msgstr ""
+msgstr "使用 FLOAT作为预设的速度"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:306
 msgid "Factor for edge velocity"
-msgstr ""
+msgstr "路段速度系数"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:309
 msgid "Writes lanes without an explicit speed set"
-msgstr ""
+msgstr "在沒有明确速度设定的情況下,写入车道"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:314
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:95
 msgid "Load language mappings from FILE"
-msgstr ""
+msgstr "从文件载入语言映射(mappings)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:317
 msgid "Uses priorities from types"
-msgstr ""
+msgstr "使用类型的优先级别(priorities)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:320
 msgid "Uses lane numbers from types"
-msgstr ""
+msgstr "使用类型中的车道编号"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:323
 msgid "Uses speeds from types"
