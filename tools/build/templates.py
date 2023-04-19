@@ -244,7 +244,7 @@ TOOLS = [
     # "jtcrouter.py",                   NO CONFIG
     "osmBuild.py",
     "osmGet.py",
-    "osmWebWizard.py",
+    # "osmWebWizard.py",                BLACKLISTED
     "plot_trajectories.py",
     # "ptlines2flows.py",               NO CONFIG
     "randomTrips.py",
