@@ -291,6 +291,9 @@ GNESelectorFrame::SelectionOperation::loadFromFile(const std::string& file) cons
             // check if line isn't empty
             if (line.length() != 0) {
                 // obtain AC from GLFUllNameAC
+                if (StringUtils::startsWith(line, "node:")) {
+                    line = StringUtils::replace(line, "node:", "junction:");
+                }
                 GNEAttributeCarrier* AC = GLFUllNameAC.count(line) > 0 ? GLFUllNameAC.at(line) : nullptr;
                 // check if AC exist, is selectable, and isn't locked
                 if (AC && AC->getTagProperty().isSelectable() && !mySelectorFrameParent->getViewNet()->getLockManager().isObjectLocked(AC->getGUIGlObject()->getType(), false)) {
