@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-19 13:26+0000\n"
+"PO-Revision-Date: 2023-04-19 13:45+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -6473,27 +6473,27 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:206
 msgid "Import turning arrows from OSM to help with connection building"
-msgstr ""
+msgstr "从开放街图（OSM)导入转向箭头以帮助建立连接线(connection)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:209
 msgid "The default length of a public transport stop in FLOAT m"
-msgstr ""
+msgstr "大众运输停靠站的预设长度, 以 FLOAT 米为单位"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:211
 msgid "The default length of a bus stop in FLOAT m"
-msgstr ""
+msgstr "公车停靠站的预设长度, 以 FLOAT 米为单位"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:213
 msgid "The default length of a tram stop in FLOAT m"
-msgstr ""
+msgstr "轻轨电车停靠站的预设长度, 以 FLOAT 米为单位"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:215
 msgid "The default length of a train stop in FLOAT m"
-msgstr ""
+msgstr "火车停靠站的预设长度, 以 FLOAT 米为单位"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:218
 msgid "Whether additional attributes shall be imported"
-msgstr ""
+msgstr "是否应导入附加属性"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:221
 msgid ""
