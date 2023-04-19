@@ -49,11 +49,17 @@ If is often useful to compare files where the same elements occur multiple times
 python tools/output/attributeDiff tripinfos1.xml tripinfos2.xml --xml-output differences.xml -i id
 ```
 
-If a list of id attribuets is set, those attributes may occur at different levels of the xml element hierarchy and parent values will be applied for the child element comparison. The following example makes use of this to compare edges with the same id and in the same time interval for [edgedata-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md):
+!!! note
+    The tool [tripinfoDiff.py](#tripinfodiffpy) serves the same special use case.
+
+If a list of id attributes is set, those attributes may occur at different levels of the xml element hierarchy and parent values will be applied for the child element comparison. The following example makes use of this to compare edges with the same id and in the same time interval for [edgedata-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md):
 
 ```
 python tools/output/attributeDiff edgedata1.xml edgedata2.xml --xml-output differences.xml -i begin,id
 ```
+
+!!! note
+    The last example is very simular to (netdumpdiff.py][#netdumpdiffpy] and [edgeDataDiff.py](#edgedatadiffpy)
 
 ## attributeCompare.py
 
