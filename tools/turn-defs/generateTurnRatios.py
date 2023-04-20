@@ -54,7 +54,7 @@ def get_options(args=None):
     ap.add_option("-e", "--end", help="custom end time (seconds or H:M:S)")
     ap.add_option("-i", "--interval", help="custom aggregation interval (seconds or H:M:S)")
     ap.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
+                  default=False, help="tell me what you are doing")
     options = ap.parse_args(args=args)
 
     if options.begin is not None:

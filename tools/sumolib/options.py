@@ -231,7 +231,6 @@ class ArgumentParser(argparse.ArgumentParser):
         """alias for compatibility with OptionParser"""
         self.add_argument(*args, **kwargs)
 
-
     def get_option(self, dest):
         for action in self._actions:
             if action.dest == dest:
