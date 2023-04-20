@@ -216,7 +216,8 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
                 for (const auto& edge : edges) {
                     edge->addChildElement(route);
                 }
-                route->incRef("buildRoute");
+                vehicle->incRef("buildEmbeddedRoute");
+                route->incRef("buildEmbeddedRoute");
             }
             // compute path
             vehicle->computePathElement();
