@@ -35,7 +35,7 @@ public:
     };
 
     /// @brief Construct label with given text and icon
-    MFXDynamicLabel(FXComposite* p,const FXString& text,FXIcon* ic=0,FXuint opts=LABEL_NORMAL,FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD);
+    MFXDynamicLabel(FXComposite* p,const FXString& text,FXIcon* ic=0,FXuint opts=LABEL_NORMAL,FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD, std::string indent = "- ");
     
     virtual ~MFXDynamicLabel() {};
 
@@ -55,8 +55,11 @@ protected:
     MFXDynamicLabel();
     
 private:
+    void computeIndentation();
     void reformatLineBreaks(int width);
 
     std::string myOriginalString;
+    std::string myIndentString;
+    int myIndent;
     int myPreviousWidth;
 };
