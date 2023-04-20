@@ -79,7 +79,7 @@ private:
     */
     class PState : public MSTransportableStateAdapter {
     public:
-        PState(MSPerson* person, MSStageMoving* stage, JPS_Journey journey, Position destination, JPS_AgentId agentId);
+        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, Position destination, JPS_AgentId agentId);
         ~PState() override;
 
         Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
@@ -105,7 +105,7 @@ private:
         Position myPosition;
         Position myDestination;
         double myAngle;
-        JPS_Journey myJourney;
+        JPS_JourneyDescription myJourney;
         JPS_AgentId myAgentId;
     };
 
