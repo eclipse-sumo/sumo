@@ -24,3 +24,6 @@ maxDur_extend
 
 # avoid overlapping detectors (#12615)
 short_turnlane
+
+# Specifying delay-based program in an additional file
+minDur0
