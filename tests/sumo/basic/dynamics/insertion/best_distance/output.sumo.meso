@@ -1,13 +1,14 @@
 Loading net-file from 'motorway.net.xml' ... done (1ms).
-Loading additional-files from 'input_additional.add.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... 
+done (0ms).
 Loading done.
-Simulation version v1_14_1+0331-153d228 started with time: 0.00.
+Simulation version v1_16_0+2232-fb2e79c69a2 started with time: 0.00.
 Simulation ended at time: 900.00
 Reason: The final simulation step has been reached.
 Performance: 
- Duration: 0.13s
- Real time factor: 6870.23
- UPS: 4643213.740458
+ Duration: 0.15s
+ Real time factor: 6000
+ UPS: 4055073.333333
 Vehicles: 
  Inserted: 1526 (Loaded: 2997)
  Running: 1046
