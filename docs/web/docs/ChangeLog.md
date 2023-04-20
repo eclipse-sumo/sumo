@@ -56,6 +56,7 @@ title: ChangeLog
   - Shift-click on geometry point doesn't can now be used to make it the custom end point. Issue #12716
   - When activating sidewalks in the create edge frame, they now use the configured default sidewalk width. Issue #12449
   - Fixed crash when unjoining a joint traffic light. Issue #12610
+  - Fixed "Invalid reference counter" error after recomputing with volatile options with data elements. Issue #13058
 
 - sumo-gui
   - Fixed invalid carriageLength for tram. Issue #13011 (regression in 1.11.0)
@@ -93,6 +94,7 @@ title: ChangeLog
 - TraCI
   - Fixed failure to perform unsafe lane change. Issue #13007 (regression in 1.11.0)
   - Fixed value returned by `person.getMaxSpeed`. Issue #12786 (regression in 1.15.0)
+  - Fixed crash when calling `close()` directly on a traci connection. Issue #12996 (regression in 1.16.0)
   - Fixed wrong edgeId in error message of `simulation.findIntermodalRoute`. Issue #12591
   - Error when loading a state file now indicates possible version problem. Issue #12593
   - Fixed problem when loading JAVA bindings for libsumo/libtraci via JNI. Caution: Windows users must update their code to load dependent libraries explicitly due to JAVA issues that cannot be fixed on the SUMO side. Issue #12605
@@ -104,7 +106,7 @@ title: ChangeLog
   - Error messages concerning subscription filters now use the correct command id
   - Fixed bug where user-triggered lane-change were not executed when using the sublane model. Issue #12810, #12944
   - `trafficlight.swapConstraints` now returns constraint parameters for derived constraints. Issue #12935
-  - Fixed crash when using `vehicle.moveToXY`. Issue #13053
+  - Fixed crash when using `vehicle.moveToXY`. Issue #13053  
   
 - tools
   - Fixed invalid error when calling option **--save-template**. Issue #12589
@@ -152,6 +154,8 @@ title: ChangeLog
   - If a route is selected it will always be shown on top of other overlapping routes. Issue #12582
   - The vehicle type "DEFAULT_RAILTYPE" can now be used for defining trains. Issue #6752
   - The network is automatically recomputed (if needed) when trying to create an E2 multilane detector. Issue #12763
+  - Selection files with `node:NODE_ID` are now supported (also in suom-gui). Issue #13061
+  - Delete mode now features a button to toggle all protections. Issue #13073
 
 - sumo-gui
   - Dynamically modified values for `latAlignment` (i.e. when preparing to turn) are now listed in the type-parameter dialog. Issue #12579
@@ -177,6 +181,7 @@ title: ChangeLog
   - Added functions `lane.setChangePermissions` and `lane.getChangePermissions` to dynamically modify 'changeLeft' and 'changeRight' attributes. Issue #12562
   - Simpla can now report platoon-based information and statistics. Issue #12124
   - Added function `traci.executeMove` to only do vehicle movements and allow further interaction before writing the outputs at `simulationStep`. Issue #11091
+  - The new function `traci.executeMove` can now be used to execute traci commands after vehicle movements but before outputs are written. Issue #11091
 
 - tools
   - gtfs2pt.py: multiple improvements to route matching. Issue #12834 (Thanks to Gladys McGan)
@@ -202,6 +207,7 @@ title: ChangeLog
   - Traffic light game now supports showing score for built-in adaptive algorithms. Issue #12915
   - Fixed bug where users could skip yellow phase in traffic light game. Issue #12971
   - netdiff.py: Now writes configuration-style header in diff files. Issue #13036
+  - many more python tools now support configuration files
   - plotXMLAttributes.py:
     - can plot by sorting rank with attribute value `@RANK`. Issue #12607
     - can plot by input order with attribute value `@INDEX` (note that this was the behavior of @RANK in 1.16.0). Issue #12607
@@ -224,6 +230,7 @@ title: ChangeLog
 - Removed tool `plotXMLAttr.py` since it's functionality is covered by `plotXMLAttributes.py` (tool moved to 'purgatory' folder). Issue #11994.
 - Netgenerate default parameters where changed to reduce the default network size for spider and random networks. Issue #12927
 - Added translation to Italian. Issue #13004
+- plot_net_dump.py: no longer supports setting a default color with option **-c**. Instead the long option **--default-color** must be used. The option **-c** is now used for loading of a tool configuration file instead. Issue #13068
 
 ## Version 1.16.0 (07.02.2023)
 
