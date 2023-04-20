@@ -1759,6 +1759,9 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
                     }
 #endif
                 }
+                if (ignoreFoe(ego, p)) {
+                    continue;
+                }
                 distToPeds = MIN2(distToPeds, dist);
                 if (collectBlockers != nullptr) {
                     collectBlockers->push_back(p);
