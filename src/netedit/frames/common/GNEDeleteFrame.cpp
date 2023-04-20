@@ -39,11 +39,19 @@
 // ===========================================================================
 
 FXDEFMAP(GNEDeleteFrame::DeleteOptions) DeleteOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE, GNEDeleteFrame::DeleteOptions::onCmdSetOption),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDeleteFrame::DeleteOptions::onCmdSetOption),
+};
+
+FXDEFMAP(GNEDeleteFrame::ProtectElements) ProtectElementsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PROTECT_ALL,    GNEDeleteFrame::ProtectElements::onCmdProtectAll),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_PROTECT_ALL,    GNEDeleteFrame::ProtectElements::onUpdProtectAll),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_UNPROTECT_ALL,  GNEDeleteFrame::ProtectElements::onCmdUnprotectAll),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_UNPROTECT_ALL,  GNEDeleteFrame::ProtectElements::onUpdUnprotectAll),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDeleteFrame::DeleteOptions,      MFXGroupBoxModule, DeleteOptionsMap,      ARRAYNUMBER(DeleteOptionsMap))
+FXIMPLEMENT(GNEDeleteFrame::DeleteOptions,      MFXGroupBoxModule, DeleteOptionsMap,    ARRAYNUMBER(DeleteOptionsMap))
+FXIMPLEMENT(GNEDeleteFrame::ProtectElements,    MFXGroupBoxModule, ProtectElementsMap,  ARRAYNUMBER(ProtectElementsMap))
 
 // ---------------------------------------------------------------------------
 // GNEDeleteFrame::DeleteOptions - methods
@@ -228,6 +236,10 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
 
 GNEDeleteFrame::ProtectElements::ProtectElements(GNEDeleteFrame* deleteFrameParent) :
     MFXGroupBoxModule(deleteFrameParent, TL("Protect Elements")) {
+    // Create "Protect all" Button
+    new FXButton(getCollapsableFrame(), (TL("Protect all") + std::string("\t\t") + TL("Protect all elements")).c_str(), nullptr, this, MID_GNE_PROTECT_ALL, GUIDesignButton);
+    // Create "Unprotect all" Button
+    new FXButton(getCollapsableFrame(), (TL("Unprotect all") + std::string("\t\t") + TL("Unprotect all elements")).c_str(), nullptr, this, MID_GNE_UNPROTECT_ALL, GUIDesignButton);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
     myProtectAdditionals = new FXCheckButton(getCollapsableFrame(), TL("Protect additional elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectAdditionals->setCheck(TRUE);
@@ -267,6 +279,48 @@ GNEDeleteFrame::ProtectElements::protectDemandElements() const {
 bool
 GNEDeleteFrame::ProtectElements::protectGenericDatas() const {
     return (myProtectGenericDatas->getCheck() == TRUE);
+}
+
+
+long
+GNEDeleteFrame::ProtectElements::onCmdProtectAll(FXObject*, FXSelector, void*) {
+    myProtectAdditionals->setCheck(TRUE);
+    myProtectTAZs->setCheck(TRUE);
+    myProtectDemandElements->setCheck(TRUE);
+    myProtectGenericDatas->setCheck(TRUE);
+    return 1;
+}
+
+
+long
+GNEDeleteFrame::ProtectElements::onCmdUnprotectAll(FXObject*, FXSelector, void*) {
+    myProtectAdditionals->setCheck(FALSE);
+    myProtectTAZs->setCheck(FALSE);
+    myProtectDemandElements->setCheck(FALSE);
+    myProtectGenericDatas->setCheck(FALSE);
+    return 1;
+}
+
+
+long
+GNEDeleteFrame::ProtectElements::onUpdProtectAll(FXObject* sender, FXSelector, void*) {
+    if (myProtectAdditionals->getCheck() && myProtectTAZs->getCheck() && 
+        myProtectDemandElements->getCheck() && myProtectGenericDatas->getCheck()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
+long
+GNEDeleteFrame::ProtectElements::onUpdUnprotectAll(FXObject* sender, FXSelector, void*) {
+    if (!myProtectAdditionals->getCheck() && !myProtectTAZs->getCheck() && 
+        !myProtectDemandElements->getCheck() && !myProtectGenericDatas->getCheck()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
 }
 
 // ===========================================================================

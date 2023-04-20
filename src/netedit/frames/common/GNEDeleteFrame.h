@@ -75,6 +75,8 @@ public:
     // ===========================================================================
 
     class ProtectElements : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEDeleteFrame::ProtectElements)
 
     public:
         /// @brief constructor
@@ -94,6 +96,26 @@ public:
 
         /// @brief check if protect generic datas checkbox is enabled
         bool protectGenericDatas() const;
+    
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief protect all elements
+        long onCmdProtectAll(FXObject*, FXSelector, void*);
+
+        /// @brief unprotect all elements
+        long onCmdUnprotectAll(FXObject*, FXSelector, void*);
+
+        /// @brief update protect all elements
+        long onUpdProtectAll(FXObject*, FXSelector, void*);
+
+        /// @brief update unprotect all elements
+        long onUpdUnprotectAll(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(ProtectElements)
 
     private:
         /// @brief checkbox for enable/disable protect additionals

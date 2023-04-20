@@ -994,6 +994,10 @@ enum {
     MID_GNE_SET_ZEROFRINGEPROB,
     /// @brief use current network/additional/route/edgedata
     MID_GNE_USE_CURRENT,
+    /// @brief protect all elements
+    MID_GNE_PROTECT_ALL,
+    /// @brief unprotect all elements
+    MID_GNE_UNPROTECT_ALL,
 
     /// @}
 
