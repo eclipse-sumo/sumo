@@ -89,10 +89,11 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            // insert dataInterval without allowing undo/redo
+            // insert dataSet allowing undo/redo
             myNet->getAttributeCarriers()->insertDataSet(dataSet);
-            dataSet->addDataIntervalChild(dataInterval);
             dataSet->incRef("buildDataInterval");
+            // insert dataInterval without allowing undo/redo
+            dataSet->addDataIntervalChild(dataInterval);
             dataInterval->incRef("buildDataInterval");
         }
     } else if (dataSet->retrieveInterval(begin, end) == nullptr) {
@@ -104,7 +105,6 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
         } else {
             // insert dataInterval without allowing undo/redo
             dataSet->addDataIntervalChild(dataInterval);
-            dataSet->incRef("buildDataInterval");
             dataInterval->incRef("buildDataInterval");
         }
     }
@@ -133,7 +133,6 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
                 } else {
                     dataInterval->addGenericDataChild(edgeData);
                     edge->addChildElement(edgeData);
-                    dataInterval->incRef("buildEdgeData");
                     edgeData->incRef("buildEdgeData");
                 }
             } else {
@@ -172,7 +171,6 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
                     dataInterval->addGenericDataChild(edgeData);
                     fromEdge->addChildElement(edgeData);
                     toEdge->addChildElement(edgeData);
-                    dataInterval->incRef("buildEdgeRelationData");
                     edgeData->incRef("buildEdgeRelationData");
                 }
             } else {
@@ -218,7 +216,6 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                 } else {
                     dataInterval->addGenericDataChild(edgeData);
                     fromTAZ->addChildElement(edgeData);
-                    dataInterval->incRef("buildTAZRelationData");
                     edgeData->incRef("buildTAZRelationData");
                 }
             } else {
@@ -231,7 +228,6 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                     dataInterval->addGenericDataChild(edgeData);
                     fromTAZ->addChildElement(edgeData);
                     toTAZ->addChildElement(edgeData);
-                    dataInterval->incRef("buildTAZRelationData");
                     edgeData->incRef("buildTAZRelationData");
                 }
             }
