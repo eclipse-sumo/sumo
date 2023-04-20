@@ -1205,8 +1205,8 @@ class Poly:
         angle = 12
         geoshape = 15
         geo = 16
-        parameters = 17
-        closeShape = 21
+        parameters = 19
+        closeShape = 23
 
     class inspectSelection:
         colorButton = 1
@@ -1220,8 +1220,8 @@ class Poly:
         reativePath = 9
         angle = 10
         geo = 13
-        parameters = 15
-        closeShape = 18
+        parameters = 16
+        closeShape = 19
 
 # POI
 
