@@ -340,6 +340,8 @@ joinable node clusters works like this:
     explanation is issued for each case)
 6.  each cluster is turned into a joined node
 
+### Specifying and excluding explicit joins
+
 More fine grained control over joining can be achieved by using the
 following syntax within a nodes-file
 
