@@ -760,7 +760,8 @@ MSActuatedTrafficLightLogic::trySwitch() {
                   << " nextTryEarliest=" << STEPS2TIME(getEarliest(prevStart)) << "\n";
     }
 #endif
-    return MAX3(TIME2STEPS(1), getMinDur() - actDuration, getEarliest(prevStart));
+    SUMOTime minRetry = myStep != origStep ? 0 : TIME2STEPS(1);
+    return MAX3(minRetry, getMinDur() - actDuration, getEarliest(prevStart));
 }
 
 
