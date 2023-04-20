@@ -257,7 +257,10 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
         dev.writeAttr(SUMO_ATTR_EXTENSION, time2string(extension));
     }
     if ((parametersSet & STOP_TRIGGER_SET) != 0) {
-        dev.writeAttr(SUMO_ATTR_TRIGGERED, getTriggers());
+        const std::vector<std::string> triggers = getTriggers();
+        if (triggers.size() > 0) {
+            dev.writeAttr(SUMO_ATTR_TRIGGERED, triggers);
+        }
     }
     if ((parametersSet & STOP_PARKING_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_PARKING, parking);
