@@ -39,6 +39,9 @@ public:
     
     virtual ~MFXDynamicLabel() {};
 
+    /// @brief overload text label updates to store the original string as backup for when width changes again
+    void setText(const FXString& text);
+
     /// @brief overload to be informed when the label text has to be reformatted due to width changes
     long onUpdate(FXObject* sender, FXSelector, void*);
 

@@ -25,7 +25,7 @@
 // ===========================================================================
 
 FXDEFMAP(MFXDynamicLabel) MFXLabelMap[] = {
-    FXMAPFUNC(SEL_UPDATE,       0,                     MFXDynamicLabel::onUpdate),
+    FXMAPFUNC(SEL_UPDATE,       0,                          MFXDynamicLabel::onUpdate),
 };
 
 // Object implementation
@@ -52,6 +52,13 @@ MFXDynamicLabel::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
         myPreviousWidth = width;
     }
     return FXLabel::onUpdate(sender, sel, ptr);
+}
+
+
+void
+MFXDynamicLabel::setText(const FXString& text) {
+    FXLabel::setText(text);
+    myOriginalString = text.text();
 }
 
 
