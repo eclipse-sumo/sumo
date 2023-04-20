@@ -206,6 +206,8 @@ Netedit is used to create and edit a variety of different objects. Each object m
 - [TAZ elements](elementsTAZ.md)
 - [Demand elements](elementsDemand.md)
 
+A short description of all [element attributes](attribute_help.md) is available.
+
 # [Popup-Menu functions](neteditPopupFunctions.md)
 
 Right clicking over an element will open a popup-menu with functions and operations relevant to set element. You can right click on:
