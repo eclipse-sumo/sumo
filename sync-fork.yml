@@ -1,0 +1,28 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # runs every 6 hours
+  workflow_dispatch:
+  push:
+    branches:
+      - main # replace with the name of your main branch
+
+jobs:
+  sync-fork:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: upstream/main # replace with the name of the upstream branch
+
+      - name: Sync fork with upstream
+        run: |
+          git config --global user.email "github-action-bot@example.com"
+          git config --global user.name "GitHub Action Bot"
+          git remote add upstream https://github.com/eclipse/sumo.git
+          git fetch upstream
+          git checkout main
+          git merge upstream/main --no-edit
+          git push origin main
