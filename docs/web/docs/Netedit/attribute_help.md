@@ -491,6 +491,43 @@ child element of [variableSpeedSign](#variablespeedsign)
 |insertionChecks|string|Insertion checks *default:* **all**|
 |depart|string|The time step at which the vehicle shall enter the network *default:* **0.00**|
 
+## flow
+also child element of [calibrator](#calibrator)
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+|route|unique string|The id of the route the vehicle shall drive along|
+|begin|SUMOTime|First calibrator flow departure time *default:* **0**|
+|end|SUMOTime|End of departure interval *default:* **3600**|
+|color|color|This vehicle's color *default:* **yellow**|
+|departLane|string|The lane on which thevehicle shall be inserted *default:* **first**|
+|departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
+|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0.00**|
+|arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
+|arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
+|arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
+|line|string|A string specifying the id of a public transport line which can be used when specifying person rides|
+|personNumber|non-negative integer|The number of occupied seats when the vehicle is inserted *default:* **0**|
+|containerNumber|non-negative integer|The number of occupied container places when the vehicle is inserted *default:* **0**|
+|departPosLat|string|The lateral position on the departure lane at which the vehicle shall enter the net *default:* **center**|
+|arrivalPosLat|string|The lateral position on the arrival lane at which the vehicle shall arrive *default:* **center**|
+|insertionChecks|string|Insertion checks *default:* **all**|
+|type|string|The id of the vehicle type to use for this calibrator flow *default:* **DEFAULT_VEHTYPE**|
+|vehsPerHour|string|Number of vehicles per hour, equally spaced *default:* **1800**|
+|speed|string|Vehicle's speed *default:* **15.0**|
+|id|unique string|The ID of the flow|
+|from|unique string|The ID of the edge the flow starts at|
+|to|unique string|The ID of the edge the flow ends at|
+|via|list of unique strings|List of intermediate edge ids which shall be part of the flow|
+|number|non-negative integer|probability for emitting a flow each second (not together with vehsPerHour or period) *default:* **1800**|
+|period|string|Insert equally spaced flows at that period (not together with vehsPerHour or probability or poisson) *default:* **2**|
+|probability|string|probability for emitting a flow each second (not together with vehsPerHour or period or poisson) *default:* **0.5**|
+|poisson|string|Insert flow expected vehicles per second with poisson distributed insertion rate (not together with period or vehsPerHour or probability) *default:* **0.5**|
+|fromJunction|unique string|The name of the junction the flow starts at|
+|toJunction|unique string|The name of the junction the flow ends at|
+|departEdge|unique string|The index of the edge within route the flow starts at|
+|arrivalEdge|unique string|The index of the edge within route the flow ends at|
+
 ## vType
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -635,43 +672,6 @@ child element of [taz](#taz)
 |-----------|------|-------------|
 |edge|unique string|The id of edge in the simulation network|
 |weight|non-negative float|Arrival weight associated to this Edget *default:* **1**|
-
-### flow
-child element of [calibrator](#calibrator)
-
-| Attribute | Type | Description |
-|-----------|------|-------------|
-|route|unique string|The id of the route the vehicle shall drive along|
-|begin|SUMOTime|First calibrator flow departure time *default:* **0**|
-|end|SUMOTime|End of departure interval *default:* **3600**|
-|color|color|This vehicle's color *default:* **yellow**|
-|departLane|string|The lane on which thevehicle shall be inserted *default:* **first**|
-|departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
-|departSpeed|string|The speed with which the vehicle shall enter the network *default:* **0.00**|
-|arrivalLane|string|The lane at which the vehicle shall leave the network *default:* **current**|
-|arrivalPos|string|The position at which the vehicle shall leave the network *default:* **max**|
-|arrivalSpeed|string|The speed with which the vehicle shall leave the network *default:* **current**|
-|line|string|A string specifying the id of a public transport line which can be used when specifying person rides|
-|personNumber|non-negative integer|The number of occupied seats when the vehicle is inserted *default:* **0**|
-|containerNumber|non-negative integer|The number of occupied container places when the vehicle is inserted *default:* **0**|
-|departPosLat|string|The lateral position on the departure lane at which the vehicle shall enter the net *default:* **center**|
-|arrivalPosLat|string|The lateral position on the arrival lane at which the vehicle shall arrive *default:* **center**|
-|insertionChecks|string|Insertion checks *default:* **all**|
-|type|string|The id of the vehicle type to use for this calibrator flow *default:* **DEFAULT_VEHTYPE**|
-|vehsPerHour|string|Number of vehicles per hour, equally spaced *default:* **1800**|
-|speed|string|Vehicle's speed *default:* **15.0**|
-|id|unique string|The ID of the flow|
-|from|unique string|The ID of the edge the flow starts at|
-|to|unique string|The ID of the edge the flow ends at|
-|via|list of unique strings|List of intermediate edge ids which shall be part of the flow|
-|number|non-negative integer|probability for emitting a flow each second (not together with vehsPerHour or period) *default:* **1800**|
-|period|string|Insert equally spaced flows at that period (not together with vehsPerHour or probability or poisson) *default:* **2**|
-|probability|string|probability for emitting a flow each second (not together with vehsPerHour or period or poisson) *default:* **0.5**|
-|poisson|string|Insert flow expected vehicles per second with poisson distributed insertion rate (not together with period or vehsPerHour or probability) *default:* **0.5**|
-|fromJunction|unique string|The name of the junction the flow starts at|
-|toJunction|unique string|The name of the junction the flow ends at|
-|departEdge|unique string|The index of the edge within route the flow starts at|
-|arrivalEdge|unique string|The index of the edge within route the flow ends at|
 
 ## edgeRelation
 | Attribute | Type | Description |

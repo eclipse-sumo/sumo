@@ -5885,8 +5885,13 @@ GNEAttributeCarrier::writeAttributeHelp() {
         if (item.second.getParentTags().empty()) {
             dev << "\n## " << toString(item.first) << "\n";
         } else {
-            dev << "\n### " << toString(item.first) << "\n";
-            dev << "child element of ";
+            if (item.first == SUMO_TAG_FLOW) {
+                dev << "\n## " << toString(item.first) << "\n";
+                dev << "also child element of ";
+            } else {
+                dev << "\n### " << toString(item.first) << "\n";
+                dev << "child element of ";
+            }
             bool sep = false;
             for (const auto& pTag : item.second.getParentTags()) {
                 if (sep) {
