@@ -72,3 +72,6 @@ controlling_detectors
 
 # if minDur is set, interpret missing maxDur as unlimited
 maxDur_missing
+
+# network contains a static traffic light, load actuated as additional program (new default)
+minDur0
