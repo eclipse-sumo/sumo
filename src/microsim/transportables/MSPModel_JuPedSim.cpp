@@ -105,10 +105,9 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     const MSLane* arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().back());
     Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
 
-	JPS_Journey journey = JPS_Journey_Create();
-    JPS_Journey_AddWaypoint(journey, {arrivalPosition.x(), arrivalPosition.y()}, JPS_EXIT_TOLERANCE);
+    JPS_JourneyDescription journey = JPS_JourneyDescription_Create();
+    JPS_JourneyDescription_AddWaypoint(journey, {arrivalPosition.x(), arrivalPosition.y()}, JPS_EXIT_TOLERANCE, NULL, NULL);
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, nullptr);
-    JPS_Journey_Free(journey);
 
 	JPS_VelocityModelAgentParameters agent_parameters{};
 	agent_parameters.journeyId = journeyId;
@@ -668,14 +667,14 @@ MSLane* MSPModel_JuPedSim::getNextPedestrianLane(const MSLane* const currentLane
 // ===========================================================================
 // MSPModel_Remote::PState method definitions
 // ===========================================================================
-MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage, JPS_Journey journey, Position destination, JPS_AgentId agentId)
+MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, Position destination, JPS_AgentId agentId)
     : myPerson(person), myAngle(0), myPosition(0, 0), myStage(stage), myJourney(journey), myDestination(destination), myAgentId(agentId) {
     ConstMSEdgeVector route = stage->getRoute();
 }
 
 
 MSPModel_JuPedSim::PState::~PState() {
-    JPS_Journey_Free(myJourney);
+    JPS_JourneyDescription_Free(myJourney);
 }
 
 
