@@ -70,6 +70,10 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime t) {
     }
     int step1 = myTLLogic->getCurrentPhaseIndex();
     SUMOTime next = myTLLogic->trySwitch();
+    while (next == 0) {
+        // skip phase and switch again
+        next = myTLLogic->trySwitch();
+    }
     int step2 = myTLLogic->getCurrentPhaseIndex();
     if (step1 != step2) {
         if (myTLLogic->isActive()) {
