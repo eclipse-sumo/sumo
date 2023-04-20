@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create polygon with default values
-netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
+netedit.createSquaredTAZ(referencePosition, 210, 136, 200, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
