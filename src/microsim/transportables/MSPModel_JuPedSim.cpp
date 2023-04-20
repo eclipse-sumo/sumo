@@ -443,12 +443,13 @@ MSPModel_JuPedSim::getCoordinates(const geos::geom::Geometry* geometry) {
     return coordinates;
 }
 
+
 std::vector<double> 
 MSPModel_JuPedSim::getFlattenedCoordinates(const geos::geom::Geometry* geometry) {
     std::vector<double> flattenedCoordinates;
     std::unique_ptr<geos::geom::CoordinateSequence> coordsSeq = geometry->getCoordinates();
     // Remove the last point so that CGAL doesn't complain of the simplicity of the polygon downstream.
-    for (size_t i = 0; i < coordsSeq->getSize()-1; i++) {
+    for (size_t i = 0; i < coordsSeq->getSize() - 1; i++) {
         geos::geom::Coordinate c = coordsSeq->getAt(i);
         flattenedCoordinates.push_back(c.x);
         flattenedCoordinates.push_back(c.y);
@@ -489,24 +490,27 @@ void
 MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon, const std::string& polygonId) {
     std::ofstream dumpFile;
     dumpFile.open(polygonId + std::string(".txt"));
+    int maxPrecision = std::numeric_limits<double>::max_digits10 + 2;
 
+    // Handle the exterior polygon.
     const geos::geom::LinearRing* exterior = polygon->getExteriorRing();
     std::vector<double> exteriorCoordinates = getFlattenedCoordinates(exterior);
     JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size() / 2);
 
-    for (auto c : exteriorCoordinates) {
-        dumpFile << c << std::endl;
+    for (double c : exteriorCoordinates) {
+        dumpFile << std::setprecision(maxPrecision) << c << std::endl;
     }
     dumpFile << std::endl;
 
+    // Handle the interior polygons (holes).
     for (size_t k = 0; k < polygon->getNumInteriorRing(); k++) {
         const geos::geom::LinearRing* interior = polygon->getInteriorRingN(k);
         if (toPolygon(interior)->getArea() > GEOS_MIN_AREA) {
             std::vector<double> holeCoordinates = getFlattenedCoordinates(interior);
             JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, holeCoordinates.data(), holeCoordinates.size() / 2);
 
-            for (auto c : holeCoordinates) {
-                dumpFile << c << std::endl;
+            for (double c : holeCoordinates) {
+                dumpFile << std::setprecision(maxPrecision) << c << std::endl;
             }
             dumpFile << std::endl;
         }
