@@ -702,6 +702,7 @@ def openNetworkAs(waitTime=2):
     # wait for saving
     time.sleep(waitTime)
 
+
 def saveNetwork(referencePosition, clickOverReference=False, posX=0, posY=0):
     """
     @brief save network
@@ -859,6 +860,7 @@ def changeEditMode(key):
 #################################################
     # Configs
 #################################################
+
 
 def openNeteditConfigAs(waitTime=2):
     """
