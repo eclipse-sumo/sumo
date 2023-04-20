@@ -62,6 +62,7 @@ additionals:\\{REPLACE /}
 routes:<!-- generated{[->]}-->
 routes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 routes:\\{REPLACE /}
+configmanually:<!-- generated{[->]}-->
 datas:<!-- generated{[->]}-->
 datas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 datas:\\{REPLACE /}
