@@ -88,7 +88,7 @@ def connect(port=8813, numRetries=tc.DEFAULT_NUM_RETRIES, host="localhost", proc
             traceFile=None, traceGetters=True, label=None):
     """
     Establish a connection to a TraCI-Server and return the
-    connection object. The connection is not saved in the pool and not
+    connection object. If label is not set, the connection is not saved in the pool and not
     accessible via traci.switch. It should be safe to use different
     connections established by this method in different threads.
     """

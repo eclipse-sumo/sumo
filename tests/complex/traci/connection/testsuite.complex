@@ -22,5 +22,8 @@ multiconnect
 # closing a connection object which is in the central dict
 close_named
 
+# closing a connection object without the central dict
+close_instance
+
 # test client-side command tracing when calling commands via the connection
 tracing
