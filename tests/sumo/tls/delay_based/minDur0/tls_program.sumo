@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-20 18:15:50 by Eclipse SUMO sumo Version v1_16_0+2251-1aba981
+<!-- generated on 2023-04-20 18:18:44 by Eclipse SUMO sumo Version v1_16_0+2253-501dcc1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,6 +40,70 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlLogic id="0" type="static" programID="1">
         <phase duration="41.00" state="GGggrrrrGGggrrrr"/>
         <phase duration="3.00"  state="yyggrrrryyggrrrr"/>
-        <phase duration="18929.00" state="rrGGrrrrrrGGrrrr"/>
+        <phase duration="3.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="50.00" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="30.00" state="rrrrrrGGrrrrrrGG"/>
+        <phase duration="3.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="3.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="3.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="7.00"  state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="1.00"  state="rrrrrrGGrrrrrrGG"/>
+        <phase duration="3.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="13.00" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="3.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="15.00" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="3.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="19.00" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="3.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="19.00" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="3.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="9.00"  state="GGggrrrrGGggrrrr"/>
+        <phase duration="3.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="3.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="15.00" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="3.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="17.00" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="3.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="21.00" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="3.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="21.00" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="9.00"  state="rrGGrrrrrrGGrrrr"/>
+        <phase duration="3.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="25.00" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="3.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="20.00" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="3.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="33.00" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="3.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="25.00" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="3.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="21.00" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="3.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="35.00" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="3.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="18.00" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3.00"  state="rrrryyggrrrryygg"/>
+        <phase duration="3.00"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="50.00" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3.00"  state="yyggrrrryyggrrrr"/>
+        <phase duration="50.00" state="rrGGrrrrrrGGrrrr"/>
+        <phase duration="3.00"  state="rryyrrrrrryyrrrr"/>
+        <phase duration="35.00" state="rrrrGGggrrrrGGgg"/>
     </tlLogic>
 </additional>
