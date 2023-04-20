@@ -370,8 +370,9 @@ def generateToolTemplate(toolDir, toolPath):
         print("Obtaining '" + toolName + "' tool template.")
         # obtain template piping stdout using check_output
         try:
-            template = check_output([sys.executable, join(toolDir, toolPath),
-                                     "--save-template", "stdout"], universal_newlines=True)
+            with open(os.devnull, "w") as null:
+                template = check_output([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"],
+                                        stderr=null, universal_newlines=True)
             # join variable and formated template
             return templateTool + formatToolTemplate(template) + '),\n'
         except CalledProcessError as e:
@@ -396,7 +397,7 @@ def checkMod(toolDir, reference):
 
 
 def main():
-    if len(sys.argv) == 2:
+    if len(sys.argv) != 3:
         sys.exit("Arguments: <pathToSumo> <pathToNetgenerate>")
     # get tool dir path (SUMO/tools)
     toolDir = join(dirname(__file__), '..')
