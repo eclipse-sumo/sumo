@@ -604,6 +604,11 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                         || (length > 3 * POSITION_EPS
                             && (e->getPermissions() & (SVC_PASSENGER | SVC_TRAM)) == 0
                             && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth))) {
+#ifdef DEBUG_JOINJUNCTIONS
+                        if (DEBUGCOND(s)) {
+                            std::cout << " ignored s=" << s->getID() << " pedestrian edge=" << e->getID() << " cd=" << n->getPosition().distanceTo2D(s->getPosition()) << "\n";
+                        }
+#endif
                     continue;
                 }
                 // never join rail_crossings with other node types unless the crossing is only for tram
