@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 304, 244)
 netedit.deleteMode()
 
 # enable 'Automatically delete additionals'
-netedit.changeProtectAdditionalElements(referencePosition)
+netedit.protectElements(referencePosition)
 
 # delete created chargingStation
 netedit.leftClick(referencePosition, 344, 244)
@@ -59,7 +59,7 @@ netedit.undo(referencePosition, 3)
 netedit.deleteMode()
 
 # disable 'Automatically delete additionals'
-netedit.changeProtectAdditionalElements(referencePosition)
+netedit.protectElements(referencePosition)
 
 # try to delete lane with the second loaded charging station (doesn't allowed)
 netedit.leftClick(referencePosition, 512, 424)

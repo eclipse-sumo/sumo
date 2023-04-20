@@ -1870,53 +1870,14 @@ def changeRemoveOnlyGeometryPoint(referencePosition):
     typeSpace()
 
 
-def changeProtectAdditionalElements(referencePosition):
+def protectElements(referencePosition):
     """
-    @brief Enable or disable 'automatically delete Additionals'
+    @brief Protect or unprotect delete elements
     """
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
     for _ in range(4):
-        typeTab()
-    # type SPACE to change value
-    typeSpace()
-
-
-def changeProtectTAZElements(referencePosition):
-    """
-    @brief Enable or disable 'protect TAZ elements'
-    """
-    # select delete mode again to set mode
-    deleteMode()
-    # jump to checkbox
-    for _ in range(5):
-        typeTab()
-    # type SPACE to change value
-    typeSpace()
-
-
-def changeProtectDemandElements(referencePosition):
-    """
-    @brief Enable or disable 'protect demand elements'
-    """
-    # select delete mode again to set mode
-    deleteMode()
-    # jump to checkbox
-    for _ in range(6):
-        typeTab()
-    # type SPACE to change value
-    typeSpace()
-
-
-def changeProtectDataElements(referencePosition):
-    """
-    @brief Enable or disable 'protect data elements'
-    """
-    # select delete mode again to set mode
-    deleteMode()
-    # jump to checkbox
-    for _ in range(7):
         typeTab()
     # type SPACE to change value
     typeSpace()

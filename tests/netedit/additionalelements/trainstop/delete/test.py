@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 430, 256)
 netedit.deleteMode()
 
 # enable 'Automatically delete additionals'
-netedit.changeProtectAdditionalElements(referencePosition)
+netedit.protectElements(referencePosition)
 
 # delete created trainStop
 netedit.leftClick(referencePosition, 485, 270)
@@ -59,7 +59,7 @@ netedit.undo(referencePosition, 3)
 netedit.deleteMode()
 
 # disable 'Automatically delete additionals'
-netedit.changeProtectAdditionalElements(referencePosition)
+netedit.protectElements(referencePosition)
 
 # try to delete lane with the second loaded trainStop (doesn't allowed)
 netedit.leftClick(referencePosition, 520, 416)
