@@ -1367,9 +1367,14 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
         }
         edges.push_back(edge);
     }
+    bool useLanes = objecttype == SUMO_TAG_MEANDATA_LANE;
+    if (useLanes && MSGlobals::gUseMesoSim && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
+        WRITE_WARNINGF(TL("LaneData '%' requested for mesoscopic simulation but --meso-lane-queue is not active. Falling back to edgeData."), id);
+        useLanes = false;
+    }
     try {
         myDetectorBuilder.createEdgeLaneMeanData(id, period, begin, end,
-                type, objecttype == SUMO_TAG_MEANDATA_LANE,
+                type, useLanes,
                 // equivalent to TplConvert::_2bool used in SUMOSAXAttributes::getBool
                 excludeEmpty[0] != 't' && excludeEmpty[0] != 'T' && excludeEmpty[0] != '1' && excludeEmpty[0] != 'x',
                 excludeEmpty == "defaults", withInternal, trackVehicles, detectPersons,
