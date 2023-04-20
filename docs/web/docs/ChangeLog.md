@@ -17,7 +17,6 @@ title: ChangeLog
   - Traffic light type `delay_based` no longer generates overlapping detectors (which could cause invalid switching decisions). Issue #12615  
   - Waypoints with attribute 'triggered' now result in an error rather than undefined behavior. Issue #12665
   - Fixed collision on junction between two conflicting links with internal junction. Issue #12715
-  - Fixed invalid error about disconnected walk for person. Issue #12744
   - Fixed invalid error: "Disconnected walk for person". Issue #12744
   - vType attribute `lcTurnAlignmentDistance` now works for indirect left turns. Issue #8500
   - Fixed invalid duration value in summary-output. Issue #13006
@@ -82,7 +81,7 @@ title: ChangeLog
   - Fixed invalid edge ordering for strongly curved edge. Issue #12735
   - Relaxed right of way rules in the context of dedicated lanes. Issue #12720
   - Abstract projection is now resolved when loading .net.xml. Issue #12761
-  - Fixed tram connections when using option **----edges.join-tram-dist**. Issue #12767
+  - Fixed tram connections when using option **--edges.join-tram-dist**. Issue #12767
   - Fixed crash when merging networks. Issue #12824
 
 - netgenerate
@@ -126,12 +125,12 @@ title: ChangeLog
   - Public transport vehicles may now slow down by a configurable factor when they are ahead of their schedule. (using new vType attribute `speedFactorPremature`). This is based on optional stop attribute `arrival`.  If the new option **--use-stop-started** is set, this is instead based on the optional `started` attribute of the stop. Issue #11899
   - Simulating a Two-way-left-turn-lane is now supported. Issues #12924
   - Added option **--personinfo-output** to separate `<personinfo>` elements from `<tripinfo>` elements. Issue #12929
-  - vType attribute `startupDelay` is now apply to scheduled stops when using `carFolowModel="Rail"`. Issue #12943
+  - vType attribute `startupDelay` is now applied to scheduled stops when using `carFollowModel="Rail"`. Issue #12943
   - Statistics-output now includes performance metrics (i.e. clockTime). Issue #12946
   - The z value is now included in emission-output if the network has elevation data. Issue #13022
   - The time spent while passing a [waypoint](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#waypoints) is no longer counted as 'stoppedTime' in tripinfo-output. Issue #13037
   - Junction model [params](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#transient_parameters) `ignoreIDs` and `ignoreTypes` can now be used to ignore pedstrians. Issue #13057
-  - Vehicle attribute `depart` now understands the new value `begin` referring to the start of the simulation. Issue #12270
+  - Vehicle attribute `depart` now supports the new value `begin` referring to the start of the simulation. Issue #12270
 
 - netconvert
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575
@@ -180,8 +179,7 @@ title: ChangeLog
   - Added function `vehicle.getNextLinks` to retrieve all upcoming intersections. Issue #12551
   - Added functions `lane.setChangePermissions` and `lane.getChangePermissions` to dynamically modify 'changeLeft' and 'changeRight' attributes. Issue #12562
   - Simpla can now report platoon-based information and statistics. Issue #12124
-  - Added function `traci.executeMove` to only do vehicle movements and allow further interaction before writing the outputs at `simulationStep`. Issue #11091
-  - The new function `traci.executeMove` can now be used to execute traci commands after vehicle movements but before outputs are written. Issue #11091
+  - Added function `traci.executeMove` to only do vehicle movements and allow further interaction before writing the outputs at `simulationStep`. Issue #11091  
 
 - tools
   - gtfs2pt.py: multiple improvements to route matching. Issue #12834 (Thanks to Gladys McGan)
