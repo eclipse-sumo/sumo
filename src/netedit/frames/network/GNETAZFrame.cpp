@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/GNENet.h>
@@ -511,7 +512,7 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
             << TL("- Toggle Membership:") << "\n"
             << TL("  Create new Sources/Sinks") << "\n"
             << TL("  with given weights.");
-    myInformationLabel = new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    myInformationLabel = new MFXDynamicLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // always show
     show();
 }

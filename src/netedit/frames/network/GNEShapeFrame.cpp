@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIUserIO.h>
@@ -67,11 +68,11 @@ GNEShapeFrame::GEOPOICreator::GEOPOICreator(GNEShapeFrame* polygonFrameParent) :
     // create button for create GEO POIs
     myCreateGEOPOIButton = new FXButton(getCollapsableFrame(), TL("Create GEO POI (clipboard)"), nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // create information label
-    myLabelCartesianPosition = new FXLabel(getCollapsableFrame(),
-                                           (TL("Cartesian equivalence:") + std::string("\n") +
-                                            TL("- X = give valid longitude") + std::string("\n") +
-                                            TL("- Y = give valid latitude")).c_str(),
-                                           0, GUIDesignLabelFrameInformation);
+    myLabelCartesianPosition = new MFXDynamicLabel(getCollapsableFrame(),
+        (TL("Cartesian equivalence:") + std::string("\n") + 
+         TL("- X = give valid longitude") + std::string("\n") + 
+         TL("- Y = give valid latitude")).c_str(), 
+        0, GUIDesignLabelFrameInformation);
 }
 
 

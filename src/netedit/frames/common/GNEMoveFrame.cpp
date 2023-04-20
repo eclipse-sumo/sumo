@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -613,17 +614,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
 GNEMoveFrame::Information::Information(GNEMoveFrame* moveFrameParent) :
     MFXGroupBoxModule(moveFrameParent, TL("Information")) {
     // create info label
-    std::ostringstream information;
-    // add label for shift+click
-    information
-            << TL("-Click over edge to") << "\n"
-            << TL(" create or edit") << "\n"
-            << TL(" geometry point.") << "\n"
-            << TL("-Shift+click over edge") << "\n"
-            << TL(" to edit start or end") << "\n"
-            << TL(" geometry point.");
-    // create label
-    new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    new MFXDynamicLabel(getCollapsableFrame(), (TL("-Click over edge to create or edit geometry point.") + std::string("\n") + TL("-Shift+click over edge to edit start or end geometry point.")).c_str(), 0, GUIDesignLabelFrameInformation);
     // create source label
     FXLabel* sourceLabel = new FXLabel(getCollapsableFrame(), TL("-Move geometry point"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     sourceLabel->setBackColor(MFXUtils::getFXColor(RGBColor::ORANGE));

@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Connection.h>
@@ -306,26 +307,9 @@ GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*
 
 GNEConnectorFrame::ConnectionSelection::ConnectionSelection(GNEConnectorFrame* connectorFrameParent) :
     MFXGroupBoxModule(connectorFrameParent, TL("Selection")) {
-    // create Selection Hint
-    std::ostringstream informationA;
-    // add label for shift+click
-    informationA
-            << TL("-Hold <SHIFT> while") << "\n"
-            << TL(" clicking to create") << "\n"
-            << TL(" unyielding connections") << "\n"
-            << TL(" (pass=true).");
     // create label
-    new FXLabel(getCollapsableFrame(), informationA.str().c_str(), 0, GUIDesignLabelFrameInformation);
-    std::ostringstream informationB;
-    informationB
-            << TL("-Hold <CTRL> while") << "\n"
-            << TL(" clicking to create ") << "\n"
-            << TL(" conflicting connections") << "\n"
-            << TL(" (i.e. at zipper nodes") << "\n"
-            << TL(" or with incompatible") << "\n"
-            << TL(" permissions");
-    // create label
-    new FXLabel(getCollapsableFrame(), informationB.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    new MFXDynamicLabel(getCollapsableFrame(), TL("-Hold <SHIFT> while clicking to create unyielding connections (pass=true)."), 0, GUIDesignLabelFrameInformation);
+    new MFXDynamicLabel(getCollapsableFrame(), TL("-Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper nodes or with incompatible permissions"), 0, GUIDesignLabelFrameInformation);
 }
 
 

@@ -22,6 +22,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEAttributesCreator.h>
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNENeteditAttributes.h>
@@ -66,7 +67,7 @@ public:
         GNEStopFrame* myStopFrameParent;
 
         /// @brief Label with creation information
-        FXLabel* myInformationLabel;
+        MFXDynamicLabel* myInformationLabel;
     };
 
     /**@brief Constructor
