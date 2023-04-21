@@ -48,7 +48,7 @@ alternatives below.
  - ccache (to speed up builds)
  - ffmpeg-devel (for video output),
  - libOpenSceneGraph-devel (for the experimental 3D GUI),
- - gtest (for unit testing)
+ - gtest (for [unit testing](../Developer/Unit_Tests.md), do not use 1.13 or later)
  - gettext (for internationalization)
  - texttest, xvfb  and tkdiff (for the acceptance tests)
  - flake, astyle and autopep for style checking
