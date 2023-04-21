@@ -53,7 +53,7 @@ title: ChangeLog
   - Deleting geometry points that are in the same spot as a junction bubble now works. Issue #12964
   - Can now load TAZ with param and no shape. Issue #12678
   - Changing sumocfg options now always enables the "save sumocfg" button. Issue #12880
-  - Shift-click on geometry point doesn't can now be used to make it the custom end point. Issue #12716
+  - Shift-click on geometry point can now be used to make it the custom end point. Issue #12716
   - When activating sidewalks in the create edge frame, they now use the configured default sidewalk width. Issue #12449
   - Fixed crash when unjoining a joint traffic light. Issue #12610
   - Fixed "Invalid reference counter" error after recomputing with volatile options with data elements. Issue #13058
@@ -148,7 +148,7 @@ title: ChangeLog
 - netedit
   - Added menu entry for directly calling netgenerate and and instantly editing the generated network. Issue #2393
   - Added menu and dialogs for calling python tools without using the command line. Issue #4138
-  - When calling netdiff from a menu, the computed differences may be selectively imported for visualization (i.e. differently collored shapes for added, deleted and modified edges). Issue #2736
+  - When calling netdiff from tools menu, the computed differences may be selectively imported for visualization (i.e. differently collored shapes for added, deleted and modified edges). Issue #2736
   - All objects with a name attribute can now be located by name using the locate-dialog. Issue #12686
   - Inspect now allows inspecting individual objects that are part of a selection via ALT+LEFT_CLICK. Issue #12690
   - In data mode, overlapped data elements list is now sorted by interval begin. Issue #11330
