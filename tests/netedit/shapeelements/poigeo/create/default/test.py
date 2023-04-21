@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # create poi with default values
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

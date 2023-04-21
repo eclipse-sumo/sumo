@@ -35,29 +35,29 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # create poi
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.id, ";;;;;;")
 
 # try to create poi
-netedit.leftClick(referencePosition, 140, 50)
+netedit.leftClick(referencePosition, 337, 117)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.id, "poi_0")
 
 # try to create poi
-netedit.leftClick(referencePosition, 160, 50)
+netedit.leftClick(referencePosition, 383, 117)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.id, "customID")
 
 # create POI
-netedit.leftClick(referencePosition, 180, 50)
+netedit.leftClick(referencePosition, 428, 117)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
