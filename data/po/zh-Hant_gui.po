@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-21 12:55+0000\n"
+"PO-Revision-Date: 2023-04-21 21:14+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -2137,7 +2137,7 @@ msgstr "建立人員。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:688
 msgid "Person plan"
-msgstr "人員旅運計畫"
+msgstr "人員出行計畫"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:688
 msgid "Create person plans."
@@ -2154,7 +2154,7 @@ msgstr "建立貨櫃。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:694
 msgid "Container plan"
-msgstr "貨櫃計劃"
+msgstr "貨櫃運送計畫"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:694
 msgid "Create container plans."
