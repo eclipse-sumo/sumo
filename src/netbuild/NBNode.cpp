@@ -1336,9 +1336,7 @@ NBNode::computeLanes2Lanes() {
                 in->setConnection(i + inOffset - outOffset, out, i, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
             //std::cout << " special case f at node=" << getID() << " inOffset=" << inOffset << " outOffset=" << outOffset << "\n";
-            if (out->getSpecialLane(SVC_BICYCLE) >= 0 || (out->getPermissions() & SVC_TRAM) != 0) {
-                recheckVClassConnections(out);
-            }
+            recheckVClassConnections(out);
             return;
         }
     }
