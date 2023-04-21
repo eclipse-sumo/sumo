@@ -56,13 +56,13 @@ def get_options():
     ap = ArgumentParser()
     ap.add_option("-v", "--verbose", action="store_true", default=False,
                   help="tell me what you are doing")
-    ap.add_option("-n", "--net-file", dest="netfile", required=True,
+    ap.add_option("-n", "--net-file", dest="netfile", required=True, type=ap.net_file,
                   help="the network to read lane and edge permissions")
-    ap.add_option("-s", "--stop-file", dest="stopfile", required=True,
+    ap.add_option("-s", "--stop-file", dest="stopfile", required=True, type=ap.additional_file,
                   help="the additional file with stops")
-    ap.add_option("-a", "--region-file", dest="regionfile",
+    ap.add_option("-a", "--region-file", dest="regionfile", type=ap.additional_file,
                   help="Load network regions from additional file (as taz elements)")
-    ap.add_option("-o", "--output-prefix", dest="prefix", required=True,
+    ap.add_option("-o", "--output-prefix", dest="prefix", required=True, type=ap.file,
                   help="output prefix for patch files")
     ap.add_option("--split", action="store_true", default=False,
                   help="automatically create a region file from the loaded stops,"
