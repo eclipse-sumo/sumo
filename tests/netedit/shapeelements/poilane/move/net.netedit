@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-21 12:52:52 by Eclipse SUMO netedit Version v1_16_0+2274-6d890564c06
+<!-- generated on 2023-04-21 14:54:16 by Eclipse SUMO netedit Version v1_16_0+2282-d7a7c045baf
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr125152.20924\netedit.gui\shapeelements\poilane\move\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr125152.20924\netedit.gui\shapeelements\poilane\move\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr125152.20924\netedit.gui\shapeelements\poilane\move\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr125152.20924\netedit.gui\shapeelements\poilane\move\net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.21Apr145316.38211/netedit.gui/shapeelements/poilane/move/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.21Apr145316.38211/netedit.gui/shapeelements/poilane/move/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.21Apr145316.38211/netedit.gui/shapeelements/poilane/move/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Apr145316.38211/netedit.gui/shapeelements/poilane/move/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr125152.20924\netedit.gui\shapeelements\poilane\move\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Apr145316.38211/netedit.gui/shapeelements/poilane/move/net.net.xml"/>
     </output>
 
     <processing>
@@ -33,16 +33,16 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr125152.20924\netedit.gui\shapeelements\poilane\move\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Apr145316.38211/netedit.gui/shapeelements/poilane/move/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr125152.20924\netedit.gui\shapeelements\poilane\move\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.21Apr145316.38211/netedit.gui/shapeelements/poilane/move/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr125152.20924\netedit.gui\shapeelements\poilane\move\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.21Apr145316.38211/netedit.gui/shapeelements/poilane/move/log.txt"/>
     </report>
 
 </configuration>
@@ -62,7 +62,7 @@
         <lane id=":JC0_0_0" index="0" disallow="pedestrian" speed="13.89" length="15.80" shape="-26.60,7.90 -26.60,-7.90"/>
     </edge>
     <edge id=":JC0_1" function="internal">
-        <lane id=":JC0_1_0" index="0" disallow="pedestrian" speed="7.88" length="13.71" shape="-26.60,7.90 -26.41,2.34 -25.83,-1.62 -24.86,-4.01 -23.50,-4.80"/>
+        <lane id=":JC0_1_0" index="0" disallow="pedestrian" speed="7.88" length="13.71" shape="-26.60,7.90 -26.41,2.34 -25.83,-1.63 -24.86,-4.01 -23.50,-4.80"/>
         <lane id=":JC0_1_1" index="1" disallow="pedestrian" speed="7.02" length="10.69" shape="-26.60,7.90 -26.41,3.74 -25.83,0.78 -24.86,-1.01 -23.50,-1.60"/>
     </edge>
     <edge id=":JC0_3" function="internal">
@@ -82,7 +82,7 @@
     </edge>
     <edge id=":JC1_1" function="internal">
         <lane id=":JC1_1_0" index="0" disallow="pedestrian" speed="7.88" length="13.71" shape="26.60,-7.90 26.41,-2.34 25.83,1.63 24.86,4.01 23.50,4.80"/>
-        <lane id=":JC1_1_1" index="1" disallow="pedestrian" speed="7.02" length="10.69" shape="26.60,-7.90 26.41,-3.74 25.83,-0.77 24.86,1.01 23.50,1.60"/>
+        <lane id=":JC1_1_1" index="1" disallow="pedestrian" speed="7.02" length="10.69" shape="26.60,-7.90 26.41,-3.74 25.83,-0.78 24.86,1.01 23.50,1.60"/>
     </edge>
     <edge id=":JC1_3" function="internal">
         <lane id=":JC1_3_0" index="0" disallow="pedestrian" speed="7.88" length="1.05" shape="23.50,-4.80 24.41,-4.27"/>
@@ -91,7 +91,7 @@
         <lane id=":JC1_4_0" index="0" disallow="pedestrian" speed="3.65" length="0.54" shape="23.50,-1.60 23.95,-1.30"/>
     </edge>
     <edge id=":JC1_5" function="internal">
-        <lane id=":JC1_5_0" index="0" disallow="pedestrian" speed="7.88" length="12.66" shape="24.41,-4.27 24.86,-4.01 25.82,-1.62 26.41,2.34 26.60,7.90"/>
+        <lane id=":JC1_5_0" index="0" disallow="pedestrian" speed="7.88" length="12.66" shape="24.41,-4.27 24.86,-4.01 25.82,-1.63 26.41,2.34 26.60,7.90"/>
     </edge>
     <edge id=":JC1_6" function="internal">
         <lane id=":JC1_6_0" index="0" disallow="pedestrian" speed="3.65" length="4.14" shape="23.95,-1.30 24.70,-0.80 25.10,0.00 24.70,0.80 23.50,1.60"/>
@@ -122,9 +122,9 @@
     <edge id="bot" from="JB0" to="JB1" priority="-1">
         <lane id="bot_0" index="0" speed="13.89" length="42.00" shape="-21.00,-16.60 21.00,-16.60"/>
     </edge>
-    <edge id="center0" from="JC1" to="JC0" priority="1" shape="25.00,0.00 16.00,0.00 -25.00,0.00">
-        <lane id="center0_0" index="0" disallow="pedestrian" speed="13.89" length="47.00" shape="23.50,4.80 16.00,4.80 -23.50,4.80"/>
-        <lane id="center0_1" index="1" disallow="pedestrian" speed="13.89" length="47.00" shape="23.50,1.60 16.00,1.60 -23.50,1.60"/>
+    <edge id="center0" from="JC1" to="JC0" priority="1">
+        <lane id="center0_0" index="0" disallow="pedestrian" speed="13.89" length="47.00" shape="23.50,4.80 -23.50,4.80"/>
+        <lane id="center0_1" index="1" disallow="pedestrian" speed="13.89" length="47.00" shape="23.50,1.60 -23.50,1.60"/>
     </edge>
     <edge id="center1" from="JC0" to="JC1" priority="1">
         <lane id="center1_0" index="0" disallow="pedestrian" speed="13.89" length="47.00" shape="-23.50,-4.80 23.50,-4.80"/>
@@ -160,7 +160,7 @@
         <request index="3" response="00111" foes="00111" cont="1"/>
         <request index="4" response="00110" foes="00110" cont="1"/>
     </junction>
-    <junction id="JC1" type="traffic_light" x="25.00" y="0.00" incLanes="E4_0 E4_1 center1_0 center1_1" intLanes=":JC1_0_0 :JC1_1_0 :JC1_1_1 :JC1_5_0 :JC1_6_0" shape="25.00,7.90 30.20,7.90 30.20,-7.90 25.00,-7.90 24.83,-7.07 24.62,-6.78 24.33,-6.57 23.96,-6.44 23.50,-6.40 23.50,6.40 24.33,6.57 24.63,6.77 24.83,7.07 24.96,7.44">
+    <junction id="JC1" type="traffic_light" x="25.00" y="0.00" incLanes="E4_0 E4_1 center1_0 center1_1" intLanes=":JC1_0_0 :JC1_1_0 :JC1_1_1 :JC1_5_0 :JC1_6_0" shape="25.00,7.90 30.20,7.90 30.20,-7.90 25.00,-7.90 24.83,-7.07 24.62,-6.78 24.33,-6.57 23.96,-6.44 23.50,-6.40 23.50,6.40 24.33,6.57 24.62,6.77 24.83,7.07 24.96,7.44">
         <request index="0" response="01000" foes="01000" cont="0"/>
         <request index="1" response="00000" foes="11000" cont="0"/>
         <request index="2" response="00000" foes="11000" cont="0"/>
