@@ -32,16 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select first POI
-netedit.leftClick(referencePosition, 103, 57)
+netedit.leftClick(referencePosition, 451, 119)
 
 # select second POI
-netedit.leftClick(referencePosition, 153, 57)
+netedit.leftClick(referencePosition, 542, 119)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 103, 57)
+netedit.leftClick(referencePosition, 451, 119)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.POI.inspectSelection.parameters, False)

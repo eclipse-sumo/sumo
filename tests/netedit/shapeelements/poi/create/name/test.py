@@ -38,13 +38,13 @@ netedit.changeElement("poi")
 netedit.changeDefaultValue(netedit.attrs.POI.create.name, "%%%%;;;%%%")
 
 # try to create POI
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # change angle (valid, but > 360)
 netedit.changeDefaultValue(netedit.attrs.POI.create.name, "customName")
 
 # create POI
-netedit.leftClick(referencePosition, 150, 50)
+netedit.leftClick(referencePosition, 337, 117)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # create first POI
-netedit.leftClick(referencePosition, 108, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 108, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.POI.inspect.colorButton, 5, False)

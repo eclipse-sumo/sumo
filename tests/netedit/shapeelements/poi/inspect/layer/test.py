@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # create first POI
-netedit.leftClick(referencePosition, 108, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 108, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # Change parameter 6 with a non valid value
 netedit.modifyAttribute(netedit.attrs.POI.inspect.layer, "dummyLayer", False)
