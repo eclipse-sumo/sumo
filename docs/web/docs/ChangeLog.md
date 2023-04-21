@@ -26,6 +26,7 @@ title: ChangeLog
   - Persons during access stage are now counted as walking rather than riding. Issue #13019
   - Fixed bug where the simulation does not abort when the last active transportable is riding inside an inactive (triggered) vehicle. Issue #13017
   - Fixed invalid strategic lane computation when lanes on the same edge differ in length. Issue #13021
+  - Setting phase minDur=0 is now working for `actuated` and `delay_based` traffic lights. Issue #12952, #13089
   - Railway simulation:
     - Simulation now terminates even when a stop with `triggered="join"` fails. Issue #12668
     - Stop attribute `extension` now works for `triggered="join"`. Issue #12666
@@ -56,6 +57,7 @@ title: ChangeLog
   - When activating sidewalks in the create edge frame, they now use the configured default sidewalk width. Issue #12449
   - Fixed crash when unjoining a joint traffic light. Issue #12610
   - Fixed "Invalid reference counter" error after recomputing with volatile options with data elements. Issue #13058
+  - Netedit now gives a warning when changing user defined junction type 'rail_crossing' to priority. Issue #9273
 
 - sumo-gui
   - Fixed invalid carriageLength for tram. Issue #13011 (regression in 1.11.0)
@@ -168,6 +170,9 @@ title: ChangeLog
   - Edge context-menu function *select-reachable* now ignores lane direction when selecting vClass "pedestrian". Issue #12801
   - Polygons are moved to the lowest layer upon pressing 'ALT'. Issue #12134
 
+- meso
+  - When using option **--meso-lane-queue**, laneData can now be used for lane specific outputs (except trackVehicles=true) #12854
+
 - netgenerate
   - Added option **--spider.attach-length** to create outer extensions to the network. Issue #12928
 
@@ -229,6 +234,7 @@ title: ChangeLog
 - Netgenerate default parameters where changed to reduce the default network size for spider and random networks. Issue #12927
 - Added translation to Italian. Issue #13004
 - plot_net_dump.py: no longer supports setting a default color with option **-c**. Instead the long option **--default-color** must be used. The option **-c** is now used for loading of a tool configuration file instead. Issue #13068
+- Added [documentation page](Netedit/attribute_help.md) for all xml elements and their attribute. Issue #12658
 
 ## Version 1.16.0 (07.02.2023)
 
