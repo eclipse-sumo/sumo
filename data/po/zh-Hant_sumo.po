@@ -1624,7 +1624,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:220
 msgid "Save personinfo and containerinfo to separate FILE"
-msgstr ""
+msgstr "將人員資訊及貨櫃資訊存入單獨的檔案"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:224
 msgid "Save single vehicle route info into FILE"
@@ -2092,7 +2092,7 @@ msgstr "將改變停止直到給定的停止結束時間的時間"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:510
 msgid "Override stop arrival times with stop started times when given"
-msgstr ""
+msgstr "若有給定,用停靠站的開始時間覆蓋停靠站的抵達時間"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:514
 msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
@@ -3142,7 +3142,7 @@ msgstr "將誤差應用於感知距離的一般比例係數（誤差也與距離
 msgid ""
 "General scaling coefficient for applying the error to the vehicle's own "
 "speed when driving without a leader (error also scales with own speed)."
-msgstr ""
+msgstr "車輛在前方沒有車時,將誤差應用於其自身速度的一般比例係數（誤差也與自身速度成比例）。"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:78
 msgid ""
@@ -3639,7 +3639,7 @@ msgstr "調度演算法 '%' 未知"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:313
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
-msgstr ""
+msgstr "現有客戶  '%' 新預約的重新派送(re-dispatch)無效"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:346
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
@@ -7839,7 +7839,7 @@ msgstr " % 節點已載入。"
 
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:132
 msgid "   % types loaded."
-msgstr ""
+msgstr "  % 類型已載入。"
 
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:134
 #, c-format
@@ -9401,63 +9401,63 @@ msgstr "將位置配對到路口, 而不是路段"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:169
 msgid "Aggregate routing queries with the same origin"
-msgstr ""
+msgstr "彙總(aggregate)同一起點的路徑查詢"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:173
 msgid "The number of parallel execution threads used for routing"
-msgstr ""
+msgstr "用於選路的平行執行緒(threads)的數量"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:177
 msgid ""
 "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"
-msgstr ""
+msgstr "在路徑演算法 ['dijkstra', 'astar', 'CH', 'CHWrapper'] 中選擇"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:181
 msgid ""
 "Comma separated list of param keys to compare for additional restrictions"
-msgstr ""
+msgstr "以逗號分隔的參數鍵清單, 用於比較其他限制條件"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:186
 msgid "Interpolate edge weights at interval boundaries"
-msgstr ""
+msgstr "在區間邊界內插(interpolate)路段的權重值"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:190
 msgid "Expand the end of the last loaded weight interval to infinity"
-msgstr ""
+msgstr "將最後載入的權重區間(weight interval)的末尾擴展到無限大"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:194
 msgid ""
 "Apply the given time penalty when computing routing costs for minor-link "
 "internal lanes"
-msgstr ""
+msgstr "在計算次要路段內部車道的路徑成本時, 應用給定的時間懲罰"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:217
 msgid "Defaults will override given values"
-msgstr ""
+msgstr "預設值將覆蓋給定值"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:222
 msgid "Defines how often statistics shall be printed"
-msgstr ""
+msgstr "定義列印統計數據的頻率"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:233
 msgid "No output specified."
-msgstr ""
+msgstr "未指定輸出。"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:238
 msgid "A positive number of alternatives must be enabled."
-msgstr ""
+msgstr "必須啟用正的(positive)替代路徑數量。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:62
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:64
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:83
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:85
 msgid "Trying to set a weight for the unknown edge '%'."
-msgstr ""
+msgstr "嘗試為未知路段 '%' 設定權重。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:114
 #, c-format
 msgid "The network file '%' is not accessible."
-msgstr ""
+msgstr "路網檔案 '%' 不能存取。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:140
 #, c-format
@@ -9466,74 +9466,74 @@ msgstr "無法讀取附加檔案(additional file) '%'"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:217
 msgid "Routes found between time steps % and %."
-msgstr ""
+msgstr "在時間步長 % 和 % 之間找到的路徑。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:243
 msgid "The loader for % from file '%' could not be initialised (%)."
-msgstr ""
+msgstr "% 的載入器(位於檔案 '%' 中)無法進行初始化 (%)。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:281
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:158
 msgid "failed."
-msgstr ""
+msgstr "失敗。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:162
 #, c-format
 msgid "The edge '%' occurs at least twice."
-msgstr ""
+msgstr "路段 '%' 至少出現兩次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:176
 #, c-format
 msgid "The TAZ '%' occurs at least twice."
-msgstr ""
+msgstr "交通分區(TAZ) '%' 至少出現兩次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:199
 #, c-format
 msgid "The TAZ '%' is unknown."
-msgstr ""
+msgstr "交通分區(TAZ) '%' 未知。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:204
 #, c-format
 msgid "The edge '%' for TAZ '%' is unknown."
-msgstr ""
+msgstr "未知路段 '%' 位於交通分區(TAZ) '%'內。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:259
 #, c-format
 msgid "The bidi edge '%' is not known."
-msgstr ""
+msgstr "雙向路段(bidi edge) '%' 未知"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:270
 #, c-format
 msgid "The node '%' occurs at least twice."
-msgstr ""
+msgstr "節點 '%' 至少出現兩次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:279
 msgid "The % '%' occurs at least twice."
-msgstr ""
+msgstr " % '%' 至少出現兩次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:446
 #, c-format
 msgid "The vehicle type '%' occurs at least twice."
-msgstr ""
+msgstr "車輛類型 '%' 至少出現兩次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:498
 msgid "Requesting departure time for unknown vehicle '%'"
-msgstr ""
+msgstr "請求未知車輛 '%' 的出發時間"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:528
 #, c-format
 msgid "Another person with the id '%' exists."
-msgstr ""
+msgstr "另一個識別名(id)為 '%' 的人已存在。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:637
 msgid ""
 "Bulking different maximum speeds ('%' and '%') may lead to suboptimal routes."
-msgstr ""
+msgstr "批量處理不同的最大速度 ('%' 和 '%') 可能會導致次佳路徑。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:640
 msgid ""
 "Bulking different vehicle classes ('%' and '%') may lead to invalid routes."
-msgstr ""
+msgstr "批量處理不同的車輛類別 ('%' 和 '%') 可能會導致路徑無效。"
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:137
 msgid "Unknown node '%'."
