@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-03-24 14:44+0000\n"
+"PO-Revision-Date: 2023-04-21 12:55+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:292
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:295
@@ -5168,7 +5168,7 @@ msgstr "控制台輸出"
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:75
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:76
 msgid "Abort"
-msgstr "放棄"
+msgstr "中止"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:75
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:76
