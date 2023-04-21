@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-21 11:54+0000\n"
+"PO-Revision-Date: 2023-04-21 21:14+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -5591,7 +5591,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:570
 msgid "Computing traffic light logics"
-msgstr ""
+msgstr "正在计算交通信号逻辑"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:577
 msgid " % traffic light(s) %computed."
@@ -5619,27 +5619,28 @@ msgstr "正在检查路段坡度(grade)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:658
 msgid "Find accesses for pt rail stops"
-msgstr ""
+msgstr "寻找火车站停靠点的连通通道(accesses)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:681
 msgid ""
 "Network contains very large coordinates and will probably flicker in the "
 "GUI. Check for outlying nodes and make sure the network is shifted to the "
 "coordinate origin"
-msgstr ""
+msgstr "路网包含非常大的坐标，且可能会在 GUI "
+"中闪烁(flicker)。检查外围节点,並确保路网已移动到坐标原点"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:688
 msgid "Moving network to origin"
-msgstr ""
+msgstr "正在移动路网到坐标原点"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:299
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:321
 msgid "Invalid node id '%'."
-msgstr ""
+msgstr "无效的节点识别点(id) '%'。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:465
 msgid " Removing self-looping edge '%'"
-msgstr ""
+msgstr " 移除自我线圈(self-looping)路段 '%'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:744
 msgid "Could not compute indirect left turn shape at node '%'"
@@ -6327,11 +6328,11 @@ msgstr "从文件读取XML 交通信号的定义(XML-traffic light defs)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:81
 msgid "Read XML-type defs from FILE"
-msgstr ""
+msgstr "从文件中读取XML 类型的定义(XML-type defs)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:86
 msgid "Reads public transport stops from FILE"
-msgstr ""
+msgstr "从档案读取大众运输停靠点"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:88
 msgid "Reads public transport lines from FILE"
