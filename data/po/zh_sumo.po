@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-21 06:47+0000\n"
+"PO-Revision-Date: 2023-04-21 11:54+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -5325,11 +5325,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:288
 msgid "Cannot load GeoTIFF file."
-msgstr ""
+msgstr "无法载入 GeoTIFF 文件。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:303
 msgid "Could not parse geo information from %."
-msgstr ""
+msgstr "无法解析来自 % 的地理信息。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:312
 msgid "Unknown color band in %."
@@ -5381,11 +5381,11 @@ msgstr "在计算信号 '%' 期间。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedTLDef.cpp:514
 msgid "Could not set signal on connection (signal: %, group: %)"
-msgstr ""
+msgstr "无法设定连接线(connection)的交通信号 （交通信号: %, 群组: %）"
 
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedTLDef.cpp:612
 msgid "myNeedsContRelation was not propperly initialized\n"
-msgstr ""
+msgstr "myNeedsContRelation 未被正确初始化\n"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:94
 msgid "Removing self-loops"
@@ -5558,11 +5558,11 @@ msgstr "正在计算接近的(approached)车道"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:497
 msgid "Dividing of lanes on approached lanes"
-msgstr ""
+msgstr "在接近的(approached)车道上划分(divide)车道"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:503
 msgid "Guessing Network fringe"
-msgstr ""
+msgstr "正在猜测路网边缘"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:506
 #, c-format
