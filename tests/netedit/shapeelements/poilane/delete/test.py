@@ -45,7 +45,6 @@ netedit.leftClick(referencePosition, 360, 212)
 
 # delete first stacked loaded POILane (Second stacked must stay)
 netedit.leftClick(referencePosition, 499, 290)
-netedit.leftClick(referencePosition, 499, 290)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

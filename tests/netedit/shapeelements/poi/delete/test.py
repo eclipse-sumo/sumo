@@ -45,7 +45,6 @@ netedit.leftClick(referencePosition, 428, 115)
 
 # delete first stacked loaded POI (Second stacked must stay)
 netedit.leftClick(referencePosition, 541, 97)
-netedit.leftClick(referencePosition, 541, 97)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
