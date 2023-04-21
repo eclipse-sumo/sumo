@@ -41,7 +41,7 @@ netedit.changeDefaultValue(netedit.attrs.POILane.create.type, "<<poi_test>>")
 netedit.changeDefaultValue(netedit.attrs.POILane.create.type, "custom type")
 
 # create poi
-netedit.leftClick(referencePosition, 150, 210)
+netedit.leftClick(referencePosition, 338, 210)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

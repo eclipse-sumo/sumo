@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create POILane
-netedit.leftClick(referencePosition, 140, 210)
+netedit.leftClick(referencePosition, 336, 210)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POILane
-netedit.leftClick(referencePosition, 140, 210)
+netedit.leftClick(referencePosition, 336, 210)
 
 # Change parameter layer with a non valid value
 netedit.modifyAttribute(netedit.attrs.POILane.inspect.layer, "dummyLayer", True)

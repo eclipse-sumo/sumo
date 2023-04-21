@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create POILane
-netedit.leftClick(referencePosition, 140, 210)
+netedit.leftClick(referencePosition, 336, 210)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POILane
-netedit.leftClick(referencePosition, 140, 210)
+netedit.leftClick(referencePosition, 336, 210)
 
 # Change parameter lane with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.POILane.inspect.lane, "dummyLane", True)
@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.POILane.inspect.lane, "dummyLane", True)
 netedit.modifyAttribute(netedit.attrs.POILane.inspect.lane, "", True)
 
 # Change parameter lane with a valid value
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.lane, "gneE0_0", True)
+netedit.modifyAttribute(netedit.attrs.POILane.inspect.lane, "bot_0", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create POILane
-netedit.leftClick(referencePosition, 140, 210)
+netedit.leftClick(referencePosition, 336, 210)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POILane
-netedit.leftClick(referencePosition, 140, 210)
+netedit.leftClick(referencePosition, 336, 210)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.POILane.inspect.colorButton, 5, True)
