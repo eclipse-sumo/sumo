@@ -1165,16 +1165,16 @@ NBNode::computeLanes2Lanes() {
             // will be added later or not...
             return;
         }
-#ifdef DEBUG_CONNECTION_GUESSING
-        if (DEBUGCOND) {
-            std::cout << "l2l node=" << getID() << " specialCase a\n";
-        }
-#endif
         int inOffset, outOffset, addedLanes;
         getReduction(out, in, outOffset, inOffset, addedLanes);
         if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
                 && addedLanes > 0
                 && in->isConnectedTo(out)) {
+#ifdef DEBUG_CONNECTION_GUESSING
+            if (DEBUGCOND) {
+                std::cout << "l2l node=" << getID() << " specialCase a\n";
+            }
+#endif
             const int addedRight = addedLanesRight(out, addedLanes);
             const int addedLeft = addedLanes - addedRight;
             // "straight" connections
@@ -1319,17 +1319,17 @@ NBNode::computeLanes2Lanes() {
             // will be added later or not...
             return;
         }
-#ifdef DEBUG_CONNECTION_GUESSING
-        if (DEBUGCOND) {
-            std::cout << "l2l node=" << getID() << " specialCase f\n";
-        }
-#endif
         int inOffset, outOffset, reduction;
         getReduction(in, out, inOffset, outOffset, reduction);
         if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
                 && reduction >= 0
                 && in != out
                 && in->isConnectedTo(out)) {
+#ifdef DEBUG_CONNECTION_GUESSING
+            if (DEBUGCOND) {
+                std::cout << "l2l node=" << getID() << " specialCase f\n";
+            }
+#endif
             // in case of reduced lane number, let the rightmost lanse end
             inOffset += reduction;
             for (int i = outOffset; i < out->getNumLanes(); ++i) {
