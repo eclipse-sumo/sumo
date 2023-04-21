@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-20 08:30+0000\n"
-"Last-Translator: AaronWong <nunwang1953@gmail.com>\n"
+"PO-Revision-Date: 2023-04-21 06:47+0000\n"
+"Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
@@ -5284,23 +5284,23 @@ msgstr "选项 'default.junctions.radius' 小于选项 'junctions.small-radius'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:765
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
-msgstr ""
+msgstr "tls.layout 必须是 'opposites', 'incoming' 或 'alternateOneWay'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:770
 msgid "default.right-of-way must be one of '%'"
-msgstr ""
+msgstr "default.right-of-way 必须是 '%' 其中之一"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:774
 msgid "roundabouts.visibility-distance must be positive or -1"
-msgstr ""
+msgstr "roundabouts.visibility-distance 必须为正数或 -1"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:790
 msgid "Unknown value for default.spreadtype '%'."
-msgstr ""
+msgstr "default.spreadtype '%' 的值未知。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:88
 msgid "Cannot supply height since no height data was loaded"
-msgstr ""
+msgstr "无法提供高度, 因为未载入高度资料"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:136
 msgid "Could not get height data for coordinate %"
