@@ -1501,7 +1501,7 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
                                     }
                                 } else {
                                     // other modes (i.e. bus) can fix lane permissions NBPTLineCont::fixPermissions but do not wish to create parallel tram tracks here
-                                    bool mayUseSameDestination = unsatisfied == SVC_TRAM;
+                                    bool mayUseSameDestination = unsatisfied == SVC_TRAM || (unsatisfied & SVC_PASSENGER) != 0;
                                     incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED, mayUseSameDestination);
 #ifdef DEBUG_CONNECTION_GUESSING
                                     if (DEBUGCOND) {
