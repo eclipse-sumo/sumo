@@ -231,7 +231,7 @@ TOOLS = [
     "countEdgeUsage.py",
     # "createVehTypeDistribution.py",   NO CONFIG
     "edgesInDistricts.py",
-    "evacuateAreas.py",
+    #"evacuateAreas.py",                NOT_SUITABLE
     "extractTest.py",
     "fcdReplay.py",
     "findAllRoutes.py",
@@ -243,9 +243,9 @@ TOOLS = [
     "generateRailSignalConstraints.py",
     "generateRerouters.py",
     # "jtcrouter.py",                   NO CONFIG
-    "osmBuild.py",
+    # "osmBuild.py",                    NOT_SUITABLE
     "osmGet.py",
-    # "osmWebWizard.py",                BLACKLISTED
+    # "osmWebWizard.py",                NOT_WORKING_YET
     "plot_trajectories.py",
     # "ptlines2flows.py",               NO CONFIG
     "randomTrips.py",
