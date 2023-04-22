@@ -232,7 +232,7 @@ GUIDialog_Options::InputFilename::setOption() {
 
 
 GUIDialog_Options::GUIDialog_Options(GUIMainWindow* parent, OptionsCont* optionsContainer, const char* titleName, const bool runDialog) :
-    FXDialogBox(parent, titleName, GUIDesignDialogBox, 0, 0, parent->getWidth(), parent->getHeight()),
+    FXDialogBox(parent, titleName, GUIDesignDialogBoxResizable, 0, 0, parent->getWidth(), parent->getHeight()),
     myMainWindowParent(parent),
     myOptionsContainer(optionsContainer) {
     new FXStatusBar(this, GUIDesignStatusBar);
