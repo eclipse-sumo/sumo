@@ -231,7 +231,7 @@ TOOLS = [
     "countEdgeUsage.py",
     # "createVehTypeDistribution.py",   NO CONFIG
     "edgesInDistricts.py",
-    #"evacuateAreas.py",                NOT_SUITABLE
+    # "evacuateAreas.py",               NOT_SUITABLE
     "extractTest.py",
     "fcdReplay.py",
     "findAllRoutes.py",
