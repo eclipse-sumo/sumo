@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-11 20:57:30 by Eclipse SUMO sumo Version v1_15_0+0944-c751163
+<!-- generated on 2023-04-22 23:34:22 by Eclipse SUMO sumo Version v1_16_0+2295-8409a16
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -233,22 +233,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="NW" x="32.41" y="84.71" angle="191.82" type="bike" speed="4.70" pos="7.82" lane="gneE4.85_0" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="NE" x="35.41" y="92.03" angle="241.08" type="bike" speed="2.79" pos="0.54" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NE" x="35.41" y="92.03" angle="177.61" type="bike" speed="2.79" pos="0.54" lane="gneE4.85_0" slope="0.00"/>
         <vehicle id="NS" x="34.68" y="95.97" angle="179.24" type="bike" speed="1.04" pos="60.48" lane="gneE4.18_0" slope="0.00"/>
         <vehicle id="NW" x="32.32" y="84.24" angle="191.64" type="bike" speed="4.72" pos="8.29" lane="gneE4.85_0" slope="0.00"/>
     </timestep>
     <timestep time="5.10">
-        <vehicle id="NE" x="35.42" y="91.75" angle="241.37" type="bike" speed="2.87" pos="0.83" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NE" x="35.42" y="91.75" angle="177.90" type="bike" speed="2.87" pos="0.83" lane="gneE4.85_0" slope="0.00"/>
         <vehicle id="NS" x="34.69" y="95.85" angle="179.24" type="bike" speed="1.13" pos="60.60" lane="gneE4.18_0" slope="0.00"/>
         <vehicle id="NW" x="32.22" y="83.79" angle="191.74" type="bike" speed="4.42" pos="8.73" lane="gneE4.85_0" slope="0.00"/>
     </timestep>
     <timestep time="5.20">
-        <vehicle id="NE" x="35.42" y="91.45" angle="241.62" type="bike" speed="2.98" pos="1.12" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NE" x="35.42" y="91.45" angle="178.15" type="bike" speed="2.98" pos="1.12" lane="gneE4.85_0" slope="0.00"/>
         <vehicle id="NS" x="34.69" y="95.74" angle="179.24" type="bike" speed="1.19" pos="60.71" lane="gneE4.18_0" slope="0.00"/>
         <vehicle id="NW" x="32.13" y="83.38" angle="192.04" type="bike" speed="4.12" pos="9.15" lane="gneE4.85_0" slope="0.00"/>
     </timestep>
     <timestep time="5.30">
-        <vehicle id="NE" x="35.42" y="91.14" angle="241.83" type="bike" speed="3.08" pos="1.43" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NE" x="35.42" y="91.14" angle="178.36" type="bike" speed="3.08" pos="1.43" lane="gneE4.85_0" slope="0.00"/>
         <vehicle id="NS" x="34.69" y="95.61" angle="179.24" type="bike" speed="1.26" pos="60.84" lane="gneE4.18_0" slope="0.00"/>
         <vehicle id="NW" x="32.03" y="83.00" angle="192.50" type="bike" speed="3.82" pos="9.53" lane="gneE4.85_0" slope="0.00"/>
     </timestep>
