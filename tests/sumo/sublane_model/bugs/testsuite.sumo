@@ -97,3 +97,6 @@ ticket12581_speedy
 
 # unsafe changing on junction (different connection layout)
 ticket12581b
+
+# collision on junction
+ticket13101
