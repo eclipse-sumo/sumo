@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-21 09:03:07 by Eclipse SUMO netedit Version v1_16_0+2264-6d5ab3ff809
+<!-- generated on 2023-04-22 13:32:59 by Eclipse SUMO netedit Version v1_16_0+2291-742022843de
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr090134.2220\netedit.gui\netelements\junctions\create\one_way_sameposition\netedit.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_22Apr103726.168801/netedit.daily.net.junctions/netelements/junctions/create/one_way_sameposition/netedit.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr090134.2220\netedit.gui\netelements\junctions\create\one_way_sameposition\netedit.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_22Apr103726.168801/netedit.daily.net.junctions/netelements/junctions/create/one_way_sameposition/netedit.net.xml"/>
     </output>
 
     <processing>
@@ -24,16 +24,16 @@
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr090134.2220\netedit.gui\netelements\junctions\create\one_way_sameposition\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_22Apr103726.168801/netedit.daily.net.junctions/netelements/junctions/create/one_way_sameposition/gui-settings.xml"/>
         <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr090134.2220\netedit.gui\netelements\junctions\create\one_way_sameposition\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_22Apr103726.168801/netedit.daily.net.junctions/netelements/junctions/create/one_way_sameposition/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Apr090134.2220\netedit.gui\netelements\junctions\create\one_way_sameposition\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_22Apr103726.168801/netedit.daily.net.junctions/netelements/junctions/create/one_way_sameposition/log.txt"/>
     </report>
 
 </configuration>
@@ -41,13 +41,13 @@
 
 <net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-10.00,90.00,20.00,90.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="0.00,90.00,20.00,90.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" speed="13.89" length="30.00" shape="-10.00,88.40 20.00,88.40"/>
+        <lane id="E0_0" index="0" speed="13.89" length="20.00" shape="0.00,88.40 20.00,88.40"/>
     </edge>
 
-    <junction id="J0" type="dead_end" x="-10.00" y="90.00" incLanes="" intLanes="" shape="-10.00,90.00 -10.00,86.80"/>
+    <junction id="J0" type="dead_end" x="0.00" y="90.00" incLanes="" intLanes="" shape="0.00,90.00 0.00,86.80"/>
     <junction id="J1" type="dead_end" x="20.00" y="90.00" incLanes="E0_0" intLanes="" shape="20.00,86.80 20.00,90.00"/>
 
 </net>
