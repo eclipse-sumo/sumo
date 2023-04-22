@@ -20,7 +20,7 @@ Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment
 Warning: 17 total messages of type: Found sharp turn with radius % at the end of edge '%'.
 Warning: 29 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 3 total messages of type: Ignoring restriction relation '%' with unknown to-way.
-Warning: 3 total messages of type: Ignoring restriction relation '%'.
+Warning: 2 total messages of type: Ignoring restriction relation '%'.
 Warning: 2 total messages of type: Ignoring track count % for edge '%'.
 Warning: 1 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).
 Warning: 1 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
@@ -41,7 +41,6 @@ Warning: 5 total messages of type: The traffic light '%' cannot be adapted to a 
 Warning: 1 total messages of type: The traffic light '%' does not control any links; it will not be build.
 Warning: 7 total messages of type: The traffic light '%' has a high cycle time of %.
 Warning: 2 total messages of type: direction of restriction relation could not be determined%
-Warning: 1 total messages of type: to-edge '%' of restriction relation could not be determined
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 15 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 16 has no controlling detector.
@@ -56,9 +55,8 @@ Warning: No connection between edge '199847347#1' and edge '272795470#1' found.
 Warning: No route for vehicle '83_subway_U2:1' found.
 Warning: Teleporting vehicle '72_light_rail_S3:1'; collision with vehicle '48_light_rail_S7:0', lane='-25946685#1_0', gap=-1.00, time=25653.00 stage=move.
 Warning: Vehicle '72_light_rail_S3:1' ends teleporting on edge '-195397542', time=25653.00.
-Warning: Teleporting vehicle '30_tram_M2:0'; collision with vehicle '88_tram_M2:3', lane='1051100387#1_0', gap=-1.00, time=25666.00 stage=move.
-Warning: Vehicle '30_tram_M2:0' teleports beyond arrival edge '1051100387#1', time=25666.00.
-Warning: Vehicle '30_tram_M2:0' skips stop on lane '1051100387#1_0' time=25666.00.
+Warning: Teleporting vehicle '88_tram_M2:3'; frontal collision with vehicle '30_tram_M2:0', lane=':cluster_4565322435_4565322436_1_0', gap=-1.00, time=25667.00 stage=move.
+Warning: Vehicle '88_tram_M2:3' ends teleporting on edge '148457212#0', time=25673.00.
 Warning: Teleporting vehicle '83_subway_U2:1'; waited too long (wrong lane), lane='387106272_0', time=25949.00.
 Warning: Vehicle '83_subway_U2:1' ends teleporting on edge '387106272', time=25949.00.
 Warning: Teleporting vehicle '82_subway_U2:0'; waited too long (wrong lane), lane='200422335#0_0', time=25996.00.
@@ -66,9 +64,8 @@ Warning: Vehicle '82_subway_U2:0' ends teleporting on edge '200422335#0', time=2
 Warning: Teleporting vehicle '83_subway_U2:1'; waited too long (wrong lane), lane='387106272_0', time=26264.00.
 Warning: Vehicle '83_subway_U2:1' ends teleporting on edge '199847347#1', time=26264.00.
 Warning: Teleporting vehicle '82_subway_U2:0'; waited too long (wrong lane), lane='200422335#1_0', time=26481.00.
-Warning: Vehicle '82_subway_U2:0' ends teleporting on edge '200422335#1', time=26481.00.
 Warning: Teleporting vehicle '83_subway_U2:1'; waited too long (wrong lane), lane='199847347#1_0', time=26696.00.
 Warning: 24 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: 7 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
-Warning: 8 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
+Warning: 9 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
 Warning: No stops for flow '34_bus_200:1'

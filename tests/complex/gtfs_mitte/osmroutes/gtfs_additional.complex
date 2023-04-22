@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-03 14:11:07.426989 by gtfs2pt.py v1_16_0+1865-5e4833479ea
+<!-- generated on 2023-04-22 09:08:50.863399 by gtfs2pt.py v1_16_0+2289-15f2debf49d
   options: -n test/osm.net.xml.gz <doubleminus>gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2019.zip <doubleminus>date 20190713 <doubleminus>osm-routes test/osm_ptlines.xml
 -->
 
@@ -35,8 +35,8 @@
         <access friendlyPos="true" lane="1069997461#0_0" pos="0.00" length="14.44"/>
         <access friendlyPos="true" lane="1095407477#3_0" pos="5.03" length="18.03"/>
         <access friendlyPos="true" lane="225400588#0_0" pos="7.33" length="19.63"/>
-        <access friendlyPos="true" lane="1095407477#2_0" pos="28.81" length="25.09"/>
         <access friendlyPos="true" lane="465398530#3_0" pos="3.44" length="26.24"/>
+        <access friendlyPos="true" lane="1095407477#2_0" pos="28.81" length="25.09"/>
         <access friendlyPos="true" lane="1069997461#1_0" pos="0.00" length="28.58"/>
         <access friendlyPos="true" lane="1070124288_0" pos="7.86" length="33.78"/>
         <access friendlyPos="true" lane="461165665#0_0" pos="0.00" length="32.47"/>
@@ -49,8 +49,8 @@
         <access friendlyPos="true" lane="1069997461#0_0" pos="0.00" length="14.44"/>
         <access friendlyPos="true" lane="1095407477#3_0" pos="5.03" length="18.03"/>
         <access friendlyPos="true" lane="225400588#0_0" pos="7.33" length="19.63"/>
-        <access friendlyPos="true" lane="1095407477#2_0" pos="28.81" length="25.09"/>
         <access friendlyPos="true" lane="465398530#3_0" pos="3.44" length="26.24"/>
+        <access friendlyPos="true" lane="1095407477#2_0" pos="28.81" length="25.09"/>
         <access friendlyPos="true" lane="1069997461#1_0" pos="0.00" length="28.58"/>
         <access friendlyPos="true" lane="1070124288_0" pos="7.86" length="33.78"/>
         <access friendlyPos="true" lane="461165665#0_0" pos="0.00" length="32.47"/>
@@ -87,8 +87,8 @@
         <access friendlyPos="true" lane="-29311581#0_0" pos="33.83" length="103.01"/>
         <access friendlyPos="true" lane="29311581#0_0" pos="0.00" length="98.54"/>
         <access friendlyPos="true" lane="830728708#0_0" pos="0.00" length="101.78"/>
-        <access friendlyPos="true" lane="343965611_0" pos="4.42" length="95.21"/>
         <access friendlyPos="true" lane="343965615#0_0" pos="0.00" length="95.21"/>
+        <access friendlyPos="true" lane="343965611_0" pos="4.42" length="95.21"/>
         <access friendlyPos="true" lane="72985556#0_0" pos="0.00" length="95.88"/>
     </trainStop>
     <trainStop id="060100003724_0" lane="32590433#1_0" startPos="52.20" endPos="162.20" name="S+U Alexanderplatz Bhf (Berlin)" friendlyPos="true">
@@ -171,8 +171,8 @@
         <access friendlyPos="true" lane="-29311581#0_0" pos="33.83" length="103.01"/>
         <access friendlyPos="true" lane="29311581#0_0" pos="0.00" length="98.54"/>
         <access friendlyPos="true" lane="830728708#0_0" pos="0.00" length="101.78"/>
-        <access friendlyPos="true" lane="343965611_0" pos="4.42" length="95.21"/>
         <access friendlyPos="true" lane="343965615#0_0" pos="0.00" length="95.21"/>
+        <access friendlyPos="true" lane="343965611_0" pos="4.42" length="95.21"/>
         <access friendlyPos="true" lane="72985556#0_0" pos="0.00" length="95.88"/>
     </trainStop>
     <trainStop id="000008011306_0" lane="25946656#1_0" startPos="0.00" endPos="110.00" name="S+U Friedrichstr. Bhf (Berlin)" friendlyPos="true">
@@ -230,8 +230,8 @@
         <access friendlyPos="true" lane="1158551338_0" pos="5.17" length="28.16"/>
         <access friendlyPos="true" lane="915958599#2_0" pos="0.00" length="4.69"/>
         <access friendlyPos="true" lane="1037130999#1_0" pos="0.20" length="38.43"/>
-        <access friendlyPos="true" lane="1124928840#3_0" pos="0.00" length="8.64"/>
         <access friendlyPos="true" lane="915958599#1_0" pos="3.00" length="13.49"/>
+        <access friendlyPos="true" lane="1124928840#3_0" pos="0.00" length="8.64"/>
         <access friendlyPos="true" lane="194069450#0_0" pos="59.04" length="40.81"/>
         <access friendlyPos="true" lane="1158551341#0_0" pos="0.00" length="21.99"/>
         <access friendlyPos="true" lane="1158551341#1_0" pos="0.00" length="30.97"/>
@@ -284,14 +284,14 @@
         <access friendlyPos="true" lane="312392974#4_0" pos="0.24" length="62.87"/>
         <access friendlyPos="true" lane="1079045027#1_0" pos="48.92" length="62.54"/>
         <access friendlyPos="true" lane="1079045029#2_0" pos="7.51" length="63.49"/>
-        <access friendlyPos="true" lane="312392974#3_0" pos="42.51" length="70.90"/>
+        <access friendlyPos="true" lane="312392974#3_0" pos="42.51" length="70.89"/>
         <access friendlyPos="true" lane="312392973_0" pos="40.69" length="70.41"/>
         <access friendlyPos="true" lane="43239248_0" pos="2.03" length="78.35"/>
     </busStop>
     <busStop id="070101007309_0" lane="171826985#2_0" startPos="57.30" endPos="70.30" name="Berlin, Spandauer Str./Marienkirche" friendlyPos="true">
         <access friendlyPos="true" lane="375901784_0" pos="0.21" length="45.66"/>
         <access friendlyPos="true" lane="375901768#0_0" pos="0.20" length="42.90"/>
-        <access friendlyPos="true" lane="375901774#2_0" pos="0.00" length="43.95"/>
+        <access friendlyPos="true" lane="375901774#2_0" pos="0.00" length="43.91"/>
         <access friendlyPos="true" lane="171826987#5_0" pos="0.00" length="50.51"/>
         <access friendlyPos="true" lane="24913519#1_0" pos="0.00" length="37.06"/>
         <access friendlyPos="true" lane="72157174#1_0" pos="0.00" length="47.29"/>
@@ -300,7 +300,18 @@
         <access friendlyPos="true" lane="171826987#4_0" pos="0.00" length="43.25"/>
         <access friendlyPos="true" lane="375901768#2_0" pos="0.00" length="38.96"/>
     </busStop>
-    <busStop id="070101005243_0" lane="61584187#1_1" startPos="17.39" endPos="30.39" name="Berlin, Lustgarten" friendlyPos="true"/>
+    <busStop id="070101005243_0" lane="61584187#1_0" startPos="17.47" endPos="30.47" name="Berlin, Lustgarten" friendlyPos="true">
+        <access friendlyPos="true" lane="1126244314#1_0" pos="73.16" length="4.40"/>
+        <access friendlyPos="true" lane="4773023#0_0" pos="0.00" length="24.84"/>
+        <access friendlyPos="true" lane="4773024#0_0" pos="0.00" length="31.09"/>
+        <access friendlyPos="true" lane="1048127663#0_0" pos="0.00" length="30.97"/>
+        <access friendlyPos="true" lane="974193167#1_0" pos="38.39" length="29.08"/>
+        <access friendlyPos="true" lane="330840131#1_0" pos="0.00" length="49.36"/>
+        <access friendlyPos="true" lane="330840131#0_0" pos="0.20" length="52.56"/>
+        <access friendlyPos="true" lane="54048862#2_0" pos="0.00" length="53.37"/>
+        <access friendlyPos="true" lane="330840131#2_0" pos="0.00" length="52.60"/>
+        <access friendlyPos="true" lane="202157029#2_0" pos="6.26" length="51.00"/>
+    </busStop>
     <busStop id="070101007160_0" lane="169195795#0_1" startPos="0.00" endPos="13.00" name="Berlin, Staatsoper" friendlyPos="true">
         <access friendlyPos="true" lane="442389818#6_0" pos="14.01" length="18.44"/>
         <access friendlyPos="true" lane="1037130735#1_0" pos="93.50" length="24.54"/>
@@ -319,8 +330,8 @@
         <access friendlyPos="true" lane="1158551338_0" pos="5.17" length="28.16"/>
         <access friendlyPos="true" lane="915958599#2_0" pos="0.00" length="4.69"/>
         <access friendlyPos="true" lane="1037130999#1_0" pos="0.20" length="38.43"/>
-        <access friendlyPos="true" lane="1124928840#3_0" pos="0.00" length="8.64"/>
         <access friendlyPos="true" lane="915958599#1_0" pos="3.00" length="13.49"/>
+        <access friendlyPos="true" lane="1124928840#3_0" pos="0.00" length="8.64"/>
         <access friendlyPos="true" lane="194069450#0_0" pos="59.04" length="40.81"/>
         <access friendlyPos="true" lane="1158551341#0_0" pos="0.00" length="21.99"/>
         <access friendlyPos="true" lane="1158551341#1_0" pos="0.00" length="30.97"/>
@@ -436,8 +447,8 @@
     <busStop id="070101007373_0" lane="819027709_0" startPos="1.48" endPos="14.48" name="Berlin, Berliner Rathaus" friendlyPos="true">
         <access friendlyPos="true" lane="1133457765#0_0" pos="29.70" length="5.39"/>
         <access friendlyPos="true" lane="1133457741#3_0" pos="0.00" length="28.47"/>
-        <access friendlyPos="true" lane="1133457740#0_0" pos="0.00" length="35.00"/>
         <access friendlyPos="true" lane="1133457742#4_0" pos="1.07" length="36.30"/>
+        <access friendlyPos="true" lane="1133457740#0_0" pos="0.00" length="35.00"/>
         <access friendlyPos="true" lane="1133457742#3_0" pos="0.20" length="41.52"/>
         <access friendlyPos="true" lane="82654055_0" pos="67.20" length="47.24"/>
         <access friendlyPos="true" lane="1133457741#1_0" pos="0.20" length="49.16"/>
@@ -445,10 +456,10 @@
         <access friendlyPos="true" lane="313193879#1_0" pos="8.77" length="55.05"/>
         <access friendlyPos="true" lane="780334232#2_0" pos="36.08" length="55.26"/>
     </busStop>
-    <busStop id="070101007173_1" lane="284493291#0_1" startPos="16.85" endPos="29.85" name="Berlin, Spandauer Str./Marienkirche" friendlyPos="true">
+    <busStop id="070101007173_1" lane="284493291#0_1" startPos="50.82" endPos="63.82" name="Berlin, Spandauer Str./Marienkirche" friendlyPos="true">
         <access friendlyPos="true" lane="375901784_0" pos="0.21" length="45.66"/>
         <access friendlyPos="true" lane="375901768#0_0" pos="0.20" length="42.90"/>
-        <access friendlyPos="true" lane="375901774#2_0" pos="0.00" length="43.95"/>
+        <access friendlyPos="true" lane="375901774#2_0" pos="0.00" length="43.91"/>
         <access friendlyPos="true" lane="171826987#5_0" pos="0.00" length="50.51"/>
         <access friendlyPos="true" lane="24913519#1_0" pos="0.00" length="37.06"/>
         <access friendlyPos="true" lane="72157174#1_0" pos="0.00" length="47.29"/>
@@ -486,7 +497,7 @@
     <busStop id="070101007309_1" lane="606078072#1_1" startPos="0.00" endPos="13.00" name="Berlin, Spandauer Str./Marienkirche" friendlyPos="true">
         <access friendlyPos="true" lane="375901784_0" pos="0.21" length="45.66"/>
         <access friendlyPos="true" lane="375901768#0_0" pos="0.20" length="42.90"/>
-        <access friendlyPos="true" lane="375901774#2_0" pos="0.00" length="43.95"/>
+        <access friendlyPos="true" lane="375901774#2_0" pos="0.00" length="43.91"/>
         <access friendlyPos="true" lane="171826987#5_0" pos="0.00" length="50.51"/>
         <access friendlyPos="true" lane="24913519#1_0" pos="0.00" length="37.06"/>
         <access friendlyPos="true" lane="72157174#1_0" pos="0.00" length="47.29"/>
@@ -504,8 +515,8 @@
         <access friendlyPos="true" lane="82654055_0" pos="0.00" length="45.16"/>
         <access friendlyPos="true" lane="1120378080#2_0" pos="6.91" length="46.89"/>
         <access friendlyPos="true" lane="780334232#0_0" pos="37.25" length="48.47"/>
-        <access friendlyPos="true" lane="60333311#0_0" pos="0.00" length="61.20"/>
         <access friendlyPos="true" lane="23812656_0" pos="0.00" length="61.09"/>
+        <access friendlyPos="true" lane="60333311#0_0" pos="0.00" length="61.20"/>
     </busStop>
     <busStop id="070101005179_0" lane="753730627#1_1" startPos="0.00" endPos="13.00" name="Berlin, Fischerinsel" friendlyPos="true"/>
     <busStop id="070101005153_0" lane="120359703_2" startPos="25.12" endPos="38.12" name="U Spittelmarkt (Berlin)" friendlyPos="true"/>
@@ -544,9 +555,9 @@
         <access friendlyPos="true" lane="312138362#2_0" pos="11.72" length="12.23"/>
         <access friendlyPos="true" lane="-1113758935#1_0" pos="0.98" length="16.14"/>
         <access friendlyPos="true" lane="-1113758935#0_0" pos="0.00" length="19.82"/>
-        <access friendlyPos="true" lane="59332212_0" pos="69.41" length="22.90"/>
         <access friendlyPos="true" lane="312019436#1_0" pos="0.00" length="26.47"/>
         <access friendlyPos="true" lane="1113758935#1_0" pos="0.51" length="19.88"/>
+        <access friendlyPos="true" lane="59332212_0" pos="69.41" length="22.90"/>
         <access friendlyPos="true" lane="346206372#0_0" pos="0.00" length="21.70"/>
         <access friendlyPos="true" lane="315245296#0_0" pos="0.00" length="27.67"/>
         <access friendlyPos="true" lane="-315245296#0_0" pos="4.76" length="25.03"/>
@@ -555,8 +566,8 @@
     <busStop id="070101006418_0" lane="819027709_0" startPos="1.48" endPos="14.48" name="Berlin, Berliner Rathaus" friendlyPos="true">
         <access friendlyPos="true" lane="1133457765#0_0" pos="29.70" length="5.39"/>
         <access friendlyPos="true" lane="1133457741#3_0" pos="0.00" length="28.47"/>
-        <access friendlyPos="true" lane="1133457740#0_0" pos="0.00" length="35.00"/>
         <access friendlyPos="true" lane="1133457742#4_0" pos="1.07" length="36.30"/>
+        <access friendlyPos="true" lane="1133457740#0_0" pos="0.00" length="35.00"/>
         <access friendlyPos="true" lane="1133457742#3_0" pos="0.20" length="41.52"/>
         <access friendlyPos="true" lane="82654055_0" pos="67.20" length="47.24"/>
         <access friendlyPos="true" lane="1133457741#1_0" pos="0.20" length="49.16"/>
@@ -574,8 +585,8 @@
         <access friendlyPos="true" lane="312125717#2_0" pos="24.17" length="68.20"/>
         <access friendlyPos="true" lane="-1152640373_0" pos="34.73" length="65.17"/>
         <access friendlyPos="true" lane="558867476_0" pos="28.61" length="69.97"/>
+        <access friendlyPos="true" lane="312175526#1_0" pos="36.40" length="92.73"/>
         <access friendlyPos="true" lane="-45235049#1_0" pos="40.61" length="92.28"/>
-        <access friendlyPos="true" lane="45235049#1_0" pos="0.00" length="95.16"/>
     </busStop>
     <busStop id="070101005399_0" lane="82659290_1" startPos="15.07" endPos="28.07" name="S+U Alexanderpl./Grunerstr.(Bln) [Alexanderstr.]" friendlyPos="true">
         <access friendlyPos="true" lane="66311464#1_0" pos="33.10" length="1.46"/>
@@ -617,7 +628,7 @@
         <access friendlyPos="true" lane="388702041#4_0" pos="0.00" length="22.61"/>
         <access friendlyPos="true" lane="1070124293#3_0" pos="0.20" length="19.36"/>
         <access friendlyPos="true" lane="374734393#0_0" pos="0.00" length="23.63"/>
-        <access friendlyPos="true" lane="1070124293#2_0" pos="0.20" length="21.60"/>
+        <access friendlyPos="true" lane="388702039#8_0" pos="10.78" length="23.72"/>
     </trainStop>
     <trainStop id="070301009374_0" lane="93584120#5_0" startPos="0.00" endPos="55.76" name="S+U Friedrichstr. Bhf (Berlin)" friendlyPos="true">
         <access friendlyPos="true" lane="254523901#1_0" pos="19.03" length="8.14"/>
@@ -689,7 +700,7 @@
         <access friendlyPos="true" lane="388702041#4_0" pos="0.00" length="22.61"/>
         <access friendlyPos="true" lane="1070124293#3_0" pos="0.20" length="19.36"/>
         <access friendlyPos="true" lane="374734393#0_0" pos="0.00" length="23.63"/>
-        <access friendlyPos="true" lane="1070124293#2_0" pos="0.20" length="21.60"/>
+        <access friendlyPos="true" lane="388702039#8_0" pos="10.78" length="23.72"/>
     </trainStop>
     <trainStop id="070301009822_0" lane="169953964#4_0" startPos="140.56" endPos="200.56" name="U Naturkundemuseum (Berlin) [Chausseestr.]" friendlyPos="true"/>
     <trainStop id="070301009547_0" lane="144014230#3_0" startPos="0.00" endPos="60.00" name="Berlin, Am Kupfergraben" friendlyPos="true">
@@ -798,8 +809,8 @@
     </trainStop>
     <trainStop id="070301008801_0" lane="317013528#8_0" startPos="0.00" endPos="60.00" name="U Alexanderplatz (Berlin) [Tram]" friendlyPos="true">
         <access friendlyPos="true" lane="346206389#2_0" pos="46.02" length="27.32"/>
-        <access friendlyPos="true" lane="346206389#3_0" pos="0.00" length="36.12"/>
         <access friendlyPos="true" lane="687752788#2_0" pos="0.20" length="36.94"/>
+        <access friendlyPos="true" lane="346206389#3_0" pos="0.00" length="36.12"/>
         <access friendlyPos="true" lane="687752788#0_0" pos="0.35" length="50.53"/>
         <access friendlyPos="true" lane="346206356#0_0" pos="0.00" length="46.74"/>
         <access friendlyPos="true" lane="660510097_0" pos="25.78" length="46.77"/>
@@ -831,15 +842,15 @@
         <access friendlyPos="true" lane="272811798_0" pos="0.00" length="17.18"/>
         <access friendlyPos="true" lane="114133910#2_0" pos="4.02" length="25.99"/>
         <access friendlyPos="true" lane="272757350#0_0" pos="0.00" length="26.15"/>
-        <access friendlyPos="true" lane="304987178#1_0" pos="53.22" length="31.56"/>
         <access friendlyPos="true" lane="169195791#1_0" pos="4.51" length="33.24"/>
+        <access friendlyPos="true" lane="304987178#1_0" pos="53.22" length="31.56"/>
         <access friendlyPos="true" lane="272757319#0_0" pos="0.00" length="31.19"/>
         <access friendlyPos="true" lane="272757305_0" pos="11.93" length="32.90"/>
     </trainStop>
     <trainStop id="070301008803_0" lane="150394035#1_0" startPos="10.54" endPos="70.54" name="Berlin, Spandauer Str./Marienkirche" friendlyPos="true">
         <access friendlyPos="true" lane="375901784_0" pos="0.21" length="45.66"/>
         <access friendlyPos="true" lane="375901768#0_0" pos="0.20" length="42.90"/>
-        <access friendlyPos="true" lane="375901774#2_0" pos="0.00" length="43.95"/>
+        <access friendlyPos="true" lane="375901774#2_0" pos="0.00" length="43.91"/>
         <access friendlyPos="true" lane="171826987#5_0" pos="0.00" length="50.51"/>
         <access friendlyPos="true" lane="24913519#1_0" pos="0.00" length="37.06"/>
         <access friendlyPos="true" lane="72157174#1_0" pos="0.00" length="47.29"/>
@@ -875,7 +886,7 @@
     <trainStop id="070301008806_0" lane="167523653#1_0" startPos="0.00" endPos="60.00" name="Berlin, Spandauer Str./Marienkirche" friendlyPos="true">
         <access friendlyPos="true" lane="375901784_0" pos="0.21" length="45.66"/>
         <access friendlyPos="true" lane="375901768#0_0" pos="0.20" length="42.90"/>
-        <access friendlyPos="true" lane="375901774#2_0" pos="0.00" length="43.95"/>
+        <access friendlyPos="true" lane="375901774#2_0" pos="0.00" length="43.91"/>
         <access friendlyPos="true" lane="171826987#5_0" pos="0.00" length="50.51"/>
         <access friendlyPos="true" lane="24913519#1_0" pos="0.00" length="37.06"/>
         <access friendlyPos="true" lane="72157174#1_0" pos="0.00" length="47.29"/>
@@ -891,15 +902,15 @@
         <access friendlyPos="true" lane="272811798_0" pos="0.00" length="17.18"/>
         <access friendlyPos="true" lane="114133910#2_0" pos="4.02" length="25.99"/>
         <access friendlyPos="true" lane="272757350#0_0" pos="0.00" length="26.15"/>
-        <access friendlyPos="true" lane="304987178#1_0" pos="53.22" length="31.56"/>
         <access friendlyPos="true" lane="169195791#1_0" pos="4.51" length="33.24"/>
+        <access friendlyPos="true" lane="304987178#1_0" pos="53.22" length="31.56"/>
         <access friendlyPos="true" lane="272757319#0_0" pos="0.00" length="31.19"/>
         <access friendlyPos="true" lane="272757305_0" pos="11.93" length="32.90"/>
     </trainStop>
     <trainStop id="070301008808_0" lane="93628049#5_0" startPos="25.30" endPos="85.30" name="U Alexanderplatz (Berlin) [Tram]" friendlyPos="true">
         <access friendlyPos="true" lane="346206389#2_0" pos="46.02" length="27.32"/>
-        <access friendlyPos="true" lane="346206389#3_0" pos="0.00" length="36.12"/>
         <access friendlyPos="true" lane="687752788#2_0" pos="0.20" length="36.94"/>
+        <access friendlyPos="true" lane="346206389#3_0" pos="0.00" length="36.12"/>
         <access friendlyPos="true" lane="687752788#0_0" pos="0.35" length="50.53"/>
         <access friendlyPos="true" lane="346206356#0_0" pos="0.00" length="46.74"/>
         <access friendlyPos="true" lane="660510097_0" pos="25.78" length="46.77"/>
@@ -1132,28 +1143,28 @@
         <access friendlyPos="true" lane="-82658674#1_0" pos="0.00" length="12.92"/>
         <access friendlyPos="true" lane="82658674#2_0" pos="0.00" length="12.59"/>
         <access friendlyPos="true" lane="82658674#1_0" pos="22.03" length="14.54"/>
+        <access friendlyPos="true" lane="-4612970#0_0" pos="0.00" length="23.43"/>
         <access friendlyPos="true" lane="313323170#3_0" pos="21.50" length="22.72"/>
         <access friendlyPos="true" lane="4612970#0_0" pos="60.48" length="22.89"/>
-        <access friendlyPos="true" lane="-4612970#0_0" pos="0.00" length="23.43"/>
         <access friendlyPos="true" lane="1026139847#1_0" pos="136.39" length="15.23"/>
     </trainStop>
     <trainStop id="070201022801_0" lane="384294422#1_0" startPos="84.37" endPos="194.37" name="U Märkisches Museum (Berlin)" friendlyPos="true">
         <access friendlyPos="true" lane="216524084_0" pos="0.00" length="16.09"/>
-        <access friendlyPos="true" lane="4612414#1_0" pos="30.36" length="11.34"/>
+        <access friendlyPos="true" lane="4612414#1_0" pos="27.36" length="11.34"/>
         <access friendlyPos="true" lane="-216524084_0" pos="78.70" length="16.89"/>
         <access friendlyPos="true" lane="-4612414#1_0" pos="0.00" length="10.81"/>
         <access friendlyPos="true" lane="328426236_0" pos="0.00" length="11.50"/>
         <access friendlyPos="true" lane="-328426236_0" pos="27.38" length="11.01"/>
-        <access friendlyPos="true" lane="22954357#1_0" pos="0.00" length="21.63"/>
-        <access friendlyPos="true" lane="339201241#1_0" pos="0.00" length="17.22"/>
-        <access friendlyPos="true" lane="339201241#0_0" pos="0.22" length="13.67"/>
         <access friendlyPos="true" lane="328426258#0_0" pos="27.57" length="19.63"/>
+        <access friendlyPos="true" lane="22954357#1_0" pos="0.00" length="21.63"/>
+        <access friendlyPos="true" lane="339201241#0_0" pos="0.22" length="13.67"/>
+        <access friendlyPos="true" lane="339201241#1_0" pos="0.00" length="17.22"/>
     </trainStop>
     <trainStop id="070201022901_0" lane="391559412_0" startPos="0.00" endPos="110.00" name="U Spittelmarkt (Berlin)" friendlyPos="true">
         <access friendlyPos="true" lane="4773464#0_0" pos="1.94" length="29.59"/>
         <access friendlyPos="true" lane="120359703_0" pos="38.84" length="56.62"/>
-        <access friendlyPos="true" lane="-1127601410#1_0" pos="0.00" length="106.58"/>
-        <access friendlyPos="true" lane="1127601410#1_0" pos="26.53" length="99.80"/>
+        <access friendlyPos="true" lane="-1127601410#2_0" pos="0.00" length="106.58"/>
+        <access friendlyPos="true" lane="1127601410#2_0" pos="26.53" length="99.80"/>
         <access friendlyPos="true" lane="4773464#1_0" pos="0.00" length="89.13"/>
         <access friendlyPos="true" lane="541763976_0" pos="9.53" length="99.92"/>
         <access friendlyPos="true" lane="-312744262_0" pos="25.93" length="93.17"/>
@@ -1236,8 +1247,8 @@
     <trainStop id="070201022902_0" lane="199847347#1_0" startPos="814.33" endPos="924.33" name="U Spittelmarkt (Berlin)" friendlyPos="true">
         <access friendlyPos="true" lane="4773464#0_0" pos="1.94" length="29.59"/>
         <access friendlyPos="true" lane="120359703_0" pos="38.84" length="56.62"/>
-        <access friendlyPos="true" lane="-1127601410#1_0" pos="0.00" length="106.58"/>
-        <access friendlyPos="true" lane="1127601410#1_0" pos="26.53" length="99.80"/>
+        <access friendlyPos="true" lane="-1127601410#2_0" pos="0.00" length="106.58"/>
+        <access friendlyPos="true" lane="1127601410#2_0" pos="26.53" length="99.80"/>
         <access friendlyPos="true" lane="4773464#1_0" pos="0.00" length="89.13"/>
         <access friendlyPos="true" lane="541763976_0" pos="9.53" length="99.92"/>
         <access friendlyPos="true" lane="-312744262_0" pos="25.93" length="93.17"/>
@@ -1247,15 +1258,15 @@
     </trainStop>
     <trainStop id="070201022802_0" lane="387141734_0" startPos="151.39" endPos="261.39" name="U Märkisches Museum (Berlin)" friendlyPos="true">
         <access friendlyPos="true" lane="216524084_0" pos="0.00" length="16.09"/>
-        <access friendlyPos="true" lane="4612414#1_0" pos="30.36" length="11.34"/>
+        <access friendlyPos="true" lane="4612414#1_0" pos="27.36" length="11.34"/>
         <access friendlyPos="true" lane="-216524084_0" pos="78.70" length="16.89"/>
         <access friendlyPos="true" lane="-4612414#1_0" pos="0.00" length="10.81"/>
         <access friendlyPos="true" lane="328426236_0" pos="0.00" length="11.50"/>
         <access friendlyPos="true" lane="-328426236_0" pos="27.38" length="11.01"/>
-        <access friendlyPos="true" lane="22954357#1_0" pos="0.00" length="21.63"/>
-        <access friendlyPos="true" lane="339201241#1_0" pos="0.00" length="17.22"/>
-        <access friendlyPos="true" lane="339201241#0_0" pos="0.22" length="13.67"/>
         <access friendlyPos="true" lane="328426258#0_0" pos="27.57" length="19.63"/>
+        <access friendlyPos="true" lane="22954357#1_0" pos="0.00" length="21.63"/>
+        <access friendlyPos="true" lane="339201241#0_0" pos="0.22" length="13.67"/>
+        <access friendlyPos="true" lane="339201241#1_0" pos="0.00" length="17.22"/>
     </trainStop>
     <trainStop id="070201022702_0" lane="384294423#1_0" startPos="341.19" endPos="451.19" name="U Klosterstr. (Berlin)" friendlyPos="true">
         <access friendlyPos="true" lane="4612973#1_0" pos="40.95" length="6.85"/>
@@ -1264,9 +1275,9 @@
         <access friendlyPos="true" lane="-82658674#1_0" pos="0.00" length="12.92"/>
         <access friendlyPos="true" lane="82658674#2_0" pos="0.00" length="12.59"/>
         <access friendlyPos="true" lane="82658674#1_0" pos="22.03" length="14.54"/>
+        <access friendlyPos="true" lane="-4612970#0_0" pos="0.00" length="23.43"/>
         <access friendlyPos="true" lane="313323170#3_0" pos="21.50" length="22.72"/>
         <access friendlyPos="true" lane="4612970#0_0" pos="60.48" length="22.89"/>
-        <access friendlyPos="true" lane="-4612970#0_0" pos="0.00" length="23.43"/>
         <access friendlyPos="true" lane="1026139847#1_0" pos="136.39" length="15.23"/>
     </trainStop>
     <trainStop id="070201022602_0" lane="177195505#3_0" startPos="479.44" endPos="589.44" name="S+U Alexanderplatz (Berlin) [U2]" friendlyPos="true">
@@ -1460,8 +1471,8 @@
         <access friendlyPos="true" lane="-29311581#0_0" pos="33.83" length="103.01"/>
         <access friendlyPos="true" lane="29311581#0_0" pos="0.00" length="98.54"/>
         <access friendlyPos="true" lane="830728708#0_0" pos="0.00" length="101.78"/>
-        <access friendlyPos="true" lane="343965611_0" pos="4.42" length="95.21"/>
         <access friendlyPos="true" lane="343965615#0_0" pos="0.00" length="95.21"/>
+        <access friendlyPos="true" lane="343965611_0" pos="4.42" length="95.21"/>
         <access friendlyPos="true" lane="72985556#0_0" pos="0.00" length="95.88"/>
     </trainStop>
     <trainStop id="070201083801_0" lane="379102293#0_0" startPos="0.00" endPos="110.00" name="U Heinrich-Heine-Str. (Berlin)" friendlyPos="true">
@@ -1484,8 +1495,8 @@
         <access friendlyPos="true" lane="-29311581#0_0" pos="33.83" length="103.01"/>
         <access friendlyPos="true" lane="29311581#0_0" pos="0.00" length="98.54"/>
         <access friendlyPos="true" lane="830728708#0_0" pos="0.00" length="101.78"/>
-        <access friendlyPos="true" lane="343965611_0" pos="4.42" length="95.21"/>
         <access friendlyPos="true" lane="343965615#0_0" pos="0.00" length="95.21"/>
+        <access friendlyPos="true" lane="343965611_0" pos="4.42" length="95.21"/>
         <access friendlyPos="true" lane="72985556#0_0" pos="0.00" length="95.88"/>
     </trainStop>
     <trainStop id="070201083602_0" lane="379102293#0_0" startPos="1174.64" endPos="1284.64" name="S+U Alexanderplatz (Berlin) [U8]" friendlyPos="true">
