@@ -2275,16 +2275,17 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 }
 #endif
                 if (leftOL < 0 || outsideLeft) {
+                    MSLeaderInfo outsideLeaders(lane->getWidth(), this, 0.);
                     // if ego is driving outside lane bounds we must consider
                     // potential leaders that are also outside bounds
                     if (outsideLeft) {
-                        ahead.setSublaneOffset(-(int)ceil((rightOL - lane->getWidth()) / MSGlobals::gLateralResolution));
+                        outsideLeaders.setSublaneOffset(-(int)ceil((rightOL - lane->getWidth()) / MSGlobals::gLateralResolution));
                     } else {
-                        ahead.setSublaneOffset((int)ceil(-leftOL / MSGlobals::gLateralResolution));
+                        outsideLeaders.setSublaneOffset((int)ceil(-leftOL / MSGlobals::gLateralResolution));
                     }
 #ifdef DEBUG_PLAN_MOVE
                     if (DEBUG_COND) {
-                        std::cout << SIMTIME << " veh=" << getID() << " lane=" << lane->getID() << " sublaneOffset=" << ahead.getSublaneOffset() << " outsideLeft=" << outsideLeft << "\n";
+                        std::cout << SIMTIME << " veh=" << getID() << " lane=" << lane->getID() << " sublaneOffset=" << outsideLeaders.getSublaneOffset() << " outsideLeft=" << outsideLeft << "\n";
                     }
 #endif
                     int addedOutsideCands = 0;
@@ -2292,16 +2293,19 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         if ((lane != myLane || cand->getPositionOnLane() > getPositionOnLane())
                                 && ((!outsideLeft && cand->getLeftSideOnEdge() < 0)
                                     || (outsideLeft && cand->getLeftSideOnEdge() > lane->getEdge().getWidth()))) {
-                            ahead.addLeader(cand, true);
+                            outsideLeaders.addLeader(cand, true);
                             addedOutsideCands++;
 #ifdef DEBUG_PLAN_MOVE
                             if (DEBUG_COND) {
-                                std::cout << " outsideLeader=" << cand->getID() << " ahead=" << ahead.toString() << "\n";
+                                std::cout << " outsideLeader=" << cand->getID() << " ahead=" << outsideLeaders.toString() << "\n";
                             }
 #endif
                         }
                     }
                     lane->releaseVehicles();
+                    if (outsideLeaders.hasVehicles()) {
+                        adaptToLeaders(outsideLeaders, lateralShift, seen, lastLink, leaderLane, v, vLinkPass);
+                    }
                 }
             }
             adaptToLeaders(ahead, lateralShift, seen, lastLink, leaderLane, v, vLinkPass);
