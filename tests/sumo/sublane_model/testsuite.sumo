@@ -26,6 +26,9 @@ opposite_direction_driving
 # test latAlignment configuration
 latAlignment
 
+# bicycles merge from a wide road lane onto a narrow bike lane
+width_transition
+
 # test vehicles moving in opposite directions on the same edge
 bidiEdge
 
