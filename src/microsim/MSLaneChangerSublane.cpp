@@ -602,14 +602,15 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* vehic
     }
 #endif
     MSLeaderDistanceInfo result(target->lane->getWidth(), nullptr, 0);
+    int sublaneShift = 0;
     if (target->lane == vehicle->getLane()) {
         if (vehicle->getLeftSideOnLane() < -MSGlobals::gLateralResolution) {
-            result.setSublaneOffset(int(-vehicle->getLeftSideOnLane() / MSGlobals::gLateralResolution));
+            sublaneShift = int(-vehicle->getLeftSideOnLane() / MSGlobals::gLateralResolution);
         } else if (vehicle->getRightSideOnLane() > target->lane->getWidth() + MSGlobals::gLateralResolution) {
-            result.setSublaneOffset(-int((vehicle->getRightSideOnLane() - target->lane->getWidth()) / MSGlobals::gLateralResolution));
+            sublaneShift = -int((vehicle->getRightSideOnLane() - target->lane->getWidth()) / MSGlobals::gLateralResolution);
         }
+        result.setSublaneOffset(sublaneShift);
     }
-    const int sublaneShift = result.getSublaneOffset();
     for (int i = 0; i < target->ahead.numSublanes(); ++i) {
         const MSVehicle* veh = target->ahead[i];
         if (veh != nullptr) {
