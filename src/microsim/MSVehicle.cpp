@@ -84,7 +84,7 @@
 #include "MSLeaderInfo.h"
 #include "MSDriverState.h"
 
-//#define DEBUG_PLAN_MOVE
+#define DEBUG_PLAN_MOVE
 //#define DEBUG_PLAN_MOVE_LEADERINFO
 //#define DEBUG_CHECKREWINDLINKLANES
 //#define DEBUG_EXEC_MOVE
@@ -2226,7 +2226,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         const double vSlowDown = slowDownForSchedule(vMinComfortable);
         v = MIN2(v, vSlowDown);
     }
-
     while (true) {
         // check leader on lane
         //  leader is given for the first edge only
@@ -2266,29 +2265,44 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
             adaptToLeaderDistance(oppositeLeaders, 0, seen, lastLink, v, vLinkPass);
         } else {
-            if (MSGlobals::gLateralResolution > 0
-                    && (getLeftSideOnLane(lane) < 0 || getRightSideOnLane(lane) > lane->getWidth())) {
-                // if ego is driving outside lane bounds we must consider
-                // potential leaders that are also outside lane bounds
-                const bool outsideLeft = getLeftSideOnLane(lane) < 0;
-                if (outsideLeft) {
-                    ahead.setSublaneOffset((int)ceil(-getLeftSideOnLane(lane) / MSGlobals::gLateralResolution));
-                } else if (getRightSideOnLane(lane) > lane->getWidth()) {
-                    ahead.setSublaneOffset(-(int)ceil((getRightSideOnLane(lane) - getWidth()) / MSGlobals::gLateralResolution));
-                }
-                for (const MSVehicle* cand : lane->getVehiclesSecure()) {
-                    if ((lane != myLane || cand->getPositionOnLane() > getPositionOnLane())
-                            && ((outsideLeft && cand->getLeftSideOnLane() < 0)
-                                || (!outsideLeft && cand->getRightSideOnEdge() > lane->getWidth()))) {
-                        ahead.addLeader(cand, true);
+            if (MSGlobals::gLateralResolution > 0 && myLaneChangeModel->getShadowLane() == nullptr) {
+                const double rightOL = getRightSideOnLane(lane) + lateralShift;
+                const double leftOL = getLeftSideOnLane(lane) + lateralShift;
+                const bool outsideLeft = rightOL > lane->getWidth();
 #ifdef DEBUG_PLAN_MOVE
-                        if (DEBUG_COND) {
-                            std::cout << SIMTIME << " veh=" << getID() << " offset=" << ahead.getSublaneOffset() << " outsideLeft=" << outsideLeft << " outsideLeader=" << cand->getID() << "\n";
-                        }
-#endif
-                    }
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " veh=" << getID() << " lane=" << lane->getID() << " rightOL=" << rightOL << " leftOL=" << leftOL << "\n";
                 }
-                lane->releaseVehicles();
+#endif
+                if (leftOL < 0 || outsideLeft) {
+                    // if ego is driving outside lane bounds we must consider
+                    // potential leaders that are also outside bounds
+                    if (outsideLeft) {
+                        ahead.setSublaneOffset(-(int)ceil((rightOL - lane->getWidth()) / MSGlobals::gLateralResolution));
+                    } else {
+                        ahead.setSublaneOffset((int)ceil(-leftOL / MSGlobals::gLateralResolution));
+                    }
+#ifdef DEBUG_PLAN_MOVE
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " veh=" << getID() << " lane=" << lane->getID() << " sublaneOffset=" << ahead.getSublaneOffset() << " outsideLeft=" << outsideLeft << "\n";
+                    }
+#endif
+                    int addedOutsideCands = 0;
+                    for (const MSVehicle* cand : lane->getVehiclesSecure()) {
+                        if ((lane != myLane || cand->getPositionOnLane() > getPositionOnLane())
+                                && ((!outsideLeft && cand->getLeftSideOnEdge() < 0)
+                                    || (outsideLeft && cand->getLeftSideOnEdge() > lane->getEdge().getWidth()))) {
+                            ahead.addLeader(cand, true);
+                            addedOutsideCands++;
+#ifdef DEBUG_PLAN_MOVE
+                            if (DEBUG_COND) {
+                                std::cout << " outsideLeader=" << cand->getID() << " ahead=" << ahead.toString() << "\n";
+                            }
+#endif
+                        }
+                    }
+                    lane->releaseVehicles();
+                }
             }
             adaptToLeaders(ahead, lateralShift, seen, lastLink, leaderLane, v, vLinkPass);
         }
@@ -6409,6 +6423,12 @@ MSVehicle::getLeftSideOnLane(const MSLane* lane) const {
 double
 MSVehicle::getRightSideOnEdge(const MSLane* lane) const {
     return getCenterOnEdge(lane) - 0.5 * getVehicleType().getWidth();
+}
+
+
+double
+MSVehicle::getLeftSideOnEdge(const MSLane* lane) const {
+    return getCenterOnEdge(lane) + 0.5 * getVehicleType().getWidth();
 }
 
 

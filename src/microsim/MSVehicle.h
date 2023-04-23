@@ -461,6 +461,13 @@ public:
 
     /** @brief Get the vehicle's lateral position on the edge of the given lane
      * (or its current edge if lane == 0)
+     * @return The lateral position of the vehicle (in m distance between left
+     * side of vehicle and right side of edge
+     */
+    double getLeftSideOnEdge(const MSLane* lane = 0) const;
+
+    /** @brief Get the vehicle's lateral position on the edge of the given lane
+     * (or its current edge if lane == 0)
      * @return The lateral position of the vehicle (in m distance between right
      * side of vehicle and right side of edge
      */
