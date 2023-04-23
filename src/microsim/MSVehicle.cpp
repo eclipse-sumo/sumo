@@ -2096,12 +2096,17 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 
 bool
 MSVehicle::brakeForOverlap(const MSLink* link, const MSLane* lane) const {
+    // @review needed
+    //const double futurePosLat = getLateralPositionOnLane() + link->getLateralShift();
+    //const double overlap = getLateralOverlap(futurePosLat, link->getViaLaneOrLane());
+    //const double edgeWidth = link->getViaLaneOrLane()->getEdge().getWidth();
     const double futurePosLat = getLateralPositionOnLane() + (
             lane != myLane && lane->isInternal() ? lane->getIncomingLanes()[0].viaLink->getLateralShift() : 0);
     const double overlap = getLateralOverlap(futurePosLat, lane);
+    const double edgeWidth = lane->getEdge().getWidth();
     double result = (overlap > POSITION_EPS
             // do not get stuck on narrow edges
-            && getVehicleType().getWidth() <= lane->getEdge().getWidth()
+            && getVehicleType().getWidth() <= edgeWidth
             && link->getViaLane() == nullptr
             // this is the exit link of a junction. The normal edge should support the shadow
             && ((myLaneChangeModel->getShadowLane(link->getLane()) == nullptr)
