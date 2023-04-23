@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-21 21:14+0000\n"
+"PO-Revision-Date: 2023-04-23 17:58+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3566,7 +3566,7 @@ msgstr "调度算法'%'不详"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:313
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
-msgstr ""
+msgstr "现有客戶  '%' 新预约的重新派送(re-dispatch)无效"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:346
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
@@ -5304,16 +5304,16 @@ msgstr "无法提供高度, 因为未载入高度资料"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:136
 msgid "Could not get height data for coordinate %"
-msgstr ""
+msgstr "无法取得坐标% 的高度资料"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:190
 msgid "Could not open shape file '%'."
-msgstr ""
+msgstr "无法开启形狀(shape)文件 '%'。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:204
 msgid ""
 "Could not create geocoordinates converter; check whether proj.4 is installed."
-msgstr ""
+msgstr "无法建立地理坐标转换器； 检查是否已安裝 proj.4。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:231
 msgid "Ignored heightmap feature type %"
@@ -5571,23 +5571,23 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:511
 msgid "Processing turnarounds"
-msgstr ""
+msgstr "正在处理掉头(turnarounds)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:529
 msgid "Rechecking of lane endings"
-msgstr ""
+msgstr "重新检查车道末端"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:551
 msgid "Joining traffic light nodes"
-msgstr ""
+msgstr "正在合并交通信号节点"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:558
 msgid "Computing traffic light control information"
-msgstr ""
+msgstr "正在计算交通信号控制信息"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:565
 msgid "Computing node logics"
-msgstr ""
+msgstr "正在计算节点逻辑"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:570
 msgid "Computing traffic light logics"
@@ -6336,142 +6336,143 @@ msgstr "从档案读取大众运输停靠点"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:88
 msgid "Reads public transport lines from FILE"
-msgstr ""
+msgstr "从文件读取大众运输路线"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:90
 msgid "Reads polygons from FILE for embedding in network where applicable"
-msgstr ""
+msgstr "从文件中读取多边形,以在适用的情況下嵌入路网內"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:97
 msgid "Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'"
-msgstr ""
+msgstr "从以 'FILE' 为开头的文件中读取 shapefiles (ArcView, Tiger,...）"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:102
 msgid ""
 "Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE'"
-msgstr ""
+msgstr "从路径'FILE' 读取转换后的 Navteq GDF 数据（未分割的 Elmar 路网）"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:106
 msgid "Read OSM-network from path 'FILE(s)'"
-msgstr ""
+msgstr "从路径 'FILE(s)' 读取开放街图文件(OSM-network)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:110
 msgid "Read OpenDRIVE-network from FILE"
-msgstr ""
+msgstr "从文件中读取 OpenDRIVE 路网"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:114
 msgid "Read VISUM-net from FILE"
-msgstr ""
+msgstr "从文件中读取 VISUM 路网"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:118
 msgid "Read VISSIM-net from FILE"
-msgstr ""
+msgstr "从文件中读取 VISSIM 路网"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:123
 msgid "Read RoboCup-net from DIR"
-msgstr ""
+msgstr "从文件夹(DIR)中读取 RoboCup 路网"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:127
 msgid "Read MATsim-net from FILE"
-msgstr ""
+msgstr "从文件中读取 MATsim 路网"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:131
 msgid "Read ITSUMO-net from FILE"
-msgstr ""
+msgstr "从文件中读取 ITSUMO 路网"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:134
 msgid "Read heightmap from ArcGIS shapefile"
-msgstr ""
+msgstr "从ArcGIS shapefile 文档中读取高度映成表(heightmap)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:137
 msgid "Read heightmap from GeoTIFF"
-msgstr ""
+msgstr "从 GeoTIFF 文件中读取高度映成表(heightmap)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:145
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:159
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:199
 msgid "Continue on broken input"
-msgstr ""
+msgstr "在有损坏的输入的情況下,继续执行"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:148
 msgid "Continue on invalid connections"
-msgstr ""
+msgstr "在有无效连接线(connections)情況下,继续执行"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:151
 msgid "Show errors in connections at parsing"
-msgstr ""
+msgstr "在解析时,显示连接线（connections)的错误信息"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:154
 msgid "Continue on unknown edge types"
-msgstr ""
+msgstr "在有未知路段类型的情況下,继续执行"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:157
 msgid "vmax is parsed as given in km/h"
-msgstr ""
+msgstr "最大速度(vmax)以公里/小時(km/h)为单位进行解析"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:160
 msgid ""
 "Use YYYY-MM-DD date to determine the readiness of features under construction"
-msgstr ""
+msgstr "使用 YYYY-MM-DD 日期以确定正在建设的功能是否准备就绪"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:163
 msgid "Remove all z-data"
-msgstr ""
+msgstr "移除所有高度数据(z-data)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:166
 msgid "Remove the list of keys from all params"
-msgstr ""
+msgstr "从所有参数中刪除鍵清单(list of keys)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:169
 msgid ""
 "List vehicle classes that may ignore lane changing restrictions ('all' "
 "discards all restrictions)"
-msgstr ""
+msgstr "列出可能忽略变换车道限制的车辆类别 ('all' 废弃所有限制)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:174
 msgid "If edge shapes do not end at the node positions, extend them"
-msgstr ""
+msgstr "如果路段形狀不在节点位置结束，则延长它们"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:178
 msgid "Skips the check for duplicate nodes and edges"
-msgstr ""
+msgstr "跳过对重复节点和路段的检查"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:181
 msgid "Imports elevation data"
-msgstr ""
+msgstr "导入高程数据"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:184
 msgid ""
 "Reconstruct (relative) elevation based on layer data. Each layer is raised "
 "by FLOAT m"
-msgstr ""
+msgstr "根据图层数据重建（相对）高程。 每层以 FLOAT 米的高度提升"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:187
 #, c-format
 msgid ""
 "Maximum grade threshold in % at 50km/h when reconstrucing elevation based on "
 "layer data. The value is scaled according to road speed."
-msgstr ""
+msgstr "当基于图层数据重建高程时，在50 公里/小时的速度的最大坡度阈值 %。 "
+"该值根据道路速度进行缩放。"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:190
 msgid "Whether one-way roads should be spread to the side instead of centered"
-msgstr ""
+msgstr "单行道是否应该展开(spread)到一边,而不是居中"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:193
 msgid "Import lane-specific access restrictions"
-msgstr ""
+msgstr "导入特定于车道的进出限制"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:197
 msgid "Import bike lanes and fix directions and permissions on bike paths"
-msgstr ""
+msgstr "导入自行车道并确定自行车道的方向和权限(permissions)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:200
 msgid "Import sidewalks"
-msgstr ""
+msgstr "导入人行道"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:203
 msgid "Import crossings"
-msgstr ""
+msgstr "导入人行穿越道"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:206
 msgid "Import turning arrows from OSM to help with connection building"
@@ -6657,72 +6658,72 @@ msgstr "是否应忽略车道宽度。"
 msgid ""
 "The geometry resolution in m when importing curved geometries as line "
 "segments."
-msgstr ""
+msgstr "將曲线几何导入为线段时的几何解析度（以米为单位）。"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:356
 msgid ""
 "Allow stop lines to be built beyond the start of the junction if the "
 "geometries allow so"
-msgstr ""
+msgstr "如果几何形狀允许,允许在路口起点之外构建停止线"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:358
 msgid ""
 "The minimum lane width for determining start or end of variable-width lanes"
-msgstr ""
+msgstr "用来确定可变宽的车道起点或终点的最小车道宽度"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:360
 msgid "Import internal lane shapes"
-msgstr ""
+msgstr "导入內部车道形狀"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:362
 msgid "Sets edge-id based on road-id and offset in m (legacy)"
-msgstr ""
+msgstr "根据道路识别名(id)和以米为单位的偏移量设定路段识别名(id) （旧版）"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:364
 msgid "Use custom lane shapes to compensate discarded lane types"
-msgstr ""
+msgstr "使用自定车道形狀來补偿废除的车道类型"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:375
 msgid ""
 "Discard all railway signal information loaded from other formats than plain-"
 "xml"
-msgstr ""
+msgstr "废除所有从除了 plain-xml 以外的其他格式所载入的铁路信号信息"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:397
 msgid ""
 "Cannot import network data without PROJ-Library. Please install package proj "
 "before building sumo"
-msgstr ""
+msgstr "沒有 PROJ-Library 无法导入路网资料。请在构建 sumo 之前安裝 package proj"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:422
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:314
 msgid "Environment variable SUMO_HOME is not set, using built in type maps."
-msgstr ""
+msgstr "未设定环境变量 SUMO_HOME, 將使用內置类型映成表(maps)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:455
 msgid "It is recommend to use option osm.crossings with osm.sidewalks"
-msgstr ""
+msgstr "建议使用选项 osm.crossings 和 osm.sidewalks"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:138
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:139
 msgid "Could not open shape description '%'."
-msgstr ""
+msgstr "无法打开形狀描述 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:187
 msgid "Needed field '%' (street-id) is missing."
-msgstr ""
+msgstr "缺少所需字段(field) '%' (街道识别名(street-id))。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:198
 msgid "Needed field '%' (from node id) is missing."
-msgstr ""
+msgstr "缺少所需字段(field) '%' (起始节点识别名(from node id))。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:202
 msgid "Needed field '%' (to node id) is missing."
-msgstr ""
+msgstr "缺少所需字段(field) '%' (到达节点识别名(to node id))。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:218
 msgid "Unknown type '%' for edge '%'"
-msgstr ""
+msgstr "类型 '%' 未知 (路段为'%')"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:233
 #, c-format
@@ -6730,21 +6731,23 @@ msgid ""
 "Required field '%' or '%' is missing (add fields or set option --shapefile."
 "use-defaults-on-failure)."
 msgstr ""
+"缺少必填字段 '%' 或 '%' (增加字段(fields)或设定选项 --shapefile。use-"
+"defaults-on-failure)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:249
 msgid ""
 "Road geometry must be of type 'linestring' or 'linestring25D' (found '%')"
-msgstr ""
+msgstr "道路几何必须是 'linestring' 或 'linestring25D' 类型 (找到 '%')"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:261
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:90
 msgid "No coordinate system found and coordinates look already projected."
-msgstr ""
+msgstr "未找到坐标系統，坐标看起來已经投影。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:264
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:93
 msgid "Could not find geo coordinate system, assuming WGS84."
-msgstr ""
+msgstr "无法找到地理坐标系统,假设为 WGS84。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:277
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1488
@@ -6752,13 +6755,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimAbstractEdge.cpp:44
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderVisum.cpp:171
 msgid "Unable to project coordinates for edge '%'."
-msgstr ""
+msgstr "无法投影路段 '%' 的坐标。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:290
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:304
 #, c-format
 msgid "Node '%' could not be added"
-msgstr ""
+msgstr "无法增加节点 '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:312
 #, c-format
