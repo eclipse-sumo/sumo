@@ -658,6 +658,7 @@ MSLaneChangerSublane::checkChangeSublane(
     MSLeaderDistanceInfo neighFollowers = target->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
     MSLeaderDistanceInfo neighBlockers(neighLane.getWidth(), vehicle, vehicle->getLane()->getRightSideOnEdge() - neighLane.getRightSideOnEdge());
     MSLeaderDistanceInfo leaders = myCandi->aheadNext;
+    addOutsideLeaders(vehicle, leaders);
     MSLeaderDistanceInfo followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
     MSLeaderDistanceInfo blockers(vehicle->getLane()->getWidth(), vehicle, 0);
 
@@ -867,6 +868,56 @@ MSLaneChangerSublane::findClosestLeader(const MSLeaderDistanceInfo& leaders, con
         }
     }
     return leader;
+}
+
+
+void
+MSLaneChangerSublane::addOutsideLeaders(const MSVehicle* vehicle, MSLeaderDistanceInfo& leaders) const {
+    if (vehicle->getLaneChangeModel().getShadowLane() == nullptr) {
+        const MSLane* lane = vehicle->getLane();
+        const double rightOL = vehicle->getRightSideOnLane(lane);
+        const double leftOL = vehicle->getLeftSideOnLane(lane);
+        const bool outsideLeft = rightOL > lane->getWidth();
+#ifdef DEBUG_SURROUNDING
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " addOutsideLeaders veh=" << vehicle->getID() << " lane=" << lane->getID() << " rightOL=" << rightOL << " leftOL=" << leftOL << "\n";
+        }
+#endif
+        if (leftOL < 0 || outsideLeft) {
+            int sublaneOffset = 0;
+            if (outsideLeft) {
+                sublaneOffset = MIN2(0, -(int)ceil((leftOL - lane->getWidth()) / MSGlobals::gLateralResolution) + 1);
+            } else {
+                sublaneOffset = MAX2(0, (int)ceil(-rightOL / MSGlobals::gLateralResolution) - 1);
+            }
+            if (sublaneOffset != 0) {
+                leaders.setSublaneOffset(sublaneOffset);
+#ifdef DEBUG_SURROUNDING
+                if (DEBUG_COND) {
+                    std::cout << "   sublaneOffset=" << sublaneOffset << " outsideLeft=" << outsideLeft << "\n";
+                }
+#endif
+                for (const MSVehicle* cand : lane->myTmpVehicles) {
+#ifdef DEBUG_SURROUNDING
+                    if (DEBUG_COND) {
+                        std::cout << " cand=" << cand->getID() << " cLOE=" << cand->getLeftSideOnEdge() << " cROE=" << cand->getRightSideOnEdge() << "\n";
+                    }
+#endif
+                    if (cand->getPositionOnLane() > vehicle->getPositionOnLane()
+                            && ((!outsideLeft && cand->getLeftSideOnEdge() < 0)
+                                || (outsideLeft && cand->getLeftSideOnEdge() > lane->getEdge().getWidth()))) {
+                        const double gap = cand->getPositionOnLane() - vehicle->getPositionOnLane() - cand->getLength() - vehicle->getVehicleType().getMinGap();
+                        leaders.addLeader(cand, gap);
+#ifdef DEBUG_SURROUNDING
+                        if (DEBUG_COND) {
+                            std::cout << "   outsideLeader=" << cand->getID() << " ahead=" << leaders.toString() << "\n";
+                        }
+#endif
+                    }
+                }
+            }
+        }
+    }
 }
 
 /****************************************************************************/

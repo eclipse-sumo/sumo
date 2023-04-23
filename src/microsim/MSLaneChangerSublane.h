@@ -112,6 +112,8 @@ protected:
     /// @brief optional output for end of lane-change maneuvre
     void outputLCEnded(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction);
 
+    void addOutsideLeaders(const MSVehicle* vehicle, MSLeaderDistanceInfo& leaders) const;
+
     /// @brief whether checkChangeOpposite was called for the current vehicle
     bool myCheckedChangeOpposite;
 

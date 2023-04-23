@@ -2467,7 +2467,7 @@ MSLCM_SL2015::checkBlockingVehicles(
 #endif
             if (overlapAny) {
                 if (vehDist.second < 0) {
-                    if (overlapBefore && !overlapDest) {
+                    if (overlapBefore && !overlapDest && !outsideEdge()) {
 #ifdef DEBUG_BLOCKING
                         if (gDebugFlag2) {
                             std::cout << "    ignoring current overlap to come clear\n";
@@ -2594,7 +2594,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
                           << "\n";
             }
 #endif
-            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0
+            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && !outsideEdge() && (vehDist.second >= 0
                     // avoid deadlock due to #3729
                     || (!leaders
                         && myVehicle.getPositionOnLane() >= myVehicle.getVehicleType().getLength()
@@ -4001,4 +4001,9 @@ MSLCM_SL2015::saveBlockerLength(double length, double foeLeftSpace) {
     }
 }
 
+
+bool
+MSLCM_SL2015::outsideEdge() const {
+    return myVehicle.getLeftSideOnEdge() < 0 || myVehicle.getRightSideOnEdge() > myVehicle.getLane()->getEdge().getWidth();
+}
 /****************************************************************************/

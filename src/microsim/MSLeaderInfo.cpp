@@ -262,6 +262,10 @@ MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, double gap, double latOffs
     }
     int rightmost, leftmost;
     getSubLanes(veh, latOffset, rightmost, leftmost);
+    //if (gDebugFlag1) std::cout << " addLeader veh=" << veh->getID() << " gap=" << gap << " latOffset=" << latOffset << " sublaneOffset=" << myOffset
+    //    << " rightmost=" << rightmost << " leftmost=" << leftmost
+    //    << " eRM=" << egoRightMost << " eLM=" << egoLeftMost
+    //        << " myFreeSublanes=" << myFreeSublanes << "\n";
     for (int sublaneIdx = rightmost; sublaneIdx <= leftmost; ++sublaneIdx) {
         if ((egoRightMost < 0 || (egoRightMost <= sublaneIdx && sublaneIdx <= egoLeftMost))
                 && gap < myDistances[sublaneIdx]) {
