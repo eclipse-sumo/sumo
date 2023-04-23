@@ -2280,9 +2280,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     // potential leaders that are also outside bounds
                     int sublaneOffset = 0;
                     if (outsideLeft) {
-                        sublaneOffset = MIN2(-1, -(int)ceil((rightOL - lane->getWidth()) / MSGlobals::gLateralResolution));
+                        sublaneOffset = MIN2(-1, -(int)ceil((leftOL - lane->getWidth()) / MSGlobals::gLateralResolution));
                     } else {
-                        sublaneOffset = MAX2(1, (int)ceil(-leftOL / MSGlobals::gLateralResolution));
+                        sublaneOffset = MAX2(1, (int)ceil(-rightOL / MSGlobals::gLateralResolution));
                     }
                     outsideLeaders.setSublaneOffset(sublaneOffset);
 #ifdef DEBUG_PLAN_MOVE
