@@ -2096,13 +2096,13 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 
 bool
 MSVehicle::brakeForOverlap(const MSLink* link, const MSLane* lane) const {
-    return (link->getViaLane() == nullptr
-            && getLateralOverlap(getLateralPositionOnLane()
-                // account for future shift
-                + (lane != myLane && lane->isInternal() ? lane->getIncomingLanes()[0].viaLink->getLateralShift() : 0),
-                lane) > POSITION_EPS
+    const double futurePosLat = getLateralPositionOnLane() + (
+            lane != myLane && lane->isInternal() ? lane->getIncomingLanes()[0].viaLink->getLateralShift() : 0);
+    const double overlap = getLateralOverlap(futurePosLat, lane);
+    double result = (overlap > POSITION_EPS
             // do not get stuck on narrow edges
             && getVehicleType().getWidth() <= lane->getEdge().getWidth()
+            && link->getViaLane() == nullptr
             // this is the exit link of a junction. The normal edge should support the shadow
             && ((myLaneChangeModel->getShadowLane(link->getLane()) == nullptr)
                 // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
@@ -2111,6 +2111,15 @@ MSVehicle::brakeForOverlap(const MSLink* link, const MSLane* lane) const {
             && (myLaneChangeModel->getShadowLane() == nullptr
                 || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
                 || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != link->getLane()));
+
+#ifdef DEBUG_PLAN_MOVE
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << getID() << " link=" << link->getDescription() << " lane=" << lane->getID()
+            << " shift=" << link->getLateralShift()
+            << " fpLat=" << futurePosLat << " overlap=" << overlap << " w=" << getVehicleType().getWidth() << " result=" << result << "\n";
+    }
+#endif
+    return result;
 }
 
 
