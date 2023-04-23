@@ -1,6 +1,13 @@
 Warning: Unused states in tlLogic 'C', program '0' in phase 0 after tl-index 19
-Warning: Vehicle 'f_0.112'; junction collision with vehicle 'f_0.113', lane=':C_3_0', gap=-0.60', latGap=-0.25, time=324.00 stage=move.
-Warning: Vehicle 'f_0.130'; junction collision with vehicle 'f_0.123', lane=':C_3_1', gap=-0.62', latGap=-0.45, time=325.00 stage=move.
-Warning: Vehicle 'f_0.160'; collision with vehicle 'f_0.152', lane='CE_1', gap=-0.24', latGap=-0.32, time=421.00 stage=move.
-Warning: Vehicle 'f_0.152'; collision with vehicle 'f_0.160', lane='CE_1', gap=-0.90', latGap=-0.32, time=422.00 stage=move.
-Warning: Vehicle 'f_0.212'; collision with vehicle 'f_0.213', lane='CE_0', gap=-0.04', latGap=-0.25, time=517.00 stage=move.
+Warning: Vehicle 'f_0.94'; junction collision with vehicle 'f_0.91', lane=':C_3_0', gap=-0.67', latGap=-0.05, time=243.00 stage=move.
+Warning: Vehicle 'f_0.91'; collision with vehicle 'f_0.94', lane='CE_0', gap=-2.03', latGap=-0.05, time=245.00 stage=move.
+Warning: Vehicle 'f_0.94'; collision with vehicle 'f_0.91', lane='CE_0', gap=-0.45', latGap=-0.05, time=246.00 stage=move.
+Warning: Vehicle 'f_0.121'; collision with vehicle 'f_0.114', lane='CE_0', gap=-1.11', latGap=-0.60, time=341.00 stage=move.
+Warning: Vehicle 'f_0.141'; collision with vehicle 'f_0.140', lane='CE_0', gap=-0.68', latGap=-0.05, time=345.00 stage=move.
+Warning: Vehicle 'f_0.140'; collision with vehicle 'f_0.141', lane='CE_0', gap=-1.74', latGap=-0.05, time=350.00 stage=move.
+Warning: Vehicle 'f_0.141'; collision with vehicle 'f_0.140', lane='CE_0', gap=-2.08', latGap=-0.05, time=361.00 stage=move.
+Warning: Vehicle 'f_0.140'; collision with vehicle 'f_0.141', lane='CE_0', gap=-2.03', latGap=-0.05, time=362.00 stage=move.
+Warning: Vehicle 'f_0.141'; collision with vehicle 'f_0.140', lane='CE_0', gap=-0.73', latGap=-0.05, time=363.00 stage=move.
+Warning: Vehicle 'f_0.206'; junction collision with vehicle 'f_0.215', lane=':C_3_1', gap=-0.87', latGap=-0.52, time=505.00 stage=move.
+Warning: Vehicle 'f_0.221'; junction collision with vehicle 'f_0.206', lane=':C_3_1', gap=-1.25', latGap=-0.30, time=506.00 stage=move.
+Warning: Vehicle 'f_0.202'; collision with vehicle 'f_0.195', lane='CE_1', gap=-0.50', latGap=-0.05, time=514.00 stage=move.
