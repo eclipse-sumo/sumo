@@ -2275,7 +2275,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 }
 #endif
                 if (rightOL < 0 || outsideLeft) {
-                    MSLeaderInfo outsideLeaders(lane->getWidth(), this, 0.);
+                    MSLeaderInfo outsideLeaders(lane->getWidth());
                     // if ego is driving outside lane bounds we must consider
                     // potential leaders that are also outside bounds
                     int sublaneOffset = 0;
