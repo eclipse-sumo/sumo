@@ -1,2 +1,5 @@
 # parallel lane to the bike lane permits bicycles
 neighbor_allowed
+
+# parallel lane to the bike lane disallows traffic
+neighbor_forbidden
