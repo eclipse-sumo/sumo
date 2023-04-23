@@ -2268,24 +2268,26 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             if (MSGlobals::gLateralResolution > 0 && myLaneChangeModel->getShadowLane() == nullptr) {
                 const double rightOL = getRightSideOnLane(lane) + lateralShift;
                 const double leftOL = getLeftSideOnLane(lane) + lateralShift;
-                const bool outsideLeft = rightOL > lane->getWidth();
+                const bool outsideLeft = leftOL > lane->getWidth();
 #ifdef DEBUG_PLAN_MOVE
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " veh=" << getID() << " lane=" << lane->getID() << " rightOL=" << rightOL << " leftOL=" << leftOL << "\n";
                 }
 #endif
-                if (leftOL < 0 || outsideLeft) {
+                if (rightOL < 0 || outsideLeft) {
                     MSLeaderInfo outsideLeaders(lane->getWidth(), this, 0.);
                     // if ego is driving outside lane bounds we must consider
                     // potential leaders that are also outside bounds
+                    int sublaneOffset = 0;
                     if (outsideLeft) {
-                        outsideLeaders.setSublaneOffset(-(int)ceil((rightOL - lane->getWidth()) / MSGlobals::gLateralResolution));
+                        sublaneOffset = MIN2(-1, -(int)ceil((rightOL - lane->getWidth()) / MSGlobals::gLateralResolution));
                     } else {
-                        outsideLeaders.setSublaneOffset((int)ceil(-leftOL / MSGlobals::gLateralResolution));
+                        sublaneOffset = MAX2(1, (int)ceil(-leftOL / MSGlobals::gLateralResolution));
                     }
+                    outsideLeaders.setSublaneOffset(sublaneOffset);
 #ifdef DEBUG_PLAN_MOVE
                     if (DEBUG_COND) {
-                        std::cout << SIMTIME << " veh=" << getID() << " lane=" << lane->getID() << " sublaneOffset=" << outsideLeaders.getSublaneOffset() << " outsideLeft=" << outsideLeft << "\n";
+                        std::cout << SIMTIME << " veh=" << getID() << " lane=" << lane->getID() << " sublaneOffset=" << sublaneOffset << " outsideLeft=" << outsideLeft << "\n";
                     }
 #endif
                     int addedOutsideCands = 0;
