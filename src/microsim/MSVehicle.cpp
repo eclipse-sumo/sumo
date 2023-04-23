@@ -2093,6 +2093,28 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
     myLaneChangeModel->resetChanged();
 }
 
+
+bool
+MSVehicle::brakeForOverlap(const MSLink* link, const MSLane* lane) const {
+    return (link->getViaLane() == nullptr
+            && getLateralOverlap(getLateralPositionOnLane()
+                // account for future shift
+                + (lane != myLane && lane->isInternal() ? lane->getIncomingLanes()[0].viaLink->getLateralShift() : 0),
+                lane) > POSITION_EPS
+            // do not get stuck on narrow edges
+            && getVehicleType().getWidth() <= lane->getEdge().getWidth()
+            // this is the exit link of a junction. The normal edge should support the shadow
+            && ((myLaneChangeModel->getShadowLane(link->getLane()) == nullptr)
+                // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
+                || (lane->getEdge().isInternal() && lane->getIncomingLanes()[0].lane->getEdge().isInternal()))
+            // ignore situations where the shadow lane is part of a double-connection with the current lane
+            && (myLaneChangeModel->getShadowLane() == nullptr
+                || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
+                || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != link->getLane()));
+}
+
+
+
 void
 MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& newStopDist, std::pair<double, const MSLink*>& nextTurn) const {
     lfLinks.clear();
@@ -2499,22 +2521,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
         // check whether the lane or the shadowLane is a dead end (allow some leeway on intersections)
         if (lane->isLinkEnd(link)
-                || ((*link)->getViaLane() == nullptr
-                    && MSGlobals::gSublane
-                    && getLateralOverlap(getLateralPositionOnLane()
-                                         // account for future shift
-                                         + (lane != myLane && lane->isInternal() ? lane->getIncomingLanes()[0].viaLink->getLateralShift() : 0),
-                                         lane) > POSITION_EPS
-                    // do not get stuck on narrow edges
-                    && getVehicleType().getWidth() <= lane->getEdge().getWidth()
-                    // this is the exit link of a junction. The normal edge should support the shadow
-                    && ((myLaneChangeModel->getShadowLane((*link)->getLane()) == nullptr)
-                        // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
-                        || (lane->getEdge().isInternal() && lane->getIncomingLanes()[0].lane->getEdge().isInternal()))
-                    // ignore situations where the shadow lane is part of a double-connection with the current lane
-                    && (myLaneChangeModel->getShadowLane() == nullptr
-                        || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
-                        || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane()))
+                || (MSGlobals::gSublane && brakeForOverlap(*link, lane))
                 || (opposite && (*link)->getViaLaneOrLane()->getParallelOpposite() == nullptr
                     && !myLaneChangeModel->hasBlueLight())) {
             double va = cfModel.stopSpeed(this, getSpeed(), seen);

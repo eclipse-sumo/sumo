@@ -2031,6 +2031,9 @@ protected:
                        DriveProcessItem* const lastLink,
                        double& v, double& vLinkPass) const;
 
+    /// @brief handle with transitions
+    bool brakeForOverlap(const MSLink* link, const MSLane* lane) const;
+
 public:
     void adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leaderInfo,
                                const double seen, DriveProcessItem* const lastLink,
