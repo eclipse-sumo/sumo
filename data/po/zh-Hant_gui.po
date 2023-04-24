@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 12:18+0000\n"
+"PO-Revision-Date: 2023-04-24 13:10+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -5962,9 +5962,8 @@ msgstr ""
 msgid ""
 "The minimum distance to the next standing vehicle in order to make this "
 "vehicle count as a participant to the jam) in m"
-msgstr ""
-"車輛到下一個停等的車輛得最短距離(公尺)，此距離用於計算該車輛是否被視為堵塞的"
-"參與者。"
+msgstr "車輛到下一個停等的車輛得最短距離(公尺), "
+"此距離用於計算該車輛是否被視為堵塞的參與者"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2076
 msgid "The id of Multilane E2"
@@ -7569,7 +7568,7 @@ msgstr "如果路段/車道最多具有這麼多取樣秒數，則考慮此未�
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5810
 msgid "The maximum speed to consider a vehicle halting;"
-msgstr "考慮車輛停止的最大速度；"
+msgstr "考慮車輛停止的最大速度;"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5816
 msgid "space separated list of vehicle type ids to consider"
@@ -8900,7 +8899,7 @@ msgstr " 車道..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:569
 msgid " TAZElements..."
-msgstr " 分區元素(TAZElements...)"
+msgstr " 分區元素(TAZElements)..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:815
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:911
@@ -10624,7 +10623,7 @@ msgstr "  分割雙向路段"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:629
 msgid "- Alt+Shift+Click:"
-msgstr "- Alt鍵+移位鍵+點擊(Alt+Shift+Click)"
+msgstr "- Alt鍵+移位鍵+點擊(Alt+Shift+Click):"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:630
 msgid "  Splits edge in one direction"
@@ -11980,7 +11979,7 @@ msgstr "暫停點"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1696
 msgid "Decals:"
-msgstr "貼花紙印刷(decals)"
+msgstr "貼印(decals):"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1699
 msgid "&Load XML Decals"
