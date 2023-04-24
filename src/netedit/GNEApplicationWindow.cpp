@@ -1540,6 +1540,8 @@ GNEApplicationWindow::closeAllWindows() {
     }
     // lock tracker
     myTrackerLock.lock();
+    // clear decals
+    myViewNet->getDecals().clear();
     // remove trackers and other external windows
     while (!myGLWindows.empty()) {
         delete myGLWindows.front();
