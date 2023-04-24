@@ -203,6 +203,15 @@ Option::setRequired() {
     myRequired = true;
 }
 
+bool
+Option::isPositional() const {
+    return myPositional;
+}
+
+void
+Option::setPositional() {
+    myPositional = true;
+}
 
 const std::string&
 Option::getSubTopic() const {

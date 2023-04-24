@@ -281,6 +281,12 @@ public:
     /// @brief mark option as required
     void setRequired();
 
+    /// @brief check if option is positional
+    bool isPositional() const;
+
+    /// @brief mark option as positional
+    void setPositional();
+
     /// @brief Returns the subtopic to which this option belongs
     const std::string& getSubTopic() const;
 
@@ -334,6 +340,9 @@ private:
 
     /// @brief this option is required (needed for python tools)
     bool myRequired = false;
+
+    /// @brief this option is positional (needed for python tools)
+    bool myPositional = false;
 
     /// @brief The subtopic to which this option belongs
     std::string mySubTopic;

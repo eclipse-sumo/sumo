@@ -101,6 +101,7 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
         std::string type;
         std::string help;
         bool required = false;
+        bool positional = false;
         // iterate over attributes
         for (int i = 0; i < (int)attributes.getLength(); i++) {
             const std::string attributeName = StringUtils::transcode(attributes.getName(i));
@@ -122,18 +123,20 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
                     myOptions.addOptionSubTopic(attributeValue);
                 }
             } else if (attributeName == "required") {
-                required = ((attributeValue == "true") || (attributeValue == "1")) ? true : false;
+                required = StringUtils::toBool(attributeValue);
+            } else if (attributeName == "positional") {
+                positional = StringUtils::toBool(attributeValue);
             }
         }
         // add option
-        addOption(value, synonymes, type, help, required);
+        addOption(value, synonymes, type, help, required, positional);
     }
 }
 
 
 bool
 TemplateHandler::addOption(std::string value, const std::string& synonymes, const std::string& type,
-                           const std::string& help, const bool required) const {
+                           const std::string& help, bool required, bool positional) const {
     if (myOptions.exists(myOptionName)) {
         WRITE_WARNING(myOptionName + " already exists");
         return false;
@@ -194,10 +197,7 @@ TemplateHandler::addOption(std::string value, const std::string& synonymes, cons
             if (help.size() > 0) {
                 myOptions.addDescription(myOptionName, mySubTopic, help);
             }
-            // check if option is required
-            if (required) {
-                myOptions.setRequired(myOptionName, mySubTopic);
-            }
+            myOptions.setFurtherAttributes(myOptionName, mySubTopic, required, positional);
             return true;
         } else {
             return false;

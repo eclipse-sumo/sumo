@@ -517,7 +517,7 @@ OptionsCont::addDescription(const std::string& name, const std::string& subtopic
 
 
 void
-OptionsCont::setRequired(const std::string& name, const std::string& subtopic) {
+OptionsCont::setFurtherAttributes(const std::string& name, const std::string& subtopic, bool required, bool positional) {
     Option* o = getSecure(name);
     if (o == nullptr) {
         throw ProcessError("Option doesn't exist");
@@ -525,9 +525,12 @@ OptionsCont::setRequired(const std::string& name, const std::string& subtopic) {
     if (find(mySubTopics.begin(), mySubTopics.end(), subtopic) == mySubTopics.end()) {
         throw ProcessError("SubTopic '" + subtopic + "' doesn't exist");
     }
-    o->setRequired();
-    o->setSubtopic(subtopic);
-    mySubTopicEntries[subtopic].push_back(name);
+    if (required) {
+        o->setRequired();
+    }
+    if (positional) {
+        o->setPositional();
+    }
 }
 
 
