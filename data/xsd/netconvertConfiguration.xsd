@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-06 12:10:37 by Eclipse SUMO netconvert Version v1_15_0+2198-1709483215c
+<!-- generated on 2023-04-24 15:52:25 by Eclipse SUMO netconvert Version v1_16_0+2368-d796cc6b4bc
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -367,6 +367,8 @@
             <xsd:element name="shapefile.type-id" type="strOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.laneNumber" type="strOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.speed" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.length" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.width" type="strOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.name" type="strOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.node-join-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.add-params" type="strArrayOptionType" minOccurs="0"/>
