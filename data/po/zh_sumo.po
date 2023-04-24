@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 09:25+0000\n"
+"PO-Revision-Date: 2023-04-24 09:35+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -6871,111 +6871,111 @@ msgstr "路段 '%' 的道路型式(form_of_way为非数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:316
 msgid "Non-numerical value for brunnel_type of link '%'."
-msgstr ""
+msgstr "路段 '%' 的桥/隧道类型(brunnel_type)为非数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:329
 msgid "Non-numerical value for street_type of link '%')."
-msgstr ""
+msgstr "路段 '%' 的街道类型(street_type)为非数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:351
 msgid "Non-numerical value for the SPEED_RESTRICTION of link '%'."
-msgstr ""
+msgstr "路段 '%' 的速度限制(SPEED_RESTRICTION)为非数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:366
 msgid "Non-numerical value for the number of lanes of link '%'."
-msgstr ""
+msgstr "路段 '%' 的车道数为非数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:420
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:538
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:596
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:759
 msgid "Could not add edge '%'."
-msgstr ""
+msgstr "无法增加路段 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:431
 msgid "Missing column %."
-msgstr ""
+msgstr "缺少行(column) %。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:442
 msgid "Missing optional column % without default value."
-msgstr ""
+msgstr "缺少沒有预设值的选项行(column) %。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:499
 #, c-format
 msgid "The traffic light edge '%' could not be found."
-msgstr ""
+msgstr "无法找到交通信号路段 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:511
 msgid "Could not allocate tls for '%'."
-msgstr ""
+msgstr "无法分配交通信号(tls)给 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:702
 msgid "Could not parse YYYY-MM-DD date '%'"
-msgstr ""
+msgstr "无法解析 YYYY-MM-DD 日期 '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:747
 msgid "Ignoring temporary prohibited manoeuvre (%)."
-msgstr ""
+msgstr "忽略临时禁止的运转操作 (%)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:756
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:801
 msgid "Ignoring prohibition from unknown start edge '%'."
-msgstr ""
+msgstr "忽略来自未知起始路段 '%' 的禁止。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:761
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:806
 msgid "Ignoring prohibition from unknown end edge '%'."
-msgstr ""
+msgstr "忽略来自未知结束路段 '%' 的禁止。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:811
 msgid ""
 "Ignoring invalid lane index '%' in connection from edge '%' with % lanes."
-msgstr ""
+msgstr "忽略无效车道索引 '%', 其与起始路段(from edge) '%' (有 % 车道) 连接。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:816
 msgid "Ignoring invalid lane index '%' in connection to edge '%' with % lanes"
-msgstr ""
+msgstr "忽略无效车道索引 '%', 其与结束路段(to edge) '%' (有 % 车道) 连接。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:821
 msgid "Could not set loaded connection from '%' to '%'."
-msgstr ""
+msgstr "无法设定从 '%' 到 '%' 的载入连接线(loaded connection)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:117
 msgid "Could not open itsumo-file '%'."
-msgstr ""
+msgstr "无法开启文件 itsumo-file '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:217
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:180
 msgid "Could not add edge '%'. Probably declared twice."
-msgstr ""
+msgstr "无法增加路段 '%'。可能已经宣告了两次。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:232
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:142
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:703
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:148
 msgid "Unable to project coordinates for node '%'."
-msgstr ""
+msgstr "无法投影节点 '%' 的坐标。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:237
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:147
 msgid "Could not add node '%'. Probably declared twice."
-msgstr ""
+msgstr "无法增加节点 '%'。可能已经宣告了两次。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:240
 msgid "Not numeric position information for node '%'."
-msgstr ""
+msgstr "节点 '%' 沒有数值的位置信息。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:242
 msgid "Missing data in node '%'."
-msgstr ""
+msgstr "节点 '%' 內缺少数据。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:260
 msgid "Missing node in laneset '%'."
-msgstr ""
+msgstr "车道集合(laneset) '%' 內缺少节点"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:263
 msgid "Fond laneset-id '%' twice."
-msgstr ""
+msgstr "已发现两次车道集合识别名(laneset-id) '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:277
 msgid "Not numeric value in laneset '%'."
