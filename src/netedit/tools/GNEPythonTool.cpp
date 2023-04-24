@@ -22,6 +22,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SysUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/options/OptionsLoader.h>
@@ -111,10 +112,26 @@ GNEPythonTool::getCommand() const {
             // for boolean values avoid use "true"
             if (option.second->isBool()) {
                 arguments += ("--" + option.first + " ");
-            } else if (option.second->isPositional()) {
-                arguments += ("\"" + option.second->getValueString() + "\" ");
-            } else {
-                arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+            } else { 
+                if (!option.second->isPositional()) {
+                    arguments += ("--" + option.first + " ");
+                }
+                const std::string sep = option.second->getListSeparator();
+                if (sep != "") {
+                    StringTokenizer st(option.second->getValueString(), " ", true);
+                    bool first = true;
+                    for (const std::string& v : st.getVector()) {
+                        if (first) {
+                            first = false;
+                        } else {
+                            arguments += sep;
+                        }
+                        arguments += ("\"" + v + "\"");
+                    }
+                    arguments += " ";
+                } else {
+                    arguments += ("\"" + option.second->getValueString() + "\" ");
+                }
             }
         }
     }

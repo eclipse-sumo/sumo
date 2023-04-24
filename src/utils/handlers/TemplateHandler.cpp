@@ -102,6 +102,7 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
         std::string help;
         bool required = false;
         bool positional = false;
+        std::string listSep = "";
         // iterate over attributes
         for (int i = 0; i < (int)attributes.getLength(); i++) {
             const std::string attributeName = StringUtils::transcode(attributes.getName(i));
@@ -126,17 +127,19 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
                 required = StringUtils::toBool(attributeValue);
             } else if (attributeName == "positional") {
                 positional = StringUtils::toBool(attributeValue);
+            } else if (attributeName == "listSeparator") {
+                listSep = attributeValue;
             }
         }
         // add option
-        addOption(value, synonymes, type, help, required, positional);
+        addOption(value, synonymes, type, help, required, positional, listSep);
     }
 }
 
 
 bool
 TemplateHandler::addOption(std::string value, const std::string& synonymes, const std::string& type,
-                           const std::string& help, bool required, bool positional) const {
+                           const std::string& help, bool required, bool positional, const std::string& listSep) const {
     if (myOptions.exists(myOptionName)) {
         WRITE_WARNING(myOptionName + " already exists");
         return false;
@@ -197,7 +200,7 @@ TemplateHandler::addOption(std::string value, const std::string& synonymes, cons
             if (help.size() > 0) {
                 myOptions.addDescription(myOptionName, mySubTopic, help);
             }
-            myOptions.setFurtherAttributes(myOptionName, mySubTopic, required, positional);
+            myOptions.setFurtherAttributes(myOptionName, mySubTopic, required, positional, listSep);
             return true;
         } else {
             return false;

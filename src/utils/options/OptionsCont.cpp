@@ -517,7 +517,7 @@ OptionsCont::addDescription(const std::string& name, const std::string& subtopic
 
 
 void
-OptionsCont::setFurtherAttributes(const std::string& name, const std::string& subtopic, bool required, bool positional) {
+OptionsCont::setFurtherAttributes(const std::string& name, const std::string& subtopic, bool required, bool positional, const std::string& listSep) {
     Option* o = getSecure(name);
     if (o == nullptr) {
         throw ProcessError("Option doesn't exist");
@@ -531,6 +531,7 @@ OptionsCont::setFurtherAttributes(const std::string& name, const std::string& su
     if (positional) {
         o->setPositional();
     }
+    o->setListSeparator(listSep);
 }
 
 

@@ -287,6 +287,12 @@ public:
     /// @brief mark option as positional
     void setPositional();
 
+    /// @brief retrieve list separator
+    const std::string& getListSeparator() const;
+
+    /// @brief set list separator
+    void setListSeparator(const std::string& listSep);
+
     /// @brief Returns the subtopic to which this option belongs
     const std::string& getSubTopic() const;
 
@@ -343,6 +349,9 @@ private:
 
     /// @brief this option is positional (needed for python tools)
     bool myPositional = false;
+
+    /// @brief the list separator for this option (needed for python tools)
+    std::string myListSeparator = "";
 
     /// @brief The subtopic to which this option belongs
     std::string mySubTopic;

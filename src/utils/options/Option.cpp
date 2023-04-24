@@ -214,6 +214,16 @@ Option::setPositional() {
 }
 
 const std::string&
+Option::getListSeparator() const {
+    return myListSeparator;
+}
+
+void
+Option::setListSeparator(const std::string& listSep) {
+    myListSeparator = listSep;
+}
+
+const std::string&
 Option::getSubTopic() const {
     return mySubTopic;
 }
