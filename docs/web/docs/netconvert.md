@@ -260,7 +260,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--ptline.match-dist** {{DT_FLOAT}} | Matches stops outside the road network to the referencing pt line when below the given distance; *default:* **100** |
 | **--ptstop-output.no-bidi** {{DT_BOOL}} | Skips automatic generation of stops on the bidi-edge of a loaded stop; *default:* **false** |
 | **--geometry.max-grade** {{DT_FLOAT}} | Warn about edge geometries with a grade in % above FLOAT.; *default:* **10** |
-| **--geometry.max-grade.fix** {{DT_BOOL}} | Smooth edge edge geometries with a grade in above the warning threshold.; *default:* **true** |
+| **--geometry.max-grade.fix** {{DT_BOOL}} | Smooth edge geometries with a grade above the warning threshold.; *default:* **true** |
 | **--offset.disable-normalization** {{DT_BOOL}} | Turn off normalizing node positions; *default:* **false** |
 | **--offset.x** {{DT_FLOAT}} | Adds FLOAT to net x-positions; *default:* **0** |
 | **--offset.y** {{DT_FLOAT}} | Adds FLOAT to net y-positions; *default:* **0** |
@@ -495,6 +495,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--shapefile.type-id** {{DT_STR}} | Read type ids from column STR |
 | **--shapefile.laneNumber** {{DT_STR}} | Read lane number from column STR |
 | **--shapefile.speed** {{DT_STR}} | Read speed from column STR |
+| **--shapefile.length** {{DT_STR}} | Read custom edge length from column STR |
+| **--shapefile.width** {{DT_STR}} | Read total edge width from column STR |
 | **--shapefile.name** {{DT_STR}} | Read (non-unique) name from column STR |
 | **--shapefile.node-join-dist** {{DT_FLOAT}} | Distance threshold for determining whether distinct shapes are connected (used when from-id and to-id are not available); *default:* **0** |
 | **--shapefile.add-params** {{DT_STR[]}} | Add the list of field names as edge params |

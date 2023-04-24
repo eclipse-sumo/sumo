@@ -61,10 +61,11 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | Option | Description |
 |--------|-------------|
 | **-s** {{DT_BOOL}}<br> **--spider** {{DT_BOOL}} | Forces NETGEN to build a spider-net-like network; *default:* **false** |
-| **--spider.arm-number** {{DT_INT}} | The number of axes within the net; *default:* **13** |
-| **--spider.circle-number** {{DT_INT}} | The number of circles of the net; *default:* **20** |
+| **--spider.arm-number** {{DT_INT}} | The number of axes within the net; *default:* **7** |
+| **--spider.circle-number** {{DT_INT}} | The number of circles of the net; *default:* **5** |
 | **--spider.space-radius** {{DT_FLOAT}} | The distances between the circles; *default:* **100** |
 | **--spider.omit-center** {{DT_BOOL}} | Omit the central node of the network; *default:* **false** |
+| **--spider.attach-length** {{DT_FLOAT}} | The length of streets attached at the boundary; 0 means no streets are attached; *default:* **0** |
 
 ### Random Network
 
@@ -74,8 +75,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | Option | Description |
 |--------|-------------|
 | **-r** {{DT_BOOL}}<br> **--rand** {{DT_BOOL}} | Forces NETGEN to build a random network; *default:* **false** |
-| **--rand.iterations** {{DT_INT}} | Describes how many times an edge shall be added to the net; *default:* **2000** |
-| **--bidi-probability** {{DT_FLOAT}} | Defines the probability to build a reverse edge; *default:* **1** |
+| **--rand.iterations** {{DT_INT}} | Describes how many times an edge shall be added to the net; *default:* **100** |
 | **--rand.max-distance** {{DT_FLOAT}} | The maximum distance for each edge; *default:* **250** |
 | **--rand.min-distance** {{DT_FLOAT}} | The minimum distance for each edge; *default:* **100** |
 | **--rand.min-angle** {{DT_FLOAT}} | The minimum angle for each pair of (bidirectional) roads in DEGREES; *default:* **45** |
@@ -87,9 +87,6 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--rand.neighbor-dist4** {{DT_FLOAT}} | Probability for a node having exactly 4 neighbors; *default:* **10** |
 | **--rand.neighbor-dist5** {{DT_FLOAT}} | Probability for a node having exactly 5 neighbors; *default:* **2** |
 | **--rand.neighbor-dist6** {{DT_FLOAT}} | Probability for a node having exactly 6 neighbors; *default:* **1** |
-| **--random-lanenumber** {{DT_BOOL}} | Draw lane numbers randomly from [1,default.lanenumber]; *default:* **false** |
-| **--random-priority** {{DT_BOOL}} | Draw edge priority randomly from [1,default.priority]; *default:* **false** |
-| **--random-type** {{DT_BOOL}} | Draw edge type randomly from all loaded types; *default:* **false** |
 | **--rand.grid** {{DT_BOOL}} | Place nodes on a regular grid with spacing rand.min-distance; *default:* **false** |
 
 ### Input
@@ -140,6 +137,10 @@ the offsets given).
 | **--perturb-x** {{DT_STR}} | Apply random spatial perturbation in x direction according the the given distribution; *default:* **0** |
 | **--perturb-y** {{DT_STR}} | Apply random spatial perturbation in y direction according the the given distribution; *default:* **0** |
 | **--perturb-z** {{DT_STR}} | Apply random spatial perturbation in z direction according the the given distribution; *default:* **0** |
+| **--bidi-probability** {{DT_FLOAT}} | Defines the probability to build a reverse edge; *default:* **1** |
+| **--random-lanenumber** {{DT_BOOL}} | Draw lane numbers randomly from [1,default.lanenumber]; *default:* **false** |
+| **--random-priority** {{DT_BOOL}} | Draw edge priority randomly from [1,default.priority]; *default:* **false** |
+| **--random-type** {{DT_BOOL}} | Draw edge type randomly from all loaded types; *default:* **false** |
 | **--numerical-ids** {{DT_BOOL}} | Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers; *default:* **false** |
 | **--numerical-ids.node-start** {{DT_INT}} | Remaps IDs of nodes to integers starting at INT; *default:* **2147483647** |
 | **--numerical-ids.edge-start** {{DT_INT}} | Remaps IDs of edges to integers starting at INT; *default:* **2147483647** |
@@ -152,7 +153,7 @@ the offsets given).
 | **--geometry.remove.width-tolerance** {{DT_FLOAT}} | Allow merging edges with differing lane widths if the difference is below FLOAT; *default:* **0** |
 | **--geometry.max-segment-length** {{DT_FLOAT}} | splits geometry to restrict segment length; *default:* **0** |
 | **--geometry.max-grade** {{DT_FLOAT}} | Warn about edge geometries with a grade in % above FLOAT.; *default:* **10** |
-| **--geometry.max-grade.fix** {{DT_BOOL}} | Smooth edge edge geometries with a grade in above the warning threshold.; *default:* **true** |
+| **--geometry.max-grade.fix** {{DT_BOOL}} | Smooth edge geometries with a grade above the warning threshold.; *default:* **true** |
 | **--offset.disable-normalization** {{DT_BOOL}} | Turn off normalizing node positions; *default:* **false** |
 | **--offset.x** {{DT_FLOAT}} | Adds FLOAT to net x-positions; *default:* **0** |
 | **--offset.y** {{DT_FLOAT}} | Adds FLOAT to net y-positions; *default:* **0** |
