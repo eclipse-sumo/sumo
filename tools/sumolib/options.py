@@ -162,11 +162,19 @@ class ArgumentParser(argparse.ArgumentParser):
         return s
 
     @staticmethod
+    def file_list(s):
+        return s
+
+    @staticmethod
     def net_file(s):
         return s
 
     @staticmethod
     def route_file(s):
+        return s
+
+    @staticmethod
+    def route_file_list(s):
         return s
 
     @staticmethod
@@ -280,6 +288,7 @@ class ArgumentParser(argparse.ArgumentParser):
                 category = ''
                 required = ''
                 positional = ''
+                listSep = ''
                 for a in self._actions:
                     if a.dest == k:
                         for s in a.option_strings:
@@ -307,21 +316,28 @@ class ArgumentParser(argparse.ArgumentParser):
                                     typeName = 'time'
                                 knownTypes = ['bool', 'float', 'int',
                                               'time', 'file', 'net_file', 'route_file',
-                                              'additional_file', 'edgedata_file', 'data_file']
+                                              'additional_file', 'edgedata_file', 'data_file',
+                                              'file_list', 'route_file_list']
                                 if typeName not in knownTypes:
                                     typeName = 'string'
+                                elif typeName.endswith("_list"):
+                                    typeName = typeName[:-5]
+                                    listSep = ' listSeparator=","'
                             typeStr = ' type="%s"' % typeName
                             if a.isRequired:
                                 required = ' required="true"'
                             if a.isPositional:
                                 positional = ' positional="true"'
+                            if a.nargs:
+                                listSep = ' listSeparator=" "'
+
                         break
                 if print_template or v != a.default:
                     if isinstance(v, list):
                         v = " ".join(map(str, v))
-                    out.write(u'    <%s value="%s"%s%s%s%s%s/>\n' % (
+                    out.write(u'    <%s value="%s"%s%s%s%s%s%s/>\n' % (
                               key, xmlescape(v), typeStr, help, category,
-                              required, positional))
+                              required, positional, listSep))
         out.write(u'</configuration>\n')
 
     def parse_args(self, args=None, namespace=None):
