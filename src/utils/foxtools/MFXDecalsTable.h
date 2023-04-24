@@ -96,6 +96,9 @@ public:
     /// @brief called when add row button is pressed
     long onCmdAddRow(FXObject*, FXSelector, void*);
 
+    /// @brief update add row button
+    long onUpdAddRow(FXObject*, FXSelector, void*);
+
     /// @brief called when remove row button is pressed
     long onCmdRemoveRow(FXObject*, FXSelector, void*);
 

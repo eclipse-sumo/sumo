@@ -32,6 +32,8 @@
 
 #define EXTRAMARGING 4
 
+#define MAXROWS 100
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -45,6 +47,7 @@ FXDEFMAP(MFXDecalsTable) MFXDecalsTableMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_CHECKBOX,   MFXDecalsTable::onCmdEditRowCheckBox),
     FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_OPEN,       MFXDecalsTable::onCmdOpenDecal),
     FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_ADD,        MFXDecalsTable::onCmdAddRow),
+    FXMAPFUNC(SEL_UPDATE,   MID_DECALSTABLE_ADD,        MFXDecalsTable::onUpdAddRow),
     FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_REMOVE,     MFXDecalsTable::onCmdRemoveRow),
 };
 
@@ -107,8 +110,12 @@ MFXDecalsTable::fillTable() {
     for (int i = 0; i < (FXint)columnsType.size(); i++) {
         myColumns.push_back(new Column(this, i, columnsType.at(i)));
     }
+    // get num decals
+    const int numDecals = decals.size() < MAXROWS? (int)decals.size() : MAXROWS;
     // create rows
-    for (const auto& decal : decals) {
+    for (int i = 0; i < numDecals; i++) {
+        // get decal
+        const auto &decal = decals.at(i);
         // create row
         auto row = new Row(this);
         // fill cells
@@ -138,7 +145,8 @@ MFXDecalsTable::fillTable() {
     myColumns.at(8)->setColumnLabel("layer", "");
     myColumns.at(9)->setColumnLabel("sRel", "screen relative");
     // adjust height (header + rows + add button)
-    setHeight(((int)decals.size() + 2) * GUIDesignHeight);
+    setHeight((numDecals + 2) * GUIDesignHeight);
+    // call create to create all row's elements
     create();
 }
 
@@ -370,6 +378,16 @@ MFXDecalsTable::onCmdAddRow(FXObject*, FXSelector, void*) {
     // refill table
     fillTable();
     return 1;
+}
+
+
+long
+MFXDecalsTable::onUpdAddRow(FXObject* sender, FXSelector, void* ptr) {
+    if (myDialogViewSettings->getSUMOAbstractView()->getDecals().size() < MAXROWS) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+    }
 }
 
 
