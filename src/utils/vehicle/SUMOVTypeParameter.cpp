@@ -41,6 +41,7 @@
 SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vclass) :
     length(getDefaultVehicleLength(vclass)),
     minGap(2.5),
+    minGapLat(0.6),
     maxSpeed(200. / 3.6),
     desiredMaxSpeed(10000 / 3.6), // backward-compatibility: do not influence speeds by default
     width(1.8),
@@ -71,6 +72,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_BICYCLE:
             minGap = 0.5;
+            //minGapLat = 0.15;
             maxSpeed = 50. / 3.6;
             desiredMaxSpeed = DEFAULT_BICYCLE_SPEED;
             width = 0.65;
@@ -254,15 +256,10 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues() :
 
 SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass)
     : id(vtid),
-      length(5. /*4.3*/),
-      minGap(2.5),
-      maxSpeed(200. / 3.6),
-      desiredMaxSpeed(200. / 3.6),
       actionStepLength(0),
       defaultProbability(DEFAULT_VEH_PROB),
       speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
       emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)),
-      mass(1500.),
       color(RGBColor::DEFAULT_COLOR),
       vehicleClass(vclass),
       impatience(0.0),
@@ -280,7 +277,6 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       maxSpeedLat(1.0),
       latAlignmentOffset(0.0),
       latAlignmentProcedure(LatAlignmentDefinition::CENTER),
-      minGapLat(0.6),
       carriageLength(-1),
       locomotiveLength(-1),
       carriageGap(1),
@@ -302,6 +298,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     // overwrite SUMOVTypeParameter with VClassDefaultValues
     length = defaultValues.length;
     minGap = defaultValues.minGap;
+    minGapLat = defaultValues.minGapLat;
     maxSpeed = defaultValues.maxSpeed;
     desiredMaxSpeed = defaultValues.desiredMaxSpeed;
     width = defaultValues.width;

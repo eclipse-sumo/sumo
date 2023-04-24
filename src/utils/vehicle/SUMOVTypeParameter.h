@@ -130,6 +130,9 @@ public:
         /// @brief This class' free space in front of the vehicle itself
         double minGap;
 
+        /// @brief The vehicle type's minimum lateral gap [m]
+        double minGapLat;
+
         /// @brief The vehicle type's maximum speed [m/s] (technical limit, not subject to speed deviation)
         double maxSpeed;
 
