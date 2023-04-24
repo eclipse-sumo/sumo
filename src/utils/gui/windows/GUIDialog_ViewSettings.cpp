@@ -1194,6 +1194,8 @@ GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* /*data*/) 
     myParent->getDecals().clear();
     // update view
     myParent->update();
+    // fill table again
+    myDecalsTable->fillTable();
     // unlock decals mutex
     myParent->getDecalsLockMutex().unlock();
     return 1;
