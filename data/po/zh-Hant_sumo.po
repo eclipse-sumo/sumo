@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 11:53+0000\n"
+"PO-Revision-Date: 2023-04-24 12:18+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hant/>\n"
@@ -866,7 +866,7 @@ msgstr "微觀多運具模式交通模擬軟體SUMO內以路口轉向率為依�
 
 #: /home/micha/programming/sumo/src/libsumo/GUI.cpp:330
 msgid "This system has no OpenGL support. Exiting."
-msgstr "此系統不支援開放圖形程式館(OpenGL)。退出。"
+msgstr "此系統不支援開放圖形語言 (OpenGL)。 退出中。"
 
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:904
 #, c-format
@@ -1790,11 +1790,11 @@ msgstr "以給定的精確度數寫入內部狀態值(預設值為 2)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:343
 msgid "Defines the begin time in seconds; The simulation starts at this time"
-msgstr "以秒為單位定義開始時間； 從此時間開始模擬"
+msgstr "定義開始時間（以秒為單位）;模擬於此時間開始"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:346
 msgid "Defines the end time in seconds; The simulation ends at this time"
-msgstr "以秒為單位定義結束時間； 在此時間結束模擬"
+msgstr "定義結束時間（以秒為單位）;模擬於此時間結束"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:349
 msgid "Defines the step duration in seconds"
@@ -2031,9 +2031,9 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
-"跟車模式和變換車道模式的動作點之間的預設間隔長度（以秒為單位）。如果未指定，"
-"則預設值為使用的模擬步長(step)。特定車輛或車輛類型(Vehicle- or VType-"
-"specific)的設置會覆蓋預設值。必須是模擬步長(step)的倍數。"
+"在跟車模式及車道變換模式內行動點(action point)之間的預設區間長度（以秒為單位"
+"）。如果沒有指定，模擬步長將作為預設值。車輛或是VType的特殊設定值會改寫預設值"
+"。必須是模擬步長的倍數。"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:482
 msgid "Select default car following model (Krauss, IDM, ...)"
@@ -2043,9 +2043,8 @@ msgstr "選擇預設的跟車模式 (Krauss, IDM, ...)"
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class"
-msgstr ""
-"選擇預設速度偏差值(deviation)。負值表示 vClass 的特定預設值（預設乘客類別為 "
-"0.1"
+msgstr "選擇速度偏差的預設值。負值表示 車輛類別(vClass)特定預設值（ 0."
+"1為小客車等級的預設值"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:489
 msgid ""
@@ -2316,7 +2315,7 @@ msgstr "失敗後重新檢查注入車輛到下一路段區段的時間間隔"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:698
 msgid "Load visualisation settings from FILE"
-msgstr "從檔案載入視覺化設定值(visualisation settings)"
+msgstr "從檔案載入視覺化設定"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:701
 msgid "Quits the GUI when the simulation stops"
@@ -2360,15 +2359,15 @@ msgstr "不載入背景圖片"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:732
 msgid "Load current viewport from registry"
-msgstr "從註冊儲存體(registry)中載入目前的視窗視埠(viewport)"
+msgstr "從註冊表載入目前檢視區"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:735
 msgid "Create initial window with the given x,y size"
-msgstr "依據給定的 x,y 大小尺寸建立初始的視窗"
+msgstr "使用給定的 x, y 尺寸建立初始視窗"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:738
 msgid "Create initial window at the given x,y position"
-msgstr "依據給定的 x,y 位置建立初始的視窗"
+msgstr "在給定的 x, y 位置建立初始視窗"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:741
 msgid "The aggregation period for value tracker windows"
@@ -2380,11 +2379,11 @@ msgstr "以 OpenSceneGraph 視圖(view)開始，而不是常規的 2D 視圖"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:750
 msgid "Enable overlay for screen recognition"
-msgstr "啟用覆蓋重疊以進行螢幕識別"
+msgstr "允許銀幕辨識的覆蓋"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:754
 msgid "Enable output messages during GUI-Testing"
-msgstr "在圖形使用者介面測試(GUI-Testing)時,使用輸出訊息"
+msgstr "允許在 GUI 測試期間輸出訊息"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:758
 msgid "Save gui settings in the given settings output file"
@@ -2639,7 +2638,7 @@ msgstr "TraCI和觸發器(triggers)不能使用選路演算法 '%'。 改用'ast
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:221
 #, c-format
 msgid "Loading of % failed."
-msgstr "載入 % 失敗。"
+msgstr "% 檔案載入失敗。"
 
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:1649
 #, c-format
@@ -4750,7 +4749,7 @@ msgstr "車道 '%' (長度 %)和路段 '%' (長度 %)的平均路段長度。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:921
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
-msgstr "對面車道 '%' 與路段 '%' 沒有連接到相同的節點!"
+msgstr "對向車道 '%' 不與路段 '%' 相同的節點連接!"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1421
 msgid "Replacing loaded roundabout '%' with '%'."
@@ -9016,7 +9015,7 @@ msgstr " '%' 中有未知的交通號誌。"
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:992
 msgid " (No projection defined)"
-msgstr " （未定義投影方法）"
+msgstr " 投影方式未定義"
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:996
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:997
@@ -9643,12 +9642,12 @@ msgstr "收到中斷信號, 試圖正常退出。"
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:86
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr "微觀多運具模式交通模擬。"
+msgstr "微觀多運具模式交通模擬軟體。"
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:114
 #: /home/micha/programming/sumo/src/sumo_main.cpp:123
 msgid "Quitting (on error)."
-msgstr "退出 (發生錯誤)。"
+msgstr "退出 (由於錯誤)。"
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:126
 msgid "Quitting (on unknown error)."
@@ -10130,15 +10129,15 @@ msgstr "增加貼印(decal)。"
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:151
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:162
 msgid "Invalid row or column"
-msgstr "無效的列或行"
+msgstr "無效列或行"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:186
 msgid "Invalid row"
-msgstr "無效的列"
+msgstr "無效列"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:196
 msgid "Invalid column"
-msgstr "無效的行"
+msgstr "無效行"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:332
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:790
