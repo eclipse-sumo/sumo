@@ -32,13 +32,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.TAZMode()
 
 # create first TAZ
-netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
+netedit.createSquaredTAZ(referencePosition, 405, 144, 200, True)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first TAZ
-netedit.leftClick(referencePosition, 182, 130)
+netedit.leftClick(referencePosition, 405, 144)
 
 # Change boolean parameter 3
 netedit.modifyBoolAttribute(netedit.attrs.TAZ.inspect.fill, False)

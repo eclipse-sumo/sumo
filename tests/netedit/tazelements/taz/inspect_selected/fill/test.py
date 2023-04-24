@@ -32,16 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select first TAZ
-netedit.leftClick(referencePosition, 115, 70)
+netedit.leftClick(referencePosition, 520, 143)
 
 # select second TAZ
-netedit.leftClick(referencePosition, 300, 70)
+netedit.leftClick(referencePosition, 747, 143)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first TAZ
-netedit.leftClick(referencePosition, 115, 70)
+netedit.leftClick(referencePosition, 520, 143)
 
 # Change boolean parameter 2
 netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.fill, "dummyFill", False)
