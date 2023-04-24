@@ -1127,10 +1127,10 @@ struct GNEApplicationWindowHelper {
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
     /// @brief open general file dialog
-    static std::string openFileDialog(FXWindow* window, const bool save);
+    static std::string openFileDialog(FXWindow* window, bool save, bool multi);
 
     /// @brief open netconvert file dialog
-    static std::string openNetworkFileDialog(FXWindow* window, const bool save);
+    static std::string openNetworkFileDialog(FXWindow* window, bool save, bool multi = false);
 
     /// @brief open netconvert file dialog
     static std::string openNetconvertFileDialog(FXWindow* window);
@@ -1148,35 +1148,35 @@ struct GNEApplicationWindowHelper {
     static std::string openOSMFileDialog(FXWindow* window);
 
     /// @brief open netedit config file dialog
-    static std::string openNeteditConfigFileDialog(FXWindow* window, const bool save);
+    static std::string openNeteditConfigFileDialog(FXWindow* window, bool save);
 
     /// @brief open SUMO config file dialog
-    static std::string openSumoConfigFileDialog(FXWindow* window, const bool save);
+    static std::string openSumoConfigFileDialog(FXWindow* window, bool save, bool multi = false);
 
     /// @brief open TLS file dialog
-    static std::string openTLSFileDialog(FXWindow* window, const bool save);
+    static std::string openTLSFileDialog(FXWindow* window, bool save);
 
     /// @brief open edgeType file dialog
-    static std::string openEdgeTypeFileDialog(FXWindow* window, const bool save);
+    static std::string openEdgeTypeFileDialog(FXWindow* window, bool save);
 
     /// @brief open additional dialog
-    static std::string openAdditionalFileDialog(FXWindow* window, const bool save);
+    static std::string openAdditionalFileDialog(FXWindow* window, bool save, bool multi = false);
 
     /// @brief open route file dialog
-    static std::string openRouteFileDialog(FXWindow* window, const bool save);
+    static std::string openRouteFileDialog(FXWindow* window, bool save, bool multi = false);
 
     /// @brief open data file dialog
-    static std::string openDataFileDialog(FXWindow* window, const bool save);
+    static std::string openDataFileDialog(FXWindow* window, bool save, bool multi = false);
 
     /// @brief open meandata filename dialog
-    static std::string openMeanDataDialog(FXWindow* window, const bool save);
+    static std::string openMeanDataDialog(FXWindow* window, bool save, bool multi = false);
 
     /// @brief open option dialog
-    static std::string openOptionFileDialog(FXWindow* window, const bool save);
+    static std::string openOptionFileDialog(FXWindow* window, bool save);
 
 private:
     /// @brief open filename dialog
-    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon, const std::string patternList, const bool save);
+    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon, const std::string patternList, bool save, bool multi = false);
 
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;

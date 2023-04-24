@@ -195,7 +195,7 @@ GNEPythonToolDialogElements::FileNameArgument::reset() {
 long
 GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get file
-    const auto file = GNEApplicationWindowHelper::openFileDialog(this, (myOption->getSubTopic() == "output"));
+    const auto file = GNEApplicationWindowHelper::openFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
     // check that file is valid
     if (file.size() > 0) {
         myFilenameTextField->setText(file.c_str(), TRUE);
@@ -257,7 +257,7 @@ GNEPythonToolDialogElements::NetworkArgument::NetworkArgument(GNEPythonToolDialo
 long
 GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get network file
-    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, (myOption->getSubTopic() == "output"));
+    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
     // check that file is valid
     if (networkFile.size() > 0) {
         myFilenameTextField->setText(networkFile.c_str(), TRUE);
@@ -300,7 +300,7 @@ GNEPythonToolDialogElements::AdditionalArgument::AdditionalArgument(GNEPythonToo
 long
 GNEPythonToolDialogElements::AdditionalArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get additional file
-    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, (myOption->getSubTopic() == "output"));
+    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
     // check that file is valid
     if (additionalFile.size() > 0) {
         myFilenameTextField->setText(additionalFile.c_str(), TRUE);
@@ -343,7 +343,7 @@ GNEPythonToolDialogElements::RouteArgument::RouteArgument(GNEPythonToolDialog* t
 long
 GNEPythonToolDialogElements::RouteArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get route file
-    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, (myOption->getSubTopic() == "output"));
+    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
     // check that file is valid
     if (routeFile.size() > 0) {
         myFilenameTextField->setText(routeFile.c_str(), TRUE);
@@ -386,7 +386,7 @@ GNEPythonToolDialogElements::DataArgument::DataArgument(GNEPythonToolDialog* too
 long
 GNEPythonToolDialogElements::DataArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get data file
-    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, (myOption->getSubTopic() == "output"));
+    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
     // check that file is valid
     if (dataFile.size() > 0) {
         myFilenameTextField->setText(dataFile.c_str(), TRUE);
