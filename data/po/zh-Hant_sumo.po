@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-21 21:14+0000\n"
+"PO-Revision-Date: 2023-04-24 11:53+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hant/>\n"
@@ -9021,7 +9021,7 @@ msgstr " （未定義投影方法）"
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:996
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:997
 msgid "N/A"
-msgstr "不適用(N/A)"
+msgstr "不適用"
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:107
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:208
