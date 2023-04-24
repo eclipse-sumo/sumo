@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 13:12+0000\n"
+"PO-Revision-Date: 2023-04-24 13:17+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -1106,7 +1106,7 @@ msgstr "尝试为未知路段 '%'设定数据值。"
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:690
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
-msgstr "尝试为从路段  '%' 到路段'% 的未知关系(relation)设定数据值。"
+msgstr "尝试为从路段 '%' 到路段 '%' 的未知关系(relation)设定数据值。"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:708
 msgid "No data defined after simulation begin time."
@@ -7567,7 +7567,7 @@ msgstr "如果一路段/车道最多有这么多的采样秒数，就认为它�
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5810
 msgid "The maximum speed to consider a vehicle halting;"
-msgstr "认为车辆停止的最大速度；"
+msgstr "认为车辆停止的最大速度;"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5816
 msgid "space separated list of vehicle type ids to consider"
@@ -8966,7 +8966,7 @@ msgstr "定义"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:237
 msgid "Opening HelpAttributes dialog for tag '"
-msgstr "打开标签的HelpAttributes（帮助属性）对话框 ''。"
+msgstr "打开标签的HelpAttributes（帮助属性）对话框"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:237
 msgid "' showing "
@@ -10023,7 +10023,7 @@ msgstr "至TAZ"
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:177
 #, c-format
 msgid "A % must be defined within an interval."
-msgstr "必须在一个区间内定义一个%"
+msgstr "必须在一个区间内定义一个%。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:179
 msgid "There is already a % defined in TAZ'%'."
