@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 12:18+0000\n"
+"PO-Revision-Date: 2023-04-24 13:20+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hant/>\n"
@@ -500,7 +500,7 @@ msgstr "掃描空的偵測器"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:143
 msgid "No source detectors found."
-msgstr "未發現起點偵測器(source detectors)"
+msgstr "未發現起點偵測器(source detectors)。"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:147
 msgid "Computing routes"
@@ -540,7 +540,7 @@ msgstr "正在寫出高速公路終點改道裝置(end rerouter)"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:251
 msgid "Builds vehicle routes for SUMO using detector values."
-msgstr "使用偵測器值為SUMO建立車輛路徑"
+msgstr "使用偵測器值為SUMO建立車輛路徑。"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:69
 msgid "Write generated route alternatives to FILE"
@@ -740,7 +740,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:107
 #, c-format
 msgid "Routing algorithm '%' does not support restriction-params"
-msgstr "路徑搜尋演算法 '%' 不支援限制參數( restriction-params)。"
+msgstr "路徑搜尋演算法 '%' 不支援限制參數( restriction-params)"
 
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:151
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:180
@@ -750,14 +750,13 @@ msgstr "未知的路徑搜尋演算法 '%'!"
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:178
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:210
 msgid "No weight data was loaded for attribute '%'."
-msgstr "沒有與屬性 '%' 相關的權重資料被載入"
+msgstr "沒有與屬性 '%' 相關的權重資料被載入。"
 
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:238
 msgid ""
 "Shortest path router and DUE computer for the microscopic, multi-modal "
 "traffic simulation SUMO."
-msgstr ""
-"微觀多運具模式交通模擬軟體SUMO的最短路徑搜尋器及動態交通指派均衡(DUE)計算器"
+msgstr "微觀多運具模式交通模擬軟體SUMO的最短路徑搜尋器及動態交通指派均衡(DUE)計算器。"
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTREdge.cpp:64
 #, c-format
