@@ -7,26 +7,31 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
-  - Fixed crash related to lane-changing in tight corners. Issue #12618 (regression in 1.13.0)
-  - Fixed crash with option **--device.rerouting.threads**. Issue #12711 (regression 1.16.0)
-  - Attribute `lcCooperative` no longer impacts speed adjustments that a vehicle needs for it's personal lane change maneuvers. #9473
-  - Fixed invalid interpretation of sublane positioning of junction leaders during lane changing. Issue #12580
-  - Fixed unsuitable lateral alignment on bidi edge when preparing for a turning movement. Issue #11436
+ 
+  - Fixed crash with option **--device.rerouting.threads**. Issue #12711 (regression 1.16.0)  
   - Fixed collision at parallel lanes with different lengths. Issue #12590
   - Fixed crash when using option **--collision.action remove** and vehicles collide after lane changing. Issue #12583
   - Traffic light type `delay_based` no longer generates overlapping detectors (which could cause invalid switching decisions). Issue #12615  
   - Waypoints with attribute 'triggered' now result in an error rather than undefined behavior. Issue #12665
   - Fixed collision on junction between two conflicting links with internal junction. Issue #12715
-  - Fixed invalid error: "Disconnected walk for person". Issue #12744
-  - vType attribute `lcTurnAlignmentDistance` now works for indirect left turns. Issue #8500
+  - Fixed invalid error: "Disconnected walk for person". Issue #12744  
   - Fixed invalid duration value in summary-output. Issue #13006
   - NEMA Controller now works with uneven yellow time at barrier. Issue #12989
   - A triggered stop is now always aborted when the vehicle is full. Issue #13015
   - Setting attribute expected or expectedContainer now always marks the stop as triggered (for person or container respectively). Issue #13016
   - Persons during access stage are now counted as walking rather than riding. Issue #13019
-  - Fixed bug where the simulation does not abort when the last active transportable is riding inside an inactive (triggered) vehicle. Issue #13017
-  - Fixed invalid strategic lane computation when lanes on the same edge differ in length. Issue #13021
+  - Fixed bug where the simulation does not abort when the last active transportable is riding inside an inactive (triggered) vehicle. Issue #13017  
   - Setting phase minDur=0 is now working for `actuated` and `delay_based` traffic lights. Issue #12952, #13089
+  - Bike lane detector placement for 'actuated' traffic lights now uses correct bike length. Issue #13109  
+  - Lane changing
+    - Fixed crash related to lane-changing in tight corners. Issue #12618 (regression in 1.13.0)
+    - Attribute `lcCooperative` no longer impacts speed adjustments that a vehicle needs for it's personal lane change maneuvers. #9473
+    - Fixed invalid interpretation of sublane positioning of junction leaders during lane changing. Issue #12580
+    - Fixed unsuitable lateral alignment on bidi edge when preparing for a turning movement. Issue #11436
+    - vType attribute `lcTurnAlignmentDistance` now works for indirect left turns. Issue #8500
+    - Fixed invalid strategic lane computation when lanes on the same edge differ in length. Issue #13021
+    - Fixed invalid collision warning at bike-to-road merge with sublane model. Issue #13101
+    - Fixed collisions at reduction in lane width when using the sublane model. Issue #13103
   - Railway simulation:
     - Simulation now terminates even when a stop with `triggered="join"` fails. Issue #12668
     - Stop attribute `extension` now works for `triggered="join"`. Issue #12666
@@ -58,6 +63,7 @@ title: ChangeLog
   - Fixed crash when unjoining a joint traffic light. Issue #12610
   - Fixed "Invalid reference counter" error after recomputing with volatile options with data elements. Issue #13058
   - Netedit now gives a warning when changing user defined junction type 'rail_crossing' to priority. Issue #9273
+  - Fixed bug where person plan elements after a stop where not loaded correctly. Issue #13125
 
 - sumo-gui
   - Fixed invalid carriageLength for tram. Issue #13011 (regression in 1.11.0)
@@ -85,6 +91,7 @@ title: ChangeLog
   - Abstract projection is now resolved when loading .net.xml. Issue #12761
   - Fixed tram connections when using option **--edges.join-tram-dist**. Issue #12767
   - Fixed crash when merging networks. Issue #12824
+  - Fixed connection building in intermodal networks that could cause dead ends for passenger traffic. Issue #12978, #13087, #10080
 
 - netgenerate
   - Fixed option category for options that apply to all network types but were placed in the `Random Network` category. Issue #12930
@@ -114,7 +121,8 @@ title: ChangeLog
   - Selected python tools now handle 'stdout' and 'stderr' as magic file names (i.e. *gtfs2pt.py* with more tools to follow). Issue #12588
   - Fixed broken routes for public transport from GTFS caused by invalid permissions. Issue #12276
   - tlsCoordinator.py now handles disconnected routes. Issue #11255
-  - tlsCycleAdaptation.py: fixed ZeroDivisionError. Issue #12760  
+  - tlsCycleAdaptation.py: fixed ZeroDivisionError. Issue #12760
+  - runSeeds.py: Fixed failure to run multiple configs with a list of seeds. Issue #13116
 
 ### Enhancements
 
@@ -157,6 +165,7 @@ title: ChangeLog
   - The network is automatically recomputed (if needed) when trying to create an E2 multilane detector. Issue #12763
   - Selection files with `node:NODE_ID` are now supported (also in sumo-gui). Issue #13061
   - Delete mode now features a button to toggle all protections. Issue #13073
+  - Option dialogs are now resizable. Issue #13099
 
 - sumo-gui
   - Dynamically modified values for `latAlignment` (i.e. when preparing to turn) are now listed in the type-parameter dialog. Issue #12579
