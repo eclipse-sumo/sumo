@@ -450,7 +450,7 @@ CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter:
     myDefinedStopParameter = true;
     // set attribute edge
     if (!myStopParameter.edge.empty()) {
-        addStringAttribute(SUMO_ATTR_ID, myStopParameter.edge);
+        addStringAttribute(SUMO_ATTR_EDGE, myStopParameter.edge);
     }
     // set attribute lane
     if (!myStopParameter.lane.empty()) {
