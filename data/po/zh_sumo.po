@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 13:09+0000\n"
-"Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
+"PO-Revision-Date: 2023-04-24 13:12+0000\n"
+"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
@@ -9512,7 +9512,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/sumo_main.cpp:114
 #: /home/micha/programming/sumo/src/sumo_main.cpp:123
 msgid "Quitting (on error)."
-msgstr ""
+msgstr "退出 (由于错误)。"
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:126
 msgid "Quitting (on unknown error)."
