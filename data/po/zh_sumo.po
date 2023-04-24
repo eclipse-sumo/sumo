@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 13:12+0000\n"
+"PO-Revision-Date: 2023-04-24 13:17+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -8890,7 +8890,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:992
 msgid " (No projection defined)"
-msgstr " (没有定义的预测)"
+msgstr " (未定義投影方式)"
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:996
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:997
@@ -9507,7 +9507,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:86
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr ""
+msgstr "微观多运具交通仿真软件。"
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:114
 #: /home/micha/programming/sumo/src/sumo_main.cpp:123
@@ -10010,7 +10010,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:337
 msgid "All files (*)"
-msgstr ""
+msgstr "所有档案 (*)"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:790
 msgid "Open decal."
