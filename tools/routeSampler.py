@@ -96,7 +96,7 @@ def get_options(args=None):
                     help="Set a total count that should be reached (either as single value that is split " +
                     " proportionally among all intervals or as a list of counts per interval)." +
                     " Setting the value 'input' preserves input vehicle counts in each interval.")
-    op.add_argument("-o", "--output-file", category="output", dest="out", default="out.rou.xml",
+    op.add_argument("-o", "--output-file", category="output", dest="out", default="out.rou.xml", type=op.route_file,
                     help="Output route file")
     op.add_argument("--prefix", category="processing", dest="prefix", default="",
                     help="prefix for the vehicle ids")
