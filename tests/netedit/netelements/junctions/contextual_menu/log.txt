@@ -1,0 +1,2 @@
+Error: Cannot read file 'D:\SUMO\tests\netedit\netelements\junctions\roundabouts\basic\additionals.add.xml'!
+Error: Loading of D:\SUMO\tests\netedit\netelements\junctions\roundabouts\basic\additionals.add.xml failed.

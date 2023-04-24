@@ -164,6 +164,10 @@ class junction:
         resetConnections = 0
 
     contextualMenuTLS = 10
+    resetEdgeEndPoints = 11
+    customJuncionShape = 12
+    convertToRoundabout = 12
+    resetConnections = 14
 
 # edge
 
