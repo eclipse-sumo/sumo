@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 13:20+0000\n"
+"PO-Revision-Date: 2023-04-24 13:27+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hant/>\n"
@@ -861,7 +861,7 @@ msgstr "一個轉向的預設值不是數字。"
 msgid ""
 "Router for the microscopic, multi-modal traffic simulation SUMO based on "
 "junction turning ratios."
-msgstr "微觀多運具模式交通模擬軟體SUMO內以路口轉向率為依據的路徑搜尋器"
+msgstr "微觀多運具模式交通模擬軟體SUMO內以路口轉向率為依據的路徑搜尋器。"
 
 #: /home/micha/programming/sumo/src/libsumo/GUI.cpp:330
 msgid "This system has no OpenGL support. Exiting."
@@ -1002,9 +1002,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/libsumo/VehicleType.cpp:289
 #, c-format
 msgid "Automatically setting emergencyDecel to % for vType '%' to match decel."
-msgstr ""
-"自動將緊急減速度(emergencyDecel)設置為 % 以匹配減速度(decel)。"
-"車輛類型(vType)為 '%' "
+msgstr "自動將緊急減速度(emergencyDecel)設置為 % 以匹配減速度(decel)。車輛類型(vType)"
+"為 '%'。"
 
 #: /home/micha/programming/sumo/src/libsumo/VehicleType.cpp:301
 msgid "New value of emergencyDecel (%) is lower than decel (%)"
@@ -1188,7 +1187,7 @@ msgstr "沒有給定起點或迄點，忽略 '%'!"
 msgid ""
 "Deterministic user equilibrium ('UE') is not implemented yet, using "
 "stochastic method ('SUE')."
-msgstr "使用隨機使用者均衡('SUE')交通指派方法,確定性使用者均衡('UE')尚未建置"
+msgstr "使用隨機使用者均衡('SUE')交通指派方法,確定性使用者均衡('UE')尚未建置。"
 
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:323
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:315
@@ -1264,7 +1263,7 @@ msgstr ""
 msgid ""
 "Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be "
 "merged)."
-msgstr "車輛 '%' 在路段 '%' 上有多個停靠點,時間=% (停靠點輸出將會被整合)"
+msgstr "車輛 '%' 在路段 '%' 上有多個停靠點,時間=% (停靠點輸出將會被整合)。"
 
 #: /home/micha/programming/sumo/src/mesosim/MEVehicle.cpp:370
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:1669
@@ -1407,7 +1406,7 @@ msgstr "雙向路段(Bidi-edge) '%' 不存在"
 
 #: /home/micha/programming/sumo/src/microsim/MSEdge.cpp:1277
 msgid "Ambiguous superposable edges between junction '%' and '%'."
-msgstr "路口 '%' 和 '%' 之間的不明確地可疊加路段(superposable edges)"
+msgstr "路口 '%' 和 '%' 之間不明確的可疊加路段(superposable edges)。"
 
 #: /home/micha/programming/sumo/src/microsim/MSEdge.cpp:1308
 #, c-format
@@ -2785,7 +2784,7 @@ msgstr "無效的停靠點定義%。"
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1305
 msgid "Stop edge '%' missing in attribute 'via' for % '%'"
-msgstr "在屬性 'via' 中缺少停靠點路段 '%', 其是針對 % '%' "
+msgstr "在屬性 'via' 中缺少停靠點路段 '%', 其是針對 % '%'"
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1324
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1198
@@ -2934,7 +2933,7 @@ msgstr "可疑的 right_before_left 路口 '%'。"
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:4375
 msgid " for unknown reasons"
-msgstr "由於未知原因"
+msgstr " 由於未知原因"
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:4383
 msgid ""
@@ -2976,9 +2975,8 @@ msgstr "車輛 '%' 在路段 '%' 上結束移送(teleporting)，時間 =%。"
 msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
-msgstr ""
-"'緊急減速度(emergencyDecel)'(%)值應高於'減速度(decel)'(%);"
-"車輛類型(vType)為 '%'"
+msgstr "'緊急減速度(emergencyDecel)'(%)值應高於'減速度(decel)'(%);車輛類型(vType)為 "
+"'%'。"
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicleType.cpp:311
 msgid ""
@@ -3020,7 +3018,7 @@ msgstr "車輛 '%' 的最大速度低於最小速度（最小值：%, 最大值�
 
 #: /home/micha/programming/sumo/src/microsim/cfmodels/MSCFModel_Krauss.cpp:58
 msgid "Rounding 'sigmaStep' to % for vType '%'"
-msgstr "將車輛類型(vType)的參數 'sigmaStep' 四捨五入為 %; 車輛類型為 '%' "
+msgstr "將車輛類型(vType)的參數 'sigmaStep' 四捨五入為 %; 車輛類型為 '%'"
 
 #: /home/micha/programming/sumo/src/microsim/cfmodels/MSCFModel_Rail.cpp:50
 msgid "Unknown train type: %. Exiting!"
@@ -3030,7 +3028,7 @@ msgstr "未知的火車類型： %。 退出!"
 msgid ""
 "Anything else than semi implicit euler update is not yet implemented. "
 "Exiting!"
-msgstr "除了半隱式歐拉(euler)更新之外，其他方法尚未建置完成。"
+msgstr "除了半隱式歐拉(euler)更新之外，其他方法尚未建置完成。退出!"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice.cpp:161
 #, c-format
