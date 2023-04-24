@@ -706,16 +706,6 @@ public:
      * @return true
      */
     bool isNetwork() const;
-
-    /** @brief Legacy method that returns the stored filenames as a comma-separated string.
-     *
-     * @see std::string Option::getString()
-     * @see std::string StringVector::getValueString()
-     * @return Returns comma-separated string of the stored filenames
-     * @deprecated Legacy method used when Option_Network was still derived from Option_String;
-     * not in line with code style of the Options sub-system.
-     */
-    std::string getString() const;
 };
 
 // -------------------------------------------------------------------------
@@ -738,16 +728,6 @@ public:
      * @return true
      */
     bool isAdditional() const;
-
-    /** @brief Legacy method that returns the stored filenames as a comma-separated string.
-     *
-     * @see std::string Option::getString()
-     * @see std::string StringVector::getValueString()
-     * @return Returns comma-separated string of the stored filenames
-     * @deprecated Legacy method used when Option_Additional was still derived from Option_String;
-     * not in line with code style of the Options sub-system.
-     */
-    std::string getString() const;
 };
 
 // -------------------------------------------------------------------------
@@ -770,16 +750,6 @@ public:
      * @return true
      */
     bool isRoute() const;
-
-    /** @brief Legacy method that returns the stored filenames as a comma-separated string.
-     *
-     * @see std::string Option::getString()
-     * @see std::string StringVector::getValueString()
-     * @return Returns comma-separated string of the stored filenames
-     * @deprecated Legacy method used when Option_Route was still derived from Option_String;
-     * not in line with code style of the Options sub-system.
-     */
-    std::string getString() const;
 };
 
 // -------------------------------------------------------------------------
@@ -803,13 +773,4 @@ public:
      */
     bool isData() const;
 
-    /** @brief Legacy method that returns the stored filenames as a comma-separated string.
-     *
-     * @see std::string Option::getString()
-     * @see std::string StringVector::getValueString()
-     * @return Returns comma-separated string of the stored filenames
-     * @deprecated Legacy method used when Option_Data was still derived from Option_String;
-     * not in line with code style of the Options sub-system.
-     */
-    std::string getString() const;
 };

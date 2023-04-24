@@ -515,11 +515,6 @@ bool Option_Network::isNetwork() const {
 }
 
 
-std::string
-Option_Network::getString() const {
-    return joinToString(getStringVector(), ",");
-}
-
 // -------------------------------------------------------------------------
 // Option_Additional - methods
 // -------------------------------------------------------------------------
@@ -534,11 +529,6 @@ Option_Additional::isAdditional() const {
     return true;
 }
 
-
-std::string
-Option_Additional::getString() const {
-    return joinToString(getStringVector(), ",");
-}
 
 // -------------------------------------------------------------------------
 // Option_Route - methods
@@ -555,11 +545,6 @@ Option_Route::isRoute() const {
 }
 
 
-std::string
-Option_Route::getString() const {
-    return joinToString(getStringVector(), ",");
-}
-
 // -------------------------------------------------------------------------
 // Option_Data - methods
 // -------------------------------------------------------------------------
@@ -572,12 +557,6 @@ Option_Data::Option_Data(const std::string& value) :
 bool
 Option_Data::isData() const {
     return true;
-}
-
-
-std::string
-Option_Data::getString() const {
-    return joinToString(getStringVector(), ",");
 }
 
 /****************************************************************************/
