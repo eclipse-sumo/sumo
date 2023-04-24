@@ -13,7 +13,7 @@
     <turn-ratio-abs-tolerance value="1" type="int" help="Set tolerance for error in resulting turning ratios as absolute count" category="turn-ratio"/>
     <turn-max-gap value="0" type="int" help="Allow at most a gap of INT edges between from-edge and to-edge" category="turn-ratio"/>
     <total-count value="None" type="string" help="Set a total count that should be reached (either as single value that is split  proportionally among all intervals or as a list of counts per interval). Setting the value 'input' preserves input vehicle counts in each interval." category="processing"/>
-    <output-file value="out.rou.xml" type="string" help="Output route file" category="output"/>
+    <output-file value="out.rou.xml" type="route_file" help="Output route file" category="output"/>
     <prefix value="" type="string" help="prefix for the vehicle ids" category="processing"/>
     <attributes value="" type="string" help="additional vehicle attributes" category="processing"/>
     <seed value="42" type="int" help="random seed" category="seed"/>
