@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 13:56+0000\n"
+"PO-Revision-Date: 2023-04-25 04:53+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hant/>\n"
@@ -58,7 +58,7 @@ msgstr "配置車輛位置"
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGenHandler.cpp:178
 #, c-format
 msgid "Edge '%' is not known."
-msgstr "路段'%'未知。"
+msgstr "路段 '%' 未知。"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGenHandler.cpp:329
 msgid "Unknown bus station '%'."
@@ -8201,7 +8201,7 @@ msgstr "無法構建路段 '%'； 將連接到相同的節點。"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimEdge.cpp:532
 msgid "What about distribution '%' "
-msgstr "分配 '%' 呢?"
+msgstr "分配 '%' 呢? "
 
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimTL.cpp:138
 #, c-format
@@ -8229,7 +8229,7 @@ msgstr "號誌 '%' 無法指派給交通號誌(tl) '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimTL.cpp:399
 msgid "Could not set % of % traffic lights."
-msgstr "無法設定  % "
+msgstr "無法設定 % 交通號誌的 %。"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimTL.cpp:402
 #, c-format
@@ -8254,23 +8254,23 @@ msgstr "省略未知的交通號誌。"
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:142
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:170
 msgid "VAS traffic lights are not supported (lsa=%)"
-msgstr "不支援 VAS 交通號誌 (交通號誌(lsa) =%))"
+msgstr "不支援 VAS 的交通號誌 (交通號誌(lsa) =%))"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:154
 msgid "VSPLUS traffic lights are not supported (lsa=%)"
-msgstr "不支援 VSPLUS 交通號誌 (交通號誌(lsa) =%))"
+msgstr "不支援 VSPLUS 的交通號誌 (交通號誌(lsa) =%))"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:162
 msgid "TRENDS traffic lights are not supported (lsa=%)"
-msgstr "不支援 TRENDS 交通號誌 (交通號誌(lsa) =%))"
+msgstr "不支援 TRENDS 的交通號誌 (交通號誌(lsa) =%))"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:178
 msgid "TL traffic lights are not supported (lsa=%)"
-msgstr "不支援 TL 交通號誌 (交通號誌(lsa) =%))"
+msgstr "不支援 TL 的交通號誌 (交通號誌(lsa) =%))"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:186
 msgid "POS traffic lights are not supported (lsa=%)"
-msgstr "不支援 POS 交通號誌 (交通號誌(lsa) =%))"
+msgstr "不支援 POS 的交通號誌 (交通號誌(lsa) =%))"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:194
 msgid "externally defined traffic lights are not supported (lsa=%)"
@@ -8307,7 +8307,7 @@ msgstr "狀態(state)是在不同的時間 =% 寫入的,而非在開始時間 %!
 #: /home/micha/programming/sumo/src/router/RONet.cpp:223
 #, c-format
 msgid "A TAZ with id '%' already exists. Not building junction TAZ."
-msgstr "具有識別名(id)為  '%' 的分區已存在。不構建路口分區(TAZ)。"
+msgstr "具有識別名(id)為 '%' 的分區已存在。不構建路口分區(TAZ)。"
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:228
 msgid ""
@@ -8411,7 +8411,7 @@ msgstr "VTypeProbe 已不適用。 請改用 fcd-output 裝置 （指派給 vTyp
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1061
 msgid "Ignoring deprecated argument 'cont' for E2 detector '%'"
-msgstr "忽略已不適用的引數 'cont', 其用於 E2 偵測器  '%'"
+msgstr "忽略已不適用的引數 'cont', 其用於 E2 偵測器 '%'"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1077
 msgid "Invalid person mode '%' in E2 detector definition '%'"
@@ -8781,7 +8781,7 @@ msgstr "開始於 % 的時間片斷(timeSlice) 的持續時間無效。"
 #: /home/micha/programming/sumo/src/od/ODDistrictCont.cpp:72
 #, c-format
 msgid "Could not access network file '%' to load."
-msgstr "無法存取網路檔案 '%' 以進行載入"
+msgstr "無法存取網路檔案 '%' 以進行載入。"
 
 #: /home/micha/programming/sumo/src/od/ODDistrictHandler.cpp:130
 msgid "'probability' must be positive (in definition of % '%')."
@@ -8813,7 +8813,7 @@ msgstr "分區 '%' 沒有迄點。"
 msgid ""
 "Cannot find different source and sink edge for origin '%' and destination "
 "'%'."
-msgstr "無法為出發地 '%' 和目的地 '%' 找到不同的起始及結束路段"
+msgstr "無法為出發地 '%' 和目的地 '%' 找到不同的起始及結束路段。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:364
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:384
@@ -8851,7 +8851,7 @@ msgstr "找到比分區更多的輸入項目(entries)。"
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:538
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:586
 msgid "Not numeric vehicle number in line '%'."
-msgstr " 在 '%' 列中有不是數字的車輛編號。"
+msgstr "在 '%' 列中有不是數字的車輛編號。"
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:584
 msgid "Missing at least one information in line '%'."
@@ -9005,11 +9005,11 @@ msgstr "無法載入交通號誌檔案。"
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:454
 msgid "Invalid link index in '%'."
-msgstr " '%' 中有無效的連接索引(link index)。"
+msgstr "'%' 中有無效的連接索引(link index)。"
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:456
 msgid "Unknown traffic light in '%'."
-msgstr " '%' 中有未知的交通號誌。"
+msgstr "'%' 中有未知的交通號誌。"
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:992
 msgid " (No projection defined)"
@@ -9026,7 +9026,7 @@ msgstr "不適用"
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderVisum.cpp:341
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:240
 msgid "Unable to project coordinates for polygon '%'."
-msgstr "無法投影多邊形 '%' 的坐標"
+msgstr "無法投影多邊形 '%' 的坐標。"
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:184
 msgid "Missing id under '%'"
@@ -9039,7 +9039,7 @@ msgstr "在 '%' 下缺少識別名(id)"
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderVisum.cpp:271
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderVisum.cpp:385
 msgid "Unable to project coordinates for POI '%'."
-msgstr "無法投影興趣點(POI) '%' 的坐標"
+msgstr "無法投影興趣點(POI) '%' 的坐標。"
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:300
 msgid "Unsupported shape type occurred (id='%')."
@@ -9459,7 +9459,7 @@ msgstr "路網檔案 '%' 不能存取。"
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:140
 #, c-format
 msgid "The additional file '%' is not accessible."
-msgstr "無法讀取附加檔案(additional file) '%'"
+msgstr "無法讀取附加檔案(additional file) '%'。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:217
 msgid "Routes found between time steps % and %."
@@ -9497,7 +9497,7 @@ msgstr "未知路段 '%' 位於交通分區(TAZ) '%'內。"
 #: /home/micha/programming/sumo/src/router/RONet.cpp:259
 #, c-format
 msgid "The bidi edge '%' is not known."
-msgstr "雙向路段(bidi edge) '%' 未知"
+msgstr "雙向路段(bidi edge) '%' 未知。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:270
 #, c-format
@@ -9506,7 +9506,7 @@ msgstr "節點 '%' 至少出現兩次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:279
 msgid "The % '%' occurs at least twice."
-msgstr " % '%' 至少出現兩次。"
+msgstr "% '%' 至少出現兩次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:446
 #, c-format
@@ -9691,26 +9691,26 @@ msgstr "從檔案載入排放參數 (車輛類型(vTypes))"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:89
 msgid "Defines for which emission class the emissions shall be generated. "
-msgstr "定義應針對哪個排放類別(class)產生排放物。"
+msgstr "定義應針對哪個排放類別(class)產生排放物。 "
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:92
 msgid "Defines the vehicle type to use for emission parameters."
-msgstr "定義用於排放參數的車輛類型"
+msgstr "定義用於排放參數的車輛類型。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:96
 msgid ""
 "If set, the acceleration is computed instead of being read from the file. "
-msgstr "如果設定，則計算加速度而不是從檔案中讀取。"
+msgstr "如果設定，則計算加速度而不是從檔案中讀取。 "
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:99
 msgid ""
 "If set, the acceleration for time t is computed from v(t+1) - v(t) instead "
 "of v(t) - v(t-1). "
-msgstr "如果設定，則時間 t 的加速度從 v(t+1) - v(t) 而不是從 v(t) - v(t-1) 計算。"
+msgstr "如果設定，則時間 t 的加速度從 v(t+1) - v(t) 而不是從 v(t) - v(t-1) 計算。 "
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:102
 msgid "If set, the acceleration for time t is set to 0 if the speed is 0. "
-msgstr "如果設定，則當速度為 0 時，時間 t 的加速度設為 0。"
+msgstr "如果設定，則當速度為 0 時，時間 t 的加速度設為 0。 "
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:105
 msgid "If set, the first line of the read file is skipped."
@@ -9748,11 +9748,11 @@ msgstr "在 CSV 內儲存每輛車的彙總(aggregated)和賦範的(normed)排�
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:145
 msgid "Defines the begin time in seconds;"
-msgstr "以秒為單位定義開始時間；"
+msgstr "以秒為單位定義開始時間;"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:148
 msgid "Defines the end time in seconds;"
-msgstr "以秒為單位定義結束時間；"
+msgstr "以秒為單位定義結束時間;"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:152
 msgid "Not writing anything."
@@ -10156,7 +10156,7 @@ msgstr "移除貼印(decal)"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:798
 msgid "Remove decal."
-msgstr "移除貼印(decal)"
+msgstr "移除貼印(decal)。"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
@@ -10371,7 +10371,7 @@ msgstr "無法載入範本(template) '%'。"
 
 #: /home/micha/programming/sumo/src/utils/iodevices/OutputDevice.cpp:86
 msgid "No port number given."
-msgstr "沒有給定埠號(port number)"
+msgstr "沒有給定埠號(port number)。"
 
 #: /home/micha/programming/sumo/src/utils/iodevices/OutputDevice.cpp:161
 msgid "Error on closing output devices."
@@ -10446,19 +10446,18 @@ msgstr "選項 '%' 需要選項 '%' 。"
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:616
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:638
 msgid " Build features: "
-msgstr "構建功能: "
+msgstr " 構建功能: "
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:620
 msgid ""
 " License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/"
 "legal/epl-v20.html>"
-msgstr ""
-"許可證EPL-2.0: Eclipse公共許可證版本 2 <https://eclipse.org/legal/epl-v20."
+msgstr " 許可證EPL-2.0: Eclipse公共許可證版本 2 <https://eclipse.org/legal/epl-v20."
 "html>"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:621
 msgid " Use --help to get the list of options."
-msgstr "使用 --求助 獲取選項清單。"
+msgstr " 使用 --求助 獲取選項清單。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:669
 msgid "Could not save configuration to '%'"
@@ -10491,7 +10490,7 @@ msgstr "無法剖析命令列的選項。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:103
 msgid "Could not access configuration '%'."
-msgstr "無法存取設定(configuration)  '%'。"
+msgstr "無法存取設定(configuration) '%'。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:107
 msgid "Loading configuration"
@@ -10549,7 +10548,7 @@ msgstr "地標檔案損壞, 路段 '%' 有超出預期的登錄項目數量 (%)�
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:187
 msgid "Calculating new lookup table."
-msgstr "正在計算新的對照表"
+msgstr "正在計算新的對照表。"
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:194
 msgid "No lookup table for landmark edge '%', recalculating."
@@ -10714,13 +10713,13 @@ msgstr "不能指派明確的電流值給與同一節點平行連結的兩個電
 msgid ""
 "Trying to add resistor element into the overhead wire circuit with "
 "resistance < 1e-6. "
-msgstr "嘗試在電阻 < 1e-6 的架空線電路中增加電阻元素(element)。"
+msgstr "嘗試在電阻 < 1e-6 的架空線電路中增加電阻元素(element)。 "
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:800
 msgid ""
 "Trying to add resistor element into the overhead wire circuit with "
 "resistance < 0. "
-msgstr "嘗試在電阻 < 0 的架空線電路中增加電阻元素(element)。"
+msgstr "嘗試在電阻 < 0 的架空線電路中增加電阻元素(element)。 "
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:919
 msgid ""
@@ -10757,7 +10756,7 @@ msgstr "在電路檢查期間,未訪問到內部識別名(id)為 '%' 的電路�
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Element.cpp:53
 msgid "Undefined element type for '%'."
-msgstr " '%' 有未定義的元素類型。"
+msgstr "'%' 有未定義的元素類型。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteHandler.cpp:63
 msgid "Route file should be sorted by departure time, ignoring '%'!"
@@ -10776,7 +10775,7 @@ msgstr "停靠屬性 'trigger' 的值必須是 '人員(person)', '貨櫃(contain
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:268
 msgid "Undefined end for % '%', defaulting to 24hour duration."
-msgstr " % '%' 的結束未定義, 預設為 24 小時持續時間。"
+msgstr "% '%' 的結束未定義, 預設為 24 小時持續時間。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:402
 msgid "Invalid % id '%'."
@@ -10805,7 +10804,7 @@ msgstr "maneuverAngleTimes 的三個二進制元素位元組(Triplet) '%' (車�
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1174
 msgid "Unknown car-following model % when parsing vType '%'"
-msgstr "未知的跟車模式  % 出現於解析 vType '%' 的時候"
+msgstr "未知的跟車模式 % 出現於解析 vType '%' 的時候"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1176
 msgid "Unknown car-following model when parsing vType '%'"
@@ -10858,11 +10857,11 @@ msgstr "無效的路口模式屬性 %。 必須等於或大於 0"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1636
 msgid "The vehicle class '%' for % '%' is not known."
-msgstr " % '%' 的車輛類別(vehicle class)未知。"
+msgstr "% '%' 的車輛類別(vehicle class)未知。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1654
 msgid "The shape '%' for % '%' is not known."
-msgstr " % '%' 的形狀(shape)未知。"
+msgstr "% '%' 的形狀(shape)未知。"
 
 #: /home/micha/programming/sumo/src/utils/xml/CommonXMLStructure.cpp:271
 msgid "Undefined vehicleType parameter"
@@ -10887,11 +10886,11 @@ msgstr "在檔案'%' （應為 '%'）中找到根元件(root element) '%'。"
 
 #: /home/micha/programming/sumo/src/utils/xml/GenericSAXHandler.cpp:209
 msgid " In file '"
-msgstr "在檔案 '"
+msgstr " 在檔案 '"
 
 #: /home/micha/programming/sumo/src/utils/xml/GenericSAXHandler.cpp:210
 msgid " At line/column "
-msgstr "在列/行(line/column) "
+msgstr " 在列/行(line/column) "
 
 #: /home/micha/programming/sumo/src/utils/xml/SAXWeightsHandler.cpp:145
 msgid "Missing value '%' in edge '%'."
