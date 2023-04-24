@@ -56,7 +56,7 @@ def parse_args():
                     help="parse net for geo locations of the edges")
     op.add_argument("-p", "--poi-file", category="processing", type=op.additional_file,
                     help="write geo POIs")
-    op.add_argument("routefiles", nargs="+", category="input",
+    op.add_argument("routefiles", nargs="+", category="input", type=op.route_file,
                     help="Set one or more input route files")
 
     options = op.parse_args()
