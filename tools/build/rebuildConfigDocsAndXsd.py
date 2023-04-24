@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    configTemplateToWiki.py
+# @file    updateConfigDocsAndXsd.py
 # @author  Michael Behrisch
 # @date    2012-01-26
 
@@ -20,7 +20,7 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
-from xml.sax import parse, handler
+from xml.sax import parseString, handler
 
 
 class ConfigReader(handler.ContentHandler):
@@ -88,31 +88,24 @@ class ConfigReader(handler.ContentHandler):
 
 
 if __name__ == "__main__":
+    homeDir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     if len(sys.argv) == 1:
         for app in ("activitygen", "dfrouter", "duarouter", "jtrrouter", "marouter",
                     "od2trips", "polyconvert", "netgenerate", "netconvert", "sumo"):
-            if app == "netgenerate":
-                cfg = os.path.join(os.path.dirname(__file__), "..", "..",
-                                   "tests", "netgen", "meta", "write_template_full", "cfg.netgen")
-            else:
-                cfg = os.path.join(os.path.dirname(__file__), "..", "..",
-                                   "tests", app, "meta", "write_template_full", "cfg." + app)
-            docs = os.path.join(os.path.dirname(__file__), "..", "..",
-                                "docs", "web", "docs", app + ".md")
-            parse(cfg, ConfigReader(open(docs).readlines(), docs))
-        subprocess.call(['netedit', '--attribute-help-output', os.path.join(os.path.dirname(__file__), "..", "..",
+            cfg = subprocess.check_output([app, "--save-template", "stdout"], universal_newlines=True)
+            docs = os.path.join(homeDir, "docs", "web", "docs", app + ".md")
+            parseString(cfg, ConfigReader(open(docs).readlines(), docs))
+            subprocess.check_call([app, "--save-schema", 
+                                   os.path.join(homeDir, "data", "xsd", app + "Configuration.xsd")])
+        subprocess.call(['netedit', '--attribute-help-output', os.path.join(homeDir,
                          "docs", "web", "docs", 'Netedit', 'attribute_help.md')])
     elif len(sys.argv) == 2:
         app = sys.argv[1].lower()
-        if app == "netgenerate":
-            app = "netgen"
-        cfg = os.path.join(os.path.dirname(__file__), "..", "..",
-                           "tests", app, "meta", "write_template_full", "cfg." + app)
-        docs = os.path.join(os.path.dirname(__file__), "..", "..",
-                            "docs", "web", "docs", sys.argv[1] + ".md")
-        parse(cfg, ConfigReader(open(docs).readlines()))
+        cfg = subprocess.check_output([app, "--save.-template", "stdout"])
+        docs = os.path.join(homeDir, "docs", "web", "docs", app + ".md")
+        parseString(cfg, ConfigReader(open(docs).readlines()))
     elif len(sys.argv) == 3:
-        parse(sys.argv[1], ConfigReader(open(sys.argv[2]).readlines()))
+        parseString(sys.argv[1], ConfigReader(open(sys.argv[2]).readlines()))
     else:
         print("Usage: %s <template> <wikisrc>\n   or: %s <app>" % (
             os.path.basename(__file__), os.path.basename(__file__)), file=sys.stderr)

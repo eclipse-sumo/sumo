@@ -896,7 +896,7 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
         os << myAppName;
     }
     os << "Configuration.xsd\">" << std::endl << std::endl;
-    for (auto subtopic : mySubTopics) {
+    for (std::string subtopic : mySubTopics) {
         if (subtopic == "Configuration" && !complete) {
             continue;
         }
@@ -973,7 +973,7 @@ OptionsCont::writeSchema(std::ostream& os) {
     os << "    <xsd:element name=\"configuration\" type=\"configurationType\"/>\n\n";
     os << "    <xsd:complexType name=\"configurationType\">\n";
     os << "        <xsd:all>\n";
-    for (auto subtopic : mySubTopics) {
+    for (std::string subtopic : mySubTopics) {
         if (subtopic == "Configuration") {
             continue;
         }
@@ -983,15 +983,16 @@ OptionsCont::writeSchema(std::ostream& os) {
     }
     os << "        </xsd:all>\n";
     os << "    </xsd:complexType>\n\n";
-    for (auto subtopic : mySubTopics) {
+    for (std::string subtopic : mySubTopics) {
         if (subtopic == "Configuration") {
             continue;
         }
+        const std::vector<std::string>& entries = mySubTopicEntries.find(subtopic)->second;
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
         subtopic = StringUtils::to_lower_case(subtopic);
         os << "    <xsd:complexType name=\"" << subtopic << "TopicType\">\n";
         os << "        <xsd:all>\n";
-        for (const auto& entry : mySubTopicEntries[subtopic]) {
+        for (const auto& entry : entries) {
             Option* o = getSecure(entry);
             std::string type = o->getTypeName();
             type = StringUtils::to_lower_case(type);
