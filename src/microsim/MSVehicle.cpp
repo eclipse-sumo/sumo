@@ -2104,7 +2104,7 @@ MSVehicle::brakeForOverlap(const MSLink* link, const MSLane* lane) const {
             lane != myLane && lane->isInternal() ? lane->getIncomingLanes()[0].viaLink->getLateralShift() : 0);
     const double overlap = getLateralOverlap(futurePosLat, lane);
     const double edgeWidth = lane->getEdge().getWidth();
-    double result = (overlap > POSITION_EPS
+    const bool result = (overlap > POSITION_EPS
             // do not get stuck on narrow edges
             && getVehicleType().getWidth() <= edgeWidth
             && link->getViaLane() == nullptr
