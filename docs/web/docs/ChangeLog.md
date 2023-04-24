@@ -131,7 +131,7 @@ title: ChangeLog
   - Statistics-output now includes performance metrics (i.e. clockTime). Issue #12946
   - The z value is now included in emission-output if the network has elevation data. Issue #13022
   - The time spent while passing a [waypoint](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#waypoints) is no longer counted as 'stoppedTime' in tripinfo-output. Issue #13037
-  - Junction model [params](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#transient_parameters) `ignoreIDs` and `ignoreTypes` can now be used to ignore pedstrians. Issue #13057
+  - Junction model [params](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#transient_parameters) `ignoreIDs` and `ignoreTypes` can now be used to ignore pedestrians. Issue #13057
   - Vehicle attribute `depart` now supports the new value `begin` referring to the start of the simulation. Issue #12270
 
 - netconvert
@@ -148,14 +148,14 @@ title: ChangeLog
 - netedit
   - Added menu entry for directly calling netgenerate and and instantly editing the generated network. Issue #2393
   - Added menu and dialogs for calling python tools without using the command line. Issue #4138
-  - When calling netdiff from tools menu, the computed differences may be selectively imported for visualization (i.e. differently collored shapes for added, deleted and modified edges). Issue #2736
+  - When calling netdiff from tools menu, the computed differences may be selectively imported for visualization (i.e. differently colored shapes for added, deleted and modified edges). Issue #2736
   - All objects with a name attribute can now be located by name using the locate-dialog. Issue #12686
   - Inspect now allows inspecting individual objects that are part of a selection via ALT+LEFT_CLICK. Issue #12690
   - In data mode, overlapped data elements list is now sorted by interval begin. Issue #11330
   - If a route is selected it will always be shown on top of other overlapping routes. Issue #12582
   - The vehicle type "DEFAULT_RAILTYPE" can now be used for defining trains. Issue #6752
   - The network is automatically recomputed (if needed) when trying to create an E2 multilane detector. Issue #12763
-  - Selection files with `node:NODE_ID` are now supported (also in suom-gui). Issue #13061
+  - Selection files with `node:NODE_ID` are now supported (also in sumo-gui). Issue #13061
   - Delete mode now features a button to toggle all protections. Issue #13073
 
 - sumo-gui
@@ -198,7 +198,7 @@ title: ChangeLog
   - Improved compatibility between sumolib phase definitions and libsumo phase definitions. Issue #12131
   - Added tool [abstractRail.py](Tools/Net.md#abstractrailpy) to generate an abstract/schematic rail network based on a geodetic rail network. Issue #12662
   - Added tool [stationDistricts.py](Tools/District.md#stationdistrictspy) for segmenting a public transport network based public transport stations. Issue #12662
-  - Added tool [attributeCompare.py](Tools/Output.md#attributecomparepy) to compare matching attribute accross multiple files. Issue #13026
+  - Added tool [attributeCompare.py](Tools/Output.md#attributecomparepy) to compare matching attribute across multiple files. Issue #13026
   - attributeDiff.py: Can now optionally group attributes by one or more id-attributes before comparing. #12794
   - attributeDiff.py: optionally write entries that could not be compared (via new options **-m** and **-M**. Issue #12798
   - attributeStats.py: Now supports option **--human-readable-time** (**-H**) to make attributes with large time values more legible. Issue #12822
