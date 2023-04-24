@@ -1,5 +1,5 @@
 <configuration>
-    <datafiles value="None" type="data_file" help="XML files to analyze" category="input" required="true" positional="true"/>
+    <datafiles value="None" type="data_file" help="XML files to analyze" category="input" required="true" positional="true" listSeparator=" "/>
     <verbose value="False" type="bool" help="Give more output" category="processing"/>
     <element value="None" type="string" help="element to analyze" category="input"/>
     <attribute value="None" type="string" help="attribute to analyze" category="input"/>

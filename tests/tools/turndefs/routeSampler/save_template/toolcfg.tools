@@ -1,8 +1,8 @@
 <configuration>
-    <route-files value="None" type="route_file" help="Input route file" category="input"/>
-    <turn-files value="None" type="edgedata_file" help="Input turn-count file" category="input"/>
-    <edgedata-files value="None" type="edgedata_file" help="Input edgeData file (for counts)" category="input"/>
-    <od-files value="None" type="edgedata_file" help="Input edgeRelation file for origin-destination counts" category="input"/>
+    <route-files value="None" type="route_file" help="Input route file" category="input" listSeparator=","/>
+    <turn-files value="None" type="file" help="Input turn-count file" category="input" listSeparator=","/>
+    <edgedata-files value="None" type="file" help="Input edgeData file (for counts)" category="input" listSeparator=","/>
+    <od-files value="None" type="file" help="Input edgeRelation file for origin-destination counts" category="input" listSeparator=","/>
     <edgedata-attribute value="entered" type="string" help="Read edgeData counts from the given attribute" category="attribute"/>
     <arrival-attribute value="None" type="string" help="Read arrival counts from the given edgeData file attribute" category="attribute"/>
     <depart-attribute value="None" type="string" help="Read departure counts from the given edgeData file attribute" category="attribute"/>
