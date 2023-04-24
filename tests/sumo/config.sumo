@@ -187,7 +187,7 @@ cfg:<movereminder{LINES 2}
 cfg:movereminder
 cfg:<python-script
 cfg:embedded python
-cfg:<osg-view
+cfg:osg-view
 cfg:OpenSceneGraph
 cfg:^$
 weights:<!--{[->]}-->
