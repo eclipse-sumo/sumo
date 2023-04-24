@@ -71,8 +71,8 @@ def getOptions(args=None):
         '    plots passengers over time for vehicles from SUMO stop output',
         formatter_class=RawDescriptionHelpFormatter, conflict_handler='resolve')
 
-    sumolib.visualization.helpers.addPlotOptions(optParser)
-    sumolib.visualization.helpers.addInteractionOptions(optParser)
+    optParser.add_option("files", nargs='+', type=optParser.file_list,
+                         help="List of XML files to plot")
     optParser.add_option("-x", "--xattr",  help="attribute for x-axis")
     optParser.add_option("-y", "--yattr",  help="attribute for y-axis")
     optParser.add_option("-i", "--idattr",  default="id", help="attribute for grouping data points into lines")
@@ -107,7 +107,8 @@ def getOptions(args=None):
                          default=False, help="Draw a bar plot parallel to the x-axis")
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
-    optParser.add_argument("files", nargs='+', help="List of XML files to plot")
+    sumolib.visualization.helpers.addPlotOptions(optParser)
+    sumolib.visualization.helpers.addInteractionOptions(optParser)
 
     options = optParser.parse_args(args=args)
 
