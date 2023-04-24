@@ -58,7 +58,7 @@ def get_options(args=None):
     if ":" in options.seeds:
         options.seeds = range(*map(int, options.seeds.split(":")))
     else:
-        options.seeds = map(int, options.seeds.split(","))
+        options.seeds = list(map(int, options.seeds.split(",")))
 
     if not options.configuration:
         sys.stderr.write("Error: option configuration is mandatory\n")
