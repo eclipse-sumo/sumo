@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 11:53+0000\n"
+"PO-Revision-Date: 2023-04-24 12:18+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -1123,7 +1123,7 @@ msgstr "此系統不支援開放圖形語言 (OpenGL)。 退出中。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:468
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr "微觀多運具交通模擬軟體。"
+msgstr "微觀多運具模式交通模擬軟體。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:504
 msgid "Recomputing"
@@ -2928,7 +2928,7 @@ msgstr "開啟選項檔案"
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:95
 #, c-format
 msgid "Loading of sumo config file '%' failed."
-msgstr "載入 SUM O設定檔 '%' 失敗。"
+msgstr "載入 SUMO 設定檔 '%' 失敗。"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:108
 #, c-format
@@ -3152,11 +3152,11 @@ msgstr "從註冊表載入目前檢視區"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:436
 msgid "Create initial window with the given x,y size"
-msgstr "使用給定的x, y尺寸建立初始視窗"
+msgstr "使用給定的 x, y 尺寸建立初始視窗"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:439
 msgid "Create initial window at the given x,y position"
-msgstr "在給定的x, y位置建立初始視窗"
+msgstr "在給定的 x, y 位置建立初始視窗"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:444
 msgid "Enable overlay for screen recognition"
@@ -3190,16 +3190,16 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
-"在跟車模式及車道變換模式內行動點(action point)之間的預設區間長度（以秒為單"
-"位）。如果沒有指定，模擬步長將作為預設值。車輛或是VType的特殊設定值會改寫預設"
-"值。必須是模擬步長的倍數。"
+"在跟車模式及車道變換模式內行動點(action point)之間的預設區間長度（以秒為單位"
+"）。如果沒有指定，模擬步長將作為預設值。車輛或是VType的特殊設定值會改寫預設值"
+"。必須是模擬步長的倍數。"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:469
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class"
-msgstr ""
-"選擇速度偏差的預設值。負值表示 vClass 特定預設值（ 0.1為小客車等級的預設值"
+msgstr "選擇速度偏差的預設值。負值表示 車輛類別(vClass)特定預設值（ 0."
+"1為小客車等級的預設值"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:508
 msgid "Failed to reset options."
@@ -4359,7 +4359,7 @@ msgstr "計算路徑管理器"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:113
 msgid "Compute path manager."
-msgstr "計算路徑管理器"
+msgstr "計算路徑管理器。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:521
 msgid "WalkingArea Chooser"
@@ -7665,7 +7665,7 @@ msgstr "已超出標記 % 的最大屬性數量"
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:170
 #, c-format
 msgid "Attribute '%' already inserted"
-msgstr "已插入屬性 '%' "
+msgstr "已插入屬性 '%'"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:207
 #, c-format
@@ -7694,19 +7694,19 @@ msgstr " > 車道長度"
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:128
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:129
 msgid "Copy "
-msgstr "複製"
+msgstr "複製 "
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:148
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:146
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:128
 msgid " name to clipboard"
-msgstr "剪輯板的名稱"
+msgstr " 剪輯板的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:149
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:147
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:129
 msgid " typed name to clipboard"
-msgstr "剪輯板的類型名稱"
+msgstr " 剪輯板的類型名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:156
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:136
@@ -7868,7 +7868,7 @@ msgstr "新增改道裝置 '"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:939
 msgid "Could not build interval with ID '"
-msgstr "無法建立區間,其識別名(ID)為 "
+msgstr "無法建立區間,其識別名(ID)為"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:939
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1244
@@ -8039,7 +8039,7 @@ msgstr "' 在 netedit; 已宣告兩次。"
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2022
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:249
 msgid " doesn't exist."
-msgstr "不存在。"
+msgstr " 不存在。"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1931
 msgid "' in netedit; attribute "
@@ -8047,7 +8047,7 @@ msgstr "' 在 netedit; 屬性 "
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1931
 msgid " cannot be negative."
-msgstr "不能為負值。"
+msgstr " 不能為負值。"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1937
 msgid "' in netedit; list of VTypes isn't valid."
@@ -8256,7 +8256,7 @@ msgstr "無法建立平均資料路段(meanDataEdge); "
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:64
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:93
 msgid " already exists"
-msgstr "已經存在"
+msgstr " 已經存在"
 
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:70
 msgid "add meanDataEdge"
@@ -8264,7 +8264,7 @@ msgstr "新增平均資料路段(meanDataEdge)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:93
 msgid "Could not build meanDataLane; "
-msgstr "無法建立平均資料車道(meanDataLane);"
+msgstr "無法建立平均資料車道(meanDataLane); "
 
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:99
 msgid "add meanDataLane"
@@ -8299,7 +8299,7 @@ msgstr "有另一個 "
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1523
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1535
 msgid " with the same ID='"
-msgstr "有相同識別名(ID)='"
+msgstr " 有相同識別名(ID)='"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:76
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:126
@@ -8343,7 +8343,7 @@ msgstr " 需要至少一個 "
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:108
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:118
 msgid " with id '"
-msgstr "帶有識別名(id) '"
+msgstr " 帶有識別名(id) '"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:108
 msgid "' doesn't exist in "
@@ -8351,7 +8351,7 @@ msgstr "' 不存在於 "
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:115
 msgid "Invalid definition for "
-msgstr "無效的定義"
+msgstr "無效的定義 "
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:115
 msgid " in "
@@ -8444,11 +8444,11 @@ msgstr "無效 "
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:292
 msgid " is greater than number of lanes"
-msgstr "大於車道數"
+msgstr " 大於車道數"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:294
 msgid " is greater than vType"
-msgstr "大於車輛類型(vType)"
+msgstr " 大於車輛類型(vType)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:510
 msgid "Invalid person type '"
@@ -8617,7 +8617,7 @@ msgstr "內部屬性"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:175
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:177
 msgid "Invalid input parameter of "
-msgstr "無效的輸入參數"
+msgstr "無效的輸入參數 "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:60
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:62
@@ -8714,7 +8714,7 @@ msgstr "點擊視圖中的元素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:133
 msgid "select sub-item..."
-msgstr "選擇次項目"
+msgstr "選擇次項目..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:136
 msgid "-Clicked over multiple"
@@ -8726,11 +8726,11 @@ msgstr "元素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:138
 msgid " - Select an item in the"
-msgstr "- 從...選擇一個項目"
+msgstr " - 從...選擇一個項目"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:139
 msgid " list or click over an"
-msgstr "列出或點擊"
+msgstr " 列出或點擊"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:140
 msgid " element in view"
@@ -8770,7 +8770,7 @@ msgstr "- '開始繪製' 或 進入"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:59
 msgid "  to create shape."
-msgstr "建立形狀。"
+msgstr "  建立形狀。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:60
 msgid "- 'Stop drawing' or ENTER to"
@@ -8778,7 +8778,7 @@ msgstr "- '停止繪製' 或 進入到"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:61
 msgid "  finish shape creation."
-msgstr "完成形狀物建立"
+msgstr "  完成形狀物建立。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:62
 msgid "- 'Abort drawing' or ESC to"
@@ -8786,7 +8786,7 @@ msgstr "- '中止繪製' 或 跳離到 (ESC)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:63
 msgid "  abort shape creation."
-msgstr "中止形狀物建立"
+msgstr "  中止形狀物建立。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:64
 msgid "- 'Shift + Click' to remove"
@@ -8794,7 +8794,7 @@ msgstr "- 'Shift + Click' 以移除"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:65
 msgid "  last inserted point."
-msgstr " 最後置入的點。"
+msgstr "  最後置入的點。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:137
 msgid "A new point cannot be added if drawing wasn't started"
@@ -8815,22 +8815,22 @@ msgstr "資訊"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:38
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:38
 msgid " edge candidate"
-msgstr "候選路段"
+msgstr " 候選路段"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:42
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:42
 msgid " last edge selected"
-msgstr "最後選擇的路段"
+msgstr " 最後選擇的路段"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:45
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:45
 msgid " edge selected"
-msgstr "選擇的路段"
+msgstr " 選擇的路段"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:48
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:51
 msgid " edge disconnected"
-msgstr "不連接的路段"
+msgstr " 不連接的路段"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:62
 msgid "Hierarchy"
@@ -8863,19 +8863,19 @@ msgstr "刪除"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:416
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:477
 msgid " origin"
-msgstr "起點"
+msgstr " 起點"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:398
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:417
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:478
 msgid " destination"
-msgstr "迄點"
+msgstr " 迄點"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:506
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:632
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:706
 msgid " additionals..."
-msgstr "附加的(additionals)..."
+msgstr " 附加物(additionals)..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:520
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:583
@@ -8889,18 +8889,18 @@ msgstr " 需求元素..."
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:660
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:738
 msgid " edges..."
-msgstr "路段..."
+msgstr " 路段..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:548
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:611
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:674
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:756
 msgid " lanes..."
-msgstr "車道..."
+msgstr " 車道..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:569
 msgid " TAZElements..."
-msgstr "分區元素(TAZElements...)"
+msgstr " 分區元素(TAZElements...)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:815
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:911
@@ -8955,7 +8955,7 @@ msgstr "不同的: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:185
 msgid "Parameters of "
-msgstr "參數的"
+msgstr "參數的 "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:195
 msgid "Attribute"
@@ -8994,7 +8994,7 @@ msgstr "比例: 最小 -> 最大"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:159
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:160
 msgid "Inspect vehicle "
-msgstr "檢視車輛"
+msgstr "檢視車輛 "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:171
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:172
@@ -9098,27 +9098,24 @@ msgstr "- 參考點：標記附加元素的初始位置。"
 msgid ""
 "  Example: If you want to create a busStop with a length of 30 in the point "
 "100 of the lane:"
-msgstr "範例: 如果要在100公尺長的車道上建立一個長度為30公尺的公車站(busStop)："
+msgstr "  範例: 如果要在100公尺長的車道上建立一個長度為30公尺的公車站(busStop)："
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:233
 msgid "  - Reference Left will create it with startPos = 70 and endPos = 100."
-msgstr ""
-"開始位置為70(startPos=70)及結束位置為100(endPos=100)的以左邊為準的參考點將會"
-"建立。"
+msgstr "  開始位置為70(startPos=70)及結束位置為100(endPos=100)的以左邊為準的參考點將"
+"會建立。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:234
 msgid ""
 "  - Reference Right will create it with startPos = 100 and endPos = 130."
-msgstr ""
-"開始位置為100(startPos=100)及結束位置為130(endPos=130)的以右邊為準的參考點將"
-"會建立。"
+msgstr "  - 開始位置為100(startPos=100)及結束位置為130(endPos=130)的以右邊為準的參考"
+"點將會建立。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:235
 msgid ""
 "  - Reference Center will create it with startPos = 85 and endPos = 115."
-msgstr ""
-"開始位置為85(startPos=85)及結束位置為115(endPos=115)的以中心為準的參考點將會"
-"建立。"
+msgstr "  - 開始位置為85(startPos=85)及結束位置為115(endPos=115)的以中心為準的參考點"
+"將會建立。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:236
 msgid ""
@@ -9181,7 +9178,7 @@ msgstr " - 按移動鍵及點選"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:281
 msgid "   position for inspect"
-msgstr "檢查的位置"
+msgstr "   檢查的位置"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:282
 msgid "   previous element"
@@ -9263,7 +9260,7 @@ msgstr "平均速度: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:48
 msgid " edge conflict (vClass)"
-msgstr "路段衝突 (車輛類別)"
+msgstr " 路段衝突 (車輛類別)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:36
 msgid "Parent selector"
@@ -9280,7 +9277,7 @@ msgstr "親代類型 (parent type): "
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:219
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:230
 msgid "Invalid row or column"
-msgstr "無效列或欄"
+msgstr "無效列或行"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:254
 msgid "Invalid row"
@@ -9289,7 +9286,7 @@ msgstr "無效列"
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:264
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:274
 msgid "Invalid column"
-msgstr "無效欄"
+msgstr "無效行"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:609
 msgid "Accumulated: "
@@ -9507,7 +9504,7 @@ msgstr "- 鎖住形狀物:禁止移動形狀物的點和邊。整個形狀物可
 msgid ""
 "- Close shape: Add or remove the last vertex with the same position of first "
 "edge'."
-msgstr "- 封閉形狀物: 新增或移除與第一個路段位置相同的最後一個端點 "
+msgstr "- 封閉形狀物: 新增或移除與第一個路段位置相同的最後一個端點。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:406
 msgid "GEO Attributes"
@@ -9520,17 +9517,17 @@ msgstr "未定義大地坐標轉換方式"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:551
 msgid " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
-msgstr "SUMO 使用世界大地测量系统 84 (WGS84/UTM)。\n"
+msgstr " SUMO 使用世界大地测量系统 84 (WGS84/UTM)。\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:552
 msgid ""
 " For a GEO-referenced network, geo coordinates are represented as pairs of "
 "Longitude and Latitude\n"
-msgstr "對於以大地坐標為參考的路網,大地坐標以經度及緯度表示\n"
+msgstr " 對於以大地坐標為參考的路網,大地坐標以經度及緯度表示\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:553
 msgid " in decimal degrees without extra symbols. (N,W..)\n"
-msgstr "以十進制度數為單位,無額外的符號。 （北, 西..）\n"
+msgstr " 以十進制度數為單位,無額外的符號。 （北, 西..）\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:554
 msgid " - Longitude: East-west position of a point on the Earth's surface.\n"
@@ -9543,7 +9540,7 @@ msgstr " - 緯度：地球表面某点的南北方向位置。\n"
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:556
 msgid ""
 " - CheckBox 'geo' enables or disables saving position in GEO coordinates\n"
-msgstr "核取方塊 'geo' 啟用或禁用儲存以大地坐標為單位的位置\n"
+msgstr " 核取方塊 'geo' 啟用或禁用儲存以大地坐標為單位的位置\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:570
 msgid "Templates"
@@ -9660,7 +9657,7 @@ msgstr ""
 msgid ""
 "     '' (no operator) matches if string is a substring of that object'ts "
 "attribute.\n"
-msgstr "    '' (沒有運算子) 如果字串是該物件屬性的子字串,則為匹配。\n"
+msgstr "     '' (沒有運算子) 如果字串是該物件屬性的子字串,則為匹配。\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:282
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:471
@@ -9796,7 +9793,7 @@ msgstr "移動所有選定形狀物件(shape)的形狀物件幾何到與行駛�
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:619
 msgid "-Click over edge to"
-msgstr "-點擊(Click)於路段上 "
+msgstr "-點擊(Click)於路段上"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:620
 msgid " create or edit"
@@ -9805,7 +9802,7 @@ msgstr " 建立或編輯"
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:621
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:624
 msgid " geometry point."
-msgstr "幾何點"
+msgstr " 幾何點。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:622
 msgid "-Shift+click over edge"
@@ -9817,7 +9814,7 @@ msgstr " 編輯開始或結束"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:628
 msgid "-Move geometry point"
-msgstr " 移動幾何點"
+msgstr "-移動幾何點"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:631
 msgid "-Merge geometry point"
@@ -10097,7 +10094,7 @@ msgstr "具有車輛類別(vClass)為'行人'的車輛類型(VType)不是以人�
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonFrame.cpp:275
 msgid "Invalid person parameters."
-msgstr "無效的人員參數"
+msgstr "無效的人員參數。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNERouteFrame.cpp:52
 msgid "Route mode"
@@ -10117,7 +10114,7 @@ msgstr "- 點擊於一個公車停靠站上\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:73
 msgid "  create a stop."
-msgstr "建立一個停靠點"
+msgstr "  建立一個停靠點。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:79
 msgid "- Click over a container stop\n"
@@ -10127,7 +10124,7 @@ msgstr "- 點擊於一個貨櫃停靠站上\n"
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:87
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:94
 msgid "  to create a stop."
-msgstr "建立一個停靠站"
+msgstr "  建立一個停靠站。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:86
 msgid "- Click over a charging station\n"
@@ -10221,7 +10218,7 @@ msgstr "- 點擊於一個路徑到...\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:72
 msgid "  create a vehicle."
-msgstr "建立一個車輛"
+msgstr "  建立一個車輛。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:76
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:81
@@ -10241,7 +10238,7 @@ msgstr "  建立一個車輛\n"
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:83
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:105
 msgid "  embedded route."
-msgstr "嵌入的路徑。"
+msgstr "  嵌入的路徑。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:87
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:109
@@ -10258,7 +10255,7 @@ msgstr "  建立一個路徑流量(routeFlow)。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:99
 msgid "  create a flow."
-msgstr "  建立一個流量"
+msgstr "  建立一個流量。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:104
 msgid "  create a flow with\n"
@@ -10451,7 +10448,7 @@ msgstr " 點擊建立"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:315
 msgid " unyielding connections"
-msgstr "不退讓的連接線(unyielding connections)"
+msgstr " 不退讓的連接線(unyielding connections)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:316
 msgid " (pass=true)."
@@ -10463,7 +10460,7 @@ msgstr "-按住 <CTRL> 同時"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:322
 msgid " clicking to create "
-msgstr "點擊建立"
+msgstr " 點擊建立 "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:323
 msgid " conflicting connections"
@@ -10607,7 +10604,7 @@ msgstr "- 跳脫鍵(ESC):"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:624
 msgid "  Deselect origin"
-msgstr "取消選擇起點(origin)"
+msgstr "  取消選擇起點(origin)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:625
 msgid "- Control+Click:"
@@ -10623,7 +10620,7 @@ msgstr "- 移位鍵+點擊(Shift+Click):"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:628
 msgid "  Splits edge in both directions"
-msgstr "分割雙向路段"
+msgstr "  分割雙向路段"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:629
 msgid "- Alt+Shift+Click:"
@@ -10631,7 +10628,7 @@ msgstr "- Alt鍵+移位鍵+點擊(Alt+Shift+Click)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:630
 msgid "  Splits edge in one direction"
-msgstr "分割單向路段"
+msgstr "  分割單向路段"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:643
 msgid "Create Edge"
@@ -10713,7 +10710,7 @@ msgstr "-點擊路口"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:541
 msgid " mark candidate edges."
-msgstr "標記候選路段。"
+msgstr " 標記候選路段。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:542
 msgid "-Click over candidate"
@@ -10892,7 +10889,7 @@ msgstr "未選擇交通分區"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:173
 msgid "Current TAZ: "
-msgstr "目前交通分區"
+msgstr "目前交通分區 "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:336
 msgid "Invalid TAZ Child"
@@ -10980,7 +10977,7 @@ msgstr "新迄點"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:507
 msgid "Set zero fringe prob."
-msgstr "設定由邊界進出的機率為零"
+msgstr "設定由邊界進出的機率為零。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:511
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:646
@@ -11020,19 +11017,19 @@ msgstr "將路段新增到選區內"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:601
 msgid "Remove "
-msgstr "移除"
+msgstr "移除 "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:601
 msgid " edges from to selection"
-msgstr "路段屬性為'edge from'或'edge to'的選區"
+msgstr " 路段屬性為'edge from'或'edge to'的選區"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:603
 msgid "Add "
-msgstr "新增"
+msgstr "新增 "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:603
 msgid " edges to selection"
-msgstr "路段屬性為'edge to'的選區"
+msgstr " 路段屬性為'edge to'的選區"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:639
 msgid "toggle"
@@ -11044,7 +11041,7 @@ msgstr "- 維持隸屬(membership:"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:670
 msgid "  Select Sources/Sinks."
-msgstr "選擇起點/迄點。"
+msgstr "  選擇起點/迄點。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:671
 msgid "- Press ESC to clear"
@@ -11057,7 +11054,7 @@ msgstr "  目前的選擇。"
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:849
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:852
 msgid "Set weight 0 in "
-msgstr "在..設定權重為0"
+msgstr "在..設定權重為 0 "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:849
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:852
@@ -11074,7 +11071,7 @@ msgstr " 從..的迄點 "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:853
 msgid " TAZs?"
-msgstr "交通分區?"
+msgstr " 交通分區?"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:855
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:868
@@ -11193,11 +11190,11 @@ msgstr "無法建立號誌邏輯(tlLogic) '%' 及時相計畫(program) '%'"
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:255
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2935
 msgid "Loaded "
-msgstr "已載入"
+msgstr "已載入 "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:255
 msgid " programs"
-msgstr "時制計畫"
+msgstr " 時制計畫"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:416
 msgid "Invalid phase index"
@@ -11278,7 +11275,7 @@ msgstr "分離(disjoin)現有交通號誌"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:916
 msgid "Disjoin current TLS."
-msgstr "分離(disjoin)現有交通號誌"
+msgstr "分離(disjoin)現有交通號誌。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:952
 msgid "no junction selected"
@@ -11314,7 +11311,7 @@ msgstr "建立交通號誌"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1353
 msgid "Create a new traffic light program."
-msgstr "建立新的交通號誌計畫"
+msgstr "建立新的交通號誌計畫。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1356
 msgid ""
@@ -11432,7 +11429,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1903
 msgid "Group Sig."
-msgstr "進行號誌群組"
+msgstr "進行號誌群組。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1904
 msgid ""
@@ -11451,7 +11448,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1909
 msgid "Ungroup Sig."
-msgstr "解除號誌群組"
+msgstr "解除號誌群組。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1910
 msgid "Let every connection use a distinct index (reverse state grouping)"
@@ -11485,7 +11482,7 @@ msgstr "將交通號誌計畫儲存於附加的檔案(additional file)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2935
 msgid " new programs for tlLogic '"
-msgstr "號誌邏輯(tlLogic)的新計畫"
+msgstr " 號誌邏輯(tlLogic)的新計畫"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2940
 msgid "Updated program '"
@@ -11752,7 +11749,7 @@ msgstr "不宜使用屬性'filename'。請使用 'file'。"
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:559
 msgid " Could not decode breakpoint '%'"
-msgstr "無法解碼暫停點(breakpoint) '%'"
+msgstr " 無法解碼暫停點(breakpoint) '%'"
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:2348
 msgid "No color defined for LinkState '%'"
@@ -12441,7 +12438,7 @@ msgstr "重新將視圖置中"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:120
 msgid "Recenter view to the simulated area."
-msgstr "重新將視圖置於模擬區域"
+msgstr "重新將視圖置於模擬區域。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:124
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
@@ -12463,7 +12460,7 @@ msgstr "定位結構(structures)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate structures within the network."
-msgstr "在路網內定位結構(structures)"
+msgstr "在路網內定位結構(structures)。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:139
 msgid "Toggle View Tooltips"
@@ -12495,7 +12492,7 @@ msgstr "製作快照(snapshot)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Makes a snapshot of the view."
-msgstr "製作視圖的快照(snapshot)"
+msgstr "製作視圖的快照(snapshot)。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:294
 msgid "option window-size requires INT,INT"
@@ -12511,19 +12508,19 @@ msgstr "語言"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:342
 msgid "Change language to english. (en)"
-msgstr "改變為英語。"
+msgstr "改變為英語。 (en)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:344
 msgid "Change language to german. (de)"
-msgstr "改變為德語。"
+msgstr "改變為德語。(de)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:346
 msgid "Change language to spanish. (es)"
-msgstr "改變為西班牙語。"
+msgstr "改變為西班牙語。(es)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:348
 msgid "Change language to french. (fr)"
-msgstr "改變為法語。"
+msgstr "改變為法語。(fr)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:350
 msgid "Change language to italian. (it)"
@@ -12539,11 +12536,11 @@ msgstr "繁體中文"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:356
 msgid "Change language to turkish. (tr)"
-msgstr "改變為土耳其語。"
+msgstr "改變為土耳其語。(tr)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:358
 msgid "Change language to hungarian. (hu)"
-msgstr "改變為匈牙利語。"
+msgstr "改變為匈牙利語。(hu)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:372
 msgid "german"
@@ -12583,7 +12580,7 @@ msgstr "英語"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:412
 msgid "Language changed to "
-msgstr "語言改變為"
+msgstr "語言改變為 "
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:414
 msgid "Restart needed"
@@ -12604,7 +12601,7 @@ msgstr "正在開發中。您可以在以下位置協助改進翻譯："
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:254
 msgid " (No projection defined)"
-msgstr "投影方式未定義"
+msgstr " 投影方式未定義"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:1738
 msgid "Could not convert coordinates in %."
