@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 11:34+0000\n"
-"Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
+"PO-Revision-Date: 2023-04-24 13:09+0000\n"
+"Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
@@ -6979,27 +6979,27 @@ msgstr "已发现两次车道集合识别名(laneset-id) '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:277
 msgid "Not numeric value in laneset '%'."
-msgstr ""
+msgstr "车道集合(laneset) '%' 內不是数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:279
 msgid "Missing data in laneset '%'."
-msgstr ""
+msgstr "缺少车道集合(laneset) '%' 的数据。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:290
 msgid "Not numeric value in lane '%'."
-msgstr ""
+msgstr "车道 '%' 內不是数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:292
 msgid "Missing data in lane '%'."
-msgstr ""
+msgstr "车道 '%' 內缺少数据。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:202
 msgid "Bogus capacity period format; requires 'hh:mm:ss'."
-msgstr ""
+msgstr "假的容量周期格式; 需要 'hh:mm:ss'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:234
 msgid "Could not find from-node for edge '%'."
-msgstr ""
+msgstr "无法发现路段 '%' 的起始节点(from-node)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:237
 msgid "Could not find to-node for edge '%'."
