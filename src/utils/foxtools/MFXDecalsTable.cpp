@@ -139,6 +139,7 @@ MFXDecalsTable::fillTable() {
     myColumns.at(9)->setColumnLabel("sRel", "screen relative");
     // adjust height (header + rows + add button)
     setHeight(((int)decals.size() + 2) * GUIDesignHeight);
+    create();
 }
 
 
@@ -435,8 +436,6 @@ MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXTextField* textField, 
     myTextField(textField),
     myCol(col),
     myRow(row) {
-    // create
-    textField->create();
 }
 
 
@@ -446,9 +445,6 @@ MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXLabel* indexLabel, FXL
     myIndexLabelBold(indexLabelBold),
     myCol(col),
     myRow(row) {
-    // create both
-    indexLabel->create();
-    indexLabelBold->create();
     // hide bold and set background
     indexLabelBold->hide();
     indexLabelBold->setBackColor(FXRGBA(210, 233, 255, 255));
@@ -460,8 +456,6 @@ MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXButton* button, int co
     myButton(button),
     myCol(col),
     myRow(row) {
-    // create
-    button->create();
 }
 
 
@@ -470,8 +464,6 @@ MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXCheckButton* checkButt
     myCheckButton(checkButton),
     myCol(col),
     myRow(row) {
-    // create
-    checkButton->create();
 }
 
 
@@ -480,8 +472,6 @@ MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXRealSpinner* spinner, 
     mySpinner(spinner),
     myCol(col),
     myRow(row) {
-    // create
-    spinner->create();
 }
 
 
