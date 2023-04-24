@@ -39,7 +39,7 @@ else:
 
 def get_options():
     op = sumolib.options.ArgumentParser()
-    op.add_argument("datafiles", nargs="+", category="input", type=op.data_file,
+    op.add_argument("datafiles", nargs="+", category="input", type=op.file,
                     help="XML files to analyze")
     op.add_argument("-v", "--verbose", action="store_true", default=False,
                     help="Give more output")
