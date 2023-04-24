@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-23 17:58+0000\n"
+"PO-Revision-Date: 2023-04-24 09:25+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -5317,11 +5317,11 @@ msgstr "无法建立地理坐标转换器； 检查是否已安裝 proj.4。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:231
 msgid "Ignored heightmap feature type %"
-msgstr ""
+msgstr "忽略的高度映成表(heightmap)特征类型 %"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:276
 msgid "Cannot load shape file since SUMO was compiled without GDAL support."
-msgstr ""
+msgstr "无法载入形状文件，因为 SUMO 是在沒有 GDAL 支持的情況下编译的。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:288
 msgid "Cannot load GeoTIFF file."
@@ -5567,7 +5567,7 @@ msgstr "正在猜测路网边缘"
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:506
 #, c-format
 msgid " Guessed % fringe nodes."
-msgstr ""
+msgstr " 猜测的 % 边缘节点。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:511
 msgid "Processing turnarounds"
@@ -6766,92 +6766,92 @@ msgstr "无法增加节点 '%'"
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:312
 #, c-format
 msgid "Edge '%' connects identical nodes, skipping."
-msgstr ""
+msgstr "路段 '%' 连接相同的节点, 跳过。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:329
 #, c-format
 msgid "Edge '% is not unique."
-msgstr ""
+msgstr "路段 '%' 不是唯一的。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:338
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
-msgstr ""
+msgstr "路段 '%' 不是唯一的。 将随后的路段重新命名为 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:354
 msgid "Could not create edge '%'. An edge with the same id already exists."
-msgstr ""
+msgstr "无法建立路段 '%'。 已存在具有相同识别名(id)的路段。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:368
 msgid "Could not create edge '-%'. An edge with the same id already exists."
-msgstr ""
+msgstr "无法建立路段  '-%'。 已存在具有相同识别名(id)的路段。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:382
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:331
 msgid "SUMO was compiled without GDAL support."
-msgstr ""
+msgstr "SUMO 是在沒有 GDA支持的情況下编译的。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:76
 msgid "Loading nodes"
-msgstr ""
+msgstr "正在载入节点"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:80
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:105
 #, c-format
 msgid "The file '%' could not be opened."
-msgstr ""
+msgstr "无法开启文件 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:90
 msgid "Loading street names"
-msgstr ""
+msgstr "正在载入街道名称"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:95
 msgid "Output will not contain street names because the file '%' was not found"
-msgstr ""
+msgstr "输出将不包含街道名称，因为未找到文件 '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:100
 msgid "Loading edges"
-msgstr ""
+msgstr "正在载入路段"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:114
 msgid "Loading traffic lights"
-msgstr ""
+msgstr "正在载入交通信号"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:123
 msgid "Loading prohibited manoeuvres"
-msgstr ""
+msgstr "正在载入禁止的运转行为(manoeuvres)"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:132
 msgid "Loading connected lanes"
-msgstr ""
+msgstr "正在载入连接的车道"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:141
 msgid "Loading time restrictions"
-msgstr ""
+msgstr "正在载入时间限制"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:210
 msgid "Non-numerical value for intermediate status in node %."
-msgstr ""
+msgstr "节点 % 的中间状态为非数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:215
 msgid "Non-numerical value for number of geometries in node %."
-msgstr ""
+msgstr "节点 % 的几何(geometries)数量为非数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:222
 msgid "Non-numerical value for x-position in node %."
-msgstr ""
+msgstr "节点% 的 x 位置为非数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:226
 msgid "Non-numerical value for y-position in node %."
-msgstr ""
+msgstr "节点 % 的 y 位置为非数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:230
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:321
 msgid "Unable to project coordinates for node %."
-msgstr ""
+msgstr "无法投影节点 % 的坐标。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:240
 msgid "Could not add add node '%'"
-msgstr ""
+msgstr "无法增加节点'%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:242
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:260
@@ -6859,15 +6859,15 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:474
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1350
 msgid "Could not add node '%'."
-msgstr ""
+msgstr "无法增加节点 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:299
 msgid "Missing version string in file '%'."
-msgstr ""
+msgstr "文件 '%' 中缺少版本字串(version string)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:309
 msgid "Non-numerical value for form_of_way of link '%'."
-msgstr ""
+msgstr "路段 '%' 的道路型式(form_of_way为非数字值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:316
 msgid "Non-numerical value for brunnel_type of link '%'."
