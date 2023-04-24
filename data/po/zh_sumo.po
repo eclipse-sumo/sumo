@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 09:35+0000\n"
+"PO-Revision-Date: 2023-04-24 11:34+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -7206,29 +7206,29 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:893
 msgid ""
 "Attribute 'id' in the definition of a node is not of type long long int."
-msgstr ""
+msgstr "节点定义中的属性 '识别名(id)' 不是超长整数(long long int)类型。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:899
 msgid "Tag element on wrong XML hierarchy level."
-msgstr ""
+msgstr "在错误的 XML 层次结构级别标记元素。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:941
 msgid "Value of key '%' is invalid ('%') in node '%'."
-msgstr ""
+msgstr "键 '%' 的值无效 ('%'); 在节点 '%' 中。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:946
 msgid "Value of key '%' is not numeric ('%') in node '%'."
-msgstr ""
+msgstr "键 '%' 的值不是数字值 ('%'); 在节点 '%' 中。。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1091
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderOSM.cpp:592
 msgid "The referenced geometry information (ref='%') is not known"
-msgstr ""
+msgstr "参考的几何信息 (ref='%') 未知"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1329
 #, c-format
 msgid "Using default lane width for edge '%' as key '%' could not be parsed."
-msgstr ""
+msgstr "路段 '%' 的预设车道宽度作为键key) '%',它无法被解析(parse)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1332
 #, c-format
