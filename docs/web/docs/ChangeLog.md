@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.17.0 (25.04.2023)
 
 ### Bugfixes
 
@@ -35,7 +35,7 @@ title: ChangeLog
     - Fixed invalid railway routing result. Issue #12872
     - Fixed deadlock on bidirectional track. Issue #12858
     - Train headings now reflect the heading of the locomotive. Issue #12985
-  
+
 - netedit
   - Fixed bug when showing list of newly created vehicle types in type mode. Issue #12625 (regression in 1.15.0)
   - Fixed bug that prevent creation of crossing at priority junctions with speed above 50k/mh. Issue #12609 (regression in 1.16.0)  
@@ -108,7 +108,7 @@ title: ChangeLog
   - Fixed bug where user-triggered lane-change were not executed when using the sublane model. Issue #12810, #12944
   - `trafficlight.swapConstraints` now returns constraint parameters for derived constraints. Issue #12935
   - Fixed crash when using `vehicle.moveToXY`. Issue #13053  
-  
+
 - tools
   - Fixed invalid error when calling option **--save-template**. Issue #12589
   - Selected python tools now handle 'stdout' and 'stderr' as magic file names (i.e. *gtfs2pt.py* with more tools to follow). Issue #12588
@@ -234,13 +234,14 @@ title: ChangeLog
 - Netgenerate default parameters where changed to reduce the default network size for spider and random networks. Issue #12927
 - Added translation to Italian. Issue #13004
 - plot_net_dump.py: no longer supports setting a default color with option **-c**. Instead the long option **--default-color** must be used. The option **-c** is now used for loading of a tool configuration file instead. Issue #13068
-- Added [documentation page](Netedit/attribute_help.md) for all xml elements and their attribute. Issue #12658
+- Added [documentation page](Netedit/attribute_help.md) for all xml elements and their attributes. Issue #12658
+
 
 ## Version 1.16.0 (07.02.2023)
 
 ### Bugfixes
 
-- Simulation   
+- Simulation
   - Improved simulation speed in large networks with simulation routing. Issue #12416 (regression in 1.2.0)
   - Fixed invalid blocked state while decelerating and trying to perform lane change. Issue #12108  
   - Fixed invalid braking at internal junction. Issue #12000
@@ -304,8 +305,8 @@ title: ChangeLog
   - Moving a selected edge with selected junctions now also moves the custom edge end points. Issue #12445
   - Fixed invalid conversion between periodic flow rate and poisson flow rate. Issue #12451
   - Calibrator-flow attributes `begin` and `end` are now loaded correctly. Issue #12470
-  
-- sumo-gui  
+
+- sumo-gui
   - Fixed invalid camera position after tracked vehicles exits the simulation. Issue #12137 (regression in 1.13.0)
   - Fixed invalid right-click target when there is a pedestrian crossing on top of a polygon. Issue #12523 (regression in 1.15.0)
   - Pedestrians now follow the exact shape of access lines while in access stage. Issue #12116
@@ -323,8 +324,7 @@ title: ChangeLog
   - Fixed invalid pedestrian position while passing a short walkingarea. Issue #12456
   - Right-click on vehicles and person no longer fails on very wide lanes. Issue #12505
   - Fixed fluctuating rail width when using edge size-exaggeration at varying zoom levels. Issue #11832
-  
-    
+
 - meso
   - Stopping at pos=0 is now working. Issue #12240
   - Picking up persons and containers with `lines="ANY"` is now working. Issue #12241
@@ -527,6 +527,7 @@ title: ChangeLog
 - Some netedit buttons for saving are now grouped in a sub-menu to avoid clutter. Issue #12360
 - Test extraction now works for the San Pablo Dam tutorial. Issue #12466
 - The netdiff tool accessible via the 'Tools' menu has been temporarily disabled due to stability issues. #12435
+
 
 ## Version 1.15.0 (08.11.2022)
 
