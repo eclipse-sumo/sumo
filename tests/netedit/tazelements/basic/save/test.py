@@ -32,10 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.TAZMode()
 
 # create TAZ
-netedit.createSquaredTAZ(referencePosition, 181, 129, 200, True)
+netedit.createSquaredTAZ(referencePosition, 408, 122, 200, True)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit without saving TAZs
-netedit.quit(neteditProcess, False, False, False, False, True, True)
+netedit.quit(neteditProcess)
