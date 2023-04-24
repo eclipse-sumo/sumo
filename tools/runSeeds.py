@@ -41,7 +41,7 @@ def get_options(args=None):
     ap = sumolib.options.ArgumentParser()
     ap.add_option("-v", "--verbose", category="processing", action="store_true", default=False,
                   help="tell me what you are doing")
-    ap.add_option("-k", "--configuration", category="input", metavar="FILE", required=True, type=ap.file,
+    ap.add_option("-k", "--configuration", category="input", metavar="FILE", required=True, type=ap.file_list,
                   help="configuration to run")
     ap.add_option("-a", "--application", category="processing", default="sumo", metavar="FILE",
                   help="application to run")
