@@ -165,11 +165,11 @@ msgstr "開啟選單選擇所選車道上允許的車種類別。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:498
 msgid "Edit Breakpoints"
-msgstr "編輯中斷點"
+msgstr "編輯暫停點"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:498
 msgid "Opens a dialog for editing breakpoints."
-msgstr "開啟對話窗以編輯中斷點。"
+msgstr "開啟對話窗以編輯暫停點。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:501
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1268
@@ -998,7 +998,7 @@ msgstr "點擊訊息時進行元素（element）定位"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
-msgstr "點擊時間訊息時偏移中斷點的時間"
+msgstr "點擊時間訊息時,暫停點偏移值"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:98
 msgid "Allow Textures"
@@ -2137,7 +2137,7 @@ msgstr "建立人員。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:688
 msgid "Person plan"
-msgstr "人員出行計畫"
+msgstr "人員旅運計畫"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:688
 msgid "Create person plans."
@@ -2154,7 +2154,7 @@ msgstr "建立貨櫃。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:694
 msgid "Container plan"
-msgstr "貨櫃運送計畫"
+msgstr "貨櫃計劃"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:694
 msgid "Create container plans."
@@ -5168,7 +5168,7 @@ msgstr "控制台輸出"
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:75
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:76
 msgid "Abort"
-msgstr "中止"
+msgstr "放棄"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:75
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:76
@@ -11744,7 +11744,7 @@ msgstr "無效的車輛類別(vClass)"
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:77
 msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
-msgstr "對於斷點(breakpoints),不宜使用屬性'value'。請使用 'time'。"
+msgstr "對於暫停點(breakpoints),不宜使用屬性'value'。請使用 'time'。"
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:383
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
@@ -11752,7 +11752,7 @@ msgstr "不宜使用屬性'filename'。請使用 'file'。"
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:559
 msgid " Could not decode breakpoint '%'"
-msgstr "無法解碼斷點(breakpoint) '%'"
+msgstr "無法解碼暫停點(breakpoint) '%'"
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:2348
 msgid "No color defined for LinkState '%'"
