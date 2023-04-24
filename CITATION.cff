@@ -135,6 +135,7 @@ authors:
   - name: "Vijay Jaisankar"
   - name: "Walter Bamberger"
   - name: "Wolfgang Schnerring"
+  - name: "Xiaoxu Bei"
   - name: "Yun-Pang Flötteröd"
 message: "If you use this software, please cite both the conference paper from preferred-citation and the software itself."
 title: "Eclipse SUMO - Simulation of Urban MObility"
