@@ -34,8 +34,11 @@ time before the *collision action* takes place. This allows for pile-ups
 and traffic disturbance. To enable stopping, the option **--collision.stoptime** {{DT_TIME}} must be set
 with the stopping time in seconds.
 
-!!! note
-    The collision action only gets triggered on vehicle-vehicle collision but not on vehicle-pedestrian collisions
+## Intermodal Collisions
+
+The collision action only gets triggered on vehicle-vehicle collision but not on vehicle-pedestrian collisions. Instead, intermodal collisiosn raise warning by default.
+
+The behavior can be changed by setting the options **--intermodal-collision.action** and **--intermodal-collision.stoptime** which work like the vehicle-on-vehicle collision options described above.
 
 !!! note
     The pedestrian model *striping* detects collisions between pedestrians. This only serves to detect issues with the model.
