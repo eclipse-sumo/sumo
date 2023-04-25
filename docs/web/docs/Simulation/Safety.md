@@ -35,6 +35,9 @@ and traffic disturbance. To enable stopping, the option **--collision.stoptime**
 with the stopping time in seconds.
 
 !!! note
+    The collision action only gets triggered on vehicle-vehicle collision but not on vehicle-pedestrian collisions
+
+!!! note
     The pedestrian model *striping* detects collisions between pedestrians. This only serves to detect issues with the model.
 
 ## Deliberately causing collisions
