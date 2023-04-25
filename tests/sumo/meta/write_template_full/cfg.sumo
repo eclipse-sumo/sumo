@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-25 13:08:26 by Eclipse SUMO sumo Version v1_17_0+0008-32330d3
+<!-- generated on 2023-04-25 13:55:06 by Eclipse SUMO sumo Version v1_17_0+0014-9892e3e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -130,6 +130,7 @@
         <collision.action value="teleport" type="STR" help="How to deal with collisions: [none,warn,teleport,remove]"/>
         <intermodal-collision.action value="warn" type="STR" help="How to deal with collisions between vehicle and pedestrian: [none,warn,teleport,remove]"/>
         <collision.stoptime value="0" type="TIME" help="Let vehicle stop for TIME before performing collision.action (except for action &apos;none&apos;)"/>
+        <intermodal-collision.stoptime value="0" type="TIME" help="Let vehicle stop for TIME before performing intermodal-collision.action (except for action &apos;none&apos;)"/>
         <collision.check-junctions value="false" type="BOOL" help="Enables collisions checks on junctions"/>
         <collision.check-junctions.mingap value="0" type="FLOAT" help="Increase or decrease sensitivity for junction collision check"/>
         <collision.mingap-factor value="-1" type="FLOAT" help="Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used"/>

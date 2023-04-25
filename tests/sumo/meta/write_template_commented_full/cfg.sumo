@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-25 13:08:26 by Eclipse SUMO sumo Version v1_17_0+0008-32330d3
+<!-- generated on 2023-04-25 13:55:06 by Eclipse SUMO sumo Version v1_17_0+0014-9892e3e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -353,6 +353,9 @@
 
         <!-- Let vehicle stop for TIME before performing collision.action (except for action &apos;none&apos;) -->
         <collision.stoptime value="0" type="TIME"/>
+
+        <!-- Let vehicle stop for TIME before performing intermodal-collision.action (except for action &apos;none&apos;) -->
+        <intermodal-collision.stoptime value="0" type="TIME"/>
 
         <!-- Enables collisions checks on junctions -->
         <collision.check-junctions value="false" type="BOOL"/>

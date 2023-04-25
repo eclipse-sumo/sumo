@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_17_0+0008-32330d3
+Eclipse SUMO sumo Version v1_17_0+0014-9892e3e
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -214,6 +214,9 @@ Processing Options:
   --collision.stoptime TIME            Let vehicle stop for TIME before
                                         performing collision.action (except for
                                         action 'none')
+  --intermodal-collision.stoptime TIME  Let vehicle stop for TIME before
+                                        performing intermodal-collision.action
+                                        (except for action 'none')
   --collision.check-junctions          Enables collisions checks on junctions
   --collision.check-junctions.mingap FLOAT  Increase or decrease sensitivity
                                         for junction collision check
