@@ -104,6 +104,7 @@ MSLane::CollisionAction MSLane::myIntermodalCollisionAction(MSLane::COLLISION_AC
 bool MSLane::myCheckJunctionCollisions(false);
 double MSLane::myCheckJunctionCollisionMinGap(0);
 SUMOTime MSLane::myCollisionStopTime(0);
+SUMOTime MSLane::myIntermodalCollisionStopTime(0);
 double MSLane::myCollisionMinGapFactor(1.0);
 bool MSLane::myExtrapolateSubstepDepart(false);
 std::vector<SumoRNG> MSLane::myRNGs;
@@ -2050,13 +2051,13 @@ MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& s
         return;
     }
     std::string prefix = TLF("Vehicle '%'", collider->getID());
-    if (myCollisionStopTime > 0) {
+    if (myIntermodalCollisionStopTime > 0) {
         if (collider->collisionStopTime() >= 0) {
             return;
         }
         std::string dummyError;
         SUMOVehicleParameter::Stop stop;
-        stop.duration = myCollisionStopTime;
+        stop.duration = myIntermodalCollisionStopTime;
         stop.parametersSet |= STOP_DURATION_SET;
         // determine new speeds from collision angle (@todo account for vehicle mass)
         double colliderSpeed = collider->getSpeed();
@@ -4262,6 +4263,7 @@ MSLane::initCollisionOptions(const OptionsCont& oc) {
     myCheckJunctionCollisions = oc.getBool("collision.check-junctions");
     myCheckJunctionCollisionMinGap = oc.getFloat("collision.check-junctions.mingap");
     myCollisionStopTime = string2time(oc.getString("collision.stoptime"));
+    myIntermodalCollisionStopTime = string2time(oc.getString("intermodal-collision.stoptime"));
     myCollisionMinGapFactor = oc.getFloat("collision.mingap-factor");
     myExtrapolateSubstepDepart = oc.getBool("extrapolate-departpos");
 }

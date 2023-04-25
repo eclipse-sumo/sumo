@@ -1576,6 +1576,7 @@ private:
     static bool myCheckJunctionCollisions;
     static double myCheckJunctionCollisionMinGap;
     static SUMOTime myCollisionStopTime;
+    static SUMOTime myIntermodalCollisionStopTime;
     static double myCollisionMinGapFactor;
     static bool myExtrapolateSubstepDepart;
 
