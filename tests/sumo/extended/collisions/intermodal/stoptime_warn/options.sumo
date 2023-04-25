@@ -5,4 +5,4 @@
 --pedestrian.striping.dawdling 0
 --collision.check-junctions
 --intermodal-collision.action warn
---collision.stoptime 30
+--intermodal-collision.stoptime 30
