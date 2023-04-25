@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-25 12:12+0000\n"
+"PO-Revision-Date: 2023-04-25 13:03+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -7044,55 +7044,56 @@ msgstr "当设定连接线时: 起始路段(from-edge) '%' 未知。"
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:740
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:743
 msgid "Could not find fromEdge representation of '%' in connection '%'."
-msgstr ""
+msgstr "无法找到 '%' 的 fromEdge 表示法 (位于连接线 '%'內)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:792
 #, c-format
 msgid "Edge '%' has signals but no lane sections."
-msgstr ""
+msgstr "路段 '%' 有交通信号,但沒有车道部分。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:814
 msgid "Ambiguous start of connection."
-msgstr ""
+msgstr "不明确的连接线开始。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:831
 msgid "Ambiguous end of connection."
-msgstr ""
+msgstr "不明确的连接线末端。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:844
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:859
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:892
 msgid "Could not find edge '%' for signal '%'."
-msgstr ""
+msgstr "无法找路段 '%' (交通信号为 '%')。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:881
 msgid "Found a traffic light signal on an unknown edge (original edge id='%')."
-msgstr ""
+msgstr "在未知路段(原始路段识别名(id)='%')上发现交通信号。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1287
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1319
 #, c-format
 msgid "While setting connections: incoming road '%' is not known."
-msgstr ""
+msgstr "设定连接线时: 进入道路 '%' 未知。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1362
 msgid "Could not find node '%'."
-msgstr ""
+msgstr "无法发现节点 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1455
 msgid "Mismatched geometry for edge '%' between geometry segments % and %."
-msgstr ""
+msgstr "路段 '%' 在 % 和 % 几何区间之间的几何形状失配。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1636
 #, c-format
 msgid "The sections of edge '%' are not sorted properly."
-msgstr ""
+msgstr "路段 '%' 的章节部分(sections)未正确排序。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1648
 msgid ""
 "Almost duplicate s-value '%' for lane sections occurred at edge '%'; second "
 "entry was removed."
-msgstr ""
+msgstr "车道章节部分(sections)有几乎重复的 s 值 '%' 出现在路段 "
+"'%';第二个输入项(entry)被删除。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1691
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
