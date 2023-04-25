@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-27 22:53:26 by Eclipse SUMO sumo Version v1_16_0+1707-833d692
+<!-- generated on 2023-04-25 13:08:26 by Eclipse SUMO sumo Version v1_17_0+0008-32330d3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -128,6 +128,7 @@
         <ignore-route-errors value="false" type="BOOL" help="Do not check whether routes are connected"/>
         <ignore-accidents value="false" type="BOOL" help="Do not check whether accidents occur"/>
         <collision.action value="teleport" type="STR" help="How to deal with collisions: [none,warn,teleport,remove]"/>
+        <intermodal-collision.action value="warn" type="STR" help="How to deal with collisions between vehicle and pedestrian: [none,warn,teleport,remove]"/>
         <collision.stoptime value="0" type="TIME" help="Let vehicle stop for TIME before performing collision.action (except for action &apos;none&apos;)"/>
         <collision.check-junctions value="false" type="BOOL" help="Enables collisions checks on junctions"/>
         <collision.check-junctions.mingap value="0" type="FLOAT" help="Increase or decrease sensitivity for junction collision check"/>

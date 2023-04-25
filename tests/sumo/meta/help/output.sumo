@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_16_0+1707-833d692
+Eclipse SUMO sumo Version v1_17_0+0008-32330d3
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -207,6 +207,9 @@ Processing Options:
                                         connected
   --ignore-accidents                   Do not check whether accidents occur
   --collision.action STR               How to deal with collisions:
+                                        [none,warn,teleport,remove]
+  --intermodal-collision.action STR    How to deal with collisions between
+                                        vehicle and pedestrian:
                                         [none,warn,teleport,remove]
   --collision.stoptime TIME            Let vehicle stop for TIME before
                                         performing collision.action (except for
