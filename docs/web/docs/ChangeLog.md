@@ -63,7 +63,7 @@ title: ChangeLog
   - Fixed crash when unjoining a joint traffic light. Issue #12610
   - Fixed "Invalid reference counter" error after recomputing with volatile options with data elements. Issue #13058
   - Netedit now gives a warning when changing user defined junction type 'rail_crossing' to priority. Issue #9273
-  - Fixed bug where person plan elements after a stop where not loaded correctly. Issue #13125
+  - Fixed bug where person plan elements after a stop were not loaded correctly. Issue #13125
 
 - sumo-gui
   - Fixed invalid carriageLength for tram. Issue #13011 (regression in 1.11.0)
@@ -143,9 +143,9 @@ title: ChangeLog
   - Vehicle attribute `depart` now supports the new value `begin` referring to the start of the simulation. Issue #12270
 
 - netconvert
-  - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575
-  - Exceptions for turning restrictions are now imported from OSM. Issue #12645
+  - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575  
   - Option **--osm.extra-attributes** now also applies to all node attributes. Issue #12677
+  - OSM: Exceptions for turning restrictions are now imported. Issue #12645
   - OSM: Supporting bus lane restrictions using `psv`. Issue #6767
   - junction attribute 'radius' now overrides option **--junctions.small-radius**. Issue #12816
   - merging two projected plain-xml networks with different offsets is now working. Issue #12841
@@ -154,11 +154,11 @@ title: ChangeLog
   - OpenDRIVE: lane access declarations are now imported. Issue #12804
 
 - netedit
-  - Added menu entry for directly calling netgenerate and and instantly editing the generated network. Issue #2393
+  - Added menu entry for directly calling netgenerate and instantly editing the generated network. Issue #2393
   - Added menu and dialogs for calling python tools without using the command line. Issue #4138
   - When calling netdiff from tools menu, the computed differences may be selectively imported for visualization (i.e. differently colored shapes for added, deleted and modified edges). Issue #2736
   - All objects with a name attribute can now be located by name using the locate-dialog. Issue #12686
-  - Inspect now allows inspecting individual objects that are part of a selection via ALT+LEFT_CLICK. Issue #12690
+  - Inspect mode now allows inspecting individual objects that are part of a selection via ALT+LEFT_CLICK. Issue #12690
   - In data mode, overlapped data elements list is now sorted by interval begin. Issue #11330
   - If a route is selected it will always be shown on top of other overlapping routes. Issue #12582
   - The vehicle type "DEFAULT_RAILTYPE" can now be used for defining trains. Issue #6752
@@ -207,7 +207,7 @@ title: ChangeLog
   - Improved compatibility between sumolib phase definitions and libsumo phase definitions. Issue #12131
   - Added tool [abstractRail.py](Tools/Net.md#abstractrailpy) to generate an abstract/schematic rail network based on a geodetic rail network. Issue #12662
   - Added tool [stationDistricts.py](Tools/District.md#stationdistrictspy) for segmenting a public transport network based public transport stations. Issue #12662
-  - Added tool [attributeCompare.py](Tools/Output.md#attributecomparepy) to compare matching attribute across multiple files. Issue #13026
+  - Added tool [attributeCompare.py](Tools/Output.md#attributecomparepy) to compare matching attributes across multiple files. Issue #13026
   - attributeDiff.py: Can now optionally group attributes by one or more id-attributes before comparing. #12794
   - attributeDiff.py: optionally write entries that could not be compared (via new options **-m** and **-M**. Issue #12798
   - attributeStats.py: Now supports option **--human-readable-time** (**-H**) to make attributes with large time values more legible. Issue #12822
