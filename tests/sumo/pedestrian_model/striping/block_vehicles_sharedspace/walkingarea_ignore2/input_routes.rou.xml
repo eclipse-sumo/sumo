@@ -1,0 +1,8 @@
+<routes>
+    <flow id="WE" from="WC" to="CE" begin="0" end="100" period="3" departPos="random">
+        <param key="junctionModel.ignoreTypes" value="DEFAULT_PEDTYPE"/>
+    </flow>
+    <personFlow id="pedSN" begin="0" end="100" period="2.5" departPos="-20">
+        <walk from="SC" to="CN" arrivalPos="20"/>
+    </personFlow>
+</routes>
