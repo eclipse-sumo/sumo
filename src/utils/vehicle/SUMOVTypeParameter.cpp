@@ -72,7 +72,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_BICYCLE:
             minGap = 0.5;
-            //minGapLat = 0.15;
+            minGapLat = 0.15;
             maxSpeed = 50. / 3.6;
             desiredMaxSpeed = DEFAULT_BICYCLE_SPEED;
             width = 0.65;
