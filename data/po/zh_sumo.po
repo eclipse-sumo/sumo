@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-25 13:30+0000\n"
+"PO-Revision-Date: 2023-04-25 23:55+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -7097,92 +7097,92 @@ msgstr "车道章节部分(sections)有几乎重复的 s 值 '%' 出现在路段
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1691
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
-msgstr ""
+msgstr "无法计算路段 '%' 的螺旋几何形状 (cDot=% 长度=%)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1740
 msgid "Could not compute spiral geometry for edge '%' (%)."
-msgstr ""
+msgstr "无法计算路段 '%' 的螺旋几何形状 (%)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:2012
 msgid ""
 "Will discard access settings as both denied and allowed classes have been "
 "specified."
-msgstr ""
+msgstr "将废弃连通通道设定access settings)，因为已指定拒绝和允许的类别。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:2320
 msgid "Ignoring invalid pRange value '%' for road '%'."
-msgstr ""
+msgstr "忽略无效的 pRange 值 '%' (在道路 '%')。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:2420
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:2617
 #, c-format
 msgid "In laneLink-element: incoming road '%' is not known."
-msgstr ""
+msgstr "在 laneLink 元素中: 进入(incoming)道路 '%' 未知。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:2516
 msgid "Ignoring object without id at edge '%'."
-msgstr ""
+msgstr "忽略路段 '%' 处沒有识别名(id)的物件。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:2534
 msgid "Repeat without object at edge '%'."
-msgstr ""
+msgstr "重复,不包含在路段 '%' 处的物件。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:2588
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
-msgstr ""
+msgstr "无法设定投影 (%)。 这可以用 --ignore-errors 忽略。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:2592
 #, c-format
 msgid "geoReference format '%' currently not supported"
-msgstr ""
+msgstr "目前不支持地理參考(geoReference)格式 '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:2661
 msgid "Mismatching parenthesis in geometry definition for road '%'"
-msgstr ""
+msgstr "道路 '%' 的几何定义中的括号不配对"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:2665
 msgid "Double geometry information for road '%'"
-msgstr ""
+msgstr "道路 '% 有双重几何信息"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:156
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderOSM.cpp:104
 msgid "Could not open osm-file '%'."
-msgstr ""
+msgstr "无法开启 开放街图(osm)文件 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:168
 #, c-format
 msgid "Found and substituted % osm nodes."
-msgstr ""
+msgstr "找到并替换了 % 开放街图(osm)节点。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:192
 msgid "Removing duplicate edges"
-msgstr ""
+msgstr "正在移除重复路段"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:207
 #, c-format
 msgid "Removed % duplicate osm edges."
-msgstr ""
+msgstr "移除 % 重复的开放街图(osm)路段。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:241
 msgid "Discarding way '%' because it has only % node(s)"
-msgstr ""
+msgstr "废弃路径(way) '%' , 因为它只有 % 个节点"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:404
 msgid "Could not insert junction '%'."
-msgstr ""
+msgstr "无法插入(insert)路口 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:462
 msgid ""
 "Discarding edge '%' which connects two identical nodes without geometry."
-msgstr ""
+msgstr "废弃连接两个沒有几何形状的相同节点的路段 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:574
 msgid "New value for oneway found: %"
-msgstr ""
+msgstr "找到单向(oneway)的新值: %"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:606
 msgid "Skipping edge '%' because it has zero lanes."
-msgstr ""
+msgstr "跳过路段 '%', 因为它是零车道。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:626
 msgid "Skipping edge '%' because it has speed %."
@@ -7249,65 +7249,66 @@ msgstr "使用清单 (%) 中的最小车道编号数(lane number); 路段为 '%'
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1427
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1437
 msgid "Value of key '%' is not numeric ('%') in edge '%'."
-msgstr ""
+msgstr "键 '%' 的值不是数字值 ('%'), 其发生在路段 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1434
 msgid "Ignoring track count % for edge '%'."
-msgstr ""
+msgstr "忽略轨迹计数(track count) %, 其发生在路段 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1605
 msgid "Unknown lane use specifier '%' ignored for way '%'"
-msgstr ""
+msgstr "未知车道使用说明符(specifier) '%' 已忽略; 针对路径(way) '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1714
 msgid "No node found for reference '%' in relation '%'."
-msgstr ""
+msgstr "找不到参考 '%' 的节点; 其发生在关系 '%' 中。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1776
 msgid "Found unknown restriction type '%' in relation '%'"
-msgstr ""
+msgstr "找到未知的限制类型 '%'; 其发生在关系 '%' 中"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1814
 msgid "Invalid color value '%' in relation %"
-msgstr ""
+msgstr "无效的顏色值 '%'; 其发生在关系 '%' 中"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1832
 msgid "No way found for reference '%' in relation '%'"
-msgstr ""
+msgstr "找不到参考 '%' 的路径(way); 其发生在关系 '%' 中"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1844
 msgid "Ignoring restriction relation '%' with unknown type."
-msgstr ""
+msgstr "忽略有未知类型的限制关系 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1848
 msgid "Ignoring restriction relation '%' with unknown from-way."
-msgstr ""
+msgstr "忽略有未知的从路径(from-way)的限制关系 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1852
 msgid "Ignoring restriction relation '%' with unknown to-way."
-msgstr ""
+msgstr "忽略有未知的到路径(to-way)的限制关系'%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1856
 msgid "Ignoring restriction relation '%' with unknown via."
-msgstr ""
+msgstr "忽略有未知的行径(via)的限制关系 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1860
 msgid "Ignoring restriction relation '%'."
-msgstr ""
+msgstr "忽略限制关系 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1885
 #, c-format
 msgid ""
 "Platform '%' in relation: '%' is given as polygon, which currently is not "
 "supported."
-msgstr ""
+msgstr "在关系(relation)中的平台 '%': '%' 以多边形給定，，目前不支持。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1906
 #, c-format
 msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
 "incomplete."
-msgstr ""
+msgstr "在关系(relation)中的參考平台： '%'： '%' "
+"已损坏。可能开放街图(OSM)文件不完整。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1945
 #, c-format
