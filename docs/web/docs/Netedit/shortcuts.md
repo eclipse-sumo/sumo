@@ -50,7 +50,7 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | F2 | <span style="color:orange">Supermode Network |
 | F3 | <span style="color:orange">Supermode Demand |
 | F4 | <span style="color:orange">Supermode Data |
-| F9 | <span style="color:orange">Edit viewport |
+| F9 | <span style="color:orange">Visualization settings |
 | F10 | <span style="color:orange">Open Options dialog |
 | F11 | <span style="color:orange">Set / Clear front element |
 | F12 | <span style="color:orange">About dialog |
@@ -64,7 +64,7 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | Ctrl + C | <span style="color:orange">Copy |
 | Ctrl + D | <span style="color:orange">Load demand elements |
 | Ctrl + H | <span style="color:orange">Load edge type elements |
-| Ctrl + I | <span style="color:orange">Edit visualization |
+| Ctrl + I | <span style="color:orange">Edit view port |
 | Ctrl + J | <span style="color:orange">Show junction shape |
 | Ctrl + K | <span style="color:orange">Load traffic lights |
 | Ctrl + L | <span style="color:orange">Save plain XML |
