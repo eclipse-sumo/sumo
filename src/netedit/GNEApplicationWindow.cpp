@@ -1537,11 +1537,11 @@ GNEApplicationWindow::closeAllWindows() {
     // check if view has to be saved
     if (myViewNet) {
         myViewNet->saveVisualizationSettings();
+        myViewNet->getDecals().clear();
     }
     // lock tracker
     myTrackerLock.lock();
     // clear decals
-    myViewNet->getDecals().clear();
     // remove trackers and other external windows
     while (!myGLWindows.empty()) {
         delete myGLWindows.front();
