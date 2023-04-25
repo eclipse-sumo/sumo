@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-25 13:03+0000\n"
+"PO-Revision-Date: 2023-04-25 13:30+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -7186,23 +7186,25 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:626
 msgid "Skipping edge '%' because it has speed %."
-msgstr ""
+msgstr "跳过路段 '%', 因为它的速度是 %。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:746
 msgid ""
 "Forward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:forward key ('%'). Using default width values."
-msgstr ""
+msgstr "路段 '%' ('%') 的前向(forward车道数与width:lanes:forward "
+"键中定义的车道数不匹配。使用预设宽度值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:792
 msgid ""
 "Backward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:backward key ('%'). Using default width values."
-msgstr ""
+msgstr "路段 '%' ('%') 的反向(backward)车道数与width:lanes:backward "
+"键中定义的车道数不匹配。使用预设宽度值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:805
 msgid "Could not add edge '-%'."
-msgstr ""
+msgstr "无法增加路段 '-%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:893
 msgid ""
@@ -7234,11 +7236,11 @@ msgstr "路段 '%' 的预设车道宽度作为键key) '%',它无法被解析(par
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1332
 #, c-format
 msgid "Using default lane width for edge '%' as value '%' could not be parsed."
-msgstr ""
+msgstr "路段 '%' 的预设车道宽度作为值(value) '%',它无法被解析(parse)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1375
 msgid "Using minimum lane number from list (%) for edge '%'."
-msgstr ""
+msgstr "使用清单 (%) 中的最小车道编号数(lane number); 路段为 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1377
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1381
