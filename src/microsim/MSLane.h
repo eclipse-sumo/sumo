@@ -1321,9 +1321,14 @@ public:
     double getMaximumBrakeDist() const;
 
     static void initCollisionOptions(const OptionsCont& oc);
+    static void initCollisionAction(const OptionsCont& oc, const std::string& option, CollisionAction& myAction); 
 
     static CollisionAction getCollisionAction() {
         return myCollisionAction;
+    }
+
+    static CollisionAction getIntermodalCollisionAction() {
+        return myIntermodalCollisionAction;
     }
 
     static const long CHANGE_PERMISSIONS_PERMANENT = 0;
@@ -1350,7 +1355,9 @@ protected:
 
     /// @brief detect whether a vehicle collids with pedestrians on the junction
     void detectPedestrianJunctionCollision(const MSVehicle* collider, const PositionVector& colliderBoundary, const MSLane* foeLane,
-                                           SUMOTime timestep, const std::string& stage);
+                                           SUMOTime timestep, const std::string& stage,
+                                           std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
+                                           std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport);
 
     /// @brief detect whether there is a collision between the two vehicles
     bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
@@ -1360,6 +1367,11 @@ protected:
     /// @brief take action upon collision
     void handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
                                 double gap, double latGap,
+                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
+                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
+
+    void handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSTransportable* victim,
+                                double gap, const std::string& collisionType,
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
 
@@ -1560,6 +1572,7 @@ private:
 
     /// @brief the action to take on collisions
     static CollisionAction myCollisionAction;
+    static CollisionAction myIntermodalCollisionAction;
     static bool myCheckJunctionCollisions;
     static double myCheckJunctionCollisionMinGap;
     static SUMOTime myCollisionStopTime;

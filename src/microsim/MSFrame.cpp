@@ -379,6 +379,9 @@ MSFrame::fillOptions() {
     oc.doRegister("collision.action", new Option_String("teleport"));
     oc.addDescription("collision.action", "Processing", TL("How to deal with collisions: [none,warn,teleport,remove]"));
 
+    oc.doRegister("intermodal-collision.action", new Option_String("warn"));
+    oc.addDescription("intermodal-collision.action", "Processing", TL("How to deal with collisions between vehicle and pedestrian: [none,warn,teleport,remove]"));
+
     oc.doRegister("collision.stoptime", new Option_String("0", "TIME"));
     oc.addDescription("collision.stoptime", "Processing", TL("Let vehicle stop for TIME before performing collision.action (except for action 'none')"));
 
