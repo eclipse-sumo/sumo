@@ -23,3 +23,6 @@ ticket10927
 
 # strange braking
 ticket11481
+
+# strange braking (the same as #11481 but with reduced minGapLat)
+ticket13111
