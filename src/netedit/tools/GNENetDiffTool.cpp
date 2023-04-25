@@ -121,15 +121,16 @@ GNENetDiffTool::getCommand() const {
 void
 GNENetDiffTool::fillNetDiffOptions(OptionsCont& options) {
     // build custom options for netdiff
-    options.addOptionSubTopic("Input");
+    options.addOptionSubTopic("input");
+    options.addOptionSubTopic("output");
     options.doRegister("original-net", new Option_Network(""));
-    options.addDescription("original-net", "Input", TL("Original network"));
+    options.addDescription("original-net", "input", TL("Original network"));
 
     options.doRegister("modified-net", new Option_Network(""));
-    options.addDescription("modified-net", "Input", TL("Modified network"));
+    options.addDescription("modified-net", "input", TL("Modified network"));
 
     options.doRegister("outprefix", new Option_FileName());
-    options.addDescription("outprefix", "Input", TL("Output prefix network"));
+    options.addDescription("outprefix", "output", TL("Output prefix network"));
 
     options.addOptionSubTopic("Select");
     options.doRegister("select-modified", new Option_Bool(false));
