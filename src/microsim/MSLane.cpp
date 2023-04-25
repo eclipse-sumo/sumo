@@ -4325,7 +4325,10 @@ MSLane::getBidiLane() const {
 
 bool
 MSLane::mustCheckJunctionCollisions() const {
-    return myCheckJunctionCollisions && myEdge->isInternal() && myLinks.front()->getFoeLanes().size() > 0;
+    return myCheckJunctionCollisions && myEdge->isInternal() && (
+            myLinks.front()->getFoeLanes().size() > 0
+            || myLinks.front()->getWalkingAreaFoe() != nullptr
+            || myLinks.front()->getWalkingAreaFoeExit() != nullptr);
 }
 
 
