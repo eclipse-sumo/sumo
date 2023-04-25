@@ -44,9 +44,12 @@ from sumolib.options import ArgumentParser  # noqa
 
 def parse_args():
     optParser = ArgumentParser()
-    optParser.add_argument("source", help="original network")
-    optParser.add_argument("dest", help="modified network")
-    optParser.add_argument("outprefix", help="prefix for the diff files")
+    optParser.add_option("source", category="input", type=optParser.net_file,
+                         help="original network")
+    optParser.add_option("dest", category="input", type=optParser.net_file,
+                         help="modified network")
+    optParser.add_option("outprefix", category="output", type=optParser.file,
+                         help="prefix for the diff files")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
     optParser.add_option("-p", "--use-prefix", action="store_true",
@@ -61,11 +64,11 @@ def parse_args():
     optParser.add_option("--path", dest="path", help="Path to binaries")
     optParser.add_option("--remove-plain", action="store_true",
                          help="avoid saving plain xml files of source and destination networks")
-    optParser.add_option("-l", "--write-selections", action="store_true", default=False,
+    optParser.add_option("-l", "--write-selections", category="output", action="store_true", default=False,
                          help="Write selection files for created, deleted and changed elements")
-    optParser.add_option("-s", "--write-shapes", action="store_true", default=False,
+    optParser.add_option("-s", "--write-shapes", category="output", action="store_true", default=False,
                          help="Write shape files for created, deleted and changed elements")
-    optParser.add_option("-g", "--plain-geo", action="store_true", default=False,
+    optParser.add_option("-g", "--plain-geo", category="output", action="store_true", default=False,
                          help="Write geo coordinates instead of network coordinates")
     options = optParser.parse_args()
     if options.use_prefix and options.direct:
