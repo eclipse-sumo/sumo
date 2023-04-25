@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 13:17+0000\n"
-"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
+"PO-Revision-Date: 2023-04-25 12:12+0000\n"
+"Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
@@ -7003,43 +7003,43 @@ msgstr "无法发现路段 '%' 的起始节点(from-node)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:237
 msgid "Could not find to-node for edge '%'."
-msgstr ""
+msgstr "无法发现路段 '%' 的到达节点(to-node)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:253
 msgid "Could not add intermediate node to split loop edge '%'."
-msgstr ""
+msgstr "无法增加中间节点去分割(split)线圈(loop)路段 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:211
 msgid "Could not find signal reference '%'."
-msgstr ""
+msgstr "无法发现信号参考(reference) '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:274
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:312
 msgid "Could not build node '%'."
-msgstr ""
+msgstr "无法建立节点 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:411
 msgid "Ignoring road '%' without geometry."
-msgstr ""
+msgstr "忽略沒有几何形狀的道路 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:435
 msgid "Could not apply laneOffsets for edge '%'"
-msgstr ""
+msgstr "无法在路段 '%' 使用车道偏移量(laneOffsets)"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:668
 #, c-format
 msgid "Edge '%' has no lanes."
-msgstr ""
+msgstr "路段 '%' 沒有车道。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:704
 #, c-format
 msgid "While setting connections: from-edge '%' is not known."
-msgstr ""
+msgstr "当设定连接线时: 起始路段(from-edge) '%' 未知。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:714
 #, c-format
 msgid "While setting connections: to-edge '%' is not known."
-msgstr ""
+msgstr "当设定连接线时: 起始路段(from-edge) '%' 未知。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:740
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:743
