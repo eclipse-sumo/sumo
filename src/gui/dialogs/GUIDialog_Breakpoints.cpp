@@ -65,10 +65,11 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // method definitions
 // ===========================================================================
 
-GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) :
+GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock, SUMOTime simBegin) :
     FXMainWindow(parent->getApp(), TL("Breakpoints Editor"), GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), nullptr, GUIDesignChooserDialog),
     GUIPersistentWindowPos(this, "DIALOG_BREAKPOINTS", true, 20, 40, 300, 350),
-    myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
+    myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock), mySimBegin(simBegin)
+{
     // build main Frame
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the table
@@ -223,7 +224,7 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
         if (!empty) {
             t = string2time(value);
             // round down to nearest reachable time step
-            t -= t % DELTA_T;
+            t -= (t - mySimBegin) % DELTA_T;
         }
         if (i->row == (int)myBreakpoints->size()) {
             if (!empty) {
