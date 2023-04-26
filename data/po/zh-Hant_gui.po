@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 13:10+0000\n"
+"PO-Revision-Date: 2023-04-26 09:39+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -1686,7 +1686,7 @@ msgstr "匯入 &外部路網..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:230
 msgid "Import a foreign network such as OSM."
-msgstr "匯入外部路網，例如 OSM。"
+msgstr "匯入外部路網，例如 開放街圖(OSM)。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:237
 msgid "&Save Network"
@@ -2804,7 +2804,7 @@ msgstr "文字檔（*.txt）"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2761
 msgid "Open OSM file"
-msgstr "開啟OSM檔案"
+msgstr "開啟開放街圖(OSM)檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2762
 msgid "OSM net (*.osm.xml,*.osm)"
