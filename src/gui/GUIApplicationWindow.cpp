@@ -1162,15 +1162,19 @@ GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
 
 
 long
-GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
-    if (!myAmLoading && TraCIServer::getInstance() == nullptr) {
+GUIApplicationWindow::onCmdReload(FXObject* sender, FXSelector sel, void*) {
+    if (!myAmLoading && (sender == nullptr || TraCIServer::getInstance() == nullptr)) {
         storeWindowSizeAndPos();
         getApp()->beginWaitCursor();
         myAmLoading = true;
-        myIsReload = true;
+        myIsReload = sender != nullptr || sel == 1;
         closeAllWindows();
         myLoadThread->start();
-        setStatusBarText(TL("Reloading."));
+        if (sender == nullptr) {
+            setStatusBarText(sel == 1 ? TL("Auto-Reloading.") : TL("TraCI-Loading."));
+        } else {
+            setStatusBarText(TL("Reloading."));
+        }
         update();
     }
     return 1;
@@ -2018,7 +2022,7 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
         closeAllWindows();
         getApp()->exit(ec->getReason() == MSNet::SIMSTATE_ERROR_IN_SIM);
     } else if (GUIGlobals::gDemoAutoReload) {
-        onCmdReload(nullptr, 0, nullptr);
+        onCmdReload(nullptr, 1, nullptr);
     } else if (!myHaveNotifiedAboutSimEnd) {
         // GUIRunThread::deleteSim() triggers the final message to the log file
         // (this will never reach the GUI but we cannot use WRITE_MESSAGE here
