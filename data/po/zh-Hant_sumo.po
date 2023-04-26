@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-25 04:53+0000\n"
+"PO-Revision-Date: 2023-04-26 09:39+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hant/>\n"
@@ -6023,7 +6023,7 @@ msgstr "無法為不完整的大眾運輸路線 '%' 修改停靠站定位。 忽
 
 #: /home/micha/programming/sumo/src/netbuild/NBPTLineCont.cpp:162
 msgid "Could not re-assign PT stop '%', probably broken osm file."
-msgstr "無法重新指派大眾運輸停靠點 '%',可能由於損壞的 osm 檔案。"
+msgstr "無法重新指派大眾運輸停靠點 '%',可能由於損壞的開放街圖(osm )檔案。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBPTLineCont.cpp:171
 msgid "PT stop '%' has been moved to edge '%'."
@@ -7410,8 +7410,8 @@ msgstr "於關係(relation)中的平台 '%': '%' 以多邊形給定，目前不�
 msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
 "incomplete."
-msgstr "於關係(relation)中的參考平台： '%'： '%' 已損壞。可能開放接圖(OSM)"
-"檔案不完整。"
+msgstr "於關係(relation)中的參考平台： '%'： '%' "
+"已損壞。可能開街街圖(OSM)檔案不完整。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1945
 #, c-format
@@ -7421,8 +7421,7 @@ msgstr "大眾運輸路線 '%' (於關係 % 中) 似乎被分割(split), 只保�
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1978
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is incomplete."
-msgstr "大眾運輸路線於關係 % 中沒有停靠站, 因此被忽略。可能開放接圖(OSM)"
-"檔案不完整。"
+msgstr "大眾運輸路線於關係 % 中沒有停靠站, 因此被忽略。可能開放街圖(OSM)檔案不完整。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1984
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:222
