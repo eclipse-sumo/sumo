@@ -37,6 +37,8 @@ print("lane count", traci.lane.getIDCount())
 laneID = "2fi_0"
 print("examining", laneID)
 print("length", traci.lane.getLength(laneID))
+print("angle (with default relative position)", traci.lane.getAngle(laneID))
+print("angle (with some relative position)", traci.lane.getAngle(laneID, 10))
 print("maxSpeed", traci.lane.getMaxSpeed(laneID))
 print("width", traci.lane.getWidth(laneID))
 print("allowed", traci.lane.getAllowed(laneID))

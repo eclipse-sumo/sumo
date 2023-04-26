@@ -294,12 +294,12 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES, laneID)
 
-    def getAngle(self, laneID, relativePosition):
+    def getAngle(self, laneID, relativePosition = -1):
         """getAngle(string, double) -> double
         Returns the angle formed by the x-axis and the line from the specified position to the end of the lane.
         If the specified position equals -1 then the starting position of the lane is used instead.
         """
-        return self._getUniversal(tc.VAR_ANGLE, laneID, relativePosition)
+        return self._getUniversal(tc.VAR_ANGLE, laneID, "d", relativePosition)
 
     def setAllowed(self, laneID, allowedClasses):
         """setAllowed(string, list) -> None
