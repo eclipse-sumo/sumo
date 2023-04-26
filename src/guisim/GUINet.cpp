@@ -783,6 +783,7 @@ GUINet::addHotkey(int key, Command* press, Command* release) {
 
 void
 GUINet::flushOutputsAtEnd() {
+    mySkipFinalReset = true;
     myDetectorControl->close(SIMSTEP);
     OutputDevice::flushAll();
     // update tracker windows

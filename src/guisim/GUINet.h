@@ -360,6 +360,10 @@ public:
     /// @brief flush outputs once the simulation has reached its end
     void flushOutputsAtEnd();
 
+    virtual bool skipFinalReset() const {
+        return mySkipFinalReset;
+    }
+
 private:
     /// @brief Initialises the tl-logic map and wrappers
     void initTLMap();
@@ -408,6 +412,8 @@ protected:
 
     /// @brief loaded edge data for visualization
     std::map<std::string, MSEdgeWeightsStorage*> myLoadedEdgeData;
+
+    bool mySkipFinalReset = false;
 
     /// @brief class for discovering edge attributes
     class DiscoverAttributes : public SUMOSAXHandler {

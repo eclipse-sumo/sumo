@@ -568,7 +568,9 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
     for (const std::vector<MeanDataValues*>& edgeValues : myMeasures) {
         for (MeanDataValues* meanData : edgeValues) {
             meanData->addTo(*sumData);
-            meanData->reset();
+            if (!MSNet::getInstance()->skipFinalReset()) {
+                meanData->reset();
+            }
         }
     }
     if (MSGlobals::gUseMesoSim) {
@@ -612,7 +614,9 @@ MSMeanData::writeEdge(OutputDevice& dev,
                             edge->getSpeedLimit(),
                             myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
-            data->reset(true);
+            if (!MSNet::getInstance()->skipFinalReset()) {
+                data->reset(true);
+            }
             return;
         }
     }
@@ -636,7 +640,9 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 meanData.write(dev, myWrittenAttributes, stopTime - startTime, 1.f, meanData.getLane()->getSpeedLimit(),
                                myPrintDefaults ? meanData.getLane()->getLength() / meanData.getLane()->getSpeedLimit() : -1.);
             }
-            meanData.reset(true);
+            if (!MSNet::getInstance()->skipFinalReset()) {
+                meanData.reset(true);
+            }
         }
         if (writeCheck) {
             dev.closeTag();
@@ -648,13 +654,17 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 meanData.write(dev, myWrittenAttributes, stopTime - startTime, (double)edge->getLanes().size(), edge->getSpeedLimit(),
                                myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
-            meanData.reset(true);
+            if (!MSNet::getInstance()->skipFinalReset()) {
+                meanData.reset(true);
+            }
         } else {
             MeanDataValues* sumData = createValues(nullptr, edge->getLength(), false);
             for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
                 MeanDataValues& meanData = **lane;
                 meanData.addTo(*sumData);
-                meanData.reset();
+                if (!MSNet::getInstance()->skipFinalReset()) {
+                    meanData.reset();
+                }
             }
             if (writePrefix(dev, *sumData, SUMO_TAG_EDGE, getEdgeID(edge))) {
                 sumData->write(dev, myWrittenAttributes, stopTime - startTime, (double)edge->getLanes().size(), edge->getSpeedLimit(),

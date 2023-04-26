@@ -813,6 +813,11 @@ public:
         return myAmInterrupted;
     }
 
+    /// @brief gui may prevent final meanData reset to keep live data visible
+    virtual bool skipFinalReset() const {
+        return false;
+    }
+
     /// @brief find electrical substation by its id
     MSTractionSubstation* findTractionSubstation(const std::string& substationId);
 
