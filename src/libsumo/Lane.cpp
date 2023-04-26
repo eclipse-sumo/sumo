@@ -30,6 +30,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSInsertionControl.h>
+#include <utils/geom/GeomHelper.h>
 #include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
 #include "Lane.h"
@@ -336,17 +337,16 @@ double
 Lane::getAngle(const std::string& laneID, double relativePosition) {
     double angle;
     MSLane* lane = getLane(laneID);
-    Position end = lane->getShape().back();
     if (relativePosition == -1) {
         Position start = lane->getShape().front();
+        Position end = lane->getShape().back();
         angle = start.angleTo2D(end);
     }
     else {
-        Position position = lane->getShape().positionAtOffset(relativePosition);
-        angle = position.angleTo2D(end);
+        angle = lane->getShape().rotationAtOffset(lane->interpolateLanePosToGeometryPos(relativePosition));
     }
 
-    return angle;
+    return GeomHelper::naviDegree(angle);
 }
 
 

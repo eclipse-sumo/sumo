@@ -1,4 +1,4 @@
 simstep2 5
-getvariable 0xa3 0x43 2/1to2/0_0
+getvariable_plus 0xa3 0x43 2/1to2/0_0 <double> -1
 simstep2 7
 
