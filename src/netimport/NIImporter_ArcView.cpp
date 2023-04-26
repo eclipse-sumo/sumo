@@ -326,7 +326,7 @@ NIImporter_ArcView::load() {
         if (existing != nullptr || existingReverse != nullptr) {
             if ((existing != nullptr && existing->getGeometry() == shape)
                     || (existingReverse != nullptr && existingReverse->getGeometry() == shape.reverse())) {
-                WRITE_ERRORF(TL("Edge '% is not unique."), (existing != nullptr ? id : existingReverse->getID()));
+                WRITE_ERRORF(TL("Edge '%' is not unique."), (existing != nullptr ? id : existingReverse->getID()));
             } else {
                 if (idIndex.count(id) == 0) {
                     idIndex[id] = 0;
