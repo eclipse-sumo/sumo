@@ -45,7 +45,7 @@ def get_options(args=None):
                            default=False, help="Randomize roadsideCapacity")
     optParser.add_argument("--min", category="processing", type=int, default=0,
                            help="Minimum capacity for parkingAreas")
-    optParser.add_argument("--max", category="processing", type=int, default=int(1e10),
+    optParser.add_argument("--max", category="processing", type=int, default=int(1e9),
                            help="Maximum capacity for parkingAreas")
     optParser.add_argument("--edge-type.keep", category="processing", dest="edgeTypeKeep",
                            help="Optional list of edge types to keep exclusively")
