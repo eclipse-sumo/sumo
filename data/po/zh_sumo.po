@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-25 23:55+0000\n"
+"PO-Revision-Date: 2023-04-26 09:39+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -7313,65 +7313,65 @@ msgstr "在关系(relation)中的參考平台： '%'： '%' "
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1945
 #, c-format
 msgid "PT line '%' in relation % seems to be split, only keeping first part."
-msgstr ""
+msgstr "大众运输路线 '%' (于关系 % 中) 似乎被分割(split), 只保留第一部分。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1978
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is incomplete."
-msgstr ""
+msgstr "大众运输路线于关系 % 中沒有停靠站, 因此被忽略。可能开放街图(OSM)文件不完整。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1984
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:222
 msgid "Ignoring duplicate PT line '%'."
-msgstr ""
+msgstr "忽略重复的大众运输列(PT line) '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1999
 msgid "Via-node '%' was not instantiated"
-msgstr ""
+msgstr "通过节点(Via-node) '%' 未实例化(instantiated)"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2005
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
-msgstr ""
+msgstr "无法确定限制关系的起始路段(from-edge) '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2009
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
-msgstr ""
+msgstr "无法确定限制关系的到达路段(to-edge) '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2039
 msgid "direction of restriction relation could not be determined%"
-msgstr ""
+msgstr "限制关系的方向无法确定%"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2060
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
-msgstr ""
+msgstr "限制关系中的不明确的路径（way)参照（reference) '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2311
 msgid ""
 "Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "废弃未知复合物(compound) '%';发生在类型 '%' 中 (在路段 '%' 第一次出现)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2315
 msgid "Discarding unusable type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "废弃未使用的类型 '%' (在路段 '%' 第一次出现)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2364
 msgid "Discarding compound type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "废弃复合类型(compound type) '%' (在路段 '%' 第一次出现)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2369
 msgid "Adding new type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "新增新的类型 '%' (在路段 '%' 第一次出现)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2404
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
-msgstr ""
+msgstr "路径(way) '%' 的铁路里程方向不明确（假设向前）"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2411
 msgid "Inconsistent railway kilometrage direction for way '%': % (skipping)"
-msgstr ""
+msgstr "路径(way) '%' 的铁路公里方向不一致: % (跳过)"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2456
 msgid "Value of railway:position is not numeric ('%') in node '%'."
@@ -7447,135 +7447,139 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:628
 #, c-format
 msgid "Found lane '%' not within edge element."
-msgstr ""
+msgstr "发现车道 '%' 不在路段元素內。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:633
 msgid "Renaming lane '%' to '%'."
-msgstr ""
+msgstr "将车道 '%' 重新命名为 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:699
 msgid ""
 "Duplicate definition of stopOffset for edge %.\n"
 "Ignoring duplicate specification."
 msgstr ""
+"路段 '%' 的停等偏移值(stopOffset重复定义。\n"
+"忽略重复规格说明。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:705
 msgid ""
 "Duplicate definition of lane's stopOffset on edge %.\n"
 "Ignoring duplicate specifications."
 msgstr ""
+"车道 '%' 的停等偏移值(stopOffset)重复定义。\n"
+"忽略重复规格说明。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:742
 #, c-format
 msgid "Junction '%' occurred at least twice in the input."
-msgstr ""
+msgstr "路口 '%' 在输入文件中至少出现两次。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:839
 msgid "Invalid lane index '%' for connection from '%'."
-msgstr ""
+msgstr "无效的车道索引 '%' ;发生在从 '%'开始的连接线。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:929
 msgid "Definition of tl-logic '%' was not finished."
-msgstr ""
+msgstr "交通信号逻辑(tl-logic) '%' 的定义未完成。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:941
 #: /home/micha/programming/sumo/src/netimport/NIXMLTrafficLightsHandler.cpp:127
 msgid "Unknown traffic light type '%' for tlLogic '%'."
-msgstr ""
+msgstr "未知的交通信号类型  '%' ;发生在信号逻辑(tl-logic) '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:955
 msgid "found phase without tl-logic"
-msgstr ""
+msgstr "发现沒有交通信号逻辑(tl-logic)的相位(phase)"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:963
 msgid "Phase duration for tl-logic '%/%' must be positive."
-msgstr ""
+msgstr "交通信号(tl-logic) '%/%' 的相位(phase)长度必须是正值。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:1019
 msgid "Missing connection divider in prohibition attribute '%'"
-msgstr ""
+msgstr "禁止属性 '%' 中缺少连接线分隔符号(connection divider)"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:1026
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:1030
 msgid "Unknown edge prohibition '%'"
-msgstr ""
+msgstr "未知的路段禁止 '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:205
 msgid "Can not open visum-file '%'."
-msgstr ""
+msgstr "无法开启 visum 文件 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:247
 #, c-format
 msgid "Too short value line in % occurred."
-msgstr ""
+msgstr "以 % 表示的值线(value line)太短。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:249
 msgid "A value in % should be numeric but is not (id='%')."
-msgstr ""
+msgstr "% 中的值应该是数字,但其并不是 (id='%')。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:251
 msgid "One of the needed values ('%') is missing in %."
-msgstr ""
+msgstr "所需值之一 ('%') 缺失于 % 內。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:326
 msgid "Duplicate node occurred ('%')."
-msgstr ""
+msgstr "出现重复节点 ('%')。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:344
 msgid "Unable to project coordinates for district %."
-msgstr ""
+msgstr "无法投影分区 % 的坐标。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:350
 msgid "Duplicate district occurred ('%')."
-msgstr ""
+msgstr "出现重复分区('%')。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:368
 msgid "Unable to project coordinates for point %."
-msgstr ""
+msgstr "无法投影点(point) % 的坐标。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:458
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:475
 msgid "Duplicate edge occurred ('%')."
-msgstr ""
+msgstr "出现重复的路段 ('%')。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:580
 msgid ""
 "Incoming connector '%' will not be build - would be not connected to network."
-msgstr ""
+msgstr "将不会构建传入(incoming)连接器 '%' - 不会连接到路网。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:584
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:618
 #, c-format
 msgid "The district '%' could not be built."
-msgstr ""
+msgstr "无法建立分区 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:594
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:629
 msgid "A duplicate edge id occurred (ID='%')."
-msgstr ""
+msgstr "出现重复的路段识别名(id) (ID='%')。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:614
 msgid ""
 "Outgoing connector '%' will not be build - would be not connected to network."
-msgstr ""
+msgstr "将不会构建传出(outgoing)连接器 '%' - 不会连接到路网。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:665
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:671
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:720
 msgid "There is no edge from node '%' to node '%'."
-msgstr ""
+msgstr "从节点 '%' 到节点 '%' 沒有路段。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:698
 msgid "Error in geometry description from node '%' to node '%'."
-msgstr ""
+msgstr "从节点 '%' 到节点 '%' 的几何描述错误。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:757
 msgid "A lane number for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "路段 '%' 的车道数不是数字值 (%)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:762
 msgid "A lane number for edge '%' is not positive (%)."
-msgstr ""
+msgstr "路段 '%' 的车道数不是正值 (%)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:781
 msgid "A lane length for edge '%' is not numeric (%)."
