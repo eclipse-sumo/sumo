@@ -21,9 +21,9 @@
   in a sumo network with a given route file (vehicles and bicycles).
 
 - The parameters in the Webster's equation may need to be adjusted 
-  according to the respecitve user case. Otherwise, worse results
-  may occur. E.g. satuation headway can effect the road capacity,
-  minimal green time or minmal cycle length. 
+  according to the respective user case. Otherwise, worse results
+  may occur. E.g. saturation headway can affect the road capacity,
+  minimal green time or minimal cycle length. 
   
 - The allowed movements per lane in the network should correspond to  
   those in the respective signal group/phase. E.g. if through and 
@@ -56,7 +56,7 @@
 
 - Duration for all-red phase will not be adjusted.
 
-- Pedestrains are not considered yet.
+- Pedestrians are not considered yet.
 """
 
 from __future__ import absolute_import
