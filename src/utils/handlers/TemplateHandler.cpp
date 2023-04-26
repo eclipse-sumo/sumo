@@ -157,16 +157,22 @@ TemplateHandler::addOption(std::string value, const std::string& synonymes, cons
             option = new Option_Integer(0);
             if (value.empty()) {
                 option->set(INVALID_INT_STR, "", true);
+            } else {
+                option->set(value, value, true);
             }
         } else if ((type == "FLOAT") || (type == "float") || (type == "TIME") || (type == "time")) {
             option = new Option_Float(0);
             if (value.empty()) {
                 option->set(INVALID_DOUBLE_STR, "", true);
+            } else {
+                option->set(value, value, true);
             }
         } else if ((type == "BOOL") || (type == "bool")) {
             option = new Option_Bool(false);
             if (value.empty()) {
                 option->set("false", "", true);
+            } else {
+                option->set(value, value, true);
             }
         } else if (type == "INT[]") {
             option = new Option_IntVector();
