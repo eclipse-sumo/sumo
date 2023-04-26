@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-26 14:26+0000\n"
+"PO-Revision-Date: 2023-04-26 15:43+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -7880,80 +7880,80 @@ msgstr "路段 '%' 在位置 % 处已有一个分割(split)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:520
 msgid "Invalid split node id for edge '%' (from- and to-node are forbidden)"
-msgstr ""
+msgstr "路段 '%' 上有无效的分割节点 (禁止起始节点(from- and)和到达节点(to-node))"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:558
 msgid "The from-node is not given for edge '%'."
-msgstr ""
+msgstr "沒有为路段 '%' 给定起始节点(from-node)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:570
 msgid "The to-node is not given for edge '%'."
-msgstr ""
+msgstr "沒有为路段 '%' 给定到达节点(to-node)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:616
 msgid "Ignoring unknown spreadType '%' for edge '%'."
-msgstr ""
+msgstr "没有为路段 '%' 给定到达节点(to-node)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:674
 #, c-format
 msgid "Duplicate edge '%' occurred."
-msgstr ""
+msgstr "发生重复的路段 '%' 。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:683
 msgid "An important information is missing in edge '%'."
-msgstr ""
+msgstr "路段 '%' 缺少一个重要信息。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:705
 #, c-format
 msgid "Unknown edge '%' in roundabout."
-msgstr ""
+msgstr "在圆环处未知的路段 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:151
 msgid "Missing position (at node ID='%')."
-msgstr ""
+msgstr "缺少位置 (在节点识别名(ID)='%')。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:184
 msgid "Could not insert node though checked this before (id='%')."
-msgstr ""
+msgstr "虽然已检查，无法插入节点(识别名(id)='%')。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:213
 msgid "Unable to project node shape at node '%'."
-msgstr ""
+msgstr "无法投射节点 '%' 的形状。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:321
 msgid "Unknown traffic light type '%' for node '%'."
-msgstr ""
+msgstr "未知的交通信号类型 '%'; 发生在节点 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:330
 msgid "Unknown traffic light layout '%' for node '%'."
-msgstr ""
+msgstr "未知的交通信号布置(layout) '%';发生在节点 '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:341
 msgid "Changing traffic light type '%' to '%' for tl '%'."
-msgstr ""
+msgstr "将交通信号类型由 '%' 更改为 '%'; 相关的交通信号识别名是(tl) '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:153
 #, c-format
 msgid "Edge '%' for stop '%' not found"
-msgstr ""
+msgstr "找不到路段 '%' 给停靠点 '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:161
 #, c-format
 msgid "Lane '%' for stop '%' not found"
-msgstr ""
+msgstr "找不到车道(lane) '%' 给停靠点'%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:173
 msgid "Could not add public transport stop '%' (already exists)"
-msgstr ""
+msgstr "无法增加大众运输停靠站 '%' (已经存在)"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:192
 #, c-format
 msgid "Edge '%' for access to stop '%' not found"
-msgstr ""
+msgstr "找不到连接通道(access)相接的路段 '%' 到停靠点 '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:253
 msgid "Found route outside line definition"
-msgstr ""
+msgstr "找到路径外界线(route outside line)的定义"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:263
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:283
