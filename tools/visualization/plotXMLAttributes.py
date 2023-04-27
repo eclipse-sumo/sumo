@@ -149,8 +149,6 @@ def getOptions(args=None):
     if options.show:
         sys.stderr.write("Option --show is now set by default and will be removed in the future." +
                          "Use --blind to disable the plot window\n")
-    if options.output is None:
-        options.output = "plot.png"
 
     if options.xattr == BOX_ATTR and options.yattr == BOX_ATTR:
         sys.exit("Boxplot can only be specified for one dimension")
