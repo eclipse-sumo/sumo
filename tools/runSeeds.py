@@ -42,11 +42,13 @@ def get_options(args=None):
     ap.add_option("-v", "--verbose", category="processing", action="store_true", default=False,
                   help="tell me what you are doing")
     ap.add_option("-k", "--configuration", category="input", metavar="FILE", required=True, type=ap.file_list,
-                  help="configuration to run")
+                  help="configuration to run or comma-separated list of configurations")
     ap.add_option("-a", "--application", category="processing", default="sumo", metavar="FILE",
-                  help="application to run")
+                  help="application to run or comma-separated list of applications")
     ap.add_option("-p", "--output-prefix",  category="processing", default="SEED.", dest="prefix",
                   help="output prefix",)
+    ap.add_option("--no-folders", action="store_true", category="output", default=False, dest="noFolders",
+                  help="do not create folders to distinguish multiple configurations or applications but use prefixes instead")
     ap.add_option("--seeds", category="processing", default="0:10",
                   help="which seeds to run")
     ap.add_option("--threads", category="processing", type=int, default=1,
@@ -97,7 +99,7 @@ def getUniqueFolder(options, app, cfg, folders):
         i += 1
         folder = '_'.join(key + [str(i)])
     folders.add(folder)
-    if not os.path.exists(folder):
+    if not options.noFolders and not os.path.exists(folder):
         os.makedirs(folder)
     return folder
 
@@ -110,7 +112,10 @@ def main(options):
             app, cfg, seed, folder = q.get()
             prefix = options.prefix.replace("SEED", str(seed))
             if folder:
-                prefix = os.path.join(folder, prefix)
+                if options.noFolders:
+                    prefix = "%s_%s" % (folder, prefix)
+                else:
+                    prefix = os.path.join(folder, prefix)
             if options.verbose:
                 print("running seed %s" % seed)
             args = [app,
