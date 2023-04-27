@@ -170,10 +170,10 @@ xmlstats0:000/stats.xml
 xmlstats1:001/stats.xml
 xmlstats1:1.stats.xml
 xmlstats1:stats1.xml
-xmlstats1:sim.sumocfg_0_1.stats.xml
+xmlstats1:sim_1.stats.xml
 xmlstats2:2.stats.xml
 xmlstats2:stats2.xml
-xmlstats2:sim2.sumocfg_0_1.stats.xml
+xmlstats2:sim2_1.stats.xml
 xmlstats3:3.stats.xml
 osmimport:*/osm.net.xml.gz
 osmstops:*/osm_stops.add.xml
