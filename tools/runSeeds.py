@@ -86,7 +86,6 @@ def get_options(args=None):
 
 def getUniqueFolder(options, app, cfg, folders):
     key = []
-    i = 0
     if len(options.application) > 1:
         key.append(os.path.basename(app))
     if len(options.configuration) > 1:
@@ -94,14 +93,32 @@ def getUniqueFolder(options, app, cfg, folders):
     if not key:
         return ""
 
-    folder = '_'.join(key + [str(i)])
-    while folder in folders:
-        i += 1
+    folder = '_'.join(key)
+    if folder in folders:
+        i = 0
         folder = '_'.join(key + [str(i)])
+        while folder in folders:
+            i += 1
+            folder = '_'.join(key + [str(i)])
+
     folders.add(folder)
     if not options.noFolders and not os.path.exists(folder):
         os.makedirs(folder)
     return folder
+
+def getCommExtensionLength(names):
+    if not names or len(names) == 1:
+        return 0
+    common = reversed(names[0])
+    for n in names[1:]:
+        common2 = []
+        for c1, c2 in zip(common, reversed(n)):
+            if c1 == c2:
+                common2.append(c1)
+            else:
+                break
+        common = ''.join(common2)
+    return len(common)
 
 
 def main(options):
@@ -132,9 +149,10 @@ def main(options):
 
     folders = set()
 
+    cEL = getCommExtensionLength(options.configuration)
     for app in options.application:
         for cfg in options.configuration:
-            folder = getUniqueFolder(options, app, cfg, folders)
+            folder = getUniqueFolder(options, app, cfg[:-cEL], folders)
             for seed in options.seeds:
                 q.put((app, cfg, seed, folder))
     q.join()
