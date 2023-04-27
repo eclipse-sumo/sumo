@@ -32,16 +32,16 @@ jobs:
       run: |
         git fetch --tags --force
 
-    - name: Building helper wheels for later tests
+    - name: Building sumolib / traci (pure Python) wheels and sdist
       run: |
         cd tools
         python -m pip install build
         python build/version.py build/setup-sumolib.py ./setup.py
-        python -m build --wheel -o ../wheelhouse
+        python -m build -o ../wheelhouse
         python build/version.py build/setup-traci.py ./setup.py
-        python -m build --wheel -o ../wheelhouse
+        python -m build -o ../wheelhouse
 
-    - name: Building Python wheels (latest manylinux docker)
+    - name: Building SUMO / libsumo Python wheels (latest manylinux docker)
       # if: github.repository == 'DLR-TS/sumo'
       uses: docker://quay.io/pypa/manylinux2014_x86_64
       with:
