@@ -48,7 +48,8 @@ A [daily version](https://test.pypi.org/project/sumolib/) is also available in T
 
 ## Getting Started
 
-To use sumolib in your Python code, import the `sumolib` module. The following code snippet shows a basic example of how to load a network file and retrieve the coordinate of a node:
+To use sumolib in your Python code, import the `sumolib` module. The following code snippet shows a basic example
+of how to load a network file and retrieve the coordinate of a node:
 
 ```python
 import sumolib
@@ -62,12 +63,18 @@ print(net.getNode("myNodeID").getCoord())
 
 ## Documentation
 
-The sumolib documentation is available online at [https://sumo.dlr.de/docs/Tools/Sumolib.html](https://sumo.dlr.de/docs/Tools/Sumolib.html). For a list of available functions take a look at the [pydoc generated documentation](http://sumo.dlr.de/pydoc/sumolib.html) or simply browse the [source code here](https://github.com/eclipse/sumo/tree/main/tools/sumolib).
+The sumolib documentation is available online at
+[https://sumo.dlr.de/docs/Tools/Sumolib.html](https://sumo.dlr.de/docs/Tools/Sumolib.html). For a list of available
+functions take a look at the [pydoc generated documentation](http://sumo.dlr.de/pydoc/sumolib.html)
+or simply browse the [source code here](https://github.com/eclipse/sumo/tree/main/tools/sumolib).
 
 
 ## Contributing
 
-If you find a bug in sumolib or have a suggestion for a new feature, please report it on the SUMO issue tracker at [https://github.com/eclipse/sumo/issues](https://github.com/eclipse/sumo/issues). If you would like to contribute code to sumolib, please submit a pull request to the SUMO repository at [https://github.com/eclipse/sumo](https://github.com/eclipse/sumo).
+If you find a bug in sumolib or have a suggestion for a new feature, please report it on the SUMO issue tracker at
+[https://github.com/eclipse/sumo/issues](https://github.com/eclipse/sumo/issues). If you would like to contribute code
+to sumolib, please submit a pull request to the SUMO repository at
+[https://github.com/eclipse/sumo](https://github.com/eclipse/sumo).
 
 ## License
 

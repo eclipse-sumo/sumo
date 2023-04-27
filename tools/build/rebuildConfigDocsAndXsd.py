@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    updateConfigDocsAndXsd.py
+# @file    rebuildConfigDocsAndXsd.py
 # @author  Michael Behrisch
 # @date    2012-01-26
 
@@ -95,7 +95,7 @@ if __name__ == "__main__":
             cfg = subprocess.check_output([app, "--save-template", "stdout"], universal_newlines=True)
             docs = os.path.join(homeDir, "docs", "web", "docs", app + ".md")
             parseString(cfg, ConfigReader(open(docs).readlines(), docs))
-            subprocess.check_call([app, "--save-schema", 
+            subprocess.check_call([app, "--save-schema",
                                    os.path.join(homeDir, "data", "xsd", app + "Configuration.xsd")])
         subprocess.call(['netedit', '--attribute-help-output', os.path.join(homeDir,
                          "docs", "web", "docs", 'Netedit', 'attribute_help.md')])
