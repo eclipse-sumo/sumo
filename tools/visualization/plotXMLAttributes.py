@@ -146,7 +146,9 @@ def getOptions(args=None):
 
     # keep old presets from before integration of common options
     options.nolegend = not options.legend
-    options.blind = not options.show
+    if options.show:
+        sys.stderr.write("Option --show is now set by default and will be removed in the future." +
+                         "Use --blind to disable the plot window\n")
     if options.output is None:
         options.output = "plot.png"
 
