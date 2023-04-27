@@ -7288,6 +7288,10 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
             calculateArrivalParams(true);
         }
     }
+    if (getActionStepLength() == DELTA_T && !isActionStep(SIMSTEP)) {
+        myLastActionTime -= (myLastActionTime - SIMSTEP) % DELTA_T;
+        WRITE_WARNINGF(TL("Action steps are out of sync for loaded vehicle '%'."), getID());
+    }
     std::istringstream pis(attrs.getString(SUMO_ATTR_POSITION));
     pis >> myState.myPos >> myState.myBackPos >> myState.myLastCoveredDist;
     std::istringstream sis(attrs.getString(SUMO_ATTR_SPEED));
