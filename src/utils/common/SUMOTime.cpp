@@ -120,9 +120,16 @@ elapsedMs2string(long long int t) {
     }
 }
 
-bool checkStepLengthMultiple(const SUMOTime t, const std::string& error, SUMOTime deltaT) {
-    if (t % deltaT != 0) {
-        WRITE_WARNING("The given time value " + time2string(t) + " is not a multiple of the step length " + time2string(deltaT) + error + ".")
+bool checkStepLengthMultiple(const SUMOTime t, const std::string& error, SUMOTime deltaT, SUMOTime begin) {
+    if (begin % deltaT == 0) {
+        if (t % deltaT != 0) {
+            WRITE_WARNING("The given time value " + time2string(t) + " is not a multiple of the step length " + time2string(deltaT) + error + ".")
+        }
+    } else{
+        if ((t - begin) % deltaT != 0) {
+            WRITE_WARNING("The given time value " + time2string(t) + " is not reached with step length " + time2string(deltaT)
+                    + " and begin time " + time2string(begin) + error + ".")
+        }
     }
     // next line used to fix build
     return false;

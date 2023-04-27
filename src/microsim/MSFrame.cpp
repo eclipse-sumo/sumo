@@ -887,7 +887,7 @@ MSFrame::checkOptions() {
             if (end > 0 && saveT >= end) {
                 WRITE_WARNINGF(TL("The save-state time=% will not be used before simulation end at %."), timeStr, time2string(end));
             } else {
-                checkStepLengthMultiple(saveT, " for save-state.times", deltaT);
+                checkStepLengthMultiple(saveT, " for save-state.times", deltaT, begin);
             }
         } catch (ProcessError& e) {
             WRITE_ERROR("Invalid time '" + timeStr + "' for option 'save-state.times'. " + e.what());
