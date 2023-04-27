@@ -6,6 +6,47 @@ title: ChangeLog
 
 ### Bugfixes
 
+- Simulation
+  - Collisions on shared walkingareas without vehicular road intersction are now detected. Issue #13132
+  - A warning is now given if save-state.times are not reached due to a mismatch with step-length and begin time. Issue #13162
+  - Fixed crash when loading rail simulation state with step-length > 1. Issue #13161
+
+- netedit
+  - Fixed segfault when closing netedit and no net is loaded #13131. (regression in 1.17.0)
+  - netdiff-dialog now permits to change the output prefix. Issue #13130
+  - Fixed invalid default values in netgenerate dialog and tool dialogs. Issue #13152
+
+- sumo-gui
+  - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
+
+
+- netconvert
+  - Fixed inconsistent network file after setting **--default.spreadtype center**. Issue #13127
+
+- TraCI
+  -  Fixed crash when calling traci.load and running with sumo-gui. Issue #13150 (regression in 1.16.0)
+  
+
+### Enhancements
+
+- Simulation
+  - Added options **--intermodal-collision.action** and **--intermodal-collision.stoptime** to configure vehicle behavior after colliding with a pedestrian. Issue #13133
+
+- sumo-gui
+  - Simulation end time is now written into the message window. Issue #13145
+  - Live edgeData can now be oserved after the simulation ends. Issue #13144
+
+- tools
+  - plotXMLAttributes.py and plot_trajectories.py now show the plot by default. Issue #13158
+  - runSeeds.py: shortened generated folder names. Issue #13167
+  - runSeeds.py: added option **--no-folders** to keep all written files in the same directory when running with multiple configuration files or applications (folder name becomes file name prefix). Issue #13157  
+
+### Miscellaneous
+
+- plotXMLAttributes.py and plot_trajectories.py no longer create 'plot.png' by default. Issue #13166
+
+
+
 ## Version 1.17.0 (25.04.2023)
 
 ### Bugfixes
