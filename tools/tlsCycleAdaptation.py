@@ -20,21 +20,21 @@
   and the green times of the traffic lights at common intersections
   in a sumo network with a given route file (vehicles and bicycles).
 
-- The parameters in the Webster's equation may need to be adjusted 
+- The parameters in the Webster's equation may need to be adjusted
   according to the respective user case. Otherwise, worse results
   may occur. E.g. saturation headway can affect the road capacity,
-  minimal green time or minimal cycle length. 
-  
-- The allowed movements per lane in the network should correspond to  
-  those in the respective signal group/phase. E.g. if through and 
-  right movements are allowed in a phase, they should be able to 
+  minimal green time or minimal cycle length.
+
+- The allowed movements per lane in the network should correspond to
+  those in the respective signal group/phase. E.g. if through and
+  right movements are allowed in a phase, they should be able to
   share their lanes without conflicts.  Otherwise, worse results
   may occur.
- 
+
 - Traffic lights without traffic flows will not be optimized.
 
 - Flows are considered only for one hour, corresponding to
-  the Webster's equation. Using the option --begin to define the 
+  the Webster's equation. Using the option --begin to define the
   start time of the investigated one hour.
 
 - PCE is used instead of the number of vehicles.
@@ -43,10 +43,10 @@
   the respective flows will be equally divided into the corresponding
   phases for calculating the green splits.
 
-- If multiple major greens exist, the respective flows will be evenly 
+- If multiple major greens exist, the respective flows will be evenly
   distributed in each major green.
 
-- consider flows only with minor greens at a certain direction 
+- consider flows only with minor greens at a certain direction
 - If the critical flow or the sum of the critical flows is larger than 1,
   the optimal cycle length will be set to 120 sec which can be adjusted
   in the option.
