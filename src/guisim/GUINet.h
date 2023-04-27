@@ -360,7 +360,7 @@ public:
     /// @brief flush outputs once the simulation has reached its end
     void flushOutputsAtEnd();
 
-    virtual bool skipFinalReset() const {
+    virtual bool skipFinalReset() const override {
         return mySkipFinalReset;
     }
 
