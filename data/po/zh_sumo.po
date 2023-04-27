@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-26 15:43+0000\n"
+"PO-Revision-Date: 2023-04-28 05:49+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -7959,44 +7959,44 @@ msgstr "找到路径外界线(route outside line)的定义"
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:283
 #, c-format
 msgid "Edge '%' in route of line '%' not found"
-msgstr ""
+msgstr "路径中路段 '%' 无法找到; 路线(line)为 '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:302
 msgid "Stop '%' within line '%' not found"
-msgstr ""
+msgstr "停靠点 '%' 无法找到; 路线(line)为 '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:318
 msgid "Stop '%' within route '%' not found"
-msgstr ""
+msgstr "停靠点 '%' 无法找到; 路径(route)为 '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLShapeHandler.cpp:46
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1744
 #, c-format
 msgid "Lane '%' to place poi '%' on is not known."
-msgstr ""
+msgstr "未知的车道 '%', 其用来放置兴趣点(poi) '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLShapeHandler.cpp:59
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1757
 #, c-format
 msgid "lane position % for poi '%' is not valid."
-msgstr ""
+msgstr "无效的车道位置 '%', 其用来放置兴趣点(poi)。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLTrafficLightsHandler.cpp:114
 msgid "Definition of tlLogic '%' was not finished."
-msgstr ""
+msgstr "信号逻辑(tlLogic) '%' 的定义未完成。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLTrafficLightsHandler.cpp:140
 #: /home/micha/programming/sumo/src/netimport/NIXMLTrafficLightsHandler.cpp:158
 msgid "Cannot load traffic light program for unknown id '%', programID '%'."
-msgstr ""
+msgstr "无法载入未知识别名(id) '%' 的配时方案; 配时方案识别名(programID) '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLTrafficLightsHandler.cpp:331
 msgid "Invalid lane index '%' for edge '%'."
-msgstr ""
+msgstr "无效的车道索引 '%', 其位于路段 '%' 上。"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLTypesHandler.cpp:85
 msgid "Invalid lane spread type '%'. Using default 'right'"
-msgstr ""
+msgstr "无效的车道分布模型(spread type) '%'。使用预设值 '向右对齐(right)'"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLTypesHandler.cpp:114
 msgid "Invalid lane index % for edge type '%' with % lanes"
@@ -8199,65 +8199,66 @@ msgstr "路网包含被忽略的內部路段。 "
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:163
 msgid "State was written at a different time=% than the begin time %!"
-msgstr ""
+msgstr "状态(state)是在不同的时间 =% 写入的,而非在开始时间 %!"
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:197
 #: /home/micha/programming/sumo/src/router/RONet.cpp:223
 #, c-format
 msgid "A TAZ with id '%' already exists. Not building junction TAZ."
-msgstr ""
+msgstr "具有识别名(id)为 '%' 的分区已存在。不构建路口分区(TAZ)。"
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:228
 msgid ""
 "Loading vehicles ahead of a state file is not supported. Correct --begin "
 "option or load vehicles with option --route-files"
-msgstr ""
+msgstr "不支持在状态文件之前载入车辆。 更正 --begin 选项或使用选项 --route-"
+"files载入车辆"
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:256
 msgid "Loading weights from '%'..."
-msgstr ""
+msgstr "正在从 '%'载入权重..."
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:285
 msgid "Loading done."
-msgstr ""
+msgstr "载入完成。"
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:390
 msgid "Wrong number of state file names!"
-msgstr ""
+msgstr "状态文件数量錯誤!"
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:425
 msgid "Loading % from '%'"
-msgstr ""
+msgstr "载入 % (从 '%')"
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:445
 #, c-format
 msgid "The route file '%' is not accessible."
-msgstr ""
+msgstr "路径文件 '%' 无法读取。"
 
 #: /home/micha/programming/sumo/src/netload/NLDetectorBuilder.cpp:526
 msgid ""
 "The netstate type 'hbefa' is deprecated. Please use the type 'emissions' "
 "instead."
-msgstr ""
+msgstr "路网状态(netstate)类型 'hbefa' 已不适用。请改用类型 'emissions'。"
 
 #: /home/micha/programming/sumo/src/netload/NLEdgeControlBuilder.cpp:198
 msgid "Asymmetrical neigh lane '%' for lane '%'"
-msgstr ""
+msgstr "不对称邻车道道 '%' (对于车道 '%' 而言)"
 
 #: /home/micha/programming/sumo/src/netload/NLEdgeControlBuilder.cpp:218
 #, c-format
 msgid ""
 "Internal edge '%' is not properly connected (probably a manually modified "
 "net.xml)."
-msgstr ""
+msgstr "內部路段 '%' 未正确连接 (可能这是一个手动修改的路网文件(net.xml))。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:391
 msgid "Unknown from-node '%' for edge '%'."
-msgstr ""
+msgstr "未知的起始节点 (from-node) '%'; 路段为 '%'。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:395
 msgid "Unknown to-node '%' for edge '%'."
-msgstr ""
+msgstr "未知的到达节点 (to-node) '%'; 路段为 '%'。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:535
 #, c-format
@@ -8265,191 +8266,194 @@ msgid ""
 "Shape of lane '%' is broken.\n"
 " Can not build according edge."
 msgstr ""
+"车道 '%' 的形状已损坏。\n"
+" 无法建立相关的路段。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:557
 #, c-format
 msgid "Another lane with the id '%' exists."
-msgstr ""
+msgstr "另一个具有识别名(id) '%' 已存在。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:627
 msgid "An unknown lane ('%') was tried to be set as incoming to junction '%'."
-msgstr ""
+msgstr "尝试将未知车道 ('%') 设定进入(incoming)到路口 '%'。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:781
 msgid "Traffic light '%' has unknown type '%'."
-msgstr ""
+msgstr "交通信号 '%' 有未知的类型 '%'。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:785
 #, c-format
 msgid ""
 "Traffic light type '%' cannot be used in mesoscopic simulation. Using '%' as "
 "fallback."
-msgstr ""
+msgstr "交通信号类型'%' 不能用于中观(meso)仿真。使用 '%' 作为备降(fallback)。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:874
 msgid "maxDur % should not be smaller than minDir % in phase of tlLogic %"
-msgstr ""
+msgstr "最大持续时间(maxDur) % 不应小于 最小持续时间(minDir) %, "
+"其位于信号逻辑(tlLogic) % 相位內"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:889
 msgid "Duplicate condition '%' in tlLogic '%'"
-msgstr ""
+msgstr "信号逻辑(tlLogic) % 中的条件 '%' 重复"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:942
 msgid "Invalid person mode '%' in E1 detector definition '%'"
-msgstr ""
+msgstr "人员(person)模式 '%' 无效, 其位於 E1 探测器定义 '%' 內"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1001
 msgid ""
 "VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) "
 "instead."
-msgstr ""
+msgstr "VTypeProbe 已不适用。请改用 fcd-output 装置 （指派给vType）。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1061
 msgid "Ignoring deprecated argument 'cont' for E2 detector '%'"
-msgstr ""
+msgstr "忽略已不适用的引数 'cont', 其用于 E2 探测器 '%'"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1077
 msgid "Invalid person mode '%' in E2 detector definition '%'"
-msgstr ""
+msgstr "人员(person)模式 '%' 无效,其位于E2 探测器定义 '%' 內"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1091
 msgid ""
 "Trying to specify detector's lane by the given id since the argument 'lane' "
 "is missing."
-msgstr ""
+msgstr "由于缺少参数 'lane'，试图通过给定的识别名(id)指定探测器的车道。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1131
 msgid ""
 "Missing argument 'pos' for E2Detector '%'. Assuming detector start == lane "
 "start of lane '%'."
-msgstr ""
+msgstr "缺少E2 探测器 '%' 的参数 'pos'。假设探测器开始 == 车道 '%' 的车道开端。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1136
 msgid ""
 "Missing argument 'endPos' for E2Detector '%'. Assuming detector end == lane "
 "end of lane '%'."
-msgstr ""
+msgstr "缺少E2 探测器 '%' 的参数 'endPos'。假设探测器末端 == 车道 '%' 的车道末端。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1205
 #, c-format
 msgid ""
 "Ignoring argument 'period' for E2Detector '%' since argument 'tl' was given."
-msgstr ""
+msgstr "因为参数 'tl' 已给定, 忽略 E2 探测器 '%' 的参数 'period'。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1262
 msgid "Invalid person mode '%' in E3 detector definition '%'"
-msgstr ""
+msgstr "人员(person)模式 '%' 无效, 其位于 E3 探测器定义 '%' 內"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1341
 msgid "Invalid person mode '%' in edgeData definition '%'"
-msgstr ""
+msgstr "人员(person)模式 '%' 无效, 其位于路段数据(edgeData)定义 '%' 內"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1365
 msgid "Unknown edge '%' in edgeData definition '%'"
-msgstr ""
+msgstr "未知路段 '%', 其位于路段数据(edgeData)定义 '%' 內"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1414
 #, c-format
 msgid "Unknown from-edge '%' in connection."
-msgstr ""
+msgstr "在连接(connection)中, 起始路段(from-edge) '%' 未知。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1420
 #, c-format
 msgid "Unknown to-edge '%' in connection."
-msgstr ""
+msgstr "在连接(connection)中, 到达路段(to-edge) '%' 未知。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1425
 msgid "Invalid lane index in connection from '%' to '%'."
-msgstr ""
+msgstr "从 '%' 到 '%' 的连接线的车道索引无效。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1506
 #, c-format
 msgid "Unknown from-edge '%' in conflict."
-msgstr ""
+msgstr "冲突中未知的起始路段(from-edge) '%' 。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1511
 #, c-format
 msgid "Unknown to-edge '%' in connflict."
-msgstr ""
+msgstr "冲突中未知的到达路段(to-edge) '%' 。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1516
 msgid "Invalid lane index in conflict with '%' to '%'."
-msgstr ""
+msgstr "无效的车道索引(index)与 '%' 至 '%' 冲突。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1568
 msgid ""
 "no valid geo projection loaded from network. fcd-output.geo will not work"
-msgstr ""
+msgstr "没有从路网载入有效的地理投影。 fcd-output.geo 将无作用"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1596
 msgid "Replacing junction-taz '%' with loaded TAZ."
-msgstr ""
+msgstr "用载入的分区(TAZ)替换路口分区(junction-taz) '%'。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1639
 msgid "Skipping visualization of taz '%', polygon already exists."
-msgstr ""
+msgstr "跳过视觉化分区 '%', 多边形已存在。"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1670
 msgid "At district '%': succeeding edge '%' does not exist."
-msgstr ""
+msgstr "分区 '%': 后续路段 '%' 不存在。"
 
 #: /home/micha/programming/sumo/src/netload/NLJunctionControlBuilder.cpp:116
 msgid "Information about the number of nodes was missing."
-msgstr ""
+msgstr "缺少节点数量的信息。"
 
 #: /home/micha/programming/sumo/src/netload/NLJunctionControlBuilder.cpp:126
 #: /home/micha/programming/sumo/src/netload/NLJunctionControlBuilder.cpp:143
 msgid "Ignoring junction logic for junction '%'."
-msgstr ""
+msgstr "忽略路口 '%' 的路口逻辑。"
 
 #: /home/micha/programming/sumo/src/netload/NLJunctionControlBuilder.cpp:333
 msgid "Invalid traffic light type '%'"
-msgstr ""
+msgstr "无效的交通信号类型'%'"
 
 #: /home/micha/programming/sumo/src/netload/NLJunctionControlBuilder.cpp:344
 #, c-format
 msgid "Another logic with id '%' and programID '%' exists."
-msgstr ""
+msgstr "另一个具有识别名(id) '%' 的逻辑及配时方案识别名(programID) '%' 已存在。"
 
 #: /home/micha/programming/sumo/src/netload/NLJunctionControlBuilder.cpp:471
 msgid "Traffic lights could not be built."
-msgstr ""
+msgstr "无法建立交通信号。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:75
 msgid "Vaporizers are deprecated. Use rerouters instead."
-msgstr ""
+msgstr "汽化器(vaporizers)已不适用。 请改用路径重新搜寻装置(rerouters)。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:84
 msgid "Unknown edge ('%') referenced in a vaporizer."
-msgstr ""
+msgstr "未知路段 ('%')被引用于汽化器(vaporizer)內。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:93
 msgid "A vaporization begin time is negative (edge id='%')."
-msgstr ""
+msgstr "汽化(vaporization)开始时间为负（路段识别名(id)='%')。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:97
 msgid "A vaporization ends before it starts (edge id='%')."
-msgstr ""
+msgstr "汽化(vaporization)在开始之前结束（路段识别名(id)='%')。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:191
 msgid ""
 "The overheadWireSegment '%' was not created as it is attached to internal "
 "lane. It will be build automatically."
-msgstr ""
+msgstr "未构建 overheadWireSegment '%'，因为它被附加到內部车道。它将被自动构建。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:196
 #, c-format
 msgid ""
 "The overheadWireSegment '%' not built as it is attached to internal lane. It "
 "will be build automatically."
-msgstr ""
+msgstr "未构建 overheadWireSegment '%'，因为它被附加到內部车道。它将被自动构建。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:208
 #, c-format
 msgid ""
 "The overheadWireSegment '%' has wrong position. Automatically set from 0 to "
 "the length of the lane."
-msgstr ""
+msgstr "overheadWireSegment 位置错误。将自动地由 0 设定为车道长度。"
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:216
 msgid ""
