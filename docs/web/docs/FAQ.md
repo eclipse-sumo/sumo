@@ -1226,6 +1226,13 @@ As a work-around you can [install a .deb package](https://askubuntu.com/question
 
   Check out [veins](http://veins.car2x.org/).
   
+### Can SUMO simulate V2V / V2X messages?
+
+  Sumo does generally does not model messaging. The best way to do so is by managing the messages with connected code.
+  If you want to simulate the application layer and can work with the assumption that messages "just work", you can often handle the messages with your own (simple) TraCI code. If you need to simulate the physical process, using a network simulator is recommended (see above).
+  Sumo supports a [vehicle device](Simulation/Bluetooth.md) to log connectivity events but this is not designed to integrate with an application layer and aims only at logging.
+  
+  
 ## Validity
 ### What are publications on SUMO's validity?
 - https://elib.dlr.de/120856/
