@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-27 10:40:47 by Eclipse SUMO sumo Version v1_17_0+0042-7e466a0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="6"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_17_0+0042-7e466a0" time="6.00" type="micro">
+    <route id="!train" state="0" edges="a b e"/>
+    <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
+    <vType id="train" length="20.00" vClass="rail" accel="2"/>
+    <vehicle id="train" type="train" depart="2.00" departSpeed="max" route="!train" distance="0 0" speedFactor="1.0000" state="18 2000 0 20.10 0 0.00 5000 0 0" pos="61.77 41.77 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <lane id=":A_2_0">
+        <link to="b_0">
+            <approaching id="train" arrivalTime="7909" arrivalSpeed="13.89" departSpeed="13.89" request="1" arrivalSpeedBraking="9.38" waitingTime="0" distance="54.29"/>
+        </link>
+    </lane>
+    <lane id="a_0">
+        <vehicles value="train"/>
+        <link to=":A_2_0">
+            <approaching id="train" arrivalTime="7366" arrivalSpeed="13.89" departSpeed="13.89" request="1" arrivalSpeedBraking="10.37" waitingTime="0" distance="46.76"/>
+        </link>
+    </lane>
+    <lane id="b_0">
+        <link to=":B_3_0">
+            <approaching id="train" arrivalTime="21996" arrivalSpeed="13.89" departSpeed="13.89" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="249.96"/>
+        </link>
+    </lane>
+</snapshot>
