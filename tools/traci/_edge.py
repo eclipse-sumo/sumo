@@ -193,10 +193,10 @@ class EdgeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES, edgeID)
         
-    def getAngle(self, edgeID, relativePosition = -1):
+    def getAngle(self, edgeID, relativePosition = tc.INVALID_DOUBLE_VALUE):
             """getAngle(string, double) -> double
             Returns the angle formed by the x-axis and the line from the specified position to the end of the edge.
-            If the specified position equals -1 then the starting position of the edge is used instead.
+            If the specified position equals TraCI constant INVALID_DOUBLE_VALUE then the starting position of the edge is used instead.
             """
             return self._getUniversal(tc.VAR_ANGLE, edgeID, "d", relativePosition)
             

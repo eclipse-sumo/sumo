@@ -337,7 +337,7 @@ double
 Lane::getAngle(const std::string& laneID, double relativePosition) {
     double angle;
     MSLane* lane = getLane(laneID);
-    if (relativePosition == -1) {
+    if (relativePosition == libsumo::INVALID_DOUBLE_VALUE) {
         Position start = lane->getShape().front();
         Position end = lane->getShape().back();
         angle = start.angleTo2D(end);

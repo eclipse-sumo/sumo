@@ -294,10 +294,10 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES, laneID)
 
-    def getAngle(self, laneID, relativePosition = -1):
+    def getAngle(self, laneID, relativePosition = tc.INVALID_DOUBLE_VALUE):
         """getAngle(string, double) -> double
         Returns the angle formed by the x-axis and the line from the specified position to the end of the lane.
-        If the specified position equals -1 then the starting position of the lane is used instead.
+        If the specified position equals TraCI constant INVALID_DOUBLE_VALUE then the starting position of the lane is used instead.
         """
         return self._getUniversal(tc.VAR_ANGLE, laneID, "d", relativePosition)
 
