@@ -181,7 +181,7 @@ public:
     class MSPersonStage_Access : public MSStage {
     public:
         /// constructor
-        MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
+        MSPersonStage_Access(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop,
                              const double arrivalPos, const double dist, const bool isExit);
 
         /// destructor
@@ -234,6 +234,8 @@ public:
         };
 
     private:
+        /// the origin edge
+        const MSEdge* myOrigin;
         const double myDist;
         const bool myAmExit;
         SUMOTime myEstimatedArrival;
