@@ -1853,6 +1853,9 @@ protected:
     /// @brief optionally return an upper bound on speed to stay within the schedule
     double slowDownForSchedule(double vMinComfortable) const;
 
+    /// @brief perform lateral z interpolation in elevated networks
+    void interpolateLateralZ(Position& pos, double offset, double posLat) const;
+
 protected:
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds

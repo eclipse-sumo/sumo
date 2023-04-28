@@ -1237,13 +1237,32 @@ MSVehicle::getPosition(const double offset) const {
     if (offset == 0. && !changingLanes) {
         if (myCachedPosition == Position::INVALID) {
             myCachedPosition = validatePosition(myLane->geometryPositionAtOffset(myState.myPos, posLat));
+            if (MSNet::getInstance()->hasElevation() && MSGlobals::gSublane) {
+                interpolateLateralZ(myCachedPosition, myState.myPos, posLat);
+            }
         }
         return myCachedPosition;
     }
     Position result = validatePosition(myLane->geometryPositionAtOffset(getPositionOnLane() + offset, posLat), offset);
+    interpolateLateralZ(result, getPositionOnLane() + offset, posLat);
     return result;
 }
 
+
+void
+MSVehicle::interpolateLateralZ(Position& pos, double offset, double posLat) const {
+    const MSLane* shadow = myLaneChangeModel->getShadowLane();
+    if (shadow != nullptr && pos != Position::INVALID) {
+        // ignore negative offset
+        const Position shadowPos = shadow->geometryPositionAtOffset(MAX2(0.0, offset));
+        if (shadowPos != Position::INVALID && pos.z() != shadowPos.z()) {
+            const double centerDist = (myLane->getWidth() + shadow->getWidth()) * 0.5;
+            double relOffset = fabs(posLat) / centerDist;
+            double newZ = (1 - relOffset) * pos.z() + relOffset * shadowPos.z();
+            pos.setz(newZ);
+        }
+    }
+}
 
 Position
 MSVehicle::getPositionAlongBestLanes(double offset) const {
@@ -1468,9 +1487,10 @@ MSVehicle::computeAngle() const {
 const Position
 MSVehicle::getBackPosition() const {
     const double posLat = MSGlobals::gLefthand ? myState.myPosLat : -myState.myPosLat;
+    Position result;
     if (myState.myPos >= myType->getLength()) {
         // vehicle is fully on the new lane
-        return myLane->geometryPositionAtOffset(myState.myPos - myType->getLength(), posLat);
+        result = myLane->geometryPositionAtOffset(myState.myPos - myType->getLength(), posLat);
     } else {
         if (myLaneChangeModel->isChangingLanes() && myFurtherLanes.size() > 0 && myLaneChangeModel->getShadowLane(myFurtherLanes.back()) == nullptr) {
             // special case where the target lane has no predecessor
@@ -1479,7 +1499,7 @@ MSVehicle::getBackPosition() const {
                 std::cout << "    getBackPosition veh=" << getID() << " specialCase using myLane=" << myLane->getID() << " pos=0 posLat=" << myState.myPosLat << " result=" << myLane->geometryPositionAtOffset(0, posLat) << "\n";
             }
 #endif
-            return myLane->geometryPositionAtOffset(0, posLat);
+            result = myLane->geometryPositionAtOffset(0, posLat);
         } else {
 #ifdef DEBUG_FURTHER
             if (DEBUG_COND) {
@@ -1489,12 +1509,14 @@ MSVehicle::getBackPosition() const {
             if (myFurtherLanes.size() > 0 && !myLaneChangeModel->isChangingLanes()) {
                 // truncate to 0 if vehicle starts on an edge that is shorter than it's length
                 const double backPos = MAX2(0.0, getBackPositionOnLane(myFurtherLanes.back()));
-                return myFurtherLanes.back()->geometryPositionAtOffset(backPos, -myFurtherLanesPosLat.back() * (MSGlobals::gLefthand ? -1 : 1));
+                result = myFurtherLanes.back()->geometryPositionAtOffset(backPos, -myFurtherLanesPosLat.back() * (MSGlobals::gLefthand ? -1 : 1));
             } else {
-                return myLane->geometryPositionAtOffset(0, posLat);
+                result = myLane->geometryPositionAtOffset(0, posLat);
             }
         }
     }
+    interpolateLateralZ(result, myState.myPos - myType->getLength(), posLat);
+    return result;
 }
 
 
