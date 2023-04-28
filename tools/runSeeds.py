@@ -48,7 +48,8 @@ def get_options(args=None):
     ap.add_option("-p", "--output-prefix",  category="processing", default="SEED.", dest="prefix",
                   help="output prefix",)
     ap.add_option("--no-folders", action="store_true", category="output", default=False, dest="noFolders",
-                  help="do not create folders to distinguish multiple configurations or applications but use prefixes instead")
+                  help=("do not create folders to distinguish multiple configurations or applications" +
+                        "but use prefixes instead"))
     ap.add_option("--seeds", category="processing", default="0:10",
                   help="which seeds to run")
     ap.add_option("--threads", category="processing", type=int, default=1,
@@ -105,6 +106,7 @@ def getUniqueFolder(options, app, cfg, folders):
     if not options.noFolders and not os.path.exists(folder):
         os.makedirs(folder)
     return folder
+
 
 def getCommExtensionLength(names):
     if not names or len(names) == 1:
