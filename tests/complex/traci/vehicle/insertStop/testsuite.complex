@@ -62,3 +62,6 @@ on_junction
 
 # insert a stop along the current route
 keepRoute
+
+# insert a stop along the current route
+keepRoute2
