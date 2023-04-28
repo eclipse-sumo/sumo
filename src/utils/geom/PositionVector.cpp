@@ -1545,8 +1545,8 @@ PositionVector::hasElevation() const {
     if (size() < 2) {
         return false;
     }
-    for (const_iterator i = begin(); i != end() - 1; i++) {
-        if ((*i).z() != (*(i + 1)).z()) {
+    for (const_iterator i = begin(); i != end(); i++) {
+        if ((*i).z() != 0) {
             return true;
         }
     }
