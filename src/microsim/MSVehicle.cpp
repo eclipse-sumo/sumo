@@ -1515,7 +1515,9 @@ MSVehicle::getBackPosition() const {
             }
         }
     }
-    interpolateLateralZ(result, myState.myPos - myType->getLength(), posLat);
+    if (MSNet::getInstance()->hasElevation() && MSGlobals::gSublane) {
+        interpolateLateralZ(result, myState.myPos - myType->getLength(), posLat);
+    }
     return result;
 }
 
