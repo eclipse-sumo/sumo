@@ -22,7 +22,6 @@ import os
 import version
 
 SUMO_VERSION = version.get_pep440_version()
-package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 setup(
     name='sumolib',
@@ -91,8 +90,7 @@ sumolib is released under the Eclipse Public License 2.0 (EPL-2.0).''',
     ],
     keywords='traffic simulation traci sumo',
 
-    packages=find_packages(package_dir, include=["sumolib", "sumolib.*"]),
-    package_dir={'': package_dir},
+    packages=find_packages(include=["sumolib", "sumolib.*"]),
 
     # TODO: add extra dependencies for testing
     extras_require={

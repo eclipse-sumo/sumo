@@ -518,9 +518,9 @@ install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO::)
 if (NOT ${PYTHON_SETUPTOOLS_MISSING})
     set(TOOLS_DIR "${CMAKE_SOURCE_DIR}/tools")
     if (${PYTHON_BUILD_MISSING})
-        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${TOOLS_DIR}/build/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
+        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
                 COMPONENT pysumolib)
-        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${TOOLS_DIR}/build/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
+        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
                 COMPONENT pytraci)
     else ()
         install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build/version.py ./build/setup-sumolib.py ./setup.py COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} . WORKING_DIRECTORY ${TOOLS_DIR})"

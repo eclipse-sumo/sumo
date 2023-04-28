@@ -22,7 +22,6 @@ import os
 import version
 
 SUMO_VERSION = version.get_pep440_version()
-package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 setup(
     name='traci',
@@ -106,7 +105,6 @@ TraCI is released under the Eclipse Public License 2.0 (EPL-2.0).''',
     keywords='traffic simulation traci sumo',
 
     packages=["traci", "simpla"],
-    package_dir={'': package_dir},
 
     install_requires=['sumolib>='+SUMO_VERSION],
 )
