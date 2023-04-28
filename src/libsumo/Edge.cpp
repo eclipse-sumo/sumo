@@ -286,7 +286,7 @@ Edge::getPendingVehicles(const std::string& edgeID) {
 double
 Edge::getAngle(const std::string& edgeID, double relativePosition) {
     MSLane* lane = getEdge(edgeID)->getLanes()[0];
-    return Lane::getAngle(lane->getID());
+    return lane ? Lane::getAngle(lane->getID()) : libsumo::INVALID_DOUBLE_VALUE;
 }
 
 
