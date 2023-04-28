@@ -471,6 +471,7 @@ MSStateHandler::closeVehicle() {
                 // register route for deadlock prevention (vehicleStateChanged would not be called otherwise)
                 MSRailSignalControl::getInstance().vehicleStateChanged(v, MSNet::VehicleState::NEWROUTE, "loadState");
             }
+            vc.handleTriggeredDepart(v, false);
         }
         while (!myDeviceAttrs.empty()) {
             const std::string attrID = myDeviceAttrs.back()->getString(SUMO_ATTR_ID);

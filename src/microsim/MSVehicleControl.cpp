@@ -290,7 +290,7 @@ void
 MSVehicleControl::handleTriggeredDepart(SUMOVehicle* v, bool add) {
     const SUMOVehicleParameter& pars = v->getParameter();
     if (pars.departProcedure == DepartDefinition::TRIGGERED || pars.departProcedure == DepartDefinition::CONTAINER_TRIGGERED || pars.departProcedure == DepartDefinition::SPLIT) {
-        const MSEdge* const firstEdge = v->getEdge();
+        const MSEdge* const firstEdge = v->getRoute().getEdges()[pars.departEdge];
         if (add) {
             if (!MSGlobals::gUseMesoSim) {
                 // position will be checked against person position later
