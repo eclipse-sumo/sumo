@@ -28,6 +28,8 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class MSE2Collector;
+class NamedRTree;
+class PositionVector;
 #endif
 
 
