@@ -1689,7 +1689,7 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
     auto endPos = nextStopIndex == n ? getArrivalPos() : stops[nextStopIndex].pars.endPos;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getBaseInfluencer().getRouterTT(getRNGIndex(), getVClass());
 
-    bool newDestination = nextStopIndex == n;
+    bool newDestination = nextStopIndex == n && stopEdge == oldEdges.back();
 
     ConstMSEdgeVector toNewStop;
     if (!teleport) {
