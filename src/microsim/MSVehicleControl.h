@@ -194,6 +194,8 @@ public:
     /// @}
 
 
+    /// @brief register / unregister depart-triggered vehicles with edges
+    void handleTriggeredDepart(SUMOVehicle* v, bool add);
 
     /// @name Setting vehicle statistics
     /// @{

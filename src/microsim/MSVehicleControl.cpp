@@ -275,9 +275,23 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
     if (it == myVehicleDict.end()) {
         // id not in myVehicleDict.
         myVehicleDict[id] = v;
+        handleTriggeredDepart(v, true);
         const SUMOVehicleParameter& pars = v->getParameter();
-        if (pars.departProcedure == DepartDefinition::TRIGGERED || pars.departProcedure == DepartDefinition::CONTAINER_TRIGGERED || pars.departProcedure == DepartDefinition::SPLIT) {
-            const MSEdge* const firstEdge = v->getRoute().getEdges()[0];
+        if (v->getVClass() != SVC_TAXI && pars.line != "" && pars.repetitionNumber < 0) {
+            myPTVehicles.push_back(v);
+        }
+        return true;
+    }
+    return false;
+}
+
+
+void
+MSVehicleControl::handleTriggeredDepart(SUMOVehicle* v, bool add) {
+    const SUMOVehicleParameter& pars = v->getParameter();
+    if (pars.departProcedure == DepartDefinition::TRIGGERED || pars.departProcedure == DepartDefinition::CONTAINER_TRIGGERED || pars.departProcedure == DepartDefinition::SPLIT) {
+        const MSEdge* const firstEdge = v->getEdge();
+        if (add) {
             if (!MSGlobals::gUseMesoSim) {
                 // position will be checked against person position later
                 static_cast<MSVehicle*>(v)->setTentativeLaneAndPosition(nullptr, v->getParameter().departPos);
@@ -290,13 +304,17 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
                 firstEdge->addWaiting(v);
             }
             registerOneWaiting();
+        } else {
+            if (firstEdge->isTazConnector()) {
+                for (MSEdge* out : firstEdge->getSuccessors()) {
+                    out->removeWaiting(v);
+                }
+            } else {
+                firstEdge->removeWaiting(v);
+            }
+            unregisterOneWaiting();
         }
-        if (v->getVClass() != SVC_TAXI && pars.line != "" && pars.repetitionNumber < 0) {
-            myPTVehicles.push_back(v);
-        }
-        return true;
     }
-    return false;
 }
 
 
