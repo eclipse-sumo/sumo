@@ -25,6 +25,7 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -1404,7 +1405,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
 GNESelectorFrame::Information::Information(GNESelectorFrame* selectorFrameParent) :
     MFXGroupBoxModule(selectorFrameParent, TL("Information")) {
     // Create Selection Hint
-    new FXLabel(getCollapsableFrame(), " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected objects.", nullptr, GUIDesignLabelFrameInformation);
+    new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + "Hold <SHIFT> for rectangle selection." + std::string("\n- ") + "Press <DEL> to delete selected objects.").c_str(), nullptr, GUIDesignLabelFrameInformation);
 }
 
 

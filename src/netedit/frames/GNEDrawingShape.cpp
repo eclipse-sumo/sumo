@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -55,15 +56,11 @@ GNEDrawingShape::GNEDrawingShape(GNEFrame* frameParent) :
     // create information label
     std::ostringstream information;
     information
-            << TL("- 'Start drawing' or ENTER") << "\n"
-            << TL("  to create shape.") << "\n"
-            << TL("- 'Stop drawing' or ENTER to") << "\n"
-            << TL("  finish shape creation.") << "\n"
-            << TL("- 'Abort drawing' or ESC to") << "\n"
-            << TL("  abort shape creation.") << "\n"
-            << TL("- 'Shift + Click' to remove") << "\n"
-            << TL("  last inserted point.");
-    myInformationLabel = new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+            << "- " << TL("'Start drawing' or ENTER to create a shape.") << "\n"
+            << "- " << TL("'Stop drawing' or ENTER to finish shape creation.") << "\n"
+            << "- " << TL("'Abort drawing' or ESC to abort shape creation.") << "\n"
+            << "- " << TL("'Shift + Click' to remove the last inserted point.");
+    myInformationLabel = new MFXDynamicLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();
     myAbortDrawingButton->disable();

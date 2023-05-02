@@ -29,6 +29,7 @@
 #include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/elements/network/GNELaneTemplate.h>
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
@@ -620,16 +621,16 @@ GNECreateEdgeFrame::Legend::Legend(GNECreateEdgeFrame* createEdgeFrameParent) :
     std::ostringstream information;
     // add label for shift+click
     information
-            << TL("- ESC:") << "\n"
-            << TL("  Deselect origin") << "\n"
-            << TL("- Control+Click:") << "\n"
-            << TL("  Move view") << "\n"
-            << TL("- Shift+Click:") << "\n"
-            << TL("  Splits edge in both directions") << "\n"
-            << TL("- Alt+Shift+Click:") << "\n"
-            << TL("  Splits edge in one direction");
+            << "- " << TL("ESC:") << "\n"
+            << "  " << TL("Deselect origin") << "\n"
+            << "- " << TL("Control+Click:") << "\n"
+            << "  " << TL("Move view") << "\n"
+            << "- " << TL("Shift+Click:") << "\n"
+            << "  " << TL("Splits edge in both directions") << "\n"
+            << "- " << TL("Alt+Shift+Click:") << "\n"
+            << "  " << TL("Splits edge in one direction");
     // create label
-    new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    new MFXDynamicLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
 }
 
 
