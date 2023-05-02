@@ -122,7 +122,7 @@ def add_transportation_requests_constraint(data, routing, manager, solver, dista
         pickup_index = manager.NodeToIndex(request.from_node)
         delivery_index = manager.NodeToIndex(request.to_node)
         if verbose:
-            print('pickup/dropoff indexes (nodes): %s/%s (%s/%s)' % (pickup_index, delivery_index, request.from_node, request.to_node))
+            print('pickup/dropoff nodes: %s/%s' % (request.from_node, request.to_node))
         routing.AddPickupAndDelivery(pickup_index, delivery_index)  # helps the solver
         # use same veh for pickup and dropoff
         solver.Add(routing.VehicleVar(pickup_index) == routing.VehicleVar(delivery_index))
@@ -172,8 +172,6 @@ def add_direct_route_factor_constraint(data, routing, manager, solver, distance_
             #routing_dimension = routing.GetDimensionOrDie('Costs')
             distance_dimension.SetCumulVarSoftUpperBound(delivery_index, round(direct_route_cost * data['drf'] - request.current_route_cost), 10)
             if verbose:
-                print('minimized value: %s' % (max_cost.Var()))
-            if verbose:
                 print('reservation %s with max cost %s, already used costs %s, possible route costs %s' % (request.id, direct_route_cost_drf.Value(), request.current_route_cost, route_cost))
 
 
@@ -193,7 +191,7 @@ def add_dropoff_constraint(data, routing, manager, verbose):
     #        routing.SetAllowedVehiclesForIndex([veh_index],index)
     for res in data['dropoffs']:
         if verbose:
-            print('reservation %s in veh %s(%s), droppoff index (node): %s (%s)' % (res.id, res.vehicle, res.vehicle_index, manager.NodeToIndex(res.to_node), res.to_node))
+            print('reservation %s in veh %s(%s), droppoff node: %s' % (res.id, res.vehicle, res.vehicle_index, res.to_node))
         index = manager.NodeToIndex(res.to_node)
         routing.SetAllowedVehiclesForIndex([res.vehicle_index], index)
 
@@ -256,7 +254,7 @@ def add_time_windows_constraint(data, routing, manager, verbose):
             continue
         index = manager.NodeToIndex(location_idx)
         if verbose:
-            print('window for index(node) %s(%s): [%s, %s]' % (index, location_idx, time_window[0], time_window[1]))
+            print('window for node %s: [%s, %s]' % (location_idx, time_window[0], time_window[1]))
         time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])  # TODO: check if set, else ignore it
     # TODO: check if the followwing is needed
     # # Add time window constraints for each vehicle start node.
@@ -317,8 +315,8 @@ def solve_from_initial_solution(routing, manager, search_parameters, data, verbo
     routing.CloseModelWithParameters(search_parameters)
     if verbose:
         print('Initial solution:')
-        for index_vehicle, index in enumerate(inital_solution):
-            print('veh %s: %s' % (index_vehicle, manager.IndexToNode(index)))
+        for index_vehicle, index_list in enumerate(inital_solution):
+            print('veh %s: %s' % (index_vehicle, [manager.IndexToNode(index) for index in index_list]))
     initial_solution = routing.ReadAssignmentFromRoutes(inital_solution, True)
     solution = routing.SolveFromAssignmentWithParameters(initial_solution, search_parameters)
     return solution
@@ -328,8 +326,8 @@ def set_first_solution_heuristic(time_limit_seconds, verbose):
     if verbose:
         print(' Set solution heuristic...')
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
-    #search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.PATH_MOST_CONSTRAINED_ARC)
-    search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC)
+    search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.PATH_MOST_CONSTRAINED_ARC)
+    #search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC)
     #search_parameters.local_search_metaheuristic = (routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH)
     search_parameters.time_limit.FromSeconds(time_limit_seconds)
     return search_parameters

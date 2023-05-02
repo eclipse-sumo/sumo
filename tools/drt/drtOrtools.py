@@ -136,7 +136,13 @@ def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, 
                 print('Reservation %s has direct route costs %s' % (res.id, res.direct_route_cost))
         else:
             # TODO: use 'historical data' from dict in get_cost_matrix instead
-            direct_route_cost = traci.simulation.findRoute(res.fromEdge, res.toEdge, vType=type_vehicle)
+            route = traci.simulation.findRoute(res.fromEdge, res.toEdge, vType=type_vehicle)
+            if cost_type == CostType.TIME:
+                direct_route_cost = route.traveltime
+            elif cost_type == CostType.DISTANCE:
+                direct_route_cost = route.length
+            else:
+                raise ValueError("Cannot set given cost ('%s')." % (cost_type))
             setattr(res, 'direct_route_cost', direct_route_cost)
 
     # add "current route cost" to the already picked up reservations:
@@ -425,7 +431,7 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
             if verbose:
                 print("Solve CPDP")
             solution_requests = dispatch(reservations_all, fleet, time_limit,
-                                         cost_type, drf, end, fix_allocation, solution_requests, verbose)
+                                         cost_type, drf, int(end), fix_allocation, solution_requests, verbose)
             if solution_requests is not None:
                 for index_vehicle in solution_requests:  # for each vehicle
                     id_vehicle = fleet[index_vehicle]
