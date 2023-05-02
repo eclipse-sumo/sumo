@@ -243,8 +243,8 @@ def add_time_windows_constraint(data, routing, manager, verbose):
     dimension_name = 'Time'
     routing.AddDimension(
         time_callback_index,
-        data['max_time'],  # allow waiting time
-        data['max_time'],  # maximum time per vehicle
+        int(data['max_time']),  # allow waiting time
+        int(data['max_time']),  # maximum time per vehicle
         False,  # Don't force start cumul to zero.
         dimension_name)
     time_dimension = routing.GetDimensionOrDie(dimension_name)
