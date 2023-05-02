@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-01 14:10+0000\n"
+"PO-Revision-Date: 2023-05-02 14:45+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -9063,49 +9063,51 @@ msgstr "此识别名(id)将依据给定的 'name' 属性设定"
 msgid ""
 "If FLOAT >= 0, assemble one polygon from all ways of a relation if they all "
 "connect with gaps below FLOAT"
-msgstr ""
+msgstr "如果浮点数(FLOAT) >= 0, 且如果它们都以低于 FLOAT 的间距连接, "
+"则从关系內的所有路径(ways)组合一个多边形"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:118
 msgid "Reads shapes from shapefiles FILE+"
-msgstr ""
+msgstr "从形状文件(shapefiles FILE+) 读入形状"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:122
 msgid "Guesses the shapefile's projection"
-msgstr ""
+msgstr "猜测形状文件(shapefile)的投影"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:130
 msgid "Defines in which column the id can be found"
-msgstr ""
+msgstr "定义可以在哪一行(column)中找到识别名(id)"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:134
 msgid "Defines which columns form the type id (comma separated list)"
-msgstr ""
+msgstr "定义哪些行(column)构成类型识别名(id) （用逗号分隔的清单）"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:137
 msgid "A running number will be used as id"
-msgstr ""
+msgstr "流水号(running number)将用作识别名(id)"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:140
 msgid "Extract all additional columns as params"
-msgstr ""
+msgstr "提取所有附加行(additional columns)作为参数"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:143
 msgid ""
 "[auto|true|false]. Forces the 'fill' status to the given value. Default "
 "'auto' tries to determine it from the data type"
-msgstr ""
+msgstr "[auto|true|false]。 将 'fill' 状态强制为给定值。 预设值为'auto' "
+"尝试从数据类型中确定它"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:148
 msgid "Reads types from FILE"
-msgstr ""
+msgstr "从文件读取类型"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:156
 msgid "Write generated polygons/pois to FILE"
-msgstr ""
+msgstr "将产生的多边形/兴趣点写入文件"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:159
 msgid "Write generated polygons/pois to a dlr-tdp file with the given prefix"
-msgstr ""
+msgstr "将产生的多边形/兴趣点依据给定的字首(prefix)写入 dlr-tdp 格式的文件"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:165
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:169
@@ -9113,22 +9115,23 @@ msgstr ""
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:177
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:181
 msgid "Pruning"
-msgstr ""
+msgstr "修整(Pruning)"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:165
 msgid "Enables pruning on net boundaries"
-msgstr ""
+msgstr "启用修整路网边界"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:169
 msgid ""
 "Uses FLOAT,FLOAT,FLOAT,FLOAT as offset definition added to the net boundary. "
 "Positive values grow the boundary on all sides while negative values shrink "
 "it."
-msgstr ""
+msgstr "使用 FLOAT,FLOAT,FLOAT,FLOAT "
+"作为增加到路网边界的偏移量定义。正值会扩大所有边的边界，而负值会缩小边界。"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:172
 msgid "Uses STR as pruning boundary"
-msgstr ""
+msgstr "使用 字串(STR) 作为修整的边界"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:177
 msgid "Items in STR will be kept though out of boundary"
@@ -9201,19 +9204,19 @@ msgstr ""
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority."
-msgstr ""
+msgstr "选项 weights.priority-factor 不生效, 因为所有路段都具有相同的优先级别。"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:47
 msgid "Write generated routes to FILE"
-msgstr ""
+msgstr "将产生的路径写入文件內"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:53
 msgid "Write used vehicle types into separate FILE"
-msgstr ""
+msgstr "将使用的车辆类型写入单独的文件內"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:56
 msgid "Keep vTypeDistribution ids when writing vehicles and their types"
-msgstr ""
+msgstr "在写出车辆及其类型时,保留 vTypeDistribution 识别名(ids)"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:63
 msgid "Use FILE as SUMO-network to route on"
@@ -9233,248 +9236,248 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:101
 msgid "Read network weights from FILE(s)"
-msgstr ""
+msgstr "从一个或多个文件读取路网权重"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:104
 msgid "Read lane-based network weights from FILE(s)"
-msgstr ""
+msgstr "从一个或多个文件读取车道为主的路网权重"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:125
 msgid "Continue if a route could not be build"
-msgstr ""
+msgstr "如果路径无法被建立, 继续运行"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:128
 msgid "Prune the number of alternatives to INT"
-msgstr ""
+msgstr "将替代路径的数量修改为 INT"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:131
 msgid "Use origin and destination zones (districts) for in- and output"
-msgstr ""
+msgstr "将出发地和目的地区 (分区(districts)) 用于输入和输出"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:139
 msgid "Assume input is unsorted"
-msgstr ""
+msgstr "假设输入未排序"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:148
 msgid "generate random departure times for flow input"
-msgstr ""
+msgstr "为输入的流量产生随机出发时间"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:151
 msgid ""
 "Remove loops within the route; Remove turnarounds at start and end of the "
 "route"
-msgstr ""
+msgstr "去除路径內的线圈(loops); 移除路径起点和終点的掉头(turnarounds)"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:154
 msgid "Tries to correct a false route"
-msgstr ""
+msgstr "尝试修正错误的路径"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:157
 msgid ""
 "Tries to correct an invalid starting edge by using the first usable edge "
 "instead"
-msgstr ""
+msgstr "使用第一个可使用的路段来尝试更正无效的起始路段"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:160
 msgid ""
 "Tries to correct an invalid destination edge by using the last usable edge "
 "instead"
-msgstr ""
+msgstr "使用最后一个可使用的路段来尝试更正无效的目的地路段"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:163
 msgid ""
 "Maximum distance when mapping input coordinates (fromXY etc.) to the road "
 "network"
-msgstr ""
+msgstr "当映射(mapping)输入坐标时,离道路的最大距离"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:166
 msgid "Match positions to junctions instead of edges"
-msgstr ""
+msgstr "将位置配对到路口, 而不是路段"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:169
 msgid "Aggregate routing queries with the same origin"
-msgstr ""
+msgstr "汇总(aggregate)同一起点的路径查询"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:173
 msgid "The number of parallel execution threads used for routing"
-msgstr ""
+msgstr "用于选路的平行执行绪(threads)的数量"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:177
 msgid ""
 "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"
-msgstr ""
+msgstr "在路径演算法 ['dijkstra', 'astar', 'CH', 'CHWrapper'] 中选择"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:181
 msgid ""
 "Comma separated list of param keys to compare for additional restrictions"
-msgstr ""
+msgstr "以逗号分隔的参数键清单, 用于比较其他限制条件"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:186
 msgid "Interpolate edge weights at interval boundaries"
-msgstr ""
+msgstr "在区间边界內插(interpolate)路段的权重值"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:190
 msgid "Expand the end of the last loaded weight interval to infinity"
-msgstr ""
+msgstr "将最后载入的权重区间(weight interval)的末尾扩展到无限大"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:194
 msgid ""
 "Apply the given time penalty when computing routing costs for minor-link "
 "internal lanes"
-msgstr ""
+msgstr "在计算次要路段內部车道的路径成本时, 应用给定的时间惩罚"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:217
 msgid "Defaults will override given values"
-msgstr ""
+msgstr "预设值将覆盖给定值"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:222
 msgid "Defines how often statistics shall be printed"
-msgstr ""
+msgstr "定义列印统计数据的频率"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:233
 msgid "No output specified."
-msgstr ""
+msgstr "未指定输出。"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:238
 msgid "A positive number of alternatives must be enabled."
-msgstr ""
+msgstr "必须启用正的(positive)替代路径数量。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:62
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:64
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:83
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:85
 msgid "Trying to set a weight for the unknown edge '%'."
-msgstr ""
+msgstr "尝试为未知路段 '%' 设定权重。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:114
 #, c-format
 msgid "The network file '%' is not accessible."
-msgstr ""
+msgstr "路网文件 '%' 不能存取。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:140
 #, c-format
 msgid "The additional file '%' is not accessible."
-msgstr ""
+msgstr "无法读取附加文件(additional file) '%'。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:217
 msgid "Routes found between time steps % and %."
-msgstr ""
+msgstr "在时间步长 % 和 % 之间找到的路径。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:243
 msgid "The loader for % from file '%' could not be initialised (%)."
-msgstr ""
+msgstr "% 的载入器(位于文件 '%' 中)无法进行初始化 (%)。"
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:281
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:158
 msgid "failed."
-msgstr ""
+msgstr "失败。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:162
 #, c-format
 msgid "The edge '%' occurs at least twice."
-msgstr ""
+msgstr "路段 '%' 至少出现两次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:176
 #, c-format
 msgid "The TAZ '%' occurs at least twice."
-msgstr ""
+msgstr "交通分区(TAZ) '%' 至少出现两次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:199
 #, c-format
 msgid "The TAZ '%' is unknown."
-msgstr ""
+msgstr "交通分区(TAZ) '%' 未知。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:204
 #, c-format
 msgid "The edge '%' for TAZ '%' is unknown."
-msgstr ""
+msgstr "未知路段 '%' 位于交通分区(TAZ) '%'內。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:259
 #, c-format
 msgid "The bidi edge '%' is not known."
-msgstr ""
+msgstr "双向路段(bidi edge) '%' 未知。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:270
 #, c-format
 msgid "The node '%' occurs at least twice."
-msgstr ""
+msgstr "节点 '%' 至少出现两次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:279
 msgid "The % '%' occurs at least twice."
-msgstr ""
+msgstr "% '%' 至少出现两次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:446
 #, c-format
 msgid "The vehicle type '%' occurs at least twice."
-msgstr ""
+msgstr "车辆类型 '%' 至少出现两次。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:498
 msgid "Requesting departure time for unknown vehicle '%'"
-msgstr ""
+msgstr "请求未知车辆 '%' 的出发时间"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:528
 #, c-format
 msgid "Another person with the id '%' exists."
-msgstr ""
+msgstr "另一个识别名(id)为 '%' 的人已存在。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:637
 msgid ""
 "Bulking different maximum speeds ('%' and '%') may lead to suboptimal routes."
-msgstr ""
+msgstr "批量处理不同的最大速度 ('%' 和 '%') 可能会导致次佳路径。"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:640
 msgid ""
 "Bulking different vehicle classes ('%' and '%') may lead to invalid routes."
-msgstr ""
+msgstr "批量处理不同的车辆类别 ('%' 和 '%') 可能会导致路径无效。"
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:137
 msgid "Unknown node '%'."
-msgstr ""
+msgstr "未知的节点 '%'。"
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:243
 msgid "Ignoring lane '%' with broken shape."
-msgstr ""
+msgstr "忽略形状(shape)损坏的车道 '%'。"
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:280
 msgid "Skipping isolated junction '%'."
-msgstr ""
+msgstr "跳过孤立的路口 '%'。"
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:299
 #, c-format
 msgid "unknown from-edge '%' in connection"
-msgstr ""
+msgstr "在连接(connection)中, 未知的起始路段(from-edge) '%'"
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:302
 #, c-format
 msgid "unknown to-edge '%' in connection"
-msgstr ""
+msgstr "在连接(connection)中, 未知的抵达路段(to-edge) '%'"
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:316
 #, c-format
 msgid "unknown via-edge '%' in connection"
-msgstr ""
+msgstr "在连接(connection)中, 未知的经过路段(via-edge) '%'"
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:368
 msgid "Ignoring invalid access from non-pedestrian edge '%'."
-msgstr ""
+msgstr "忽略源自非行人使用路段 '%' 的无效连络通道(access)。"
 
 #: /home/micha/programming/sumo/src/router/RORouteDef.cpp:123
 msgid "Repaired route of vehicle '%'."
-msgstr ""
+msgstr "车辆 '%' 的路径已修复。"
 
 #: /home/micha/programming/sumo/src/router/RORouteDef.cpp:222
 msgid ""
 "There are stop edges which were not part of the original route for vehicle "
 "'%'."
-msgstr ""
+msgstr "这里有不属于车辆 '%' 的原始路径的停等路段(stop edges)。"
 
 #: /home/micha/programming/sumo/src/router/RORouteDef.cpp:237
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
-msgstr ""
+msgstr "“路段 '%' 未连接到路段 '%'; 车辆: '%'。"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:200
 msgid "Triggered departure for person '%' requires starting with a ride."
-msgstr ""
+msgstr "人员 '%' 的触发出发(triggered departure)需要从一个乘车(ride)开始。"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:202
 msgid ""
