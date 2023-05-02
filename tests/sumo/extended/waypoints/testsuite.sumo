@@ -36,3 +36,6 @@ parkingarea
 
 # reject triggered waypoint
 triggered_forbidden
+
+# test passing a short waypoint edge at high speed
+fast_short
