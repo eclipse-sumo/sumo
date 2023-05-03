@@ -6928,6 +6928,10 @@ MSVehicle::resumeFromStopping() {
         // the current stop is no longer valid
         myLane->getEdge().removeWaiting(this);
         // MSStopOut needs to know whether the stop had a loaded 'ended' value so we call this before replacing the value
+        if (stop.pars.started == -1) {
+            // waypoint edge was passed in a single step
+            stop.pars.started = MSNet::getInstance()->getCurrentTimeStep();
+        }
         if (MSStopOut::active()) {
             MSStopOut::getInstance()->stopEnded(this, stop.pars, stop.lane->getID());
         }
