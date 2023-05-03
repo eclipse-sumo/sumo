@@ -151,7 +151,8 @@ def add_direct_route_factor_constraint(data, routing, manager, solver, distance_
             route_cost = distance_dimension.CumulVar(delivery_index) - distance_dimension.CumulVar(pickup_index)
             direct_route_cost_drf = solver.IntConst(round(direct_route_cost * data['drf']))
             if verbose:
-                print('reservation %s with direct route cost %s * drf %s = max cost %s' % (request.id, direct_route_cost, data['drf'], direct_route_cost_drf.Value()))
+                print('reservation %s with direct route cost %s * drf %s = max cost %s' % (
+                    request.id, direct_route_cost, data['drf'], direct_route_cost_drf.Value()))
         # if possible, let the route costs of the dropoffs less than the drf allows,
         # else minimize the route costs (in case the costs became larger than expected)
         for request in data['dropoffs']:  # TODO: not sure that it works, test needed!
@@ -172,7 +173,8 @@ def add_direct_route_factor_constraint(data, routing, manager, solver, distance_
             #routing_dimension = routing.GetDimensionOrDie('Costs')
             distance_dimension.SetCumulVarSoftUpperBound(delivery_index, round(direct_route_cost * data['drf'] - request.current_route_cost), 10)
             if verbose:
-                print('reservation %s with max cost %s, already used costs %s, possible route costs %s' % (request.id, direct_route_cost_drf.Value(), request.current_route_cost, route_cost))
+                print('reservation %s with max cost %s, already used costs %s, possible route costs %s' % (
+                    request.id, direct_route_cost_drf.Value(), request.current_route_cost, route_cost))
 
 
 def add_dropoff_constraint(data, routing, manager, verbose):

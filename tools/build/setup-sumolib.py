@@ -18,7 +18,6 @@
 
 
 from setuptools import setup, find_packages
-import os
 import version
 
 SUMO_VERSION = version.get_pep440_version()

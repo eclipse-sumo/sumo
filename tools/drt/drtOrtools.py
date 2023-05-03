@@ -360,7 +360,7 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
     timestep = traci.simulation.getTime()
     if not end:
         end = get_max_time()
-    
+
     if verbose:
         print('Simulation parameters:')
         print('  end: %s' % end)
@@ -426,8 +426,8 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
         else:
             reservations_all = current_reservations
 
+        # if reservations_all:  # used for debugging
         if reservations_not_assigned:
-        #if reservations_all:  # used for debugging
             if verbose:
                 print("Solve CPDP")
             solution_requests = dispatch(reservations_all, fleet, time_limit,
