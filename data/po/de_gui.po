@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-02 14:45+0000\n"
+"PO-Revision-Date: 2023-05-04 20:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -10474,11 +10474,11 @@ msgstr "Ausgewählte Verkehrsumlegungszonen entfernen (Hotkey <ESC>)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:122
 msgid "From TAZ"
-msgstr "Ausgangs-Verkehrsumlegungszone"
+msgstr "Quellverkehrsumlegungszone"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:128
 msgid "To TAZ"
-msgstr "End-Verkehrsumlegungszone"
+msgstr "Zielverkehrsumlegungszone"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:177
 #, c-format
