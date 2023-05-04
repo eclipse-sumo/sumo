@@ -10,6 +10,10 @@ title: ChangeLog
   - Collisions on shared walkingareas without vehicular road intersction are now detected. Issue #13132
   - A warning is now given if save-state.times are not reached due to a mismatch with step-length and begin time. Issue #13162
   - Fixed crash when loading rail simulation state with step-length > 1. Issue #13161
+  - Fixed crash when loading state with vehicles that have triggered departure. Issue #13096
+  - Simulation outputs now include non-zero z-data even if the slope is 0. Issue #13171
+  - Fixed crash / invalid output if a person has a `<stop>` after accessing a busStop via an access element. Issue #13108
+  - Fixed invalid 'started' and 'arrivalDelay' after passing a short waypoint edge at high speed. Issue #13179
 
 - netedit
   - Fixed segfault when closing netedit and no net is loaded #13131. (regression in 1.17.0)
@@ -24,13 +28,15 @@ title: ChangeLog
   - Fixed inconsistent network file after setting **--default.spreadtype center**. Issue #13127
 
 - TraCI
-  -  Fixed crash when calling traci.load and running with sumo-gui. Issue #13150 (regression in 1.16.0)
+  - Fixed crash when calling traci.load and running with sumo-gui. Issue #13150 (regression in 1.16.0)
+  - Calling `vehicle.insertStop` now preserves the orginal route edges beyond the inserted stop. Issue #13092
   
 
 ### Enhancements
 
 - Simulation
   - Added options **--intermodal-collision.action** and **--intermodal-collision.stoptime** to configure vehicle behavior after colliding with a pedestrian. Issue #13133
+  - In the sublane mode, vehicle elevation is now interpolated when lane changing between lanes that have differen z-values. Issue #13170
 
 - sumo-gui
   - Simulation end time is now written into the message window. Issue #13145
@@ -38,8 +44,11 @@ title: ChangeLog
 
 - tools
   - plotXMLAttributes.py and plot_trajectories.py now show the plot by default. Issue #13158
+  - plotXMLAttributes.py: Added option **--join-files** to treat data points from different files as if coming from the same file. Issue #13154
+  - plotXMLAttributes.py: Now supports attribute value `@DENSITY` to create density plots. Issue #13182
   - runSeeds.py: shortened generated folder names. Issue #13167
-  - runSeeds.py: added option **--no-folders** to keep all written files in the same directory when running with multiple configuration files or applications (folder name becomes file name prefix). Issue #13157  
+  - runSeeds.py: added option **--no-folders** to keep all written files in the same directory when running with multiple configuration files or applications (folder name becomes file name prefix). Issue #13157
+  - routeSampler: Added option **--taz-files** and support for loading origin destination matrices in `tazRelation` format. Issue #6890
 
 ### Miscellaneous
 
