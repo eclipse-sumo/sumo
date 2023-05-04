@@ -217,8 +217,11 @@ class CountData:
 
     def routePasses(self, edges):
         if self.isTaz:
-            return (inTaz(self.options, edges[0], self.edgeTuple[0], True) and 
-                    inTaz(self.options, edges[-1], self.edgeTuple[-1], False))
+            if (inTaz(self.options, edges[0], self.edgeTuple[0], True) and
+                    inTaz(self.options, edges[-1], self.edgeTuple[-1], False)):
+                return 0
+            else:
+                return None
         if self.isOrigin or self.isDest:
             passes = ((not self.isOrigin or edges[0] == self.edgeTuple[0]) and
                       (not self.isDest or edges[-1] == self.edgeTuple[-1]))
@@ -282,8 +285,27 @@ class CountData:
             ", isOrigin=True" if self.isOrigin else "",
             ", isDest=True" if self.isDest else "",
             ", isRatio=True" if self.isRatio else "",
-            (", sibs=%s" % len(self.ratioSiblings)) if self.isRatio else ""
-        )
+            (", sibs=%s" % len(self.ratioSiblings)) if self.isRatio else "")
+
+
+def inTaz(options, edge, tazID, isOrigin):
+    if not hasattr(options, "tazEdges"):
+        # tazID -> (originEdges, destEdges)
+        options.tazEdges = defaultdict(lambda : (set(), set()))
+        for tazFile in options.tazFiles:
+            for taz in sumolib.xml.parse(tazFile, 'taz'):
+                if taz.edges:
+                    edgeIDs = taz.edges.split()
+                    options.tazEdges[taz.id] = (set(edgeIDs), set(edgeIDs))
+                if taz.tazSource:
+                    for ts in taz.tazSource:
+                        options.tazEdges[taz.id][0].add(ts.id)
+                if taz.tazSink:
+                    for ts in taz.tazSink:
+                        options.tazEdges[taz.id][1].add(ts.id)
+    result = edge in options.tazEdges[tazID][0 if isOrigin else 1]
+    #print(edge, tazID, isOrigin, options.tazEdges[tazID][0 if isOrigin else 1], result)
+    return result
 
 
 def getIntervals(options):
