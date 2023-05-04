@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-02 14:45+0000\n"
+"PO-Revision-Date: 2023-05-04 14:50+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -9135,70 +9135,74 @@ msgstr "使用 字串(STR) 作为修整的边界"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:177
 msgid "Items in STR will be kept though out of boundary"
-msgstr ""
+msgstr "STR 中的项目将被保留在边界外"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:181
 msgid "Items with names in STR[] will be removed"
-msgstr ""
+msgstr "具有 STR[] 中的名称的项目将被移除"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:196
 msgid "Imports all attributes as key/value pairs"
-msgstr ""
+msgstr "将所有属性导入为键/值对(key/value pairs)"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:202
 msgid ""
 "Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"
-msgstr ""
+msgstr "将 FLOAT 增加到每个兴趣点(poi)的层值(即将其提升到多边形的上方)"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:206
 msgid "Sets STR as default color"
-msgstr ""
+msgstr "设置 STR 为预设顏色"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:209
 msgid "Sets STR as default prefix"
-msgstr ""
+msgstr "设置STR为预设字首(prefix)"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:212
 msgid "Sets STR as default type"
-msgstr ""
+msgstr "设置STR 为预设类型"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:215
 msgid "Fills polygons by default"
-msgstr ""
+msgstr "填满多边形为预设值"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:218
 msgid "Sets FLOAT as default layer"
-msgstr ""
+msgstr "设置 FLOAT 为预设层"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:221
 msgid "Sets default action to discard"
-msgstr ""
+msgstr "将预设操作设置为废弃"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:225
 msgid "Write geo coordinates in output"
-msgstr ""
+msgstr "将地理坐标写入输出內"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:232
 msgid ""
 "Importer of polygons and POIs for the microscopic, multi-modal traffic "
 "simulation SUMO."
-msgstr ""
+msgstr "用于微观多运具模式交通仿真 SUMO 的多边形和兴趣点(POIs)的导入器。"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:285
 msgid "In order to prune the input on the net, you have to supply a network."
-msgstr ""
+msgstr "为了修整路网的输入项目，您必须提供一个路网。"
 
 #: /home/micha/programming/sumo/src/router/ROEdge.cpp:204
 msgid ""
 "No interval matches passed time=% in edge '%'.\n"
 " Using edge's length / max speed."
 msgstr ""
+"沒有区间(interval)与通过的时间=% 配对; 路段: '%'。\n"
+" 使用路段长度/最大速度。"
 
 #: /home/micha/programming/sumo/src/router/ROEdge.cpp:230
 msgid ""
 "No interval matches passed time=% in edge '%'.\n"
 " Using edge's length / edge's speed."
 msgstr ""
+"沒有区间(interval)与通过的时间=% 配对; 路段: '%'。\n"
+" 使用路段长度/最大速度。"
 
 #: /home/micha/programming/sumo/src/router/ROEdge.cpp:453
 msgid ""
@@ -9220,19 +9224,19 @@ msgstr "在写出车辆及其类型时,保留 vTypeDistribution 识别名(ids)"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:63
 msgid "Use FILE as SUMO-network to route on"
-msgstr ""
+msgstr "使用文件作为 SUMO 路网进行路径搜寻/引导"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:66
 msgid "Write vehicles that reference routes by their id"
-msgstr ""
+msgstr "写出引用识别名(id)于路径的车辆"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:73
 msgid "Read additional network data (districts, bus stops) from FILE(s)"
-msgstr ""
+msgstr "从一个或多个文件读取额外的路网数据 (地区,公交车站)"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:87
 msgid "Read sumo routes, alternatives, flows, and trips from FILE(s)"
-msgstr ""
+msgstr "从一个或多个文件读取SUMO路径, 替代路径, 流量与行程"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:101
 msgid "Read network weights from FILE(s)"
@@ -9482,57 +9486,58 @@ msgstr "人员 '%' 的触发出发(triggered departure)需要从一个乘车(rid
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:202
 msgid ""
 "Triggered departure for container '%' requires starting with a transport."
-msgstr ""
+msgstr "货柜'%' 的触发出发(triggered departure)需要从一个运送(transport)开始。"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:224
 #, c-format
 msgid "Found % outside container element"
-msgstr ""
+msgstr "找到 % 外部货柜元素"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:338
 msgid "No probability for route %, using default."
-msgstr ""
+msgstr "无路径 % 的机率，使用预设值。"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:493
 msgid "Ids of internal route distributions are ignored (vehicle '%')."
-msgstr ""
+msgstr "忽略內部路径分布的识别名(ids) (车辆 '%')。"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:609
 msgid "Discarding person '%' because her plan is empty"
-msgstr ""
+msgstr "丢弃人员person) '%', 因为他/她的计划是空的"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:635
 msgid "Discarding personFlow '%' because their plan is empty"
-msgstr ""
+msgstr "丢弃人流量(personFlow) '%', 因为他/她的计划是空的"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:643
 #, c-format
 msgid "probabilistic personFlow '%' must specify end time"
-msgstr ""
+msgstr "机率的人流量(personFlow) '%' 必须指定结束时间"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:716
 msgid "Discarding container '%' because it's plan is empty"
-msgstr ""
+msgstr "丢弃货柜 '%', 因为它的计划是空的"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:733
 msgid "Discarding containerFlow '%' because it's plan is empty"
-msgstr ""
+msgstr "丢弃货柜流量(containerFlow) '%', 因为它的计划是空的"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1036
 msgid "Triggered departure for container '%' requires a unique lines value."
-msgstr ""
+msgstr "货柜 '%' 的触发出发(triggered departure)需要一个唯一的列值(unique lines "
+"value)。"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1076
 msgid "Cannot convert geo-positions because the network has no geo-reference"
-msgstr ""
+msgstr "无法转换地理位置, 因为路网沒有地理参考系统(geo-reference)"
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
-msgstr ""
+msgstr "收到另一个中断信号, 强行退出。"
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:52
 msgid "Interrupt signal received, trying to exit gracefully."
-msgstr ""
+msgstr "收到中断信号, 试图正常退出。"
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:86
 msgid "A microscopic, multi-modal traffic simulation."
@@ -9545,209 +9550,209 @@ msgstr "退出 (由于错误)。"
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:126
 msgid "Quitting (on unknown error)."
-msgstr ""
+msgstr "退出 (发生未知错误)。"
 
 #: /home/micha/programming/sumo/src/tools/TrajectoriesHandler.cpp:76
 msgid "Unknown actor configuration '%' for vehicle '%'!"
-msgstr ""
+msgstr "未知的行动者设定(actor configuration) '%'; 车辆为 '%'!"
 
 #: /home/micha/programming/sumo/src/tools/TrajectoriesHandler.cpp:94
 msgid "Motion state for unknown vehicle '%'!"
-msgstr ""
+msgstr "未知车辆'%' 的运转状态!"
 
 #: /home/micha/programming/sumo/src/tools/TrajectoriesHandler.cpp:136
 msgid "Acceleration information is missing; try running with --compute-a."
-msgstr ""
+msgstr "缺少加速度信息; 尝试使用 --compute-a运行。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:62
 msgid "Computes emissions by driving a time line using SUMO's emission models."
-msgstr ""
+msgstr "使用 SUMO 的排放模型并透过驱动时间线(driving a time line)来计算排放量。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:70
 msgid "Defines the file to read the driving cycle from."
-msgstr ""
+msgstr "定义要从中读取驾驶循环(driving cycle)的文件。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:74
 msgid "Skips the first NUM lines."
-msgstr ""
+msgstr "跳过前 NUM 行。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:78
 msgid "Defines the entry separator."
-msgstr ""
+msgstr "定义输入项(entry)的分隔字元。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:83
 msgid ""
 "Defines the netstate, route and trajectory files to read the driving cycles "
 "from."
-msgstr ""
+msgstr "定义路网状态, 路径和轨迹文件以从中读取驾驶循环(driving cycles)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:86
 msgid "Load emission parameters (vTypes) from FILE(s)"
-msgstr ""
+msgstr "从文件载入排放参数 (车辆类型(vTypes))"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:89
 msgid "Defines for which emission class the emissions shall be generated. "
-msgstr ""
+msgstr "定义应针对哪个排放类型(class)产生排放物。 "
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:92
 msgid "Defines the vehicle type to use for emission parameters."
-msgstr ""
+msgstr "定义用于排放参数的车辆类型。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:96
 msgid ""
 "If set, the acceleration is computed instead of being read from the file. "
-msgstr ""
+msgstr "如果设定，则计算加速度而不是从文件中读取。 "
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:99
 msgid ""
 "If set, the acceleration for time t is computed from v(t+1) - v(t) instead "
 "of v(t) - v(t-1). "
-msgstr ""
+msgstr "如果设定，则时间 t 的加速度从 v(t+1) - v(t) 而不是从 v(t) - v(t-1) 计算。 "
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:102
 msgid "If set, the acceleration for time t is set to 0 if the speed is 0. "
-msgstr ""
+msgstr "如果设定，则当前速度为 0 时，时间 t 的加速度设为 0。 "
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:105
 msgid "If set, the first line of the read file is skipped."
-msgstr ""
+msgstr "如果设定，则跳过读取文件的第一列。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:108
 msgid "If set, the given speed is interpreted as being given in km/h."
-msgstr ""
+msgstr "如果设定，则给定速度被视为以公里/小時(km/h)为单位。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:111
 msgid "If set, the fourth column is read and used as slope (in deg)."
-msgstr ""
+msgstr "如果设定，则读取第四行(column)并将其用作坡度 (以度为单位)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:114
 msgid ""
 "Sets a global slope (in deg) that is used if the file does not contain slope "
 "information."
-msgstr ""
+msgstr "如果文件內不含坡度信息,设定一个整体的坡度(global slope) (以度为单位)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:119
 msgid "Defines the file to write the emission cycle results into."
-msgstr ""
+msgstr "定义文件,以将排放周期(emission cycle)结果写入其內。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:122
 msgid "Defines the attributes to write."
-msgstr ""
+msgstr "定义要写出的属性。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:125
 msgid "Save the emission values of each vehicle in XML"
-msgstr ""
+msgstr "以 XML 格式储存每辆车的排放值"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:129
 msgid "Save the aggregated and normed emission values of each vehicle in CSV"
-msgstr ""
+msgstr "在 CSV 內储存每辆车的汇总量(aggregated)和规范的(normed)排放值"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:145
 msgid "Defines the begin time in seconds;"
-msgstr ""
+msgstr "以秒为单位定义开始时间;"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:148
 msgid "Defines the end time in seconds;"
-msgstr ""
+msgstr "以秒为单位定义结束时间;"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:152
 msgid "Not writing anything."
-msgstr ""
+msgstr "不写任何东西。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:169
 msgid "Either a timeline or a netstate / amitran file must be given."
-msgstr ""
+msgstr "必须给定一个时间线或路网状态 / amitran 格式文件。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:172
 msgid "The output file must be given."
-msgstr ""
+msgstr "输出文件必须给定。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:185
 #, c-format
 msgid "Unknown attribute '%' to write in output."
-msgstr ""
+msgstr "要写入输出文件的未知属性 '%'。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:213
 msgid ""
 "Option --vtype requires option --additional-files for loading vehicle types"
-msgstr ""
+msgstr "选项 --vtype 需要选项 --additional-files 以载入车辆类型"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:225
 #, c-format
 msgid "Vehicle type '%' is not defined"
-msgstr ""
+msgstr "车辆类型 '%' 为定义"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:245
 msgid "Unreadable file '%'."
-msgstr ""
+msgstr "无法读取的文件 '%'。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:276
 msgid "Missing an entry in line '%'."
-msgstr ""
+msgstr "在列 '%' 缺少输入项(entry)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:278
 msgid "Not numeric entry in line '%'."
-msgstr ""
+msgstr "在列 '%' 沒有数值输入项(entry)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:58
 msgid "Writing map of '%' into '%'."
-msgstr ""
+msgstr "将'%' 的映成表(map)写入 '%'。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:62
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:291
 #, c-format
 msgid "Could not open file '%' for writing."
-msgstr ""
+msgstr "无法开启文件 '%' 进行写入。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:86
 msgid "Builds and writes an emissions map for SUMO's emission models."
-msgstr ""
+msgstr "为SUMO 的排放模型构建并编写排放物映成表(emissions map)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:92
 msgid "If set, maps for all available emissions are written."
-msgstr ""
+msgstr "如果设定，则写入所有可得的排放物的映成表(maps)內。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:95
 msgid "Defines the name of the emission class to generate the map for."
-msgstr ""
+msgstr "定义排放物类别的名称, 将为它产生映成表(map)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:98
 msgid "Defines the minimum velocity boundary of the map to generate (in m/s)."
-msgstr ""
+msgstr "定义产生的映成表(map)的最小速度边界 (以米/秒为单位)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:100
 msgid "Defines the maximum velocity boundary of the map to generate (in m/s)."
-msgstr ""
+msgstr "定义产生的映成表(map)的最大速度边界 (以米/秒为单位)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:102
 msgid "Defines the velocity step size (in m/s)."
-msgstr ""
+msgstr "定义速度的步长大小(step size) (以米/秒为单位)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:104
 msgid ""
 "Defines the minimum acceleration boundary of the map to generate (in m/s^2)."
-msgstr ""
+msgstr "定义产生的映成表(map)的最小加速度边界 (以米/平方秒为单位)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:106
 msgid ""
 "Defines the maximum acceleration boundary of the map to generate (in m/s^2)."
-msgstr ""
+msgstr "定义产生的映成表(map)的最大加速度边界 (以米/平方秒为单位)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:108
 msgid "Defines the acceleration step size (in m/s^2)."
-msgstr ""
+msgstr "定义加速度的步长大小(step size) (以米/平方秒为单位)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:110
 msgid "Defines the minimum slope boundary of the map to generate (in deg)."
-msgstr ""
+msgstr "定义 产生的映成表(map)的最小坡度边界 (以度(deg)为单位)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:112
 msgid "Defines the maximum slope boundary of the map to generate (in deg)."
-msgstr ""
+msgstr "定义产生的映成表(map)的最小坡度边界 (以度(deg)为单位)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:114
 msgid "Defines the slope step size (in deg)."
-msgstr ""
+msgstr "定义坡度的步长大小(step size) (以度(deg)为单位)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:119
 msgid ""
