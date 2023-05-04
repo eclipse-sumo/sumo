@@ -2,17 +2,19 @@
     <route-files value="None" type="route_file" help="Input route file" category="input" listSeparator=","/>
     <turn-files value="None" type="file" help="Input turn-count file" category="input" listSeparator=","/>
     <edgedata-files value="None" type="file" help="Input edgeData file (for counts)" category="input" listSeparator=","/>
-    <od-files value="None" type="file" help="Input edgeRelation file for origin-destination counts" category="input" listSeparator=","/>
+    <od-files value="None" type="file" help="Input edgeRelation and tazRelation files for origin-destination counts" category="input" listSeparator=","/>
+    <taz-files value="None" type="file" help="Input TAZ (district) definitions for interpreting tazRelation files" category="input" listSeparator=","/>
     <edgedata-attribute value="entered" type="string" help="Read edgeData counts from the given attribute" category="attribute"/>
     <arrival-attribute value="None" type="string" help="Read arrival counts from the given edgeData file attribute" category="attribute"/>
     <depart-attribute value="None" type="string" help="Read departure counts from the given edgeData file attribute" category="attribute"/>
-    <turn-attribute value="count" type="string" help="Read turning counts from the given attribute" category="turn-ratio"/>
+    <turn-attribute value="count" type="string" help="Read turning counts and origin-destination counts from the given attribute" category="turn-ratio"/>
     <turn-ratio-attribute value="None" type="string" help="Read turning ratios from the given attribute" category="turn-ratio"/>
     <turn-ratio-total value="1" type="float" help="Set value for normalizing turning ratios (default 1)" category="turn-ratio"/>
     <turn-ratio-tolerance value="None" type="float" help="Set tolerance for error in resulting ratios (relative to turn-ratio-total)" category="turn-ratio"/>
     <turn-ratio-abs-tolerance value="1" type="int" help="Set tolerance for error in resulting turning ratios as absolute count" category="turn-ratio"/>
     <turn-max-gap value="0" type="int" help="Allow at most a gap of INT edges between from-edge and to-edge" category="turn-ratio"/>
     <total-count value="None" type="string" help="Set a total count that should be reached (either as single value that is split  proportionally among all intervals or as a list of counts per interval). Setting the value 'input' preserves input vehicle counts in each interval." category="processing"/>
+    <extra-od value="False" type="bool" help="Permit traffic between OD-pairs that did not occur in the input" category="processing"/>
     <output-file value="out.rou.xml" type="route_file" help="Output route file" category="output"/>
     <prefix value="" type="string" help="prefix for the vehicle ids" category="processing"/>
     <attributes value="" type="string" help="additional vehicle attributes" category="processing"/>
