@@ -52,11 +52,12 @@ import sumolib.visualization.helpers  # noqa
 INDEX_ATTR = "@INDEX"
 RANK_ATTR = "@RANK"
 COUNT_ATTR = "@COUNT"
+DENS_ATTR = "@DENSITY"
 BOX_ATTR = "@BOX"
 NONE_ATTR = "@NONE"
 NONE_ATTR_DEFAULT = 0
 
-POST_PROCESSING_ATTRS = [RANK_ATTR, COUNT_ATTR, BOX_ATTR]
+POST_PROCESSING_ATTRS = [RANK_ATTR, COUNT_ATTR, BOX_ATTR, DENS_ATTR]
 SYMBOLIC_ATTRS = POST_PROCESSING_ATTRS + [INDEX_ATTR]
 
 
@@ -463,12 +464,16 @@ def clamped(value, clamp):
         return value
 
 
-def countPoints(xvalues):
+def countPoints(xvalues, normalize=False):
     counts = defaultdict(lambda: 0)
     for x in xvalues:
         counts[x] += 1
     xres = sorted(counts.keys())
     yres = [counts[x] for x in xres]
+    if normalize:
+        total = float(sum(yres))
+        if total > 0:
+            yres = [c / total for c in yres]
     return xres, yres
 
 
@@ -610,6 +615,12 @@ def main(options):
 
         if options.yattr == COUNT_ATTR:
             d[xdata], d[ydata] = countPoints(d[xdata])
+
+        if options.xattr == DENS_ATTR:
+            d[ydata], d[xdata] = countPoints(d[ydata], True)
+
+        if options.yattr == DENS_ATTR:
+            d[xdata], d[ydata] = countPoints(d[xdata], True)
 
         if options.xticksFile:
             applyTicks(d, xdata, options.xticksFile)
