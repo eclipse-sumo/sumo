@@ -54,8 +54,5 @@ edgeRelations_multi_x
 # plot fcd output and ignore ids (#12346)
 fcd_no_id_explicit
 
-# plot multiple statistic-output files 
-stats
-
-# plot multiple statistic-output files and join the data points
-stats_joined
+# plot fcd output and ignore ids
+fcd_speed_density
