@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-04 14:50+0000\n"
+"PO-Revision-Date: 2023-05-04 15:41+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -9757,101 +9757,101 @@ msgstr "定义坡度的步长大小(step size) (以度(deg)为单位)。"
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:119
 msgid ""
 "Defines the file (or the path if --iterate was set) to write the map(s) into."
-msgstr ""
+msgstr "定义将写入映成表(map)的文件 (或文件路径(path), 如果设置了 --iterate)。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:159
 msgid "The emission class (-e) must be given."
-msgstr ""
+msgstr "排放物类别 (-e) 必须给定。"
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:162
 msgid "The output file (-o) must be given."
-msgstr ""
+msgstr "输出文件 (-o)必须给定。"
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:314
 msgid "Starting TraCI without using internal lanes!"
-msgstr ""
+msgstr "在不使用內部车道的情況下, 启动 TraCI!"
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:320
 msgid "***Starting server on port % ***"
-msgstr ""
+msgstr "***在端口（port) % 上启动服务器 % ***"
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:323
 #, c-format
 msgid "  waiting for % clients..."
-msgstr ""
+msgstr "  等待 % 个用户端..."
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:347
 msgid "  client connected"
-msgstr ""
+msgstr "  已连接用户端"
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:480
 msgid ""
 "Execution order (libsumo::CMD_SETORDER) was not set for all TraCI clients in "
 "pre-execution phase."
-msgstr ""
+msgstr "执行顺序 (libsumo::CMD_SETORDER) 未在预执行阶段为所有 TraCI 用户端设置。"
 
 #: /home/micha/programming/sumo/src/utils/common/FileHelpers.cpp:73
 msgid "Cannot get file attributes for file '%'!"
-msgstr ""
+msgstr "无法取得文件 '%' 的文件属性!"
 
 #: /home/micha/programming/sumo/src/utils/common/FileHelpers.h:318
 msgid "Invalid follower index in route '%'!"
-msgstr ""
+msgstr "路径 '%' 內有无效的随动者索引(follower index)!"
 
 #: /home/micha/programming/sumo/src/utils/common/FileHelpers.h:328
 #, c-format
 msgid "An edge within the route '%' is not known!"
-msgstr ""
+msgstr "在路径 '%' 內的一个路段是未知的!"
 
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:153
 #, c-format
 msgid "done (%ms)."
-msgstr ""
+msgstr "完成 (%毫秒)。"
 
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:155
 msgid "done."
-msgstr ""
+msgstr "完成。"
 
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:253
 msgid "Could not set locale to '%'."
-msgstr ""
+msgstr "无法将环境(locale)设置为 '%'。"
 
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:258
 msgid ""
 "Environment variable SUMO_HOME is not set, could not find localized messages."
-msgstr ""
+msgstr "未设置环境变量 SUMO_HOME,找不到定位(localized)信息。"
 
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:264
 msgid "Could not find localized messages."
-msgstr ""
+msgstr "找不到定位(localized)信息。"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:87
 msgid "Invalid conversion from string to double (%)"
-msgstr ""
+msgstr "从字串(string)到双精度(doubles)的无效转换 (%)"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:90
 msgid "Invalid conversion from string to double (empty value)"
-msgstr ""
+msgstr "从字串(string)到双精度(doubles)的无效转换(空值)"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:109
 msgid "Invalid conversion from string to doubles (%)"
-msgstr ""
+msgstr "从字串(string)到双精度(doubles)的无效转换 (%)"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:112
 msgid "Invalid conversion from string to doubles (empty value)"
-msgstr ""
+msgstr "从字串(string)到双精度(doubles)的无效转换 (空值)"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:205
 msgid "Invalid format of parameter (%)"
-msgstr ""
+msgstr "参数的格式无效 (%)"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:230
 msgid "Invalid format of attribute '%'. Attribute must start with a letter"
-msgstr ""
+msgstr "属性 (%) 的格式无效。 属于必须以字母开头"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:237
 msgid "Invalid format of attribute (%)"
-msgstr ""
+msgstr "属性 (%) 的格式无效"
 
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:65
 msgid "Initialises the random number generator with the current system time"
