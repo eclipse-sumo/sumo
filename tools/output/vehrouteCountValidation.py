@@ -45,8 +45,10 @@ def get_options(args=None):
                         help="Input turn-count file")
     parser.add_argument("-d", "--edgedata-files", dest="edgeDataFiles",
                         help="Input edgeData file (for counts)")
-    parser.add_argument("-O", "--od-files", dest="odFiles",
-                        help="Input edgeRelation file for origin-destination counts")
+    parser.add_argument("-O", "--od-files", category="input", dest="odFiles", type=parser.file_list,
+                        help="Input edgeRelation and tazRelation files for origin-destination counts")
+    parser.add_argument("--taz-files", category="input", dest="tazFiles", type=parser.file_list,
+                        help="Input TAZ (district) definitions for interpreting tazRelation files")
     parser.add_argument("--edgedata-attribute", dest="edgeDataAttr", default="entered",
                         help="Read edgeData counts from the given attribute")
     parser.add_argument("--arrival-attribute", dest="arrivalAttr",
