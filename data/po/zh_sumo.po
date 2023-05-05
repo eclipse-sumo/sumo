@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-04 15:41+0000\n"
+"PO-Revision-Date: 2023-05-05 07:47+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -9855,19 +9855,19 @@ msgstr "属性 (%) 的格式无效"
 
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:65
 msgid "Initialises the random number generator with the current system time"
-msgstr ""
+msgstr "使用目前系统时间进行随机数产生器的初始化"
 
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:69
 msgid "Initialises the random number generator with the given value"
-msgstr ""
+msgstr "使用给定的值进行随机数产生器的初始化"
 
 #: /home/micha/programming/sumo/src/utils/common/SUMOVehicleClass.cpp:187
 msgid "Simultaneous specification of vClasses and exceptions is not allowed"
-msgstr ""
+msgstr "不允许同时指定车辆类型(vClasses)和例外情況(exceptions)"
 
 #: /home/micha/programming/sumo/src/utils/common/SUMOVehicleClass.cpp:191
 msgid "StopOffset requires an offset value"
-msgstr ""
+msgstr "StopOffset 需要一个偏移(offset)值"
 
 #: /home/micha/programming/sumo/src/utils/common/SUMOVehicleClass.cpp:341
 #, c-format
