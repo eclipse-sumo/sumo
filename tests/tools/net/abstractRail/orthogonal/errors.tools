@@ -1,0 +1,14 @@
+Cannot compute track ordering for edge '-56693791#0' because it runs orthogonal to the main line (intersects: [290.9669845476892, -88.5383101458865])
+Cannot compute track ordering for edge '142019441#2' because it runs orthogonal to the main line (intersects: [299.4103526938561, -98.89319089626952])
+Cannot compute track ordering for edge '-56693791#0' because it runs orthogonal to the main line (intersects: [514.34838448136, -224.05724693879893])
+Cannot compute track ordering for edge '636850729#2' because it runs orthogonal to the main line (intersects: [-497.10948454799654, -607.6429526739521, -705.6350193276885])
+Cannot compute track ordering for edge '636850730' because it runs orthogonal to the main line (intersects: [-488.1983802506875, -628.5373683323123, -686.5034025774657])
+Optimization failed
+Traceback (most recent call last):
+  File "/home/kobo/dlr/sumo/tests/../tools/net/abstractRail.py", line 630, in <module>
+    main(get_options())
+  File "/home/kobo/dlr/sumo/tests/../tools/net/abstractRail.py", line 582, in main
+    nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
+  File "/home/kobo/dlr/sumo/tests/../tools/net/abstractRail.py", line 300, in computeTrackOrdering
+    nodeYValues[n2] = nodeYValues[n1]
+KeyError: <edge id="636850729#0" from="8758195509" to="6004923984"/>
