@@ -1097,6 +1097,9 @@ MSVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, bool 
         myLastBestLanesInternalLane = nullptr;
         updateBestLanes(true, onInit ? (*myCurrEdge)->getLanes().front() : 0);
         assert(!removeStops || haveValidStopEdges());
+        if (myStops.size() == 0) {
+            myStopDist = std::numeric_limits<double>::max();
+        }
         return true;
     }
     return false;
