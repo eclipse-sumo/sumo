@@ -295,9 +295,10 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
     nodeYValues = optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords)
 
     # step 4: apply yValues to virtual nodes that were skipped
-    for prevOrdering, ordering in sameOrdering:
-        for n1, n2 in zip(prevOrdering, ordering):
-            nodeYValues[n2] = nodeYValues[n1]
+    if nodeYValues:
+        for prevOrdering, ordering in sameOrdering:
+            for n1, n2 in zip(prevOrdering, ordering):
+                nodeYValues[n2] = nodeYValues[n1]
 
     if options.verbose2:
         for k, v in nodeYValues.items():
