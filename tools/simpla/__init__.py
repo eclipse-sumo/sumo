@@ -185,3 +185,19 @@ def getPlatoonInfo(platoonID):
     else:
         raise SimplaException("call simpla.load(<config_file>) before simpla.getPlatoonInfo()!")
     return 0
+
+
+def getPlatoonID(vehicleID):
+    '''
+
+    getPlatoonID(string) -> integer
+
+    Returns the platoon ID the vehicle given by its ID belongs too. If the vehicle does not belong to 
+    any platoon, -1 is returned.
+    '''
+    global _mgr, warn
+    if _mgr is not None:
+        return _mgr.getPlatoonID(vehicleID)
+    else:
+        raise SimplaException("call simpla.load(<config_file>) before simpla.getPlatoonID()!")
+    return 0

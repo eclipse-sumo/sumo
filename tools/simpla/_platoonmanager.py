@@ -249,6 +249,15 @@ class PlatoonManager(traci.StepListener):
         else:
             return {}
 
+    def getPlatoonID(self, vehicleID):
+        '''getPlatoonID(vehicleID) -> integer
+
+        Returns the ID of the platoon a vehicle belongs to
+        '''
+        if vehicleID in self._connectedVehicles:
+            return self._connectedVehicles[vehicleID].getPlatoon().getID()
+        return -1
+
     def getPlatoonLeaders(self):
         '''getPlatoonLeaders() -> list(PVehicle)
 
