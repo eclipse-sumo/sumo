@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-05 07:47+0000\n"
+"PO-Revision-Date: 2023-05-05 13:10+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -9872,157 +9872,157 @@ msgstr "StopOffset 需要一个偏移(offset)值"
 #: /home/micha/programming/sumo/src/utils/common/SUMOVehicleClass.cpp:341
 #, c-format
 msgid "Unknown vehicle class '%' encountered."
-msgstr ""
+msgstr "遇到未知的车辆类别 '%'。"
 
 #: /home/micha/programming/sumo/src/utils/common/SUMOVehicleClass.cpp:382
 msgid ""
 "SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring "
 "'disallow'"
-msgstr ""
+msgstr "SVCPermissions 必须通过 'allow' 或 'disallow' 指定。 忽略 'disallow'"
 
 #: /home/micha/programming/sumo/src/utils/common/SUMOVehicleClass.cpp:408
 #, c-format
 msgid "The vehicle class '%' is deprecated, use '%' instead."
-msgstr ""
+msgstr "车辆类别 '%' 已不适用,请改用 '%'。"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:43
 msgid "Loads the named config on startup"
-msgstr ""
+msgstr "在启动时,载入已命名的设定(config)"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:48
 msgid "Saves current configuration into FILE"
-msgstr ""
+msgstr "将目前的设定(configuration)存储到文件"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:52
 msgid "Enforce relative paths when saving the configuration"
-msgstr ""
+msgstr "存储设定(configuration)时, 强制使用相对路径"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:55
 msgid "Saves a configuration template (empty) into FILE"
-msgstr ""
+msgstr "将设定模板(configuration template)存储于文件"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:58
 msgid "Saves the configuration schema into FILE"
-msgstr ""
+msgstr "将配置模式(configuration schema)存入文件"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:62
 msgid "Adds comments to saved template, configuration, or schema"
-msgstr ""
+msgstr "对已存储的模板(template)、设定(configuration)或模式(schema)添加注释"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:71
 msgid "Switches to verbose output"
-msgstr ""
+msgstr "切换到详细输出(verbose output)"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:74
 msgid "Prints option values before processing"
-msgstr ""
+msgstr "在处理之前, 打印出选项值"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:77
 msgid "Prints this screen or selected topics"
-msgstr ""
+msgstr "印出此荧幕或选定的主题"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:80
 msgid "Prints the current version"
-msgstr ""
+msgstr "打印出目前版本"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:97
 msgid "Disables output of warnings"
-msgstr ""
+msgstr "禁用警告输出"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:100
 msgid "Aggregate warnings of the same type whenever more than INT occur"
-msgstr ""
+msgstr "每当发生超过 INT 时，整合(aggregate)相同类型的警告"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:104
 msgid "Writes all messages to FILE (implies verbose)"
-msgstr ""
+msgstr "将所有信息写入文件 (暗示详细的(verbose))"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:107
 msgid "Writes all non-error messages to FILE (implies verbose)"
-msgstr ""
+msgstr "将所有非错误信息写入文件 (暗示详细的(verbose))"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:110
 msgid "Writes all warnings and errors to FILE"
-msgstr ""
+msgstr "将所警告及错误写入文件"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:113
 msgid "Language to use in messages"
-msgstr ""
+msgstr "在信息中使用的语言"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:116
 msgid "Include license info into every output file"
-msgstr ""
+msgstr "每个输出文件中将包含许可证信息"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:119
 msgid ""
 "Prefix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
-msgstr ""
+msgstr "应用于所有输出文件的字首(prefix)。 特殊字串 'TIME' 被目前时间替换。"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:122
 msgid "Defines the number of digits after the comma for floating point output"
-msgstr ""
+msgstr "定义浮点数输出的逗号后的位数"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:125
 msgid "Defines the number of digits after the comma for lon,lat output"
-msgstr ""
+msgstr "定义经纬度(lon,lat)输出的逗号后的位数"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:128
 msgid ""
 "Write time values as hour:minute:second or day:hour:minute:second rather "
 "than seconds"
-msgstr ""
+msgstr "将时间值写为小时:分钟:秒 或 天:小时:分钟:秒, 而不是秒"
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:43
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:184
 msgid "Process Error"
-msgstr ""
+msgstr "处理发生错误"
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:72
 msgid "Empty Data"
-msgstr ""
+msgstr "空的资料"
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:99
 msgid "Invalid Number Format %"
-msgstr ""
+msgstr "无效的数字格式 %"
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:112
 msgid "Invalid Time Format %"
-msgstr ""
+msgstr "无效的时间格式 %"
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:125
 msgid "Invalid Bool Format %"
-msgstr ""
+msgstr "无效的布林(Bool)格式 %"
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:137
 msgid "Out Of Bounds"
-msgstr ""
+msgstr "超出边界"
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:151
 msgid "Unknown Element"
-msgstr ""
+msgstr "未知的元素"
 
 #: /home/micha/programming/sumo/src/utils/distribution/Distribution_Parameterized.cpp:74
 #: /home/micha/programming/sumo/src/utils/distribution/Distribution_Parameterized.cpp:76
 #: /home/micha/programming/sumo/src/utils/distribution/Distribution_Parameterized.cpp:93
 msgid "Invalid format of distribution parameterized"
-msgstr ""
+msgstr "已参数化的分配的格式无效"
 
 #: /home/micha/programming/sumo/src/utils/emissions/EnergyParams.cpp:153
 msgid "Vehicle device '%' doesn't have a valid value for parameter % (%)."
-msgstr ""
+msgstr "车辆装置设备 '%' 的参数 % 没有有效的值 (%)。"
 
 #: /home/micha/programming/sumo/src/utils/emissions/HelpersEnergy.cpp:225
 msgid "An acceleration given by the power was not found."
-msgstr ""
+msgstr "未找到电力(power)给定的加速度。"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:71
 msgid "Add decal"
-msgstr ""
+msgstr "增加贴印"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:71
 msgid "Add decal."
-msgstr ""
+msgstr "增加贴印(decal)。"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:151
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:162
@@ -10040,7 +10040,7 @@ msgstr "无效列"
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:332
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:790
 msgid "Open decal"
-msgstr ""
+msgstr "开启贴印(decal)。"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:337
 msgid "All files (*)"
@@ -10048,272 +10048,275 @@ msgstr "所有档案 (*)"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:790
 msgid "Open decal."
-msgstr ""
+msgstr "开启贴印(decal)。"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:798
 msgid "Remove decal"
-msgstr ""
+msgstr "移除贴印(decal)"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:798
 msgid "Remove decal."
-msgstr ""
+msgstr "移除贴印(decal)。"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
-msgstr ""
+msgstr "忽略投影中的大地水准面网格(geoidgrids)和垂直网格偏移(vgridshift)"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:232
 msgid "Inverse projection works only with explicit proj parameters."
-msgstr ""
+msgstr "反向投影仅适用于明确的投影(proj)参数。"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:237
 msgid "The projection method needs to be uniquely defined."
-msgstr ""
+msgstr "投影方法需要是唯一的(unique)。"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:288
 msgid "Uses a simple method for projection"
-msgstr ""
+msgstr "使用简单的方法进行投影"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:291
 msgid "Scaling factor for input coordinates"
-msgstr ""
+msgstr "输入坐标的缩放系数(scaling factor)"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:294
 msgid "Rotation (clockwise degrees) for input coordinates"
-msgstr ""
+msgstr "输入坐标的旋转度数 (顺时针度数)"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:298
 msgid ""
 "Determine the UTM zone (for a universal transversal mercator projection "
 "based on the WGS84 ellipsoid)"
-msgstr ""
+msgstr "确定 UTM 区帶 (用于基于 WGS84 椭球体的通用橫向麦卡托(mercator)投影）"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:304
 msgid "Uses STR as proj.4 definition for projection"
-msgstr ""
+msgstr "使用字串(STR) 作为投影时的 proj.4定义"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:307
 msgid "Inverses projection"
-msgstr ""
+msgstr "反向投影"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:310
 msgid "Convert from Gauss-Krueger to UTM"
-msgstr ""
+msgstr "从 Gauss-Krueger 转换为 UTM 投影方法"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:434
 msgid "Could not transform (%,%)"
-msgstr ""
+msgstr "无法转换 (%,%)"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:578
 #, c-format
 msgid ""
 "Ignoring loaded location attribute nr. % for tracking of original location"
-msgstr ""
+msgstr "忽略载入的位置属性数字(nr.) %, 其用于跟踪原始位置"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeomHelper.cpp:238
 msgid "GeomHelper::makeCircle() requires nPoints>=3"
-msgstr ""
+msgstr "GeomHelper::makeCircle() 要求 nPoints>=3"
 
 #: /home/micha/programming/sumo/src/utils/geom/PositionVector.cpp:607
 msgid "Splitting vector close to end (pos: %, length: %)"
-msgstr ""
+msgstr "分割(splitting)的向量接近末端 (位置: %, 长度: %)"
 
 #: /home/micha/programming/sumo/src/utils/geom/PositionVector.cpp:1503
 #: /home/micha/programming/sumo/src/utils/geom/PositionVector.cpp:1517
 msgid "Trying to subtract PositionVectors of different lengths."
-msgstr ""
+msgstr "尝试減去不同长度的 PositionVectors。"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:960
 msgid "'lane' and 'length' must be defined together in a lane area detector."
-msgstr ""
+msgstr "'lane' 和 'length' 必须在车道区域探测器(lane area detector)中一起定义。"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:965
 msgid "'lanes' and 'endPos' must be defined together in a lane area detector."
-msgstr ""
+msgstr "'lane' 和 'endPos' 必须在车道区域探测器(lane area detector)中一起定义。"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1242
 msgid "Calibrators need either an edge or a lane"
-msgstr ""
+msgstr "校估器需要一个路段或一个车道"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1289
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
 msgstr ""
+"校估流量(CalibratorFlows)需要属性 每小时车辆数(vehsPerHour) 或 "
+"速度(speed)或类型(type) (或这些属性的任意組合)"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1428
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1454
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1479
 #, c-format
 msgid "Probability of % must be equal or greater than 0"
-msgstr ""
+msgstr "机率 % 必须大于或等于 0"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1665
 msgid "X and Y must be be defined together in POIs"
-msgstr ""
+msgstr "X 和 Y 必须一起定义于兴趣点(POIs)內"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1671
 msgid "lane and position must be be defined together in POIs"
-msgstr ""
+msgstr "车道和位置必须一起定义于兴趣点(POIs)內"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1677
 msgid "lon and lat must be be defined together in POIs"
-msgstr ""
+msgstr "经度(lon)和纬度(lat)必须一起定义于兴趣点(POIs)內"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1743
 msgid "Parameters must be defined within an object."
-msgstr ""
+msgstr "参数必须定义于一个物件(object)內。"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1745
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:848
 msgid "Parameters cannot be defined in the additional file's root."
-msgstr ""
+msgstr "参数无法定义于附加文件(additional file)的根(root)中內。"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1747
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:850
 msgid "Parameters cannot be defined within another parameter."
-msgstr ""
+msgstr "参数无法定义于其它参数內。"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1755
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty."
-msgstr ""
+msgstr "解析 % 通用参数的密键(key)发生错误。 密键(key)不可以是空的。"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1757
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters."
-msgstr ""
+msgstr "解析 % 通用参数的密键(key)发生错误。 密键(key)含有无效的字元。"
 
 #: /home/micha/programming/sumo/src/utils/handlers/DataHandler.cpp:111
 msgid "Data elements cannot load attributes as params"
-msgstr ""
+msgstr "数据元素(data elements)无法载入属性作为参数（params)"
 
 #: /home/micha/programming/sumo/src/utils/handlers/MeanDataHandler.cpp:54
 msgid "MeanData elements cannot load attributes as params"
-msgstr ""
+msgstr "平均数据(MeanData)无法载入属性作为参数(params)"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:370
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
-msgstr ""
+msgstr "无法在 netedit 中构建 % (其识别名(ID)为 '%'); ID 含有无效字元。"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:420
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
-msgstr ""
+msgstr "路径必须定义于一个车辆/流量內, 或是用一个识别名(ID)属性"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:437
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
-msgstr ""
+msgstr "周期时间(cycleTime) % 必须大于或等于 0"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:482
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:549
 msgid "Attributes 'from' and 'fromJunction' cannot be defined together"
-msgstr ""
+msgstr "无法同时定义属性 'from' 和 'fromJunction'"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:484
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:551
 msgid "Attributes 'to' and 'toJunction' cannot be defined together"
-msgstr ""
+msgstr "无法同时定义属性 'to' 和 'toJunction'"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:515
 msgid "trip definition needs either 'from/to' or 'fromJunction/toJunction'"
-msgstr ""
+msgstr "行程定义需要 'from/to' 或 'fromJunction/toJunction'"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:846
 msgid "Parameters must be defined within an object"
-msgstr ""
+msgstr "参数必须定义在一个物件(object)內"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:858
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
-msgstr ""
+msgstr "解析 % 通用参数的密键(key)发生错误。 密键(key)不可以是空的"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:860
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
-msgstr ""
+msgstr "解析 % 通用参数的密键(key)发生错误。 密键(key)含有无效的字元"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:876
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteHandler.cpp:224
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
-msgstr ""
+msgstr "在车辆类型(vType) '%' 的鸟巢状元素(nested "
+"element)內定义的跟车参数已不适用改用属性(attributes)!"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:884
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:886
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteHandler.cpp:227
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteHandler.cpp:229
 msgid "Invalid parsing embedded VType"
-msgstr ""
+msgstr "解析嵌入的(embedded)车辆类型(vType)无效"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:970
 msgid "A stop must be defined either with an edge or with an lane, not both"
-msgstr ""
+msgstr "停靠站必要须定义在一个路段或是一个车道, 而不是用两者来定义"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:984
 msgid "A stop must be defined only in a StoppingPlace"
-msgstr ""
+msgstr "停靠站只能定义在一个可停下的地方(StoppingPlace)"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:987
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
-msgstr ""
+msgstr "停靠站必须要定义在一个路段, 一个车道或是一个可停下的地方(StoppingPlace)"
 
 #: /home/micha/programming/sumo/src/utils/handlers/TemplateHandler.cpp:67
 msgid "Could not load template '%'."
-msgstr ""
+msgstr "无法载入范本(template) '%'。"
 
 #: /home/micha/programming/sumo/src/utils/iodevices/OutputDevice.cpp:86
 msgid "No port number given."
-msgstr ""
+msgstr "沒有给定端口号(port number)。"
 
 #: /home/micha/programming/sumo/src/utils/iodevices/OutputDevice.cpp:161
 msgid "Error on closing output devices."
-msgstr ""
+msgstr "关闭输出装置时发生错误。"
 
 #: /home/micha/programming/sumo/src/utils/iodevices/OutputDevice_File.cpp:46
 msgid "Could not redirect to NUL device (%)."
-msgstr ""
+msgstr "无法重定向到NUL装置 (%)。"
 
 #: /home/micha/programming/sumo/src/utils/options/Option.cpp:315
 #, c-format
 msgid "'%' is not a valid float."
-msgstr ""
+msgstr "'%' 不是有效的浮点数。"
 
 #: /home/micha/programming/sumo/src/utils/options/Option.cpp:349
 #, c-format
 msgid "'%' is not a valid bool."
-msgstr ""
+msgstr "'%' 不是有效的布林(bool)。"
 
 #: /home/micha/programming/sumo/src/utils/options/Option.cpp:409
 msgid ""
 "Please note that using ';' as list separator is deprecated and not accepted "
 "anymore."
-msgstr ""
+msgstr "请注意，使用';'作为清单分隔符号已不适用，并不再接受。"
 
 #: /home/micha/programming/sumo/src/utils/options/Option.cpp:419
 #, c-format
 msgid "'%' is not a valid integer vector."
-msgstr ""
+msgstr "'%' 不是有效的整数向量。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:65
 msgid ""
 "Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
-msgstr ""
+msgstr "版权（C）2001-2023德国宇航中心（DLR）等; https://sumo.dlr.de"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:151
 msgid "Internal request for unknown option '%'!"
-msgstr ""
+msgstr "未知选项%'的內部要求!"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:174
 #, c-format
 msgid "No option with the name '%' exists."
-msgstr ""
+msgstr "没有任何名称为 '%' 的选项。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:191
 #, c-format
@@ -10321,88 +10324,91 @@ msgid ""
 "Please note that '%' is deprecated.\n"
 " Use '%' instead."
 msgstr ""
+"请注意，'%' 已不适用。\n"
+" 改用 '%'。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:387
 #, c-format
 msgid "The file list for '%' is empty."
-msgstr ""
+msgstr "'%' 的文件清单是空的。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:393
 msgid "File '%' is not accessible (%)."
-msgstr ""
+msgstr "文件 '%' 不可存取(%)。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:396
 msgid "Empty file name given; ignoring."
-msgstr ""
+msgstr "给出空白文件名称; 忽略。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:417
 msgid "Option '%' needs option '%'."
-msgstr ""
+msgstr "选项 '%' 需要选项 '%' 。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:616
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:638
 msgid " Build features: "
-msgstr ""
+msgstr " 构建功能: "
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:620
 msgid ""
 " License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/"
 "legal/epl-v20.html>"
-msgstr ""
+msgstr " 许可证EPL-2.0: Eclipse公共许可证版本 2 <https://eclipse.org/legal/epl-v20."
+"html>"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:621
 msgid " Use --help to get the list of options."
-msgstr ""
+msgstr " 使用 --求助 获取选项清单。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:669
 msgid "Could not save configuration to '%'"
-msgstr ""
+msgstr "无法将设定(configuration)保存到 '%'"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:673
 msgid "Written configuration to '%'"
-msgstr ""
+msgstr "将设定(configuration)写入 '%'"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:686
 msgid "Could not save template to '%'"
-msgstr ""
+msgstr "无法将范本(template)存储到 '%'"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:690
 msgid "Written template to '%'"
-msgstr ""
+msgstr "将范本(template)写入 '%'"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:702
 msgid "Could not save schema to '%'"
-msgstr ""
+msgstr "无法将模式(schema)存储到 '%'"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:706
 msgid "Written schema to '%'"
-msgstr ""
+msgstr "将模式(schema)写入 '%'"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:88
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:135
 msgid "Could not parse commandline options."
-msgstr ""
+msgstr "无法解析命令列的选项。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:103
 msgid "Could not access configuration '%'."
-msgstr ""
+msgstr "无法存取设定(configuration) '%'。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:107
 msgid "Loading configuration"
-msgstr ""
+msgstr "载入设定(configuration)"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:121
 msgid "Could not load configuration '%'."
-msgstr ""
+msgstr "无法载入设定(configuration)'%'。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsLoader.cpp:77
 msgid "Could not set option '%' (probably defined twice)."
-msgstr ""
+msgstr "无法设定选项 '%' (可能定义了两次)。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsParser.cpp:127
 #: /home/micha/programming/sumo/src/utils/options/OptionsParser.cpp:134
 msgid "Missing value for parameter '%'."
-msgstr ""
+msgstr "缺少参数 '%' 的值。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsParser.cpp:146
 #, c-format
@@ -10410,214 +10416,217 @@ msgid ""
 "The parameter '%' is not allowed in this context.\n"
 " Switch or parameter name expected."
 msgstr ""
+"此上下文中不允许使用参数 '%'。\n"
+" 需要切换或是提供参数名称。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsParser.cpp:150
 msgid "Mixed parameter syntax in '%'."
-msgstr ""
+msgstr "'%' 中有混合参数语法(syntax)。"
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:124
 msgid "Could not load landmark-lookup-table from '%'."
-msgstr ""
+msgstr "无法从 '%' 载入入地标对照表。"
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:138
 #, c-format
 msgid "Duplicate edge '%' in landmark file."
-msgstr ""
+msgstr "在地标文件內有重复的路段 '%'。"
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:143
 #, c-format
 msgid "Landmark edge '%' does not exist in the network."
-msgstr ""
+msgstr "地标路段 '%' 不存在于路网內。"
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:154
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:167
 #, c-format
 msgid "Unknown or unordered edge '%' in landmark file."
-msgstr ""
+msgstr "地标文件內有未知或是未排序的路段 '%'。"
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:164
 msgid "Broken landmark file, unexpected number of entries (%) for edge '%'."
-msgstr ""
+msgstr "地标文件损坏, 路段 '%' 有超出预期的登录项目数量(%)。"
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:187
 msgid "Calculating new lookup table."
-msgstr ""
+msgstr "正在计算新的对照表。"
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:194
 msgid "No lookup table for landmark edge '%', recalculating."
-msgstr ""
+msgstr "地标路段 '%' 沒有对照表, 重新计算中。"
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:196
 msgid ""
 "Not all network edges were found in the lookup table '%' for landmark edge "
 "'%'."
-msgstr ""
+msgstr "并非所有路网路段都在对照表 '%' 內找到 (针对地标路段 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:293
 msgid "Saving new matrix to '%'."
-msgstr ""
+msgstr "将新的矩阵存入 '%'。"
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:295
 #, c-format
 msgid "Edge '%' not found in intermodal network.'"
-msgstr ""
+msgstr "路段 '%' 不在多运具(intermodal)网络內。"
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:304
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:338
 #, c-format
 msgid "Depart edge '%' not found in intermodal network."
-msgstr ""
+msgstr "出发路段 '%' 不在多运具(intermodal)网络內。"
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:350
 #, c-format
 msgid "Arrival edge '%' not found in intermodal network."
-msgstr ""
+msgstr "抵达路段 '%' 不在多运具(intermodal)网络內。"
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:620
 msgid "Ignoring unordered stop at '%' until % for vehicle '%'."
-msgstr ""
+msgstr "忽略未排序的停靠站于'%' 处, 直到(until) %; 车辆为 '%'。"
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:632
 msgid "Ignoring stop at '%' until % for vehicle '%'."
-msgstr ""
+msgstr "忽略停靠站于 '%' 处, 直到(until) %; 车辆为 '%'。"
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:637
 #, c-format
 msgid ""
 "Not using public transport line '%' for routing persons. It has less than "
 "two usable stops."
-msgstr ""
+msgstr "不使用大众运输路线 '%' 来安排人员的路径。 它只有不到两个可用的停靠点。"
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalRouter.h:214
 #: /home/micha/programming/sumo/src/utils/router/PedestrianRouter.h:125
 msgid "Do not use this method"
-msgstr ""
+msgstr "不要使用这种方法"
 
 #: /home/micha/programming/sumo/src/utils/router/PedestrianRouter.h:87
 #, c-format
 msgid "Departure edge '%' does not allow pedestrians."
-msgstr ""
+msgstr "出发路段 '%' 不允许行人使用。"
 
 #: /home/micha/programming/sumo/src/utils/router/PedestrianRouter.h:91
 #, c-format
 msgid "Destination edge '%' does not allow pedestrians."
-msgstr ""
+msgstr "目的地路段 '%' 不允许行人使用。"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:84
 msgid "Error parsing key from shape generic parameter. Key cannot be empty"
-msgstr ""
+msgstr "形状通用参数解析密键(key)时, 发生错误。 密键(key)不可以是空的"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:86
 msgid ""
 "Error parsing key from shape generic parameter. Key contains invalid "
 "characters"
-msgstr ""
+msgstr "形状通用参数解析密键(key)时, 发生错误。 密键(key)含有无效字元"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:139
 msgid "Invalid characters for PoI ID"
-msgstr ""
+msgstr "兴趣点(PoI) '%' 有无效的字元"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:170
 msgid "Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."
-msgstr ""
+msgstr "(x, y), (lon, lat) 或是 (lane, pos)其中之一必须用以指定兴趣点(PoI) '%'。"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:173
 msgid ""
 "(lon, lat) is specified for PoI '%' but no geo-conversion is specified for "
 "the network."
-msgstr ""
+msgstr "(经度(lon), 纬度(lat)) 用于指定兴趣点(PoI) '%', 但没有为路网指定地理坐标转换"
+"(geo-conversion)。"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:185
 msgid "Unable to project coordinates for PoI '%'."
-msgstr ""
+msgstr "无法投影兴趣点(PoI) '%' 的坐标。"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:191
 #, c-format
 msgid "PoI '%' already exists."
-msgstr ""
+msgstr "兴趣点(PoI) '%' 已经存在。"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:209
 msgid "Invalid characters for Poly ID"
-msgstr ""
+msgstr "多边形识别名(Poly ID)有无效的字元"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:252
 msgid "Polygon's shape cannot be empty."
-msgstr ""
+msgstr "多边形的形状不可以是空的。"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:257
 msgid "Polygon's lineWidth must be greater than 0."
-msgstr ""
+msgstr "多边形的线宽(lineWidth) 必须大于 0。"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:262
 #, c-format
 msgid "Polygon '%' already exists."
-msgstr ""
+msgstr "多边形 '%' 已经存在。"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:279
 #, c-format
 msgid "Loading of shapes from % failed."
-msgstr ""
+msgstr "从 % 中载入形状(shapes)失败。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:44
 #, c-format
 msgid "The node: '%' already exists."
-msgstr ""
+msgstr "节点: '%' 已经存在。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:239
 msgid "Index of renumbered node exceeded the reduced number of equations."
-msgstr ""
+msgstr "重新编号的节点的索引(index)超出了已减少的方程式数量。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:250
 msgid "Index of renumbered element exceeded the reduced number of equations."
-msgstr ""
+msgstr "重新编号的元素的索引(index)超出了已減少的方程式数量。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:257
 msgid "Structural error in reduced circuit matrix."
-msgstr ""
+msgstr "简化电路矩阵中的结构错误。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:288
 msgid "Initial solution x used during solving DC circuit is out of bounds.\n"
-msgstr ""
+msgstr "求解 DC 电路时,使用的初始解 x 超出边界限。\n"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:312
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:456
 msgid "wrongly assigned row of matrix A during solving the circuit"
-msgstr ""
+msgstr "求解电路时,错误指派矩阵 A 的列(row)"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:354
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:479
 msgid "The negative node of current source is not the groud."
-msgstr ""
+msgstr "电流源的负节点不与地面连接。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:508
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:518
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:526
 msgid "Results deployment during circuit evaluation was unsuccessful."
-msgstr ""
+msgstr "电路评估期间的结果部署不成功。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:576
 msgid ""
 "Cannot assign unambigous electric current value to two voltage sources "
 "connected in parallel at the same node."
-msgstr ""
+msgstr "不能指派明确的电流值给与同一节点平行连结的两个电压源。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:798
 msgid ""
 "Trying to add resistor element into the overhead wire circuit with "
 "resistance < 1e-6. "
-msgstr ""
+msgstr "尝试在电阻 < 1e-6 的架空线电路中增加电阻元素(element)。 "
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:800
 msgid ""
 "Trying to add resistor element into the overhead wire circuit with "
 "resistance < 0. "
-msgstr ""
+msgstr "尝试在电阻 < 0 的架空线电路中增加电阻元素(element)。 "
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:919
 msgid ""
 "Circuit Voltage Source '%' is connected to less than two nodes, please "
 "adjust the definition of the section (with substation '%')."
-msgstr ""
+msgstr "电路电压源 '%' 连接到少于两个节点, 请调整区段定义(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:927
 msgid ""
