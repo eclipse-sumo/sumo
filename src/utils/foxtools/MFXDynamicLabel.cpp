@@ -116,6 +116,9 @@ MFXDynamicLabel::reformatLineBreaks(int width) {
             pos = subPos + 1;
             continue;
         }
+        if (myIndent > 0 && msg.substr(pos, myIndent) == myIndentString) {
+            pos += myIndent;
+        }
         // select position for next line break
         int endPos = (nextLineBreak != std::string::npos) ? nextLineBreak - 1 : finalPos;
         int nextSpace = -1;
@@ -123,7 +126,10 @@ MFXDynamicLabel::reformatLineBreaks(int width) {
         int pos2 = pos;
         while (pos2 < endPos) {
             nextSpace = msg.find(' ', pos2);
-            if (nextSpace != std::string::npos) {
+            if (nextSpace <= pos + myIndent) {
+                nextSpace = std::string::npos;
+                pos2 += myIndent + 1;
+            } else if (nextSpace != std::string::npos && nextSpace < endPos) {
                 std::string testString = msg.substr(pos, nextSpace - pos);
                 if (getApp()->getNormalFont()->getTextWidth(msg.substr(pos, nextSpace - pos).c_str()) > preferredWidth) {
                     if (lastSpacePos > 0) {
@@ -151,8 +157,6 @@ MFXDynamicLabel::reformatLineBreaks(int width) {
         }
         pos = pos2;
     }
-
-
     label = msg.c_str();
 }
 
