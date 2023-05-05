@@ -1,2 +1,5 @@
 # duplicated person when stopping after access stage
 ticket13108
+
+# crash after rerouting
+ticket13190
