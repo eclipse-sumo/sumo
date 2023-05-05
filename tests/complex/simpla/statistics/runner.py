@@ -54,6 +54,8 @@ while traci.simulation.getMinExpectedNumber() > 0:
             print("\tsimpla platoon average speed: %.2f" % simpla.getAveragePlatoonSpeed())
             platoonInfo = simpla.getPlatoonInfo(platoonID)
             print("\tsimpla platoon info ID %d: %s" % (platoonID, str(platoonInfo)))
+            confirmedPlatoonID = simpla.getPlatoonID(platoonInfo["members"][0])
+            print("\tsimpla platoon of vehicle %s: %d" % (platoonInfo["members"][0], confirmedPlatoonID))
     traci.simulationStep()
     step += 1
 
