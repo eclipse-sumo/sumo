@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-05 13:10+0000\n"
+"PO-Revision-Date: 2023-05-06 07:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1259,34 +1259,38 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:172
 msgid "Changing a vehicle ID is not permitted"
-msgstr ""
+msgstr "Non è permesso di cambiare il codice identificativo di un veicolo"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:289
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
 msgstr ""
+"Il veicolo '%' non ha diritto di accedere a nessuna delle corsie dell'arco "
+"'%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:317
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
 msgstr ""
+"Il veicolo '%' non dispone di un itinerario valido tra l'arco '%' e l'arco "
+"'%' dove fermarsi."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:361
 #, c-format
 msgid "Vehicle '%' has no valid route."
-msgstr ""
+msgstr "Il veicolo '%' non dispone di un itinerario valido."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:363
 msgid "Removing vehicle '%' which has no valid route."
-msgstr ""
+msgstr "Il veicolo '%' viene rimosso per causa dell'itinerario invalido."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:377
 #, c-format
 msgid "No route for vehicle '%' found."
-msgstr ""
+msgstr "Non è stato trovato nessun'itinerario per il veicolo '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:447
 #, c-format
 msgid "current edge '%' not found in new route"
-msgstr ""
+msgstr "l'arco attuale '%' non è presente nell'itinerario nuovo"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:460
 msgid "Vehicle is on junction-internal edge leading elsewhere"
