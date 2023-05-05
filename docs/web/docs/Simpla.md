@@ -203,6 +203,16 @@ The function getPlatoonInfo returns a dictionary of values regarding the platoon
 | **laneID**        | string         | The ID of the lane the leader vehicle is currently on.                              |
 | **members**       | list(string)   | The IDs of the vehicles in the platoon.                                             |
 
+## getPlatoonID()
+This utility function allows to check if a given vehicle is part of a platoon in simpla. If the vehicle given by its ID is controlled by 
+simpla, the function returns the numerical platoon ID (-1 otherwise). The platoon ID can be used as an input to getPlatoonInfo to 
+get information about the platoon structure.
+```python
+vehID = "myExampleVehicle"
+platoonID = simpla.getPlatoonID(vehID)
+```
+
+
 # Example
 
 An example can be downloaded [from the nightly test suite](https://sumo.dlr.de/extractTest.php?path=complex/simpla/basic)
