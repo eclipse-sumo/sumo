@@ -509,9 +509,8 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     // Create information label
     std::ostringstream information;
     information
-            << TL("- Toggle Membership:") << "\n"
-            << TL("  Create new Sources/Sinks") << "\n"
-            << TL("  with given weights.");
+            << std::string("- ") << TL("Toggle Membership:") << "\n"
+            << std::string("  ") << TL("Create new Sources/Sinks with given weights.");
     myInformationLabel = new MFXDynamicLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // always show
     show();
@@ -644,9 +643,8 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             // update information label
             std::ostringstream information;
             information
-                    << TL("- Toggle Membership:") << "\n"
-                    << TL("  Create new Sources/Sinks") << "\n"
-                    << TL("  with given weights.");
+                    << std::string("- ") << TL("Toggle Membership:") << "\n"
+                    << std::string("  ") << TL("Create new Sources/Sinks with given weights.");
             myInformationLabel->setText(information.str().c_str());
             // hide TAZSelectionStatistics
             myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModule();
@@ -667,10 +665,8 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             // update information label
             std::ostringstream information;
             information
-                    << TL("- Keep Membership:") << "\n"
-                    << TL("  Select Sources/Sinks.") << "\n"
-                    << TL("- Press ESC to clear") << "\n"
-                    << TL("  current selection.");
+                    << std::string("- ") << TL("Keep Membership:") << TL("  Select Sources/Sinks.") << "\n"
+                    << std::string("- ") << TL("Press ESC to clear the current selection.");
             myInformationLabel->setText(information.str().c_str());
             // show TAZSelectionStatistics
             myTAZFrameParent->myTAZSelectionStatistics->showTAZSelectionStatisticsModule();

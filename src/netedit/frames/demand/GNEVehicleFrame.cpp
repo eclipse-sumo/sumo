@@ -21,11 +21,10 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
-
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include "GNEVehicleFrame.h"
 
 // ===========================================================================

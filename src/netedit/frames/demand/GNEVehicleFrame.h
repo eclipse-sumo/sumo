@@ -26,7 +26,7 @@
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEPathLegendModule.h>
-
+class MFXDynamicLabel;
 
 // ===========================================================================
 // class definitions
@@ -65,7 +65,7 @@ public:
         GNEVehicleFrame* myVehicleFrameParent;
 
         /// @brief Label with creation information
-        FXLabel* myInformationLabel;
+        MFXDynamicLabel* myInformationLabel;
     };
 
     /**@brief Constructor
