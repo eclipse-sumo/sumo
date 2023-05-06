@@ -8,160 +8,172 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2022-10-12 11:05+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-05-06 21:49+0000\n"
+"Last-Translator: ovari <ovari123@zoho.com>\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
-msgstr ""
+msgstr "Bemenet olvasása"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:54
 msgid "Consolidating statistics"
-msgstr ""
+msgstr "Statisztikák összevonása"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:58
 msgid "Building street representation"
-msgstr ""
+msgstr "Utcaábrázolás építése"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:62
 msgid "Generating work positions"
-msgstr ""
+msgstr "Munkahelyi pozíciók létrehozása"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:66
 msgid "Building bus lines"
-msgstr ""
+msgstr "Buszvonalak építése"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:71
 msgid "Generating population"
-msgstr ""
+msgstr "Népesség létrehozása"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:75
 msgid "Allocating schools"
-msgstr ""
+msgstr "Iskolák kiosztása"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:79
 msgid "Allocating work places"
-msgstr ""
+msgstr "Munkahelyek kiosztása"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:83
 msgid "Allocating car places"
-msgstr ""
+msgstr "Autóhelyek kiosztása"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGenHandler.cpp:178
 #, c-format
 msgid "Edge '%' is not known."
-msgstr ""
+msgstr "A(z) „%” éle ismeretlen."
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGenHandler.cpp:329
 msgid "Unknown bus station '%'."
-msgstr ""
+msgstr "A(z) „%” buszállomás ismeretlen."
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:61
 msgid "Use FILE as SUMO-network to create trips for"
 msgstr ""
+"Használja a FILE parancsot SUMO-hálózatként az alábbi utak létrehozásához:"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:64
 msgid "Loads the SUMO-statistics FILE"
-msgstr ""
+msgstr "Betölti a SUMO-statistics FILE-fájlt"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:72
 msgid "Write generated trips to FILE"
-msgstr ""
+msgstr "Létrehozott utazások írása a FILE-fájlba"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:81
 msgid ""
 "Sets the time of beginning of the simulation during the first day (in "
 "seconds)"
 msgstr ""
+"Beállítja a szimuláció kezdetének időpontját az első napon (másodpercben)"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:84
 msgid ""
 "Sets the time of ending of the simulation during the last day (in seconds)"
 msgstr ""
+"Beállítja a szimuláció befejezésének időpontját az utolsó napon "
+"(másodpercben)"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:87
 msgid "Sets the duration of the simulation in days"
-msgstr ""
+msgstr "Beállítja a szimuláció időtartamát (napokban)"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:64
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:111
 msgid "Missing definition of network to load!"
-msgstr ""
+msgstr "Hiányzik a betöltendő hálózat meghatározása!"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:67
 #, c-format
 msgid "The network file '%' could not be accessed."
-msgstr ""
+msgstr "A(z) „%” hálózati fájl nem érhető el."
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:69
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:116
 msgid "Loading net"
-msgstr ""
+msgstr "Hálózat betöltése"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:79
 #: /home/micha/programming/sumo/src/netload/NLEdgeControlBuilder.cpp:227
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:133
 #, c-format
 msgid "Deprecated vehicle classes '%' in input network."
-msgstr ""
+msgstr "A(z) „%” elavult járműosztályokat a bemeneti hálózatban."
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:89
 msgid ""
 "Generates trips of persons throughout a day for the microscopic, multi-modal "
 "traffic simulation SUMO."
 msgstr ""
+"Napi utazások létrehozása a mikroszkopikus, multimodális SUMO közlekedési "
+"szimulációhoz."
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:113
 #, c-format
 msgid "Loaded % edges."
-msgstr ""
+msgstr "% él betöltve."
 
 #: /home/micha/programming/sumo/src/activitygen/city/AGCity.cpp:427
 msgid "No street that allows passenger vehicles found in this city."
 msgstr ""
+"Ebben a városban nem található olyan utca, ahol személygépjárművek "
+"közlekedhetnek."
 
 #: /home/micha/programming/sumo/src/activitygen/city/AGWorkPosition.cpp:126
 msgid "Work position already occupied. Cannot give it to another adult."
-msgstr ""
+msgstr "A munkahely már foglalt. Nem adhatja át másik felnőttnek."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
-msgstr ""
+msgstr "Legalább egy érték túl van a megadott időhatárokon."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetFlowLoader.cpp:104
 msgid "At least one line does not contain the correct number of columns."
-msgstr ""
+msgstr "Legalább egy sor nem a megfelelő számú oszlopot tartalmazza."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
-msgstr ""
+msgstr "Hiányzó útvonalak a(z) „%” érzékelőhöz."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetector.cpp:305
 #, c-format
 msgid "Detector '%' has no routes!?"
-msgstr ""
+msgstr "A(z) „%” érzékelőnek nincsenek útvonalai‽"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetectorHandler.cpp:86
 msgid "Could not add detector '%' (probably the id is already used)."
 msgstr ""
+"Nem sikerült hozzáadni a(z) „%” érzékelőt (valószínűleg az azonosító már "
+"használatban van)."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
-msgstr ""
+msgstr "SUMO-hálózat betöltése a FILE-fájlból"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:70
 msgid "Loads detector descriptions from FILE"
-msgstr ""
+msgstr "Érzékelőleírások betöltése a FILE-fájlból"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:75
 msgid "Loads detector flows from FILE(s)"
-msgstr ""
+msgstr "Érzékelőfolyamokat betöltése a FILE-fájl(ok)ból"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:82
 msgid "Saves computed routes to FILE"
