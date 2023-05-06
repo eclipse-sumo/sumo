@@ -291,7 +291,7 @@ class CountData:
 def inTaz(options, edge, tazID, isOrigin):
     if not hasattr(options, "tazEdges"):
         # tazID -> (originEdges, destEdges)
-        options.tazEdges = defaultdict(lambda : (set(), set()))
+        options.tazEdges = defaultdict(lambda: (set(), set()))
         for tazFile in options.tazFiles:
             for taz in sumolib.xml.parse(tazFile, 'taz'):
                 if taz.edges:
@@ -304,7 +304,7 @@ def inTaz(options, edge, tazID, isOrigin):
                     for ts in taz.tazSink:
                         options.tazEdges[taz.id][1].add(ts.id)
     result = edge in options.tazEdges[tazID][0 if isOrigin else 1]
-    #print(edge, tazID, isOrigin, options.tazEdges[tazID][0 if isOrigin else 1], result)
+    # print(edge, tazID, isOrigin, options.tazEdges[tazID][0 if isOrigin else 1], result)
     return result
 
 
@@ -358,7 +358,6 @@ def parseTazCounts(interval, attr, warn):
             yield tazs, value
     elif interval.edgeRelation is None and warn:
         sys.stderr.write("Warning: No tazRelations in interval from=%s to=%s\n" % (interval.begin, interval.end))
-
 
 
 def parseEdgeCounts(interval, attr, warn):
