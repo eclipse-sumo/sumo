@@ -110,8 +110,10 @@ def add_cost_constraint(data, routing, transit_callback_index, verbose):
         True,  # start cumul to zero
         dimension_name)
     distance_dimension = routing.GetDimensionOrDie(dimension_name)
-    #distance_dimension.SetGlobalSpanCostCoefficient(0)  # tries to reduce the route costs of the vehicle with maximum costs
-    #distance_dimension.SetSpanCostCoefficientForAllVehicles(0)  # tries to reduce the sum of all route costs
+    # the following tries to reduce the route costs of the vehicle with maximum costs
+    # distance_dimension.SetGlobalSpanCostCoefficient(0)
+    # the following tries to reduce the sum of all route costs
+    # distance_dimension.SetSpanCostCoefficientForAllVehicles(0)
     return distance_dimension
 
 
@@ -161,20 +163,21 @@ def add_direct_route_factor_constraint(data, routing, manager, solver, distance_
             delivery_index = manager.NodeToIndex(request.to_node)
             route_cost = (distance_dimension.CumulVar(delivery_index) +  # cost from veh start to dropoff node
                           solver.IntConst(round(request.current_route_cost)))  # cost from pickup to veh start
-            max_cost = solver.Max(route_cost, direct_route_cost_drf)
-            #objective_to_minimize = solver.Minimize(max_cost, 10)
-            #objective_to_minimize.EnterSearch()
-            #solver.Add(max_cost <= objective_to_minimize)
-            #routing.AddVariableMinimizedByFinalizer(max_cost.Var())
-            #solver.Add(
+            # max_cost = solver.Max(route_cost, direct_route_cost_drf)
+            # objective_to_minimize = solver.Minimize(max_cost, 10)
+            # objective_to_minimize.EnterSearch()
+            # solver.Add(max_cost <= objective_to_minimize)
+            # routing.AddVariableMinimizedByFinalizer(max_cost.Var())
+            # solver.Add(
             #    route_cost <=  # route cost
             #    direct_route_cost_drf  # direct route cost times direct route factor
-            #)
-            #routing_dimension = routing.GetDimensionOrDie('Costs')
-            distance_dimension.SetCumulVarSoftUpperBound(delivery_index, round(direct_route_cost * data['drf'] - request.current_route_cost), 10)
+            # )
+            # routing_dimension = routing.GetDimensionOrDie('Costs')
+            distance_dimension.SetCumulVarSoftUpperBound(delivery_index, round(
+                direct_route_cost * data['drf'] - request.current_route_cost), 10)
             if verbose:
-                print('reservation %s with max cost %s, already used costs %s, possible route costs %s' % (
-                    request.id, direct_route_cost_drf.Value(), request.current_route_cost, route_cost))
+                print('reservation %s with max cost %s, already used costs %s, possible route costs %s' %
+                      (request.id, direct_route_cost_drf.Value(), request.current_route_cost, route_cost))
 
 
 def add_dropoff_constraint(data, routing, manager, verbose):
@@ -193,7 +196,8 @@ def add_dropoff_constraint(data, routing, manager, verbose):
     #        routing.SetAllowedVehiclesForIndex([veh_index],index)
     for res in data['dropoffs']:
         if verbose:
-            print('reservation %s in veh %s(%s), droppoff node: %s' % (res.id, res.vehicle, res.vehicle_index, res.to_node))
+            print('reservation %s in veh %s(%s), droppoff node: %s' %
+                  (res.id, res.vehicle, res.vehicle_index, res.to_node))
         index = manager.NodeToIndex(res.to_node)
         routing.SetAllowedVehiclesForIndex([res.vehicle_index], index)
 
@@ -297,7 +301,8 @@ def solve_from_initial_solution(routing, manager, search_parameters, data, verbo
                 if old_status == 2 and new_status == 1:
                     # remove first occurance of the request
                     request_order.remove(request_id)
-            # translate new requests order (ids) to nodes order (e.g. [0,1,2,1,2] -> [0.to_node, 1.from_node, 2.from_node, 1.to_node, 2.to_node])
+            # translate new requests order (ids) to nodes order
+            # (e.g. [0,1,2,1,2] -> [0.to_node, 1.from_node, 2.from_node, 1.to_node, 2.to_node])
             request_id_set = set(request_order)  # e.g. [0,1,2]
             # first occurance from behind (will be "to_node")
             reverserd_request_order = request_order.copy()
@@ -309,10 +314,10 @@ def solve_from_initial_solution(routing, manager, search_parameters, data, verbo
             for index, req_id in enumerate(reverserd_request_order):
                 req = [r for r in all_requests if r.id == req_id][0]
                 if index in first_occurance_from_behind:
-                    nodes_order.insert(0,manager.NodeToIndex(req.to_node))
+                    nodes_order.insert(0, manager.NodeToIndex(req.to_node))
                 else:
-                    nodes_order.insert(0,manager.NodeToIndex(req.from_node))
-            #nodes_order = solution_requests[index_vehicle][2]  # [2] for nodes
+                    nodes_order.insert(0, manager.NodeToIndex(req.from_node))
+            # nodes_order = solution_requests[index_vehicle][2]  # [2] for nodes
             inital_solution.append(nodes_order)
     routing.CloseModelWithParameters(search_parameters)
     if verbose:
@@ -328,9 +333,9 @@ def set_first_solution_heuristic(time_limit_seconds, verbose):
     if verbose:
         print(' Set solution heuristic...')
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
-    search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.PATH_MOST_CONSTRAINED_ARC)
-    #search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC)
-    #search_parameters.local_search_metaheuristic = (routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH)
+    search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_MOST_CONSTRAINED_ARC
+    # search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
+    # search_parameters.local_search_metaheuristic = routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
     search_parameters.time_limit.FromSeconds(time_limit_seconds)
     return search_parameters
 
@@ -370,7 +375,7 @@ def main(data, time_limit_seconds=10, verbose=False):
 
     # Add time window constraints.
     add_time_windows_constraint(data, routing, manager, verbose)
-    
+
     print('## Done')
     # Setting first solution heuristic.
     search_parameters = set_first_solution_heuristic(time_limit_seconds, verbose)
@@ -378,12 +383,12 @@ def main(data, time_limit_seconds=10, verbose=False):
     # Solve the problem.
     if verbose:
         print('Start solving the problem.')
-    if data['initial_routes']:  # TODO: change ids of the nodes, due to already picked up or droped off requests after last solution!!!
+    if data['initial_routes']:
+        # TODO: change ids of the nodes, due to already picked up or droped off requests after last solution!
         solution = solve_from_initial_solution(routing, manager, search_parameters, data, verbose)
     else:
         solution = routing.SolveWithParameters(search_parameters)
 #    solution = routing.SolveWithParameters(search_parameters)
-
 
     if solution:
         return get_solution(data, manager, routing, solution, verbose)
