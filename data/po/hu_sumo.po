@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-06 21:49+0000\n"
+"PO-Revision-Date: 2023-05-07 17:24+0000\n"
 "Last-Translator: ovari <ovari123@zoho.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/hu/>\n"
@@ -177,126 +177,141 @@ msgstr "Érzékelőfolyamokat betöltése a FILE-fájl(ok)ból"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:82
 msgid "Saves computed routes to FILE"
-msgstr ""
+msgstr "Számított útvonalak mentése FILE-fájlba"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:85
 msgid "Forces dfrouter to compute routes for in-between detectors"
 msgstr ""
+"A dfrouter funkció kényszerítése a érzékelők közötti útvonalak kiszámításához"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:89
 msgid "Saves typed detectors to FILE"
-msgstr ""
+msgstr "Beírt érzékelők mentése FILE-fájlba"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:92
 msgid "Saves detector positions as pois to FILE"
-msgstr ""
+msgstr "Érzékelőhelyek mentése fontos helyekként a FILE-fájlban"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
-msgstr ""
+msgstr "Vezérlődefiníció mentése a forrásérzékelőhöz a FILE-fájlba"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:98
 msgid "Add vehicle types to the emitters file (PKW, LKW)"
-msgstr ""
+msgstr "Járműtípusok hozzáadása a kibocsátó fájlhoz (PKW, LKW)"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:101
 msgid ""
 "Write generated vehicle types into separate FILE instead of including them "
 "into the emitters-output"
 msgstr ""
+"Létrehozott járműtípusok mentése külön FILE-fájlokba, ahelyett, hogy azokat "
+"a kibocsátó-kimenetbe foglalná"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:104
 msgid "Saves emitter positions as pois to FILE"
-msgstr ""
+msgstr "Kibocsátóhelyeket mentése fontos helyekként a FILE-fájlba"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:108
 msgid "Saves variable seed sign definitions for sink detectors to FILE"
-msgstr ""
+msgstr "Menti a változó magjel-definíciókat a fogadóérzékelőkhöz a FILE-fájlba"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:111
 msgid "Saves rerouter definitions for sink detectors to FILE"
-msgstr ""
+msgstr "Újraútválasztó-definíciós mentése fogadóvezérlőkhöz a FILE-fájlba"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:114
 msgid ""
 "Write induction loop definitions for the given detector positions to FILE"
 msgstr ""
+"Írja be az indukciós ismétlés definíciókat az adott vezérlőhelyekhez a FILE-"
+"fájlba"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:117
 msgid "Add source detectors to the validation output"
-msgstr ""
+msgstr "Forrásészlelők hozzáadása az érvényesítési kimenethez"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:123
 msgid "Derive missing flow values from upstream or downstream (not working!)"
 msgstr ""
+"Hiányzó folyamatértékek származtatása felfelé irányuló vagy lefelé irányuló "
+"értékekből (nem működik!)"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:127
 msgid "Switches to highway-mode"
-msgstr ""
+msgstr "Átvált autópálya módba"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:131
 msgid "Only warn about unparseable detectors"
-msgstr ""
+msgstr "Csak értelmezhetetlen észlelők figyelmeztetése"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:135
 msgid "Recomputes detector types even if given"
-msgstr ""
+msgstr "Újraszámítja az észlelőtípusokat, még ha adott is"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:139
 msgid "Recomputes routes even if given"
-msgstr ""
+msgstr "Újraszámítja az útvonalakat, még ha adott is"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:143
 msgid "Keeps routes even if they have exhausted max-search-depth"
 msgstr ""
+"Útvonalak megtartása akkor is, ha kimerítette a max-search-depth (legfeljebb "
+"keresési mélységet)"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:146
 msgid "Keeps routes even if a shorter one exists"
-msgstr ""
+msgstr "Útvonalak megtartása akkor is, ha van egy rövidebb útvonal"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:150
 msgid "Number of edges to follow a route without passing a detector"
 msgstr ""
+"Azok az élek száma, amelyeken egy útvonalat kell követni anélkül, hogy egy "
+"érzékelőt elhaladnának"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:153
 msgid "Writes only emission times"
-msgstr ""
+msgstr "Csak a kibocsátási idők írása"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:156
 msgid "Do not route on these edges"
-msgstr ""
+msgstr "Ne közlekedjen ezeken az éleken"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:159
 msgid "Only route on edges allowing the given vclass"
-msgstr ""
+msgstr "Csak az adott vclass-járműosztályt megengedő éleken közlekedjen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:162
 msgid "Allow turnarounds as route continuations"
-msgstr ""
+msgstr "Megfordulások engedélyezése az útvonal folytatásaként"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:167
 msgid "Minimum distance in meters between start and end node of every route"
 msgstr ""
+"A legkisebb távolság minden útvonal kezdő és végpontja között (méterben)"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:170
 msgid "generate random departure times for emitted vehicles"
 msgstr ""
+"Véletlenszerű indulási időpontok létrehozása a kibocsátott járművek számára"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:174
 msgid "Multiply flow times with TIME to get seconds"
 msgstr ""
+"Szorozza meg a folyamatot a TIME értékkel, hogy megkapja az értéket "
+"(másodpercben)"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:177
 msgid "Subtracts TIME seconds from (scaled) flow times"
-msgstr ""
+msgstr "Kivonja a TIME másodpercet a (méretezett) folyamati időkből"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:180
 msgid "Expected distance between two successive data sets"
-msgstr ""
+msgstr "Várható távolság két egymást követő adatkészlet között"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:185
 msgid "Write calibrators to FILE"
-msgstr ""
+msgstr "Kalibrátorok írjása a FILE-fájlba"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:188
 msgid "Include routes in the output which have no vehicles"
@@ -517,7 +532,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:162
 msgid "The emitters have no routes; use in combination with a network"
-msgstr ""
+msgstr "Kibocsátók nincsenek útvonalak; hálózattal kombinálva használható"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:193
 msgid "Rechecking loaded flows"
@@ -525,11 +540,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:198
 msgid "Writing emitters"
-msgstr ""
+msgstr "Kibocsátók mentése folyamatban van"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:210
 msgid "Writing emitter pois"
-msgstr ""
+msgstr "Kibocsátói fontos helyek mentése folyamatban van"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:217
 msgid "Writing speed triggers"
@@ -645,7 +660,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:136
 msgid "The probability of keeping the old route"
-msgstr ""
+msgstr "Régi útvonal megtartásának valószínűsége"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:139
 msgid "Route all public transport input"
@@ -1086,7 +1101,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:168
 msgid "Keep traffic flows of all time slots in the net"
-msgstr ""
+msgstr "Forgalom megtartása az összes időrés a hálózaton"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:172
 msgid "Choose a assignment method: incremental, UE or SUE"
@@ -1717,7 +1732,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:325
 msgid "Keep only the last INT periodic state files"
-msgstr ""
+msgstr "Csak az utolsó INT időszakos állapotfájl megtartása"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:327
 msgid "Prefix for network states"
@@ -4163,6 +4178,8 @@ msgid ""
 "Cannot keep destination edge '%' for vehicle '%' due to closed edges. "
 "Terminating route."
 msgstr ""
+"A(z) „%” jármű „%” céléle nem tartható meg a zárt élek miatt. Útvonal "
+"befejezése."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:604
 msgid "Invalid value '%' for vehicle parameter '%'"
