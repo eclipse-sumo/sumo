@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-02-19 15:02+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-05-07 17:24+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:292
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:295
@@ -35,11 +37,12 @@ msgstr "non disponibile"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:507
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr ""
+"Coordinata originale (prima della trasformazione di coordinate in netconvert)"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:295
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:510
 msgid "Network coordinate"
-msgstr ""
+msgstr "Coordinata di rete"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:323
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:528
@@ -82,7 +85,7 @@ msgstr "Apri Forme "
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:456
 msgid "Load POIs and Polygons for visualization."
-msgstr ""
+msgstr "Carica punti di interesse e poligoni per la visualizazzione."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:459
 msgid "Open EdgeData "
@@ -362,7 +365,7 @@ msgstr "Esegue / ferma la simulazione."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:575
 msgctxt "Simulation"
 msgid "Stop"
-msgstr ""
+msgstr "Ferma"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:575
 msgid "Halt the simulation."
@@ -421,7 +424,7 @@ msgstr "Carica"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:588
 msgid "Load simulation state for the current network from file."
-msgstr ""
+msgstr "Carica lo stato di simulazione per la rete attuale da file."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:592
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1458
@@ -532,7 +535,7 @@ msgstr "Va al Changelog."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:651
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2120
 msgid "&Hotkeys"
-msgstr ""
+msgstr "&Scorciatoie"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:651
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2120
@@ -835,44 +838,44 @@ msgstr ""
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:233
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:505
 msgid "Junction Chooser"
-msgstr ""
+msgstr "Selezione di incroci"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:237
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:513
 msgid "Edge Chooser"
-msgstr ""
+msgstr "Selezione di archi"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:241
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:529
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:87
 msgid "Vehicle Chooser"
-msgstr ""
+msgstr "Selezione di veicoli"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:245
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:576
 msgid "Person Chooser"
-msgstr ""
+msgstr "Selezione di persone"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:249
 msgid "Container Chooser"
-msgstr ""
+msgstr "Selezione di contenitori"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:253
 msgid "Traffic Lights Chooser"
-msgstr ""
+msgstr "Selezione di semafori"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:257
 msgid "Additional Objects Chooser"
-msgstr ""
+msgstr "Selezione di oggetto addizionali"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:261
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:655
 msgid "POI Chooser"
-msgstr ""
+msgstr "Selezione di punti di interesse"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:265
 msgid "Polygon Chooser"
-msgstr ""
+msgstr "Selezione di poligoni"
 
 #: /home/micha/programming/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:269
 msgid "phase names"
@@ -897,7 +900,7 @@ msgstr "Localizza incroci"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:114
 msgid "Locate a junction within the network."
-msgstr ""
+msgstr "Localizza un'incrocio nella rete."
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:119
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:336
@@ -906,7 +909,7 @@ msgstr "Localizza archi"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:119
 msgid "Locate an edge within the network."
-msgstr ""
+msgstr "Localizza un'arco nella rete."
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:124
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:344
@@ -915,7 +918,7 @@ msgstr "Localizza veicoli"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:124
 msgid "Locate a vehicle within the network."
-msgstr ""
+msgstr "Localizza un veicolo nella rete."
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:129
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:348
@@ -924,15 +927,15 @@ msgstr "Localizza persone"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:129
 msgid "Locate a person within the network."
-msgstr ""
+msgstr "Localizza una persona nella rete."
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:134
 msgid "Locate Container"
-msgstr ""
+msgstr "Localizza contenitori"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:134
 msgid "Locate a container within the network."
-msgstr ""
+msgstr "Localizza un contenitore nella rete."
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:139
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:367
@@ -941,7 +944,7 @@ msgstr "Localizza semafori"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:139
 msgid "Locate a tls within the network."
-msgstr ""
+msgstr "Localizza un semaforo nella rete."
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:144
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:371
@@ -950,7 +953,7 @@ msgstr "Localizza strutture addizionali"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:144
 msgid "Locate an additional structure within the network."
-msgstr ""
+msgstr "Localizza una struttura addizionale nella rete."
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:149
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:375
@@ -959,7 +962,7 @@ msgstr "Localizza punti di interesse"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:149
 msgid "Locate a PoI within the network."
-msgstr ""
+msgstr "Localizza un punto di interesse nella rete."
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:154
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:379
@@ -968,7 +971,7 @@ msgstr "Localizza un poligono"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:154
 msgid "Locate a Polygon within the network."
-msgstr ""
+msgstr "Localizza un poligono nella rete."
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AboutSUMO.cpp:69
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Feedback.cpp:58
@@ -1036,7 +1039,7 @@ msgstr "&Cancella"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:69
 msgid "Breakpoints Editor"
-msgstr ""
+msgstr "Editor di punti di interruzione"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:89
 msgid "&Load"
@@ -2142,7 +2145,7 @@ msgstr "Crea tipi (di veicoli, di persone e di contenitori)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:682
 msgid "Stop"
-msgstr "Ferma"
+msgstr "Fermata"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:682
 msgid "Create stops."
