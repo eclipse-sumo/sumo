@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-06 07:16+0000\n"
+"PO-Revision-Date: 2023-05-07 17:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8759,7 +8759,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:996
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:997
 msgid "N/A"
-msgstr ""
+msgstr "non disponibile"
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:107
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:208
