@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_16_0+0875-d196e53626f
+Eclipse SUMO netconvert Version v1_17_0+0123-4dbdc7a
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -152,6 +152,9 @@ Processing Options:
   --geometry.remove.width-tolerance FLOAT  Allow merging edges with differing
                                         lane widths if the difference is below
                                         FLOAT
+  --geometry.remove.max-junction-size FLOAT  Prevent removal of junctions with
+                                        a size above FLOAT as defined by custom
+                                        edge endpoints
   --geometry.max-segment-length FLOAT  splits geometry to restrict segment
                                         length
   --geometry.min-dist FLOAT            reduces too similar geometry points

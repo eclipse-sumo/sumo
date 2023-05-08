@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-02 07:43:39 by Eclipse SUMO netconvert Version v1_16_0+0875-d196e53626f
+<!-- generated on 2023-05-08 09:58:11 by Eclipse SUMO netconvert Version v1_17_0+0123-4dbdc7a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -251,6 +251,9 @@
 
         <!-- Allow merging edges with differing lane widths if the difference is below FLOAT -->
         <geometry.remove.width-tolerance value="0" type="FLOAT"/>
+
+        <!-- Prevent removal of junctions with a size above FLOAT as defined by custom edge endpoints -->
+        <geometry.remove.max-junction-size value="-1" type="FLOAT"/>
 
         <!-- splits geometry to restrict segment length -->
         <geometry.max-segment-length value="0" type="FLOAT"/>
