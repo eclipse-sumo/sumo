@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-08 13:57:28.700457 by gtfs2pt.py v1_17_0+0150-25dcd21ac22
+<!-- generated on 2023-05-08 15:49:25.352722 by gtfs2pt.py v1_17_0+0162-725613c0fd4
 <configuration>
     <gtfs value="gtfs.zip"/>
     <date value="20201111"/>
@@ -24,13 +24,13 @@
         <stop busStop="132189814.7" duration="10" until="540"/>
     </route>
     <route id="132190299" edges="-198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 8618349#0 8618349#3 319389908#0 31016344#0 316781879#0 8618348 316785565 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2">
-        <stop busStop="132190299.0" duration="10" until="0"/>
-        <stop busStop="132190299.1" duration="10" until="60"/>
-        <stop busStop="132190299.2" duration="10" until="120"/>
-        <stop busStop="132190299.3" duration="10" until="180"/>
-        <stop busStop="132190299.4" duration="10" until="300"/>
-        <stop busStop="132190299.5" duration="10" until="360"/>
-        <stop busStop="132190299.6" duration="10" until="420"/>
+        <stop busStop="132189814.1" duration="10" until="0"/>
+        <stop busStop="132189814.2" duration="10" until="60"/>
+        <stop busStop="132189814.3" duration="10" until="120"/>
+        <stop busStop="132189814.4" duration="10" until="180"/>
+        <stop busStop="132189814.5" duration="10" until="300"/>
+        <stop busStop="132189814.6" duration="10" until="360"/>
+        <stop busStop="132189814.7" duration="10" until="420"/>
     </route>
     <vehicle id="132189814.0" route="132189814" type="bus" depart="36890" line="132189814">
         <param key="gtfs.route_name" value="413"/>
