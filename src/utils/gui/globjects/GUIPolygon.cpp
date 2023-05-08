@@ -118,12 +118,11 @@ TesselatedPolygon::drawTesselation(const PositionVector& shape) const {
     if (myTesselation.empty()) {
         myCurrentTesselated = this;
         // draw the tesselated shape
-        size_t shapeSize = shape.size() * 3;
-        size_t holesSize = 0;
-        for (PositionVector hole : myHoles) {
-            holesSize += hole.size() * 3;
+        size_t numPoints = shape.size() * 3;
+        for (const PositionVector& hole : myHoles) {
+            numPoints += hole.size() * 3;
         }
-        double* points = new double[shapeSize + holesSize];
+        double* points = new double[numPoints];
         GLUtesselator* tobj = gluNewTess();
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -154,7 +153,7 @@ TesselatedPolygon::drawTesselation(const PositionVector& shape) const {
             gluTessVertex(tobj, points + 3 * i, points + 3 * i);
         }
         gluTessEndContour(tobj);
-        size_t startIndex = shapeSize;
+        size_t startIndex = shape.size() * 3;
         for (size_t j = 0; j < myHoles.size(); j++) {
             PositionVector hole = myHoles[j];
             gluTessBeginContour(tobj);
