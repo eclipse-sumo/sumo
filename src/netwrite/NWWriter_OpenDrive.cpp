@@ -127,20 +127,24 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (auto it = nc.begin(); it != nc.end(); ++it) {
         NBNode* n = it->second;
         auto crosswalks = n->getCrossings();
-        for (size_t i = 0; i < crosswalks.size(); i++) {
+        for (const auto& cw : n->getCrossings()) {
             // getting from crosswalk line to a full shape
-            crosswalk_shape = crosswalks[i]->shape;
-            auto additionalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[0], true, false, crosswalks[i]->width);
-            auto finalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[1], true, false, crosswalks[i]->width);
+            crosswalk_shape = cw->shape;
+            auto additionalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[0], true, false, cw->width);
+            auto finalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[1], true, false, cw->width);
             crosswalk_shape.push_back(finalCorner[1]);
             crosswalk_shape.push_back(additionalCorner[1]);
 
-            auto crosswalkId = crosswalks[i]->id;
+            auto crosswalkId = cw->id;
             //std::cout << crosswalkId << "=" << crosswalk_shape << "\n";
             nb.getShapeCont().addPolygon(crosswalkId, "crosswalk", RGBColor::DEFAULT_COLOR, 0,
                                          Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH,
                                          crosswalk_shape, false, true, 1, false, crosswalkId);
-            crosswalksByEdge[crosswalks[i]->edges[0]->getID()].push_back(crosswalkId);
+            SUMOPolygon* cwp = nb.getShapeCont().getPolygons().get(crosswalkId);
+            cwp->setParameter("length", toString(cw->width));
+            cwp->setParameter("width", toString(cw->shape.length2D()));
+            cwp->setParameter("hdg", "0");
+            crosswalksByEdge[cw->edges[0]->getID()].push_back(crosswalkId);
         }
     }
 
@@ -1370,7 +1374,23 @@ NWWriter_OpenDrive::writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, c
     }
     device.writeAttr("s", edgeOffset);
     device.writeAttr("t", shapeType == "crosswalk" && !lefthand ? 0 : sideOffset);
-    device.writeAttr("hdg", -edgeAngle);
+    double hdg = -edgeAngle;
+    if (p->knowsParameter("hdg")) {
+        try {
+            hdg = StringUtils::toDoubleSecure(p->getParameter("hdg", ""), 0);
+        } catch (NumberFormatException&) {}
+    }
+    device.writeAttr("hdg", hdg);
+    if (p->knowsParameter("length")) {
+        try {
+            device.writeAttr("length", StringUtils::toDoubleSecure(p->getParameter("length", ""), 0));
+        } catch (NumberFormatException&) {}
+    }
+    if (p->knowsParameter("width")) {
+        try {
+            device.writeAttr("width", StringUtils::toDoubleSecure(p->getParameter("width", ""), 0));
+        } catch (NumberFormatException&) {}
+    }
     double height = 0;
     if (p->knowsParameter("height")) {
         try {
@@ -1387,6 +1407,9 @@ NWWriter_OpenDrive::writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, c
     device.writeAttr("laneType", "border");
 
     shape.sub(center);
+    if (hdg != -edgeAngle) {
+        shape.rotate2D(-edgeAngle - hdg);
+    }
     int i = 0;
     for (Position pos : shape) {
         device.openTag("cornerLocal");
