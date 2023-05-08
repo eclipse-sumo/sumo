@@ -136,6 +136,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             crosswalk_shape.push_back(additionalCorner[1]);
 
             auto crosswalkId = crosswalks[i]->id;
+            //std::cout << crosswalkId << "=" << crosswalk_shape << "\n";
             nb.getShapeCont().addPolygon(crosswalkId, "crosswalk", RGBColor::DEFAULT_COLOR, 0,
                                          Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH,
                                          crosswalk_shape, false, true, 1, false, crosswalkId);
@@ -1364,11 +1365,19 @@ NWWriter_OpenDrive::writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, c
     device.openTag("object");
     device.writeAttr("id", p->getID());
     device.writeAttr("type", shapeType);
-    device.writeAttr("name", StringUtils::escapeXML(p->getParameter("name", ""), true));
+    if (p->knowsParameter("name")) {
+        device.writeAttr("name", StringUtils::escapeXML(p->getParameter("name", ""), true));
+    }
     device.writeAttr("s", edgeOffset);
     device.writeAttr("t", shapeType == "crosswalk" && !lefthand ? 0 : sideOffset);
     device.writeAttr("hdg", -edgeAngle);
-
+    double height = 0;
+    if (p->knowsParameter("height")) {
+        try {
+            height = StringUtils::toDoubleSecure(p->getParameter("height", ""), 0);
+            device.writeAttr("height", height);
+        } catch (NumberFormatException&) {}
+    }
     //device.openTag("outlines");
     device.openTag("outline");
     device.writeAttr("id", 0);
@@ -1376,11 +1385,6 @@ NWWriter_OpenDrive::writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, c
     device.writeAttr("outer", "true");
     device.writeAttr("closed", p->getShape().isClosed() ? "true" : "false");
     device.writeAttr("laneType", "border");
-
-    double height = 0;
-    try {
-        height = StringUtils::toDoubleSecure(p->getParameter("height", ""), 0);
-    } catch (NumberFormatException&) {}
 
     shape.sub(center);
     int i = 0;
