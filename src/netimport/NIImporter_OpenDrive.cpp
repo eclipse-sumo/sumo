@@ -619,12 +619,16 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             sB = sE;
             sFrom = sTo;
         }
-        // optionally write road objects
         if (oc.isSet("polygon-output")) {
             writeRoadObjects(e);
         }
         if (!lanesBuilt) {
             WRITE_WARNINGF(TL("Edge '%' has no lanes."), e->id);
+        }
+    }
+    if (oc.isSet("polygon-output")) {
+        for (auto item : innerEdges) {
+            writeRoadObjects(item.second);
         }
     }
 
