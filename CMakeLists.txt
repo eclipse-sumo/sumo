@@ -94,6 +94,10 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set (CLANG_COMPILER True)
 endif ()
 
+# C++14 is needed by Google Test >= 1.13, for all the other parts C++11 should be enough.
+# This will silently fall back to C++11 if 14 is not supported by the compiler.
+set(CMAKE_CXX_STANDARD 14)
+
 # compiler specific flags
 if (GNU_COMPILER OR CLANG_COMPILER)
     # set flags for clang in windows
@@ -104,8 +108,8 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         set(CMAKE_CONFIGURATION_TYPES "Release")
         set(CMAKE_BUILD_TYPE "Release")
     else ()
-        #flags for clang and gcc in linux
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -Wall -pedantic -Wextra")
+        # flags for clang and gcc in linux
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -pedantic -Wextra")
     endif ()
     if (PROFILING)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
