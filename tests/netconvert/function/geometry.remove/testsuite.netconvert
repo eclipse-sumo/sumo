@@ -9,3 +9,6 @@ after_merge
 
 # handle overlapping edges running in the same direction
 overlapping_same_dir
+
+# by default, do not remove "large" geometry nodes as defined by custom edge endpoints
+custom_endpoints
