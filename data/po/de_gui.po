@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-04 20:06+0000\n"
+"PO-Revision-Date: 2023-05-08 07:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -12421,7 +12421,7 @@ msgstr "Settings akzeptieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:87
 msgid "View Settings"
-msgstr "Settings anzeigen"
+msgstr "Darstellungseinstellungen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:989
 msgid "Enter a name"
@@ -13048,11 +13048,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:161
 msgid "Edit Coloring Schemes"
-msgstr ""
+msgstr "Farbschemata bearbeiten"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:161
 msgid "Opens a menu which lets you edit the coloring schemes. (F9)"
-msgstr ""
+msgstr "Öffnet ein Menu zum Bearbeiten der Farbschemata. (F9)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Make Snapshot"
