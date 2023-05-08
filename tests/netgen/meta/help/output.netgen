@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_16_0+1706-976a597
+Eclipse SUMO netgenerate Version v1_17_0+0159-32ef28bfb10
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -175,6 +175,9 @@ Processing Options:
   --geometry.remove.width-tolerance FLOAT  Allow merging edges with differing
                                         lane widths if the difference is below
                                         FLOAT
+  --geometry.remove.max-junction-size FLOAT  Prevent removal of junctions with
+                                        a size above FLOAT as defined by custom
+                                        edge endpoints
   --geometry.max-segment-length FLOAT  splits geometry to restrict segment
                                         length
   --geometry.max-grade FLOAT           Warn about edge geometries with a grade
