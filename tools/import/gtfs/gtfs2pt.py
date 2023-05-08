@@ -212,8 +212,6 @@ def traceMap(options, typedNets, fixedStops, invEdgeMap, radius=100):
                     if fixed:
                         vias[idx] = invEdgeMap[fixed.lane[:fixed.lane.rfind("_")]]
                 mappedRoute = sumolib.route.mapTrace(trace, net, radius, fillGaps=options.fill_gaps, vias=vias)
-                if vias:
-                    print(vias, tid, mappedRoute)
                 if mappedRoute:
                     routes[tid] = [e.getID() for e in mappedRoute]
         if options.verbose:
