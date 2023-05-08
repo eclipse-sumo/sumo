@@ -319,8 +319,6 @@ private:
         double foeEstimatedConflictExitTime;
         double egoConflictAreaLength;
         double foeConflictAreaLength;
-        bool egoLeftConflict;
-        bool foeLeftConflict;
         double ttc;
         double drac;
         std::pair<double, double> pet;  // (egoConflictEntryTime, PET);
@@ -656,7 +654,7 @@ private:
     /** @brief Discriminates between different encounter types and correspondingly determines TTC and DRAC for those cases
      *         and writes the result to eInfo.ttc and eInfo.drac
      */
-    void determineTTCandDRAC(EncounterApproachInfo& eInfo) const;
+    void determineTTCandDRACandPPET(EncounterApproachInfo& eInfo) const;
 
 
     /** @brief Computes the time to collision (in seconds) for two vehicles with a given initial gap under the assumption
@@ -696,6 +694,7 @@ private:
     static std::string makeStringWithNAs(const std::vector<double>& v, const std::vector<double>& NAs);
     std::string makeStringWithNAs(const PositionVector& v);
     std::string makeStringWithNAs(const Position& p);
+    static std::string writeNA(double v, double NA = INVALID_DOUBLE);
 
     /// @name parameter load helpers (introduced for readability of buildVehicleDevices())
     /// @{
