@@ -1404,7 +1404,7 @@ MSDevice_SSM::determineTTCandDRACandPPET(EncounterApproachInfo& eInfo) const {
         if (myComputeDRAC) {
             drac = computeDRAC(eInfo);
         }
-        if (eInfo.egoEstimatedConflictEntryTime <= eInfo.foeEstimatedConflictExitTime) {
+        if (eInfo.egoEstimatedConflictEntryTime <= eInfo.foeEstimatedConflictExitTime && eInfo.egoEstimatedConflictEntryTime != INVALID_DOUBLE) {
             // follower's predicted arrival at the crossing area is earlier than the leader's predicted exit -> collision predicted
             double gap = eInfo.egoConflictEntryDist;
             if (myComputeTTC) {
@@ -1428,7 +1428,7 @@ MSDevice_SSM::determineTTCandDRACandPPET(EncounterApproachInfo& eInfo) const {
         if (myComputeDRAC) {
             drac = computeDRAC(eInfo);
         }
-        if (eInfo.foeEstimatedConflictEntryTime <= eInfo.egoEstimatedConflictExitTime) {
+        if (eInfo.foeEstimatedConflictEntryTime <= eInfo.egoEstimatedConflictExitTime && eInfo.foeEstimatedConflictEntryTime != INVALID_DOUBLE) {
             // follower's predicted arrival at the crossing area is earlier than the leader's predicted exit -> collision predicted
             double gap = eInfo.foeConflictEntryDist;
             if (myComputeTTC) {
