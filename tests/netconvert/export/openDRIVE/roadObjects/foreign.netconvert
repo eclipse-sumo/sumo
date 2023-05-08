@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-08 12:07:51 by Eclipse SUMO netconvert Version v1_17_0+0154-ec6d15c
+<!-- generated on 2023-05-08 12:21:24 by Eclipse SUMO netconvert Version v1_17_0+0156-3599970
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon May  8 12:07:51 2023" north="2335.16" south="1844.07" east="2701.86" west="2090.59">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon May  8 12:21:24 2023" north="2335.16" south="1844.07" east="2701.86" west="2090.59">
         <geoReference>
  <![CDATA[
  +proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -113,10 +113,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_21487209_3831343134_c2" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="6.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000081" v="-3.20000082" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.49999919" v="3.20000107" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000081" v="3.20000082" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.49999919" v="-3.20000107" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000081" v="-3.20000044" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="1.99999919" v="3.20000144" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000081" v="3.20000044" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-1.99999919" v="-3.20000144" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -517,10 +517,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":29219440_c2" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="6.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="3.20000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="3.20000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="3.20000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="3.20000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -588,10 +588,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":3182529377_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="8.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="4.20000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="4.20000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="4.20000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="4.20000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -646,10 +646,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="8.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="4.20000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="4.20000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="4.20000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="4.20000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -1066,10 +1066,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_3792418585_3792418767_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="6.14000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.48153355" v="-3.07501050" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.51844841" v="3.06900235" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.48153355" v="3.07501050" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.51844841" v="-3.06900235" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="1.98150647" v="-3.08402274" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.01842133" v="3.05999011" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-1.98150647" v="3.08402274" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.01842133" v="-3.05999011" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -1111,10 +1111,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_4565322441_5397577486_768038174_863119413_c1" type="crosswalk" s="64.44904409" t="0.00000000" hdg="0.00000000" length="4.00000000" width="3.20000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="-0.50000000" v="1.60000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-0.50000000" v="-1.60000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="0.50000000" v="-1.60000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="0.50000000" v="1.60000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-2.00000000" v="1.60000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-2.00000000" v="-1.60000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="2.00000000" v="-1.60000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="2.00000000" v="1.60000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -1226,10 +1226,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </object>
             <object id=":cluster_1827996511_1827996525_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="5.59000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.49935726" v="-2.79484656" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50064271" v="2.79461658" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.49935726" v="2.79484656" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50064271" v="-2.79461658" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="1.99935722" v="-2.79519152" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00064267" v="2.79427161" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-1.99935722" v="2.79519152" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00064267" v="-2.79427161" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -1293,10 +1293,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_1827996436_1827996440_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="6.00000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.49629520" v="-3.00195111" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50370404" v="3.00071685" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.49629520" v="3.00195111" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50370404" v="-3.00071685" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="1.99629405" v="-3.00380250" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00370290" v="2.99886546" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-1.99629405" v="3.00380250" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00370290" v="-2.99886546" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -1406,10 +1406,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_4565322441_5397577486_768038174_863119413_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="3.20000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-1.60000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="1.60000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="1.60000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-1.60000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-1.60000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="1.60000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="1.60000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-1.60000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -2103,10 +2103,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <object id="1827996462" type="natural.tree" name="" s="67.81504315" t="-13.20442023" hdg="0"/>
             <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c5" type="crosswalk" s="72.60777213" t="0.00000000" hdg="0.00000000" length="4.00000000" width="10.60000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="-0.49999870" v="5.30000024" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-0.50000130" v="-5.30000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="0.49999870" v="-5.30000024" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="0.50000130" v="5.30000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-1.99999870" v="5.30000061" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-2.00000130" v="-5.29999963" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="1.99999870" v="-5.30000061" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="2.00000130" v="5.29999963" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -2609,10 +2609,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c1" type="crosswalk" s="79.92651718" t="0.00000000" hdg="0.00000000" length="4.00000000" width="16.00000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="-0.49999949" v="8.00000007" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-0.50000051" v="-8.00000001" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="0.49999949" v="-8.00000007" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="0.50000051" v="8.00000001" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-1.99999949" v="8.00000017" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-2.00000051" v="-7.99999992" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="1.99999949" v="-8.00000017" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="2.00000051" v="7.99999992" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -2706,10 +2706,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c3" type="crosswalk" s="62.91622977" t="0.00000000" hdg="0.00000000" length="4.00000000" width="7.90000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="-0.49999958" v="3.95000013" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-0.50000042" v="-3.95000003" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="0.49999958" v="-3.95000013" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="0.50000042" v="3.95000003" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-1.99999958" v="3.95000029" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-2.00000042" v="-3.94999986" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="1.99999958" v="-3.95000029" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="2.00000042" v="3.94999986" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -3238,10 +3238,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c2" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="6.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="3.20000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="3.20000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="3.20000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="3.20000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -4519,10 +4519,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_21487209_3831343134_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="6.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="3.20000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="3.20000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="3.20000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="3.20000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-3.20000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -5447,10 +5447,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c4" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="7.90000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000007" v="-3.95000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.49999993" v="3.95000002" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000007" v="3.95000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.49999993" v="-3.95000002" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000007" v="-3.94999998" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="1.99999993" v="3.95000005" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000007" v="3.94999998" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-1.99999993" v="-3.95000005" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -5627,10 +5627,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":341340978_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="8.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="4.20000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="4.20000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="4.20000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="4.20000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-4.20000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -6379,10 +6379,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":29219440_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="6.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000064" v="-3.20000028" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.49999936" v="3.20000048" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000064" v="3.20000028" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.49999936" v="-3.20000048" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000064" v="-3.19999998" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="1.99999936" v="3.20000078" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000064" v="3.19999998" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-1.99999936" v="-3.20000078" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -6539,18 +6539,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":2480337678_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="7.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
             <object id=":cluster_21487209_3831343134_c3" type="crosswalk" s="4.72563156" t="0.00000000" hdg="0.00000000" length="4.00000000" width="7.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="-0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -6942,18 +6942,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":cluster_21487209_3831343134_c1" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="7.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
             <object id=":cluster_4566145593_4566145594_5747234975_768074054_c0" type="crosswalk" s="11.29432460" t="0.00000000" hdg="0.00000000" length="4.00000000" width="7.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="-0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -7014,18 +7014,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id=":29219440_c3" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="7.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
             <object id=":4566145597_c0" type="crosswalk" s="5.66396322" t="0.00000000" hdg="0.00000000" length="4.00000000" width="7.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="-0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -7331,18 +7331,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </object>
             <object id=":29219440_c1" type="crosswalk" s="9.66940593" t="0.00000000" hdg="0.00000000" length="4.00000000" width="7.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="-0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
             <object id=":cluster_4566145593_4566145594_5747234975_768074054_c1" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="7.40000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="3.70000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="3.70000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-3.70000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
@@ -7417,18 +7417,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <object id="4784564100" type="historic.memorial" name="Lutherdenkmal" s="62.45676784" t="-27.10788384" hdg="0"/>
             <object id=":1827996501_c0" type="crosswalk" s="70.62667079" t="0.00000000" hdg="0.00000000" length="4.00000000" width="9.60000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="-0.50000000" v="4.80000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-0.50000000" v="-4.80000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="0.50000000" v="-4.80000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="0.50000000" v="4.80000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-2.00000000" v="4.80000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-2.00000000" v="-4.80000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="2.00000000" v="-4.80000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="2.00000000" v="4.80000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
             <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c6" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.00000000" length="4.00000000" width="9.60000000">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="0.50000000" v="-4.80000000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="0.50000000" v="4.80000000" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-0.50000000" v="4.80000000" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.50000000" v="-4.80000000" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="2.00000000" v="-4.80000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="2.00000000" v="4.80000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-2.00000000" v="4.80000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-2.00000000" v="-4.80000000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
         </objects>
