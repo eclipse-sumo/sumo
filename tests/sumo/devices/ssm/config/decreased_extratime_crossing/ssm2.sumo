@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-01 14:34:29 by Eclipse SUMO sumo Version v1_16_0+0853-bb3bf2e
+<!-- generated on 2023-05-09 00:01:27 by Eclipse SUMO sumo Version v1_17_0+0172-8b68bee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <SSMLog>
     <conflict begin="7.30" end="10.60" ego="ego" foe="foe">
-        <minTTC time="7.40" position="98.86,49.24" type="10" value="1.43"/>
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
         <maxDRAC time="7.30" position="98.86,49.24" type="10" value="3.23"/>
         <PET time="9.66" position="98.86,49.24" type="17" value="1.01"/>
     </conflict>
