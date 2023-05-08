@@ -86,7 +86,7 @@ def _getMinPath(paths):
 
 
 def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1,
-             debug=False, direction=False, vClass=None):
+             debug=False, direction=False, vClass=None, vias=None):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
@@ -96,9 +96,16 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
     lastPos = None
     if verbose:
         print("mapping trace with %s points" % len(trace))
-    for pos in trace:
+    for idx, pos in enumerate(trace):
         newPaths = {}
-        candidates = net.getNeighboringEdges(pos[0], pos[1], delta, not net.hasInternal)
+        if vias and idx in vias:
+            if net.hasEdge(vias[idx]):
+                candidates = [(net.getEdge(vias[idx]), 0.)]
+            else:
+                print("Unknown via edge %s for %s,%s" % (vias[idx], pos[0], pos[1]))
+                candidates = []
+        else:
+            candidates = net.getNeighboringEdges(pos[0], pos[1], delta, not net.hasInternal)
         if debug:
             print("\n\npos:%s, %s" % (pos[0], pos[1]))
             print("candidates:%s\n" % candidates)
