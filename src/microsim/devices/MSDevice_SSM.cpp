@@ -76,11 +76,12 @@
 //                                 and a default threshold must be defined. A corresponding
 //                                 case should be added to the switch in buildVehicleDevices,
 //                                 and in computeSSMs(), the SSM-value should be computed.)
-#define AVAILABLE_SSMS "TTC DRAC PET BR SGAP TGAP"
+#define AVAILABLE_SSMS "TTC DRAC PET BR SGAP TGAP PPET"
 
 #define DEFAULT_THRESHOLD_TTC 3. // in [s.], events get logged if time to collision is below threshold (1.5s. is an appropriate criticality threshold according to Van der Horst, A. R. A. (1991). Time-to-collision as a Cue for Decision-making in Braking [also see Guido et al. 2011])
 #define DEFAULT_THRESHOLD_DRAC 3. // in [m/s^2], events get logged if "deceleration to avoid a crash" is above threshold (3.4s. is an appropriate criticality threshold according to American Association of State Highway and Transportation Officials (2004). A Policy on Geometric Design of Highways and Streets [also see Guido et al. 2011])
 #define DEFAULT_THRESHOLD_PET 2. // in seconds, events get logged if post encroachment time is below threshold
+#define DEFAULT_THRESHOLD_PPET 2. // in seconds, events get logged if predicted post encroachment time is below threshold
 
 #define DEFAULT_THRESHOLD_BR 0.0 // in [m/s^2], events get logged if brake rate is above threshold
 #define DEFAULT_THRESHOLD_SGAP 0.2 // in [m.], events get logged if the space headway is below threshold.
@@ -217,7 +218,7 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
 
     // custom options
     oc.doRegister("device.ssm.measures", new Option_String(""));
-    oc.addDescription("device.ssm.measures", "SSM Device", TL("Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET'))"));
+    oc.addDescription("device.ssm.measures", "SSM Device", TL("Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET'))"));
     oc.doRegister("device.ssm.thresholds", new Option_String(""));
     oc.addDescription("device.ssm.thresholds", "SSM Device", TL("Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."));
     oc.doRegister("device.ssm.trajectories",  new Option_Bool(false));
@@ -344,6 +345,7 @@ MSDevice_SSM::Encounter::Encounter(const MSVehicle* _ego, const MSVehicle* const
     minTTC(INVALID_DOUBLE, Position::INVALID, ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID_DOUBLE),
     maxDRAC(INVALID_DOUBLE, Position::INVALID, ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID_DOUBLE),
     PET(INVALID_DOUBLE, Position::INVALID, ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID_DOUBLE),
+    minPPET(INVALID_DOUBLE, Position::INVALID, ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID_DOUBLE),
     closingRequested(false) {
 #ifdef DEBUG_ENCOUNTER
     if (DEBUG_COND_ENCOUNTER(this)) {
@@ -364,7 +366,7 @@ MSDevice_SSM::Encounter::~Encounter() {
 void
 MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position egoX, std::string egoLane, double egoLanePos, Position egoV,
                              Position foeX, std::string foeLane, double foeLanePos, Position foeV,
-                             Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet) {
+                             Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet, double ppet) {
 #ifdef DEBUG_ENCOUNTER
     if (DEBUG_COND_ENCOUNTER(this))
         std::cout << time << " Adding data point for encounter of '" << egoID << "' and '" << foeID << "':\n"
@@ -412,6 +414,13 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
         PET.time = pet.first;
         PET.pos = conflictPoint;
         PET.type = PET.value <= 0 ? ENCOUNTER_TYPE_COLLISION : type;
+    }
+    PPETspan.push_back(ppet);
+    if (ppet != INVALID_DOUBLE && (ppet < minPPET.value || minPPET.value == INVALID_DOUBLE)) {
+        minPPET.value = ppet;
+        minPPET.time = time;
+        minPPET.pos = conflictPoint;
+        minPPET.type = ppet <= 0 ? ENCOUNTER_TYPE_COLLISION :  type;
     }
 }
 
@@ -732,6 +741,9 @@ MSDevice_SSM::qualifiesAsConflict(Encounter* e) {
     if (myComputeDRAC && e->maxDRAC.value != INVALID_DOUBLE && e->maxDRAC.value >= myThresholds["DRAC"]) {
         return true;
     }
+    if (myComputePPET && e->minPPET.value != INVALID_DOUBLE && e->minPPET.value <= myThresholds["PPET"]) {
+        return true;
+    }
     return false;
 }
 
@@ -878,7 +890,7 @@ MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo) {
         // Add current states to trajectories and update type
         e->add(SIMTIME, eInfo.type, e->ego->getPosition(), e->ego->getLane()->getID(), e->ego->getPositionOnLane(), e->ego->getVelocityVector(),
                e->foe->getPosition(), e->foe->getLane()->getID(), e->foe->getPositionOnLane(), e->foe->getVelocityVector(),
-               eInfo.conflictPoint, eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, eInfo.ttc, eInfo.drac, eInfo.pet);
+               eInfo.conflictPoint, eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, eInfo.ttc, eInfo.drac, eInfo.pet, eInfo.ppet);
     }
     // Keep encounter
     return true;
@@ -2810,6 +2822,23 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             myOutputFile->openTag("PET").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
     }
+    if (myComputePPET) {
+        if (mySaveTrajectories) {
+            myOutputFile->openTag("PPETSpan").writeAttr("values", makeStringWithNAs(e->PPETspan, INVALID_DOUBLE)).closeTag();
+        }
+        if (e->minPPET.time == INVALID_DOUBLE) {
+            myOutputFile->openTag("minPPET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").closeTag();
+        } else {
+            std::string time = ::toString(e->minPPET.time);
+            std::string type = ::toString(int(e->minPPET.type));
+            std::string value = ::toString(e->minPPET.value);
+            if (myUseGeoCoords) {
+                toGeo(e->minPPET.pos);
+            }
+            std::string position = makeStringWithNAs(e->minPPET.pos);
+            myOutputFile->openTag("minPPET").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
+        }
+    }
     myOutputFile->closeTag();
 }
 
@@ -2871,6 +2900,7 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myComputeTTC = myThresholds.find("TTC") != myThresholds.end();
     myComputeDRAC = myThresholds.find("DRAC") != myThresholds.end();
     myComputePET = myThresholds.find("PET") != myThresholds.end();
+    myComputePPET = myThresholds.find("PPET") != myThresholds.end();
 
     myComputeBR = myThresholds.find("BR") != myThresholds.end();
     myComputeSGAP = myThresholds.find("SGAP") != myThresholds.end();
@@ -3773,6 +3803,8 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
                 thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_DRAC));
             } else if (*i == "PET") {
                 thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_PET));
+            } else if (*i == "PPET") {
+                thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_PPET));
             } else if (*i == "BR") {
                 thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_BR));
             } else if (*i == "SGAP") {
