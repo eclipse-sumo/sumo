@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Fri, 29.04.2005
 ///
 // Variables, methods, and tools for internal time representation
@@ -65,7 +66,7 @@ string2time(const std::string& r) {
 
 
 std::string
-time2string(SUMOTime t) {
+time2string(SUMOTime t, bool humanReadable) {
     std::ostringstream oss;
     if (t < 0) {
         oss << "-";
@@ -77,7 +78,7 @@ time2string(SUMOTime t) {
         t = (t + scale / 2) / scale;
     }
     const SUMOTime second = TIME2STEPS(1) / scale;
-    if (gHumanReadableTime) {
+    if (humanReadable) {
         const SUMOTime minute = 60 * second;
         const SUMOTime hour = 60 * minute;
         const SUMOTime day = 24 * hour;
@@ -98,13 +99,21 @@ time2string(SUMOTime t) {
             oss << std::setw(MIN2(3, gPrecision));
             oss << t;
         }
-    } else {
+    }
+    else {
         oss << t / second << ".";
         oss << std::setfill('0') << std::setw(MIN2(3, gPrecision));
         oss << t % second;
     }
     return oss.str();
 }
+
+
+std::string
+time2string(SUMOTime t) {
+    return time2string(t, gHumanReadableTime);
+}
+
 
 std::string
 elapsedMs2string(long long int t) {

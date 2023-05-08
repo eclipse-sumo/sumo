@@ -2096,9 +2096,9 @@ GUIApplicationWindow::checkGamingEvents() {
         }
 
     }
-    myWaitingTimeLabel->setText(time2string(myWaitingTime).c_str());
-    myTimeLossLabel->setText(time2string(myTimeLoss).c_str());
-    myEmergencyVehicleLabel->setText(time2string(myEmergencyVehicleCount).c_str());
+    myWaitingTimeLabel->setText(time2string(myWaitingTime, myShowTimeAsHMS).c_str());
+    myTimeLossLabel->setText(time2string(myTimeLoss, myShowTimeAsHMS).c_str());
+    myEmergencyVehicleLabel->setText(time2string(myEmergencyVehicleCount, myShowTimeAsHMS).c_str());
 }
 
 
@@ -2279,8 +2279,18 @@ void
 GUIApplicationWindow::updateTimeLCDTooltip() {
     if (myShowTimeAsHMS) {
         myLCDLabel->setToolTipText("HH:MM:SS");
+        if (myAmGaming) {
+            myWaitingTimeLabel->setToolTipText("HH:MM:SS");
+            myTimeLossLabel->setToolTipText("HH:MM:SS");
+            myEmergencyVehicleLabel->setToolTipText("HH:MM:SS");
+        }
     } else {
-        myLCDLabel->setToolTipText("seconds");
+        myLCDLabel->setToolTipText(TL("seconds"));
+        if (myAmGaming) {
+            myWaitingTimeLabel->setToolTipText(TL("seconds"));
+            myTimeLossLabel->setToolTipText(TL("seconds"));
+            myEmergencyVehicleLabel->setToolTipText(TL("seconds"));
+        }
     }
 }
 
