@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-04 09:08:49 by Eclipse SUMO netconvert Version v1_15_0+1275-5d6377d1de2
+<!-- generated on 2023-05-08 11:36:15 by Eclipse SUMO netconvert Version v1_17_0+0152-41698bc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Jan  4 09:08:49 2023" north="2335.16" south="1844.07" east="2701.86" west="2090.59">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon May  8 11:36:15 2023" north="2335.16" south="1844.07" east="2701.86" west="2090.59">
         <geoReference>
  <![CDATA[
  +proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -111,7 +111,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_21487209_3831343134_c2" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="2.55084808">
+            <object id=":cluster_21487209_3831343134_c2" type="crosswalk" s="0.00000000" t="0.00000000" hdg="2.55084808">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-2.19759883" v="2.37919427" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="1.36707278" v="-2.93617405" z="0.00000000" height="0.00000000" id="1"/>
@@ -169,7 +169,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="194079582" type="building.yes" name="" s="0.00000000" t="14.30135182" hdg="1.23582791">
+            <object id="194079582" type="building.yes" s="0.00000000" t="14.30135182" hdg="1.23582791">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-12.28368340" v="-10.19733640" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-16.90064340" v="2.95738660" z="0.00000000" height="0.00000000" id="1"/>
@@ -253,7 +253,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="304987175" type="building.yes" name="" s="44.92902176" t="-35.62902159" hdg="2.49619678">
+            <object id="304987175" type="building.yes" s="44.92902176" t="-35.62902159" hdg="2.49619678">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="10.27479281" v="4.87151135" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="23.47063781" v="14.13935535" z="0.00000000" height="0.00000000" id="1"/>
@@ -294,7 +294,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="10.27479281" v="4.87151135" z="0.00000000" height="0.00000000" id="36"/>
                 </outline>
             </object>
-            <object id="556435241" type="building.yes" name="Berliner Fernsehturm" s="48.81374561" t="-35.55648942" hdg="2.49619678">
+            <object id="556435241" type="building.yes" name="Berliner Fernsehturm" s="48.81374561" t="-35.55648942" hdg="2.49619678" height="368.03000000">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="1.47437676" v="15.18327016" z="0.00000000" height="368.03000000" id="0"/>
                     <cornerLocal u="4.11048976" v="14.68007916" z="0.00000000" height="368.03000000" id="1"/>
@@ -336,7 +336,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="1.47437676" v="15.18327016" z="0.00000000" height="368.03000000" id="37"/>
                 </outline>
             </object>
-            <object id="556435241#1" type="man_made.communications_tower" name="Berliner Fernsehturm" s="48.81374561" t="-35.55648942" hdg="2.49619678">
+            <object id="556435241#1" type="man_made.communications_tower" name="Berliner Fernsehturm" s="48.81374561" t="-35.55648942" hdg="2.49619678" height="368.03000000">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="1.47437676" v="15.18327016" z="0.00000000" height="368.03000000" id="0"/>
                     <cornerLocal u="4.11048976" v="14.68007916" z="0.00000000" height="368.03000000" id="1"/>
@@ -378,7 +378,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="1.47437676" v="15.18327016" z="0.00000000" height="368.03000000" id="37"/>
                 </outline>
             </object>
-            <object id="556435241#2" type="tourism.attraction" name="Berliner Fernsehturm" s="48.81374561" t="-35.55648942" hdg="2.49619678">
+            <object id="556435241#2" type="tourism.attraction" name="Berliner Fernsehturm" s="48.81374561" t="-35.55648942" hdg="2.49619678" height="368.03000000">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="1.47437676" v="15.18327016" z="0.00000000" height="368.03000000" id="0"/>
                     <cornerLocal u="4.11048976" v="14.68007916" z="0.00000000" height="368.03000000" id="1"/>
@@ -463,7 +463,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="565537149" type="amenity.bench" name="" s="38.60963559" t="-10.68426254" hdg="2.51482265">
+            <object id="565537149" type="amenity.bench" s="38.60963559" t="-10.68426254" hdg="2.51482265">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="4.81480075" v="0.41418125" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-4.15408025" v="-6.16498875" z="0.00000000" height="0.00000000" id="1"/>
@@ -515,7 +515,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":29219440_c2" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="2.54402382">
+            <object id=":29219440_c2" type="crosswalk" s="0.00000000" t="0.00000000" hdg="2.54402382">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-2.21378264" v="2.36414180" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="1.38707672" v="-2.92677607" z="0.00000000" height="0.00000000" id="1"/>
@@ -586,7 +586,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":3182529377_c0" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="0.87067229">
+            <object id=":3182529377_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.87067229">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-2.88984528" v="-3.08849385" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="3.53415783" v="2.32373157" z="0.00000000" height="0.00000000" id="1"/>
@@ -644,7 +644,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c0" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="0.86882357">
+            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.86882357">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-2.88413059" v="-3.09383108" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="3.52985587" v="2.33026127" z="0.00000000" height="0.00000000" id="1"/>
@@ -1064,7 +1064,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_3792418585_3792418767_c0" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="0.86554738">
+            <object id=":cluster_3792418585_3792418767_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.86554738">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-2.02932606" v="-2.35995760" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="2.67296285" v="1.59462652" z="0.00000000" height="0.00000000" id="1"/>
@@ -1109,7 +1109,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_4565322441_5397577486_768038174_863119413_c1" type="crosswalk" name="" s="64.44904409" t="0.00000000" hdg="-2.31609411">
+            <object id=":cluster_4565322441_5397577486_768038174_863119413_c1" type="crosswalk" s="64.44904409" t="0.00000000" hdg="-2.31609411">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-0.83672223" v="-1.45254807" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="1.51491291" v="0.71766209" z="0.00000000" height="0.00000000" id="1"/>
@@ -1215,7 +1215,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="173278836" type="amenity.shelter" name="" s="50.66202076" t="-5.36013704" hdg="2.47921899">
+            <object id="173278836" type="amenity.shelter" s="50.66202076" t="-5.36013704" hdg="2.47921899">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-4.38864260" v="-2.74948080" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="5.65153740" v="5.28537620" z="0.00000000" height="0.00000000" id="1"/>
@@ -1224,7 +1224,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-4.38864260" v="-2.74948080" z="0.00000000" height="0.00000000" id="4"/>
                 </outline>
             </object>
-            <object id=":cluster_1827996511_1827996525_c0" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="2.50783048">
+            <object id=":cluster_1827996511_1827996525_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="2.50783048">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-2.05743844" v="1.95639260" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="1.25149694" v="-2.54838779" z="0.00000000" height="0.00000000" id="1"/>
@@ -1291,7 +1291,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_1827996436_1827996440_c0" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="2.61091598">
+            <object id=":cluster_1827996436_1827996440_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="2.61091598">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-1.94737581" v="2.33789367" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="1.08428700" v="-2.84294585" z="0.00000000" height="0.00000000" id="1"/>
@@ -1354,7 +1354,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="171826996" type="landuse.grass" name="" s="66.88448377" t="-0.21029504" hdg="-2.22808344">
+            <object id="171826996" type="landuse.grass" s="66.88448377" t="-0.21029504" hdg="-2.22808344">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="45.73311257" v="-48.84715200" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="37.96346457" v="-54.57303800" z="0.00000000" height="0.00000000" id="1"/>
@@ -1404,7 +1404,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_4565322441_5397577486_768038174_863119413_c0" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="0.78539816">
+            <object id=":cluster_4565322441_5397577486_768038174_863119413_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.78539816">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-0.77781746" v="-1.48492424" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="1.48492424" v="0.77781746" z="0.00000000" height="0.00000000" id="1"/>
@@ -1450,7 +1450,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="171829341" type="landuse.grass" name="" s="35.62472112" t="-1.97215340" hdg="-0.66961734">
+            <object id="171829341" type="landuse.grass" s="35.62472112" t="-1.97215340" hdg="-0.66961734">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="29.94801510" v="17.95828670" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-24.05776090" v="-24.23525930" z="0.00000000" height="0.00000000" id="1"/>
@@ -1513,7 +1513,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="171826989" type="landuse.grass" name="" s="48.35781330" t="-0.71906056" hdg="-0.66033874">
+            <object id="171826989" type="landuse.grass" s="48.35781330" t="-0.71906056" hdg="-0.66033874">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-38.81061388" v="-27.73285047" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-35.91847288" v="-25.24850147" z="0.00000000" height="0.00000000" id="1"/>
@@ -1601,7 +1601,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="554841836" type="amenity.bench" name="" s="19.76707914" t="-22.79507857" hdg="0.86768830">
+            <object id="554841836" type="amenity.bench" s="19.76707914" t="-22.79507857" hdg="0.86768830">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-5.32264600" v="2.25929000" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="5.32264600" v="-2.25929000" z="0.00000000" height="0.00000000" id="1"/>
@@ -1876,7 +1876,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="574993701" type="landuse.grass" name="" s="46.91028526" t="-43.10575644" hdg="-0.67432623">
+            <object id="574993701" type="landuse.grass" s="46.91028526" t="-43.10575644" hdg="-0.67432623">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-13.36526245" v="1.96369473" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="3.31541155" v="17.21916473" z="0.00000000" height="0.00000000" id="1"/>
@@ -2101,7 +2101,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects>
             <object id="1827996462" type="natural.tree" name="" s="67.81504315" t="-13.20442023" hdg="0"/>
-            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c5" type="crosswalk" name="" s="72.60777213" t="0.00000000" hdg="2.48078636">
+            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c5" type="crosswalk" s="72.60777213" t="0.00000000" hdg="2.48078636">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="3.64764211" v="-3.87746158" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-2.85814434" v="4.49121501" z="0.00000000" height="0.00000000" id="1"/>
@@ -2607,7 +2607,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c1" type="crosswalk" name="" s="79.92651718" t="0.00000000" hdg="-0.68534731">
+            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c1" type="crosswalk" s="79.92651718" t="0.00000000" hdg="-0.68534731">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-5.45063480" v="5.87712353" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="4.67643550" v="-6.51006542" z="0.00000000" height="0.00000000" id="1"/>
@@ -2704,7 +2704,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c3" type="crosswalk" name="" s="62.91622977" t="0.00000000" hdg="0.91671349">
+            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c3" type="crosswalk" s="62.91622977" t="0.00000000" hdg="0.91671349">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="2.83052940" v="2.80010785" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-3.43896095" v="-2.00650149" z="0.00000000" height="0.00000000" id="1"/>
@@ -3236,7 +3236,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c2" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="2.42274865">
+            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c2" type="crosswalk" s="0.00000000" t="0.00000000" hdg="2.42274865">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-2.48353220" v="2.07895835" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="1.73096472" v="-2.73747349" z="0.00000000" height="0.00000000" id="1"/>
@@ -3340,7 +3340,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="23853220" type="building.yes" name="" s="22.14438605" t="8.02273454" hdg="-2.43490257">
+            <object id="23853220" type="building.yes" s="22.14438605" t="8.02273454" hdg="-2.43490257">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-8.22308800" v="-12.48642400" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-5.86430100" v="-9.55621600" z="0.00000000" height="0.00000000" id="1"/>
@@ -3548,7 +3548,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="565537152" type="landuse.grass" name="" s="70.66988608" t="22.07606083" hdg="-1.81797947">
+            <object id="565537152" type="landuse.grass" s="70.66988608" t="22.07606083" hdg="-1.81797947">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-19.84298750" v="18.92479200" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-16.43653850" v="21.34221300" z="0.00000000" height="0.00000000" id="1"/>
@@ -3696,7 +3696,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="27530706" type="leisure.park" name="" s="61.55311504" t="-28.88268559" hdg="1.34421116">
+            <object id="27530706" type="leisure.park" s="61.55311504" t="-28.88268559" hdg="1.34421116">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-0.09033520" v="-18.66343740" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="22.43358680" v="-1.97972940" z="0.00000000" height="0.00000000" id="1"/>
@@ -3740,7 +3740,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="27530601" type="landuse.grass" name="" s="33.76919959" t="-14.36619645" hdg="-0.58082522">
+            <object id="27530601" type="landuse.grass" s="33.76919959" t="-14.36619645" hdg="-0.58082522">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-5.25266900" v="7.20420975" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="13.56423900" v="-1.06720825" z="0.00000000" height="0.00000000" id="1"/>
@@ -3785,7 +3785,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="27530604" type="landuse.grass" name="" s="28.52363870" t="8.06346274" hdg="-2.72430966">
+            <object id="27530604" type="landuse.grass" s="28.52363870" t="8.06346274" hdg="-2.72430966">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="3.03087100" v="7.07980900" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="5.11128800" v="-10.61441800" z="0.00000000" height="0.00000000" id="1"/>
@@ -3793,7 +3793,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="3.03087100" v="7.07980900" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id="27530606" type="landuse.grass" name="" s="8.78062872" t="-13.96881788" hdg="-2.72430966">
+            <object id="27530606" type="landuse.grass" s="8.78062872" t="-13.96881788" hdg="-2.72430966">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-4.59082400" v="6.20751450" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-2.62715400" v="-11.55089250" z="0.00000000" height="0.00000000" id="1"/>
@@ -3801,7 +3801,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-4.59082400" v="6.20751450" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id="27530622" type="landuse.grass" name="" s="20.59094821" t="-6.09758246" hdg="-2.72430966">
+            <object id="27530622" type="landuse.grass" s="20.59094821" t="-6.09758246" hdg="-2.72430966">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-7.67436700" v="-0.87669125" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="6.72646000" v="9.75514675" z="0.00000000" height="0.00000000" id="1"/>
@@ -3809,7 +3809,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-7.67436700" v="-0.87669125" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id="27530624" type="landuse.grass" name="" s="19.06389894" t="4.10202336" hdg="-2.72430966">
+            <object id="27530624" type="landuse.grass" s="19.06389894" t="4.10202336" hdg="-2.72430966">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-4.66757175" v="6.18975025" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-2.58861675" v="-11.57120875" z="0.00000000" height="0.00000000" id="1"/>
@@ -3851,7 +3851,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="27530362" type="landuse.grass" name="" s="25.85984688" t="-9.76577562" hdg="-0.53624165">
+            <object id="27530362" type="landuse.grass" s="25.85984688" t="-9.76577562" hdg="-0.53624165">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-6.64440425" v="-0.72992150" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="5.88769575" v="8.28551150" z="0.00000000" height="0.00000000" id="1"/>
@@ -3859,7 +3859,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-6.64440425" v="-0.72992150" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id="27530369" type="landuse.grass" name="" s="54.45129398" t="-13.25331558" hdg="-0.53624165">
+            <object id="27530369" type="landuse.grass" s="54.45129398" t="-13.25331558" hdg="-0.53624165">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-5.64126650" v="7.75496375" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-3.26805550" v="-14.24085025" z="0.00000000" height="0.00000000" id="1"/>
@@ -3867,7 +3867,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-5.64126650" v="7.75496375" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id="294487999" type="building.yes" name="" s="27.54358223" t="-10.46928987" hdg="-0.53624165">
+            <object id="294487999" type="building.yes" s="27.54358223" t="-10.46928987" hdg="-0.53624165">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-1.71736457" v="-1.27839929" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="0.58236943" v="-2.26377529" z="0.00000000" height="0.00000000" id="1"/>
@@ -3956,7 +3956,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="27530366" type="landuse.grass" name="" s="28.58641027" t="-7.48591728" hdg="-1.31618745">
+            <object id="27530366" type="landuse.grass" s="28.58641027" t="-7.48591728" hdg="-1.31618745">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-4.06808675" v="5.66740300" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="10.15506025" v="-0.96670000" z="0.00000000" height="0.00000000" id="1"/>
@@ -4005,7 +4005,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="202156996" type="leisure.park" name="" s="55.72802677" t="-18.10741749" hdg="0.62031570">
+            <object id="202156996" type="leisure.park" s="55.72802677" t="-18.10741749" hdg="0.62031570">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-7.69407800" v="10.68791775" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="19.81456800" v="-1.09047125" z="0.00000000" height="0.00000000" id="1"/>
@@ -4013,7 +4013,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-7.69407800" v="10.68791775" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id="23853219" type="building.yes" name="" s="67.16832412" t="29.20085943" hdg="0.62031570">
+            <object id="23853219" type="building.yes" s="67.16832412" t="29.20085943" hdg="0.62031570">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-27.60016500" v="-12.77161060" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="15.02257900" v="44.06346340" z="0.00000000" height="0.00000000" id="1"/>
@@ -4022,7 +4022,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-27.60016500" v="-12.77161060" z="0.00000000" height="0.00000000" id="4"/>
                 </outline>
             </object>
-            <object id="27530367" type="landuse.grass" name="" s="12.21446955" t="-16.69110464" hdg="0.58767433">
+            <object id="27530367" type="landuse.grass" s="12.21446955" t="-16.69110464" hdg="0.58767433">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-8.43232100" v="-0.78773525" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="7.45280500" v="10.39016775" z="0.00000000" height="0.00000000" id="1"/>
@@ -4030,7 +4030,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-8.43232100" v="-0.78773525" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id="304987177" type="building.yes" name="" s="83.75727299" t="-57.48038112" hdg="-0.31104433">
+            <object id="304987177" type="building.yes" s="83.75727299" t="-57.48038112" hdg="-0.31104433">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="33.56147026" v="-45.02884579" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="47.75273526" v="-52.20716679" z="0.00000000" height="0.00000000" id="1"/>
@@ -4072,7 +4072,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="33.56147026" v="-45.02884579" z="0.00000000" height="0.00000000" id="37"/>
                 </outline>
             </object>
-            <object id="574993702" type="landuse.grass" name="" s="30.47827207" t="28.23102905" hdg="0.58767433">
+            <object id="574993702" type="landuse.grass" s="30.47827207" t="28.23102905" hdg="0.58767433">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-7.26145030" v="3.41263110" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-0.80473030" v="-5.13100190" z="0.00000000" height="0.00000000" id="1"/>
@@ -4254,7 +4254,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="27530703" type="landuse.village_green" name="" s="21.35253559" t="-26.00096983" hdg="1.26518174">
+            <object id="27530703" type="landuse.village_green" s="21.35253559" t="-26.00096983" hdg="1.26518174">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-13.43612914" v="5.06389886" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="1.20545186" v="14.90021686" z="0.00000000" height="0.00000000" id="1"/>
@@ -4332,7 +4332,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="27530599" type="landuse.grass" name="" s="9.08864857" t="11.40837973" hdg="-0.66026254">
+            <object id="27530599" type="landuse.grass" s="9.08864857" t="11.40837973" hdg="-0.66026254">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-3.13142575" v="-7.09985175" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-5.06931475" v="10.59123725" z="0.00000000" height="0.00000000" id="1"/>
@@ -4340,7 +4340,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-3.13142575" v="-7.09985175" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id="27530602" type="amenity.fountain" name="" s="67.34107655" t="17.16798025" hdg="-0.66026254">
+            <object id="27530602" type="amenity.fountain" s="67.34107655" t="17.16798025" hdg="-0.66026254">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="10.04707680" v="16.42524680" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="12.51211580" v="-4.14835220" z="0.00000000" height="0.00000000" id="1"/>
@@ -4349,7 +4349,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="10.04707680" v="16.42524680" z="0.00000000" height="0.00000000" id="4"/>
                 </outline>
             </object>
-            <object id="27530603" type="amenity.fountain" name="" s="64.73034874" t="-16.53723349" hdg="-0.66026254">
+            <object id="27530603" type="amenity.fountain" s="64.73034874" t="-16.53723349" hdg="-0.66026254">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="3.41514860" v="11.61306700" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="22.81609060" v="3.36262600" z="0.00000000" height="0.00000000" id="1"/>
@@ -4358,7 +4358,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="3.41514860" v="11.61306700" z="0.00000000" height="0.00000000" id="4"/>
                 </outline>
             </object>
-            <object id="27530610" type="landuse.grass" name="" s="3.49856305" t="21.69838044" hdg="-0.66026254">
+            <object id="27530610" type="landuse.grass" s="3.49856305" t="21.69838044" hdg="-0.66026254">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="3.08308225" v="7.06195825" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-11.26003775" v="-3.41528375" z="0.00000000" height="0.00000000" id="1"/>
@@ -4366,7 +4366,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="3.08308225" v="7.06195825" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id="27530611" type="landuse.grass" name="" s="24.14909627" t="21.32143526" hdg="-0.66026254">
+            <object id="27530611" type="landuse.grass" s="24.14909627" t="21.32143526" hdg="-0.66026254">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="3.05975650" v="7.15984875" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="5.18250150" v="-10.76899025" z="0.00000000" height="0.00000000" id="1"/>
@@ -4441,7 +4441,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="26037504" type="landuse.village_green" name="" s="22.11656303" t="37.37090717" hdg="-2.97550677">
+            <object id="26037504" type="landuse.village_green" s="22.11656303" t="37.37090717" hdg="-2.97550677">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="51.38718180" v="36.49610540" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="8.17454980" v="56.76597640" z="0.00000000" height="0.00000000" id="1"/>
@@ -4455,7 +4455,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="51.38718180" v="36.49610540" z="0.00000000" height="0.00000000" id="9"/>
                 </outline>
             </object>
-            <object id="263824801" type="leisure.pitch" name="" s="22.11656303" t="-26.33502141" hdg="-2.97550677">
+            <object id="263824801" type="leisure.pitch" s="22.11656303" t="-26.33502141" hdg="-2.97550677">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-8.46513120" v="7.79337600" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-12.11068220" v="-4.54462500" z="0.00000000" height="0.00000000" id="1"/>
@@ -4464,7 +4464,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-8.46513120" v="7.79337600" z="0.00000000" height="0.00000000" id="4"/>
                 </outline>
             </object>
-            <object id="263824801#1" type="sport.volleyball" name="" s="22.11656303" t="-26.33502141" hdg="-2.97550677">
+            <object id="263824801#1" type="sport.volleyball" s="22.11656303" t="-26.33502141" hdg="-2.97550677">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-8.46513120" v="7.79337600" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-12.11068220" v="-4.54462500" z="0.00000000" height="0.00000000" id="1"/>
@@ -4517,7 +4517,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_21487209_3831343134_c0" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="-0.59756883">
+            <object id=":cluster_21487209_3831343134_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="-0.59756883">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="2.21378264" v="-2.36414180" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-1.38707672" v="2.92677607" z="0.00000000" height="0.00000000" id="1"/>
@@ -4645,7 +4645,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="27530600" type="landuse.grass" name="" s="82.29475203" t="-15.05512904" hdg="0.54891131">
+            <object id="27530600" type="landuse.grass" s="82.29475203" t="-15.05512904" hdg="0.54891131">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="3.50825600" v="8.25152975" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="6.03995600" v="-12.35699825" z="0.00000000" height="0.00000000" id="1"/>
@@ -4653,7 +4653,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="3.50825600" v="8.25152975" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id="27530704" type="leisure.park" name="" s="38.53627047" t="-19.42576096" hdg="0.54891131">
+            <object id="27530704" type="leisure.park" s="38.53627047" t="-19.42576096" hdg="0.54891131">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="4.71634760" v="-16.83562860" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="27.69033260" v="0.23860440" z="0.00000000" height="0.00000000" id="1"/>
@@ -5445,7 +5445,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c4" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="-2.23777376">
+            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c4" type="crosswalk" s="0.00000000" t="0.00000000" hdg="-2.23777376">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="2.79418841" v="2.83637290" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-3.41280243" v="-2.05067786" z="0.00000000" height="0.00000000" id="1"/>
@@ -5505,7 +5505,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="234463917" type="building.residential" name="" s="79.90452187" t="8.65198843" hdg="0.91389365">
+            <object id="234463917" type="building.residential" s="79.90452187" t="8.65198843" hdg="0.91389365">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-36.25207945" v="-26.42723975" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-39.35672845" v="-29.00703275" z="0.00000000" height="0.00000000" id="1"/>
@@ -5563,7 +5563,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="504412401" type="leisure.playground" name="" s="22.14503400" t="-20.13847073" hdg="-2.69743270">
+            <object id="504412401" type="leisure.playground" s="22.14503400" t="-20.13847073" hdg="-2.69743270">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="6.09059625" v="13.80309500" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="9.88936625" v="-20.82051600" z="0.00000000" height="0.00000000" id="1"/>
@@ -5625,7 +5625,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":341340978_c0" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="-2.27092036">
+            <object id=":341340978_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="-2.27092036">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="2.88984528" v="3.08849385" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-3.53415783" v="-2.32373157" z="0.00000000" height="0.00000000" id="1"/>
@@ -5741,7 +5741,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="23853131" type="building.apartments" name="" s="80.81753145" t="40.74927677" hdg="1.03261832">
+            <object id="23853131" type="building.apartments" s="80.81753145" t="40.74927677" hdg="1.03261832">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="35.90651521" v="30.51882057" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="42.43324721" v="22.08460057" z="0.00000000" height="0.00000000" id="1"/>
@@ -5841,7 +5841,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="27530609" type="landuse.grass" name="" s="9.24996858" t="11.46744386" hdg="0.21638584">
+            <object id="27530609" type="landuse.grass" s="9.24996858" t="11.46744386" hdg="0.21638584">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-7.71560225" v="-0.82285425" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="6.67385575" v="9.59768075" z="0.00000000" height="0.00000000" id="1"/>
@@ -5849,7 +5849,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-7.71560225" v="-0.82285425" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id="27530620" type="landuse.grass" name="" s="19.45882465" t="15.48543305" hdg="0.52575356">
+            <object id="27530620" type="landuse.grass" s="19.45882465" t="15.48543305" hdg="0.52575356">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-3.13570825" v="-7.13869400" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-5.07787525" v="10.66377300" z="0.00000000" height="0.00000000" id="1"/>
@@ -5903,7 +5903,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="27530608" type="landuse.grass" name="" s="11.13197246" t="10.48266977" hdg="1.70069832">
+            <object id="27530608" type="landuse.grass" s="11.13197246" t="10.48266977" hdg="1.70069832">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-3.12310025" v="-7.10559700" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-5.06704725" v="10.61900900" z="0.00000000" height="0.00000000" id="1"/>
@@ -6219,7 +6219,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="332637422" type="amenity.toilets" name="" s="26.52769466" t="18.42075136" hdg="2.48600754">
+            <object id="332637422" type="amenity.toilets" s="26.52769466" t="18.42075136" hdg="2.48600754">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-1.96662560" v="-0.22370780" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="1.53706440" v="2.29177720" z="0.00000000" height="0.00000000" id="1"/>
@@ -6377,7 +6377,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":29219440_c0" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="-0.59826841">
+            <object id=":29219440_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="-0.59826841">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="2.21543670" v="-2.36259236" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-1.38912471" v="2.92580502" z="0.00000000" height="0.00000000" id="1"/>
@@ -6447,7 +6447,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="199425799" type="building.yes" name="" s="2.04883226" t="-35.27538053" hdg="1.36518986">
+            <object id="199425799" type="building.yes" s="2.04883226" t="-35.27538053" hdg="1.36518986">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="4.18678647" v="-1.78148558" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="3.64640747" v="-3.50545758" z="0.00000000" height="0.00000000" id="1"/>
@@ -6537,7 +6537,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":2480337678_c0" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="0.91400328">
+            <object id=":2480337678_c0" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.91400328">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-2.62494118" v="-2.65512406" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="3.23552142" v="1.86316966" z="0.00000000" height="0.00000000" id="1"/>
@@ -6545,7 +6545,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-3.23552142" v="-1.86316966" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id=":cluster_21487209_3831343134_c3" type="crosswalk" name="" s="4.72563156" t="0.00000000" hdg="0.91400328">
+            <object id=":cluster_21487209_3831343134_c3" type="crosswalk" s="4.72563156" t="0.00000000" hdg="0.91400328">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="2.62494118" v="2.65512406" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-3.23552142" v="-1.86316966" z="0.00000000" height="0.00000000" id="1"/>
@@ -6618,7 +6618,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="16603261" type="landuse.grass" name="" s="55.53549482" t="14.13904252" hdg="-0.04650281">
+            <object id="16603261" type="landuse.grass" s="55.53549482" t="14.13904252" hdg="-0.04650281">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="0.22694076" v="12.58352029" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="2.49606176" v="14.21371929" z="0.00000000" height="0.00000000" id="1"/>
@@ -6873,7 +6873,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-26.50255011" v="-20.86513705" z="0.00000000" height="0.00000000" id="73"/>
                 </outline>
             </object>
-            <object id="565537151" type="landuse.grass" name="" s="37.54485731" t="19.60821649" hdg="-0.04650281">
+            <object id="565537151" type="landuse.grass" s="37.54485731" t="19.60821649" hdg="-0.04650281">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-15.78126737" v="-15.25679038" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-18.18746337" v="-15.71555238" z="0.00000000" height="0.00000000" id="1"/>
@@ -6940,7 +6940,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":cluster_21487209_3831343134_c1" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="0.89583275">
+            <object id=":cluster_21487209_3831343134_c1" type="crosswalk" s="0.00000000" t="0.00000000" hdg="0.89583275">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-2.57626549" v="-2.70237971" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="3.20113437" v="1.92165000" z="0.00000000" height="0.00000000" id="1"/>
@@ -6948,7 +6948,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-3.20113437" v="-1.92165000" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id=":cluster_4566145593_4566145594_5747234975_768074054_c0" type="crosswalk" name="" s="11.29432460" t="0.00000000" hdg="0.89583275">
+            <object id=":cluster_4566145593_4566145594_5747234975_768074054_c0" type="crosswalk" s="11.29432460" t="0.00000000" hdg="0.89583275">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="2.57626549" v="2.70237971" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-3.20113437" v="-1.92165000" z="0.00000000" height="0.00000000" id="1"/>
@@ -7012,7 +7012,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id=":29219440_c3" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="-2.22932498">
+            <object id=":29219440_c3" type="crosswalk" s="0.00000000" t="0.00000000" hdg="-2.22932498">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="2.62032898" v="2.65967593" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-3.23228281" v="-1.86878244" z="0.00000000" height="0.00000000" id="1"/>
@@ -7020,7 +7020,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="3.23228281" v="1.86878244" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id=":4566145597_c0" type="crosswalk" name="" s="5.66396322" t="0.00000000" hdg="-2.22932498">
+            <object id=":4566145597_c0" type="crosswalk" s="5.66396322" t="0.00000000" hdg="-2.22932498">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-2.62032898" v="-2.65967593" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="3.23228281" v="1.86878244" z="0.00000000" height="0.00000000" id="1"/>
@@ -7186,7 +7186,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="565537150" type="amenity.bench" name="" s="19.81042893" t="-10.33739742" hdg="-0.85005611">
+            <object id="565537150" type="amenity.bench" s="19.81042893" t="-10.33739742" hdg="-0.85005611">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="1.98235000" v="4.40735500" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="3.36150700" v="-6.62818200" z="0.00000000" height="0.00000000" id="1"/>
@@ -7232,7 +7232,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="554841837" type="amenity.bench" name="" s="5.16627044" t="-19.76413960" hdg="-0.87601412">
+            <object id="554841837" type="amenity.bench" s="5.16627044" t="-19.76413960" hdg="-0.87601412">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-5.28267350" v="2.22502350" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="5.28267350" v="-2.22502350" z="0.00000000" height="0.00000000" id="1"/>
@@ -7294,7 +7294,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="574993715" type="landuse.residential" name="" s="0.00000000" t="-72.80536717" hdg="-2.24230590">
+            <object id="574993715" type="landuse.residential" s="0.00000000" t="-72.80536717" hdg="-2.24230590">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-7.82534190" v="-68.37965319" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-5.76877990" v="-71.16238119" z="0.00000000" height="0.00000000" id="1"/>
@@ -7329,7 +7329,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-7.82534190" v="-68.37965319" z="0.00000000" height="0.00000000" id="30"/>
                 </outline>
             </object>
-            <object id=":29219440_c1" type="crosswalk" name="" s="9.66940593" t="0.00000000" hdg="-2.24230590">
+            <object id=":29219440_c1" type="crosswalk" s="9.66940593" t="0.00000000" hdg="-2.24230590">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-2.58558414" v="-2.69346518" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="3.20775265" v="1.91058183" z="0.00000000" height="0.00000000" id="1"/>
@@ -7337,7 +7337,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-3.20775265" v="-1.91058183" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id=":cluster_4566145593_4566145594_5747234975_768074054_c1" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="-2.24230590">
+            <object id=":cluster_4566145593_4566145594_5747234975_768074054_c1" type="crosswalk" s="0.00000000" t="0.00000000" hdg="-2.24230590">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="2.58558414" v="2.69346518" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-3.20775265" v="-1.91058183" z="0.00000000" height="0.00000000" id="1"/>
@@ -7415,7 +7415,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <objects>
             <object id="1296844663" type="amenity.bicycle_rental" name="Karl-Liebknecht-Straße/Spandauer Straße" s="36.57472509" t="-33.05187769" hdg="0"/>
             <object id="4784564100" type="historic.memorial" name="Lutherdenkmal" s="62.45676784" t="-27.10788384" hdg="0"/>
-            <object id=":1827996501_c0" type="crosswalk" name="" s="70.62667079" t="0.00000000" hdg="-0.67170375">
+            <object id=":1827996501_c0" type="crosswalk" s="70.62667079" t="0.00000000" hdg="-0.67170375">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="-3.37851975" v="3.44609987" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="2.59575722" v="-4.06842039" z="0.00000000" height="0.00000000" id="1"/>
@@ -7423,7 +7423,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-2.59575722" v="4.06842039" z="0.00000000" height="0.00000000" id="3"/>
                 </outline>
             </object>
-            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c6" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="-0.65810385">
+            <object id=":cluster_1827996421_1827996431_1827996455_2121324874_#10more_c6" type="crosswalk" s="0.00000000" t="0.00000000" hdg="-0.65810385">
                 <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
                     <cornerLocal u="3.33134217" v="-3.49172727" z="0.00000000" height="0.00000000" id="0"/>
                     <cornerLocal u="-2.54018880" v="4.10334508" z="0.00000000" height="0.00000000" id="1"/>
