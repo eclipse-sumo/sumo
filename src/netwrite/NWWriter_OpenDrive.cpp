@@ -130,13 +130,14 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         for (const auto& cw : n->getCrossings()) {
             // getting from crosswalk line to a full shape
             crosswalk_shape = cw->shape;
-            auto additionalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[0], true, false, cw->width);
-            auto finalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[1], true, false, cw->width);
-            crosswalk_shape.push_back(finalCorner[1]);
-            crosswalk_shape.push_back(additionalCorner[1]);
-
+            PositionVector rightside = cw->shape;
+            try {
+                crosswalk_shape.move2side(cw->width / 2);
+                rightside.move2side(cw->width / -2);
+            } catch (InvalidArgument&) { }
+            rightside = rightside.reverse();
+            crosswalk_shape.append(rightside);
             auto crosswalkId = cw->id;
-            //std::cout << crosswalkId << "=" << crosswalk_shape << "\n";
             nb.getShapeCont().addPolygon(crosswalkId, "crosswalk", RGBColor::DEFAULT_COLOR, 0,
                                          Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH,
                                          crosswalk_shape, false, true, 1, false, crosswalkId);
