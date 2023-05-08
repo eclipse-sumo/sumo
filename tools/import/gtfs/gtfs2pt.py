@@ -228,7 +228,7 @@ def generate_polygons(net, routes, outfile):
 
 def map_stops(options, net, routes, rout, edgeMap):
     stops = collections.defaultdict(list)
-    stopDef = set()
+    stopEnds = collections.defaultdict(list)
     rid = None
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
         mode = os.path.basename(inp)[:-8]
@@ -253,6 +253,9 @@ def map_stops(options, net, routes, rout, edgeMap):
                 lastIndex = 0
                 lastPos = -1
                 rid = veh.id
+                stopIndex = 0
+            else:
+                stopIndex += 1
             if rid not in routes:
                 if options.warn_unmapped and rid not in seen:
                     print("Warning! Not mapped", rid, file=sys.stderr)
@@ -294,9 +297,14 @@ def map_stops(options, net, routes, rout, edgeMap):
             edgeID = laneID.rsplit("_", 1)[0]
             lastIndex = route.index(edgeID, lastIndex)
             lastPos = end
-            stop = "%s:%.2f" % (edgeID, end)
-            if stop not in stopDef:
-                stopDef.add(stop)
+            keep = True
+            for otherStart, otherEnd in stopEnds[edgeID]:
+                if (otherEnd > start and otherEnd <= end) or (end > otherStart and end <= otherEnd):
+                    keep = False
+                    break
+            stop = "%s.%s" % (rid, stopIndex)
+            if keep:
+                stopEnds[edgeID].append((start, end))
                 access = gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID)
                 if not access and not params:
                     addAttrs += "/"
