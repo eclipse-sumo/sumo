@@ -184,6 +184,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("geometry.remove.width-tolerance", "Processing",
                       "Allow merging edges with differing lane widths if the difference is below FLOAT");
 
+    oc.doRegister("geometry.remove.max-junction-size", new Option_Float(-1));
+    oc.addDescription("geometry.remove.max-junction-size", "Processing",
+                      "Prevent removal of junctions with a size above FLOAT as defined by custom edge endpoints");
+
     oc.doRegister("geometry.max-segment-length", new Option_Float(0));
     oc.addDescription("geometry.max-segment-length", "Processing", TL("splits geometry to restrict segment length"));
 

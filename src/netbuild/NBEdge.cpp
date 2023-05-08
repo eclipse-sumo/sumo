@@ -3731,6 +3731,14 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
     if (minLength > 0 && (possContinuation->getLoadedLength() < minLength || getLoadedLength() < minLength)) {
         return true;
     }
+    const double maxJunctionSize = OptionsCont::getOptions().getFloat("geometry.remove.max-junction-size");
+    if (maxJunctionSize >= 0) {
+        const double junctionSize = myGeom.back().distanceTo2D(possContinuation->myGeom.front());
+        if (junctionSize > maxJunctionSize + POSITION_EPS) {
+            reason = "junction size (" + toString(junctionSize) + ") > max-junction-size (" + toString(maxJunctionSize) + ")";
+            return false;
+        }
+    }
     // the priority, too (?)
     if (getPriority() != possContinuation->getPriority()) {
         reason = "priority";
