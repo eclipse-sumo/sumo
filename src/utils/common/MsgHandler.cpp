@@ -118,12 +118,12 @@ std::string
 MsgHandler::insertLineBreaks(std::string msg, int lineWidth) {
     // TODO: check what FXFont::getTextWidth can do
     //int textWidth = getApp()->getNormalFont()->getTextWidth
-    if (msg.size() <= lineWidth) {
+    if ((int)msg.size() <= lineWidth) {
         return msg;
     }
-    int pos = 0;
-    int nextLineBreak = msg.find('\n');
-    int spaceAfterLine = msg.find(' ', lineWidth);
+    size_t pos = 0;
+    size_t nextLineBreak = msg.find('\n');
+    size_t spaceAfterLine = msg.find(' ', lineWidth);
     while (spaceAfterLine != std::string::npos) {
         if (nextLineBreak == std::string::npos || nextLineBreak > spaceAfterLine) {
             msg = msg.replace(spaceAfterLine, 1, "\n");
