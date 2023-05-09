@@ -1,7 +1,3 @@
-/usr/lib64/python3.6/importlib/_bootstrap.py:219: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
-  return f(*args, **kwds)
-/usr/lib64/python3.6/importlib/_bootstrap.py:219: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
-  return f(*args, **kwds)
 Warning: No stops loaded for region 'ALL'. Using median edge angle instead
 Warning: Lane '124262120_0' is not connected from any incoming edge at junction '1383487041'.
 Warning: Lane '124264571_0' is not connected from any incoming edge at junction '1383506147'.
