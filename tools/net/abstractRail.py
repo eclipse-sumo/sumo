@@ -143,7 +143,7 @@ def initShapes(edges, nodeCoords, edgeShapes):
         edgeShapes[edge.getID()] = edge.getShape(True)
 
 
-def findMainline(options, net, edges):
+def findMainline(options, name, net, edges):
     """use platforms to determine mainline orientation"""
     knownEdges = set([e.getID() for e in edges])
 
@@ -157,6 +157,13 @@ def findMainline(options, net, edges):
         begCoord = gh.positionAtShapeOffset(edge.getShape(), float(stop.startPos))
         endCoord = gh.positionAtShapeOffset(edge.getShape(), float(stop.endPos))
         angles.append((gh.angleTo2D(begCoord, endCoord), (begCoord, endCoord)))
+
+    if not angles:
+        print("Warning: No stops loaded for region '%s'. Using median edge angle instead" % name, file=sys.stderr)
+        for edge in edges:
+            begCoord = edge.getShape()[0]
+            endCoord = edge.getShape()[-1]
+            angles.append((gh.angleTo2D(begCoord, endCoord), (begCoord, endCoord)))
 
     angles.sort()
     mainLine = angles[int(len(angles) / 2)][1]
@@ -577,7 +584,7 @@ def main(options):
         if options.verbose:
             print("Processing region '%s' with %s edges" % (name, len(edges)))
         initShapes(edges, nodeCoords, edgeShapes)
-        mainLine = findMainline(options, net, edges)
+        mainLine = findMainline(options, name, net, edges)
         rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, False)
         if not options.skipYOpt:
             nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
