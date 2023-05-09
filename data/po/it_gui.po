@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-07 17:24+0000\n"
+"PO-Revision-Date: 2023-05-10 11:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -1056,7 +1056,7 @@ msgstr "Sv&uota"
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:126
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2391
 msgid "Time"
-msgstr ""
+msgstr "Ora"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:141
 msgid "Load Breakpoints"
@@ -1147,15 +1147,15 @@ msgstr "Una simulazione microscopica e multimodale del traffico."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:504
 msgid "Recomputing"
-msgstr ""
+msgstr "Ricalcolo"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:504
 msgid "Recomputing is needed"
-msgstr ""
+msgstr "Ricalcolo necessario"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:513
 msgid "Test coordinate"
-msgstr ""
+msgstr "Coordinata di prova"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:827
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:850
@@ -1230,11 +1230,11 @@ msgstr "&Utensile"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1416
 msgid "Detectors"
-msgstr ""
+msgstr "Rivelatori"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1417
 msgid "Districts"
-msgstr ""
+msgstr "Distretti"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1418
 msgid "DRT"
@@ -1242,31 +1242,31 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1419
 msgid "Emissions"
-msgstr ""
+msgstr "Emissioni"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1420
 msgid "CityBrain"
-msgstr ""
+msgstr "CityBrain"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1421
 msgid "GTFS"
-msgstr ""
+msgstr "GTFS"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1422
 msgid "Vissim"
-msgstr ""
+msgstr "Vissim"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1423
 msgid "Visum"
-msgstr ""
+msgstr "Visum"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1424
 msgid "Import"
-msgstr ""
+msgstr "Importa"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1425
 msgid "Net"
-msgstr ""
+msgstr "Rete"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1426
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:673
@@ -1276,12 +1276,12 @@ msgstr "Itinerario"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1427
 msgid "Output"
-msgstr ""
+msgstr "Uscita"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1428
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:227
 msgid "Shapes"
-msgstr ""
+msgstr "Forme"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1429
 msgid "TLS"
@@ -1289,15 +1289,15 @@ msgstr "Semaforo"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1430
 msgid "Turn-defs"
-msgstr ""
+msgstr "Definizioni di svolte (Turn-defs)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1431
 msgid "Visualization"
-msgstr ""
+msgstr "Visualizzazione"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1432
 msgid "XML"
-msgstr ""
+msgstr "XML"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1519
 msgid "Network computed"
@@ -1375,7 +1375,7 @@ msgstr "Cargando configurazione sumo '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2317
 msgid "Netedit options"
-msgstr ""
+msgstr "Opzioni Netedit"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2334
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1826
@@ -1384,7 +1384,7 @@ msgstr "Opzioni sumo"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2351
 msgid "Netgenerate options"
-msgstr ""
+msgstr "Opzioni netgenerate"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2368
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1253
@@ -1486,7 +1486,7 @@ msgstr "Elementi addizionali salvati in '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3650
 msgid "Saving additionals failed!"
-msgstr ""
+msgstr "Salvataggio degli elementi addizionali fallito!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3720
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4659
@@ -1545,7 +1545,7 @@ msgstr "Elementi di dati salvati in '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3976
 msgid "Saving data elements failed!"
-msgstr ""
+msgstr "Salvataggio degli elementi di dati fallito!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4048
 msgid "load meanDatas from '"
@@ -1572,7 +1572,7 @@ msgstr "MeanData salvato in '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4133
 msgid "Saving meanData failed!"
-msgstr ""
+msgstr "Salvataggio degli elementi meanData fallito!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4182
 msgid "Confirm close Network"
@@ -1664,11 +1664,11 @@ msgstr "Apri una nuova finestra di netedit."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:204
 msgid "Generate Network"
-msgstr ""
+msgstr "Genera rete"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:204
 msgid "Create network using netgenerate."
-msgstr ""
+msgstr "Genera una rete usando netgenerate."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:211
 msgid "Load Netedit config..."
@@ -2246,7 +2246,7 @@ msgstr "Mostra elementi di domanda"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:820
 msgid "Clicking should target lanes"
-msgstr ""
+msgstr "Accedi direttamente alle corsie cliccando"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:825
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2355
@@ -2486,11 +2486,11 @@ msgstr "&EdgeData"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1424
 msgid "E&dgeRelDatas"
-msgstr ""
+msgstr "Dati di relazioni tra archi"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1429
 msgid "Edge&TAZRel"
-msgstr ""
+msgstr "Relazione tra archi e zone di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1437
 msgid "Lock selected elements"
@@ -2720,7 +2720,7 @@ msgstr "non ho potuto caricare la configurazione netedit '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2700
 msgid "Save file as"
-msgstr ""
+msgstr "Salva file con nome"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2701
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2705
@@ -2773,7 +2773,7 @@ msgstr "Tutti i file (*)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2704
 msgid "Open file"
-msgstr ""
+msgstr "Apri file"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2714
 msgid "Save Network file as"
@@ -2825,11 +2825,11 @@ msgstr "File di nodi (*.nod.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2753
 msgid "Save tool log"
-msgstr ""
+msgstr "Salva protocollo dell'utensile"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2754
 msgid "Text file (*.txt)"
-msgstr ""
+msgstr "File di testo (*.txt)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2761
 msgid "Open OSM file"
@@ -2948,11 +2948,11 @@ msgstr "Apri file meanData"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2893
 msgid "Save options file as"
-msgstr ""
+msgstr "Salva opzioni con nome"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2897
 msgid "Open options file"
-msgstr ""
+msgstr "Apri file di opzioni"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:95
 #, c-format
@@ -2998,7 +2998,7 @@ msgstr "Apri una rete sumo"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:253
 msgid "Open a configuration file (netedit or netconvert config)"
-msgstr ""
+msgstr "Apri un file di configurazione (netedit o netconvert)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:254
 msgid "Open a SUMO config file"
@@ -3038,7 +3038,7 @@ msgstr "Avvia netedit con una rete vuota"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:312
 msgid "Write attribute help to file"
-msgstr ""
+msgstr "Aggiungi esplicazione dell'attributo nel file"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:317
 msgid "Prefix for node naming"
@@ -3454,7 +3454,7 @@ msgstr "La rete è più larga di un anno luce. Riconsidera gli dati di ingresso.
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1461
 msgid "Default vType doesn't exist"
-msgstr ""
+msgstr "Il tipo di veicoli (vType) standard non è presente"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2478
 msgid "Invalid meanData pointer"
@@ -3636,11 +3636,11 @@ msgstr "rettifica arco"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2222
 msgid "smooth selected edges"
-msgstr ""
+msgstr "appiana gli archi selezionati"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2229
 msgid "smooth edge"
-msgstr ""
+msgstr "appiana arco"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2243
 msgid "straighten elevation of selected edges"
