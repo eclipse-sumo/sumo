@@ -1,0 +1,12 @@
+/usr/lib64/python3.6/importlib/_bootstrap.py:219: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+  return f(*args, **kwds)
+/usr/lib64/python3.6/importlib/_bootstrap.py:219: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+  return f(*args, **kwds)
+Traceback (most recent call last):
+  File "/scr1/sumo/tests/../tools/net/abstractRail.py", line 632, in <module>
+    main(get_options())
+  File "/scr1/sumo/tests/../tools/net/abstractRail.py", line 581, in main
+    mainLine = findMainline(options, net, edges)
+  File "/scr1/sumo/tests/../tools/net/abstractRail.py", line 163, in findMainline
+    mainLine = angles[int(len(angles) / 2)][1]
+IndexError: list index out of range
