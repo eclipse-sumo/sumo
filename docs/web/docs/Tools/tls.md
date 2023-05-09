@@ -57,7 +57,7 @@ In the basic Webster's equation, critical flows are calculated according to the 
 In this script, the capacity is controlled by the option saturation-headway. As default, saturation-headway is set to 2 s. So, the default capacity is 1800 veh/lane/hour, which is for a longer road section normally. If the distance between any two intersections is quite short, e.g. 500 m in a city area, it is expected that the capacity is lower than the default capacity. It is needed to consider to increase the saturation-headway for adjusting the lane capacity.
 
 - Syncronizaton of traffic signals 
-This script only deal with the signal timing optimization at one intersection at a time, and does not synchronize the traffic signals across all intersections. So, poor results could happen if there is any conflict between signal plans. The script [tlsCoordinator.py](tls.md#tlsCycleAdaptation.py) can be used to coordinate traffic signals.
+This script only deal with the signal timing optimization at one intersection at a time, and does not synchronize the traffic signals across all intersections. So, poor results could happen if there is any conflict between signal plans. The script [tlsCoordinator.py](tls.md#tlsCoordinator.py) can be used to coordinate traffic signals.
     
 # tls_csv2SUMO.py
 
