@@ -292,7 +292,7 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
                 orderings.append((node.getID(), ordering))
                 prevOrdering = ordering
                 if options.verbose2:
-                    print(x, list(map(lambda x: x.getID(), ordering)))
+                    print(x, list(map(lambda vn: vn.getID(), ordering)))
             else:
                 sameOrdering.append((prevOrdering, ordering))
                 if options.verbose2:
