@@ -138,14 +138,4 @@ SUMOPolygon::writeXML(OutputDevice& out, bool geo) const {
 }
 
 
-PositionVector& SUMOPolygon::getShapeRef() {
-    return myShape;
-}
-
-
-std::vector<PositionVector>& SUMOPolygon::getHolesRef() {
-    return myHoles;
-}
-
-
 /****************************************************************************/
