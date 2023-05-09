@@ -1527,7 +1527,7 @@ PositionVector::operator+(const PositionVector& v2) const {
 
 bool
 PositionVector::almostSame(const PositionVector& v2, double maxDiv) const {
-    if (length() != v2.length()) {
+    if (size() != v2.size()) {
         return false;
     }
     auto i2 = v2.begin();
