@@ -1141,6 +1141,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "railway:bidirectional"
                 && key != "railway:track_ref"
                 && key != "usage"
+                && key != "service"
                 && key != "electrified"
                 && key != "segregated"
                 && key != "bus"
@@ -1167,7 +1168,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
 
         if ((key == "highway" && value != "platform") || key == "railway" || key == "waterway" || StringUtils::startsWith(key, "cycleway")
                 || key == "busway" || key == "route" || StringUtils::startsWith(key, "sidewalk") || key == "highspeed"
-                || key == "aeroway" || key == "aerialway" || key == "usage") {
+                || key == "aeroway" || key == "aerialway" || key == "usage" || key == "service") {
             // build type id
             myCurrentEdge->myCurrentIsRoad = true;
             // special cycleway stuff https://wiki.openstreetmap.org/wiki/Key:cycleway
@@ -2308,11 +2309,15 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
                 types.push_back(t);
             }
         } else if (tok.size() > 1) {
-            WRITE_WARNINGF(TL("Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."), t, type, id);
+            if (!StringUtils::startsWith(t, "service.")) {
+                WRITE_WARNINGF(TL("Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."), t, type, id);
+            }
         }
     }
     if (types.empty()) {
-        WRITE_WARNINGF(TL("Discarding unusable type '%' (first occurrence for edge '%')."), type, id);
+        if (!StringUtils::startsWith(type, "service.")) {
+            WRITE_WARNINGF(TL("Discarding unusable type '%' (first occurrence for edge '%')."), type, id);
+        }
         myUnusableTypes.insert(type);
         return "";
     }
@@ -2334,6 +2339,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
         SVCPermissions permissions = 0;
         LaneSpreadFunction spreadType = LaneSpreadFunction::RIGHT;
         bool discard = true;
+        bool hadDiscard = false;
         for (auto& type2 : types) {
             if (!tc.getEdgeTypeShallBeDiscarded(type2)) {
                 numLanes = MAX2(numLanes, tc.getEdgeTypeNumLanes(type2));
@@ -2347,7 +2353,17 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
                 sidewalkWidth = MAX2(sidewalkWidth, tc.getEdgeTypeSidewalkWidth(type2));
                 bikelaneWidth = MAX2(bikelaneWidth, tc.getEdgeTypeBikeLaneWidth(type2));
                 discard = false;
+            } else {
+                hadDiscard = true;
             }
+        }
+        if (hadDiscard && permissions == 0) {
+            discard = true;
+        }
+        if (discard) {
+            WRITE_WARNINGF(TL("Discarding compound type '%' (first occurrence for edge '%')."), newType, id);
+            myUnusableTypes.insert(newType);
+            return "";
         }
         if (width != NBEdge::UNSPECIFIED_WIDTH) {
             width = MAX2(width, SUMO_const_laneWidth);
@@ -2358,12 +2374,6 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
                 && (permissions & SVC_RAIL_CLASSES) != 0) {
             //std::cout << "patching sidewalk for type '" << newType << "' which allows=" << getVehicleClassNames(permissions) << "\n";
             sidewalkWidth = OptionsCont::getOptions().getFloat("default.sidewalk-width");
-        }
-
-        if (discard) {
-            WRITE_WARNINGF(TL("Discarding compound type '%' (first occurrence for edge '%')."), newType, id);
-            myUnusableTypes.insert(newType);
-            return "";
         }
 
         WRITE_MESSAGEF(TL("Adding new type '%' (first occurrence for edge '%')."), type, id);
