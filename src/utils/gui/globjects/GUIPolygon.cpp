@@ -154,8 +154,7 @@ TesselatedPolygon::drawTesselation(const PositionVector& shape) const {
         }
         gluTessEndContour(tobj);
         size_t startIndex = shape.size() * 3;
-        for (size_t j = 0; j < myHoles.size(); j++) {
-            PositionVector hole = myHoles[j];
+        for (const PositionVector& hole : myHoles) {
             gluTessBeginContour(tobj);
             for (int i = 0; i < (int)hole.size(); i++) {
                 points[startIndex + 3 * i] = hole[i].x();
