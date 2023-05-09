@@ -374,9 +374,12 @@ NBTypeCont::addLaneTypeRestriction(const std::string& id, const SUMOVehicleClass
 
 
 void
-NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
+NBTypeCont::writeEdgeTypes(OutputDevice& into,  const std::set<std::string>& typeIDs) const {
     // iterate over edge types
     for (const auto& edgeType : myEdgeTypes) {
+        if (typeIDs.size() > 0 && typeIDs.count(edgeType.first) == 0) {
+            continue;
+        }
         // open edge type tag
         into.openTag(SUMO_TAG_TYPE);
         // write ID

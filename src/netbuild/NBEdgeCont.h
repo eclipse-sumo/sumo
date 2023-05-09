@@ -601,6 +601,9 @@ public:
     /// @brief compute all edge angles
     void computeAngles();
 
+    /// @brief return all edge types in used
+    std::set<std::string> getUsedTypes() const;
+
 private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);

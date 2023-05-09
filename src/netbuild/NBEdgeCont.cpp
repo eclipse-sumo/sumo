@@ -2075,4 +2075,16 @@ NBEdgeCont::computeAngles() {
     }
 }
 
+
+std::set<std::string>
+NBEdgeCont::getUsedTypes() const {
+    std::set<std::string> result;
+    for (auto item : myEdges) {
+        if (item.second->getTypeID() != "") {
+            result.insert(item.second->getTypeID());
+        }
+    }
+    return result;
+}
+
 /****************************************************************************/

@@ -84,7 +84,7 @@ private:
      * @param[in] oc The options to use
      * @param[in] nc The type-container from which to read data
      */
-    static void writeTypes(const std::string& prefix, NBTypeCont& tc);
+    static void writeTypes(const std::string& prefix, NBEdgeCont& ec, NBTypeCont& tc);
 
     /** @brief Writes the edges and connections files
      * @param[in] oc The options to use
