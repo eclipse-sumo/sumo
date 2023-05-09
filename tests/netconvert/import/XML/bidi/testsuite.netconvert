@@ -1,6 +1,9 @@
 # declare bidi-edge from plain xml
 simple
 
+# declare bidi-edge from plain xml
+curved
+
 # only one of the edge pair has attribute bidi
 one_declared
 
