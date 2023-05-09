@@ -93,6 +93,9 @@ protected:
     /// @brief mapping between primary internal lane and corresponding secondary internal lane
     std::map<const MSJunction*, std::map<MSLane*, MSLane*> > myShuffledJunctions;
 
+    /// @brief lanes of the primary network that should receive a secondary shape
+    std::set<const MSEdge*> myPrimaryEdges;
+
 private:
     /** invalid copy constructor */
     NLNetShapeHandler(const NLNetShapeHandler& s);
