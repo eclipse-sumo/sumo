@@ -115,6 +115,15 @@ Another way for defining the set of vehicles that are equipped with a
 rerouting device is via [generic
 parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
 
+The following parameters are supported as child elements of a `<vType>`, `<vehicle>`, `<trip>` or `<flow>`:
+
+- device.rerouting.period
+- device.rerouting.pre-period
+- device.rerouting.proability
+- device.rerouting.deterministic
+- has.rerouting.device
+
+
 # TraCI
 
 The device can be accessed using the TraCI function
