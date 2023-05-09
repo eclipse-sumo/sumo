@@ -342,7 +342,7 @@ GUINet::initGUIStructures() {
         for (GUIEdge* edge : myEdgeWrapper) {
             Boundary b;
             for (MSLane* lane : edge->getLanes()) {
-                b.add(static_cast<GUILane*>(lane)->getSecondaryShape().getBoxBoundary());
+                b.add(static_cast<GUILane*>(lane)->getShape(true).getBoxBoundary());
             }
             // make sure persons are always drawn and selectable since they depend on their edge being drawn
             b.grow(MSPModel::SIDEWALK_OFFSET + 1);

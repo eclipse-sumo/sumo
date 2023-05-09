@@ -86,6 +86,7 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double friction, double
     myGeom(0),
 #endif
     myAmClosed(false),
+    myLengthGeometryFactor2(myLengthGeometryFactor),
     myLock(true) {
     if (MSGlobals::gUseMesoSim) {
         myShape = splitAtSegments(shape);
@@ -1057,25 +1058,25 @@ GUILane::getCenteringBoundary() const {
 
 const PositionVector&
 GUILane::getShape(bool secondary) const {
-    return secondary ? myShape2 : myShape;
+    return secondary && myShape2.size() > 0 ? myShape2 : myShape;
 }
 
 
 const std::vector<double>&
 GUILane::getShapeRotations(bool secondary) const {
-    return secondary ? myShapeRotations2 : myShapeRotations;
+    return secondary && myShapeRotations2.size() > 0 ? myShapeRotations2 : myShapeRotations;
 }
 
 
 const std::vector<double>&
 GUILane::getShapeLengths(bool secondary) const {
-    return secondary ? myShapeLengths2 : myShapeLengths;
+    return secondary && myShapeLengths2.size() > 0 ? myShapeLengths2 : myShapeLengths;
 }
 
 
 std::vector<RGBColor>&
 GUILane::getShapeColors(bool secondary) const {
-    return secondary ? myShapeColors2 : myShapeColors;
+    return secondary && myShapeColors2.size() > 0 ? myShapeColors2 : myShapeColors;
 }
 
 

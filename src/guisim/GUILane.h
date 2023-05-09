@@ -95,10 +95,6 @@ public:
 
     void addSecondaryShape(const PositionVector& shape) override;
 
-    const PositionVector& getSecondaryShape() {
-        return myShape2;
-    }
-
     double getLengthGeometryFactor(bool secondaryShape) const override {
         return secondaryShape ? myLengthGeometryFactor2 :  myLengthGeometryFactor;
     }
