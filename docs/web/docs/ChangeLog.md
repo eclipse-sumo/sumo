@@ -14,22 +14,31 @@ title: ChangeLog
   - Simulation outputs now include non-zero z-data even if the slope is 0. Issue #13171
   - Fixed crash / invalid output if a person has a `<stop>` after accessing a busStop via an access element. Issue #13108
   - Fixed invalid 'started' and 'arrivalDelay' after passing a short waypoint edge at high speed. Issue #13179
+  - Fixed crash after rerouting and losing a stop. Issue #13190
+  - Fixed invalid TTC computation when both vehicles are extrapolated to stop. Issue #13212
 
 - netedit
   - Fixed segfault when closing netedit and no net is loaded #13131. (regression in 1.17.0)
   - netdiff-dialog now permits to change the output prefix. Issue #13130
   - Fixed invalid default values in netgenerate dialog and tool dialogs. Issue #13152
+  - Function 'add reverse edge' applied on a selection, no longer adds duplicate reverse edges. Issue #13209
 
 - sumo-gui
   - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
+  - game mode now switches time display style for all time labels. Issue #13211
+  - Fixed crash when switching to a (mismatching) alternative net file. Issue #13215
 
 
 - netconvert
   - Fixed inconsistent network file after setting **--default.spreadtype center**. Issue #13127
+  - OpenDRIVE export: fixed invalid crosswalk shape. Issue #10432
 
 - TraCI
   - Fixed crash when calling traci.load and running with sumo-gui. Issue #13150 (regression in 1.16.0)
   - Calling `vehicle.insertStop` now preserves the orginal route edges beyond the inserted stop. Issue #13092
+
+- Tools
+  - abstractRail.py: Failure to optimize on region is now recoverable. Issue #13193
   
 
 ### Enhancements
@@ -42,6 +51,15 @@ title: ChangeLog
   - Simulation end time is now written into the message window. Issue #13145
   - Live edgeData can now be oserved after the simulation ends. Issue #13144
 
+- netconvert
+  - OpenDRIVE import: now supports road objects from connecting roads. Issue #13196
+  - OpenDRIVE export: now includes additional road object attributes. Issue #13205
+  - Added option **--geometry.remove.max-junction-size FLOAT** to prevent unsmooth road shape when converting large junctions to a geometry point. Issue #13199
+  - OSM import: typemap `osmNetconvertRailUsage.typ.xml` now imports service designation. Issue #13213
+
+- TraCI
+  - Added function `simpla.getPlattonID`. Issue #13029
+
 - tools
   - plotXMLAttributes.py and plot_trajectories.py now show the plot by default. Issue #13158
   - plotXMLAttributes.py: Added option **--join-files** to treat data points from different files as if coming from the same file. Issue #13154
@@ -49,10 +67,12 @@ title: ChangeLog
   - runSeeds.py: shortened generated folder names. Issue #13167
   - runSeeds.py: added option **--no-folders** to keep all written files in the same directory when running with multiple configuration files or applications (folder name becomes file name prefix). Issue #13157
   - routeSampler: Added option **--taz-files** and support for loading origin destination matrices in `tazRelation` format. Issue #6890
+  - abstractRail.py: Now handles regions without stops. Issue #13221
 
 ### Miscellaneous
 
 - plotXMLAttributes.py and plot_trajectories.py no longer create 'plot.png' by default. Issue #13166
+- netconvert: road objects imported from OpenDRIVE are now placed on a higher layer to make them visible above the road. Issue #13197
 
 
 
