@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:39 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2023-05-09 15:52:06 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,7 +31,6 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -39,7 +43,6 @@ SPDX-License-Identifier: EPL-2.0
     <type id="a" priority="3" numLanes="3" speed="13.89"/>
     <type id="b" priority="2" numLanes="2" speed="11.11"/>
     <type id="c" priority="1" numLanes="1" speed="11.11" allow="bicycle"/>
-    <type id="d" priority="1" numLanes="1" speed="2.90" allow="pedestrian"/>
 
     <edge id=":0_0" function="internal">
         <lane id=":0_0_0" index="0" allow="bicycle" speed="7.02" length="10.69" shape="492.00,511.10 491.81,506.94 491.23,503.98 490.26,502.19 488.90,501.60"/>

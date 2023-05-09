@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 15:29:24 by Eclipse SUMO netconvert Version v1_14_1+1424-dd7fe0dae06
+<!-- generated on 2023-05-09 15:52:26 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,37 +44,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <location netOffset="-389060.19,-5815081.48" convBoundary="0.00,0.00,1267.18,1579.73" origBoundary="13.366597,52.474606,13.384884,52.488946" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <type id="cycleway.lane" allow="bicycle" bikeLaneWidth="1.00"/>
     <type id="cycleway.lane|highway.secondary" priority="7" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0" bikeLaneWidth="1.00"/>
-    <type id="cycleway.opposite_lane" allow="bicycle" bikeLaneWidth="1.00"/>
-    <type id="cycleway.opposite_track" allow="bicycle" bikeLaneWidth="1.50"/>
-    <type id="cycleway.track" allow="bicycle" bikeLaneWidth="1.50"/>
     <type id="cycleway.track|highway.secondary" priority="7" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0" bikeLaneWidth="1.50"/>
-    <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1"/>
-    <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0"/>
     <type id="highway.footway" priority="1" numLanes="1" speed="8.33" allow="pedestrian" oneway="1"/>
-    <type id="highway.living_street" priority="3" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.motorway" priority="13" numLanes="2" speed="44.44" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric ship" oneway="1"/>
-    <type id="highway.motorway_link" priority="12" numLanes="1" speed="22.22" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric ship" oneway="1"/>
-    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="1"/>
-    <type id="highway.pedestrian" priority="1" numLanes="1" speed="8.33" allow="pedestrian" oneway="1"/>
-    <type id="highway.primary" priority="9" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.primary_link" priority="8" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.residential" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.secondary" priority="7" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.service" priority="2" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
-    <type id="highway.services" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1"/>
-    <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1"/>
     <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1"/>
-    <type id="highway.tertiary" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.track" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.trunk" priority="11" numLanes="2" speed="27.78" disallow="pedestrian bicycle tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="pedestrian bicycle tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.unclassified" priority="5" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
 
     <edge id=":1388312343_0" function="internal">
         <lane id=":1388312343_0_0" index="0" allow="pedestrian delivery bicycle" speed="5.04" length="5.00" shape="465.55,1179.63 465.32,1178.28 464.72,1177.32 463.74,1176.76 462.37,1176.60"/>

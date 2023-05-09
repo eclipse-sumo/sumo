@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-06 08:14:48 by Eclipse SUMO netconvert Version v1_15_0+1362-339c192
+<!-- generated on 2023-05-09 15:52:27 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,39 +43,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <location netOffset="-700070.51,-5705240.00" convBoundary="0.00,-0.00,1189.54,1562.16" origBoundary="-0.119675,51.462774,-0.102305,51.476786" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
-    <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
     <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" width="1.00"/>
     <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
-    <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
-    <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.motorway" priority="14" numLanes="2" speed="39.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
-    <type id="highway.motorway_link" priority="9" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
-    <type id="highway.path" priority="1" numLanes="1" speed="5.56" allow="pedestrian bicycle" oneway="0" width="2.00"/>
     <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
-    <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.raceway" priority="15" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
     <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
-    <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
-    <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
-    <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
-    <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.track" priority="1" numLanes="1" speed="5.56" allow="pedestrian motorcycle moped bicycle" oneway="0"/>
     <type id="highway.trunk" priority="13" numLanes="2" speed="27.78" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.trunk_link" priority="8" numLanes="1" speed="22.22" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" allow="rail_fast" oneway="1"/>
-    <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
-    <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
     <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
-    <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
-    <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id=":107086716_0" function="internal">
         <lane id=":107086716_0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.41" length="5.03" shape="350.33,79.36 349.00,74.52"/>
@@ -2255,7 +2231,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="25159688#1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="8.88" shape="275.67,190.48 269.77,197.12"/>
     </edge>
     <edge id="25211335" from="21619537" to="1760726663" priority="20" type="railway.rail" spreadType="center" shape="402.49,-0.00 376.55,4.43 356.87,9.41 337.11,15.17 317.27,21.80 300.02,28.72 282.12,37.13 266.87,45.41 257.88,50.09 234.64,62.12 208.46,73.37 184.82,81.13 165.03,86.53 148.71,90.09 118.13,96.23 94.67,98.23 74.21,98.55 47.40,98.23 32.12,97.12 3.15,92.93">
-        <lane id="25211335_0" index="0" allow="rail rail_electric rail_fast" speed="13.41" length="417.33" shape="402.49,-0.00 376.55,4.43 356.87,9.41 337.11,15.17 317.27,21.80 300.02,28.72 282.12,37.13 266.87,45.41 257.88,50.09 234.64,62.12 208.46,73.37 184.82,81.13 165.03,86.53 148.71,90.09 118.13,96.23 94.67,98.23 74.21,98.55 47.40,98.23 32.12,97.12 3.15,92.93"/>
+        <lane id="25211335_0" index="0" allow="rail rail_electric rail_fast" speed="13.41" length="417.33" shape="402.49,0.00 376.55,4.43 356.87,9.41 337.11,15.17 317.27,21.80 300.02,28.72 282.12,37.13 266.87,45.41 257.88,50.09 234.64,62.12 208.46,73.37 184.82,81.13 165.03,86.53 148.71,90.09 118.13,96.23 94.67,98.23 74.21,98.55 47.40,98.23 32.12,97.12 3.15,92.93"/>
     </edge>
     <edge id="25211346" from="9780020" to="1760726700" priority="20" type="railway.rail" spreadType="center" shape="349.05,64.23 331.69,70.80 308.34,78.03 255.32,89.12 233.57,94.28 207.10,98.90 182.74,102.69 153.56,105.85 102.26,108.95 87.97,109.37 71.44,109.09 42.17,107.28 23.48,105.05 1.08,101.24">
         <lane id="25211346_0" index="0" allow="rail rail_electric rail_fast" speed="20.12" length="353.49" shape="349.05,64.23 331.69,70.80 308.34,78.03 255.32,89.12 233.57,94.28 207.10,98.90 182.74,102.69 153.56,105.85 102.26,108.95 87.97,109.37 71.44,109.09 42.17,107.28 23.48,105.05 1.08,101.24"/>
