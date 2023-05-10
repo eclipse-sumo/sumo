@@ -99,3 +99,6 @@ ticket12765
 
 # apply turnSigns when the topology is handled by a fixed connection pattern.
 ticket12978
+
+# restriction exception lost on joining junction
+ticket13217
