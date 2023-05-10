@@ -3100,7 +3100,7 @@ long
 GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
     // get network file file
     const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, true);
-    if (networkFile.size() > 0) {
+    if (!networkFile.empty()) {
         // set ouput file in netedit configs
         auto& neteditOptions = OptionsCont::getOptions();
         neteditOptions.resetWritable();
@@ -3483,7 +3483,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     // get TLS file
     const auto TLSFile = GNEApplicationWindowHelper::openTLSFileDialog(this, true);
     // check tat file is valid
-    if (TLSFile != "") {
+    if (!TLSFile.empty()) {
         // change value of "tls-file"
         neteditOptions.resetWritable();
         neteditOptions.set("tls-file", TLSFile);
@@ -3502,7 +3502,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
     // get network file file
     const auto edgeTypesFile = GNEApplicationWindowHelper::openEdgeTypeFileDialog(this, true);
     // check tat file is valid
-    if (edgeTypesFile.size() > 0) {
+    if (!edgeTypesFile.empty()) {
         // change value of "edgetypes-file"
         neteditOptions.resetWritable();
         neteditOptions.set("edgetypes-file", edgeTypesFile);
@@ -3673,7 +3673,7 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     // get additional file
     const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, true);
     // check that file is valid
-    if (additionalFile.size() > 0) {
+    if (!additionalFile.empty()) {
         // reset writtable flag
         neteditOptions.resetWritable();
         // change value of "additional-files"
@@ -3834,7 +3834,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel
     // get route file
     const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, true);
     // check that file is correct
-    if (routeFile != "") {
+    if (!routeFile.empty()) {
         // reset writtable flag
         neteditOptions.resetWritable();
         // change value of "route-files"
@@ -3856,7 +3856,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     // get file
     const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, false);
     // check file
-    if (dataFile.empty()) {
+    if (!dataFile.empty()) {
         // declare overwrite flag
         bool overwriteElements = false;
         // check if open question dialog box
@@ -4001,7 +4001,7 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, 
     // get data file
     const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, true);
     // check that file is correct
-    if (dataFile != "") {
+    if (!dataFile.empty()) {
         // reset writtable flag
         neteditOptions.resetWritable();
         // change value of "data-files"
@@ -4158,7 +4158,7 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* sender, FXSelector sel, voi
     // get meanData file
     const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, true);
     // check that file is valid
-    if (meanDataFile != "") {
+    if (!meanDataFile.empty()) {
         // reset writtable flag
         neteditOptions.resetWritable();
         // change value of "meandata-files"
