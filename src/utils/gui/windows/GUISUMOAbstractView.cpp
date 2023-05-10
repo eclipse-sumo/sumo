@@ -1094,7 +1094,9 @@ long
 GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
     setFocus();
-    myChanger->onMiddleBtnPress(ptr);
+    if(!myApp->isGaming()) {
+        myChanger->onMiddleBtnPress(ptr);
+    }
     grab();
     // enable panning
     myPanning = true;
@@ -1108,7 +1110,9 @@ GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
 long
 GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    myChanger->onMiddleBtnRelease(ptr);
+    if(!myApp->isGaming()) {
+        myChanger->onMiddleBtnRelease(ptr);
+    }
     ungrab();
     // disable panning
     myPanning = false;
@@ -1122,7 +1126,9 @@ GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
 long
 GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    myChanger->onRightBtnPress(ptr);
+    if(!myApp->isGaming()) {
+        myChanger->onRightBtnPress(ptr);
+    }
     grab();
     return 1;
 }
@@ -1178,7 +1184,7 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* ptr) {
             destroyPopup();
         }
     }
-    if (myPopup == nullptr) {
+    if (myPopup == nullptr && !myApp->isGaming()) {
         if (myGUIDialogEditViewport == nullptr || !myGUIDialogEditViewport->haveGrabbed()) {
             myChanger->onMouseMove(ptr);
         }
