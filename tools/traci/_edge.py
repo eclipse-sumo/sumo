@@ -192,7 +192,16 @@ class EdgeDomain(Domain):
         Returns a list of all vehicle ids waiting for insertion on this edge (with depart delay)
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES, edgeID)
-
+        
+    def getAngle(self, edgeID, relativePosition = tc.INVALID_DOUBLE_VALUE):
+        """getAngle(string, double) -> double
+        Returns the heading of the straight line segment formed by the edge at the given position. 
+        If the given position equals TraCI constant INVALID_DOUBLE_VALUE, it returns the total angle 
+        formed by the edge, from its start point to its end point. If the edge doesn't have any lanes,
+        then INVALID_DOUBLE_VALUE is returned.
+        """
+        return self._getUniversal(tc.VAR_ANGLE, edgeID, "d", relativePosition)
+            
     def adaptTraveltime(self, edgeID, time, begin=None, end=None):
         """adaptTraveltime(string, double, double, double) -> None
 

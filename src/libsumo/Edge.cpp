@@ -29,6 +29,7 @@
 #include <libsumo/Helper.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
+#include <libsumo/Lane.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include "Edge.h"
 
@@ -281,6 +282,14 @@ Edge::getPendingVehicles(const std::string& edgeID) {
     return vehIDs;
 }
 
+
+double
+Edge::getAngle(const std::string& edgeID, double relativePosition) {
+    const std::vector<MSLane*>& lanes = getEdge(edgeID)->getLanes();
+    return lanes.empty() ? libsumo::INVALID_DOUBLE_VALUE : Lane::getAngle(lanes.front()->getID(), relativePosition);
+}
+
+
 std::string
 Edge::getParameter(const std::string& edgeID, const std::string& param) {
     return getEdge(edgeID)->getParameter(param, "");
@@ -425,6 +434,9 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapString(objID, variable, getStreetName(objID));
         case VAR_PENDING_VEHICLES:
             return wrapper->wrapStringList(objID, variable, getPendingVehicles(objID));
+        case VAR_ANGLE:
+            paramData->readUnsignedByte();
+            return wrapper->wrapDouble(objID, variable, getAngle(objID, paramData->readDouble()));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
