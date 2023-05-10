@@ -593,7 +593,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::buildNetwork
                      GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_E_MODE_EDGE_EDGEDATA);
     connectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                   TL("&Connection"), "C", TL("Modes connections between lanes."),
-                  GUIIconSubSys::getIcon(GUIIcon::MODECONNECTION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN);
+                  GUIIconSubSys::getIcon(GUIIcon::MODECONNECTION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_C_MODE_CONNECT_CONTAINER);
     prohibitionMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                       TL("Pro&hibition"), "H", TL("Modes connection prohibitions."),
                       GUIIconSubSys::getIcon(GUIIcon::MODEPROHIBITION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN);
@@ -685,11 +685,11 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMe
                  TL("Person"), "P", TL("Create persons."),
                  GUIIconSubSys::getIcon(GUIIcon::MODEPERSON), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_P_MODE_POLYGON_PERSON);
     personPlanMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                     TL("Person plan"), "C", TL("Create person plans."),
-                     GUIIconSubSys::getIcon(GUIIcon::MODEPERSONPLAN), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN);
+                     TL("Person plan"), "L", TL("Create person plans."),
+                     GUIIconSubSys::getIcon(GUIIcon::MODEPERSONPLAN), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_L_MODE_PERSONPLAN);
     containerMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                    TL("Container"), "G", TL("Create containers."),
-                    GUIIconSubSys::getIcon(GUIIcon::MODECONTAINER), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_G_MODE_CONTAINER);
+                    TL("Container"), "C", TL("Create containers."),
+                    GUIIconSubSys::getIcon(GUIIcon::MODECONTAINER), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_C_MODE_CONNECT_CONTAINER);
     containerPlanMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                         TL("Container plan"), "H", TL("Create container plans."),
                         GUIIconSubSys::getIcon(GUIIcon::MODECONTAINERPLAN), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN);

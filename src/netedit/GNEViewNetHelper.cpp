@@ -3556,7 +3556,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     connectionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
             std::string("\t") + TL("Set connection mode") + std::string("\t") + TL("Mode for edit connections between lanes. (C)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODECONNECTION), myViewNet, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN, GUIDesignMFXCheckableButtonSquare);
+            GUIIconSubSys::getIcon(GUIIcon::MODECONNECTION), myViewNet, MID_HOTKEY_C_MODE_CONNECT_CONTAINER, GUIDesignMFXCheckableButtonSquare);
     connectionButton->create();
     // prohibition mode
     prohibitionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -3723,14 +3723,14 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     // person plan mode
     personPlanButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            std::string("\t") + TL("Create person plan mode") + std::string("\t") + TL("Mode for creating person plans. (C)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODEPERSONPLAN), myViewNet, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN, GUIDesignMFXCheckableButtonSquare);
+            std::string("\t") + TL("Create person plan mode") + std::string("\t") + TL("Mode for creating person plans. (L)"),
+            GUIIconSubSys::getIcon(GUIIcon::MODEPERSONPLAN), myViewNet, MID_HOTKEY_L_MODE_PERSONPLAN, GUIDesignMFXCheckableButtonSquare);
     personPlanButton->create();
     // container mode
     containerButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            std::string("\t") + TL("Create container mode") + std::string("\t") + TL("Mode for creating containers. (P)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODECONTAINER), myViewNet, MID_HOTKEY_G_MODE_CONTAINER, GUIDesignMFXCheckableButtonSquare);
+            std::string("\t") + TL("Create container mode") + std::string("\t") + TL("Mode for creating containers. (C)"),
+            GUIIconSubSys::getIcon(GUIIcon::MODECONTAINER), myViewNet, MID_HOTKEY_C_MODE_CONNECT_CONTAINER, GUIDesignMFXCheckableButtonSquare);
     containerButton->create();
     // container plan mode
     containerPlanButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,

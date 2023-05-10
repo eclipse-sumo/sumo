@@ -41,18 +41,18 @@ enum {
 
     /// @brief hotkey for start simulation in SUMO and set editing mode additionals AND stops in netedit
     MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,
-    /// @brief hotkey for mode connecting lanes ABD person plan
-    MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN,
+    /// @brief hotkey for mode connecting lanes AND container
+    MID_HOTKEY_C_MODE_CONNECT_CONTAINER,
     /// @brief hotkey for perform a single simulation step in SUMO and set delete mode in netedit
     MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,
     /// @brief hotkey for mode adding edges AND edgeDatas
     MID_HOTKEY_E_MODE_EDGE_EDGEDATA,
-    /// @brief hotkey for mode container
-    MID_HOTKEY_G_MODE_CONTAINER,
     /// @brief hotkey for mode prohibition AND container plan
     MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,
     /// @brief hotkey for mode inspecting object attributes
     MID_HOTKEY_I_MODE_INSPECT,
+    /// @brief hotkey for mode person plan
+    MID_HOTKEY_L_MODE_PERSONPLAN,
     /// @brief hotkey for mode moving element AND mean data
     MID_HOTKEY_M_MODE_MOVE_MEANDATA,
     /// @brief hotkey for mode creating polygons

@@ -87,12 +87,12 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA,    GNEViewNet::onCmdSetSupermode),
     // Modes
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,    GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN,                GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER,                 GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,       GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                     GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER,                         GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,         GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT,                           GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_L_MODE_PERSONPLAN,                        GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE_MEANDATA,                     GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_MODE_POLYGON_PERSON,                    GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,        GNEViewNet::onCmdSetMode),
@@ -1962,7 +1962,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_E_MODE_EDGE_EDGEDATA:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_CREATE_EDGE);
                 break;
-            case MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN:
+            case MID_HOTKEY_C_MODE_CONNECT_CONTAINER:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_CONNECT);
                 break;
             case MID_HOTKEY_T_MODE_TLS_TYPE:
@@ -1992,8 +1992,8 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         // check what demand mode will be set
         switch (FXSELID(sel)) {
-            case MID_HOTKEY_G_MODE_CONTAINER:
-                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_CONTAINER);
+            case MID_HOTKEY_L_MODE_PERSONPLAN:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSONPLAN);
                 break;
             case MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_CONTAINERPLAN);
@@ -2025,8 +2025,8 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_P_MODE_POLYGON_PERSON:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSON);
                 break;
-            case MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN:
-                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSONPLAN);
+            case MID_HOTKEY_C_MODE_CONNECT_CONTAINER:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_CONTAINER);
                 break;
             default:
                 break;
