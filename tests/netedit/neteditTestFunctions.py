@@ -1648,7 +1648,7 @@ def personPlanMode():
     """
     @brief change to person mode
     """
-    typeKey('c')
+    typeKey('l')
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
 
@@ -1676,7 +1676,7 @@ def containerPlanMode():
     """
     @brief change to person mode
     """
-    typeKey('h')
+    typeKey('c')
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
 
