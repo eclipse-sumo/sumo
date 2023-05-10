@@ -3119,11 +3119,21 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
     // get neteditConfig filename
     auto plainXMLFile = GNEApplicationWindowHelper::savePlainXMLFileDialog(this);
     // Remove extension
-    if (plainXMLFile.size() > 0) {
-        plainXMLFile.pop_back();
+    if (!plainXMLFile.empty()) {
+        // adjust file
+        if (plainXMLFile.back() == '.') {
+            plainXMLFile.pop_back();
+        } else {
+            plainXMLFile = StringUtils::replace(plainXMLFile, ".edg.xml", "");
+            plainXMLFile = StringUtils::replace(plainXMLFile, ".nod.xml", "");
+            plainXMLFile = StringUtils::replace(plainXMLFile, ".con.xml", "");
+            plainXMLFile = StringUtils::replace(plainXMLFile, ".typ.xml", "");
+            plainXMLFile = StringUtils::replace(plainXMLFile, ".tll.xml", "");
+            plainXMLFile = StringUtils::replace(plainXMLFile, ".xml", "");
+        }
     }
     // continue depending of file
-    if (plainXMLFile.size() > 0) {
+    if (!plainXMLFile.empty()) {
         // start saving plain XML
         getApp()->beginWaitCursor();
         try {
