@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
@@ -15,6 +15,7 @@
 # @file    runner.py
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2010-01-30
 
 """
@@ -42,7 +43,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
-
+from sumolib.translation import addLanguageOption, setLanguage, TL
 
 _UPLOAD = False if "noupload" in sys.argv else True
 _SCOREFILE = "scores.pkl"
@@ -54,57 +55,37 @@ if _UPLOAD:
 _DEBUG = True if "debug" in sys.argv else False
 _SCORES = 30
 BASE = os.path.dirname(sys.argv[0])
+_LANGUAGE_CAPTIONS = {}
 
-_LANGUAGE_EN = {'title': 'Interactive Traffic Light',
-                'fkk_in': 'Research intersection Ingolstadt',
-                'cross': 'Simple Junction',
-                'cross_demo': 'Simple Junction (Demo)',
-                'square': 'Four Junctions',
-                'grid6': 'Six Junctions',
-                'kuehne': 'Prof. Kühne',
-                'bs3d': '3D Junction Virtual World',
-                'bs3Dosm': '3D Junction OpenStreetMap',
-                'highway': 'Highway Ramp',
-                'ramp': 'Combined Highway On and Off Ramp',
-                'corridor': 'Corridor',
-                'A10KW': 'Highway Ramp A10',
-                'DRT': 'Demand Responsive Transport (new)',
-                'DRT2': 'DRT - Advanced (new)',
-                'DRT_demo': 'DRT - Demo',
-                'high': 'Highscore',
-                'reset': 'Reset Highscore',
-                'lang': 'Deutsch',
-                'quit': 'Quit',
-                'Highscore': 'Highscore',
-                'Congratulations': 'Congratulations!',
-                'your score': 'Your Score',
-                'Continue': 'Continue',
-                }
-_LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
-                'fkk_in': 'Forschungskreuzung Ingolstadt',
-                'cross': 'Einfache Kreuzung',
-                'cross_demo': 'Einfache Kreuzung (Demo)',
-                'square': 'Vier Kreuzungen',
-                'grid6': 'Sechs Kreuzungen',
-                'kuehne': 'Prof. Kühne',
-                'bs3d': '3D Forschungskreuzung Virtuelle Welt',
-                'bs3Dosm': '3D Forschungskreuzung OpenStreetMap',
-                'highway': 'Autobahnauffahrt',
-                'ramp': 'Kombinierte Autobahnauf- und -abfahrt',
-                'A10KW': 'A10 KW',
-                'DRT': 'Bedarfsbus (neu)',
-                'DRT2': 'Bedarfsbus für Fortgeschrittene (neu)',
-                'DRT_demo': 'Bedarfsbus - Demo',
-                'corridor': 'Strecke',
-                'high': 'Bestenliste',
-                'reset': 'Bestenliste zurücksetzen',
-                'lang': 'Englisch',
-                'quit': 'Beenden',
-                'Highscore': 'Bestenliste',
-                'Congratulations': 'Gratulation!',
-                'your score': 'Deine Punkte',
-                'Continue': 'Weiter',
-                }
+
+def updateLocalMessages():
+    global _LANGUAGE_CAPTIONS
+    _LANGUAGE_CAPTIONS = {'title': TL('Interactive Traffic Light'),
+                    'fkk_in': TL('Research intersection Ingolstadt'),
+                    'cross': TL('Simple Junction'),
+                    'cross_demo': TL('Simple Junction (Demo)'),
+                    'square': TL('Four Junctions'),
+                    'grid6': TL('Six Junctions'),
+                    'kuehne': TL('Prof. Kühne'),
+                    'bs3d': TL('3D Junction Virtual World'),
+                    'bs3Dosm': TL('3D Junction OpenStreetMap'),
+                    'highway': TL('Highway Ramp'),
+                    'ramp': TL('Combined Highway On and Off Ramp'),
+                    'corridor': TL('Corridor'),
+                    'A10KW': TL('Highway Ramp A10'),
+                    'DRT': TL('Demand Responsive Transport (new)'),
+                    'DRT2': TL('DRT - Advanced (new)'),
+                    'DRT_demo': TL('DRT - Demo'),
+                    'high': TL('Highscore'),
+                    'reset': TL('Reset Highscore'),
+                    'german': TL('German'),
+                    'english': TL('English'),
+                    'quit': TL("Quit"),
+                    'Highscore': TL("Highscore"),
+                    'Congratulations': TL("Congratulations!"),
+                    'your score': TL('Your Score'),
+                    'Continue': TL('Continue'),
+                    }
 
 
 def printDebug(*args):
@@ -301,11 +282,12 @@ class IMAGE:
 
 class StartDialog(Tkinter.Frame):
 
-    def __init__(self, parent, lang):
+    def __init__(self, parent, lang, langCode):
         Tkinter.Frame.__init__(self, parent)
         # variables for changing language
         self.parent = parent
         self._language_text = lang
+        self._langCode = langCode
         self.buttons = []
         # misc variables
         self.name = ''
@@ -365,7 +347,7 @@ class StartDialog(Tkinter.Frame):
 
         button = Tkinter.Button(
             self, width=bWidth_control, command=lambda: self.change_language())
-        self.addButton(button, 'lang')
+        self.addButton(button, 'german', key='lang')
         button.grid(row=numButtons - 2, column=COL_START, columnspan=2)
 
         self.grid()
@@ -375,17 +357,21 @@ class StartDialog(Tkinter.Frame):
         self.parent.update()
         self.parent.deiconify()
 
-    def addButton(self, button, text):
+    def addButton(self, button, text, key=None):
         button["text"] = self._language_text.get(text, text)
-        self.buttons.append((text, button))
+        if key == None:
+            key = text
+        self.buttons.append((key, button))
 
     def change_language(self):
-        if self._language_text == _LANGUAGE_DE:
-            self._language_text = _LANGUAGE_EN
-        else:
-            self._language_text = _LANGUAGE_DE
-        for text, button in self.buttons:
-            button["text"] = self._language_text[text]
+        self._langCode = "en" if self._langCode == "de" else "de"
+        setLanguage(self._langCode)
+        updateLocalMessages()
+        self._language_text = _LANGUAGE_CAPTIONS
+        for key, button in self.buttons:
+            if key == "lang":
+                key = "english"if self._langCode == "de" else "german"
+            button["text"] = self._language_text[key]
 
     def category_name(self, cfg):
         return os.path.basename(cfg)[:-8]
@@ -404,7 +390,7 @@ class StartDialog(Tkinter.Frame):
         self.gametime = parseEndTime(cfg)
         self.ret = subprocess.call(
             [sumolib.checkBinary("sumo-gui", BASE), "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
-                '--output-prefix', "%s." % self.category,
+                '--output-prefix', "%s." % self.category, '--language', self._langCode,
                 '--duration-log.statistics', '--statistic-output', 'stats.xml',
                 '--tripinfo-output.write-unfinished'], stderr=sys.stderr)
 
@@ -545,8 +531,11 @@ def main():
     optParser.add_option("-s", "--stereo", metavar="OSG_STEREO_MODE",
                          help=("Defines the stereo mode to use for 3D output; unique prefix of %s" % (
                                ", ".join(stereoModes))))
+    addLanguageOption(optParser)
     options = optParser.parse_args()
-
+    setLanguage(options.language)
+    updateLocalMessages()
+    
     if options.stereo:
         for m in stereoModes:
             if m.lower().startswith(options.stereo.lower()):
@@ -554,7 +543,6 @@ def main():
                 os.environ["OSG_STEREO"] = "ON"
                 break
 
-    lang = _LANGUAGE_EN
     if "OSG_FILE_PATH" in os.environ:
         os.environ["OSG_FILE_PATH"] += os.pathsep + \
             os.path.join(os.environ.get("SUMO_HOME", ""), "data", "3D")
@@ -566,7 +554,7 @@ def main():
     IMAGE.dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
     IMAGE.sumoLogo = Tkinter.PhotoImage(file='sumo_logo.gif')
     IMAGE.qrCode = Tkinter.PhotoImage(file='qr_sumo.dlr.de.gif')
-    StartDialog(root, lang)
+    StartDialog(root, _LANGUAGE_CAPTIONS, options.language)
     root.mainloop()
 
 
