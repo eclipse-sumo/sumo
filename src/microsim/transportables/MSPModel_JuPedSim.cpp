@@ -154,14 +154,14 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             state->setPosition(agent.position.x, agent.position.y);
 
             // Updates the agent direction.
-            state->setAngle(atan2(agent.orientation.x, agent.orientation.y));
+            state->setAngle(atan2(agent.orientation.y, agent.orientation.x));
 
             Position newPosition(agent.position.x, agent.position.y);
             MSPerson* person = state->getPerson();
             MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
             const MSEdge* currentEdge = stage->getEdge();
             const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
-
+/*
             // Updates the edge to walk on.
             if (myRoutingMode == PedestrianRoutingMode::SUMO_ROUTING)
             {
@@ -191,12 +191,12 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             else { // PedestrianRoutingMode::JUPEDSIM_ROUTING
                 libsumo::Person::moveToXY(person->getID(), currentEdge->getID(), agent.position.x, agent.position.y, libsumo::INVALID_DOUBLE_VALUE, 2);
             }
-            
+            */
             // If near the last waypoint, remove the agent.
             if (newPosition.distanceTo2D(state->getDestination()) < JPS_EXIT_TOLERANCE) {
                 JPS_Simulation_RemoveAgent(myJPSSimulation, state->getAgentId(), nullptr);
                 myPedestrianStates.erase(std::find(myPedestrianStates.begin(), myPedestrianStates.end(), state));
-                stage->moveToNextEdge(person, time, 1, nullptr);
+                while (!stage->moveToNextEdge(person, time, 1, nullptr));
                 registerArrived();
             }
         }
