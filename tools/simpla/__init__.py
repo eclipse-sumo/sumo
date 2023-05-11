@@ -192,7 +192,7 @@ def getPlatoonID(vehicleID):
 
     getPlatoonID(string) -> integer
 
-    Returns the platoon ID the vehicle given by its ID belongs too. If the vehicle does not belong to 
+    Returns the platoon ID the vehicle given by its ID belongs too. If the vehicle does not belong to
     any platoon, -1 is returned.
     '''
     global _mgr, warn

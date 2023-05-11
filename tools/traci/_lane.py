@@ -294,10 +294,10 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES, laneID)
 
-    def getAngle(self, laneID, relativePosition = tc.INVALID_DOUBLE_VALUE):
+    def getAngle(self, laneID, relativePosition=tc.INVALID_DOUBLE_VALUE):
         """getAngle(string, double) -> double
-        Returns the heading of the straight line segment formed by the lane at the given position. 
-        If the given position equals TraCI constant INVALID_DOUBLE_VALUE, it returns the total angle 
+        Returns the heading of the straight line segment formed by the lane at the given position.
+        If the given position equals TraCI constant INVALID_DOUBLE_VALUE, it returns the total angle
         formed by the lane, from its start point to its end point.
         """
         return self._getUniversal(tc.VAR_ANGLE, laneID, "d", relativePosition)

@@ -135,7 +135,7 @@ def splitNet(options):
     invEdgeMap = {}
     seenTypes = set()
     for e in sumolib.net.readNet(numIdNet).getEdges():
-        origId =  e.getLanes()[0].getParam("origId", e.getID())
+        origId = e.getLanes()[0].getParam("origId", e.getID())
         edgeMap[e.getID()] = origId
         invEdgeMap[origId] = e.getID()
         seenTypes.add(e.getType())
@@ -306,7 +306,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
                 laneID, start, end = s.lane, float(s.startPos), float(s.endPos)
             else:
                 result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength,
-                                            route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
+                                              route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
                 if result is None:
                     if options.warn_unmapped:
                         print("Warning! No stop for %s." % str(veh), file=sys.stderr)
