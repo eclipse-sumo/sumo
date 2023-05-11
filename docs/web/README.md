@@ -25,7 +25,7 @@ pip install -r requirements.txt
 
 On Linux, install **plantuml** via `sudo apt-get install plantuml`.
 
-Make sure that `mkdocs` is recognized in the command line by adding its location to the `Path` environment variable (typically something like `C:\Users\[username]\AppData\Roaming\Python\Python39\Scripts`). To run the built-in development server, use:
+On Windows, make sure that `mkdocs` is recognized in the command line by adding its location to the `Path` environment variable (typically something like `C:\Users\[username]\AppData\Roaming\Python\Python39\Scripts`). To run the built-in development server, use:
 ```
 mkdocs serve
 ```
