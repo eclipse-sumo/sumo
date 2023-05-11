@@ -171,6 +171,10 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
                 NBOwnTLDef* oDef = new NBOwnTLDef(def->getID(), def->getNodes(), def->getOffset(), def->getType());
                 oDef->setProgramID(def->getProgramID());
                 oDef->setParticipantsInformation();
+                for (NBEdge* e : oDef->getIncomingEdges()) {
+                    e->clearControllingTLInformation();
+                }
+                oDef->setTLControllingInformation();
                 for (NBNode* node : oDef->getNodes()) {
                     node->removeTrafficLight(def);
                 }
