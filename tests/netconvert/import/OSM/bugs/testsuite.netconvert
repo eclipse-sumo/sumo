@@ -102,3 +102,6 @@ ticket12978
 
 # restriction exception lost on joining junction
 ticket13217
+
+# bad join and also turn around not detected (#13238)
+ticket13237
