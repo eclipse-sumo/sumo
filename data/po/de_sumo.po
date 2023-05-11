@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-11 13:57+0000\n"
+"PO-Revision-Date: 2023-05-11 16:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2213,11 +2213,8 @@ msgid "Sets default visibility for actuation detectors"
 msgstr "Legt die Standardsichtbarkeit für Betätigungsdetektoren fest"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:461
-#, fuzzy
 msgid "Sets default jam-threshold parameter for all actuation detectors"
-msgstr ""
-"Legt den standardmäßigen Blockierungsgrenz-Parameter für alle "
-"Betätigungsdetektoren fest"
+msgstr "Legt den standardmäßigen Staugrenzwert für alle LSA-Detektoren fest"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:464
 msgid "Sets default detector length parameter for all actuation detectors"
@@ -2288,7 +2285,6 @@ msgid "Use Kirchhoff's laws for solving overhead wire circuit"
 msgstr "Kirchhoff´s Regel zum Lösen der Oberleitungsschaltung verwenden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:495
-#, fuzzy
 msgid ""
 "Enable recuperation from the vehicle equipped with elecHybrid device into "
 "the overhead wire."
@@ -2297,7 +2293,6 @@ msgstr ""
 "Oberleitung ermöglichen."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:498
-#, fuzzy
 msgid ""
 "Enable current limits of traction substation during solving the overhead "
 "wire electrical circuit."
@@ -2322,9 +2317,8 @@ msgstr ""
 "Fahrstreifensperrung beinhaltet"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:507
-#, fuzzy
 msgid "Override stop until times with stop ended times when given"
-msgstr "Halte-bis-Zeiten mit Halt-Ende-Zeiten, wenn angegeben, überschreiben"
+msgstr "Haltabfahrtszeiten mit Haltendezeiten überschreiben (wenn angegeben)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:510
 msgid "Override stop arrival times with stop started times when given"
@@ -2332,10 +2326,9 @@ msgstr ""
 "Ankunftszeiten am Halt mit Haltbeginnzeiten überschreiben (wenn vorhanden)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:514
-#, fuzzy
 msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
 msgstr ""
-"Untere Fußgängermodelle ['nonInteracting', 'striping', 'remote'] auswählen"
+"Aus Fußgängermodellen ['nonInteracting', 'striping', 'remote'] auswählen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:517
 msgid ""
@@ -2485,7 +2478,6 @@ msgstr "Bestimmt, woher PHEMlight-Definitionen geladen werden"
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:93
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:139
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:129
-#, fuzzy
 msgid "Enable fleet age modelling with the given reference year in PHEMlight5"
 msgstr ""
 "Modellierung des Flottenalters mit dem gegebenen Bezugsjahr in PHEMlight5 "
@@ -2533,24 +2525,20 @@ msgid "Length of an edge segment in mesoscopic simulation"
 msgstr "Länge eines Kantensegments in der mesoskopischen Simulation"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:652
-#, fuzzy
 msgid "Factor for calculating the net free-free headway time"
-msgstr "Faktor zur Berechnung der Netto-Frei-Frei-Taktzeit"
+msgstr "Faktor zur Berechnung der Netto-Frei-Frei-Folgezeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:654
-#, fuzzy
 msgid "Factor for calculating the net free-jam headway time"
-msgstr "Faktor zur Berechnung der Netto-Stauvorlaufzeit"
+msgstr "Faktor zur Berechnung der Netto-Stau-Folgezeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:656
-#, fuzzy
 msgid "Factor for calculating the jam-free headway time"
-msgstr "Faktor zur Berechnung der staufreien Taktzeit"
+msgstr "Faktor zur Berechnung der Stau-Frei-Folgezeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:658
-#, fuzzy
 msgid "Factor for calculating the jam-jam headway time"
-msgstr "Faktor zur Berechnung der Stau-Stau-Vorlaufzeit"
+msgstr "Faktor zur Berechnung der Stau-Stau-Folgezeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:663
 msgid "Enable multiple queues at edge ends"
@@ -2569,9 +2557,8 @@ msgstr ""
 "die nur die angegebenen Fahrzeugklassen zulassen bauen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:670
-#, fuzzy
 msgid "Enable mesoscopic traffic light and priority junction handling"
-msgstr "Mesoskopische LSA und Vorrangs-Knotenpunkt-Handhabung aktivieren"
+msgstr "Mesoskopische LSA- und Vorrangsknotenpunktlogik aktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:684
 msgid "Enable mesoscopic overtaking"
@@ -2589,9 +2576,8 @@ msgid "Load visualisation settings from FILE"
 msgstr "Darstellungseinstellung von FILE laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:701
-#, fuzzy
 msgid "Quits the GUI when the simulation stops"
-msgstr "Beendet die gui, wenn die Simulation stoppt"
+msgstr "Schließt die grafische Oberfläche nach dem Simulationsende"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:704
 msgid "Start the GUI in gaming mode"
@@ -2623,18 +2609,16 @@ msgid "Load a secondary road network for abstract visualization from FILE"
 msgstr "Sekundäres Straßennetz zur abstrakten Visualisierung aus FILE laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:726
-#, fuzzy
 msgid "Restart the simulation after ending (demo mode)"
-msgstr "Simulation nach beenden (demo Modus) neu starten"
+msgstr "Simulation nach Ende neu beginnen (Demomodus)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:729
 msgid "Do not load background pictures"
 msgstr "Konnte keine Hintergrundbilder laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:732
-#, fuzzy
 msgid "Load current viewport from registry"
-msgstr "Aktuellen Ansichtsbereich vom Eintrag laden"
+msgstr "Aktuellen Ansichtsbereich aus Registry laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:735
 msgid "Create initial window with the given x,y size"
@@ -3261,7 +3245,6 @@ msgstr ""
 "Höchstgeschwindigkeit %). Zeit =%."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:1701
-#, fuzzy
 msgid "Vehicle '%' aborts joining after extension of %s at time %."
 msgstr ""
 "Fahrzeug '%' bricht Beitritt nach Verlängerung von %s zum Zeitpunkt % ab."
@@ -3408,7 +3391,6 @@ msgid "Invalid time value '%'for parameter '%'"
 msgstr "Ungültiger Zeit-Wert '%' für Parameter '%'"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:65
-#, fuzzy
 msgid "The range of the bt receiver"
 msgstr "Die Reichweite des BT-Empfängers"
 
@@ -3655,13 +3637,12 @@ msgstr ""
 "kann"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Friction.cpp:50
-#, fuzzy
 msgid ""
 "The measurement offset parameter which can be applied to the friction device "
 "-> e.g. to force false measurements"
 msgstr ""
-"Der Messversatzparameter, der auf die Friktionsvorrichtung angewendet werden "
-"kann -> z. falsche Messungen zu erzwingen"
+"Der Messversatzparameter, der auf die Friktionseinrichtung angewendet werden "
+"kann -> z. um falsche Messungen zu erzwingen"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:49
 msgid "The communication range to the traffic light"
@@ -4044,29 +4025,26 @@ msgstr ""
 "Bitte geben Sie für jede Maßnahme genau einen Schwellenwert an."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:82
-#, fuzzy
 msgid ""
 "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
 msgstr ""
-"Der Dispatch-Algorithmus [greedy|greedyClosest|greedyShared|routeExtension|"
-"traci]"
+"Der Dispositionsalgorithmus "
+"[greedy|greedyClosest|greedyShared|routeExtension|traci]"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:85
 msgid "Write information from the dispatch algorithm to FILE"
 msgstr "Informationen vom Versandalgorithmus in FILE schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:88
-#, fuzzy
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
 msgstr ""
-"Parameter des Dispatch-Algorithmus im Format SCHLÜSSEL1:WERT1[,SCHLÜSSEL2:"
-"WERT] laden"
+"Parameter des Dispositionsalgorithmus im Format "
+"SCHLÜSSEL1:WERT1[,SCHLÜSSEL2:WERT] laden"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:91
-#, fuzzy
 msgid "The period between successive calls to the dispatcher"
-msgstr "Der Zeitraum zwischen aufeinanderfolgenden Anrufen beim Abfertiger"
+msgstr "Der Zeitraum zwischen aufeinanderfolgenden Aufrufen der Disposition"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:94
 msgid "The behavior of idle taxis [stop|randomCircling]"
@@ -4138,9 +4116,8 @@ msgstr ""
 "zurückzuerlangen."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:122
-#, fuzzy
 msgid "Recovery rate for the driver's awareness after a ToC."
-msgstr "Erholungsrate für das Bewusstsein des Fahrers nach einer ToC."
+msgstr "Erholungsrate des Fahrerbewusstseins nach einer ToC."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:124
 msgid ""
@@ -4151,7 +4128,6 @@ msgstr ""
 "unterbindet (Wert in [0,1])."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:126
-#, fuzzy
 msgid "Average awareness a driver has initially after a ToC (value in [0,1])."
 msgstr ""
 "Durchschnittliches Bewusstsein, das ein Fahrer anfänglich nach einem ToC hat "
@@ -4179,13 +4155,12 @@ msgstr ""
 "beantwortet wird."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:134
-#, fuzzy
 msgid "If true, the vehicle tries to change to the right during an MRM."
 msgstr ""
-"Wenn wahr, versucht das Fahrzeug während eines MRM nach rechts zu wechseln."
+"Wenn auf den Wert true gesetzt, versucht das Fahrzeug während eines MRM nach "
+"rechts zu wechseln."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:136
-#, fuzzy
 msgid ""
 "If set, the vehicle tries to reach the given named stopping place during an "
 "MRM."
@@ -4194,44 +4169,38 @@ msgstr ""
 "benannten Haltepunkt zu erreichen."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:138
-#, fuzzy
 msgid "Duration the vehicle stays at the safe spot after an MRM."
 msgstr "Verweildauer des Fahrzeugs am sicheren Ort nach einem MRM."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:140
-#, fuzzy
 msgid ""
 "Maximal acceleration that may be applied during the ToC preparation phase."
 msgstr ""
-"Maximale Beschleunigung, die während der Steuerungsübergabe-"
-"Vorbereitungsphase (ToC) angewendet werden kann."
+"Maximale Beschleunigung, die während der "
+"Steuerungsübergabevorbereitungsphase (ToC) angewendet werden kann."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:142
-#, fuzzy
 msgid "Timegap for ToC preparation phase."
-msgstr "Zeitlücke für Steuerungsübergaben-Vorbereitungsphase (ToC)."
+msgstr "Zeitlücke für Steuerungsübergabenvorbereitungsphase (ToC)."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:144
-#, fuzzy
 msgid "Additional spacing for ToC preparation phase."
-msgstr "Zusätzlicher Abstand für Steuerübergaben-Vorbereitungsphase (ToC)."
+msgstr "Zusätzlicher Abstand für Steuerübergabenvorbereitungsphase (ToC)."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:146
-#, fuzzy
 msgid ""
 "Maximal deceleration applied for establishing increased gap in ToC "
 "preparation phase."
 msgstr ""
-"Maximale Verzögerung, die angewendet wird, um eine vergrößerte Lücke in der "
-"ToC-Vorbereitungsphase herzustellen."
+"Maximale Verzögerung, die angewendet wird, um eine Lücke in der ToC-"
+"Vorbereitungsphase zu vergrößern."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:148
-#, fuzzy
 msgid ""
 "Rate of adaptation towards the increased headway during ToC preparation."
 msgstr ""
-"Anpassungsrate an den erhöhten Fortschritt während der Steuerungsübergaben-"
-"Vorbereitung (ToC)."
+"Anpassungsrate an die höhere Folgezeit während der "
+"Steuerungsübergabenvorbereitung (ToC)."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:150
 msgid ""
@@ -5422,7 +5391,6 @@ msgid "The default width of lanes"
 msgstr "Die Standardbreite von Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:59
-#, fuzzy
 msgid "The default method for computing lane shapes from edge shapes"
 msgstr ""
 "Die Standardmethode zum Berechnen von Fahrstreifen-Shapes aus Kanten-Shapes"
@@ -5554,9 +5522,8 @@ msgstr ""
 "Deaktiviert das Erstellen von Kehrtwenden an geometrieähnlichen Knotenpunkten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:148
-#, fuzzy
 msgid "Disables building turnarounds except at dead end junctions"
-msgstr "Deaktiviert das Erstellen von Kehrtwenden außer an Sackgassen"
+msgstr "Deaktiviert die Erstellung von Kehrtwenden außer an Sackgassen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:151
 msgid ""
@@ -5604,29 +5571,27 @@ msgid "reduces too similar geometry points"
 msgstr "reduziert zu ähnlichen Geometriepunkten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:195
-#, fuzzy
 msgid ""
 "Warn about edge geometries with an angle above DEGREES in successive segments"
 msgstr ""
-"Warnt vor Kantengeometrien mit einem Winkel über Grad in "
+"Warnt vor Kantengeometrien mit einem Winkel über DEGREES in "
 "aufeinanderfolgenden Segmenten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:198
-#, fuzzy
 msgid ""
 "Warn about edge geometries with a turning radius less than METERS at the "
 "start or end"
 msgstr ""
-"Warnt  vor Kantengeometrien mit einem Wenderadius von weniger als die Meter "
-"am Anfang oder Ende"
+"Warnt vor Kantengeometrien mit einem Wenderadius von weniger als METERS am "
+"Anfang oder Ende"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:201
-#, fuzzy
 msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius"
 msgstr ""
-"Kantengeometrien, um Wenderadien kleiner als geometry.min-radius begradigen"
+"Kantengeometrien begradigen, um Wenderadien kleiner als geometry.min-radius "
+"zu vermeiden"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:204
 msgid ""
@@ -5662,14 +5627,12 @@ msgstr ""
 "Ändert Kantengeometrien um das Überlappen von Knotenpunkten zu verhindern"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:219
-#, fuzzy
 msgid ""
 "join adjacent lanes that have the same permissions and which do not admit "
 "lane-changing (sidewalks and disallowed lanes)"
 msgstr ""
-"auf benachbarte Fahrstreifen auffahren, die die gleichen Berechtigungen "
-"haben und die keinen Fahrstreifenwechsel zulassen (Bürgersteige und nicht "
-"zugelassene Fahrstreifen)"
+"benachbarte Fahrstreifen mit den gleichen Berechtigungen und "
+"Fahrstreifenwechselverbot zusammenführen (Fußwege und gesperrte Fahrstreifen)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:222
 msgid ""
@@ -5692,13 +5655,12 @@ msgstr ""
 "Linien zum Laufen zu bringen, reparieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:232
-#, fuzzy
 msgid ""
 "Allow bidirectional rail use wherever rails with opposite directions meet at "
 "a straight angle"
 msgstr ""
-"Zweirichtungs Gleiseinsatz überall dort, wo Gleise mit entgegengesetzten "
-"Richtungen in einem geraden Winkel aufeinander treffen, zulassen"
+"Zweirichtungsnutzung der Gleise überall dort, wo Gleise entgegengesetzter "
+"Richtung in einem geraden Winkel aufeinander treffen, zulassen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:235
 msgid "Add turn-around connections at all loaded stops."
@@ -5747,9 +5709,9 @@ msgstr ""
 "Zweirichtungskante eines geladenen Haltepunktes"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:266
-#, fuzzy, c-format
+#, c-format
 msgid "Warn about edge geometries with a grade in % above FLOAT."
-msgstr "Warnung vor Kantengeometrien mit einer Steigung in % über die FLOAT."
+msgstr "Warnung vor Kantengeometrien mit einer Steigung in % über FLOAT."
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:269
 msgid "Smooth edge geometries with a grade above the warning threshold."
@@ -5779,9 +5741,8 @@ msgid "Flips the y-coordinate along zero"
 msgstr "Kehrt die y-Koordinate entlang Null um"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:292
-#, fuzzy
 msgid "Enable roundabout-guessing"
-msgstr "Kreisverkehr-Raten aktivieren"
+msgstr "Kreisverkehrheuristik aktivieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:295
 msgid "Default visibility when approaching a roundabout"
