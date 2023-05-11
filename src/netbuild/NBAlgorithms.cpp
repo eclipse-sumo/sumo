@@ -64,10 +64,8 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
     }
     std::vector<Combination> combinations;
     const bool geometryLike = node->geometryLike();
-    for (std::vector<NBEdge*>::const_iterator j = outgoing.begin(); j != outgoing.end(); ++j) {
-        NBEdge* outedge = *j;
-        for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
-            NBEdge* e = *k;
+    for (NBEdge* outedge : outgoing) {
+        for (NBEdge* e : incoming) {
             // @todo: check whether NBHelpers::relAngle is properly defined and whether it should really be used, here
             const double signedAngle = NBHelpers::normRelAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node));
             if (signedAngle > 0 && signedAngle < 177 && e->getGeometry().back().distanceTo2D(outedge->getGeometry().front()) < POSITION_EPS) {
