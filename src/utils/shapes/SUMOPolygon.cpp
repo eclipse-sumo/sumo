@@ -28,7 +28,6 @@
 
 #include "SUMOPolygon.h"
 
-
 // ===========================================================================
 // member definitions
 // ===========================================================================
@@ -51,6 +50,12 @@ SUMOPolygon::~SUMOPolygon() {}
 const PositionVector&
 SUMOPolygon::getShape() const {
     return myShape;
+}
+
+
+const std::vector<PositionVector>& 
+SUMOPolygon::getHoles() const {
+    return myHoles;
 }
 
 
@@ -81,6 +86,11 @@ SUMOPolygon::setLineWidth(double lineWidth) {
 void
 SUMOPolygon::setShape(const PositionVector& shape) {
     myShape = shape;
+}
+
+void
+SUMOPolygon::setHoles(const std::vector<PositionVector>& holes) {
+    myHoles = holes;
 }
 
 

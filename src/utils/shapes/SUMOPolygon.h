@@ -77,10 +77,15 @@ public:
     /// @name Getter
     /// @{
 
-    /** @brief Returns whether the shape of the polygon
+    /** @brief Returns the shape of the polygon
      * @return The shape of the polygon
      */
     const PositionVector& getShape() const;
+
+    /** @brief Returns the holers of the polygon
+     * @return The holes of the polygon
+     */
+    const std::vector<PositionVector>& getHoles() const;
 
     /** @brief Returns whether the polygon is filled
      * @return Whether the polygon is filled
@@ -109,6 +114,11 @@ public:
      */
     virtual void setShape(const PositionVector& shape);
 
+    /** @brief Sets the holes of the polygon
+     * @param[in] holes  The new holes of the polygon
+     */
+    virtual void setHoles(const std::vector<PositionVector>& holes);
+
     /// @}
 
     /* @brief polygon definition to the given device
@@ -116,9 +126,17 @@ public:
      */
     void writeXML(OutputDevice& out, bool geo = false) const;
 
+    /// @brief Return the exterior shape of the polygon.
+    PositionVector& getShapeRef() {
+        return myShape;
+    }
+
 protected:
     /// @brief The positions of the polygon
     PositionVector myShape;
+
+    /// @brief The collection of the holes of the polygon, each given by a sequence of coodinates.
+    std::vector<PositionVector> myHoles;
 
     /// @brief specify if shape is handled as GEO coordinate (Main used in netedit)
     bool myGEO;

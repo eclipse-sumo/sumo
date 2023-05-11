@@ -39,7 +39,6 @@
 #define CALLBACK
 #endif
 
-
 // ===========================================================================
 // static members
 // ===========================================================================
@@ -119,7 +118,11 @@ TesselatedPolygon::drawTesselation(const PositionVector& shape) const {
     if (myTesselation.empty()) {
         myCurrentTesselated = this;
         // draw the tesselated shape
-        double* points = new double[shape.size() * 3];
+        size_t numPoints = shape.size() * 3;
+        for (const PositionVector& hole : myHoles) {
+            numPoints += hole.size() * 3;
+        }
+        double* points = new double[numPoints];
         GLUtesselator* tobj = gluNewTess();
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -150,11 +153,21 @@ TesselatedPolygon::drawTesselation(const PositionVector& shape) const {
             gluTessVertex(tobj, points + 3 * i, points + 3 * i);
         }
         gluTessEndContour(tobj);
-
+        size_t startIndex = shape.size() * 3;
+        for (const PositionVector& hole : myHoles) {
+            gluTessBeginContour(tobj);
+            for (int i = 0; i < (int)hole.size(); i++) {
+                points[startIndex + 3 * i] = hole[i].x();
+                points[startIndex + 3 * i + 1] = hole[i].y();
+                points[startIndex + 3 * i + 2] = 0.;
+                gluTessVertex(tobj, points + startIndex + 3 * i, points + startIndex + 3 * i);
+            }
+            startIndex += hole.size() * 3;
+            gluTessEndContour(tobj);
+        }
         gluTessEndPolygon(tobj);
         gluDeleteTess(tobj);
         delete[] points;
-
     }
     for (GLPrimitive& pr : myTesselation) {
         // XXX change to glDrawArrays
