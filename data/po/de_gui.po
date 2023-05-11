@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-11 11:40+0000\n"
+"PO-Revision-Date: 2023-05-11 13:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -13026,37 +13026,39 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:128
 msgid "Toggle Zooming Style"
-msgstr ""
+msgstr "Zoom-Art wechseln"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:128
 msgid ""
 "Toggles whether zooming is based at cursor position or at the center of the "
 "view."
 msgstr ""
+"Wechselt zwischen einer Zoom-Referenzposition am Mauszeiger und einer in "
+"Ansichtsmitte."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate Structures"
-msgstr ""
+msgstr "Strukturen finden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate structures within the network."
-msgstr ""
+msgstr "Findet Strukturen im Netz."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:139
 msgid "Toggle View Tooltips"
-msgstr ""
+msgstr "Hinweistexte über der Ansicht an-/abschalten"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:139
 msgid "Toggles whether tooltips in the view shall be shown."
-msgstr ""
+msgstr "Schaltet die Darstellung von Hinweistexten über der Ansicht an/ab."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:145
 msgid "Toggle Menu Tooltips"
-msgstr ""
+msgstr "Hinweistexte über dem Menü an-/abschalten"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:145
 msgid "Toggles whether tooltips in the menu shall be shown."
-msgstr ""
+msgstr "Schaltet die Darstellung von Hinweistexten über dem Menü an/ab."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:161
 msgid "Edit Coloring Schemes"
@@ -13068,11 +13070,11 @@ msgstr "Öffnet ein Menu zum Bearbeiten der Farbschemata. (F9)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Make Snapshot"
-msgstr ""
+msgstr "Momentaufnahme"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Makes a snapshot of the view."
-msgstr ""
+msgstr "Produziert eine Momentaufnahme der Ansicht."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:294
 #, fuzzy
@@ -13106,7 +13108,7 @@ msgstr "Sprache zu Französisch ändern. (fr)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:350
 msgid "Change language to italian. (it)"
-msgstr ""
+msgstr "Sprache zu Italienisch wechseln. (it)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:352
 msgid "简体中文 (zh)"
@@ -13138,7 +13140,7 @@ msgstr "Französisch"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:384
 msgid "italian"
-msgstr ""
+msgstr "Italienisch"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:388
 msgid "chinese"
