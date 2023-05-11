@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-11 13:26:05 by Eclipse SUMO netconvert Version v1_17_0+0231-e453232
+<!-- generated on 2023-05-11 13:36:45 by Eclipse SUMO netconvert Version v1_17_0+0232-fd0d62f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -111,7 +111,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="origId" value="3239587380 3239587383 34589715 34653749 3887578825 50854319 50875232 5506733877"/>
     </junction>
 
-    <connection from="306488582" to="5139388#0" fromLane="4" toLane="0" via=":cluster_1797707620_1797707622_1797723249_1797723251_#33more_0_0" tl="cluster_1797707620_1797707622_1797723249_1797723251_#33more" linkIndex="4" dir="l" state="O"/>
+    <connection from="306488582" to="5139388#0" fromLane="4" toLane="0" via=":cluster_1797707620_1797707622_1797723249_1797723251_#33more_0_0" tl="cluster_1797707620_1797707622_1797723249_1797723251_#33more" linkIndex="0" dir="l" state="O"/>
 
     <connection from=":cluster_1797707620_1797707622_1797723249_1797723251_#33more_0" to="5139388#0" fromLane="0" toLane="0" dir="l" state="M"/>
 
