@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-11 13:57+0000\n"
+"PO-Revision-Date: 2023-05-11 16:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3183,9 +3183,8 @@ msgid "Load visualisation settings from FILE"
 msgstr "Darstellungseinstellung von FILE laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:433
-#, fuzzy
 msgid "Load current viewport from registry"
-msgstr "Aktuellen Ansichtsbereich vom Eintrag laden"
+msgstr "Aktuellen Ansichtsbereich aus Registry laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:436
 msgid "Create initial window with the given x,y size"
