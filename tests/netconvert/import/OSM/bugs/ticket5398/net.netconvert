@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:32 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2023-05-11 09:00:18 by Eclipse SUMO netconvert Version v1_17_0+0224-416c3f6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -70,10 +70,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster_1349293490_1349293491_295980098_295986083_#4more_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.13" length="42.53" shape="41.23,53.37 42.45,41.71 47.20,33.56 55.48,28.90 67.30,27.73"/>
     </edge>
     <edge id=":cluster_1349293490_1349293491_295980098_295986083_#4more_3" function="internal">
-        <lane id=":cluster_1349293490_1349293491_295980098_295986083_#4more_3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="6.03" length="8.32" shape="44.41,52.93 46.66,48.32 49.29,46.52"/>
+        <lane id=":cluster_1349293490_1349293491_295980098_295986083_#4more_3_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="6.03" length="8.32" shape="44.41,52.93 46.66,48.32 49.29,46.52"/>
     </edge>
     <edge id=":cluster_1349293490_1349293491_295980098_295986083_#4more_14" function="internal">
-        <lane id=":cluster_1349293490_1349293491_295980098_295986083_#4more_14_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="6.03" length="8.32" shape="49.29,46.52 52.30,47.55 55.70,51.40"/>
+        <lane id=":cluster_1349293490_1349293491_295980098_295986083_#4more_14_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="6.03" length="8.32" shape="49.29,46.52 52.30,47.55 55.70,51.40"/>
     </edge>
     <edge id=":cluster_1349293490_1349293491_295980098_295986083_#4more_4" function="internal">
         <lane id=":cluster_1349293490_1349293491_295980098_295986083_#4more_4_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="7.11" length="11.12" shape="66.56,44.89 63.07,45.40 60.63,46.59 59.23,48.44 58.88,50.97"/>
@@ -201,7 +201,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="37131476#0" to="400528189" fromLane="0" toLane="0" via=":cluster_1349293490_1349293491_295980098_295986083_#4more_0_0" tl="cluster_1349293490_1349293491_295980098_295986083_#4more" linkIndex="0" dir="r" state="o"/>
     <connection from="37131476#0" to="400528190" fromLane="1" toLane="0" via=":cluster_1349293490_1349293491_295980098_295986083_#4more_1_0" tl="cluster_1349293490_1349293491_295980098_295986083_#4more" linkIndex="1" dir="R" state="o"/>
     <connection from="37131476#0" to="36690313#0" fromLane="2" toLane="1" via=":cluster_1349293490_1349293491_295980098_295986083_#4more_2_0" tl="cluster_1349293490_1349293491_295980098_295986083_#4more" linkIndex="2" dir="l" state="o"/>
-    <connection from="37131476#0" to="37131474#0" fromLane="3" toLane="1" via=":cluster_1349293490_1349293491_295980098_295986083_#4more_3_0" tl="cluster_1349293490_1349293491_295980098_295986083_#4more" linkIndex="3" dir="t" state="o"/>
+    <connection from="37131476#0" to="37131474#0" fromLane="3" toLane="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" via=":cluster_1349293490_1349293491_295980098_295986083_#4more_3_0" tl="cluster_1349293490_1349293491_295980098_295986083_#4more" linkIndex="3" dir="t" state="o"/>
     <connection from="9621579" to="36690313#0" fromLane="0" toLane="0" via=":cluster_1349293490_1349293491_295980098_295986083_#4more_9_0" tl="cluster_1349293490_1349293491_295980098_295986083_#4more" linkIndex="9" dir="s" state="O"/>
     <connection from="9621579" to="36690313#0" fromLane="1" toLane="1" via=":cluster_1349293490_1349293491_295980098_295986083_#4more_9_1" tl="cluster_1349293490_1349293491_295980098_295986083_#4more" linkIndex="10" dir="s" state="O"/>
     <connection from="9621579" to="37131474#0" fromLane="2" toLane="1" via=":cluster_1349293490_1349293491_295980098_295986083_#4more_11_0" tl="cluster_1349293490_1349293491_295980098_295986083_#4more" linkIndex="11" dir="L" state="o"/>
