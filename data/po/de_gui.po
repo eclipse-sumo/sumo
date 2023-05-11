@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-10 11:50+0000\n"
+"PO-Revision-Date: 2023-05-11 11:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -13022,6 +13022,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:124
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
 msgstr ""
+"Öffnet ein Menü mit dem der Ansichtsbereich verändert werden kann. (Ctrl+I)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:128
 msgid "Toggle Zooming Style"
