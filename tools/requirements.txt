@@ -11,3 +11,4 @@ ortools
 texttest
 pyautogui
 pyperclip
+gettext
