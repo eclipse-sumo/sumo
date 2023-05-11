@@ -47,9 +47,6 @@ public:
     /// @brief friend class
     friend class PolygonDynamics;
 
-    /// @brief Default value for the vector holding the polygon's holes.
-    static const std::vector<PositionVector> DEFAULT_HOLES;
-
     /** @brief Constructor
      * @param[in] id The name of the polygon
      * @param[in] type The (abstract) type of the polygon
@@ -130,10 +127,9 @@ public:
     void writeXML(OutputDevice& out, bool geo = false) const;
 
     /// @brief Return the exterior shape of the polygon.
-    PositionVector& getShapeRef();
-
-    /// @brief Return the holes shapes of the polygon.
-    std::vector<PositionVector>& getHolesRef();
+    PositionVector& getShapeRef() {
+        return myShape;
+    }
 
 protected:
     /// @brief The positions of the polygon
