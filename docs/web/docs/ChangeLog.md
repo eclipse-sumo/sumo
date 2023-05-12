@@ -18,7 +18,10 @@ title: ChangeLog
   - Fixed invalid TTC computation when both vehicles are extrapolated to stop. Issue #13212
 
 - netedit
-  - Fixed segfault when closing netedit and no net is loaded #13131. (regression in 1.17.0)
+  - Fixed segfault when closing netedit and no net is loaded #13131 (regression in 1.17.0)
+  - Fixed spacing for person mode path info subframe. Issue #13140 (regression in 1.17.0)
+  - Loading Data Elements via menu item is working again. Issue #13224 (regression in 1.17.0)
+  - Saving plain xml now works when selecting an existing plain-xml file to define the output prefix. Issue #13200 (regression in 1.16.0)
   - netdiff-dialog now permits to change the output prefix. Issue #13130
   - Fixed invalid default values in netgenerate dialog and tool dialogs. Issue #13152
   - Function 'add reverse edge' applied on a selection, no longer adds duplicate reverse edges. Issue #13209
@@ -28,10 +31,13 @@ title: ChangeLog
   - game mode now switches time display style for all time labels. Issue #13211
   - Fixed crash when switching to a (mismatching) alternative net file. Issue #13215
 
-
 - netconvert
   - Fixed inconsistent network file after setting **--default.spreadtype center**. Issue #13127
   - OpenDRIVE export: fixed invalid crosswalk shape. Issue #10432
+  - Fixed bug where bidi edge could not be declared. Issue #13225
+  - Fixed invalid connection permissions after joining junction. Issue #13217
+  - Fixed broken network after setting option **--tls.rebuild**. Issue #13240
+  - Fixed classification of turnaround connection on some divided hightways. Issue #13238
 
 - TraCI
   - Fixed crash when calling traci.load and running with sumo-gui. Issue #13150 (regression in 1.16.0)
@@ -56,9 +62,11 @@ title: ChangeLog
   - OpenDRIVE export: now includes additional road object attributes. Issue #13205
   - Added option **--geometry.remove.max-junction-size FLOAT** to prevent unsmooth road shape when converting large junctions to a geometry point. Issue #13199
   - OSM import: typemap `osmNetconvertRailUsage.typ.xml` now imports service designation. Issue #13213
+  - Unused edge types are now excluded from .net.xml. Issue #13228
 
 - TraCI
   - Added function `simpla.getPlattonID`. Issue #13029
+  - Added functions `lane.getAngle' and `edge.getAngle'. Issue #10901
 
 - tools
   - plotXMLAttributes.py and plot_trajectories.py now show the plot by default. Issue #13158
@@ -73,7 +81,7 @@ title: ChangeLog
 
 - plotXMLAttributes.py and plot_trajectories.py no longer create 'plot.png' by default. Issue #13166
 - netconvert: road objects imported from OpenDRIVE are now placed on a higher layer to make them visible above the road. Issue #13197
-
+- Netedit demand mode hotkeys changed: **C** now activates container mode and **L** activates person plan mode. Issue #13141
 
 
 ## Version 1.17.0 (25.04.2023)
