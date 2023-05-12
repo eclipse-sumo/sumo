@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-11 16:23+0000\n"
+"PO-Revision-Date: 2023-05-12 09:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5749,26 +5749,21 @@ msgid "Default visibility when approaching a roundabout"
 msgstr "Standardsichtbarkeit bei Annäherung an einen Kreisverkehr"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:298
-#, fuzzy
 msgid "Enable guessing of opposite direction lanes usable for overtaking"
-msgstr ""
-"Das Annehmen von Fahrspuren in entgegengesetzter Richtung, die zum Überholen "
-"verwendet werden können aktivieren"
+msgstr "Heuristik für Fahrstreifen der Gegenrichtung zum Überholen aktivieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:301
 msgid "Ensure that opposite edges have the same length"
 msgstr "Achte darauf, dass gegenüberliegende Kanten die gleiche Länge haben"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:304
-#, fuzzy
 msgid "Enable guessing of network fringe nodes"
-msgstr "Schätzen von Netzrandknoten aktivieren"
+msgstr "Heuristik für Netzrandknoten aktivieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:307
-#, fuzzy
 msgid "Guess disconnected edges above the given speed as outer fringe"
 msgstr ""
-"Getrennte Kanten oberhalb der gegebenen Geschwindigkeit als äußerer Rand "
+"Isolierte Kanten oberhalb der gegebenen Geschwindigkeit als äußeren Rand "
 "erraten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:310
@@ -5776,11 +5771,10 @@ msgid "Assumes left-hand traffic on the network"
 msgstr "Geht von Linksverkehr im Netz aus"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:326
-#, fuzzy
 msgid "Interprets STR[] as list of junctions to exclude from joining"
 msgstr ""
-"Interpretiert STRING[] als Liste von Knotenpunkten, die vom Zusammenführen "
-"ausgeschlossen werden sollen"
+"Interpretiert STRING[] als Liste von Knotenpunkten, die nie mit anderen "
+"vereinigt werden sollen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:338
 msgid "Modifies all edge speeds by adding FLOAT"
@@ -5796,9 +5790,8 @@ msgid "Modifies all edge speeds to at least FLOAT"
 msgstr "Ändert alle Kantengeschwindigkeiten auf mindestens FLOAT"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:352
-#, fuzzy
 msgid "Generate INT intermediate points to smooth out intersection corners"
-msgstr "INT Zwischenpunkte zum Glätten von Schnittecken generieren"
+msgstr "INT Zwischenpunkte zum Glätten von Knotenpunktecken generieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:355
 msgid ""
@@ -5840,7 +5833,6 @@ msgid "Remove edges in STR[]"
 msgstr "Kanten in STR[] entfernen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:613
-#, fuzzy
 msgid ""
 "Only keep edges in STR[] or those which are kept due to other keep-edges or "
 "remove-edges options"
@@ -5933,13 +5925,12 @@ msgid "Enable ramp-guessing"
 msgstr "Zufahrtsrampenheuristik aktivieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:675
-#, fuzzy
 msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
 msgstr ""
-"Auffahrten erraten und markiere Beschleunigungsfahrstreifen, falls "
-"vorhanden, aber füge keine neuen Fahrstreifen hinzu"
+"Auffahrten erraten und, falls vorhanden, Beschleunigungsfahrstreifen "
+"markieren, aber keine neuen Fahrstreifen hinzufügen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:679
 msgid "Treat edges with speed > FLOAT as no ramps"
@@ -6917,24 +6908,22 @@ msgstr ""
 "Verteilung anwenden"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:63
-#, fuzzy
 msgid "Defines the probability to build a reverse edge"
-msgstr "Definiert die Wahrscheinlichkeit, eine Umkehrkante zu bilden"
+msgstr ""
+"Definiert die Wahrscheinlichkeit, eine Kante für die Gegenrichtung zu "
+"erstellen"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:67
-#, fuzzy
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
-msgstr "Fahrstreifennummern zufällig aus [1,default.lanenumber] zeichnen"
+msgstr "Fahrstreifenanzahl zufällig aus [1,default.lanenumber] ziehen"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:71
-#, fuzzy
 msgid "Draw edge priority randomly from [1,default.priority]"
-msgstr "Kantenpriorität zufällig aus [1,default.priority] zeichnen"
+msgstr "Kantenpriorität zufällig aus [1,default.priority] ziehen"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:74
-#, fuzzy
 msgid "Draw edge type randomly from all loaded types"
-msgstr "Kantentyp zufällig aus allen geladenen Typen zeichnen"
+msgstr "Kantentyp zufällig aus allen geladenen Typen ziehen"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:80
 msgid "Forces NETGEN to build a grid-like network"
@@ -7026,9 +7015,8 @@ msgid "The minimum distance for each edge"
 msgstr "Die minimale Distanz für jede Kante"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:172
-#, fuzzy
 msgid "The minimum angle for each pair of (bidirectional) roads in DEGREES"
-msgstr "Das minimale angle für jedes Paar von (Zweirichtungs-) Straßen in Grad"
+msgstr "Der minimale Winkel für jedes Paar von (Zweirichtungs-) Straßen in Grad"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:177
 msgid "The number of tries for creating each node"
@@ -7267,9 +7255,8 @@ msgid "Continue on unknown edge types"
 msgstr "Mit unbekannten Kantentypen fortfahren"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:157
-#, fuzzy
 msgid "vmax is parsed as given in km/h"
-msgstr "maximale Geschwindigkeit wurde in km/h eingelesen"
+msgstr "maximale Geschwindigkeit wird in km/h eingelesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:160
 msgid ""
@@ -7283,9 +7270,8 @@ msgid "Remove all z-data"
 msgstr "Alle z-Daten entfernen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:166
-#, fuzzy
 msgid "Remove the list of keys from all params"
-msgstr "Die Schlüsselliste für alle Parameter entfernen"
+msgstr "Alle in der Liste angegebenen Schlüssel aus den Parametern entfernen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:169
 msgid ""
@@ -7333,11 +7319,10 @@ msgid "Import lane-specific access restrictions"
 msgstr "Fahrstreifenspezifische Zugangsbeschränkungen importieren"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:197
-#, fuzzy
 msgid "Import bike lanes and fix directions and permissions on bike paths"
 msgstr ""
-"Radwege und Wegbeschreibungen und Genehmigungen auf Radwegen festlegen "
-"importieren"
+"Radwege importieren und Fahrtrichtungen und Berechtigungen im Radnetz "
+"korrigieren"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:200
 msgid "Import sidewalks"
@@ -7348,9 +7333,8 @@ msgid "Import crossings"
 msgstr "Fußgängerfurten importieren"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:206
-#, fuzzy
 msgid "Import turning arrows from OSM to help with connection building"
-msgstr "Drehpfeile aus OSM, um beim Verbindungsaufbau zu helfen importieren"
+msgstr "Abbiegepfeile aus OSM importieren, um beim Verbindungsaufbau zu helfen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:209
 msgid "The default length of a public transport stop in FLOAT m"
@@ -7428,36 +7412,32 @@ msgid "Read total edge width from column STR"
 msgstr "Totale Kantenbreite aus Spalte STR lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:264
-#, fuzzy
 msgid "Read (non-unique) name from column STR"
-msgstr "(nicht einheitlichen) Namen aus Spalte STR lesen"
+msgstr "(nicht einzigartigen) Namen aus Spalte STR lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:267
-#, fuzzy
 msgid ""
 "Distance threshold for determining whether distinct shapes are connected "
 "(used when from-id and to-id are not available)"
 msgstr ""
-"Abstandsschwellenwert zum Bestimmen, ob unterschiedliche Shapes verbunden "
-"sind (wird verwendet, wenn Ausgangs-ID und End-ID nicht verfügbar sind)"
+"Abstandsschwellwert zum Bestimmen, ob separate Shapes verbunden sind (wird "
+"verwendet, wenn Ausgangs-ID und End-ID nicht verfügbar sind)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:270
 msgid "Add the list of field names as edge params"
 msgstr "Die Liste der Feldnamen als Kantenparameter hinzufügen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:274
-#, fuzzy
 msgid "Uses edge type defaults on problems"
-msgstr "Nutzt Kantentypstandard bei Problemen"
+msgstr "Nutzt Kantentypstandardwerte bei Problemen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:279
 msgid "Insert edges in both directions"
 msgstr "Kanten in beide Richtungen einfügen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:283
-#, fuzzy
 msgid "Guess the proper projection"
-msgstr "Die richtige Projektion annehmen"
+msgstr "Die richtige Projektion erraten"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:286
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:125
@@ -7474,7 +7454,6 @@ msgstr ""
 "Die in der DLR Navteq-Datei angegebenen Kantenlängen werden beibehalten"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:300
-#, fuzzy
 msgid "Structure join offset"
 msgstr "Strukturvereinigungsversatz"
 
@@ -7496,32 +7475,26 @@ msgid "Load language mappings from FILE"
 msgstr "Sprachzuordnungen aus FILE laden"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:317
-#, fuzzy
 msgid "Uses priorities from types"
 msgstr "Verwendet Vorränge von Typen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:320
-#, fuzzy
 msgid "Uses lane numbers from types"
-msgstr "Verwendet Fahrstreifennummern von Typen"
+msgstr "Verwendet Fahrstreifenanzahl aus Typen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:323
-#, fuzzy
 msgid "Uses speeds from types"
-msgstr "Verwendet Geschwindigkeiten von Typen"
+msgstr "Verwendet Geschwindigkeiten aus Typen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:326
-#, fuzzy
 msgid "Sets connector speed"
 msgstr "Stellt die Verbindungsgeschwindigkeit ein"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:330
-#, fuzzy
 msgid "Sets connector lane number"
 msgstr "Stellt die Verbindungsfahrstreifennummer ein"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:333
-#, fuzzy
 msgid "Excludes connectors"
 msgstr "Schließt Konnektoren aus"
 
@@ -7587,13 +7560,12 @@ msgstr ""
 "kompensieren verwenden"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:375
-#, fuzzy
 msgid ""
 "Discard all railway signal information loaded from other formats than plain-"
 "xml"
 msgstr ""
 "Alle Eisenbahnsignalinformationen, die aus anderen Formaten als plain-XML "
-"geladen wurden verwerfen"
+"geladen wurden, verwerfen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:397
 msgid ""
@@ -8208,7 +8180,6 @@ msgid "Ignoring track count % for edge '%'."
 msgstr "Spuranzahl % für Kante '%' wird ignoriert."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1605
-#, fuzzy
 msgid "Unknown lane use specifier '%' ignored for way '%'"
 msgstr ""
 "Unbekannter Fahrstreifennutzungsbezeichner '%' wird für Weg '%' ignoriert"
@@ -9066,7 +9037,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:210
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:262
-#, fuzzy, c-format
+#, c-format
 msgid "Would have to split edge '%' to build a prohibition"
 msgstr "Müsste Kante '%' teilen, um ein Verbot zu erstellen"
 
@@ -9076,7 +9047,6 @@ msgid "Could not prohibit '%' - it was not built."
 msgstr "Konnte '%' nicht verbieten - es wurde nicht erstellt."
 
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:243
-#, fuzzy
 msgid "Could not prohibit '%' by '%'."
 msgstr "Konnte '%' von '%' nicht verbieten."
 
@@ -9176,9 +9146,8 @@ msgid "TL traffic lights are not supported (lsa=%)"
 msgstr "TL-LSAs werden nicht unterstützt (lsa=%)"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:186
-#, fuzzy
 msgid "POS traffic lights are not supported (lsa=%)"
-msgstr "POS-LSAs werden nicht unterstützt (lsa=%)"
+msgstr "POS-LSA werden nicht unterstützt (lsa=%)"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:194
 msgid "externally defined traffic lights are not supported (lsa=%)"
@@ -10190,9 +10159,8 @@ msgid "Reads shapes from shapefiles FILE+"
 msgstr "Liest Shapes aus Shapedatei FILE"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:122
-#, fuzzy
 msgid "Guesses the shapefile's projection"
-msgstr "Errät die Shapedatei Projektion"
+msgstr "Errät die Projektion der Shape-Datei"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:130
 msgid "Defines in which column the id can be found"
@@ -10211,7 +10179,6 @@ msgid "Extract all additional columns as params"
 msgstr "Alle zusätzlichen Spalten als Parameter extrahieren"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:143
-#, fuzzy
 msgid ""
 "[auto|true|false]. Forces the 'fill' status to the given value. Default "
 "'auto' tries to determine it from the data type"
@@ -10228,7 +10195,6 @@ msgid "Write generated polygons/pois to FILE"
 msgstr "Generierte Polygone/Pole in FILE schreiben"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:159
-#, fuzzy
 msgid "Write generated polygons/pois to a dlr-tdp file with the given prefix"
 msgstr ""
 "Generierte Polygone/Pole in eine dlr-tdp Datei mit der gegebenen Präfix "
@@ -10292,9 +10258,8 @@ msgid "Sets STR as default type"
 msgstr "Legt STR als Standardtyp fest"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:215
-#, fuzzy
 msgid "Fills polygons by default"
-msgstr "Füllt standardmäßig Polygone"
+msgstr "Füllt Polygone standardmäßig"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:218
 msgid "Sets FLOAT as default layer"
@@ -10354,7 +10319,6 @@ msgid "Write used vehicle types into separate FILE"
 msgstr "Verwendete Fahrzeugtypen in separaten FILE schreiben"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:56
-#, fuzzy
 msgid "Keep vTypeDistribution ids when writing vehicles and their types"
 msgstr ""
 "Fahrzeugtypverteilungs-IDs beibehalten, wenn Fahrzeuge und ihre Typen "
@@ -10441,9 +10405,8 @@ msgstr ""
 "zum Straßennetz"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:166
-#, fuzzy
 msgid "Match positions to junctions instead of edges"
-msgstr "Ordnet Positionen zu Knotenpunkten statt Kanten zu"
+msgstr "Ordnet Positionen Knotenpunkten statt Kanten zu"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:169
 msgid "Aggregate routing queries with the same origin"
@@ -10745,7 +10708,6 @@ msgid "Defines the file to read the driving cycle from."
 msgstr "Definiert die Datei, aus der der Fahrzyklus gelesen werden soll."
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:74
-#, fuzzy
 msgid "Skips the first NUM lines."
 msgstr "Überspringt die ersten NUM Zeilen."
 
@@ -10831,7 +10793,6 @@ msgid "Defines the attributes to write."
 msgstr "Definiert die zu schreibenden Attribute."
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:125
-#, fuzzy
 msgid "Save the emission values of each vehicle in XML"
 msgstr "Die Emissionswerte jedes Fahrzeugs in XML speichern"
 
@@ -11313,7 +11274,6 @@ msgid "Rotation (clockwise degrees) for input coordinates"
 msgstr "Drehung (Grad im Uhrzeigersinn) für Eingabekoordinaten"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:298
-#, fuzzy
 msgid ""
 "Determine the UTM zone (for a universal transversal mercator projection "
 "based on the WGS84 ellipsoid)"
@@ -11322,7 +11282,6 @@ msgstr ""
 "basierend auf dem WGS84-Ellipsoid)"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:304
-#, fuzzy
 msgid "Uses STR as proj.4 definition for projection"
 msgstr "Verwendet STR als proj.4-Definition für die Projektion"
 
