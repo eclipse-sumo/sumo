@@ -35,12 +35,13 @@ traci.start([sumoBinary,
              ])
 
 
-def reportState(vehID, direction):
-    print("t=%s laneIndex=%s state(%s)=%s" % (
+def reportState(vehID):
+    print("t=%s laneIndex=%s\n  R=%s\n  C=%s\n  L=%s" % (
         traci.simulation.getTime(),
         traci.vehicle.getLaneIndex(vehID),
-        direction,
-        traci.vehicle.getLaneChangeStatePretty(vehID, direction)))
+        traci.vehicle.getLaneChangeStatePretty(vehID, -1),
+        traci.vehicle.getLaneChangeStatePretty(vehID, 0),
+        traci.vehicle.getLaneChangeStatePretty(vehID, 1)))
 
 
 vehID = "v0"
@@ -51,17 +52,17 @@ for i in range(5):
 traci.vehicle.setParameter(vehID, "lcReason", " relativeRight")
 traci.vehicle.changeLaneRelative(vehID, 1, 3)
 for i in range(5):
-    reportState(vehID, 1)
+    reportState(vehID)
     traci.simulationStep()
 traci.vehicle.setParameter(vehID, "lcReason", " relativeLeft")
 traci.vehicle.changeLaneRelative(vehID, -1, 3)
 for i in range(5):
-    reportState(vehID, -1)
+    reportState(vehID)
     traci.simulationStep()
 traci.vehicle.setParameter(vehID, "lcReason", " absolute2")
 traci.vehicle.changeLane(vehID, 2, 7)
 for i in range(10):
-    reportState(vehID, 1)
+    reportState(vehID)
     traci.simulationStep()
 
 print(traci.vehicle.getParameter(vehID, "laneChangeModel.minGapLat"))
