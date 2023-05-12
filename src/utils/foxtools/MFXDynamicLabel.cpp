@@ -108,10 +108,10 @@ MFXDynamicLabel::reformatLineBreaks(int width) {
     std::string msg = myOriginalString;
     int pos = 0;
     int finalPos = msg.size() - 1;
-    int nextLineBreak, currentLineWidth;
+    std::string::size_type nextLineBreak;
     while (pos < finalPos) {
         nextLineBreak = msg.find('\n', pos);
-        int subPos = (nextLineBreak != std::string::npos) ? nextLineBreak : finalPos;
+        int subPos = (nextLineBreak != std::string::npos) ? (int)nextLineBreak : finalPos;
         if(getApp()->getNormalFont()->getTextWidth(msg.substr(pos, subPos - pos).c_str()) <= preferredWidth) {
             pos = subPos + 1;
             continue;
@@ -120,16 +120,16 @@ MFXDynamicLabel::reformatLineBreaks(int width) {
             pos += myIndent;
         }
         // select position for next line break
-        int endPos = (nextLineBreak != std::string::npos) ? nextLineBreak - 1 : finalPos;
-        int nextSpace = -1;
+        const int endPos = (nextLineBreak != std::string::npos) ? (int)nextLineBreak - 1 : finalPos;
+        std::string::size_type nextSpace = std::string::npos;
         int lastSpacePos = -1;
         int pos2 = pos;
         while (pos2 < endPos) {
             nextSpace = msg.find(' ', pos2);
-            if (nextSpace <= pos + myIndent) {
+            if (nextSpace != std::string::npos && (int)nextSpace <= pos + myIndent) {
                 nextSpace = std::string::npos;
                 pos2 += myIndent + 1;
-            } else if (nextSpace != std::string::npos && nextSpace < endPos) {
+            } else if (nextSpace != std::string::npos && (int)nextSpace < endPos) {
                 std::string testString = msg.substr(pos, nextSpace - pos);
                 if (getApp()->getNormalFont()->getTextWidth(msg.substr(pos, nextSpace - pos).c_str()) > preferredWidth) {
                     if (lastSpacePos > 0) {
