@@ -35,7 +35,7 @@
 #include "microsim/MSEdgeControl.h"
 #include "microsim/MSJunctionControl.h"
 #include "microsim/MSEventControl.h"
-#include "libsumo/Person.h"
+#include "libsumo/Helper.h"
 #include "utils/geom/Position.h"
 #include "utils/geom/PositionVector.h"
 #include "utils/shapes/ShapeContainer.h"
@@ -192,6 +192,17 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 libsumo::Person::moveToXY(person->getID(), currentEdge->getID(), agent.position.x, agent.position.y, libsumo::INVALID_DOUBLE_VALUE, 2);
             }
             */
+            MSLane* lane = nullptr;
+            double lanePos;
+            double bestDistance = std::numeric_limits<double>::max();
+            int routeOffset = 0;
+            const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
+            const bool found = libsumo::Helper::moveToXYMap_matchingRoutePosition(newPosition, "",
+                stage->getEdges(), routeIndex, person->getVClass(), true,
+                bestDistance, &lane, lanePos, routeOffset);
+            if (found && currentLane->isNormal() && lane->isNormal() && lane != currentLane) {
+                stage->moveToNextEdge(person, time, 1, nullptr);
+            }
             // If near the last waypoint, remove the agent.
             if (newPosition.distanceTo2D(state->getDestination()) < JPS_EXIT_TOLERANCE) {
                 JPS_Simulation_RemoveAgent(myJPSSimulation, state->getAgentId(), nullptr);
