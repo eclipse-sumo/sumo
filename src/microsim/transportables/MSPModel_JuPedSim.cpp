@@ -134,10 +134,9 @@ MSPModel_JuPedSim::remove(MSTransportableStateAdapter* /* state */) {
 
 SUMOTime
 MSPModel_JuPedSim::execute(SUMOTime time) {
-    int nbrIterations = (int)(DELTA_T / JPS_DELTA_T);
+    const int nbrIterations = (int)(DELTA_T / JPS_DELTA_T);
     JPS_ErrorMessage message = nullptr;
-	for (int i = 0; i < nbrIterations; ++i)
-	{
+	for (int i = 0; i < nbrIterations; ++i) {
         // Perform one JuPedSim iteration.
 		bool ok = JPS_Simulation_Iterate(myJPSSimulation, &message);
         if (!ok) {
@@ -145,10 +144,12 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             oss << "Error during iteration " << i << ": " << JPS_ErrorMessage_GetMessage(message);
             WRITE_ERROR(oss.str());
         }
+        if (i % 10 != 9) {
+            continue;
+        }
 
         // Update the state of all pedestrians.
-        for (PState* state : myPedestrianStates)
-        {
+        for (PState* state : myPedestrianStates) {
             // Updates the agent position.
             JPS_VelocityModelAgentParameters agent{}; 
             JPS_Simulation_ReadVelocityModelAgent(myJPSSimulation, state->getAgentId(), &agent, nullptr);
