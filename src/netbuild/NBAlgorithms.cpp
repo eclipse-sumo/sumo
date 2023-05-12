@@ -39,7 +39,8 @@
 //#define DEBUG_SETPRIORITIES
 //#define DEBUG_TURNAROUNDS
 #define DEBUGCOND (n.getID() == "C")
-#define DEBUGCOND2(obj) (obj->getID() == "")
+//#define DEBUGCOND2(obj) (obj->getID() == "")
+#define DEBUGCOND2(obj) (true)
 
 // ===========================================================================
 // method definitions
@@ -103,7 +104,23 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
                 angle += 360;
             }
             if (angle < 160) {
-                continue;
+                if (angle > 135) {
+                    // could be a turnaround with a green median island, look at
+                    // angle further away from the junction
+                    const double inFA = getFarAngleAtNode(e, node);
+                    const double outFA = getFarAngleAtNode(outedge, node);
+                    const double signedFarAngle = NBHelpers::normRelAngle(inFA, outFA);
+#ifdef DEBUG_TURNAROUNDS
+                    if (DEBUGCOND2(node)) {
+                        std::cout << "    inFA=" << inFA << " outFA=" << outFA << " sFA=" << signedFarAngle << "\n";
+                    }
+#endif
+                    if (signedFarAngle > -160) {
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
             }
             if (badPermissions) {
                 // penalty
@@ -151,6 +168,57 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
 #endif
         (*j).from->setTurningDestination((*j).to, onlyPossible);
     }
+}
+
+
+double
+NBTurningDirectionsComputer::getFarAngleAtNode(const NBEdge* e, const NBNode* n, double dist) {
+    Position atNode;
+    Position far;
+    double angle;
+    const NBEdge* next = e;
+    if (e->getToNode() == n) {
+        // search upstream
+        atNode = e->getGeometry().back();
+        while (dist > 0) {
+            const double length = next->getGeometry().length();
+            if (dist <= length) {
+                far = next->getGeometry().positionAtOffset(length - dist);
+                break;
+            } else {
+                far = next->getGeometry().front();
+                dist -= length;
+                if (next->getToNode()->getIncomingEdges().size() == 1) {
+                    next = next->getToNode()->getIncomingEdges().front();
+                } else {
+                    break;
+                }
+            }
+        }
+        angle = far.angleTo2D(atNode);
+        //std::cout << " e=" << e->getID() << " n=" << n->getID() << " far=" << far << " atNode=" << atNode << " a=" << RAD2DEG(angle) << "\n";
+    } else {
+        // search downstream
+        atNode = e->getGeometry().front();
+        while (dist > 0) {
+            const double length = next->getGeometry().length();
+            if (dist <= length) {
+                far = next->getGeometry().positionAtOffset(dist);
+                break;
+            } else {
+                far = next->getGeometry().back();
+                dist -= length;
+                if (next->getToNode()->getOutgoingEdges().size() == 1) {
+                    next = next->getToNode()->getOutgoingEdges().front();
+                } else {
+                    break;
+                }
+            }
+        }
+        angle = atNode.angleTo2D(far);
+        //std::cout << " e=" << e->getID() << " n=" << n->getID() << " atNode=" << atNode << " far=" << far << " a=" << RAD2DEG(angle) << "\n";
+    }
+    return GeomHelper::legacyDegree(angle);
 }
 
 
