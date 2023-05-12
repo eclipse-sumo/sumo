@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-12 09:08+0000\n"
+"PO-Revision-Date: 2023-05-12 09:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -11568,14 +11568,12 @@ msgstr " Verkehrsumlegungszonen?"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:855
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:868
-#, fuzzy
 msgid "Set zero fringe probabilities"
-msgstr "Nullrandwahrscheinlichkeiten festlegen"
+msgstr "Randwahrscheinlichkeiten auf Null festlegen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:857
-#, fuzzy
 msgid "set zero fringe probabilities"
-msgstr "Nullrandwahrscheinlichkeiten festlegen"
+msgstr "Randwahrscheinlichkeiten auf Null festlegen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:868
 msgid "No source/sinks to update."
@@ -11594,7 +11592,6 @@ msgid "Sink"
 msgstr "Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:919
-#, fuzzy
 msgid "TAZEdgeColor already selected"
 msgstr "Verkehrsumlegungszonen-Kantenfarbe bereits ausgewählt"
 
@@ -11636,24 +11633,20 @@ msgid "Selected TAZ Edge"
 msgstr "Ausgewählte Verkehrsumlegungszonenkante"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1339
-#, fuzzy
 msgid "Color by Source"
-msgstr "Farbe der Quelle"
+msgstr "EInfärbung nach Quelle"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1341
-#, fuzzy
 msgid "Color by Sink"
-msgstr "Farbe des Ziels"
+msgstr "Einfärbung nach Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1343
-#, fuzzy
 msgid "Color by Source + Sink"
-msgstr "Farbe nach Quelle + Ziel"
+msgstr "Einfärbung nach Quelle + Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1345
-#, fuzzy
 msgid "Color by Source - Sink"
-msgstr "Farbe nach Quelle - Ziel"
+msgstr "Einfärbung nach Quelle - Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1448
 msgid "TAZs"
@@ -11722,7 +11715,6 @@ msgid "Assign E1 detectors"
 msgstr "E1-Detektoren festlegen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:562
-#, fuzzy
 msgid "Enable assign E1 mode"
 msgstr "E1-Zuweisungsmodus aktivieren"
 
@@ -11732,7 +11724,6 @@ msgid "Assign E1 detectors to the current TLS"
 msgstr "E1-Detektoren der aktuellen LSA zuweisen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
-#, fuzzy
 msgid "Disable assign E1 mode"
 msgstr "E1-Zuweisungsmodus deaktivieren"
 
@@ -11760,9 +11751,8 @@ msgstr "Zusammenführungsmodus aktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:911
-#, fuzzy
 msgid "Join TLS and junctions in the current junction."
-msgstr "Füge die LSA und die Knotenpunkte am aktuellen Knotenpunkt zusammen."
+msgstr "Vereinige die LSA und die Knotenpunkte am aktuellen Knotenpunkt."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:911
 msgid "Disable join mode"
@@ -11817,12 +11807,11 @@ msgid "Create a new traffic light program."
 msgstr "Erstelle ein neues LSA-Programm."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1356
-#, fuzzy
 msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
 msgstr ""
-"LSA-Programm löschen. Wenn alle Programme gelöscht werden, wird der "
+"Lösche ein LSA-Programm. Wenn alle Programme gelöscht werden, wird der "
 "Knotenpunkt zu einem Vorrangsknotenpunkt."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1359
@@ -11897,9 +11886,8 @@ msgid "duplicate program '%' of traffic light '%'"
 msgstr "doppeltes Programm '%' für die LSA '%'"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1868
-#, fuzzy
 msgid "Traffic light does not control any links"
-msgstr "Die LSA steuert keine Links"
+msgstr "Die LSA steuert keine Verbindungen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1880
 msgid "Phases"
@@ -11924,7 +11912,6 @@ msgid "Add States"
 msgstr "Status hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1898
-#, fuzzy
 msgid "Extend the state vector for all phases by one entry"
 msgstr "Erweitere den Zustandsvektor für alle Phasen um einen Eintrag"
 
@@ -12013,7 +12000,6 @@ msgid "No programs found for traffic light '"
 msgstr "Keine Programme gefunden für die LSA '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2963
-#, fuzzy
 msgid "Save TLS Program as"
 msgstr "LSA-Programm speichern als"
 
@@ -12131,9 +12117,8 @@ msgid "starting process silently...\n"
 msgstr "Führe Prozess im Hintergrund aus...\n"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:75
-#, fuzzy
 msgid "&Load selection"
-msgstr "&Lade Auswahl"
+msgstr "Auswahl &laden"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:77
 msgid "&Save selection"
@@ -12148,7 +12133,6 @@ msgid "&Clear selection"
 msgstr "&Auswahl leeren"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:87
-#, fuzzy
 msgid "Cl&ose"
 msgstr "Schl&ießen"
 
@@ -12173,9 +12157,8 @@ msgid "Unknown format!"
 msgstr "Unbekanntes Format!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:91
-#, fuzzy
 msgid "Unknown codec, falling back to HEVC!"
-msgstr "Unbekannter Codec, Rückgriff auf HEVC!"
+msgstr "Unbekannter Codec, nutze stattdessen HEVC!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:95
 msgid "Unknown codec!"
@@ -12210,18 +12193,16 @@ msgid "Could not allocate video packet!"
 msgstr "Konnte Videopaket nicht zuweisen!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:175
-#, fuzzy
 msgid "Error sending final frame!"
-msgstr "Fehler beim Senden des finales Frames!"
+msgstr "Fehler beim Senden des finales Frame!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:183
 msgid "Error during final encoding step!"
 msgstr "Fehler beim finalen Encodierungsschritt!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:214
-#, fuzzy
 msgid "Error sending frame for encoding!"
-msgstr "Fehler beim Senden des Frames zur Encodierung!"
+msgstr "Fehler beim Senden des Frame zur Encodierung!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:222
 msgid "Error during encoding!"
@@ -12269,11 +12250,10 @@ msgstr ""
 "Das 'value'-Attribut ist für Haltepunkte veraltet. Bitte verwende 'time'."
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:383
-#, fuzzy
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
 msgstr ""
-"Das Attribut 'filename' ist für Abziehbilder veraltet. Bitte verwende "
-"'Datei'."
+"Das Attribut 'filename' für Hintergrundbilder ist veraltet. Bitte verwende "
+"'file'."
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:559
 msgid " Could not decode breakpoint '%'"
@@ -12361,12 +12341,10 @@ msgid "% objects"
 msgstr "% Objekte"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:65
-#, fuzzy
 msgid "Load viewport from file"
 msgstr "Ansichtsbereich aus Datei laden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:67
-#, fuzzy
 msgid "Save viewport to file"
 msgstr "Ansichtsbereich in Datei speichern"
 
@@ -12513,14 +12491,12 @@ msgid "Decals:"
 msgstr "Bilder:"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1699
-#, fuzzy
 msgid "&Load XML Decals"
-msgstr "&Lade XML-Hintergründe"
+msgstr "XML-Hintergrunddefinition &laden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1700
-#, fuzzy
 msgid "&Save XML Decals"
-msgstr "&Speicher XML-Hintergründe"
+msgstr "XML-Hintergrunddefinition &speichern"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1701
 msgid "&Clear Decals"
@@ -12531,12 +12507,10 @@ msgid "Toggle grid"
 msgstr "Raster ein/-ausschalten"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1710
-#, fuzzy
 msgid "x-spacing"
 msgstr "x-Abstand"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1715
-#, fuzzy
 msgid "y-spacing"
 msgstr "y-Abstand"
 
@@ -12554,7 +12528,6 @@ msgstr "Straßen"
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2123
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2158
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2219
-#, fuzzy
 msgid "Interpolate"
 msgstr "Interpolieren"
 
@@ -12601,7 +12574,6 @@ msgid "Show lane direction"
 msgstr "Fahrstreifenrichtung anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1797
-#, fuzzy
 msgid "Hide macro connectors"
 msgstr "Makrokonnektoren ausblenden"
 
@@ -12733,9 +12705,8 @@ msgid "Show parking info"
 msgstr "Parkinformation anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1899
-#, fuzzy
 msgid "Draw reversed vehicles in reverse"
-msgstr "Rückwärts gefahrene Fahrzeuge rückwärts zeichnen"
+msgstr "Umgedrehte Fahrzeuge auch umgedreht zeichnen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1944
 msgid "Show person id"
@@ -12878,7 +12849,6 @@ msgid "Default Selection Color"
 msgstr "Standard Auswahlfarbe"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2182
-#, fuzzy
 msgid "Miscellaneous"
 msgstr "Verschiedenes"
 
@@ -12915,9 +12885,8 @@ msgid "Show Vehicle Color Legend"
 msgstr "Fahrzeugfarbenlegende anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2279
-#, fuzzy
 msgid "Dither"
-msgstr "Schwankung"
+msgstr "Fehlerdiffusion"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2285
 msgid "Draw boundaries"
@@ -12973,11 +12942,11 @@ msgstr "Himmelsfarbe"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:120
 msgid "Recenter View"
-msgstr ""
+msgstr "Ansicht zentrieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:120
 msgid "Recenter view to the simulated area."
-msgstr ""
+msgstr "Ansicht auf den simulierten Bereich zentrieren."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:124
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
@@ -13037,14 +13006,12 @@ msgid "Makes a snapshot of the view."
 msgstr "Produziert eine Momentaufnahme der Ansicht."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:294
-#, fuzzy
 msgid "option window-size requires INT,INT"
-msgstr "Option Fenstergröße erfordert INT,INT"
+msgstr "Option window-size erfordert INT,INT"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:311
-#, fuzzy
 msgid "option window-pos requires INT,INT"
-msgstr "Option Fensterposition erfordert INT,INT"
+msgstr "Option window-pos erfordert INT,INT"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:340
 msgid "Langua&ge"
@@ -13137,7 +13104,6 @@ msgstr ""
 "wird."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:418
-#, fuzzy
 msgid ""
 "For the Debug build you might also need to set the LANG environment variable."
 msgstr ""
@@ -13145,10 +13111,10 @@ msgstr ""
 "festgelegt werden."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:421
-#, fuzzy
 msgid "Under development. You can help to improve the translation at:"
 msgstr ""
-"In Entwicklung. Sie können helfen, die Übersetzung zu verbessern unter:"
+"In Entwicklung. Sie können helfen, unter der nachfolgenden Adresse die "
+"Übersetzung zu verbessern:"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:254
 msgid " (No projection defined)"
