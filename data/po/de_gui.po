@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-12 09:01+0000\n"
+"PO-Revision-Date: 2023-05-12 09:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -11474,7 +11474,6 @@ msgstr "Randwahrscheinlichkeit auf Null setzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:511
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:646
-#, fuzzy
 msgid "- Toggle Membership:"
 msgstr "- Mitgliedschaft ein-/ausschalten:"
 
@@ -11530,7 +11529,6 @@ msgid "toggle"
 msgstr "ein-/ausschalten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:669
-#, fuzzy
 msgid "- Keep Membership:"
 msgstr "- Mitgliedschaft behalten:"
 
