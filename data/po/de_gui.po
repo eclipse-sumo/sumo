@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-11 16:23+0000\n"
+"PO-Revision-Date: 2023-05-12 09:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -8496,7 +8496,6 @@ msgid "Release from lane"
 msgstr "Freigabe vom Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPOI.cpp:323
-#, fuzzy
 msgid "Attach to nearest lane"
 msgstr "Zum nächsten Fahrstreifen zuteilen"
 
@@ -8526,21 +8525,18 @@ msgid "Close polygon's shape"
 msgstr "Polygon-Shape schließen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:224
-#, fuzzy
 msgid "Select elements within polygon"
 msgstr "Elemente in einem Polygon auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:224
-#, fuzzy
 msgid "Select elements within polygon boundary"
-msgstr "Elemente in einer Polygongrenze auswählen"
+msgstr "Elemente innerhalb einer Polygongrenze auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:234
 msgid "Remove geometry point"
 msgstr "Geometriepunkt entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:234
-#, fuzzy
 msgid "Remove geometry point under mouse"
 msgstr "Geometriepunkt unter der Maus entfernen"
 
@@ -8614,7 +8610,6 @@ msgid "GenericData was already inserted"
 msgstr "GenericData wurde bereits eingefügt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataInterval.cpp:199
-#, fuzzy
 msgid "GenericData wasn't previously inserted"
 msgstr "GenericData wurde zuvor nicht eingefügt"
 
@@ -8866,7 +8861,6 @@ msgid "Containers don't support stops at parkingAreas"
 msgstr "Container unterstützen keine Haltepunkte an Parkplätzen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1079
-#, fuzzy
 msgid "vehicles don't support stops at edges"
 msgstr "Fahrzeuge unterstützen keine Haltepunkte an Kanten"
 
@@ -8946,7 +8940,6 @@ msgid "A stop has to be placed over a busStop"
 msgstr "Ein Halt muss über einen Bushaltepunkt platziert werden"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1435
-#, fuzzy
 msgid "A tranship from busStop to busStop needs two busStops"
 msgstr ""
 "Ein Umschlag von Bushaltepunkt zu Bushaltepunkt benötigt zwei Bushaltepunkte"
@@ -9885,7 +9878,6 @@ msgid "Element Set"
 msgstr "Elementsatz"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEElementSet.cpp:75
-#, fuzzy
 msgid "Invalid supermode"
 msgstr "Ungültiger Supermodus"
 
@@ -9933,9 +9925,8 @@ msgstr "Geo-Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:470
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:90
-#, fuzzy
 msgid "No geo-conversion defined"
-msgstr "Keine Geo-Umsetzung definiert"
+msgstr "Keine Geoprojektion definiert"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:551
 msgid " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
@@ -9964,7 +9955,6 @@ msgstr ""
 " - Breitengrad: Nord-Süd-Position eines Punktes auf der Erdoberfläche.\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:556
-#, fuzzy
 msgid ""
 " - CheckBox 'geo' enables or disables saving position in GEO coordinates\n"
 msgstr ""
@@ -10013,7 +10003,6 @@ msgid "Open calibrator lane dialog"
 msgstr "Kalibrator-Fahrstreifen-Dialog öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:945
-#, fuzzy
 msgid "Open VSS dialog"
 msgstr "VSS-Dialog öffnen"
 
@@ -10026,7 +10015,6 @@ msgid "Unknown set"
 msgstr "Unbekannter Satz"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:270
-#, fuzzy
 msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are "
 "then applied to the current selection\n"
@@ -10060,7 +10048,6 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:276
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:465
-#, fuzzy
 msgid "- The empty expression matches all objects\n"
 msgstr "- Der leere Ausdruck passt auf alle Objekte\n"
 
@@ -10084,7 +10071,6 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:280
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:469
-#, fuzzy
 msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string.\n"
@@ -10094,7 +10080,6 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:281
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:470
-#, fuzzy
 msgid ""
 "     '' (no operator) matches if string is a substring of that object'ts "
 "attribute.\n"
@@ -10140,18 +10125,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:289
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:478
-#, fuzzy
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
 msgstr ""
-"     Kante; Geschwindigkeit; '>10' -> vergleiche alle Kanten mit einer "
-"Geschwindigkeit über 10\n"
+"     edge; speed; '>10' -> entspricht allen Kanten mit einer Geschwindigkeit "
+"über 10\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:87
 msgid "speed"
 msgstr "Geschwindigkeit"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:459
-#, fuzzy
 msgid ""
 "- The 'MatchGenericData Attribute' controls allow to specify a set of "
 "objects which are then applied to the current selection\n"
@@ -10181,7 +10164,6 @@ msgid "Move whole polygons"
 msgstr "Gesamte Polygone verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:132
-#, fuzzy
 msgid "Demand move options"
 msgstr "Nachfrage-Bewegungsoptionen"
 
@@ -10326,7 +10308,6 @@ msgid "Selection operations"
 msgstr "Auswahloperationen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:251
-#, fuzzy
 msgid "Deselect all objects (hotkey: ESC)"
 msgstr "Alle Objekte abwählen (Hotkey: ESC)"
 
@@ -10339,7 +10320,6 @@ msgid "Invert selection status of all objects"
 msgstr "Auswahlstatus von allen Objekten umstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:255
-#, fuzzy
 msgid "Save ids of currently selected objects to a file."
 msgstr "Die IDs der aktuell ausgewählten Objekte in einer Datei speichern."
 
@@ -10348,7 +10328,6 @@ msgid "Load ids from a file according to the current modification mode."
 msgstr "IDs aus einer Datei gemäß dem aktuellen Änderungsmodus laden."
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:259
-#, fuzzy
 msgid "Delete all selected objects (hotkey: DEL)"
 msgstr "Alle selektierten Objekte löschen (Hotkey: DEL)"
 
@@ -10467,20 +10446,18 @@ msgid "Create TAZRelation"
 msgstr "Verkehrsumlegungszonen-Beziehung erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:56
-#, fuzzy
 msgid "Click fromTaz and toTaz (confirm hotkey <ENTER>)"
 msgstr ""
-"Klicken Ausgangsverkehrsumlegungszone und Endverkehrsumlegungszone (Hotkey "
-"bestätigen <ENTER>)"
+"Auf Ausgangsverkehrsumlegungszone und Endverkehrsumlegungszone klicken (dann "
+"mit Hotkey <ENTER> bestätigen)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:58
 msgid "Clear selection"
 msgstr "Auswahl entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:58
-#, fuzzy
 msgid "Clear selected TAZs (hotkey <ESC>)"
-msgstr "Ausgewählte Verkehrsumlegungszonen entfernen (Hotkey <ESC>)"
+msgstr "Verkehrsumlegungszonenauswahl leeren (Hotkey <ESC>)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:122
 msgid "From TAZ"
@@ -10526,7 +10503,6 @@ msgstr ""
 "ausgerichtet"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEContainerFrame.cpp:244
-#, fuzzy
 msgid "VType with vClass != 'ignoring' is not oriented to containers"
 msgstr ""
 "Fahrzeugtyp mit der Fahrzeugklasse != 'ignoring' ist nicht auf Container "
@@ -10552,7 +10528,6 @@ msgstr "Aktuell ausgewählter Personenplan ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonFrame.cpp:250
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:287
-#, fuzzy
 msgid "VType with vClass == 'ignoring' is oriented to containers"
 msgstr ""
 "Fahrzeugtyp mit der Fahrzeugklasse == 'ignoring' orientiert sich an "
@@ -10639,9 +10614,8 @@ msgid "Selected Stop parent isn't valid."
 msgstr "Ausgewähltes übergeordnetes Haltepunkt-Element ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:206
-#, fuzzy
 msgid "Current selected Stop parent isn't valid."
-msgstr "Aktuell ausgewählter übergeordneter Haltepunkt ist ungültig."
+msgstr "Aktuell ausgewähltes Haltepunktelternelement ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:237
 msgid "Current selected Stop type isn't valid."
@@ -10751,7 +10725,6 @@ msgid "Current selected vehicle type isn't valid."
 msgstr "Aktuell ausgewählter Fahrzeugtyp ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:87
-#, fuzzy
 msgid "Current selected additional isn't valid."
 msgstr "Aktuell ausgewählte weitere Daten sind ungültig."
 
@@ -10896,12 +10869,11 @@ msgid "Select Passing"
 msgstr "Ende auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:164
-#, fuzzy
 msgid ""
 "Selects all lanes with a connection that has has the 'pass' attribute set"
 msgstr ""
 "Wählt alle Fahrstreifen mit einer Verbindung aus, für die das Attribut "
-"'Durchgang' festgelegt ist"
+"'pass' festgelegt ist"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:167
 msgid "Clear Selected"
@@ -11061,14 +11033,12 @@ msgid "Delete edge type"
 msgstr "Kantentyp löschen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:99
-#, fuzzy
 msgid "Create from template"
-msgstr "Vorlage erstellen"
+msgstr "Aus Vorlage erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:99
-#, fuzzy
 msgid "Create edgeType from template"
-msgstr "Kantentyp von der Vorlage erstellen"
+msgstr "Kantentyp aus der Vorlage erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:318
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:367
@@ -11084,9 +11054,8 @@ msgid "template: "
 msgstr "Vorlage: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:429
-#, fuzzy
 msgid "LaneType selector"
-msgstr "Fahrstreifen-Typ-Auswähler"
+msgstr "Fahrstreifentyp-Auswähler"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:437
 msgid "Add lane type"
@@ -11290,18 +11259,16 @@ msgid "Yields"
 msgstr "Vorfahrt geben / lassen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:108
-#, fuzzy
 msgid "Connection yields the selected connection"
-msgstr "Verbindung ergibt die ausgewählte Verbindung"
+msgstr "Verbindung achtet Vorfahrt der ausgewählten Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:113
 msgid "Has right of way"
 msgstr "Hat Vorfahrt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:114
-#, fuzzy
 msgid "Connection has right of way with the selected connection"
-msgstr "Die Verbindung hat Vorfahrt mit der ausgewählten Verbindung"
+msgstr "Die Verbindung hat Vorfahrt vor der ausgewählten Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:119
 msgid "Unregulated conflict"
@@ -11351,9 +11318,8 @@ msgid "Format: Lat-Lon"
 msgstr "Format: Breitengrad- Längengrad"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:66
-#, fuzzy
 msgid "Center View after creation"
-msgstr "Zentrumsansicht nach Erstellung"
+msgstr "Nach Erstellung die Ansicht zentrieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:68
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:121
@@ -11386,9 +11352,10 @@ msgid "Using clipboard"
 msgstr "Zwischenablage nutzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:330
-#, fuzzy
 msgid "POILane can be only placed over lanes"
-msgstr "Polstreifen kann nur über einen Fahrstreifen platziert werden"
+msgstr ""
+"An Fahrstreifen gebundene PoI können nur über einem Fahrstreifen platziert "
+"werden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:374
 msgid "Current selected shape isn't valid."
@@ -11412,7 +11379,6 @@ msgid "Current TAZ: "
 msgstr "Aktuelle Verkehrsumlegungszone: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:336
-#, fuzzy
 msgid "Invalid TAZ Child"
 msgstr "Ungültiges Verkehrsumlegungszonenkind"
 
@@ -11487,12 +11453,10 @@ msgid "TAZ Sources/Sinks"
 msgstr "Verkehrsumlegungszonenquellen/ziele"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:490
-#, fuzzy
 msgid "Membership"
 msgstr "Mitgliedschaft"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:491
-#, fuzzy
 msgid "Toggle"
 msgstr "Umschalten"
 
@@ -11505,9 +11469,8 @@ msgid "New sink"
 msgstr "Neues Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:507
-#, fuzzy
 msgid "Set zero fringe prob."
-msgstr "Nullrand-Wahrscheinlichkeit setzen."
+msgstr "Randwahrscheinlichkeit auf Null setzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:511
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:646
