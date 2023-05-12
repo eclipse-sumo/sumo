@@ -26,6 +26,7 @@
 
 #include <memory>
 #include <unordered_set>
+#define USE_UNSTABLE_GEOS_CPP_API 1
 #include <geos/geom/GeometryFactory.h>
 #include <jupedsim/jupedsim.h>
 #include "microsim/MSNet.h"
@@ -96,17 +97,17 @@ private:
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
         double getSpeed(const MSStageMoving& stage) const;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const;
-        Position getDestination(void) const;
-        JPS_AgentId getAgentId(void) const;
+        Position getDestination() const;
+        JPS_AgentId getAgentId() const;
 
     private:
-        MSStageMoving* myStage;
         MSPerson* myPerson;
-        Position myPosition;
-        Position myDestination;
-        double myAngle;
+        MSStageMoving* myStage;
         JPS_JourneyDescription myJourney;
+        Position myDestination;
         JPS_AgentId myAgentId;
+        Position myPosition;
+        double myAngle;
     };
 
     MSNet* myNetwork;

@@ -24,6 +24,7 @@
 
 #include <algorithm>
 #include <fstream>
+#define USE_UNSTABLE_GEOS_CPP_API 1
 #include <geos/geom/GeometryFactory.h>
 #include <geos/geom/CoordinateArraySequence.h>
 #include <geos/operation/buffer/BufferOp.h>
@@ -49,7 +50,7 @@ const SUMOTime MSPModel_JuPedSim::JPS_DELTA_T = 10;
 const double MSPModel_JuPedSim::JPS_EXIT_TOLERANCE = 1;
 
 
-MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) : myNetwork(net) {
+MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& /* oc */, MSNet* net) : myNetwork(net) {
     initialize();
     Event* e = new Event(this);
     net->getBeginOfTimestepEvents()->addEvent(e, net->getCurrentTimeStep() + DELTA_T);
@@ -87,7 +88,7 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
 
 
 MSTransportableStateAdapter*
-MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) {
+MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /* now */) {
 	assert(person->getCurrentStageType() == MSStageType::WALKING);
 	
     const MSLane* departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
@@ -125,7 +126,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
 
 
 void
-MSPModel_JuPedSim::remove(MSTransportableStateAdapter* state) {
+MSPModel_JuPedSim::remove(MSTransportableStateAdapter* /* state */) {
     // This function is called only when using TraCI.
     // Not sure what to do here.
 }
@@ -679,8 +680,7 @@ MSLane* MSPModel_JuPedSim::getNextPedestrianLane(const MSLane* const currentLane
 // MSPModel_Remote::PState method definitions
 // ===========================================================================
 MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, Position destination, JPS_AgentId agentId)
-    : myPerson(person), myAngle(0), myPosition(0, 0), myStage(stage), myJourney(journey), myDestination(destination), myAgentId(agentId) {
-    ConstMSEdgeVector route = stage->getRoute();
+    : myPerson(person), myStage(stage), myJourney(journey), myDestination(destination), myAgentId(agentId), myPosition(0, 0), myAngle(0) {
 }
 
 
@@ -689,7 +689,7 @@ MSPModel_JuPedSim::PState::~PState() {
 }
 
 
-Position MSPModel_JuPedSim::PState::getPosition(const MSStageMoving& stage, SUMOTime now) const {
+Position MSPModel_JuPedSim::PState::getPosition(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
     return myPosition;
 }
 
@@ -699,7 +699,7 @@ void MSPModel_JuPedSim::PState::setPosition(double x, double y) {
 }
 
 
-double MSPModel_JuPedSim::PState::getAngle(const MSStageMoving& stage, SUMOTime now) const {
+double MSPModel_JuPedSim::PState::getAngle(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
     return myAngle;
 }
 
@@ -719,36 +719,36 @@ MSPerson* MSPModel_JuPedSim::PState::getPerson() {
 }
 
 
-double MSPModel_JuPedSim::PState::getEdgePos(const MSStageMoving& stage, SUMOTime now) const {
+double MSPModel_JuPedSim::PState::getEdgePos(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
     return 0;
 }
 
 
-int MSPModel_JuPedSim::PState::getDirection(const MSStageMoving& stage, SUMOTime now) const {
+int MSPModel_JuPedSim::PState::getDirection(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
     return UNDEFINED_DIRECTION;
 }
 
 
-SUMOTime MSPModel_JuPedSim::PState::getWaitingTime(const MSStageMoving& stage, SUMOTime now) const {
+SUMOTime MSPModel_JuPedSim::PState::getWaitingTime(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
     return 0;
 }
 
 
-double MSPModel_JuPedSim::PState::getSpeed(const MSStageMoving& stage) const {
+double MSPModel_JuPedSim::PState::getSpeed(const MSStageMoving& /* stage */) const {
     return 0;
 }
 
 
-const MSEdge* MSPModel_JuPedSim::PState::getNextEdge(const MSStageMoving& stage) const {
+const MSEdge* MSPModel_JuPedSim::PState::getNextEdge(const MSStageMoving& /* stage */) const {
     return nullptr;
 }
 
 
-Position MSPModel_JuPedSim::PState::getDestination(void) const {
+Position MSPModel_JuPedSim::PState::getDestination() const {
     return myDestination;
 }
 
 
-JPS_AgentId MSPModel_JuPedSim::PState::getAgentId(void) const {
+JPS_AgentId MSPModel_JuPedSim::PState::getAgentId() const {
     return myAgentId;
 }
