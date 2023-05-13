@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-13 10:48:09 by Eclipse SUMO netconvert Version v1_17_0+0252-45696e9
+<!-- generated on 2023-05-13 11:57:58 by Eclipse SUMO netconvert Version v1_17_0+0260-a7321cd3ffe
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -316,8 +316,8 @@
         <osm.stop-output.length.bus value="15" type="FLOAT" help="The default length of a bus stop in FLOAT m"/>
         <osm.stop-output.length.tram value="25" type="FLOAT" help="The default length of a tram stop in FLOAT m"/>
         <osm.stop-output.length.train value="200" type="FLOAT" help="The default length of a train stop in FLOAT m"/>
-        <osm.all-attributes value="false" type="BOOL" help="Whether additional attributes shall be imported"/>
-        <osm.extra-attributes value="bridge,tunnel,layer,postal_code" type="STR[]" help="List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all)"/>
+        <osm.all-attributes value="false" synonymes="osm.all-tags" type="BOOL" help="Whether additional attributes shall be imported"/>
+        <osm.extra-attributes value="all" synonymes="osm.extra-tags" type="STR[]" help="List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all)"/>
         <osm.speedlimit-none value="39.4444" type="FLOAT" help="The speed limit to be set when there is no actual speed limit in reality"/>
         <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSIM-file will be kept"/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>
