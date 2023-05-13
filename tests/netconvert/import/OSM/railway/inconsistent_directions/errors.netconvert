@@ -7,6 +7,4 @@ Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|us
 Warning: Ambiguous railway kilometrage direction for way '26806067' (assuming forward)
 Warning: Ambiguous railway kilometrage direction for way '231223363' (assuming forward)
 Warning: Could not re-assign PT stop '610830379', probably broken osm file.
-Warning: Last stop edge '231223355' is not part of the route of line '1929071'.
-Warning: Edge sequence is not consistent with stop sequence in line '1929071', not adding bidi edges.
 Warning: 14 total messages of type: The referenced geometry information (ref='%') is not known
