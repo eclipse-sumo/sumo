@@ -112,13 +112,16 @@ NBRailwayTopologyAnalyzer::analyzeTopology(NBEdgeCont& ec) {
 
 int
 NBRailwayTopologyAnalyzer::repairTopology(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& lc) {
+    const bool minimal = OptionsCont::getOptions().getBool("railway.topology.repair.minimal");
     int addedBidi = 0;
-    addedBidi += extendBidiEdges(ec);
-    addedBidi += reverseEdges(ec, sc); // technically not bidi but new edges nevertheless
-    addedBidi += addBidiEdgesForBufferStops(ec);
-    addedBidi += addBidiEdgesBetweenSwitches(ec);
+    if (!minimal) {
+        addedBidi += extendBidiEdges(ec);
+        addedBidi += reverseEdges(ec, sc); // technically not bidi but new edges nevertheless
+        addedBidi += addBidiEdgesForBufferStops(ec);
+        addedBidi += addBidiEdgesBetweenSwitches(ec);
+    }
     if (lc.getLines().size() > 0) {
-        addedBidi += addBidiEdgesForStops(ec, lc, sc);
+        addedBidi += addBidiEdgesForStops(ec, lc, sc, minimal);
     }
     if (OptionsCont::getOptions().getBool("railway.topology.repair.connect-straight")) {
         addedBidi += addBidiEdgesForStraightConnectivity(ec, true);
@@ -862,8 +865,7 @@ NBRailwayTopologyAnalyzer::findBidiCandidates(NBPTLineCont& lc) {
 }
 
 int
-NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc, NBPTStopCont& sc) {
-    const bool minimal = OptionsCont::getOptions().getBool("railway.topology.repair.minimal");
+NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc, NBPTStopCont& sc, bool minimal) {
     const double penalty = OptionsCont::getOptions().getFloat("railway.topology.repair.bidi-penalty");
     // generate bidirectional routing graph
     std::vector<Track*> tracks;
