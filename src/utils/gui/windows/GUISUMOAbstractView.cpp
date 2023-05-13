@@ -910,13 +910,16 @@ void
 GUISUMOAbstractView::centerTo(GUIGlID id, bool applyZoom, double zoomDist) {
     GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (o != nullptr && dynamic_cast<GUIGlObject*>(o) != nullptr) {
-        if (applyZoom && zoomDist < 0) {
-            myChanger->setViewport(o->getCenteringBoundary());
-            update(); // only update when centering onto an object once
-        } else {
-            // called during tracking. update is triggered somewhere else
-            myChanger->centerTo(o->getCenteringBoundary().getCenter(), zoomDist, applyZoom);
-            updatePositionInformationLabel();
+        const Boundary& b = o->getCenteringBoundary();
+        if (b.getCenter() != Position::INVALID) {
+            if (applyZoom && zoomDist < 0) {
+                myChanger->setViewport(b);
+                update(); // only update when centering onto an object once
+            } else {
+                // called during tracking. update is triggered somewhere else
+                myChanger->centerTo(b.getCenter(), zoomDist, applyZoom);
+                updatePositionInformationLabel();
+            }
         }
     }
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
