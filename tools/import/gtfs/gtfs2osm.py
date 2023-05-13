@@ -469,7 +469,7 @@ def _addToDataFrame(gtfs_data, row, shapes_dict, stop, edge):
                   "edge_id"] = edge
 
 
-def getBestLane(net, lon, lat, radius, stop_length, edge_set, pt_class, last_pos=-1):
+def getBestLane(net, lon, lat, radius, stop_length, center, edge_set, pt_class, last_pos=-1):
     # get edges near stop location
     x, y = net.convertLonLat2XY(lon, lat)
     edges = [e for e in net.getNeighboringEdges(x, y, radius, includeJunctions=False) if e[0].getID() in edge_set]
@@ -479,7 +479,7 @@ def getBestLane(net, lon, lat, radius, stop_length, edge_set, pt_class, last_pos
             if lane.allows(pt_class):
                 pos = lane.getClosestLanePosAndDist((x, y))[0]
                 if pos > last_pos or edge.getID() != edge_set[0]:
-                    start = max(0, pos - stop_length)
+                    start = max(0, pos - (stop_length / 2. if center else stop_length))
                     end = min(start + stop_length, lane.getLength())
                     return lane.getID(), start, end
     return None
@@ -591,7 +591,8 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
             else:
                 # check if the wrong edge was adopted
                 edge_inter = set(map_routes[row.shape_id][1]) & map_stops[stop][6]
-                best = getBestLane(net, row.stop_lon, row.stop_lat, radius, stop_length, edge_inter, pt_class)
+                best = getBestLane(net, row.stop_lon, row.stop_lat, radius,
+                                   stop_length, options.center_stops, edge_inter, pt_class)
                 if best is None:
                     continue
                 # update the lane id, start and end and add shape
@@ -609,7 +610,8 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
         # if stop not mapped
         if not stop_mapped:
             edge_inter = set(map_routes[row.shape_id][1])
-            best = getBestLane(net, row.stop_lon, row.stop_lat, radius, stop_length, edge_inter, pt_class)
+            best = getBestLane(net, row.stop_lon, row.stop_lat, radius,
+                               stop_length, options.center_stops, edge_inter, pt_class)
             if best is not None:
                 lane_id, start, end = best
                 access = getAccess(net, row.stop_lon, row.stop_lat, 100, lane_id)

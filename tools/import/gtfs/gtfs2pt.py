@@ -59,6 +59,10 @@ def get_options(args=None):
                     help="length for a train stop")
     ap.add_argument("--tram-stop-length", default=60, type=float,
                     help="length for a tram stop")
+    ap.add_argument("--center-stops", action="store_true", default=False,
+                    help="use stop position as center not as front")
+    ap.add_argument("--skip-access", action="store_true", default=False,
+                    help="do not create access links")
     ap.add_argument("--sort", action="store_true", default=False,
                     help="sorting the output-file")
     ap.add_argument("--stops", help="file with predefined stop positions to use")
@@ -305,7 +309,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
                 s = fixedStops[stop]
                 laneID, start, end = s.lane, float(s.startPos), float(s.endPos)
             else:
-                result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength,
+                result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength, options.center_stops,
                                               route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
                 if result is None:
                     if options.warn_unmapped:
@@ -323,7 +327,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
                     break
             if keep:
                 stopEnds[laneID].append((stop, start, end))
-                access = gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID)
+                access = None if options.skip_access else gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID)
                 if not access and not params:
                     addAttrs += "/"
                 typ = "busStop" if mode == "bus" else "trainStop"
