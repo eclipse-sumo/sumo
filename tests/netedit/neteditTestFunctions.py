@@ -1572,7 +1572,7 @@ def containerMode():
     """
     @brief change to container mode
     """
-    typeKey('g')
+    typeKey('c')
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
 
