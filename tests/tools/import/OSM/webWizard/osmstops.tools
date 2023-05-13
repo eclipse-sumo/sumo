@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-02 15:05:42 by Eclipse SUMO netconvert Version v1_16_0+0943-f4d562fe610
+<!-- generated on 2023-05-13 10:03:23 by Eclipse SUMO netconvert Version v1_17_0+0253-6534f14d342
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/kobo/.texttest/tmp/tools.02Mar150527.2643548/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/kobo/.texttest/tmp/tools.13May100312.205382/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -220,10 +220,10 @@
         <access lane="440946436#2_0" pos="2.64" length="9.06" friendlyPos="1"/>
     </busStop>
     <busStop id="2071423334" name="U Französische Straße" lane="295255789_0" startPos="0.00" endPos="200.00" friendlyPos="true" lines="U6">
-        <access lane="196850608#0_0" pos="3.61" length="0.41" friendlyPos="1"/>
+        <access lane="196850608#0_0" pos="9.76" length="1.23" friendlyPos="1"/>
+        <access lane="196850610_0" pos="0.00" length="16.89" friendlyPos="1"/>
         <access lane="373866702#0_0" pos="0.00" length="11.82" friendlyPos="1"/>
         <access lane="373866702#1_0" pos="0.00" length="16.26" friendlyPos="1"/>
-        <access lane="42102542#1_0" pos="19.31" length="10.51" friendlyPos="1"/>
         <access lane="463898978_0" pos="26.25" length="2.72" friendlyPos="1"/>
     </busStop>
     <busStop id="2071423352" name="U Französische Straße" lane="169724406_0" startPos="193.88" endPos="393.88" friendlyPos="true" lines="U6">
@@ -411,7 +411,7 @@
         <access lane="274524379#1_0" pos="0.00" length="16.02" friendlyPos="1"/>
     </busStop>
     <busStop id="30353449" name="S Oranienburger Straße" lane="109444375_0" startPos="471.41" endPos="671.41" friendlyPos="true" lines="S1 S2 S25 S26">
-        <access lane="165415464#0_0" pos="40.30" length="0.32" friendlyPos="1"/>
+        <access lane="165415464#0_0" pos="40.98" length="0.32" friendlyPos="1"/>
         <access lane="225400588#0_0" pos="5.89" length="1.13" friendlyPos="1"/>
         <access lane="225400596_0" pos="7.53" length="10.98" friendlyPos="1"/>
         <access lane="541864432_0" pos="0.00" length="9.26" friendlyPos="1"/>
