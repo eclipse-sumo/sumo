@@ -56,8 +56,9 @@ public:
     /// routing edge
     class Track {
     public:
-        Track(NBEdge* e, int i = -1, const std::string& _id = "") :
+        Track(NBEdge* e, int i = -1, const std::string& _id = "", double _penalty = 1) :
             edge(e),
+            penalty(_penalty),
             index(i < 0 ? edge->getNumericalID() : i),
             id(_id == "" ? edge->getID() : _id),
             minPermissions(edge->getPermissions()) {
@@ -74,7 +75,7 @@ public:
             return index;
         }
         double getLength() const {
-            return 0.;
+            return 0;
         }
         const Track* getBidiEdge() const {
             return this;
@@ -90,6 +91,7 @@ public:
         }
 
         NBEdge* edge;
+        double penalty;
 
     private:
         const int index;

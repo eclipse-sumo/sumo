@@ -864,6 +864,7 @@ NBRailwayTopologyAnalyzer::findBidiCandidates(NBPTLineCont& lc) {
 int
 NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc, NBPTStopCont& sc) {
     const bool minimal = OptionsCont::getOptions().getBool("railway.topology.repair.minimal");
+    const double penalty = OptionsCont::getOptions().getFloat("railway.topology.repair.bidi-penalty");
     // generate bidirectional routing graph
     std::vector<Track*> tracks;
     for (NBEdge* edge : ec.getAllEdges()) {
@@ -871,7 +872,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
     }
     const int numEdges = (int)tracks.size();
     for (NBEdge* edge : ec.getAllEdges()) {
-        tracks.push_back(new Track(edge, (int)tracks.size(), edge->getID() + "_reverse"));
+        tracks.push_back(new Track(edge, (int)tracks.size(), edge->getID() + "_reverse", penalty));
     }
     // add special tracks for starting end ending in both directions
     std::map<NBEdge*, std::pair<Track*, Track*> > stopTracks;
@@ -1162,7 +1163,7 @@ NBRailwayTopologyAnalyzer::updateTurns(NBEdge* edge) {
 
 double
 NBRailwayTopologyAnalyzer::getTravelTimeStatic(const Track* const track, const NBVehicle* const veh, double time) {
-    return NBEdge::getTravelTimeStatic(track->edge, veh, time);
+    return NBEdge::getTravelTimeStatic(track->edge, veh, time) * track->penalty;
 }
 
 

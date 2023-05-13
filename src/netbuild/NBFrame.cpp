@@ -238,6 +238,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("railway.topology.repair.stop-turn", new Option_Bool(false));
         oc.addDescription("railway.topology.repair.stop-turn", "Railway", TL("Add turn-around connections at all loaded stops."));
 
+        oc.doRegister("railway.topology.repair.bidi-penalty", new Option_Float(1.2));
+        oc.addDescription("railway.topology.repair.bidi-penalty", "Railway", TL("Penalty factor for adding new bidi edges to connect public transport stops"));
+
         oc.doRegister("railway.topology.all-bidi", new Option_Bool(false));
         oc.addDescription("railway.topology.all-bidi", "Railway", TL("Make all rails usable in both direction"));
 
