@@ -35,7 +35,7 @@
 //#define DEBUG_FIND_WAY
 //#define DEBUG_CONSTRUCT_ROUTE
 
-#define DEBUGLINEID "1986097"
+#define DEBUGLINEID ""
 #define DEBUGSTOPID ""
 
 // ===========================================================================
@@ -346,9 +346,15 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
                 prevWayMinusEdges.clear();
             }
             if (currentWayMinusEdges.empty()) {
-                currentWayEdges.clear();
-                last = nullptr;
-                continue;
+                if (isRailway(pTLine->getVClass())) {
+                    // assume inconsistent way direction on bidi rail track (can be repaired later)
+                    edges.insert(edges.end(), currentWayEdges.rbegin(), currentWayEdges.rend());
+                    last = currentWayEdges.front()->getFromNode();
+                } else {
+                    currentWayEdges.clear();
+                    last = nullptr;
+                    continue;
+                }
             } else {
                 edges.insert(edges.end(), currentWayMinusEdges.begin(), currentWayMinusEdges.end());
                 last = currentWayMinusEdges.back()->getToNode();
