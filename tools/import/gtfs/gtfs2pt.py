@@ -316,13 +316,13 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
             lastIndex = route.index(edgeID, lastIndex)
             lastPos = end
             keep = True
-            for otherStop, otherStart, otherEnd in stopEnds[edgeID]:
+            for otherStop, otherStart, otherEnd in stopEnds[laneID]:
                 if (otherEnd > start and otherEnd <= end) or (end > otherStart and end <= otherEnd):
                     keep = False
                     stop = otherStop
                     break
             if keep:
-                stopEnds[edgeID].append((stop, start, end))
+                stopEnds[laneID].append((stop, start, end))
                 access = gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID)
                 if not access and not params:
                     addAttrs += "/"
