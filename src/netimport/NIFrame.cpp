@@ -217,7 +217,7 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("osm.all-attributes", new Option_Bool(false));
     oc.addDescription("osm.all-attributes", "Formats", TL("Whether additional attributes shall be imported"));
 
-    oc.doRegister("osm.extra-attributes", new Option_StringVector(StringVector({ "bridge", "tunnel", "layer", "postal_code" })));
+    oc.doRegister("osm.extra-attributes", new Option_StringVector(StringVector({ "all" })));
     oc.addDescription("osm.extra-attributes", "Formats", TL("List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all)"));
 
     oc.doRegister("osm.speedlimit-none", new Option_Float(39.4444));

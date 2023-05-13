@@ -168,6 +168,7 @@ NWFrame::checkOptions() {
     }
     if (oc.isSet("dlr-navteq-output") && oc.isDefault("osm.all-attributes")) {
         oc.setDefault("osm.all-attributes", "true");
+        oc.setDefault("osm.extra-attributes", "bridge,tunnel,layer,postal_code");
     }
     if (oc.exists("ptline-output") && oc.isSet("ptline-output") && !oc.isSet("ptstop-output")) {
         WRITE_ERROR(TL("public transport lines output requires 'ptstop-output' to be set"));
