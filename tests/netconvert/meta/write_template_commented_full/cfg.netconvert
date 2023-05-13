@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-08 09:58:11 by Eclipse SUMO netconvert Version v1_17_0+0123-4dbdc7a
+<!-- generated on 2023-05-13 10:48:08 by Eclipse SUMO netconvert Version v1_17_0+0252-45696e9
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -776,6 +776,9 @@
 
         <!-- Add turn-around connections at all loaded stops. -->
         <railway.topology.repair.stop-turn value="false" type="BOOL"/>
+
+        <!-- Penalty factor for adding new bidi edges to connect public transport stops -->
+        <railway.topology.repair.bidi-penalty value="1.2" type="FLOAT"/>
 
         <!-- Make all rails usable in both direction -->
         <railway.topology.all-bidi value="false" type="BOOL"/>

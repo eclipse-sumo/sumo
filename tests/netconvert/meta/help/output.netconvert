@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_17_0+0123-4dbdc7a
+Eclipse SUMO netconvert Version v1_17_0+0252-45696e9
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -524,6 +524,9 @@ Railway Options:
                                         meet at a straight angle
   --railway.topology.repair.stop-turn  Add turn-around connections at all
                                         loaded stops.
+  --railway.topology.repair.bidi-penalty FLOAT  Penalty factor for adding new
+                                        bidi edges to connect public transport
+                                        stops
   --railway.topology.all-bidi          Make all rails usable in both direction
   --railway.topology.all-bidi.input-file FILE  Make all rails edge ids from
                                         FILE usable in both direction
