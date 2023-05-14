@@ -150,7 +150,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myPTStopCont.alignIdSigns();
         PROGRESS_TIME_MESSAGE(before);
     }
-
     // analyze and fix railway topology
     int numAddedBidi = 0;
     if (oc.exists("railway.topology.all-bidi") && oc.getBool("railway.topology.all-bidi")) {
@@ -164,6 +163,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
         numAddedBidi = NBRailwayTopologyAnalyzer::repairTopology(myEdgeCont, myPTStopCont, myPTLineCont);
     }
+    NBRailwaySignalGuesser::guessRailSignals(myEdgeCont, myPTStopCont);
     if (numAddedBidi > 0) {
         // update routes
         myPTLineCont.process(myEdgeCont, myPTStopCont, true);

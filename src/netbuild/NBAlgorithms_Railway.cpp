@@ -1291,5 +1291,71 @@ NBRailwayTopologyAnalyzer::extendDirectionPriority(NBEdgeCont& ec, bool fromUniD
     }
 }
 
+// ---------------------------------------------------------------------------
+// NBRailwaySignalGuesser methods
+// ---------------------------------------------------------------------------
+
+int
+NBRailwaySignalGuesser::guessRailSignals(NBEdgeCont& ec, NBPTStopCont& sc) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    int addedSignals = 0;
+    if (oc.exists("railway.signal.guess.by-stops")) {
+        if (oc.getBool("railway.signal.guess.by-stops")) {
+            const double minLength = oc.getFloat("osm.stop-output.length.train");
+            addedSignals += guessByStops(ec, sc, minLength);
+        }
+    }
+    return addedSignals;
+}
+
+
+int
+NBRailwaySignalGuesser::guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double minLength) {
+    int addedSignals = 0;
+    for (auto& item : sc.getStops()) {
+        const NBEdge* stopEdge = ec.retrieve(item.second->getEdgeId());
+        if (stopEdge != nullptr && isRailway(stopEdge->getPermissions())) {
+            NBNode* to = stopEdge->getToNode();
+            if (to->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
+                to->reinit(to->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
+                addedSignals++;
+            }
+            NBNode* from = stopEdge->getFromNode();
+            if (stopEdge->getLoadedLength() >= minLength) {
+                /// XXX should split edge if it is too long
+                if (from->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
+                    from->reinit(from->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
+                    addedSignals++;
+                }
+            } else {
+                double searchDist = minLength - stopEdge->getLoadedLength();
+                while (searchDist > 0 && from->geometryLike()) {
+                    for (const NBEdge* in : from->getIncomingEdges()) {
+                        if (in->getFromNode() != stopEdge->getToNode()) {
+                            // found edge that isn't a bidi predecessor
+                            stopEdge = in;
+                            break;
+                        }
+                    }
+                    if (stopEdge->getFromNode() == from) {
+                        // bidi edge without predecessor
+                        break;
+                    } else {
+                        from = stopEdge->getFromNode();
+                    }
+                    searchDist -= stopEdge->getLoadedLength();
+                }
+                if (searchDist <= 0 && from->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
+                    from->reinit(from->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
+                    addedSignals++;
+                }
+            }
+        }
+    }
+    WRITE_MESSAGEF(TL("Added % rail signals at % stops."), addedSignals, sc.getStops().size());
+    return addedSignals;
+}
+
+
 
 /****************************************************************************/

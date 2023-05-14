@@ -154,3 +154,13 @@ private:
     static std::set<NBPTLine*> findBidiCandidates(NBPTLineCont& lc);
 
 };
+
+
+class NBRailwaySignalGuesser {
+
+public:
+    static int guessRailSignals(NBEdgeCont& ec, NBPTStopCont& sc);
+
+private:
+    static int guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double minLength);
+};
