@@ -1749,14 +1749,19 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
     std::map<NBEdge*, EdgeSet> reachable;
     std::map<std::pair<NBEdge*, NBEdge*>, SVCPermissions> conPermissions;
     EdgeSet specialPermissions;
-    for (NBEdge* e : clusterIncoming) {
+    for (NBEdge* const e : clusterIncoming) {
         EdgeVector open;
         EdgeSet seen;
         open.push_back(e);
         while (open.size() > 0) {
-            NBEdge* cur = open.back();
-            SVCPermissions pCur = conPermissions.count({e, cur}) == 0 ? cur->getPermissions() : conPermissions[{e, cur}];
-            //std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " pCur=" << getVehicleClassNames(pCur) << " open=" << toString(open) << "\n";
+            NBEdge* const cur = open.back();
+            const SVCPermissions pCur = conPermissions.count({e, cur}) == 0 ? cur->getPermissions() : conPermissions[{e, cur}];
+#ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
+            if (e->getID() == "625058945") {
+                std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " pCur=" << getVehicleClassNames(cur->getPermissions()) << " open=" << toString(open) << "\n";
+                std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " pCur=" << getVehicleClassNames(pCur) << " open=" << toString(open) << "\n";
+            }
+#endif
             seen.insert(cur);
             open.pop_back();
             if (cluster.count(cur->getToNode()) == 0) {
@@ -1768,12 +1773,16 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                 // check permissions to determine reachability
                 for (NBEdge* out : cur->getToNode()->getOutgoingEdges()) {
                     if (allEdges.count(out) != 0) {
-                        SVCPermissions p = pCur & out->getPermissions();
+                        const SVCPermissions p = pCur & out->getPermissions();
                         if (seen.count(out) == 0 || (~conPermissions[{e, out}] & p) != 0) {
                             if ((p & ~SVC_PEDESTRIAN) != 0) {
                                 open.push_back(out);
                                 conPermissions[{e, out}] |= p;
-                                //std::cout << "  e=" << e->getID() << " out=" << out->getID() << " pOut=" << getVehicleClassNames(out->getPermissions()) << "\n    p=" << getVehicleClassNames(p) << "\n    q=" << getVehicleClassNames(conPermissions[{e, out}]) << "\n";
+#ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
+                                if (e->getID() == "625058945") {
+                                    std::cout << "  e=" << e->getID() << " out=" << out->getID() << " pOut=" << getVehicleClassNames(out->getPermissions()) << "\n    p=" << getVehicleClassNames(p) << "\n    q=" << getVehicleClassNames(conPermissions[{e, out}]) << "\n";
+                                }
+#endif
                             }
                         }
                     }
@@ -1800,9 +1809,14 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             // filter out inside edges from reached
             if (inside.count(reached) == 0) {
                 reachable[e].insert(reached);
-                SVCPermissions pDefault = e->getPermissions() & reached->getPermissions();
+                const SVCPermissions pDefault = e->getPermissions() & reached->getPermissions();
                 if (conPermissions[{e, reached}] != pDefault) {
                     specialPermissions.insert(e);
+#ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
+                    if (e->getID() == "625058945") {
+                        std::cout << "e=" << e->getID() << " out=" << reached->getID() << " special=" << getVehicleClassNames(conPermissions[{e, reached}]) << "\n";
+                    }
+#endif
                 }
             }
         }
