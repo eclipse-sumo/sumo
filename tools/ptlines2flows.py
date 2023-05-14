@@ -33,12 +33,18 @@ from sumolib.options import ArgumentParser
 
 def get_options(args=None):
     ap = ArgumentParser()
-    ap.add_option("-n", "--net-file", dest="netfile", help="network file")
-    ap.add_option("-l", "--ptlines-file", dest="ptlines", help="public transit lines file")
-    ap.add_option("-s", "--ptstops-file", dest="ptstops", help="public transit stops file")
-    ap.add_option("-o", "--output-file", dest="outfile", default="flows.rou.xml", help="output flows file")
-    ap.add_option("-i", "--stopinfos-file", dest="stopinfos", default="stopinfos.xml", help="file from '--stop-output'")
-    ap.add_option("-r", "--routes-file", dest="routes", default="vehroutes.xml", help="file from '--vehroute-output'")
+    ap.add_option("-n", "--net-file", dest="netfile", category="input", required=True,
+                  help="network file")
+    ap.add_option("-l", "--ptlines-file", dest="ptlines", category="input", required=True,
+                  help="public transit lines file")
+    ap.add_option("-s", "--ptstops-file", dest="ptstops", category="input", required=True,
+                  help="public transit stops file")
+    ap.add_option("-o", "--output-file", dest="outfile", category="output", default="flows.rou.xml",
+                  help="output flows file")
+    ap.add_option("-i", "--stopinfos-file", dest="stopinfos", category="output", default="stopinfos.xml",
+                  help="file from '--stop-output'")
+    ap.add_option("-r", "--routes-file", dest="routes", category="output", default="vehroutes.xml",
+                  help="file from '--vehroute-output'")
     ap.add_option("-t", "--trips-file", dest="trips", default="trips.trips.xml", help="output trips file")
     ap.add_option("-p", "--period", type=float, default=600,
                   help="the default service period (in seconds) to use if none is specified in the ptlines file")
