@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-13 11:57:58 by Eclipse SUMO netconvert Version v1_17_0+0260-a7321cd3ffe
+<!-- generated on 2023-05-14 23:03:00 by Eclipse SUMO netconvert Version v1_17_0+0284-21a361d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -791,6 +791,9 @@
 
         <!-- Extend loaded edge priority values based on estimated main direction -->
         <railway.topology.extend-priority value="false" type="BOOL"/>
+
+        <!-- Guess signals that guard public transport stops -->
+        <railway.signal.guess.by-stops value="false" type="BOOL"/>
 
         <!-- The search radius for finding suitable road accesses for rail stops -->
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT"/>
