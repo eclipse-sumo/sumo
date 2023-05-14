@@ -28,68 +28,63 @@ from optparse import OptionParser
 
 import sumolib
 from sumolib.xml import quoteattr
+from sumolib.options import ArgumentParser
 
 
 def get_options(args=None):
-    optParser = OptionParser()
-    optParser.add_option("-n", "--net-file", dest="netfile", help="network file")
-    optParser.add_option("-l", "--ptlines-file", dest="ptlines", help="public transit lines file")
-    optParser.add_option("-s", "--ptstops-file", dest="ptstops", help="public transit stops file")
-    optParser.add_option("-o", "--output-file", dest="outfile", default="flows.rou.xml", help="output flows file")
-    optParser.add_option("-i", "--stopinfos-file", dest="stopinfos",
-                         default="stopinfos.xml", help="file from '--stop-output'")
-    optParser.add_option(
-        "-r", "--routes-file", dest="routes", default="vehroutes.xml", help="file from '--vehroute-output'")
-    optParser.add_option("-t", "--trips-file", dest="trips", default="trips.trips.xml", help="output trips file")
-    optParser.add_option("-p", "--period", type=float, default=600,
-                         help="the default service period (in seconds) to use if none is specified in the ptlines file")
-    optParser.add_option("--period-aerialway", type=float, default=60, dest="periodAerialway",
-                         help="the default service period (in seconds) to use for aerialways "
-                              "if none is specified in the ptlines file")
-    optParser.add_option("-b", "--begin", type=float, default=0, help="start time")
-    optParser.add_option("-e", "--end", type=float, default=3600, help="end time")
-    optParser.add_option("--min-stops", type=int, default=2,
-                         help="only import lines with at least this number of stops")
-    optParser.add_option("-f", "--flow-attributes", dest="flowattrs",
-                         default="", help="additional flow attributes")
-    optParser.add_option("--use-osm-routes", default=False, action="store_true",
-                         dest='osmRoutes', help="use osm routes")
-    optParser.add_option("--extend-to-fringe", default=False, action="store_true", dest='extendFringe',
-                         help="let routes of incomplete lines start/end at the network border "
-                              "if the route edges are known")
-    optParser.add_option("--random-begin", default=False, action="store_true",
-                         dest='randomBegin', help="randomize begin times within period")
-    optParser.add_option("--seed", type="int", help="random seed")
-    optParser.add_option("--ignore-errors", default=False, action="store_true",
-                         dest='ignoreErrors', help="ignore problems with the input data")
-    optParser.add_option("--no-vtypes", default=False, action="store_true",
-                         dest='novtypes', help="do not write vtypes for generated flows")
-    optParser.add_option("--types", help="only export the given list of types (using OSM nomenclature)")
-    optParser.add_option("--bus.parking", default=False, action="store_true",
-                         dest='busparking', help="let busses clear the road while stopping")
-    optParser.add_option("--vtype-prefix", default="", dest='vtypeprefix', help="prefix for vtype ids")
-    optParser.add_option("-d", "--stop-duration", default=20, type="float", dest='stopduration',
-                         help="Configure the minimum stopping duration")
-    optParser.add_option("--stop-duration-slack", default=10, type="float", dest='stopdurationSlack',
-                         help="Stopping time reserve in the schedule")
-    optParser.add_option("--speedfactor.bus", default=0.95, type="float", dest='speedFactorBus',
-                         help="Assumed bus relative travel speed")
-    optParser.add_option("--speedfactor.tram", default=1.0, type="float", dest='speedFactorTram',
-                         help="Assumed tram relative travel speed")
-    optParser.add_option("-H", "--human-readable-time", dest="hrtime", default=False,
-                         action="store_true", help="write times as h:m:s")
-    optParser.add_option("--night", action="store_true", default=False, help="Export night service lines")
-    optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
-    (options, args) = optParser.parse_args(args=args)
+    ap = ArgumentParser()
+    ap.add_option("-n", "--net-file", dest="netfile", help="network file")
+    ap.add_option("-l", "--ptlines-file", dest="ptlines", help="public transit lines file")
+    ap.add_option("-s", "--ptstops-file", dest="ptstops", help="public transit stops file")
+    ap.add_option("-o", "--output-file", dest="outfile", default="flows.rou.xml", help="output flows file")
+    ap.add_option("-i", "--stopinfos-file", dest="stopinfos", default="stopinfos.xml", help="file from '--stop-output'")
+    ap.add_option("-r", "--routes-file", dest="routes", default="vehroutes.xml", help="file from '--vehroute-output'")
+    ap.add_option("-t", "--trips-file", dest="trips", default="trips.trips.xml", help="output trips file")
+    ap.add_option("-p", "--period", type=float, default=600,
+                  help="the default service period (in seconds) to use if none is specified in the ptlines file")
+    ap.add_option("--period-aerialway", type=float, default=60, dest="periodAerialway",
+                  help=("the default service period (in seconds) to use for aerialways "
+                        "if none is specified in the ptlines file"))
+    ap.add_option("-b", "--begin", type=float, default=0, help="start time")
+    ap.add_option("-e", "--end", type=float, default=3600, help="end time")
+    ap.add_option("--min-stops", type=int, default=2, help="only import lines with at least this number of stops")
+    ap.add_option("-f", "--flow-attributes", dest="flowattrs", default="", help="additional flow attributes")
+    ap.add_option("--use-osm-routes", default=False, action="store_true", dest='osmRoutes', help="use osm routes")
+    ap.add_option("--extend-to-fringe", default=False, action="store_true", dest='extendFringe',
+                  help="let routes of incomplete lines start/end at the network border if the route edges are known")
+    ap.add_option("--random-begin", default=False, action="store_true", dest='randomBegin',
+                  help="randomize begin times within period")
+    ap.add_option("--seed", type=int, help="random seed")
+    ap.add_option("--ignore-errors", default=False, action="store_true", dest='ignoreErrors',
+                  help="ignore problems with the input data")
+    ap.add_option("--no-vtypes", default=False, action="store_true", dest='novtypes',
+                  help="do not write vtypes for generated flows")
+    ap.add_option("--types", help="only export the given list of types (using OSM nomenclature)")
+    ap.add_option("--bus.parking", default=False, action="store_true", dest='busparking',
+                  help="let busses clear the road while stopping")
+    ap.add_option("--vtype-prefix", default="", dest='vtypeprefix', help="prefix for vtype ids")
+    ap.add_option("-d", "--stop-duration", default=20, type=float, dest='stopduration',
+                  help="Configure the minimum stopping duration")
+    ap.add_option("--stop-duration-slack", default=10, type=float, dest='stopdurationSlack',
+                  help="Stopping time reserve in the schedule")
+    ap.add_option("--speedfactor.bus", default=0.95, type=float, dest='speedFactorBus',
+                  help="Assumed bus relative travel speed")
+    ap.add_option("--speedfactor.tram", default=1.0, type=float, dest='speedFactorTram',
+                  help="Assumed tram relative travel speed")
+    ap.add_option("-H", "--human-readable-time", dest="hrtime", default=False, action="store_true",
+                  help="write times as h:m:s")
+    ap.add_option("--night", action="store_true", default=False, help="Export night service lines")
+    ap.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
+    options = ap.parse_args(args=args)
 
     if options.netfile is None or options.ptlines is None or options.ptstops is None:
         sys.stderr.write("Error: net-file, ptlines-file and ptstops-file must be set\n")
-        optParser.print_help()
+        ap.print_help()
         sys.exit(1)
 
     if options.begin >= options.end:
         sys.stderr.write("Error: end time must be larger than begin time\n")
-        optParser.print_help()
+        ap.print_help()
         sys.exit(1)
 
     if options.types is not None:
@@ -152,7 +147,7 @@ def createTrips(options):
     with codecs.open(options.trips, 'w', encoding="UTF8") as fouttrips:
         sumolib.writeXMLHeader(
             fouttrips, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
-            "routes")
+            "routes", options=options)
         writeTypes(fouttrips, options.vtypeprefix, options)
 
         departTimes = [options.begin for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
@@ -320,7 +315,7 @@ def createRoutes(options, trpMap, stopNames):
     with codecs.open(options.outfile, 'w', encoding="UTF8") as foutflows:
         flows = []
         actualDepart = {}  # departure may be delayed when the edge is not yet empty
-        sumolib.writeXMLHeader(foutflows, root="routes")
+        sumolib.writeXMLHeader(foutflows, root="routes", options=options)
         if not options.novtypes:
             writeTypes(foutflows, options.vtypeprefix, None)
         collections.defaultdict(int)
