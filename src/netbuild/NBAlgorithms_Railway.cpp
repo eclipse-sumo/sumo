@@ -958,6 +958,10 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
     for (const auto& item : lc.getLines()) {
         NBPTLine* line = item.second;
         std::vector<std::pair<NBEdge*, std::string> > stops = line->getStopEdges(ec);
+        std::vector<NBEdge*> stopEdges;
+        for (auto it : stops) {
+            stopEdges.push_back(it.first);
+        }
         NBEdge* routeStart = line->getRouteStart(ec);
         NBEdge* routeEnd = line->getRouteEnd(ec);
         if (routeStart != nullptr) {
@@ -968,10 +972,6 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
         }
         if (stops.size() < 2) {
             continue;
-        }
-        std::vector<NBEdge*> stopEdges;
-        for (auto it : stops) {
-            stopEdges.push_back(it.first);
         }
         if (!line->isConsistent(stopEdges) && requireBidi.count(line) == 0) {
             WRITE_WARNINGF(TL("Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges."), item.first);

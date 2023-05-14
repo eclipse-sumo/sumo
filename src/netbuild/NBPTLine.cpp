@@ -239,9 +239,17 @@ NBPTLine::getRouteEnd(const NBEdgeCont& ec) const {
 
 
 bool
-NBPTLine::isConsistent(const std::vector<NBEdge*>& stops) const {
+NBPTLine::isConsistent(std::vector<NBEdge*> stops) const {
     if (myRoute.empty() || stops.empty()) {
         return true;
+    }
+    if (stops.size() > 1 && stops.front() == stops.back()) {
+        // circular route where we don't expect the route edges to occur twice
+        if (myRoute.front() == stops.front()) {
+            stops.pop_back();
+        } else if (myRoute.back() == stops.back()) {
+            stops.erase(stops.begin());
+        }
     }
     std::vector<NBEdge*>::const_iterator stopIt = stops.begin();
     for (const NBEdge* const e : myRoute) {
