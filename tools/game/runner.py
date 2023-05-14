@@ -43,7 +43,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
-from sumolib.translation import addLanguageOption, setLanguage, TL
+from sumolib.translation import addLanguageOption, setLanguage, TL  # noqa
 
 _UPLOAD = False if "noupload" in sys.argv else True
 _SCOREFILE = "scores.pkl"
@@ -61,31 +61,31 @@ _LANGUAGE_CAPTIONS = {}
 def updateLocalMessages():
     global _LANGUAGE_CAPTIONS
     _LANGUAGE_CAPTIONS = {'title': TL('Interactive Traffic Light'),
-                    'fkk_in': TL('Research intersection Ingolstadt'),
-                    'cross': TL('Simple Junction'),
-                    'cross_demo': TL('Simple Junction (Demo)'),
-                    'square': TL('Four Junctions'),
-                    'grid6': TL('Six Junctions'),
-                    'kuehne': TL('Prof. Kühne'),
-                    'bs3d': TL('3D Junction Virtual World'),
-                    'bs3Dosm': TL('3D Junction OpenStreetMap'),
-                    'highway': TL('Highway Ramp'),
-                    'ramp': TL('Combined Highway On and Off Ramp'),
-                    'corridor': TL('Corridor'),
-                    'A10KW': TL('Highway Ramp A10'),
-                    'DRT': TL('Demand Responsive Transport (new)'),
-                    'DRT2': TL('DRT - Advanced (new)'),
-                    'DRT_demo': TL('DRT - Demo'),
-                    'high': TL('Highscore'),
-                    'reset': TL('Reset Highscore'),
-                    'german': TL('German'),
-                    'english': TL('English'),
-                    'quit': TL("Quit"),
-                    'Highscore': TL("Highscore"),
-                    'Congratulations': TL("Congratulations!"),
-                    'your score': TL('Your Score'),
-                    'Continue': TL('Continue'),
-                    }
+                          'fkk_in': TL('Research intersection Ingolstadt'),
+                          'cross': TL('Simple Junction'),
+                          'cross_demo': TL('Simple Junction (Demo)'),
+                          'square': TL('Four Junctions'),
+                          'grid6': TL('Six Junctions'),
+                          'kuehne': TL('Prof. Kühne'),
+                          'bs3d': TL('3D Junction Virtual World'),
+                          'bs3Dosm': TL('3D Junction OpenStreetMap'),
+                          'highway': TL('Highway Ramp'),
+                          'ramp': TL('Combined Highway On and Off Ramp'),
+                          'corridor': TL('Corridor'),
+                          'A10KW': TL('Highway Ramp A10'),
+                          'DRT': TL('Demand Responsive Transport (new)'),
+                          'DRT2': TL('DRT - Advanced (new)'),
+                          'DRT_demo': TL('DRT - Demo'),
+                          'high': TL('Highscore'),
+                          'reset': TL('Reset Highscore'),
+                          'german': TL('German'),
+                          'english': TL('English'),
+                          'quit': TL("Quit"),
+                          'Highscore': TL("Highscore"),
+                          'Congratulations': TL("Congratulations!"),
+                          'your score': TL('Your Score'),
+                          'Continue': TL('Continue'),
+                          }
 
 
 def printDebug(*args):
