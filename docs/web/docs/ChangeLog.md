@@ -30,6 +30,7 @@ title: ChangeLog
   - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
   - game mode now switches time display style for all time labels. Issue #13211
   - Fixed crash when switching to a (mismatching) alternative net file. Issue #13215
+  - Clicking on a vehicle id which is not in the network no longer moves the view to Position::INVALID. Issue #13251
 
 - netconvert
   - Fixed inconsistent network file after setting **--default.spreadtype center**. Issue #13127
@@ -37,7 +38,11 @@ title: ChangeLog
   - Fixed bug where bidi edge could not be declared. Issue #13225
   - Fixed invalid connection permissions after joining junction. Issue #13217
   - Fixed broken network after setting option **--tls.rebuild**. Issue #13240
-  - Fixed classification of turnaround connection on some divided hightways. Issue #13238
+  - Fixed classification of turnaround connection on some divided highways. Issue #13238
+  - Fixed bug where option **--railway.topology.repair** created superfluous bidi edges. Issue #13247
+  - Option **--railway.topology.repair.minimal** now performs minimal repair with respect to public transport lines. Issue #13248
+  - Fixed invalid consistency error for circular public transport line. Issue #13255
+  - OSM: fixed imcomplete pt-route. Issue #13249
 
 - TraCI
   - Fixed crash when calling traci.load and running with sumo-gui. Issue #13150 (regression in 1.16.0)
@@ -76,11 +81,15 @@ title: ChangeLog
   - runSeeds.py: added option **--no-folders** to keep all written files in the same directory when running with multiple configuration files or applications (folder name becomes file name prefix). Issue #13157
   - routeSampler: Added option **--taz-files** and support for loading origin destination matrices in `tazRelation` format. Issue #6890
   - abstractRail.py: Now handles regions without stops. Issue #13221
+  - gtfs2pt.py: can now disable generation of pedestrian access via option **--skip-access**. Issue #12774
+  - ptlines2flows.py: now support configuration files. Issue #13254
+  - checkStopOrder.py: can now generat a combined stop table for multiple stop locations. Issue #13259
 
 ### Miscellaneous
 
 - plotXMLAttributes.py and plot_trajectories.py no longer create 'plot.png' by default. Issue #13166
 - netconvert: road objects imported from OpenDRIVE are now placed on a higher layer to make them visible above the road. Issue #13197
+- netconvert: option **--osm.all-attributes** now defaults to exporting all attributes because the explicit list of attributes (**--osm.extra-attributes**) now defaults to value **all**. Issue #13218
 - Netedit demand mode hotkeys changed: **C** now activates container mode and **L** activates person plan mode. Issue #13141
 
 
