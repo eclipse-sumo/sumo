@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-12 09:49+0000\n"
+"PO-Revision-Date: 2023-05-15 07:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -6957,7 +6957,7 @@ msgstr "Der Name des Knotenpunkts wo der Fluss endet"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3873
 msgid "The id of the route the flow shall drive along"
-msgstr "Die ID der Route, entlang der der Fluss fahren soll"
+msgstr "Die ID der Route, entlang welcher der Fluss fahren soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3878
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3915
