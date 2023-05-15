@@ -27,6 +27,7 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
+import fnmatch
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -126,9 +127,15 @@ def main(options):
         for stopID in options.stopTable.split(','):
             if stopID in stopTimes:
                 stopIDs.append(stopID)
-                times += [t + [stopID] for t in stopTimes[stopID]]
+            elif "*" in stopID:
+                for candID in sorted(stopTimes.keys()):
+                    if fnmatch.fnmatch(candID, stopID):
+                        stopIDs.append(candID)
             else:
                 print("No vehicle stops at busStop '%s' found" % options.stopTable, file=sys.stderr)
+
+        for stopID in stopIDs:
+            times += [t + [stopID] for t in stopTimes[stopID]]
 
         if stopIDs:
             print("# busStop: %s" % ','.join(stopIDs))
