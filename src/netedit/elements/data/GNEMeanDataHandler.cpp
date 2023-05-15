@@ -61,7 +61,7 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
     const auto attributes = parseAttributes(SUMO_TAG_MEANDATA_EDGE, writtenAttributes);
     // check if meanData edge exists
     if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_EDGE, ID, false) != nullptr) {
-        writeError(TL("Could not build meanDataEdge; ") + ID + TL(" already exists"));
+        writeError(TL("Could not build meanDataEdge; ") + TLF("% already exists", ID));
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, ID, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
@@ -90,7 +90,7 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
     const auto attributes = parseAttributes(SUMO_TAG_MEANDATA_LANE, writtenAttributes);
     // check if meanData edge exists
     if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_LANE, ID, false) != nullptr) {
-        writeError(TL("Could not build meanDataLane; ") + ID + TL(" already exists"));
+        writeError(TL("Could not build meanDataLane; ") + TLF("% already exists", ID));
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, ID, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
@@ -113,7 +113,7 @@ GNEMeanDataHandler::parseEdges(const SumoXMLTag tag, const std::vector<std::stri
         GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
         // empty edges aren't allowed. If edge is empty, write error, clear edges and stop
         if (edge == nullptr) {
-            writeError(TL("Could not build ") + toString(tag) + TL(" in netedit; edge doesn't exist."));
+            writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TL("Edge doesn't exist."));
             edges.clear();
             return edges;
         } else {
@@ -129,7 +129,7 @@ GNEMeanDataHandler::parseAttributes(const SumoXMLTag tag, const std::vector<std:
     std::vector<SumoXMLAttr> attrs;
     for (const auto& attrStr : attrStrs) {
         if (SUMOXMLDefinitions::Tags.hasString(attrStr)) {
-            writeError(TL("Could not build ") + toString(tag) + TL(" in netedit; attribute '") + attrStr + TL("' doesn't exist."));
+            writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("Attribute '%' doesn't exist.", attrStr));
             attrs.clear();
             return attrs;
         } else {

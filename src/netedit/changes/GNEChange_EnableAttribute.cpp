@@ -110,9 +110,9 @@ GNEChange_EnableAttribute::redo() {
 std::string
 GNEChange_EnableAttribute::undoName() const {
     if (myNewValue) {
-        return (TL("Undo enable ") + myAC->getTagStr() + TL(" attribute in '") + myAC->getID() + "'");
+        return (TLF("Undo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
     } else {
-        return (TL("Undo enable ") + myAC->getTagStr() + TL(" attribute in '") + myAC->getID() + "'");
+        return (TLF("Undo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
     }
 }
 
@@ -120,9 +120,9 @@ GNEChange_EnableAttribute::undoName() const {
 std::string
 GNEChange_EnableAttribute::redoName() const {
     if (myNewValue) {
-        return (TL("Redo enable ") + myAC->getTagStr() + TL(" attribute in '") + myAC->getID() + "'");
+        return (TLF("Redo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
     } else {
-        return (TL("Redo enable ") + myAC->getTagStr() + TL(" attribute in '") + myAC->getID() + "'");
+        return (TLF("Redo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
     }
 }
 
