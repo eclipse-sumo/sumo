@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-15 07:04+0000\n"
+"PO-Revision-Date: 2023-05-15 14:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -9368,7 +9368,7 @@ msgstr "Definition"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:237
 msgid "Opening HelpAttributes dialog for tag '"
-msgstr "Öffne  HelpAttributes -Dialog für Tag '"
+msgstr "Öffne HelpAttributes -Dialog für Tag '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:237
 msgid "' showing "
