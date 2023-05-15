@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-15 07:04+0000\n"
+"PO-Revision-Date: 2023-05-15 14:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -613,7 +613,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:735
 msgid "Scale Traffic:"
-msgstr "Moltiplica domanda di traffico"
+msgstr "Moltiplica domanda di traffico:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:735
 msgid ""
@@ -660,7 +660,7 @@ msgstr "Distanza totale percorsa da veicoli DRT"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:793
 msgid "Emergency Vehicle waiting time:"
-msgstr "Tempo d'attesa dei veicoli di emergenza."
+msgstr "Tempo d'attesa dei veicoli di emergenza:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:793
 msgid "Time spent waiting accumulated for emergency vehicles"
@@ -804,7 +804,7 @@ msgstr "Non ho potuto caricare i file edgeData '%'"
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:100
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:106
 msgid "Quitting (on error)."
-msgstr "Uscendo (dopo un errore)"
+msgstr "Uscendo (dopo un errore)."
 
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:265
 msgid "Simulation started with time: %."
@@ -3209,14 +3209,12 @@ msgstr "Salva configurazione di visualizzazione nel file indicato"
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:460
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr ""
-"Definisce il periodo iniziale in secondi; La simulazione inizia al periodo "
-"indicato"
+"Definisce l'ora iniziale in secondi; La simulazione inizia all'ora indicata"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:463
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr ""
-"Definisce il periodo finale in secondi; La simulazione termina al periodo "
-"indicato"
+"Definisce l'ora finale in secondi; La simulazione termina alL'ora indicata"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:466
 msgid ""
