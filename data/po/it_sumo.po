@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-07 17:24+0000\n"
+"PO-Revision-Date: 2023-05-15 14:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -855,7 +855,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/libsumo/GUI.cpp:330
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "Questo sistema non sostiene OpenGL. Uscita."
 
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:904
 #, c-format
@@ -1749,10 +1749,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:343
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr ""
+"Definisce l'ora iniziale in secondi; La simulazione inizia all'ora indicata"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:346
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr ""
+"Definisce l'ora finale in secondi; La simulazione termina alL'ora indicata"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:349
 msgid "Defines the step duration in seconds"
@@ -1973,6 +1975,11 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
+"Durata del intervallo (in secondi) tra due action point usati nei modelli di "
+"guida e di cambio corsia. Verrà usata la durata del passo di simulazione se "
+"non specificata. Può essere definita separatamente per tipi di veicoli "
+"(vType) o veicoli singoli. Deve essere multiplo della durata del passo di "
+"simulazione."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:482
 msgid "Select default car following model (Krauss, IDM, ...)"
@@ -1983,6 +1990,9 @@ msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class"
 msgstr ""
+"Scegli la varianza standard della velocità. Se un valore negativo viene dato "
+"vengono usati valori standard differenziati per ogni classe di veicoli (0.1 "
+"per la classe passenger)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:489
 msgid ""
@@ -2232,7 +2242,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:698
 msgid "Load visualisation settings from FILE"
-msgstr ""
+msgstr "Carica configurazione di visualizzazione da FILE"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:701
 msgid "Quits the GUI when the simulation stops"
@@ -2276,7 +2286,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:732
 msgid "Load current viewport from registry"
-msgstr ""
+msgstr "Carica veduta attuale da registry"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:735
 msgid "Create initial window with the given x,y size"
@@ -2542,7 +2552,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:221
 #, c-format
 msgid "Loading of % failed."
-msgstr ""
+msgstr "Caricamento fallito di %."
 
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:1649
 #, c-format
@@ -5914,7 +5924,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:273
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:93
 msgid "Could not build projection!"
-msgstr ""
+msgstr "Non ho potuto eseguire la proiezione!"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:41
 msgid "Read edge-type defs from FILE"
@@ -8754,7 +8764,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:992
 msgid " (No projection defined)"
-msgstr ""
+msgstr " (nessuna proiezione definita)"
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:996
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:997
@@ -9371,12 +9381,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:86
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr ""
+msgstr "Una simulazione microscopica e multimodale del traffico."
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:114
 #: /home/micha/programming/sumo/src/sumo_main.cpp:123
 msgid "Quitting (on error)."
-msgstr ""
+msgstr "Uscendo (dopo un errore)."
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:126
 msgid "Quitting (on unknown error)."
@@ -9874,7 +9884,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:337
 msgid "All files (*)"
-msgstr ""
+msgstr "Tutti i file (*)"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:790
 msgid "Open decal."
