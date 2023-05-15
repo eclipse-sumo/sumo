@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-10 11:50+0000\n"
+"PO-Revision-Date: 2023-05-15 07:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -7759,7 +7759,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:158
 #, c-format
 msgid "Attribute '%' not defined"
-msgstr ""
+msgstr "L'attributo '%' non è definito"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:165
 #, c-format
@@ -7769,12 +7769,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:170
 #, c-format
 msgid "Attribute '%' already inserted"
-msgstr ""
+msgstr "L'attributo '%' è già stato inserito"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:207
 #, c-format
 msgid "Attribute '%' doesn't exist"
-msgstr ""
+msgstr "L'attributo '%' non esiste"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAccess.cpp:173
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEEntryExitDetector.cpp:97
