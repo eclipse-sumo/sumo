@@ -47,7 +47,7 @@ def get_options(args=None):
     parser.add_argument("--until-from-duration", action="store_true", default=False, dest="untilFromDuration",
                         help="Use stop arrival+duration instead of 'until' to compute overtaking")
     parser.add_argument("--stop-table", dest="stopTable",
-                        help="Print timetable information for the given busStop")
+                        help="Print timetable information for the given list of busStops")
 
     options = parser.parse_args(args=args)
     if options.routeFiles:
@@ -121,14 +121,25 @@ def main(options):
                         v2, tf(a2), tf(u2), v, tf(a), tf(u), stop), file=sys.stderr)
 
     if options.stopTable:
-        if options.stopTable in stopTimes:
-            times = stopTimes[options.stopTable]
-            print("# busStop: %s" % options.stopTable)
-            print("arrival\tuntil\tveh\ttripId\tstarted\tended\tflags")
-            for a, u, v, t, s, e, f in sorted(times):
-                print("%s\t%s\t%s\t%s\t%s\t%s\t%s" % (tf(a), tf(u), v, t, s, e, f))
-        else:
-            print("No vehicle stops at busStop '%s' found" % options.stopTable, file=sys.stderr)
+        times = []
+        stopIDs = []
+        for stopID in options.stopTable.split(','):
+            if stopID in stopTimes:
+                stopIDs.append(stopID)
+                times += [t + [stopID] for t in stopTimes[stopID]]
+            else:
+                print("No vehicle stops at busStop '%s' found" % options.stopTable, file=sys.stderr)
+
+        if stopIDs:
+            print("# busStop: %s" % ','.join(stopIDs))
+            if len(stopIDs) == 1:
+                print("arrival\tuntil\tveh\ttripId\tstarted\tended\tflags")
+                for a, u, v, t, s, e, f, i in sorted(times):
+                    print("%s\t%s\t%s\t%s\t%s\t%s\t%s" % (tf(a), tf(u), v, t, s, e, f))
+            else:
+                print("arrival\tuntil\tveh\ttripId\tstarted\tended\tflags\tbusStop")
+                for a, u, v, t, s, e, f, i in sorted(times):
+                    print("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (tf(a), tf(u), v, t, s, e, f, i))
 
 
 if __name__ == "__main__":
