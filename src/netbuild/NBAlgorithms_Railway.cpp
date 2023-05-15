@@ -984,7 +984,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
             const std::string toStop = (it + 1)->second;
             std::pair<std::string, std::string> trip(fromStop, toStop);
             std::pair<std::string, std::string> reverseTrip(toStop, fromStop);
-            //std::cout << " trip=" << Named::getIDSecure(fromEdge) << "->" << Named::getIDSecure(toEdge) << " visited=" << (visited.count(trip) != 0) << "\n";
+            //std::cout << " line=" << line->getLineID() << " trip=" << Named::getIDSecure(fromEdge) << "->" << Named::getIDSecure(toEdge) << " visited=" << (visited.count(trip) != 0) << " fromStop=" << fromStop << " toStop=" << toStop << "\n";
             if (visited.count(trip) != 0) {
                 continue;
             } else {
@@ -1021,16 +1021,20 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
                                 }
                             } else if (isStop && needBidi) {
                                 std::shared_ptr<NBPTStop> fs = sc.get(fromStop);
-                                std::shared_ptr<NBPTStop> fromReverse = sc.getReverseStop(fs, ec);
-                                if (fromReverse) {
-                                    sc.insert(fromReverse);
-                                    fs->setBidiStop(fromReverse);
+                                if (fs) {
+                                    std::shared_ptr<NBPTStop> fromReverse = sc.getReverseStop(fs, ec);
+                                    if (fromReverse) {
+                                        sc.insert(fromReverse);
+                                        fs->setBidiStop(fromReverse);
+                                    }
                                 }
                                 std::shared_ptr<NBPTStop> ts = sc.get(toStop);
-                                std::shared_ptr<NBPTStop> toReverse = sc.getReverseStop(ts, ec);
-                                if (toReverse) {
-                                    sc.insert(toReverse);
-                                    ts->setBidiStop(toReverse);
+                                if (ts) {
+                                    std::shared_ptr<NBPTStop> toReverse = sc.getReverseStop(ts, ec);
+                                    if (toReverse) {
+                                        sc.insert(toReverse);
+                                        ts->setBidiStop(toReverse);
+                                    }
                                 }
                             }
                         }
