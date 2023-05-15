@@ -486,6 +486,7 @@ python tools/route/checkStopOrder.py -r <route-file>
 ```
 
 When setting option **--stop-table STOP_ID** a time table for all vehicles that service the given `<busStop>`-id is written to standard output.
+The option accepts a list of stops and also the `*` wildcard to generate a combined table for multiple busStops (i.e belonging to the same station).
 
 # splitRandom.py
 
