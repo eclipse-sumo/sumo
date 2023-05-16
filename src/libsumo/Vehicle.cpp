@@ -355,7 +355,7 @@ Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
         }
         const std::vector<const MSLane*> internalLanes;
         // distance to the end of the lane
-        double curDist = veh->getPositionOnLane();
+        double curDist = -veh->getPositionOnLane();
         for (const MSLane* lane : veh->getUpcomingLanesUntil(dist)) {
             curDist += lane->getLength();
             if (lane->isInternal()) {
@@ -365,10 +365,10 @@ Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
                 const MSJunctionLogic* logic = exitLink->getJunction()->getLogic();
                 for (const MSLane* foeLane : exitLink->getFoeLanes()) {
                     const MSLink::ConflictInfo& ci = conflicts[foeIndex];
-                    const double distBehindCrossing = ci.getLengthBehindCrossing(exitLink);
                     if (ci.flag == MSLink::CONFLICT_NO_INTERSECTION) {
                         continue;
                     }
+                    const double distBehindCrossing = ci.lengthBehindCrossing;
                     const MSLink* foeExitLink = foeLane->getLinkCont().front();
                     const double distToCrossing = curDist - distBehindCrossing;
                     const double foeDistBehindCrossing = ci.getFoeLengthBehindCrossing(foeExitLink);
