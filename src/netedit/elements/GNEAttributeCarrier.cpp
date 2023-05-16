@@ -3999,6 +3999,22 @@ GNEAttributeCarrier::fillStopElements() {
         // fill common stop attributes
         fillCommonStopAttributes(currentTag, false);
     }
+    currentTag = SUMO_TAG_STOP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("TrainStop associated with this stop"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // fill common stop attributes
+        fillCommonStopAttributes(currentTag, false);
+    }
     currentTag = SUMO_TAG_STOP_CONTAINERSTOP;
     {
         // set values of tag
@@ -4105,6 +4121,22 @@ GNEAttributeCarrier::fillWaypointElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               TL("BusWaypoint associated with this waypoint"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // fill common waypoint (stop) attributes
+        fillCommonStopAttributes(currentTag, true);
+    }
+    currentTag = GNE_TAG_WAYPOINT_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP | GNETagProperties::WAYPOINT,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("TrainWaypoint associated with this waypoint"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common waypoint (stop) attributes
