@@ -24,8 +24,6 @@ import subprocess
 import collections
 import random
 
-from optparse import OptionParser
-
 import sumolib
 from sumolib.xml import quoteattr
 from sumolib.options import ArgumentParser

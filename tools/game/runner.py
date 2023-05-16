@@ -359,7 +359,7 @@ class StartDialog(Tkinter.Frame):
 
     def addButton(self, button, text, key=None):
         button["text"] = self._language_text.get(text, text)
-        if key == None:
+        if key is None:
             key = text
         self.buttons.append((key, button))
 
@@ -535,7 +535,7 @@ def main():
     options = optParser.parse_args()
     setLanguage(options.language)
     updateLocalMessages()
-    
+
     if options.stereo:
         for m in stereoModes:
             if m.lower().startswith(options.stereo.lower()):
