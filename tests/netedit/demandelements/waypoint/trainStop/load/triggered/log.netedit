@@ -1,0 +1,6 @@
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop at 'busStop'
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypointBusStop.busstop.08Apr202456.3590/netedit.daily.demand.waypointBusStop.busstop/demandelements/waypoint/busstop/load/triggered/routes.rou.xml failed.

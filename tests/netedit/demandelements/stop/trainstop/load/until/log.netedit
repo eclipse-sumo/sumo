@@ -1,0 +1,6 @@
+Error: Attribute 'until' in definition of a stop is not a valid time value.
+Error: Invalid duration or end time is given for a stop at 'busStop'
+Error: Attribute 'until' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop at 'busStop'
+Error: Invalid duration or end time is given for a stop at 'busStop'
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\stop\busstop\load\until\routes.rou.xml failed.

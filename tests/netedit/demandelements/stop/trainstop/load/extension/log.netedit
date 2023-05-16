@@ -1,0 +1,5 @@
+Error: Attribute 'extension' in definition of a stop is not a valid time value.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop'
+Error: Attribute 'extension' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop'
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\stop\busstop\load\extension\routes.rou.xml failed.

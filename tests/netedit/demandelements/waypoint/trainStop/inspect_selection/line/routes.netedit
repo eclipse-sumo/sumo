@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-25 14:52:34 by Eclipse SUMO netedit Version v1_14_1+1914-f1c7c144c82
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <route id="route_0" edges="gneE0 gneE1" color="yellow">
+        <stop busStop="busStopA" duration="70.00" until="12.00" extension="10.00" triggered="person" parking="1" expected="perA perB" permitted="A B" tripId="tripA" line="custom line" speed="10.00" actType="walking"/>
+        <stop busStop="busStopB" duration="60.00" until="20.00" extension="20.00" triggered="container" parking="1" expected="conA conB" permitted="C D" tripId="tripB" line="custom line" speed="22.50" actType="singing"/>
+    </route>
+</routes>
