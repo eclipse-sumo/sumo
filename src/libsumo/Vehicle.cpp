@@ -373,10 +373,16 @@ Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
                     const double distToCrossing = curDist - distBehindCrossing;
                     const double foeDistBehindCrossing = ci.getFoeLengthBehindCrossing(foeExitLink);
                     for (auto item : foeExitLink->getApproaching()) {
+                        const SUMOVehicle* foe = item.first;
                         TraCIJunctionFoe jf;
-                        jf.foeId = item.first->getID();
+                        jf.foeId = foe->getID();
                         jf.egoDist = distToCrossing;
-                        jf.foeDist = item.second.dist - foeDistBehindCrossing;
+                        // approach information is from the start of the previous step
+                        // but the foe vehicle then moved within that steop
+                        const double prevFoeDist = SPEED2DIST(MSGlobals::gSemiImplicitEulerUpdate
+                                ? foe->getSpeed()
+                                : (foe->getSpeed() + foe->getPreviousSpeed()) / 2);
+                        jf.foeDist = item.second.dist - foeDistBehindCrossing - prevFoeDist;
                         jf.egoExitDist = jf.egoDist + ci.conflictSize;
                         jf.foeExitDist = jf.foeDist + ci.getFoeConflictSize(foeExitLink);
                         jf.egoLane = lane->getID();
