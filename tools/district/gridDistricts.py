@@ -89,8 +89,8 @@ if __name__ == "__main__":
         xIndex = int((x - xmin + w2) / w)
         yIndex = int((y - ymin + w2) / w)
         ii = (xIndex, yIndex)
-        x2 = xIndex * w
-        y2 = yIndex * w
+        x2 = xmin + xIndex * w
+        y2 = ymin + yIndex * w
         if ii not in odpairs:
             odpairs[ii] = TAZ("%s_%s" % (xIndex, yIndex),
                               [(x2 - w2, y2 - w2),
