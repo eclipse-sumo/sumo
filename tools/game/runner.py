@@ -97,9 +97,9 @@ def printDebug(*args):
 
 
 if _UPLOAD:
-    printDebug("import httplib...")
+    printDebug("import http.client...")
     try:
-        import httplib  # noqa
+        import http.client as httplib # noqa
         printDebug("SUCCESS")
     except ImportError:
         printDebug("FAILED - disabling upload...")
@@ -531,6 +531,7 @@ def main():
     optParser.add_option("-s", "--stereo", metavar="OSG_STEREO_MODE",
                          help=("Defines the stereo mode to use for 3D output; unique prefix of %s" % (
                                ", ".join(stereoModes))))
+    optParser.add_option("add", nargs="*", help="additional flags: {debug|noupload}")
     addLanguageOption(optParser)
     options = optParser.parse_args()
     setLanguage(options.language)
