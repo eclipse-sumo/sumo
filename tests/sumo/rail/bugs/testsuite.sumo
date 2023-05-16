@@ -73,3 +73,6 @@ ticket12868
 
 # unsafe rerouting
 ticket12873
+
+# unsafe insertion
+ticket13262
