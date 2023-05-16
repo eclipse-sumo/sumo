@@ -366,7 +366,7 @@ Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
                 for (const MSLane* foeLane : exitLink->getFoeLanes()) {
                     const MSLink::ConflictInfo& ci = conflicts[foeIndex];
                     const double distBehindCrossing = ci.getLengthBehindCrossing(exitLink);
-                    if (distBehindCrossing == -MSLink::NO_INTERSECTION) {
+                    if (ci.flag == MSLink::CONFLICT_NO_INTERSECTION) {
                         continue;
                     }
                     const MSLink* foeExitLink = foeLane->getLinkCont().front();
