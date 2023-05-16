@@ -168,7 +168,11 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
         for (NBTrafficLightDefinition* def : getDefinitions()) {
             NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
             if (lDef != nullptr) {
-                NBOwnTLDef* oDef = new NBOwnTLDef(def->getID(), def->getNodes(), def->getOffset(), def->getType());
+                TrafficLightType type = def->getType();
+                if (!oc.isDefault("tls.default-type")) {
+                    type = SUMOXMLDefinitions::TrafficLightTypes.get(oc.getString("tls.default-type"));
+                }
+                NBOwnTLDef* oDef = new NBOwnTLDef(def->getID(), def->getNodes(), def->getOffset(), type);
                 oDef->setProgramID(def->getProgramID());
                 oDef->setParticipantsInformation();
                 for (NBEdge* e : oDef->getIncomingEdges()) {
