@@ -936,7 +936,7 @@ GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseOb
     } else if (end < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_INTERVAL, rerouter->getID(), SUMO_ATTR_END);
     } else if (end < begin) {
-        writeError(TL("Could not build interval with ID '%' in netedit; begin is greather than end.", rerouter->getID()));
+        writeError(TLF("Could not build interval with ID '%' in netedit; begin is greather than end.", rerouter->getID()));
     } else {
         // check if new interval will produce a overlapping
         if (checkOverlappingRerouterIntervals(rerouter, begin, end)) {
