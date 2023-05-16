@@ -71,7 +71,7 @@
 #define DEBUG_COND DEBUG_HELPER(this)
 #define DEBUG_COND_LINKINFO DEBUG_HELPER(myLink->getTLLogic())
 #define DEBUG_HELPER(obj) ((obj)->isSelected())
-//#define DEBUG_HELPER(obj) ((obj)->getID() == "w2")
+//#define DEBUG_HELPER(obj) ((obj)->getID() == "")
 //#define DEBUG_HELPER(obj) (true)
 
 // ===========================================================================
@@ -736,7 +736,7 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     }
 
 #ifdef DEBUG_BUILD_DRIVEWAY
-    if (DEBUG_COND_LINKINFO || true) {
+    if (DEBUG_COND_LINKINFO) {
         std::cout << "  buildDriveWay railSignal=" << getID()
                   << "\n    route=" << toString(dw.myRoute)
                   << "\n    forward=" << toString(dw.myForward)
@@ -1187,7 +1187,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
     bool foundUnsafeSwitch = false;
     MSLane* toLane = origin->getViaLaneOrLane();
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
-    gDebugFlag4 = true; //getClickableTLLinkID(origin) == "junction 's24', link 0";
+    gDebugFlag4 = DEBUG_HELPER(origin->getTLLogic());
     if (gDebugFlag4) std::cout << "buildRoute origin=" << getTLLinkID(origin) << " vehRoute=" << toString(ConstMSEdgeVector(next, end))
                                    << " visited=" << formatVisitedMap(visited) << "\n";
 #endif
