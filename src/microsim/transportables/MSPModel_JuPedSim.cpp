@@ -456,17 +456,16 @@ MSPModel_JuPedSim::getCoordinates(const geos::geom::Geometry* geometry) {
 }
 
 
-std::vector<double> 
-MSPModel_JuPedSim::getFlattenedCoordinates(const geos::geom::Geometry* geometry) {
-    std::vector<double> flattenedCoordinates;
+std::vector<JPS_Point> 
+MSPModel_JuPedSim::convertToJpsPoints(const geos::geom::Geometry* geometry) {
+    std::vector<JPS_Point> poly;
     std::unique_ptr<geos::geom::CoordinateSequence> coordsSeq = geometry->getCoordinates();
     // Remove the last point so that CGAL doesn't complain of the simplicity of the polygon downstream.
     for (size_t i = 0; i < coordsSeq->getSize() - 1; i++) {
         geos::geom::Coordinate c = coordsSeq->getAt(i);
-        flattenedCoordinates.push_back(c.x);
-        flattenedCoordinates.push_back(c.y);
+        poly.push_back({c.x, c.y});
     }
-    return flattenedCoordinates;
+    return poly;
 }
 
 
@@ -506,11 +505,12 @@ MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon, cons
 
     // Handle the exterior polygon.
     const geos::geom::LinearRing* exterior = polygon->getExteriorRing();
-    std::vector<double> exteriorCoordinates = getFlattenedCoordinates(exterior);
-    JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size() / 2);
+    std::vector<JPS_Point> exteriorCoordinates = convertToJpsPoints(exterior);
+    JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size());
 
-    for (double c : exteriorCoordinates) {
-        dumpFile << std::setprecision(maxPrecision) << c << std::endl;
+    for (const auto& c : exteriorCoordinates) {
+        dumpFile << std::setprecision(maxPrecision) << c.x << std::endl;
+        dumpFile << std::setprecision(maxPrecision) << c.y << std::endl;
     }
     dumpFile << std::endl;
 
@@ -518,11 +518,12 @@ MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon, cons
     for (size_t k = 0; k < polygon->getNumInteriorRing(); k++) {
         const geos::geom::LinearRing* interior = polygon->getInteriorRingN(k);
         if (toPolygon(interior)->getArea() > GEOS_MIN_AREA) {
-            std::vector<double> holeCoordinates = getFlattenedCoordinates(interior);
-            JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, holeCoordinates.data(), holeCoordinates.size() / 2);
+            std::vector<JPS_Point> holeCoordinates = convertToJpsPoints(interior);
+            JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, holeCoordinates.data(), holeCoordinates.size());
 
-            for (double c : holeCoordinates) {
-                dumpFile << std::setprecision(maxPrecision) << c << std::endl;
+            for (const auto& c : holeCoordinates) {
+                dumpFile << std::setprecision(maxPrecision) << c.x << std::endl;
+                dumpFile << std::setprecision(maxPrecision) << c.y << std::endl;
             }
             dumpFile << std::endl;
         }
