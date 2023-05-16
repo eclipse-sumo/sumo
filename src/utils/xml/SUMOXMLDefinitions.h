@@ -214,6 +214,8 @@ enum SumoXMLTag {
     SUMO_TAG_STOP_LANE,
     /// @brief stop placed over a busStop (used in netedit)
     SUMO_TAG_STOP_BUSSTOP,
+    /// @brief stop placed over a trainStop (used in netedit)
+    SUMO_TAG_STOP_TRAINSTOP,
     /// @brief stop placed over a containerStop (used in netedit)
     SUMO_TAG_STOP_CONTAINERSTOP,
     /// @brief stop placed over a charging station (used in netedit)
@@ -435,6 +437,8 @@ enum SumoXMLTag {
     GNE_TAG_WAYPOINT_LANE,
     /// @brief waypoint placed over a busStop (used in netedit)
     GNE_TAG_WAYPOINT_BUSSTOP,
+    /// @brief waypoint placed over a busStop (used in netedit)
+    GNE_TAG_WAYPOINT_TRAINSTOP,
     /// @brief waypoint placed over a containerStop (used in netedit)
     GNE_TAG_WAYPOINT_CONTAINERSTOP,
     /// @brief waypoint placed over a charging station (used in netedit)
