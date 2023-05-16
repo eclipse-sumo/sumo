@@ -420,12 +420,12 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             myAC = new GNEVehicle(tagProperty.getTag(), net);
             break;
         // stops
-        case SUMO_TAG_STOP_LANE:
-        case SUMO_TAG_STOP_BUSSTOP:
-        case SUMO_TAG_STOP_TRAINSTOP:
-        case SUMO_TAG_STOP_CONTAINERSTOP:
-        case SUMO_TAG_STOP_CHARGINGSTATION:
-        case SUMO_TAG_STOP_PARKINGAREA:
+        case GNE_TAG_STOP_LANE:
+        case GNE_TAG_STOP_BUSSTOP:
+        case GNE_TAG_STOP_TRAINSTOP:
+        case GNE_TAG_STOP_CONTAINERSTOP:
+        case GNE_TAG_STOP_CHARGINGSTATION:
+        case GNE_TAG_STOP_PARKINGAREA:
         case GNE_TAG_STOPPERSON_EDGE:
         case GNE_TAG_STOPPERSON_BUSSTOP:
         case GNE_TAG_STOPCONTAINER_EDGE:

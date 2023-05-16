@@ -1034,11 +1034,11 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         // check conditions
         if (stopParameters.busstop.size() > 0) {
             stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, stopParameters.busstop, false);
-            stopTagType = waypoint ? GNE_TAG_WAYPOINT_BUSSTOP : SUMO_TAG_STOP_BUSSTOP;
+            stopTagType = waypoint ? GNE_TAG_WAYPOINT_BUSSTOP : GNE_TAG_STOP_BUSSTOP;
             // check if is a train stop
             if (stoppingPlace == nullptr) {
                 stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, stopParameters.busstop, false);
-                stopTagType = waypoint ? GNE_TAG_WAYPOINT_TRAINSTOP : SUMO_TAG_STOP_TRAINSTOP;
+                stopTagType = waypoint ? GNE_TAG_WAYPOINT_TRAINSTOP : GNE_TAG_STOP_TRAINSTOP;
             }
             // containers cannot stops in busStops
             if (stopParent->getTagProperty().isContainer()) {
@@ -1047,7 +1047,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         } else if (stopParameters.containerstop.size() > 0) {
             stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stopParameters.containerstop, false);
-            stopTagType = waypoint ? GNE_TAG_WAYPOINT_CONTAINERSTOP : SUMO_TAG_STOP_CONTAINERSTOP;
+            stopTagType = waypoint ? GNE_TAG_WAYPOINT_CONTAINERSTOP : GNE_TAG_STOP_CONTAINERSTOP;
             // persons cannot stops in containerStops
             if (stopParent->getTagProperty().isPerson()) {
                 writeError(TL("Persons don't support stops at containerStops"));
@@ -1055,7 +1055,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         } else if (stopParameters.chargingStation.size() > 0) {
             stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stopParameters.chargingStation, false);
-            stopTagType = waypoint ? GNE_TAG_WAYPOINT_CHARGINGSTATION : SUMO_TAG_STOP_CHARGINGSTATION;
+            stopTagType = waypoint ? GNE_TAG_WAYPOINT_CHARGINGSTATION : GNE_TAG_STOP_CHARGINGSTATION;
             // check person and containers
             if (stopParent->getTagProperty().isPerson()) {
                 writeError(TL("Persons don't support stops at chargingStations"));
@@ -1066,7 +1066,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         } else if (stopParameters.parkingarea.size() > 0) {
             stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stopParameters.parkingarea, false);
-            stopTagType = waypoint ? GNE_TAG_WAYPOINT_PARKINGAREA : SUMO_TAG_STOP_PARKINGAREA;
+            stopTagType = waypoint ? GNE_TAG_WAYPOINT_PARKINGAREA : GNE_TAG_STOP_PARKINGAREA;
             // check person and containers
             if (stopParent->getTagProperty().isPerson()) {
                 writeError(TL("Persons don't support stops at parkingAreas"));
@@ -1077,7 +1077,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         } else if (stopParameters.lane.size() > 0) {
             lane = myNet->getAttributeCarriers()->retrieveLane(stopParameters.lane, false);
-            stopTagType = waypoint ? GNE_TAG_WAYPOINT_LANE : SUMO_TAG_STOP_LANE;
+            stopTagType = waypoint ? GNE_TAG_WAYPOINT_LANE : GNE_TAG_STOP_LANE;
         } else if (stopParameters.edge.size() > 0) {
             edge = myNet->getAttributeCarriers()->retrieveEdge(stopParameters.edge, false);
             // check vehicles

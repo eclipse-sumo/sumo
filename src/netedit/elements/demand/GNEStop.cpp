@@ -46,7 +46,7 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // reset default values
     resetDefaultValues();
     // enable parking for stops in parkin)gAreas
-    if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
+    if ((tag == GNE_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
     // set parking
@@ -66,7 +66,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
 SUMOVehicleParameter::Stop(stopParameter),
 myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
-    if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
+    if ((tag == GNE_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
     // set parking
@@ -110,7 +110,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEE
 SUMOVehicleParameter::Stop(stopParameter),
 myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
-    if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
+    if ((tag == GNE_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
     // set flags
@@ -139,7 +139,7 @@ GNEStop::getMoveOperation() {
     if ((myTagProperty.getTag() == GNE_TAG_STOPPERSON_EDGE) || (myTagProperty.getTag() == GNE_TAG_STOPCONTAINER_EDGE)) {
         // return move operation for additional placed over shape
         return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), endPos, false);
-    } else if ((myTagProperty.getTag() == SUMO_TAG_STOP_LANE) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_LANE)) {
+    } else if ((myTagProperty.getTag() == GNE_TAG_STOP_LANE) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_LANE)) {
         // get allow change lane
         const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
         // fist check if we're moving only extremes
@@ -231,7 +231,7 @@ GNEStop::isDemandElementValid() const {
         // get lane
         const GNELane* firstLane = getFirstAllowedLane();
         // only Stops placed over lanes can be invalid
-        if (myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
+        if (myTagProperty.getTag() != GNE_TAG_STOP_LANE) {
             return isPersonPlanValid();
         } else if (friendlyPos) {
             // with friendly position enabled position are "always fixed"
@@ -254,7 +254,7 @@ GNEStop::isDemandElementValid() const {
         return Problem::STOP_DOWNSTREAM;
     } else {
         // only Stops placed over lanes can be invalid
-        if (myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
+        if (myTagProperty.getTag() != GNE_TAG_STOP_LANE) {
             return Problem::OK;
         } else if (friendlyPos) {
             // with friendly position enabled position are "always fixed"
@@ -1063,7 +1063,7 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_EXPECTED:
             return (parametersSet & STOP_TRIGGER_SET) != 0;
         case SUMO_ATTR_PARKING:
-            if (myTagProperty.getTag() == SUMO_TAG_STOP_PARKINGAREA) {
+            if (myTagProperty.getTag() == GNE_TAG_STOP_PARKINGAREA) {
                 return false;
             } else if (myTagProperty.getTag() == GNE_TAG_WAYPOINT_PARKINGAREA) {
                 return false;

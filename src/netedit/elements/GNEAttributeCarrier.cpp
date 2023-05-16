@@ -3927,7 +3927,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         fillCommonFlowAttributes(currentTag, SUMO_ATTR_VEHSPERHOUR);
     }
     /* currently disabled. See #5259
-    currentTag = SUMO_TAG_TRIP_TAZ;
+    currentTag = GNE_TAG_TRIP_TAZ;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -3944,7 +3944,7 @@ GNEAttributeCarrier::fillStopElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
     // fill stops ACs
-    SumoXMLTag currentTag = SUMO_TAG_STOP_LANE;
+    SumoXMLTag currentTag = GNE_TAG_STOP_LANE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -3983,7 +3983,7 @@ GNEAttributeCarrier::fillStopElements() {
         // fill common stop attributes
         fillCommonStopAttributes(currentTag, false);
     }
-    currentTag = SUMO_TAG_STOP_BUSSTOP;
+    currentTag = GNE_TAG_STOP_BUSSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -3999,7 +3999,7 @@ GNEAttributeCarrier::fillStopElements() {
         // fill common stop attributes
         fillCommonStopAttributes(currentTag, false);
     }
-    currentTag = SUMO_TAG_STOP_TRAINSTOP;
+    currentTag = GNE_TAG_STOP_TRAINSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -4015,7 +4015,7 @@ GNEAttributeCarrier::fillStopElements() {
         // fill common stop attributes
         fillCommonStopAttributes(currentTag, false);
     }
-    currentTag = SUMO_TAG_STOP_CONTAINERSTOP;
+    currentTag = GNE_TAG_STOP_CONTAINERSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -4031,7 +4031,7 @@ GNEAttributeCarrier::fillStopElements() {
         // fill common stop attributes
         fillCommonStopAttributes(currentTag, false);
     }
-    currentTag = SUMO_TAG_STOP_CHARGINGSTATION;
+    currentTag = GNE_TAG_STOP_CHARGINGSTATION;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -4047,7 +4047,7 @@ GNEAttributeCarrier::fillStopElements() {
         // fill common stop attributes
         fillCommonStopAttributes(currentTag, false);
     }
-    currentTag = SUMO_TAG_STOP_PARKINGAREA;
+    currentTag = GNE_TAG_STOP_PARKINGAREA;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
