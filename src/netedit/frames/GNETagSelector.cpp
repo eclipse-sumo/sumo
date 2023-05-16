@@ -422,6 +422,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         // stops
         case SUMO_TAG_STOP_LANE:
         case SUMO_TAG_STOP_BUSSTOP:
+        case SUMO_TAG_STOP_TRAINSTOP:
         case SUMO_TAG_STOP_CONTAINERSTOP:
         case SUMO_TAG_STOP_CHARGINGSTATION:
         case SUMO_TAG_STOP_PARKINGAREA:
@@ -432,6 +433,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         // waypoints
         case GNE_TAG_WAYPOINT_LANE:
         case GNE_TAG_WAYPOINT_BUSSTOP:
+        case GNE_TAG_WAYPOINT_TRAINSTOP:
         case GNE_TAG_WAYPOINT_CONTAINERSTOP:
         case GNE_TAG_WAYPOINT_CHARGINGSTATION:
         case GNE_TAG_WAYPOINT_PARKINGAREA:

@@ -71,6 +71,12 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
                         << "- " << TL("Shift+Click to select parent") << "\n"
                         << "- " << TL("Click over a bus stop to create a stop.");
                 break;
+            case SUMO_TAG_STOP_TRAINSTOP:
+            case GNE_TAG_WAYPOINT_TRAINSTOP:
+                information
+                        << "- " << TL("Shift+Click to select parent") << "\n"
+                        << "- " << TL("Click over a train stop to create a stop.");
+                break;
             case SUMO_TAG_STOP_CONTAINERSTOP:
             case GNE_TAG_WAYPOINT_CONTAINERSTOP:
                 information
@@ -260,6 +266,18 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 stop.startPos = 0;
                 stop.endPos = 0;
             }
+        } else if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+            if ((stopTag != SUMO_TAG_STOP_TRAINSTOP) && (stopTag != GNE_TAG_WAYPOINT_TRAINSTOP)) {
+                WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
+                return false;
+            } else {
+                stop.busstop = stoppingPlace->getID();
+                if ((stopTag == GNE_TAG_WAYPOINT_TRAINSTOP) && (stop.speed == 0)) {
+                    stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
+                }
+                stop.startPos = 0;
+                stop.endPos = 0;
+            }
         } else if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
             if ((stopTag != SUMO_TAG_STOP_CONTAINERSTOP) && (stopTag != GNE_TAG_WAYPOINT_CONTAINERSTOP)) {
                 WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a " + stoppingPlace->getTagProperty().getTagStr());
@@ -300,6 +318,8 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     } else {
         if ((stopTag == SUMO_TAG_STOP_BUSSTOP) || (stopTag == GNE_TAG_WAYPOINT_BUSSTOP)) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_STOP_BUSSTOP) + " to create a stop placed in a " + toString(SUMO_TAG_STOP_BUSSTOP));
+        } else if ((stopTag == SUMO_TAG_STOP_TRAINSTOP) || (stopTag == GNE_TAG_WAYPOINT_TRAINSTOP)) {
+            WRITE_WARNING("Click over a " + toString(SUMO_TAG_STOP_TRAINSTOP) + " to create a stop placed in a " + toString(SUMO_TAG_STOP_TRAINSTOP));
         } else if ((stopTag == SUMO_TAG_STOP_CONTAINERSTOP) || (stopTag == GNE_TAG_WAYPOINT_CONTAINERSTOP)) {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_CONTAINER_STOP) + " to create a stop placed in a " + toString(SUMO_TAG_CONTAINER_STOP));
         } else if ((stopTag == SUMO_TAG_STOP_CHARGINGSTATION) || (stopTag == GNE_TAG_WAYPOINT_CHARGINGSTATION)) {

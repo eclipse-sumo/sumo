@@ -1035,9 +1035,14 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         if (stopParameters.busstop.size() > 0) {
             stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, stopParameters.busstop, false);
             stopTagType = waypoint ? GNE_TAG_WAYPOINT_BUSSTOP : SUMO_TAG_STOP_BUSSTOP;
+            // check if is a train stop
+            if (stoppingPlace == nullptr) {
+                stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, stopParameters.busstop, false);
+                stopTagType = waypoint ? GNE_TAG_WAYPOINT_TRAINSTOP : SUMO_TAG_STOP_TRAINSTOP;
+            }
             // containers cannot stops in busStops
             if (stopParent->getTagProperty().isContainer()) {
-                writeError(TL("Containers don't support stops at busStops"));
+                writeError(TL("Containers don't support stops at busStops or trainStops"));
                 validParentDemandElement = false;
             }
         } else if (stopParameters.containerstop.size() > 0) {

@@ -599,6 +599,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // reserve memory
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE).size() +
                                     viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP).size() +
+                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_TRAINSTOP).size() +
                                     viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP).size() +
                                     viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION).size() +
                                     viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA).size());
@@ -606,9 +607,13 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 for (const auto& stopLane : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
                     ACsToLocate.push_back(stopLane);
                 }
-                // fill ACsToLocate with stop over busstops
+                // fill ACsToLocate with stop over bus stops
                 for (const auto& stopBusStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP)) {
                     ACsToLocate.push_back(stopBusStop);
+                }
+                // fill ACsToLocate with stop over train stops
+                for (const auto& stopTrainStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_TRAINSTOP)) {
+                    ACsToLocate.push_back(stopTrainStop);
                 }
                 // fill ACsToLocate with stop over container stops
                 for (const auto& stopContainerStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP)) {
