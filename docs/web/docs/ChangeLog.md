@@ -25,6 +25,7 @@ title: ChangeLog
   - netdiff-dialog now permits to change the output prefix. Issue #13130
   - Fixed invalid default values in netgenerate dialog and tool dialogs. Issue #13152
   - Function 'add reverse edge' applied on a selection, no longer adds duplicate reverse edges. Issue #13209
+  - Fixed inconsistent ordering of popup functions for additionals. Issue #13261
 
 - sumo-gui
   - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
@@ -50,6 +51,7 @@ title: ChangeLog
 
 - Tools
   - abstractRail.py: Failure to optimize on region is now recoverable. Issue #13193
+  - gridDistricts.py: Networks with non-normalized offsets now create correct taz shapes. Issue #13264
   
 
 ### Enhancements
@@ -68,6 +70,7 @@ title: ChangeLog
   - Added option **--geometry.remove.max-junction-size FLOAT** to prevent unsmooth road shape when converting large junctions to a geometry point. Issue #13199
   - OSM import: typemap `osmNetconvertRailUsage.typ.xml` now imports service designation. Issue #13213
   - Unused edge types are now excluded from .net.xml. Issue #13228
+  - Added option **--railway.signal.guess.by-stops** to add rail_signal nodes to a network that is lacking them. Issue #5143
 
 - TraCI
   - Added function `simpla.getPlattonID`. Issue #13029
