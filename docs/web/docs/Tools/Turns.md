@@ -129,11 +129,40 @@ To define count restrictions on non-consecutive edges the option **--turn-max-ga
 When setting option **--turn-max-gap 2**, the edgeRelation `<edgeRelation from="A" to="D" .../>` would apply to routes containing "A B", "A X D" or "A X Y D" but not "A X Y Z D".
         
 ## Origin-Destination restrictions
+
+The following section describes counts that refer to the origin and destination of a route rather than to some intermediate route edges.
+Using such counts with routeSampler.py permits to combine thenm with other forms of counts or ratios. (Unlike [od2trips](../od2trips.md) which only imports OD-counts and nothing else).
+    
+If origin destination counts are loaded, it is assumed that they give complete coverage of the scenario. This means, if no count is given for a particular Origin-Destination-pair, it is assumed that the count is 0 and no traffic is generated between the respective edges or TAZ.  To change this, the option **--extra-od** may be set. In this case, traffic between any relations can be generated as long as it does not exceed the loaded counts.
+    
+### Edge Based
   
 When loading an edgeRelation file with the option **--od-files**, origin-destination counts will be added.
-This can be used to combine (edge-based) OD-relations with other counting data.  
+This can be used to combine (edge-based) OD-relations with other counting data. 
+    
+```xml
+<edgeRelation from="A" to="D" count="42"/>
+```    
+
+The above counting data example will match routes which start on edge `A` and end on edge `D`.   
   
 The tool [route2OD.py](Routes.md#route2odpy) supports option **--edge-relations** to transform any kind of route file into a suitable file of edge-based origin-destination edgeRelations.
+    
+### TAZ (district) Based
+    
+When loading an [TAZ-file](../Demand/Importing_O/D_Matrices.md#describing_the_taz) with option **--taz-files**, it is possible to define counts between Traffic Assignment Zones (TAZ, also called districts).
+The counting data itself must be given in the following from and loaded with option **--od-files**:
+    
+``` 
+<data>
+    <interval id="generated" begin="0.0" end="99.0">
+        <tazRelation from="1_2" to="2_0" count="5"/>
+    </interval>
+</data>    
+```  
+
+The TAZ ids which are referenced by the `tazRelation` attributes `from` and `to` must be defined within the loaded **--taz-files**.
+The above counting data example will match routes which start on any edge of TAZ `1_2` and end on any edge of taz `2_0`.    
 
 ## Depart / Arrival restrictions
 
