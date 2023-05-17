@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-10 11:50+0000\n"
+"PO-Revision-Date: 2023-05-17 15:37+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -3662,11 +3662,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2285
 msgid "reset edge lengths"
-msgstr ""
+msgstr "reiniciar largos de la calles (edge)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2314
 msgid "copy edge template"
-msgstr ""
+msgstr "copiar plantilla de calle (edge)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2335
 msgid "simplify shapes"
@@ -3674,15 +3674,15 @@ msgstr "simplificar formas (shapes)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2377
 msgid "close polygon shapes"
-msgstr ""
+msgstr "cerrar formas de los polígonos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2408
 msgid "open polygon shapes"
-msgstr ""
+msgstr "abrir formas de los polígonos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2457
 msgid "select within polygon boundary"
-msgstr ""
+msgstr "seleccionar dentro del area del polígono"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2502
 #, c-format
@@ -3695,15 +3695,15 @@ msgstr "adjuntar punto de interés (POI) al carril (lane)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2538
 msgid "release POI from lane"
-msgstr ""
+msgstr "desanclar punto de interés (POI) del carril (lane)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2572
 msgid "change edge Geometry Point position"
-msgstr ""
+msgstr "cambiar posición del punto geométrico de la calle (edge)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2604
 msgid "change polygon Geometry Point position"
-msgstr ""
+msgstr "cambiar posición del punto geométrico del polígono"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2624
 msgid "change TAZ Geometry Point position"
