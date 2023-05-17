@@ -63,9 +63,16 @@ the router to the route set of each vehicle in each iteration (at least
 if none of the present routes is the "cheapest") and may be chosen
 according to the route choice mechanisms described below.
 
+## Alternative Route Selection
+
 Between successive calls of duarouter, the *.rou.alt.xml* format is used
 to record not only the current *best* route but also previously computed
-alternative routes. These routes are collected within a route
+alternative routes. By default the fasted route is considered the *best* but this criterion may be changed with option **--eco-measure** to instead minimize a pollutant (i.e. *CO2*).
+
+This way, a new alternative route may be added in each iteration.
+The total number of alternatives is limited to 5 and the limit may be changed with option **--max-alternatives**.
+
+These best routes are collected within a route
 distribution and used when deciding the actual route to drive in the
 next simulation step. This isn't always the one with the currently
 lowest cost but is rather sampled from the distribution of alternative
