@@ -563,7 +563,7 @@ GNEPythonToolDialogElements::BoolArgument::BoolArgument(GNEPythonToolDialog* too
 
 void
 GNEPythonToolDialogElements::BoolArgument::reset() {
-    if (GNEAttributeCarrier::parse<bool>(myDefaultValue)) {
+    if (myDefaultValue == "True") {
         myCheckButton->setCheck(TRUE);
         myCheckButton->setText(TL("true"));
     } else {
@@ -580,10 +580,16 @@ GNEPythonToolDialogElements::BoolArgument::onCmdSetValue(FXObject*, FXSelector, 
     myOption->resetWritable();
     if (myCheckButton->getCheck() == TRUE) {
         myCheckButton->setText(TL("true"));
-        myOption->set("true", "true", false);
+        myOption->set("True", "True", false);
+        if (myDefaultValue == "True") {
+            myOption->resetDefault();
+        }
     } else {
         myCheckButton->setText(TL("false"));
-        myOption->set("false", "false", false);
+        myOption->set("False", "False", false);
+        if (myDefaultValue == "False") {
+            myOption->resetDefault();
+        }
     }
     return 1;
 }
