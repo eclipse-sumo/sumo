@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-17 10:30+0000\n"
+"PO-Revision-Date: 2023-05-17 10:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -5170,66 +5170,66 @@ msgstr "Ordinato per nome"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:76
 msgid "Grouped by categories"
-msgstr ""
+msgstr "Aggruppato per categoria"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:89
 msgid "run python tool"
-msgstr ""
+msgstr "esegui utensile python"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:91
 msgid "close tool dialog"
-msgstr ""
+msgstr "chiudi dialogo dell'utensile"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:93
 msgid "reset to default values"
-msgstr ""
+msgstr "resetta a valori standard"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:122
 msgid "Reset value"
-msgstr ""
+msgstr "resetta valore"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:227
 #, c-format
 msgid "Use current % file"
-msgstr ""
+msgstr "Utilizza il file attuale %"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:253
 msgid "network"
-msgstr ""
+msgstr "rete"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:296
 msgid "additional"
-msgstr ""
+msgstr "addizionale"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:339
 msgid "route"
-msgstr ""
+msgstr "itinerario"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:382
 msgid "data"
-msgstr ""
+msgstr "dati"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:556
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:568
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:582
 msgid "true"
-msgstr ""
+msgstr "vero"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:559
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:571
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:585
 msgid "false"
-msgstr ""
+msgstr "falso"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:63
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:64
 msgid "Save output"
-msgstr ""
+msgstr "Salva uscita"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:65
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:66
 msgid "Console output"
-msgstr ""
+msgstr "Uscita della console"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:75
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:76
@@ -5244,27 +5244,27 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:77
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:78
 msgid "Rerun"
-msgstr ""
+msgstr "Esegui di nuovo"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:77
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:78
 msgid "rerun tool"
-msgstr ""
+msgstr "esegui di nuovo l'utensile"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:79
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:80
 msgid "Back"
-msgstr ""
+msgstr "Indietro"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:79
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:80
 msgid "back to tool dialog"
-msgstr ""
+msgstr "torna indietro al dialogo dell'utensile"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:87
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:88
 msgid "close dialog"
-msgstr ""
+msgstr "chiudi dialogo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:134
 msgid "Nothing to enable, implement in Children"
