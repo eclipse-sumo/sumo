@@ -71,6 +71,8 @@ alternative routes. By default the fasted route is considered the *best* but thi
 
 This way, a new alternative route may be added in each iteration.
 The total number of alternatives is limited to 5 and the limit may be changed with option **--max-alternatives**.
+In each iteration, the route usage probability is calculated for each route (see below). 
+When the number of routes for a vehicle is larger than the defined amount, the route with smallest probability is removed.
 
 These best routes are collected within a route
 distribution and used when deciding the actual route to drive in the
@@ -99,10 +101,6 @@ to compute these probabilities:
 - the travel time along the used route in the previous simulation step
 - the sum of edge travel times for a set of alternative routes
 - the previous probability of choosing a route
-
-#### Number of Routes in each traveller's route set
-
-The maximum number of routes can be defined by users, where 5 is the default value. In each iteration, the route usage probability is calculated for each route. When the number of routes is larger than the defined amount, routes with smallest probabilities are removed.
 
 #### Updates of Travel Time
 
