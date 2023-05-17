@@ -59,6 +59,9 @@ distance_after_reroute
 # test retrieval of upcoming traffic lights
 nextTLS
 
+# test retrieval of function joes
+getJunctionFoes
+
 # Tests traci.vehicle.getNeighbors() method
 getNeighbors
 
