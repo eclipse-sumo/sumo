@@ -261,7 +261,33 @@ Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
     const int n = ret.readInt(); // number of foe informations
     for (int i = 0; i < n; ++i) {
         libsumo::TraCIJunctionFoe info;
-        // TODO implement server side and result retrieval
+        ret.readUnsignedByte();
+        info.foeId = ret.readString();
+
+        ret.readUnsignedByte();
+        info.egoDist = ret.readDouble();
+
+        ret.readUnsignedByte();
+        info.foeDist = ret.readDouble();
+
+        ret.readUnsignedByte();
+        info.egoExitDist = ret.readDouble();
+
+        ret.readUnsignedByte();
+        info.foeExitDist = ret.readDouble();
+
+        ret.readUnsignedByte();
+        info.egoLane = ret.readString();
+        
+        ret.readUnsignedByte();
+        info.foeLane = ret.readString();
+        
+        ret.readUnsignedByte();
+        info.egoResponse = ret.readUnsignedByte();
+
+        ret.readUnsignedByte();
+        info.foeResponse = ret.readUnsignedByte();
+        
         result.push_back(info);
     }
     return result;

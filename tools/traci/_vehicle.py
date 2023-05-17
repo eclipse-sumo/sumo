@@ -228,6 +228,34 @@ def _readNextLinks(result):
         links.append((approachedLane, hasPrio, isOpen, hasFoe,
                       approachedInternal, state, direction, length))
     return tuple(links)
+    
+    
+def _readJunctionFoes(result):
+    result.read("!Bi")
+    nbJunctionFoes = result.readInt()
+    junctionFoes = []
+    for _ in range(nbJunctionFoes):
+        result.read("!B")
+        foeId = result.readString()
+        result.read("!B")
+        egoDist = result.readDouble()
+        result.read("!B")
+        foeDist = result.readDouble()
+        result.read("!B")
+        egoExitDist = result.readDouble()
+        result.read("!B")
+        foeExitDist = result.readDouble()
+        result.read("!B")
+        egoLane = result.readString()
+        result.read("!B")
+        foeLane = result.readString()
+        result.read("!B")
+        egoResponse = bool(result.read("!B")[0])
+        result.read("!B")
+        foeResponse = bool(result.read("!B")[0])
+        junctionFoes.append((foeId, egoDist, foeDist, egoExitDist, foeExitDist, 
+                             egoLane, foeLane, egoResponse, foeResponse))
+    return tuple(junctionFoes)
 
 
 _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[0]),
@@ -239,6 +267,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[
                       tc.VAR_NEXT_STOPS: _readNextStops,
                       tc.VAR_NEXT_LINKS: _readNextLinks,
                       tc.VAR_NEXT_STOPS2: _readStopData,
+                      tc.VAR_FOES: _readJunctionFoes,
                       # ignore num compounds and type int
                       tc.CMD_CHANGELANE: lambda result: result.read("!iBiBi")[2::2]}
 
@@ -728,6 +757,14 @@ class VehicleDomain(VTypeDomain):
         Return list of upcoming traffic lights [(tlsID, tlsIndex, distance, state), ...]
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
+        
+    def getJunctionFoes(self, vehID, distance):
+        """getJunctionFoes(string, double) -> complex
+
+        Return list of junction foes [(foeId, egoDist, foeDist, egoExitDist, foeExitDist, 
+        egoLane, foeLane, egoResponse, foeResponse), ...] within the given distance to the given vehicle.
+        """
+        return self._getUniversal(tc.VAR_FOES, vehID, "d", distance)
 
     @deprecated()
     def getNextStops(self, vehID):

@@ -413,6 +413,39 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     server.getWrapperStorage().writeDouble(libsumo::Vehicle::getStopSpeed(id, speed, gap));
                 }
                 break;
+                case libsumo::VAR_FOES: {
+                    double distance;
+                    if (!server.readTypeCheckingDouble(inputStorage, distance)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of junction foes requires the distance as first parameter.", outputStorage);
+                    }
+                    std::vector<libsumo::TraCIJunctionFoe> junctionFoes = libsumo::Vehicle::getJunctionFoes(id, distance);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                    const int cnt = 1 + (int)junctionFoes.size() * 9;
+                    server.getWrapperStorage().writeInt(cnt);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
+                    server.getWrapperStorage().writeInt((int)junctionFoes.size());
+                    for (std::vector<libsumo::TraCIJunctionFoe>::iterator it = junctionFoes.begin(); it != junctionFoes.end(); ++it) {
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(it->foeId);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(it->egoDist);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(it->foeDist);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(it->egoExitDist);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(it->foeExitDist);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(it->egoLane);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(it->foeLane);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_UBYTE);
+                        server.getWrapperStorage().writeChar(it->egoResponse);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_UBYTE);
+                        server.getWrapperStorage().writeChar(it->foeResponse);
+                    }
+                    break;
+                }
                 default:
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }
