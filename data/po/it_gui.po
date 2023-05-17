@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-17 10:39+0000\n"
+"PO-Revision-Date: 2023-05-17 15:37+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -1035,7 +1035,7 @@ msgstr "&OK"
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:996
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2353
 msgid "&Cancel"
-msgstr "&Cancella"
+msgstr "&Annulla"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:69
 msgid "Breakpoints Editor"
@@ -5234,12 +5234,12 @@ msgstr "Uscita della console"
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:75
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:76
 msgid "Abort"
-msgstr ""
+msgstr "Interrompi"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:75
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:76
 msgid "abort running"
-msgstr ""
+msgstr "interrompi l'operazione in corso"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:77
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:78
@@ -5572,7 +5572,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1342
 msgid "Overrides default shape of pedestrian crossing"
-msgstr ""
+msgstr "Questa forma sovrascrive quella standard del passaggio pedonale"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1355
 msgid "Walking Area ID"
@@ -5588,15 +5588,18 @@ msgstr "La lunghezza del WalkingArea in metri"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1371
 msgid "Overrides default shape of pedestrian sidewalk"
-msgstr ""
+msgstr "Questa forma sovrascrive quella standard del marciapiede"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1384
 msgid "The ID of the edge the vehicles leave"
 msgstr ""
+"Il codice identificativo dell'arco dove i veicoli arrivano a fine percorso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1389
 msgid "The ID of the edge the vehicles may reach when leaving 'from'"
 msgstr ""
+"Il codice identificativo dell'arco che i veicoli raggiungono dopo la "
+"partenza a 'from'"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1394
 msgid "the lane index of the incoming lane (numbers starting with 0)"
@@ -5641,13 +5644,15 @@ msgstr "Distanza di vista tra veicoli"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1434
 msgid "sets index of this connection within the controlling traffic light"
-msgstr ""
+msgstr "imposta l'indice del collegamento usato nel semaforo che lo controlla"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1440
 msgid ""
 "sets index for the internal junction of this connection within the "
 "controlling traffic light"
 msgstr ""
+"imposta l'indice usato nel semaforo per l'incrocio interno di questo "
+"collegamento"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1457
 msgid "sets custom speed limit for the connection"
@@ -5686,7 +5691,7 @@ msgstr "Il codice identificativo della fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1540
 msgid "The name of the lane the bus stop shall be located at"
-msgstr ""
+msgstr "Il nome della corsia dove la fermata del bus deve essere posizionata"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1545
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1609
@@ -5716,7 +5721,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1555
 msgid "Name of busStop"
-msgstr ""
+msgstr "Il nome della fermata del bus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1560
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1624
@@ -5808,10 +5813,11 @@ msgstr "Il codice identificativo della fermata del treno"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1604
 msgid "The name of the lane the train stop shall be located at"
 msgstr ""
+"Il nome della corsia dove la fermata ferroviaria deve essere posizionata"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1619
 msgid "Name of trainStop"
-msgstr ""
+msgstr "Il nome della fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1625
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1681
@@ -5852,26 +5858,28 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1663
 msgid "The name of the lane the stop access shall be located at"
 msgstr ""
+"Il nome della corsia dove l'accesso alla fermata deve essere posizionato"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1668
 msgid "The position on the lane (the lower position on the lane) in meters"
-msgstr ""
+msgstr "La posizione iniziale sulla corsia in metri"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1674
 msgid "The walking length of the access in meters"
-msgstr ""
+msgstr "La lunghezza dell'accesso in metri da percorrere"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1697
 msgid "The id of container stop"
-msgstr ""
+msgstr "Il codice identificativo della fermata per contenitori"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1702
 msgid "The name of the lane the container stop shall be located at"
 msgstr ""
+"Il nome della corsia dove la fermata per contenitori deve essere posizionata"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1717
 msgid "Name of containerStop"
-msgstr ""
+msgstr "Il nome della fermata per contenitori"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1730
 msgid ""
