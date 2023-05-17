@@ -22,16 +22,24 @@ if "SUMO_HOME" in os.environ:
 import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = sumolib.checkBinary('sumo-gui')
+sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:])
 
 egoID = "t_0"
 monitoringDistance = 20
 
 for step in range(30):
-    traci.simulationStep()
     try:
-        print(traci.simulation.getTime(), len(traci.vehicle.getJunctionFoes(egoID, monitoringDistance)))
+        traci.simulationStep()
+        print('='*100)
+        print(f"Time: {traci.simulation.getTime():.2f}")
+        for foe in traci.vehicle.getJunctionFoes(egoID, monitoringDistance):
+            print(foe[0])
+            for item in foe[1:]:
+                if isinstance(item, float):
+                    print(f"\t{item:.2f}")
+                else:
+                    print(f"\t{item}")
     except traci.TraCIException as e:
         print(traci.simulation.getTime(), "Error:", e)
 
