@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-15 14:04+0000\n"
+"PO-Revision-Date: 2023-05-17 15:37+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1407,7 +1407,7 @@ msgstr "Netz gespeichert in'"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3084
 msgid "Could not save network in '"
-msgstr ""
+msgstr "Konnte das Netz nicht im folgenden Pfad speichern: '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3130
 msgid "Plain XML saved with prefix '"
@@ -5110,7 +5110,7 @@ msgstr "OK\tschließe Dialog"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:459
 #, c-format
 msgid "Key '%' already exists"
-msgstr ""
+msgstr "Der Schlüssel '%' existiert bereits"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:446
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:753
@@ -7983,12 +7983,11 @@ msgstr ""
 "Element zur selben Zeit sein"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:108
-#, fuzzy
 msgid ""
 "If attributes mask the start and end position, both attributes have to be "
 "defined"
 msgstr ""
-"Wenn Attribute die Start- und Endposition belegen, müssen beide Attribute "
+"Wenn Attribute die Start- und Endposition überlagern, müssen beide Attribute "
 "definiert werden"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:134
@@ -8105,13 +8104,12 @@ msgid "add train stop '"
 msgstr "Bahn-Haltepunkt hinzufügen '"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:186
-#, fuzzy
 msgid ""
 "Could not build access in netedit; busStop parent already owns an access in "
 "the edge '"
 msgstr ""
-"Konnte Zugriff in netedit nicht erstellen; Bus-Haltepunkt besitzt bereit "
-"einen Zugriff in der Kante '"
+"Konnte Zugang in netedit nicht erstellen; Bus-Haltepunkt besitzt bereit "
+"einen Zugang von der Kante '"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:188
 msgid "Could not build access in netedit; The lane '"
