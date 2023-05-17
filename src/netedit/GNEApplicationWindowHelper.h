@@ -230,6 +230,35 @@ struct GNEApplicationWindowHelper {
     struct ModesMenuCommands {
 
         /// @brief struct for common menu commands
+        struct SupermodeMenuCommands {
+
+            /// @brief constructor
+            SupermodeMenuCommands(const ModesMenuCommands* modesMenuCommandsParent);
+
+            /// @brief build menu commands
+            void buildSupermodeMenuCommands(FXMenuPane* modesMenu);
+
+            /// @brief menu command for network supermode
+            FXMenuCommand* networkSupermode;
+
+            /// @brief menu command for demand supermode
+            FXMenuCommand* demandSupermode;
+
+            /// @brief menu command for data supermode
+            FXMenuCommand* dataSupermode;
+
+        private:
+            /// @brief reference to ModesMenuCommands
+            const ModesMenuCommands* myModesMenuCommandsParent;
+
+            /// @brief Invalidated copy constructor.
+            SupermodeMenuCommands(const SupermodeMenuCommands&) = delete;
+
+            /// @brief Invalidated assignment operator.
+            SupermodeMenuCommands& operator=(const SupermodeMenuCommands&) = delete;
+        };
+
+        /// @brief struct for common menu commands
         struct CommonMenuCommands {
 
             /// @brief constructor
@@ -410,6 +439,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief build modes menu commands
         void buildModesMenuCommands(FXMenuPane* modesMenu);
+
+        /// @brief Supermodes Menu Commands
+        SupermodeMenuCommands supermodeMenuCommands;
 
         /// @brief Common Menu Commands
         CommonMenuCommands commonMenuCommands;
