@@ -476,6 +476,12 @@ value is also shown in the table.
   <td><p>Returns the list of upcoming links with each compound containing info about (lane, via, priority, opened, foe, state, direction, length)</p></td>
   <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getNextLinks">getNextLinks</a></p></td>
 </tr>
+<tr class="even">
+  <td><p>junction foes (0x37)</p></td>
+  <td><p>complex</p></td>
+  <td><p>Returns the list of foes within a certain distance of the ego vehicle.</p></td>
+  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getJunctionFoes">getJunctionFoes</a></p></td>
+</tr>
 </tbody>
 </table>
 
