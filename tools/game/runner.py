@@ -372,6 +372,7 @@ class StartDialog(Tkinter.Frame):
             if key == "lang":
                 key = "english"if self._langCode == "de" else "german"
             button["text"] = self._language_text[key]
+        self.parent.title(self._language_text['title'])
 
     def category_name(self, cfg):
         return os.path.basename(cfg)[:-8]
