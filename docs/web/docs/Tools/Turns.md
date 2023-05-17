@@ -186,17 +186,25 @@ The simulation could then be called like this:
 ```
 
 ## Sampling
-By default, sampling will be performed iteratively by 
-1) selecting a random counting location that has not yet reached it's count (and which still has viable routes)
-2) selecting a random route that passes this counting location
+In this stage, routes are selected randomly within the limits imposed by the input counts.
+Only routes that pass a minimum number of counting locations (option **--min-count**, default *1*) are eligible for sampling.
+    
+### Default Sampling
+    
+By default, sampling will be performed iteratively by:
+1. selecting a random counting location that has not yet reached it's count (and which still has viable routes)
+2. selecting a random route that passes this counting location
 
 until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)
-
-By setting the option **--weighted**. The sampling algorithm is changed. For each route a probability value is loaded from the input. The probability can either be specified explicitly using route attribute 'probability' or implicitly if a route with the same sequence of edges appears multiple times in the the route input. Sampling will be performed iteratively by
-1) selecting a random viable route sampled by probability
-
-until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)
-
+    
+### Weighted Sampling    
+    
+By setting the option **--weighted**. The sampling algorithm is changed. For each route a probability value is loaded from the input. The probability can either be specified explicitly using route attribute 'probability' or implicitly if a route with the same sequence of edges appears multiple times in the the route input. Sampling will be performed iteratively by:
+    
+1. selecting a random viable route sampled by probability 
+    
+until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)    
+   
 ## Optimization
 By default, routes will be sampled from the input route set until no further routes can be added without exceeding one of the counts. This may still leave some counts below their target values.
 
