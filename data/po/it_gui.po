@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-15 14:04+0000\n"
+"PO-Revision-Date: 2023-05-17 10:30+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -5079,16 +5079,16 @@ msgstr "Il rerouter contiene più di un arco"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:321
 msgid "There are no lanes in the network"
-msgstr ""
+msgstr "Non ci sono corsie nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:341
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:361
 msgid "There are no edges in the network"
-msgstr ""
+msgstr "Non ci sono archi nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:398
 msgid "There are no parking areas in the network"
-msgstr ""
+msgstr "Non ci sono parcheggi nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEUndoListDialog.cpp:58
 msgid "OK\tclose dialog"
@@ -5097,7 +5097,7 @@ msgstr "Accetta\tchiudi dialogo"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:459
 #, c-format
 msgid "Key '%' already exists"
-msgstr ""
+msgstr "La chiave '%' è già presente"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:446
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:753
@@ -5113,7 +5113,7 @@ msgstr "Tipo di riga invalido"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:455
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1252
 msgid "Color Dialog"
-msgstr ""
+msgstr "Selettore di colori"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:660
 msgid "Open Image"
@@ -5125,19 +5125,19 @@ msgstr "Apri file OSG"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:63
 msgid "Grid"
-msgstr ""
+msgstr "Griglia"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:64
 msgid "Spider"
-msgstr ""
+msgstr "Ragnatela"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:65
 msgid "Random grid"
-msgstr ""
+msgstr "Griglia casuale"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:66
 msgid "Random"
-msgstr ""
+msgstr "Casuale"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:82
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:232
@@ -5146,27 +5146,27 @@ msgstr "Seleziona nome di file"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:92
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzato"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:92
 msgid "open advance netgenerate dialog"
-msgstr ""
+msgstr "apri dialogo netgenerate avanzato"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:94
 msgid "Close dialog"
-msgstr ""
+msgstr "Chiudi dialogo"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:71
 msgid "Save options"
-msgstr ""
+msgstr "Salva opzioni"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:73
 msgid "Load options"
-msgstr ""
+msgstr "Carica opzioni"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:75
 msgid "Sorted by name"
-msgstr ""
+msgstr "Ordinato per nome"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:76
 msgid "Grouped by categories"
