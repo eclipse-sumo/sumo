@@ -260,7 +260,8 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
         fixed = {}
         for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "x", "y", "until", "name",
                                                            "fareZone", "fareSymbol", "startFare")):
-            addAttrs = ' friendlyPos="true" name="%s"' % veh.attr_name
+            stopName = veh.attr_name
+            addAttrs = ' friendlyPos="true" name="%s"' % stopName
             params = ""
             if veh.fareZone:
                 params = "".join(['        <param key="%s" value="%s"/>\n' %
@@ -337,7 +338,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
                     for a in sorted(access):
                         rout.write(a)
                     rout.write(u'    </%s>\n' % typ)
-            stops[rid].append((stop, int(veh.until)))
+            stops[rid].append((stop, int(veh.until), stopName))
     return stops
 
 
@@ -450,8 +451,8 @@ def main(options):
                     for stop in stops[vehID]:
                         if offset is None:
                             offset = stop[1]
-                        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"/>\n' %
-                                   (stop[0], options.duration, stop[1] - offset))
+                        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"/> <!-- %s -->\n' %
+                                   (stop[0], options.duration, stop[1] - offset, stop[2]))
                     rout.write(u'    </route>\n')
                 else:
                     print("Warning! Empty route", vehID, file=sys.stderr)
