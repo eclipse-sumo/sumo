@@ -80,6 +80,7 @@ def updateLocalMessages():
                           'reset': TL('Reset Highscore'),
                           'german': TL('German'),
                           'english': TL('English'),
+                          'italian': TL('Italian'),
                           'quit': TL("Quit"),
                           'Highscore': TL("Highscore"),
                           'Congratulations': TL("Congratulations!"),
@@ -287,7 +288,12 @@ class StartDialog(Tkinter.Frame):
         # variables for changing language
         self.parent = parent
         self._language_text = lang
+        self._selectedLang = Tkinter.StringVar(self, name="selectedLang")
         self._langCode = langCode
+        self.langChoices = {
+                            "de" : 'german',
+                            "en" : 'english',
+                            }
         self.buttons = []
         # misc variables
         self.name = ''
@@ -340,37 +346,55 @@ class StartDialog(Tkinter.Frame):
         self.addButton(button, 'reset')
         button.grid(row=numButtons - 3, column=COL_START, columnspan=2)
 
+        # language select instead of button
+        langOptions = ('test',)
+        self._selectedLang.set(self._language_text.get('english', 'english'))
+        self.langDrop = Tkinter.OptionMenu(self, self._selectedLang, *langOptions)
+        self.updateLanguageMenu()
+        self.langDrop.grid(row=numButtons - 2, column=COL_START, columnspan=2)
+        self._selectedLang.trace_add("write", self.change_language)
+        
         button = Tkinter.Button(
             self, width=bWidth_control, command=sys.exit)
         self.addButton(button, 'quit')
         button.grid(row=numButtons - 1, column=COL_START, columnspan=2)
-
-        button = Tkinter.Button(
-            self, width=bWidth_control, command=lambda: self.change_language())
-        self.addButton(button, 'german', key='lang')
-        button.grid(row=numButtons - 2, column=COL_START, columnspan=2)
-
+        
         self.grid()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.parent.iconify()
         self.parent.update()
         self.parent.deiconify()
-
+    
+    def updateLanguageMenu(self):
+        optionCount = self.langDrop['menu'].index('end') + 1
+        for i in range(optionCount):
+            self.langDrop['menu'].delete(0)
+        for code, longName in self.langChoices.items():
+            self.langDrop['menu'].add_command(label=self._language_text[longName], command=Tkinter._setit(self._selectedLang, self._language_text[longName]))
+        #self.langDrop.update_idletasks()
+    
     def addButton(self, button, text, key=None):
         button["text"] = self._language_text.get(text, text)
         if key is None:
             key = text
         self.buttons.append((key, button))
 
-    def change_language(self):
-        self._langCode = "en" if self._langCode == "de" else "de"
+    def change_language(self, *args):
+        chosenLang = self._selectedLang.get()
+        for code, longName in self.langChoices.items():
+            if self._language_text[longName] == chosenLang:
+                self._langCode = code
+                break
         setLanguage(self._langCode)
         updateLocalMessages()
         self._language_text = _LANGUAGE_CAPTIONS
+        self._selectedLang.set(self._language_text[self.langChoices[self._langCode]])
+        
+        # update language menu
+        self.updateLanguageMenu()
+        
         for key, button in self.buttons:
-            if key == "lang":
-                key = "english"if self._langCode == "de" else "german"
             button["text"] = self._language_text[key]
         self.parent.title(self._language_text['title'])
 
