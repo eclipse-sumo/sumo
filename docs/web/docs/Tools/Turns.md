@@ -221,6 +221,7 @@ Only routes that pass a minimum number of counting locations (option **--min-cou
 ### Default Sampling
     
 By default, sampling will be performed iteratively by:
+    
 1. selecting a random counting location that has not yet reached it's count (and which still has viable routes)
 2. selecting a random route that passes this counting location
 
@@ -256,6 +257,46 @@ The option **--minimize-vehicles <FLOAT>** can be used to configure a weighting 
 It is possible to load the resulting output into routeSampler.py for another round of optimization. By setting the option **--optimize-input** the sampling step is skipped and the optimizer is run directly on the input route set.
 
 By removing specific routes or adding new ones, the user can thus tailor the generating traffic in an iterative manner.
+    
+## Quality Control
+
+There is a range of reasons that could lead to a deviation between the routeSampler results and the user expectation. This section lists common reasons and documents which outputs can be used to judge the quality of the results.
+    
+### Problem areas
+
+- Selecting a set of routes to match a given set of counts is generally an underdetermined problem which means there is of not a unique solution. If there are insufficient constraints on the solution space (not enough counts), the chosen solution may appear implausible
+- Input routes are not representative of the real routes
+     - not covering the counting locations 
+     - containing unlikely routes
+- Temporal patterns are not captured by the given internval data (i.e. by only having counts for the whole day)
+- Traffic counts are not stationary within an interval (i.e. a single vehicle passing a long a list of widely spaced counting locations and each interval registers a different location). In this case the route that covers all counting locations will not be sampled. (Longer intervals must be chosen in this case).
+- Inconsistency in the counting data
+- Many short routes (can be prevented by setting option **--min-count**)
+    
+### Textual quality metrics
+    
+- underflow locations: Statistics on all counting locations with less traffic than defined in the input
+- overflow locations: Statistics on all counting locations with more traffic than defined in the input (only happens due to rounding of fractional counts after optimization)
+- [GEH](https://en.wikipedia.org/wiki/GEH_statistic) statistics: Statistics on locations that reach a defined GEH threshold (configurable with option **--geh-ok**, default *5*)
+- total number and percentage of matched counts (note that this is distinct from the number of vehicles since each vehicle may be counted multiple times) 
+    
+### Spatial quality data
+    
+By setting option **--mismatch-output FILE** an [edgeData] file will be created that holds the mismatch between input and output count (`deficit`) as well as the input count (`measuredCount`) for each time interval:
+    
+Example:
+```
+<data>
+    <interval id="deficit" begin="0.0" end="99.0">
+        <edgeRelation from="-58.121.42" to="64" measuredCount="1" deficit="0"/>
+        <edgeRelation from="-58.121.42" to="-31" measuredCount="3" deficit="0"/>
+        <edgeRelation from="45" to="-68" measuredCount="3" deficit="1"/>
+        ...
+    </interval>
+</data>  
+ ```
+
+Such a data file can be visualized in [sumo-gui](../sumo-gui.md#visualizing_edge-related_data) and also plotted with [plot_net_dump.py](Visualization.md#plot_net_dumppy).    
  
 # generateTurnRatios.py
 
