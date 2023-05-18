@@ -19,11 +19,17 @@
 - The Webster's equation is used to optimize the cycle length
   and the green times of the traffic lights at common intersections
   in a sumo network with a given route file (vehicles and bicycles).
+  
+- The signal at each intersection is optimized independently. Thus,
+  some poor result may occur if there is conflict between the singal
+  programs of different intersections. Signal coordination is not 
+  handled here, but in tlsCoordinator.py.
 
 - The parameters in the Webster's equation may need to be adjusted
   according to the respective user case. Otherwise, worse results
-  may occur. E.g. saturation headway can affect the road capacity,
-  minimal green time or minimal cycle length.
+  may occur. E.g. minimal green time, minimal cycle length and
+  saturation headway. The latter one can affect the calcuated
+  road capacity.
 
 - The allowed movements per lane in the network should correspond to
   those in the respective signal group/phase. E.g. if through and
@@ -46,7 +52,8 @@
 - If multiple major greens exist, the respective flows will be evenly
   distributed in each major green.
 
-- consider flows only with minor greens at a certain direction
+- Flows only with minor greens at a certain direction is considered.
+
 - If the critical flow or the sum of the critical flows is larger than 1,
   the optimal cycle length will be set to 120 sec which can be adjusted
   in the option.
@@ -57,12 +64,14 @@
 - Duration for all-red phase will not be adjusted.
 
 - Pedestrians are not considered yet.
+
+- Triggered vehicles are not considered.
 """
 
 from __future__ import absolute_import
 from __future__ import print_function
 
-import collections
+import collections, sys
 
 import sumolib
 
@@ -75,8 +84,8 @@ def get_options(args=None):
                          default="tlsAdaptation.add.xml", help="define the output filename")
     optParser.add_option("-r", "--route-files", category="input", dest="routefiles", required=True,
                          help="define the route file separated by comma (mandatory)")
-    optParser.add_option("-b", "--begin", category="time", dest="begin", type=int,
-                         default=0, help="begin time of the optimization period with unit second")
+    optParser.add_option("-b", "--begin", category="time", dest="begin", type=float,
+                         help="begin time of the optimization period with unit second (mandatory)")
     optParser.add_option("-y", "--yellow-time", category="processing", dest="yellowtime", type=int,
                          default=4, help="yellow time")
     optParser.add_option("-a", "--all-red", category="processing", dest="allred", type=int,
@@ -128,7 +137,7 @@ def getRoutes(files):
     return route_dict
 
 
-def getFlows(net, routeFiles, tlsList, begin, verbose, isSorted=False):
+def getFlows(net, routeFiles, tlsList, begin, scale_fac, verbose, isSorted=False):
     tlsFlowsMap = {}
     end = begin + 3600
     for tls in tlsList:
@@ -171,6 +180,13 @@ def getFlows(net, routeFiles, tlsList, begin, verbose, isSorted=False):
             print("Warning: No vehicles parsed from %s." % file)
         elif verbose:
             print("Parsed %s vehicles from %s." % (parsed, file))
+    # scale up flow
+    if scale_fac != 1.:
+        for t in tlsList:
+            for subRoute in tlsFlowsMap[t.getID()]:
+                for conn in tlsFlowsMap[t.getID()][subRoute]:
+                    tlsFlowsMap[t.getID()][subRoute][conn] *= scale_fac
+
     # remove the doubled counts
     connFlowsMap = {}
     for t in tlsList:
@@ -473,7 +489,87 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multi
     return groupFlowsMap
 
 
+def checkRoutePeriod(routefiles, begin):
+    scale_fac = 1.
+    # find the last vehicle's departure time
+    veh_starttime = -1.
+    veh_endtime = -1.
+    for file in routefiles.split(','):
+        for veh in sumolib.output.parse(file, 'vehicle'):
+            if veh.depart != "triggered":
+                depart = float(veh.depart)
+                if veh_starttime == -1.:
+                    veh_starttime = veh_endtime = depart
+
+                if veh_endtime < depart:
+                    veh_endtime = depart
+                if veh_starttime > depart:
+                    veh_starttime = depart
+
+    # check the begin time
+    checkPeak = False
+    if begin == None or begin < 0.:
+        print("Warning: The begin time '%s' is not valid." %(begin))
+        begin = veh_starttime
+        print("Warning: The begin time is set to the first vehicle's departure time: %s." %(veh_starttime))
+        checkPeak = True
+
+    # check how to process the flow     
+    end = begin + 3599.
+    if veh_endtime < end:
+        scale_fac += (end - veh_endtime)/3600.
+        print("Warning: The period is less than 1 hour. The flows will be proportionlly scaled up to 1-hour flow with the scaling factor %s." %scale_fac)
+    elif checkPeak and veh_endtime > end:
+        begin, peakFlow = getPeakFlowBegin(routefiles, begin, veh_endtime)
+        print("Warning: The period (begining with %s) with the peak flow (%s) is used." %(begin, peakFlow)) 
+
+    return begin, scale_fac
+
+def getPeakFlowBegin(routefiles, begin, veh_endtime):
+    minuteFlowMap = {}
+    end_intl = int(veh_endtime//60.)+1
+    for n in range(0,end_intl+1):
+        minuteFlowMap[n] = 0.
+    peak_begin = begin
+    peakFlow = 0.
+
+    for file in routefiles.split(','):
+        for veh in sumolib.output.parse(file, 'vehicle'):
+            if veh.depart != "triggered" and sumolib.miscutils.parseTime(veh.depart) >= begin:
+                pce = 1.
+                if veh.type == "bicycle":
+                    pce = 0.2
+                elif veh.type in ["moped", "motorcycle"]:
+                    pce = 0.5
+                elif veh.type in ["truck", "trailer", "bus", "coach"]:
+                    pce = 3.5
+                intl =  int(float(veh.depart)//60.)
+                minuteFlowMap[intl] += pce
+
+    for i in range(0,end_intl-59):
+        temp_sum = 0
+        sub_end = i + 60
+        if sub_end > end_intl:
+            print("Warning: The end time is larger and set to the last vehicle's departure time(%s)" %end_intl)
+            sub_end = end_intl+1
+        for j in range(i,sub_end):
+            temp_sum += minuteFlowMap[j]
+        if temp_sum > peakFlow:
+            peakFlow = temp_sum
+            peak_begin = i
+
+    return begin, peakFlow
+            
+
+
 def main(options):
+    if not options.netfile or not options.routefiles:
+        print("Error: Either both the net file and the route file or one of them are/is missing.", file=sys.stderr)
+        sys.exit(1)
+            
+    # check the period of the given route files, and find the peak-flow period if necessary
+    begin, scale_fac = checkRoutePeriod(options.routefiles, options.begin)
+        
     net = sumolib.net.readNet(options.netfile, withPrograms=True, withPedestrianConnections=True)
     tlsList = net.getTrafficLights()
     skipList = []
@@ -481,9 +577,10 @@ def main(options):
 
     if options.verbose:
         print("the total number of tls: %s" % len(tlsList))
-    print("Begin time:%s" % options.begin)
+
+    print("Begin time:%s" % begin)
     # get traffic flows for each connection at each TL
-    connFlowsMap = getFlows(net, options.routefiles, tlsList, options.begin, options.verbose, options.sorted)
+    connFlowsMap = getFlows(net, options.routefiles, tlsList, begin, scale_fac, options.verbose, options.sorted)
 
     # remove the tls where no traffic volumes exist and which should be skipped
     effectiveTlsList = getEffectiveTlsList(tlsList, connFlowsMap, skipList, options.verbose)
