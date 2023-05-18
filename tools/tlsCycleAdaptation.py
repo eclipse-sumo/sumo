@@ -19,7 +19,11 @@
 - The Webster's equation is used to optimize the cycle length
   and the green times of the traffic lights at common intersections
   in a sumo network with a given route file (vehicles and bicycles).
-  
+
+- One hour flow is considered. If the flow arrival situation within
+  1 hour is "turbulent", i.e. 1-h flow arrives within 15 min, then 
+  a poor result is expected.
+
 - The signal at each intersection is optimized independently. Thus,
   some poor result may occur if there is conflict between the singal
   programs of different intersections. Signal coordination is not 
@@ -66,6 +70,13 @@
 - Pedestrians are not considered yet.
 
 - Triggered vehicles are not considered.
+
+- The begin time is the first vehicle's departure time, if it is not given.
+
+- If the period is less than 1 hour, the flow will be scaled up to 1-hour flow.
+
+- If the period is longer than 1 hour and no begin time is given, the 1-hour 
+  peak-flow will be used. 
 """
 
 from __future__ import absolute_import
