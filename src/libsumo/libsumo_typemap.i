@@ -308,6 +308,23 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     }
 };
 
+%typemap(out) std::vector<libsumo::TraCIJunctionFoe> {
+    $result = PyTuple_New($1.size());
+    int index = 0;
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        PyTuple_SetItem($result, index++, Py_BuildValue("(sddddssNN)",
+                                                        iter->foeId.c_str(),
+                                                        iter->egoDist,
+                                                        iter->foeDist,
+                                                        iter->egoExitDist,
+                                                        iter->foeExitDist,
+                                                        iter->egoLane.c_str(),
+                                                        iter->foeLane.c_str(),
+                                                        PyBool_FromLong(iter->egoResponse),
+                                                        PyBool_FromLong(iter->foeResponse)));
+    }
+};
+
 %typemap(out) std::vector<std::pair<std::string, double> > {
     $result = PyTuple_New($1.size());
     int index = 0;
