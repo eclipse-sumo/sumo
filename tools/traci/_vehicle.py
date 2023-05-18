@@ -228,8 +228,8 @@ def _readNextLinks(result):
         links.append((approachedLane, hasPrio, isOpen, hasFoe,
                       approachedInternal, state, direction, length))
     return tuple(links)
-    
-    
+
+
 def _readJunctionFoes(result):
     result.read("!Bi")
     nbJunctionFoes = result.readInt()
@@ -253,7 +253,7 @@ def _readJunctionFoes(result):
         egoResponse = bool(result.read("!B")[0])
         result.read("!B")
         foeResponse = bool(result.read("!B")[0])
-        junctionFoes.append((foeId, egoDist, foeDist, egoExitDist, foeExitDist, 
+        junctionFoes.append((foeId, egoDist, foeDist, egoExitDist, foeExitDist,
                              egoLane, foeLane, egoResponse, foeResponse))
     return tuple(junctionFoes)
 
@@ -757,11 +757,11 @@ class VehicleDomain(VTypeDomain):
         Return list of upcoming traffic lights [(tlsID, tlsIndex, distance, state), ...]
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
-        
+
     def getJunctionFoes(self, vehID, distance):
         """getJunctionFoes(string, double) -> complex
 
-        Return list of junction foes [(foeId, egoDist, foeDist, egoExitDist, foeExitDist, 
+        Return list of junction foes [(foeId, egoDist, foeDist, egoExitDist, foeExitDist,
         egoLane, foeLane, egoResponse, foeResponse), ...] within the given distance to the given vehicle.
         """
         return self._getUniversal(tc.VAR_FOES, vehID, "d", distance)

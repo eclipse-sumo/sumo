@@ -12,6 +12,10 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
+# @file    runner.py
+# @author  Benjamin Coueraud
+# @date    2023-05-17
+
 from __future__ import print_function
 import os
 import sys
