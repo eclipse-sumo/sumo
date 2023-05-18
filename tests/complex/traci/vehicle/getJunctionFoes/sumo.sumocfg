@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-28 15:26:00 by Eclipse SUMO sumo Version v1_16_0+1939-9599688f075
+<!-- generated on 2023-05-18 09:38:43 by Eclipse SUMO sumo Version v1_17_0+0283-6efc7520e82
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -9,7 +9,13 @@
         <net-file value="input_net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
     </input>
-	
-	<end value="30"/>
+
+    <time>
+        <end value="30"/>
+    </time>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
