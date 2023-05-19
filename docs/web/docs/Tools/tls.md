@@ -43,7 +43,7 @@ sumo -n net.net.xml -r routes.rou.xml -a newTLS.add.xml
 !!! caution
     The route input must contain `<vehicle>`s with `<route>`-child-elements. Flows and trips are not supported. Vehicles with departure time = 'triggered' are not considered.
 
-!!! caution
+!!! note
     The begin time is not mandatory. However, the begin time will be the earliest departure time in the given route file, if it is not given. The flows within 1 hour from the begin time on are considered. If the whole period in the given route file is less than 1 hour, the flows will be proportionally scaled up to 1-hour flows. If the period is longer than 1 hour and no begin time is given, the 1-hour 
   peak-flows will be used. 
 
@@ -60,7 +60,7 @@ The calcuation in this script are based on static hourly traffic flows. Therefor
 - Lane capacity: 
     In this script, the capacity is controlled by the option saturation-headway. As default, saturation-headway is set to 2 s. So, the default capacity is 1800 veh/lane/hour, which is for a longer road section normally. If the distance between any two intersections is quite short, e.g. 500 m in a city area, it is expected that the capacity is lower than the default capacity. It is needed to consider increasing the saturation-headway for adjusting the lane capacity.
 
-- Currently, the considered road users (veh.type) include car, truck, trailer, bus, coach, moped, motorcycle, bicycle.
+- Currently, the considered road users (veh.type) include car, truck, trailer, bus, coach, moped, motorcycle, bicycle. PCE (Passenger Car Equivalents) is used as flow unit. 
 
 - Synchronizaton of traffic signals: 
     This script only deals with the signal timing optimization at one intersection at a time, and does not synchronize the traffic signals across all intersections. So, poor results could happen if there is any conflict between signal plans. The script [tlsCoordinator.py](#tlscoordinatorpy) can be used to coordinate traffic signals.
