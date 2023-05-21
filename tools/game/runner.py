@@ -100,7 +100,7 @@ def printDebug(*args):
 if _UPLOAD:
     printDebug("import http.client...")
     try:
-        import http.client as httplib # noqa
+        import http.client as httplib  # noqa
         printDebug("SUCCESS")
     except ImportError:
         printDebug("FAILED - disabling upload...")
@@ -291,9 +291,9 @@ class StartDialog(Tkinter.Frame):
         self._selectedLang = Tkinter.StringVar(self, name="selectedLang")
         self._langCode = langCode
         self.langChoices = {
-                            "de" : 'german',
-                            "en" : 'english',
-                            }
+            "de": 'german',
+            "en": 'english',
+        }
         self.buttons = []
         # misc variables
         self.name = ''
@@ -353,27 +353,28 @@ class StartDialog(Tkinter.Frame):
         self.updateLanguageMenu()
         self.langDrop.grid(row=numButtons - 2, column=COL_START, columnspan=2)
         self._selectedLang.trace_add("write", self.change_language)
-        
+
         button = Tkinter.Button(
             self, width=bWidth_control, command=sys.exit)
         self.addButton(button, 'quit')
         button.grid(row=numButtons - 1, column=COL_START, columnspan=2)
-        
+
         self.grid()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.parent.iconify()
         self.parent.update()
         self.parent.deiconify()
-    
+
     def updateLanguageMenu(self):
         optionCount = self.langDrop['menu'].index('end') + 1
         for i in range(optionCount):
             self.langDrop['menu'].delete(0)
         for code, longName in self.langChoices.items():
-            self.langDrop['menu'].add_command(label=self._language_text[longName], command=Tkinter._setit(self._selectedLang, self._language_text[longName]))
-        #self.langDrop.update_idletasks()
-    
+            self.langDrop['menu'].add_command(label=self._language_text[longName],
+                                              command=Tkinter._setit(self._selectedLang, self._language_text[longName]))
+        # self.langDrop.update_idletasks()
+
     def addButton(self, button, text, key=None):
         button["text"] = self._language_text.get(text, text)
         if key is None:
@@ -390,10 +391,10 @@ class StartDialog(Tkinter.Frame):
         updateLocalMessages()
         self._language_text = _LANGUAGE_CAPTIONS
         self._selectedLang.set(self._language_text[self.langChoices[self._langCode]])
-        
+
         # update language menu
         self.updateLanguageMenu()
-        
+
         for key, button in self.buttons:
             button["text"] = self._language_text[key]
         self.parent.title(self._language_text['title'])

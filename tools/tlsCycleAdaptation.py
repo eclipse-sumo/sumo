@@ -21,12 +21,12 @@
   in a sumo network with a given route file (vehicles and bicycles).
 
 - One hour flow is considered. If the flow arrival situation within
-  1 hour is "turbulent", i.e. 1-h flow arrives within 15 min, then 
+  1 hour is "turbulent", i.e. 1-h flow arrives within 15 min, then
   a poor result is expected.
 
 - The signal at each intersection is optimized independently. Thus,
   some poor result may occur if there is conflict between the singal
-  programs of different intersections. Signal coordination is not 
+  programs of different intersections. Signal coordination is not
   handled here, but in tlsCoordinator.py.
 
 - The parameters in the Webster's equation may need to be adjusted
@@ -75,14 +75,15 @@
 
 - If the period is less than 1 hour, the flow will be scaled up to 1-hour flow.
 
-- If the period is longer than 1 hour and no begin time is given, the 1-hour 
-  peak-flow will be used. 
+- If the period is longer than 1 hour and no begin time is given, the 1-hour
+  peak-flow will be used.
 """
 
 from __future__ import absolute_import
 from __future__ import print_function
 
-import collections, sys
+import collections
+import sys
 
 import sumolib
 
@@ -519,27 +520,29 @@ def checkRoutePeriod(routefiles, begin):
 
     # check the begin time
     checkPeak = False
-    if begin == None or begin < 0.:
-        print("Warning: The begin time '%s' is not valid." %(begin))
+    if begin is None or begin < 0.:
+        print("Warning: The begin time '%s' is not valid." % begin)
         begin = veh_starttime
-        print("Warning: The begin time is set to the first vehicle's departure time: %s." %(veh_starttime))
+        print("Warning: The begin time is set to the first vehicle's departure time: %s." % veh_starttime)
         checkPeak = True
 
-    # check how to process the flow     
+    # check how to process the flow
     end = begin + 3599.
     if veh_endtime < end:
         scale_fac += (end - veh_endtime)/3600.
-        print("Warning: The period is less than 1 hour. The flows will be proportionlly scaled up to 1-hour flow with the scaling factor %s." %scale_fac)
+        print("Warning: The period is less than 1 hour. "
+              "The flows will be proportionally scaled up to 1-hour flow with the scaling factor %s." % scale_fac)
     elif checkPeak and veh_endtime > end:
         begin, peakFlow = getPeakFlowBegin(routefiles, begin, veh_endtime)
-        print("Warning: The period (begining with %s) with the peak flow (%s) is used." %(begin, peakFlow)) 
+        print("Warning: The period (begining with %s) with the peak flow (%s) is used." % (begin, peakFlow))
 
     return begin, scale_fac
+
 
 def getPeakFlowBegin(routefiles, begin, veh_endtime):
     minuteFlowMap = {}
     end_intl = int(veh_endtime//60.)+1
-    for n in range(0,end_intl+1):
+    for n in range(0, end_intl+1):
         minuteFlowMap[n] = 0.
     peak_begin = begin
     peakFlow = 0.
@@ -554,33 +557,32 @@ def getPeakFlowBegin(routefiles, begin, veh_endtime):
                     pce = 0.5
                 elif veh.type in ["truck", "trailer", "bus", "coach"]:
                     pce = 3.5
-                intl =  int(float(veh.depart)//60.)
+                intl = int(float(veh.depart)//60.)
                 minuteFlowMap[intl] += pce
 
-    for i in range(0,end_intl-59):
+    for i in range(0, end_intl-59):
         temp_sum = 0
         sub_end = i + 60
         if sub_end > end_intl:
-            print("Warning: The end time is larger and set to the last vehicle's departure time(%s)" %end_intl)
+            print("Warning: The end time is larger and set to the last vehicle's departure time(%s)" % end_intl)
             sub_end = end_intl+1
-        for j in range(i,sub_end):
+        for j in range(i, sub_end):
             temp_sum += minuteFlowMap[j]
         if temp_sum > peakFlow:
             peakFlow = temp_sum
             peak_begin = i
 
-    return begin, peakFlow
-            
+    return peak_begin, peakFlow
 
 
 def main(options):
     if not options.netfile or not options.routefiles:
         print("Error: Either both the net file and the route file or one of them are/is missing.", file=sys.stderr)
         sys.exit(1)
-            
+
     # check the period of the given route files, and find the peak-flow period if necessary
     begin, scale_fac = checkRoutePeriod(options.routefiles, options.begin)
-        
+
     net = sumolib.net.readNet(options.netfile, withPrograms=True, withPedestrianConnections=True)
     tlsList = net.getTrafficLights()
     skipList = []
