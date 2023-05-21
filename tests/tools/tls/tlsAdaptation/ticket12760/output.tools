@@ -1,6 +1,6 @@
 Warning: The begin time 'None' is not valid.
 Warning: The begin time is set to the first vehicle's departure time: 68.38.
-Warning: The period is less than 1 hour. The flows will be proportionlly scaled up to 1-hour flow with the scaling factor 1.8678527777777778.
+Warning: The period is less than 1 hour. The flows will be proportionally scaled up to 1-hour flow with the scaling factor 1.8678527777777778.
 the total number of tls: 6
 Begin time:68.38
 parsing route file: input_routes.rou.xml
