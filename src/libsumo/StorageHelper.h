@@ -93,6 +93,13 @@ public:
         return size;
     }
 
+    static bool readBool(tcpip::Storage& ret, const std::string& error = "") {
+        if (ret.readUnsignedByte() != libsumo::TYPE_UBYTE && error != "") {
+            throw TraCIException(error);
+        }
+        return ret.readUnsignedByte() != 0;
+    }
+
     static void readStage(tcpip::Storage& inputStorage, libsumo::TraCIStage& stage, const std::string& error = "") {
         stage.type = readTypedInt(inputStorage, error);
         stage.vType = readTypedString(inputStorage, error);

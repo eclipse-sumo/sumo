@@ -261,34 +261,16 @@ Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
     const int n = ret.readInt(); // number of foe informations
     for (int i = 0; i < n; ++i) {
         libsumo::TraCIJunctionFoe info;
-        ret.readUnsignedByte();
-        info.foeId = ret.readString();
-
-        ret.readUnsignedByte();
-        info.egoDist = ret.readDouble();
-
-        ret.readUnsignedByte();
-        info.foeDist = ret.readDouble();
-
-        ret.readUnsignedByte();
-        info.egoExitDist = ret.readDouble();
-
-        ret.readUnsignedByte();
-        info.foeExitDist = ret.readDouble();
-
-        ret.readUnsignedByte();
-        info.egoLane = ret.readString();
-        
-        ret.readUnsignedByte();
-        info.foeLane = ret.readString();
-        
-        ret.readUnsignedByte();
-        info.egoResponse = ret.readUnsignedByte();
-
-        ret.readUnsignedByte();
-        info.foeResponse = ret.readUnsignedByte();
-        
-        result.push_back(info);
+        info.foeId = StoHelp::readTypedString(ret);
+        info.egoDist = StoHelp::readTypedDouble(ret);
+        info.foeDist = StoHelp::readTypedDouble(ret);
+        info.egoExitDist = StoHelp::readTypedDouble(ret);
+        info.foeExitDist = StoHelp::readTypedDouble(ret);
+        info.egoLane = StoHelp::readTypedString(ret);
+        info.foeLane = StoHelp::readTypedString(ret);
+        info.egoResponse = StoHelp::readBool(ret);
+        info.foeResponse = StoHelp::readBool(ret);
+        result.emplace_back(info);
     }
     return result;
 }
@@ -424,41 +406,18 @@ Vehicle::getNextLinks(const std::string& vehID) {
     ret.readUnsignedByte();
     ret.readInt();
 
-    int linkNo = ret.readInt();
+    const int linkNo = ret.readInt();
     for (int i = 0; i < linkNo; ++i) {
-
-        ret.readUnsignedByte();
-        std::string approachedLane = ret.readString();
-
-        ret.readUnsignedByte();
-        std::string approachedLaneInternal = ret.readString();
-
-        ret.readUnsignedByte();
-        bool hasPrio = ret.readUnsignedByte() != 0;
-
-        ret.readUnsignedByte();
-        bool isOpen = ret.readUnsignedByte() != 0;
-
-        ret.readUnsignedByte();
-        bool hasFoe = ret.readUnsignedByte() != 0;
-
-        ret.readUnsignedByte();
-        std::string state = ret.readString();
-
-        ret.readUnsignedByte();
-        std::string direction = ret.readString();
-
-        ret.readUnsignedByte();
-        double length = ret.readDouble();
-
-        result.push_back(libsumo::TraCIConnection(approachedLane,
-                         hasPrio,
-                         isOpen,
-                         hasFoe,
-                         approachedLaneInternal,
-                         state,
-                         direction,
-                         length));
+        libsumo::TraCIConnection con;
+        con.approachedLane = StoHelp::readTypedString(ret);
+        con.approachedInternal = StoHelp::readTypedString(ret);
+        con.hasPrio = StoHelp::readBool(ret);
+        con.isOpen = StoHelp::readBool(ret);
+        con.hasFoe = StoHelp::readBool(ret);
+        con.state = StoHelp::readTypedString(ret);
+        con.direction = StoHelp::readTypedString(ret);
+        con.length = StoHelp::readTypedDouble(ret);
+        result.emplace_back(con);
     }
     return result;
 }
