@@ -170,7 +170,7 @@ class Connection(StepManager):
                 packed += struct.pack("!B", int(v))
             elif f == "s":
                 v = str(v)
-                packed += struct.pack("!Bi", tc.TYPE_STRING, len(v)) + v.encode("latin1")
+                packed += struct.pack("!Bi", tc.TYPE_STRING, len(v)) + v.encode("utf8")
             elif f == "p":  # polygon
                 if len(v) <= 255:
                     packed += struct.pack("!BB", tc.TYPE_POLYGON, len(v))
@@ -186,7 +186,7 @@ class Connection(StepManager):
             elif f == "l":  # string list
                 packed += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(v))
                 for s in v:
-                    packed += struct.pack("!i", len(s)) + s.encode("latin1")
+                    packed += struct.pack("!i", len(s)) + s.encode("utf8")
             elif f == "f":  # float list
                 packed += struct.pack("!Bi", tc.TYPE_DOUBLELIST, len(v))
                 for x in v:
@@ -200,7 +200,7 @@ class Connection(StepManager):
             elif f == "G":
                 packed += struct.pack("!Bddd", tc.POSITION_LON_LAT_ALT, *v)
             elif f == "r":
-                packed += struct.pack("!Bi", tc.POSITION_ROADMAP, len(v[0])) + v[0].encode("latin1")
+                packed += struct.pack("!Bi", tc.POSITION_ROADMAP, len(v[0])) + v[0].encode("utf8")
                 packed += struct.pack("!dB", v[1], v[2])
         return packed
 
@@ -223,7 +223,7 @@ class Connection(StepManager):
                     self._string += struct.pack("!dd", *varID)
                 else:
                     self._string += struct.pack("!B", varID)
-                self._string += struct.pack("!i", len(objID)) + objID.encode("latin1")
+                self._string += struct.pack("!i", len(objID)) + objID.encode("utf8")
             self._string += packed
             return self._sendExact()
 
