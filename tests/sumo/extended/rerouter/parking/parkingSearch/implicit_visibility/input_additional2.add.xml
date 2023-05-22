@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-10-19 15:12:33.350688 by additional v1_10_0+1526-ea4e40d
+  options: -n net.net.xml -a input_additional.add.xml -o input_additional2.add.xml <doubleminus>max-number-alternatives 5
+-->
+<additional>
+
+    <rerouter id="parkA0A1" edges="A0A1">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkB2B3" visible="false" probability="0.9"/>
+            <parkingAreaReroute id="parkB0B1" visible="false" probability="0.1"/>
+        </interval>
+    </rerouter>
+
+    <rerouter id="parkB0B1" edges="B0B1">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkA0A1" visible="false"/>
+        </interval>
+    </rerouter>
+    <rerouter id="parkB2B3" edges="B2B3">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkA0A1" visible="false"/>
+        </interval>
+    </rerouter>
+
+</additional>
