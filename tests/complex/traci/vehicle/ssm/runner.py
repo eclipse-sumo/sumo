@@ -39,11 +39,12 @@ def checkSSM(vehID):
     if leader:
         dv = traci.vehicle.getSpeed(vehID) - traci.vehicle.getSpeed(leader)
         curTTC = (dist + traci.vehicle.getMinGap(vehID)) / dv
-    print("  veh=%s minTTC=%s maxDRAC=%s minPET=%s curTTC=%s" % (
+    print("  veh=%s minTTC=%s maxDRAC=%s minPET=%s minPPET=%s curTTC=%s" % (
         vehID,
         traci.vehicle.getParameter(vehID, "device.ssm.minTTC"),
         traci.vehicle.getParameter(vehID, "device.ssm.maxDRAC"),
         traci.vehicle.getParameter(vehID, "device.ssm.minPET"),
+        traci.vehicle.getParameter(vehID, "device.ssm.minPPET"),
         curTTC))
 
 
