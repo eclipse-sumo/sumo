@@ -6,3 +6,6 @@ ticket13190
 
 # emergency braking at roundabout in subsecond simulation
 ticket13290
+
+# emergency braking at mini-roundabout in subsecond simulation
+ticket13292
