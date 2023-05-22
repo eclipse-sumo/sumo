@@ -243,11 +243,8 @@ Vehicle::getFollower(const std::string& vehID, double dist) {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_FOLLOWER, vehID, &content);
     ret.readInt(); // components
-    ret.readUnsignedByte();
-    const std::string leaderID = ret.readString();
-    ret.readUnsignedByte();
-    const double gap = ret.readDouble();
-    return std::make_pair(leaderID, gap);
+    const std::string leaderID = StoHelp::readTypedString(ret);
+    return std::make_pair(leaderID, StoHelp::readTypedDouble(ret));
 }
 
 
@@ -258,7 +255,8 @@ Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
     StoHelp::writeTypedDouble(content, dist);
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_FOES, vehID, &content);
-    const int n = ret.readInt(); // number of foe informations
+    ret.readInt(); // compound size
+    const int n = StoHelp::readTypedInt(ret); // number of foe informations
     for (int i = 0; i < n; ++i) {
         libsumo::TraCIJunctionFoe info;
         info.foeId = StoHelp::readTypedString(ret);
