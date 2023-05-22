@@ -38,7 +38,7 @@ def runSingle(sumoEndTime, traciEndTime, label):
     fdi.close()
     fdo.close()
     step = 0
-    traci.start([sumoBinary, "-c", "used.sumocfg", "-S", "-Q"], port=PORT, label=label, stdout=sys.stdout)
+    traci.start([sumoBinary, "-c", "used.sumocfg", "-S", "-Q"], port=PORT, label=str(label), stdout=sys.stdout)
     while not step > traciEndTime:
         traci.simulationStep()
         vehs = traci.vehicle.getIDList()
@@ -53,7 +53,7 @@ for i in range(3):
     print(" Run %s" % i)
     runSingle(50, 99, i)
 for i in range(3):
-    traci.switch(i)
+    traci.switch(str(i))
     print("Print ended at step %s" % traci.simulation.getTime())
     traci.close()
 try:
@@ -68,11 +68,11 @@ for i in range(3):
     print(" Run %s" % i)
     runSingle(101, 99, i)
 for i in range(3):
-    traci.switch(i)
+    traci.switch(str(i))
     print("Print ended at step %s" % traci.simulation.getTime())
     traci.close()
 try:
     # should throw because label isnot known
-    traci.switch(i)
+    traci.switch(str(i))
 except traci.TraCIException as e:
     print(e)

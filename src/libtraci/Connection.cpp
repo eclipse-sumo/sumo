@@ -51,9 +51,10 @@ Connection::Connection(const std::string& host, int port, int numRetries, const 
             mySocket.connect();
             break;
         } catch (tcpip::SocketException& e) {
+            mySocket.close();
             if (i == numRetries) {
                 close();
-                throw;
+                throw libsumo::FatalTraCIError("Could not connect in " + toString(numRetries + 1) + " tries");
             }
             std::cout << "Could not connect to TraCI server at " << host << ":" << port << " " << e.what() << std::endl;
             std::cout << " Retrying in 1 second" << std::endl;

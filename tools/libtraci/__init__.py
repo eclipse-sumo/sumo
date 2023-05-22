@@ -150,6 +150,7 @@ isLoaded = simulation.isLoaded
 getVersion = simulation.getVersion
 executeMove = simulation.executeMove
 setOrder = simulation.setOrder
+switch = simulation.switchConnection
 
 _libtraci_step = simulation.step
 
