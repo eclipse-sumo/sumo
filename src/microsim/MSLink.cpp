@@ -1428,13 +1428,13 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             const double l2 = ego != nullptr ? ego->getLength() + 2 : 0; // add some slack to account for further meeting-angle effects
             const double sagitta = ego != nullptr && myRadius != std::numeric_limits<double>::max() ? myRadius - sqrt(myRadius * myRadius - 0.25 * l2 * l2) : 0;
             const bool pastTheCrossingPoint = leaderBackDist + foeCrossingWidth + sagitta < 0;
-            const bool beforeTheCrossingPoint = leaderBackDist < leader->getVehicleType().getLength();
+            const bool enteredTheCrossingPoint = leaderBackDist < leader->getVehicleType().getLength();
             const bool foeIsBicycleTurn = (leader->getVehicleType().getVehicleClass() == SVC_BICYCLE
                                            && foeLane->getIncomingLanes().front().viaLink->getDirection() == LinkDirection::LEFT);
             const bool ignoreIndirectBicycleTurn = pastTheCrossingPoint && foeIsBicycleTurn;
             const bool cannotIgnore = ((contLane && !ignoreIndirectBicycleTurn) || sameTarget || sameSource) && ego != nullptr;
             const bool inTheWay = (((!pastTheCrossingPoint && distToCrossing > 0) || (sameTarget && distToCrossing > leaderBackDist - leader->getLength()))
-                                   && beforeTheCrossingPoint
+                                   && enteredTheCrossingPoint
                                    && (!foeExitLink->isInternalJunctionLink() || foeIsBicycleTurn));
             const bool isOpposite = leader->getLaneChangeModel().isOpposite();
             const auto avi = foeExitLink->getApproaching(leader);
@@ -1450,7 +1450,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                           << " r=" << myRadius
                           << " sagitta=" << sagitta
                           << " foePastCP=" << pastTheCrossingPoint
-                          << " foeBeforeCP=" << beforeTheCrossingPoint
+                          << " foeEnteredCP=" << enteredTheCrossingPoint
                           << " inTheWay=" << inTheWay
                           << " willPass=" << willPass
                           << " isFrontOnLane=" << leader->isFrontOnLane(foeLane)
