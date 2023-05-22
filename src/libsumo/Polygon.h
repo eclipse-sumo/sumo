@@ -29,6 +29,7 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class NamedRTree;
+class PositionVector;
 class SUMOPolygon;
 class SUMOTrafficObject;
 #endif
