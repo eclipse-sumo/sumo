@@ -1928,7 +1928,7 @@ GNEAdditionalHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXM
 
 void
 GNEAdditionalHandler::writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute) {
-    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TLF(" Attribute % cannot be negative.", toString(attribute)));
+    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TLF("Attribute % cannot be negative.", toString(attribute)));
 }
 
 
