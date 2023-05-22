@@ -24,7 +24,7 @@ trying to subscribe to edge around simulation '' at time 7.0
 2 1fi, 1o, 1si, 2fi, 2o, 2si, 3fi, 3o, 3si, 4fi, 4o, 4si
 Ok: Unsubscribe successful
 trying to subscribe to gui around simulation '' at time 9.0
-restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+restarting sumo due to FatalTraCIError 'Connection closed by SUMO.'
  Retrying in 1 seconds
 trying to subscribe to inductionloop around simulation '' at time 1.0
    found 1 objects
@@ -51,13 +51,13 @@ trying to subscribe to lanearea around simulation '' at time 7.0
 2 e2_0, e2_1, e2_2
 Ok: Unsubscribe successful
 trying to subscribe to meandata around simulation '' at time 9.0
-restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+restarting sumo due to FatalTraCIError 'Connection closed by SUMO.'
  Retrying in 1 seconds
 trying to subscribe to multientryexit around simulation '' at time 1.0
-restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+restarting sumo due to FatalTraCIError 'Connection closed by SUMO.'
  Retrying in 1 seconds
 trying to subscribe to overheadwire around simulation '' at time 1.0
-restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+restarting sumo due to FatalTraCIError 'Connection closed by SUMO.'
  Retrying in 1 seconds
 trying to subscribe to parkingarea around simulation '' at time 1.0
    found 1 objects
@@ -84,22 +84,22 @@ trying to subscribe to polygon around simulation '' at time 7.0
 2 po_0, po_1, po_2
 Ok: Unsubscribe successful
 trying to subscribe to rerouter around simulation '' at time 9.0
-restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+restarting sumo due to FatalTraCIError 'Connection closed by SUMO.'
  Retrying in 1 seconds
 trying to subscribe to route around simulation '' at time 1.0
-restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+restarting sumo due to FatalTraCIError 'Connection closed by SUMO.'
  Retrying in 1 seconds
 trying to subscribe to routeprobe around simulation '' at time 1.0
-restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+restarting sumo due to FatalTraCIError 'Connection closed by SUMO.'
  Retrying in 1 seconds
 trying to subscribe to simulation around simulation '' at time 1.0
-restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+restarting sumo due to FatalTraCIError 'Connection closed by SUMO.'
  Retrying in 1 seconds
 trying to subscribe to trafficlight around simulation '' at time 1.0
-restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+restarting sumo due to FatalTraCIError 'Connection closed by SUMO.'
  Retrying in 1 seconds
 trying to subscribe to variablespeedsign around simulation '' at time 1.0
-restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+restarting sumo due to FatalTraCIError 'Connection closed by SUMO.'
  Retrying in 1 seconds
 trying to subscribe to vehicle around simulation '' at time 1.0
    found 1 objects
@@ -108,5 +108,5 @@ trying to subscribe to vehicle around simulation '' at time 1.0
 2 ego, flow.0
 Ok: Unsubscribe successful
 trying to subscribe to vehicletype around simulation '' at time 3.0
-restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+restarting sumo due to FatalTraCIError 'Connection closed by SUMO.'
  Retrying in 1 seconds

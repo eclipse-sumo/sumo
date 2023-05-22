@@ -1,5 +1,7 @@
 [run_dependent_text]
 errors:UserWarning{LINES 2}
+errors:raise FatalTraCIError("Connection already closed.")
+errors:traci.exceptions.FatalTraCIError: Connection already closed.{REPLACE libtraci.libtraci.FatalTraCIError: Not connected.}
 output:tcpip::Socket::recvAndCheck @ recv: Socket reset by peer{REPLACE connection closed by SUMO}
 output:tcpip::Socket::recvAndCheck @ recv: Connection reset by peer{REPLACE connection closed by SUMO}
 output:tcpip::Socket::recvAndCheck @ recv: peer shutdown{REPLACE connection closed by SUMO}

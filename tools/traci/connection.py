@@ -134,7 +134,7 @@ class Connection(StepManager):
         if not result:
             self._socket.close()
             self._socket = None
-            raise FatalTraCIError("connection closed by SUMO")
+            raise FatalTraCIError("Connection closed by SUMO.")
         for command in self._queue:
             prefix = result.read("!BBB")
             err = result.readString()
