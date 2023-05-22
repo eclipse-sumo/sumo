@@ -1904,7 +1904,7 @@ GNEAdditionalHandler::fixMultiLanePosition(double fromPos, const double fromLane
 
 void
 GNEAdditionalHandler::writeInvalidID(const SumoXMLTag tag, const std::string& id) {
-    writeError(TLF("Could not build % with ID '%' in netedit", tag, id) + std::string("; ") + TL("ID contains invalid characters."));
+    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("ID contains invalid characters."));
 }
 
 
