@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-17 15:37+0000\n"
+"PO-Revision-Date: 2023-05-22 17:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -6158,25 +6158,27 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2349
 msgid "The id of Variable Speed Signal"
-msgstr ""
+msgstr "Il codice identificativo del limite di velocità dinamico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2360
 msgid "List of Variable Speed Sign lanes"
-msgstr ""
+msgstr "Elenco di corsie con limiti di velocità dinamici"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2365
 msgid "Name of Variable Speed Signal"
-msgstr ""
+msgstr "Il nome del limite di velocità dinamico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2370
 msgid ""
 "Space separated list of vehicle type ids to consider (empty to affect all "
 "types)"
 msgstr ""
+"Elenco di tipi di veicoli da considerare separati da spazi (lascia vuoto per "
+"considerare tutti i tipi)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2396
 msgid "Speed"
-msgstr ""
+msgstr "Velocità"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2410
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2466
@@ -6901,15 +6903,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4155
 msgid "ParkingArea associated with this waypoint"
-msgstr ""
+msgstr "Parcheggio associato a questo punto intermedio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4183
 msgid "The time step at which the person shall enter the network"
-msgstr ""
+msgstr "L'ora quando la persona deve entrare nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4223
 msgid "The time step at which the container shall enter the network"
-msgstr ""
+msgstr "L'ora quando il contenitore deve entrare nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4259
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4289
@@ -6963,23 +6965,24 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4362
 msgid "Id of the destination container stop"
-msgstr ""
+msgstr "Codice identificativo della fermata finale del contenitore"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4387
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4669
 msgid "id of the edges to walk"
-msgstr ""
+msgstr "codici identificativi degli archi da camminare"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4398
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4674
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4693
 msgid "Arrival position on the destination edge"
-msgstr ""
+msgstr "Posizione di arrivo sull'arco finale"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4427
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4797
 msgid "The ID of the edge the stop shall be located at"
 msgstr ""
+"Il codice identificativo dell'arco dove la fermata deve essere posizionata"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4445
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4477
@@ -6987,7 +6990,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4847
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5549
 msgid "Minimum duration for stopping"
-msgstr ""
+msgstr "Durata minima della sosta alla fermata"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4452
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4484
