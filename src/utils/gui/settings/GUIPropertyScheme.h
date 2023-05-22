@@ -105,7 +105,7 @@ public:
         myNames.clear();
     }
 
-    const T getColor(const double value) const {
+    T getColor(const double value) const {
         if (myColors.size() == 1 || value < myThresholds.front()) {
             return myColors.front();
         }
