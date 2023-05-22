@@ -3,3 +3,6 @@ ticket13108
 
 # crash after rerouting
 ticket13190
+
+# emergency braking at roundabout in subsecond simulation
+ticket13290
