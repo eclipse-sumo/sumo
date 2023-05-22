@@ -149,7 +149,8 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         }
 
         // Update the state of all pedestrians.
-        for (PState* state : myPedestrianStates) {
+        for (auto stateIt = myPedestrianStates.begin(); stateIt != myPedestrianStates.end();) {
+            PState* const state = *stateIt;
             // Updates the agent position.
             JPS_VelocityModelAgentParameters agent{}; 
             JPS_Simulation_ReadVelocityModelAgent(myJPSSimulation, state->getAgentId(), &agent, nullptr);
@@ -163,37 +164,6 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
             const MSEdge* currentEdge = stage->getEdge();
             const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
-/*
-            // Updates the edge to walk on.
-            if (myRoutingMode == PedestrianRoutingMode::SUMO_ROUTING)
-            {
-                if (currentEdge->isWalkingArea()) { 
-                    MSLane* nextLane = getNextPedestrianLane(currentLane);
-                    PositionVector shape = nextLane->getShape();
-                    Position nextLaneDirection = shape[1] - shape[0];
-                    Position pedestrianLookAhead = newPosition - shape[0];
-                    if (pedestrianLookAhead.dotProduct(nextLaneDirection) > 0.0) {
-                        MSEdge& nextEdge = nextLane->getEdge();
-                        if (nextEdge.isCrossing()) {
-                            stage->moveToNextEdge(person, time, 1, &nextEdge);
-                        }
-                        else {
-                            stage->moveToNextEdge(person, time, 1, nullptr);
-                        }
-                    }
-                }
-                else {
-                    Position relativePosition = (currentLane->getShape()).transformToVectorCoordinates(newPosition);
-                    if (relativePosition == Position::INVALID) {
-                        MSLane* nextLane = getNextPedestrianLane(currentLane);
-                        stage->moveToNextEdge(person, time, 1, nextLane ? &(nextLane->getEdge()) : nullptr);
-                    }
-                }
-            }
-            else { // PedestrianRoutingMode::JUPEDSIM_ROUTING
-                libsumo::Person::moveToXY(person->getID(), currentEdge->getID(), agent.position.x, agent.position.y, libsumo::INVALID_DOUBLE_VALUE, 2);
-            }
-            */
             MSLane* lane = nullptr;
             double lanePos;
             double bestDistance = std::numeric_limits<double>::max();
@@ -208,9 +178,11 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             // If near the last waypoint, remove the agent.
             if (newPosition.distanceTo2D(state->getDestination()) < JPS_EXIT_TOLERANCE) {
                 JPS_Simulation_RemoveAgent(myJPSSimulation, state->getAgentId(), nullptr);
-                myPedestrianStates.erase(std::find(myPedestrianStates.begin(), myPedestrianStates.end(), state));
                 while (!stage->moveToNextEdge(person, time, 1, nullptr));
                 registerArrived();
+                stateIt = myPedestrianStates.erase(stateIt);
+            } else {
+                ++stateIt;
             }
         }
     }
