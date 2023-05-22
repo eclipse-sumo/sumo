@@ -60,19 +60,21 @@ FXApp* GUI::myApp = nullptr;
 // ===========================================================================
 std::vector<std::string>
 GUI::getIDList() {
-    if (GUIMainWindow::getInstance() == nullptr) {
+    try {
+        return GUIMainWindow::getInstance()->getViewIDs();
+    } catch (const ProcessError& e) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
-    return GUIMainWindow::getInstance()->getViewIDs();
 }
 
 
 int
 GUI::getIDCount() {
-    if (GUIMainWindow::getInstance() == nullptr) {
+    try {
+        return (int)GUIMainWindow::getInstance()->getViewIDs().size();
+    } catch (const ProcessError& e) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
-    return (int)GUIMainWindow::getInstance()->getViewIDs().size();
 }
 
 
@@ -157,24 +159,24 @@ GUI::setSchema(const std::string& viewID, const std::string& schemeName) {
 
 void
 GUI::addView(const std::string& viewID, const std::string& schemeName, bool in3D) {
-    GUIMainWindow* const mw = GUIMainWindow::getInstance();
-    if (mw == nullptr) {
+    try {
+        // calling openNewView directly doesn't work from the traci/simulation thread
+        GUIMainWindow::getInstance()->sendBlockingEvent(new GUIEvent_AddView(viewID, schemeName, in3D));
+    } catch (const ProcessError& e) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
-    // calling openNewView directly doesn't work from the traci/simulation thread
-    mw->sendBlockingEvent(new GUIEvent_AddView(viewID, schemeName, in3D));
     // sonar thinks here is a memory leak but the GUIApplicationWindow does the clean up
 }  // NOSONAR
 
 
 void
 GUI::removeView(const std::string& viewID) {
-    GUIMainWindow* const mw = GUIMainWindow::getInstance();
-    if (mw == nullptr) {
+    try {
+        // calling removeViewByID directly doesn't work from the traci/simulation thread
+        GUIMainWindow::getInstance()->sendBlockingEvent(new GUIEvent_CloseView(viewID));
+    } catch (const ProcessError& e) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
-    // calling removeViewByID directly doesn't work from the traci/simulation thread
-    mw->sendBlockingEvent(new GUIEvent_CloseView(viewID));
     // sonar thinks here is a memory leak but the GUIApplicationWindow does the clean up
 }  // NOSONAR
 
@@ -223,11 +225,11 @@ GUI::trackVehicle(const std::string& viewID, const std::string& vehID) {
 
 bool
 GUI::hasView(const std::string& viewID) {
-    GUIMainWindow* const mw = GUIMainWindow::getInstance();
-    if (mw == nullptr) {
+    try {
+        return GUIMainWindow::getInstance()->getViewByID(viewID) != nullptr;
+    } catch (const ProcessError& e) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
-    return mw->getViewByID(viewID) != nullptr;
 }
 
 
@@ -338,7 +340,7 @@ GUI::start(const std::vector<std::string>& cmd) {
         myWindow->getRunner()->enableLibsumo();
         // Load configuration given on command line
         myWindow->loadOnStartup(true);
-    } catch (ProcessError& e) {
+    } catch (const ProcessError& e) {
         throw TraCIException(e.what());
     }
     return true;
@@ -394,15 +396,15 @@ GUI::close(const std::string& /*reason*/) {
 GUISUMOAbstractView*
 GUI::getView(const std::string& id) {
     // we cannot use myWindow here, this is not set for the traci server
-    GUIMainWindow* const mw = GUIMainWindow::getInstance();
-    if (mw == nullptr) {
+    try {
+        GUIGlChildWindow* const c = GUIMainWindow::getInstance()->getViewByID(id);
+        if (c == nullptr) {
+            throw TraCIException("View '" + id + "' is not known");
+        }
+        return c->getView();
+    } catch (const ProcessError& e) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
-    GUIGlChildWindow* const c = mw->getViewByID(id);
-    if (c == nullptr) {
-        throw TraCIException("View '" + id + "' is not known");
-    }
-    return c->getView();
 }
 
 
