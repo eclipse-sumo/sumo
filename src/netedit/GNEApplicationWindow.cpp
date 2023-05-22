@@ -26,6 +26,7 @@
 #include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netedit/dialogs/GNEOverwriteElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
+#include <netedit/dialogs/options/GNEOptionsDialog.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -54,7 +55,6 @@
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
-#include <utils/gui/windows/GUIDialog_Options.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/xml/XMLSubSys.h>

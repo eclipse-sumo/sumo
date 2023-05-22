@@ -31,7 +31,7 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/options/OptionsCont.h>
 
-#include "GUIDialog_Options.h"
+#include "GNEOptionsDialog.h"
 
 
 // ===========================================================================
