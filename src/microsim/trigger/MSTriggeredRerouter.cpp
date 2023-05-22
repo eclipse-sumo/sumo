@@ -640,13 +640,11 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         // not driving towards a parkingArea
         return nullptr;
     }
+    // if the vehicle is on the destParkArea edge it is always visible
+    bool destVisible = (&destParkArea->getLane().getEdge() == veh.getEdge());
 
-    bool destVisible = false;
     for (auto paVis : parks) {
-        if (paVis.first == destParkArea
-                && (paVis.second
-                    // if the vehicle is on the destParkArea edge it is always visible
-                    || &(destParkArea->getLane().getEdge()) == veh.getEdge())) {
+        if (paVis.first == destParkArea && paVis.second) {
             destVisible = true;
             break;
         }
