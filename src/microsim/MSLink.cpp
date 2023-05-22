@@ -1601,18 +1601,23 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 } else if ((contLane && !sameSource && !ignoreIndirectBicycleTurn) || isOpposite) {
                     gap = -std::numeric_limits<double>::max(); // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
                 } else {
-                    if (gDebugFlag1) {
-                        std::cout << " distToCrossing=" << distToCrossing << " leader back=" << leaderBack << " backDist=" << leaderBackDist
-                                  << " blockedStrategic=" << leader->getLaneChangeModel().isStrategicBlocked()
-                                  //<< " stateRight=" << toString((LaneChangeAction)leader->getLaneChangeModel().getSavedState(-1).second)
-                                  << "\n";
-                    }
                     if (pastTheCrossingPoint && !sameTarget) {
                         // leader is completely past the crossing point
                         // or there is no crossing point
-                        continue; // next vehicle
+                        if (gDebugFlag1) {
+                            std::cout << " foePastCP ignored\n";
+                        }
+                        continue;
                     }
-                    gap = distToCrossing - ego->getVehicleType().getMinGap() - leaderBackDist - foeCrossingWidth;
+                    const double leaderBackDist2 = leaderBackDist; //sameTarget ? MAX2(0.0, leaderBackDist) : leaderBackDist;
+                    if (gDebugFlag1) {
+                        std::cout << " distToCrossing=" << distToCrossing << " leaderBack=" << leaderBack
+                                  << " backDist=" << leaderBackDist
+                                  << " backDist2=" << leaderBackDist2
+                                  << " blockedStrategic=" << leader->getLaneChangeModel().isStrategicBlocked()
+                                  << "\n";
+                    }
+                    gap = distToCrossing - ego->getVehicleType().getMinGap() - leaderBackDist2 - foeCrossingWidth;
                     if (leader->getLaneChangeModel().isStrategicBlocked()) {
                         // do not encroach on leader when it tries to change lanes
                         // factor 2 is to give some slack for lane-changing
