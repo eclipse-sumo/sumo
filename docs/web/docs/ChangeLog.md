@@ -73,8 +73,10 @@ title: ChangeLog
   - Added option **--railway.signal.guess.by-stops** to add rail_signal nodes to a network that is lacking them. Issue #5143
 
 - TraCI
-  - Added function `simpla.getPlattonID`. Issue #13029
+  - Added function `simpla.getPlatoonID`. Issue #13029
   - Added functions `lane.getAngle' and `edge.getAngle'. Issue #10901
+  - Added function `vehicle.getJunctionFoes`. Issue #12640
+  - Using UTF-8 consistently. Issue #7171
 
 - tools
   - plotXMLAttributes.py and plot_trajectories.py now show the plot by default. Issue #13158
