@@ -4,6 +4,9 @@ default
 no_memory
 probability
 
+# define 2 parking areas which only differ in probability and check their usage
+probability2
+
 # always remember all visibly occupied parking areas along the way
 active_memory
 
