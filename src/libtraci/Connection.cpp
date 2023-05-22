@@ -165,7 +165,7 @@ Connection::setOrder(int order) {
 void
 Connection::createCommand(int cmdID, int varID, const std::string* const objID, tcpip::Storage* add) const {
     if (!mySocket.has_client_connection()) {
-        throw libsumo::FatalTraCIError("Not connected.");
+        throw libsumo::FatalTraCIError("Connection already closed.");
     }
     myOutput.reset();
     // command length

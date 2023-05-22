@@ -55,6 +55,9 @@ public:
     }
 
     static Connection& getActive() {
+        if (myActive == nullptr) {
+            throw libsumo::FatalTraCIError("Not connected.");
+        }
         return *myActive;
     }
 
