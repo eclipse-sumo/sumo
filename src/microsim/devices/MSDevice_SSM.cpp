@@ -3873,17 +3873,23 @@ MSDevice_SSM::getParameter(const std::string& key) const {
     if (key == "minPET" && !myComputePET) {
         throw InvalidArgument("Measure PET is not tracked by ssm device");
     }
+    if (key == "minPPET" && !myComputePPET) {
+        throw InvalidArgument("Measure PPET is not tracked by ssm device");
+    }
     if (key == "minTTC" ||
             key == "maxDRAC" ||
-            key == "minPET") {
+            key == "minPET" ||
+            key == "minPPET") {
         double value = INVALID_DOUBLE;
         double minTTC = INVALID_DOUBLE;
         double minPET = INVALID_DOUBLE;
         double maxDRAC = -INVALID_DOUBLE;
+        double minPPET = INVALID_DOUBLE;
         for (Encounter* e : myActiveEncounters) {
             minTTC = MIN2(minTTC, e->minTTC.value);
             minPET = MIN2(minPET, e->PET.value);
             maxDRAC = MAX2(maxDRAC, e->maxDRAC.value);
+            minPPET = MIN2(minPPET, e->minPPET.value);
         }
         if (key == "minTTC") {
             value = minTTC;
@@ -3891,6 +3897,8 @@ MSDevice_SSM::getParameter(const std::string& key) const {
             value = maxDRAC;
         } else if (key == "minPET") {
             value = minPET;
+        } else if (key == "minPPET") {
+            value = minPPET;
         }
         if (fabs(value) == INVALID_DOUBLE) {
             return "";
