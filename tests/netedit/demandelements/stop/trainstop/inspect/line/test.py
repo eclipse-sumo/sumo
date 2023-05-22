@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+netedit.changeStopType("stopTrainStop")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)
@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.line, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.line, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.line, "", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.line, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.line, "customLine", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.line, "customLine", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

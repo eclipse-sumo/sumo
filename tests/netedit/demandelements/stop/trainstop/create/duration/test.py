@@ -35,40 +35,40 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+netedit.changeStopType("stopTrainStop")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stopBusStop.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopTrainStop.create.durationEnable)
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # enable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stopBusStop.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopTrainStop.create.durationEnable)
 
 # create stop
 netedit.leftClick(referencePosition, 291, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.duration, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.duration, "dummyValue")
 
 # try to create stop
 netedit.leftClick(referencePosition, 292, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.duration, "-20")
+netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.duration, "-20")
 
 # try to create stop
 netedit.leftClick(referencePosition, 293, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.duration, "0")
+netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.duration, "0")
 
 # try to create stop
 netedit.leftClick(referencePosition, 294, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.duration, "22.33")
+netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.duration, "22.33")
 
 # try to create stop
 netedit.leftClick(referencePosition, 295, 175)

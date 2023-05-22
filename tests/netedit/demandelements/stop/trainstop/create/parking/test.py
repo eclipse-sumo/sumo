@@ -35,13 +35,13 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+netedit.changeStopType("stopTrainStop")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # change parking
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.parking, "true")
+netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.parking, "true")
 
 # create stop
 netedit.leftClick(referencePosition, 295, 175)

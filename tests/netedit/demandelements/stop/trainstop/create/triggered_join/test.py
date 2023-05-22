@@ -35,10 +35,10 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+netedit.changeStopType("stopTrainStop")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.triggered, "join")
+netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.triggered, "join")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)

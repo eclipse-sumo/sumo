@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+netedit.changeStopType("stopTrainStop")
 
-# try to create stop (don't click over busStop)
+# try to create stop (don't click over trainStop)
 netedit.leftClick(referencePosition, 327, 240)
 
 # Check undo redo

@@ -44,25 +44,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopBusStop.inspectSelection.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopTrainStop.inspectSelection.extensionEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopBusStop.inspectSelection.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopTrainStop.inspectSelection.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.extension, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.extension, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.extension, "", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.extension, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.extension, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.extension, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.extension, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.extension, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.extension, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.extension, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

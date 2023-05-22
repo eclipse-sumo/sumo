@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+netedit.changeStopType("stopTrainStop")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)
@@ -47,25 +47,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopBusStop.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopTrainStop.inspect.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopBusStop.inspect.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopTrainStop.inspect.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.extension, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.extension, "", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.extension, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.extension, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.extension, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

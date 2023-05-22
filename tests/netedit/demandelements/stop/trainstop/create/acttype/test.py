@@ -35,28 +35,28 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+netedit.changeStopType("stopTrainStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.actType, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.actType, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.actType, "")
+netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.actType, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 295, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.actType, "dummy Act")
+netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.actType, "dummy Act")
 
 # create stop
 netedit.leftClick(referencePosition, 300, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.actType, "singing")
+netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.actType, "singing")
 
 # create stop
 netedit.leftClick(referencePosition, 305, 175)
