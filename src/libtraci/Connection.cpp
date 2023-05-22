@@ -452,7 +452,8 @@ Connection::readContextSubscription(int responseID, tcpip::Storage& inMsg) {
     // see also https://github.com/eclipse/sumo/issues/7288
     libsumo::SubscriptionResults& results = myContextSubscriptionResults[responseID][contextID];
     while (numObjects-- > 0) {
-        std::string objectID = inMsg.readString();
+        const std::string& objectID = inMsg.readString();
+        results[objectID]; // instantiate empty map for id lists
         readVariables(inMsg, objectID, variableCount, results);
     }
 }
