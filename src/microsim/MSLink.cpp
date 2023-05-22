@@ -1609,7 +1609,13 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         }
                         continue;
                     }
-                    const double leaderBackDist2 = leaderBackDist; //sameTarget ? MAX2(0.0, leaderBackDist) : leaderBackDist;
+                    double leaderBackDist2 = leaderBackDist;
+                    if (sameTarget && leaderBackDist2 < 0) {
+                        const double mismatch = myConflicts[i].getFoeLengthBehindCrossing(foeExitLink) - myConflicts[i].getLengthBehindCrossing(this);
+                        if (mismatch > 0) {
+                            leaderBackDist2 += mismatch;
+                        }
+                    }
                     if (gDebugFlag1) {
                         std::cout << " distToCrossing=" << distToCrossing << " leaderBack=" << leaderBack
                                   << " backDist=" << leaderBackDist
