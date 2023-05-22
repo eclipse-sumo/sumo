@@ -11,9 +11,9 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUIDialog_Options.h
-/// @author  Jakob Erdmann
-/// @date    July 2011
+/// @file    GNEOptionsDialog.h
+/// @author  Pablo Alvarez Lopez
+/// @date    May 2023
 ///
 // A Dialog for setting options (see OptionsCont)
 /****************************************************************************/
@@ -33,12 +33,12 @@ class GUIMainWindow;
 // class definitions
 // ===========================================================================
 /**
- * @class GUIDialog_Options
+ * @class GNEOptionsDialog
  * @briefA Dialog for setting options (see OptionsCont)
  */
-class GUIDialog_Options : public FXDialogBox {
+class GNEOptionsDialog : public FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GUIDialog_Options)
+    FXDECLARE(GNEOptionsDialog)
 
 public:
     /**@brief Constructor for options dialogs
@@ -60,7 +60,7 @@ public:
     static std::pair<int, bool> Run(GUIMainWindow* windows, OptionsCont* optionsContainer, const char* titleName);
 
     /// @brief Destructor
-    ~GUIDialog_Options();
+    ~GNEOptionsDialog();
 
     /// @brief called when user press run netgenerate button
     long onCmdRunNetgenerate(FXObject*, FXSelector, void*);
@@ -71,11 +71,11 @@ public:
 
     class InputOption : public FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE_ABSTRACT(GUIDialog_Options::InputOption)
+        FXDECLARE_ABSTRACT(GNEOptionsDialog::InputOption)
 
     public:
         /// @brief constructor
-        InputOption(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputOption(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -84,8 +84,8 @@ public:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(InputOption)
 
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
+        /// @brief GNEOptionsDialog parent
+        GNEOptionsDialog* myGUIDialogOptions = nullptr;
 
         /// @brief name
         const std::string myName;
@@ -99,7 +99,7 @@ public:
 
     public:
         /// @brief constructor
-        InputString(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
     private:
         /// @brief set new option value
@@ -113,7 +113,7 @@ public:
 
     public:
         /// @brief constructor
-        InputStringVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
     private:
         /// @brief set new option value
@@ -127,7 +127,7 @@ public:
 
     public:
         /// @brief constructor
-        InputBool(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
     private:
         /// @brief set new option value
@@ -141,7 +141,7 @@ public:
 
     public:
         /// @brief
-        InputInt(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
     private:
         /// @brief set new option value
@@ -155,7 +155,7 @@ public:
 
     public:
         /// @brief
-        InputIntVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
     private:
         /// @brief set new option value
@@ -169,7 +169,7 @@ public:
 
     public:
         /// @brief constructor
-        InputFloat(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
     private:
         /// @brief set new option value
@@ -183,7 +183,7 @@ public:
 
     public:
         /// @brief constructor
-        InputFilename(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
     private:
         /// @brief set new option value
@@ -195,7 +195,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GUIDialog_Options)
+    FOX_CONSTRUCTOR(GNEOptionsDialog)
 
     /// @brief pointer to main window parent
     GUIMainWindow* myMainWindowParent;
@@ -216,11 +216,11 @@ private:
      * @param[in] height The initial height of the dialog
      * @param[in] runDialog check if this is a run dialog
      */
-    GUIDialog_Options(GUIMainWindow* parent, OptionsCont* optionsContainer, const char* titleName, const bool runDialog);
+    GNEOptionsDialog(GUIMainWindow* parent, OptionsCont* optionsContainer, const char* titleName, const bool runDialog);
 
     /// @brief Invalidated copy constructor.
-    GUIDialog_Options(const GUIDialog_Options&) = delete;
+    GNEOptionsDialog(const GNEOptionsDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GUIDialog_Options& operator=(const GUIDialog_Options&) = delete;
+    GNEOptionsDialog& operator=(const GNEOptionsDialog&) = delete;
 };
