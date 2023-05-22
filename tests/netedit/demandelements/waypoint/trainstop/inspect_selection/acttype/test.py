@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.actType, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.actType, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.actType, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.actType, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.actType, "singing", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.actType, "singing", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

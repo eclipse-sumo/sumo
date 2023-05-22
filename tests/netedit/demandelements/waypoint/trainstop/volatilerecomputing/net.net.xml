@@ -4,14 +4,14 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="D:/SUMO/tests/netedit\demandelements\waypoint\busstop\volatilerecomputing/net.nod.xml"/>
-        <edge-files value="D:/SUMO/tests/netedit\demandelements\waypoint\busstop\volatilerecomputing/net.edg.xml"/>
-        <connection-files value="D:/SUMO/tests/netedit\demandelements\waypoint\busstop\volatilerecomputing/net.con.xml"/>
-        <tllogic-files value="D:/SUMO/tests/netedit\demandelements\waypoint\busstop\volatilerecomputing/net.tll.xml"/>
+        <node-files value="D:/SUMO/tests/netedit\demandelements\waypoint\trainstop\volatilerecomputing/net.nod.xml"/>
+        <edge-files value="D:/SUMO/tests/netedit\demandelements\waypoint\trainstop\volatilerecomputing/net.edg.xml"/>
+        <connection-files value="D:/SUMO/tests/netedit\demandelements\waypoint\trainstop\volatilerecomputing/net.con.xml"/>
+        <tllogic-files value="D:/SUMO/tests/netedit\demandelements\waypoint\trainstop\volatilerecomputing/net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value="D:/SUMO/tests/netedit\demandelements\waypoint\busstop\volatilerecomputing/net.net.xml"/>
+        <output-file value="D:/SUMO/tests/netedit\demandelements\waypoint\trainstop\volatilerecomputing/net.net.xml"/>
     </output>
 
 </configuration>

@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointBusStop")
+netedit.changeStopType("waypointTrainStop")
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 175)
@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.triggered, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.triggered, "person", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.triggered, "person", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.expected, "personA personB", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.expected, "personA personB", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

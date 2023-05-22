@@ -35,28 +35,28 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointBusStop")
+netedit.changeStopType("waypointTrainStop")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.triggered, "person")
+netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.triggered, "person")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.expected, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.expected, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 295, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.expected, "")
+netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.expected, "")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 300, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.expected, "personID1 personID2 personID3")
+netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.expected, "personID1 personID2 personID3")
 
 # create waypoint
 netedit.leftClick(referencePosition, 305, 175)

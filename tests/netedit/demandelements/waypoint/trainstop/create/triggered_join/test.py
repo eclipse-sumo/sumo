@@ -35,10 +35,10 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointBusStop")
+netedit.changeStopType("waypointTrainStop")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.triggered, "join")
+netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.triggered, "join")
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 175)

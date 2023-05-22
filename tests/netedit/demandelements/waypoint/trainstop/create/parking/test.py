@@ -35,13 +35,13 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointBusStop")
+netedit.changeStopType("waypointTrainStop")
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # change parking
-netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.parking, "true")
+netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.parking, "true")
 
 # create waypoint
 netedit.leftClick(referencePosition, 295, 175)

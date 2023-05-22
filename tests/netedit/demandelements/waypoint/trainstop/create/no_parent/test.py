@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointBusStop")
+netedit.changeStopType("waypointTrainStop")
 
-# try to create waypoint (don't click over busStop)
+# try to create waypoint (don't click over trainStop)
 netedit.leftClick(referencePosition, 327, 240)
 
 # Check undo redo

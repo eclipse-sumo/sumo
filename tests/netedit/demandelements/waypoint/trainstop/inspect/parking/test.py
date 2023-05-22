@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.stopMode()
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointBusStop")
+netedit.changeStopType("waypointTrainStop")
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 175)
@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.parking, "true", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.parking, "true", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.parking, "false", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.parking, "false", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.parking, "opportunistic", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.parking, "opportunistic", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
