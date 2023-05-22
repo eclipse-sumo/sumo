@@ -38,8 +38,8 @@ DOMAINS = [
     gui,
     inductionloop,  # noqa
     junction,  # noqa
-    lanearea,  # noqa
     lane,  # noqa
+    lanearea,  # noqa
     meandata,  # noqa
     multientryexit,  # noqa
     overheadwire,  # noqa
