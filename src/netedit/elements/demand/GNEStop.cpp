@@ -636,6 +636,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(speed);
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
+        case SUMO_ATTR_TRAIN_STOP:
         case SUMO_ATTR_CONTAINER_STOP:
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
@@ -830,6 +831,26 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
             break;
+        case SUMO_ATTR_TRAIN_STOP:
+            if (myTagProperty.isStopPerson()) {
+                // get next person plan
+                GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+                // continue depending of nextPersonPlan
+                if (nextPersonPlan) {
+                    // obtain busStop
+                    const GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value);
+                    // change from attribute using edge ID
+                    undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
+                    nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
+                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    undoList->end();
+                } else {
+                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                }
+            } else {
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            }
+            break;
         case SUMO_ATTR_CONTAINER_STOP:
             if (myTagProperty.isStopContainer()) {
                 // get next person plan
@@ -954,6 +975,8 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+        case SUMO_ATTR_TRAIN_STOP:
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value, false) != nullptr);
         case SUMO_ATTR_CONTAINER_STOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
         case SUMO_ATTR_CHARGING_STATION:
@@ -1050,6 +1073,7 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         // Currently stops parents cannot be edited
         case SUMO_ATTR_BUS_STOP:
+        case SUMO_ATTR_TRAIN_STOP:
         case SUMO_ATTR_CONTAINER_STOP:
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
@@ -1596,6 +1620,10 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
             replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
+            updateGeometry();
+            break;
+        case SUMO_ATTR_TRAIN_STOP:
+            replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value);
             updateGeometry();
             break;
         case SUMO_ATTR_CONTAINER_STOP:
