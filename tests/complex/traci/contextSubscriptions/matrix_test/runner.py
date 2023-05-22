@@ -54,25 +54,15 @@ def runSingle(viewRange, domain, domain2):
     sys.stdout.flush()
 
 
-def restart():
-    traci.start([sumolib.checkBinary(sys.argv[1]),
-                 '-Q', "-c", "sumo.sumocfg",
-                 '-a', 'input_additional.add.xml'])
-    traci.simulationStep()
-
-
 #  main
-restart()
+traci.start([sumolib.checkBinary(sys.argv[1]),
+             '-Q', "-c", "sumo.sumocfg",
+             '-a', 'input_additional.add.xml'])
+traci.simulationStep()
 for domain in traci.DOMAINS:
     for domain2 in traci.DOMAINS:
         try:
             runSingle(100, domain, domain2)
-        except traci.FatalTraCIError as e:
-            print("restarting sumo due to FatalTraCIError '%s'" % e)
-            traci.close()
-            restart()
-        except traci.TraCIException as e:  # libsumo case
-            print("restarting sumo due to FatalTraCIError '%s'" % e)
-            traci.close()
-            restart()
+        except traci.TraCIException as e:
+            pass
 traci.close()
