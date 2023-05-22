@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-17 15:37+0000\n"
+"PO-Revision-Date: 2023-05-22 13:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -12924,7 +12924,7 @@ msgstr "Über Hintergrundbilder definierte Signalkuppen für LSA anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2317
 msgid "Show auto-generated TLS models"
-msgstr "Automatisch generiere LSA-Modelle anzeigen"
+msgstr "Automatisch generierte LSA-Modelle anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2319
 msgid "Show head-up display"
