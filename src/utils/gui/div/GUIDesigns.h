@@ -656,14 +656,14 @@ class MFXMenuCheckIcon;
 
 /// @name design for MFXTreeListDynamic
 /// @{
-/// @brief treeListDinamic used in Inspector frame
-#define GUIDesignTreeListDinamic                (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
+/// @brief treeListDinamic with fixed height
+#define GUIDesignTreeListDinamic                (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)
+
+/// @brief treeListDinamic with fixed height
+#define GUIDesignTreeListDinamicFixed           (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
 
 /// @}
 
-
-/// @brief Tree list used in frames to represent elements children
-#define GUIDesignTreeListFrame                  (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
 
 /// @brief design for FXLists
 #define GUIDesignList                           (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X)
@@ -676,9 +676,6 @@ class MFXMenuCheckIcon;
 
 /// @brief design for FXLists
 #define GUIDesignListExtended                   (LIST_NORMAL | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)
-
-/// @brief design for TabBooks
-#define GUIDesignTabBook                        (TABBOOK_LEFTTABS | PACK_UNIFORM_WIDTH | PACK_UNIFORM_HEIGHT | LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_RIGHT)
 
 // ===========================================================================
 // Implementation

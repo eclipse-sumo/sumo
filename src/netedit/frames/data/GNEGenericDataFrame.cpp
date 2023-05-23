@@ -218,8 +218,9 @@ GNEGenericDataFrame::IntervalSelector::IntervalSelector(GNEGenericDataFrame* gen
     // create interval button
     myCreateIntervalButton = new FXButton(getCollapsableFrame(), TL("create interval"), GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL), this, MID_GNE_CREATE, GUIDesignButton);
     myCreateIntervalButton->hide();
-    // Create three list
-    myIntervalsTreelist = new FXTreeList(getCollapsableFrame(), this, MID_GNE_DATAINTERVAL_SELECTED, GUIDesignTreeListFrame);
+    // Create tree list with fixed height
+    myIntervalsTreelist = new FXTreeList(getCollapsableFrame(), this, MID_GNE_DATAINTERVAL_SELECTED, GUIDesignTreeListDinamicFixed);
+    myIntervalsTreelist->setHeight(200);
     // refresh interval selector
     refreshIntervalSelector();
     // IntervalSelector is always shown

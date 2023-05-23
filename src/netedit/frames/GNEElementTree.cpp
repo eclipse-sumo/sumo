@@ -73,8 +73,8 @@ GNEElementTree::GNEElementTree(GNEFrame* frameParent) :
     myClickedDataSet(nullptr),
     myClickedDataInterval(nullptr),
     myClickedGenericData(nullptr) {
-    // Create tree list
-    myTreeListDynamic = new MFXTreeListDynamic(getCollapsableFrame(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListDinamic);
+    // Create tree list with fixed height
+    myTreeListDynamic = new MFXTreeListDynamic(getCollapsableFrame(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListDinamicFixed);
     hide();
 }
 
