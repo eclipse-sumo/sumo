@@ -80,7 +80,7 @@ public:
     /// @brief ends the simulation and closes the connection
     void close();
 
-    libsumo::SubscriptionResults getAllSubscriptionResults(const int domain) {
+    libsumo::SubscriptionResults& getAllSubscriptionResults(const int domain) {
         return mySubscriptionResults[domain];
     }
 
