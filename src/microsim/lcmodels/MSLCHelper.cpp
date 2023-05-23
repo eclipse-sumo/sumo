@@ -262,8 +262,17 @@ MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lca
             }
 #endif
             if (!canReserve && !reliefConnection) {
-                // reserve anyway and try to avoid deadlock with emergency deceleration
-                leadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), leadingBlockerLength);
+                const int blockerState = blocker->getLaneChangeModel().getOwnState();
+                if ((blockerState & LCA_STRATEGIC) != 0
+                        && (blockerState & LCA_URGENT) != 0) {
+                    // reserve anyway and try to avoid deadlock with emergency deceleration
+                    leadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), leadingBlockerLength);
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+                    if (DEBUG_COND) {
+                        std::cout << "   reserving anyway to avoid deadlock (will cause emergency braking)\n";
+                    }
+#endif
+                }
             }
             return canReserve;
         }
