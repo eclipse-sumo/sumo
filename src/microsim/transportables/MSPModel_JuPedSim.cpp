@@ -144,46 +144,45 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             oss << "Error during iteration " << i << ": " << JPS_ErrorMessage_GetMessage(message);
             WRITE_ERROR(oss.str());
         }
-        if (i % 10 != 9) {
-            continue;
+    }
+
+    // Update the state of all pedestrians.
+    // If necessary, this could be done more often in the loop above but the more precise positions are probably never visible.
+    // If it is needed for model correctness (precise stopping / arrivals) we should rather reduce SUMO's step-length.
+    for (auto stateIt = myPedestrianStates.begin(); stateIt != myPedestrianStates.end();) {
+        PState* const state = *stateIt;
+        // Updates the agent position.
+        JPS_VelocityModelAgentParameters agent{};
+        JPS_Simulation_ReadVelocityModelAgent(myJPSSimulation, state->getAgentId(), &agent, nullptr);
+        state->setPosition(agent.position.x, agent.position.y);
+
+        // Updates the agent direction.
+        state->setAngle(atan2(agent.orientation.y, agent.orientation.x));
+
+        Position newPosition(agent.position.x, agent.position.y);
+        MSPerson* person = state->getPerson();
+        MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
+        const MSEdge* currentEdge = stage->getEdge();
+        const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
+        MSLane* lane = nullptr;
+        double lanePos;
+        double bestDistance = std::numeric_limits<double>::max();
+        int routeOffset = 0;
+        const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
+        const bool found = libsumo::Helper::moveToXYMap_matchingRoutePosition(newPosition, "",
+            stage->getEdges(), routeIndex, person->getVClass(), true,
+            bestDistance, &lane, lanePos, routeOffset);
+        if (found && currentLane->isNormal() && lane->isNormal() && lane != currentLane) {
+            stage->moveToNextEdge(person, time, 1, nullptr);
         }
-
-        // Update the state of all pedestrians.
-        for (auto stateIt = myPedestrianStates.begin(); stateIt != myPedestrianStates.end();) {
-            PState* const state = *stateIt;
-            // Updates the agent position.
-            JPS_VelocityModelAgentParameters agent{}; 
-            JPS_Simulation_ReadVelocityModelAgent(myJPSSimulation, state->getAgentId(), &agent, nullptr);
-            state->setPosition(agent.position.x, agent.position.y);
-
-            // Updates the agent direction.
-            state->setAngle(atan2(agent.orientation.y, agent.orientation.x));
-
-            Position newPosition(agent.position.x, agent.position.y);
-            MSPerson* person = state->getPerson();
-            MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
-            const MSEdge* currentEdge = stage->getEdge();
-            const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
-            MSLane* lane = nullptr;
-            double lanePos;
-            double bestDistance = std::numeric_limits<double>::max();
-            int routeOffset = 0;
-            const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
-            const bool found = libsumo::Helper::moveToXYMap_matchingRoutePosition(newPosition, "",
-                stage->getEdges(), routeIndex, person->getVClass(), true,
-                bestDistance, &lane, lanePos, routeOffset);
-            if (found && currentLane->isNormal() && lane->isNormal() && lane != currentLane) {
-                stage->moveToNextEdge(person, time, 1, nullptr);
-            }
-            // If near the last waypoint, remove the agent.
-            if (newPosition.distanceTo2D(state->getDestination()) < myExitTolerance) {
-                JPS_Simulation_RemoveAgent(myJPSSimulation, state->getAgentId(), nullptr);
-                while (!stage->moveToNextEdge(person, time, 1, nullptr));
-                registerArrived();
-                stateIt = myPedestrianStates.erase(stateIt);
-            } else {
-                ++stateIt;
-            }
+        // If near the last waypoint, remove the agent.
+        if (newPosition.distanceTo2D(state->getDestination()) < myExitTolerance) {
+            JPS_Simulation_RemoveAgent(myJPSSimulation, state->getAgentId(), nullptr);
+            while (!stage->moveToNextEdge(person, time, 1, nullptr));
+            registerArrived();
+            stateIt = myPedestrianStates.erase(stateIt);
+        } else {
+            ++stateIt;
         }
     }
     JPS_ErrorMessage_Free(message);
@@ -616,7 +615,7 @@ MSPModel_JuPedSim::initialize() {
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
     myJPSParameterProfileId = 1;
     double initial_speed = 1.0; // stage->getMaxSpeed(person);
-    double pedestrian_radius = 0.5; // 1.0 yields bad pedestrian behavior...
+    double pedestrian_radius = 0.3; // recommended by Jette
     JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, myJPSParameterProfileId, 1.0, 0.5, initial_speed, pedestrian_radius);
     myJPSModel = JPS_VelocityModelBuilder_Build(modelBuilder, &message);
     if (myJPSModel == nullptr) {
