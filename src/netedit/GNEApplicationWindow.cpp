@@ -1703,7 +1703,7 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
     neteditOptions.set("tls.guess-signals", "true");
     neteditOptions.set("tls.discard-simple", "true");
     // open wizard dialog
-    if (GNEOptionsDialog::Options(this, &OptionsCont::getOptions(), TL("Select Import Options")).first == TRUE) {
+    if (GNEOptionsDialog::Options(this, GUIIcon::SUPERMODENETWORK, &OptionsCont::getOptions(), TL("Select Import Options")).first == TRUE) {
         NIFrame::checkOptions(); // needed to set projection parameters
         // set file to load
         neteditOptions.resetWritable();
@@ -2316,7 +2316,7 @@ GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
-    const auto dialog = GNEOptionsDialog::Options(this, &OptionsCont::getOptions(), TL("Netedit options"));
+    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::NETEDIT_MINI, &OptionsCont::getOptions(), TL("Netedit options"));
     if (dialog.first == TRUE) {
         NIFrame::checkOptions(); // needed to set projection parameters
         NBFrame::checkOptions();
@@ -2333,7 +2333,7 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
-    const auto dialog = GNEOptionsDialog::Options(this, &mySumoOptions, TL("Sumo options"));
+    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::SUMO_MINI, &mySumoOptions, TL("Sumo options"));
     // check if mark sumoConfig as unsaved
     if ((dialog.first == TRUE) && dialog.second) {
         myNet->getSavingStatus()->requireSaveSumoConfig();
@@ -2350,7 +2350,7 @@ GNEApplicationWindow::onCmdOpenNetgenerateDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*) {
-    return GNEOptionsDialog::Run(this, &myNetgenerateOptions, TL("Netgenerate options")).first;
+    return GNEOptionsDialog::Run(this, GUIIcon::NETGENERATE, &myNetgenerateOptions, TL("Netgenerate options")).first;
 }
 
 

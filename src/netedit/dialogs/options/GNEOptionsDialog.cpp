@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -42,15 +43,15 @@ FXIMPLEMENT(GNEOptionsDialog,   FXDialogBox,    GUIDialogOptionsMap,    ARRAYNUM
 // ===========================================================================
 
 std::pair<int, bool>
-GNEOptionsDialog::Options(GUIMainWindow* windows, OptionsCont* optionsContainer, const char* titleName) {
-    GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(windows, optionsContainer, titleName, false);
+GNEOptionsDialog::Options(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName) {
+    GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(windows, icon, optionsContainer, titleName, false);
     return std::make_pair(optionsDialog->execute(), optionsDialog->myModified);
 }
 
 
 std::pair<int, bool>
-GNEOptionsDialog::Run(GUIMainWindow* windows, OptionsCont* optionsContainer, const char* titleName) {
-    GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(windows, optionsContainer, titleName, true);
+GNEOptionsDialog::Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName) {
+    GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(windows, icon, optionsContainer, titleName, true);
     return std::make_pair(optionsDialog->execute(), optionsDialog->myModified);
 }
 
@@ -67,18 +68,21 @@ GNEOptionsDialog::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
 }
 
 
-GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, OptionsCont* optionsContainer, const char* titleName, const bool runDialog) :
+GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName, const bool runDialog) :
     FXDialogBox(parent, titleName, GUIDesignDialogBoxResizable, 0, 0, 800, 600),
     myMainWindowParent(parent),
     myOptionsContainer(optionsContainer) {
+    // set icon
+    setIcon(GUIIconSubSys::getIcon(icon));
     // create content frame
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // create elements frame
     FXHorizontalFrame* elementsFrame = new FXHorizontalFrame(contentFrame, GUIDesignAuxiliarFrame);
     // Create horizontal frame for tree
     FXVerticalFrame* treeFrame = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarVerticalFrame);
+    MFXGroupBoxModule* groupBoxModule = new MFXGroupBoxModule(treeFrame, TL("Topics"));
     // create FXTreeList
-    myTopicsTreeList = new FXTreeList(treeFrame, this, MID_GNE_SELECT, GUIDesignTreeListFixedWidth);
+    myTopicsTreeList = new FXTreeList(groupBoxModule->getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignTreeListFixedWidth);
     myTopicsTreeList->setWidth(200);
     // create vertical frame fro entries
     FXVerticalFrame* entryFrame = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarFrame);

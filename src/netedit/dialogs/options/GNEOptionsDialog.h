@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <set>
+#include <utils/gui/images/GUIIcons.h>
 
 #include "GNEOptionsDialogElements.h"
 
@@ -50,19 +51,21 @@ public:
      *
      * @param[in] parent The parent window
      * @param[in] optionsContainer edited option container
+     * @param[in] icon windows icon
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Options(GUIMainWindow* windows, OptionsCont* optionsContainer, const char* titleName);
+    static std::pair<int, bool> Options(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName);
 
     /**@brief Constructor for run dialogs
      *
      * @param[in] parent The parent window
      * @param[in] optionsContainer edited option container
+     * @param[in] icon windows icon
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Run(GUIMainWindow* windows, OptionsCont* optionsContainer, const char* titleName);
+    static std::pair<int, bool> Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName);
 
     /// @brief Destructor
     ~GNEOptionsDialog();
@@ -120,12 +123,11 @@ private:
      *
      * @param[in] parent The parent window
      * @param[in] optionsContainer edited option container
-     * @param[in] name The title to show
-     * @param[in] width The initial width of the dialog
-     * @param[in] height The initial height of the dialog
+     * @param[in] titleName The title to show
+     * @param[in] icon windows icon
      * @param[in] runDialog check if this is a run dialog
      */
-    GNEOptionsDialog(GUIMainWindow* parent, OptionsCont* optionsContainer, const char* titleName, const bool runDialog);
+    GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName, const bool runDialog);
 
     /// @brief Invalidated copy constructor.
     GNEOptionsDialog(const GNEOptionsDialog&) = delete;
