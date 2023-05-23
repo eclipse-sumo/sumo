@@ -110,7 +110,9 @@ private:
         double myAngle;
     };
 
-    MSNet* myNetwork;
+    MSNet* const myNetwork;
+    const SUMOTime myJPSDeltaT;
+    const double myExitTolerance;
     int myNumActivePedestrians = 0;
     std::vector<PState*> myPedestrianStates;
 
@@ -134,8 +136,6 @@ private:
 
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MIN_AREA;
-    static const SUMOTime JPS_DELTA_T;
-    static const double JPS_EXIT_TOLERANCE;
 
     void initialize();
     static MSLane* getNextPedestrianLane(const MSLane* const currentLane);

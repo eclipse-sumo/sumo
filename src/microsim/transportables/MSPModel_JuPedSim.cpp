@@ -30,30 +30,30 @@
 #include <geos/operation/buffer/BufferOp.h>
 #include <geos/io/WKTWriter.h>
 #include <jupedsim/jupedsim.h>
-#include "microsim/MSEdge.h"
-#include "microsim/MSLane.h"
-#include "microsim/MSLink.h"
-#include "microsim/MSEdgeControl.h"
-#include "microsim/MSJunctionControl.h"
-#include "microsim/MSEventControl.h"
-#include "libsumo/Helper.h"
-#include "utils/geom/Position.h"
-#include "utils/geom/PositionVector.h"
-#include "utils/shapes/ShapeContainer.h"
+#include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
+#include <microsim/MSEdgeControl.h>
+#include <microsim/MSJunctionControl.h>
+#include <microsim/MSEventControl.h>
+#include <libsumo/Helper.h>
+#include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/shapes/ShapeContainer.h>
 #include "MSPModel_JuPedSim.h"
 #include "MSPerson.h"
 
 
 const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
 const double MSPModel_JuPedSim::GEOS_MIN_AREA = 10;
-const SUMOTime MSPModel_JuPedSim::JPS_DELTA_T = 10;
-const double MSPModel_JuPedSim::JPS_EXIT_TOLERANCE = 1;
 
 
-MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& /* oc */, MSNet* net) : myNetwork(net) {
+MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
+    myNetwork(net), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
+    myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")) {
     initialize();
-    Event* e = new Event(this);
-    net->getBeginOfTimestepEvents()->addEvent(e, net->getCurrentTimeStep() + DELTA_T);
+    net->getBeginOfTimestepEvents()->addEvent(new Event(this), net->getCurrentTimeStep() + DELTA_T);
 }
 
 
@@ -107,7 +107,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
 
     JPS_JourneyDescription journey = JPS_JourneyDescription_Create();
-    JPS_JourneyDescription_AddWaypoint(journey, {arrivalPosition.x(), arrivalPosition.y()}, JPS_EXIT_TOLERANCE, NULL, NULL);
+    JPS_JourneyDescription_AddWaypoint(journey, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, NULL, NULL);
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, nullptr);
 
 	JPS_VelocityModelAgentParameters agent_parameters{};
@@ -134,7 +134,7 @@ MSPModel_JuPedSim::remove(MSTransportableStateAdapter* /* state */) {
 
 SUMOTime
 MSPModel_JuPedSim::execute(SUMOTime time) {
-    const int nbrIterations = (int)(DELTA_T / JPS_DELTA_T);
+    const int nbrIterations = (int)(DELTA_T / myJPSDeltaT);
     JPS_ErrorMessage message = nullptr;
 	for (int i = 0; i < nbrIterations; ++i) {
         // Perform one JuPedSim iteration.
@@ -176,7 +176,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 stage->moveToNextEdge(person, time, 1, nullptr);
             }
             // If near the last waypoint, remove the agent.
-            if (newPosition.distanceTo2D(state->getDestination()) < JPS_EXIT_TOLERANCE) {
+            if (newPosition.distanceTo2D(state->getDestination()) < myExitTolerance) {
                 JPS_Simulation_RemoveAgent(myJPSSimulation, state->getAgentId(), nullptr);
                 while (!stage->moveToNextEdge(person, time, 1, nullptr));
                 registerArrived();
@@ -625,7 +625,7 @@ MSPModel_JuPedSim::initialize() {
         WRITE_ERROR(oss.str());
     }
 
-	myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(JPS_DELTA_T), &message);
+	myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
     if (myJPSSimulation == nullptr) {
         std::ostringstream oss;
         oss << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(message);
