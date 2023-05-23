@@ -63,6 +63,6 @@ for domain in traci.DOMAINS:
     for domain2 in traci.DOMAINS:
         try:
             runSingle(100, domain, domain2)
-        except traci.TraCIException as e:
+        except traci.TraCIException:
             pass
 traci.close()

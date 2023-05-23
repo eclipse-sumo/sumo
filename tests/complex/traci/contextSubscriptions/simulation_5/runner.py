@@ -69,7 +69,7 @@ traci.simulationStep()
 for domain2 in traci.DOMAINS:
     try:
         runSingle(5, traci.simulation, domain2)
-    except traci.TraCIException as e:
+    except traci.TraCIException:
         pass
 
 traci.close()
