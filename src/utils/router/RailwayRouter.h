@@ -144,7 +144,7 @@ private:
         double backDist = vehicle->getLength() - from->getLength();
         const E* start = from;
         while (backDist > 0) {
-            const E* prev = getStraightPredecessor(start);
+            const E* prev = getStraightPredecessor(start, into, backLengths.size());
             if (prev == nullptr) {
 #ifdef RailwayRouter_DEBUG_ROUTES
                 std::cout << " Could not determine back edge for vehicle '" << vehicle->getID() << "' when routing from edge '" << from->getID() << "' at time=" << time2string(msTime) << "\n";
@@ -165,7 +165,9 @@ private:
                     break;
                 }
             }
-            backLengths.push_back(prev->getLength() + (backLengths.empty() ? from->getLength() : backLengths.back()));
+            backLengths.push_back(prev->getLength() + (backLengths.empty()
+                        ? MIN2(vehicle->getLength(), from->getLength())
+                        : backLengths.back()));
             start = prev;
         }
 
@@ -177,8 +179,11 @@ private:
 #endif
         if (success) {
             const size_t intoSize = into.size();
-            const int backIndex = (int)backLengths.size() - 1;
+            int backIndex = (int)backLengths.size();
             for (const _RailEdge* railEdge : intoTmp) {
+                if (railEdge->getOriginal() != nullptr) {
+                    backIndex--;
+                }
                 // prevent premature reversal on back edge (extend train length)
                 const double length = backIndex >= 0 ? backLengths[backIndex] : vehicle->getLength();
                 railEdge->insertOriginalEdges(length, into);
@@ -266,9 +271,14 @@ private:
     }
 
 
-    static const E* getStraightPredecessor(const E* edge) {
+    static const E* getStraightPredecessor(const E* edge, std::vector<const E*>& prevRoute, int backIndex) {
         const E* result = nullptr;
-        //std::cout << "  getStraightPredecessor edge=" << edge->getID() << "\n";
+#ifdef RailwayRouter_DEBUG_ROUTES
+        std::cout << "  getStraightPredecessor edge=" << edge->getID() << " prevRouteSize=" << prevRoute.size() << " backIndex=" << backIndex << "\n";
+#endif
+        if (prevRoute.size() > backIndex) {
+            return prevRoute[prevRoute.size() - 1 - backIndex];
+        }
         for (const E* cand : edge->getPredecessors()) {
             if (!cand->isInternal() && cand->getBidiEdge() != edge) {
                 //std::cout << "    cand=" << cand->getID() << "\n";
