@@ -40,6 +40,9 @@ class GNEOptionsDialog : public FXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEOptionsDialog)
 
+    /// @brief declare friend class
+    friend class GNEOptionsDialogElements;
+
 public:
     /**@brief Constructor for options dialogs
      *
@@ -64,134 +67,6 @@ public:
 
     /// @brief called when user press run netgenerate button
     long onCmdRunNetgenerate(FXObject*, FXSelector, void*);
-
-    // ===========================================================================
-    // Option input classes
-    // ===========================================================================
-
-    class InputOption : public FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE_ABSTRACT(GNEOptionsDialog::InputOption)
-
-    public:
-        /// @brief constructor
-        InputOption(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
-
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputOption)
-
-        /// @brief GNEOptionsDialog parent
-        GNEOptionsDialog* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        const std::string myName;
-
-    private:
-        /// @brief set new option value
-        virtual bool setOption() = 0;
-    };
-
-    class InputString : public InputOption {
-
-    public:
-        /// @brief constructor
-        InputString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
-
-    private:
-        /// @brief set new option value
-        bool setOption();
-
-        /// @brief text field
-        FXTextField* myTextField;
-    };
-
-    class InputStringVector : public InputOption {
-
-    public:
-        /// @brief constructor
-        InputStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
-
-    private:
-        /// @brief set new option value
-        bool setOption();
-
-        /// @brief text field
-        FXTextField* myTextField;
-    };
-
-    class InputBool : public InputOption {
-
-    public:
-        /// @brief constructor
-        InputBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
-
-    private:
-        /// @brief set new option value
-        bool setOption();
-
-        /// @brief menu check
-        FXMenuCheck* myCheck;
-    };
-
-    class InputInt : public InputOption {
-
-    public:
-        /// @brief
-        InputInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
-
-    private:
-        /// @brief set new option value
-        bool setOption();
-
-        /// @brief text field
-        FXTextField* myTextField;
-    };
-
-    class InputIntVector : public InputOption {
-
-    public:
-        /// @brief
-        InputIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
-
-    private:
-        /// @brief set new option value
-        bool setOption();
-
-        /// @brief text field
-        FXTextField* myTextField;
-    };
-
-    class InputFloat : public InputOption {
-
-    public:
-        /// @brief constructor
-        InputFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
-
-    private:
-        /// @brief set new option value
-        bool setOption();
-
-        /// @brief text field
-        FXTextField* myTextField;
-    };
-
-    class InputFilename : public InputOption {
-
-    public:
-        /// @brief constructor
-        InputFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
-
-    private:
-        /// @brief set new option value
-        bool setOption();
-
-        /// @brief text field
-        FXTextField* myTextField;
-    };
 
 protected:
     /// @brief FOX needs this

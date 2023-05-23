@@ -32,6 +32,7 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GNEOptionsDialog.h"
+#include "GNEOptionsDialogElements.h"
 
 
 // ===========================================================================
@@ -42,13 +43,8 @@ FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE, GNEOptionsDialog::onCmdRunNetgenerate),
 };
 
-FXDEFMAP(GNEOptionsDialog::InputOption) InputOptionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GNEOptionsDialog::InputOption::onCmdSetOption),
-};
-
 // Object implementation
-FXIMPLEMENT(GNEOptionsDialog,                          FXDialogBox,        GUIDialogOptionsMap,    ARRAYNUMBER(GUIDialogOptionsMap))
-FXIMPLEMENT_ABSTRACT(GNEOptionsDialog::InputOption,    FXHorizontalFrame,  InputOptionMap,         ARRAYNUMBER(InputOptionMap))
+FXIMPLEMENT(GNEOptionsDialog,   FXDialogBox,    GUIDialogOptionsMap,    ARRAYNUMBER(GUIDialogOptionsMap))
 
 // ===========================================================================
 // method definitions
@@ -79,157 +75,6 @@ GNEOptionsDialog::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
     return myMainWindowParent->handle(this, FXSEL(SEL_COMMAND, MID_GNE_RUNNETGENERATE), nullptr);
 }
 
-// ===========================================================================
-// Option input classes method definitions
-// ===========================================================================
-
-GNEOptionsDialog::InputOption::InputOption(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    FXHorizontalFrame(parent, LAYOUT_FILL_X),
-    myGUIDialogOptions(GUIDialogOptions),
-    myName(name) {
-    // build label with name
-    new FXLabel(this, (name + "\t\t" + myGUIDialogOptions->myOptionsContainer->getDescription(name)).c_str());
-}
-
-
-long
-GNEOptionsDialog::InputOption::onCmdSetOption(FXObject*, FXSelector, void*) {
-    // try to set option and mark as modified if was sucessfully
-    if (setOption()) {
-        myGUIDialogOptions->myModified = true;
-    }
-    return 1;
-}
-
-
-GNEOptionsDialog::InputString::InputString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    InputOption(GUIDialogOptions, parent, name) {
-    myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_NORMAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
-    myTextField->setText(myGUIDialogOptions->myOptionsContainer->getString(name).c_str());
-}
-
-
-bool
-GNEOptionsDialog::InputString::setOption() {
-    myGUIDialogOptions->myOptionsContainer->resetWritable();
-    myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    return true;
-}
-
-
-GNEOptionsDialog::InputStringVector::InputStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    InputOption(GUIDialogOptions, parent, name) {
-    myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_NORMAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
-    myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getStringVector(name)).c_str());
-}
-
-
-bool
-GNEOptionsDialog::InputStringVector::setOption() {
-    myGUIDialogOptions->myOptionsContainer->resetWritable();
-    myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    return true;
-}
-
-
-GNEOptionsDialog::InputBool::InputBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    InputOption(GUIDialogOptions, parent, name) {
-    myCheck = new FXMenuCheck(this, "", this, MID_GNE_SET_ATTRIBUTE);
-    myCheck->setCheck(myGUIDialogOptions->myOptionsContainer->getBool(name));
-}
-
-
-bool
-GNEOptionsDialog::InputBool::setOption() {
-    myGUIDialogOptions->myOptionsContainer->resetWritable();
-    myGUIDialogOptions->myOptionsContainer->set(myName, myCheck->getCheck() ? "true" : "false");
-    // special checks for Debug flags
-    if ((myName == "gui-testing-debug") && myGUIDialogOptions->myOptionsContainer->isSet("gui-testing-debug")) {
-        MsgHandler::enableDebugMessages(myGUIDialogOptions->myOptionsContainer->getBool("gui-testing-debug"));
-    }
-    if ((myName == "gui-testing-debug-gl") && myGUIDialogOptions->myOptionsContainer->isSet("gui-testing-debug-gl")) {
-        MsgHandler::enableDebugGLMessages(myGUIDialogOptions->myOptionsContainer->getBool("gui-testing-debug-gl"));
-    }
-    return true;
-}
-
-
-GNEOptionsDialog::InputInt::InputInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    InputOption(GUIDialogOptions, parent, name) {
-    myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_INTEGER | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
-    myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getInt(name)).c_str());
-}
-
-
-bool
-GNEOptionsDialog::InputInt::setOption() {
-    myGUIDialogOptions->myOptionsContainer->resetWritable();
-    myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    return true;
-}
-
-
-GNEOptionsDialog::InputIntVector::InputIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    InputOption(GUIDialogOptions, parent, name) {
-    myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_NORMAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
-    myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getIntVector(name)).c_str());
-}
-
-
-bool
-GNEOptionsDialog::InputIntVector::setOption() {
-    try {
-        // check that int vector can be parsed
-        const auto intVector = StringTokenizer(myTextField->getText().text()).getVector();
-        for (const auto& intValue : intVector) {
-            StringUtils::toInt(intValue);
-        }
-        myGUIDialogOptions->myOptionsContainer->resetWritable();
-        myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-        myTextField->setTextColor(FXRGB(0, 0, 0));
-        return true;
-    } catch (...) {
-        myTextField->setTextColor(FXRGB(255, 0, 0));
-    }
-    return false;
-}
-
-
-GNEOptionsDialog::InputFloat::InputFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    InputOption(GUIDialogOptions, parent, name) {
-    myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_REAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
-    myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getFloat(name)).c_str());
-}
-
-
-bool
-GNEOptionsDialog::InputFloat::setOption() {
-    myGUIDialogOptions->myOptionsContainer->resetWritable();
-    myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    return true;
-}
-
-
-GNEOptionsDialog::InputFilename::InputFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name) :
-    InputOption(GUIDialogOptions, parent, name) {
-    myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_NORMAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
-    myTextField->setText(myGUIDialogOptions->myOptionsContainer->getString(name).c_str());
-}
-
-
-bool
-GNEOptionsDialog::InputFilename::setOption() {
-    if (SUMOXMLDefinitions::isValidFilename(myTextField->getText().text())) {
-        myGUIDialogOptions->myOptionsContainer->resetWritable();
-        myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-        myTextField->setTextColor(FXRGB(0, 0, 0));
-        return true;
-    } else {
-        myTextField->setTextColor(FXRGB(255, 0, 0));
-        return false;
-    }
-}
-
 
 GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, OptionsCont* optionsContainer, const char* titleName, const bool runDialog) :
     FXDialogBox(parent, titleName, GUIDesignDialogBoxResizable, 0, 0, parent->getWidth(), parent->getHeight()),
@@ -251,19 +96,19 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, OptionsCont* optionsCo
                 if (entry != "geometry.remove" && entry != "edges.join" && entry != "geometry.split" && entry != "ramps.guess" && entry != "ramps.set") {
                     const std::string type = myOptionsContainer->getTypeName(entry);
                     if (type == "STR") {
-                        new InputString(this, tabContent, entry);
+                        new GNEOptionsDialogElements::InputString(this, tabContent, entry);
                     } else if ((type == "FILE") || (type == "NETWORK") || (type == "ADDITIONAL") || (type == "ROUTE") || (type == "DATA")) {
-                        new InputFilename(this, tabContent, entry);
+                        new GNEOptionsDialogElements::InputFilename(this, tabContent, entry);
                     } else if (type == "BOOL") {
-                        new InputBool(this, tabContent, entry);
+                        new GNEOptionsDialogElements::InputBool(this, tabContent, entry);
                     } else if (type == "INT") {
-                        new InputInt(this, tabContent, entry);
+                        new GNEOptionsDialogElements::InputInt(this, tabContent, entry);
                     } else if (type == "FLOAT") {
-                        new InputFloat(this, tabContent, entry);
+                        new GNEOptionsDialogElements::InputFloat(this, tabContent, entry);
                     } else if (type == "INT[]") {
-                        new InputIntVector(this, tabContent, entry);
+                        new GNEOptionsDialogElements::InputIntVector(this, tabContent, entry);
                     } else if (type == "STR[]") {
-                        new InputStringVector(this, tabContent, entry);
+                        new GNEOptionsDialogElements::InputStringVector(this, tabContent, entry);
                     }
                 }
             }
