@@ -86,6 +86,7 @@ protected:
 private:
     /// @brief Input option entry
     struct InputOptionEntry {
+
         /// @brief constructor
         InputOptionEntry(const std::string &topic_, const std::string name_, GNEOptionsDialogElements::InputOption* inputOption_) :
             topic(topic_),
