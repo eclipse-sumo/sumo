@@ -74,7 +74,7 @@ GNEElementTree::GNEElementTree(GNEFrame* frameParent) :
     myClickedDataInterval(nullptr),
     myClickedGenericData(nullptr) {
     // Create tree list with fixed height
-    myTreeListDynamic = new MFXTreeListDynamic(getCollapsableFrame(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListDinamicFixed);
+    myTreeListDynamic = new MFXTreeListDynamic(getCollapsableFrame(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListFixedHeight);
     hide();
 }
 

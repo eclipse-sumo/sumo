@@ -656,11 +656,11 @@ class MFXMenuCheckIcon;
 
 /// @name design for MFXTreeListDynamic
 /// @{
-/// @brief treeListDinamic with fixed height
-#define GUIDesignTreeListDinamic                (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)
+/// @brief tree list with fixed width
+#define GUIDesignTreeListFixedWidth             (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y)
 
-/// @brief treeListDinamic with fixed height
-#define GUIDesignTreeListDinamicFixed           (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
+/// @brief tree list with fixed height
+#define GUIDesignTreeListFixedHeight            (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
 
 /// @}
 
