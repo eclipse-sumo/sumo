@@ -44,6 +44,7 @@
 // ===========================================================================
 // variable definitions
 // ===========================================================================
+#define MAGIC_OFFSET  1.
 #define LOOK_FORWARD 10.
 
 #define JAM_FACTOR 1.
@@ -238,12 +239,11 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, double max, const MSC
 #endif
 
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
-    double MAGIC_offset = 1.;
     double nVSafe = wanted;
     bool gotOne = false;
     //   if we want to change and have a blocking leader and there is enough room for him in front of us
     if (myLeadingBlockerLength != 0) {
-        double space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
+        double space = myLeftSpace - myLeadingBlockerLength - MAGIC_OFFSET - myVehicle.getVehicleType().getMinGap();
 #ifdef DEBUG_PATCH_SPEED
         if (DEBUG_COND) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeftSpace=" << myLeftSpace << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
