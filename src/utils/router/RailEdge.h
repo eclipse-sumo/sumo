@@ -181,6 +181,7 @@ public:
         } else {
             double seen = myStartLength;
             int nPushed = 0;
+            //std::cout << "insertOriginalEdges e=" << getID() << " length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
             if (seen >= length && !myIsVirtual) {
                 return;
             }
@@ -189,10 +190,10 @@ public:
                 into.push_back(edge);
                 nPushed++;
                 seen += edge->getLength();
+                //std::cout << "insertOriginalEdges e=" << getID() << " length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
                 if (seen >= length && edge->isConnectedTo(*edge->getBidiEdge(), SVC_IGNORING)) {
                     break;
                 }
-                //std::cout << "insertOriginalEdges length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
             }
             const int last = (int)into.size() - 1;
             for (int i = 0; i < nPushed; i++) {
