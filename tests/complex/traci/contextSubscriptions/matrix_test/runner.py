@@ -42,11 +42,13 @@ def runSingle(viewRange, domain, domain2):
         name2, name, egoID, traci.simulation.getTime()))
     domain.subscribeContext(egoID, domain2.DOMAIN_ID, viewRange,
                             [traci.constants.TRACI_ID_LIST])
-    responses = traci.simulationStep()
+    traci.simulationStep()
+    responses = domain.getAllContextSubscriptionResults()
     print("   found %s objects" % len(responses))
 
     domain.unsubscribeContext(egoID, domain2.DOMAIN_ID, viewRange)
-    responses = traci.simulationStep()
+    traci.simulationStep()
+    responses = domain.getAllContextSubscriptionResults()
     if responses:
         print("Error: Unsubscribe did not work", responses)
     else:
