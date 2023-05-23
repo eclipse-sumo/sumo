@@ -146,6 +146,9 @@ private:
         while (backDist > 0) {
             const E* prev = getStraightPredecessor(start);
             if (prev == nullptr) {
+#ifdef RailwayRouter_DEBUG_ROUTES
+                std::cout << " Could not determine back edge for vehicle '" << vehicle->getID() << "' when routing from edge '" << from->getID() << "' at time=" << time2string(msTime) << "\n";
+#endif
                 //WRITE_WARNING("Could not determine back edge for vehicle '" + vehicle->getID() + "' when routing from edge '" + from->getID() + "' at time=" + time2string(msTime));
                 break;
             }
