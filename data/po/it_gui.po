@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-22 17:19+0000\n"
+"PO-Revision-Date: 2023-05-24 03:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -6356,27 +6356,27 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2802
 msgid "The id of the polygon"
-msgstr ""
+msgstr "Il codice identificativo del poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2807
 msgid "The shape of the polygon"
-msgstr ""
+msgstr "La forma del poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2812
 msgid "The RGBA color with which the polygon shall be displayed"
-msgstr ""
+msgstr "Il colore RGBA da usare per il poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2818
 msgid "An information whether the polygon shall be filled"
-msgstr ""
+msgstr "Se il poligono deve essere riempito di colore"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2824
 msgid "The default line width for drawing an unfilled polygon"
-msgstr ""
+msgstr "La larghezza standard per disegnare un poligono non riempito"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2830
 msgid "The layer in which the polygon lies"
-msgstr ""
+msgstr "Il livello del poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2836
 msgid "A typename for the polygon"
@@ -6384,7 +6384,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2842
 msgid "Polygon's name"
-msgstr ""
+msgstr "Il nome del poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2847
 msgid "A bitmap to use for rendering this polygon"
@@ -6408,17 +6408,17 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2944
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3034
 msgid "The id of the POI"
-msgstr ""
+msgstr "Il codice identificativo del punto di interesse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2878
 msgid "The position in view"
-msgstr ""
+msgstr "La posizione nella veduta"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2883
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2973
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3050
 msgid "The color with which the POI shall be displayed"
-msgstr ""
+msgstr "Il colore da usare per il punto di interesse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2889
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2979
@@ -6431,7 +6431,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3062
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3146
 msgid "Name of POI"
-msgstr ""
+msgstr "Il nome del punto di interesse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2900
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2990
@@ -6443,13 +6443,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2996
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3073
 msgid "Width of rendered image in meters"
-msgstr ""
+msgstr "Larghezza dell'immagine in metri"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2912
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3002
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3079
 msgid "Height of rendered image in meters"
-msgstr ""
+msgstr "Altezza dell'immagine in metri"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2918
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3008
