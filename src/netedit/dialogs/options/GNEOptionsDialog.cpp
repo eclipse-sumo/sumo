@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -68,6 +69,14 @@ GNEOptionsDialog::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
 }
 
 
+GNEOptionsDialog::InputOptionEntry::InputOptionEntry(const std::string& topic_, const std::string name_, 
+        GNEOptionsDialogElements::InputOption* inputOption_) :
+    topic(topic_),
+    name(name_),
+    inputOption(inputOption_) {
+}
+
+
 void
 GNEOptionsDialog::updateVisibleEntries(const std::string &topic) {
     // iterate over entries
@@ -89,6 +98,19 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     setIcon(GUIIconSubSys::getIcon(icon));
     // create content frame
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
+    // add buttons frame
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
+    myShowToolTipsMenu = new MFXCheckableButton(false, buttonsFrame,
+        parent->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
+        GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
+    auto saveFile = new MFXButtonTooltip(buttonsFrame, parent->getStaticTooltipMenu(), TL("Save options"),
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
+        saveFile->setTipText(TL("Save file with tool configuration"));
+    auto loadFile = new MFXButtonTooltip(buttonsFrame, parent->getStaticTooltipMenu(), TL("Load options") ,
+        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
+        loadFile->setTipText(TL("Load file with tool configuration"));
+    // add separator
+    new FXSeparator(contentFrame);
     // create elements frame
     FXHorizontalFrame* elementsFrame = new FXHorizontalFrame(contentFrame, GUIDesignAuxiliarFrame);
     FXVerticalFrame* elementsFrameTree = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarVerticalFrame);
@@ -138,9 +160,14 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
             }
         }
     }
-
+    // create search elements
+    FXHorizontalFrame* searchFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
+    new FXLabel(searchFrame, TL("Search"), nullptr, GUIDesignLabelThickedFixed(230));
+    mySearchButton = new FXTextField(searchFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // add separator
+    new FXSeparator(contentFrame);
     // create buttons frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
+    buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // continue depending of dialog type
     if (runDialog) {

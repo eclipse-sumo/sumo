@@ -22,6 +22,7 @@
 
 #include <set>
 #include <utils/gui/images/GUIIcons.h>
+#include <utils/foxtools/MFXCheckableButton.h>
 
 #include "GNEOptionsDialogElements.h"
 
@@ -91,11 +92,7 @@ private:
     struct InputOptionEntry {
 
         /// @brief constructor
-        InputOptionEntry(const std::string &topic_, const std::string name_, GNEOptionsDialogElements::InputOption* inputOption_) :
-            topic(topic_),
-            name(name_),
-            inputOption(inputOption_) {
-        }
+        InputOptionEntry(const std::string &topic_, const std::string name_, GNEOptionsDialogElements::InputOption* inputOption_);
 
         /// @brief topic
         const std::string topic;
@@ -104,11 +101,17 @@ private:
         const std::string name;
 
         /// @brief input option
-        GNEOptionsDialogElements::InputOption* inputOption;
+        GNEOptionsDialogElements::InputOption* inputOption = nullptr;
     };
 
+    /// @brief checkable button for show toolTips
+    MFXCheckableButton* myShowToolTipsMenu = nullptr; 
+
     /// @brief Topics elements tree
-    FXTreeList* myTopicsTreeList;
+    FXTreeList* myTopicsTreeList = nullptr;
+
+    /// @brief search button
+    FXTextField* mySearchButton = nullptr;
 
     /// @brief Input option entrys
     std::vector<InputOptionEntry> myInputOptionEntries;
