@@ -78,16 +78,16 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // create elements frame
     FXHorizontalFrame* elementsFrame = new FXHorizontalFrame(contentFrame, GUIDesignAuxiliarFrame);
-    // Create horizontal frame for tree
-    FXVerticalFrame* treeFrame = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarVerticalFrame);
-    MFXGroupBoxModule* groupBoxModule = new MFXGroupBoxModule(treeFrame, TL("Topics"));
+    FXVerticalFrame* elementsFrameTree = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarVerticalFrame);
+    FXVerticalFrame* elementsFrameValues = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarFrame);
+    // Create GroupBox modules
+    MFXGroupBoxModule* groupBoxTree = new MFXGroupBoxModule(elementsFrameTree, TL("Topics"));
+    MFXGroupBoxModule* groupBoxOptions = new MFXGroupBoxModule(elementsFrameValues, TL("Options"));
     // create FXTreeList
-    myTopicsTreeList = new FXTreeList(groupBoxModule->getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignTreeListFixedWidth);
+    myTopicsTreeList = new FXTreeList(groupBoxTree->getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignTreeListFixedWidth);
     myTopicsTreeList->setWidth(200);
-    // create vertical frame fro entries
-    FXVerticalFrame* entryFrame = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarFrame);
     // create scroll
-    FXScrollWindow* scrollTabEntries = new FXScrollWindow(entryFrame, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    FXScrollWindow* scrollTabEntries = new FXScrollWindow(groupBoxOptions->getCollapsableFrame(), LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // create vertical frame for entries
     FXVerticalFrame* entriesFrame = new FXVerticalFrame(scrollTabEntries, GUIDesignAuxiliarFrame);
     // iterate over all topics
