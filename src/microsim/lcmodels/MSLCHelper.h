@@ -64,7 +64,7 @@ public:
      * @param[in,out] leadingBlockerLength: the length to reserve at the end of the lane
      * @return Whether sufficient space has been reserved (by vehicle or blocker)
      */
-    static bool saveBlockerLength(const MSVehicle& veh, MSVehicle* blocker, int lcaCounter, double leftSpace, bool reliefConnection, double& leadingBlockerLength);
+    static bool updateBlockerLength(const MSVehicle& veh, MSVehicle* blocker, int lcaCounter, double leftSpace, bool reliefConnection, double& leadingBlockerLength);
 
     /* @brief return saveable space
      * @param[in] requested The space that should be saved for another vehicle

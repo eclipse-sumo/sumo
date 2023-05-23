@@ -217,7 +217,7 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
 
 
 bool
-MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lcaCounter, double leftSpace, bool reliefConnection, double& leadingBlockerLength) {
+MSLCHelper::updateBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lcaCounter, double leftSpace, bool reliefConnection, double& leadingBlockerLength) {
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
     if (DEBUG_COND) {
         std::cout << SIMTIME
