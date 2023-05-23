@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
+#include "GNEOptionsDialogElements.h"
 
 // ===========================================================================
 // class declaration
@@ -82,6 +82,9 @@ protected:
     bool myModified = false;
 
 private:
+    /// @brief vector with InputOptions
+    std::vector<std::pair<std::string, GNEOptionsDialogElements::InputOption*> > myInputOptions;
+
     /**@brief Constructor
      *
      * @param[in] parent The parent window

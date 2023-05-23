@@ -25,8 +25,6 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GNEOptionsDialog.h"
-#include "GNEOptionsDialogElements.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -89,19 +87,19 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, OptionsCont* optionsCo
                 if (entry != "geometry.remove" && entry != "edges.join" && entry != "geometry.split" && entry != "ramps.guess" && entry != "ramps.set") {
                     const std::string type = myOptionsContainer->getTypeName(entry);
                     if (type == "STR") {
-                        new GNEOptionsDialogElements::InputString(this, tabContent, entry);
+                        myInputOptions.push_back(std::make_pair(entry, new GNEOptionsDialogElements::InputString(this, tabContent, entry)));
                     } else if ((type == "FILE") || (type == "NETWORK") || (type == "ADDITIONAL") || (type == "ROUTE") || (type == "DATA")) {
-                        new GNEOptionsDialogElements::InputFilename(this, tabContent, entry);
+                        myInputOptions.push_back(std::make_pair(entry, new GNEOptionsDialogElements::InputFilename(this, tabContent, entry)));
                     } else if (type == "BOOL") {
-                        new GNEOptionsDialogElements::InputBool(this, tabContent, entry);
+                        myInputOptions.push_back(std::make_pair(entry, new GNEOptionsDialogElements::InputBool(this, tabContent, entry)));
                     } else if (type == "INT") {
-                        new GNEOptionsDialogElements::InputInt(this, tabContent, entry);
+                        myInputOptions.push_back(std::make_pair(entry, new GNEOptionsDialogElements::InputInt(this, tabContent, entry)));
                     } else if (type == "FLOAT") {
-                        new GNEOptionsDialogElements::InputFloat(this, tabContent, entry);
+                        myInputOptions.push_back(std::make_pair(entry, new GNEOptionsDialogElements::InputFloat(this, tabContent, entry)));
                     } else if (type == "INT[]") {
-                        new GNEOptionsDialogElements::InputIntVector(this, tabContent, entry);
+                        myInputOptions.push_back(std::make_pair(entry, new GNEOptionsDialogElements::InputIntVector(this, tabContent, entry)));
                     } else if (type == "STR[]") {
-                        new GNEOptionsDialogElements::InputStringVector(this, tabContent, entry);
+                        myInputOptions.push_back(std::make_pair(entry, new GNEOptionsDialogElements::InputStringVector(this, tabContent, entry)));
                     }
                 }
             }
