@@ -241,7 +241,7 @@ class Connection(StepManager):
                                    response <= tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE))
         objectID = result.readString()
         if not isVariableSubscription:
-            domain = result.read("!B")[0]
+            result.read("!B")  # domain
         numVars = result.read("!B")[0]
         if isVariableSubscription:
             while numVars > 0:
@@ -256,18 +256,17 @@ class Connection(StepManager):
                 numVars -= 1
         else:
             objectNo = result.read("!i")[0]
+            self._subscriptionMapping[response].addContext(objectID)
             for _ in range(objectNo):
                 oid = result.readString()
                 if numVars == 0:
-                    self._subscriptionMapping[response].addContext(
-                        objectID, self._subscriptionMapping[domain], oid)
+                    self._subscriptionMapping[response].addContext(objectID, oid)
                 for __ in range(numVars):
                     varID, status = result.read("!BB")
                     if status:
                         print("Error!", result.readTypedString())
                     elif response in self._subscriptionMapping:
-                        self._subscriptionMapping[response].addContext(
-                            objectID, self._subscriptionMapping[domain], oid, varID, result)
+                        self._subscriptionMapping[response].addContext(objectID, oid, varID, result)
                     else:
                         raise FatalTraCIError(
                             "Cannot handle subscription response %02x for %s." % (response, objectID))
