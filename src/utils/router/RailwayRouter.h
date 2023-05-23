@@ -44,7 +44,7 @@
 /**
  * @class RailwayRouter
  * The router for rail vehicles for track networks where some sections may be used in both directions
- * and trains may reverse depending on location and train length length
+ * and trains may reverse depending on location and train length
  *
  * Example (assume each track section is 100m long) running from left to right and a negative sign indicates reverse direction
  *
