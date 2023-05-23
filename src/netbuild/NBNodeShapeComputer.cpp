@@ -265,6 +265,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         }
                         radius2 = MAX2(radius2, width / 2);
                     }
+                    if (!useDefaultRadius) {
+                        radius2 = MAX2(radius2, myRadius);
+                    }
                     dist += radius2;
 #ifdef DEBUG_NODE_SHAPE
                     if (DEBUGCOND) {
