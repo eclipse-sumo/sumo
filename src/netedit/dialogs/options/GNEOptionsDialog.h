@@ -104,6 +104,9 @@ private:
         const GNEOptionsDialogElements::InputOption* inputOption;
     };
 
+    /// @brief Topics elements tree
+    FXTreeList* myTopicsTreeList;
+
     /// @brief Input option entrys
     std::vector<InputOptionEntry> myInputOptionEntries;
 

@@ -68,16 +68,19 @@ GNEOptionsDialog::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
 
 
 GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, OptionsCont* optionsContainer, const char* titleName, const bool runDialog) :
-    FXDialogBox(parent, titleName, GUIDesignDialogBoxResizable, 0, 0, parent->getWidth(), parent->getHeight()),
+    FXDialogBox(parent, titleName, GUIDesignDialogBoxResizable, 0, 0, 800, 600),
     myMainWindowParent(parent),
     myOptionsContainer(optionsContainer) {
-    new FXStatusBar(this, GUIDesignStatusBar);
     // create content frame
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // create elements frame
     FXHorizontalFrame* elementsFrame = new FXHorizontalFrame(contentFrame, GUIDesignAuxiliarFrame);
     // Create horizontal frame for tree
-    FXVerticalFrame* treeFrame = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarFrame);
+    FXVerticalFrame* treeFrame = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarVerticalFrame);
+    // create FXTreeList
+    myTopicsTreeList = new FXTreeList(treeFrame, this, MID_GNE_SELECT, GUIDesignTreeListFixedWidth);
+    myTopicsTreeList->setWidth(200);
+    // create vertical frame fro entries
     FXVerticalFrame* entryFrame = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarFrame);
     // create scroll
     FXScrollWindow* scrollTabEntries = new FXScrollWindow(entryFrame, LAYOUT_FILL_X | LAYOUT_FILL_Y);
