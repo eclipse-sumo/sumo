@@ -77,6 +77,8 @@ title: ChangeLog
   - Added functions `lane.getAngle' and `edge.getAngle'. Issue #10901
   - Added function `vehicle.getJunctionFoes`. Issue #12640
   - Using UTF-8 consistently. Issue #7171
+  - traci.simulationStep has no return value on Python any longer (similar to the other languages), use traci.simulationStepLegacy for the old behavior. Issue #13296
+  - getAllContextSubscriptionResults has now entries also for objects without results. Issue #6446
 
 - tools
   - plotXMLAttributes.py and plot_trajectories.py now show the plot by default. Issue #13158
