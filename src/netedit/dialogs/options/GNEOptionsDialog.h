@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <set>
+
 #include "GNEOptionsDialogElements.h"
 
 // ===========================================================================
@@ -82,8 +84,33 @@ protected:
     bool myModified = false;
 
 private:
-    /// @brief vector with InputOptions
-    std::vector<std::pair<std::string, GNEOptionsDialogElements::InputOption*> > myInputOptions;
+    /// @brief Input option entry
+    struct InputOptionEntry {
+        /// @brief constructor
+        InputOptionEntry(const std::string &topic_, const std::string name_, GNEOptionsDialogElements::InputOption* inputOption_) :
+            topic(topic_),
+            name(name_),
+            inputOption(inputOption_) {
+        }
+
+        /// @brief topic
+        const std::string topic;
+
+        /// @brief name
+        const std::string name;
+
+        /// @brief input option
+        const GNEOptionsDialogElements::InputOption* inputOption;
+    };
+
+    /// @brief Input option entrys
+    std::vector<InputOptionEntry> myInputOptionEntries;
+
+    /// @brief ignores topics
+    const std::set<std::string> myIgnoredTopics = {"Configuration"};
+
+    /// @brief ignores entrys
+    const std::set<std::string> myIgnoredEntries = {"geometry.remove", "edges.join", "geometry.split", "ramps.guess", "ramps.set"};
 
     /**@brief Constructor
      *
