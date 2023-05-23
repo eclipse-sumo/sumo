@@ -68,6 +68,19 @@ GNEOptionsDialog::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
 }
 
 
+void
+GNEOptionsDialog::updateVisibleEntries(const std::string &topic) {
+    // iterate over entries
+    for (const auto &entry : myInputOptionEntries) {
+        if (entry.topic == topic) {
+            entry.inputOption->show();
+        } else {
+            entry.inputOption->hide();
+        }
+    }
+}
+
+
 GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName, const bool runDialog) :
     FXDialogBox(parent, titleName, GUIDesignDialogBoxResizable, 0, 0, 800, 600),
     myMainWindowParent(parent),
@@ -86,6 +99,9 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     // create FXTreeList
     myTopicsTreeList = new FXTreeList(groupBoxTree->getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignTreeListFixedWidth);
     myTopicsTreeList->setWidth(200);
+    // add first item
+    FXTreeItem* rootItem = myTopicsTreeList->appendItem(nullptr, titleName);
+    rootItem->setExpanded(TRUE);
     // create scroll
     FXScrollWindow* scrollTabEntries = new FXScrollWindow(groupBoxOptions->getCollapsableFrame(), LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // create vertical frame for entries
@@ -94,6 +110,8 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     for (const auto& topic : myOptionsContainer->getSubTopics()) {
         // check if we have to ignore this topic
         if (myIgnoredTopics.count(topic) == 0) {
+            // add topic into myTopicsTreeList
+            myTopicsTreeList->appendItem(rootItem, topic.c_str());
             // iterate over entries
             const std::vector<std::string> entries = myOptionsContainer->getSubTopicsEntries(topic);
             for (const auto& entry : entries) {
@@ -120,6 +138,7 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
             }
         }
     }
+
     // create buttons frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);

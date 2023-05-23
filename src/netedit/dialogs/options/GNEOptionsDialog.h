@@ -104,7 +104,7 @@ private:
         const std::string name;
 
         /// @brief input option
-        const GNEOptionsDialogElements::InputOption* inputOption;
+        GNEOptionsDialogElements::InputOption* inputOption;
     };
 
     /// @brief Topics elements tree
@@ -118,6 +118,9 @@ private:
 
     /// @brief ignores entrys
     const std::set<std::string> myIgnoredEntries = {"geometry.remove", "edges.join", "geometry.split", "ramps.guess", "ramps.set"};
+
+    /// @brief update visible entries
+    void updateVisibleEntries(const std::string &topic);
 
     /**@brief Constructor
      *
