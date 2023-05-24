@@ -28,10 +28,13 @@
 // ===========================================================================
 
 FXDEFMAP(MFXTextFieldSearch) MFXTextFieldSearchMap[] = {
-    FXMAPFUNC(SEL_PAINT,    0,                              MFXTextFieldSearch::onPaint),
-    FXMAPFUNC(SEL_COMMAND,  FXTextField::ID_INSERT_STRING,  MFXTextFieldSearch::onCmdInsertString),
-    FXMAPFUNC(SEL_COMMAND,  FXTextField::ID_BACKSPACE,      MFXTextFieldSearch::onCmdBackspace),
-    FXMAPFUNC(SEL_COMMAND,  FXTextField::ID_DELETE,         MFXTextFieldSearch::onCmdDelete),
+    FXMAPFUNC(SEL_PAINT,        0,                              MFXTextFieldSearch::onPaint),
+    FXMAPFUNC(SEL_FOCUSIN,      0,                              MFXTextFieldSearch::onFocusIn),
+    FXMAPFUNC(SEL_FOCUSOUT,     0,                              MFXTextFieldSearch::onFocusOut),
+    FXMAPFUNC(SEL_FOCUS_SELF,   0,                              MFXTextFieldSearch::onFocusSelf),
+    FXMAPFUNC(SEL_COMMAND,      FXTextField::ID_INSERT_STRING,  MFXTextFieldSearch::onCmdInsertString),
+    FXMAPFUNC(SEL_COMMAND,      FXTextField::ID_BACKSPACE,      MFXTextFieldSearch::onCmdBackspace),
+    FXMAPFUNC(SEL_COMMAND,      FXTextField::ID_DELETE,         MFXTextFieldSearch::onCmdDelete),
 };
 
 // Object implementation
@@ -44,11 +47,6 @@ FXIMPLEMENT(MFXTextFieldSearch, FXTextField, MFXTextFieldSearchMap, ARRAYNUMBER(
 MFXTextFieldSearch::MFXTextFieldSearch(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel, FXuint opt, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     FXTextField(p, ncols, tgt, sel, opt, x, y, w, h, pl, pr, pt, pb),
     myTarget(tgt) {
-}
-
-
-MFXTextFieldSearch::MFXTextFieldSearch() :
-    FXTextField() {
 }
 
 
@@ -106,6 +104,34 @@ MFXTextFieldSearch::onPaint(FXObject* obj, FXSelector sel, void* ptr) {
         }
         return 1;
     }
+}
+
+
+long
+MFXTextFieldSearch::onFocusIn(FXObject* sender, FXSelector sel, void* ptr) {
+    update();
+    return FXTextField::onFocusIn(sender, sel, ptr);
+}
+
+
+
+long
+MFXTextFieldSearch::onFocusOut(FXObject* sender, FXSelector sel, void* ptr) {
+    update();
+    return FXTextField::onFocusOut(sender, sel, ptr);
+}
+
+
+
+long
+MFXTextFieldSearch::onFocusSelf(FXObject* sender, FXSelector sel, void* ptr) {
+    //onPaint(sender, sel, ptr);
+    return FXTextField::onFocusSelf(sender, sel, ptr);
+}
+
+
+MFXTextFieldSearch::MFXTextFieldSearch() :
+    FXTextField() {
 }
 
 

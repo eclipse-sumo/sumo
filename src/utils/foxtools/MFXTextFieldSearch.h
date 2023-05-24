@@ -47,6 +47,15 @@ public:
     /// @brief paint
     long onPaint(FXObject* obj, FXSelector sel, void* ptr);
 
+    /// @brief focus in
+    long onFocusIn(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief focus out
+    long onFocusOut(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief focus self
+    long onFocusSelf(FXObject* sender, FXSelector sel, void* ptr);
+
 protected:
     /// @brief FOX need this
     MFXTextFieldSearch();
