@@ -90,7 +90,6 @@ def updateLocalMessages():
                           'Continue': TL('Continue'),
                           }
 
-
 def printDebug(*args):
     if _DEBUG:
         print("DEBUG:", end=" ")
@@ -290,15 +289,6 @@ class StartDialog(Tkinter.Frame):
         # variables for changing language
         self.parent = parent
         self._language_text = lang
-        self._selectedLang = Tkinter.StringVar(self, name="selectedLang")
-        self._langCode = langCode
-        self.langChoices = {
-            "de": 'german',
-            "en": 'english',
-            "es": 'spanish',
-            "it": 'italian',
-            "fr": 'french',
-        }
         self.buttons = []
         # misc variables
         self.name = ''
@@ -313,7 +303,7 @@ class StartDialog(Tkinter.Frame):
         # there is one column for every config, +2 more columns for control
         # buttons
         configs = sorted(glob.glob(os.path.join(BASE, "*.sumocfg")))
-        numButtons = len(configs) + 3
+        numButtons = len(configs) + 2
         # button dimensions
         bWidth_start = 30
         bWidth_high = 10
@@ -347,22 +337,32 @@ class StartDialog(Tkinter.Frame):
             button.grid(row=row, column=COL_HIGH)
 
         # control buttons
-        button = Tkinter.Button(self, width=bWidth_control, command=self.clear)
+        button = Tkinter.Button(self, width=bWidth_start, command=self.clear)
         self.addButton(button, 'reset')
-        button.grid(row=numButtons - 3, column=COL_START, columnspan=2)
+        button.grid(row=numButtons - 2, column=COL_START, columnspan=1)
 
-        # language select instead of button
-        langOptions = ('test',)
-        self._selectedLang.set(self._language_text.get('english', 'english'))
-        self.langDrop = Tkinter.OptionMenu(self, self._selectedLang, *langOptions)
+        # language selection
+        self.langChoices = {
+            "de": 'german',
+            "en": 'english',
+            "es": 'spanish',
+            "it": 'italian',
+            "fr": 'french',
+        }
+        self._langCode = langCode
+        self.langDrop = Tkinter.Listbox(self, height=3, selectmode=Tkinter.SINGLE, width=bWidth_high)
+        self.langDrop.bind('<<ListboxSelect>>', self.change_language)
+        self.scrollbar = Tkinter.Scrollbar(self, orient=Tkinter.VERTICAL)
+        self.scrollbar.config(command=self.langDrop.yview)
+        self.langDrop.config(yscrollcommand=self.scrollbar.set)
         self.updateLanguageMenu()
-        self.langDrop.grid(row=numButtons - 2, column=COL_START, columnspan=2)
-        self._selectedLang.trace_add("write", self.change_language)
+        self.langDrop.grid(row=numButtons - 2, column=COL_HIGH, rowspan=3, sticky="nsew")
+        self.scrollbar.grid(row=numButtons - 2, column=COL_SUMOLOGO, rowspan=3, sticky="nsw")
 
         button = Tkinter.Button(
-            self, width=bWidth_control, command=sys.exit)
+            self, width=bWidth_start, command=sys.exit)
         self.addButton(button, 'quit')
-        button.grid(row=numButtons - 1, column=COL_START, columnspan=2)
+        button.grid(row=numButtons, column=COL_START, columnspan=1)
 
         self.grid()
         # The following three commands are needed so the window pops
@@ -372,13 +372,12 @@ class StartDialog(Tkinter.Frame):
         self.parent.deiconify()
 
     def updateLanguageMenu(self):
-        optionCount = self.langDrop['menu'].index('end') + 1
-        for i in range(optionCount):
-            self.langDrop['menu'].delete(0)
-        for code, longName in self.langChoices.items():
-            self.langDrop['menu'].add_command(label=self._language_text[longName],
-                                              command=Tkinter._setit(self._selectedLang, self._language_text[longName]))
-        # self.langDrop.update_idletasks()
+        self.langDrop.delete(0, Tkinter.END)
+        langChoices = [self._language_text.get(longName, longName) for longName in self.langChoices.values()]
+        scrollPos = self.scrollbar.get()
+        self.langDrop.insert(0, *langChoices)
+        self.langDrop.activate(list(self.langChoices.keys()).index(self._langCode))
+        self.langDrop.yview_moveto(scrollPos[0])
 
     def addButton(self, button, text, key=None):
         button["text"] = self._language_text.get(text, text)
@@ -387,7 +386,10 @@ class StartDialog(Tkinter.Frame):
         self.buttons.append((key, button))
 
     def change_language(self, *args):
-        chosenLang = self._selectedLang.get()
+        selection = self.langDrop.curselection()
+        if len(selection) == 0:
+            return
+        chosenLang = self.langDrop.get(selection[0])
         for code, longName in self.langChoices.items():
             if self._language_text[longName] == chosenLang:
                 self._langCode = code
@@ -395,7 +397,6 @@ class StartDialog(Tkinter.Frame):
         setLanguage(self._langCode)
         updateLocalMessages()
         self._language_text = _LANGUAGE_CAPTIONS
-        self._selectedLang.set(self._language_text[self.langChoices[self._langCode]])
 
         # update language menu
         self.updateLanguageMenu()
