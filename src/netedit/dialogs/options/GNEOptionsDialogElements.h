@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 #include <string>
 
 // ===========================================================================
@@ -47,7 +47,10 @@ public:
     public:
         /// @brief constructor
         InputOption(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name);
-
+        
+        /// @brief adjust input name size
+        void adjustNameSize();
+        
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
@@ -60,6 +63,9 @@ public:
 
         /// @brief name
         const std::string myName;
+
+        /// @brief tooltip label for name
+        MFXLabelTooltip* myNameLabel = nullptr;
 
     private:
         /// @brief set new option value

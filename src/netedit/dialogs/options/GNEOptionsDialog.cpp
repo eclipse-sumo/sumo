@@ -203,6 +203,12 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
         new FXButton(buttonsFrame, (TL("OK") + std::string("\t\t") + TL("Accept settings")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     }
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // create dialog
+    create();
+    // after creation, adjust entries name sizes
+    for (const auto &entry : myInputOptionEntries) {
+        entry.inputOption->adjustNameSize();
+    }
 }
 
 /****************************************************************************/
