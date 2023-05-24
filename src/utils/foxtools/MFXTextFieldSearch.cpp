@@ -28,13 +28,11 @@
 // ===========================================================================
 
 FXDEFMAP(MFXTextFieldSearch) MFXTextFieldSearchMap[] = {
-    FXMAPFUNC(SEL_PAINT,        0,                              MFXTextFieldSearch::onPaint),
-    FXMAPFUNC(SEL_FOCUSIN,      0,                              MFXTextFieldSearch::onFocusIn),
-    FXMAPFUNC(SEL_FOCUSOUT,     0,                              MFXTextFieldSearch::onFocusOut),
-    FXMAPFUNC(SEL_FOCUS_SELF,   0,                              MFXTextFieldSearch::onFocusSelf),
-    FXMAPFUNC(SEL_COMMAND,      FXTextField::ID_INSERT_STRING,  MFXTextFieldSearch::onCmdInsertString),
-    FXMAPFUNC(SEL_COMMAND,      FXTextField::ID_BACKSPACE,      MFXTextFieldSearch::onCmdBackspace),
-    FXMAPFUNC(SEL_COMMAND,      FXTextField::ID_DELETE,         MFXTextFieldSearch::onCmdDelete),
+    FXMAPFUNC(SEL_PAINT,        0,  MFXTextFieldSearch::onPaint),
+    FXMAPFUNC(SEL_FOCUSIN,      0,  MFXTextFieldSearch::onFocusIn),
+    FXMAPFUNC(SEL_FOCUSOUT,     0,  MFXTextFieldSearch::onFocusOut),
+    FXMAPFUNC(SEL_FOCUS_SELF,   0,  MFXTextFieldSearch::onFocusSelf),
+    FXMAPFUNC(SEL_KEYPRESS,     0,  MFXTextFieldSearch::onKeyPress),
 };
 
 // Object implementation
@@ -51,23 +49,8 @@ MFXTextFieldSearch::MFXTextFieldSearch(FXComposite* p, FXint ncols, FXObject* tg
 
 
 long
-MFXTextFieldSearch::onCmdInsertString(FXObject* obj, FXSelector sel, void* ptr) {
-    FXTextField::onCmdInsertString(obj, sel, ptr);
-    return myTarget->handle(this, FXSEL(SEL_COMMAND, MID_MTFS_UPDATED), ptr);
-}
-
-
-
-long
-MFXTextFieldSearch::onCmdBackspace(FXObject* obj, FXSelector sel, void* ptr) {
-    FXTextField::onCmdBackspace(obj, sel, ptr);
-    return myTarget->handle(this, FXSEL(SEL_COMMAND, MID_MTFS_UPDATED), ptr);
-}
-
-
-long
-MFXTextFieldSearch::onCmdDelete(FXObject* obj, FXSelector sel, void* ptr) {
-    FXTextField::onCmdDelete(obj, sel, ptr);
+MFXTextFieldSearch::onKeyPress(FXObject* obj, FXSelector sel, void* ptr) {
+    FXTextField::onKeyPress(obj, sel, ptr);
     return myTarget->handle(this, FXSEL(SEL_COMMAND, MID_MTFS_UPDATED), ptr);
 }
 

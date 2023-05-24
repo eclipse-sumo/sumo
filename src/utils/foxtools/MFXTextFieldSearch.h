@@ -35,14 +35,8 @@ public:
                        FXuint opts = TEXTFIELD_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, 
                        FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
     
-    /// @brief insert string
-    long onCmdInsertString(FXObject* obj, FXSelector sel, void* ptr);
-
-    /// @brief press backspace
-    long onCmdBackspace(FXObject* obj, FXSelector sel, void* ptr);
-
-    /// @brief press delete
-    long onCmdDelete(FXObject* obj, FXSelector sel, void* ptr);
+    /// @brief key press
+    long onKeyPress(FXObject* obj, FXSelector sel, void* ptr);
 
     /// @brief paint
     long onPaint(FXObject* obj, FXSelector sel, void* ptr);
