@@ -783,13 +783,14 @@ MSCFModel::maximumSafeStopSpeed(double gap, double decel, double currentSpeed, b
 //#ifdef DEBUG_EMERGENCYDECEL
 //        if (true) {
 //            std::cout << SIMTIME << " maximumSafeStopSpeed()"
-//                    << " g=" << g
-//                    << " v=" << v
+//                    << " g=" << gap
+//                    << " v=" << currentSpeed
 //                    << " initial vsafe=" << vsafe << "(decel=" << SPEED2ACCEL(v-vsafe) << ")" << std::endl;
 //        }
 //#endif
 //
-//        if (vsafe < v - ACCEL2SPEED(myDecel + NUMERICAL_EPS)) {
+//        double origSafeDecel = SPEED2ACCEL(currentSpeed - vsafe);
+//        if (origSafeDecel > myDecel + NUMERICAL_EPS) {
 //            // emergency deceleration required
 //
 //#ifdef DEBUG_EMERGENCYDECEL
@@ -799,12 +800,14 @@ MSCFModel::maximumSafeStopSpeed(double gap, double decel, double currentSpeed, b
 //            }
 //#endif
 //
-//            const double safeDecel = calculateEmergencyDeceleration(g, v, 0., 1);
-//            assert(myDecel <= safeDecel);
-//            vsafe = v - ACCEL2SPEED(myDecel + EMERGENCY_DECEL_AMPLIFIER * (safeDecel - myDecel));
-//
-//            if(MSGlobals::gSemiImplicitEulerUpdate) {
-//                vsafe = MAX2(vsafe,0.);
+//            double safeDecel = EMERGENCY_DECEL_AMPLIFIER * calculateEmergencyDeceleration(gap, currentSpeed, 0., 1);
+//            // Don't be riskier than the usual method (myDecel <= safeDecel may occur, because a headway>0 is used above)
+//            safeDecel = MAX2(safeDecel, myDecel);
+//            // don't brake harder than originally planned (possible due to euler/ballistic mismatch)
+//            safeDecel = MIN2(safeDecel, origSafeDecel);
+//            vsafe = currentSpeed - ACCEL2SPEED(safeDecel);
+//            if (MSGlobals::gSemiImplicitEulerUpdate) {
+//                vsafe = MAX2(vsafe, 0.);
 //            }
 //
 //#ifdef DEBUG_EMERGENCYDECEL
