@@ -52,7 +52,7 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
     myOnRoad(onRoad),
     myWidth(width),
     myLength(length),
-    myAngle(angle),
+    myAngle(lefthand ? -angle : angle),
     myEgressBlocked(false),
     myReservationTime(-1),
     myReservations(0),
