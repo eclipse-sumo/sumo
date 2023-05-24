@@ -34,6 +34,7 @@
 
 FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE, GNEOptionsDialog::onCmdRunNetgenerate),
+    FXMAPFUNC(SEL_COMMAND,  MID_MTFS_UPDATED,       GNEOptionsDialog::onCmdSearch),
 };
 
 // Object implementation
@@ -66,6 +67,13 @@ GNEOptionsDialog::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
     handle(this, FXSEL(SEL_COMMAND, ID_ACCEPT), nullptr);
     // run tool in mainWindow
     return myMainWindowParent->handle(this, FXSEL(SEL_COMMAND, MID_GNE_RUNNETGENERATE), nullptr);
+}
+
+
+long
+GNEOptionsDialog::onCmdSearch(FXObject*, FXSelector, void*) {
+    std::cout << "clicked: " << mySearchButton->getText().text() << std::endl;
+    return 1;
 }
 
 
@@ -163,7 +171,7 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     // create search elements
     FXHorizontalFrame* searchFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
     new FXLabel(searchFrame, TL("Search"), nullptr, GUIDesignLabelThickedFixed(230));
-    mySearchButton = new FXTextField(searchFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    mySearchButton = new MFXTextFieldSearch(searchFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // add separator
     new FXSeparator(contentFrame);
     // create buttons frame

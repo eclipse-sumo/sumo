@@ -23,6 +23,7 @@
 #include <set>
 #include <utils/gui/images/GUIIcons.h>
 #include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/foxtools/MFXTextFieldSearch.h>
 
 #include "GNEOptionsDialogElements.h"
 
@@ -74,6 +75,9 @@ public:
     /// @brief called when user press run netgenerate button
     long onCmdRunNetgenerate(FXObject*, FXSelector, void*);
 
+    /// @brief called when user searchs
+    long onCmdSearch(FXObject*, FXSelector, void*);
+
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEOptionsDialog)
@@ -111,7 +115,7 @@ private:
     FXTreeList* myTopicsTreeList = nullptr;
 
     /// @brief search button
-    FXTextField* mySearchButton = nullptr;
+    MFXTextFieldSearch* mySearchButton = nullptr;
 
     /// @brief Input option entrys
     std::vector<InputOptionEntry> myInputOptionEntries;
