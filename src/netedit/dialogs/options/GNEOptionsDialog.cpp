@@ -72,7 +72,7 @@ GNEOptionsDialog::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
 
 long
 GNEOptionsDialog::onCmdSearch(FXObject*, FXSelector, void*) {
-    std::cout << "clicked: " << mySearchButton->getText().text() << std::endl;
+    updateVisibleEntriesBySearch(mySearchButton->getText().text());
     return 1;
 }
 
@@ -86,7 +86,7 @@ GNEOptionsDialog::InputOptionEntry::InputOptionEntry(const std::string& topic_, 
 
 
 void
-GNEOptionsDialog::updateVisibleEntries(const std::string &topic) {
+GNEOptionsDialog::updateVisibleEntriesByTopic(const std::string &topic) {
     // iterate over entries
     for (const auto &entry : myInputOptionEntries) {
         if (entry.topic == topic) {
@@ -95,6 +95,24 @@ GNEOptionsDialog::updateVisibleEntries(const std::string &topic) {
             entry.inputOption->hide();
         }
     }
+}
+
+
+void
+GNEOptionsDialog::updateVisibleEntriesBySearch(const std::string &searchText) {
+    // iterate over entries
+    for (const auto &entry : myInputOptionEntries) {
+        if (searchText.empty()) {
+            // show all entries if searchText is empty
+            entry.inputOption->show();
+        } else if (entry.name.find(searchText) != std::string::npos) {
+            entry.inputOption->show();
+        } else {
+            entry.inputOption->hide();
+        }
+    }
+    myEntriesFrame->recalc();
+    myEntriesFrame->update();
 }
 
 
@@ -135,7 +153,7 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     // create scroll
     FXScrollWindow* scrollTabEntries = new FXScrollWindow(groupBoxOptions->getCollapsableFrame(), LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // create vertical frame for entries
-    FXVerticalFrame* entriesFrame = new FXVerticalFrame(scrollTabEntries, GUIDesignAuxiliarFrame);
+    myEntriesFrame = new FXVerticalFrame(scrollTabEntries, GUIDesignAuxiliarFrame);
     // iterate over all topics
     for (const auto& topic : myOptionsContainer->getSubTopics()) {
         // check if we have to ignore this topic
@@ -150,19 +168,19 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
                     const std::string type = myOptionsContainer->getTypeName(entry);
                     // continue depending of type
                     if (type == "STR") {
-                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputString(this, entriesFrame, entry)));
+                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputString(this, myEntriesFrame, entry)));
                     } else if ((type == "FILE") || (type == "NETWORK") || (type == "ADDITIONAL") || (type == "ROUTE") || (type == "DATA")) {
-                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputFilename(this, entriesFrame, entry)));
+                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputFilename(this, myEntriesFrame, entry)));
                     } else if (type == "BOOL") {
-                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputBool(this, entriesFrame, entry)));
+                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputBool(this, myEntriesFrame, entry)));
                     } else if (type == "INT") {
-                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputInt(this, entriesFrame, entry)));
+                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputInt(this, myEntriesFrame, entry)));
                     } else if (type == "FLOAT") {
-                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputFloat(this, entriesFrame, entry)));
+                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputFloat(this, myEntriesFrame, entry)));
                     } else if (type == "INT[]") {
-                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputIntVector(this, entriesFrame, entry)));
+                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputIntVector(this, myEntriesFrame, entry)));
                     } else if (type == "STR[]") {
-                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputStringVector(this, entriesFrame, entry)));
+                        myInputOptionEntries.push_back(InputOptionEntry(topic, entry, new GNEOptionsDialogElements::InputStringVector(this, myEntriesFrame, entry)));
                     }
                 }
             }

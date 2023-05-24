@@ -114,6 +114,9 @@ private:
     /// @brief Topics elements tree
     FXTreeList* myTopicsTreeList = nullptr;
 
+    /// @brief vertical farme for entries
+    FXVerticalFrame* myEntriesFrame = nullptr;
+
     /// @brief search button
     MFXTextFieldSearch* mySearchButton = nullptr;
 
@@ -126,8 +129,11 @@ private:
     /// @brief ignores entrys
     const std::set<std::string> myIgnoredEntries = {"geometry.remove", "edges.join", "geometry.split", "ramps.guess", "ramps.set"};
 
-    /// @brief update visible entries
-    void updateVisibleEntries(const std::string &topic);
+    /// @brief update visible entries by topic
+    void updateVisibleEntriesByTopic(const std::string &topic);
+
+    /// @brief update visible entries by search
+    void updateVisibleEntriesBySearch(const std::string &searchText);
 
     /**@brief Constructor
      *
