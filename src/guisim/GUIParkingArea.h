@@ -75,7 +75,8 @@ public:
                    double frompos, double topos, unsigned int capacity,
                    double width, double length, double angle, const std::string& name,
                    bool onRoad,
-                   const std::string& departPos);
+                   const std::string& departPos,
+                   bool lefthand);
 
 
     /// @brief Destructor

@@ -503,6 +503,7 @@
         <xsd:attribute name="angle" type="xsd:float" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="departPos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="lefthand" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="parkingSpaceType">
