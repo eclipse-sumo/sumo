@@ -295,6 +295,7 @@ class StartDialog(Tkinter.Frame):
             "de": 'german',
             "en": 'english',
             "es": 'spanish',
+            "it": 'italian',
         }
         self.buttons = []
         # misc variables
