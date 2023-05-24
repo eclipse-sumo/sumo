@@ -601,8 +601,9 @@ public:
      * @param[in] currentSpeed The current speed of the ego vehicle
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
+     * @param[in] relaxEmergency Whether emergency deceleration should be reduced (at the cost of staying in a dangerous situation for longer)
      */
-    double maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1) const;
+    double maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1, bool relaxEmergency = true) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
