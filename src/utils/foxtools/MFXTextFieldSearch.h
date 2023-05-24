@@ -44,6 +44,9 @@ public:
     /// @brief press delete
     long onCmdDelete(FXObject* obj, FXSelector sel, void* ptr);
 
+    /// @brief paint
+    long onPaint(FXObject* obj, FXSelector sel, void* ptr);
+
 protected:
     /// @brief FOX need this
     MFXTextFieldSearch();
@@ -51,4 +54,7 @@ protected:
 private:
     /// @brief target
     FXObject* myTarget = nullptr;
+
+    /// @brief draw search text range
+    void drawSearchTextRange(const FXString &searchString, FXDCWindow& dc,FXint fm,FXint to);
 };

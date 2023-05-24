@@ -18,6 +18,7 @@
 // TextField for search elements
 /****************************************************************************/
 
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "MFXTextFieldSearch.h"
@@ -27,6 +28,7 @@
 // ===========================================================================
 
 FXDEFMAP(MFXTextFieldSearch) MFXTextFieldSearchMap[] = {
+    FXMAPFUNC(SEL_PAINT,    0,                              MFXTextFieldSearch::onPaint),
     FXMAPFUNC(SEL_COMMAND,  FXTextField::ID_INSERT_STRING,  MFXTextFieldSearch::onCmdInsertString),
     FXMAPFUNC(SEL_COMMAND,  FXTextField::ID_BACKSPACE,      MFXTextFieldSearch::onCmdBackspace),
     FXMAPFUNC(SEL_COMMAND,  FXTextField::ID_DELETE,         MFXTextFieldSearch::onCmdDelete),
@@ -69,4 +71,118 @@ long
 MFXTextFieldSearch::onCmdDelete(FXObject* obj, FXSelector sel, void* ptr) {
     FXTextField::onCmdDelete(obj, sel, ptr);
     return myTarget->handle(this, FXSEL(SEL_COMMAND, MID_MTFS_UPDATED), ptr);
+}
+
+
+long 
+MFXTextFieldSearch::onPaint(FXObject* obj, FXSelector sel, void* ptr) {
+    if (hasFocus() || (contents.count() > 0)) {
+        return FXTextField::onPaint(obj, sel, ptr);
+    } else {
+        FXEvent *ev = (FXEvent*)ptr;
+        FXDCWindow dc(this, ev);
+        // declare text to search
+        std::string searchString = TL("Type to search...");
+        // Draw frame
+        drawFrame(dc, 0, 0, width, height);
+        // Gray background if disabled
+        if (isEnabled()) {
+            dc.setForeground(backColor);
+        } else {
+            dc.setForeground(baseColor);
+        }
+        // Draw background
+        dc.fillRectangle(border, border, width - (border << 1), height - (border << 1));
+        // Draw text,  clipped against frame interior
+        dc.setClipRectangle(border, border, width - (border << 1), height - (border << 1));
+        drawSearchTextRange(searchString.c_str(), dc, 0, searchString.length());
+        // Draw caret
+        if (flags & FLAG_CARET) {
+            int xx = coord(cursor) - 1;
+            dc.setForeground(cursorColor);
+            dc.fillRectangle(xx, padtop + border, 1, height - padbottom-padtop - (border << 1));
+            dc.fillRectangle(xx - 2, padtop + border, 5, 1);
+            dc.fillRectangle(xx - 2, height - border - padbottom - 1, 5, 1);
+        }
+        return 1;
+    }
+}
+
+
+void 
+MFXTextFieldSearch::drawSearchTextRange(const FXString &searchString, FXDCWindow& dc,FXint fm,FXint to) {
+    register FXint sx, ex, xx, yy, cw, hh, ww, si, ei, lx, rx, t;
+    register FXint rr = width - border - padright;
+    register FXint ll = border + padleft;
+    register FXint mm = (ll + rr)/2;
+    if (to <= fm) {
+        return;
+    }
+    dc.setFont(font);
+    // Text color
+    dc.setForeground(FXRGBA(128, 128, 128, 255));
+    // Height
+    hh = font->getFontHeight();
+    // Text sticks to top of field
+    if (options & JUSTIFY_TOP) {
+        yy = padtop + border;
+    } else if (options & JUSTIFY_BOTTOM) {
+        // Text sticks to bottom of field
+        yy = height - padbottom - border - hh;
+    } else{ 
+        // Text centered in y
+        yy = border + padtop + (height - padbottom - padtop - (border << 1) - hh)/2;
+    }
+    if (anchor < cursor) {
+        si = anchor;
+        ei = cursor;
+    } else {
+        si = cursor;
+        ei = anchor;
+    }
+    // Normal mode
+    ww = font->getTextWidth(searchString.text(), searchString.length());
+    // Text sticks to right of field
+    if (options & JUSTIFY_RIGHT) {
+        xx = shift + rr - ww;
+    } else if (options & JUSTIFY_LEFT) {
+        // Text sticks on left of field
+        xx = shift + ll;
+    } else {
+        // Text centered in field
+        xx = shift + mm - ww/2;
+    }
+
+    // Reduce to avoid drawing excessive amounts of text
+    lx = xx + font->getTextWidth(&searchString[0], fm);
+    rx = lx + font->getTextWidth(&searchString[fm], to - fm);
+    while (fm < to) {
+        t = searchString.inc(fm);
+        cw = font->getTextWidth(&searchString[fm], t - fm);
+        if (lx + cw >= 0) {
+            break;
+        }
+        lx += cw;
+        fm = t;
+    }
+    while (fm < to) {
+        t = searchString.dec(to);
+        cw = font->getTextWidth(&searchString[t], to - t);
+        if (rx - cw < width) {
+            break;
+        }
+        rx -= cw;
+        to = t;
+    }
+    // Adjust selected range
+    if (si < fm) {
+        si = fm;
+    }
+    if (ei > to) {
+        ei = to;
+    }
+    // draw text
+    xx += font->getTextWidth(searchString.text(), fm);
+    yy += font->getFontAscent();
+    dc.drawText(xx, yy, &searchString[fm], to - fm);
 }
