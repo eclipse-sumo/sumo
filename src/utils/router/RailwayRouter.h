@@ -144,7 +144,7 @@ private:
         double backDist = vehicle->getLength() - from->getLength();
         const E* start = from;
         while (backDist > 0) {
-            const E* prev = getStraightPredecessor(start, into, backLengths.size());
+            const E* prev = getStraightPredecessor(start, into, (int)backLengths.size());
             if (prev == nullptr) {
 #ifdef RailwayRouter_DEBUG_ROUTES
                 std::cout << " Could not determine back edge for vehicle '" << vehicle->getID() << "' when routing from edge '" << from->getID() << "' at time=" << time2string(msTime) << "\n";
@@ -276,8 +276,8 @@ private:
 #ifdef RailwayRouter_DEBUG_ROUTES
         std::cout << "  getStraightPredecessor edge=" << edge->getID() << " prevRouteSize=" << prevRoute.size() << " backIndex=" << backIndex << "\n";
 #endif
-        if (prevRoute.size() > backIndex) {
-            return prevRoute[prevRoute.size() - 1 - backIndex];
+        if ((int)prevRoute.size() > backIndex) {
+            return prevRoute[(int)prevRoute.size() - 1 - backIndex];
         }
         for (const E* cand : edge->getPredecessors()) {
             if (!cand->isInternal() && cand->getBidiEdge() != edge) {
