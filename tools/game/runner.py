@@ -82,6 +82,7 @@ def updateLocalMessages():
                           'english': TL('English'),
                           'italian': TL('Italian'),
                           'spanish': TL('Spanish'),
+                          'french' : TL('French'),
                           'quit': TL("Quit"),
                           'Highscore': TL("Highscore"),
                           'Congratulations': TL("Congratulations!"),
@@ -296,6 +297,7 @@ class StartDialog(Tkinter.Frame):
             "en": 'english',
             "es": 'spanish',
             "it": 'italian',
+            "fr": 'french',
         }
         self.buttons = []
         # misc variables
