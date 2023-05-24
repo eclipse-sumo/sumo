@@ -53,6 +53,8 @@ def get_options(args=None):
                            help="Optional list of edge types to exclude")
     optParser.add_argument("--keep-all", category="processing", action="store_true", default=False, dest="keepAll",
                            help="whether to keep parkingAreas with 0 capacity")
+    optParser.add_argument("--lefthand", category="processing", action="store_true", default=False, dest="lefthand",
+                           help="whether to place parkingareas on the left of the road")
     optParser.add_argument("-a", "--angle", category="processing", type=float,
                            help="parking area angle")
     optParser.add_argument("--prefix", category="processing", default="pa", help="prefix for the parkingArea ids")
@@ -90,7 +92,10 @@ def main(options):
                 continue
             if options.edgeTypeRemove and edge.getType() in options.edgeTypeRemove:
                 continue
-            for lane in edge.getLanes():
+            lanes = edge.getLanes()
+            if options.lefthand:
+                lanes = reversed(lanes)
+            for lane in lanes:
                 if lane.allows(options.vclass):
                     if random.random() < options.probability:
                         capacity = lane.getLength() / options.length
@@ -101,9 +106,10 @@ def main(options):
                             angle = '' if options.angle is None else ' angle="%s"' % options.angle
                             length = '' if options.spaceLength <= 0 else ' length="%s"' % options.spaceLength
                             width = '' if options.width is None else ' width="%s"' % options.width
-                            outf.write('    <parkingArea id="%s%s" lane="%s" roadsideCapacity="%s"%s%s%s/>\n' % (
+                            lefthand = '' if not options.lefthand else ' lefthand="true"'
+                            outf.write('    <parkingArea id="%s%s" lane="%s" roadsideCapacity="%s"%s%s%s%s/>\n' % (
                                 options.prefix, edge.getID(), lane.getID(),
-                                capacity, length, width, angle))
+                                capacity, length, width, angle, lefthand))
                     break
         outf.write("</additional>\n")
 
