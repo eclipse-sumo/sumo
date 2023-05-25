@@ -9,3 +9,6 @@ TWLT
 
 # successive vehicles driving on the shared median lane
 TWLT_sequence
+
+# successive vehicles driving on the shared median lane in both directions
+TWLT_bidi_sequence
