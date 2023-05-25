@@ -1476,6 +1476,14 @@ enum {
 
     /// @}
 
+    /// @name GNEOptionsDialog
+    /// @{
+
+    /// @brief use search description
+    MID_GNE_SEARCH_USEDESCRIPTION,
+
+    /// @}
+
     /// @name MFXDecalsTable
     /// @{
 
