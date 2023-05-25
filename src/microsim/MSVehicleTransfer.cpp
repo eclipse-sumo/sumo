@@ -164,7 +164,8 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             MSLane* l = (nextEdge != nullptr ? e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass, departPos) :
                          e->getFreeLane(nullptr, vclass, departPos));
             // handle teleporting vehicles, lane may be 0 because permissions were modified by a closing rerouter or TraCI
-            if (l != nullptr && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), 0, MSMoveReminder::NOTIFICATION_TELEPORT)) {
+            const bool busyBidi = l != nullptr && l->getBidiLane() != nullptr && l->getBidiLane()->getVehicleNumberWithPartials() > 0;
+            if (l != nullptr && !busyBidi && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), 0, MSMoveReminder::NOTIFICATION_TELEPORT)) {
                 if (!desc.myJumping) {
                     WRITE_WARNINGF(TL("Vehicle '%' ends teleporting on edge '%', time=%."), desc.myVeh->getID(), e->getID(), time2string(time));
                 }
