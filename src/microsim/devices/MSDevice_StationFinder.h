@@ -142,7 +142,7 @@ private:
     MSDevice_Battery* myBattery;
 
     /// @brief The safety buffer when calculating expected consumption
-    double myBufferFactor;
+    double myReserveFactor;
 
     /// @brief To which station we are currently travelling
     MSStoppingPlace* myChargingStation;

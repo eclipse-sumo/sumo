@@ -74,6 +74,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSVehicleDevice_BTreceiver::insertOptions(oc);
     MSVehicleDevice_BTsender::insertOptions(oc);
     MSDevice_Example::insertOptions(oc);
+    MSDevice_StationFinder::insertOptions(oc);
     MSDevice_Battery::insertOptions(oc);
     MSDevice_SSM::insertOptions(oc);
     MSDevice_ToC::insertOptions(oc);

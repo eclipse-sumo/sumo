@@ -41,10 +41,23 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_StationFinder::insertOptions(OptionsCont& oc) {
-    insertDefaultAssignmentOptions("stationfinder", "StationFinder", oc);
-
+    insertDefaultAssignmentOptions("stationfinder", "Battery", oc);
+    oc.doRegister("device.stationfinder.rescueTime", new Option_String("1800", "TIME"));
+    oc.addDescription("device.stationfinder.rescueTime", "Battery", TL("Time to wait for a rescue vehicle on the road side when the battery is empty"));
+    oc.doRegister("device.stationfinder.reserveFactor", new Option_Float(1.1));
+    oc.addDescription("device.stationfinder.reserveFactor", "Battery", TL("Additional battery buffer for unexpected traffic situation when estimating the battery need"));
+    oc.doRegister("device.stationfinder.emptyThreshold", new Option_Float(5));
+    oc.addDescription("device.stationfinder.emptyThreshold", "Battery", TL("Battery percentage to go into rescue mode"));
     oc.doRegister("device.stationfinder.radius", new Option_String("180", "TIME"));
-    oc.addDescription("device.stationfinder.radius", "StationFinder", TL("Search radius in travel time seconds"));
+    oc.addDescription("device.stationfinder.radius", "Battery", TL("Search radius in travel time seconds"));
+    oc.doRegister("device.stationfinder.repeat", new Option_String("60", "TIME"));
+    oc.addDescription("device.stationfinder.repeat", "Battery", TL("When to trigger a new search if no station has been found"));
+    oc.doRegister("device.stationfinder.maxChargePower", new Option_Float(1000.));
+    oc.addDescription("device.stationfinder.maxChargePower", "Battery", TL("The maximum charging speed of the vehicle battery"));
+    oc.doRegister("device.stationfinder.chargeType", new Option_String("charging"));
+    oc.addDescription("device.stationfinder.chargeType", "Battery", TL("Type of energy transfer"));
+    oc.doRegister("device.stationfinder.waitForCharge", new Option_String("600", "TIME"));
+    oc.addDescription("device.stationfinder.waitForCharge", "Battery", TL("After this waiting time vehicle searches for a new station when the initial one is blocked"));
 }
 
 
@@ -62,7 +75,9 @@ MSDevice_StationFinder::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 // ---------------------------------------------------------------------------
 MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     : MSVehicleDevice(holder, "stationfinder_" + holder.getID()),
-      myBattery(nullptr), myBufferFactor(1.1), myChargingStation(nullptr) {
+      myBattery(nullptr), myChargingStation(nullptr) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    myReserveFactor = getFloatParam(holder, oc, "stationfinder.reserveFactor", 1.1);
 }
 
 
@@ -77,22 +92,30 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& /*veh*/, double /*oldPos*/
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
         const ConstMSEdgeVector& route = myHolder.getRoute().getEdges();
         const ConstMSEdgeVector remainingRoute(route.begin() + myHolder.getRoutePosition(), route.end());
-        double remainingTime = router.recomputeCosts(remainingRoute, &myHolder, now);
+        const double remainingTime = router.recomputeCosts(remainingRoute, &myHolder, now);
         if (now > myHolder.getDeparture()) {
             double expectedConsumption = myBattery->getTotalConsumption() / STEPS2TIME(now - myHolder.getDeparture()) * remainingTime;
-            if (expectedConsumption > myBattery->getActualBatteryCapacity() * myBufferFactor) {
+            if (expectedConsumption > myBattery->getActualBatteryCapacity() * myReserveFactor) {
                 const MSEdge* const start = myHolder.getEdge();
                 double minTime = std::numeric_limits<double>::max();
                 MSStoppingPlace* minStation = nullptr;
                 ConstMSEdgeVector minRoute;
+                // TODO do some form of bulk routing here
                 for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
-                    ConstMSEdgeVector route;
-                    if (router.compute(start, &stop.second->getLane().getEdge(), &myHolder, now, route)) {
-                        const double time = router.recomputeCosts(route, &myHolder, now);
-                        if (time < minTime) {
-                            minTime = time;
-                            minStation = stop.second;
-                            minRoute = route;
+                    ConstMSEdgeVector routeTo;
+                    const MSEdge* const csEdge = &stop.second->getLane().getEdge();
+                    if (router.compute(start, csEdge, &myHolder, now, routeTo)) {
+                        ConstMSEdgeVector routeFrom;
+                        if (csEdge == route.back() || router.compute(start, &stop.second->getLane().getEdge(), &myHolder, now, routeFrom)) {
+                            if (csEdge != route.back()) {
+                                routeTo.insert(routeTo.end(), routeFrom.begin() + 1, routeFrom.end());
+                            }
+                            const double time = router.recomputeCosts(routeTo, &myHolder, now);
+                            if (time < minTime) {
+                                minTime = time;
+                                minStation = stop.second;
+                                minRoute = routeTo;
+                            }
                         }
                     }
                 }
