@@ -11,26 +11,22 @@ Warning: Teleporting vehicle 'b.6'; waited too long (jam), lane='-E2_1', time=62
 Warning: Teleporting vehicle 'v.2'; waited too long (wrong lane), lane='E1_0', time=639.00.
 Warning: Vehicle 'v.2' ends teleporting on edge 'E4', time=639.00.
 Warning: Teleporting vehicle 'v.8'; waited too long (jam), lane=':J1_6_1', time=647.00.
-Warning: Vehicle 'v.8' ends teleporting on edge 'E1', time=647.00.
-Warning: Vehicle 'v.8'; frontal collision with vehicle 'b.5', lane='-E1_1', gap=-1.00, time=648.00 stage=events.
-Warning: Vehicle 'v.8'; frontal collision with vehicle 'b.7', lane='E1_1', gap=-2.50, time=648.00 stage=move.
-Warning: Vehicle 'b.5'; collision with vehicle 'v.8', lane='E1_1', gap=-1.00, time=648.00 stage=move.
-Warning: Vehicle 'b.6' ends teleporting on edge '-E1', time=648.00.
-Warning: Vehicle 'b.8'; frontal collision with vehicle 'v.5', lane='-E1_1', gap=-2.24, time=652.00 stage=move.
-Warning: Vehicle 'b.8'; frontal collision with vehicle 'v.5', lane='E1_1', gap=-1.00, time=680.00 stage=laneChange.
-Warning: Vehicle 'b.8'; frontal collision with vehicle 'v.3', lane='E1_1', gap=-1.00, time=680.00 stage=laneChange.
-Warning: Vehicle 'v.5'; frontal collision with vehicle 'b.8', lane='E1_1', gap=-1.00, time=681.00 stage=move.
-Warning: Vehicle 'v.3'; frontal collision with vehicle 'b.8', lane='E1_1', gap=-1.00, time=681.00 stage=move.
-Warning: Vehicle 'v.4'; frontal collision with vehicle 'b.6', lane='E1_1', gap=-1.00, time=681.00 stage=laneChange.
-Warning: Vehicle 'b.6'; frontal collision with vehicle 'v.4', lane='-E1_1', gap=-1.00, time=681.00 stage=laneChange.
-Warning: Vehicle 'b.8'; frontal collision with vehicle 'v.5', lane='E1_1', gap=-1.00, time=682.00 stage=move.
-Warning: Vehicle 'b.6'; frontal collision with vehicle 'v.4', lane='-E1_1', gap=-1.00, time=683.00 stage=move.
-Warning: Vehicle 'b.6'; frontal collision with vehicle 'v.4', lane='-E1_1', gap=-1.00, time=685.00 stage=move.
-Warning: Teleporting vehicle 'v.9'; waited too long (jam), lane='E0_1', time=949.00.
-Warning: Teleporting vehicle 'b.7'; waited too long (wrong lane), lane='-E1_0', time=950.00.
-Warning: Vehicle 'b.7' ends teleporting on edge 'E3', time=950.00.
-Warning: Teleporting vehicle 'b.9'; waited too long (wrong lane), lane='-E1_0', time=951.00.
-Warning: Vehicle 'b.9' ends teleporting on edge 'E3', time=952.00.
-Warning: Vehicle 'v.9' ends teleporting on edge 'E1', time=953.00.
-Warning: Teleporting vehicle 'b.8'; waited too long (yield), lane='-E1_1', time=983.00.
-Warning: Vehicle 'b.8' ends teleporting on edge 'E3', time=983.00.
+Warning: Vehicle 'b.5'; collision with vehicle 'v.6', lane='E1_1', gap=-1.00, time=648.00 stage=laneChange.
+Warning: Vehicle 'b.2'; frontal collision with vehicle 'v.7', lane='E1_1', gap=-1.00, time=657.00 stage=laneChange.
+Warning: Vehicle 'b.9'; frontal collision with vehicle 'v.7', lane='E1_1', gap=-1.00, time=657.00 stage=laneChange.
+Warning: Vehicle 'b.4'; frontal collision with vehicle 'v.5', lane='E1_1', gap=-1.00, time=657.00 stage=laneChange.
+Warning: Vehicle 'b.6' ends teleporting on edge 'E3', time=657.00.
+Warning: Vehicle 'v.7'; frontal collision with vehicle 'b.2', lane='E1_1', gap=-1.00, time=658.00 stage=move.
+Warning: Vehicle 'v.7'; frontal collision with vehicle 'b.9', lane='E1_1', gap=-1.00, time=658.00 stage=move.
+Warning: Vehicle 'v.5'; frontal collision with vehicle 'b.4', lane='E1_1', gap=-1.00, time=658.00 stage=move.
+Warning: Vehicle 'v.4'; frontal collision with vehicle 'b.4', lane='E1_1', gap=-1.00, time=659.00 stage=laneChange.
+Warning: Vehicle 'b.2'; frontal collision with vehicle 'v.7', lane='-E1_1', gap=-1.00, time=664.00 stage=move.
+Warning: Vehicle 'b.4'; frontal collision with vehicle 'v.4', lane='-E1_1', gap=-1.00, time=665.00 stage=move.
+Warning: Vehicle 'v.8' ends teleporting on edge 'E4', time=684.00.
+Warning: Teleporting vehicle 'v.3'; waited too long (wrong lane), lane='E1_0', time=944.00.
+Warning: Vehicle 'v.3' ends teleporting on edge 'E4', time=944.00.
+Warning: Teleporting vehicle 'v.9'; waited too long (jam), lane=':J1_6_1', time=956.00.
+Warning: Vehicle 'v.5'; collision with vehicle 'b.8', lane='-E1_1', gap=-1.00, time=960.00 stage=laneChange.
+Warning: Teleporting vehicle 'v.6'; waited too long (wrong lane), lane='E1_0', time=963.00.
+Warning: Vehicle 'v.6' ends teleporting on edge 'E4', time=963.00.
+Warning: Vehicle 'v.9' ends teleporting on edge 'E1', time=975.00.
