@@ -6,3 +6,6 @@ multilane
 
 # simulated shared median lane for turning (Two-Way-Left-Turn-lane)
 TWLT
+
+# successive vehicles driving on the shared median lane
+TWLT_sequence
