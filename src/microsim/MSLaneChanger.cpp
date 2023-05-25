@@ -566,8 +566,11 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         double leaderBack = targetLane->getLength();
         for (MSVehicle* pl : targetLane->myPartialVehicles) {
             double plBack = pl->getBackPositionOnLane(targetLane);
-            if (plBack < leaderBack &&
-                    pl->getPositionOnLane(targetLane) + pl->getVehicleType().getMinGap() >= egoBack) {
+            if (pl->getLane() == targetLane->getBidiLane()) {
+                plBack -= pl->getVehicleType().getLengthWithGap();
+            }
+            const double plPos = plBack + pl->getVehicleType().getLength();
+            if (plBack < leaderBack && plPos + pl->getVehicleType().getMinGap() >= egoBack) {
                 neighLead = pl;
                 leaderBack = plBack;
             }
@@ -578,10 +581,7 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
                 std::cout << "  found leader=" << neighLead->getID() << " (partial)\n";
             }
 #endif
-            double gap = leaderBack - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
-            if (neighLead->getLane() == targetLane->getBidiLane()) {
-                gap -= neighLead->getVehicleType().getLengthWithGap();
-            }
+            const double gap = leaderBack - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
             return std::pair<MSVehicle*, double>(neighLead, gap);
         }
         double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
