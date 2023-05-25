@@ -95,16 +95,31 @@ GNEOptionsDialog::onCmdUseDescription(FXObject*, FXSelector, void*) {
 }
 
 
-void
+bool
 GNEOptionsDialog::updateVisibleEntriesByTopic() {
-    // iterate over entries
-    for (const auto &entry : myInputOptionEntries) {
-        if (entry->getTopic() == "topic") {
-            entry->show();
-        } else {
-            entry->hide();
+    // iterate over tree elements and get the selected item
+    for (const auto &treeItemTopic : myTreeItemTopics) {
+        if (treeItemTopic.first->isSelected()) {
+            // iterate over entries
+            for (const auto &entry : myInputOptionEntries) {
+                if (entry->getTopic() == treeItemTopic.second) {
+                    entry->show();
+                } else {
+                    entry->hide();
+                }
+            }
+            myEntriesFrame->recalc();
+            myEntriesFrame->update();
+            return true;
         }
     }
+    // no topic selected, then show all
+    for (const auto &entry : myInputOptionEntries) {
+        entry->show();
+    }
+    myEntriesFrame->recalc();
+    myEntriesFrame->update();
+    return true;
 }
 
 
@@ -162,9 +177,9 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     // create FXTreeList
     myTopicsTreeList = new FXTreeList(groupBoxTree->getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignTreeListFixedWidth);
     myTopicsTreeList->setWidth(TREELISTWIDTH);
-    // add first item
-    FXTreeItem* rootItem = myTopicsTreeList->appendItem(nullptr, titleName);
-    rootItem->setExpanded(TRUE);
+    // add root item
+    myRootItem = myTopicsTreeList->appendItem(nullptr, titleName);
+    myRootItem->setExpanded(TRUE);
     // create scroll
     FXScrollWindow* scrollTabEntries = new FXScrollWindow(groupBoxOptions->getCollapsableFrame(), LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // create vertical frame for entries
@@ -173,8 +188,8 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     for (const auto& topic : myOptionsContainer->getSubTopics()) {
         // check if we have to ignore this topic
         if (myIgnoredTopics.count(topic) == 0) {
-            // add topic into myTopicsTreeList
-            myTopicsTreeList->appendItem(rootItem, topic.c_str());
+            // add topic into myTreeItemTopics and tree
+            myTreeItemTopics[myTopicsTreeList->appendItem(myRootItem, topic.c_str())] = topic;
             // iterate over entries
             const std::vector<std::string> entries = myOptionsContainer->getSubTopicsEntries(topic);
             for (const auto& entry : entries) {

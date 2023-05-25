@@ -102,6 +102,9 @@ private:
     /// @brief Topics elements tree
     FXTreeList* myTopicsTreeList = nullptr;
 
+    /// @brief root item
+    FXTreeItem* myRootItem = nullptr;
+
     /// @brief vertical farme for entries
     FXVerticalFrame* myEntriesFrame = nullptr;
 
@@ -110,6 +113,9 @@ private:
 
     /// @brief search button
     MFXTextFieldSearch* mySearchButton = nullptr;
+
+    /// @brief map with topics and their associated FXTreeItem
+    std::map<FXTreeItem*, std::string> myTreeItemTopics;
 
     /// @brief Input option entries
     std::vector<GNEOptionsDialogElements::InputOption*> myInputOptionEntries;
@@ -121,7 +127,7 @@ private:
     const std::set<std::string> myIgnoredEntries = {"geometry.remove", "edges.join", "geometry.split", "ramps.guess", "ramps.set"};
 
     /// @brief update visible entries by selected topic
-    void updateVisibleEntriesByTopic();
+    bool updateVisibleEntriesByTopic();
 
     /// @brief update visible entries by search
     void updateVisibleEntriesBySearch(std::string searchText);
