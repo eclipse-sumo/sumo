@@ -1,2 +1,1 @@
-Warning: Vehicle 'v.0'; frontal collision with vehicle 't.0', lane='E1_1', gap=-1.00, time=5.00 stage=move.
-Warning: Vehicle 't.0'; frontal collision with vehicle 'v.0', lane='-E1_1', gap=-2.51, time=5.00 stage=move.
+Warning: Vehicle 't.0'; collision with vehicle 'v.0', lane='E1_1', gap=-1.00, time=10.00 stage=laneChange.
