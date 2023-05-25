@@ -37,6 +37,8 @@ set(microsim_devices_STAT_SRCS
    MSDevice_Taxi.h
    MSDevice_GLOSA.cpp
    MSDevice_GLOSA.h
+   MSDevice_StationFinder.cpp
+   MSDevice_StationFinder.h
    MSTransportableDevice.h
    MSTransportableDevice_Routing.cpp
    MSTransportableDevice_Routing.h
