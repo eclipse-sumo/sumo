@@ -96,26 +96,6 @@ protected:
     bool myModified = false;
 
 private:
-    /// @brief Input option entry
-    struct InputOptionEntry {
-
-        /// @brief constructor
-        InputOptionEntry(const std::string &topic_, const std::string name_, const std::string description_, 
-                         GNEOptionsDialogElements::InputOption* inputOption_);
-
-        /// @brief topic
-        const std::string topic;
-
-        /// @brief name
-        const std::string name;
-
-        /// @brief description
-        const std::string description;
-
-        /// @brief input option
-        GNEOptionsDialogElements::InputOption* inputOption = nullptr;
-    };
-
     /// @brief checkable button for show toolTips
     MFXCheckableButton* myShowToolTipsMenu = nullptr; 
 
@@ -131,8 +111,8 @@ private:
     /// @brief search button
     MFXTextFieldSearch* mySearchButton = nullptr;
 
-    /// @brief Input option entrys
-    std::vector<InputOptionEntry> myInputOptionEntries;
+    /// @brief Input option entries
+    std::vector<GNEOptionsDialogElements::InputOption*> myInputOptionEntries;
 
     /// @brief ignores topics
     const std::set<std::string> myIgnoredTopics = {"Configuration"};
@@ -144,7 +124,7 @@ private:
     void updateVisibleEntriesByTopic();
 
     /// @brief update visible entries by search
-    void updateVisibleEntriesBySearch(const std::string &searchText);
+    void updateVisibleEntriesBySearch(std::string searchText);
 
     /**@brief Constructor
      *
