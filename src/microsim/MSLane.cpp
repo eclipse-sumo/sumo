@@ -1691,6 +1691,10 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                         if (*veh == *veh2 && !isRailway((*veh)->getVClass())) {
                             continue;
                         }
+                        if ((*veh)->getLane() == (*veh2)->getLane()) {
+                            // vehicles are not in a bidi relation
+                            continue;
+                        }
                         double low2 = myLength - (*veh2)->getPositionOnLane(bidiLane);
                         double high2 = myLength - (*veh2)->getBackPositionOnLane(bidiLane);
                         if (stage == MSNet::STAGE_MOVEMENTS) {
