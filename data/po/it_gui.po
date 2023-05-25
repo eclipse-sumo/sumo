@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-24 03:42+0000\n"
+"PO-Revision-Date: 2023-05-25 16:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -6803,65 +6803,70 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3783
 msgid "The ID of the flow"
-msgstr ""
+msgstr "Il codice identificativo del flusso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3788
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3830
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3867
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3909
 msgid "The id of the flow type to use for this flow"
-msgstr ""
+msgstr "Il codice identificativo del tipo di flussi da usare per questo flusso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3794
 msgid "The ID of the edge the flow starts at"
-msgstr ""
+msgstr "Il codice identificativo dell'arco da dove parte il flusso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3799
 msgid "The ID of the edge the flow ends at"
-msgstr ""
+msgstr "Il codice identificativo dell'arco dove termina il flusso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3804
 msgid "List of intermediate edge ids which shall be part of the flow"
-msgstr ""
+msgstr "Elenco di archi intermedi che fanno parte del flusso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3825
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3862
 msgid "The id of the flow"
-msgstr ""
+msgstr "Il codice identificativo del flusso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3836
 msgid "The name of the junction the flow starts at"
-msgstr ""
+msgstr "Il nome dell'incrocio da dove il flusso parte"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3841
 msgid "The name of the junction the flow ends at"
-msgstr ""
+msgstr "Il nome dell'incrocio dove il flusso termina"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3873
 msgid "The id of the route the flow shall drive along"
 msgstr ""
+"Il codice identificativo dell'itinerario sullo quale il flusso deve passare"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3878
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3915
 msgid "The index of the edge within route the flow starts at"
 msgstr ""
+"L'indice dell'arco fra tutti gli archi dell'itinerario da dove parte il "
+"flusso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3883
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3920
 msgid "The index of the edge within route the flow ends at"
 msgstr ""
+"L'indice dell'arco fra tutti gli archi dell'itinerario dove termina il flusso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3904
 msgid "The name of the flow"
-msgstr ""
+msgstr "Il nome del flusso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3957
 msgid "The name of the lane the stop shall be located at"
-msgstr ""
+msgstr "Il nome della corsia sulla quale la fermata deve essere posizionata"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3980
 msgid "The lateral offset on the named lane at which the vehicle must stop"
 msgstr ""
+"Lo spostamento laterale sulla corsia nominata dove il veicolo deve fermarsi"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3996
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4842
@@ -6888,6 +6893,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4091
 msgid "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
+"Lo spostamento laterale sulla corsia nominata dove il veicolo passa il punto "
+"intermedio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4107
 msgid "BusWaypoint associated with this waypoint"
