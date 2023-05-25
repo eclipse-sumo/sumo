@@ -46,7 +46,7 @@ public:
 
     public:
         /// @brief constructor
-        InputOption(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, 
+        InputOption(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                     const std::string& name, const std::string& description);
         
         /// @brief adjust input name size
@@ -55,11 +55,14 @@ public:
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
-        /// @brief get name
-        const std::string &getName() const;
+        /// @brief get topic
+        const std::string &getTopic() const;
 
-        /// @brief get description
-        const std::string &getDescription() const;
+        /// @brief get name (Lower)
+        const std::string getNameLower() const;
+
+        /// @brief get description  (Lower)
+        const std::string getDescriptionLower() const;
 
     protected:
         /// @brief FOX needs this
@@ -67,6 +70,9 @@ public:
 
         /// @brief GNEOptionsDialog parent
         GNEOptionsDialog* myGUIDialogOptions = nullptr;
+
+        /// @brief topic
+        const std::string myTopic;
 
         /// @brief name
         const std::string myName;
@@ -86,7 +92,7 @@ public:
 
     public:
         /// @brief constructor
-        InputString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+        InputString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                     const std::string& name, const std::string& description);
 
     private:
@@ -101,7 +107,7 @@ public:
 
     public:
         /// @brief constructor
-        InputStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+        InputStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                           const std::string& name, const std::string& description);
 
     private:
@@ -116,7 +122,7 @@ public:
 
     public:
         /// @brief constructor
-        InputBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+        InputBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                   const std::string& name, const std::string& description);
 
     private:
@@ -131,7 +137,7 @@ public:
 
     public:
         /// @brief
-        InputInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+        InputInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                  const std::string& name, const std::string& description);
 
     private:
@@ -146,7 +152,7 @@ public:
 
     public:
         /// @brief
-        InputIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+        InputIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                        const std::string& name, const std::string& description);
 
     private:
@@ -161,7 +167,7 @@ public:
 
     public:
         /// @brief constructor
-        InputFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+        InputFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                    const std::string& name, const std::string& description);
 
     private:
@@ -176,7 +182,7 @@ public:
 
     public:
         /// @brief constructor
-        InputFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+        InputFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                       const std::string& name, const std::string& description);
 
     private:
