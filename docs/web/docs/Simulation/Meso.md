@@ -204,6 +204,11 @@ The model parameters described above can be customized for each edge type id by 
 ```
 All attributes are optional and default to the value of the option with the corresponding option name. (i.e. tauff ~ **meso-tauff**, tlsPenalty ~ **meso-tls-penalty**, ...).
 
+## Multimodal simulation
+
+By default, meso is meant to be used for road vehicles (i.e. cars and trucks). To make use of bicycles and edges that do not permit paasenger cars, option **--meso-lane-queue** must be set.
+This will turn every lane into a distinct queue instead of treating parallel lanes as a single queue.
+
 ## Outputs
 
 Many of the output options of SUMO are supported but the resulting files
