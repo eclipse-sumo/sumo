@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-25 13:55:06 by Eclipse SUMO sumo Version v1_17_0+0014-9892e3e
+<!-- generated on 2023-05-25 14:50:08 by Eclipse SUMO sumo Version v1_17_0+0480-b4173846450
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -320,6 +320,17 @@
 
     <xsd:complexType name="batteryTopicType">
         <xsd:all>
+            <xsd:element name="device.stationfinder.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.rescueTime" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.reserveFactor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.emptyThreshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.radius" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.repeat" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.maxChargePower" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.chargeType" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.waitForCharge" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.deterministic" type="boolOptionType" minOccurs="0"/>
@@ -535,6 +546,7 @@
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tracker-interval" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>

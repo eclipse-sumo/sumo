@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_17_0+0163-dbcfe49
+Eclipse SUMO sumo Version v1_17_0+0480-b4173846450
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -536,6 +536,28 @@ Communication Options:
                                         deterministic using a fraction of 1000
 
 Battery Options:
+  --device.stationfinder.probability FLOAT  The probability for a vehicle to
+                                        have a 'stationfinder' device
+  --device.stationfinder.explicit STR[]  Assign a 'stationfinder' device to
+                                        named vehicles
+  --device.stationfinder.deterministic  The 'stationfinder' devices are set
+                                        deterministic using a fraction of 1000
+  --device.stationfinder.rescueTime TIME  Time to wait for a rescue vehicle on
+                                        the road side when the battery is empty
+  --device.stationfinder.reserveFactor FLOAT  Additional battery buffer for
+                                        unexpected traffic situation when
+                                        estimating the battery need
+  --device.stationfinder.emptyThreshold FLOAT  Battery percentage to go into
+                                        rescue mode
+  --device.stationfinder.radius TIME   Search radius in travel time seconds
+  --device.stationfinder.repeat TIME   When to trigger a new search if no
+                                        station has been found
+  --device.stationfinder.maxChargePower FLOAT  The maximum charging speed of
+                                        the vehicle battery
+  --device.stationfinder.chargeType STR  Type of energy transfer
+  --device.stationfinder.waitForCharge TIME  After this waiting time vehicle
+                                        searches for a new station when the
+                                        initial one is blocked
   --device.battery.probability FLOAT   The probability for a vehicle to have a
                                         'battery' device
   --device.battery.explicit STR[]      Assign a 'battery' device to named
@@ -864,6 +886,8 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
