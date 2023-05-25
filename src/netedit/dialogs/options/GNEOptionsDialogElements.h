@@ -111,7 +111,7 @@ public:
         bool setOption();
 
         /// @brief menu check
-        FXMenuCheck* myCheck;
+        FXCheckButton* myCheckButton = nullptr; 
     };
 
     class InputInt : public InputOption {

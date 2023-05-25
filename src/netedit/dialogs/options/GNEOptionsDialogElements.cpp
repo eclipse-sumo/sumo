@@ -111,15 +111,27 @@ GNEOptionsDialogElements::InputStringVector::setOption() {
 
 GNEOptionsDialogElements::InputBool::InputBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& name) :
     InputOption(GUIDialogOptions, parent, name) {
-    myCheck = new FXMenuCheck(this, "", this, MID_GNE_SET_ATTRIBUTE);
-    myCheck->setCheck(myGUIDialogOptions->myOptionsContainer->getBool(name));
+    myCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    if (myGUIDialogOptions->myOptionsContainer->getBool(name)) {
+        myCheckButton->setCheck(TRUE);
+        myCheckButton->setText(TL("true"));
+    } else {
+        myCheckButton->setCheck(FALSE);
+        myCheckButton->setText(TL("false"));
+    }
 }
 
 
 bool
 GNEOptionsDialogElements::InputBool::setOption() {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
-    myGUIDialogOptions->myOptionsContainer->set(myName, myCheck->getCheck() ? "true" : "false");
+    if (myCheckButton->getCheck()) {
+        myGUIDialogOptions->myOptionsContainer->set(myName, "true");
+        myCheckButton->setText(TL("true"));
+    } else {
+        myGUIDialogOptions->myOptionsContainer->set(myName, "false");
+        myCheckButton->setText(TL("false"));
+    }
     // special checks for Debug flags
     if ((myName == "gui-testing-debug") && myGUIDialogOptions->myOptionsContainer->isSet("gui-testing-debug")) {
         MsgHandler::enableDebugMessages(myGUIDialogOptions->myOptionsContainer->getBool("gui-testing-debug"));
