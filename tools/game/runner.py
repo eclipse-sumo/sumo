@@ -82,7 +82,7 @@ def updateLocalMessages():
                           'english': TL('English'),
                           'italian': TL('Italian'),
                           'spanish': TL('Spanish'),
-                          'french' : TL('French'),
+                          'french': TL('French'),
                           'quit': TL("Quit"),
                           'Highscore': TL("Highscore"),
                           'Congratulations': TL("Congratulations!"),
