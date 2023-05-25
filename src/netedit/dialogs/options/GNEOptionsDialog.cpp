@@ -37,6 +37,7 @@
 
 FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE,         GNEOptionsDialog::onCmdRunNetgenerate),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                 GNEOptionsDialog::onCmdSelectTopic),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SEARCH_USEDESCRIPTION,  GNEOptionsDialog::onCmdSearch),
     FXMAPFUNC(SEL_COMMAND,  MID_MTFS_UPDATED,               GNEOptionsDialog::onCmdSearch),
 };
@@ -71,6 +72,15 @@ GNEOptionsDialog::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
     handle(this, FXSEL(SEL_COMMAND, ID_ACCEPT), nullptr);
     // run tool in mainWindow
     return myMainWindowParent->handle(this, FXSEL(SEL_COMMAND, MID_GNE_RUNNETGENERATE), nullptr);
+}
+
+
+long
+GNEOptionsDialog::onCmdSelectTopic(FXObject*, FXSelector, void*) {
+    if (mySearchButton->getText().count() == 0) {
+        updateVisibleEntriesByTopic();
+    }
+    return 1;
 }
 
 

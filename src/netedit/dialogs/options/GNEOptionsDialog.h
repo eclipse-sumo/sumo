@@ -76,6 +76,9 @@ public:
     /// @brief called when user press run netgenerate button
     long onCmdRunNetgenerate(FXObject*, FXSelector, void*);
 
+    /// @brief called when user select a topic in the list
+    long onCmdSelectTopic(FXObject*, FXSelector, void*);
+
     /// @brief called when user searchs
     long onCmdSearch(FXObject*, FXSelector, void*);
 
