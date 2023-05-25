@@ -1,0 +1,12 @@
+Warning: Vehicle 'v.141'; junction collision with vehicle 'v.139', lane=':J1_6_1', gap=-1.00, time=367.00 stage=move.
+Warning: Vehicle 'v.233'; junction collision with vehicle 'v.231', lane=':J1_6_1', gap=-1.00, time=604.00 stage=move.
+Warning: Vehicle 'v.231'; collision with vehicle 'v.228', lane='E1_1', gap=-1.00, time=607.00 stage=move.
+Warning: Vehicle 'v.266'; collision with vehicle 'v.264', lane='E1_1', gap=-1.00, time=688.00 stage=move.
+Warning: Vehicle 'v.293'; collision with vehicle 'v.292', lane='E1_1', gap=-1.00, time=760.00 stage=move.
+Warning: Vehicle 'v.330'; junction collision with vehicle 'v.331', lane=':J1_6_1', gap=-1.00, time=853.00 stage=move.
+Warning: Vehicle 'v.336'; collision with vehicle 'v.333', lane='E1_1', gap=-1.00, time=868.00 stage=move.
+Warning: Vehicle 'v.518'; collision with vehicle 'v.517', lane='E1_1', gap=-1.00, time=1339.00 stage=move.
+Warning: Vehicle 'v.739'; junction collision with vehicle 'v.738', lane=':J1_6_1', gap=-1.00, time=1897.00 stage=move.
+Warning: Vehicle 'v.829'; collision with vehicle 'v.820', lane='E1_1', gap=-1.00, time=2131.00 stage=move.
+Warning: Vehicle 'v.832'; junction collision with vehicle 'v.833', lane=':J1_6_1', gap=-1.00, time=2140.00 stage=move.
+Warning: Vehicle 'v.839'; collision with vehicle 'v.842', lane='E1_1', gap=-1.00, time=2166.00 stage=move.
