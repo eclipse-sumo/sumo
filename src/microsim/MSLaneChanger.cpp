@@ -560,7 +560,7 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         }
 #endif
         // There's no leader on the target lane. Look for leaders on consecutive lanes.
-        // (there might also be partial leaders due to continuous lane changing)
+        // (there might also be partial leaders due to continuous lane changing or bidiLane)
         MSLane* targetLane = target->lane;
         const double egoBack = vehicle->getBackPositionOnLane();
         double leaderBack = targetLane->getLength();
@@ -578,7 +578,11 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
                 std::cout << "  found leader=" << neighLead->getID() << " (partial)\n";
             }
 #endif
-            return std::pair<MSVehicle*, double>(neighLead, leaderBack - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap());
+            double gap = leaderBack - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
+            if (neighLead->getLane() == targetLane->getBidiLane()) {
+                gap -= neighLead->getVehicleType().getLengthWithGap();
+            }
+            return std::pair<MSVehicle*, double>(neighLead, gap);
         }
         double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
         double speed = vehicle->getSpeed();
