@@ -23,6 +23,7 @@
 #include <set>
 #include <utils/gui/images/GUIIcons.h>
 #include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/foxtools/MFXCheckButtonTooltip.h>
 #include <utils/foxtools/MFXTextFieldSearch.h>
 
 #include "GNEOptionsDialogElements.h"
@@ -78,6 +79,9 @@ public:
     /// @brief called when user searchs
     long onCmdSearch(FXObject*, FXSelector, void*);
 
+    /// @brief called when user press checkbox "use description"
+    long onCmdUseDescription(FXObject*, FXSelector, void*);
+
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEOptionsDialog)
@@ -96,13 +100,17 @@ private:
     struct InputOptionEntry {
 
         /// @brief constructor
-        InputOptionEntry(const std::string &topic_, const std::string name_, GNEOptionsDialogElements::InputOption* inputOption_);
+        InputOptionEntry(const std::string &topic_, const std::string name_, const std::string description_, 
+                         GNEOptionsDialogElements::InputOption* inputOption_);
 
         /// @brief topic
         const std::string topic;
 
         /// @brief name
         const std::string name;
+
+        /// @brief description
+        const std::string description;
 
         /// @brief input option
         GNEOptionsDialogElements::InputOption* inputOption = nullptr;
@@ -117,6 +125,9 @@ private:
     /// @brief vertical farme for entries
     FXVerticalFrame* myEntriesFrame = nullptr;
 
+    /// @brief checkbox for enable/disable search by description
+    MFXCheckButtonTooltip* myDescriptionSearchCheckButton = nullptr;
+
     /// @brief search button
     MFXTextFieldSearch* mySearchButton = nullptr;
 
@@ -129,8 +140,8 @@ private:
     /// @brief ignores entrys
     const std::set<std::string> myIgnoredEntries = {"geometry.remove", "edges.join", "geometry.split", "ramps.guess", "ramps.set"};
 
-    /// @brief update visible entries by topic
-    void updateVisibleEntriesByTopic(const std::string &topic);
+    /// @brief update visible entries by selected topic
+    void updateVisibleEntriesByTopic();
 
     /// @brief update visible entries by search
     void updateVisibleEntriesBySearch(const std::string &searchText);

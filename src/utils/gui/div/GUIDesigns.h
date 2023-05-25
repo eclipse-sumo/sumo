@@ -186,6 +186,9 @@ class MFXMenuCheckIcon;
 /// @brief checkButton placed in left position
 #define GUIDesignCheckButton                (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief checkButton placed in left position
+#define GUIDesignCheckButtonThick           (CHECKBUTTON_NORMAL | FRAME_THICK | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief checkButton placed in left position with double size
 #define GUIDesignCheckButtonExtraHeight     (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight + 10, 2, 2, 2, 2
 
