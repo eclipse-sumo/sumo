@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-22 08:57:42.895875 by gtfs2pt.py v1_17_0+0358-01bfcce5421
+<!-- generated on 2023-05-25 09:28:55.374475 by gtfs2pt.py v1_17_0+0466-e8819241b7f
 <configuration>
     <gtfs value="https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip"/>
     <date value="20160713"/>
@@ -264,7 +264,7 @@
     </busStop>
     <busStop id="180610.2" lane="4773464#0_1" startPos="0.00" endPos="13.00" friendlyPos="true" name="U Spittelmarkt (Berlin)"/>
     <busStop id="180610.3" lane="23851917#1_1" startPos="0.00" endPos="13.00" friendlyPos="true" name="Fischerinsel (Berlin)"/>
-    <busStop id="180610.4" lane="1133457765#0_2" startPos="15.58" endPos="28.58" friendlyPos="true" name="Berliner Rathaus (Berlin)"/>
+    <busStop id="180610.4" lane="1133457765#0_2" startPos="15.78" endPos="28.78" friendlyPos="true" name="Berliner Rathaus (Berlin)"/>
     <busStop id="180610.5" lane="289830064_1" startPos="22.49" endPos="35.49" friendlyPos="true" name="Littenstr. (Berlin)">
         <access friendlyPos="true" lane="-1152640373_0" pos="34.73" length="65.17"/>
         <access friendlyPos="true" lane="-1152640374#0_0" pos="27.51" length="53.27"/>
@@ -298,10 +298,10 @@
         <access friendlyPos="true" lane="1133457741#3_0" pos="0.00" length="28.47"/>
         <access friendlyPos="true" lane="1133457742#3_0" pos="0.20" length="41.52"/>
         <access friendlyPos="true" lane="1133457742#4_0" pos="1.07" length="36.30"/>
-        <access friendlyPos="true" lane="1133457765#0_0" pos="29.70" length="5.39"/>
+        <access friendlyPos="true" lane="1133457765#0_0" pos="30.30" length="5.39"/>
         <access friendlyPos="true" lane="313193879#1_0" pos="8.77" length="55.05"/>
         <access friendlyPos="true" lane="780334232#2_0" pos="36.08" length="55.26"/>
-        <access friendlyPos="true" lane="82654055_0" pos="67.20" length="47.24"/>
+        <access friendlyPos="true" lane="82654055_0" pos="67.65" length="46.93"/>
     </busStop>
     <busStop id="180812.2" lane="81112790#0_1" startPos="12.31" endPos="25.31" friendlyPos="true" name="Nikolaiviertel (Berlin)">
         <access friendlyPos="true" lane="-1136370408_0" pos="0.00" length="34.26"/>

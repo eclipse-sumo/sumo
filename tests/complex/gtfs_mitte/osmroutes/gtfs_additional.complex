@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-22 08:56:56.914054 by gtfs2pt.py v1_17_0+0358-01bfcce5421
+<!-- generated on 2023-05-25 09:28:05.218471 by gtfs2pt.py v1_17_0+0466-e8819241b7f
   options: -n test/osm.net.xml.gz <doubleminus>gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2019.zip <doubleminus>date 20190713 <doubleminus>osm-routes test/osm_ptlines.xml
 -->
 
@@ -427,7 +427,7 @@
         <access friendlyPos="true" lane="171829099#1_0" pos="0.21" length="30.14"/>
         <access friendlyPos="true" lane="171829099#0_0" pos="0.52" length="44.79"/>
     </busStop>
-    <busStop id="070101007317_0" lane="1133457765#0_2" startPos="15.58" endPos="28.58" name="Berlin, Berliner Rathaus" friendlyPos="true"/>
+    <busStop id="070101007317_0" lane="1133457765#0_2" startPos="15.78" endPos="28.78" name="Berlin, Berliner Rathaus" friendlyPos="true"/>
     <busStop id="070101006711_0" lane="25086768_2" startPos="0.00" endPos="13.00" name="S+U Jannowitzbrücke (Berlin)" friendlyPos="true"/>
     <busStop id="070101007186_0" lane="783042668_0" startPos="38.83" endPos="51.67" name="Berlin, Memhardstr." friendlyPos="true">
         <access friendlyPos="true" lane="379904842#0_0" pos="0.20" length="12.66"/>
@@ -467,12 +467,12 @@
         <access friendlyPos="true" lane="380365964_0" pos="4.91" length="66.48"/>
     </busStop>
     <busStop id="070101007373_0" lane="819027709_0" startPos="1.48" endPos="14.48" name="Berlin, Berliner Rathaus" friendlyPos="true">
-        <access friendlyPos="true" lane="1133457765#0_0" pos="29.70" length="5.39"/>
+        <access friendlyPos="true" lane="1133457765#0_0" pos="30.30" length="5.39"/>
         <access friendlyPos="true" lane="1133457741#3_0" pos="0.00" length="28.47"/>
         <access friendlyPos="true" lane="1133457742#4_0" pos="1.07" length="36.30"/>
         <access friendlyPos="true" lane="1133457740#0_0" pos="0.00" length="35.00"/>
         <access friendlyPos="true" lane="1133457742#3_0" pos="0.20" length="41.52"/>
-        <access friendlyPos="true" lane="82654055_0" pos="67.20" length="47.24"/>
+        <access friendlyPos="true" lane="82654055_0" pos="67.65" length="46.93"/>
         <access friendlyPos="true" lane="1133457741#1_0" pos="0.20" length="49.16"/>
         <access friendlyPos="true" lane="1133457741#0_0" pos="3.89" length="53.04"/>
         <access friendlyPos="true" lane="313193879#1_0" pos="8.77" length="55.05"/>
@@ -586,18 +586,18 @@
         <access friendlyPos="true" lane="246051059_0" pos="18.39" length="24.99"/>
     </busStop>
     <busStop id="070101006418_0" lane="819027709_0" startPos="1.48" endPos="14.48" name="Berlin, Berliner Rathaus" friendlyPos="true">
-        <access friendlyPos="true" lane="1133457765#0_0" pos="29.70" length="5.39"/>
+        <access friendlyPos="true" lane="1133457765#0_0" pos="30.30" length="5.39"/>
         <access friendlyPos="true" lane="1133457741#3_0" pos="0.00" length="28.47"/>
         <access friendlyPos="true" lane="1133457742#4_0" pos="1.07" length="36.30"/>
         <access friendlyPos="true" lane="1133457740#0_0" pos="0.00" length="35.00"/>
         <access friendlyPos="true" lane="1133457742#3_0" pos="0.20" length="41.52"/>
-        <access friendlyPos="true" lane="82654055_0" pos="67.20" length="47.24"/>
+        <access friendlyPos="true" lane="82654055_0" pos="67.65" length="46.93"/>
         <access friendlyPos="true" lane="1133457741#1_0" pos="0.20" length="49.16"/>
         <access friendlyPos="true" lane="1133457741#0_0" pos="3.89" length="53.04"/>
         <access friendlyPos="true" lane="313193879#1_0" pos="8.77" length="55.05"/>
         <access friendlyPos="true" lane="780334232#2_0" pos="36.08" length="55.26"/>
     </busStop>
-    <busStop id="070101005368_0" lane="1133457765#0_2" startPos="15.58" endPos="28.58" name="Berlin, Berliner Rathaus" friendlyPos="true"/>
+    <busStop id="070101005368_0" lane="1133457765#0_2" startPos="15.78" endPos="28.78" name="Berlin, Berliner Rathaus" friendlyPos="true"/>
     <busStop id="070101007596_0" lane="289830064_1" startPos="22.49" endPos="35.49" name="Berlin, Littenstr." friendlyPos="true">
         <access friendlyPos="true" lane="312126779#1_0" pos="32.48" length="5.50"/>
         <access friendlyPos="true" lane="-1152640374#0_0" pos="27.51" length="53.27"/>
@@ -1185,9 +1185,9 @@
     <trainStop id="070201022901_0" lane="391559412_0" startPos="0.00" endPos="110.00" name="U Spittelmarkt (Berlin)" friendlyPos="true">
         <access friendlyPos="true" lane="4773464#0_0" pos="1.94" length="29.59"/>
         <access friendlyPos="true" lane="120359703_0" pos="38.84" length="56.62"/>
-        <access friendlyPos="true" lane="1127601410#2_0" pos="26.53" length="99.80"/>
         <access friendlyPos="true" lane="-1127601410#2_0" pos="0.00" length="106.58"/>
         <access friendlyPos="true" lane="4773464#1_0" pos="0.00" length="89.13"/>
+        <access friendlyPos="true" lane="1127601410#2_0" pos="26.53" length="99.80"/>
         <access friendlyPos="true" lane="541763976_0" pos="9.53" length="99.92"/>
         <access friendlyPos="true" lane="-312744262_0" pos="25.93" length="93.17"/>
         <access friendlyPos="true" lane="312744262_0" pos="0.00" length="96.13"/>
@@ -1269,9 +1269,9 @@
     <trainStop id="070201022902_0" lane="199847347#1_0" startPos="814.33" endPos="924.33" name="U Spittelmarkt (Berlin)" friendlyPos="true">
         <access friendlyPos="true" lane="4773464#0_0" pos="1.94" length="29.59"/>
         <access friendlyPos="true" lane="120359703_0" pos="38.84" length="56.62"/>
-        <access friendlyPos="true" lane="1127601410#2_0" pos="26.53" length="99.80"/>
         <access friendlyPos="true" lane="-1127601410#2_0" pos="0.00" length="106.58"/>
         <access friendlyPos="true" lane="4773464#1_0" pos="0.00" length="89.13"/>
+        <access friendlyPos="true" lane="1127601410#2_0" pos="26.53" length="99.80"/>
         <access friendlyPos="true" lane="541763976_0" pos="9.53" length="99.92"/>
         <access friendlyPos="true" lane="-312744262_0" pos="25.93" length="93.17"/>
         <access friendlyPos="true" lane="312744262_0" pos="0.00" length="96.13"/>
