@@ -2052,6 +2052,10 @@ public:
                                const MSLane* const lane, double& v, double& vLinkPass,
                                double distToCrossing = -1) const;
 
+    void adaptToOncomingLeader(const std::pair<const MSVehicle*, double> leaderInfo,
+                DriveProcessItem* const lastLink,
+                double& v, double& vLinkPass) const;
+
     /// @brief decide whether a red (or yellow light) may be ignore
     bool ignoreRed(const MSLink* link, bool canBrake) const;
 

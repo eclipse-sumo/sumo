@@ -3008,6 +3008,7 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
             double gap = (lastLink == nullptr
                           ? predBack - myState.myPos - getVehicleType().getMinGap()
                           : predBack + seen - lane->getLength() - getVehicleType().getMinGap());
+            bool oncoming = false;
             if (myLaneChangeModel->isOpposite()) {
                 if (pred->getLaneChangeModel().isOpposite() || lane == pred->getLaneChangeModel().getShadowLane()) {
                     // ego might and leader are driving against lane
@@ -3034,19 +3035,19 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                     gap -= predMaxDist;
                 }
             } else if (pred->getLane() == lane->getBidiLane()) {
-                gap += -pred->getVehicleType().getLength() - pred->getVehicleType().getMinGap();
-                // when computing followSpeed, the distance of the vehicle is
-                // interpreted with the wrong sign. We increase the gap to compensate
-                gap -= pred->getSpeed() + ACCEL2SPEED(pred->getCarFollowModel().getMaxAccel())
-                       * (getSpeed() + ACCEL2SPEED(getCarFollowModel().getMaxAccel())) / getCarFollowModel().getMaxAccel();
-                gap = MAX2(0.0, gap);
+                gap -= pred->getVehicleType().getLengthWithGap();
+                oncoming = true;
             }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
-                std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << gap << " predBack=" << predBack << " seen=" << seen << " lane=" << lane->getID() << " myLane=" << myLane->getID() << " lastLink=" << (lastLink == nullptr ? "NULL" : lastLink->myLink->getDescription()) << "\n";
+                std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << gap << " predBack=" << predBack << " seen=" << seen << " lane=" << lane->getID() << " myLane=" << myLane->getID() << " lastLink=" << (lastLink == nullptr ? "NULL" : lastLink->myLink->getDescription()) << " oncoming=" << oncoming << "\n";
             }
 #endif
-            adaptToLeader(std::make_pair(pred, gap), seen, lastLink, v, vLinkPass);
+            if (oncoming && gap >= 0) {
+                adaptToOncomingLeader(std::make_pair(pred, gap), lastLink, v, vLinkPass);
+            } else {
+                adaptToLeader(std::make_pair(pred, gap), seen, lastLink, v, vLinkPass);
+            }
         }
     }
 }
@@ -3251,6 +3252,52 @@ MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leade
                     << " lane=" << lane->getID()
                     << " myLane=" << myLane->getID()
                     << " dTC=" << distToCrossing
+                    << " v=" << v
+                    << " vSafeLeader=" << vsafeLeader
+                    << " vLinkPass=" << vLinkPass
+                    << "\n";
+#endif
+    }
+}
+
+
+void
+MSVehicle::adaptToOncomingLeader(const std::pair<const MSVehicle*, double> leaderInfo,
+                         DriveProcessItem* const lastLink,
+                         double& v, double& vLinkPass) const {
+    if (leaderInfo.first != 0) {
+        const MSCFModel& cfModel = getCarFollowModel();
+        const MSVehicle* lead = leaderInfo.first;
+        const MSCFModel& cfModelL = lead->getCarFollowModel();
+        // assume the leader reacts symmetrically (neither stopping instantly nor ignoring ego)
+        const double leaderBrakeGap = cfModelL.brakeGap(lead->getSpeed(), cfModelL.getMaxDecel(), 0);
+        const double egoBrakeGap = cfModel.brakeGap(getSpeed(), cfModel.getMaxDecel(), 0);
+        const double gapSum = leaderBrakeGap + egoBrakeGap;
+        // assume remaining distance is allocated in proportion to braking distance
+        const double gapRatio = gapSum > 0 ? egoBrakeGap / gapSum : 0.5;
+        const double vsafeLeader = cfModel.stopSpeed(this, getSpeed(), leaderInfo.second * gapRatio);
+        if (lastLink != nullptr) {
+            const double futureVSafe = cfModel.stopSpeed(this, lastLink->accelV, leaderInfo.second, MSCFModel::CalcReason::FUTURE);
+            lastLink->adaptLeaveSpeed(futureVSafe);
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) {
+                std::cout << "   vlinkpass=" << lastLink->myVLinkPass << " futureVSafe=" << futureVSafe << "\n";
+            }
+#endif
+        }
+        v = MIN2(v, vsafeLeader);
+        vLinkPass = MIN2(vLinkPass, vsafeLeader);
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) std::cout
+                    << SIMTIME
+                    //std::cout << std::setprecision(10);
+                    << " veh=" << getID()
+                    << " oncomingLead=" << lead->getID()
+                    << " leadSpeed=" << lead->getSpeed()
+                    << " gap=" << leaderInfo.second
+                    << " leadLane=" << lead->getLane()->getID()
+                    << " predPos=" << lead->getPositionOnLane()
+                    << " myLane=" << myLane->getID()
                     << " v=" << v
                     << " vSafeLeader=" << vsafeLeader
                     << " vLinkPass=" << vLinkPass
