@@ -63,7 +63,7 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     // create main content frame
     auto verticalContentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // create options
-    auto horizontalOptionsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrame);
+    auto horizontalOptionsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrameNoPadding);
     // build options
     myShowToolTipsMenu = new MFXCheckableButton(false, horizontalOptionsFrame,
         GNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",

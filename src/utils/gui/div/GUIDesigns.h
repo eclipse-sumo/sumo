@@ -316,10 +316,13 @@ class MFXMenuCheckIcon;
 /// @brief Thick frame extended over frame parent
 #define GUIDesignFrameThick                 (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
-/// @brief Horizontal frame extended over frame parent
+/// @brief Horizontal frame extended over frame parent with padding and spacing
 #define GUIDesignHorizontalFrame            (LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
-/// @brief Vertical frame extended over frame parent
+/// @brief Horizontal frame extended over frame parent without padding and spacing
+#define GUIDesignHorizontalFrameNoPadding   (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 4, 4, 4, 4
+
+/// @brief Vertical frame extended over frame parent with padding and spacing
 #define GUIDesignVerticalFrame              (LAYOUT_FILL_Y), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
 /// @brief Horizontal frame used for pack icons
@@ -372,7 +375,7 @@ class MFXMenuCheckIcon;
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignChildWindowContentFrame        (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
-/// @brief design for the main content frame of every frame/dialog
+/// @brief design for the main content frame of every frame/dialog with padding and spacing
 #define GUIDesignContentsFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
 /// @brief design for auxiliar (Without borders) frame extended in all directions
@@ -387,7 +390,7 @@ class MFXMenuCheckIcon;
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
 #define GUIDesignAuxiliarHorizontalFrame        (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
-/// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames  uniform
+/// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames uniform
 #define GUIDesignAuxiliarHorizontalFrameUniform (LAYOUT_FILL_X | PACK_UNIFORM_WIDTH), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames

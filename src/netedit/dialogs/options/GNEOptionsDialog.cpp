@@ -28,6 +28,8 @@
 
 #include "GNEOptionsDialog.h"
 
+#define TREELISTWIDTH 200
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -117,7 +119,7 @@ GNEOptionsDialog::updateVisibleEntriesBySearch(const std::string &searchText) {
 
 
 GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName, const bool runDialog) :
-    FXDialogBox(parent, titleName, GUIDesignDialogBoxResizable, 0, 0, 800, 600),
+    FXDialogBox(parent, titleName, GUIDesignDialogBoxExplicitStretchable(800, 600)),
     myMainWindowParent(parent),
     myOptionsContainer(optionsContainer) {
     // set icon
@@ -125,7 +127,7 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     // create content frame
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // add buttons frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrameNoPadding);
     myShowToolTipsMenu = new MFXCheckableButton(false, buttonsFrame,
         parent->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
         GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
@@ -146,7 +148,7 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     MFXGroupBoxModule* groupBoxOptions = new MFXGroupBoxModule(elementsFrameValues, TL("Options"));
     // create FXTreeList
     myTopicsTreeList = new FXTreeList(groupBoxTree->getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignTreeListFixedWidth);
-    myTopicsTreeList->setWidth(200);
+    myTopicsTreeList->setWidth(TREELISTWIDTH);
     // add first item
     FXTreeItem* rootItem = myTopicsTreeList->appendItem(nullptr, titleName);
     rootItem->setExpanded(TRUE);
@@ -187,8 +189,8 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
         }
     }
     // create search elements
-    FXHorizontalFrame* searchFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
-    new FXLabel(searchFrame, TL("Search"), nullptr, GUIDesignLabelThickedFixed(230));
+    FXHorizontalFrame* searchFrame = new FXHorizontalFrame(contentFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(searchFrame, TL("Search"), nullptr, GUIDesignLabelThickedFixed(TREELISTWIDTH + 12));
     mySearchButton = new MFXTextFieldSearch(searchFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // add separator
     new FXSeparator(contentFrame);
