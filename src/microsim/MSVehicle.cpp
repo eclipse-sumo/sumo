@@ -5292,8 +5292,9 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
             const double range2 = (myLane->getWidth() - getVehicleType().getWidth()) * 0.5 + overlap;
             myState.myPosLat *= range2 / range;
         }
-        if (!isRailway(getVClass()) && myLane->getBidiLane() != nullptr) {
+        if (myLane->getBidiLane() != nullptr && (!isRailway(getVClass()) || (myLane->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
             // railways don't need to "see" each other when moving in opposite directions on the same track (efficiency)
+            // (unless the lane is shared with cars)
             myLane->getBidiLane()->setPartialOccupation(this);
         }
     } else {
@@ -5331,8 +5332,9 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         std::cout << SIMTIME << " enterLaneAtLaneChange entered=" << Named::getIDSecure(enteredLane) << " oldFurther=" << toString(myFurtherLanes) << "\n";
     }
 #endif
-    if (!isRailway(getVClass()) && myLane->getBidiLane() != nullptr) {
+    if (myLane->getBidiLane() != nullptr && (!isRailway(getVClass()) || (myLane->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
         // railways don't need to "see" each other when moving in opposite directions on the same track (efficiency)
+        // (unless the lane is shared with cars)
         myLane->getBidiLane()->setPartialOccupation(this);
     }
     for (int i = 0; i < (int)myFurtherLanes.size(); i++) {
@@ -5516,7 +5518,8 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
     if ((reason == MSMoveReminder::NOTIFICATION_JUNCTION || reason == MSMoveReminder::NOTIFICATION_TELEPORT) && myLane != nullptr) {
         myOdometer += getLane()->getLength();
     }
-    if (myLane != nullptr && myLane->getBidiLane() != nullptr && myAmOnNet && !isRailway(getVClass())) {
+    if (myLane != nullptr && myLane->getBidiLane() != nullptr && myAmOnNet
+            && (!isRailway(getVClass()) || (myLane->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
         myLane->getBidiLane()->resetPartialOccupation(this);
     }
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
