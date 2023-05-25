@@ -593,6 +593,8 @@ public:
         return myLane;
     }
 
+    // @brief return the lane on which the back of this vehicle resides
+    const MSLane* getBackLane() const;
 
     /** @brief Returns the maximal speed for the vehicle on its current lane (including speed factor and deviation,
      *         i.e., not necessarily the allowed speed limit)
@@ -2089,9 +2091,6 @@ protected:
     void checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* lane, double seen,
                                            DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const;
 
-
-    // @brief return the lane on which the back of this vehicle resides
-    const MSLane* getBackLane() const;
 
     /** @brief updates the vehicles state, given a next value for its speed.
      *         This value can be negative in case of the ballistic update to indicate
