@@ -104,7 +104,7 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& /*veh*/, double /*oldPos*/
                 for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
                     ConstMSEdgeVector routeTo;
                     const MSEdge* const csEdge = &stop.second->getLane().getEdge();
-                    if (router.compute(start, csEdge, &myHolder, now, routeTo)) {
+                    if (router.compute(start, myHolder.getPositionOnLane(), csEdge, stop.second->getBeginLanePosition(), &myHolder, now, routeTo)) {
                         ConstMSEdgeVector routeFrom;
                         if (csEdge == route.back() || router.compute(start, &stop.second->getLane().getEdge(), &myHolder, now, routeFrom)) {
                             if (csEdge != route.back()) {
@@ -120,8 +120,21 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& /*veh*/, double /*oldPos*/
                     }
                 }
                 if (minStation != nullptr) {
+                    if (myHolder.hasStops()) {
+                        WRITE_WARNINGF(TL("Rerouting using station finder removes all upcoming stops for vehicle '%'."), myHolder.getID());
+                    }
                     myHolder.replaceRouteEdges(minRoute, minTime, 0., getID());
                     myChargingStation = minStation;
+                    SUMOVehicleParameter::Stop stopPar;
+                    stopPar.chargingStation = minStation->getID();
+                    stopPar.lane = minStation->getLane().getID();
+                    stopPar.endPos = minStation->getEndLanePosition();
+                    std::string errorMsg;
+                    if (!myHolder.addStop(stopPar, errorMsg)) {
+                        WRITE_ERROR(errorMsg);
+                    } else if (errorMsg != "") {
+                        WRITE_WARNING(errorMsg);
+                    }
                 }
             }
         }
