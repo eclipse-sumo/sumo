@@ -12,3 +12,6 @@ TWLT_sequence
 
 # successive vehicles driving on the shared median lane in both directions
 TWLT_bidi_sequence
+
+# median lane is shared with tram
+TWLT_tram
