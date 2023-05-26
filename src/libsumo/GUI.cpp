@@ -62,7 +62,7 @@ std::vector<std::string>
 GUI::getIDList() {
     try {
         return GUIMainWindow::getInstance()->getViewIDs();
-    } catch (const ProcessError& e) {
+    } catch (const ProcessError&) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
 }
@@ -72,7 +72,7 @@ int
 GUI::getIDCount() {
     try {
         return (int)GUIMainWindow::getInstance()->getViewIDs().size();
-    } catch (const ProcessError& e) {
+    } catch (const ProcessError&) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
 }
@@ -162,7 +162,7 @@ GUI::addView(const std::string& viewID, const std::string& schemeName, bool in3D
     try {
         // calling openNewView directly doesn't work from the traci/simulation thread
         GUIMainWindow::getInstance()->sendBlockingEvent(new GUIEvent_AddView(viewID, schemeName, in3D));
-    } catch (const ProcessError& e) {
+    } catch (const ProcessError&) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
     // sonar thinks here is a memory leak but the GUIApplicationWindow does the clean up
@@ -174,7 +174,7 @@ GUI::removeView(const std::string& viewID) {
     try {
         // calling removeViewByID directly doesn't work from the traci/simulation thread
         GUIMainWindow::getInstance()->sendBlockingEvent(new GUIEvent_CloseView(viewID));
-    } catch (const ProcessError& e) {
+    } catch (const ProcessError&) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
     // sonar thinks here is a memory leak but the GUIApplicationWindow does the clean up
@@ -227,7 +227,7 @@ bool
 GUI::hasView(const std::string& viewID) {
     try {
         return GUIMainWindow::getInstance()->getViewByID(viewID) != nullptr;
-    } catch (const ProcessError& e) {
+    } catch (const ProcessError&) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
 }
@@ -402,7 +402,7 @@ GUI::getView(const std::string& id) {
             throw TraCIException("View '" + id + "' is not known");
         }
         return c->getView();
-    } catch (const ProcessError& e) {
+    } catch (const ProcessError&) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
 }
