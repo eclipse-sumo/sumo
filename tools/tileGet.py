@@ -21,6 +21,7 @@ from __future__ import division
 import math
 import os
 import sys
+from concurrent.futures import ThreadPoolExecutor as PoolExecutor
 
 try:
     # python3
@@ -73,6 +74,11 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
         height /= 2
     return center, zoom, width, height
 
+def worker(x, y, zoom, options, decals, net, request, filename):
+    # print(request)
+    urllib.urlretrieve(request, filename)
+    if os.stat(filename).st_size < options.min_file_size:
+        raise ValueError("small file")
 
 def retrieveMapServerTiles(options, west, south, east, north, decals, net):
     zoom = 20
@@ -82,17 +88,31 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net):
         sx, sy = fromLatLonToTile(north, west, zoom)
         ex, ey = fromLatLonToTile(south, east, zoom)
         numTiles = (ex - sx + 1) * (ey - sy + 1)
-    for x in range(sx, ex + 1):
-        for y in range(sy, ey + 1):
-            request = "%s/%s/%s/%s" % (options.url, zoom, y, x)
-#            print(request)
-#            opener = urllib.build_opener()
-#            opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-#            urllib.install_opener(opener)
-            filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
-            urllib.urlretrieve(request, filename)
-            if os.stat(filename).st_size < options.min_file_size:
-                raise ValueError("small file")
+        
+    # opener = urllib.build_opener()
+    # opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+    # urllib.install_opener(opener)
+    
+    with PoolExecutor(8) as executor:
+        futures = []
+
+        N = (ex - sx + 1) * (ey - sy + 1)
+        for x in range(sx, ex + 1):
+            for y in range(sy, ey + 1):
+                request = "%s/%s/%s/%s" % (options.url, zoom, y, x)
+                filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
+                
+                futures.append((
+                    x, y, executor.submit(worker, x, y, zoom, options, decals, net, request, filename)
+                ))
+
+        i = 0
+        for (x, y, future) in futures:
+            future.result()
+
+            i += 1
+            print(f"{(100.0 * i/N):.2f}% ({request})")
+            
             if net is not None:
                 lat, lon = fromTileToLatLon(x, y, zoom)
                 upperLeft = net.convertLonLat2XY(lon, lat)
