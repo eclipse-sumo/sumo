@@ -166,7 +166,7 @@ class Net:
         self._nodes = []
         self._edges = []
         self._tlss = []
-        self._ranges = [[10000, -10000], [10000, -10000]]
+        self._ranges = [[sys.float_info.max, -sys.float_info.max], [sys.float_info.max, -sys.float_info.max]]
         self._roundabouts = []
         self._rtreeEdges = None
         self._rtreeLanes = None
