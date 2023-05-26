@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-25 16:36+0000\n"
+"PO-Revision-Date: 2023-05-27 13:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8726,11 +8726,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNELane.cpp:972
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
 msgstr ""
+"La corsia nella direzione opposta non collega gli stessi nodi dell'arco '%'!"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:49
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:738
 msgid "Internal attributes"
-msgstr ""
+msgstr "Attributi interni"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:175
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:177
@@ -8740,19 +8741,19 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:60
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:62
 msgid "name"
-msgstr ""
+msgstr "nome"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:64
 msgid "button"
-msgstr ""
+msgstr "bottone"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:69
 msgid "Disabled"
-msgstr ""
+msgstr "Disattivato"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:476
 msgid "Unsupported additional ID"
-msgstr ""
+msgstr "Codice identificativo dell'elemento addizionale non supportato"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:55
 msgid "Consecutive lane selector"
