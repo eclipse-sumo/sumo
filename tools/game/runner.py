@@ -83,6 +83,8 @@ def updateLocalMessages():
                           'italian': TL('Italian'),
                           'spanish': TL('Spanish'),
                           'french': TL('French'),
+                          'chinese (simplified)': TL('Chinese (simplified)'),
+                          'chinese (traditional)': TL('Chinese (traditional)'),
                           'quit': TL("Quit"),
                           'Highscore': TL("Highscore"),
                           'Congratulations': TL("Congratulations!"),
@@ -348,6 +350,8 @@ class StartDialog(Tkinter.Frame):
             "es": 'spanish',
             "it": 'italian',
             "fr": 'french',
+            "zh": 'chinese (simplified)',
+            "zh-Hant": 'chinese (traditional)',
         }
         self._langCode = langCode
         self.langDrop = Tkinter.Listbox(self, height=3, selectmode=Tkinter.SINGLE, width=bWidth_high)
