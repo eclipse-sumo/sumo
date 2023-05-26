@@ -106,10 +106,6 @@ else ()
 endif()
 target_link_libraries(libsumocpp PRIVATE ${sumo_link_libraries})
 
-set(ENABLE_PYTHON_BINDINGS ON CACHE BOOL "Build Python Bindings")
-set(ENABLE_JAVA_BINDINGS ON CACHE BOOL "Build Java Bindings")
-set(ENABLE_CS_BINDINGS OFF CACHE BOOL "Build C# Bindings")
-
 if(SWIG_FOUND)
     include(${SWIG_USE_FILE})
     set_source_files_properties(libsumo.i PROPERTIES CPLUSPLUS ON)
