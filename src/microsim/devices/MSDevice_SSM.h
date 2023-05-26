@@ -517,9 +517,11 @@ private:
      * @param useGeoCoords Whether coordinates should be written out in the original coordinate reference system or as sumo's x,y values
      * @param writePositions Whether positions (coordinates) should be written for each timestep
      * @param writeLanesPositions Whether lanes and their positions should be written for each timestep and each conflict
+     * @param conflictOrder Vector of order keywords ego/foe to be considered
      */
     MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
-                 bool trajectories, double range, double extraTime, bool useGeoCoords, bool writePositions, bool writeLanesPositions);
+        bool trajectories, double range, double extraTime, bool useGeoCoords, bool writePositions, bool writeLanesPositions, 
+        std::vector<int> conflictOrder);
 
     /** @brief Finds encounters for which the foe vehicle has disappeared from range.
      *         remainingExtraTime is decreased until it reaches zero, which triggers closing the encounter.
@@ -715,6 +717,7 @@ private:
     static bool useGeoCoords(const SUMOVehicle& v);
     static bool writePositions(const SUMOVehicle& v);
     static bool writeLanesPositions(const SUMOVehicle& v);
+    static bool filterByConflictType(const SUMOVehicle& v, std::string deviceID, std::vector<int>& conflictTypes);
     static bool requestsTrajectories(const SUMOVehicle& v);
     static bool getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceID,
                                          std::map<std::string, double>& thresholds);
@@ -745,6 +748,11 @@ private:
     bool myWritePositions;
     /// Wether to print the lanes and positions for all timesteps and conflicts
     bool myWriteLanesPositions;
+    /// Whether to exclude certain conflicts containing certain conflict types from the output
+    bool myFilterConflictTypes;
+    /// Which conflict types to exclude from the output
+    std::vector<int> myDroppedConflictTypes;
+
     /// Flags for switching on / off comutation of different SSMs, derived from myMeasures
     bool myComputeTTC, myComputeDRAC, myComputePET, myComputeBR, myComputeSGAP, myComputeTGAP, myComputePPET,myComputeMDRAC;
     MSVehicle* myHolderMS;
@@ -810,10 +818,12 @@ private:
         SSM_WARN_FILE = 1 << 5,
         SSM_WARN_GEO = 1 << 6,
         SSM_WARN_POS = 1 << 7,
-        SSM_WARN_LANEPOS = 1 << 8
+        SSM_WARN_LANEPOS = 1 << 8,
+        SSM_WARN_CONFLICTFILTER = 1 << 9
     };
 
-
+    static const std::set<int> FOE_ENCOUNTERTYPES;
+    static const std::set<int> EGO_ENCOUNTERTYPES;
 
 private:
     /// @brief Invalidated copy constructor.

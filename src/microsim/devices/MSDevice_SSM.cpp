@@ -77,7 +77,6 @@
 //                                 case should be added to the switch in buildVehicleDevices,
 //                                 and in computeSSMs(), the SSM-value should be computed.)
 #define AVAILABLE_SSMS "TTC DRAC PET BR SGAP TGAP PPET MDRAC"
-
 #define DEFAULT_THRESHOLD_TTC 3. // in [s.], events get logged if time to collision is below threshold (1.5s. is an appropriate criticality threshold according to Van der Horst, A. R. A. (1991). Time-to-collision as a Cue for Decision-making in Braking [also see Guido et al. 2011])
 #define DEFAULT_THRESHOLD_DRAC 3. // in [m/s^2], events get logged if "deceleration to avoid a crash" is above threshold (3.4s. is an appropriate criticality threshold according to American Association of State Highway and Transportation Officials (2004). A Policy on Geometric Design of Highways and Streets [also see Guido et al. 2011])
 #define DEFAULT_THRESHOLD_MDRAC 3.4 //in [m/s^2], events get logged if "deceleration to avoid a crash" is above threshold (MDRAC considers reaction time of follower)
@@ -190,6 +189,18 @@ std::set<std::string> MSDevice_SSM::myCreatedOutputFiles;
 
 int MSDevice_SSM::myIssuedParameterWarnFlags = 0;
 
+const std::set<int> MSDevice_SSM::FOE_ENCOUNTERTYPES({
+    ENCOUNTER_TYPE_FOLLOWING_LEADER, ENCOUNTER_TYPE_MERGING_FOLLOWER,
+    ENCOUNTER_TYPE_CROSSING_FOLLOWER, ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA,
+    ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA
+});
+const std::set<int> MSDevice_SSM::EGO_ENCOUNTERTYPES({
+    ENCOUNTER_TYPE_FOLLOWING_FOLLOWER, ENCOUNTER_TYPE_MERGING_LEADER,
+    ENCOUNTER_TYPE_CROSSING_LEADER, ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA,
+    ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA
+});
+
+
 const std::set<MSDevice_SSM*, ComparatorNumericalIdLess>&
 MSDevice_SSM::getInstances() {
     return *myInstances;
@@ -239,6 +250,8 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.ssm.write-positions", "SSM Device", TL("Whether to write positions (coordinates) for each timestep"));
     oc.doRegister("device.ssm.write-lane-positions", new Option_Bool(false));
     oc.addDescription("device.ssm.write-lane-positions", "SSM Device", TL("Whether to write lanes and their positions for each timestep"));
+    oc.doRegister("device.ssm.exclude-conflict-types", new Option_String(""));
+    oc.addDescription("device.ssm.exclude-conflict-types", "SSM Device", TL("Which conflicts will be excluded from the log according to the conflict type they have been classified (combination of values in 'ego', 'foe' , '', any numerical valid conflict type code). An empty value will log all and 'ego'/'foe' refer to a certain conflict type subset."));
 }
 
 
@@ -321,8 +334,14 @@ MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
 
         const bool writeLanesPos = writeLanesPositions(v);
 
+        std::vector<int> conflictTypeFilter;
+        success = filterByConflictType(v, deviceID, conflictTypeFilter);
+        if (!success) {
+            return;
+        }
+
         // Build the device (XXX: who deletes it?)
-        MSDevice_SSM* device = new MSDevice_SSM(v, deviceID, file, thresholds, trajectories, range, extraTime, useGeo, writePos, writeLanesPos);
+        MSDevice_SSM* device = new MSDevice_SSM(v, deviceID, file, thresholds, trajectories, range, extraTime, useGeo, writePos, writeLanesPos, conflictTypeFilter);
         into.push_back(device);
 
         // Init spatial filter (once)
@@ -2749,7 +2768,19 @@ MSDevice_SSM::flushConflicts(bool flushAll) {
     while (!myPastConflicts.empty()) {
         Encounter* top = myPastConflicts.top();
         if (flushAll || top->begin <= myOldestActiveEncounterBegin) {
-            writeOutConflict(top);
+            bool write = true;
+            if (myFilterConflictTypes) {
+                std::vector<int> foundTypes;
+                std::set<int> encounterTypes(top->typeSpan.begin(), top->typeSpan.end());
+                std::set_intersection(
+                    myDroppedConflictTypes.begin(), myDroppedConflictTypes.end(),
+                    encounterTypes.begin(), encounterTypes.end(),
+                    std::back_inserter(foundTypes));
+                write = foundTypes.size() == 0;
+            }
+            if (write) {
+                writeOutConflict(top);
+            }
             myPastConflicts.pop();
             delete top;
         } else {
@@ -3002,7 +3033,8 @@ MSDevice_SSM::writeNA(double v, double NA) {
 // MSDevice_SSM-methods
 // ---------------------------------------------------------------------------
 MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
-                           bool trajectories, double range, double extraTime, bool useGeoCoords, bool writePositions, bool writeLanesPositions) :
+                           bool trajectories, double range, double extraTime, bool useGeoCoords, bool writePositions, bool writeLanesPositions,
+                           std::vector<int> conflictTypeFilter) :
     MSVehicleDevice(holder, id),
     myThresholds(thresholds),
     mySaveTrajectories(trajectories),
@@ -3028,6 +3060,9 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myComputeBR = myThresholds.find("BR") != myThresholds.end();
     myComputeSGAP = myThresholds.find("SGAP") != myThresholds.end();
     myComputeTGAP = myThresholds.find("TGAP") != myThresholds.end();
+
+    myDroppedConflictTypes = conflictTypeFilter;
+    myFilterConflictTypes = myDroppedConflictTypes.size() > 0;
 
     myActiveEncounters = EncounterVector();
     myPastConflicts = EncounterQueue();
@@ -3751,6 +3786,56 @@ MSDevice_SSM::writeLanesPositions(const SUMOVehicle& v) {
         }
     }
     return writeLanesPos;
+}
+
+
+bool
+MSDevice_SSM::filterByConflictType(const SUMOVehicle& v, std::string deviceID, std::vector<int>& conflictTypes) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    std::string typeString = "";
+    if (v.getParameter().knowsParameter("device.ssm.exclude-conflict-types")) {
+        try {
+            typeString = v.getParameter().getParameter("device.ssm.exclude-conflict-types", "");
+        }
+        catch (...) {
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.conflict-order'."), v.getParameter().getParameter("device.ssm.exclude-conflict-types", ""));
+        }
+    }
+    else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.exclude-conflict-types")) {
+        try {
+            typeString = v.getVehicleType().getParameter().getParameter("device.ssm.exclude-conflict-types", "");
+        }
+        catch (...) {
+            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.conflict-order'."), v.getVehicleType().getParameter().getParameter("device.ssm.exclude-conflict-types", ""));
+        }
+    }
+    else {
+        typeString = oc.getString("device.ssm.exclude-conflict-types");
+        if (oc.isDefault("device.ssm.exclude-conflict-types") && (myIssuedParameterWarnFlags & SSM_WARN_CONFLICTFILTER) == 0) {
+            WRITE_MESSAGEF(TL("Vehicle '%' does not supply vehicle parameter 'device.ssm.exclude-conflict-types'. Using default of '%'."), v.getID(), typeString);
+            myIssuedParameterWarnFlags |= SSM_WARN_CONFLICTFILTER;
+        }
+    }
+    // Check retrieved conflict keys
+    StringTokenizer st = StringTokenizer("");
+    st = (typeString.find(",") != std::string::npos) ? StringTokenizer(typeString, ",") : StringTokenizer(typeString);
+    std::vector<std::string> found = st.getVector();
+    std::set<int> confirmed;
+    for (std::vector<std::string>::const_iterator i = found.begin(); i != found.end(); ++i) {
+        if (*i == "foe") {
+            confirmed.insert(FOE_ENCOUNTERTYPES.begin(), FOE_ENCOUNTERTYPES.end());
+        } else if (*i == "ego") {
+            confirmed.insert(EGO_ENCOUNTERTYPES.begin(), EGO_ENCOUNTERTYPES.end());
+        } else if (encounterToString(static_cast<EncounterType>(std::stoi(*i))) != "UNKNOWN"){
+            confirmed.insert(std::stoi(*i));
+        } else {
+            // Given identifier is unknown
+            WRITE_ERRORF(TL("SSM order filter '%' is not supported. Aborting construction of SSM device '%'."), *i, deviceID);
+            return false;
+        }
+    }
+    conflictTypes.insert(conflictTypes.end(), confirmed.begin(), confirmed.end());
+    return true;
 }
 
 
