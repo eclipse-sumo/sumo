@@ -106,12 +106,10 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net):
                     x, y, executor.submit(worker, x, y, zoom, options, decals, net, request, filename)
                 ))
 
-        i = 0
-        for (x, y, future) in futures:
+        for i, (x, y, future) in enumerate(futures):
             future.result()
 
-            i += 1
-            print(f"{(100.0 * i/N):.2f}% ({request})")
+            # print(f"{(100.0 * (i+1)/N):.2f}% ({request})")
             
             if net is not None:
                 lat, lon = fromTileToLatLon(x, y, zoom)
