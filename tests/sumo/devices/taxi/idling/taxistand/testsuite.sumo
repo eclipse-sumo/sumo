@@ -9,3 +9,6 @@ taz
 
 # routing device active on taxi
 rerouting
+
+# taxis idle at the taxi stand and are dispatched again
+10persons
