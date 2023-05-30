@@ -1713,8 +1713,6 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
         // load config
         myLoadThread->loadNetworkOrConfig();
     }
-    // after load, mark network saved
-    myNet->getSavingStatus()->networkSaved();
 }
 
 void

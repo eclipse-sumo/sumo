@@ -79,8 +79,13 @@ GNELoadThread::run() {
     std::string loadedFile;
     // check conditions
     if (neteditOptions.getBool("new")) {
+        // create new network
+        validInput = true;
+    } else if (neteditOptions.getString("osm-files").size() > 0) {
+        // load an osm file
         validInput = true;
     } else if (neteditOptions.getString("net-file").size() > 0) {
+        // load a network file
         validInput = true;
         loadedFile = neteditOptions.getString("net-file");
     } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
