@@ -43,6 +43,9 @@ The SUMO User Conference is an anual event organized by the German Aerospace Cen
 <br>
 
 <a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=urKtJj87X5M">Watch the 2022 Tutorial</a>
+<br>
+
+<a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=3J5KqOPT2qI">Watch the 2023 Tutorial</a>
 
 # Advanced Tutorials
 * [Hello SUMO](Hello_SUMO.md) - The simplest net and a single car set up "by hand"
