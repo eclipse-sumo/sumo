@@ -37,7 +37,7 @@ FXDEFMAP(GNERunNetgenerateDialog) GNERunNetgenerateDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ABORT,   GNERunNetgenerateDialog::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RERUN,   GNERunNetgenerateDialog::onCmdRerun),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_BACK,    GNERunNetgenerateDialog::onCmdBack),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNERunNetgenerateDialog::onCmdClose),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNERunNetgenerateDialog::onCmdCancel),
     // threads events
     FXMAPFUNC(FXEX::SEL_THREAD_EVENT,   ID_LOADTHREAD_EVENT,    GNERunNetgenerateDialog::onThreadEvent),
     FXMAPFUNC(FXEX::SEL_THREAD,         ID_LOADTHREAD_EVENT,    GNERunNetgenerateDialog::onThreadEvent)
@@ -185,15 +185,6 @@ GNERunNetgenerateDialog::onCmdBack(FXObject*, FXSelector, void*) {
     // close run dialog and open tool dialog
     onCmdCancel(nullptr, 0, nullptr);
     return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_NETGENERATE), nullptr);
-}
-
-
-long
-GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
-    // close run dialog and call postprocessing
-    onCmdCancel(nullptr, 0, nullptr);
-    // call postprocessing dialog
-    return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
 }
 
 

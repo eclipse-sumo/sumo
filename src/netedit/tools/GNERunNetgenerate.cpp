@@ -30,6 +30,7 @@
 
 GNERunNetgenerate::GNERunNetgenerate(GNERunNetgenerateDialog* runDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
     MFXSingleEventThread(runDialog->getGNEApp()->getApp(), runDialog->getGNEApp()),
+    myRunDialog(runDialog),
     myEventQueue(eq),
     myEventThrow(ev) {
 }
@@ -151,6 +152,8 @@ GNERunNetgenerate::run() {
     // end process
     myEventQueue.push_back(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("process finished\n"))));
     myEventThrow.signal();
+    // execute post processing
+    myRunDialog->getGNEApp()->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
     return 1;
 }
 
