@@ -21,6 +21,7 @@
 
 #include <utils/common/StringUtils.h>
 #include <utils/common/StaticCommand.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -33,6 +34,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSStop.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 
 #include "MSDispatch.h"
 #include "MSDispatch_Greedy.h"
@@ -242,6 +244,16 @@ MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
                                          myHolder.getParameter().departProcedure == DepartDefinition::GIVEN
                                          ? myHolder.getParameter().depart
                                          : MSNet::getInstance()->getCurrentTimeStep()) + (3600 * 8));
+    } else if (algo == "taxistand") {
+        const std::string rerouterID = getStringParam(holder, OptionsCont::getOptions(), "taxi.stands-rerouter", "", false);
+        if (rerouterID.empty()) {
+            throw ProcessError("Idle algorithm '" + algo + "' requires a rerouter id to be defined using device param 'stands-rerouter' for vehicle '" + myHolder.getID() + "'");
+        }
+        if (MSTriggeredRerouter::getInstances().count(rerouterID) == 0) {
+            throw ProcessError("Unknown rerouter '" + rerouterID + "' when loading taxi stands for vehicle '" + myHolder.getID() + "'");
+        }
+        MSTriggeredRerouter* rerouter = MSTriggeredRerouter::getInstances().find(rerouterID)->second;
+        myIdleAlgorithm = new MSIdling_TaxiStand(rerouter);
     } else {
         throw ProcessError("Idle algorithm '" + algo + "' is not known for vehicle '" + myHolder.getID() + "'");
     }

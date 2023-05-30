@@ -167,5 +167,56 @@ MSIdling_RandomCircling::idle(MSDevice_Taxi* taxi) {
     }
 }
 
+// ===========================================================================
+// MSIdling_TaxiStand methods
+// ===========================================================================
+
+void
+MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
+    SUMOVehicle& veh = taxi->getHolder();
+    ConstMSEdgeVector edges = veh.getRoute().getEdges();
+    ConstMSEdgeVector newEdges;
+    double remainingDist = -veh.getPositionOnLane();
+    int remainingEdges = 0;
+    int routePos = veh.getRoutePosition();
+    const int routeLength = (int)edges.size();
+    while (routePos + 1 < routeLength && (remainingEdges < 2 || remainingDist < 200)) {
+        const MSEdge* edge = edges[routePos];
+        remainingDist += edge->getLength();
+        remainingEdges++;
+        routePos++;
+        newEdges.push_back(edge);
+    }
+    const MSEdge* lastEdge = edges.back();
+    newEdges.push_back(lastEdge);
+    int added = 0;
+    while (remainingEdges < 2 || remainingDist < 200) {
+        remainingDist += lastEdge->getLength();
+        remainingEdges++;
+        MSEdgeVector successors = lastEdge->getSuccessors(veh.getVClass());
+        for (auto it = successors.begin(); it != successors.end();) {
+            if ((*it)->getFunction() == SumoXMLEdgeFunc::CONNECTOR) {
+                it = successors.erase(it);
+            } else {
+                it++;
+            }
+        }
+        if (successors.size() == 0) {
+            WRITE_WARNINGF(TL("Vehicle '%' ends idling in a cul-de-sac"), veh.getID());
+            break;
+        } else {
+            int nextIndex = RandHelper::rand((int)successors.size(), veh.getRNG());
+            newEdges.push_back(successors[nextIndex]);
+            lastEdge = newEdges.back();
+            added++;
+        }
+    }
+    if (added > 0) {
+        //std::cout << SIMTIME << " circleVeh=" << veh.getID() << "  newEdges=" << toString(newEdges) << "\n";
+        veh.replaceRouteEdges(newEdges, -1, 0, "taxi:idling:randomCircling", false, false, false);
+    }
+}
+
+
 
 /****************************************************************************/
