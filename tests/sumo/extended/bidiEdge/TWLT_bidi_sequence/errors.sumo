@@ -1,18 +1,10 @@
-Warning: Teleporting vehicle 'b.4'; waited too long (wrong lane), lane='-E1_0', time=369.00.
-Warning: Vehicle 'b.4' ends teleporting on edge 'E3', time=369.00.
-Warning: Teleporting vehicle 'v.3'; waited too long (wrong lane), lane='E1_0', time=370.00.
-Warning: Teleporting vehicle 'b.8'; waited too long (wrong lane), lane='-E1_0', time=370.00.
-Warning: Vehicle 'v.3' ends teleporting on edge 'E4', time=370.00.
-Warning: Teleporting vehicle 'v.7'; waited too long (wrong lane), lane='E1_0', time=371.00.
-Warning: Teleporting vehicle 'b.9'; waited too long (wrong lane), lane='-E1_0', time=371.00.
-Warning: Teleporting vehicle 'b.2'; waited too long (yield), lane='-E1_1', time=371.00.
-Warning: Vehicle 'b.2' ends teleporting on edge 'E3', time=371.00.
-Warning: Teleporting vehicle 'v.9'; waited too long (wrong lane), lane='E1_0', time=372.00.
-Warning: Vehicle 'v.7' ends teleporting on edge 'E4', time=372.00.
-Warning: Teleporting vehicle 'b.3'; waited too long (jam), lane=':J2_3_1', time=373.00.
-Warning: Vehicle 'b.8' ends teleporting on edge 'E3', time=373.00.
-Warning: Vehicle 'v.9' ends teleporting on edge 'E4', time=374.00.
-Warning: Teleporting vehicle 'v.6'; waited too long (yield), lane='E1_1', time=375.00.
-Warning: Vehicle 'b.9' ends teleporting on edge 'E3', time=375.00.
-Warning: Vehicle 'v.6' ends teleporting on edge 'E4', time=376.00.
-Warning: Vehicle 'b.3' ends teleporting on edge '-E1', time=400.00.
+Warning: Teleporting vehicle 'v.1'; waited too long (jam), lane='E0_0', time=312.00.
+Warning: Vehicle 'v.1' ends teleporting on edge 'E4', time=349.00.
+Warning: Teleporting vehicle 'v.3'; waited too long (wrong lane), lane='E1_0', time=350.00.
+Warning: Vehicle 'v.3' ends teleporting on edge 'E4', time=351.00.
+Warning: Teleporting vehicle 'b.6'; waited too long (jam), lane='-E2_1', time=359.00.
+Warning: Teleporting vehicle 'v.6'; waited too long (wrong lane), lane='E1_0', time=360.00.
+Warning: Vehicle 'v.6' ends teleporting on edge 'E4', time=360.00.
+Warning: Teleporting vehicle 'b.8'; waited too long (wrong lane), lane='-E1_0', time=375.00.
+Warning: Vehicle 'b.8' ends teleporting on edge 'E3', time=375.00.
+Warning: Vehicle 'b.6' ends teleporting on edge 'E3', time=396.00.
