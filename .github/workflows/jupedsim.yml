@@ -86,3 +86,4 @@ jobs:
         sudo pip3 install -r sumo/tools/requirements.txt
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
+        ../tests/runTests.sh -a sumo.extra.ci -b ci
