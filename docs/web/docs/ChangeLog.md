@@ -7,7 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
-  - Collisions on shared walkingareas without vehicular road intersction are now detected. Issue #13132
+  - Collisions on shared walkingareas without vehicular road intersection are now detected. Issue #13132
   - A warning is now given if save-state.times are not reached due to a mismatch with step-length and begin time. Issue #13162
   - Fixed crash when loading rail simulation state with step-length > 1. Issue #13161
   - Fixed crash when loading state with vehicles that have triggered departure. Issue #13096
@@ -49,7 +49,7 @@ title: ChangeLog
   - Fixed bug where option **--railway.topology.repair** created superfluous bidi edges. Issue #13247
   - Option **--railway.topology.repair.minimal** now performs minimal repair with respect to public transport lines. Issue #13248
   - Fixed invalid consistency error for circular public transport line. Issue #13255
-  - OSM: fixed imcomplete pt-route. Issue #13249
+  - OSM: fixed incomplete pt-route. Issue #13249
   - User defined node radius is no longer ignored for geometry-like nodes. Issue #13064
 
 - duarouter
@@ -60,7 +60,7 @@ title: ChangeLog
 
 - TraCI
   - Fixed crash when calling traci.load and running with sumo-gui. Issue #13150 (regression in 1.16.0)
-  - Calling `vehicle.insertStop` now preserves the orginal route edges beyond the inserted stop. Issue #13092
+  - Calling `vehicle.insertStop` now preserves the original route edges beyond the inserted stop. Issue #13092
   - Fixed libtraci crashes when working on closed connection. Issue #13285
 
 - Tools
@@ -73,12 +73,12 @@ title: ChangeLog
 
 - Simulation
   - Added options **--intermodal-collision.action** and **--intermodal-collision.stoptime** to configure vehicle behavior after colliding with a pedestrian. Issue #13133
-  - In the sublane mode, vehicle elevation is now interpolated when lane changing between lanes that have differen z-values. Issue #13170
+  - In the sublane mode, vehicle elevation is now interpolated when lane changing between lanes that have different z-values. Issue #13170
   - Element `parkingArea` now supports placing stopping places to the left of the lane in right-hand networks by setting attribute `lefthand="true"`. Issue #13303
 
 - sumo-gui
   - Simulation end time is now written into the message window. Issue #13145
-  - Live edgeData can now be oserved after the simulation ends. Issue #13144
+  - Live edgeData can now be observed after the simulation ends. Issue #13144
 
 - netedit
   - Supermodes can now be activated using the modes menu. Issue #13138
@@ -111,7 +111,7 @@ title: ChangeLog
   - gtfs2pt.py: can now disable generation of pedestrian access via option **--skip-access**. Issue #12774
   - gtfs2pt: stop names are now included in route-output. Issue #13274
   - ptlines2flows.py: now support configuration files. Issue #13254
-  - checkStopOrder.py: can now generat a combined stop table for multiple stop locations. Issue #13259
+  - checkStopOrder.py: can now generate a combined stop table for multiple stop locations. Issue #13259
   - generateParkingAreas.py: now support option **--lefthand** to create lefthand parking areas. Issue #13305
 
 ### Miscellaneous
