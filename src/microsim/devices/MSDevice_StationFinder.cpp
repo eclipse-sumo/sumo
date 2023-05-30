@@ -98,7 +98,7 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& /*veh*/, double /*oldPos*/
             if (expectedConsumption > myBattery->getActualBatteryCapacity() * myReserveFactor) {
                 const MSEdge* const start = myHolder.getEdge();
                 double minTime = std::numeric_limits<double>::max();
-                MSStoppingPlace* minStation = nullptr;
+                MSChargingStation* minStation = nullptr;
                 ConstMSEdgeVector minRoute;
                 // TODO do some form of bulk routing here
                 for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
@@ -113,7 +113,7 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& /*veh*/, double /*oldPos*/
                             const double time = router.recomputeCosts(routeTo, &myHolder, now);
                             if (time < minTime) {
                                 minTime = time;
-                                minStation = stop.second;
+                                minStation = static_cast<MSChargingStation*>(stop.second);
                                 minRoute = routeTo;
                             }
                         }
@@ -129,6 +129,7 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& /*veh*/, double /*oldPos*/
                     stopPar.chargingStation = minStation->getID();
                     stopPar.lane = minStation->getLane().getID();
                     stopPar.endPos = minStation->getEndLanePosition();
+                    stopPar.duration = TIME2STEPS(expectedConsumption / minStation->getChargingPower(false) * myReserveFactor);
                     std::string errorMsg;
                     if (!myHolder.addStop(stopPar, errorMsg)) {
                         WRITE_ERROR(errorMsg);
