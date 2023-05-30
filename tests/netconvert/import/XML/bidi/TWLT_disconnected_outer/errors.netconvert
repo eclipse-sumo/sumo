@@ -4,6 +4,4 @@ Warning: Connection '-E1_1->E1_1' is only 0.00m short.
 Warning: Connection 'E0_1->-E0_1' is only 0.00m short.
 Warning: Connection '-E2_1->E2_1' is only 0.00m short.
 Warning: Connection 'E1_1->-E1_1' is only 0.00m short.
-Warning: Could not find bidi-connection for edge ':J2_4'
-Warning: Could not find bidi-connection for edge ':J2_6'
 Warning: 6 total messages of type: Connection '%_%->%_%' is only %m short.
