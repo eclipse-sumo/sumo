@@ -71,9 +71,6 @@ private:
     /// @brief pipe file
     FILE* myPipe = nullptr;
 
-    /// @brief run dialog
-    GNERunNetgenerateDialog* myRunDialog = nullptr;
-
     /// @brief event Queue
     MFXSynchQue<GUIEvent*>& myEventQueue;
 
