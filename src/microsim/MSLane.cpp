@@ -1822,8 +1822,8 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         return false;
     }
 
-    const bool colliderOpposite = collider->getLaneChangeModel().isOpposite() || collider->getLane() == getBidiLane();
-    const bool victimOpposite = victim->getLaneChangeModel().isOpposite() || victim->getLane() == getBidiLane();
+    const bool colliderOpposite = collider->getLaneChangeModel().isOpposite() || collider->isBidiOn(this);
+    const bool victimOpposite = victim->getLaneChangeModel().isOpposite() || victim->isBidiOn(this);
     const bool bothOpposite = victimOpposite && colliderOpposite;
     if (bothOpposite) {
         std::swap(victim, collider);

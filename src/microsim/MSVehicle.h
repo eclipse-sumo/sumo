@@ -856,6 +856,9 @@ public:
     /// @brief whether this vehicle has its back (and no its front) on the given edge
     bool onFurtherEdge(const MSEdge* edge) const;
 
+    /// @brief whether this vehicle is driving against lane
+    bool isBidiOn(const MSLane* lane) const;
+
     /// @name strategical/tactical lane choosing methods
     /// @{
 
