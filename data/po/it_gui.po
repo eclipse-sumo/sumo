@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-30 11:49+0000\n"
+"PO-Revision-Date: 2023-05-30 12:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -7717,17 +7717,21 @@ msgstr "Elenco di nomi di attributi da usare in uscita"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5837
 msgid "Restrict output to the given list of edge ids"
-msgstr ""
+msgstr "Limita l'uscita agli codici identificativi di archi del elenco seguente"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5842
 msgid "Restrict output to the given the list of edges given in file"
 msgstr ""
+"Limita l'uscita agli codici identificativi di archi contenuti nel file "
+"seguente"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5847
 msgid ""
 "Whether the traffic statistic of all edges shall be aggregated into a single "
 "value"
 msgstr ""
+"Se le statistische del traffico di tutti gli archi dovrebbero confluire in "
+"un valore totale"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEHierarchicalElement.cpp:421
 msgid "Some child meanData were lost during sorting"
@@ -7757,20 +7761,24 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:134
 msgid "Attributes aren't combinables"
-msgstr ""
+msgstr "Gli attributi non possono essere usati insieme"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:136
 msgid "allow need a disallow attribute in the same tag"
 msgstr ""
+"bisogna definire anche un attributo disallow nello stesso tag quando si usa "
+"l'attributo allow"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:138
 msgid "disallow need an allow attribute in the same tag"
 msgstr ""
+"bisogna definire anche un attributo allow nello stesso tag quando si usa "
+"l'attributo disallow"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:152
 #, c-format
 msgid "attribute '%' doesn't have a default value"
-msgstr ""
+msgstr "l'attributo '%' non possiede un valore standard"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:158
 #, c-format
@@ -7780,7 +7788,7 @@ msgstr "L'attributo '%' non è definito"
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:165
 #, c-format
 msgid "Maximum number of attributes for tag % exceeded"
-msgstr ""
+msgstr "Il numero massimo di attributi per il tag % è stato raggiunto"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:170
 #, c-format
@@ -8243,7 +8251,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:214
 msgid "Simplify Shape"
-msgstr ""
+msgstr "Semplifica forma"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:214
 msgid "Replace current shape with a rectangle"
@@ -8251,20 +8259,20 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:220
 msgid "Open shape"
-msgstr ""
+msgstr "Apri forma"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:220
 msgid "Open polygon's shape"
-msgstr ""
+msgstr "Apri la forma del poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:222
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:65
 msgid "Close shape"
-msgstr ""
+msgstr "Chiudi forma"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:222
 msgid "Close polygon's shape"
-msgstr ""
+msgstr "Chiudi la forma del poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:224
 msgid "Select elements within polygon"
