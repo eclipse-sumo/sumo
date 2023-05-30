@@ -52,10 +52,9 @@ Editing the CMake settings using Visual Studio
 - If you decide to use the Python which comes with Visual Studio
   - Test start a python script and add association
   - Add Python to the path (also the Scripts dir), find it at `C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64`
-  - Install pyautogui, matplotlib, rtree, pyproj, lxml, pipwin following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
-- If not, use `pip install pyautogui matplotlib pyproj lxml pipwin`, possibly with the `--user` option if you don't have admin rights
+  - Install pyautogui, scipy, rtree, pyproj, lxml following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
+- If not, use `pip install tools\requirements.txt`, possibly with the `--user` option if you don't have admin rights
 
-- Run `pipwin install rtree` (or download Rtree [from here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#rtree) and install it manually)
 - (after 30 days) Setup a Microsoft account (if you do not already have one) and register your Visual Studio
 
 ## Further notes
