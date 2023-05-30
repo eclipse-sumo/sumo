@@ -42,6 +42,8 @@
 
 FXDEFMAP(GNEOptionsDialogElements::InputOption) InputOptionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GNEOptionsDialogElements::InputOption::onCmdSetOption),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET, GNEOptionsDialogElements::InputOption::onCmdResetOption),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_RESET, GNEOptionsDialogElements::InputOption::onUpdResetOption),
 };
 
 // Object implementation
@@ -78,16 +80,6 @@ GNEOptionsDialogElements::InputOption::adjustNameSize() {
 }
 
 
-long
-GNEOptionsDialogElements::InputOption::onCmdSetOption(FXObject*, FXSelector, void*) {
-    // try to set option and mark as modified if was sucessfully
-    if (setOption()) {
-        myGUIDialogOptions->myModified = true;
-    }
-    return 1;
-}
-
-
 const std::string&
 GNEOptionsDialogElements::InputOption::getTopic() const {
     return myTopic;
@@ -110,6 +102,12 @@ GNEOptionsDialogElements::InputOption::getDescriptionLower() const {
 }
 
 
+long
+GNEOptionsDialogElements::InputOption::onUpdResetOption(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
 GNEOptionsDialogElements::InputString::InputString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description) :
     InputOption(GUIDialogOptions, parent, topic, name, description) {
@@ -118,11 +116,19 @@ GNEOptionsDialogElements::InputString::InputString(GNEOptionsDialog* GUIDialogOp
 }
 
 
-bool
-GNEOptionsDialogElements::InputString::setOption() {
+
+long
+GNEOptionsDialogElements::InputString::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    return true;
+    myGUIDialogOptions->myModified = true;
+    return 1;
+}
+
+
+long
+GNEOptionsDialogElements::InputString::onCmdResetOption(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 
@@ -134,11 +140,18 @@ GNEOptionsDialogElements::InputStringVector::InputStringVector(GNEOptionsDialog*
 }
 
 
-bool
-GNEOptionsDialogElements::InputStringVector::setOption() {
+long
+GNEOptionsDialogElements::InputStringVector::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    return true;
+    myGUIDialogOptions->myModified = true;
+    return 1;
+}
+
+
+long
+GNEOptionsDialogElements::InputStringVector::onCmdResetOption(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 
@@ -156,8 +169,8 @@ GNEOptionsDialogElements::InputBool::InputBool(GNEOptionsDialog* GUIDialogOption
 }
 
 
-bool
-GNEOptionsDialogElements::InputBool::setOption() {
+long
+GNEOptionsDialogElements::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     if (myCheckButton->getCheck()) {
         myGUIDialogOptions->myOptionsContainer->set(myName, "true");
@@ -166,6 +179,7 @@ GNEOptionsDialogElements::InputBool::setOption() {
         myGUIDialogOptions->myOptionsContainer->set(myName, "false");
         myCheckButton->setText(TL("false"));
     }
+    myGUIDialogOptions->myModified = true;
     // special checks for Debug flags
     if ((myName == "gui-testing-debug") && myGUIDialogOptions->myOptionsContainer->isSet("gui-testing-debug")) {
         MsgHandler::enableDebugMessages(myGUIDialogOptions->myOptionsContainer->getBool("gui-testing-debug"));
@@ -173,7 +187,13 @@ GNEOptionsDialogElements::InputBool::setOption() {
     if ((myName == "gui-testing-debug-gl") && myGUIDialogOptions->myOptionsContainer->isSet("gui-testing-debug-gl")) {
         MsgHandler::enableDebugGLMessages(myGUIDialogOptions->myOptionsContainer->getBool("gui-testing-debug-gl"));
     }
-    return true;
+    return 1;
+}
+
+
+long
+GNEOptionsDialogElements::InputBool::onCmdResetOption(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 
@@ -185,11 +205,18 @@ GNEOptionsDialogElements::InputInt::InputInt(GNEOptionsDialog* GUIDialogOptions,
 }
 
 
-bool
-GNEOptionsDialogElements::InputInt::setOption() {
+long
+GNEOptionsDialogElements::InputInt::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    return true;
+    myGUIDialogOptions->myModified = true;
+    return 1;
+}
+
+
+long
+GNEOptionsDialogElements::InputInt::onCmdResetOption(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 
@@ -201,8 +228,8 @@ GNEOptionsDialogElements::InputIntVector::InputIntVector(GNEOptionsDialog* GUIDi
 }
 
 
-bool
-GNEOptionsDialogElements::InputIntVector::setOption() {
+long
+GNEOptionsDialogElements::InputIntVector::onCmdSetOption(FXObject*, FXSelector, void*) {
     try {
         // check that int vector can be parsed
         const auto intVector = StringTokenizer(myTextField->getText().text()).getVector();
@@ -212,11 +239,17 @@ GNEOptionsDialogElements::InputIntVector::setOption() {
         myGUIDialogOptions->myOptionsContainer->resetWritable();
         myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
         myTextField->setTextColor(FXRGB(0, 0, 0));
-        return true;
+        myGUIDialogOptions->myModified = true;
     } catch (...) {
         myTextField->setTextColor(FXRGB(255, 0, 0));
     }
-    return false;
+    return 1;
+}
+
+
+long
+GNEOptionsDialogElements::InputIntVector::onCmdResetOption(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 
@@ -228,11 +261,17 @@ GNEOptionsDialogElements::InputFloat::InputFloat(GNEOptionsDialog* GUIDialogOpti
 }
 
 
-bool
-GNEOptionsDialogElements::InputFloat::setOption() {
+long
+GNEOptionsDialogElements::InputFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
-    return true;
+    return 1;
+}
+
+
+long
+GNEOptionsDialogElements::InputFloat::onCmdResetOption(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 
@@ -244,17 +283,23 @@ GNEOptionsDialogElements::InputFilename::InputFilename(GNEOptionsDialog* GUIDial
 }
 
 
-bool
-GNEOptionsDialogElements::InputFilename::setOption() {
+long
+GNEOptionsDialogElements::InputFilename::onCmdSetOption(FXObject*, FXSelector, void*) {
     if (SUMOXMLDefinitions::isValidFilename(myTextField->getText().text())) {
         myGUIDialogOptions->myOptionsContainer->resetWritable();
         myGUIDialogOptions->myOptionsContainer->set(myName, myTextField->getText().text());
         myTextField->setTextColor(FXRGB(0, 0, 0));
-        return true;
+        myGUIDialogOptions->myModified = true;
     } else {
         myTextField->setTextColor(FXRGB(255, 0, 0));
-        return false;
     }
+    return 1;
+}
+
+
+long
+GNEOptionsDialogElements::InputFilename::onCmdResetOption(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 /****************************************************************************/

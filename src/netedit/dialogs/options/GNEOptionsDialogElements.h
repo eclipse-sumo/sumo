@@ -48,12 +48,9 @@ public:
         /// @brief constructor
         InputOption(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                     const std::string& name, const std::string& description);
-        
+
         /// @brief adjust input name size
         void adjustNameSize();
-        
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
 
         /// @brief get topic
         const std::string &getTopic() const;
@@ -63,6 +60,15 @@ public:
 
         /// @brief get description  (Lower)
         const std::string getDescriptionLower() const;
+
+        /// @brief called when user set value in textField/button/checkBox
+        virtual long onCmdSetOption(FXObject*, FXSelector, void*) = 0;
+
+        /// @brief called when user press reset button
+        virtual long onCmdResetOption(FXObject*, FXSelector, void*) = 0;
+
+        /// @brief update reset button
+        long onUpdResetOption(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief FOX needs this
@@ -89,9 +95,6 @@ public:
 
         // @brief reset button
         FXButton* myResetButton = nullptr; 
-
-        /// @brief set new option value
-        virtual bool setOption() = 0;
     };
 
     class InputString : public InputOption {
@@ -101,10 +104,13 @@ public:
         InputString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                     const std::string& name, const std::string& description);
 
-    private:
-        /// @brief set new option value
-        bool setOption();
+        /// @brief called when user set value in textField/button/checkBox
+        long onCmdSetOption(FXObject*, FXSelector, void*);
 
+        /// @brief called when user press reset button
+        long onCmdResetOption(FXObject*, FXSelector, void*);
+
+    private:
         /// @brief text field
         FXTextField* myTextField;
     };
@@ -116,10 +122,13 @@ public:
         InputStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                           const std::string& name, const std::string& description);
 
-    private:
-        /// @brief set new option value
-        bool setOption();
+        /// @brief called when user set value in textField/button/checkBox
+        long onCmdSetOption(FXObject*, FXSelector, void*);
 
+        /// @brief called when user press reset button
+        long onCmdResetOption(FXObject*, FXSelector, void*);
+
+    private:
         /// @brief text field
         FXTextField* myTextField;
     };
@@ -131,10 +140,13 @@ public:
         InputBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                   const std::string& name, const std::string& description);
 
-    private:
-        /// @brief set new option value
-        bool setOption();
+        /// @brief called when user set value in textField/button/checkBox
+        long onCmdSetOption(FXObject*, FXSelector, void*);
 
+        /// @brief called when user press reset button
+        long onCmdResetOption(FXObject*, FXSelector, void*);
+
+    private:
         /// @brief menu check
         FXCheckButton* myCheckButton = nullptr; 
     };
@@ -146,10 +158,13 @@ public:
         InputInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                  const std::string& name, const std::string& description);
 
-    private:
-        /// @brief set new option value
-        bool setOption();
+        /// @brief called when user set value in textField/button/checkBox
+        long onCmdSetOption(FXObject*, FXSelector, void*);
 
+        /// @brief called when user press reset button
+        long onCmdResetOption(FXObject*, FXSelector, void*);
+
+    private:
         /// @brief text field
         FXTextField* myTextField;
     };
@@ -161,10 +176,13 @@ public:
         InputIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                        const std::string& name, const std::string& description);
 
-    private:
-        /// @brief set new option value
-        bool setOption();
+        /// @brief called when user set value in textField/button/checkBox
+        long onCmdSetOption(FXObject*, FXSelector, void*);
 
+        /// @brief called when user press reset button
+        long onCmdResetOption(FXObject*, FXSelector, void*);
+
+    private:
         /// @brief text field
         FXTextField* myTextField;
     };
@@ -176,10 +194,13 @@ public:
         InputFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                    const std::string& name, const std::string& description);
 
-    private:
-        /// @brief set new option value
-        bool setOption();
+        /// @brief called when user set value in textField/button/checkBox
+        long onCmdSetOption(FXObject*, FXSelector, void*);
 
+        /// @brief called when user press reset button
+        long onCmdResetOption(FXObject*, FXSelector, void*);
+
+    private:
         /// @brief text field
         FXTextField* myTextField;
     };
@@ -191,10 +212,13 @@ public:
         InputFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                       const std::string& name, const std::string& description);
 
-    private:
-        /// @brief set new option value
-        bool setOption();
+        /// @brief called when user set value in textField/button/checkBox
+        long onCmdSetOption(FXObject*, FXSelector, void*);
 
+        /// @brief called when user press reset button
+        long onCmdResetOption(FXObject*, FXSelector, void*);
+
+    private:
         /// @brief text field
         FXTextField* myTextField;
     };
