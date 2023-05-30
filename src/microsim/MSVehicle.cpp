@@ -4756,8 +4756,8 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
                                   << " passed=" << toString(passedLanes)
                                   << "\n";
 #endif
-    for (std::vector<MSLane*>::iterator i = furtherLanes.begin(); i != furtherLanes.end(); ++i) {
-        (*i)->resetPartialOccupation(this);
+    for (MSLane* further : furtherLanes) {
+        further->resetPartialOccupation(this);
     }
 
     std::vector<MSLane*> newFurther;
