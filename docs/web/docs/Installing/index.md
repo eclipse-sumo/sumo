@@ -28,7 +28,7 @@ in **docs/examples**. All other applications
 etc.) have to be run from the command line. To facilitate this there is
 also a start-commandline.bat which sets up the whole environment for
 you. If you feel unsure about the command line, please read
-[Basics/Basic_Computer_Skills\#Running_Programs_from_the_Command_Line](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
+[Running Programs from the Command Line](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
 
 If you want a bleeding edge nightly build or need tests or source files,
 you can download them from the [Download](../Downloads.md) page.
