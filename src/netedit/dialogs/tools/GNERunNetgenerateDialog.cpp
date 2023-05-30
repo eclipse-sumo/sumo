@@ -238,11 +238,6 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         delete e;
         updateDialog();
     }
-    // close dialog if netgenerate was sucesfully
-    if (myText->getText().find("Success.") != -1) {
-        myText->setText("");
-        onCmdClose(nullptr, 0, nullptr);
-    }
     return 1;
 }
 
