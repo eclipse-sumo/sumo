@@ -78,7 +78,6 @@ AGCity::completeStreets() {
     for (it = streets.begin(); it != streets.end(); ++it) {
         (*it)->setPopulation((*it)->getPopulation() * statData.factorInhabitants);
         (*it)->setWorkplaceNumber((*it)->getWorkplaceNumber() * statData.factorWorkPositions);
-        //it->print();
     }
 
     //completing streets from edges of the network not handled/present in STAT file (no population no work position)
@@ -103,10 +102,8 @@ void
 AGCity::generateWorkPositions() {
     std::vector<AGStreet*>::iterator it;
     int workPositionCounter = 0;
-
     try {
         for (it = streets.begin(); it != streets.end(); ++it) {
-            //std::cout << "number of work positions in street: " << it->getWorkplaceNumber() << std::endl;
             for (int i = 0; i < (*it)->getWorkplaceNumber(); ++i) {
                 workPositions.push_back(AGWorkPosition(&statData, **it));
                 ++workPositionCounter;
