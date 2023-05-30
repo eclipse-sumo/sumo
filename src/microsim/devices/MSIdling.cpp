@@ -24,7 +24,9 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStop.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/transportables/MSTransportable.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 #include <mesosim/MELoop.h>
 #include "MSRoutingEngine.h"
 #include "MSIdling.h"
@@ -173,47 +175,48 @@ MSIdling_RandomCircling::idle(MSDevice_Taxi* taxi) {
 
 void
 MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
-    SUMOVehicle& veh = taxi->getHolder();
-    ConstMSEdgeVector edges = veh.getRoute().getEdges();
-    ConstMSEdgeVector newEdges;
-    double remainingDist = -veh.getPositionOnLane();
-    int remainingEdges = 0;
-    int routePos = veh.getRoutePosition();
-    const int routeLength = (int)edges.size();
-    while (routePos + 1 < routeLength && (remainingEdges < 2 || remainingDist < 200)) {
-        const MSEdge* edge = edges[routePos];
-        remainingDist += edge->getLength();
-        remainingEdges++;
-        routePos++;
-        newEdges.push_back(edge);
-    }
-    const MSEdge* lastEdge = edges.back();
-    newEdges.push_back(lastEdge);
-    int added = 0;
-    while (remainingEdges < 2 || remainingDist < 200) {
-        remainingDist += lastEdge->getLength();
-        remainingEdges++;
-        MSEdgeVector successors = lastEdge->getSuccessors(veh.getVClass());
-        for (auto it = successors.begin(); it != successors.end();) {
-            if ((*it)->getFunction() == SumoXMLEdgeFunc::CONNECTOR) {
-                it = successors.erase(it);
-            } else {
-                it++;
-            }
+    MSBaseVehicle& veh = dynamic_cast<MSBaseVehicle&>(taxi->getHolder());
+
+    const MSTriggeredRerouter::RerouteInterval* rerouteDef = myRerouter->getCurrentReroute(SIMSTEP);
+    if (rerouteDef == nullptr || rerouteDef->parkProbs.getVals().size() == 0) {
+        if (!myHaveWarned) {
+            WRITE_WARNINGF(TL("Could not determine taxi stand for vehicle '%' at time=%"), veh.getID(), time2string(SIMSTEP));
+            myHaveWarned = true;
         }
-        if (successors.size() == 0) {
-            WRITE_WARNINGF(TL("Vehicle '%' ends idling in a cul-de-sac"), veh.getID());
-            break;
+        return;
+    }
+    MSStop* lastStop = nullptr;
+    if (veh.hasStops()) {
+        lastStop = &veh.getStop(veh.getStops().size() - 1);
+    }
+    if (lastStop == nullptr || lastStop->parkingarea == nullptr) {
+        const MSParkingArea* pa = rerouteDef->parkProbs.getVals().front().first;
+        SUMOVehicleParameter::Stop stop;
+        if (MSGlobals::gUseMesoSim) {
+            stop.edge = pa->getLane().getEdge().getID();
         } else {
-            int nextIndex = RandHelper::rand((int)successors.size(), veh.getRNG());
-            newEdges.push_back(successors[nextIndex]);
-            lastEdge = newEdges.back();
-            added++;
+            stop.lane = pa->getLane().getID();
         }
-    }
-    if (added > 0) {
-        //std::cout << SIMTIME << " circleVeh=" << veh.getID() << "  newEdges=" << toString(newEdges) << "\n";
-        veh.replaceRouteEdges(newEdges, -1, 0, "taxi:idling:randomCircling", false, false, false);
+        stop.startPos = pa->getBeginLanePosition();
+        stop.endPos = pa->getEndLanePosition();
+
+        if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
+            stop.containerTriggered = true;
+        } else {
+            stop.triggered = true;
+        }
+        stop.actType = "idling";
+        stop.parkingarea = pa->getID();
+        stop.parking = ParkingType::OFFROAD;
+        int nextStopIndex = veh.getStops().size();
+        std::string error;
+        if (!veh.insertStop(nextStopIndex, stop, "taxi:taxistand", false, error)) {
+            WRITE_WARNING("Stop insertion failed for idling taxi '" + veh.getID() + "' (" + error + ").");
+        }
+        //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  driving to parkingArea " << pa->getID() << "\n";
+        veh.activateReminders(MSMoveReminder::NOTIFICATION_PARKING_REROUTE, &pa->getLane());
+    } else {
+        //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  already driving to parkingArea\n";
     }
 }
 

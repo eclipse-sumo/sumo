@@ -69,5 +69,6 @@ public :
 
 protected:
     MSTriggeredRerouter* myRerouter;
+    bool myHaveWarned = false;
 
 };
