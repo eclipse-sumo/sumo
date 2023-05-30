@@ -2215,6 +2215,9 @@ bool
 GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     // get options
     auto& neteditOptions = OptionsCont::getOptions();
+    // reset options
+    mySumoOptions.resetDefault();
+    neteditOptions.resetDefault();
     // make all options writables
     mySumoOptions.resetWritable();
     neteditOptions.resetWritable();
@@ -2265,6 +2268,8 @@ bool
 GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     // get options
     auto& neteditOptions = OptionsCont::getOptions();
+    // reset options
+    neteditOptions.resetDefault();
     // make all options writables
     neteditOptions.resetWritable();
     // build parser
