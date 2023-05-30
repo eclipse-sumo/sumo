@@ -7,4 +7,11 @@
     <!-- StoppingPlaces -->
     <parkingArea id="pa_0" lane="B0C0_1" startPos="161.71" endPos="171.71" roadsideCapacity="2"/>
     <parkingArea id="pa_1" lane="E2D2_1" startPos="179.08" endPos="189.08" roadsideCapacity="2"/>
+
+    <rerouter id="rr0" edges="B0C0">
+        <interval begin="0" end="1:0:0:0">
+            <rerouteParkingArea id="pa_0"/>
+            <rerouteParkingArea id="pa_1"/>
+        </interval>
+    </rerouter>
 </additional>
