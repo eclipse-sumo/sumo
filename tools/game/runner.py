@@ -92,6 +92,7 @@ def updateLocalMessages():
                           'Continue': TL('Continue'),
                           }
 
+
 def printDebug(*args):
     if _DEBUG:
         print("DEBUG:", end=" ")
@@ -309,7 +310,6 @@ class StartDialog(Tkinter.Frame):
         # button dimensions
         bWidth_start = 30
         bWidth_high = 10
-        bWidth_control = 41
 
         self.gametime = 0
         self.ret = 0
