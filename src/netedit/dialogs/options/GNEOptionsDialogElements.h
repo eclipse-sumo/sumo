@@ -112,7 +112,7 @@ public:
 
     private:
         /// @brief text field
-        FXTextField* myTextField;
+        FXTextField* myStringTextField = nullptr;
     };
 
     class InputStringVector : public InputOption {
@@ -130,7 +130,7 @@ public:
 
     private:
         /// @brief text field
-        FXTextField* myTextField;
+        FXTextField* myStringVectorTextField = nullptr;
     };
 
     class InputBool : public InputOption {
@@ -166,7 +166,7 @@ public:
 
     private:
         /// @brief text field
-        FXTextField* myTextField;
+        FXTextField* myIntTextField = nullptr;
     };
 
     class InputIntVector : public InputOption {
@@ -184,7 +184,7 @@ public:
 
     private:
         /// @brief text field
-        FXTextField* myTextField;
+        FXTextField* myIntVectorTextField = nullptr;
     };
 
     class InputFloat : public InputOption {
@@ -202,15 +202,20 @@ public:
 
     private:
         /// @brief text field
-        FXTextField* myTextField;
+        FXTextField* myFloatTextField = nullptr;
     };
 
     class InputFilename : public InputOption {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEOptionsDialogElements::InputFilename)
 
     public:
         /// @brief constructor
         InputFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                       const std::string& name, const std::string& description);
+
+        /// @brief called when user press open dialog button
+        long onCmdOpenDialog(FXObject*, FXSelector, void*);
 
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -218,8 +223,15 @@ public:
         /// @brief called when user press reset button
         long onCmdResetOption(FXObject*, FXSelector, void*);
 
+    protected:
+        /// @brief FOX needs this
+        InputFilename();
+
     private:
+        /// @brief open filename button
+        FXButton* myOpenFilenameButton = nullptr;
+
         /// @brief text field
-        FXTextField* myTextField;
+        FXTextField* myFilenameTextField = nullptr;
     };
 };
