@@ -16,6 +16,10 @@ title: ChangeLog
   - Fixed invalid 'started' and 'arrivalDelay' after passing a short waypoint edge at high speed. Issue #13179
   - Fixed crash after rerouting and losing a stop. Issue #13190
   - Fixed invalid TTC computation when both vehicles are extrapolated to stop. Issue #13212
+  - A parkingReroute now works even if the parkingArea on the current edge is not included in the alternatives list. Issue #13288
+  - Fixed unnecessary emergency braking when cars urgently needs to swap lanes. Issue #13295
+  - Fixed invalid collision warning when using bidi lane. Issue #13312
+  - Fixed unsafe right-of-way rules at junction with shared median lane. Issue #13316
 
 - netedit
   - Fixed segfault when closing netedit and no net is loaded #13131 (regression in 1.17.0)
@@ -24,8 +28,10 @@ title: ChangeLog
   - Saving plain xml now works when selecting an existing plain-xml file to define the output prefix. Issue #13200 (regression in 1.16.0)
   - netdiff-dialog now permits to change the output prefix. Issue #13130
   - Fixed invalid default values in netgenerate dialog and tool dialogs. Issue #13152
+  - Boolean options can now be reset in tool dialogs. Issue #13156
   - Function 'add reverse edge' applied on a selection, no longer adds duplicate reverse edges. Issue #13209
   - Fixed inconsistent ordering of popup functions for additionals. Issue #13261
+  - Stops at a `trainStop` can now be defined. Issue #13258
 
 - sumo-gui
   - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
@@ -44,14 +50,23 @@ title: ChangeLog
   - Option **--railway.topology.repair.minimal** now performs minimal repair with respect to public transport lines. Issue #13248
   - Fixed invalid consistency error for circular public transport line. Issue #13255
   - OSM: fixed imcomplete pt-route. Issue #13249
+  - User defined node radius is no longer ignored for geometry-like nodes. Issue #13064
+
+- duarouter
+  - Fixed railway routing failure if the stop is defined on a short buffer edge (also applies to sumo). Issue #13277
+
+- activitygen
+  - Fixed crash when there are no work positions within a city. Issue #13315
 
 - TraCI
   - Fixed crash when calling traci.load and running with sumo-gui. Issue #13150 (regression in 1.16.0)
   - Calling `vehicle.insertStop` now preserves the orginal route edges beyond the inserted stop. Issue #13092
+  - Fixed libtraci crashes when working on closed connection. Issue #13285
 
 - Tools
   - abstractRail.py: Failure to optimize on region is now recoverable. Issue #13193
   - gridDistricts.py: Networks with non-normalized offsets now create correct taz shapes. Issue #13264
+  - Function `sumolib.net.getBoxXY` now returns correct results for large networks. Issue #13320
   
 
 ### Enhancements
@@ -59,10 +74,14 @@ title: ChangeLog
 - Simulation
   - Added options **--intermodal-collision.action** and **--intermodal-collision.stoptime** to configure vehicle behavior after colliding with a pedestrian. Issue #13133
   - In the sublane mode, vehicle elevation is now interpolated when lane changing between lanes that have differen z-values. Issue #13170
+  - Element `parkingArea` now supports placing stopping places to the left of the lane in right-hand networks by setting attribute `lefthand="true"`. Issue #13303
 
 - sumo-gui
   - Simulation end time is now written into the message window. Issue #13145
   - Live edgeData can now be oserved after the simulation ends. Issue #13144
+
+- netedit
+  - Supermodes can now be activated using the modes menu. Issue #13138
 
 - netconvert
   - OpenDRIVE import: now supports road objects from connecting roads. Issue #13196
@@ -71,14 +90,15 @@ title: ChangeLog
   - OSM import: typemap `osmNetconvertRailUsage.typ.xml` now imports service designation. Issue #13213
   - Unused edge types are now excluded from .net.xml. Issue #13228
   - Added option **--railway.signal.guess.by-stops** to add rail_signal nodes to a network that is lacking them. Issue #5143
+  - When using option **--tls.rebuild**, the tltype can be changed by setting option **--tls.default-type**. Issue #13267
 
 - TraCI
   - Added function `simpla.getPlatoonID`. Issue #13029
   - Added functions `lane.getAngle' and `edge.getAngle'. Issue #10901
   - Added function `vehicle.getJunctionFoes`. Issue #12640
-  - Using UTF-8 consistently. Issue #7171
-  - traci.simulationStep has no return value on Python any longer (similar to the other languages), use traci.simulationStepLegacy for the old behavior. Issue #13296
+  - Using UTF-8 consistently. Issue #7171  
   - getAllContextSubscriptionResults has now entries also for objects without results. Issue #6446
+  - Vehicles with SSM device now permit retrieval of the minimum PPET using param `device.ssm.minPPET`. Issue 13293
 
 - tools
   - plotXMLAttributes.py and plot_trajectories.py now show the plot by default. Issue #13158
@@ -89,8 +109,10 @@ title: ChangeLog
   - routeSampler: Added option **--taz-files** and support for loading origin destination matrices in `tazRelation` format. Issue #6890
   - abstractRail.py: Now handles regions without stops. Issue #13221
   - gtfs2pt.py: can now disable generation of pedestrian access via option **--skip-access**. Issue #12774
+  - gtfs2pt: stop names are now included in route-output. Issue #13274
   - ptlines2flows.py: now support configuration files. Issue #13254
   - checkStopOrder.py: can now generat a combined stop table for multiple stop locations. Issue #13259
+  - generateParkingAreas.py: now support option **--lefthand** to create lefthand parking areas. Issue #13305
 
 ### Miscellaneous
 
@@ -98,6 +120,8 @@ title: ChangeLog
 - netconvert: road objects imported from OpenDRIVE are now placed on a higher layer to make them visible above the road. Issue #13197
 - netconvert: option **--osm.all-attributes** now defaults to exporting all attributes because the explicit list of attributes (**--osm.extra-attributes**) now defaults to value **all**. Issue #13218
 - Netedit demand mode hotkeys changed: **C** now activates container mode and **L** activates person plan mode. Issue #13141
+- All strings send and received by TraCI are now utf8 encoded and interpreted as utf8. Issue #7171
+- traci.simulationStep has no return value on Python any longer (similar to the other languages), use traci.simulationStepLegacy for the old behavior. Issue #13296
 
 
 ## Version 1.17.0 (25.04.2023)
