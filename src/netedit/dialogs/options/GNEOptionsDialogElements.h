@@ -80,10 +80,16 @@ public:
         /// @brief description
         const std::string myDescription;
 
+        /// @brief content frame
+        FXHorizontalFrame* myContentFrame = nullptr;
+
+    private:
         /// @brief tooltip label for name
         MFXLabelTooltip* myNameLabel = nullptr;
 
-    private:
+        // @brief reset button
+        FXButton* myResetButton = nullptr; 
+
         /// @brief set new option value
         virtual bool setOption() = 0;
     };

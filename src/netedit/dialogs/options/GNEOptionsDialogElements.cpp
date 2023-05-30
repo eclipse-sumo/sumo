@@ -24,6 +24,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/options/OptionsCont.h>
@@ -61,6 +62,10 @@ GNEOptionsDialogElements::InputOption::InputOption(GNEOptionsDialog* GUIDialogOp
     myNameLabel = new MFXLabelTooltip(this, myGUIDialogOptions->myMainWindowParent->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelThickedFixed(MINNAMEWIDTH));
     // set description as tooltip
     myNameLabel->setTipText(description.c_str());
+    // create content frame
+    myContentFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // Create reset button
+    myResetButton = new FXButton(this, (std::string("\t\t") + TL("Reset value")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
 }
 
 
@@ -108,7 +113,7 @@ GNEOptionsDialogElements::InputOption::getDescriptionLower() const {
 GNEOptionsDialogElements::InputString::InputString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description) :
     InputOption(GUIDialogOptions, parent, topic, name, description) {
-    myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextField->setText(myGUIDialogOptions->myOptionsContainer->getString(name).c_str());
 }
 
@@ -124,7 +129,7 @@ GNEOptionsDialogElements::InputString::setOption() {
 GNEOptionsDialogElements::InputStringVector::InputStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description) :
     InputOption(GUIDialogOptions, parent, topic, name, description) {
-    myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getStringVector(name)).c_str());
 }
 
@@ -140,7 +145,7 @@ GNEOptionsDialogElements::InputStringVector::setOption() {
 GNEOptionsDialogElements::InputBool::InputBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description) :
     InputOption(GUIDialogOptions, parent, topic, name, description) {
-    myCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCheckButton = new FXCheckButton(myContentFrame, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     if (myGUIDialogOptions->myOptionsContainer->getBool(name)) {
         myCheckButton->setCheck(TRUE);
         myCheckButton->setText(TL("true"));
@@ -175,7 +180,7 @@ GNEOptionsDialogElements::InputBool::setOption() {
 GNEOptionsDialogElements::InputInt::InputInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description) :
     InputOption(GUIDialogOptions, parent, topic, name, description) {
-    myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
+    myTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
     myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getInt(name)).c_str());
 }
 
@@ -191,7 +196,7 @@ GNEOptionsDialogElements::InputInt::setOption() {
 GNEOptionsDialogElements::InputIntVector::InputIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description) :
     InputOption(GUIDialogOptions, parent, topic, name, description) {
-    myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getIntVector(name)).c_str());
 }
 
@@ -218,7 +223,7 @@ GNEOptionsDialogElements::InputIntVector::setOption() {
 GNEOptionsDialogElements::InputFloat::InputFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
         const std::string& name, const std::string& description) :
     InputOption(GUIDialogOptions, parent, topic, name, description) {
-    myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
+    myTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getFloat(name)).c_str());
 }
 
@@ -234,7 +239,7 @@ GNEOptionsDialogElements::InputFloat::setOption() {
 GNEOptionsDialogElements::InputFilename::InputFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
         const std::string& name, const std::string& description) :
     InputOption(GUIDialogOptions, parent, topic, name, description) {
-    myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextField->setText(myGUIDialogOptions->myOptionsContainer->getString(name).c_str());
 }
 
