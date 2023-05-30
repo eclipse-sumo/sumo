@@ -595,7 +595,7 @@ MSTriggeredRerouter::getUserProbability() const {
 
 
 double
-MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight) const {
+MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight) {
     // get custom vehicle parameter
     if (veh.getParameter().knowsParameter(param)) {
         try {
@@ -620,7 +620,7 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
 
 MSParkingArea*
 MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
-                                        SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) const {
+                                        SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) {
     // Reroute destination from initial parking area to an alternative parking area
     // if the following conditions are met:
     // - next stop target is a parking area
@@ -1014,7 +1014,7 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
                                    MSParkingAreaMap_t& parkAreas,
                                    std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
                                    std::map<MSParkingArea*, ConstMSEdgeVector>& parkApproaches,
-                                   ParkingParamMap_t& maxValues) const {
+                                   ParkingParamMap_t& maxValues) {
     // a map stores the parking values
     ParkingParamMap_t parkValues;
 
