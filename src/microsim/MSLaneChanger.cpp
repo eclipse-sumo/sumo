@@ -571,7 +571,7 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         }
         for (MSVehicle* pl : targetLane->myPartialVehicles) {
             double plBack = pl->getBackPositionOnLane(targetLane);
-            if (pl->getLane() == targetLane->getBidiLane()) {
+            if (pl->isBidiOn(targetLane)) {
                 plBack -= pl->getVehicleType().getLengthWithGap();
             }
             const double plPos = plBack + pl->getVehicleType().getLength();
