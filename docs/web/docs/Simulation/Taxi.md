@@ -104,9 +104,43 @@ By default, vehicles will leave the simulation after reaching the end of their f
 
 - "stop" (default): stop at the current location (off-road) after delivering the last customer of the current service request.
 - "randomCircling": continue driving to random edges until the next request is received. (caution: taxi might get stuck in a cul-de-sac if the network has those)
+- "taxistand": drive to a taxi stand and wait there for the next customer / dispatch. Defining the set of taxi stands and the strategy of chosing among them is described below
 
 !!! note
     When using "randomCircling", the default value for parameter "device.taxi.end" is 8 hours after vehicle departure.
+
+### Defining taxi stands
+
+When using idle-algorithm **taxistand**, the following inputs must be provided:
+
+- each taxi stand must be defined as a [parkingAreas](ParkingArea.md)
+- the list of parkingAreas that may be used for a particular taxi or taxi fleet must be defined as a `<rerouter>`-element according to the [description for parking search simulation](Rerouter.md#rerouting_to_an_alternative_parking_area).
+- the taxi must define the parameter `device.taxi.stands-rerouter` either as a child element of the `<vehicle>` or its `<vType>` and decelare the rerouter id. 
+
+The strategy for chosing among the alternative taxi stands follows the description for parking search simulation (i.e. with respect to prior knowledge of remaining capacity).
+
+Example declerations for the rerouter and the taxi vType that references it:
+
+```
+<rerouter id="rr0" edges="B0C0 E2D2" vTypes="taxi">
+        <interval begin="0" end="1:0:0:0">
+            <parkingAreaReroute id="pa_0"/>
+            <parkingAreaReroute id="pa_1"/>
+        </interval>
+</rerouter>
+```
+
+!!! note
+    To avoid warnings, the `edges` attribute of the rerouter should match the edges which contain taxi stands.
+
+```
+<vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+        <param key="device.taxi.stands-rerouter" value="rr0"/>
+</vType>
+```
+ 
+ 
 
 ## Customer Stops
 
