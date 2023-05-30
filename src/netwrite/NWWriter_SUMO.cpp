@@ -347,11 +347,11 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     }
                     if (e->getBidiEdge() && k.toEdge->getBidiEdge() &&
                             e != k.toEdge->getTurnDestination(true)) {
-                        try {
-                            NBEdge::Connection bidiCon = k.toEdge->getTurnDestination(true)->getConnection(
-                                                             0, e->getTurnDestination(true), 0);
-                            into.writeAttr(SUMO_ATTR_BIDI, bidiCon.id);
-                        } catch (ProcessError&) {
+                        const std::vector<NBEdge::Connection> cons = k.toEdge->getTurnDestination(true)->getConnectionsFromLane(
+                                -1, e->getTurnDestination(true), -1);
+                        if (cons.size() > 0) {
+                            into.writeAttr(SUMO_ATTR_BIDI, cons.back().id);
+                        } else {
                             WRITE_WARNINGF(TL("Could not find bidi-connection for edge '%'"), edgeID)
                         }
                     }
