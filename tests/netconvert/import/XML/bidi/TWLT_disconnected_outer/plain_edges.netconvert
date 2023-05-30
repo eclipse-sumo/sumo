@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-27 15:44:46 by Eclipse SUMO netconvert Version v1_16_0+1683-528af99
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-400742.34,-5810346.97" convBoundary="0.00,0.00,150.00,100.00" origBoundary="13.455920,52.416195,13.575739,52.459222" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-E0" from="J1" to="J0" priority="-1" numLanes="2" speed="13.89" shape="50.00,48.40 0.00,48.40" bidi="E0"/>
+    <edge id="-E1" from="J2" to="J1" priority="-1" numLanes="2" speed="13.89" shape="100.00,48.40 50.00,48.40" bidi="E1"/>
+    <edge id="-E2" from="J3" to="J2" priority="-1" numLanes="2" speed="13.89" shape="150.00,48.40 100.00,48.40" bidi="E2"/>
+    <edge id="-E3" from="J4" to="J1" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="-E4" from="J5" to="J2" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="E0" from="J0" to="J1" priority="-1" numLanes="2" speed="13.89" shape="0.00,51.60 50.00,51.60" bidi="-E0"/>
+    <edge id="E1" from="J1" to="J2" priority="-1" numLanes="2" speed="13.89" shape="50.00,51.60 100.00,51.60" bidi="-E1"/>
+    <edge id="E2" from="J2" to="J3" priority="-1" numLanes="2" speed="13.89" shape="100.00,51.60 150.00,51.60" bidi="-E2"/>
+    <edge id="E3" from="J1" to="J4" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="E4" from="J2" to="J5" priority="-1" numLanes="1" speed="13.89"/>
+</edges>
