@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-30 12:01+0000\n"
+"PO-Revision-Date: 2023-05-30 12:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8255,7 +8255,7 @@ msgstr "Semplifica forma"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:214
 msgid "Replace current shape with a rectangle"
-msgstr ""
+msgstr "Rimpiazza la forma attuale con un rettangolo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:220
 msgid "Open shape"
@@ -8276,11 +8276,11 @@ msgstr "Chiudi la forma del poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:224
 msgid "Select elements within polygon"
-msgstr ""
+msgstr "Seleziona elementi all'interno del poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:224
 msgid "Select elements within polygon boundary"
-msgstr ""
+msgstr "Seleziona elementi contenuti nel profilo del poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:234
 msgid "Remove geometry point"
