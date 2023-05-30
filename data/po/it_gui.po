@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-27 13:50+0000\n"
+"PO-Revision-Date: 2023-05-30 11:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -7713,7 +7713,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5832
 msgid "List of attribute names that shall be written"
-msgstr ""
+msgstr "Elenco di nomi di attributi da usare in uscita"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5837
 msgid "Restrict output to the given list of edge ids"
