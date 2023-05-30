@@ -1,0 +1,3 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Taxi 'trip_0' reaches scheduled end of service at time=121.00.
+Warning: Taxi 'trip_1' reaches scheduled end of service at time=506.00.
