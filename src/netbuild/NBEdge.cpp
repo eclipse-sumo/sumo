@@ -1216,7 +1216,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
 
 
 std::vector<NBEdge::Connection>
-NBEdge::getConnectionsFromLane(int lane, NBEdge* to, int toLane) const {
+NBEdge::getConnectionsFromLane(int lane, const NBEdge* to, int toLane) const {
     std::vector<NBEdge::Connection> ret;
     for (const Connection& c : myConnections) {
         if ((lane < 0 || c.fromLane == lane)
