@@ -176,6 +176,7 @@ GNERunNetgenerateDialog::onCmdRerun(FXObject*, FXSelector, void*) {
     myText->appendStyledText("rerun tool\n", 1, TRUE);
     myText->layout();
     myText->update();
+    myError = false;
     // run tool
     myRunNetgenerate->run(myNetgenerateOptions);
     return 1;
@@ -194,6 +195,8 @@ long
 GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // close run dialog and call postprocessing
     onCmdCancel(nullptr, 0, nullptr);
+    myText->setText("", 0);
+    myError = false;
     // call postprocessing dialog
     if (myError) {
         return 1;
@@ -233,6 +236,7 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
                 break;
             case GUIEventType::ERROR_OCCURRED:
                 style = 3;
+                myError = true;
                 break;
             default:
                 break;
@@ -252,7 +256,6 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         if (myText->getText().find("Error") != -1) {
             myError = true;
         } else if ((myText->getText().find("Success") != -1) && (myText->getText().find("Warning") == -1)) {
-            myError = false;
             onCmdClose(nullptr, 0, nullptr);
         }
     }
