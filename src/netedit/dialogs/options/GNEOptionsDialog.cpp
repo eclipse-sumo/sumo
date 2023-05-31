@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <algorithm>
+#include <fstream>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/common/MsgHandler.h>
@@ -108,7 +109,9 @@ GNEOptionsDialog::onCmdSaveOptions(FXObject*, FXSelector, void*) {
     const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, true);
     // check file
     if (file.size() > 0) {
-        //myPythonTool->saveConfiguration(file);
+        std::ofstream out(StringUtils::transcodeToLocal(file));
+        myOptionsContainer.writeConfiguration(out, true, false, false, file, true);
+        out.close();
     }
     return 1;
 }
@@ -131,6 +134,10 @@ GNEOptionsDialog::onCmdLoadOptions(FXObject*, FXSelector, void*) {
 
 long
 GNEOptionsDialog::onCmdResetDefault(FXObject*, FXSelector, void*) {
+    // restore entries
+    for (const auto &entry : myInputOptionEntries) {
+        entry->restoreOption();
+    }
     return 1;
 }
 

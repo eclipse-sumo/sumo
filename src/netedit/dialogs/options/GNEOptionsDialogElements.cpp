@@ -142,6 +142,12 @@ GNEOptionsDialogElements::InputString::updateOption() {
 }
 
 
+void
+GNEOptionsDialogElements::InputString::restoreOption() {
+    myStringTextField->setText(myGUIDialogOptions->myOriginalOptionsContainer.getString(myName).c_str());
+}
+
+
 long
 GNEOptionsDialogElements::InputString::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer.resetWritable();
@@ -175,6 +181,12 @@ GNEOptionsDialogElements::InputStringVector::InputStringVector(GNEOptionsDialog*
 void
 GNEOptionsDialogElements::InputStringVector::updateOption() {
     myStringVectorTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getStringVector(myName)).c_str());
+}
+
+
+void
+GNEOptionsDialogElements::InputStringVector::restoreOption() {
+    myStringVectorTextField->setText(toString(myGUIDialogOptions->myOriginalOptionsContainer.getStringVector(myName)).c_str());
 }
 
 
@@ -214,6 +226,18 @@ GNEOptionsDialogElements::InputBool::InputBool(GNEOptionsDialog* GUIDialogOption
 void
 GNEOptionsDialogElements::InputBool::updateOption() {
     if (myGUIDialogOptions->myOptionsContainer.getBool(myName)) {
+        myCheckButton->setCheck(TRUE);
+        myCheckButton->setText(TL("true"));
+    } else {
+        myCheckButton->setCheck(FALSE);
+        myCheckButton->setText(TL("false"));
+    }
+}
+
+
+void
+GNEOptionsDialogElements::InputBool::restoreOption() {
+    if (myGUIDialogOptions->myOriginalOptionsContainer.getBool(myName)) {
         myCheckButton->setCheck(TRUE);
         myCheckButton->setText(TL("true"));
     } else {
@@ -281,6 +305,12 @@ GNEOptionsDialogElements::InputInt::updateOption() {
 }
 
 
+void
+GNEOptionsDialogElements::InputInt::restoreOption() {
+    myIntTextField->setText(toString(myGUIDialogOptions->myOriginalOptionsContainer.getInt(myName)).c_str());
+}
+
+
 long
 GNEOptionsDialogElements::InputInt::onCmdSetOption(FXObject*, FXSelector, void*) {
     if (myIntTextField->getText().empty()) {
@@ -322,6 +352,12 @@ GNEOptionsDialogElements::InputIntVector::InputIntVector(GNEOptionsDialog* GUIDi
 void
 GNEOptionsDialogElements::InputIntVector::updateOption() {
     myIntVectorTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getIntVector(myName)).c_str());
+}
+
+
+void
+GNEOptionsDialogElements::InputIntVector::restoreOption() {
+    myIntVectorTextField->setText(toString(myGUIDialogOptions->myOriginalOptionsContainer.getIntVector(myName)).c_str());
 }
 
 
@@ -372,6 +408,12 @@ GNEOptionsDialogElements::InputFloat::InputFloat(GNEOptionsDialog* GUIDialogOpti
 void
 GNEOptionsDialogElements::InputFloat::updateOption() {
     myFloatTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getFloat(myName)).c_str());
+}
+
+
+void
+GNEOptionsDialogElements::InputFloat::restoreOption() {
+    myFloatTextField->setText(toString(myGUIDialogOptions->myOriginalOptionsContainer.getFloat(myName)).c_str());
 }
 
 
@@ -427,6 +469,12 @@ GNEOptionsDialogElements::InputFilename::InputFilename(GNEOptionsDialog* GUIDial
 void
 GNEOptionsDialogElements::InputFilename::updateOption() {
     myFilenameTextField->setText(myGUIDialogOptions->myOptionsContainer.getString(myName).c_str());
+}
+
+
+void
+GNEOptionsDialogElements::InputFilename::restoreOption() {
+    myFilenameTextField->setText(myGUIDialogOptions->myOriginalOptionsContainer.getString(myName).c_str());
 }
 
 

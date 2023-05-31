@@ -65,6 +65,9 @@ public:
         /// @brief update option (used after load options)
         virtual void updateOption() = 0;
 
+        /// @brief restore option (used for setting original options)
+        virtual void restoreOption() = 0;
+
         /// @brief called when user set value in textField/button/checkBox
         virtual long onCmdSetOption(FXObject*, FXSelector, void*) = 0;
 
@@ -118,6 +121,9 @@ public:
         /// @brief update option
         void updateOption();
 
+        /// @brief restore option
+        void restoreOption();
+
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
@@ -142,6 +148,9 @@ public:
 
         /// @brief update option
         void updateOption();
+
+        /// @brief restore option
+        void restoreOption();
 
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -168,6 +177,9 @@ public:
         /// @brief update option
         void updateOption();
 
+        /// @brief restore option
+        void restoreOption();
+
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
@@ -192,6 +204,9 @@ public:
 
         /// @brief update option
         void updateOption();
+
+        /// @brief restore option
+        void restoreOption();
 
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -218,6 +233,9 @@ public:
         /// @brief update option
         void updateOption();
 
+        /// @brief restore option
+        void restoreOption();
+
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
@@ -242,6 +260,9 @@ public:
 
         /// @brief update option
         void updateOption();
+
+        /// @brief restore option
+        void restoreOption();
 
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -272,6 +293,9 @@ public:
 
         /// @brief update option
         void updateOption();
+
+        /// @brief restore option
+        void restoreOption();
 
         /// @brief called when user press open dialog button
         long onCmdOpenDialog(FXObject*, FXSelector, void*);
