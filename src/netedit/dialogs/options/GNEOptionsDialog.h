@@ -32,7 +32,7 @@
 // class declaration
 // ===========================================================================
 
-class GUIMainWindow;
+class GNEApplicationWindow;
 class OptionsCont;
 
 // ===========================================================================
@@ -52,26 +52,26 @@ class GNEOptionsDialog : public FXDialogBox {
 public:
     /**@brief Constructor for options dialogs
      *
-     * @param[in] parent The parent window
+     * @param[in] GNEApp netedit App
      * @param[in] optionsContainer edited option container
      * @param[in] originalOptionsContainer original options container
      * @param[in] icon windows icon
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Options(GUIMainWindow* windows, GUIIcon icon, OptionsCont &optionsContainer,
+    static std::pair<int, bool> Options(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont &optionsContainer,
                                         const OptionsCont &originalOptionsContainer, const char* titleName);
 
     /**@brief Constructor for run dialogs
      *
-     * @param[in] parent The parent window
+     * @param[in] GNEApp netedit App
      * @param[in] optionsContainer edited option container
      * @param[in] originalOptionsContainer original options container
      * @param[in] icon windows icon
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont &optionsContainer,
+    static std::pair<int, bool> Run(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont &optionsContainer,
                                     const OptionsCont&originalOptionsContainer, const char* titleName);
 
     /// @brief Destructor
@@ -92,6 +92,9 @@ public:
     /// @brief called when user searchs
     long onCmdSearch(FXObject*, FXSelector, void*);
 
+    /// @brief enable/disable show toolTip
+    long onCmdShowToolTipsMenu(FXObject*, FXSelector, void*);
+
     /// @brief save options
     long onCmdSaveOptions(FXObject*, FXSelector, void*);
 
@@ -106,7 +109,7 @@ protected:
     GNEOptionsDialog();
 
     /// @brief pointer to main window parent
-    GUIMainWindow* myMainWindowParent;
+    GNEApplicationWindow* myGNEApp;
 
     /// @brief refecente to edited Option container
     OptionsCont& myOptionsContainer;
@@ -159,14 +162,14 @@ private:
 
     /**@brief Constructor
      *
-     * @param[in] parent The parent window
+     * @param[in] GNEApp netedit App
      * @param[in] optionsContainer edited option container
      * @param[in] originalOptionsContainer original options container
      * @param[in] titleName The title to show
      * @param[in] icon windows icon
      * @param[in] runDialog check if this is a run dialog
      */
-    GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont &optionsContainer, 
+    GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont &optionsContainer, 
                     const OptionsCont &originalOptionsContainer, const char* titleName, const bool runDialog);
 
     /// @brief Invalidated copy constructor.
