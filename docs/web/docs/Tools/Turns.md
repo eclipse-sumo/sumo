@@ -389,7 +389,9 @@ python tools/turn-defs/turnFile2EdgeRelations.py -t <turn-file> -o <output-fil
 # jtcrouter.py
 The **J**unction**T**urn**C**ountRouter generates vehicle routes from turn-count data.
 It does so by converting the turn counts into into flows and turn-ratio files that are suitable as [jtrrouter](../jtrrouter.md) input.
-Then it calls jtrrouter in the background. The turn
+Then it calls jtrrouter in the background.
+    
+Example call:
 
 ```
 python tools/jtcrouter.py -n <net-file> -t <turn-file> -o <output-file>
