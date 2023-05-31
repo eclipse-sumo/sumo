@@ -208,6 +208,7 @@ GNERunNetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
+    bool toolFinished = false;
     while (!myEvents.empty()) {
         // get the next event
         GUIEvent* e = myEvents.top();
@@ -216,6 +217,7 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         FXint style = -1;
         switch (e->getOwnType()) {
             case GUIEventType::TOOL_ENDED:
+                toolFinished = true;
                 break;
             case GUIEventType::MESSAGE_OCCURRED:
                 style = 1;
@@ -237,6 +239,9 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         }
         delete e;
         updateDialog();
+    }
+    if (toolFinished && (myText->getText().find("Success") != -1)) {
+        onCmdClose(nullptr, 0, nullptr);
     }
     return 1;
 }
