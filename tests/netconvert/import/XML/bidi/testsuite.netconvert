@@ -18,3 +18,4 @@ TWLT_diagonal
 
 # the outer lanes are not connected
 TWLT_disconnected_outer
+TWLT_sidewalks
