@@ -348,6 +348,7 @@
 #include "walkedges.xpm"
 #include "walkfromto.xpm"
 #include "walkbusstop.xpm"
+#include "walktrainstop.xpm"
 #include "walkroute.xpm"
 #include "walkjunctions.xpm"
 #include "ridefromto.xpm"
@@ -816,6 +817,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::WALK_EDGES] = new FXXPMIcon(a, walkedges_xpm);
     myIcons[GUIIcon::WALK_FROMTO] = new FXXPMIcon(a, walkfromto_xpm);
     myIcons[GUIIcon::WALK_BUSSTOP] = new FXXPMIcon(a, walkbusstop_xpm);
+    myIcons[GUIIcon::WALK_TRAINSTOP] = new FXXPMIcon(a, walktrainstop_xpm);
     myIcons[GUIIcon::WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);
     myIcons[GUIIcon::WALK_JUNCTIONS] = new FXXPMIcon(a, walkjunctions_xpm);
     myIcons[GUIIcon::RIDE_FROMTO] = new FXXPMIcon(a, ridefromto_xpm);
