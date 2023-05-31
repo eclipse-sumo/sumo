@@ -120,7 +120,7 @@ MFXTextFieldSearch::MFXTextFieldSearch() :
 
 void 
 MFXTextFieldSearch::drawSearchTextRange(const FXString &searchString, FXDCWindow& dc,FXint fm,FXint to) {
-    register FXint sx, ex, xx, yy, cw, hh, ww, si, ei, lx, rx, t;
+    register FXint xx, yy, cw, hh, ww, si, ei, lx, rx, t;
     register FXint rr = width - border - padright;
     register FXint ll = border + padleft;
     register FXint mm = (ll + rr)/2;
