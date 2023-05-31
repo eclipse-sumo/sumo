@@ -448,6 +448,7 @@ enum SumoXMLTag {
     // @brief walks
     GNE_TAG_WALK_EDGE,
     GNE_TAG_WALK_BUSSTOP,
+    GNE_TAG_WALK_TRAINSTOP,
     GNE_TAG_WALK_EDGES,
     GNE_TAG_WALK_ROUTE,
     GNE_TAG_WALK_JUNCTIONS,
@@ -1401,6 +1402,8 @@ enum SumoXMLAttr {
     GNE_ATTR_CENTER_AFTER_CREATION,
     /// @brief to busStop (used by personPlans)
     GNE_ATTR_TO_BUSSTOP,
+    /// @brief to trainStop (used by personPlans)
+    GNE_ATTR_TO_TRAINSTOP,
     /// @brief to busStop (used by containerPlans)
     GNE_ATTR_TO_CONTAINERSTOP,
     /// @brief neighboring lane, simplified lane attr instead of child element

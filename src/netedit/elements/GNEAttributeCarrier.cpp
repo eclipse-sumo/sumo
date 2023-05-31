@@ -4688,6 +4688,24 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
                                               TL("Id of the destination bus stop"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = GNE_TAG_WALK_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(240, 255, 205, 255));
+        // from edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("The ID of the edge the walk starts at"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // to trainStop
+        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_TRAINSTOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("Id of the destination train stop"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
     currentTag = GNE_TAG_WALK_EDGES;
     {
         // set values of tag
