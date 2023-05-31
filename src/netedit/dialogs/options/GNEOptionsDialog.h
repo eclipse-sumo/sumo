@@ -54,21 +54,25 @@ public:
      *
      * @param[in] parent The parent window
      * @param[in] optionsContainer edited option container
+     * @param[in] originalOptionsContainer original options container
      * @param[in] icon windows icon
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Options(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName);
+    static std::pair<int, bool> Options(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer,
+                                        const OptionsCont* originalOptionsContainer, const char* titleName);
 
     /**@brief Constructor for run dialogs
      *
      * @param[in] parent The parent window
      * @param[in] optionsContainer edited option container
+     * @param[in] originalOptionsContainer original options container
      * @param[in] icon windows icon
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName);
+    static std::pair<int, bool> Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer,
+                                    const OptionsCont* originalOptionsContainer, const char* titleName);
 
     /// @brief Destructor
     ~GNEOptionsDialog();
@@ -95,8 +99,11 @@ protected:
     /// @brief refecente to edited Option container
     OptionsCont* myOptionsContainer;
 
-    /// @brief flag for check if value was modified
-    bool myModified = false;
+    /// @brief refecente to original Option container
+    const OptionsCont* originalOptionsContainer;
+
+    /// @brief flag for check if options was modified
+    bool myOptionsModified = false;
 
 private:
     /// @brief checkable button for show toolTips
@@ -139,11 +146,13 @@ private:
      *
      * @param[in] parent The parent window
      * @param[in] optionsContainer edited option container
+     * @param[in] originalOptionsContainer original options container
      * @param[in] titleName The title to show
      * @param[in] icon windows icon
      * @param[in] runDialog check if this is a run dialog
      */
-    GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName, const bool runDialog);
+    GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont* optionsContainer, 
+                    const OptionsCont* originalOptionsContainer, const char* titleName, const bool runDialog);
 
     /// @brief Invalidated copy constructor.
     GNEOptionsDialog(const GNEOptionsDialog&) = delete;

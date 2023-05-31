@@ -140,7 +140,7 @@ long
 GNEOptionsDialogElements::InputString::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myStringTextField->getText().text());
-    myGUIDialogOptions->myModified = true;
+    myGUIDialogOptions->myOptionsModified = true;
     return 1;
 }
 
@@ -170,7 +170,7 @@ long
 GNEOptionsDialogElements::InputStringVector::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer->resetWritable();
     myGUIDialogOptions->myOptionsContainer->set(myName, myStringVectorTextField->getText().text());
-    myGUIDialogOptions->myModified = true;
+    myGUIDialogOptions->myOptionsModified = true;
     return 1;
 }
 
@@ -215,7 +215,7 @@ GNEOptionsDialogElements::InputBool::onCmdSetOption(FXObject*, FXSelector, void*
         myGUIDialogOptions->myOptionsContainer->set(myName, "false");
         myCheckButton->setText(TL("false"));
     }
-    myGUIDialogOptions->myModified = true;
+    myGUIDialogOptions->myOptionsModified = true;
     // special checks for Debug flags
     if ((myName == "gui-testing-debug") && myGUIDialogOptions->myOptionsContainer->isSet("gui-testing-debug")) {
         MsgHandler::enableDebugMessages(myGUIDialogOptions->myOptionsContainer->getBool("gui-testing-debug"));
@@ -264,7 +264,7 @@ GNEOptionsDialogElements::InputInt::onCmdSetOption(FXObject*, FXSelector, void*)
     } else {
         myGUIDialogOptions->myOptionsContainer->resetWritable();
         myGUIDialogOptions->myOptionsContainer->set(myName, myIntTextField->getText().text());
-        myGUIDialogOptions->myModified = true;
+        myGUIDialogOptions->myOptionsModified = true;
     }
     return 1;
 }
@@ -305,7 +305,7 @@ GNEOptionsDialogElements::InputIntVector::onCmdSetOption(FXObject*, FXSelector, 
         myGUIDialogOptions->myOptionsContainer->resetWritable();
         myGUIDialogOptions->myOptionsContainer->set(myName, myIntVectorTextField->getText().text());
         myIntVectorTextField->setTextColor(FXRGB(0, 0, 0));
-        myGUIDialogOptions->myModified = true;
+        myGUIDialogOptions->myOptionsModified = true;
     } catch (...) {
         myIntVectorTextField->setTextColor(FXRGB(255, 0, 0));
     }
@@ -404,7 +404,7 @@ GNEOptionsDialogElements::InputFilename::onCmdSetOption(FXObject*, FXSelector, v
         myGUIDialogOptions->myOptionsContainer->resetWritable();
         myGUIDialogOptions->myOptionsContainer->set(myName, myFilenameTextField->getText().text());
         myFilenameTextField->setTextColor(FXRGB(0, 0, 0));
-        myGUIDialogOptions->myModified = true;
+        myGUIDialogOptions->myOptionsModified = true;
     } else {
         myFilenameTextField->setTextColor(FXRGB(255, 0, 0));
     }

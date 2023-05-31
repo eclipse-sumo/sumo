@@ -676,11 +676,20 @@ protected:
     /// @brief string to check if undo/redo list is enabled (a String is used to keep the disabling reason)
     std::string myUndoRedoListEnabled;
 
+    /// @brief original netedit options container
+    OptionsCont myOriginalNeteditOptions;
+
     /// @brief sumo options container
     OptionsCont mySumoOptions;
 
+    /// @brief original sumo options container
+    OptionsCont myOriginalSumoOptions;
+
     /// @brief netgenerate options container
     OptionsCont myNetgenerateOptions;
+
+    /// @brief original netgenerate options container
+    OptionsCont myOriginalNetgenerateOptions;
 
     /// @brief flag for check if console options was already loaded
     bool myConsoleOptionsLoaded = true;

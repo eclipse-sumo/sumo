@@ -50,16 +50,16 @@ FXIMPLEMENT(GNEOptionsDialog,   FXDialogBox,    GUIDialogOptionsMap,    ARRAYNUM
 // ===========================================================================
 
 std::pair<int, bool>
-GNEOptionsDialog::Options(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName) {
-    GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(windows, icon, optionsContainer, titleName, false);
-    return std::make_pair(optionsDialog->execute(), optionsDialog->myModified);
+GNEOptionsDialog::Options(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const OptionsCont* originalOptionsContainer, const char* titleName) {
+    GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(windows, icon, optionsContainer, originalOptionsContainer, titleName, false);
+    return std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
 }
 
 
 std::pair<int, bool>
-GNEOptionsDialog::Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName) {
-    GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(windows, icon, optionsContainer, titleName, true);
-    return std::make_pair(optionsDialog->execute(), optionsDialog->myModified);
+GNEOptionsDialog::Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const OptionsCont* originalOptionsContainer, const char* titleName) {
+    GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(windows, icon, optionsContainer, originalOptionsContainer, titleName, true);
+    return std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
 }
 
 
@@ -156,7 +156,8 @@ GNEOptionsDialog::updateVisibleEntriesBySearch(std::string searchText) {
 }
 
 
-GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont* optionsContainer, const char* titleName, const bool runDialog) :
+GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont* optionsContainer,
+        const OptionsCont* originalOptionsContainer, const char* titleName, const bool runDialog) :
     FXDialogBox(parent, titleName, GUIDesignDialogBoxExplicitStretchable(800, 600)),
     myMainWindowParent(parent),
     myOptionsContainer(optionsContainer) {
