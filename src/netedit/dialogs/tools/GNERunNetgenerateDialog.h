@@ -122,6 +122,9 @@ private:
     /// @brief io-event with the runner thread
     FXEX::MFXThreadEvent myThreadEvent;
 
+    /// @brief flag to check if there is an error
+    bool myError = false;
+
     /// @brief Invalidated copy constructor.
     GNERunNetgenerateDialog(const GNERunNetgenerateDialog&) = delete;
 

@@ -120,6 +120,8 @@ GNERunNetgenerateDialog::run(const OptionsCont* netgenerateOptions) {
     FXDialogBox::show(PLACEMENT_SCREEN);
     // set netgenerate options
     myNetgenerateOptions = netgenerateOptions;
+    // reset error flag
+    myError = false;
     // run tool
     myRunNetgenerate->run(myNetgenerateOptions);
 }
@@ -193,7 +195,11 @@ GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // close run dialog and call postprocessing
     onCmdCancel(nullptr, 0, nullptr);
     // call postprocessing dialog
-    return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
+    if (myError) {
+        return 1;
+    } else {
+        return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
+    }
 }
 
 
@@ -240,9 +246,17 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         delete e;
         updateDialog();
     }
-    if (toolFinished && (myText->getText().find("Success") != -1)) {
-        onCmdClose(nullptr, 0, nullptr);
+    
+    if (toolFinished) {
+        // check if close dialog immediately after running
+        if (myText->getText().find("Error") != -1) {
+            myError = true;
+        } else if ((myText->getText().find("Success") != -1) && (myText->getText().find("Warning") == -1)) {
+            myError = false;
+            onCmdClose(nullptr, 0, nullptr);
+        }
     }
+
     return 1;
 }
 
