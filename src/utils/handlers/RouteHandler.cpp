@@ -304,6 +304,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                       obj->getStringAttribute(SUMO_ATTR_FROMJUNCTION),
                       obj->getStringAttribute(SUMO_ATTR_TOJUNCTION),
                       obj->getStringAttribute(SUMO_ATTR_BUS_STOP),
+                      obj->getStringAttribute(SUMO_ATTR_TRAIN_STOP),
                       obj->getStringListAttribute(SUMO_ATTR_EDGES),
                       obj->getStringAttribute(SUMO_ATTR_ROUTE),
                       obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
@@ -695,6 +696,7 @@ RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
     const std::string fromJunction = attrs.getOpt<std::string>(SUMO_ATTR_FROMJUNCTION, "", parsedOk, "");
     const std::string toJunction = attrs.getOpt<std::string>(SUMO_ATTR_TOJUNCTION, "", parsedOk, "");
     const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
+    const std::string trainStop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, "", parsedOk, "");
     const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, "", parsedOk, 0);
     const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 0);
     const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, "", parsedOk, -1);
@@ -711,6 +713,7 @@ RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROMJUNCTION, fromJunction);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TOJUNCTION, toJunction);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_BUS_STOP, busStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TRAIN_STOP, trainStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DURATION, duration);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, departPos);

@@ -199,11 +199,12 @@ protected:
         STOP                     = 1 << 6,   // Path is an stop
         ONLY_FROMTO              = 1 << 7,   // Path only had two elements (first and last)
         END_BUSSTOP              = 1 << 8,   // Path ends in a busStop
-        END_CONTAINERSTOP        = 1 << 9,   // Path ends in a containerStop
-        ROUTE                    = 1 << 10,  // Path uses a route
-        REQUIRE_FIRSTELEMENT     = 1 << 11,  // Path start always in a previous element
-        SHOW_CANDIDATE_EDGES     = 1 << 12,  // Show candidate edges
-        SHOW_CANDIDATE_JUNCTIONS = 1 << 13,  // show candidate junctions
+        END_TRAINSTOP            = 1 << 9,   // Path ends in a trainStop
+        END_CONTAINERSTOP        = 1 << 10,  // Path ends in a containerStop
+        ROUTE                    = 1 << 11,  // Path uses a route
+        REQUIRE_FIRSTELEMENT     = 1 << 12,  // Path start always in a previous element
+        SHOW_CANDIDATE_EDGES     = 1 << 13,  // Show candidate edges
+        SHOW_CANDIDATE_JUNCTIONS = 1 << 14,  // show candidate junctions
     };
 
     /// @brief update InfoRouteLabel

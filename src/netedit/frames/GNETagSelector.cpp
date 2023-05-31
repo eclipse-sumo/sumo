@@ -463,6 +463,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         case GNE_TAG_WALK_EDGE:
         case GNE_TAG_WALK_BUSSTOP:
+        case GNE_TAG_WALK_TRAINSTOP:
         case GNE_TAG_WALK_EDGES:
         case GNE_TAG_WALK_ROUTE:
         case GNE_TAG_WALK_JUNCTIONS:

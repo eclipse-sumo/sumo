@@ -106,7 +106,7 @@ public:
 
     /// @brief build walk
     virtual void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                           const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID,
+                           const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
                            const std::vector<std::string>& edgeIDs, const std::string& routeID, double arrivalPos) = 0;
 
     /// @brief build ride

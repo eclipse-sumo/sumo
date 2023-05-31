@@ -642,7 +642,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
 
 void
 GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                           const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID,
+                           const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
                            const std::vector<std::string>& edgeIDs, const std::string& routeID, double arrivalPos) {
     // get previous plan edge
     const auto previousEdge = getPreviousPlanEdge(true, sumoBaseObject);
@@ -653,6 +653,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     GNEJunction* fromJunction = myNet->getAttributeCarriers()->retrieveJunction(fromJunctionID, false);
     GNEJunction* toJunction = myNet->getAttributeCarriers()->retrieveJunction(toJunctionID, false);
     GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
+    GNEAdditional* toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toTrainStopID, false);
     GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
     std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
     // avoid consecutive duplicated edges
@@ -721,7 +722,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         } else if (fromEdge && toBusStop) {
             // create walk from->busStop
-            GNEDemandElement* walk = new GNEWalk(myNet, personParent, fromEdge, toBusStop, arrivalPos);
+            GNEDemandElement* walk = new GNEWalk(false, myNet, personParent, fromEdge, toBusStop, arrivalPos);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
@@ -734,6 +735,22 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 fromEdge->addChildElement(walk);
                 toBusStop->addChildElement(walk);
                 walk->incRef("buildWalkFromBusStop");
+            }
+        } else if (fromEdge && toTrainStop) {
+            // create walk from->trainStop
+            GNEDemandElement* walk = new GNEWalk(true, myNet, personParent, fromEdge, toTrainStop, arrivalPos);
+            if (myAllowUndoRedo) {
+                myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
+                myNet->getViewNet()->getUndoList()->end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(walk);
+                // set child references
+                personParent->addChildElement(walk);
+                fromEdge->addChildElement(walk);
+                toTrainStop->addChildElement(walk);
+                walk->incRef("buildWalkFromTrainStop");
             }
         } else if (fromJunction && toJunction) {
             // create walk from->to (junction)
@@ -1200,6 +1217,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
     GNEJunction* toJunction = (pathCreator->getSelectedJunctions().size() > 0) ? pathCreator->getSelectedJunctions().back() : nullptr;
     // get busStop
     GNEAdditional* toBusStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
+    GNEAdditional* toTrainStop = pathCreator->getToStoppingPlace(SUMO_TAG_TRAIN_STOP);
     // get path edges
     std::vector<std::string> edges;
     for (const auto& path : pathCreator->getPath()) {
@@ -1246,9 +1264,9 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_WALK_EDGE: {
             // check if transport busStop->edge can be created
             if (fromEdge && toEdge) {
-                buildWalk(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", "", {}, "", arrivalPos);
+                buildWalk(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", "", "", {}, "", arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A ride from busStop to edge needs a busStop and an edge"));
+                myNet->getViewNet()->setStatusBarText(TL("A walk to edge needs a busStop and an edge"));
                 return false;
             }
             break;
@@ -1256,9 +1274,19 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_WALK_BUSSTOP: {
             // check if transport busStop->busStop can be created
             if (fromEdge && toBusStop) {
-                buildWalk(personPlanObject, fromEdge->getID(), "", "", "", toBusStop->getID(), {}, "", arrivalPos);
+                buildWalk(personPlanObject, fromEdge->getID(), "", "", "", toBusStop->getID(), "", {}, "", arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A transport from busStop to busStop needs two busStops"));
+                myNet->getViewNet()->setStatusBarText(TL("A walk to busStop needs two busStops"));
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_WALK_TRAINSTOP: {
+            // check if transport trainStop->trainStop can be created
+            if (fromEdge && toTrainStop) {
+                buildWalk(personPlanObject, fromEdge->getID(), "", "", "", "", toTrainStop->getID(), {}, "", arrivalPos);
+            } else {
+                myNet->getViewNet()->setStatusBarText(TL("A walk to trainStop needs two trainStops"));
                 return false;
             }
             break;
@@ -1266,9 +1294,9 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_WALK_EDGES: {
             // check if transport edges can be created
             if (edges.size() > 0) {
-                buildWalk(personPlanObject, "", "", "", "", "", edges, "", arrivalPos);
+                buildWalk(personPlanObject, "", "", "", "", "", "", edges, "", arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A transport with edges attribute needs a list of edges"));
+                myNet->getViewNet()->setStatusBarText(TL("A walk with edges needs a list of edges"));
                 return false;
             }
             break;
@@ -1276,9 +1304,9 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_WALK_ROUTE: {
             // check if transport edges can be created
             if (route) {
-                buildWalk(personPlanObject, "", "", "", "", "", {}, route->getID(), arrivalPos);
+                buildWalk(personPlanObject, "", "", "", "", "", "", {}, route->getID(), arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A route transport needs a route"));
+                myNet->getViewNet()->setStatusBarText(TL("A route walk needs a route"));
                 return false;
             }
             break;
@@ -1286,7 +1314,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_WALK_JUNCTIONS: {
             // check if transport busStop->junction can be created
             if (fromJunction && toJunction) {
-                buildWalk(personPlanObject, "", "", fromJunction->getID(), toJunction->getID(), "", {}, "", arrivalPos);
+                buildWalk(personPlanObject, "", "", fromJunction->getID(), toJunction->getID(), "", "", {}, "", arrivalPos);
             } else {
                 myNet->getViewNet()->setStatusBarText(TL("A ride from busStop to junction needs a busStop and an junction"));
                 return false;
