@@ -119,6 +119,10 @@ private:
     static bool writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, const NBNode& n);
 
 
+    /// @brief retrieve bidi edge id for internal corresponding to the given connection
+    static std::string getInternalBidi(const NBEdge* e, const NBEdge::Connection& k);
+
+
     /** @brief Writes an edge (<edge ...)
      * @param[in] into The device to write the edge into
      * @param[in] e The edge to write

@@ -347,12 +347,9 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     }
                     if (e->getBidiEdge() && k.toEdge->getBidiEdge() &&
                             e != k.toEdge->getTurnDestination(true)) {
-                        const std::vector<NBEdge::Connection> cons = k.toEdge->getTurnDestination(true)->getConnectionsFromLane(
-                                -1, e->getTurnDestination(true), -1);
-                        if (cons.size() > 0) {
-                            into.writeAttr(SUMO_ATTR_BIDI, cons.back().id);
-                        } else {
-                            WRITE_WARNINGF(TL("Could not find bidi-connection for edge '%'"), edgeID)
+                        const std::string bidiEdge = getInternalBidi(e, k);
+                        if (bidiEdge != "") {
+                            into.writeAttr(SUMO_ATTR_BIDI, bidiEdge);
                         }
                     }
                     // open a new edge
@@ -435,6 +432,33 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
     return ret;
 }
 
+
+std::string
+NWWriter_SUMO::getInternalBidi(const NBEdge* e, const NBEdge::Connection& k) {
+    const NBEdge* fromBidi = e->getTurnDestination(true);
+    const NBEdge* toBidi = k.toEdge->getTurnDestination(true);
+    const std::vector<NBEdge::Connection> cons = toBidi->getConnectionsFromLane( -1, fromBidi, -1);
+    if (cons.size() > 0) {
+        if (e->getNumLanes() == 1 && k.toEdge->getNumLanes() == 1 && fromBidi->getNumLanes() == 1 && toBidi->getNumLanes() == 1) {
+            return cons.back().id;
+        }
+        // do a more careful check in case there are parallel internal edges
+        // note: k is the first connection with the new id
+        for (const NBEdge::Connection& c : e->getConnections()) {
+            if (c.id == k.id) {
+                PositionVector rShape = c.shape.reverse();
+                for (const NBEdge::Connection& k2 : cons) {
+                    if (k2.shape.almostSame(rShape, POSITION_EPS)) {
+                        return k2.id;
+                    }
+                }
+            }
+        }
+    } else {
+        WRITE_WARNINGF(TL("Could not find bidi-connection for edge '%'"), k.id)
+    }
+    return "";
+}
 
 void
 NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
