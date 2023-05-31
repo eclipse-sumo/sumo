@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-27 13:50+0000\n"
+"PO-Revision-Date: 2023-05-31 11:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5212,7 +5212,7 @@ msgstr "Netz"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:296
 msgid "additional"
-msgstr ""
+msgstr "weiteres Element"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:339
 msgid "route"
@@ -5290,7 +5290,7 @@ msgstr "Nichts zu deaktivieren, implementiert in Kindelementen"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:631
 #, c-format
 msgid "TagProperty for tag '%' not defined"
-msgstr ""
+msgstr "TagProperty für Tag '%' nicht definiert"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:849
 msgid "Nothing to toggle, implement in Children"
@@ -8632,7 +8632,7 @@ msgstr "Konnte keine meanData-Kante erstellen; "
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:64
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:93
 msgid " already exists"
-msgstr ""
+msgstr " existiert bereits"
 
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:70
 msgid "add meanDataEdge"
@@ -10113,6 +10113,8 @@ msgstr "- Beispiele:\n"
 msgid ""
 "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
 msgstr ""
+"     junction; id; 'foo' -> erfasst alle Knotenpunkte, deren ID 'foo' "
+"enthält\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:288
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:477
@@ -10120,6 +10122,8 @@ msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'\n"
 msgstr ""
+"     junction; type; '=priority' -> erfasst alle vorfahrtgeregelten "
+"Knotenpunkte (Typ 'priority'), aber nicht jene vom typ 'priority_stop'\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:289
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:478
@@ -12060,7 +12064,7 @@ msgstr "Shapes der gelöschten Elemente laden"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:165
 msgid "load shapes from '"
-msgstr ""
+msgstr "lade Shapes aus '"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:169
 msgid "Loading of shape file failed: "
@@ -12072,7 +12076,7 @@ msgstr "Shape-Datei erfolgreich geladen: "
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNEPythonTool.cpp:42
 msgid "Execute python tool '"
-msgstr ""
+msgstr "Führe das folgende Python-Werkzeug aus: '"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNEPythonTool.cpp:153
 #, c-format
