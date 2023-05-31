@@ -166,11 +166,11 @@ GNEPythonTool::loadConfiguration(const std::string& file) {
         parser.setErrorHandler(&handler);
         parser.parse(StringUtils::transcodeToLocal(file).c_str());
         if (handler.errorOccurred()) {
-            WRITE_ERROR(TL("Could not load netedit configuration '") + file + "'.");
+            WRITE_ERROR(TL("Could not load tool configuration '") + file + "'.");
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TL("Could not load netedit configuration '") + file + "':\n " + StringUtils::transcode(e.getMessage()));
+        WRITE_ERROR(TL("Could not load tool configuration '") + file + "':\n " + StringUtils::transcode(e.getMessage()));
         return false;
     }
     // write info
