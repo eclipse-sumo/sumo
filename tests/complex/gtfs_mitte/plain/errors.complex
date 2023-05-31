@@ -78,7 +78,7 @@ Warning: Found sharp turn with radius 8.90 at the start of edge '-105066743'.
 Warning: Found sharp turn with radius 4.49 at the end of edge '-1171475741'.
 Warning: Found angle of 114.03 degrees at edge '-51784728', segment 0.
 Warning: Shape for junction '29221595' has distance 26.30 to its given position.
-Warning: Edge '1174517824' is not connected to outgoing edges at junction '10925247595'.
+Warning: Edge '1176519774' is not connected to outgoing edges at junction '10925247595'.
 Warning: The rail crossing '10315421457' does not have any roads.
 Warning: Unused state in tlLogic '10567769016', program '0' at tl-index 2
 Warning: 8 total messages of type: Ambiguity in turnarounds computation at junction '%'.
@@ -89,11 +89,11 @@ Warning: 35 total messages of type: Found sharp turn with radius % at the start 
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 60 total messages of type: The rail crossing '%' does not have any roads.
 Warning: 82 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
-Warning: Found sharp turn with radius 8.80 at the start of edge '1174514790'.
-Warning: Found sharp turn with radius 5.83 at the end of edge '1174519346'.
+Warning: Found sharp turn with radius 8.80 at the start of edge '1176516741'.
+Warning: Found sharp turn with radius 5.83 at the end of edge '1176521294'.
 Warning: Shape for junction '29221595' has distance 26.30 to its given position.
 Warning: Converting invalid rail_crossing to priority junction '1662153956'.
-Warning: Lane '1174518180_1' is not connected from any incoming edge at junction '10925247376'.
+Warning: Lane '1176520130_1' is not connected from any incoming edge at junction '10925247376'.
 Warning: Non-static traffic light '10567769017' does not define variable phase length.
 Warning: Unused state in tlLogic '10567769016', program '0' at tl-index 2
 Warning: 2 total messages of type: Converting invalid rail_crossing to priority junction '%'.
