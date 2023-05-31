@@ -41,6 +41,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                     GNEOptionsDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,                  GNEOptionsDialog::onCmdReset),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE,         GNEOptionsDialog::onCmdRunNetgenerate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                 GNEOptionsDialog::onCmdSelectTopic),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SEARCH_USEDESCRIPTION,  GNEOptionsDialog::onCmdSearch),
@@ -72,6 +74,27 @@ GNEOptionsDialog::Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont &options
 
 
 GNEOptionsDialog::~GNEOptionsDialog() { }
+
+
+long
+GNEOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // reset entries
+    for (const auto &entry : myInputOptionEntries) {
+        entry->onCmdResetOption(nullptr, 0, nullptr);
+    }
+    // close dialog canceling changes
+    return handle(this, FXSEL(SEL_COMMAND, ID_CANCEL), nullptr);
+}
+
+
+long
+GNEOptionsDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    // reset entries
+    for (const auto &entry : myInputOptionEntries) {
+        entry->onCmdResetOption(nullptr, 0, nullptr);
+    }
+    return 1;
+}
 
 
 long
@@ -246,13 +269,13 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
         GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
     auto saveFile = new MFXButtonTooltip(buttonsFrame, parent->getStaticTooltipMenu(), TL("Save options"),
         GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
-        saveFile->setTipText(TL("Save file with tool configuration"));
+        saveFile->setTipText(TL("Save configuration file"));
     auto loadFile = new MFXButtonTooltip(buttonsFrame, parent->getStaticTooltipMenu(), TL("Load options") ,
         GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
-        loadFile->setTipText(TL("Load file with tool configuration"));
+        loadFile->setTipText(TL("Load configuration file"));
     auto resetDefault = new MFXButtonTooltip(buttonsFrame, parent->getStaticTooltipMenu(), TL("Default options") ,
         GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_DEFAULT, GUIDesignButtonConfiguration);
-        resetDefault->setTipText(TL("Reset al options to default"));
+        resetDefault->setTipText(TL("Reset all options to default"));
     // add separator
     new FXSeparator(contentFrame);
     // create elements frame
@@ -322,11 +345,12 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // continue depending of dialog type
     if (runDialog) {
-        new FXButton(buttonsFrame, (TL("Run") + std::string("\t\t") + TL("Run tool")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_RUNNETGENERATE, GUIDesignButtonOK);
-        new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t") + TL("Cancel tool")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, ID_CANCEL, GUIDesignButtonOK);
+        new FXButton(buttonsFrame, (TL("Run") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_RUNNETGENERATE, GUIDesignButtonOK);
     } else {
-        new FXButton(buttonsFrame, (TL("OK") + std::string("\t\t") + TL("Accept settings")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+        new FXButton(buttonsFrame, (TL("OK") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     }
+    new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButtonOK);
+    new FXButton(buttonsFrame, (TL("Reset") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create dialog
     create();

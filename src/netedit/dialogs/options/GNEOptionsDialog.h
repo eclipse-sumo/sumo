@@ -77,7 +77,13 @@ public:
     /// @brief Destructor
     ~GNEOptionsDialog();
 
-    /// @brief called when user press run netgenerate button
+    /// @brief called when user press cancel button
+    long onCmdCancel(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press reset button
+    long onCmdReset(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press reset button
     long onCmdRunNetgenerate(FXObject*, FXSelector, void*);
 
     /// @brief called when user select a topic in the list
