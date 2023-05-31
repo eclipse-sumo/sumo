@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-31 09:18+0000\n"
+"PO-Revision-Date: 2023-05-31 11:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -7011,21 +7011,23 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4490
 msgid "Activity displayed for stopped container in GUI and output files "
 msgstr ""
+"Attività del contenitore fermo menzionata nell'interfaccia grafica e nei "
+"file in uscita "
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4511
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4551
 msgid "The ID of the edge the person trip starts at"
-msgstr ""
+msgstr "Il codice identificativo dell'arco dove la persona inizia la sua corsa"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4516
 msgid "The ID of the edge the person trip ends at"
-msgstr ""
+msgstr "Il codice identificativo dell'arco dove la persona termina la sua corsa"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4527
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4561
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4595
 msgid "List of possible vehicle types to take"
-msgstr ""
+msgstr "Elenco di tipi di veicoli atti per la corsa"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4532
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4566
@@ -7034,6 +7036,8 @@ msgid ""
 "List of possible traffic modes. Walking is always possible regardless of "
 "this value"
 msgstr ""
+"Elenco di modi possibili. Camminare lo è sempre indipendentemente da questo "
+"valore"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4537
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4571
@@ -7043,91 +7047,93 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4556
 msgid "Id of the destination busStop"
-msgstr ""
+msgstr "Codice identificativo della fermata di autobus di destinazione"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4585
 msgid "The name of the junction the person trip starts at"
-msgstr ""
+msgstr "Il nome dell'incrocio dove la persona inizia la sua corsa"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4590
 msgid "The name of the junction the person trip ends at"
-msgstr ""
+msgstr "Il nome dell'incrocio dove la persona termina la sua corsa"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4627
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4651
 msgid "The ID of the edge the walk starts at"
-msgstr ""
+msgstr "Il codice identificativo dell'arco dove inizia il cammino"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4632
 msgid "The ID of the edge the walk ends at"
-msgstr ""
+msgstr "Il codice identificativo dell'arco dove termina il cammino"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4656
 msgid "Id of the destination bus stop"
-msgstr ""
+msgstr "Codice identificativo della fermata di autobus di destinazione"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4688
 msgid "The id of the route to walk"
-msgstr ""
+msgstr "Il codice identificativo dell'itinerario da camminare"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4708
 msgid "The name of the junction the walk starts at"
-msgstr ""
+msgstr "Il nome dell'incrocio dove inizia il cammino"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4713
 msgid "The name of the junction the walk ends at"
-msgstr ""
+msgstr "Il nome dell'incrocio dove termina il cammino"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4734
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4764
 msgid "The ID of the edge the ride starts at"
-msgstr ""
+msgstr "Il codice identificativo dell'arco dove inizia il passaggio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4739
 msgid "The ID of the edge the ride ends at"
-msgstr ""
+msgstr "Il codice identificativo dove termina il passaggio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4750
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4774
 msgid "list of vehicle alternatives to take for the ride"
-msgstr ""
+msgstr "elenco di veicoli alternativi da prendere per il passaggio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4769
 msgid "ID of the destination bus stop"
-msgstr ""
+msgstr "Codice identificativo della fermata di autobus di destinazione"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4828
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4860
 msgid "Activity displayed for stopped person in GUI and output files "
 msgstr ""
+"Attività della persona ferma menzionata nell'interfaccia grafica e nei file "
+"in uscita "
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4872
 msgid "This vehicle's color"
-msgstr ""
+msgstr "Il colore di questo veicolo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4878
 msgid "The lane on which thevehicle shall be inserted"
-msgstr ""
+msgstr "La corsia sulla quale il veicolo deve essere inserito"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4884
 msgid "The position at which the vehicle shall enter the net"
-msgstr ""
+msgstr "La posizione dove il veicolo deve entrare nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4890
 msgid "The speed with which the vehicle shall enter the network"
-msgstr ""
+msgstr "La velocità del veicolo quando entra nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4896
 msgid "The lane at which the vehicle shall leave the network"
-msgstr ""
+msgstr "La corsia sulla quale il veicolo deve uscire dalla rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4902
 msgid "The position at which the vehicle shall leave the network"
-msgstr ""
+msgstr "La posizione dove il veicolo deve uscire dalla rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4908
 msgid "The speed with which the vehicle shall leave the network"
-msgstr ""
+msgstr "La velocità del veicolo quando esce dalla rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4914
 msgid ""
