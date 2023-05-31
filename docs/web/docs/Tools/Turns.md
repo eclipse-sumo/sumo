@@ -323,7 +323,7 @@ Example:
         ...
     </interval>
 </data>  
- ```
+```
 
 Such a data file can be visualized in [sumo-gui](../sumo-gui.md#visualizing_edge-related_data) and also plotted with [plot_net_dump.py](Visualization.md#plot_net_dumppy).    
  
