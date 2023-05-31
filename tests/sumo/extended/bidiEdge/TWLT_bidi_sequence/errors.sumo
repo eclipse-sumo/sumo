@@ -1,7 +1,7 @@
 Warning: Teleporting vehicle 'v.1'; waited too long (jam), lane='E0_0', time=312.00.
 Warning: Vehicle 'v.1' ends teleporting on edge 'E4', time=349.00.
 Warning: Teleporting vehicle 'v.3'; waited too long (wrong lane), lane='E1_0', time=350.00.
-Warning: Vehicle 'v.3' ends teleporting on edge 'E4', time=351.00.
+Warning: Vehicle 'v.3' ends teleporting on edge 'E4', time=352.00.
 Warning: Teleporting vehicle 'b.6'; waited too long (jam), lane='-E2_1', time=359.00.
 Warning: Teleporting vehicle 'v.6'; waited too long (wrong lane), lane='E1_0', time=360.00.
 Warning: Vehicle 'v.6' ends teleporting on edge 'E4', time=360.00.
