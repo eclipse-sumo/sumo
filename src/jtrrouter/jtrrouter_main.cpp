@@ -193,7 +193,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        SystemFrame::checkOptions();
+        SystemFrame::checkOptions(oc);
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
         MsgHandler::initOutputOptions();
         if (!ROJTRFrame::checkOptions()) {

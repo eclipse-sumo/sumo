@@ -242,7 +242,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        SystemFrame::checkOptions();
+        SystemFrame::checkOptions(oc);
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
         if (oc.isDefault("aggregate-warnings")) {
             oc.setDefault("aggregate-warnings", "5");

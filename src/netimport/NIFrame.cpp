@@ -43,9 +43,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 void
-NIFrame::fillOptions(bool forNetedit) {
-    OptionsCont& oc = OptionsCont::getOptions();
+NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     // register input formats
     oc.doRegister("sumo-net-file", 's', new Option_FileName());
     oc.addSynonyme("sumo-net-file", "sumo-net", true);
@@ -379,8 +379,7 @@ NIFrame::fillOptions(bool forNetedit) {
 
 
 bool
-NIFrame::checkOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
+NIFrame::checkOptions(OptionsCont& oc) {
     bool ok = oc.checkDependingSuboptions("shapefile", "shapefile.");
     ok &= oc.checkDependingSuboptions("visum-file", "visum.");
     ok &= oc.checkDependingSuboptions("vissim-file", "vissim.");

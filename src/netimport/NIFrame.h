@@ -25,25 +25,29 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
+class OptionsCont;
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class NIFrame
  * @brief Sets and checks options for netimport
  */
 class NIFrame {
+
 public:
     /** @brief Inserts options used by the network importer and network building modules
      *
      * Calls "NBNetBuilder::insertNetBuildOptions" for inserting network
      *  building options.
      */
-    static void fillOptions(bool forNetedit = false);
+    static void fillOptions(OptionsCont& oc, bool forNetedit = false);
 
-
-    /** @brief Checks set options from the OptionsCont-singleton for being valid
+    /** @brief Checks set options for being valid
      * @return Whether all needed options are set
      * @todo Unused currently; repair/fill
      */
-    static bool checkOptions();
-
-
+    static bool checkOptions(OptionsCont& oc);
 };

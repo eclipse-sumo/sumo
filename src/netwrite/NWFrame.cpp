@@ -44,9 +44,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 void
-NWFrame::fillOptions(bool forNetgen) {
-    OptionsCont& oc = OptionsCont::getOptions();
+NWFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     // register options
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "sumo-output");
@@ -133,8 +133,7 @@ NWFrame::fillOptions(bool forNetgen) {
 
 
 bool
-NWFrame::checkOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
+NWFrame::checkOptions(OptionsCont& oc) {
     bool ok = true;
     // check whether the output is valid and can be build
     if (!oc.isSet("output-file")
@@ -203,6 +202,5 @@ NWFrame::writePositionLong(const Position& pos, OutputDevice& dev) {
         dev.writeAttr(SUMO_ATTR_Z, pos.z());
     }
 }
-
 
 /****************************************************************************/

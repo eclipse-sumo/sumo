@@ -104,7 +104,7 @@ main(int argc, char* argv[]) {
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
         MsgHandler::initOutputOptions();
         RandHelper::initRandGlobal();
-        SystemFrame::checkOptions();
+        SystemFrame::checkOptions(oc);
 
         // Load network
         net = new RONet();

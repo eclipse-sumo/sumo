@@ -23,13 +23,6 @@
 
 #include <string>
 #include <fstream>
-#include "NBFrame.h"
-#include "NBNodeCont.h"
-#include "NBEdgeCont.h"
-#include "NBTrafficLightLogicCont.h"
-#include "NBDistrictCont.h"
-#include "NBRequest.h"
-#include "NBTypeCont.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -39,13 +32,20 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
+#include "NBFrame.h"
+#include "NBNodeCont.h"
+#include "NBEdgeCont.h"
+#include "NBTrafficLightLogicCont.h"
+#include "NBDistrictCont.h"
+#include "NBRequest.h"
+#include "NBTypeCont.h"
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 void
-NBFrame::fillOptions(bool forNetgen) {
-    OptionsCont& oc = OptionsCont::getOptions();
+NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     // register building defaults
     oc.doRegister("default.lanenumber", 'L', new Option_Integer(1));
     oc.addSynonyme("default.lanenumber", "lanenumber", true);
@@ -715,8 +715,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
 
 bool
-NBFrame::checkOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
+NBFrame::checkOptions(OptionsCont& oc) {
     bool ok = true;
     //
     if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(oc.getString("tls.default-type"))) {
@@ -802,6 +801,5 @@ NBFrame::checkOptions() {
     }
     return ok;
 }
-
 
 /****************************************************************************/

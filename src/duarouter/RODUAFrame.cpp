@@ -57,7 +57,7 @@ RODUAFrame::fillOptions() {
     addImportOptions();
     addDUAOptions();
     // add rand options
-    RandHelper::insertRandOptions();
+    RandHelper::insertRandOptions(oc);
 }
 
 

@@ -1709,7 +1709,7 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
     neteditOptions.set("tls.discard-simple", "true");
     // open wizard dialog
     if (GNEOptionsDialog::Options(this, GUIIcon::SUPERMODENETWORK, &OptionsCont::getOptions(), &myOriginalNeteditOptions, TL("Select Import Options")).first == TRUE) {
-        NIFrame::checkOptions(); // needed to set projection parameters
+        NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
         // set file to load
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", OSMFile);
@@ -2319,12 +2319,13 @@ GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
-    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::NETEDIT_MINI, &OptionsCont::getOptions(), &myOriginalNeteditOptions, TL("Netedit options"));
+    auto& neteditOptions = OptionsCont::getOptions();
+    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::NETEDIT_MINI, &neteditOptions, &myOriginalNeteditOptions, TL("Netedit options"));
     if (dialog.first == TRUE) {
-        NIFrame::checkOptions(); // needed to set projection parameters
-        NBFrame::checkOptions();
-        NWFrame::checkOptions();
-        SystemFrame::checkOptions(); // needed to set precision
+        NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
+        NBFrame::checkOptions(neteditOptions);
+        NWFrame::checkOptions(neteditOptions);
+        SystemFrame::checkOptions(neteditOptions); // needed to set precision
         // check if mar netedit config as unsaved
         if (dialog.second) {
             myNet->getSavingStatus()->requireSaveNeteditConfig();

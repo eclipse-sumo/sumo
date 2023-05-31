@@ -58,7 +58,7 @@ ROMAFrame::fillOptions() {
     addImportOptions();
     addAssignmentOptions();
     // add rand options
-    RandHelper::insertRandOptions();
+    RandHelper::insertRandOptions(oc);
 }
 
 

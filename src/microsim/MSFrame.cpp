@@ -692,7 +692,7 @@ MSFrame::fillOptions() {
     oc.addDescription("meso-recheck", "Mesoscopic", TL("Time interval for rechecking insertion into the next segment after failure"));
 
     // add rand options
-    RandHelper::insertRandOptions();
+    RandHelper::insertRandOptions(oc);
     oc.doRegister("thread-rngs", new Option_Integer(64));
     oc.addDescription("thread-rngs", "Random Number",
                       "Number of pre-allocated random number generators to ensure repeatable multi-threaded simulations (should be at least the number of threads for repeatable simulations).");
@@ -1002,7 +1002,7 @@ MSFrame::checkOptions() {
     }
 
     ok &= MSDevice::checkOptions(oc);
-    ok &= SystemFrame::checkOptions();
+    ok &= SystemFrame::checkOptions(oc);
 
     return ok;
 }
