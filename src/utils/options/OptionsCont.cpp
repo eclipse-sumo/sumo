@@ -50,6 +50,7 @@
 // ===========================================================================
 
 OptionsCont OptionsCont::myOptions;
+OptionsCont OptionsCont::EMPTY_OPTIONS;
 
 // ===========================================================================
 // method definitions

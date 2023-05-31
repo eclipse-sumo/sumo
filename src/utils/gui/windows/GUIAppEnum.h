@@ -1360,6 +1360,8 @@ enum {
     MID_GNE_BUTTON_ABORT,
     /// @brief back button
     MID_GNE_BUTTON_BACK,
+    /// @brief default button
+    MID_GNE_BUTTON_DEFAULT,
 
     /// @}
 

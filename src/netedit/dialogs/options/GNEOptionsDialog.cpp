@@ -22,10 +22,14 @@
 #include <algorithm>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsLoader.h>
+#include <xercesc/parsers/SAXParser.hpp>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEOptionsDialog.h"
 
@@ -40,6 +44,9 @@ FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                 GNEOptionsDialog::onCmdSelectTopic),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SEARCH_USEDESCRIPTION,  GNEOptionsDialog::onCmdSearch),
     FXMAPFUNC(SEL_COMMAND,  MID_MTFS_UPDATED,               GNEOptionsDialog::onCmdSearch),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,               GNEOptionsDialog::onCmdSaveOptions),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,               GNEOptionsDialog::onCmdLoadOptions),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_DEFAULT,         GNEOptionsDialog::onCmdResetDefault),
 };
 
 // Object implementation
@@ -50,14 +57,14 @@ FXIMPLEMENT(GNEOptionsDialog,   FXDialogBox,    GUIDialogOptionsMap,    ARRAYNUM
 // ===========================================================================
 
 std::pair<int, bool>
-GNEOptionsDialog::Options(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const OptionsCont* originalOptionsContainer, const char* titleName) {
+GNEOptionsDialog::Options(GUIMainWindow* windows, GUIIcon icon, OptionsCont &optionsContainer, const OptionsCont &originalOptionsContainer, const char* titleName) {
     GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(windows, icon, optionsContainer, originalOptionsContainer, titleName, false);
     return std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
 }
 
 
 std::pair<int, bool>
-GNEOptionsDialog::Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer, const OptionsCont* originalOptionsContainer, const char* titleName) {
+GNEOptionsDialog::Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont &optionsContainer, const OptionsCont &originalOptionsContainer, const char* titleName) {
     GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(windows, icon, optionsContainer, originalOptionsContainer, titleName, true);
     return std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
 }
@@ -96,12 +103,40 @@ GNEOptionsDialog::onCmdSearch(FXObject*, FXSelector, void*) {
 
 
 long
-GNEOptionsDialog::onCmdUseDescription(FXObject*, FXSelector, void*) {
-    // update search if we're searching
-    if (mySearchButton->getText().count() > 0) {
-        updateVisibleEntriesBySearch(mySearchButton->getText().text());
+GNEOptionsDialog::onCmdSaveOptions(FXObject*, FXSelector, void*) {
+    // open save dialog
+    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, true);
+    // check file
+    if (file.size() > 0) {
+        //myPythonTool->saveConfiguration(file);
     }
     return 1;
+}
+
+
+long
+GNEOptionsDialog::onCmdLoadOptions(FXObject*, FXSelector, void*) {
+    // open file dialog
+    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, false);
+    // check file
+    if ((file.size() > 0) && loadConfiguration(file)) {
+        // rebuild arguments
+        //buildArguments((mySortedCheckButton->getCheck() == TRUE), (myGroupedCheckButton->getCheck() == TRUE));
+    }
+    return 1;
+}
+
+
+long
+GNEOptionsDialog::onCmdResetDefault(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+GNEOptionsDialog::GNEOptionsDialog() :
+    myMainWindowParent(nullptr),
+    myOptionsContainer(OptionsCont::EMPTY_OPTIONS),
+    myOriginalOptionsContainer(OptionsCont::EMPTY_OPTIONS) {
 }
 
 
@@ -156,11 +191,41 @@ GNEOptionsDialog::updateVisibleEntriesBySearch(std::string searchText) {
 }
 
 
-GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont* optionsContainer,
-        const OptionsCont* originalOptionsContainer, const char* titleName, const bool runDialog) :
+bool
+GNEOptionsDialog::loadConfiguration(const std::string &file) {
+    // make all options writables
+    myOptionsContainer.resetWritable();
+    // build parser
+    XERCES_CPP_NAMESPACE::SAXParser parser;
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+    parser.setDisableDefaultEntityResolution(true);
+    // start the parsing
+    OptionsLoader handler(myOptionsContainer);
+    try {
+        parser.setDocumentHandler(&handler);
+        parser.setErrorHandler(&handler);
+        parser.parse(StringUtils::transcodeToLocal(file).c_str());
+        if (handler.errorOccurred()) {
+            WRITE_ERROR(TL("Could not load configuration '") + file + "'.");
+            return false;
+        }
+    }
+    catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+        WRITE_ERROR(TL("Could not load tool configuration '") + file + "':\n " + StringUtils::transcode(e.getMessage()));
+        return false;
+    }
+    // write info
+    WRITE_MESSAGE(TL("Loaded configuration."));
+    return true;
+}
+
+
+GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont &optionsContainer,
+        const OptionsCont &originalOptionsContainer, const char* titleName, const bool runDialog) :
     FXDialogBox(parent, titleName, GUIDesignDialogBoxExplicitStretchable(800, 600)),
     myMainWindowParent(parent),
-    myOptionsContainer(optionsContainer) {
+    myOptionsContainer(optionsContainer),
+    myOriginalOptionsContainer(originalOptionsContainer) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(icon));
     // create content frame
@@ -176,6 +241,9 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     auto loadFile = new MFXButtonTooltip(buttonsFrame, parent->getStaticTooltipMenu(), TL("Load options") ,
         GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
         loadFile->setTipText(TL("Load file with tool configuration"));
+    auto resetDefault = new MFXButtonTooltip(buttonsFrame, parent->getStaticTooltipMenu(), TL("Default options") ,
+        GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_DEFAULT, GUIDesignButtonConfiguration);
+        resetDefault->setTipText(TL("Reset al options to default"));
     // add separator
     new FXSeparator(contentFrame);
     // create elements frame
@@ -196,22 +264,22 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
     // create vertical frame for entries
     myEntriesFrame = new FXVerticalFrame(scrollTabEntries, GUIDesignAuxiliarFrame);
     // iterate over all topics
-    for (const auto& topic : myOptionsContainer->getSubTopics()) {
+    for (const auto& topic : myOptionsContainer.getSubTopics()) {
         // check if we have to ignore this topic
         if (myIgnoredTopics.count(topic) == 0) {
             // add topic into myTreeItemTopics and tree
             myTreeItemTopics[myTopicsTreeList->appendItem(myRootItem, topic.c_str())] = topic;
             // iterate over entries
-            const std::vector<std::string> entries = myOptionsContainer->getSubTopicsEntries(topic);
+            const std::vector<std::string> entries = myOptionsContainer.getSubTopicsEntries(topic);
             for (const auto& entry : entries) {
                 // check if we have to ignore this entry
                 if (myIgnoredEntries.count(entry) == 0) {
                     // get type
-                    const std::string type = myOptionsContainer->getTypeName(entry);
+                    const std::string type = myOptionsContainer.getTypeName(entry);
                     // get description
-                    const std::string description = myOptionsContainer->getDescription(entry);
+                    const std::string description = myOptionsContainer.getDescription(entry);
                     // get default value
-                    const std::string defaultValue = myOptionsContainer->getValueString(entry);
+                    const std::string defaultValue = myOptionsContainer.getValueString(entry);
                     // continue depending of type
                     if (type == "STR") {
                         myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputString(this, myEntriesFrame, topic, entry, description, defaultValue));

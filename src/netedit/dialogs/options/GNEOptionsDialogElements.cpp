@@ -131,15 +131,15 @@ GNEOptionsDialogElements::InputString::InputString(GNEOptionsDialog* GUIDialogOp
         const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
     InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myStringTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myStringTextField->setText(myGUIDialogOptions->myOptionsContainer->getString(name).c_str());
+    myStringTextField->setText(myGUIDialogOptions->myOptionsContainer.getString(name).c_str());
 }
 
 
 
 long
 GNEOptionsDialogElements::InputString::onCmdSetOption(FXObject*, FXSelector, void*) {
-    myGUIDialogOptions->myOptionsContainer->resetWritable();
-    myGUIDialogOptions->myOptionsContainer->set(myName, myStringTextField->getText().text());
+    myGUIDialogOptions->myOptionsContainer.resetWritable();
+    myGUIDialogOptions->myOptionsContainer.set(myName, myStringTextField->getText().text());
     myGUIDialogOptions->myOptionsModified = true;
     return 1;
 }
@@ -162,14 +162,14 @@ GNEOptionsDialogElements::InputStringVector::InputStringVector(GNEOptionsDialog*
         const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
     InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myStringVectorTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myStringVectorTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getStringVector(name)).c_str());
+    myStringVectorTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getStringVector(name)).c_str());
 }
 
 
 long
 GNEOptionsDialogElements::InputStringVector::onCmdSetOption(FXObject*, FXSelector, void*) {
-    myGUIDialogOptions->myOptionsContainer->resetWritable();
-    myGUIDialogOptions->myOptionsContainer->set(myName, myStringVectorTextField->getText().text());
+    myGUIDialogOptions->myOptionsContainer.resetWritable();
+    myGUIDialogOptions->myOptionsContainer.set(myName, myStringVectorTextField->getText().text());
     myGUIDialogOptions->myOptionsModified = true;
     return 1;
 }
@@ -195,7 +195,7 @@ GNEOptionsDialogElements::InputBool::InputBool(GNEOptionsDialog* GUIDialogOption
         const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
     InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myCheckButton = new FXCheckButton(myContentFrame, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    if (myGUIDialogOptions->myOptionsContainer->getBool(name)) {
+    if (myGUIDialogOptions->myOptionsContainer.getBool(name)) {
         myCheckButton->setCheck(TRUE);
         myCheckButton->setText(TL("true"));
     } else {
@@ -207,21 +207,21 @@ GNEOptionsDialogElements::InputBool::InputBool(GNEOptionsDialog* GUIDialogOption
 
 long
 GNEOptionsDialogElements::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
-    myGUIDialogOptions->myOptionsContainer->resetWritable();
+    myGUIDialogOptions->myOptionsContainer.resetWritable();
     if (myCheckButton->getCheck()) {
-        myGUIDialogOptions->myOptionsContainer->set(myName, "true");
+        myGUIDialogOptions->myOptionsContainer.set(myName, "true");
         myCheckButton->setText(TL("true"));
     } else {
-        myGUIDialogOptions->myOptionsContainer->set(myName, "false");
+        myGUIDialogOptions->myOptionsContainer.set(myName, "false");
         myCheckButton->setText(TL("false"));
     }
     myGUIDialogOptions->myOptionsModified = true;
     // special checks for Debug flags
-    if ((myName == "gui-testing-debug") && myGUIDialogOptions->myOptionsContainer->isSet("gui-testing-debug")) {
-        MsgHandler::enableDebugMessages(myGUIDialogOptions->myOptionsContainer->getBool("gui-testing-debug"));
+    if ((myName == "gui-testing-debug") && myGUIDialogOptions->myOptionsContainer.isSet("gui-testing-debug")) {
+        MsgHandler::enableDebugMessages(myGUIDialogOptions->myOptionsContainer.getBool("gui-testing-debug"));
     }
-    if ((myName == "gui-testing-debug-gl") && myGUIDialogOptions->myOptionsContainer->isSet("gui-testing-debug-gl")) {
-        MsgHandler::enableDebugGLMessages(myGUIDialogOptions->myOptionsContainer->getBool("gui-testing-debug-gl"));
+    if ((myName == "gui-testing-debug-gl") && myGUIDialogOptions->myOptionsContainer.isSet("gui-testing-debug-gl")) {
+        MsgHandler::enableDebugGLMessages(myGUIDialogOptions->myOptionsContainer.getBool("gui-testing-debug-gl"));
     }
     return 1;
 }
@@ -229,7 +229,7 @@ GNEOptionsDialogElements::InputBool::onCmdSetOption(FXObject*, FXSelector, void*
 
 long
 GNEOptionsDialogElements::InputBool::onCmdResetOption(FXObject*, FXSelector, void*) {
-    if (myDefaultValue == "true") {
+    if (StringUtils::toBool(myDefaultValue)) {
         myCheckButton->setCheck(TRUE);
         myCheckButton->setText(TL("true"));
     } else {
@@ -253,7 +253,7 @@ GNEOptionsDialogElements::InputInt::InputInt(GNEOptionsDialog* GUIDialogOptions,
         const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
     InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myIntTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
-    myIntTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getInt(name)).c_str());
+    myIntTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getInt(name)).c_str());
 }
 
 
@@ -262,8 +262,8 @@ GNEOptionsDialogElements::InputInt::onCmdSetOption(FXObject*, FXSelector, void*)
     if (myIntTextField->getText().empty()) {
         myIntTextField->setText(myDefaultValue.c_str());
     } else {
-        myGUIDialogOptions->myOptionsContainer->resetWritable();
-        myGUIDialogOptions->myOptionsContainer->set(myName, myIntTextField->getText().text());
+        myGUIDialogOptions->myOptionsContainer.resetWritable();
+        myGUIDialogOptions->myOptionsContainer.set(myName, myIntTextField->getText().text());
         myGUIDialogOptions->myOptionsModified = true;
     }
     return 1;
@@ -290,7 +290,7 @@ GNEOptionsDialogElements::InputIntVector::InputIntVector(GNEOptionsDialog* GUIDi
         const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
     InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myIntVectorTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myIntVectorTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getIntVector(name)).c_str());
+    myIntVectorTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getIntVector(name)).c_str());
 }
 
 
@@ -302,8 +302,8 @@ GNEOptionsDialogElements::InputIntVector::onCmdSetOption(FXObject*, FXSelector, 
         for (const auto& intValue : intVector) {
             StringUtils::toInt(intValue);
         }
-        myGUIDialogOptions->myOptionsContainer->resetWritable();
-        myGUIDialogOptions->myOptionsContainer->set(myName, myIntVectorTextField->getText().text());
+        myGUIDialogOptions->myOptionsContainer.resetWritable();
+        myGUIDialogOptions->myOptionsContainer.set(myName, myIntVectorTextField->getText().text());
         myIntVectorTextField->setTextColor(FXRGB(0, 0, 0));
         myGUIDialogOptions->myOptionsModified = true;
     } catch (...) {
@@ -333,7 +333,7 @@ GNEOptionsDialogElements::InputFloat::InputFloat(GNEOptionsDialog* GUIDialogOpti
         const std::string& name, const std::string& description, const std::string& defaultValue) :
     InputOption(GUIDialogOptions, parent, topic, name, description, parseFloat(defaultValue)) {
     myFloatTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
-    myFloatTextField->setText(toString(myGUIDialogOptions->myOptionsContainer->getFloat(name)).c_str());
+    myFloatTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getFloat(name)).c_str());
 }
 
 
@@ -343,8 +343,8 @@ GNEOptionsDialogElements::InputFloat::onCmdSetOption(FXObject*, FXSelector, void
     if (myFloatTextField->getText().empty()) {
         myFloatTextField->setText(myDefaultValue.c_str());
     } else {
-        myGUIDialogOptions->myOptionsContainer->resetWritable();
-        myGUIDialogOptions->myOptionsContainer->set(myName, myFloatTextField->getText().text());
+        myGUIDialogOptions->myOptionsContainer.resetWritable();
+        myGUIDialogOptions->myOptionsContainer.set(myName, myFloatTextField->getText().text());
     }
     return 1;
 }
@@ -382,7 +382,7 @@ GNEOptionsDialogElements::InputFilename::InputFilename(GNEOptionsDialog* GUIDial
     myOpenFilenameButton = new FXButton(myContentFrame, (std::string("\t\t") + TL("Select filename")).c_str(),
         GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonIcon);
     myFilenameTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myFilenameTextField->setText(myGUIDialogOptions->myOptionsContainer->getString(name).c_str());
+    myFilenameTextField->setText(myGUIDialogOptions->myOptionsContainer.getString(name).c_str());
 }
 
 
@@ -401,8 +401,8 @@ GNEOptionsDialogElements::InputFilename::onCmdOpenDialog(FXObject*, FXSelector, 
 long
 GNEOptionsDialogElements::InputFilename::onCmdSetOption(FXObject*, FXSelector, void*) {
     if (SUMOXMLDefinitions::isValidFilename(myFilenameTextField->getText().text())) {
-        myGUIDialogOptions->myOptionsContainer->resetWritable();
-        myGUIDialogOptions->myOptionsContainer->set(myName, myFilenameTextField->getText().text());
+        myGUIDialogOptions->myOptionsContainer.resetWritable();
+        myGUIDialogOptions->myOptionsContainer.set(myName, myFilenameTextField->getText().text());
         myFilenameTextField->setTextColor(FXRGB(0, 0, 0));
         myGUIDialogOptions->myOptionsModified = true;
     } else {

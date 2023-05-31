@@ -59,8 +59,8 @@ public:
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Options(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer,
-                                        const OptionsCont* originalOptionsContainer, const char* titleName);
+    static std::pair<int, bool> Options(GUIMainWindow* windows, GUIIcon icon, OptionsCont &optionsContainer,
+                                        const OptionsCont &originalOptionsContainer, const char* titleName);
 
     /**@brief Constructor for run dialogs
      *
@@ -71,8 +71,8 @@ public:
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont* optionsContainer,
-                                    const OptionsCont* originalOptionsContainer, const char* titleName);
+    static std::pair<int, bool> Run(GUIMainWindow* windows, GUIIcon icon, OptionsCont &optionsContainer,
+                                    const OptionsCont&originalOptionsContainer, const char* titleName);
 
     /// @brief Destructor
     ~GNEOptionsDialog();
@@ -86,21 +86,27 @@ public:
     /// @brief called when user searchs
     long onCmdSearch(FXObject*, FXSelector, void*);
 
-    /// @brief called when user press checkbox "use description"
-    long onCmdUseDescription(FXObject*, FXSelector, void*);
+    /// @brief save options
+    long onCmdSaveOptions(FXObject*, FXSelector, void*);
+
+    /// @brief load options
+    long onCmdLoadOptions(FXObject*, FXSelector, void*);
+
+    /// @brief reset default
+    long onCmdResetDefault(FXObject*, FXSelector, void*);
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEOptionsDialog)
+    GNEOptionsDialog();
 
     /// @brief pointer to main window parent
     GUIMainWindow* myMainWindowParent;
 
     /// @brief refecente to edited Option container
-    OptionsCont* myOptionsContainer;
+    OptionsCont& myOptionsContainer;
 
     /// @brief refecente to original Option container
-    const OptionsCont* originalOptionsContainer;
+    const OptionsCont& myOriginalOptionsContainer;
 
     /// @brief flag for check if options was modified
     bool myOptionsModified = false;
@@ -142,6 +148,9 @@ private:
     /// @brief update visible entries by search
     void updateVisibleEntriesBySearch(std::string searchText);
 
+    /// @brief load configuration
+    bool loadConfiguration(const std::string &file);
+
     /**@brief Constructor
      *
      * @param[in] parent The parent window
@@ -151,8 +160,8 @@ private:
      * @param[in] icon windows icon
      * @param[in] runDialog check if this is a run dialog
      */
-    GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont* optionsContainer, 
-                    const OptionsCont* originalOptionsContainer, const char* titleName, const bool runDialog);
+    GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsCont &optionsContainer, 
+                    const OptionsCont &originalOptionsContainer, const char* titleName, const bool runDialog);
 
     /// @brief Invalidated copy constructor.
     GNEOptionsDialog(const GNEOptionsDialog&) = delete;

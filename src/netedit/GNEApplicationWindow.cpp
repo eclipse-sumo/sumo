@@ -467,10 +467,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     // set SUMO Options descriptions
     mySumoOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
     mySumoOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
+    // set default netedit options
+    GNELoadThread::fillOptions(myOriginalNeteditOptions);
+    GNELoadThread::setDefaultOptions(myOriginalNeteditOptions);
     // parse options
-
-    TemplateHandler::parseTemplate(myOriginalNeteditOptions, sumoTemplate);
-
     TemplateHandler::parseTemplate(mySumoOptions, sumoTemplate);
     TemplateHandler::parseTemplate(myOriginalSumoOptions, sumoTemplate);
     TemplateHandler::parseTemplate(myNetgenerateOptions, netgenerateTemplate);
@@ -1708,7 +1708,7 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
     neteditOptions.set("tls.guess-signals", "true");
     neteditOptions.set("tls.discard-simple", "true");
     // open wizard dialog
-    if (GNEOptionsDialog::Options(this, GUIIcon::SUPERMODENETWORK, &OptionsCont::getOptions(), &myOriginalNeteditOptions, TL("Select Import Options")).first == TRUE) {
+    if (GNEOptionsDialog::Options(this, GUIIcon::SUPERMODENETWORK, OptionsCont::getOptions(), myOriginalNeteditOptions, TL("Select Import Options")).first == TRUE) {
         NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
         // set file to load
         neteditOptions.resetWritable();
@@ -2320,7 +2320,7 @@ GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
-    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::NETEDIT_MINI, &neteditOptions, &myOriginalNeteditOptions, TL("Netedit options"));
+    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::NETEDIT_MINI, neteditOptions, myOriginalNeteditOptions, TL("Netedit options"));
     if (dialog.first == TRUE) {
         NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
         NBFrame::checkOptions(neteditOptions);
@@ -2337,7 +2337,7 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
-    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::SUMO_MINI, &mySumoOptions, &myOriginalSumoOptions, TL("Sumo options"));
+    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::SUMO_MINI, mySumoOptions, myOriginalSumoOptions, TL("Sumo options"));
     // check if mark sumoConfig as unsaved
     if ((dialog.first == TRUE) && dialog.second) {
         myNet->getSavingStatus()->requireSaveSumoConfig();
@@ -2354,7 +2354,7 @@ GNEApplicationWindow::onCmdOpenNetgenerateDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*) {
-    return GNEOptionsDialog::Run(this, GUIIcon::NETGENERATE, &myNetgenerateOptions, &myOriginalNetgenerateOptions, TL("Netgenerate options")).first;
+    return GNEOptionsDialog::Run(this, GUIIcon::NETGENERATE, myNetgenerateOptions, myOriginalNetgenerateOptions, TL("Netgenerate options")).first;
 }
 
 
