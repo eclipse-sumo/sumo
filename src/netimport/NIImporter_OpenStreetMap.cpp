@@ -937,7 +937,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             } else if (myImportElevation && key == "ele") {
                 try {
                     const double elevation = StringUtils::toDouble(value);
-                    if (ISNAN(elevation)) {
+                    if (std::isnan(elevation)) {
                         WRITE_WARNINGF(TL("Value of key '%' is invalid ('%') in node '%'."), key, value, myLastNodeID);
                     } else {
                         myCurrentNode->ele = elevation;

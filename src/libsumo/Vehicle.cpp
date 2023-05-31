@@ -1732,7 +1732,7 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
             pos = lane->geometryPositionAtOffset(lanePos, -lanePosLat);
         }
         assert((found && lane != 0) || (!found && lane == 0));
-        assert(!ISNAN(lanePos));
+        assert(!std::isnan(lanePos));
         if (angle == INVALID_DOUBLE_VALUE) {
             if (lane != nullptr) {
                 angle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(lanePos));

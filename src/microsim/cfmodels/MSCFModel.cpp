@@ -993,7 +993,7 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
         }
     }
     assert(x >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
-    assert(!ISNAN(x));
+    assert(!std::isnan(x));
     return x;
 }
 

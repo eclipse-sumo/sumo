@@ -1049,7 +1049,7 @@ MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* fo
 
 #ifdef MSLink_DEBUG_OPENED
     const double x2 = (sqrt(4 * (v - d) * (v - d) - 8 * m * a) * 0.5 - d + v) / m;
-    if (gDebugFlag6 || ISNAN(x)) {
+    if (gDebugFlag6 || std::isnan(x)) {
         std::cout << SIMTIME << "   dist=" << dist << " dist2=" << dist2  << " at=" << STEPS2TIME(arrivalTime) << " m=" << m << " d=" << d << " v=" << v << " a=" << a << " x=" << x << " x2=" << x2 << "\n";
     }
 #endif
