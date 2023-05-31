@@ -588,7 +588,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
         } else {
             GUINet* net = (GUINet*) MSNet::getInstance();
-            const bool spreadSuperposed = s.spreadSuperposed && myEdge->getBidiEdge() != nullptr;
+            const bool spreadSuperposed = s.spreadSuperposed && myBidiLane != nullptr;
             if (hiddenBidi && !spreadSuperposed) {
                 // do not draw shape
                 mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions) && neighLaneNotBidi();
