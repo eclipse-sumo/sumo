@@ -19,3 +19,6 @@ TWLT_diagonal
 # the outer lanes are not connected
 TWLT_disconnected_outer
 TWLT_sidewalks
+
+# test right of way ruleswhen TLWT ends
+TWLT_end
