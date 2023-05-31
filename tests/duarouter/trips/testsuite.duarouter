@@ -122,3 +122,6 @@ CHWrapper_lane_connectivity
 
 # test handling of input attributes
 departSpeed
+
+# test handling of depart time "begin"
+depart_begin

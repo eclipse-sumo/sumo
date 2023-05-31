@@ -135,7 +135,7 @@ imported using [polyconvert](../../polyconvert.md) and then added to a
 To interpret the OSM-data an additional *typemap*-file is required (the
 example below is identical to {{SUMO}}/data/typemap/osmPolyconvert.typ.xml):
 
-```
+```xml
 <polygonTypes>
   <polygonType id="waterway"                name="water"       color=".71,.82,.82" layer="-4"/>
   <polygonType id="natural"                 name="natural"     color=".55,.77,.42" layer="-4"/>
@@ -522,7 +522,7 @@ and the edges with prefix '-' are those in the opposite direction.
 By setting the option **--output.original-names**, each lane in the network will record the element
 name from the input network that it is derived from in a child element:
 
-```
+```xml
 <param key="origID" value="...."/>
 ```
 

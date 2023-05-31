@@ -23,7 +23,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import optparse
 from lxml import etree as ET
 
 
@@ -37,16 +36,16 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("-f", "--file", dest="file", help="define the XML input file")
-    optParser.add_option("-o", "--output", dest="output", help="define the XML output file")
-    optParser.add_option("-t", "--tag", dest="tag", help="tag to edit")
-    optParser.add_option("-a", "--attribute", dest="attribute", help="attribute to edit")
-    optParser.add_option("-v", "--value", dest="value", help="value to update (deletes attribute if not specified)")
-    (options, args) = optParser.parse_args(args=args)
-    if not options.file:
-        optParser.print_help()
-        sys.exit()
+    optParser = sumolib.options.ArgumentParser(description="Set or remove an attribute for the specified XML element.")
+    optParser.add_argument("-f", "--file", category="input", dest="file", required=True,
+                           type=optParser.data_file, help="define the XML input file")
+    optParser.add_argument("-o", "--output", category="output", dest="output",
+                           type=optParser.data_file, help="define the XML output file")
+    optParser.add_argument("-t", "--tag", category="processing", dest="tag", help="tag to edit")
+    optParser.add_argument("-a", "--attribute", category="processing", dest="attribute", help="attribute to edit")
+    optParser.add_argument("-v", "--value", category="processing", dest="value",
+                           help="value to update (deletes attribute if not specified)")
+    options = optParser.parse_args(args=args)
     return options
 
 
@@ -69,5 +68,5 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
+    options = get_options()
     main(options)

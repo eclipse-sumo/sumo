@@ -19,13 +19,13 @@ following purposes:
 
 A road-side parkingArea is defined as in the following:
 
-```
+```xml
 <parkingArea id="ParkAreaA" lane="a_0" startPos="200" endPos="250" roadsideCapacity="5" angle="45" length="30"/>
 ```
 
 Additionally, individual parking spaces can be defined:
 
-```
+```xml
 <parkingArea id="ParkAreaB" lane="b_0" startPos="240" endPos="260" roadsideCapacity="0" width="5" length="10" angle="30">
     <space x="853" y="623"/>
     <space x="863" y="618"/>
@@ -81,7 +81,7 @@ The space element supports the following attributes:
 To declare a vehicle that stops at a parkingPlace, a `<stop>`-definition must
 be part of the vehicle or it's route:
 
-```
+```xml
 <vehicle id="0" depart="0">
     <route edges="e1 e2 e3"/>
     <stop parkingArea="pa0" duration="20"/>
@@ -100,7 +100,7 @@ see
 
 When setting the (boolean) option **--parking.maneuver**, vehicles will spend extra time on the road when leaving and entering a parkingArea. This time depends on the angle of the parking lot relative to the road lane and can be configured with the vType attribute *maneuverAngleTimes*. This is a comma-separated list of number-triplets of the form *ANGLE ENTERINGTIME LEAVINGTIME*:
 
-```
+```xml
 <vType id="example" maneuverAngleTimes="10 3.0 4.0,80 1.6 11.0,110 11.0 2.0,170 8.1 3.0,181 3.0 4.0"/>
 ```
 

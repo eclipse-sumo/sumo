@@ -100,6 +100,13 @@ with fileinput.FileInput(os.path.join(SUMO_HOME, "docs", "web", "mkdocs.yml"), i
         else:
             print(line.replace(dot_release, version), end='')
 
+with fileinput.FileInput(os.path.join(SUMO_HOME, "docs", "web", "docs", "ChangeLog.md"), inplace=True) as mkdocs:
+    for line in mkdocs:
+        if "## Git Main" in line:
+            print(line.replace("Git Main", date.strftime("Version " + version + " (%d.%m.%Y)")), end='')
+        else:
+            print(line, end='')
+
 with fileinput.FileInput(os.path.join(SUMO_HOME, "build", "package", "sumo.metainfo.xml"), inplace=True) as metainfo:
     have_next = False
     for line in metainfo:

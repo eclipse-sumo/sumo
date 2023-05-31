@@ -169,15 +169,17 @@ public:
     }
 
     /// @brief Computes the length of the given vector
-    double length2D() const {
+    inline double length2D() const {
         return sqrt(myX * myX + myY * myY);
     }
 
     /// @brief Normalizes the given vector
-    void norm2D() {
-        double val = length2D();
-        myX /= val;
-        myY /= val;
+    inline void norm2D() {
+        const double val = length2D();
+        if (val != 0.) {
+            myX /= val;
+            myY /= val;
+        }
     }
 
     /// @brief output operator

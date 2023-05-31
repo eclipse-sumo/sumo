@@ -47,8 +47,8 @@ netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.routeProbe, "/
 netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.routeProbe, "customRouteProbeName", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

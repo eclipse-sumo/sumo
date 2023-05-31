@@ -78,7 +78,7 @@ A vehicle may be defined using the following attributes:
 | type            | id                                                                            | The id of the [vehicle type](#vehicle_types) to use for this vehicle.   |
 | route           | id                                                                            | The id of the route the vehicle shall drive along               |
 | color           | [color](#colors)                                                   | This vehicle's color       |
-| **depart**      | float (s) or [human-readable-time](Other/Glossary.md#t) or one of *triggered*, *containerTriggered*                         | The time step at which the vehicle shall enter the network; see [\#depart](#depart). Alternatively the vehicle departs once a [person enters](Specification/Persons.md#rides) or a [container is loaded](Specification/Containers.md) |
+| **depart**      | float (s) or [human-readable-time](Other/Glossary.md#t) or one of *triggered*, *containerTriggered*, *begin*                | The time step at which the vehicle shall enter the network; see [\#depart](#depart). Alternatively the vehicle departs once a [person enters](Specification/Persons.md#rides) or a [container is loaded](Specification/Containers.md) |
 | departLane      | int/string (≥0, "random", "free", "allowed", "best", "first")                 | The lane on which the vehicle shall be inserted; see [\#departLane](#departlane). *default: "first"*                                                                                                                                                  |
 | departPos       | float(m)/string ("random", "free", "random_free", "base", "last", "stop")            | The position at which the vehicle shall enter the net; see [\#departPos](#departpos). *default: "base"*                                                                                                                                               |
 | departSpeed     | float(m/s)/string (≥0, "random", "max", "desired", "speedLimit", "last", "avg")              | The speed with which the vehicle shall enter the network; see [\#departSpeed](#departspeed). *default: 0*                                                                                                                                             |
@@ -274,6 +274,8 @@ network, the actual depart time may be later.
   vehicle when using option **--random-depart-offset** {{DT_TIME}}
 - When using the special value *triggered*, the vehicle will depart as
   soon as a [person enters it](Specification/Persons.md#riding).
+- The special value *begin* will trigger a depart at simulation start.
+  This is especially useful for taxi (or other public transport) fleets.
 
 ### departLane
 
@@ -493,6 +495,7 @@ startupDelay        | float >= 0        | 0                | The extra delay tim
 | scale  | float >= 0  | scaling factor for traffic. Acts as a multiplier for option **--scale** for all vehicles of this type. Values < 1 cause a proportional reduction in traffic whereas values above 1 increase it by this factor. (default 1)|
 | timeToTeleport       | float   |        | Override option **--time-to-teleport** for vehicles of this type |
 | timeToTeleportBidi   | float   |        | Override option **--time-to-teleport.bidi** for vehicles of this type |
+| speedFactorPremature | float   |        | When set to a positive value, this may cause a train to slow down on approach to a stop whenever the stop has it's `arrival` attribut set and the vehicle would otherwise be ahead of schedule. The given value is multiplied with the edge speed limit and used as a lower bound for slowing down. If option **--use-stop-started** is set and the stop defines the `started` attribute, this is used instead of `arrival`. |
 
 Besides values which describe the vehicle's car-following properties,
 one can find definitions of the assigned vehicles' shapes, emissions,
@@ -996,6 +999,9 @@ Example:
 </vehicle>
 ```
 
+!!! note
+    These parameters also apply to intermodal simulation. They may be used to let pedestrians ignore vehicles and vice versa.
+
 ## Default Vehicle Type
 
 If the `type` attribute of a vehicle is not
@@ -1121,12 +1127,12 @@ Stops can be childs of vehicles, routes, persons or containers.
 | friendlyPos        | bool              | true,false                                                                                   | false              | whether invalid stop positions should be corrected automatically                                                       |
 | duration           | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | minimum duration for stopping                                                                                          |
 | until              | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the time step at which the route continues                                                                             |
-| arrival            | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the expected time of arrival for the stop. If this value is set, [stop-output]() will include the attribute ''arrivalDelay''.                                                                           |
+| arrival            | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the expected time of arrival for the stop. If this value is set, [stop-output]() will include the attribute ''arrivalDelay''. If the vehicles's vType defines attribute `speedFactorPremature`, a vehicle may slow down to prevent premature arrival.                                                                          |
 | ended              | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the time step at which the stop ended (i.e. as recorded by a prior simulation). Can be used to overrule 'until' by setting option **--use-stop-ended** (i.e. when trying to reproduce known timings)                                                                            |
-| started            | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the known time of arrival for the stop (i.e. as recorded by a prior simulation).                                                                           |
+| started            | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the known time of arrival for the stop (i.e. as recorded by a prior simulation). Can be used to overrule 'arrival' by setting option **--use-stop-started** (i.e. when trying to reproduce known timings)                                                                          |
 | extension          | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the maximum time by which to extend the stop duration due to boarding persons and when waiting for expected persons / triggered stopping
 | index              | int, "end", "fit" | 0≤index≤number of stops in the route                                                         | "end"              | where to insert the stop in the vehicle's list of stops                                                                |
-| triggered          | bool              | true,false                                                                                   | false              | whether a person may end the stop                                                                                      |
+| triggered          | string list              | "person", "container", "join", "true", "false"   | "false"   | List of necessary conditions for ending a stop ([see below](#triggered_stps))                                                                                      |
 | expected           | string            | list of person IDs                                                                           |                    | list of persons that must board the vehicle before it may continue (only takes effect for triggered stops)             |
 | expectedContainers | string            | list of container IDs                                                                        |                    | list of containers that must be loaded onto the vehicle before it may continue (only takes effect for triggered stops) |
 | permitted | string            | list of person and container IDs                                                                        |                    | list of transportables that are permitted to enter the vehicle at this stop |
@@ -1159,6 +1165,19 @@ Stops can be childs of vehicles, routes, persons or containers.
 - if the vehicle comes to a halt earlier (i.e. due to a jam) then the stop counts as reached if the vehicle front is between startPos and endPos
 - if the vehicle picks up a person or container, it can do so as long as the person is between startPos and endPos
 - if the stop uses attribute 'speed', than that speed will be maintained between startPos and endPos
+
+## triggered stops
+
+Typically, a planned stop ends based on a time related condition (a scheduled departure time give as `until` or a minimum stopping `duration` or both).
+However, it is also possible to set other requirements that must be met for the stop to end and these are defined with attribute `triggered`. The attribute defines a list of conditions and each keyword is explained in the following:
+
+- `"person"`: the vehicle stops until at least one person has entered
+  - the list of necessary and eligible persons can be further customized with attributes `expected` and `permitted`
+- `"container"`: the vehicle stops until at least one container has been loaded
+  - the list of necessary and eligible containers can be further customized with attributes `expectedContainers` and `permitted`
+- `"join"`: the vehicle stops until having [joined with another vehicle](Simulation/Railways.md#joining_two_trains)
+- `"true"`: alias for `"person"`
+- `"false"`: alias for not defining any trigger conditions
 
 ## Waypoints
 By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep the defined speed while between startPos end endPos. 
@@ -1268,7 +1287,7 @@ defining them for the vehicle or the vehicle type in the following way:
     <vehicle id="v1" route="route0" depart="0" type="t1"/>
     
     <vType id="t2">
-        <param key="device.<DEVICENAME>.probablity" value="0.5"/>
+        <param key="device.<DEVICENAME>.probability" value="0.5"/>
     </vType>
 
     <vehicle id="v2" route="route0" depart="0" type="t2"/>

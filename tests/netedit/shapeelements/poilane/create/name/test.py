@@ -38,13 +38,13 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(netedit.attrs.POILane.create.name, "%%$%$&$%$%$")
 
 # try to create POI
-netedit.leftClick(referencePosition, 150, 210)
+netedit.leftClick(referencePosition, 338, 210)
 
 # change imgfile (non exist)
 netedit.changeDefaultValue(netedit.attrs.POILane.create.name, "customName")
 
 # try to create POI
-netedit.leftClick(referencePosition, 200, 210)
+netedit.leftClick(referencePosition, 405, 210)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

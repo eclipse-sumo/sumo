@@ -26,7 +26,7 @@ Example: In the above NEMA diagram, we could see phase 1+5, 1+6, 2+6, 3+7, 3+8 a
 You can load new definitions for NEMA-phase traffic controller as a part of an {{AdditionalFile}}. The signal timing could be updated in simulation through [TraCI functions](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-setNemaOffset). A definition of a traffic light program for a four-leg eight-phase intersection within an {{AdditionalFile}}
 looks like this:
 
-```
+```xml
 <add>
     <tlLogic id="2881" offset="10" programID="NEMA" type="NEMA">
         <param key="detector-length" value="20"/>
@@ -54,7 +54,7 @@ looks like this:
 ```
 
 For an intersection at a ramp, the traffic light program configuration could look like this:
-```
+```xml
 <add>
     <tlLogic id="2881" offset="10" programID="NEMA" type="NEMA">
         <param key="detector-length" value="20"/>
@@ -150,3 +150,7 @@ The following errors may be raised:
 - **Ring X does not add to cycle length**: EXPLANATION FORTHCOMING
 
 To simulate misconfigured controllers, both errors may be ignored by setting `<param key="ignore-errors" value="true"/>`.
+
+# Publication
+
+The implemenation and validation of the controller was described in [Schrader, M.; Wang, Q.; Bittle, J. Extension and Validation of NEMA-Style Dual-Ring Controller in SUMO. SUMO Conf Proc 2022, 3, 1-13.](https://www.tib-op.org/ojs/index.php/scp/article/view/115)

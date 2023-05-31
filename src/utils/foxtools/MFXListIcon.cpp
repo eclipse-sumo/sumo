@@ -35,7 +35,7 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(MFXListIcon) MFXListIconMap[]={
+FXDEFMAP(MFXListIcon) MFXListIconMap[] = {
     FXMAPFUNC(SEL_PAINT, 0, MFXListIcon::onPaint),
 };
 
@@ -46,7 +46,7 @@ FXIMPLEMENT(MFXListIcon, FXList, MFXListIconMap, ARRAYNUMBER(MFXListIconMap))
 // member method definitions
 // ===========================================================================
 
-MFXListIcon::MFXListIcon(FXComposite *p, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w,FXint h):
+MFXListIcon::MFXListIcon(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h):
     FXList(p, tgt, sel, opts, x, y, w, h) {
 }
 
@@ -68,7 +68,7 @@ MFXListIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     FXint i, y, h;
     // Paint items
     y = pos_y;
-    for(i = 0; i < items.no(); i++) {
+    for (i = 0; i < items.no(); i++) {
         const auto listIcon = dynamic_cast<MFXListItemIcon*>(items[i]);
         if (listIcon) {
             h = listIcon->getHeight(this);

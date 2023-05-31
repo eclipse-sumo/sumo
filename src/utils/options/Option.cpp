@@ -41,10 +41,8 @@
 // Option - methods
 // -------------------------------------------------------------------------
 
-Option::Option(bool set) : 
-    myAmSet(set), 
-    myHaveTheDefaultValue(true), 
-    myAmWritable(true) {
+Option::Option(bool set) :
+    myAmSet(set) {
 }
 
 
@@ -141,6 +139,30 @@ Option::isFileName() const {
 
 
 bool
+Option::isNetwork() const {
+    return false;
+}
+
+
+bool
+Option::isAdditional() const {
+    return false;
+}
+
+
+bool
+Option::isRoute() const {
+    return false;
+}
+
+
+bool
+Option::isData() const {
+    return false;
+}
+
+
+bool
 Option::isWriteable() const {
     return myAmWritable;
 }
@@ -170,15 +192,46 @@ Option::setDescription(const std::string& desc) {
 }
 
 
-const std::string&
-Option::getCategory() const {
-    return myCategory;
+bool
+Option::isRequired() const {
+    return myRequired;
 }
 
 
 void
-Option::setCategory(const std::string& desc) {
-    myCategory = desc;
+Option::setRequired() {
+    myRequired = true;
+}
+
+bool
+Option::isPositional() const {
+    return myPositional;
+}
+
+void
+Option::setPositional() {
+    myPositional = true;
+}
+
+const std::string&
+Option::getListSeparator() const {
+    return myListSeparator;
+}
+
+void
+Option::setListSeparator(const std::string& listSep) {
+    myListSeparator = listSep;
+}
+
+const std::string&
+Option::getSubTopic() const {
+    return mySubTopic;
+}
+
+
+void
+Option::setSubtopic(const std::string& subtopic) {
+    mySubTopic = subtopic;
 }
 
 
@@ -192,7 +245,7 @@ Option::getTypeName() const {
 // -------------------------------------------------------------------------
 
 Option_Integer::Option_Integer(int value) :
-    Option(true), 
+    Option(true),
     myValue(value) {
     myTypeName = "INT";
     myValueString = toString(value);
@@ -226,14 +279,14 @@ Option_Integer::isInteger() const {
 // Option_String - methods
 // -------------------------------------------------------------------------
 
-Option_String::Option_String() : 
+Option_String::Option_String() :
     Option() {
     myTypeName = "STR";
 }
 
 
 Option_String::Option_String(const std::string& value, std::string typeName) :
-    Option(true), 
+    Option(true),
     myValue(value) {
     myTypeName = typeName;
     myValueString = value;
@@ -256,8 +309,8 @@ Option_String::set(const std::string& v, const std::string& orig, const bool /* 
 // Option_Float - methods
 // -------------------------------------------------------------------------
 
-Option_Float::Option_Float(double value) : 
-    Option(true), 
+Option_Float::Option_Float(double value) :
+    Option(true),
     myValue(value) {
     myTypeName = "FLOAT";
     std::ostringstream oss;
@@ -326,7 +379,7 @@ Option_Bool::isBool() const {
 // Option_BoolExtended - methods
 // -------------------------------------------------------------------------
 
-Option_BoolExtended::Option_BoolExtended(bool value) : 
+Option_BoolExtended::Option_BoolExtended(bool value) :
     Option_Bool(value) {
 }
 
@@ -437,7 +490,8 @@ Option_FileName::Option_FileName(const StringVector& value) :
 }
 
 
-bool Option_FileName::isFileName() const {
+bool
+Option_FileName::isFileName() const {
     return true;
 }
 
@@ -445,6 +499,64 @@ bool Option_FileName::isFileName() const {
 std::string
 Option_FileName::getString() const {
     return joinToString(getStringVector(), ",");
+}
+
+// -------------------------------------------------------------------------
+// Option_Network - methods
+// -------------------------------------------------------------------------
+
+Option_Network::Option_Network(const std::string& value) :
+    Option_String(value, "NETWORK") {
+}
+
+
+bool Option_Network::isNetwork() const {
+    return true;
+}
+
+
+// -------------------------------------------------------------------------
+// Option_Additional - methods
+// -------------------------------------------------------------------------
+
+Option_Additional::Option_Additional(const std::string& value) :
+    Option_String(value, "ADDITIONAL") {
+}
+
+
+bool
+Option_Additional::isAdditional() const {
+    return true;
+}
+
+
+// -------------------------------------------------------------------------
+// Option_Route - methods
+// -------------------------------------------------------------------------
+
+Option_Route::Option_Route(const std::string& value) :
+    Option_String(value, "ROUTE") {
+}
+
+
+bool
+Option_Route::isRoute() const {
+    return true;
+}
+
+
+// -------------------------------------------------------------------------
+// Option_Data - methods
+// -------------------------------------------------------------------------
+
+Option_Data::Option_Data(const std::string& value) :
+    Option_String(value, "DATA") {
+}
+
+
+bool
+Option_Data::isData() const {
+    return true;
 }
 
 /****************************************************************************/

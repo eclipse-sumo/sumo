@@ -197,8 +197,7 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
             myReferencePointMatchBox->killFocus();
             myActualAdditionalReferencePoint = AdditionalReferencePoint::LEFT;
             myLengthTextField->enable();
-        }
-        else if (myReferencePointMatchBox->getText() == TL("reference right")) {
+        } else if (myReferencePointMatchBox->getText() == TL("reference right")) {
             myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
             myReferencePointMatchBox->killFocus();
             myActualAdditionalReferencePoint = AdditionalReferencePoint::RIGHT;

@@ -2,6 +2,10 @@
 # 
 output-styles
 
+# write stops that are found in the input
+# 
+stops
+
 # 
 # 
 output-styles_pedestrians
@@ -17,6 +21,9 @@ ratios
 
 # test option total-count
 totalCount
+
+# test origin destination inputs
+OD
 verbose
 
 # save configuration file
@@ -39,9 +46,6 @@ walk_input
 
 # using another GEH threshold
 geh
-
-# test option --od-files
-od_files
 
 # test additional vehicle attributes
 attrs

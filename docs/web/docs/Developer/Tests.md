@@ -26,9 +26,12 @@ We use [TextTest](http://texttest.org/) 4.x as our testing environment which
 is Python based and currently available for Python 3. To install
 it on Linux / MacOS, you can open a terminal and type:
 
-```
-pip3 install texttest
-```
+`pip3 install texttest`
+
+For a "naked" python installation, the following may be needed to allow TextTest to work:
+
+`pip3 install gobject PyGObject psutil`
+
 For Windows you should download and run the installer from the
 [SourceForge project page](https://sourceforge.net/projects/texttest/).
 
@@ -38,11 +41,13 @@ instructions](http://texttest.sourceforge.net/index.php?page=documentation_trunk
 and the additional info there.
 
 For MacOS the following command should install all dependencies:
-   `brew install python py3cairo pygobject3 gtk+3 adwaita-icon-theme`
 
-If the installation was successful, this window will appear after execution of `runAllTests.bat`
+`brew install python py3cairo pygobject3 gtk+3 adwaita-icon-theme`
 
-![](../images/TestInstall8.png "If Installation was successfully, this window will appear after execution of `runAllTests.bat`")
+If the installation was successful, this window will appear after execution of `{{SUMO}}/tests/runAllTests.bat` (Windows) or
+`{{SUMO}}/tests/runTests.sh` (Linux, macOS)
+
+![](../images/TestInstall8.png "If the installation was successful, this window will appear after execution of `runAllTests.bat`")
 
 
 ## Customize configuration
@@ -59,21 +64,19 @@ to collapse the static test suites on program start. E.g.:
 
 ## Recommended python packages
 
-The following packes are used by some of the tools under test
+There are several packages being used by the tools under test. So if you want to run
+the "tools" and/or "complex" tests please do
 
-`pip install pyproj rtree numpy scipy`
-
-For a "naked" python installation, the following may be needed to allow TextTest to work:
-
-`pip install gobject PyGObject psutil`
+`pip3 install -r {{SUMO}}/tools/requirements.txt`
 
 # Running the Tests
 
-Within the  `$SUMO_HOME/tests` folder you can find batch files for Windows and shell files for Linux & macOS which start
+Within the  `{{SUMO}}/tests` folder you can find batch files for Windows and shell files for Linux & macOS which start
 [TextTest](http://texttest.org/) with our test suites. `runAllTests.bat` (Windows) or `runTests.sh` (Linux, macOS)
 starts TextTest for testing all applications located in the folder,
 `runNetconvertTests.bat` (Windows) will only show tests for netconvert,
-`runDuarouterTests.bat`(Windows) only those for duarouter etc.
+`runDuarouterTests.bat`(Windows) only those for duarouter etc. For Linux and macOS you can do this via the
+command line using e.g. `runTests.sh -a duarouter`.
 
 # Adding a Test to an existing Application
 

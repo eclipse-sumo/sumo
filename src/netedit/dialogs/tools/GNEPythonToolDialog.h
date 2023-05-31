@@ -30,6 +30,7 @@
 
 class GNEApplicationWindow;
 class GNEPythonTool;
+class MFXCheckableButton;
 
 // ===========================================================================
 // class definitions
@@ -54,10 +55,28 @@ public:
     ~GNEPythonToolDialog();
 
     /// @brief open dialog
-    long openDialog(GNEPythonTool* tool);
+    void openDialog(GNEPythonTool* tool);
+
+    /// @brief get pointer to GNEApplicationWindow
+    GNEApplicationWindow* getGNEApplicationWindow() const;
+
+    /// @brief get python tool
+    const GNEPythonTool* getPythonTool() const;
 
     /// @name FOX-callbacks
     /// @{
+
+    /// @brief enable/disable show toolTip
+    long onCmdShowToolTipsMenu(FXObject*, FXSelector, void*);
+
+    /// @brief save options
+    long onCmdSave(FXObject*, FXSelector, void*);
+
+    /// @brief load options
+    long onCmdLoad(FXObject*, FXSelector, void*);
+
+    /// @brief set visualization (sorting and grouping)
+    long onCmdSetVisualization(FXObject*, FXSelector, void*);
 
     /// @brief event after press run button
     long onCmdRun(FXObject*, FXSelector, void*);
@@ -68,45 +87,90 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
+    /// @brief event for check if required attributes was set
+    long onUpdRequiredAttributes(FXObject* sender, FXSelector, void*);
+
     /// @}
 
 protected:
+    /// @brief internal class used for sorting options by categories
+    class CategoryOptions : public std::string {
+
+    public:
+        /// @brief constructor
+        CategoryOptions(const std::string& category);
+
+        /// @brief add option
+        void addOption(const std::string& name, Option* option);
+
+        /// @brief get options
+        const std::vector<std::pair<std::string, Option*> >& getOptions() const;
+
+        /// @brief sort options by name
+        void sortByName();
+
+    private:
+        /// @brief options for this category
+        std::vector<std::pair<std::string, Option*> > myOptions;
+
+        /// @brief default constructor
+        CategoryOptions() {}
+    };
+
     /// @brief FOX needs this
     GNEPythonToolDialog();
 
     /// @brief build arguments
-    virtual void buildArguments();
+    void buildArguments(bool sortByName, bool groupedByCategories);
 
     /// @brief adjust parameter column
     void adjustParameterColumn();
 
-    /// @brief list of arguments
-    std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
+    /// @brief custom tools options
+    OptionsCont myCustomToolsOptions;
 
-    /// @brief get row frame
-    FXVerticalFrame* getRowFrame();
+    /// @brief get options
+    std::vector<GNEPythonToolDialog::CategoryOptions> getOptions(OptionsCont& optionsCont) const;
+
+    /// @brief get options sorted by category
+    std::vector<CategoryOptions> getOptionsByCategories(OptionsCont& optionsCont) const;
 
     /// @brief get number of row colums
     int getNumRowColums() const;
+
+    /// @brief get argument frame left
+    FXVerticalFrame* getArgumentFrameLeft() const;
+
+    /// @brief get argument frame right
+    FXVerticalFrame* getArgumentFrameRight() const;
+
+    /// @brief list of arguments sorted by categories
+    std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
+
+    /// @brief list of categories
+    std::vector<GNEPythonToolDialogElements::Category*> myCategories;
 
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief vertical frames for rows
-    std::vector<FXVerticalFrame*> myRowFrames;
+    /// @brief menu for tooltips menu
+    MFXCheckableButton* myShowToolTipsMenu = nullptr;
 
-    /// @brief tool
+    /// @brief check button to enable/diasble sorting
+    FXCheckButton* mySortedCheckButton = nullptr;
+
+    /// @brief check button to enable/diasble grouping
+    FXCheckButton* myGroupedCheckButton = nullptr;
+
+    /// @brief argument frame left
+    FXVerticalFrame* myArgumentFrameLeft = nullptr;
+
+    /// @brief argument frame right
+    FXVerticalFrame* myArgumentFrameRight = nullptr;
+
+    /// @brief python tool
     GNEPythonTool* myPythonTool = nullptr;
-
-    /// @brief parameter label
-    FXLabel* myParameterLabel = nullptr;
-
-    /// @brief separator
-    FXSeparator* mySeparator = nullptr;
-
-    /// @brief buttons frame
-    FXHorizontalFrame* myButtonsFrame = nullptr;
 
     /// @brief Invalidated copy constructor.
     GNEPythonToolDialog(const GNEPythonToolDialog&) = delete;

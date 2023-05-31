@@ -46,6 +46,7 @@
 %template(TraCIReservationVector) std::vector<libsumo::TraCIReservation>;
 %template(TraCISignalConstraintVector) std::vector<libsumo::TraCISignalConstraint>;
 %template(TraCICollisionVector) std::vector<libsumo::TraCICollision>;
+%template(TraCIJunctionFoeVector) std::vector<libsumo::TraCIJunctionFoe>;
 #ifndef SWIGPYTHON
 %template(TraCIBestLanesVector) std::vector<libsumo::TraCIBestLanesData>;
 %template(TraCIConnectionVector) std::vector<libsumo::TraCIConnection>;

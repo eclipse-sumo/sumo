@@ -20,12 +20,12 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/tools/GNEPythonTool.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEPythonToolDialogElements.h"
 #include "GNEPythonToolDialog.h"
-
 
 // ===========================================================================
 // static members
@@ -41,34 +41,83 @@ const std::string GNEPythonToolDialogElements::FloatArgument::INVALID_DOUBLE_STR
 FXDEFMAP(GNEPythonToolDialogElements::Argument) ArgumentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEPythonToolDialogElements::Argument::onCmdSetValue),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,          GNEPythonToolDialogElements::Argument::onCmdResetValue),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_RESET,          GNEPythonToolDialogElements::Argument::onUpdResetValue),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_RESET,          GNEPythonToolDialogElements::Argument::onUpdResetValue)
 };
 
 FXDEFMAP(GNEPythonToolDialogElements::FileNameArgument) FileNameArgumentMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,  GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,  GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename)
+};
+
+FXDEFMAP(GNEPythonToolDialogElements::NetworkArgument) NetworkArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,         GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::NetworkArgument::onCmdUseCurrent),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::NetworkArgument::onUpdUseCurrent)
+};
+
+FXDEFMAP(GNEPythonToolDialogElements::AdditionalArgument) AdditionalArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,         GNEPythonToolDialogElements::AdditionalArgument::onCmdOpenFilename),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::AdditionalArgument::onCmdUseCurrent),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::AdditionalArgument::onUpdUseCurrent)
+};
+
+FXDEFMAP(GNEPythonToolDialogElements::RouteArgument) RouteArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,         GNEPythonToolDialogElements::RouteArgument::onCmdOpenFilename),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::RouteArgument::onCmdUseCurrent),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::RouteArgument::onUpdUseCurrent)
+};
+
+FXDEFMAP(GNEPythonToolDialogElements::DataArgument) DataArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,         GNEPythonToolDialogElements::DataArgument::onCmdOpenFilename),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::DataArgument::onCmdUseCurrent),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::DataArgument::onUpdUseCurrent)
 };
 
 // Object implementation
-FXIMPLEMENT_ABSTRACT(GNEPythonToolDialogElements::Argument,   FXHorizontalFrame,                  ArgumentMap,            ARRAYNUMBER(ArgumentMap))
-FXIMPLEMENT(GNEPythonToolDialogElements::FileNameArgument,    GNEPythonToolDialogElements::Argument,    FileNameArgumentMap,    ARRAYNUMBER(FileNameArgumentMap))
+FXIMPLEMENT_ABSTRACT(GNEPythonToolDialogElements::Argument,     FXHorizontalFrame,                              ArgumentMap,            ARRAYNUMBER(ArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::FileNameArgument,      GNEPythonToolDialogElements::Argument,          FileNameArgumentMap,    ARRAYNUMBER(FileNameArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::NetworkArgument,       GNEPythonToolDialogElements::FileNameArgument,  NetworkArgumentMap,     ARRAYNUMBER(NetworkArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::AdditionalArgument,    GNEPythonToolDialogElements::FileNameArgument,  AdditionalArgumentMap,  ARRAYNUMBER(AdditionalArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::RouteArgument,         GNEPythonToolDialogElements::FileNameArgument,  RouteArgumentMap,       ARRAYNUMBER(RouteArgumentMap))
+FXIMPLEMENT(GNEPythonToolDialogElements::DataArgument,          GNEPythonToolDialogElements::FileNameArgument,  DataArgumentMap,        ARRAYNUMBER(DataArgumentMap))
+
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// GNEPythonToolDialogElements::Category - methods
+// ---------------------------------------------------------------------------
+
+GNEPythonToolDialogElements::Category::Category(FXVerticalFrame* argumentFrame, const std::string& category) :
+    FXHorizontalFrame(argumentFrame, GUIDesignAuxiliarHorizontalFrame) {
+    // create category label
+    new FXLabel(this, category.c_str(), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
+    // create category
+    create();
+}
+
+
+GNEPythonToolDialogElements::Category::~Category() {}
+
+// ---------------------------------------------------------------------------
 // GNEPythonToolDialogElements::Argument - methods
 // ---------------------------------------------------------------------------
 
-GNEPythonToolDialogElements::Argument::Argument(GNEPythonToolDialog* toolDialogParent, const std::string &parameter, Option* option) :
-    FXHorizontalFrame(toolDialogParent->getRowFrame(), GUIDesignAuxiliarHorizontalFrame),
+GNEPythonToolDialogElements::Argument::Argument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string& parameter, Option* option) :
+    FXHorizontalFrame(argumentFrame, GUIDesignAuxiliarHorizontalFrame),
+    myToolDialogParent(toolDialogParent),
     myOption(option),
-    myDefaultValue((option->getValueString() == "None")? "" : option->getValueString()) {
+    myDefaultValue(toolDialogParent->getPythonTool()->getDefaultValue(parameter)) {
     // create parameter label
     myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->myGNEApp->getStaticTooltipMenu(), parameter.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
     myParameterLabel->setTipText((option->getTypeName() + ": " + option->getDescription()).c_str());
+    // set color if is required
+    if (option->isRequired()) {
+        myParameterLabel->setTextColor(FXRGB(0, 0, 255));
+    }
     // create horizontal frame for textField
-    myAuxiliarTextFieldFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrameFixedWidth(250));
+    myElementsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // Create reset button
     myResetButton = new FXButton(this, (std::string("\t\t") + TL("Reset value")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
     // create argument
@@ -95,6 +144,16 @@ GNEPythonToolDialogElements::Argument::getArgument() const {
 }
 
 
+bool
+GNEPythonToolDialogElements::Argument::requiredAttributeSet() const {
+    if (myOption->isRequired()) {
+        return getValue() != myDefaultValue;
+    } else {
+        return true;
+    }
+}
+
+
 long
 GNEPythonToolDialogElements::Argument::onCmdResetValue(FXObject*, FXSelector, void*) {
     // just reset value
@@ -105,10 +164,10 @@ GNEPythonToolDialogElements::Argument::onCmdResetValue(FXObject*, FXSelector, vo
 
 long
 GNEPythonToolDialogElements::Argument::onUpdResetValue(FXObject*, FXSelector, void*) {
-    if (getValue() != myDefaultValue) {
-        return myResetButton->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else {
+    if (getValue() == myDefaultValue) {
         return myResetButton->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return myResetButton->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -119,18 +178,9 @@ GNEPythonToolDialogElements::Argument::Argument() {}
 // GNEPythonToolDialogElements::FileNameArgument - methods
 // ---------------------------------------------------------------------------
 
-GNEPythonToolDialogElements::FileNameArgument::FileNameArgument(GNEPythonToolDialog* toolDialogParent, 
+GNEPythonToolDialogElements::FileNameArgument::FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
         const std::string name, Option* option) :
-    Argument(toolDialogParent, name, option) {
-    // Create Open button
-    myFilenameButton = new FXButton(myAuxiliarTextFieldFrame, (std::string("\t\t") + TL("Select filename")).c_str(), 
-        GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GNE_SELECT, GUIDesignButtonIcon);
-    myFilenameButton->create();
-    // create text field for filename
-    myFilenameTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myFilenameTextField->create();
-    // reset after creation
-    reset();
+    FileNameArgument(toolDialogParent, argumentFrame, name, option, "") {
 }
 
 
@@ -144,6 +194,12 @@ GNEPythonToolDialogElements::FileNameArgument::reset() {
 
 long
 GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
+    // get file
+    const auto file = GNEApplicationWindowHelper::openFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
+    // check that file is valid
+    if (file.size() > 0) {
+        myFilenameTextField->setText(file.c_str(), TRUE);
+    }
     return 1;
 }
 
@@ -163,22 +219,214 @@ GNEPythonToolDialogElements::FileNameArgument::onCmdSetValue(FXObject*, FXSelect
 GNEPythonToolDialogElements::FileNameArgument::FileNameArgument() {}
 
 
+GNEPythonToolDialogElements::FileNameArgument::FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+        const std::string name, Option* option, const std::string& useCurrent) :
+    Argument(toolDialogParent, argumentFrame, name, option) {
+    // check if create current button
+    if (useCurrent.size() > 0) {
+        myCurrentButton = new FXButton(myElementsFrame, (std::string("\t\t") + TLF("Use current % file", useCurrent)).c_str(),
+                                       GUIIconSubSys::getIcon(GUIIcon::CURRENT), this, MID_GNE_USE_CURRENT, GUIDesignButtonIcon);
+        myCurrentButton->create();
+    }
+    // Create Open button
+    myOpenFilenameButton = new FXButton(myElementsFrame, (std::string("\t\t") + TL("Select filename")).c_str(),
+                                        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SELECT, GUIDesignButtonIcon);
+    myOpenFilenameButton->create();
+    // create text field for filename
+    myFilenameTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myFilenameTextField->create();
+    // set value
+    myFilenameTextField->setText(option->getValueString().c_str());
+}
+
 const std::string
 GNEPythonToolDialogElements::FileNameArgument::getValue() const {
     return myFilenameTextField->getText().text();
 }
 
 // ---------------------------------------------------------------------------
+// GNEPythonToolDialogElements::FileNameArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEPythonToolDialogElements::NetworkArgument::NetworkArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+        const std::string name, Option* option) :
+    FileNameArgument(toolDialogParent, argumentFrame, name, option, TL("network")) {
+}
+
+
+long
+GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
+    // get network file
+    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
+    // check that file is valid
+    if (networkFile.size() > 0) {
+        myFilenameTextField->setText(networkFile.c_str(), TRUE);
+    }
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::NetworkArgument::onCmdUseCurrent(FXObject*, FXSelector, void*) {
+    myFilenameTextField->setText(OptionsCont::getOptions().getString("sumo-net-file").c_str(), TRUE);
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::NetworkArgument::onUpdUseCurrent(FXObject* sender, FXSelector, void*) {
+    if (myToolDialogParent->getGNEApplicationWindow()->getViewNet() == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (OptionsCont::getOptions().getString("sumo-net-file").empty()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
+GNEPythonToolDialogElements::NetworkArgument::NetworkArgument() {}
+
+// ---------------------------------------------------------------------------
+// GNEPythonToolDialogElements::FileNameArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEPythonToolDialogElements::AdditionalArgument::AdditionalArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+        const std::string name, Option* option) :
+    FileNameArgument(toolDialogParent, argumentFrame, name, option, TL("additional")) {
+}
+
+
+long
+GNEPythonToolDialogElements::AdditionalArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
+    // get additional file
+    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
+    // check that file is valid
+    if (additionalFile.size() > 0) {
+        myFilenameTextField->setText(additionalFile.c_str(), TRUE);
+    }
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::AdditionalArgument::onCmdUseCurrent(FXObject*, FXSelector, void*) {
+    myFilenameTextField->setText(OptionsCont::getOptions().getString("additional-files").c_str(), TRUE);
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::AdditionalArgument::onUpdUseCurrent(FXObject* sender, FXSelector, void*) {
+    if (myToolDialogParent->getGNEApplicationWindow()->getViewNet() == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (OptionsCont::getOptions().getString("additional-files").empty()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
+GNEPythonToolDialogElements::AdditionalArgument::AdditionalArgument() {}
+
+// ---------------------------------------------------------------------------
+// GNEPythonToolDialogElements::FileNameArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEPythonToolDialogElements::RouteArgument::RouteArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+        const std::string name, Option* option) :
+    FileNameArgument(toolDialogParent, argumentFrame, name, option, TL("route")) {
+}
+
+
+long
+GNEPythonToolDialogElements::RouteArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
+    // get route file
+    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
+    // check that file is valid
+    if (routeFile.size() > 0) {
+        myFilenameTextField->setText(routeFile.c_str(), TRUE);
+    }
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::RouteArgument::onCmdUseCurrent(FXObject*, FXSelector, void*) {
+    myFilenameTextField->setText(OptionsCont::getOptions().getString("route-files").c_str(), TRUE);
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::RouteArgument::onUpdUseCurrent(FXObject* sender, FXSelector, void*) {
+    if (myToolDialogParent->getGNEApplicationWindow()->getViewNet() == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (OptionsCont::getOptions().getString("route-files").empty()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
+GNEPythonToolDialogElements::RouteArgument::RouteArgument() {}
+
+// ---------------------------------------------------------------------------
+// GNEPythonToolDialogElements::FileNameArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEPythonToolDialogElements::DataArgument::DataArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+        const std::string name, Option* option) :
+    FileNameArgument(toolDialogParent, argumentFrame, name, option, TL("data")) {
+}
+
+
+long
+GNEPythonToolDialogElements::DataArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
+    // get data file
+    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
+    // check that file is valid
+    if (dataFile.size() > 0) {
+        myFilenameTextField->setText(dataFile.c_str(), TRUE);
+    }
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::DataArgument::onCmdUseCurrent(FXObject*, FXSelector, void*) {
+    myFilenameTextField->setText(OptionsCont::getOptions().getString("data-files").c_str(), TRUE);
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::DataArgument::onUpdUseCurrent(FXObject* sender, FXSelector, void*) {
+    if (myToolDialogParent->getGNEApplicationWindow()->getViewNet() == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (OptionsCont::getOptions().getString("data-files").empty()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
+GNEPythonToolDialogElements::DataArgument::DataArgument() {}
+
+// ---------------------------------------------------------------------------
 // GNEPythonToolDialogElements::StringArgument - methods
 // ---------------------------------------------------------------------------
 
-GNEPythonToolDialogElements::StringArgument::StringArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option) :
-    Argument(toolDialogParent, name, option) {
+GNEPythonToolDialogElements::StringArgument::StringArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option) :
+    Argument(toolDialogParent, argumentFrame, name, option) {
     // create text field for string
-    myStringTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myStringTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myStringTextField->create();
-    // reset after creation
-    reset();
+    // set value
+    myStringTextField->setText(option->getValueString().c_str());
 }
 
 
@@ -211,13 +459,13 @@ GNEPythonToolDialogElements::StringArgument::getValue() const {
 // GNEPythonToolDialogElements::IntArgument - methods
 // ---------------------------------------------------------------------------
 
-GNEPythonToolDialogElements::IntArgument::IntArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option) :
-    Argument(toolDialogParent, name, option) {
+GNEPythonToolDialogElements::IntArgument::IntArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option) :
+    Argument(toolDialogParent, argumentFrame, name, option) {
     // create text field for int
-    myIntTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
+    myIntTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
     myIntTextField->create();
-    // reset after creation
-    reset();
+    // set value
+    myIntTextField->setText(option->getValueString().c_str());
 }
 
 
@@ -225,7 +473,7 @@ void
 GNEPythonToolDialogElements::IntArgument::reset() {
     myIntTextField->setText(myDefaultValue.c_str());
     if (myDefaultValue.empty()) {
-        myOption->set(INVALID_INT_STR, INVALID_INT_STR, false);
+        myOption->set(INVALID_INT_STR, "", false);
     } else {
         myOption->set(myDefaultValue, myDefaultValue, false);
     }
@@ -254,13 +502,13 @@ GNEPythonToolDialogElements::IntArgument::getValue() const {
 // GNEPythonToolDialogElements::FloatArgument - methods
 // ---------------------------------------------------------------------------
 
-GNEPythonToolDialogElements::FloatArgument::FloatArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option) :
-    Argument(toolDialogParent, name, option) {
+GNEPythonToolDialogElements::FloatArgument::FloatArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option) :
+    Argument(toolDialogParent, argumentFrame, name, option) {
     // create text field for float
-    myFloatTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
+    myFloatTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myFloatTextField->create();
-    // reset after creation
-    reset();
+    // set value
+    myFloatTextField->setText(option->getValueString().c_str());
 }
 
 
@@ -268,7 +516,7 @@ void
 GNEPythonToolDialogElements::FloatArgument::reset() {
     myFloatTextField->setText(myDefaultValue.c_str());
     if (myDefaultValue.empty()) {
-        myOption->set(INVALID_DOUBLE_STR, INVALID_DOUBLE_STR, false);
+        myOption->set(INVALID_DOUBLE_STR, "", false);
     } else {
         myOption->set(myDefaultValue, myDefaultValue, false);
     }
@@ -297,13 +545,19 @@ GNEPythonToolDialogElements::FloatArgument::getValue() const {
 // GNEPythonToolDialogElements::BoolArgument - methods
 // ---------------------------------------------------------------------------
 
-GNEPythonToolDialogElements::BoolArgument::BoolArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option) :
-    Argument(toolDialogParent, name, option) {
+GNEPythonToolDialogElements::BoolArgument::BoolArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option) :
+    Argument(toolDialogParent, argumentFrame, name, option) {
     // create check button
-    myCheckButton = new FXCheckButton(myAuxiliarTextFieldFrame, "" , this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCheckButton = new FXCheckButton(myElementsFrame, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCheckButton->create();
-    // reset after creation
-    reset();
+    // set value
+    if (option->getBool()) {
+        myCheckButton->setCheck(TRUE);
+        myCheckButton->setText(TL("true"));
+    } else {
+        myCheckButton->setCheck(FALSE);
+        myCheckButton->setText(TL("false"));
+    }
 }
 
 

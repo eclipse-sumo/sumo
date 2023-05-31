@@ -59,6 +59,11 @@ public:
     double freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed,
                      const bool onInsertion, const CalcReason usage = CalcReason::CURRENT) const;
 
+    bool startupDelayStopped() const {
+        // starup delay in trains is dominated by inertia + brake delay and thus applies to any kind of stopping
+        return true;
+    }
+
 private:
 
 

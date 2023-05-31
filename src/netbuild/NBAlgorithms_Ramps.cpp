@@ -34,7 +34,7 @@
 #define OFFRAMP_LOOKBACK 500
 
 //#define DEBUG_RAMPS
-#define DEBUGNODEID  "260479469"
+#define DEBUGNODEID  ""
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
 
 // ===========================================================================
@@ -87,6 +87,11 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
         std::set<NBNode*, ComparatorIdLess> potOffRamps;
         for (const auto& i : nc) {
             NBNode* cur = i.second;
+#ifdef DEBUG_RAMPS
+            if (DEBUGCOND(cur)) {
+                std::cout << "check ramps cur=" << cur->getID() << "\n";
+            }
+#endif
             if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed, noramps, minWeaveLength)) {
                 potOnRamps.insert(cur);
             }
@@ -143,6 +148,11 @@ NBRampsComputer::mayNeedOnRamp(NBNode* cur, double minHighwaySpeed, double maxRa
     NBEdge* potHighway, *potRamp, *cont;
     getOnRampEdges(cur, &potHighway, &potRamp, &cont);
     // may be an on-ramp
+#ifdef DEBUG_RAMPS
+    if (DEBUGCOND(cur)) {
+        std::cout << "check on ramp hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " cont=" << cont->getID() << std::endl;
+    }
+#endif
     if (fulfillsRampConstraints(potHighway, potRamp, cont, minHighwaySpeed, maxRampSpeed, noramps)) {
         // prevent short weaving section
         double seen = cont->getLength();
@@ -172,7 +182,7 @@ NBRampsComputer::mayNeedOffRamp(NBNode* cur, double minHighwaySpeed, double maxR
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
 #ifdef DEBUG_RAMPS
     if (DEBUGCOND(cur)) {
-        std::cout << "off ramp hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " prev=" << prev->getID() << std::endl;
+        std::cout << "check off ramp hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " prev=" << prev->getID() << std::endl;
     }
 #endif
     return fulfillsRampConstraints(potHighway, potRamp, prev, minHighwaySpeed, maxRampSpeed, noramps);

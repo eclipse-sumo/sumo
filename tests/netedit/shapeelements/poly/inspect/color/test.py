@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
+netedit.createSquaredTAZ(referencePosition, 116, 139, 200, True)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, 182, 130)
+netedit.leftClick(referencePosition, 116, 139)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.Poly.inspect.colorButton, 5, False)

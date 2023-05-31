@@ -1281,11 +1281,14 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         for (const auto& edge : edges) {
             TAZBoundary.add(edge->getCenteringBoundary());
         }
-        // iterate over children and add sourceSinkEdge boundaries
+        // iterate over children and add sourceSinkEdge boundaries to make a taz shape
         for (const auto& sourceSink : sumoBaseObject->getSumoBaseObjectChildren()) {
-            const GNEEdge* sourceSinkEdge = myNet->getAttributeCarriers()->retrieveEdge(sourceSink->getStringAttribute(SUMO_ATTR_ID), false);
-            if (sourceSinkEdge) {
-                TAZBoundary.add(sourceSinkEdge->getCenteringBoundary());
+            // check that childre is a source or sink elements (to avoid parameters)
+            if ((sourceSink->getTag() == SUMO_TAG_TAZSOURCE) || (sourceSink->getTag() == SUMO_TAG_TAZSINK)) {
+                const GNEEdge* sourceSinkEdge = myNet->getAttributeCarriers()->retrieveEdge(sourceSink->getStringAttribute(SUMO_ATTR_ID), false);
+                if (sourceSinkEdge) {
+                    TAZBoundary.add(sourceSinkEdge->getCenteringBoundary());
+                }
             }
         }
         // update TAZShape

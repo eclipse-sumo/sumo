@@ -43,7 +43,6 @@ class GNELoadThread;
 class GNENet;
 class GNEPythonTool;
 class GNEPythonToolDialog;
-class GNENetdiffToolDialog;
 class GNENetgenerateDialog;
 class GNERunPythonToolDialog;
 class GNERunNetgenerateDialog;
@@ -961,19 +960,22 @@ struct GNEApplicationWindowHelper {
         ~ToolsMenuCommands();
 
         /// @brief build tools (and menu commands)
-        void buildTools(FXMenuPane* toolsMenu, const std::map<std::string, FXMenuPane*> &menuPaneToolMaps);
+        void buildTools(FXMenuPane* toolsMenu, const std::map<std::string, FXMenuPane*>& menuPaneToolMaps);
 
         /// @brief show tool
         long showTool(FXObject* menuCommand) const;
 
         /// @brief show netgenerate dialog
-        long showNetgenerateDialog(const OptionsCont *netgenerateOptions) const;
+        long showNetgenerateDialog() const;
 
         /// @brief run tool dialog
         long runToolDialog(FXObject* menuCommand) const;
 
+        /// @brief run postprocessing
+        long postProcessing(FXObject* menuCommand) const;
+
         /// @brief run netgenerate dialog
-        long runNetgenerateDialog(const OptionsCont *netgenerateOptions) const;
+        long runNetgenerateDialog(const OptionsCont* netgenerateOptions) const;
 
     private:
         /// @brief map with python tools
@@ -981,13 +983,10 @@ struct GNEApplicationWindowHelper {
 
         /// @brief python tool dialog
         GNEPythonToolDialog* myPythonToolDialog = nullptr;
-        
-        /// @brief netdiff tool dialog
-        GNENetdiffToolDialog* myNetdiffToolDialog = nullptr;
-        
+
         /// @brief netgenerate dialog
         GNENetgenerateDialog* myNetgenerateDialog = nullptr;
-        
+
         /// @brief run python tool dialog
         GNERunPythonToolDialog* myRunPythonToolDialog = nullptr;
 
@@ -1127,8 +1126,11 @@ struct GNEApplicationWindowHelper {
     /// @brief check if a string ends with another string
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
+    /// @brief open general file dialog
+    static std::string openFileDialog(FXWindow* window, bool save, bool multi);
+
     /// @brief open netconvert file dialog
-    static std::string openNetworkFileDialog(FXWindow* window, const bool save);
+    static std::string openNetworkFileDialog(FXWindow* window, bool save, bool multi = false);
 
     /// @brief open netconvert file dialog
     static std::string openNetconvertFileDialog(FXWindow* window);
@@ -1146,32 +1148,35 @@ struct GNEApplicationWindowHelper {
     static std::string openOSMFileDialog(FXWindow* window);
 
     /// @brief open netedit config file dialog
-    static std::string openNeteditConfigFileDialog(FXWindow* window, const bool save);
+    static std::string openNeteditConfigFileDialog(FXWindow* window, bool save);
 
     /// @brief open SUMO config file dialog
-    static std::string openSumoConfigFileDialog(FXWindow* window, const bool save);
+    static std::string openSumoConfigFileDialog(FXWindow* window, bool save, bool multi = false);
 
     /// @brief open TLS file dialog
-    static std::string openTLSFileDialog(FXWindow* window, const bool save);
+    static std::string openTLSFileDialog(FXWindow* window, bool save);
 
     /// @brief open edgeType file dialog
-    static std::string openEdgeTypeFileDialog(FXWindow* window, const bool save);
+    static std::string openEdgeTypeFileDialog(FXWindow* window, bool save);
 
     /// @brief open additional dialog
-    static std::string openAdditionalFileDialog(FXWindow* window, const bool save);
+    static std::string openAdditionalFileDialog(FXWindow* window, bool save, bool multi = false);
 
     /// @brief open route file dialog
-    static std::string openRouteFileDialog(FXWindow* window, const bool save);
+    static std::string openRouteFileDialog(FXWindow* window, bool save, bool multi = false);
 
     /// @brief open data file dialog
-    static std::string openDataFileDialog(FXWindow* window, const bool save);
+    static std::string openDataFileDialog(FXWindow* window, bool save, bool multi = false);
 
     /// @brief open meandata filename dialog
-    static std::string openMeanDataDialog(FXWindow* window, const bool save);
+    static std::string openMeanDataDialog(FXWindow* window, bool save, bool multi = false);
+
+    /// @brief open option dialog
+    static std::string openOptionFileDialog(FXWindow* window, bool save);
 
 private:
     /// @brief open filename dialog
-    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon, const std::string patternList, const bool save);
+    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon, const std::string patternList, bool save, bool multi = false);
 
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;

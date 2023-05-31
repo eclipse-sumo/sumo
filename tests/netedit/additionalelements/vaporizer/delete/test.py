@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.deleteMode()
 
 # enable 'Automatically delete additionals'
-netedit.changeProtectAdditionalElements(referencePosition)
+netedit.protectElements(referencePosition)
 
 # delete loaded vaporizer
 netedit.leftClick(referencePosition, 246, 315)
@@ -47,7 +47,7 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # disable 'Automatically delete additionals'
-netedit.changeProtectAdditionalElements(referencePosition)
+netedit.protectElements(referencePosition)
 
 # try to delete lane with the  loaded vaporizer (doesn't allowed)
 netedit.leftClick(referencePosition, 608, 209)

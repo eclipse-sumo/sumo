@@ -25,7 +25,6 @@ import random
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import uMax  # noqa
 
 
 def get_options(args=None):
@@ -46,7 +45,7 @@ def get_options(args=None):
                            default=False, help="Randomize roadsideCapacity")
     optParser.add_argument("--min", category="processing", type=int, default=0,
                            help="Minimum capacity for parkingAreas")
-    optParser.add_argument("--max", category="processing", type=int, default=uMax,
+    optParser.add_argument("--max", category="processing", type=int, default=int(1e9),
                            help="Maximum capacity for parkingAreas")
     optParser.add_argument("--edge-type.keep", category="processing", dest="edgeTypeKeep",
                            help="Optional list of edge types to keep exclusively")

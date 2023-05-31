@@ -150,6 +150,10 @@ pip install eclipse-sumo
 !!! caution "macOS dependencies"
     In order to use the Python wheels on macOS you need to have all the dependencies installed and up to date via brew for instance by following the [standard installation](Installing/index.md#macos) once.
 
+## Additional Tools
+To take full advantage of all [Python tools](Tools/index.md)
+please install the dependencies via `pip install -r $SUMO_HOME/tools/requirements.txt`.
+
 # SUMO - Latest Development Version
 
 SUMO is under active development. You can find a continuously updated
@@ -255,7 +259,7 @@ SUMO is licensed under the
 source libraries](Libraries_Licenses.md).
 
 The standard Windows build only contains code and Windows binaries with Eclipse
-approved licenses (especially no GPL and LGPL code). If you need
+approved licenses (especially no GPL code). If you need
 features like shapefile import, GeoTIFF processing, the OpenSceneGraph 3D GUI, or
 video generation, download the "extra" build.
 

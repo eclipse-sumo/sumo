@@ -86,6 +86,9 @@ public:
     /// @brief return combobox with the current coloring schemes (standard, fastest standard, real world...)
     FXComboBox* getColoringSchemesCombo();
 
+    /// @brief get menu for tooltips menu
+    MFXCheckableButton* getShowToolTipsMenu() const;
+
     /** @brief Centers the view onto the given artifact
      * @param[in] id The id of the object to center the view on
      */

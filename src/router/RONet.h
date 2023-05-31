@@ -502,6 +502,12 @@ private:
     /// @brief Whether the default bicycle type was already used or can still be replaced
     bool myDefaultBikeTypeMayBeDeleted;
 
+    /// @brief Whether the default taxi type was already used or can still be replaced
+    bool myDefaultTaxiTypeMayBeDeleted;
+
+    /// @brief Whether the default rail type was already used or can still be replaced
+    bool myDefaultRailTypeMayBeDeleted;
+
     /// @brief Known routes
     NamedObjectCont<RORouteDef*> myRoutes;
 

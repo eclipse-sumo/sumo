@@ -71,7 +71,7 @@ def write(fname, values, root):
             elem = parts[0]
             f.write('    <%s' % elem)
             if len(parts) > 1:
-                f.write(' id="%s"' % parts[1])
+                f.write(' id="%s"' % '|'.join(parts[1:]))
             for attr, d in sorted(values[elem_id].items()):
                 f.write(' %s="%s"' % (attr, d))
             f.write('/>\n')
@@ -113,7 +113,7 @@ def main():
             if options.idAttribute:
                 for ids in idStack:
                     if ids:
-                        elementDescription += '|' + '.'.join(ids)
+                        elementDescription += '|' + '|'.join(ids)
 
             if options.attribute is None:
                 for k, v in node.items():
@@ -163,19 +163,19 @@ def main():
         for attr in sorted(missingAttr.keys()):
             if options.verbose:
                 print("In file %s, Elements %s did not provide attribute '%s'" % (
-                    options.old, ','.join(sorted(missingAttr[attr])), attr))
+                      options.old, ','.join(sorted(missingAttr[attr])), attr))
 
     if missingAttr2:
         for attr in sorted(missingAttr2.keys()):
             if options.verbose:
                 print("In file %s, Elements %s did not provide attribute '%s'" % (
-                    options.new, ','.join(sorted(missingAttr2[attr])), attr))
+                      options.new, ','.join(sorted(missingAttr2[attr])), attr))
 
     if invalidType and options.attribute is not None:
         for attr in sorted(invalidType.keys()):
             sys.stderr.write(("%s distinct values of attribute '%s' could not be interpreted " +
-                   "as numerical value or time. Example values: '%s'\n") %
-                  (len(invalidType[attr]), attr, "', '".join(sorted(invalidType[attr])[:10])))
+                             "as numerical value or time. Example values: '%s'\n") %
+                             (len(invalidType[attr]), attr, "', '".join(sorted(invalidType[attr])[:10])))
 
     if options.xml_output is not None:
         write(options.xml_output, differences, "attributeDiff")

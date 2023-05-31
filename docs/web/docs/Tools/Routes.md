@@ -255,7 +255,7 @@ python tools/addParkingAreaStops2Routes.py -r <route-file> -p <parking-areas
 
 The stop will be added to the vehicles route, if the id of the given parking area is part of the vehicle id. Example:
 
-```
+```xml
 <routes>
     <vehicle id="0_parkingAreaA" depart="0">
       <route edges="e1 e2 e3"/>
@@ -270,7 +270,7 @@ The stop will be added to the vehicles route, if the id of the given parking are
 python tools/route/addParkingAreaStops2Routes.py -r <route-file> -p ParkingAreaA -d 3600 [-o <output-file>]
 ```
 
-```
+```xml
 <routes>
     <vehicle id="0_parkingAreaA" depart="0">
       <route edges="e1 e2 e3"/>
@@ -296,7 +296,7 @@ python tools/route/addParkingAreaStops2Trips.py -r <route-file> -p <parking-
 
 The stop will be added to the trip route.
 
-```
+```xml
 <routes>
     <trip id="vehicle_0" depart="0.00" from="WC" to="CN"/>
 </routes>
@@ -306,7 +306,7 @@ The stop will be added to the trip route.
 python tools/route/addParkingAreaStops2Routes.py -r <route-file> -p <parkings-file> -d 1800 [-o <output-file>]
 ```
 
-```
+```xml
 <routes>
     <trip depart="0.00" from="WC" id="vehicle_0" to="CN">
         <stop duration="1800" parkingArea="parkingArea_WC_3_0"/>
@@ -320,7 +320,7 @@ Note, that the lane of that parking area must belong to one of the edges
 
 # addStops2Routes.py
 
-Declares vehicles to stop at the end of their route.
+Declares vehicles to stop at the end of their route (or at some other defined / random location).
 
 ```
 python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vType-file> -o <output-file> -d <stop duration in seconds> -u <stop until time>
@@ -328,7 +328,7 @@ python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vTyp
 
 Either the "duration" or "until" for stop must be given. Using the option **-p**, the vehicle stops besides the road without blocking other vehicles. Example:
 
-```
+```xml
 <routes>
     <vehicle id="0" depart="0">
       <route edges="e1 e2 e3"/>
@@ -340,7 +340,7 @@ Either the "duration" or "until" for stop must be given. Using the option **-p**
 python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vType-file> -o <output-file> -p --duration 1800 --until 12:0:0
 ```
 
-```
+```xml
 <routes>
     <vehicle depart="0" id="0" type="type1">
         <route edges="SC CN"/>
@@ -348,6 +348,23 @@ python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vTyp
     </vehicle>
 </routes>
 ```
+
+## Random stopping
+
+The following options can be used to randomize the added stops:
+
+- **--probability**: Randomly adds a stop for each vehicle with probability in `[0,1]`
+- **--reledge random**: Adds stop on a random edge along the route
+- **--relpos random**: Adds stop on random offset along the edge
+- **--lane random**: Adds stop on random (permitted) lane of the stop edge
+
+## Stationary traffic
+
+Instead of modifying a given route file by adding stops, the tool can also synthesize vehicles to fill up a given list of parkingAreas. This requires the option **--parking-areas FILE** to be set. The generated vehicles will have a stop with the configured duration/until time and leave the simulation after stopping.
+
+- **--abs-occupancy** : generate the given number of vehicles for each parkingArea
+- **--rel-occupancy** : generate vehicles to fill each parkingArea to the given relative capacity
+- **--abs-free** : generate vehicles to have the given number of free spaces for each parking area
 
 ## Further Options
 
@@ -392,7 +409,7 @@ As an alternative input, [fcd-output](../Simulation/Output/FCDOutput.md) files (
 
 The output is a standard sumo route file
 
-```
+```xml
 <routes>
     <route id="vehicle1" edges="beg rend"/>
     <route id="vehicle2" edges="beg left2end rend"/>

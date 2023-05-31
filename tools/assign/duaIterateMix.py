@@ -48,13 +48,14 @@ from duaIterate import calcMarginalCost
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 import sumolib  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 DEBUGLOG = None
 EDGEDATA_ADD = "edgedata.add.xml"
 
 
 def initOptions():
-    argParser = sumolib.options.ArgumentParser(
+    argParser = ArgumentParser(
         description=""" Any options of the form sumo--long-option-name will be passed to sumo.
         These must be given after all the other options
         example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""",
@@ -63,11 +64,11 @@ def initOptions():
 
     argParser.add_argument("--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
                            default=False, help="continues on unbuild routes")
-    argParser.add_argument("-t", "--trips",
+    argParser.add_argument("-t", "--trips", type=ArgumentParser.route_file,
                            help="trips in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
-    argParser.add_argument("-r", "--routes",
+    argParser.add_argument("-r", "--routes", type=ArgumentParser.route_file,
                            help="routes in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
-    argParser.add_argument("-F", "--flows",
+    argParser.add_argument("-F", "--flows", type=ArgumentParser.route_file,
                            help="flows in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
     argParser.add_argument("-A", "--gA",
                            type=float, default=.5, help="Sets Gawron's Alpha")
@@ -77,7 +78,7 @@ def initOptions():
                            default=False, help="No summaries are written by the simulation")
     argParser.add_argument("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                            default=False, help="No tripinfos are written by the simulation")
-    argParser.add_argument("--tripinfo-filter", dest="tripinfoFilter",
+    argParser.add_argument("--tripinfo-filter", dest="tripinfoFilter", type=str,
                            help="filter tripinfo attributes")
     argParser.add_argument("--inc-start", dest="incStart",
                            type=float, default=0, help="Start for incrementing scale")
@@ -97,18 +98,19 @@ def initOptions():
                            type=int, default=10, help="Number of iterations to use for convergence calculation")
     argParser.add_argument("--max-convergence-deviation", dest="convDev",
                            type=float, help="Maximum relative standard deviation in travel times")
-    argParser.add_argument("-D", "--districts", help="use districts as sources and targets", metavar="FILE")
-    argParser.add_argument("-x", "--vehroute-file",  dest="routefile",
+    argParser.add_argument("-D", "--districts", help="use districts as sources and targets",
+                           type=ArgumentParser.file, metavar="FILE")
+    argParser.add_argument("-x", "--vehroute-file",  dest="routefile", type=str,
                            choices=['None', 'routesonly', 'detailed'],
                            default='None', help="choose the format of the route file")
     argParser.add_argument("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
                            default=False, help="output the last routes")
     argParser.add_argument("-K", "--keep-allroutes", action="store_true", dest="allroutes",
                            default=False, help="save routes with near zero probability")
-    argParser.add_argument("--routing-algorithm", default="dijkstra", help="select the routing algorithm")
-    argParser.add_argument("--max-alternatives-HDV", default=5, dest="max_alternatives_HDV",
+    argParser.add_argument("--routing-algorithm", default="dijkstra", type=str, help="select the routing algorithm")
+    argParser.add_argument("--max-alternatives-HDV", default=5, type=int, dest="max_alternatives_HDV",
                            help="prune the number of alternatives to INT for HDV")
-    argParser.add_argument("--max-alternatives-CAV", default=5, dest="max_alternatives_CAV",
+    argParser.add_argument("--max-alternatives-CAV", default=5, type=int, dest="max_alternatives_CAV",
                            help="prune the number of alternatives to INT for CAV")
     argParser.add_argument("--skip-first-routing", action="store_true", dest="skipFirstRouting",
                            default=False, help="run simulation with demands before first routing")
@@ -117,7 +119,7 @@ def initOptions():
                            default=0.15, help="use the c-logit model for route choice; logit model when beta = 0")
     argParser.add_argument("-i", "--logitgamma", type=float, default=1., help="use the c-logit model for route choice")
     argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
-    argParser.add_argument("-J", "--addweights", help="Additional weights for duarouter")
+    argParser.add_argument("-J", "--addweights", type=str, help="Additional weights for duarouter")
     argParser.add_argument("--convergence-steps", dest="convergenceSteps", type=int,
                            help="Given x, if x > 0 reduce probability to change route by 1/x per step "
                                 "(Probabilistic Swapping (PSwap)). "
@@ -136,8 +138,10 @@ def initOptions():
                            help="alias for --gzip")
     argParser.add_argument("--gzip", action="store_true", default=False,
                            help="writing intermediate and resulting route files in gzipped format")
-    argParser.add_argument("--dualog", default="dua.log", help="log file path (default 'dua.log')")
-    argParser.add_argument("--log", default="stdout.log", help="stdout log file path (default 'stdout.log')")
+    argParser.add_argument("--dualog", default="dua.log", type=ArgumentParser.file,
+                           help="log file path (default 'dua.log')")
+    argParser.add_argument("--log", default="stdout.log", type=ArgumentParser.file,
+                           help="stdout log file path (default 'stdout.log')")
     argParser.add_argument("--marginal-cost", action="store_true", default=False,
                            help="use marginal cost to perform system optimal traffic assignment")
     argParser.add_argument("--marginal-cost-reverse", action="store_true", default=False,

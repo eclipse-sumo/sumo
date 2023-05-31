@@ -70,12 +70,11 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
 GUIBusStop::~GUIBusStop() {}
 
 
-void 
+void
 GUIBusStop::initShape(PositionVector& fgShape,
-        std::vector<double>& fgShapeRotations, std::vector<double>& fgShapeLengths,
-        Position& fgSignPos, double& fgSignRot,
-        bool secondaryShape)
-{
+                      std::vector<double>& fgShapeRotations, std::vector<double>& fgShapeLengths,
+                      Position& fgSignPos, double& fgSignRot,
+                      bool secondaryShape) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     const double lgf = myLane.getLengthGeometryFactor(secondaryShape);
     fgShape = myLane.getShape(secondaryShape);

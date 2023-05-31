@@ -32,16 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select first POILane
-netedit.leftClick(referencePosition, 140, 210)
+netedit.leftClick(referencePosition, 649, 290)
 
 # select second POILane
-netedit.leftClick(referencePosition, 200, 210)
+netedit.leftClick(referencePosition, 714, 290)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POILane
-netedit.leftClick(referencePosition, 140, 210)
+netedit.leftClick(referencePosition, 649, 290)
 
 # Change boolean parameter relative path
 netedit.modifyBoolAttribute(netedit.attrs.POILane.inspectSelection.relativePath, True)

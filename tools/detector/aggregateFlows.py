@@ -13,6 +13,7 @@
 
 # @file    aggregateFlows.py
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2007-06-28
 
 """
@@ -27,7 +28,11 @@ from __future__ import print_function
 import os
 import sys
 import zipfile
-from optparse import OptionParser
+
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+import sumolib  # noqa
 
 
 class Entry:
@@ -62,13 +67,13 @@ def readLines(lines):
                 int(flowDef[1]), int(flowDef[2]), float(flowDef[3]), float(flowDef[4]))
 
 
-optParser = OptionParser(usage="usage: %prog [options] [flow.txt|flows.zip]+")
-optParser.add_option("-d", "--det-file", dest="detfile",
-                     help="read detectors of interest from FILE", metavar="FILE")
-(options, args) = optParser.parse_args()
-if len(args) == 0:
-    optParser.print_help()
-    sys.exit()
+parser = sumolib.options.ArgumentParser(usage="usage: %prog [options] [flow.txt|flows.zip]+")
+parser.add_option("-d", "--det-file", dest="detfile", category="input", type=parser.file,
+                  help="read detectors of interest from FILE", metavar="FILE")
+parser.add_option("flow-files", dest="flowFiles", category="input", nargs="+", type=parser.file,
+                  help="one or more flow input files", metavar="FILE")
+options = parser.parse_args()
+
 if options.detfile:
     cityDets = set()
     for line in open(options.detfile):
@@ -76,7 +81,7 @@ if options.detfile:
 else:
     cityDets = None
 totalFlow = {}
-for f in args:
+for f in options.flowFiles:
     if os.access(f, os.R_OK):
         if f.endswith(".zip"):
             zipf = zipfile.ZipFile(f)

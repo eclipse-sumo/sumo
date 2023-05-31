@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-06 12:10:37 by Eclipse SUMO sumo Version v1_15_0+2198-1709483215c
+<!-- generated on 2023-04-24 15:52:25 by Eclipse SUMO sumo Version v1_16_0+2368-d796cc6b4bc
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -97,6 +97,7 @@
             <xsd:element name="tripinfo-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output.write-undeparted" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="personinfo-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.exit-times" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.last-route" type="boolOptionType" minOccurs="0"/>
@@ -200,6 +201,7 @@
             <xsd:element name="emergencydecel.warning-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="parking.maneuver" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="use-stop-ended" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="use-stop-started" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
@@ -386,6 +388,7 @@
             <xsd:element name="device.driverstate.errorNoiseIntensityCoefficient" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.driverstate.speedDifferenceErrorCoefficient" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.driverstate.headwayErrorCoefficient" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.driverstate.freeSpeedErrorCoefficient" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.driverstate.speedDifferenceChangePerceptionThreshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.driverstate.headwayChangePerceptionThreshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.driverstate.minAwareness" type="floatOptionType" minOccurs="0"/>
@@ -523,6 +526,7 @@
             <xsd:element name="delay" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="breakpoints" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="edgedata-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="alternative-net-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="demo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="disable-textures" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="registry-viewport" type="boolOptionType" minOccurs="0"/>

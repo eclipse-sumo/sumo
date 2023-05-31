@@ -63,7 +63,10 @@ RONet::getInstance(void) {
 
 RONet::RONet() :
     myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
-    myDefaultPedTypeMayBeDeleted(true), myDefaultBikeTypeMayBeDeleted(true),
+    myDefaultPedTypeMayBeDeleted(true),
+    myDefaultBikeTypeMayBeDeleted(true),
+    myDefaultTaxiTypeMayBeDeleted(true),
+    myDefaultRailTypeMayBeDeleted(true),
     myHaveActiveFlows(true),
     myRoutesOutput(nullptr), myRouteAlternativesOutput(nullptr), myTypesOutput(nullptr),
     myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
@@ -97,6 +100,11 @@ RONet::RONet() :
     defTaxiType->onlyReferenced = true;
     defTaxiType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVehicleTypes.add(defTaxiType->id, defTaxiType);
+
+    SUMOVTypeParameter* defRailType = new SUMOVTypeParameter(DEFAULT_RAILTYPE_ID, SVC_RAIL);
+    defRailType->onlyReferenced = true;
+    defRailType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+    myVehicleTypes.add(defRailType->id, defRailType);
 
     myInstance = this;
 }
@@ -358,12 +366,14 @@ RONet::getVehicleTypeSecure(const std::string& id) {
     SUMOVTypeParameter* type = myVehicleTypes.get(id);
     if (id == DEFAULT_VTYPE_ID) {
         myDefaultVTypeMayBeDeleted = false;
-    }
-    if (id == DEFAULT_PEDTYPE_ID) {
+    } else if (id == DEFAULT_PEDTYPE_ID) {
         myDefaultPedTypeMayBeDeleted = false;
-    }
-    if (id == DEFAULT_BIKETYPE_ID) {
+    } else if (id == DEFAULT_BIKETYPE_ID) {
         myDefaultBikeTypeMayBeDeleted = false;
+    } else if (id == DEFAULT_TAXITYPE_ID) {
+        myDefaultTaxiTypeMayBeDeleted = false;
+    } else if (id == DEFAULT_RAILTYPE_ID) {
+        myDefaultRailTypeMayBeDeleted = false;
     }
     if (type != nullptr) {
         return type;
@@ -395,6 +405,27 @@ RONet::checkVType(const std::string& id) {
         if (myDefaultPedTypeMayBeDeleted) {
             myVehicleTypes.remove(id);
             myDefaultPedTypeMayBeDeleted = false;
+        } else {
+            return false;
+        }
+    } else if (id == DEFAULT_BIKETYPE_ID) {
+        if (myDefaultBikeTypeMayBeDeleted) {
+            myVehicleTypes.remove(id);
+            myDefaultBikeTypeMayBeDeleted = false;
+        } else {
+            return false;
+        }
+    } else if (id == DEFAULT_TAXITYPE_ID) {
+        if (myDefaultTaxiTypeMayBeDeleted) {
+            myVehicleTypes.remove(id);
+            myDefaultTaxiTypeMayBeDeleted = false;
+        } else {
+            return false;
+        }
+    } else if (id == DEFAULT_RAILTYPE_ID) {
+        if (myDefaultRailTypeMayBeDeleted) {
+            myVehicleTypes.remove(id);
+            myDefaultRailTypeMayBeDeleted = false;
         } else {
             return false;
         }

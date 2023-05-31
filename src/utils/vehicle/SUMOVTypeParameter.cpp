@@ -41,6 +41,7 @@
 SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vclass) :
     length(getDefaultVehicleLength(vclass)),
     minGap(2.5),
+    minGapLat(0.6),
     maxSpeed(200. / 3.6),
     desiredMaxSpeed(10000 / 3.6), // backward-compatibility: do not influence speeds by default
     width(1.8),
@@ -71,6 +72,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_BICYCLE:
             minGap = 0.5;
+            minGapLat = 0.35;
             maxSpeed = 50. / 3.6;
             desiredMaxSpeed = DEFAULT_BICYCLE_SPEED;
             width = 0.65;
@@ -152,8 +154,6 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             height = 3.2;
             shape = SUMOVehicleShape::RAIL_CAR;
             osgFile = "tram.obj";
-            carriageLength = 5.71; // http://de.wikipedia.org/wiki/Bombardier_Flexity_Berlin
-            locomotiveLength = 5.71;
             personCapacity = 120;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             mass = 37900.;
@@ -164,8 +164,6 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             width = 3.0;
             height = 3.6;
             shape = SUMOVehicleShape::RAIL_CAR;
-            carriageLength = 18.4;  // https://en.wikipedia.org/wiki/DBAG_Class_481
-            locomotiveLength = 18.4;
             personCapacity = 300;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             mass = 59000.;
@@ -176,8 +174,6 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             width = 2.84;
             height = 3.75;
             shape = SUMOVehicleShape::RAIL;
-            carriageLength = 24.5; // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
-            locomotiveLength = 16.4; // https://en.wikipedia.org/wiki/DB_Class_218
             personCapacity = 434;
             // slight understatement (-:
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "HDV_D_EU0", vclass);
@@ -190,8 +186,6 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             width = 2.95;
             height = 3.89;
             shape = SUMOVehicleShape::RAIL;
-            carriageLength = 24.775;
-            locomotiveLength = 19.100; // https://en.wikipedia.org/wiki/DB_Class_101
             personCapacity = 425;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             mass = 83000.; // only locomotive
@@ -202,8 +196,6 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             width = 2.95;
             height = 3.89;
             shape = SUMOVehicleShape::RAIL;
-            carriageLength = 24.775; // http://de.wikipedia.org/wiki/ICE_3
-            locomotiveLength = 25.835;
             personCapacity = 425;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             mass = 409000.;
@@ -264,15 +256,10 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues() :
 
 SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass)
     : id(vtid),
-      length(5. /*4.3*/),
-      minGap(2.5),
-      maxSpeed(200. / 3.6),
-      desiredMaxSpeed(200. / 3.6),
       actionStepLength(0),
       defaultProbability(DEFAULT_VEH_PROB),
       speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
       emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)),
-      mass(1500.),
       color(RGBColor::DEFAULT_COLOR),
       vehicleClass(vclass),
       impatience(0.0),
@@ -290,7 +277,6 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       maxSpeedLat(1.0),
       latAlignmentOffset(0.0),
       latAlignmentProcedure(LatAlignmentDefinition::CENTER),
-      minGapLat(0.6),
       carriageLength(-1),
       locomotiveLength(-1),
       carriageGap(1),
@@ -312,6 +298,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     // overwrite SUMOVTypeParameter with VClassDefaultValues
     length = defaultValues.length;
     minGap = defaultValues.minGap;
+    minGapLat = defaultValues.minGapLat;
     maxSpeed = defaultValues.maxSpeed;
     desiredMaxSpeed = defaultValues.desiredMaxSpeed;
     width = defaultValues.width;
@@ -688,10 +675,27 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
                 carriageGap = 0;
                 break;
             case SUMOVehicleShape::RAIL:
-                carriageLength = 24.5; // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
+                if (vehicleClass == SVC_RAIL_ELECTRIC) {
+                    carriageLength = 24.5;
+                    locomotiveLength = 19.100; // https://en.wikipedia.org/wiki/DB_Class_101
+                } else if (vehicleClass == SVC_RAIL_FAST) {
+                    carriageLength = 24.775; // http://de.wikipedia.org/wiki/ICE_3
+                    locomotiveLength = 25.835;
+                } else {
+                    carriageLength = 24.5; // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
+                    locomotiveLength = 16.4; // https://en.wikipedia.org/wiki/DB_Class_218
+                }
                 break;
             case SUMOVehicleShape::RAIL_CAR:
-                carriageLength = 16.85;  // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
+                if (vehicleClass == SVC_TRAM) {
+                    carriageLength = 5.71; // http://de.wikipedia.org/wiki/Bombardier_Flexity_Berlin
+                    locomotiveLength = 5.71;
+                } else if (vehicleClass == SVC_RAIL_URBAN) {
+                    carriageLength = 18.4;  // https://en.wikipedia.org/wiki/DBAG_Class_481
+                    locomotiveLength = 18.4;
+                } else {
+                    carriageLength = 16.85;  // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
+                }
                 break;
             case SUMOVehicleShape::RAIL_CARGO:
                 carriageLength = 13.86; // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen

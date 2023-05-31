@@ -1,18 +1,18 @@
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
-25
 0
+5
 25
 entryExitDetector
-TestFunctions: Clicked over position 544 - 254
+TestFunctions: Clicked over position 680 - 251
 detEntry
-TestFunctions: Clicked over position 544 - 254
-TestFunctions: Clicked over position 484 - 408
+TestFunctions: Clicked over position 680 - 251
+TestFunctions: Clicked over position 498 - 489
 detExit
-TestFunctions: Clicked over position 544 - 254
-TestFunctions: Clicked over position 704 - 408
-TestFunctions: Clicked over position 490 - 408
+TestFunctions: Clicked over position 680 - 251
+TestFunctions: Clicked over position 923 - 489
+TestFunctions: Clicked over position 498 - 494
 dummy position
 
 25

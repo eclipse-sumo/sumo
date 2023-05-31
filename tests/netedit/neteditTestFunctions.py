@@ -689,7 +689,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
 def openNetworkAs(waitTime=2):
     """
-    @brief load network as
+    @brief load network using dialog
     """
     # open save network as dialog
     typeTwoKeys('ctrl', 'o')
@@ -862,6 +862,40 @@ def changeEditMode(key):
 #################################################
 
 
+def openNeteditConfigAs(waitTime=2):
+    """
+    @brief load netedit config using dialog
+    """
+    # open save network as dialog
+    typeTwoKeys('ctrl', 'e')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("netedit_loadedmanually.neteditcfg")
+    typeEnter()
+    # wait for saving
+    time.sleep(waitTime)
+
+
+def openSumoConfigAs(referencePosition):
+    """
+    @brief load netedit config using dialog
+    """
+    # click over reference (to avoid problem with undo-redo)
+    leftClick(referencePosition, 0, 0)
+    # open save network as dialog
+    typeTwoKeys('ctrl', 'm')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("sumo_loadedmanually.sumocfg")
+    typeEnter()
+    # wait for saving
+    time.sleep(DELAY_SAVING)
+
+
 def saveNeteditConfig(referencePosition, clickOverReference=False):
     """
     @brief save netedit config
@@ -876,16 +910,38 @@ def saveNeteditConfig(referencePosition, clickOverReference=False):
     time.sleep(DELAY_SAVING)
 
 
-def saveSumoConfig(referencePosition, clickOverReference=False):
+def saveNeteditConfigAs(referencePosition):
+    """
+    @brief save netedit config as
+    """
+    # click over reference (to avoid problem with undo-redo)
+    leftClick(referencePosition, 0, 0)
+    # save netedit config using hotkey
+    typeThreeKeys('ctrl', 'shift', 'e')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("netedit_savedmanually.neteditcfg")
+    typeEnter()
+    # wait for saving
+    time.sleep(DELAY_SAVING)
+
+
+def saveSumoConfig(referencePosition):
     """
     @brief save sumo config
     """
-    # check if clickOverReference is enabled
-    if clickOverReference:
-        # click over reference (to avoid problem with undo-redo)
-        leftClick(referencePosition, 0, 0)
-    # save netedit config using hotkey
+    # click over reference (to avoid problem with undo-redo)
+    leftClick(referencePosition, 0, 0)
+    # save sumo config using hotkey
     typeThreeKeys('ctrl', 'shift', 's')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("sumo_savedmanually.sumocfg")
+    typeEnter()
     # wait for saving
     time.sleep(DELAY_SAVING)
 
@@ -1592,7 +1648,7 @@ def personPlanMode():
     """
     @brief change to person mode
     """
-    typeKey('c')
+    typeKey('l')
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
 
@@ -1620,7 +1676,7 @@ def containerPlanMode():
     """
     @brief change to person mode
     """
-    typeKey('h')
+    typeKey('c')
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
 
@@ -1816,53 +1872,14 @@ def changeRemoveOnlyGeometryPoint(referencePosition):
     typeSpace()
 
 
-def changeProtectAdditionalElements(referencePosition):
+def protectElements(referencePosition):
     """
-    @brief Enable or disable 'automatically delete Additionals'
+    @brief Protect or unprotect delete elements
     """
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
     for _ in range(4):
-        typeTab()
-    # type SPACE to change value
-    typeSpace()
-
-
-def changeProtectTAZElements(referencePosition):
-    """
-    @brief Enable or disable 'protect TAZ elements'
-    """
-    # select delete mode again to set mode
-    deleteMode()
-    # jump to checkbox
-    for _ in range(5):
-        typeTab()
-    # type SPACE to change value
-    typeSpace()
-
-
-def changeProtectDemandElements(referencePosition):
-    """
-    @brief Enable or disable 'protect demand elements'
-    """
-    # select delete mode again to set mode
-    deleteMode()
-    # jump to checkbox
-    for _ in range(6):
-        typeTab()
-    # type SPACE to change value
-    typeSpace()
-
-
-def changeProtectDataElements(referencePosition):
-    """
-    @brief Enable or disable 'protect data elements'
-    """
-    # select delete mode again to set mode
-    deleteMode()
-    # jump to checkbox
-    for _ in range(7):
         typeTab()
     # type SPACE to change value
     typeSpace()

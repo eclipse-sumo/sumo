@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_16_0+1117-b006029d26d
+Eclipse SUMO netgenerate Version v1_17_0+0159-32ef28bfb10
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -48,13 +48,14 @@ Spider Network Options:
   --spider.circle-number INT           The number of circles of the net
   --spider.space-radius FLOAT          The distances between the circles
   --spider.omit-center                 Omit the central node of the network
+  --spider.attach-length FLOAT         The length of streets attached at the
+                                        boundary;
+                                        0 means no streets are attached
 
 Random Network Options:
   -r, --rand                           Forces NETGEN to build a random network
   --rand.iterations INT                Describes how many times an edge shall
                                         be added to the net
-  --bidi-probability FLOAT             Defines the probability to build a
-                                        reverse edge
   --rand.max-distance FLOAT            The maximum distance for each edge
   --rand.min-distance FLOAT            The minimum distance for each edge
   --rand.min-angle FLOAT               The minimum angle for each pair of
@@ -75,12 +76,6 @@ Random Network Options:
                                         neighbors
   --rand.neighbor-dist6 FLOAT          Probability for a node having exactly 6
                                         neighbors
-  --random-lanenumber                  Draw lane numbers randomly from
-                                        [1,default.lanenumber]
-  --random-priority                    Draw edge priority randomly from
-                                        [1,default.priority]
-  --random-type                        Draw edge type randomly from all loaded
-                                        types
   --rand.grid                          Place nodes on a regular grid with
                                         spacing rand.min-distance
 
@@ -146,6 +141,14 @@ Processing Options:
   --perturb-z STR                      Apply random spatial perturbation in z
                                         direction according the the given
                                         distribution
+  --bidi-probability FLOAT             Defines the probability to build a
+                                        reverse edge
+  --random-lanenumber                  Draw lane numbers randomly from
+                                        [1,default.lanenumber]
+  --random-priority                    Draw edge priority randomly from
+                                        [1,default.priority]
+  --random-type                        Draw edge type randomly from all loaded
+                                        types
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                         edges to ensure that all IDs are
                                         integers
@@ -172,6 +175,9 @@ Processing Options:
   --geometry.remove.width-tolerance FLOAT  Allow merging edges with differing
                                         lane widths if the difference is below
                                         FLOAT
+  --geometry.remove.max-junction-size FLOAT  Prevent removal of junctions with
+                                        a size above FLOAT as defined by custom
+                                        edge endpoints
   --geometry.max-segment-length FLOAT  splits geometry to restrict segment
                                         length
   --geometry.max-grade FLOAT           Warn about edge geometries with a grade

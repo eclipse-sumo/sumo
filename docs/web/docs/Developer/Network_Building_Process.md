@@ -191,7 +191,7 @@ edge pairs with angle into a list sorted decreasing by the angle. After
 all combinations are computed, we go through the list and set those as
 turnarounds which we see at first, marking both the incoming and the
 outgoing edge as already seen what avoids to use them twice. We warn if
-an edge occures twice with an angle \>360° - multiple edges connecting
+an edge occurs twice with an angle \>360° - multiple edges connecting
 two same nodes.
 
 - **state**: yellow

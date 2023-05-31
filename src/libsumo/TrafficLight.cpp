@@ -52,7 +52,6 @@ namespace libsumo {
 SubscriptionResults TrafficLight::mySubscriptionResults;
 ContextSubscriptionResults TrafficLight::myContextSubscriptionResults;
 
-
 // ===========================================================================
 // static member definitions
 // ===========================================================================
@@ -340,14 +339,29 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
 }
 
 
+std::vector<std::pair<std::string, std::string> >
+TrafficLight::getSwapParams(int constraintType) {
+    std::vector<std::pair<std::string, std::string> > result({
+        {"vehID", "foeID"},
+        {"line", "foeLine"},
+        {"arrival", "foeArrival"}});
+
+    if (constraintType == MSRailSignalConstraint::ConstraintType::BIDI_PREDECESSOR) {
+        std::vector<std::pair<std::string, std::string> > special({
+            {"busStop", "busStop2"},
+            {"priorStop", "priorStop2"},
+            {"stopArrival", "foeStopArrival"}});
+        result.insert(result.end(), special.begin(), special.end());
+    }
+    return result;
+}
+
+
 void
 TrafficLight::swapParameters(MSRailSignalConstraint* c) {
     // swap parameters that were assigned by generateRailSignalConstraints.py
-    if (c->getType() == MSRailSignalConstraint::ConstraintType::BIDI_PREDECESSOR) {
-        swapParameters(c, "busStop", "busStop2");
-        swapParameters(c, "priorStop", "priorStop2");
-        swapParameters(c, "arrival", "foeArrival");
-        swapParameters(c, "stopArrival", "foeStopArrival");
+    for (auto keys : getSwapParams(c->getType())) {
+        swapParameters(c, keys.first, keys.second);
     }
 }
 
@@ -355,9 +369,41 @@ void
 TrafficLight::swapParameters(MSRailSignalConstraint* c, const std::string& key1, const std::string& key2) {
     const std::string value1 = c->getParameter(key1);
     const std::string value2 = c->getParameter(key2);
-    if (value1 != "" && value2 != "") {
-        c->setParameter(key1, value2);
+    if (value1 != "") {
         c->setParameter(key2, value1);
+    } else {
+        c->unsetParameter(key2);
+    }
+    if (value2 != "") {
+        c->setParameter(key1, value2);
+    } else {
+        c->unsetParameter(key1);
+    }
+}
+
+void
+TrafficLight::swapParameters(TraCISignalConstraint& c) {
+    // swap parameters that were assigned by generateRailSignalConstraints.py
+    for (auto keys : getSwapParams(c.type)) {
+        swapParameters(c, keys.first, keys.second);
+    }
+}
+
+void
+TrafficLight::swapParameters(TraCISignalConstraint& c, const std::string& key1, const std::string& key2) {
+    auto it1 = c.param.find(key1);
+    auto it2 = c.param.find(key2);
+    const std::string value1 = it1 != c.param.end() ? it1->second : "";
+    const std::string value2 = it2 != c.param.end() ? it2->second : "";
+    if (value1 != "") {
+        c.param[key2] = value1;
+    } else {
+        c.param.erase(key2);
+    }
+    if (value2 != "") {
+        c.param[key1] = value2;
+    } else {
+        c.param.erase(key1);
     }
 }
 
@@ -575,6 +621,8 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                         nc.type = c.type;
                         nc.mustWait = true; // ???
                         nc.active = true;
+                        nc.param = c.param;
+                        swapParameters(nc);
                         result.push_back(nc);
                         // let foe wait for foe2
                         std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
@@ -631,6 +679,8 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                         nc.type = c.type;
                         nc.mustWait = true; // ???
                         nc.active = true;
+                        nc.param = c.param;
+                        swapParameters(nc);
                         result.push_back(nc);
                         // let foe wait for foe2
                         std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
@@ -675,6 +725,8 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
         nc.type = c.type;
         nc.mustWait = true; // ???
         nc.active = true;
+        nc.param = c.param;
+        swapParameters(nc);
         result.push_back(nc);
         // let foe wait for foe2
         const std::vector<TraCISignalConstraint>& result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);

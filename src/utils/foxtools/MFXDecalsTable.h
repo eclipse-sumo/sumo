@@ -43,7 +43,7 @@ class MFXDecalsTable : public FXVerticalFrame {
 
 public:
     /// @brief constructor (Exactly like the FXButton constructor)
-    MFXDecalsTable(GUIDialog_ViewSettings* dialogViewSettingsParent, FXComposite *parent);
+    MFXDecalsTable(GUIDialog_ViewSettings* dialogViewSettingsParent, FXComposite* parent);
 
     /// @brief destructor (Called automatically)
     ~MFXDecalsTable();
@@ -80,10 +80,10 @@ public:
 
     /// @brief called when a key is pressed
     long onCmdKeyPress(FXObject*, FXSelector, void*);
-    
+
     /// @brief called when a string is updated
     long onCmdEditRowString(FXObject*, FXSelector, void*);
-    
+
     /// @brief called when a spinner is updated
     long onCmdEditRowSpinner(FXObject*, FXSelector, void*);
 
@@ -95,6 +95,9 @@ public:
 
     /// @brief called when add row button is pressed
     long onCmdAddRow(FXObject*, FXSelector, void*);
+
+    /// @brief update add row button
+    long onUpdAddRow(FXObject*, FXSelector, void*);
 
     /// @brief called when remove row button is pressed
     long onCmdRemoveRow(FXObject*, FXSelector, void*);
@@ -117,10 +120,10 @@ protected:
 
         /// @brief constructor for buttons
         Cell(MFXDecalsTable* decalsTable, FXButton* button, int col, int row);
-        
+
         /// @brief constructor for check buttons
         Cell(MFXDecalsTable* decalsTable, FXCheckButton* checkButton, int col, int row);
-        
+
         /// @brief constructor for spinners
         Cell(MFXDecalsTable* decalsTable, FXRealSpinner* spinner, int col, int row);
 
@@ -183,7 +186,7 @@ protected:
         FXRealSpinner* mySpinner = nullptr;
 
         /// @brief check button
-        FXCheckButton* myCheckButton= nullptr;
+        FXCheckButton* myCheckButton = nullptr;
 
         /// @brief column index
         const int myCol;

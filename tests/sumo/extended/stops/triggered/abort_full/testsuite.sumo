@@ -1,0 +1,11 @@
+# persons wait to be picked up when the vehicle stops
+early_persons
+
+# vehicle stops and waits for persons, persons arrive late and fill vehicle to capacity.
+late_persons
+
+# containers wait to be picked up when the vehicle stops
+early_containers
+
+# containers arrive after the vehicle stops
+late_containers

@@ -98,6 +98,9 @@ public:
         return myWriteDebugGLMessages;
     }
 
+    /// @brief reformats a long string to contain newline after a certain line length in px (depending on the current font)
+    static std::string insertLineBreaks(std::string msg, int lineWidth);
+
     /// @brief ensure that that given output device is no longer used as retriever by any instance
     static void removeRetrieverFromAllInstances(OutputDevice* out);
 

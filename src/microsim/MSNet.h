@@ -262,7 +262,7 @@ public:
     /** @brief Performs a single simulation step
      * @todo Which exceptions may occur?
      */
-    void simulationStep(const bool onlyMove=false);
+    void simulationStep(const bool onlyMove = false);
 
     /** @brief loads routes for the next few steps */
     void loadRoutes();
@@ -272,13 +272,13 @@ public:
      *
      * @param[in] start The step the simulation was started with
      */
-    const std::string generateStatistics(SUMOTime start);
+    const std::string generateStatistics(const SUMOTime start, const long now);
 
     /// @brief write collision output to (xml) file
     void writeCollisions() const;
 
     /// @brief write statistic output to (xml) file
-    void writeStatistics() const;
+    void writeStatistics(const SUMOTime start, const long now) const;
 
     /// @brief write summary-output to (xml) file
     void writeSummaryOutput();
@@ -811,6 +811,11 @@ public:
 
     bool isInterrupted() const {
         return myAmInterrupted;
+    }
+
+    /// @brief gui may prevent final meanData reset to keep live data visible
+    virtual bool skipFinalReset() const {
+        return false;
     }
 
     /// @brief find electrical substation by its id

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-22 16:27:23 by Eclipse SUMO sumo Version v1_16_0+1566-509453c
+<!-- generated on 2023-05-08 14:54:04 by Eclipse SUMO sumo Version v1_17_0+0163-dbcfe49
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -70,6 +70,7 @@
         <tripinfo-output value="" synonymes="tripinfo" type="FILE" help="Save single vehicle trip info into FILE"/>
         <tripinfo-output.write-unfinished value="false" type="BOOL" help="Write tripinfo output for vehicles which have not arrived at simulation end"/>
         <tripinfo-output.write-undeparted value="false" type="BOOL" help="Write tripinfo output for vehicles which have not departed at simulation end because of depart delay"/>
+        <personinfo-output value="" synonymes="personinfo" type="FILE" help="Save personinfo and containerinfo to separate FILE"/>
         <vehroute-output value="" synonymes="vehroutes" type="FILE" help="Save single vehicle route info into FILE"/>
         <vehroute-output.exit-times value="false" synonymes="vehroutes.exit-times" type="BOOL" help="Write the exit times for all edges"/>
         <vehroute-output.last-route value="false" synonymes="vehroutes.last-route" type="BOOL" help="Write the last route only"/>
@@ -127,7 +128,9 @@
         <ignore-route-errors value="false" type="BOOL" help="Do not check whether routes are connected"/>
         <ignore-accidents value="false" type="BOOL" help="Do not check whether accidents occur"/>
         <collision.action value="teleport" type="STR" help="How to deal with collisions: [none,warn,teleport,remove]"/>
+        <intermodal-collision.action value="warn" type="STR" help="How to deal with collisions between vehicle and pedestrian: [none,warn,teleport,remove]"/>
         <collision.stoptime value="0" type="TIME" help="Let vehicle stop for TIME before performing collision.action (except for action &apos;none&apos;)"/>
+        <intermodal-collision.stoptime value="0" type="TIME" help="Let vehicle stop for TIME before performing intermodal-collision.action (except for action &apos;none&apos;)"/>
         <collision.check-junctions value="false" type="BOOL" help="Enables collisions checks on junctions"/>
         <collision.check-junctions.mingap value="0" type="FLOAT" help="Increase or decrease sensitivity for junction collision check"/>
         <collision.mingap-factor value="-1" type="FLOAT" help="Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used"/>
@@ -293,7 +296,7 @@
         <device.ssm.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;ssm&apos; device"/>
         <device.ssm.explicit value="" synonymes="device.ssm.knownveh" type="STR[]" help="Assign a &apos;ssm&apos; device to named vehicles"/>
         <device.ssm.deterministic value="false" type="BOOL" help="The &apos;ssm&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;))"/>
+        <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;))"/>
         <device.ssm.thresholds value="" type="STR" help="Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."/>
         <device.ssm.trajectories value="false" type="BOOL" help="Specifies whether trajectories will be logged (if false, only the extremal values and times are reported)."/>
         <device.ssm.range value="50" type="FLOAT" help="Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced."/>

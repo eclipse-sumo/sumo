@@ -58,3 +58,6 @@ vehroute-roundtrip
 
 # testing option parsing
 options
+
+# testing replay of fcd data
+fcdReplay

@@ -38,7 +38,7 @@ netedit.changeElement("poi")
 netedit.changeDefaultBoolValue(netedit.attrs.POI.create.relativePath)
 
 # create poi
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

@@ -210,7 +210,7 @@ private:
         /// @brief add a new data point and update encounter type
         void add(double time, EncounterType type, Position egoX, std::string egoLane, double egoLanePos,
                  Position egoV, Position foeX, std::string foeLane, double foeLanePos, Position foeV,
-                 Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet);
+                 Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet, double ppet);
 
         /// @brief Returns the number of trajectory points stored
         std::size_t size() const {
@@ -276,6 +276,8 @@ private:
         std::vector<double> TTCspan;
         /// @brief All values for DRAC
         std::vector<double> DRACspan;
+        /// @brief All values for PPET
+        std::vector<double> PPETspan;
 
 //        /// @brief Cross sections at which a PET shall be calculated for the corresponding vehicle
 //        std::vector<std::pair<std::pair<const MSLane*, double>, double> > egoPETCrossSections;
@@ -286,6 +288,7 @@ private:
         ConflictPointInfo minTTC;
         ConflictPointInfo maxDRAC;
         ConflictPointInfo PET;
+        ConflictPointInfo minPPET;
         /// @}
 
         /// @brief this flag is set by updateEncounter() or directly in processEncounters(), where encounters are closed if it is true.
@@ -316,11 +319,10 @@ private:
         double foeEstimatedConflictExitTime;
         double egoConflictAreaLength;
         double foeConflictAreaLength;
-        bool egoLeftConflict;
-        bool foeLeftConflict;
         double ttc;
         double drac;
-        std::pair<double, double> pet;
+        std::pair<double, double> pet;  // (egoConflictEntryTime, PET);
+        double ppet;
         std::pair<const MSLane*, double> egoConflictEntryCrossSection;
         std::pair<const MSLane*, double> foeConflictEntryCrossSection;
     };
@@ -652,7 +654,7 @@ private:
     /** @brief Discriminates between different encounter types and correspondingly determines TTC and DRAC for those cases
      *         and writes the result to eInfo.ttc and eInfo.drac
      */
-    void determineTTCandDRAC(EncounterApproachInfo& eInfo) const;
+    void determineTTCandDRACandPPET(EncounterApproachInfo& eInfo) const;
 
 
     /** @brief Computes the time to collision (in seconds) for two vehicles with a given initial gap under the assumption
@@ -690,7 +692,9 @@ private:
      */
     static std::string makeStringWithNAs(const std::vector<double>& v, const double NA);
     static std::string makeStringWithNAs(const std::vector<double>& v, const std::vector<double>& NAs);
-    static std::string makeStringWithNAs(const PositionVector& v, const int precision);
+    std::string makeStringWithNAs(const PositionVector& v);
+    std::string makeStringWithNAs(const Position& p);
+    static std::string writeNA(double v, double NA = INVALID_DOUBLE);
 
     /// @name parameter load helpers (introduced for readability of buildVehicleDevices())
     /// @{
@@ -729,7 +733,7 @@ private:
     /// Wether to print the lanes and positions for all timesteps and conflicts
     bool myWriteLanesPositions;
     /// Flags for switching on / off comutation of different SSMs, derived from myMeasures
-    bool myComputeTTC, myComputeDRAC, myComputePET, myComputeBR, myComputeSGAP, myComputeTGAP;
+    bool myComputeTTC, myComputeDRAC, myComputePET, myComputeBR, myComputeSGAP, myComputeTGAP, myComputePPET;
     MSVehicle* myHolderMS;
     /// @}
 

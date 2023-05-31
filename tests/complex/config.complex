@@ -51,6 +51,7 @@ copy_test_path:vtype.map
 copy_test_path:vtype2.map
 copy_test_path:vtype3.map
 copy_test_path:img.jpeg
+copy_test_path:fcd.xml
 test_data_ignore:.svn
 
 [collate_file]
@@ -134,6 +135,8 @@ ssm:<!--{[->]}-->
 summary:<!--{[->]}-->
 statistics:<!--{[->]}-->
 statistics2:<!--{[->]}-->
+statistics:<performance 
+statistics2:<performance 
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 state2:<!--{[->]}-->

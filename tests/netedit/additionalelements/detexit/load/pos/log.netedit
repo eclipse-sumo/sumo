@@ -2,4 +2,4 @@ Error: Attribute 'pos' is missing in definition of a detExit.
 Error: Attribute 'pos' in definition of a detExit Invalid Number Format (double) dummyPosition.
 Error: Attribute 'pos' in definition of a detExit is empty.
 Error: Could not build entry with ID 'entryExitDetector_0' in netedit; Invalid position over lane.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\detexit\load\pos\additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Apr103619.2232\netedit.gui\additionalelements\detexit\load\pos\additionals.add.xml failed.

@@ -76,7 +76,7 @@ public:
 
     /// @brief fix additional problem
     void fixAdditionalProblem();
-    
+
     /// @}
 
     /// @brief update pre-computed geometry information
@@ -99,7 +99,7 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
-    
+
     /// @}
 
     /// @name inherited from GNEPathManager::PathElement
@@ -162,7 +162,7 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
-    
+
     /// @}
 
 protected:

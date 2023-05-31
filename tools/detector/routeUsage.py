@@ -13,6 +13,7 @@
 
 # @file    routeUsage.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2017-03-30
 
 from __future__ import absolute_import
@@ -20,7 +21,6 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-from optparse import OptionParser
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -34,21 +34,21 @@ else:
 
 def get_options():
     USAGE = """Usage %prog <emitters.xml> [<routes.xml>]"""
-    optParser = OptionParser(usage=USAGE)
-    optParser.add_option("-v", "--verbose", action="store_true",
-                         default=False, help="Give more output")
-    optParser.add_option("--threshold", type="int", default=0,
-                         help="Output routes that are used less than the threshold value")
-    optParser.add_option("--unused-output",
-                         help="Output route ids that are used less than the threshold value to file")
-    optParser.add_option("-r", "--flow-restrictions", dest="restrictionfile",
-                         help="Output route ids that are used more often than the threshold value given in file")
-    options, args = optParser.parse_args()
+    parser = sumolib.options.ArgumentParser(usage=USAGE)
+    parser.add_argument("-v", "--verbose", action="store_true",
+                        default=False, help="Give more output")
+    parser.add_argument("--threshold", type=int, default=0,
+                        help="Output routes that are used less than the threshold value")
+    parser.add_argument("--unused-output", category="output", type=parser.file,
+                        help="Output route ids that are used less than the threshold value to file")
+    parser.add_argument("-r", "--flow-restrictions", dest="restrictionfile", category="output", type=parser.file,
+                        help="Output route ids that are used more often than the threshold value given in file")
+    parser.add_argument("emitters", dest="emitters", type=parser.file,
+                        help="file path to emitter file", metavar="FILE")
+    parser.add_argument("routes", dest="routes", nargs="?", type=parser.file,
+                        help="file path to route file", metavar="FILE")
+    options = parser.parse_args()
 
-    if len(args) not in (1, 2):
-        sys.exit(USAGE)
-    options.emitters = args[0]
-    options.routes = args[1] if len(args) == 2 else None
     return options
 
 

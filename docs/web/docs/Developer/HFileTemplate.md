@@ -82,7 +82,7 @@ public:
 
     /** @brief some functions can throw exceptions but don't use throw declarations
      * @param[in] parameter1 description of the parameter
-     * @throw <exceptionName> description of the situation that provoque an exception
+     * @throw <exceptionName> description of the situation that provokes an exception
      * @return description of the returned value
      */
     bool setParameter1(<type> parameter1) const;

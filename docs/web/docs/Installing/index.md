@@ -15,10 +15,10 @@ using [7Zip](https://www.7-zip.org/),
 package contains the binaries, all dlls needed, the examples, tools, and
 documentation in HTML format.
 
-- Download 64 bit installer: [sumo-win64-{{Version}}.msi](http://prdownloads.sourceforge.net/sumo/sumo-win64-{{Version}}.msi?download)
-- Download 64 bit zip: [sumo-win64-{{Version}}.zip](http://prdownloads.sourceforge.net/sumo/sumo-win64-{{Version}}.zip?download)
-- Download 32 bit installer: [sumo-win32-{{Version}}.msi](http://prdownloads.sourceforge.net/sumo/sumo-win32-{{Version}}.msi?download)
-- Download 32 bit zip: [sumo-win32-{{Version}}.zip](http://prdownloads.sourceforge.net/sumo/sumo-win32-{{Version}}.zip?download)
+- Download 64-bit installer: [sumo-win64-{{Version}}.msi](https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.msi)
+- Download 64-bit zip: [sumo-win64-{{Version}}.zip](https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.zip)
+- Download 64-bit installer with all extras (contains GPL code): [sumo-win64extra-{{Version}}.msi](https://sumo.dlr.de/releases/{{Version}}/sumo-win64extra-{{Version}}.msi)
+- Download 64-bit zip with all extras (contains GPL code): [sumo-win64extra-{{Version}}.zip](https://sumo.dlr.de/releases/{{Version}}/sumo-win64extra-{{Version}}.zip)
 
 Within the installation folder, you will find a folder named "**bin**".
 Here, you can find the executables (programs). You may double click on
@@ -146,6 +146,10 @@ If you encounter a blank screen after opening sumo-gui (cf. https://github.com/e
 
 ```export DISPLAY=:0.0```
 
+# Additional Tools
+SUMO contains lots of [Python tools](../Tools/index.md) which are part of the sources and the Windows distribution
+and may be packaged on Linux in the sumo or a separate sumo-tools package. To take full advantage of these tools
+you need several additional python modules. The easiest way to install them is to use `pip install -r $SUMO_HOME/tools/requirements.txt`.
 
 # via Docker
 

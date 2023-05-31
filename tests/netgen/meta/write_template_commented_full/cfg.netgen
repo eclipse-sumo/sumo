@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-09 08:30:17 by Eclipse SUMO netgenerate Version v1_16_0+1117-b006029d26d
+<!-- generated on 2023-05-08 14:10:22 by Eclipse SUMO netgenerate Version v1_17_0+0159-32ef28bfb10
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -64,16 +64,19 @@
         <spider value="false" synonymes="s spider-net" type="BOOL"/>
 
         <!-- The number of axes within the net -->
-        <spider.arm-number value="13" synonymes="arms spider-arm-number" type="INT"/>
+        <spider.arm-number value="7" synonymes="arms spider-arm-number" type="INT"/>
 
         <!-- The number of circles of the net -->
-        <spider.circle-number value="20" synonymes="circles spider-circle-number" type="INT"/>
+        <spider.circle-number value="5" synonymes="circles spider-circle-number" type="INT"/>
 
         <!-- The distances between the circles -->
         <spider.space-radius value="100" synonymes="radius spider-space-rad" type="FLOAT"/>
 
         <!-- Omit the central node of the network -->
         <spider.omit-center value="false" synonymes="nocenter spider-omit-center" type="BOOL"/>
+
+        <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
+        <spider.attach-length value="0" type="FLOAT"/>
 
     </spider_network>
 
@@ -82,10 +85,7 @@
         <rand value="false" synonymes="r random-net" type="BOOL"/>
 
         <!-- Describes how many times an edge shall be added to the net -->
-        <rand.iterations value="2000" synonymes="iterations rand-iterations" type="INT"/>
-
-        <!-- Defines the probability to build a reverse edge -->
-        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT"/>
+        <rand.iterations value="100" synonymes="iterations rand-iterations" type="INT"/>
 
         <!-- The maximum distance for each edge -->
         <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT"/>
@@ -119,15 +119,6 @@
 
         <!-- Probability for a node having exactly 6 neighbors -->
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT"/>
-
-        <!-- Draw lane numbers randomly from [1,default.lanenumber] -->
-        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL"/>
-
-        <!-- Draw edge priority randomly from [1,default.priority] -->
-        <random-priority value="false" synonymes="rand.random-priority" type="BOOL"/>
-
-        <!-- Draw edge type randomly from all loaded types -->
-        <random-type value="false" type="BOOL"/>
 
         <!-- Place nodes on a regular grid with spacing rand.min-distance -->
         <rand.grid value="false" type="BOOL"/>
@@ -219,6 +210,18 @@
         <!-- Apply random spatial perturbation in z direction according the the given distribution -->
         <perturb-z value="0" type="STR"/>
 
+        <!-- Defines the probability to build a reverse edge -->
+        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT"/>
+
+        <!-- Draw lane numbers randomly from [1,default.lanenumber] -->
+        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL"/>
+
+        <!-- Draw edge priority randomly from [1,default.priority] -->
+        <random-priority value="false" synonymes="rand.random-priority" type="BOOL"/>
+
+        <!-- Draw edge type randomly from all loaded types -->
+        <random-type value="false" type="BOOL"/>
+
         <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
         <numerical-ids value="false" type="BOOL"/>
 
@@ -248,6 +251,9 @@
 
         <!-- Allow merging edges with differing lane widths if the difference is below FLOAT -->
         <geometry.remove.width-tolerance value="0" type="FLOAT"/>
+
+        <!-- Prevent removal of junctions with a size above FLOAT as defined by custom edge endpoints -->
+        <geometry.remove.max-junction-size value="-1" type="FLOAT"/>
 
         <!-- splits geometry to restrict segment length -->
         <geometry.max-segment-length value="0" type="FLOAT"/>

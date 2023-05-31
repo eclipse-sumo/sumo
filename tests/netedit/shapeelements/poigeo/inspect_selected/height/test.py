@@ -38,16 +38,16 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 149, 53)
+netedit.leftClick(referencePosition, 451, 119)
 
 # Change parameter 7 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.height, "dummyHeight", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.height, "dummyHeight", False)
 
 # Change parameter 7 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.height, "-3", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.height, "-3", False)
 
 # Change parameter 7 with a valid value
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.height, "5", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.height, "5", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

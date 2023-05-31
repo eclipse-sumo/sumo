@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-20 14:43:17.555591 by gtfs2pt.py v1_15_0+1148-79669e747d4
+<!-- generated on 2023-05-10 01:29:16.977679 by gtfs2pt.py v1_17_0+0210-cfdd103a36f
 <configuration>
-    <date value="20160713"/>
     <gtfs value="https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip"/>
+    <date value="20160713"/>
     <modes value="tram"/>
     <network value="data/eichwalde.net.xml.gz"/>
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <trainStop id="171419641:225.65" lane="171419641_0" startPos="165.65" endPos="225.65" friendlyPos="true" name="Wendenschloß (Berlin)">
+    <trainStop id="257252.0" lane="171419641_0" startPos="165.65" endPos="225.65" friendlyPos="true" name="Wendenschloß (Berlin)">
         <access friendlyPos="true" lane="-23532795#0_0" pos="29.69" length="121.00"/>
         <access friendlyPos="true" lane="-32204604#0_0" pos="0.00" length="22.32"/>
         <access friendlyPos="true" lane="-32204604#1_0" pos="18.47" length="0.38"/>
@@ -22,27 +22,27 @@
         <access friendlyPos="true" lane="445947591#2_0" pos="10.82" length="24.06"/>
         <access friendlyPos="true" lane="445947592_0" pos="0.00" length="39.73"/>
     </trainStop>
-    <trainStop id="319292807:97.87" lane="319292807_0" startPos="37.87" endPos="97.87" friendlyPos="true" name="Müggelbergallee (Berlin)">
+    <trainStop id="257252.1" lane="319292807_0" startPos="37.87" endPos="97.87" friendlyPos="true" name="Müggelbergallee (Berlin)">
         <access friendlyPos="true" lane="-23532795#0_0" pos="159.44" length="122.06"/>
         <access friendlyPos="true" lane="-445947592_0" pos="23.52" length="3.17"/>
         <access friendlyPos="true" lane="23532795#0_0" pos="22.62" length="126.86"/>
         <access friendlyPos="true" lane="445947592_0" pos="103.51" length="1.63"/>
     </trainStop>
-    <trainStop id="319292807:460.19" lane="319292807_0" startPos="400.19" endPos="460.19" friendlyPos="true" name="Lienhardweg (Berlin)"/>
-    <trainStop id="319292807:844.67" lane="319292807_0" startPos="784.67" endPos="844.67" friendlyPos="true" name="Zur Nachtheide (Berlin)"/>
-    <trainStop id="319292807:1137.13" lane="319292807_0" startPos="1077.13" endPos="1137.13" friendlyPos="true" name="Dregerhoffstr. (Berlin)"/>
-    <trainStop id="319292807:1477.14" lane="319292807_0" startPos="1417.14" endPos="1477.14" friendlyPos="true" name="Pritstabelstr. (Berlin)"/>
-    <trainStop id="319292807:1926.71" lane="319292807_0" startPos="1866.71" endPos="1926.71" friendlyPos="true" name="Segewaldweg (Berlin)"/>
-    <trainStop id="319292807:2090.24" lane="319292807_0" startPos="2030.24" endPos="2090.24" friendlyPos="true" name="Mayschweg (Berlin)"/>
-    <trainStop id="107701626:60.00" lane="107701626_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Zur Nachtheide (Berlin)"/>
-    <trainStop id="107701626:317.64" lane="107701626_0" startPos="257.64" endPos="317.64" friendlyPos="true" name="Lienhardweg (Berlin)"/>
-    <trainStop id="107701626:680.04" lane="107701626_0" startPos="620.04" endPos="680.04" friendlyPos="true" name="Müggelbergallee (Berlin)">
+    <trainStop id="257252.2" lane="319292807_0" startPos="400.19" endPos="460.19" friendlyPos="true" name="Lienhardweg (Berlin)"/>
+    <trainStop id="257252.3" lane="319292807_0" startPos="784.67" endPos="844.67" friendlyPos="true" name="Zur Nachtheide (Berlin)"/>
+    <trainStop id="257252.4" lane="319292807_0" startPos="1077.13" endPos="1137.13" friendlyPos="true" name="Dregerhoffstr. (Berlin)"/>
+    <trainStop id="257252.5" lane="319292807_0" startPos="1417.14" endPos="1477.14" friendlyPos="true" name="Pritstabelstr. (Berlin)"/>
+    <trainStop id="257252.6" lane="319292807_0" startPos="1866.71" endPos="1926.71" friendlyPos="true" name="Segewaldweg (Berlin)"/>
+    <trainStop id="257252.7" lane="319292807_0" startPos="2030.24" endPos="2090.24" friendlyPos="true" name="Mayschweg (Berlin)"/>
+    <trainStop id="257596.4" lane="107701626_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Zur Nachtheide (Berlin)"/>
+    <trainStop id="257596.5" lane="107701626_0" startPos="257.64" endPos="317.64" friendlyPos="true" name="Lienhardweg (Berlin)"/>
+    <trainStop id="257596.6" lane="107701626_0" startPos="620.04" endPos="680.04" friendlyPos="true" name="Müggelbergallee (Berlin)">
         <access friendlyPos="true" lane="-23532795#0_0" pos="159.44" length="122.06"/>
         <access friendlyPos="true" lane="-445947592_0" pos="23.52" length="3.17"/>
         <access friendlyPos="true" lane="23532795#0_0" pos="22.62" length="126.86"/>
         <access friendlyPos="true" lane="445947592_0" pos="103.51" length="1.63"/>
     </trainStop>
-    <trainStop id="110800148:60.00" lane="110800148_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Wendenschloß (Berlin)">
+    <trainStop id="257596.7" lane="110800148_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Wendenschloß (Berlin)">
         <access friendlyPos="true" lane="-23532795#0_0" pos="29.69" length="121.00"/>
         <access friendlyPos="true" lane="-32204604#0_0" pos="0.00" length="22.32"/>
         <access friendlyPos="true" lane="-32204604#1_0" pos="18.47" length="0.38"/>
@@ -54,7 +54,7 @@
         <access friendlyPos="true" lane="445947591#2_0" pos="10.82" length="24.06"/>
         <access friendlyPos="true" lane="445947592_0" pos="0.00" length="39.73"/>
     </trainStop>
-    <trainStop id="180390329#0:243.46" lane="180390329#0_0" startPos="183.46" endPos="243.46" friendlyPos="true" name="Wassersportallee (Berlin)">
+    <trainStop id="259570.5" lane="180390329#0_0" startPos="183.46" endPos="243.46" friendlyPos="true" name="Wassersportallee (Berlin)">
         <access friendlyPos="true" lane="-17272871_0" pos="0.00" length="22.83"/>
         <access friendlyPos="true" lane="-52153733#0_0" pos="0.00" length="85.53"/>
         <access friendlyPos="true" lane="-52153733#1_0" pos="6.75" length="0.78"/>
@@ -66,7 +66,7 @@
         <access friendlyPos="true" lane="528662942_0" pos="30.71" length="85.70"/>
         <access friendlyPos="true" lane="561573547_0" pos="0.00" length="81.69"/>
     </trainStop>
-    <trainStop id="180390329#2:60.00" lane="180390329#2_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="S Grünau (Berlin) [Adlergestell]">
+    <trainStop id="259570.6" lane="180390329#2_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="S Grünau (Berlin) [Adlergestell]">
         <access friendlyPos="true" lane="-131490037#2_0" pos="82.74" length="19.17"/>
         <access friendlyPos="true" lane="-328362694_1" pos="33.76" length="39.23"/>
         <access friendlyPos="true" lane="-658716829_1" pos="13.92" length="32.26"/>
@@ -78,7 +78,7 @@
         <access friendlyPos="true" lane="442574982#2_0" pos="25.44" length="12.81"/>
         <access friendlyPos="true" lane="442574982#4_0" pos="46.78" length="4.69"/>
     </trainStop>
-    <trainStop id="180390329#10:133.36" lane="180390329#10_0" startPos="73.36" endPos="133.36" friendlyPos="true" name="Regattatribünen (Berlin)">
+    <trainStop id="259570.7" lane="180390329#10_0" startPos="73.36" endPos="133.36" friendlyPos="true" name="Regattatribünen (Berlin)">
         <access friendlyPos="true" lane="-151627029#17_0" pos="0.00" length="77.18"/>
         <access friendlyPos="true" lane="-151627030#15_0" pos="19.05" length="18.90"/>
         <access friendlyPos="true" lane="-180392324#4_0" pos="17.79" length="11.74"/>
@@ -90,7 +90,7 @@
         <access friendlyPos="true" lane="318951470_0" pos="0.00" length="50.33"/>
         <access friendlyPos="true" lane="4912480#4_0" pos="0.00" length="45.15"/>
     </trainStop>
-    <trainStop id="180390329#15:284.25" lane="180390329#15_0" startPos="224.25" endPos="284.25" friendlyPos="true" name="Regattastr./Sportpromenade (Berlin)">
+    <trainStop id="259570.8" lane="180390329#15_0" startPos="224.25" endPos="284.25" friendlyPos="true" name="Regattastr./Sportpromenade (Berlin)">
         <access friendlyPos="true" lane="-151627030#2_0" pos="0.00" length="81.49"/>
         <access friendlyPos="true" lane="-151627030#3_0" pos="0.24" length="3.53"/>
         <access friendlyPos="true" lane="-151627030#4_0" pos="243.05" length="8.68"/>
@@ -102,7 +102,7 @@
         <access friendlyPos="true" lane="416587113#0_0" pos="0.00" length="9.15"/>
         <access friendlyPos="true" lane="702592792#1_0" pos="62.50" length="79.35"/>
     </trainStop>
-    <trainStop id="180390329#18:60.00" lane="180390329#18_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Strandbad Grünau (Berlin)">
+    <trainStop id="259570.9" lane="180390329#18_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Strandbad Grünau (Berlin)">
         <access friendlyPos="true" lane="-670181877_0" pos="0.00" length="10.89"/>
         <access friendlyPos="true" lane="-8418405#2_0" pos="0.00" length="26.34"/>
         <access friendlyPos="true" lane="-8418405#3_0" pos="0.00" length="7.28"/>
@@ -114,7 +114,7 @@
         <access friendlyPos="true" lane="8418405#3_0" pos="7.74" length="9.18"/>
         <access friendlyPos="true" lane="8418405#4_0" pos="0.00" length="8.93"/>
     </trainStop>
-    <trainStop id="180390329#22:60.00" lane="180390329#22_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Bammelecke (Berlin)">
+    <trainStop id="259570.10" lane="180390329#22_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Bammelecke (Berlin)">
         <access friendlyPos="true" lane="-64282776_0" pos="0.00" length="103.85"/>
         <access friendlyPos="true" lane="-693953491_0" pos="75.08" length="98.08"/>
         <access friendlyPos="true" lane="10671506#3_0" pos="112.37" length="43.24"/>
@@ -124,7 +124,7 @@
         <access friendlyPos="true" lane="693953490#1_0" pos="0.20" length="100.01"/>
         <access friendlyPos="true" lane="693953491_0" pos="0.00" length="102.81"/>
     </trainStop>
-    <trainStop id="180390329#24:107.47" lane="180390329#24_0" startPos="47.47" endPos="107.47" friendlyPos="true" name="Richtershorn (Berlin)">
+    <trainStop id="259570.11" lane="180390329#24_0" startPos="47.47" endPos="107.47" friendlyPos="true" name="Richtershorn (Berlin)">
         <access friendlyPos="true" lane="-10671504#0_0" pos="0.00" length="25.32"/>
         <access friendlyPos="true" lane="-10671504#1_0" pos="38.34" length="11.72"/>
         <access friendlyPos="true" lane="-10671504#2_0" pos="9.58" length="72.59"/>
@@ -136,7 +136,7 @@
         <access friendlyPos="true" lane="24032488#2_0" pos="0.00" length="13.08"/>
         <access friendlyPos="true" lane="317244747_0" pos="0.00" length="65.55"/>
     </trainStop>
-    <trainStop id="170799109#1:60.00" lane="170799109#1_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Schappachstr. (Berlin)">
+    <trainStop id="259570.12" lane="170799109#1_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Schappachstr. (Berlin)">
         <access friendlyPos="true" lane="-116171834#7_0" pos="12.49" length="0.16"/>
         <access friendlyPos="true" lane="-116171834#8_0" pos="10.79" length="26.23"/>
         <access friendlyPos="true" lane="-317683529#0_0" pos="0.00" length="34.71"/>
@@ -148,7 +148,7 @@
         <access friendlyPos="true" lane="416587114#0_0" pos="0.00" length="51.01"/>
         <access friendlyPos="true" lane="416587115#0_0" pos="0.00" length="22.86"/>
     </trainStop>
-    <trainStop id="170799109#3:151.40" lane="170799109#3_0" startPos="91.40" endPos="151.40" friendlyPos="true" name="Lübbenauer Weg (Berlin)">
+    <trainStop id="259570.13" lane="170799109#3_0" startPos="91.40" endPos="151.40" friendlyPos="true" name="Lübbenauer Weg (Berlin)">
         <access friendlyPos="true" lane="-116171834#3_0" pos="153.58" length="3.23"/>
         <access friendlyPos="true" lane="-21721173#4_0" pos="0.00" length="56.20"/>
         <access friendlyPos="true" lane="-21721173#8_0" pos="88.51" length="64.62"/>
@@ -160,7 +160,7 @@
         <access friendlyPos="true" lane="301687326#2_0" pos="42.29" length="68.20"/>
         <access friendlyPos="true" lane="301687326#3_0" pos="27.70" length="12.13"/>
     </trainStop>
-    <trainStop id="169008810#2:60.00" lane="169008810#2_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Adlergestell/Vetschauer Allee (Berlin)">
+    <trainStop id="259570.14" lane="169008810#2_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Adlergestell/Vetschauer Allee (Berlin)">
         <access friendlyPos="true" lane="-511575457#0_0" pos="74.15" length="16.86"/>
         <access friendlyPos="true" lane="157743391#0_1" pos="0.00" length="31.30"/>
         <access friendlyPos="true" lane="157743392#0_0" pos="0.00" length="36.10"/>
@@ -172,7 +172,7 @@
         <access friendlyPos="true" lane="511575458#2_0" pos="0.00" length="27.30"/>
         <access friendlyPos="true" lane="511575459_1" pos="1.89" length="39.22"/>
     </trainStop>
-    <trainStop id="169008810#10:60.00" lane="169008810#10_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Zum Seeblick (Berlin)">
+    <trainStop id="259570.15" lane="169008810#10_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Zum Seeblick (Berlin)">
         <access friendlyPos="true" lane="-176187644#0_0" pos="101.95" length="32.29"/>
         <access friendlyPos="true" lane="-197671091#1_0" pos="5.04" length="25.24"/>
         <access friendlyPos="true" lane="-197671091#3_0" pos="7.62" length="24.84"/>
@@ -184,7 +184,7 @@
         <access friendlyPos="true" lane="421209091#0_1" pos="5.27" length="2.76"/>
         <access friendlyPos="true" lane="421209091#1_1" pos="0.00" length="26.87"/>
     </trainStop>
-    <trainStop id="169008810#15:61.08" lane="169008810#15_0" startPos="1.08" endPos="61.08" friendlyPos="true" name="Alt-Schmöckwitz. (Berlin)">
+    <trainStop id="259570.16" lane="169008810#15_0" startPos="1.08" endPos="61.08" friendlyPos="true" name="Alt-Schmöckwitz. (Berlin)">
         <access friendlyPos="true" lane="-421209092_0" pos="92.93" length="72.86"/>
         <access friendlyPos="true" lane="266150542#0_0" pos="0.00" length="48.62"/>
         <access friendlyPos="true" lane="266150542#1_0" pos="11.70" length="52.14"/>
@@ -196,7 +196,7 @@
         <access friendlyPos="true" lane="524196491_0" pos="0.00" length="74.36"/>
         <access friendlyPos="true" lane="680724865_0" pos="10.45" length="13.72"/>
     </trainStop>
-    <trainStop id="158512978#1:24.35" lane="158512978#1_0" startPos="0.00" endPos="24.35" friendlyPos="true" name="Alt--Schmöckwitz (Berlin)">
+    <trainStop id="259570.17" lane="158512978#1_0" startPos="0.00" endPos="24.35" friendlyPos="true" name="Alt--Schmöckwitz (Berlin)">
         <access friendlyPos="true" lane="-13376682#1_0" pos="75.40" length="27.59"/>
         <access friendlyPos="true" lane="13376682#1_0" pos="2.77" length="32.40"/>
         <access friendlyPos="true" lane="421231594#0_0" pos="0.00" length="29.92"/>
@@ -208,7 +208,7 @@
         <access friendlyPos="true" lane="565669872#0_0" pos="0.00" length="43.84"/>
         <access friendlyPos="true" lane="565669872#1_0" pos="0.00" length="58.23"/>
     </trainStop>
-    <trainStop id="263108169#1:60.00" lane="263108169#1_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Alt--Schmöckwitz (Berlin)">
+    <trainStop id="259780.0" lane="263108169#1_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Alt--Schmöckwitz (Berlin)">
         <access friendlyPos="true" lane="-13376682#1_0" pos="75.40" length="27.59"/>
         <access friendlyPos="true" lane="13376682#1_0" pos="2.77" length="32.40"/>
         <access friendlyPos="true" lane="421231594#0_0" pos="0.00" length="29.92"/>
@@ -220,7 +220,7 @@
         <access friendlyPos="true" lane="565669872#0_0" pos="0.00" length="43.84"/>
         <access friendlyPos="true" lane="565669872#1_0" pos="0.00" length="58.23"/>
     </trainStop>
-    <trainStop id="263108169#2:39.76" lane="263108169#2_0" startPos="0.00" endPos="39.76" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)">
+    <trainStop id="259780.1" lane="263108169#2_0" startPos="0.00" endPos="39.76" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)">
         <access friendlyPos="true" lane="-383790135_0" pos="9.74" length="30.05"/>
         <access friendlyPos="true" lane="-4463780#0_0" pos="62.53" length="39.46"/>
         <access friendlyPos="true" lane="-4463781#1_0" pos="18.11" length="6.39"/>
@@ -232,7 +232,7 @@
         <access friendlyPos="true" lane="4463781#1_0" pos="11.83" length="11.19"/>
         <access friendlyPos="true" lane="4463781#2_0" pos="0.00" length="36.97"/>
     </trainStop>
-    <trainStop id="263108169#6:103.50" lane="263108169#6_0" startPos="43.50" endPos="103.50" friendlyPos="true" name="Zum Seeblick (Berlin)">
+    <trainStop id="259780.2" lane="263108169#6_0" startPos="43.50" endPos="103.50" friendlyPos="true" name="Zum Seeblick (Berlin)">
         <access friendlyPos="true" lane="-176187644#0_0" pos="101.95" length="32.29"/>
         <access friendlyPos="true" lane="-197671091#1_0" pos="5.04" length="25.24"/>
         <access friendlyPos="true" lane="-197671091#3_0" pos="7.62" length="24.84"/>
@@ -244,7 +244,7 @@
         <access friendlyPos="true" lane="421209091#0_1" pos="5.27" length="2.76"/>
         <access friendlyPos="true" lane="421209091#1_1" pos="0.00" length="26.87"/>
     </trainStop>
-    <trainStop id="263108169#16:60.00" lane="263108169#16_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Adlergestell/Vetschauer Allee (Berlin)">
+    <trainStop id="259780.3" lane="263108169#16_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Adlergestell/Vetschauer Allee (Berlin)">
         <access friendlyPos="true" lane="-511575457#0_0" pos="74.15" length="16.86"/>
         <access friendlyPos="true" lane="157743391#0_1" pos="0.00" length="31.30"/>
         <access friendlyPos="true" lane="157743392#0_0" pos="0.00" length="36.10"/>
@@ -256,7 +256,7 @@
         <access friendlyPos="true" lane="511575458#2_0" pos="0.00" length="27.30"/>
         <access friendlyPos="true" lane="511575459_1" pos="1.89" length="39.22"/>
     </trainStop>
-    <trainStop id="263108169#20:60.00" lane="263108169#20_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Lübbenauer Weg (Berlin)">
+    <trainStop id="259780.4" lane="263108169#20_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Lübbenauer Weg (Berlin)">
         <access friendlyPos="true" lane="-116171834#3_0" pos="153.58" length="3.23"/>
         <access friendlyPos="true" lane="-21721173#4_0" pos="0.00" length="56.20"/>
         <access friendlyPos="true" lane="-21721173#8_0" pos="88.51" length="64.62"/>
@@ -268,7 +268,7 @@
         <access friendlyPos="true" lane="301687326#2_0" pos="42.29" length="68.20"/>
         <access friendlyPos="true" lane="301687326#3_0" pos="27.70" length="12.13"/>
     </trainStop>
-    <trainStop id="263108169#22:60.25" lane="263108169#22_0" startPos="0.25" endPos="60.25" friendlyPos="true" name="Schappachstr. (Berlin)">
+    <trainStop id="259780.5" lane="263108169#22_0" startPos="0.25" endPos="60.25" friendlyPos="true" name="Schappachstr. (Berlin)">
         <access friendlyPos="true" lane="-116171834#7_0" pos="12.49" length="0.16"/>
         <access friendlyPos="true" lane="-116171834#8_0" pos="10.79" length="26.23"/>
         <access friendlyPos="true" lane="-317683529#0_0" pos="0.00" length="34.71"/>
@@ -280,7 +280,7 @@
         <access friendlyPos="true" lane="416587114#0_0" pos="0.00" length="51.01"/>
         <access friendlyPos="true" lane="416587115#0_0" pos="0.00" length="22.86"/>
     </trainStop>
-    <trainStop id="263108169#25:60.00" lane="263108169#25_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Richtershorn (Berlin)">
+    <trainStop id="259780.6" lane="263108169#25_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Richtershorn (Berlin)">
         <access friendlyPos="true" lane="-10671504#0_0" pos="0.00" length="25.32"/>
         <access friendlyPos="true" lane="-10671504#1_0" pos="38.34" length="11.72"/>
         <access friendlyPos="true" lane="-10671504#2_0" pos="9.58" length="72.59"/>
@@ -292,7 +292,7 @@
         <access friendlyPos="true" lane="24032488#2_0" pos="0.00" length="13.08"/>
         <access friendlyPos="true" lane="317244747_0" pos="0.00" length="65.55"/>
     </trainStop>
-    <trainStop id="263108169#27:109.36" lane="263108169#27_0" startPos="49.36" endPos="109.36" friendlyPos="true" name="Bammelecke (Berlin)">
+    <trainStop id="259780.7" lane="263108169#27_0" startPos="49.36" endPos="109.36" friendlyPos="true" name="Bammelecke (Berlin)">
         <access friendlyPos="true" lane="-64282776_0" pos="0.00" length="103.85"/>
         <access friendlyPos="true" lane="-693953491_0" pos="75.08" length="98.08"/>
         <access friendlyPos="true" lane="10671506#3_0" pos="112.37" length="43.24"/>
@@ -302,7 +302,7 @@
         <access friendlyPos="true" lane="693953490#1_0" pos="0.20" length="100.01"/>
         <access friendlyPos="true" lane="693953491_0" pos="0.00" length="102.81"/>
     </trainStop>
-    <trainStop id="263108169#31:121.87" lane="263108169#31_0" startPos="61.87" endPos="121.87" friendlyPos="true" name="Strandbad Grünau (Berlin)">
+    <trainStop id="259780.8" lane="263108169#31_0" startPos="61.87" endPos="121.87" friendlyPos="true" name="Strandbad Grünau (Berlin)">
         <access friendlyPos="true" lane="-670181877_0" pos="0.00" length="10.89"/>
         <access friendlyPos="true" lane="-8418405#2_0" pos="0.00" length="26.34"/>
         <access friendlyPos="true" lane="-8418405#3_0" pos="0.00" length="7.28"/>
@@ -314,7 +314,7 @@
         <access friendlyPos="true" lane="8418405#3_0" pos="7.74" length="9.18"/>
         <access friendlyPos="true" lane="8418405#4_0" pos="0.00" length="8.93"/>
     </trainStop>
-    <trainStop id="263108169#34:60.00" lane="263108169#34_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Regattastr./Sportpromenade (Berlin)">
+    <trainStop id="259780.9" lane="263108169#34_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Regattastr./Sportpromenade (Berlin)">
         <access friendlyPos="true" lane="-151627030#2_0" pos="0.00" length="81.49"/>
         <access friendlyPos="true" lane="-151627030#3_0" pos="0.24" length="3.53"/>
         <access friendlyPos="true" lane="-151627030#4_0" pos="243.05" length="8.68"/>
@@ -326,7 +326,7 @@
         <access friendlyPos="true" lane="416587113#0_0" pos="0.00" length="9.15"/>
         <access friendlyPos="true" lane="702592792#1_0" pos="62.50" length="79.35"/>
     </trainStop>
-    <trainStop id="263108169#39:60.00" lane="263108169#39_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Regattatribünen (Berlin)">
+    <trainStop id="259780.10" lane="263108169#39_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Regattatribünen (Berlin)">
         <access friendlyPos="true" lane="-151627029#17_0" pos="0.00" length="77.18"/>
         <access friendlyPos="true" lane="-151627030#15_0" pos="19.05" length="18.90"/>
         <access friendlyPos="true" lane="-180392324#4_0" pos="17.79" length="11.74"/>
@@ -338,7 +338,7 @@
         <access friendlyPos="true" lane="318951470_0" pos="0.00" length="50.33"/>
         <access friendlyPos="true" lane="4912480#4_0" pos="0.00" length="45.15"/>
     </trainStop>
-    <trainStop id="263108169#47:60.00" lane="263108169#47_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="S Grünau (Berlin) [Adlergestell]">
+    <trainStop id="259780.11" lane="263108169#47_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="S Grünau (Berlin) [Adlergestell]">
         <access friendlyPos="true" lane="-131490037#2_0" pos="82.74" length="19.17"/>
         <access friendlyPos="true" lane="-328362694_1" pos="33.76" length="39.23"/>
         <access friendlyPos="true" lane="-658716829_1" pos="13.92" length="32.26"/>
@@ -350,7 +350,7 @@
         <access friendlyPos="true" lane="442574982#2_0" pos="25.44" length="12.81"/>
         <access friendlyPos="true" lane="442574982#4_0" pos="46.78" length="4.69"/>
     </trainStop>
-    <trainStop id="205681252#2:317.94" lane="205681252#2_0" startPos="257.94" endPos="317.94" friendlyPos="true" name="Wassersportallee (Berlin)">
+    <trainStop id="259780.12" lane="205681252#2_0" startPos="257.94" endPos="317.94" friendlyPos="true" name="Wassersportallee (Berlin)">
         <access friendlyPos="true" lane="-17272871_0" pos="0.00" length="22.83"/>
         <access friendlyPos="true" lane="-52153733#0_0" pos="0.00" length="85.53"/>
         <access friendlyPos="true" lane="-52153733#1_0" pos="6.75" length="0.78"/>
@@ -362,7 +362,7 @@
         <access friendlyPos="true" lane="528662942_0" pos="30.71" length="85.70"/>
         <access friendlyPos="true" lane="561573547_0" pos="0.00" length="81.69"/>
     </trainStop>
-    <trainStop id="461452916:293.64" lane="461452916_0" startPos="233.64" endPos="293.64" friendlyPos="true" name="Regattastr./Schule (Berlin)"/>
-    <trainStop id="461452916:819.87" lane="461452916_0" startPos="759.87" endPos="819.87" friendlyPos="true" name="Friedrich-Wolf-Str. (Berlin)"/>
-    <trainStop id="461452916:1205.90" lane="461452916_0" startPos="1145.91" endPos="1205.90" friendlyPos="true" name="Betonwerk (Berlin)"/>
+    <trainStop id="259780.13" lane="461452916_0" startPos="233.64" endPos="293.64" friendlyPos="true" name="Regattastr./Schule (Berlin)"/>
+    <trainStop id="259780.14" lane="461452916_0" startPos="759.87" endPos="819.87" friendlyPos="true" name="Friedrich-Wolf-Str. (Berlin)"/>
+    <trainStop id="259780.15" lane="461452916_0" startPos="1145.91" endPos="1205.90" friendlyPos="true" name="Betonwerk (Berlin)"/>
 </additional>

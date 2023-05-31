@@ -20,7 +20,7 @@ These parameters are written in ALL_CAPS below.
 At the start of our script we will import those constants as well as modifying the 
 system path to be able to use the sumolib (this is optional if you installed sumolib via
 pip).
-```
+```python
 ... # more imports
 import os
 import sys
@@ -53,12 +53,12 @@ number of lanes and the allowed vehicle classes.
 
 We open the files as standard text files and use a helper function from the sumolib to 
 write the XML header:
-```
+```python
 nodes = open("%s.nod.xml" % PREFIX, "w")
 sumolib.xml.writeHeader(nodes, root="nodes")
 ```
 This results in a header like this in our node file:
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- generated on 2020-09-01 11:03:05.263997 by createNetTaxi.py v1_6_0+1864-1ecf301a37
   options: 
@@ -73,7 +73,7 @@ After opening the edges file in the same way we can start writing the node and e
 We first define a starting point for the insertion edge which is located 100m to the
 left of the first parking row and then one junction at the start of 
 each double row:
-```
+```python
 print('<node id="in" x="-100" y="0"/>', file=nodes)
 for row in range(DOUBLE_ROWS):
     nextNodeID = "main%s" % row
@@ -81,7 +81,7 @@ for row in range(DOUBLE_ROWS):
     print('<node id="%s" x="%s" y="0"/>' % (nextNodeID, x), file=nodes)
 ```
 We can generate the edges in the same loop, which extends the code to:
-```
+```python
 nodeID = "main0"
 print('<node id="in" x="-100" y="0"/>', file=nodes)
 print('<edge id="mainin" from="in" to="%s" numLanes="2"/>' % nodeID, file=edges)
@@ -103,7 +103,7 @@ The code for the (cyber)bus edges follows the same pattern but is a little bit
 more involved because it needs also a street in the opposite direction since the busses
 need to turn around. Furthermore it needs a sidewalk (modelled as a lane for pedestrians).
 The code for generating a forward and back connection between two parking streets is:
-```
+```python
 print("""<edge id="%s" from="cyber%s" to="cyber%s" numLanes="3" spreadType="center">
     <lane index="0" allow="pedestrian" width="2.00"/>
     <lane index="1" allow="taxi bus"/>
@@ -120,7 +120,7 @@ only allowed to enter and leave on the side of the parking lot.
 Now we only need the vertical running streets and we are done with the basic network.
 Here we do not need further nodes - we only connect the existing parts - but we need
 sidewalks again on both sides for the people to walk to the bus.
-```
+```python
 for row in range(DOUBLE_ROWS):
     print("""<edge id="road%s" from="main%s" to="cyber%s" numLanes="2">
     <lane index="0" allow="pedestrian" width="2.00"/>
@@ -132,7 +132,7 @@ for row in range(DOUBLE_ROWS):
 </edge>""" % (row, row, row), file=edges)
 ```
 Now we can close the files and run netconvert:
-```
+```python
 subprocess.call([sumolib.checkBinary('netconvert'),
                  '-n', '%s.nod.xml' % PREFIX,
                  '-e', '%s.edg.xml' % PREFIX,
@@ -147,7 +147,7 @@ bus stops which we add next.
 For the bus stops and the parking areas we use a so called additional file 
 which we open and write a header like above. The definition of the parking areas
 looks like this:
-```
+```python
 for row in range(DOUBLE_ROWS):
     print("""
     <parkingArea id="ParkArea%s" lane="road%s_1" 
@@ -162,7 +162,7 @@ angle which lets all vehicles park forward leaving some space for the pedestrian
 
 For the bus stops the only small surprise is that we need one less than parking lots because they are only 
 in between the parking roads.
-```
+```python
 for row in range(DOUBLE_ROWS-1):
     edgeID = "cyber%sto%s" % (row, row + 1)
     print('    <busStop id="%sstop" lane="%s_1" startPos="2" endPos="12"/>' % (edgeID, edgeID), file=stops)
@@ -174,7 +174,7 @@ Most of the vehicle type definition is for the look (the color) and the vehicle 
 it will only use the right roads. The cyber car also has a taxi device to react to passenger requests.
 We will also define a regular bus to allow for comparisons with a regular bus service in further iterations
 of this tutorial.
-```
+```python
 print(("""    <vType id="car" color="0.7,0.7,0.7"/>
     <vType id="ped_pedestrian" vClass="pedestrian" color="1,0.2,0.2"/>
     <vType id="cybercar" vClass="taxi" length="%s" minGap="1" guiShape="evehicle" maxSpeed="%s"
@@ -190,7 +190,7 @@ Now we are ready to define the traffic demand.
 ## Traffic Demand
 
 We define the cybercars and the passenger vehicles in different route files. For the cybercars, a simple flow is enough:
-```
+```python
 print("""    <flow id="c" type="cybercar" begin="50" period="100" number="%s" line="taxi">
         <route edges="cyberin cyber0to1"/>
     </flow>""" % (TOTAL_CAPACITY // CYBER_CAPACITY), file=routes)
@@ -202,18 +202,18 @@ the vehicle should not leave the scenario after it reached the end of its initia
 The persons are slightly more complex as they arrive in their own car, drive to the parking lot, leave the car, walk to
 the bus stop and then enter the cybercar to got to their final destination. We do everything here in two nested loops 
 because we want to fill all slots of all rows.
-```
+```python
 for v in range(SLOTS_PER_ROW):
         for idx in range(DOUBLE_ROWS):
 ```
 Since the persons need to start in their car we need to define the cars first:
-```
+```python
 print("""    <trip id="v%s.%s" type="car" depart="%s" from="mainin" to="road%s">
         <stop parkingArea="ParkArea%s" duration="1000"/>
     </trip>""" % (idx, v, v * period, idx, idx), file=routes)
 ```
 Now we generate a random number of passengers per car each with her own plan:
-```
+```python
 print("""    <person id="%sp%s" type="ped_pedestrian" depart="triggered">
         <ride from="mainin" to="%sroad%s" lines="%s"/>
         <walk busStop="%s"/>
@@ -227,7 +227,7 @@ person start in the car.
 That's already it! We sum up everything in writing a nice configuration file which binds together the network,
 the additional file (for stops and parking lots), the cyber-route file and the passenger route file.
 
-```
+```python
 print("""<configuration>
     <input>
         <net-file value="%s.net.xml"/>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-13 16:07:57 by Eclipse SUMO netedit Version v1_16_0+0157-fcef944c26c
+<!-- generated on 2023-04-18 12:44:13 by Eclipse SUMO netedit Version v1_16_0+2135-40d51fde2c5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Feb160651.21560\netedit.gui\additionalelements\chargingstation\delete\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Feb160651.21560\netedit.gui\additionalelements\chargingstation\delete\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Feb160651.21560\netedit.gui\additionalelements\chargingstation\delete\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Feb160651.21560\netedit.gui\additionalelements\chargingstation\delete\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Apr124306.4836\netedit.gui\additionalelements\chargingstation\delete\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Apr124306.4836\netedit.gui\additionalelements\chargingstation\delete\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Apr124306.4836\netedit.gui\additionalelements\chargingstation\delete\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Apr124306.4836\netedit.gui\additionalelements\chargingstation\delete\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Feb160651.21560\netedit.gui\additionalelements\chargingstation\delete\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Apr124306.4836\netedit.gui\additionalelements\chargingstation\delete\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,16 +33,16 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Feb160651.21560\netedit.gui\additionalelements\chargingstation\delete\gui-settings.xml"/>
-        <window-size value="936, 697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Apr124306.4836\netedit.gui\additionalelements\chargingstation\delete\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Feb160651.21560\netedit.gui\additionalelements\chargingstation\delete\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Apr124306.4836\netedit.gui\additionalelements\chargingstation\delete\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Feb160651.21560\netedit.gui\additionalelements\chargingstation\delete\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Apr124306.4836\netedit.gui\additionalelements\chargingstation\delete\log.txt"/>
     </report>
 
 </configuration>

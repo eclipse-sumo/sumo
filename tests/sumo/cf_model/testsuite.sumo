@@ -35,6 +35,9 @@ follow_slow
 # 10 queue vehicles drive off after a traffic light turns green	
 tls_driveOff
 
+# startup delay after stopping
+stop_driveOff
+
 # test model behaviour in jam situations
 jam_resolution
 
@@ -72,3 +75,4 @@ ACC
 # CACC model tests
 CACC
 bugs
+

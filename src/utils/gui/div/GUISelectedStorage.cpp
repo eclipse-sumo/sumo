@@ -209,6 +209,9 @@ GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GU
         if (line.length() == 0) {
             continue;
         }
+        if (StringUtils::startsWith(line, "node:")) {
+            line = StringUtils::replace(line, "node:", "junction:");
+        }
 
         GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(line);
         if (object) {

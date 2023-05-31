@@ -166,7 +166,7 @@ Time values are in seconds.
 
 When setting parameters, `id` indicates the id of the rail-crossing junction and `programID` is always '0'.
 
-```
+```xml
 <additional>
     <tlLogic id="C" programID="0">
         <param key="time-gap" value="15.0"/>
@@ -276,7 +276,7 @@ Trains can be split and joined (divided and coupled) at stops.
 
 ## Splitting a train
 To split a train, the following input definition can be used. The rear half of the train is defined as a new vehicle which depart value **split**. The train train that is being split must define the 'split' attribute in its stop definition referencing the id of the rear half.
-```
+```xml
 <vType id="train" vClass="rail"/>
     <vType id="splitTrain" vClass="rail" length="50"/>
     <trip id="t0" type="train" depart="0.00" from="a" to="c">
@@ -291,7 +291,7 @@ When defined this way, The rear part of the train will be created as a new simul
 ## Joining two trains
 To join two trains, the following input definition can be used. The front half of the train must define a stop trigger with value **join**. The rear half of the other train must define the attribute 'join' referencing the id of the front half.
 
-```
+```xml
 <vType id="train" vClass="rail"/>
     <vType id="splitTrain" vClass="rail" length="50"/>
     <trip id="t0" type="splitTrain" depart="0.00" from="a" to="c">
@@ -320,7 +320,7 @@ Rail signals perform the following safety functions automatically
 Functionality **a)** corresponds to the "classic" safety behavior of rail signals ([PZB](https://en.wikipedia.org/wiki/Punktf%C3%B6rmige_Zugbeeinflussung)). When option **--railsignal-moving-block** is set or individual signals are configured with parameter *moving-block* (see below), feature **a)** is disabled and trains will use their configured carFollowModel (i.e. 'Rail') for distance keeping. This is similar to the [LZB](https://en.wikipedia.org/wiki/Linienzugbeeinflussung) safety system when used with extremely short virtual blocks.
 
 To switch a single signal into moving-block-mode, the following additional file may be loaded:
-```
+```xml
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <tlLogic id="gneJ8" programID="0">
         <param key="moving-block" value="true"/>
@@ -334,7 +334,7 @@ Parameter *moving-block* may also be updated at runtime with `traci.trafficlight
 Additionally, rail signals can enforce train ordering to ensure that a [scheduled order at stations](Public_Transport.md#public_transport_schedules) can be kept.
 To make use of this, the following elements can be loaded from an additional file:
 
-```
+```xml
    <railSignalConstraints id="A">
         <predecessor tripId="t0" tl="D" foes="t1" limit="2"/>
         <predecessor tripId="t0" tl="C" foes="t2"/>        

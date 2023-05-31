@@ -38,19 +38,19 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(netedit.attrs.POILane.create.imgFile, "%%$%$&$%$%$")
 
 # try to create POI
-netedit.leftClick(referencePosition, 150, 210)
+netedit.leftClick(referencePosition, 338, 210)
 
 # change imgfile (non exist)
 netedit.changeDefaultValue(netedit.attrs.POILane.create.imgFile, "paris.ico")
 
 # try to create POI
-netedit.leftClick(referencePosition, 200, 210)
+netedit.leftClick(referencePosition, 405, 210)
 
 # change imgfile (valid)
 netedit.changeDefaultValue(netedit.attrs.POILane.create.imgFile, "berlin_icon.ico")
 
 # create POI
-netedit.leftClick(referencePosition, 250, 210)
+netedit.leftClick(referencePosition, 473, 210)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

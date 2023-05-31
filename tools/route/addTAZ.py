@@ -30,11 +30,11 @@ import sumolib  # noqa
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Add fromTaz and toTaz to a route file")
-    optParser.add_argument("-r", "--route-file", dest="routefile",
+    optParser.add_argument("-r", "--route-file", category='input', dest="routefile",
                            help="define the input route file (mandatory)")
-    optParser.add_argument("-a", "-taz-files", dest="tazfiles",
+    optParser.add_argument("-a", "-taz-files", category='input', dest="tazfiles",
                            help="define the files to load TAZ (districts) from (mandatory)")
-    optParser.add_argument("-o", "--output-file", dest="outfile",
+    optParser.add_argument("-o", "--output-file", category='output', dest="outfile",
                            help="define the output filename (mandatory)")
     optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
 

@@ -21,6 +21,8 @@
 #include <config.h>
 
 #include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/MFXSynchQue.h>
+#include <utils/foxtools/MFXThreadEvent.h>
 
 // ===========================================================================
 // class declarations
@@ -29,6 +31,7 @@
 class GNEApplicationWindow;
 class GNERunPythonTool;
 class GNEPythonTool;
+class GUIEvent;
 
 // ===========================================================================
 // class definitions
@@ -55,18 +58,6 @@ public:
     /// @brief run tool (this open windows)
     void runTool(GNEPythonTool* tool);
 
-    /// @brief add info (green) text to output console
-    void appendInfoMessage(const std::string text);
-
-    /// @brief add error (green) text to output console
-    void appendErrorMessage(const std::string text);
-
-    /// @brief add text buffer to output console
-    void appendBuffer(const char *buffer);
-
-    /// @brief update toolDialog
-    void updateDialog();
-
     /// @name FOX-callbacks
     /// @{
 
@@ -85,11 +76,16 @@ public:
     /// @brief event after press close button
     long onCmdClose(FXObject*, FXSelector, void*);
 
+    /// @brief called when the thread signals an event
+    long onThreadEvent(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
     /// @brief FOX needs this
     GNERunPythonToolDialog();
+
+    /// @brief update toolDialog
+    void updateDialog();
 
 private:
     /// @brief pointer to GNEApplicationWindow
@@ -115,6 +111,12 @@ private:
 
     /// @brief close button
     FXButton* myCloseButton = nullptr;
+
+    /// @brief List of received events
+    MFXSynchQue<GUIEvent*> myEvents;
+
+    /// @brief io-event with the runner thread
+    FXEX::MFXThreadEvent myThreadEvent;
 
     /// @brief Invalidated copy constructor.
     GNERunPythonToolDialog(const GNERunPythonToolDialog&) = delete;

@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Crossing.h>
@@ -534,15 +535,8 @@ GNECrossingFrame::CreateCrossing::setCreateCrossingButton(bool value) {
 GNECrossingFrame::Information::Information(GNECrossingFrame* crossingFrameParent) :
     MFXGroupBoxModule(crossingFrameParent, TL("Information")) {
 
-    std::ostringstream information;
-    // add label for shift+click
-    information
-            << TL("-Click over junction to") << "\n"
-            << TL(" mark candidate edges.") << "\n"
-            << TL("-Click over candidate") << "\n"
-            << TL(" edges for selecting.");
     // create label
-    new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + TL("Click over junction to  mark candidate edges.") + std::string("\n- ") + TL("Click over candidate edges for selecting.")).c_str(), 0, GUIDesignLabelFrameInformation);
     // candidate
     FXLabel* colorCandidateLabel = new FXLabel(getCollapsableFrame(), TL(" Candidate"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     colorCandidateLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));

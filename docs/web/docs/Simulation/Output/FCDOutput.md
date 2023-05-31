@@ -27,7 +27,7 @@ To delay output (i.e. until some warm-up time has passed), the option **--device
 
 The generated XML file looks like this:
 
-```
+```xml
 <fcd-export>
 
   <timestep time="<TIME_STEP>">
@@ -73,7 +73,7 @@ precision of 6 decimal places (changeable by setting option **--precision.geo**)
 Any persons or container in the simulation will cause output of he
 following form:
 
-```
+```xml
 <fcd-export>
 
   <timestep time="<TIME_STEP>">
@@ -112,7 +112,7 @@ The following example restricts fcd-output to a single flow out of the whole sim
 --device.fcd.probability 0 ...
 ```
 
-```
+```xml
 <flow ...>
    <param key="has.fcd.device" value="true"/>
 </flow>

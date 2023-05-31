@@ -741,7 +741,7 @@ NBNode::indirectLeftShape(const PositionVector& begShape, const PositionVector& 
     begShapeEndLineRev.extrapolate2D(100, true);
     Position intersect = endShapeBegLine.intersectionPosition2D(begShapeEndLineRev);
     if (intersect == Position::INVALID) {
-        WRITE_WARNINGF(TL("Could not compute indirect left turn shape at node '%'"), getID() );
+        WRITE_WARNINGF(TL("Could not compute indirect left turn shape at node '%'"), getID());
     } else {
         Position dir = intersect;
         dir.sub(endShape[0]);
@@ -1165,16 +1165,16 @@ NBNode::computeLanes2Lanes() {
             // will be added later or not...
             return;
         }
-#ifdef DEBUG_CONNECTION_GUESSING
-        if (DEBUGCOND) {
-            std::cout << "l2l node=" << getID() << " specialCase a\n";
-        }
-#endif
         int inOffset, outOffset, addedLanes;
         getReduction(out, in, outOffset, inOffset, addedLanes);
         if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
                 && addedLanes > 0
                 && in->isConnectedTo(out)) {
+#ifdef DEBUG_CONNECTION_GUESSING
+            if (DEBUGCOND) {
+                std::cout << "l2l node=" << getID() << " specialCase a\n";
+            }
+#endif
             const int addedRight = addedLanesRight(out, addedLanes);
             const int addedLeft = addedLanes - addedRight;
             // "straight" connections
@@ -1235,8 +1235,8 @@ NBNode::computeLanes2Lanes() {
                 std::swap(in1, in2);
                 std::swap(in1Offset, in2Offset);
             }
-            in1->addLane2LaneConnections(in1Offset, out, outOffset, in1->getNumLanes() - in1Offset, NBEdge::Lane2LaneInfoType::VALIDATED, true);
-            in2->addLane2LaneConnections(in2Offset, out, in1->getNumLanes() + outOffset - in1Offset, in2->getNumLanes() - in2Offset, NBEdge::Lane2LaneInfoType::VALIDATED, true);
+            in1->addLane2LaneConnections(in1Offset, out, outOffset, in1->getNumLanes() - in1Offset, NBEdge::Lane2LaneInfoType::COMPUTED, true);
+            in2->addLane2LaneConnections(in2Offset, out, in1->getNumLanes() + outOffset - in1Offset, in2->getNumLanes() - in2Offset, NBEdge::Lane2LaneInfoType::COMPUTED, true);
             if (out->getSpecialLane(SVC_BICYCLE) >= 0) {
                 recheckVClassConnections(out);
             }
@@ -1273,8 +1273,8 @@ NBNode::computeLanes2Lanes() {
                 std::swap(out1, out2);
                 std::swap(out1Offset, out2Offset);
             }
-            in->addLane2LaneConnections(inOffset, out1, out1Offset, out1->getNumLanes() - out1Offset, NBEdge::Lane2LaneInfoType::VALIDATED, true);
-            in->addLane2LaneConnections(out1->getNumLanes() + inOffset - out1Offset - deltaLaneSum, out2, out2Offset, out2->getNumLanes() - out2Offset, NBEdge::Lane2LaneInfoType::VALIDATED, false);
+            in->addLane2LaneConnections(inOffset, out1, out1Offset, out1->getNumLanes() - out1Offset, NBEdge::Lane2LaneInfoType::COMPUTED, true);
+            in->addLane2LaneConnections(out1->getNumLanes() + inOffset - out1Offset - deltaLaneSum, out2, out2Offset, out2->getNumLanes() - out2Offset, NBEdge::Lane2LaneInfoType::COMPUTED, false);
             if (in->getSpecialLane(SVC_BICYCLE) >= 0) {
                 recheckVClassConnections(out1);
                 recheckVClassConnections(out2);
@@ -1319,26 +1319,24 @@ NBNode::computeLanes2Lanes() {
             // will be added later or not...
             return;
         }
-#ifdef DEBUG_CONNECTION_GUESSING
-        if (DEBUGCOND) {
-            std::cout << "l2l node=" << getID() << " specialCase f\n";
-        }
-#endif
         int inOffset, outOffset, reduction;
         getReduction(in, out, inOffset, outOffset, reduction);
         if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
                 && reduction >= 0
                 && in != out
                 && in->isConnectedTo(out)) {
+#ifdef DEBUG_CONNECTION_GUESSING
+            if (DEBUGCOND) {
+                std::cout << "l2l node=" << getID() << " specialCase f\n";
+            }
+#endif
             // in case of reduced lane number, let the rightmost lanse end
             inOffset += reduction;
             for (int i = outOffset; i < out->getNumLanes(); ++i) {
                 in->setConnection(i + inOffset - outOffset, out, i, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
             //std::cout << " special case f at node=" << getID() << " inOffset=" << inOffset << " outOffset=" << outOffset << "\n";
-            if (out->getSpecialLane(SVC_BICYCLE) >= 0 || (out->getPermissions() & SVC_TRAM) != 0) {
-                recheckVClassConnections(out);
-            }
+            recheckVClassConnections(out);
             return;
         }
     }
@@ -1501,7 +1499,7 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
                                     }
                                 } else {
                                     // other modes (i.e. bus) can fix lane permissions NBPTLineCont::fixPermissions but do not wish to create parallel tram tracks here
-                                    bool mayUseSameDestination = unsatisfied == SVC_TRAM;
+                                    bool mayUseSameDestination = unsatisfied == SVC_TRAM || (unsatisfied & SVC_PASSENGER) != 0;
                                     incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED, mayUseSameDestination);
 #ifdef DEBUG_CONNECTION_GUESSING
                                     if (DEBUGCOND) {

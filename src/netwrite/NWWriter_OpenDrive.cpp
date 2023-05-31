@@ -127,19 +127,25 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (auto it = nc.begin(); it != nc.end(); ++it) {
         NBNode* n = it->second;
         auto crosswalks = n->getCrossings();
-        for (size_t i = 0; i < crosswalks.size(); i++) {
+        for (const auto& cw : n->getCrossings()) {
             // getting from crosswalk line to a full shape
-            crosswalk_shape = crosswalks[i]->shape;
-            auto additionalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[0], true, false, crosswalks[i]->width);
-            auto finalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[1], true, false, crosswalks[i]->width);
-            crosswalk_shape.push_back(finalCorner[1]);
-            crosswalk_shape.push_back(additionalCorner[1]);
-
-            auto crosswalkId = crosswalks[i]->id;
+            crosswalk_shape = cw->shape;
+            PositionVector rightside = cw->shape;
+            try {
+                crosswalk_shape.move2side(cw->width / 2);
+                rightside.move2side(cw->width / -2);
+            } catch (InvalidArgument&) { }
+            rightside = rightside.reverse();
+            crosswalk_shape.append(rightside);
+            auto crosswalkId = cw->id;
             nb.getShapeCont().addPolygon(crosswalkId, "crosswalk", RGBColor::DEFAULT_COLOR, 0,
                                          Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH,
                                          crosswalk_shape, false, true, 1, false, crosswalkId);
-            crosswalksByEdge[crosswalks[i]->edges[0]->getID()].push_back(crosswalkId);
+            SUMOPolygon* cwp = nb.getShapeCont().getPolygons().get(crosswalkId);
+            cwp->setParameter("length", toString(cw->width));
+            cwp->setParameter("width", toString(cw->shape.length2D()));
+            cwp->setParameter("hdg", "0");
+            crosswalksByEdge[cw->edges[0]->getID()].push_back(crosswalkId);
         }
     }
 
@@ -1364,11 +1370,35 @@ NWWriter_OpenDrive::writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, c
     device.openTag("object");
     device.writeAttr("id", p->getID());
     device.writeAttr("type", shapeType);
-    device.writeAttr("name", StringUtils::escapeXML(p->getParameter("name", ""), true));
+    if (p->knowsParameter("name")) {
+        device.writeAttr("name", StringUtils::escapeXML(p->getParameter("name", ""), true));
+    }
     device.writeAttr("s", edgeOffset);
     device.writeAttr("t", shapeType == "crosswalk" && !lefthand ? 0 : sideOffset);
-    device.writeAttr("hdg", -edgeAngle);
-
+    double hdg = -edgeAngle;
+    if (p->knowsParameter("hdg")) {
+        try {
+            hdg = StringUtils::toDoubleSecure(p->getParameter("hdg", ""), 0);
+        } catch (NumberFormatException&) {}
+    }
+    device.writeAttr("hdg", hdg);
+    if (p->knowsParameter("length")) {
+        try {
+            device.writeAttr("length", StringUtils::toDoubleSecure(p->getParameter("length", ""), 0));
+        } catch (NumberFormatException&) {}
+    }
+    if (p->knowsParameter("width")) {
+        try {
+            device.writeAttr("width", StringUtils::toDoubleSecure(p->getParameter("width", ""), 0));
+        } catch (NumberFormatException&) {}
+    }
+    double height = 0;
+    if (p->knowsParameter("height")) {
+        try {
+            height = StringUtils::toDoubleSecure(p->getParameter("height", ""), 0);
+            device.writeAttr("height", height);
+        } catch (NumberFormatException&) {}
+    }
     //device.openTag("outlines");
     device.openTag("outline");
     device.writeAttr("id", 0);
@@ -1377,12 +1407,10 @@ NWWriter_OpenDrive::writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, c
     device.writeAttr("closed", p->getShape().isClosed() ? "true" : "false");
     device.writeAttr("laneType", "border");
 
-    double height = 0;
-    try {
-        height = StringUtils::toDoubleSecure(p->getParameter("height", ""), 0);
-    } catch (NumberFormatException&) {}
-
     shape.sub(center);
+    if (hdg != -edgeAngle) {
+        shape.rotate2D(-edgeAngle - hdg);
+    }
     int i = 0;
     for (Position pos : shape) {
         device.openTag("cornerLocal");

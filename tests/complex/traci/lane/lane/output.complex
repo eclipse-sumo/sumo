@@ -5,6 +5,8 @@ lanes ('1fi_0', '1o_0', '1si_0', '1si_1', '1si_2', '2fi_0', '2o_0', '2si_0', '2s
 lane count 20
 examining 2fi_0
 length 248.5
+angle (with default relative position) 270.0
+angle (with some relative position) 270.0
 maxSpeed 11.11
 width 3.2
 allowed ()

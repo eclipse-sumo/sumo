@@ -342,7 +342,7 @@ private:
 
     class ExcludeFromNearFarComputationCallback : public osg::NodeCallback {
         virtual void operator()(osg::Node* node, osg::NodeVisitor* nv) {
-            osgUtil::CullVisitor *cv = dynamic_cast<osgUtil::CullVisitor*>(nv);
+            osgUtil::CullVisitor* cv = dynamic_cast<osgUtil::CullVisitor*>(nv);
             // Default value
             osg::CullSettings::ComputeNearFarMode oldMode = osg::CullSettings::COMPUTE_NEAR_FAR_USING_BOUNDING_VOLUMES;
             if (cv) {

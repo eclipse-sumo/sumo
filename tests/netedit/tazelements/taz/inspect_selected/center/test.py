@@ -32,16 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select first TAZ
-netedit.leftClick(referencePosition, 115, 70)
+netedit.leftClick(referencePosition, 520, 143)
 
 # select second TAZ
-netedit.leftClick(referencePosition, 300, 70)
+netedit.leftClick(referencePosition, 747, 143)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first TAZ
-netedit.leftClick(referencePosition, 115, 70)
+netedit.leftClick(referencePosition, 520, 143)
 
 # Change parameter 2 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "dummyColor", False)
@@ -50,8 +50,8 @@ netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "dummyColor",
 netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "23,24", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save TAZs
 # save Netedit config

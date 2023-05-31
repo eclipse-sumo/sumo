@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
-netedit.setZoom("25", "0", "25")
+netedit.setZoom("0", "5", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -38,7 +38,7 @@ netedit.additionalMode()
 netedit.changeElement("entryExitDetector")
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, 100, 85)
+netedit.leftClick(referencePosition, 376, 83)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

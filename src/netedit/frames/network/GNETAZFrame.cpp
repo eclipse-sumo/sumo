@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/GNENet.h>
@@ -508,10 +509,9 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     // Create information label
     std::ostringstream information;
     information
-            << TL("- Toggle Membership:") << "\n"
-            << TL("  Create new Sources/Sinks") << "\n"
-            << TL("  with given weights.");
-    myInformationLabel = new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+            << std::string("- ") << TL("Toggle Membership:") << "\n"
+            << std::string("  ") << TL("Create new Sources/Sinks with given weights.");
+    myInformationLabel = new MFXDynamicLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // always show
     show();
 }
@@ -643,9 +643,8 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             // update information label
             std::ostringstream information;
             information
-                    << TL("- Toggle Membership:") << "\n"
-                    << TL("  Create new Sources/Sinks") << "\n"
-                    << TL("  with given weights.");
+                    << std::string("- ") << TL("Toggle Membership:") << "\n"
+                    << std::string("  ") << TL("Create new Sources/Sinks with given weights.");
             myInformationLabel->setText(information.str().c_str());
             // hide TAZSelectionStatistics
             myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModule();
@@ -666,10 +665,8 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             // update information label
             std::ostringstream information;
             information
-                    << TL("- Keep Membership:") << "\n"
-                    << TL("  Select Sources/Sinks.") << "\n"
-                    << TL("- Press ESC to clear") << "\n"
-                    << TL("  current selection.");
+                    << std::string("- ") << TL("Keep Membership:") << TL("  Select Sources/Sinks.") << "\n"
+                    << std::string("- ") << TL("Press ESC to clear the current selection.");
             myInformationLabel->setText(information.str().c_str());
             // show TAZSelectionStatistics
             myTAZFrameParent->myTAZSelectionStatistics->showTAZSelectionStatisticsModule();
@@ -845,12 +842,12 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
     if ((sources.size() + sinks.size()) > 0) {
         // build the text
         const std::string text = (TAZs.size() == 1) ?
-            // single TAZ
-            TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
-            toString(sinks.size()) + TL(" sinks from TAZ '") + (*TAZs.begin())->getID() + "'?" :
-            // multiple TAZs
-            TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
-            toString(sinks.size()) + TL(" sinks from ") + toString(TAZs.size()) + TL(" TAZs?");
+                                 // single TAZ
+                                 TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
+                                 toString(sinks.size()) + TL(" sinks from TAZ '") + (*TAZs.begin())->getID() + "'?" :
+                                 // multiple TAZs
+                                 TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
+                                 toString(sinks.size()) + TL(" sinks from ") + toString(TAZs.size()) + TL(" TAZs?");
         // ask if continue
         const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, TL("Set zero fringe probabilities"), "%s", text.c_str());
         if (answer == 1) { // 1:yes, 2:no, 4:esc

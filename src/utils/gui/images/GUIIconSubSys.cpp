@@ -36,6 +36,7 @@
 
 #include "netgenerate_grid.xpm"
 #include "netgenerate_spider.xpm"
+#include "netgenerate_randomgrid.xpm"
 #include "netgenerate_random.xpm"
 
 #include "empty.xpm"
@@ -165,6 +166,7 @@
 #include "collapse.xpm"
 #include "uncollapse.xpm"
 #include "extend.xpm"
+#include "current.xpm"
 
 #include "arrowup.xpm"
 #include "arrowdown.xpm"
@@ -475,6 +477,7 @@
 #include "languages/de.xpm"
 #include "languages/es.xpm"
 #include "languages/fr.xpm"
+#include "languages/it.xpm"
 #include "languages/en.xpm"
 #include "languages/hu.xpm"
 #include "languages/tr.xpm"
@@ -503,6 +506,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[GUIIcon::NETGENERATE_GRID] = new FXXPMIcon(a, netgenerate_grid_xpm);
     myIcons[GUIIcon::NETGENERATE_SPIDER] = new FXXPMIcon(a, netgenerate_spider_xpm);
+    myIcons[GUIIcon::NETGENERATE_RANDOMGRID] = new FXXPMIcon(a, netgenerate_randomgrid_xpm);
     myIcons[GUIIcon::NETGENERATE_RANDOM] = new FXXPMIcon(a, netgenerate_random_xpm);
 
     myIcons[GUIIcon::EMPTY] = new FXXPMIcon(a, empty_xpm);
@@ -651,6 +655,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::COLLAPSE] = new FXXPMIcon(a, collapse_xpm);
     myIcons[GUIIcon::UNCOLLAPSE] = new FXXPMIcon(a, uncollapse_xpm);
     myIcons[GUIIcon::EXTEND] = new FXXPMIcon(a, extend_xpm);
+    myIcons[GUIIcon::CURRENT] = new FXXPMIcon(a, current_xpm);
 
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID] = new FXXPMIcon(a, checkbox_grid_xpm);
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE] = new FXXPMIcon(a, checkbox_drawjunctionshapes_xpm);
@@ -949,6 +954,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::LANGUAGE_DE] = new FXXPMIcon(a, language_de_xpm);
     myIcons[GUIIcon::LANGUAGE_ES] = new FXXPMIcon(a, language_es_xpm);
     myIcons[GUIIcon::LANGUAGE_FR] = new FXXPMIcon(a, language_fr_xpm);
+    myIcons[GUIIcon::LANGUAGE_IT] = new FXXPMIcon(a, language_it_xpm);
     myIcons[GUIIcon::LANGUAGE_HU] = new FXXPMIcon(a, language_hu_xpm);
     myIcons[GUIIcon::LANGUAGE_TR] = new FXXPMIcon(a, language_tr_xpm);
     myIcons[GUIIcon::LANGUAGE_ZH] = new FXXPMIcon(a, language_zh_xpm);

@@ -38,34 +38,34 @@
  * @brief Some static methods for string processing
  */
 class StringUtils {
+
 public:
-    /// Removes trailing and leading whitechars
+
+    /// @brief Removes trailing and leading whitechars
     static std::string prune(const std::string& str);
 
-    /// Removes trailing zeros (at most 'max')
+    /// @brief Removes trailing zeros (at most 'max')
     static std::string pruneZeros(const std::string& str, int max);
 
-    /// Transfers the content to lower case
+    /// @brief Transfers the content to lower case
     static std::string to_lower_case(const std::string& str);
 
-    /// Transfers from Latin 1 (ISO-8859-1) to UTF-8
+    /// @brief Transfers from Latin 1 (ISO-8859-1) to UTF-8
     static std::string latin1_to_utf8(std::string str);
 
-    /// Converts german "Umlaute" to their latin-version
+    /// @brief Converts german "Umlaute" to their latin-version
     static std::string convertUmlaute(std::string str);
 
-    /** Replaces all occurrences of the second string by the third
-        string within the first string */
+    /// @brief Replaces all occurrences of the second string by the third string within the first string
     static std::string replace(std::string str, const std::string& what, const std::string& by);
 
-    /** Replaces an environment variable with its value (similar to bash);
-        syntax for a variable is ${NAME} */
+    /// @brief Replaces an environment variable with its value (similar to bash); syntax for a variable is ${NAME}
     static std::string substituteEnvironment(const std::string& str, const std::chrono::time_point<std::chrono::system_clock>* const timeRef = nullptr);
 
-    /// Checks whether a given string starts with the prefix
+    ///@brief  Checks whether a given string starts with the prefix
     static bool startsWith(const std::string& str, const std::string prefix);
 
-    /// Checks whether a given string ends with the suffix
+    /// @brief Checks whether a given string ends with the suffix
     static bool endsWith(const std::string& str, const std::string suffix);
 
     //// @brief pads the given string with padding character up to the given total length
@@ -82,15 +82,19 @@ public:
      */
     static std::string escapeXML(const std::string& orig, const bool maskDoubleHyphen = false);
 
-    /// An empty string
+    /// @brief An empty string
     static std::string emptyString;
 
-    // the following methods stem from http://bogomip.net/blog/cpp-url-encoding-and-decoding/
-
+    /// @brief encode url (stem from http://bogomip.net/blog/cpp-url-encoding-and-decoding/)
     static std::string urlEncode(const std::string& url, const std::string encodeWhich = "");
+
+    /// @brief decode url (stem from http://bogomip.net/blog/cpp-url-encoding-and-decoding/)
     static std::string urlDecode(const std::string& encoded);
 
+    /// @brief char to hexadecimal
     static std::string charToHex(unsigned char c);
+
+    /// @brief hexadecimal to char
     static unsigned char hexToChar(const std::string& str);
 
     /**@brief converts a string into the integer value described by it by calling the char-type converter, which
@@ -133,6 +137,7 @@ public:
      */
     static bool toBool(const std::string& sData);
 
+    /// @brief to version
     static MMVersion toVersion(const std::string& sData);
 
     /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8
@@ -194,6 +199,5 @@ private:
         }
     }
 
-private:
     static XERCES_CPP_NAMESPACE::XMLLCPTranscoder* myLCPTranscoder;
 };

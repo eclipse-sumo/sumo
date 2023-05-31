@@ -66,7 +66,7 @@ By setting the option **--mapmatch.junctions**, positions are mapped to junction
 
 If any trips use the `type` attribute, the
 referenced `vType` element must be put into
-the input file containting the trips / flow  or into an additionally loaded *rou.xml*-file or
+the input file containing the trips / flow  or into an additionally loaded *rou.xml*-file or
 into an {{AdditionalFile}}.
 
 !!! note
@@ -87,7 +87,7 @@ to) leave the tags `begin` and
 the same:
 
 
-```
+```xml
 <routes>
     <flow id="0" from="edge0" to="edge1" begin="0" end="3600" number="100"/>
 </routes>
@@ -95,7 +95,7 @@ the same:
 
 and
 
-```
+```xml
 <routes>
     <interval begin="0" end="3600">
         <flow id="0" from="edge0" to="edge1" number="100"/>
@@ -144,7 +144,7 @@ contain some of the network edges are permitted. If undefined, the
 traveltime of an edge defaults to the free-flow traveltime. Also, only
 the *weight-attribute* must be defined:
 
-```
+```xml
 <meandata>
     <interval begin="0" end="3600" id="whatever">
         <edge id="edgeID1" traveltime="23"/>
@@ -193,7 +193,7 @@ duarouter --trip-files trips.xml --net-file road.net.xml --output-file result.ro
 the file ''trips.xml '' given below must contain edges contained in the
 network file ''road.net.xml ''.
 
-```
+```xml
 <routes>
     <trip id="1625993_25" depart="25" from="-15229224#3" to="4474184"/>
     <trip id="1542480_35" depart="35" from="-46771582"   to="-24038909#1"/>

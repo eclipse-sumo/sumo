@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
-netedit.setZoom("25", "0", "25")
+netedit.setZoom("0", "5", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -37,63 +37,30 @@ netedit.additionalMode()
 # select E3
 netedit.changeElement("entryExitDetector")
 
-# create E3
-netedit.leftClick(referencePosition, 100, 50)
+# create E3 with default parameters
+netedit.leftClick(referencePosition, 376, 83)
 
-# Create Entry detector for E3
-netedit.changeElement("detEntry")
-netedit.selectAdditionalChild(netedit.attrs.entryExit.create.parent, 2)
-netedit.leftClick(referencePosition, 100, 200)
-
-# Create Exit detector for E3
+# select entry detector
 netedit.changeElement("detExit")
-netedit.leftClick(referencePosition, 250, 200)
 
-# Undo creation of E3, Entry and Exit
-netedit.leftClick(referencePosition, 0, 0)
-netedit.undo(referencePosition, 3)
+# Create entry detector with default value
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 194, 321)
 
-# go to additional mode
-netedit.additionalMode()
-
-# select E3
-netedit.changeElement("entryExitDetector")
-
-# create E3
-netedit.leftClick(referencePosition, 100, 50)
-
-# Create Entry detector for E3
+# select exit detector
 netedit.changeElement("detEntry")
-netedit.selectAdditionalChild(netedit.attrs.entryExit.create.parent, 2)
-netedit.leftClick(referencePosition, 100, 200)
 
-# Create Exit detector for E3
-netedit.changeElement("detExit")
-netedit.leftClick(referencePosition, 250, 200)
-
-# Undo creation of Entry and Exit
-netedit.leftClick(referencePosition, 0, 0)
-netedit.undo(referencePosition, 2)
-
-# go to additional mode
-netedit.additionalMode()
-
-# Create Entry detector for E3
-netedit.changeElement("detEntry")
-netedit.leftClick(referencePosition, 100, 200)
-
-# Create Exit detector for E3
-netedit.changeElement("detExit")
-netedit.leftClick(referencePosition, 250, 200)
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 619, 321)
 
 # Change to delete
 netedit.deleteMode()
 
 # Delete the four Entry/exits
-netedit.leftClick(referencePosition, 100, 200)
-netedit.leftClick(referencePosition, 250, 200)
-netedit.leftClick(referencePosition, 450, 200)
-netedit.leftClick(referencePosition, 600, 200)
+netedit.leftClick(referencePosition, 194, 321)
+netedit.leftClick(referencePosition, 619, 321)
+netedit.leftClick(referencePosition, 649, 236)
+netedit.leftClick(referencePosition, 799, 236)
 
 # Check undo redo
 netedit.undo(referencePosition, 7)

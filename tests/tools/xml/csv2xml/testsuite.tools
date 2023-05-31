@@ -1,3 +1,5 @@
+# load csv with type edges
+save_template
 cross3ltl_vehroutes
 cross3ltl_summary_schema
 cross3ltl_fcd_schema

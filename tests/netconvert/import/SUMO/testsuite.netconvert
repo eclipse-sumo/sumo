@@ -97,6 +97,9 @@ merge_overlap
 merge_geo
 merge_geo_overlap
 
+# see #12824
+merge_geo_overlap2
+
 # load geo-encoded patch into geo network
 patch_geo
 

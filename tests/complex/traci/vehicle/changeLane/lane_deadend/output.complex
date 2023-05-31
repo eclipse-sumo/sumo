@@ -1,0 +1,7 @@
+ Retrying in 1 seconds
+t=0.0 laneIndex=-1073741824 state(-1)=([], [])
+t=1.0 laneIndex=2 state(-1)=([], [])
+t=2.0 laneIndex=2 state(-1)=(['stay', 'strategic'], ['strategic'])
+t=3.0 laneIndex=2 state(-1)=(['stay', 'strategic'], ['strategic'])
+t=4.0 laneIndex=2 state(-1)=(['stay', 'strategic'], ['strategic'])
+t=5.0 laneIndex=2 state(-1)=(['stay', 'strategic'], ['strategic'])

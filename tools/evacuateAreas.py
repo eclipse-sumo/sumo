@@ -27,20 +27,13 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import os
 import sys
 import subprocess
 import json
 import pprint
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    netTypeFile = os.path.join(os.environ['SUMO_HOME'], 'data', 'typemap', 'osmNetconvert.typ.xml')
-    sys.path.append(os.path.join(tools))
-else:
-    print("Warning: Please set the 'SUMO_HOME' path. ")
-import sumolib  # noqa
-from sumolib.output import parse  # noqa
+import sumolib
+from sumolib.output import parse
 
 
 class Node():

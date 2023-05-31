@@ -235,16 +235,13 @@ GNEAttributeProperties::getDescription() const {
         }
     }
     if ((myAttributeProperty & POSITIVE) != 0) {
-        pre += "positive ";
+        pre += "non-negative ";
     }
     if ((myAttributeProperty & DISCRETE) != 0) {
         pre += "discrete ";
     }
     if ((myAttributeProperty & UNIQUE) != 0) {
         pre += "unique ";
-    }
-    if ((myAttributeProperty & VCLASSES) != 0) {
-        pre += "vclasses ";
     }
     // type
     if ((myAttributeProperty & INT) != 0) {
@@ -269,7 +266,7 @@ GNEAttributeProperties::getDescription() const {
         type = "color";
     }
     if ((myAttributeProperty & VCLASS) != 0) {
-        type = "VClass";
+        type = "vClass";
     }
     if ((myAttributeProperty & FILENAME) != 0) {
         type = "filename";

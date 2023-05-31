@@ -61,6 +61,7 @@ const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE(
 #define DEFAULT_CURRENT_PRIORITY 10
 
 #define DEFAULT_LENGTH_WITH_GAP 7.5
+#define DEFAULT_BIKE_LENGTH_WITH_GAP (getDefaultVehicleLength(SVC_BICYCLE) + 0.5)
 
 #define NO_DETECTOR "NO_DETECTOR"
 
@@ -196,12 +197,13 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             } else {
                 detLaneIndex++;
             }
+            const bool isBikeLane = (lane->getPermissions() & ~SVC_PEDESTRIAN) == SVC_BICYCLE;
+            const double defaultLength = isBikeLane ? DEFAULT_BIKE_LENGTH_WITH_GAP : DEFAULT_LENGTH_WITH_GAP;
             if (customID == "") {
-                const bool isBikeLane = (lane->getPermissions() & ~SVC_PEDESTRIAN) == SVC_BICYCLE;
-                double speed = isBikeLane ? DEFAULT_BICYCLE_SPEED : lane->getSpeedLimit();
+                const double speed = isBikeLane ? DEFAULT_BICYCLE_SPEED : lane->getSpeedLimit();
                 inductLoopPosition = MIN2(
                                          myDetectorGap * speed,
-                                         (STEPS2TIME(minDur) / myPassingTime + 0.5) * DEFAULT_LENGTH_WITH_GAP);
+                                         (STEPS2TIME(minDur) / myPassingTime + 0.5) * defaultLength);
 
                 // check whether the lane is long enough
                 ilpos = length - inductLoopPosition;
@@ -236,7 +238,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             inductLoopInfoMap[loop] = (int)myInductLoops.size();
             myInductLoops.push_back(InductLoopInfo(loop, lane, (int)myPhases.size(), maxGap, jamThreshold));
 
-            if (warn && floor(floor(inductLoopPosition / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minDur)) {
+            if (warn && floor(floor(inductLoopPosition / defaultLength) * myPassingTime) > STEPS2TIME(minDur)) {
                 // warn if the minGap is insufficient to clear vehicles between stop line and detector
                 WRITE_WARNINGF(TL("At actuated tlLogic '%', minDur % is too short for a detector gap of %m."), getID(), time2string(minDur), toString(inductLoopPosition));
                 warn = false;
@@ -760,7 +762,8 @@ MSActuatedTrafficLightLogic::trySwitch() {
                   << " nextTryEarliest=" << STEPS2TIME(getEarliest(prevStart)) << "\n";
     }
 #endif
-    return MAX3(TIME2STEPS(1), getMinDur() - actDuration, getEarliest(prevStart));
+    SUMOTime minRetry = myStep != origStep ? 0 : TIME2STEPS(1);
+    return MAX3(minRetry, getMinDur() - actDuration, getEarliest(prevStart));
 }
 
 

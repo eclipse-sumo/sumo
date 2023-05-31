@@ -66,14 +66,16 @@ def multi_process(cpu_num, interval_list, func, outf, mismatchf, **kwargs):
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Sample routes to match counts")
-    op.add_argument("-r", "--route-files", category="input", dest="routeFiles", type=op.route_file,
+    op.add_argument("-r", "--route-files", category="input", dest="routeFiles", type=op.route_file_list,
                     help="Input route file")
-    op.add_argument("-t", "--turn-files", category="input", dest="turnFiles", type=op.edgedata_file,
+    op.add_argument("-t", "--turn-files", category="input", dest="turnFiles", type=op.file_list,
                     help="Input turn-count file")
-    op.add_argument("-d", "--edgedata-files", category="input", dest="edgeDataFiles", type=op.edgedata_file,
+    op.add_argument("-d", "--edgedata-files", category="input", dest="edgeDataFiles", type=op.file_list,
                     help="Input edgeData file (for counts)")
-    op.add_argument("-O", "--od-files", category="input", dest="odFiles", type=op.edgedata_file,
-                    help="Input edgeRelation file for origin-destination counts")
+    op.add_argument("-O", "--od-files", category="input", dest="odFiles", type=op.file_list,
+                    help="Input edgeRelation and tazRelation files for origin-destination counts")
+    op.add_argument("--taz-files", category="input", dest="tazFiles", type=op.file_list,
+                    help="Input TAZ (district) definitions for interpreting tazRelation files")
     op.add_argument("--edgedata-attribute", category="attribute", dest="edgeDataAttr", default="entered",
                     help="Read edgeData counts from the given attribute")
     op.add_argument("--arrival-attribute", category="attribute", dest="arrivalAttr",
@@ -81,7 +83,7 @@ def get_options(args=None):
     op.add_argument("--depart-attribute", category="attribute", dest="departAttr",
                     help="Read departure counts from the given edgeData file attribute")
     op.add_argument("--turn-attribute", category="turn-ratio", dest="turnAttr", default="count",
-                    help="Read turning counts from the given attribute")
+                    help="Read turning counts and origin-destination counts from the given attribute")
     op.add_argument("--turn-ratio-attribute", category="turn-ratio", dest="turnRatioAttr",
                     help="Read turning ratios from the given attribute")
     op.add_argument("--turn-ratio-total", category="turn-ratio", dest="turnRatioTotal", type=float, default=1,
@@ -96,7 +98,9 @@ def get_options(args=None):
                     help="Set a total count that should be reached (either as single value that is split " +
                     " proportionally among all intervals or as a list of counts per interval)." +
                     " Setting the value 'input' preserves input vehicle counts in each interval.")
-    op.add_argument("-o", "--output-file", category="output", dest="out", default="out.rou.xml",
+    op.add_argument("--extra-od", category="processing", dest="extraOD", action="store_true", default=False,
+                    help="Permit traffic between OD-pairs that did not occur in the input")
+    op.add_argument("-o", "--output-file", category="output", dest="out", default="out.rou.xml", type=op.route_file,
                     help="Output route file")
     op.add_argument("--prefix", category="processing", dest="prefix", default="",
                     help="prefix for the vehicle ids")
@@ -108,6 +112,8 @@ def get_options(args=None):
                     help="write cout-data with overflow/underflow information to FILE")
     op.add_argument("--weighted", category="processing", dest="weighted", action="store_true", default=False,
                     help="Sample routes according to their probability (or count)")
+    op.add_argument("--keep-stops", category="outut", dest="keepStops", action="store_true", default=False,
+                    help="Preserve stops from the input routes")
     op.add_argument("--optimize", category="processing",
                     help="set optimization method level (full, INT boundary)")
     op.add_argument("--optimize-input", category="processing", dest="optimizeInput", action="store_true", default=False,
@@ -157,6 +163,7 @@ def get_options(args=None):
     options.turnFiles = options.turnFiles.split(',') if options.turnFiles is not None else []
     options.edgeDataFiles = options.edgeDataFiles.split(',') if options.edgeDataFiles is not None else []
     options.odFiles = options.odFiles.split(',') if options.odFiles is not None else []
+    options.tazFiles = options.tazFiles.split(',') if options.tazFiles is not None else []
     if options.vehattrs and options.vehattrs[0] != ' ':
         options.vehattrs = ' ' + options.vehattrs
 
@@ -189,7 +196,7 @@ def get_options(args=None):
 
 
 class CountData:
-    def __init__(self, count, edgeTuple, allRoutes, isOrigin, isDest, isRatio, options):
+    def __init__(self, count, edgeTuple, allRoutes, isOrigin, isDest, isRatio, isTaz, options):
         self.index = None
         self.origCount = count
         self.count = count
@@ -197,6 +204,7 @@ class CountData:
         self.isOrigin = isOrigin
         self.isDest = isDest
         self.isRatio = isRatio
+        self.isTaz = isTaz
         self.ratioSiblings = []
         self.assignedCount = 0
         self.options = options  # multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
@@ -208,7 +216,12 @@ class CountData:
             self.count = options.turnRatioAbsTolerance
 
     def routePasses(self, edges):
-
+        if self.isTaz:
+            if (inTaz(self.options, edges[0], self.edgeTuple[0], True) and
+                    inTaz(self.options, edges[-1], self.edgeTuple[-1], False)):
+                return 0
+            else:
+                return None
         if self.isOrigin or self.isDest:
             passes = ((not self.isOrigin or edges[0] == self.edgeTuple[0]) and
                       (not self.isDest or edges[-1] == self.edgeTuple[-1]))
@@ -272,8 +285,27 @@ class CountData:
             ", isOrigin=True" if self.isOrigin else "",
             ", isDest=True" if self.isDest else "",
             ", isRatio=True" if self.isRatio else "",
-            (", sibs=%s" % len(self.ratioSiblings)) if self.isRatio else ""
-        )
+            (", sibs=%s" % len(self.ratioSiblings)) if self.isRatio else "")
+
+
+def inTaz(options, edge, tazID, isOrigin):
+    if not hasattr(options, "tazEdges"):
+        # tazID -> (originEdges, destEdges)
+        options.tazEdges = defaultdict(lambda: (set(), set()))
+        for tazFile in options.tazFiles:
+            for taz in sumolib.xml.parse(tazFile, 'taz'):
+                if taz.edges:
+                    edgeIDs = taz.edges.split()
+                    options.tazEdges[taz.id] = (set(edgeIDs), set(edgeIDs))
+                if taz.tazSource:
+                    for ts in taz.tazSource:
+                        options.tazEdges[taz.id][0].add(ts.id)
+                if taz.tazSink:
+                    for ts in taz.tazSink:
+                        options.tazEdges[taz.id][1].add(ts.id)
+    result = edge in options.tazEdges[tazID][0 if isOrigin else 1]
+    # print(edge, tazID, isOrigin, options.tazEdges[tazID][0 if isOrigin else 1], result)
+    return result
 
 
 def getIntervals(options):
@@ -314,8 +346,18 @@ def parseTurnCounts(interval, attr, warn):
             edges = tuple([edgeRel.attr_from] + via + [edgeRel.to])
             value = getattr(edgeRel, attr)
             yield edges, value
-    elif warn:
+    elif interval.tazRelation is None and warn:
         sys.stderr.write("Warning: No edgeRelations in interval from=%s to=%s\n" % (interval.begin, interval.end))
+
+
+def parseTazCounts(interval, attr, warn):
+    if interval.tazRelation is not None:
+        for tazRel in interval.tazRelation:
+            tazs = tuple([tazRel.attr_from] + [tazRel.to])
+            value = getattr(tazRel, attr)
+            yield tazs, value
+    elif interval.edgeRelation is None and warn:
+        sys.stderr.write("Warning: No tazRelations in interval from=%s to=%s\n" % (interval.begin, interval.end))
 
 
 def parseEdgeCounts(interval, attr, warn):
@@ -327,7 +369,7 @@ def parseEdgeCounts(interval, attr, warn):
 
 
 def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
-                       isOrigin=False, isDest=False, isRatio=False, warn=False):
+                       isOrigin=False, isDest=False, isRatio=False, isTaz=False, warn=False):
     locations = {}  # edges -> CountData
     result = []
     if attr is None or attr == "None":
@@ -346,7 +388,7 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                                   (attr, fname, ' '.join(edges)), file=sys.stderr)
                         continue
                     if edges not in locations:
-                        result.append(CountData(0, edges, allRoutes, isOrigin, isDest, isRatio, options))
+                        result.append(CountData(0, edges, allRoutes, isOrigin, isDest, isRatio, isTaz, options))
                         locations[edges] = result[-1]
                     elif (isOrigin and isDest) != (locations[edges].isOrigin and locations[edges].isDest):
                         print("Warning: Edge relation '%s' occurs as turn relation and also as OD-relation" %
@@ -498,11 +540,13 @@ def zero():
 
 
 class Routes:
-    def __init__(self, routefiles):
+    def __init__(self, routefiles, keepStops, rng):
+        self.rng = rng
         self.all = []
         self.edgeProbs = defaultdict(zero)
         self.edgeIDs = {}
         self.withProb = 0
+        self.routeStops = defaultdict(list)  # list of list of stops for the given edges
         for routefile in routefiles:
             warned = False
             # not all routes may have specified probability, in this case use their number of occurrences
@@ -527,6 +571,9 @@ class Routes:
                 if r.hasAttribute("id"):
                     self.edgeIDs[edges] = r.id
                 self.edgeProbs[edges] += prob
+                if keepStops and r.stop:
+                    self.routeStops[edges].append(list(r.stop))
+
         self.unique = sorted(list(self.edgeProbs.keys()))
         self.number = len(self.unique)
         self.edges2index = dict([(e, i) for i, e in enumerate(self.unique)])
@@ -534,6 +581,34 @@ class Routes:
             print("Error: no input routes loaded", file=sys.stderr)
             sys.exit()
         self.probabilities = np.array([self.edgeProbs[e] for e in self.unique], dtype=np.float64)
+
+    def write(self, outf, prefix, intervalPrefix, routeIndex, count, writeDist=False):
+        edges = self.unique[routeIndex]
+        indent = ' ' * 8
+        comment = []
+        probability = ""
+        ID = ' id="%s%s%s"' % (prefix, intervalPrefix, routeIndex) if prefix is not None else ""
+        if writeDist:
+            probability = ' probability="%s"' % count
+        elif ID:
+            indent = ' ' * 4
+            comment.append(str(count))
+        if ID and edges in self.edgeIDs:
+            comment.append("(%s)" % self.edgeIDs[edges])
+        comment = ' '.join(comment)
+        if comment:
+            comment = " <!-- %s -->" % comment
+
+        stops = []
+        stopCandidates = self.routeStops.get(edges)
+        if stopCandidates:
+            stops = stopCandidates[self.rng.choice(range(len(stopCandidates)))]
+        close = '' if stops else '/'
+        outf.write('%s<route%s edges="%s"%s%s>%s\n' % (indent, ID, ' '.join(edges), probability, close, comment))
+        if stops:
+            for stop in stops:
+                outf.write(stop.toXML(indent + ' ' * 4))
+            outf.write('%s</route>\n' % indent)
 
 
 def initTurnRatioSiblings(routes, countData):
@@ -632,7 +707,7 @@ def initTotalCounts(options, routes, intervals, b, e):
 def main(options):
     rng = np.random.RandomState(options.seed)
 
-    routes = Routes(options.routeFiles)
+    routes = Routes(options.routeFiles, options.keepStops, rng)
 
     intervals = getIntervals(options)
     if len(intervals) == 0:
@@ -773,9 +848,21 @@ def parseCounts(options, routes, b, e, warn=False):
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
                                       routes, options.arrivalAttr, options=options, isDest=True, warn=warn)
                  )
+    if options.tazFiles is not None:
+        countData += parseDataIntervals(parseTazCounts, options.odFiles, b, e,
+                                        routes, options.turnAttr, options=options,
+                                        isTaz=True, warn=warn)
     for i, cd in enumerate(countData):
         cd.index = i
     return countData
+
+
+def hasODCount(cdIndices, countData):
+    for i in cdIndices:
+        cd = countData[i]
+        if cd.isTaz or (cd.isOrigin and cd.isDest):
+            return True
+    return False
 
 
 def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount):
@@ -800,6 +887,9 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     openRoutes = updateOpenRoutes(range(0, routes.number), routeUsage, countData)
     openRoutes = [r for r in openRoutes if r not in unrestricted]
+    if options.odFiles and not options.extraOD:
+        openRoutes = [r for r in openRoutes if hasODCount(routeUsage[r], countData)]
+
     openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes)
 
     usedRoutes = []
@@ -904,21 +994,14 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         routeCounts = getRouteCounts(routes, usedRoutes)
         if options.writeRouteIDs:
             for routeIndex in sorted(set(usedRoutes)):
-                edges = routes.unique[routeIndex]
-                routeIDComment = ""
-                if edges in routes.edgeIDs:
-                    routeIDComment = " (%s)" % routes.edgeIDs[edges]
-                outf.write('    <route id="%s%s%s" edges="%s"/> <!-- %s%s -->\n' % (
-                    options.prefix, intervalPrefix, routeIndex, ' '.join(edges),
-                    routeCounts[routeIndex], routeIDComment))
+                routes.write(outf, options.prefix, intervalPrefix, routeIndex, routeCounts[routeIndex])
             outf.write('\n')
         elif options.writeRouteDist:
             outf.write('    <routeDistribution id="%s%s%s">\n' % (
                        options.prefix, intervalPrefix, options.writeRouteDist))
             for routeIndex in sorted(set(usedRoutes)):
-                outf.write('        <route id="%s%s%s" edges="%s" probability="%s"/>\n' % (
-                    options.prefix, intervalPrefix, routeIndex,
-                    ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
+                routes.write(outf, options.prefix, intervalPrefix, routeIndex,
+                             routeCounts[routeIndex], writeDist=True)
             outf.write('    </routeDistribution>\n\n')
 
         routeID = options.writeRouteDist
@@ -945,7 +1028,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                     else:
                         outf.write('    <vehicle id="%s" depart="%.2f"%s>\n' % (
                             vehID, depart, options.vehattrs))
-                        outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                        routes.write(outf, None, None, routeIndex, None)
                         outf.write('    </vehicle>\n')
                 depart += period
         else:
@@ -1007,7 +1090,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                         else:
                             outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
                                 flowID, fBegin, fEnd, repeat, options.vehattrs))
-                            outf2.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                            routes.write(outf2, None, None, routeIndex, None)
                             outf2.write('    </flow>\n')
                     flows.append((fBegin, outf2))
                 flows.sort()

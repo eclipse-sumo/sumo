@@ -69,14 +69,14 @@ building a control program that mixes TraCI calls with custom code.
 
 In this mode the client library itself is used. Example code looks like:
 
-```
+```cpp
 SUMOTime t = simulation.getCurrentTime();
 std::vector<std::string> = edge.getIDList();
 ```
 
 ## Example Code
 
-```
+```cpp
 #include <iostream>
 #include <utils/traci/TraCIAPI.h>
 

@@ -45,11 +45,12 @@ class PhaseTransitionLogic;
 // Enumeration
 // ===========================================================================
 enum class LightState {
+    RedXfer,
     Red,
     Yellow,
     Green,
     GreenXfer,
-    GreenRest
+    GreenRest,
 };
 
 

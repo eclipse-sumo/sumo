@@ -16,6 +16,9 @@ write_template_commented_full
 # Tests configuration writing
 write_config
 
+# Tests schema writing
+write_schema
+
 # Tests configuration with boolean values
 bool_value
 

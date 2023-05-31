@@ -13,6 +13,7 @@
 
 # @file    gridDistricts.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2019-01-02
 
 """
@@ -23,12 +24,12 @@ from __future__ import print_function
 import os
 import sys
 import random
-from optparse import OptionParser
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.miscutils import Colorgen  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 
 class TAZ:
@@ -45,25 +46,27 @@ class TAZ:
 
 
 def getOptions():
-    optParser = OptionParser()
-    optParser.add_option("-v", "--verbose", action="store_true", default=False,
-                         help="tell me what you are doing")
-    optParser.add_option("-n", "--net-file", dest="netfile", help="the network to read lane and edge permissions")
-    optParser.add_option("-o", "--output", help="output taz file")
-    optParser.add_option("-w", "--grid-width", dest="gridWidth", type="float", default=100.0,
-                         help="width of gride cells in m")
-    optParser.add_option("--vclass", help="Include only edges allowing VCLASS")
-    optParser.add_option("-u", "--hue", default="random",
-                         help="hue for taz (float from [0,1] or 'random')")
-    optParser.add_option("-s", "--saturation", default=1,
-                         help="saturation for taz (float from [0,1] or 'random')")
-    optParser.add_option("-b", "--brightness", default=1,
-                         help="brightness for taz (float from [0,1] or 'random')")
-    optParser.add_option("--seed", type="int", default=42, help="random seed")
-    (options, args) = optParser.parse_args()
+    ap = ArgumentParser()
+    ap.add_argument("-v", "--verbose", action="store_true", default=False,
+                    help="tell me what you are doing")
+    ap.add_argument("-n", "--net-file", dest="netfile", category="input", type=ArgumentParser.net_file,
+                    required=True, help="the network to read lane and edge permissions")
+    ap.add_argument("-o", "--output", category="output", type=ArgumentParser.file,
+                    required=True, help="output taz file")
+    ap.add_argument("-w", "--grid-width", dest="gridWidth", type=float, default=100.0,
+                    help="width of gride cells in m")
+    ap.add_argument("--vclass", type=str, help="Include only edges allowing VCLASS")
+    ap.add_argument("-u", "--hue", default="random", type=str,
+                    help="hue for taz (float from [0,1] or 'random')")
+    ap.add_argument("-s", "--saturation", default=1, type=str,
+                    help="saturation for taz (float from [0,1] or 'random')")
+    ap.add_argument("-b", "--brightness", default=1, type=str,
+                    help="brightness for taz (float from [0,1] or 'random')")
+    ap.add_argument("--seed", type=int, default=42, help="random seed")
+    options = ap.parse_args()
     if not options.netfile or not options.output:
-        optParser.print_help()
-        optParser.exit("Error! net-file and output file")
+        ap.print_help()
+        ap.exit("Error! net-file and output file")
     options.colorgen = Colorgen((options.hue, options.saturation, options.brightness))
     return options
 
@@ -99,7 +102,7 @@ if __name__ == "__main__":
         odpairs[ii].edges.append(edge.getID())
 
     with open(options.output, 'w') as outf:
-        outf.write("<tazs>\n")
+        sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
         for ii, taz in sorted(odpairs.items()):
             taz.write(outf)
-        outf.write("</tazs>\n")
+        outf.write("</additional>\n")

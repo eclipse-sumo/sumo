@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # create first POI
-netedit.leftClick(referencePosition, 108, 50)
+netedit.leftClick(referencePosition, 360, 99)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 108, 50)
+netedit.leftClick(referencePosition, 360, 99)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.POIGEO.inspect.parameters, False)

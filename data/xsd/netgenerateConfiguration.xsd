@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-06 12:10:37 by Eclipse SUMO netgenerate Version v1_15_0+2198-1709483215c
+<!-- generated on 2023-04-24 15:52:24 by Eclipse SUMO netgenerate Version v1_16_0+2368-d796cc6b4bc
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -50,6 +50,7 @@
             <xsd:element name="spider.circle-number" type="intOptionType" minOccurs="0"/>
             <xsd:element name="spider.space-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="spider.omit-center" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="spider.attach-length" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -57,7 +58,6 @@
         <xsd:all>
             <xsd:element name="rand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="rand.iterations" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="bidi-probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.max-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.min-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.min-angle" type="floatOptionType" minOccurs="0"/>
@@ -69,9 +69,6 @@
             <xsd:element name="rand.neighbor-dist4" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.neighbor-dist5" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.neighbor-dist6" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="random-lanenumber" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="random-priority" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="random-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="rand.grid" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -114,6 +111,10 @@
             <xsd:element name="perturb-x" type="strOptionType" minOccurs="0"/>
             <xsd:element name="perturb-y" type="strOptionType" minOccurs="0"/>
             <xsd:element name="perturb-z" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="bidi-probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="random-lanenumber" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="random-priority" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="random-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="numerical-ids" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="numerical-ids.node-start" type="intOptionType" minOccurs="0"/>
             <xsd:element name="numerical-ids.edge-start" type="intOptionType" minOccurs="0"/>

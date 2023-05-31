@@ -38,13 +38,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 149, 53)
+netedit.leftClick(referencePosition, 451, 119)
 
 # Change parameter 8 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.name, "%$$%%%%%", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.name, "%$$%%%%%", False)
 
 # Change parameter 8 with a non valid value (no exist)
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.name, "customName", True)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.name, "customName", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

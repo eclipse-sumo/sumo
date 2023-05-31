@@ -39,7 +39,7 @@ The Amitran network format consists of a single XML file conforming to
 the schema at <http://sumo-sim.org/xsd/amitran/network.xsd>. The option **--amitran-output** {{DT_FILE}}
 writes the data to a file with the following format
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 
 <network xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/amitran/network.xsd">

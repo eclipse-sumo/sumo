@@ -882,7 +882,7 @@ MSBaseVehicle::setDepartAndArrivalEdge() {
         }
         assert(pars->departEdge >= 0);
         if (pars->departEdge >= routeEdges) {
-            WRITE_WARNINGF(TL("Ignoring departEdge % for vehicle '% with % route edges"), toString(pars->departEdge), getID(), toString(routeEdges));
+            WRITE_WARNINGF(TL("Ignoring departEdge % for vehicle '%' with % route edges"), toString(pars->departEdge), getID(), toString(routeEdges));
         } else {
             myCurrEdge += pars->departEdge;
         }
@@ -1689,7 +1689,7 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
     auto endPos = nextStopIndex == n ? getArrivalPos() : stops[nextStopIndex].pars.endPos;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getBaseInfluencer().getRouterTT(getRNGIndex(), getVClass());
 
-    bool newDestination = nextStopIndex == n;
+    bool newDestination = nextStopIndex == n && stopEdge == oldEdges.back();
 
     ConstMSEdgeVector toNewStop;
     if (!teleport) {

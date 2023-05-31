@@ -67,7 +67,7 @@ netedit.leftClick(referencePosition, 274, 392)
 netedit.waitDeleteWarning()
 
 # disable protect demand elemnts
-netedit.changeProtectDemandElements(referencePosition)
+netedit.protectElements(referencePosition)
 
 # now delete edge with their route
 netedit.leftClick(referencePosition, 274, 392)

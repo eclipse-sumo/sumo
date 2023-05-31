@@ -36,7 +36,7 @@
 GNEStopFrame::HelpCreation::HelpCreation(GNEStopFrame* StopFrameParent) :
     MFXGroupBoxModule(StopFrameParent, TL("Help")),
     myStopFrameParent(StopFrameParent) {
-    myInformationLabel = new FXLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
+    myInformationLabel = new MFXDynamicLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -68,42 +68,36 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
             case SUMO_TAG_STOP_BUSSTOP:
             case GNE_TAG_WAYPOINT_BUSSTOP:
                 information
-                        << TL("- Shift+Click to select parent\n")
-                        << TL("- Click over a bus stop to\n")
-                        << TL("  create a stop.");
+                        << "- " << TL("Shift+Click to select parent") << "\n"
+                        << "- " << TL("Click over a bus stop to create a stop.");
                 break;
             case SUMO_TAG_STOP_CONTAINERSTOP:
             case GNE_TAG_WAYPOINT_CONTAINERSTOP:
                 information
-                        << TL("- Shift+Click to select parent\n")
-                        << TL("- Click over a container stop\n")
-                        << TL("  to create a stop.");
+                        << "- " << TL("Shift+Click to select parent") << "\n"
+                        << "- " << TL("Click over a container stop  to create a stop.");
                 break;
             case SUMO_TAG_STOP_CHARGINGSTATION:
             case GNE_TAG_WAYPOINT_CHARGINGSTATION:
                 information
-                        << TL("- Shift+Click to select parent\n")
-                        << TL("- Click over a charging station\n")
-                        << TL("  to create a stop.");
+                        << "- " << TL("Shift+Click to select parent") << "\n"
+                        << "- " << TL("Click over a charging station to create a stop.");
                 break;
             case SUMO_TAG_STOP_PARKINGAREA:
             case GNE_TAG_WAYPOINT_PARKINGAREA:
                 information
-                        << TL("- Shift+Click to select parent\n")
-                        << TL("- Click over a parking area\n")
-                        << TL("  to create a stop.");
+                        << "- " << TL("Shift+Click to select parent") << "\n"
+                        << "- " << TL("Click over a parking area to create a stop.");
                 break;
             case SUMO_TAG_STOP_LANE:
             case GNE_TAG_WAYPOINT_LANE:
                 information
-                        << TL("- Shift+Click to select parent\n")
-                        << TL("- Click over a lane to create\n")
-                        << TL("  a stop.");
+                        << "- " << TL("Shift+Click to select parent") << "\n"
+                        << "- " << TL("Click over a lane to create a stop.");
                 break;
             default:
                 information
-                        << TL("- No stop parents in current\n")
-                        << TL("  network.");
+                        << "- " << TL("No stop parents in current network.");
                 break;
         }
     }

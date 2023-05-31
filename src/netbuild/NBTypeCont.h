@@ -302,7 +302,7 @@ public:
     bool addLaneTypeRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed);
 
     /// @brief writes all EdgeTypes (and their lanes) as XML
-    void writeEdgeTypes(OutputDevice& into) const;
+    void writeEdgeTypes(OutputDevice& into, const std::set<std::string>& typeIDs = std::set<std::string>()) const;
 
     /// @name Type-dependant Retrieval methods
     /// @{

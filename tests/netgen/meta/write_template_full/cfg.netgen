@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-09 08:30:17 by Eclipse SUMO netgenerate Version v1_16_0+1117-b006029d26d
+<!-- generated on 2023-05-08 14:10:22 by Eclipse SUMO netgenerate Version v1_17_0+0159-32ef28bfb10
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -29,16 +29,16 @@
 
     <spider_network>
         <spider value="false" synonymes="s spider-net" type="BOOL" help="Forces NETGEN to build a spider-net-like network"/>
-        <spider.arm-number value="13" synonymes="arms spider-arm-number" type="INT" help="The number of axes within the net"/>
-        <spider.circle-number value="20" synonymes="circles spider-circle-number" type="INT" help="The number of circles of the net"/>
+        <spider.arm-number value="7" synonymes="arms spider-arm-number" type="INT" help="The number of axes within the net"/>
+        <spider.circle-number value="5" synonymes="circles spider-circle-number" type="INT" help="The number of circles of the net"/>
         <spider.space-radius value="100" synonymes="radius spider-space-rad" type="FLOAT" help="The distances between the circles"/>
         <spider.omit-center value="false" synonymes="nocenter spider-omit-center" type="BOOL" help="Omit the central node of the network"/>
+        <spider.attach-length value="0" type="FLOAT" help="The length of streets attached at the boundary; 0 means no streets are attached"/>
     </spider_network>
 
     <random_network>
         <rand value="false" synonymes="r random-net" type="BOOL" help="Forces NETGEN to build a random network"/>
-        <rand.iterations value="2000" synonymes="iterations rand-iterations" type="INT" help="Describes how many times an edge shall be added to the net"/>
-        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT" help="Defines the probability to build a reverse edge"/>
+        <rand.iterations value="100" synonymes="iterations rand-iterations" type="INT" help="Describes how many times an edge shall be added to the net"/>
         <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT" help="The maximum distance for each edge"/>
         <rand.min-distance value="100" synonymes="min-dist rand-min-distance" type="FLOAT" help="The minimum distance for each edge"/>
         <rand.min-angle value="45" synonymes="min-angle rand-min-anglee" type="FLOAT" help="The minimum angle for each pair of (bidirectional) roads in DEGREES"/>
@@ -50,9 +50,6 @@
         <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT" help="Probability for a node having exactly 4 neighbors"/>
         <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT" help="Probability for a node having exactly 5 neighbors"/>
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT" help="Probability for a node having exactly 6 neighbors"/>
-        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL" help="Draw lane numbers randomly from [1,default.lanenumber]"/>
-        <random-priority value="false" synonymes="rand.random-priority" type="BOOL" help="Draw edge priority randomly from [1,default.priority]"/>
-        <random-type value="false" type="BOOL" help="Draw edge type randomly from all loaded types"/>
         <rand.grid value="false" type="BOOL" help="Place nodes on a regular grid with spacing rand.min-distance"/>
     </random_network>
 
@@ -89,6 +86,10 @@
         <perturb-x value="0" type="STR" help="Apply random spatial perturbation in x direction according the the given distribution"/>
         <perturb-y value="0" type="STR" help="Apply random spatial perturbation in y direction according the the given distribution"/>
         <perturb-z value="0" type="STR" help="Apply random spatial perturbation in z direction according the the given distribution"/>
+        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT" help="Defines the probability to build a reverse edge"/>
+        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL" help="Draw lane numbers randomly from [1,default.lanenumber]"/>
+        <random-priority value="false" synonymes="rand.random-priority" type="BOOL" help="Draw edge priority randomly from [1,default.priority]"/>
+        <random-type value="false" type="BOOL" help="Draw edge type randomly from all loaded types"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <numerical-ids.node-start value="2147483647" type="INT" help="Remaps IDs of nodes to integers starting at INT"/>
         <numerical-ids.edge-start value="2147483647" type="INT" help="Remaps IDs of edges to integers starting at INT"/>
@@ -99,6 +100,7 @@
         <geometry.remove.keep-edges.input-file value="" type="FILE" help="Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported)"/>
         <geometry.remove.min-length value="0" type="FLOAT" help="Allow merging edges with differing attributes when their length is below min-length"/>
         <geometry.remove.width-tolerance value="0" type="FLOAT" help="Allow merging edges with differing lane widths if the difference is below FLOAT"/>
+        <geometry.remove.max-junction-size value="-1" type="FLOAT" help="Prevent removal of junctions with a size above FLOAT as defined by custom edge endpoints"/>
         <geometry.max-segment-length value="0" type="FLOAT" help="splits geometry to restrict segment length"/>
         <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT."/>
         <geometry.max-grade.fix value="true" type="BOOL" help="Smooth edge geometries with a grade above the warning threshold."/>

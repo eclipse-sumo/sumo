@@ -38,19 +38,19 @@ netedit.changeElement("poiGeo")
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.imgFile, "%%$%$&$%$%$")
 
 # try to create POI
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # change imgfile (non exist)
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.imgFile, "paris.ico")
 
 # try to create POI
-netedit.leftClick(referencePosition, 150, 50)
+netedit.leftClick(referencePosition, 337, 117)
 
 # change imgfile (valid)
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.imgFile, "berlin_icon.ico")
 
 # create POI
-netedit.leftClick(referencePosition, 200, 50)
+netedit.leftClick(referencePosition, 383, 117)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

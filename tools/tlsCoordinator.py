@@ -21,11 +21,11 @@ from __future__ import print_function
 
 import sys
 import subprocess
-import warnings
 from collections import namedtuple
 
 import sumolib
 from sumolib.output import parse_fast
+from sumolib.options import ArgumentParser
 
 TLTuple = namedtuple('TLTuple', ['edgeID', 'dist', 'time', 'connection'])
 PairKey = namedtuple('PairKey', ['edgeID', 'edgeID2', 'dist'])
@@ -50,15 +50,15 @@ def logAddedPair(TLSP, sets, operation):
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser()
+    optParser = ArgumentParser()
     optParser.add_option("-n", "--net-file", category="input", dest="netfile", required=True,
-                         help="define the net file (mandatory)")
+                         type=ArgumentParser.net_file, help="define the net file (mandatory)")
     optParser.add_option("-o", "--output-file", category="output", dest="outfile",
-                         default="tlsOffsets.add.xml", help="define the output filename")
+                         default="tlsOffsets.add.xml", type=ArgumentParser.file, help="define the output filename")
     optParser.add_option("-r", "--route-file", category="input", dest="routefile", required=True,
-                         help="define the input route file (mandatory)")
+                         type=ArgumentParser.route_file, help="define the input route file (mandatory)")
     optParser.add_option("-a", "--additional-file", category="input", dest="addfile",
-                         help="define replacement tls plans to be coordinated")
+                         type=ArgumentParser.additional_file, help="define replacement tls plans to be coordinated")
     optParser.add_option("-v", "--verbose", category="processing", action="store_true",
                          default=False, help="tell me what you are doing")
     optParser.add_option("-i", "--ignore-priority", category="processing", dest="ignorePriority", action="store_true",
@@ -220,7 +220,7 @@ def getTLSInRoute(net, edge_ids):
         edge = net.getEdge(edgeID)
         nextEdge = net.getEdge(nextEdgeID)
         if nextEdge not in edge.getOutgoing():
-            warnings.warn("Skipping disconnected route!")
+            sys.stderr.write("Warning: Skipping disconnected route (edges %s, %s)\n" % (edgeID, nextEdgeID))
             return []
         connection = edge.getOutgoing()[nextEdge][0]
 

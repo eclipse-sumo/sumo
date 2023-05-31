@@ -41,18 +41,18 @@ enum {
 
     /// @brief hotkey for start simulation in SUMO and set editing mode additionals AND stops in netedit
     MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,
-    /// @brief hotkey for mode connecting lanes ABD person plan
-    MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN,
+    /// @brief hotkey for mode connecting lanes AND container
+    MID_HOTKEY_C_MODE_CONNECT_CONTAINER,
     /// @brief hotkey for perform a single simulation step in SUMO and set delete mode in netedit
     MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,
     /// @brief hotkey for mode adding edges AND edgeDatas
     MID_HOTKEY_E_MODE_EDGE_EDGEDATA,
-    /// @brief hotkey for mode container
-    MID_HOTKEY_G_MODE_CONTAINER,
     /// @brief hotkey for mode prohibition AND container plan
     MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,
     /// @brief hotkey for mode inspecting object attributes
     MID_HOTKEY_I_MODE_INSPECT,
+    /// @brief hotkey for mode person plan
+    MID_HOTKEY_L_MODE_PERSONPLAN,
     /// @brief hotkey for mode moving element AND mean data
     MID_HOTKEY_M_MODE_MOVE_MEANDATA,
     /// @brief hotkey for mode creating polygons
@@ -739,7 +739,15 @@ enum {
     MID_GNE_NETGENERATE,
     /// @brief netgenerate options
     MID_GNE_NETGENERATEOPTIONS,
-    /// @brief run netgenerate
+    /// @brief netgenerate grid network
+    MID_GNE_NETGENERATE_GRID,
+    /// @brief netgenerate spider network
+    MID_GNE_NETGENERATE_SPIDER,
+    /// @brief netgenerate random grid network
+    MID_GNE_NETGENERATE_RANDOMGRID,
+    /// @brief netgenerate random network
+    MID_GNE_NETGENERATE_RANDOM,
+    /// @brief run netgenerate tool
     MID_GNE_RUNNETGENERATE,
     /// @brief postprocesing netgenerate
     MID_GNE_POSTPROCESSINGNETGENERATE,
@@ -910,6 +918,8 @@ enum {
     MID_GNE_CENTER,
     /// @brief copy element
     MID_GNE_COPY,
+    /// @brief open element
+    MID_GNE_OPEN,
     /// @brief select element
     MID_GNE_SELECT,
     /// @brief used to select a type of element in a combo box
@@ -982,6 +992,12 @@ enum {
     MID_GNE_RESET_GEOMETRYPOINT,
     /// @brief set zero fringe probabilities (used in TAZ Frame)
     MID_GNE_SET_ZEROFRINGEPROB,
+    /// @brief use current network/additional/route/edgedata
+    MID_GNE_USE_CURRENT,
+    /// @brief protect all elements
+    MID_GNE_PROTECT_ALL,
+    /// @brief unprotect all elements
+    MID_GNE_UNPROTECT_ALL,
 
     /// @}
 
@@ -1336,6 +1352,8 @@ enum {
     MID_GNE_BUTTON_FOCUS,
     /// @brief run button
     MID_GNE_BUTTON_RUN,
+    /// @brief advanced button
+    MID_GNE_BUTTON_ADVANCED,
     /// @brief rerun button
     MID_GNE_BUTTON_RERUN,
     /// @brief abort button
@@ -1511,6 +1529,8 @@ enum {
     MID_LANGUAGE_ES,
     /// @brief change language to french
     MID_LANGUAGE_FR,
+    /// @brief change language to italian
+    MID_LANGUAGE_IT,
     /// @brief change language to chinese (simplified)
     MID_LANGUAGE_ZH,
     /// @brief change language to chinese (traditional)

@@ -120,7 +120,7 @@ like the example below, which is the node file "cross3l.nod.xml" for the
 examples "{{SUMO}}/data/examples/netbuild/types/cross_usingtypes/" and
 "{{SUMO}}/data/examples/netbuild/types/cross_notypes/" example.
 
-```
+```xml
 <nodes> <!-- The opening tag -->
 
   <node id="0" x="0.0" y="0.0" type="traffic_light"/> <!-- def. of node "0" -->
@@ -340,10 +340,12 @@ joinable node clusters works like this:
     explanation is issued for each case)
 6.  each cluster is turned into a joined node
 
+### Specifying and excluding explicit joins
+
 More fine grained control over joining can be achieved by using the
 following syntax within a nodes-file
 
-```
+```xml
 <nodes>
   <join nodes="id0 id23 id24"/>
   <joinExclude nodes="id13 id17"/>
@@ -485,7 +487,7 @@ closing tag and for the example
 "{{SUMO}}/data/examples/netbuild/types/cross_notypes/" the whole edges-file
 looks like this ("cross3l.edg.xml"):
 
-```
+```xml
 <edges>
 
   <edge id="1fi" from="1" to="m1" priority="2" numLanes="2" speed="11.11"/>
@@ -546,7 +548,7 @@ edge's lanes. Assume you want to allow only buses to use the leftmost
 lane of edge "2si" from the example above. Simply change this edge's
 definition into:
 
-```
+```xml
 ... previous definitions ...
   <edge id="2si" from="m2" to="0" priority="3" numLanes="3" speed="13.89">
     <lane index="2" allow="bus"/>
@@ -557,7 +559,7 @@ definition into:
 If you would like to disallow passenger cars and taxis, the following
 snippet would do it:
 
-```
+```xml
 ... previous definitions ...
   <edge id="2si" from="m2" to="0" priority="3" numLanes="3" speed="13.89">
     <lane index="2" disallow="passenger taxi"/>
@@ -594,7 +596,7 @@ To strongest restriction is the value "ignoring". Note, that vehicles of class "
 Each edge or lane may carry a `stopOffset` child element to specify an additional
 stopping offset for vehicles of certain classes. This can be used to define a [bike box](https://en.wikipedia.org/wiki/Advanced_stop_line). 
 
-```
+```xml
 <edge id="<ID>">
     <stopOffset value="<distance in m.>" vClasses="<space-separated list of vClasses>" />
     <lane id="<ID>" index="<INDEX>" ... >
@@ -632,7 +634,7 @@ and change the number of its lanes or the speed along its length.
 This is possible using "split" - a subelement of an XML-edge definition
 after 02.09.2009. A split may be given as following:
 
-```
+```xml
 ... previous definitions ...
     <edge id="2si" from="m2" to="0" priority="3" numLanes="3" speed="13.89">
       <split pos="30" lanes="0 1" speed="10"/>
@@ -652,7 +654,7 @@ The most common usage example is the other way round: lanes must be
 added, not removed along a road. The following snippet shows the by
 example:
 
-```
+```xml
 ... previous definitions ...
   <edge id="2si" from="m2" to="0" priority="3" numLanes="3" speed="13.89">
     <split pos="0" lanes="0 1"/>
@@ -674,13 +676,13 @@ It is also possible to add a common split in both directions of a road.
 With the example below, one new node is created which splits the forward
 and backward edge:
 
-```
+```xml
    <edge id="123">
        <split id="newNode" pos="150"/>
    </edge>
 ```
 
-```
+```xml
    <edge id="-123">
        <split id="newNode" pos="-150"/>
    </edge>
@@ -705,7 +707,7 @@ computation and disables turn-arounds for edges entering the roundabout
 from outside. A roundabout is specified within an *.edg.xml*-file in the
 following way:
 
-```
+```xml
 <edges>
   ...   <!--Edge Definitions -->
 
@@ -728,7 +730,7 @@ the adjacency information for opposite direction lanes must be defined.
 This can be done explicitly by using the `<neigh>` element in an *.edg.xml* file
 as follows:
 
-```
+```xml
 <edges>
   <edge id="a" from="X" to="Y" numLanes="2">
       <neigh lane="b_0"/>
@@ -749,7 +751,7 @@ In order to delete an edge or lane which comes from a different source
 or a preprocessed net one can give the edge id and the optional index in
 the following way:
 
-```
+```xml
 <edges>
   <delete id="a"/> <!-- deletes the edge "a" -->
   <delete id="a" index="0"/> <!-- deletes the first lane of edge "a" -->
@@ -782,7 +784,7 @@ is not given within the types' descriptions. They can only be set within
 the edge's attributes. Here's an example on referencing types in edge
 definitions:
 
-```
+```xml
 <edges>
 
   <edge id="1fi" from="1" to="m1" type="b"/>
@@ -806,7 +808,7 @@ definitions:
 
 The according types file looks like this (see [SUMO edge type file](../SUMO_edge_type_file.md)):
 
-```
+```xml
 <types>
 
   <type id="a" priority="3" numLanes="3" speed="13.889"/>
@@ -827,7 +829,7 @@ settings described above (example
 Using `<type>` definitions it is possible to implement vClass specific speed
 limits:
 
-```
+```xml
 <type id="a" priority="3" numLanes="3" speed="38.89"/>
    <restriction vClass="truck" speed="27.89"/>
 </type>
@@ -954,7 +956,7 @@ horizontal edges ("1si" and "2si") have only connections to the edges
 right to them and the edge in straight direction. The file looks like
 this:
 
-```
+```xml
 <connections>
 
   <connection from="1si" to="3o"/>
@@ -978,7 +980,7 @@ additionally describe which lanes shall be connected. The according
 connections file says that the connections going straight shall be start
 at the second lane of the incoming edges:
 
-```
+```xml
 <connections>
 
   <connection from="1si" to="3o" fromLane="0" toLane="0"/>
@@ -1007,7 +1009,7 @@ right-moving vehicles may drive. The following definition within the
 connections file lets vehicles on vertical edges moving right wait for
 those which move straight on horizontal edges:
 
-```
+```xml
 <connections>
 
   <!-- The next four connection definitions are same as in
@@ -1058,7 +1060,7 @@ for a collision-free simulation. By default, the right-most lane will
 have the right of way but this can be customized by using attribute
 *pass* as shown below:
 
-```
+```xml
 <connections>
   <connection from="WC" to="CE" fromLane="0" toLane="0"/>
   <connection from="WC" to="CE" fromLane="1" toLane="0" pass="true"/>
@@ -1122,7 +1124,7 @@ intersections can be specified explicitly. This is done using  elements
 within a
 [*connection-file*](#connection_descriptions).
 
-```
+```xml
 <crossing node="C" edges="edge1 edge2" priority="true"/>
 ```
 
@@ -1159,7 +1161,7 @@ corner of an intersection). The shape of a walking area can be specified
 explicitly. This is done using `walkingArea` element within a
 [*connection-file*](#connection_descriptions).
 
-```
+```xml
 <walkingArea node="C" edges="SC" shape="115.88,88.57 120.38,88.57 120.38,86.87 120.37,83.87 119.86,80.83 118.46,78.53 115.46,78.50 113.74,78.55 113.73,83.05"/>
 ```
 

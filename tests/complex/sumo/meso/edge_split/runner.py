@@ -32,8 +32,8 @@ import sumolib  # noqa
 
 def call(cmd):
     subprocess.call(cmd)
-    for s in sumolib.xml.parse("stats.xml", "vehicleTripStatistics"):
-        return float(s.duration)
+    elems = list(sumolib.xml.parse("stats.xml", "vehicleTripStatistics"))
+    return float(elems[0].duration)
 
 
 sumoBinary = sumolib.checkBinary("sumo")

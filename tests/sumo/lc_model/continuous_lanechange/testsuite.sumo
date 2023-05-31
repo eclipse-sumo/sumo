@@ -57,4 +57,7 @@ change_while_stopped
 
 # test lateral imperfection
 lcSigma
+
+# change between lanes with different elevation
+lane_elevation
 bugs

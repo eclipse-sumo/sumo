@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
-netedit.setZoom("25", "0", "25")
+netedit.setZoom("0", "5", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -37,26 +37,27 @@ netedit.additionalMode()
 # select E3
 netedit.changeElement("entryExitDetector")
 
-# create E3
-netedit.leftClick(referencePosition, 240, 86)
+# create E3 with default parameters
+netedit.leftClick(referencePosition, 376, 83)
 
-# select Entry detector
+# select entry detector
 netedit.changeElement("detExit")
 
-# Create Entry detector E3
-netedit.leftClick(referencePosition, 240, 86)
-netedit.leftClick(referencePosition, 180, 240)
+# Create entry detector with default value
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 194, 321)
 
-# select Exit detector and create it
+# select exit detector
 netedit.changeElement("detEntry")
-netedit.leftClick(referencePosition, 240, 86)
-netedit.leftClick(referencePosition, 400, 240)
+
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 619, 321)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect Entry
-netedit.leftClick(referencePosition, 186, 240)
+# inspect
+netedit.leftClick(referencePosition, 194, 326)
 
 # Change parameter lane with a non valid value (dummy Lane)
 netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "dummyLane", True)
@@ -65,9 +66,9 @@ netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "dummyLane", True)
 netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "", True)
 
 # Change parameter lane with a valid value (other lane)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "gneE1_0", True)
+netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "center1_1", True)
 
-# Check undos and redos
+# Check undo redo
 netedit.undo(referencePosition, 4)
 netedit.redo(referencePosition, 4)
 

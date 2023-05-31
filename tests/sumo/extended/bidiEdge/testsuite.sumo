@@ -3,3 +3,6 @@
 
 # bidi edge where not all lanes have a bidilane
 multilane
+
+# simulated shared median lane for turning (Two-Way-Left-Turn-lane)
+TWLT

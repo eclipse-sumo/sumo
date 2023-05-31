@@ -945,7 +945,7 @@ of a 1km highway, do the following:
 - you can use insertion method 'last' which places vehicles at their
   desired headway for a given speed (repeat for every lane):
 
-```
+```xml
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="1" number="65" departPos="last" departSpeed="7.885" departLane="0"/>
 ```
 
@@ -956,7 +956,7 @@ density:
   equilibrium speed from above: 15.385m / 7.885m/s = 1.951s
 - use the equilibrium speed as departSpeed
 
-```
+```xml
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="3600" period="1.951" departPos="base" departSpeed="7.885" departLane="0"/>
 ```
 !!! caution
@@ -1011,7 +1011,7 @@ Calculated as ` 24 * 3600 * 80000 / 1800 = 3840000 `
 By default, the same configuration will result in the same behavior even though many parts of the simulation are [randomized](Simulation/Randomness.md).
 To change this, either option **--seed** or option **--random** must be used.
 In order to collect distinct output from multiple runs, it is advisable to set option **--output-prefix**.
-Running a simulation 3 times with differen results could be done in a batch file like this:
+Running a simulation 3 times with different results could be done in a batch file like this:
 
 ```
 sumo -c run.sumocfg --seed 1 --output-prefix 1.
@@ -1124,7 +1124,7 @@ to set the integrated graphics as preferred. (Thanks @palvarezlopez for finding 
 There is a know problem in Windows 10 with scaling and flickering in certain applications. 
 If scaling is greater than 100%, a flickering may appear in SUMO-GUI and NETEDIT during mouse movement.
 The only known solution is leaving Scaling at 100%. Another cause is the use of a modern graphics card. 
-If your computer supports it, run SUMO using the integrated graphics card (Control panel->NVidia Control Panel->Select integrated graphid card->apply)
+If your computer supports it, run SUMO using the integrated graphics card (Control panel->NVidia Control Panel->Select integrated graphic card->apply)
 
 ### Missing Characters in Parameter Dialogs (i.e. Chinese Street names) on Linux
 
@@ -1225,6 +1225,13 @@ As a work-around you can [install a .deb package](https://askubuntu.com/question
 ### How do I combine SUMO with a network simulator?
 
   Check out [veins](http://veins.car2x.org/).
+  
+### Can SUMO simulate V2V / V2X messages?
+
+  Sumo does generally does not model messaging. The best way to do so is by managing the messages with connected code.
+  If you want to simulate the application layer and can work with the assumption that messages "just work", you can often handle the messages with your own (simple) TraCI code. If you need to simulate the physical process, using a network simulator is recommended (see above).
+  Sumo supports a [vehicle device](Simulation/Bluetooth.md) to log connectivity events but this is not designed to integrate with an application layer and aims only at logging.
+  
   
 ## Validity
 ### What are publications on SUMO's validity?

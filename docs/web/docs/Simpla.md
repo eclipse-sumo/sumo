@@ -61,7 +61,7 @@ configuration file could look like this (a more complete example, which
 serves as a template can be found in the installation directory
 `<SUMO_HOME>/tools/simpla`):
 
-```
+```xml
 <configuration>
     <vehicleSelectors value="pkw" />
     <vTypeMap original="simple_pkw" leader="simple_pkw_as_platoon_leader"  follower="simple_pkw_as_platoon_follower"/>
@@ -104,7 +104,7 @@ above](#configuration). Assuming such a file named
 `simpla.cfg` is located in your working directory, all you have to do is
 importing simpla as a python module:
 
-```
+```python
 import simpla
 ```
 
@@ -112,7 +112,7 @@ and, after [establishing a
 TraCI-connection](TraCI/Interfacing_TraCI_from_Python.md#first_steps)
 to SUMO, load your configuration.
 
-```
+```python
 traci.start(...)
 ...
 simpla.load("simpla.cfg")
@@ -170,19 +170,19 @@ They are available after starting simpla like [explained above](#integrating_sim
 
 ## getAveragePlatoonLength()
 The function computes the average platoon length in terms of vehicles across all currently formed platoons:
-```
+```python
 avgLength = simpla.getAveragePlatoonLength()
 ```
 
 ## getAveragePlatoonSpeed()
 The function computes the average speed of vehicles across all currently formed platoons:
-```
+```python
 avgSpeed = simpla.getAveragePlatoonSpeed()
 ```
 
 ## getPlatoonLeaderIDList()
-This utility function returns the leader vehicles' IDs of all pcurrent platoons managed by simpla:
-```
+This utility function returns the leader vehicles' IDs of all current platoons managed by simpla:
+```python
 currentLeaderIDs = simpla.getPlatoonLeaderIDList()
 ```
 
@@ -190,7 +190,7 @@ currentLeaderIDs = simpla.getPlatoonLeaderIDList()
 Platoons can be found by their position on the road network using the edge ID in question.
 The function returns IDs of platoons which currently have at least one member vehicle on the edge given by its **edgeID**. 
 The platoon ID can be used to receive updates using getPlatoonInfo even when the platoon has left the edge:
-```
+```python
 platoonIDs = simpla.getPlatoonIDList(edgeID)
 if len(platoonIDs) > 0:
     platoonInfo = simpla.getPlatoonInfo(platoonIDs[0])
@@ -202,6 +202,16 @@ The function getPlatoonInfo returns a dictionary of values regarding the platoon
 | ------------------| -------------- | ----------------------------------------------------------------------------------- |
 | **laneID**        | string         | The ID of the lane the leader vehicle is currently on.                              |
 | **members**       | list(string)   | The IDs of the vehicles in the platoon.                                             |
+
+## getPlatoonID()
+This utility function allows to check if a given vehicle is part of a platoon in simpla. If the vehicle given by its ID is controlled by 
+simpla, the function returns the numerical platoon ID (-1 otherwise). The platoon ID can be used as an input to getPlatoonInfo to 
+get information about the platoon structure.
+```python
+vehID = "myExampleVehicle"
+platoonID = simpla.getPlatoonID(vehID)
+```
+
 
 # Example
 

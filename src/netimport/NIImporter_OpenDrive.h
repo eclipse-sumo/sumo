@@ -91,6 +91,7 @@ protected:
         OPENDRIVE_TAG_PARAMPOLY3,
         OPENDRIVE_TAG_LANESECTION,
         OPENDRIVE_TAG_LANEOFFSET,
+        OPENDRIVE_TAG_ACCESS,
         OPENDRIVE_TAG_LEFT,
         OPENDRIVE_TAG_CENTER,
         OPENDRIVE_TAG_RIGHT,
@@ -166,6 +167,8 @@ protected:
         OPENDRIVE_ATTR_TOLANE,
         OPENDRIVE_ATTR_MAX,
         OPENDRIVE_ATTR_SOFFSET,
+        OPENDRIVE_ATTR_RULE,
+        OPENDRIVE_ATTR_RESTRICTION,
         OPENDRIVE_ATTR_NAME,
         OPENDRIVE_ATTR_UNIT    // xodr v1.4
     };
@@ -286,6 +289,22 @@ protected:
     typedef Poly3 OpenDriveLaneOffset;
     typedef Poly3 OpenDriveWidth;
 
+    /**
+     * @struct LaneAttributeChange
+     * @brief Attribute set applied at a certain position along a lane
+     */
+    struct LaneAttributeChange {
+        /** @brief Constructor
+         * @param[in] speed The lane speed
+         */
+        LaneAttributeChange(double speed) : speed(speed) {}
+
+        double speed;
+        std::vector<std::string> allowed;
+        std::vector<std::string> denied;
+    };
+
+
 
     /**
      * @struct OpenDriveLane
@@ -299,16 +318,20 @@ protected:
          */
         OpenDriveLane(int idArg, const std::string& levelArg, const std::string& typeArg) :
             id(idArg), level(levelArg), type(typeArg), successor(UNSET_CONNECTION), predecessor(UNSET_CONNECTION),
-            speed(0), width(NBEdge::UNSPECIFIED_WIDTH) { }
+            speed(0), width(NBEdge::UNSPECIFIED_WIDTH), permission(0) { }
+
+        /// @brief compute the actual SUMO lane permissions given the lane type as a start solution
+        SVCPermissions computePermission(const NBTypeCont& tc, const std::vector<std::string>& allowed, const std::vector<std::string>& denied) const;
 
         int id; //!< The lane's id
         std::string level; //!< The lane's level (not used)
         std::string type; //!< The lane's type
         int successor; //!< The lane's successor lane
         int predecessor; //!< The lane's predecessor lane
-        std::vector<std::pair<double, double> > speeds; //!< List of positions/speeds of speed changes
+        std::vector < std::pair<double, LaneAttributeChange> > attributeChanges; //!< List of permission and speed changes
         double speed; //!< The lane's speed (set in post-processing)
         double width; //The lane's maximum width
+        SVCPermissions permission; //!< The access permissions (set in post-processing)
         std::vector<OpenDriveWidth> widthData;
     };
 
@@ -341,9 +364,8 @@ protected:
         std::map<int, int> getInnerConnections(OpenDriveXMLTag dir, const OpenDriveLaneSection& prev);
 
 
-        bool buildSpeedChanges(const NBTypeCont& tc, std::vector<OpenDriveLaneSection>& newSections);
-        OpenDriveLaneSection buildLaneSection(double startPos);
-
+        bool buildAttributeChanges(const NBTypeCont& tc, std::vector<OpenDriveLaneSection>& newSections);
+        OpenDriveLaneSection buildLaneSection(const NBTypeCont& tc, double startPos);
         /// @brief The starting offset of this lane section
         double s;
         /// @brief The original starting offset of this lane section (differs from s if the section had to be split)
@@ -401,7 +423,6 @@ protected:
         int minLane;
         int maxLane;
     };
-
 
     /**
      * @struct Connection
@@ -510,14 +531,14 @@ protected:
         }
     };
 
-    /* @brief A class for search in position/speed tuple vectors for the given position */
+    /* @brief A class for search in position/attribute change tuple vectors for the given position */
     class same_position_finder {
     public:
         /** @brief constructor */
         explicit same_position_finder(double pos) : myPosition(pos) { }
 
         /** @brief the comparing function */
-        bool operator()(const std::pair<double, double>& ps) {
+        bool operator()(const std::pair<double, LaneAttributeChange>& ps) {
             return ps.first == myPosition;
         }
 
@@ -578,6 +599,7 @@ protected:
     std::map<std::string, OpenDriveSignal>& getSignals() {
         return mySignals;
     }
+
 
 private:
     void addLink(LinkType lt, const std::string& elementType, const std::string& elementID,
@@ -680,13 +702,13 @@ protected:
     static void recomputeWidths(OpenDriveLaneSection& sec, double start, double end, double sectionStart, double sectionEnd);
     static void recomputeWidths(std::vector<OpenDriveLane>& lanes, double start, double end, double sectionStart, double sectionEnd);
     static void setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& sumoLane, const OpenDriveLane& odLane, bool saveOrigIDs, const NBTypeCont& tc);
+    static void writeRoadObjects(const OpenDriveEdge* e); 
 
     /// The names of openDrive-XML elements (for passing to GenericSAXHandler)
     static StringBijection<int>::Entry openDriveTags[];
 
     /// The names of openDrive-XML attributes (for passing to GenericSAXHandler)
     static StringBijection<int>::Entry openDriveAttrs[];
-
 
     class LaneSorter {
     public:

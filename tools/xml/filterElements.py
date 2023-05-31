@@ -23,7 +23,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import optparse
 from lxml import etree as ET
 
 
@@ -37,19 +36,21 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("-f", "--file", dest="file", help="define the XML input file")
-    optParser.add_option("-o", "--output", dest="output", help="define the XML output file")
-    optParser.add_option("-t", "--tag", dest="tag", help="tag to edit")
-    optParser.add_option("-a", "--attribute", dest="attribute", help="attribute to edit")
-    optParser.add_option("-r", "--remove-values", dest="values",
-                         help="comma-separated list of values to filter by (deletes all occurences of tag if not specified)")  # noqa
-    optParser.add_option("-k", "--keep-values", dest="keepValues",
-                         help="comma-separated list of values to keep (deletes all non-matching elements")  # noqa
-    (options, args) = optParser.parse_args(args=args)
-    if not options.file:
-        optParser.print_help()
-        sys.exit()
+    optParser = sumolib.options.ArgumentParser(
+        description="Remove elements in a XML file that match a certain attribute")
+    optParser.add_argument("-f", "--file", category="input", dest="file", required=True, type=optParser.data_file,
+                           help="define the XML input file")
+    optParser.add_argument("-o", "--output", category="output", dest="output", type=optParser.data_file,
+                           help="define the XML output file")
+    optParser.add_argument("-t", "--tag", category="processing", dest="tag",
+                           help="tag to edit")
+    optParser.add_argument("-a", "--attribute", category="processing", dest="attribute",
+                           help="attribute to edit")
+    optParser.add_argument("-r", "--remove-values", category="processing", dest="values",
+                           help="comma-separated list of values to filter by (deletes all occurences of tag if not specified)")  # noqa
+    optParser.add_argument("-k", "--keep-values", category="processing", dest="keepValues",
+                           help="comma-separated list of values to keep (deletes all non-matching elements")  # noqa
+    options = optParser.parse_args(args=args)
 
     if options.values is not None:
         options.values = set(options.values.split(','))
@@ -86,5 +87,5 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
+    options = get_options()
     main(options)

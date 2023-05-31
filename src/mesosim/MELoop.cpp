@@ -164,10 +164,10 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
     const SUMOTime leaveTime = veh->getEventTime();
     MESegment* const onSegment = veh->getSegment();
     if (MSGlobals::gRemoveGridlocked) {
-            WRITE_WARNINGF(TL("Teleporting vehicle '%'; waited too long, from edge '%':%, time=%."),
-                           veh->getID(), onSegment->getEdge().getID(), onSegment->getIndex(),
-                           time2string(leaveTime));
-            MSNet::getInstance()->getVehicleControl().registerTeleportJam();
+        WRITE_WARNINGF(TL("Teleporting vehicle '%'; waited too long, from edge '%':%, time=%."),
+                       veh->getID(), onSegment->getEdge().getID(), onSegment->getIndex(),
+                       time2string(leaveTime));
+        MSNet::getInstance()->getVehicleControl().registerTeleportJam();
         int qIdx = 0;
         onSegment->send(veh, nullptr, qIdx, leaveTime, MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
         veh->setSegment(nullptr);

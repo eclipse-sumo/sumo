@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Fri, 29.04.2005
 ///
 // Variables, methods, and tools for internal time representation
@@ -67,11 +68,14 @@ extern SUMOTime DELTA_T;
 /// @brief convert string to SUMOTime
 SUMOTime string2time(const std::string& r);
 
-/// @brief convert SUMOTime to string
+/// @brief convert SUMOTime to string (independently of global format setting)
+std::string time2string(SUMOTime t, bool humanReadable);
+
+/// @brief convert SUMOTime to string (using the global format setting)
 std::string time2string(SUMOTime t);
 
 /// @brief convert ms to string for log output
 std::string elapsedMs2string(long long int t);
 
 /// @brief check if given SUMOTime is multiple of the step length
-bool checkStepLengthMultiple(const SUMOTime t, const std::string& error = "", SUMOTime deltaT = DELTA_T);
+bool checkStepLengthMultiple(const SUMOTime t, const std::string& error = "", SUMOTime deltaT = DELTA_T, SUMOTime begin = 0);

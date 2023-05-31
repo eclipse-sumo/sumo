@@ -53,6 +53,7 @@
 //#define DEBUG_NODE_BORDER
 //#define DEBUG_REPLACECONNECTION
 //#define DEBUG_JUNCTIONPRIO
+//#define DEBUG_TURNSIGNS
 #define DEBUGID ""
 #define DEBUGCOND (getID() == DEBUGID)
 //#define DEBUGCOND (StringUtils::startsWith(getID(), DEBUGID))
@@ -739,11 +740,16 @@ bool
 NBEdge::isBidiEdge(bool checkPotential) const {
     return myPossibleTurnDestination != nullptr
            && (myIsBidi || myPossibleTurnDestination->myIsBidi || checkPotential)
-           && myLaneSpreadFunction == LaneSpreadFunction::CENTER
-           && myPossibleTurnDestination->getLaneSpreadFunction() == LaneSpreadFunction::CENTER
            && myPossibleTurnDestination->getToNode() == getFromNode()
-           && (myPossibleTurnDestination->getGeometry().reverse() == getGeometry()
-               || (checkPotential && getGeometry().size() == 2 && myPossibleTurnDestination->getGeometry().size() == 2));
+           && myPossibleTurnDestination->getLaneSpreadFunction() == myLaneSpreadFunction
+           // geometry check a) full overlap geometry
+           && ((myLaneSpreadFunction == LaneSpreadFunction::CENTER
+                && (myPossibleTurnDestination->getGeometry().reverse() == getGeometry()
+                    || (checkPotential && getGeometry().size() == 2 && myPossibleTurnDestination->getGeometry().size() == 2)))
+               // b) TWLT (Two-Way-Left-Turn-lane)
+               || (myLanes.back().shape.reverse().almostSame(myPossibleTurnDestination->myLanes.back().shape, POSITION_EPS))
+              );
+
 }
 
 
@@ -2588,6 +2594,9 @@ NBEdge::decodeTurnSigns(int turnSigns) {
 
 bool
 NBEdge::applyTurnSigns() {
+#ifdef DEBUG_TURNSIGNS
+    std::cout << "applyTurnSigns edge=" << getID() << "\n";
+#endif
     // build a map of target edges and lanes
     std::vector<const NBEdge*> targets;
     std::map<const NBEdge*, std::vector<int> > toLaneMap;
@@ -2620,6 +2629,9 @@ NBEdge::applyTurnSigns() {
     // build a mapping from sign directions to targets
     std::vector<LinkDirection> signedDirs = decodeTurnSigns(allDirs);
     std::map<LinkDirection, const NBEdge*> dirMap;
+#ifdef DEBUG_TURNSIGNS
+    std::cout << "  numDirs=" << signedDirs.size() << " numTargets=" << targets.size() << "\n";
+#endif
     if (signedDirs.size() > targets.size()) {
         WRITE_WARNINGF(TL("Cannot apply turn sign information for edge '%' because there are % signed directions but only % targets"), getID(), signedDirs.size(), targets.size());
         return false;
@@ -2714,8 +2726,7 @@ NBEdge::applyTurnSigns() {
             std::sort(knownTargets.begin(), knownTargets.end());
         }
     }
-
-    std::map<const NBEdge*, int> toLaneIndex; // implicitly starting at 0
+    std::map<const NBEdge*, int> toLaneIndex;
     for (int i = 0; i < getNumLanes(); i++) {
         const int turnSigns = myLanes[i].turnSigns;
         // no turnSigns are given for bicycle lanes and sidewalks
@@ -2732,6 +2743,29 @@ NBEdge::applyTurnSigns() {
             for (LinkDirection dir : decodeTurnSigns(turnSigns)) {
                 NBEdge* to = const_cast<NBEdge*>(dirMap[dir]);
                 if (to != nullptr) {
+                    if (toLaneIndex.count(to) == 0) {
+                        // initialize to rightmost feasible lane
+                        SVCPermissions fromP = getPermissions(i);
+                        if ((fromP & SVC_PASSENGER) != 0) {
+                            // if the source permits passenger traffic, the target should too
+                            fromP = SVC_PASSENGER;
+                        }
+                        int toLane = 0;
+                        while ((to->getPermissions(toLane) & fromP) == 0) {
+                            toLane++;
+                            if (toLane == to->getNumLanes()) {
+                                SOFT_ASSERT(false);
+#ifdef DEBUG_TURNSIGNS
+                                std::cout << "  could not find passenger lane for target=" << to->getID() << "\n";
+#endif
+                                return false;
+                            }
+                        }
+#ifdef DEBUG_TURNSIGNS
+                        std::cout << "  target=" << to->getID() << " initial toLane=" << toLane << "\n";
+#endif
+                        toLaneIndex[to] = toLane;
+                    }
                     setConnection(i, to, toLaneMap[to][toLaneIndex[to]++], Lane2LaneInfoType::VALIDATED, true);
                 }
             }
@@ -3696,6 +3730,14 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
     const double minLength = OptionsCont::getOptions().getFloat("geometry.remove.min-length");
     if (minLength > 0 && (possContinuation->getLoadedLength() < minLength || getLoadedLength() < minLength)) {
         return true;
+    }
+    const double maxJunctionSize = OptionsCont::getOptions().getFloat("geometry.remove.max-junction-size");
+    if (maxJunctionSize >= 0) {
+        const double junctionSize = myGeom.back().distanceTo2D(possContinuation->myGeom.front());
+        if (junctionSize > maxJunctionSize + POSITION_EPS) {
+            reason = "junction size (" + toString(junctionSize) + ") > max-junction-size (" + toString(maxJunctionSize) + ")";
+            return false;
+        }
     }
     // the priority, too (?)
     if (getPriority() != possContinuation->getPriority()) {

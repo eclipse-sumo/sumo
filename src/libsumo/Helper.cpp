@@ -1655,7 +1655,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     if (u.onRoute) {
         ConstMSEdgeVector::const_iterator prevEdgePos = std::find(currentRoute.begin(), currentRoute.end(), prevEdge);
         routeOffset = (int)std::distance(currentRoute.begin(), prevEdgePos);
-        //std::cout << SIMTIME << "moveToXYMap vehicle=" << veh.getID() << " currLane=" << veh.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(ev) << " bestLane=" << bestLane->getID() << " prevEdge=" << prevEdge->getID() << "\n";
+        //std::cout << SIMTIME << "moveToXYMap currLane=" << currentLane->getID() << " routeOffset=" << routeOffset << " edges=" << toString(edges) << " bestLane=" << bestLane->getID() << " prevEdge=" << prevEdge->getID() << "\n";
     } else {
         edges.push_back(u.prevEdge);
         /*
@@ -1710,7 +1710,9 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass
             }
             for (const MSLink* const link : l->getLinkCont()) {
                 if (link->isInternalJunctionLink()) {
-                    findCloserLane(&link->getViaLane()->getEdge(), pos, vClass, bestDistance, lane);
+                    if (findCloserLane(&link->getViaLane()->getEdge(), pos, vClass, bestDistance, lane)) {
+                        newBest = true;
+                    }
                 }
             }
         }

@@ -37,7 +37,9 @@
 
 
 //#define DEBUG_SETPRIORITIES
+//#define DEBUG_TURNAROUNDS
 #define DEBUGCOND (n.getID() == "C")
+#define DEBUGCOND2(obj) (obj->getID() == "")
 
 // ===========================================================================
 // method definitions
@@ -62,19 +64,26 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
     }
     std::vector<Combination> combinations;
     const bool geometryLike = node->geometryLike();
-    for (std::vector<NBEdge*>::const_iterator j = outgoing.begin(); j != outgoing.end(); ++j) {
-        NBEdge* outedge = *j;
-        for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
-            NBEdge* e = *k;
+    for (NBEdge* outedge : outgoing) {
+        for (NBEdge* e : incoming) {
             // @todo: check whether NBHelpers::relAngle is properly defined and whether it should really be used, here
             const double signedAngle = NBHelpers::normRelAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node));
             if (signedAngle > 0 && signedAngle < 177 && e->getGeometry().back().distanceTo2D(outedge->getGeometry().front()) < POSITION_EPS) {
                 // backwards curving edges can only be turnaround when there are
                 // non-default endpoints
+#ifdef DEBUG_TURNAROUNDS
+                if (DEBUGCOND2(node)) {
+                    std::cout << "incoming=" << e->getID() << " outgoing=" << outedge->getID() << " signedAngle=" << signedAngle << " skipped\n";
+                }
+#endif
                 continue;
             }
             double angle = fabs(signedAngle);
-            // std::cout << "incoming=" << e->getID() << " outgoing=" << outedge->getID() << " relAngle=" << NBHelpers::relAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node)) << "\n";
+#ifdef DEBUG_TURNAROUNDS
+            if (DEBUGCOND2(node)) {
+                std::cout << "incoming=" << e->getID() << " outgoing=" << outedge->getID() << " relAngle=" << NBHelpers::relAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node)) << "\n";
+            }
+#endif
             const bool badPermissions = ((outedge->getPermissions() & e->getPermissions() & ~SVC_PEDESTRIAN) == 0
                                          && !geometryLike
                                          && outedge->getPermissions() != e->getPermissions());
@@ -110,9 +119,17 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
     // sort combinations so that the ones with the highest angle are at the begin
     std::sort(combinations.begin(), combinations.end(), combination_by_angle_sorter());
     std::set<NBEdge*> seen;
-    //std::cout << "check combinations at " << node->getID() << "\n";
+#ifdef DEBUG_TURNAROUNDS
+    if (DEBUGCOND2(node)) {
+        std::cout << "check combinations at " << node->getID() << "\n";
+    }
+#endif
     for (std::vector<Combination>::const_iterator j = combinations.begin(); j != combinations.end(); ++j) {
-        //std::cout << " from=" << (*j).from->getID() << " to=" << (*j).to->getID() << " a=" << (*j).angle << "\n";
+#ifdef DEBUG_TURNAROUNDS
+        if (DEBUGCOND2(node)) {
+            std::cout << " from=" << (*j).from->getID() << " to=" << (*j).to->getID() << " a=" << (*j).angle << "\n";
+        }
+#endif
         if (seen.find((*j).from) != seen.end() || seen.find((*j).to) != seen.end()) {
             // do not regard already set edges
             if ((*j).angle > 360 && warn) {
@@ -127,7 +144,11 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
         seen.insert((*j).to);
         // set turnaround information
         bool onlyPossible = (*j).from->getConnections().size() != 0 && !(*j).from->isConnectedTo((*j).to);
-        //std::cout << "    setTurningDestination from=" << (*j).from->getID() << " to=" << (*j).to->getID() << " onlyPossible=" << onlyPossible << "\n";
+#ifdef DEBUG_TURNAROUNDS
+        if (DEBUGCOND2(node)) {
+            std::cout << "    setTurningDestination from=" << (*j).from->getID() << " to=" << (*j).to->getID() << " onlyPossible=" << onlyPossible << "\n";
+        }
+#endif
         (*j).from->setTurningDestination((*j).to, onlyPossible);
     }
 }

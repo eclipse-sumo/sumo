@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# apply zoom
+netedit.setZoom("0", "0", "25")
+
 # go to select mode
 netedit.selectMode()
 
@@ -38,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E3s
-netedit.leftClick(referencePosition, 160, 245)
+netedit.leftClick(referencePosition, 722, 295)
 
 # Change parameter vtypes with a invalid value
 netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.vTypes, "Typ**e%%%%%1 T;;yp$2 Type3", True)
@@ -47,8 +50,8 @@ netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.vTypes, "Typ**e%%%%%1 
 netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.vTypes, "Type1 Type2 Type3", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
-netedit.setZoom("25", "25", "25")
+netedit.setZoom("0", "5", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -37,35 +37,30 @@ netedit.additionalMode()
 # select E3
 netedit.changeElement("entryExitDetector")
 
-# create E3 1
-netedit.leftClick(referencePosition, 250, 110)
+# create E3 with default parameters
+netedit.leftClick(referencePosition, 376, 83)
 
-# create E3 2 (for check duplicated ID)
-netedit.leftClick(referencePosition, 450, 110)
-
-# select entry detector
-netedit.changeElement("detEntry")
-
-# Create Entry detector E3 (for saving)
-netedit.leftClick(referencePosition, 250, 110)
-netedit.leftClick(referencePosition, 250, 250)
-netedit.leftClick(referencePosition, 450, 110)
-netedit.leftClick(referencePosition, 450, 250)
+# create E3 with default parameters
+netedit.leftClick(referencePosition, 677, 83)
 
 # select entry detector
 netedit.changeElement("detExit")
 
-# Create Exit detector E3 (for saving)
-netedit.leftClick(referencePosition, 250, 110)
-netedit.leftClick(referencePosition, 250, 420)
-netedit.leftClick(referencePosition, 450, 85)
-netedit.leftClick(referencePosition, 450, 420)
+# Create entry detector with default value
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 194, 321)
+
+# select exit detector
+netedit.changeElement("detEntry")
+
+netedit.leftClick(referencePosition, 376, 83)
+netedit.leftClick(referencePosition, 619, 321)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E3
-netedit.leftClick(referencePosition, 250, 110)
+netedit.leftClick(referencePosition, 376, 83)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "e3_1", False)
@@ -80,8 +75,8 @@ netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "Id with spaces", False)
 netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "correctID", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 8)
-netedit.redo(referencePosition, 8)
+netedit.undo(referencePosition, 6)
+netedit.redo(referencePosition, 6)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

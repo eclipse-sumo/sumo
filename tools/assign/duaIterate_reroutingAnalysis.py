@@ -30,7 +30,7 @@ def parse_args(args=None):
     parser = sumolib.options.ArgumentParser(
             usage=USAGE,
             description="Extract fraction of vehicles that changed their route per iteration")
-    parser.add_argument("-d", "--base-directory", dest="baseDir", default=".",
+    parser.add_argument("-d", "--base-directory", dest="baseDir", category="input", default=".", type=str,
                         help="Base directory of duaIterate run")
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="Give more details for every iteration")

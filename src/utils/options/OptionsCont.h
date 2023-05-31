@@ -258,6 +258,19 @@ public:
      */
     void addDescription(const std::string& name, const std::string& subtopic, const std::string& description);
 
+    /** @brief mark option as required
+     *
+     * Tries to retrieve the named option and set as required. Adds
+     *  the name to the list of option names to be located in the named subtopic.
+     *
+     * Throws an InvalidArgument if the option is not known
+     *
+     * @param[in] name The option's name
+     * @param[in] subtopic The subtopic to locate the description within
+     * @exception InvalidArgument If none of the synonymes or both synonymes with different options were registered before
+     */
+    void setFurtherAttributes(const std::string& name, const std::string& subtopic, bool required, bool positional, const std::string& listSep);
+
     /** @brief Adds a category for an option
      *
      * Tries to retrieve the named option and to set the given category. Adds
@@ -391,7 +404,7 @@ public:
      * @return category
      * @exception InvalidArgument If the named option does not exist
      **/
-    const std::string& getCategory(const std::string& name) const;
+    const std::string& getSubTopic(const std::string& name) const;
 
     /** @brief Returns the information whether the named option may be set
      *
@@ -405,7 +418,7 @@ public:
      * @exception InvalidArgument If the option does not exist
      */
     bool isWriteable(const std::string& name);
-    
+
     /// @}
 
     /// @name Methods for retrieving values from options
@@ -518,7 +531,7 @@ public:
      * @todo Try to optimize - at each call, the vector is rebuilt
      */
     bool isInStringVector(const std::string& optionName, const std::string& itemName) const;
-    
+
     /// @}
 
     /// @name Methods for setting values into options
@@ -579,7 +592,7 @@ public:
      * @see OptionsCont::set(const std::string &, const std::string &)
      */
     bool setByRootElement(const std::string& name, const std::string& value);
-    
+
     /// @}
 
     /** @brief Resets all options to be writeable
@@ -639,11 +652,14 @@ public:
     /// @brief get options full name
     const std::string& getFullName() const;
 
-    /// @brief get begin option
-    std::map<std::string, Option*>::const_iterator begin() const;
+    /// @brief check if options container is empty
+    bool isEmpty() const;
 
-    /// @brief get end option
-    std::map<std::string, Option*>::const_iterator end() const;
+    /// @brief get begin adresses iterator
+    std::vector<std::pair<std::string, Option*> >::const_iterator begin() const;
+
+    /// @brief get begin adresses iterator
+    std::vector<std::pair<std::string, Option*> >::const_iterator end() const;
 
 private:
     /** @brief Returns the named option
@@ -689,10 +705,10 @@ private:
     /// @brief The static options container used
     static OptionsCont myOptions;
 
-    /// @brief storage for option-addresses
-    std::vector<Option*> myAddresses;
+    /// @brief option-adresses
+    std::vector<std::pair<std::string, Option*> > myAddresses;
 
-    /// @brief access map of options
+    /// @brief option maps sorted by name (for adresses AND their synonyms)
     std::map<std::string, Option*> myValues;
 
     /// @brief some information on the application

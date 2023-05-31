@@ -16,7 +16,7 @@ python tools/routeSampler.py -r <input-route-file> --edgedata-files <edgedata-
 
 Only the edge attribute 'id' and another attribute for the traffic count are needed:
 
-```
+```xml
 <data>
     <interval id="arbitrary" begin="0.0" end="300">
         <edge id="-58" entered="4"/>
@@ -172,7 +172,7 @@ python tools/routeSampler.py --attributes="type=\"heavy\"" --edgedata-files cou
    
 When running the simulation, the types 'car' and 'heavy' (previously set as vehicle attributes), must be defined in an additional file which could look like the following example (types.add.xml):
   
-```
+```xml
 <additional>
   <vType id="car"/>
   <vType id="heavy" vClass="truck"/>

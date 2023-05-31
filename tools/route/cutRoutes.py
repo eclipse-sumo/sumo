@@ -30,14 +30,13 @@ import copy
 import itertools
 import io
 
-from optparse import OptionParser
 from collections import defaultdict
 import sort_routes
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
-    from sumolib.xml import parse, parse_fast, writeHeader  # noqa
+    from sumolib.xml import parse, writeHeader  # noqa
     from sumolib.net import readNet  # noqa
     from sumolib.miscutils import parseTime  # noqa
     import sumolib  # noqa
@@ -62,28 +61,29 @@ class Statistics:
         return self.num_vehicles + self.num_persons + self.num_flows
 
 
-def get_options(args=sys.argv[1:]):
+def get_options(args=None):
     USAGE = """Usage %prog [options] <new_net.xml> <routes> [<routes2> ...]
 If the given routes contain exit times these will be used to compute new
 departure times. If the option --orig-net is given departure times will be
 extrapolated based on edge-lengths and maximum speeds multiplied with --speed-factor"""
-    optParser = OptionParser(usage=USAGE)
+    optParser = sumolib.options.ArgumentParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
-    optParser.add_option("--trips-output", help="output trip file")
-    optParser.add_option("--pt-input", help="read public transport flows from file")
-    optParser.add_option("--pt-output", help="write reduced public transport flows to file")
-    optParser.add_option("--min-length", type='int',
+    optParser.add_option("--trips-output", category='output', help="output trip file")
+    optParser.add_option("--pt-input", category='input', help="read public transport flows from file")
+    optParser.add_option("--pt-output", category='output', help="write reduced public transport flows to file")
+    optParser.add_option("--min-length", type=int,
                          default=0, help="minimum route length in the subnetwork (in #edges)")
-    optParser.add_option("--min-air-dist", type='float',
+    optParser.add_option("--min-air-dist", type=float,
                          default=0., help="minimum route length in the subnetwork (in meters)")
-    optParser.add_option("-o", "--routes-output", help="output route file")
-    optParser.add_option("--stops-output", help="output filtered stop file")
-    optParser.add_option("-a", "--additional-input", help="additional file (for bus stop locations)")
-    optParser.add_option("--speed-factor", type='float', default=1.0,
+    optParser.add_option("-o", "--routes-output", category='output', help="output route file")
+    optParser.add_option("--stops-output", category='output', help="output filtered stop file")
+    optParser.add_option("-a", "--additional-input", category='input',
+                         help="additional file (for bus stop locations)")
+    optParser.add_option("--speed-factor", type=float, default=1.0,
                          help="Factor for modifying maximum edge speeds when extrapolating new departure times " +
                               "(default 1.0)")
-    optParser.add_option("--default.stop-duration", type='float', default=0.0, dest="defaultStopDuration",
+    optParser.add_option("--default.stop-duration", type=float, default=0.0, dest="defaultStopDuration",
                          help="default duration for stops in stand-alone routes")
     optParser.add_option("--default.departLane", default="best", dest="defaultDepartLane",
                          help="default departure lane for cut routes")
@@ -92,25 +92,25 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     optParser.add_option("--orig-net", help="complete network for retrieving edge lengths")
     optParser.add_option("-b", "--big", action="store_true", default=False,
                          help="Perform out-of-memory sort using module sort_routes (slower but more memory efficient)")
-    optParser.add_option("-d", "--disconnected-action", type='choice', default='discard',
+    optParser.add_option("-d", "--disconnected-action", default='discard',
                          choices=['discard', 'keep', "keep.walk"],  # XXX 'split', 'longest'
                          help="How to deal with routes that are disconnected in the subnetwork. If 'keep' is chosen " +
                               "a disconnected route generates several routes in the subnetwork corresponding to " +
                               "its parts.")
     optParser.add_option("-e", "--heterogeneous", action="store_true", default=False,
                          help="this option has no effect and only exists for backward compatibility")
-    optParser.add_option("--missing-edges", type='int', metavar="N",
+    optParser.add_option("--missing-edges", type=int, metavar="N",
                          default=0, help="print N most missing edges")
     optParser.add_option("--discard-exit-times", action="store_true",
                          default=False, help="do not use exit times")
+    optParser.add_argument("network", category='input', help="Provide an input network")
+    optParser.add_argument("routeFiles", nargs="*", category='input',
+                           help="If the given routes contain exit times, "
+                                "these will be used to compute new departure times")
     # optParser.add_option("--orig-weights",
     # help="weight file for the original network for extrapolating new departure times")
-    options, args = optParser.parse_args(args=args)
-    try:
-        options.network = args[0]
-        options.routeFiles = args[1:]
-    except Exception:
-        sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))
+    options = optParser.parse_args(args=args)
+
     if options.heterogeneous:
         print("Warning, the heterogeneous option is now enabled by default. Please do not use it any longer.")
     if options.trips_output is not None and options.routes_output is not None:

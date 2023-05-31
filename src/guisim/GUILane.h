@@ -95,10 +95,6 @@ public:
 
     void addSecondaryShape(const PositionVector& shape) override;
 
-    const PositionVector& getSecondaryShape() {
-        return myShape2;
-    }
-
     double getLengthGeometryFactor(bool secondaryShape) const override {
         return secondaryShape ? myLengthGeometryFactor2 :  myLengthGeometryFactor;
     }
@@ -218,6 +214,9 @@ public:
 
     double firstWaitingTime() const;
 
+    /// @brief whether any of the neighboring lanes is not a bidi-lane
+    bool neighLaneNotBidi() const;
+
     /// @brief draw lane borders and white markings
     void drawMarkings(const GUIVisualizationSettings& s, double scale) const;
 
@@ -329,9 +328,9 @@ private:
 
 private:
     void initRotations(const PositionVector& shape,
-            std::vector<double>& rotations,
-            std::vector<double>& lengths,
-            std::vector<RGBColor>& colors);
+                       std::vector<double>& rotations,
+                       std::vector<double>& lengths,
+                       std::vector<RGBColor>& colors);
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
     bool setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const;

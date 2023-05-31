@@ -132,7 +132,7 @@ def addInteractionOptions(optParser):
 def addNetOptions(optParser):
     optParser.add_option("-w", "--default-width", dest="defaultWidth",
                          type=float, default=.1, help="Defines the default edge width")
-    optParser.add_option("-c", "--default-color", dest="defaultColor",
+    optParser.add_option("--default-color", dest="defaultColor",
                          default='k', help="Defines the default edge color")
 
 

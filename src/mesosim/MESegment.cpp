@@ -80,6 +80,20 @@ MESegment::Queue::remove(MEVehicle* v) {
     return nullptr;
 }
 
+void
+MESegment::Queue::addDetector(MSMoveReminder* data) {
+    myDetectorData.push_back(data);
+    for (MEVehicle* const v : myVehicles) {
+        v->addReminder(data);
+    }
+}
+
+void
+MESegment::Queue::addReminders(MEVehicle* veh) const {
+    for (MSMoveReminder* rem : myDetectorData) {
+        veh->addReminder(rem);
+    }
+}
 
 // ===========================================================================
 // MESegment method definitions
@@ -233,12 +247,14 @@ MESegment::jamThresholdForSpeed(double speed, double jamThresh) const {
 
 
 void
-MESegment::addDetector(MSMoveReminder* data) {
-    myDetectorData.push_back(data);
-    for (const Queue& q : myQueues) {
-        for (MEVehicle* const v : q.getVehicles()) {
-            v->addReminder(data);
+MESegment::addDetector(MSMoveReminder* data, int queueIndex) {
+    if (queueIndex == -1) {
+        for (Queue& q : myQueues) {
+            q.addDetector(data);
         }
+    } else {
+        assert(queueIndex < (int)myQueues.size());
+        myQueues[queueIndex].addDetector(data);
     }
 }
 
@@ -260,11 +276,20 @@ MESegment::removeDetector(MSMoveReminder* data) {
 
 
 void
-MESegment::prepareDetectorForWriting(MSMoveReminder& data) {
+MESegment::prepareDetectorForWriting(MSMoveReminder& data, int queueIndex) {
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
-    for (const Queue& q : myQueues) {
+    if (queueIndex == -1) {
+        for (const Queue& q : myQueues) {
+            SUMOTime earliestExitTime = currentTime;
+            for (std::vector<MEVehicle*>::const_reverse_iterator i = q.getVehicles().rbegin(); i != q.getVehicles().rend(); ++i) {
+                const SUMOTime exitTime = MAX2(earliestExitTime, (*i)->getEventTime());
+                (*i)->updateDetectorForWriting(&data, currentTime, exitTime);
+                earliestExitTime = exitTime + tauWithVehLength(myTau_ff, (*i)->getVehicleType().getLengthWithGap(), (*i)->getVehicleType().getCarFollowModel().getHeadwayTime());
+            }
+        }
+    } else {
         SUMOTime earliestExitTime = currentTime;
-        for (std::vector<MEVehicle*>::const_reverse_iterator i = q.getVehicles().rbegin(); i != q.getVehicles().rend(); ++i) {
+        for (std::vector<MEVehicle*>::const_reverse_iterator i = myQueues[queueIndex].getVehicles().rbegin(); i != myQueues[queueIndex].getVehicles().rend(); ++i) {
             const SUMOTime exitTime = MAX2(earliestExitTime, (*i)->getEventTime());
             (*i)->updateDetectorForWriting(&data, currentTime, exitTime);
             earliestExitTime = exitTime + tauWithVehLength(myTau_ff, (*i)->getVehicleType().getLengthWithGap(), (*i)->getVehicleType().getCarFollowModel().getHeadwayTime());
@@ -563,8 +588,8 @@ MESegment::overtake() {
 
 void
 MESegment::addReminders(MEVehicle* veh) const {
-    for (std::vector<MSMoveReminder*>::const_iterator i = myDetectorData.begin(); i != myDetectorData.end(); ++i) {
-        veh->addReminder(*i);
+    if (veh->getQueIndex() != PARKING_QUEUE) {
+        myQueues[veh->getQueIndex()].addReminders(veh);
     }
 }
 

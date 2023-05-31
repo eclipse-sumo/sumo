@@ -38,25 +38,25 @@ netedit.changeElement("poiGeo")
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.angle, "dummyAngle")
 
 # try to create POI
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # change angle (valid, but > 360)
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.angle, "500")
 
 # create POI
-netedit.leftClick(referencePosition, 150, 50)
+netedit.leftClick(referencePosition, 337, 117)
 
 # change angle (valid, < 0)
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.angle, "-27")
 
 # create POI
-netedit.leftClick(referencePosition, 200, 50)
+netedit.leftClick(referencePosition, 383, 117)
 
 # change angle (valid)
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.angle, "45")
 
 # create POI
-netedit.leftClick(referencePosition, 250, 50)
+netedit.leftClick(referencePosition, 428, 117)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

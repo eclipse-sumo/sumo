@@ -43,6 +43,9 @@ xml2csv.py input.xml
 
 For scripts in other subdirectories of tools you have to replace xml in this example by the name of the subdirectory
 
+## Using tools from netedit
+
+Since version 1.17.0, netedit supports calling many tools via configuration dialog by using the 'Tools' menu. For a demonstration, see the [SUMO 2023 Confererence tutorial](../Tutorials/index.md#sumo_user_conference_tutorials).
 
 # Tools by category
 

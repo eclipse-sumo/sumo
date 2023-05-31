@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# apply zoom
+netedit.setZoom("0", "0", "25")
+
 # go to select mode
 netedit.selectMode()
 
@@ -38,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E3s
-netedit.leftClick(referencePosition, 160, 245)
+netedit.leftClick(referencePosition, 722, 295)
 
 # set invalid filename
 netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "&&&&&&&&", True)
@@ -47,8 +50,8 @@ netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "&&&&&&&&", True
 netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "myOwnFilename.txt", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

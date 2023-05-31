@@ -52,11 +52,12 @@ import sumolib.visualization.helpers  # noqa
 INDEX_ATTR = "@INDEX"
 RANK_ATTR = "@RANK"
 COUNT_ATTR = "@COUNT"
+DENS_ATTR = "@DENSITY"
 BOX_ATTR = "@BOX"
 NONE_ATTR = "@NONE"
 NONE_ATTR_DEFAULT = 0
 
-POST_PROCESSING_ATTRS = [RANK_ATTR, COUNT_ATTR, BOX_ATTR]
+POST_PROCESSING_ATTRS = [RANK_ATTR, COUNT_ATTR, BOX_ATTR, DENS_ATTR]
 SYMBOLIC_ATTRS = POST_PROCESSING_ATTRS + [INDEX_ATTR]
 
 
@@ -71,8 +72,8 @@ def getOptions(args=None):
         '    plots passengers over time for vehicles from SUMO stop output',
         formatter_class=RawDescriptionHelpFormatter, conflict_handler='resolve')
 
-    sumolib.visualization.helpers.addPlotOptions(optParser)
-    sumolib.visualization.helpers.addInteractionOptions(optParser)
+    optParser.add_option("files", nargs='+', type=optParser.file_list,
+                         help="List of XML files to plot")
     optParser.add_option("-x", "--xattr",  help="attribute for x-axis")
     optParser.add_option("-y", "--yattr",  help="attribute for y-axis")
     optParser.add_option("-i", "--idattr",  default="id", help="attribute for grouping data points into lines")
@@ -80,11 +81,14 @@ def getOptions(args=None):
     optParser.add_option("--yelem",  help="element for y-axis")
     optParser.add_option("--idelem",  help="element for grouping data points into lines")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
-    optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
+    optParser.add_option("--csv-output", dest="csv_output", category="output",
+                         help="write plot as csv")
     optParser.add_option("--filter-ids", dest="filterIDs", help="only plot data points from the given list of ids")
     optParser.add_option("-p", "--pick-distance", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("--label", help="plot label (default input file name")
+    optParser.add_option("-j", "--join-files", action="store_true", dest="joinFiles", default=False,
+                         help="Do not distinguis data points by file")
     optParser.add_option("--join-x", action="store_true", dest="joinx", default=False,
                          help="if --xattr is a list concatenate the values")
     optParser.add_option("--join-y", action="store_true", dest="joiny", default=False,
@@ -107,7 +111,8 @@ def getOptions(args=None):
                          default=False, help="Draw a bar plot parallel to the x-axis")
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
-    optParser.add_argument("files", nargs='+', help="List of XML files to plot")
+    sumolib.visualization.helpers.addPlotOptions(optParser)
+    sumolib.visualization.helpers.addInteractionOptions(optParser)
 
     options = optParser.parse_args(args=args)
 
@@ -145,9 +150,9 @@ def getOptions(args=None):
 
     # keep old presets from before integration of common options
     options.nolegend = not options.legend
-    options.blind = not options.show
-    if options.output is None:
-        options.output = "plot.png"
+    if options.show:
+        sys.stderr.write("Option --show is now set by default and will be removed in the future." +
+                         "Use --blind to disable the plot window\n")
 
     if options.xattr == BOX_ATTR and options.yattr == BOX_ATTR:
         sys.exit("Boxplot can only be specified for one dimension")
@@ -191,8 +196,9 @@ def interpretClamp(clamp):
 
 def write_csv(data, fname):
     with open(fname, 'w') as f:
-        for veh, vals in sorted(data.items()):
-            f.write('# "%s"\n' % veh)
+        for dataID in sorted(data.keys(), key=str):
+            vals = data[dataID]
+            f.write('# "%s"\n' % dataID)
             for x in zip(*vals):
                 f.write(" ".join(map(str, x)) + "\n")
             #  2 blank lines indicate a new data block in gnuplot
@@ -458,12 +464,16 @@ def clamped(value, clamp):
         return value
 
 
-def countPoints(xvalues):
+def countPoints(xvalues, normalize=False):
     counts = defaultdict(lambda: 0)
     for x in xvalues:
         counts[x] += 1
     xres = sorted(counts.keys())
     yres = [counts[x] for x in xres]
+    if normalize:
+        total = float(sum(yres))
+        if total > 0:
+            yres = [c / total for c in yres]
     return xres, yres
 
 
@@ -547,7 +557,7 @@ def main(options):
                         flag2 = True
                 if flag1 and not flag2:
                     continue
-            if len(options.files) > 1:
+            if len(options.files) > 1 and not options.joinFiles:
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
                     dataID = str(dataID) + "#" + suffix
@@ -605,6 +615,12 @@ def main(options):
 
         if options.yattr == COUNT_ATTR:
             d[xdata], d[ydata] = countPoints(d[xdata])
+
+        if options.xattr == DENS_ATTR:
+            d[ydata], d[xdata] = countPoints(d[ydata], True)
+
+        if options.yattr == DENS_ATTR:
+            d[xdata], d[ydata] = countPoints(d[xdata], True)
 
         if options.xticksFile:
             applyTicks(d, xdata, options.xticksFile)

@@ -35,13 +35,13 @@ netedit.TAZMode()
 netedit.changeDefaultValue(netedit.attrs.TAZ.create.name, "%%%%%%;;;")
 
 # try to create TAZ
-netedit.createSquaredTAZ(referencePosition, 282, 130, 200, True)
+netedit.createSquaredTAZ(referencePosition, 407, 120, 200, True)
 
 # change color manually (valid)
 netedit.changeDefaultValue(netedit.attrs.TAZ.create.name, "customName")
 
 # create TAZ
-netedit.createSquaredTAZ(referencePosition, 382, 130, 200, True)
+netedit.createSquaredTAZ(referencePosition, 567, 120, 200, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

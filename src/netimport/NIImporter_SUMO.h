@@ -73,7 +73,7 @@ public:
     static void addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL);
 
     /// Parses network location description and registers it with GeoConveHelper::setLoaded
-    static GeoConvHelper* loadLocation(const SUMOSAXAttributes& attrs);
+    static GeoConvHelper* loadLocation(const SUMOSAXAttributes& attrs, bool setLoaded = true);
 
 protected:
     /** @brief Constructor

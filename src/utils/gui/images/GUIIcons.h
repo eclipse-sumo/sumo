@@ -50,6 +50,7 @@ enum class GUIIcon {
     /// @{
     NETGENERATE_GRID,
     NETGENERATE_SPIDER,
+    NETGENERATE_RANDOMGRID,
     NETGENERATE_RANDOM,
     /// @}
 
@@ -207,7 +208,7 @@ enum class GUIIcon {
     FLAG_MINUS,
     /// @}
 
-    /// @name windows icosn
+    /// @name windows icons
     /// @{
     WINDOWS_CASCADE,
     WINDOWS_TILE_VERT,
@@ -272,6 +273,7 @@ enum class GUIIcon {
     COLLAPSE,
     UNCOLLAPSE,
     EXTEND,
+    CURRENT,
     /// @}
 
     /// @name Netedit common mode specific icons
@@ -643,6 +645,7 @@ enum class GUIIcon {
     LANGUAGE_DE,
     LANGUAGE_ES,
     LANGUAGE_FR,
+    LANGUAGE_IT,
     LANGUAGE_HU,
     LANGUAGE_TR,
     LANGUAGE_ZH,

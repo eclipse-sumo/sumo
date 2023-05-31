@@ -71,7 +71,7 @@ As a next step, we define the competing vehicle types as well as a several of th
 
 Open a new file called `sumolympics.rou.xml` and insert the following vehicle type definitions:
 
-```
+```xml
 <routes>
     <vType id="pkw" length="5" maxSpeed="50" accel="2.6" decel="4.5" sigma="0.2" speedDev="0.2" vClass="passenger"/>
     <vType id="bus" length="15" maxSpeed="30" accel="1.2" decel="2.5" sigma="0.1" speedDev="0.1" vClass="bus"/>
@@ -88,7 +88,7 @@ for details on these definitions, as well as [this page](../Specification/Person
 For each vehicle type, we schedule and position vehicle flows by adding the following `<flow .../>` elements just below the
 vType definitions (within the `<routes>` element\!):
 
-```
+```xml
         ...
     <flow id="pkw" type="pkw" from="beg" to="end" begin="0" end="0" number="66" departPos="last"/>
     <flow id="bus" type="bus" from="beg" to="end" begin="0" end="0" number="5" departPos="last"/>
@@ -121,7 +121,7 @@ The cyan color is used to represent the start edge whereas the light green color
 Finally, to prepare the simulation, create a SUMO configuration file (name it
 `sumolympics.sumocfg`):
 
-```
+```xml
 <configuration>
    <input>
        <net-file value="sumolympics.net.xml"/>

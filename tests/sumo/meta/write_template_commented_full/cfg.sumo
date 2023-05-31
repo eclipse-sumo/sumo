@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-22 16:27:23 by Eclipse SUMO sumo Version v1_16_0+1566-509453c
+<!-- generated on 2023-05-08 14:54:04 by Eclipse SUMO sumo Version v1_17_0+0163-dbcfe49
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -186,6 +186,9 @@
         <!-- Write tripinfo output for vehicles which have not departed at simulation end because of depart delay -->
         <tripinfo-output.write-undeparted value="false" type="BOOL"/>
 
+        <!-- Save personinfo and containerinfo to separate FILE -->
+        <personinfo-output value="" synonymes="personinfo" type="FILE"/>
+
         <!-- Save single vehicle route info into FILE -->
         <vehroute-output value="" synonymes="vehroutes" type="FILE"/>
 
@@ -345,8 +348,14 @@
         <!-- How to deal with collisions: [none,warn,teleport,remove] -->
         <collision.action value="teleport" type="STR"/>
 
+        <!-- How to deal with collisions between vehicle and pedestrian: [none,warn,teleport,remove] -->
+        <intermodal-collision.action value="warn" type="STR"/>
+
         <!-- Let vehicle stop for TIME before performing collision.action (except for action &apos;none&apos;) -->
         <collision.stoptime value="0" type="TIME"/>
+
+        <!-- Let vehicle stop for TIME before performing intermodal-collision.action (except for action &apos;none&apos;) -->
+        <intermodal-collision.stoptime value="0" type="TIME"/>
 
         <!-- Enables collisions checks on junctions -->
         <collision.check-junctions value="false" type="BOOL"/>
@@ -801,7 +810,7 @@
         <!-- The &apos;ssm&apos; devices are set deterministic using a fraction of 1000 -->
         <device.ssm.deterministic value="false" type="BOOL"/>
 
-        <!-- Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;)) -->
+        <!-- Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;)) -->
         <device.ssm.measures value="" type="STR"/>
 
         <!-- Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. -->

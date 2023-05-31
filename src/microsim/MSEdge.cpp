@@ -1297,7 +1297,7 @@ MSEdge::setBidiLanes() {
         int numBidiLanes = 0;
         for (MSLane* l1 : *myLanes) {
             for (MSLane* l2 : *myBidiEdge->myLanes) {
-                if (l1->getShape().reverse() == l2->getShape()) {
+                if (l1->getShape().reverse().almostSame(l2->getShape(), POSITION_EPS)) {
                     l1->setBidiLane(l2);
                     numBidiLanes++;
                 }

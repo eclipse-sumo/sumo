@@ -71,6 +71,7 @@ public:
     virtual void remove(MSTransportableStateAdapter* state) = 0;
 
     /** @brief whether a pedestrian is blocking the crossing of lane for the given vehicle bondaries
+     * @param[in] ego The object that inquires about blockage (and may electively ignore foes)
      * @param[in] lane The crossing to check
      * @param[in] vehSide The offset to the vehicle side near the start of the crossing
      * @param[in] vehWidth The width of the vehicle
@@ -78,8 +79,9 @@ public:
      * @param[in] collectBlockers The list of persons blocking the crossing
      * @return Whether the vehicle must wait
      */
-    virtual bool blockedAtDist(const MSLane* lane, double vehSide, double vehWidth,
+    virtual bool blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
                                double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
+        UNUSED_PARAMETER(ego);
         UNUSED_PARAMETER(lane);
         UNUSED_PARAMETER(vehSide);
         UNUSED_PARAMETER(vehWidth);

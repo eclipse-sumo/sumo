@@ -52,10 +52,10 @@ located in
 [{{SUMO}}/src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp]({{Source}}src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp). You'll find a switch, here
 where you have to put the call to your model's constructor into.
 
-### Adding custom model parameers
+### Adding custom model parameters
 
-You may note that all the paramters for the model are loaded within the
-constructur rather than being passed as arguments.
+You may note that all the parameters for the model are loaded within the
+constructor rather than being passed as arguments.
 
 However, you need to register any novel parameters in
 `SUMOVehicleParserHelper::parseLCParams`

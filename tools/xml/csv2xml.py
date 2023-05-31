@@ -28,33 +28,33 @@ import contextlib
 import io
 
 from collections import OrderedDict
-from optparse import OptionParser
 
 import xsd
 import xml2csv
 
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
+
 
 def get_options():
-    optParser = OptionParser(
-        usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
-    optParser.add_option("-q", "--quotechar", default="",
-                         help="the quoting character for fields")
-    optParser.add_option("-d", "--delimiter", default=";",
-                         help="the field separator of the input file")
-    optParser.add_option("-t", "--type",
-                         help="convert the given csv-file into the specified format")
-    optParser.add_option("-x", "--xsd", help="xsd schema to use")
-    optParser.add_option("-p", "--skip-root", action="store_true",
-                         default=False, help="the root element is not contained")
-    optParser.add_option("-o", "--output", help="name for generic output file")
-    options, args = optParser.parse_args()
-    if len(args) != 1:
-        optParser.print_help()
-        sys.exit()
-    if not options.xsd and not options.type:
-        print("either a schema or a type needs to be specified", file=sys.stderr)
-        sys.exit()
-    options.source = args[0]
+    optParser = sumolib.options.ArgumentParser(description="Convert a CSV file to a XML file.")
+    optParser.add_argument("source", category="input", type=optParser.data_file,
+                           help="the input CSV file")
+    optParser.add_argument("-q", "--quotechar", category="processing", default="",
+                           help="the quoting character for fields")
+    optParser.add_argument("-d", "--delimiter", category="processing", default=";",
+                           help="the field separator of the input file")
+    optParser.add_argument("-p", "--skip-root", category="processing", action="store_true", default=False,
+                           help="the root element is not contained")
+    optParser.add_argument("-o", "--output", category="output",
+                           help="name for generic output file")
+    group = optParser.add_mutually_exclusive_group(required=True)
+    group.add_argument("-t", "--type", category="processing",
+                       help="convert the given csv-file into the specified format")
+    group.add_argument("-x", "--xsd", category="processing",
+                       help="xsd schema to use")
+    options = optParser.parse_args()
     if not options.output:
         options.output = os.path.splitext(options.source)[0] + ".xml"
     return options

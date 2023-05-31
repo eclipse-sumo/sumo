@@ -48,7 +48,7 @@ MFXListItemIcon::MFXListItemIcon(const FXString& text, FXIcon* ic, FXColor backG
 
 void
 MFXListItemIcon::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
-    FXFont *font = myList->getFont();
+    FXFont* font = myList->getFont();
     FXint ih = 0, th = 0;
     ih = ICON_SIZE;
     if (!label.empty()) {
@@ -63,7 +63,7 @@ MFXListItemIcon::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint 
     if (hasFocus()) {
         dc.drawFocusRectangle(xx + 1, yy + 1, ww - 2, hh - 2);
     }
-    xx += SIDE_SPACING/2;
+    xx += SIDE_SPACING / 2;
     if (icon) {
         dc.drawIcon(icon, xx, yy + (hh - ih) / 2);
     }

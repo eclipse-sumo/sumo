@@ -898,7 +898,7 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdEditBreakpoints(FXObject*, FXSelector, void*) {
     if (myBreakpointDialog == nullptr) {
-        myBreakpointDialog = new GUIDialog_Breakpoints(this, myRunThread->getBreakpoints(), myRunThread->getBreakpointLock());
+        myBreakpointDialog = new GUIDialog_Breakpoints(this, myRunThread->getBreakpoints(), myRunThread->getBreakpointLock(), myRunThread->getSimBegin());
     } else {
         myBreakpointDialog->restore();
         myBreakpointDialog->setFocus();
@@ -1162,15 +1162,19 @@ GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
 
 
 long
-GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
-    if (!myAmLoading && TraCIServer::getInstance() == nullptr) {
+GUIApplicationWindow::onCmdReload(FXObject* sender, FXSelector sel, void*) {
+    if (!myAmLoading && (sender == nullptr || TraCIServer::getInstance() == nullptr)) {
         storeWindowSizeAndPos();
         getApp()->beginWaitCursor();
         myAmLoading = true;
-        myIsReload = true;
+        myIsReload = sender != nullptr || sel == 1;
         closeAllWindows();
         myLoadThread->start();
-        setStatusBarText(TL("Reloading."));
+        if (sender == nullptr) {
+            setStatusBarText(sel == 1 ? TL("Auto-Reloading.") : TL("TraCI-Loading."));
+        } else {
+            setStatusBarText(TL("Reloading."));
+        }
         update();
     }
     return 1;
@@ -2018,8 +2022,14 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
         closeAllWindows();
         getApp()->exit(ec->getReason() == MSNet::SIMSTATE_ERROR_IN_SIM);
     } else if (GUIGlobals::gDemoAutoReload) {
-        onCmdReload(nullptr, 0, nullptr);
+        onCmdReload(nullptr, 1, nullptr);
     } else if (!myHaveNotifiedAboutSimEnd) {
+        // GUIRunThread::deleteSim() triggers the final message to the log file
+        // (this will never reach the GUI but we cannot use WRITE_MESSAGE here
+        // to avoid a duplicate log entry)
+        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED,
+                TLF("Simulation ended at time: %. (%)",
+                    time2string(ec->getTimeStep()), MSNet::getStateMessage(ec->getReason())));
         // build the text
         const std::string text = "Simulation ended at time: " + time2string(ec->getTimeStep()) +
                                  ".\nReason: " + MSNet::getStateMessage(ec->getReason()) +
@@ -2086,9 +2096,9 @@ GUIApplicationWindow::checkGamingEvents() {
         }
 
     }
-    myWaitingTimeLabel->setText(time2string(myWaitingTime).c_str());
-    myTimeLossLabel->setText(time2string(myTimeLoss).c_str());
-    myEmergencyVehicleLabel->setText(time2string(myEmergencyVehicleCount).c_str());
+    myWaitingTimeLabel->setText(time2string(myWaitingTime, myShowTimeAsHMS).c_str());
+    myTimeLossLabel->setText(time2string(myTimeLoss, myShowTimeAsHMS).c_str());
+    myEmergencyVehicleLabel->setText(time2string(myEmergencyVehicleCount, myShowTimeAsHMS).c_str());
 }
 
 
@@ -2269,8 +2279,18 @@ void
 GUIApplicationWindow::updateTimeLCDTooltip() {
     if (myShowTimeAsHMS) {
         myLCDLabel->setToolTipText("HH:MM:SS");
+        if (myAmGaming) {
+            myWaitingTimeLabel->setToolTipText("HH:MM:SS");
+            myTimeLossLabel->setToolTipText("HH:MM:SS");
+            myEmergencyVehicleLabel->setToolTipText("HH:MM:SS");
+        }
     } else {
-        myLCDLabel->setToolTipText("seconds");
+        myLCDLabel->setToolTipText(TL("seconds"));
+        if (myAmGaming) {
+            myWaitingTimeLabel->setToolTipText(TL("seconds"));
+            myTimeLossLabel->setToolTipText(TL("seconds"));
+            myEmergencyVehicleLabel->setToolTipText(TL("seconds"));
+        }
     }
 }
 

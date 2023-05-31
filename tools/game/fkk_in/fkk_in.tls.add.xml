@@ -9,7 +9,7 @@
         <phase duration="10000" state="rrrgGrrrgGGGGrrGrr" name ="2"/>
         <phase duration="3"     state="rrrgGrrryyGrrrrGrr" name ="2.3"/>
         <phase duration="3"     state="rrrrrrrrrrrrrrrrrr" name ="1.2"/>
-        <phase duration="10000" state="rrrgGGrrrrGrrrrGrr" name ="3" />             
+        <phase duration="10000" state="rrrgGGrrrrGrrrrGrr" name ="3" />
 
         <param key="hotkeyAbort" value="y"/>
     </tlLogic>

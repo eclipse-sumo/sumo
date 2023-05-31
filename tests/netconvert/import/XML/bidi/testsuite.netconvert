@@ -1,8 +1,17 @@
 # declare bidi-edge from plain xml
 simple
 
+# declare bidi-edge from plain xml
+curved
+
 # only one of the edge pair has attribute bidi
 one_declared
 
 # a sequence of non-bidi, bidi, bidi, non-bidi edges
 4edges
+
+# only the inner lane is bidi
+TWLT
+
+# only the inner lane is bidi (diagonal road)
+TWLT_diagonal

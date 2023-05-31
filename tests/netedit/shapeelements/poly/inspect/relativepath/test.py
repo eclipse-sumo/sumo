@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
+netedit.createSquaredTAZ(referencePosition, 116, 139, 200, True)
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, 182, 130)
+netedit.leftClick(referencePosition, 116, 139)
 
 # Change boolean parameter 9
 netedit.modifyBoolAttribute(netedit.attrs.Poly.inspect.reativePath, False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 23)
-netedit.redo(referencePosition, 23)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

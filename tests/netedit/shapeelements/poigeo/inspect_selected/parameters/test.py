@@ -38,10 +38,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 149, 53)
+netedit.leftClick(referencePosition, 451, 119)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.POIGEO.inspectSelection.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.POIGEO.inspectSelection.parameters, False)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

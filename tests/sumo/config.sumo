@@ -43,6 +43,7 @@ aggregated900:aggregated_900.xml
 rawdump:rawdump.xml
 bt:bt.xml
 tripinfos:tripinfos.xml
+personinfos:personinfos.xml
 statistic:statistic.xml
 stopinfos:stopinfos.xml
 collisions:collisions.xml
@@ -125,6 +126,7 @@ aggregated900:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 bt:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
+personinfos:<!--{[->]}-->
 statistic:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->
@@ -186,13 +188,14 @@ cfg:<movereminder{LINES 2}
 cfg:movereminder
 cfg:<python-script
 cfg:embedded python
-cfg:<osg-view
+cfg:osg-view
 cfg:OpenSceneGraph
 cfg:^$
 weights:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 ps:%%CreationDate
 ps2:%%CreationDate
+statistic:<performance
 
 [floating_point_tolerance]
 output:0.0101

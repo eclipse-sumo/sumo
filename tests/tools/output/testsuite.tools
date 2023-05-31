@@ -1,3 +1,4 @@
+
 # Tests for E1 Detector generation script
 generateTLSE1Detectors
 
@@ -25,6 +26,7 @@ tripinfoByType
 tripinfoByTAZ
 attributeStats
 attributeDiff
+attributeCompare
 
 # tests for evaluating the coordination factor along a corridor
 computeCoordination

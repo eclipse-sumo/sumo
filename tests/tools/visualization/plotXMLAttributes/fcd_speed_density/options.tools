@@ -1,0 +1,5 @@
+input_data.xml -o image.png --csv-output out.csv 
+-x speed -y @DENSITY
+-i @NONE
+--xbin 1
+tools/visualization/plotXMLAttributes.py

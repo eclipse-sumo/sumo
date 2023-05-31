@@ -35,8 +35,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_a), target, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP));
     accelTable->addAccel(parseKey(KEY_A), target, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP));
 
-    accelTable->addAccel(parseKey(KEY_c), target, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN));
-    accelTable->addAccel(parseKey(KEY_C), target, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN));
+    accelTable->addAccel(parseKey(KEY_c), target, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER));
+    accelTable->addAccel(parseKey(KEY_C), target, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER));
 
     accelTable->addAccel(parseKey(KEY_d), target, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE));
     accelTable->addAccel(parseKey(KEY_D), target, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE));
@@ -44,14 +44,14 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_e), target, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA));
     accelTable->addAccel(parseKey(KEY_E), target, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA));
 
-    accelTable->addAccel(parseKey(KEY_g), target, FXSEL(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER));
-    accelTable->addAccel(parseKey(KEY_G), target, FXSEL(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER));
-
     accelTable->addAccel(parseKey(KEY_h), target, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN));
     accelTable->addAccel(parseKey(KEY_H), target, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN));
 
     accelTable->addAccel(parseKey(KEY_i), target, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT));
     accelTable->addAccel(parseKey(KEY_I), target, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT));
+
+    accelTable->addAccel(parseKey(KEY_l), target, FXSEL(SEL_COMMAND, MID_HOTKEY_L_MODE_PERSONPLAN));
+    accelTable->addAccel(parseKey(KEY_L), target, FXSEL(SEL_COMMAND, MID_HOTKEY_L_MODE_PERSONPLAN));
 
     accelTable->addAccel(parseKey(KEY_m), target, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE_MEANDATA));
     accelTable->addAccel(parseKey(KEY_M), target, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE_MEANDATA));

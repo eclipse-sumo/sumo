@@ -21,6 +21,7 @@ python tools/output/attributeStats --element tripinfo --attribute timeLoss 
 - If option **--id-attribute** (**-i**) is set, the minimum and maximum values of each attribute will be annotated with the corresponding id value
 - With option **--hist-output** {{DT_FILE}}, a histogram data file (e.g. for plotting with gnuplot) is generated.
   - option **--binwidth INT** (**-b**) defines the binning width for the histogram
+- With option **--abs** the output will include statistics on absolute values
 - With option **--xml-output** {{DT_FILE}}, A file with statistical measures for all processed attributes is written
 - With option **--full-output** {{DT_FILE}}, A collected attribute values are recorded with their corresponnding ids
 - Output precision can be set with option **--precision** (**-p**)
@@ -36,9 +37,43 @@ python tools/output/attributeDiff file1.xml file2.xml --xml-output differences.
 
 - If option **--element** (**-e**) is set to a comma-separated list of elements, only these elements will be read. Otherwise all elements will be parsed
 - If option **--attribute** (**-a**) is set to a comma-separated list of attributes, only these attributes will be read. Otherwise all attributes will be parsed
-- If option **--id-attribute** (**-i**) is set, the minimum and maximum values of each attribute will be annotated with the corresponding id value
-- With option **--xml-output** {{DT_FILE}}, A file with statistical measures for all processed attributes is written
+- With option **--xml-output** {{DT_FILE}}, A file with statistical measures for all processed attributes is written. If this option is not set or combined with option **--verbose**, the results are written as plain text to the console.
+- **--only-first-output** (**-m**): Write all element and attributes that occur only in the first input to FILE
+- **--only-second-output** (**-M**): Write all element and attributes that occur only in the second input to FILE
 
+### grouping attributes
+
+If is often useful to compare files where the same elements occur multiple times but are distiguishable by some further attribute (i.e. vehicle id in [tripinfo-output](../Simulation/Output/TripInfo.md)). To compare elements with similar ids, the option **--id-attribute** can be used to set a list of attributes. The following example calls computes the differences of all tripinfo attributes for each individual vehicle that occured in both files (i.e. from two simulation runs with different seeds):
+
+```
+python tools/output/attributeDiff tripinfos1.xml tripinfos2.xml --xml-output differences.xml -i id
+```
+
+!!! note
+    The tool [tripinfoDiff.py](#tripinfodiffpy) serves the same special use case.
+
+If a list of id attributes is set, those attributes may occur at different levels of the xml element hierarchy and parent values will be applied for the child element comparison. The following example makes use of this to compare edges with the same id and in the same time interval for [edgedata-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md):
+
+```
+python tools/output/attributeDiff edgedata1.xml edgedata2.xml --xml-output differences.xml -i begin,id
+```
+
+!!! note
+    The last example is very simular to (netdumpdiff.py][#netdumpdiffpy] and [edgeDataDiff.py](#edgedatadiffpy)
+
+## attributeCompare.py
+
+Computes statistics on numerical attributes in multiple xml files with the same structure (eg. attribute *timeLoss* for element *vehicleTripStatistics* in [statistic-output](../Simulation/Output/StatisticOutput.md)) and writes the
+results to standard output. The tool works very similar to [attributeDiff.py](#attributediffpy) but uses multiple files and computs a wide range of statistics instead of the difference between values.
+
+```
+python tools/output/attributeCompare.py file1.xml file2.xml file3.xml --xml-output compared.xml
+```
+
+- If option **--element** (**-e**) is set to a comma-separated list of elements, only these elements will be read. Otherwise all elements will be parsed
+- If option **--attribute** (**-a**) is set to a comma-separated list of attributes, only these attributes will be read. Otherwise all attributes will be parsed
+- If option **--id-attribute** (**-i**) is set, elements are [grouped as explained for attributeDiff.py](#grouping_attributes)
+- With option **--xml-output** {{DT_FILE}}, A file with statistical measures for all processed attributes is written. If this option is not set or combined with option **--verbose**, the results are written as plain text to the console.
 
 ## generateITetrisIntersectionMetrics.py
 

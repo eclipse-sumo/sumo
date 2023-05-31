@@ -2300,40 +2300,40 @@ GNEAttributeCarrier::fillAdditionalElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-            GNETagProperties::ADDITIONALELEMENT,
-            GNETagProperties::CENTERAFTERCREATION,
-            GUIIcon::ROUTEPROBE, currentTag, {}, FXRGBA(210, 233, 255, 255));
+                                      GNETagProperties::ADDITIONALELEMENT,
+                                      GNETagProperties::CENTERAFTERCREATION,
+                                      GUIIcon::ROUTEPROBE, currentTag, {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
-            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-            TL("The id of RouteProbe"));
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
+                                              TL("The id of RouteProbe"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
-            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-            TL("The id of an edge in the simulation network"));
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("The id of an edge in the simulation network"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
-            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-            TL("The frequency in which to report the distribution"),
-            "3600.00");
+                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("The frequency in which to report the distribution"),
+                                              "3600.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
-            GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-            TL("Name of route probe"));
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Name of route probe"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FILE,
-            GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-            TL("The file for generated output"));
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("The file for generated output"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BEGIN,
-            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-            TL("The time at which to start generating output"),
-            "0");
+                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("The time at which to start generating output"),
+                                              "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_VSS;
@@ -5885,8 +5885,13 @@ GNEAttributeCarrier::writeAttributeHelp() {
         if (item.second.getParentTags().empty()) {
             dev << "\n## " << toString(item.first) << "\n";
         } else {
-            dev << "\n### " << toString(item.first) << "\n";
-            dev << "child element of ";
+            if (item.first == SUMO_TAG_FLOW) {
+                dev << "\n## " << toString(item.first) << "\n";
+                dev << "also child element of ";
+            } else {
+                dev << "\n### " << toString(item.first) << "\n";
+                dev << "child element of ";
+            }
             bool sep = false;
             for (const auto& pTag : item.second.getParentTags()) {
                 if (sep) {

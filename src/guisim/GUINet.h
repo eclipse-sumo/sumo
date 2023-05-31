@@ -290,12 +290,12 @@ public:
     /** @brief Returns the RTree used for visualisation speed-up
      * @return The visualisation speed-up
      */
-    const SUMORTree& getVisualisationSpeedUp(bool secondary=false) const {
+    const SUMORTree& getVisualisationSpeedUp(bool secondary = false) const {
         return secondary ? myGrid2 : myGrid;
     }
 
     /// @brief add object into rtree
-    void registerRenderedObject(GUIGlObject *o);
+    void registerRenderedObject(GUIGlObject* o);
 
     /** @brief Returns the vehicle control
      * @return The vehicle control
@@ -360,6 +360,10 @@ public:
     /// @brief flush outputs once the simulation has reached its end
     void flushOutputsAtEnd();
 
+    virtual bool skipFinalReset() const override {
+        return mySkipFinalReset;
+    }
+
 private:
     /// @brief Initialises the tl-logic map and wrappers
     void initTLMap();
@@ -408,6 +412,8 @@ protected:
 
     /// @brief loaded edge data for visualization
     std::map<std::string, MSEdgeWeightsStorage*> myLoadedEdgeData;
+
+    bool mySkipFinalReset = false;
 
     /// @brief class for discovering edge attributes
     class DiscoverAttributes : public SUMOSAXHandler {

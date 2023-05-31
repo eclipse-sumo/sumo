@@ -35,16 +35,16 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # create first POI
-netedit.leftClick(referencePosition, 108, 50)
+netedit.leftClick(referencePosition, 360, 99)
 
 # create second POI
-netedit.leftClick(referencePosition, 150, 50)
+netedit.leftClick(referencePosition, 477, 99)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 108, 50)
+netedit.leftClick(referencePosition, 360, 99)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.id, "poi_1", False)

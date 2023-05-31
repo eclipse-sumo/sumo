@@ -25,7 +25,22 @@ Please note that the cost of the route is not computed!
 from __future__ import absolute_import
 from __future__ import print_function
 import sys
+import os
 from xml.sax import make_parser, handler
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(os.path.join(tools))
+    from sumolib.options import ArgumentParser
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+
+def get_options(args=None):
+    optParser = ArgumentParser()
+    optParser.add_argument("input", category='input', help="Provide an input network")
+    optParser.add_argument("output", category='output', help="Provide an output name")
+    return optParser.parse_args(args=args)
 
 
 class RouteCounter(handler.ContentHandler):
@@ -101,18 +116,23 @@ class RoutePatcher(handler.ContentHandler):
         self._out.write(content)
 
 
-if len(sys.argv) < 3:
-    print("Usage: route2alts.py <INPUT_FILE> <OUTPUT_FILE>")
-    sys.exit()
-# count occurrences
-print("Counting alternative occurrences...")
-parser = make_parser()
-counter = RouteCounter()
-parser.setContentHandler(counter)
-parser.parse(sys.argv[1])
-# build alternatives
-print("Building alternatives...")
-with open(sys.argv[2], "w") as out:
+def main(options):
+    # if len(sys.argv) < 3:
+    #     print("Usage: route2alts.py <INPUT_FILE> <OUTPUT_FILE>")
+    #     sys.exit()
+    # count occurrences
+    print("Counting alternative occurrences...")
     parser = make_parser()
-    parser.setContentHandler(RoutePatcher(counter, out))
-    parser.parse(sys.argv[1])
+    counter = RouteCounter()
+    parser.setContentHandler(counter)
+    parser.parse(options.input)
+    # build alternatives
+    print("Building alternatives...")
+    with open(options.output, "w") as out:
+        parser = make_parser()
+        parser.setContentHandler(RoutePatcher(counter, out))
+        parser.parse(options.input)
+
+
+if __name__ == "__main__":
+    main(get_options())

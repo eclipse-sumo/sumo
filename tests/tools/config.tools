@@ -75,7 +75,7 @@ copy_test_path:weights.via.xml
 copy_test_path:ptlines.xml
 copy_test_path:input_edgedata.xml
 copy_test_path:summary.xml
-copy_test_path:config.txt
+copy_test_path:config_file.txt
 copy_test_path:input.toolcfg
 copy_test_path:input_sel.txt
 copy_test_path:matsim_plans.xml
@@ -127,12 +127,12 @@ diff_edg:diff.edg.xml
 diff_con:diff.con.xml
 diff_tll:diff.tll.xml
 diff_xml:diff.xml
-created_sel:created.sel.txt
-deleted_sel:deleted.sel.txt
-changed_sel:changed.sel.txt
-created_shapes:created.shape.xml
-deleted_shapes:deleted.shape.xml
-changed_shapes:changed.shape.xml
+created_sel:diff.created.sel.txt
+deleted_sel:diff.deleted.sel.txt
+changed_sel:diff.changed.sel.txt
+created_shapes:diff.created.shape.xml
+deleted_shapes:diff.deleted.shape.xml
+changed_shapes:diff.changed.shape.xml
 omnet:omnet.xml
 shawn:shawn.xml
 dri:test.dri
@@ -170,8 +170,10 @@ xmlstats0:000/stats.xml
 xmlstats1:001/stats.xml
 xmlstats1:1.stats.xml
 xmlstats1:stats1.xml
+xmlstats1:sim_1.stats.xml
 xmlstats2:2.stats.xml
 xmlstats2:stats2.xml
+xmlstats2:sim2_1.stats.xml
 xmlstats3:3.stats.xml
 osmimport:*/osm.net.xml.gz
 osmstops:*/osm_stops.add.xml
@@ -305,6 +307,11 @@ xmlstats0:<!-- generated on{[->]}-->
 xmlstats1:<!-- generated on{[->]}-->
 xmlstats2:<!-- generated on{[->]}-->
 xmlstats3:<!-- generated on{[->]}-->
+xmlstats:<performance
+xmlstats0:<performance
+xmlstats1:<performance
+xmlstats2:<performance
+xmlstats3:<performance
 edgedata:<!-- generated on{[->]}-->
 od:<!-- generated on{[->]}-->
 net:<!--{[->]}-->

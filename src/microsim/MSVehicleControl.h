@@ -194,6 +194,8 @@ public:
     /// @}
 
 
+    /// @brief register / unregister depart-triggered vehicles with edges
+    void handleTriggeredDepart(SUMOVehicle* v, bool add);
 
     /// @name Setting vehicle statistics
     /// @{
@@ -289,6 +291,11 @@ public:
      */
     int getActiveVehicleCount() const {
         return myLoadedVehNo - (myWaitingForTransportable + myEndedVehNo);
+    }
+
+    /// @brief return the number of vehicles that are waiting for a transportable or a join
+    int getTriggeredVehicleCount() const {
+        return myWaitingForTransportable;
     }
 
 

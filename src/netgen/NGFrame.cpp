@@ -56,6 +56,23 @@ NGFrame::fillOptions() {
     oc.doRegister("perturb-z", new Option_String("0"));
     oc.addDescription("perturb-z", "Processing", TL("Apply random spatial perturbation in z direction according the the given distribution"));
 
+    oc.doRegister("bidi-probability", new Option_Float(1));
+    oc.addSynonyme("bidi-probability", "rand-bidi-probability", true);
+    oc.addSynonyme("bidi-probability", "rand.bidi-probability");
+    oc.addSynonyme("bidi-probability", "bidi");
+    oc.addDescription("bidi-probability", "Processing", TL("Defines the probability to build a reverse edge"));
+
+    oc.doRegister("random-lanenumber", new Option_Bool(false));
+    oc.addSynonyme("random-lanenumber", "rand.random-lanenumber", false);
+    oc.addDescription("random-lanenumber", "Processing", TL("Draw lane numbers randomly from [1,default.lanenumber]"));
+
+    oc.doRegister("random-priority", new Option_Bool(false));
+    oc.addSynonyme("random-priority", "rand.random-priority", false);
+    oc.addDescription("random-priority", "Processing", TL("Draw edge priority randomly from [1,default.priority]"));
+
+    oc.doRegister("random-type", new Option_Bool(false));
+    oc.addDescription("random-type", "Processing", TL("Draw edge type randomly from all loaded types"));
+
 
     //  register grid-net options
     oc.doRegister("grid", 'g', new Option_Bool(false));
@@ -106,12 +123,12 @@ NGFrame::fillOptions() {
     oc.addSynonyme("spider", "spider-net", true);
     oc.addDescription("spider", "Spider Network", TL("Forces NETGEN to build a spider-net-like network"));
 
-    oc.doRegister("spider.arm-number", new Option_Integer(13));
+    oc.doRegister("spider.arm-number", new Option_Integer(7));
     oc.addSynonyme("spider.arm-number", "spider-arm-number", true);
     oc.addSynonyme("spider.arm-number", "arms");
     oc.addDescription("spider.arm-number", "Spider Network", TL("The number of axes within the net"));
 
-    oc.doRegister("spider.circle-number", new Option_Integer(20));
+    oc.doRegister("spider.circle-number", new Option_Integer(5));
     oc.addSynonyme("spider.circle-number", "spider-circle-number", true);
     oc.addSynonyme("spider.circle-number", "circles");
     oc.addDescription("spider.circle-number", "Spider Network", TL("The number of circles of the net"));
@@ -126,22 +143,18 @@ NGFrame::fillOptions() {
     oc.addSynonyme("spider.omit-center", "nocenter");
     oc.addDescription("spider.omit-center", "Spider Network", TL("Omit the central node of the network"));
 
+    oc.doRegister("spider.attach-length", new Option_Float(0));
+    oc.addDescription("spider.attach-length", "Spider Network", TL("The length of streets attached at the boundary; 0 means no streets are attached"));
 
     //  register random-net options
     oc.doRegister("rand", 'r', new Option_Bool(false));
     oc.addSynonyme("rand", "random-net", true);
     oc.addDescription("rand", "Random Network", TL("Forces NETGEN to build a random network"));
 
-    oc.doRegister("rand.iterations", new Option_Integer(2000));
+    oc.doRegister("rand.iterations", new Option_Integer(100));
     oc.addSynonyme("rand.iterations", "rand-iterations", true);
     oc.addSynonyme("rand.iterations", "iterations");
     oc.addDescription("rand.iterations", "Random Network", TL("Describes how many times an edge shall be added to the net"));
-
-    oc.doRegister("bidi-probability", new Option_Float(1));
-    oc.addSynonyme("bidi-probability", "rand-bidi-probability", true);
-    oc.addSynonyme("bidi-probability", "bidi");
-    oc.addSynonyme("bidi-probability", "rand.bidi-probability");
-    oc.addDescription("bidi-probability", "Random Network", TL("Defines the probability to build a reverse edge"));
 
     oc.doRegister("rand.max-distance", new Option_Float(250));
     oc.addSynonyme("rand.max-distance", "rand-max-distance", true);
@@ -197,17 +210,6 @@ NGFrame::fillOptions() {
     oc.addSynonyme("rand.neighbor-dist6", "rand-neighbor-dist6", true);
     oc.addSynonyme("rand.neighbor-dist6", "dist6");
     oc.addDescription("rand.neighbor-dist6", "Random Network", TL("Probability for a node having exactly 6 neighbors"));
-
-    oc.doRegister("random-lanenumber", new Option_Bool(false));
-    oc.addSynonyme("random-lanenumber", "rand.random-lanenumber", false);
-    oc.addDescription("random-lanenumber", "Random Network", TL("Draw lane numbers randomly from [1,default.lanenumber]"));
-
-    oc.doRegister("random-priority", new Option_Bool(false));
-    oc.addSynonyme("random-priority", "rand.random-priority", false);
-    oc.addDescription("random-priority", "Random Network", TL("Draw edge priority randomly from [1,default.priority]"));
-
-    oc.doRegister("random-type", new Option_Bool(false));
-    oc.addDescription("random-type", "Random Network", TL("Draw edge type randomly from all loaded types"));
 
     oc.doRegister("rand.grid", new Option_Bool(false));
     oc.addDescription("rand.grid", "Random Network", TL("Place nodes on a regular grid with spacing rand.min-distance"));

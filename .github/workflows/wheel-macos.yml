@@ -22,9 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-#        os: [macos-10.15, macos-11]
-        python_version: [3.6, 3.7, 3.8, 3.9, '3.10']
-#    runs-on: ${{ matrix.os }}
+        python_version: [3.6, 3.7, 3.8, 3.9, '3.10', 3.11]
     runs-on: macos-11
     env:
       CCACHE_COMPILERTYPE: clang
@@ -33,13 +31,10 @@ jobs:
     - name: Cloning SUMO
       uses: actions/checkout@v3
       with:
-        path: sumo
         fetch-depth: 0
 
     - name: Fetching SUMO tags
-      run: |
-        cd sumo
-        git fetch --tags --force
+      run: git fetch --tags --force
 
     - name: Set up Python ${{ matrix.python_version }}
       uses: actions/setup-python@v4
@@ -55,9 +50,8 @@ jobs:
       if: github.event_name != 'schedule'
       uses: hendrikmuhs/ccache-action@v1.2
 
-    - name: Building Libsumo wheels
+    - name: Building SUMO / Libsumo wheels
       run: |
-        cd sumo
         python3 -m pip install build
         cp build/pyproject.toml .
         python3 tools/build/version.py tools/build/setup-sumo.py ./setup.py
@@ -73,31 +67,106 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: python-wheels
-        path: sumo/dist
+        path: dist
+
+  test-wheels:
+    needs: [build-wheels]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-11, macos-12]
+        python_version: [3.6, 3.7, 3.8, 3.9, '3.10', 3.11]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Fetching SUMO tags
+      run: git fetch --tags --force
+
+    - name: Downloading Wheels artifact
+      uses: actions/download-artifact@v3
+
+    - name: Configuring Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python_version }}
+
+    - name: Installing dependencies
+      run: |
+        brew install --cask xquartz
+        brew install xerces-c fox proj gdal gl2ps
+
+    - name: Preparing Python environment
+      run: |
+        python3 -m pip install wheel  # need to do this separately because the texttest install wants it
+        python3 -m pip install texttest
+        python3 -m pip install python-wheels/eclipse_sumo*
+        python3 -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
+
+#    - name: Running "sumo in the wheel" tests
+#      if: github.repository == 'DLR-TS/sumo'
+#      run: |
+#        python -m pip install -r tools/requirements.txt
+#        tests/runTests.sh -b ci -v ci.fast
+
+    - name: Running meta tests and cleaning up
+      run: |
+        tests/runTests.sh -b ci -v ci -ts meta
+        python3 -m pip uninstall -y eclipse-sumo
+
+    - name: Building helper wheels
+      run: |
+        cd tools
+        python3 -m pip install build
+        python3 build/version.py build/setup-sumolib.py ./setup.py
+        python3 -m build --wheel
+        python3 build/version.py build/setup-traci.py ./setup.py
+        python3 -m build --wheel
+
+    - name: Running libsumo tests
+      run: |
+        python3 -m pip install tools/dist/sumolib-* tools/dist/traci-*
+        PYTHON_VERSION=${{ matrix.python_version }}
+        python3 -m pip install python-wheels/libsumo-*cp3${PYTHON_VERSION:2}*
+        cd tests
+        texttest -b ci -v ci -a complex.libsumo
+
+    - name: Compressing test results
+      if: failure()
+      run: |
+        zip -r texttesttmp.zip ~/.texttest/tmp
+
+    - name: Uploading test results
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: texttesttmp-${{ matrix.python_version }}-${{ matrix.os }}
+        path: texttesttmp.zip
+        if-no-files-found: warn
 
   publish-wheels:
     if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags'))
-    needs: [build-wheels]
+    needs: [test-wheels]
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/download-artifact@v3
 
-    - name: Moving artifacts
-      run: |
-        ls -lR
-        mkdir dist
-        mv ./*-wheels/* dist
-
     - name: Publish to Test PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.TEST_PYPI_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
-        skip_existing: true
+        repository-url: https://test.pypi.org/legacy/
+        skip-existing: true
+        packages-dir: python-wheels/
 
     - name: Publish to PyPI
       if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_TOKEN }}
+        packages-dir: python-wheels/

@@ -41,16 +41,7 @@ SOURCE_SUFFIX = ".src.xml"
 DEST_SUFFIX = ".dst.xml"
 VIA_SUFFIX = ".via.xml"
 
-NET = None  # Used as a cache for the net throughout the whole script.
-
 MAXIMIZE_FACTOR = "max"
-
-
-def get_network(options):
-    global NET
-    if NET is None:
-        NET = sumolib.net.readNet(options.netfile)
-    return NET
 
 
 def get_options(args=None):
@@ -215,11 +206,11 @@ def get_options(args=None):
     if options.period is None and options.insertionRate is None and options.insertionDensity is None:
         options.period = [1.]
 
+    options.net = sumolib.net.readNet(options.netfile)
     if options.insertionDensity:
         # Compute length of the network
-        net = get_network(options)
         length = 0.  # In meters
-        for edge in net.getEdges():
+        for edge in options.net.getEdges():
             if edge.allows(options.vclass):
                 length += edge.getLaneNumber() * edge.getLength()
         options.insertionRate = [density * (length / 1000.0) for density in options.insertionDensity]
@@ -374,15 +365,14 @@ class RandomTripGenerator:
 
 def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
     # fringe_bonus None generates intermediate way points
-    net = get_network(options)
     randomProbs = defaultdict(lambda: 1)
     if options.randomFactor != 1:
-        for edge in net.getEdges():
+        for edge in options.net.getEdges():
             randomProbs[edge.getID()] = random.uniform(1, options.randomFactor)
 
     roundabouts = set()
     if not options.allowRoundabouts:
-        for roundabout in net.getRoundabouts():
+        for roundabout in options.net.getRoundabouts():
             roundabouts.update(roundabout.getEdges())
 
     def edge_probability(edge):
@@ -590,18 +580,17 @@ def main(options):
     if not options.random:
         random.seed(options.seed)
 
-    net = get_network(options)
-    if options.min_distance > net.getBBoxDiameter() * (options.intermediate + 1):
-        options.intermediate = int(math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
+    if options.min_distance > options.net.getBBoxDiameter() * (options.intermediate + 1):
+        options.intermediate = int(math.ceil(options.min_distance / options.net.getBBoxDiameter())) - 1
         print(("Warning: Using %s intermediate waypoints to achieve a minimum trip length of %s in a network "
-               "with diameter %.2f.") % (options.intermediate, options.min_distance, net.getBBoxDiameter()),
+               "with diameter %.2f.") % (options.intermediate, options.min_distance, options.net.getBBoxDiameter()),
               file=sys.stderr)
 
     if options.angle_weight != 1:
-        xmin, ymin, xmax, ymax = net.getBoundary()
+        xmin, ymin, xmax, ymax = options.net.getBoundary()
         options.angle_center = (xmin + xmax) / 2, (ymin + ymax) / 2
 
-    trip_generator = buildTripGenerator(net, options)
+    trip_generator = buildTripGenerator(options.net, options)
     idx = 0
 
     vtypeattrs, options.tripattrs, personattrs, otherattrs = split_trip_attributes(
@@ -801,9 +790,9 @@ def main(options):
     if options.carWalkMode is not None:
         args += ['--persontrip.transfer.car-walk', options.carWalkMode]
     if options.walkfactor is not None:
-        args += ['--persontrip.walkfactor', options.walkfactor]
+        args += ['--persontrip.walkfactor', str(options.walkfactor)]
     if options.walkoppositefactor is not None:
-        args += ['--persontrip.walk-opposite-factor', options.walkoppositefactor]
+        args += ['--persontrip.walk-opposite-factor', str(options.walkoppositefactor)]
     if options.remove_loops:
         args += ['--remove-loops']
     if options.randomRoutingFactor != 1:

@@ -50,8 +50,8 @@ netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.period, "-100", True)
 netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.period, "120", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

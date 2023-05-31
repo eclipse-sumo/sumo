@@ -165,11 +165,11 @@ GUISUMOAbstractView::~GUISUMOAbstractView() {
     delete myGUIDialogEditViewport;
     delete myGUIDialogViewSettings;
     // cleanup decals
-    for (auto &decal : myDecals) {
+    for (auto& decal : myDecals) {
         delete decal.image;
     }
     // remove all elements
-    for (auto &additional : myAdditionallyDrawn) {
+    for (auto& additional : myAdditionallyDrawn) {
         additional.first->removeActiveAddVisualisation(this, ~0);
     }
 }
@@ -1094,7 +1094,9 @@ long
 GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
     setFocus();
-    myChanger->onMiddleBtnPress(ptr);
+    if(!myApp->isGaming()) {
+        myChanger->onMiddleBtnPress(ptr);
+    }
     grab();
     // enable panning
     myPanning = true;
@@ -1108,7 +1110,9 @@ GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
 long
 GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    myChanger->onMiddleBtnRelease(ptr);
+    if(!myApp->isGaming()) {
+        myChanger->onMiddleBtnRelease(ptr);
+    }
     ungrab();
     // disable panning
     myPanning = false;
@@ -1122,7 +1126,9 @@ GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
 long
 GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    myChanger->onRightBtnPress(ptr);
+    if(!myApp->isGaming()) {
+        myChanger->onRightBtnPress(ptr);
+    }
     grab();
     return 1;
 }
@@ -1156,8 +1162,8 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector, void* ptr) {
         // upddate viewport
         if (myGUIDialogEditViewport != nullptr) {
             myGUIDialogEditViewport->setValues(myChanger->getZoom(),
-                                         myChanger->getXPos(), myChanger->getYPos(),
-                                         myChanger->getRotation());
+                                               myChanger->getXPos(), myChanger->getYPos(),
+                                               myChanger->getRotation());
         }
         updatePositionInformationLabel();
     }
@@ -1178,14 +1184,14 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* ptr) {
             destroyPopup();
         }
     }
-    if (myPopup == nullptr) {
+    if (myPopup == nullptr && !myApp->isGaming()) {
         if (myGUIDialogEditViewport == nullptr || !myGUIDialogEditViewport->haveGrabbed()) {
             myChanger->onMouseMove(ptr);
         }
         if (myGUIDialogEditViewport != nullptr) {
             myGUIDialogEditViewport->setValues(myChanger->getZoom(),
-                                         myChanger->getXPos(), myChanger->getYPos(),
-                                         myChanger->getRotation());
+                                               myChanger->getXPos(), myChanger->getYPos(),
+                                               myChanger->getRotation());
         }
         updatePositionInformationLabel();
     }
@@ -1594,8 +1600,8 @@ GUISUMOAbstractView::getViewportEditor() {
 
 void GUISUMOAbstractView::updateViewportValues() {
     myGUIDialogEditViewport->setValues(myChanger->getZoom(),
-                                 myChanger->getXPos(), myChanger->getYPos(),
-                                 myChanger->getRotation());
+                                       myChanger->getXPos(), myChanger->getYPos(),
+                                       myChanger->getRotation());
 }
 
 
@@ -1792,7 +1798,7 @@ void
 GUISUMOAbstractView::drawDecals() {
     GLHelper::pushName(0);
     myDecalsLockMutex.lock();
-    for (auto &decal : myDecals) {
+    for (auto& decal : myDecals) {
         if (decal.skip2D || decal.filename.empty()) {
             continue;
         }
@@ -1988,7 +1994,7 @@ GUISUMOAbstractView::filterGUIGLObjectsByLayer(const std::vector<GUIGlObject*>& 
     // declare vector for saving object filtered by layer
     std::vector<GUIGlObject*> objectsFiltered;
     // insert in objects filtered sorted from bot to top
-    for (const auto &object : layerObjects) {
+    for (const auto& object : layerObjects) {
         objectsFiltered.push_back(object.getGLObject());
     }
     // reverse objets filtered to top from bot

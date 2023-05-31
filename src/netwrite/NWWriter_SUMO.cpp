@@ -92,7 +92,10 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isDefault("tls.ignore-internal-junction-jam")) {
         attrs[SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM] = toString(oc.getBool("tls.ignore-internal-junction-jam"));
     }
-    if (oc.getString("default.spreadtype") != "right") {
+    if (oc.getString("default.spreadtype") == "roadCenter") {
+        // it makes no sense to store the default=center in the net since
+        // centered edges would have the attribute written anyway and edges that
+        // should have 'right' would be misinterpreted
         attrs[SUMO_ATTR_SPREADTYPE] = oc.getString("default.spreadtype");
     }
     if (oc.exists("geometry.avoid-overlap") && !oc.getBool("geometry.avoid-overlap")) {
@@ -115,7 +118,8 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     GeoConvHelper::writeLocation(device);
 
     // write edge types and restrictions
-    nb.getTypeCont().writeEdgeTypes(device);
+    std::set<std::string> usedTypes = ec.getUsedTypes();
+    nb.getTypeCont().writeEdgeTypes(device, usedTypes);
 
     // write inner lanes
     if (!oc.getBool("no-internal-links")) {

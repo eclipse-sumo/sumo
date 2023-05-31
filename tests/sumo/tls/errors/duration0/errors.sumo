@@ -1,0 +1,3 @@
+Error: Duration of phase 4 for tlLogic '0' program '2' is zero.
+Warning: Missing green phase in tlLogic '0', program '2' for tl-index 4.
+Quitting (on error).

@@ -1357,12 +1357,7 @@ GNEInspectorFrame::updateFrameAfterUndoRedo() {
 
 void
 GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
-    // if AC is a lane but selectEdges checkBox is enabled, then inspect their parent edge
-    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myViewNet->getNetworkViewOptions().selectEdges()) {
-        inspectSingleElement(dynamic_cast<GNELane*>(AC)->getParentEdge());
-    } else {
-        inspectSingleElement(AC);
-    }
+    inspectSingleElement(AC);
     // update view (due dotted contour)
     myViewNet->updateViewNet();
 }

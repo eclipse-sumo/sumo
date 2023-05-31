@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# apply zoom
+netedit.setZoom("0", "0", "25")
+
 # go to select mode
 netedit.selectMode()
 
@@ -37,8 +40,8 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect Entry
-netedit.leftClick(referencePosition, 183, 240)
+# inspect entry
+netedit.leftClick(referencePosition, 347, 296)
 
 # Change boolean parameter friendlypos
 netedit.modifyAttribute(netedit.attrs.entryExit.inspectSelection.friendlyPos, "true", True)

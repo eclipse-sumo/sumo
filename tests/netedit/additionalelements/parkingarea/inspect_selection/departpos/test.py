@@ -53,8 +53,8 @@ netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.departPos, "5
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.departPos, "9.5", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

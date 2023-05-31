@@ -1,7 +1,2 @@
-Error: Could not build detExit in netedit; lane doesn't exist.
-Error: Could not build detExit in netedit; lane doesn't exist.
-Error: Could not build detExit in netedit; lane doesn't exist.
-Error: Could not build detExit in netedit; lane doesn't exist.
-Error: Could not build detExit in netedit; lane doesn't exist.
-Error: Could not build detExit in netedit; lane doesn't exist.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Apr082149.8400\netedit.gui\additionalelements\detexit\volatilerecomputing\additionals.add.xml failed.
+Error: Could not build entry with ID 'entryExitDetector_0' in netedit; Invalid position over lane.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Apr103619.2232\netedit.gui\additionalelements\detexit\volatilerecomputing\additionals.add.xml failed.

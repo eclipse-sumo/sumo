@@ -25,6 +25,9 @@ one_vehicle_subsecond
 # one vehicle is moving, timestep is subseconds and output is scaled to step-length
 one_vehicle_subsecond_scaled
 
+# one vehicle is moving
+one_vehicle_elevation
+
 # a small driving cycle with different emission models
 models_cycle
 

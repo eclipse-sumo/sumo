@@ -2467,7 +2467,7 @@ MSLCM_SL2015::checkBlockingVehicles(
 #endif
             if (overlapAny) {
                 if (vehDist.second < 0) {
-                    if (overlapBefore && !overlapDest) {
+                    if (overlapBefore && !overlapDest && !outsideEdge()) {
 #ifdef DEBUG_BLOCKING
                         if (gDebugFlag2) {
                             std::cout << "    ignoring current overlap to come clear\n";
@@ -2594,7 +2594,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
                           << "\n";
             }
 #endif
-            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0
+            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && !outsideEdge() && (vehDist.second >= 0
                     // avoid deadlock due to #3729
                     || (!leaders
                         && myVehicle.getPositionOnLane() >= myVehicle.getVehicleType().getLength()
@@ -2685,6 +2685,14 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
 #endif
     if (want1) {
         if (want2) {
+            if ((sd1.state & LCA_TRACI) != 0 && (sd2.state & LCA_TRACI) != 0) {
+                // influencer may assign LCA_WANTS_LANECHANGE despite latDist = 0
+                if (sd1.latDist == 0 && sd2.latDist != 0) {
+                    return sd2;
+                } else if (sd2.latDist == 0 && sd1.latDist != 0) {
+                    return sd1;
+                }
+            }
             // decide whether right or left has higher priority (lower value in enum LaneChangeAction)
             if (reason1 < reason2) {
                 //if (DEBUG_COND) std::cout << "   " << (sd1.state & LCA_CHANGE_REASONS) << " < " << (sd2.state & LCA_CHANGE_REASONS) << "\n";
@@ -2946,7 +2954,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     }
 #if defined(DEBUG_STRATEGIC_CHANGE) || defined(DEBUG_TRACI)
     if (gDebugFlag2) {
-        std::cout << " reqAfterInfluence=" << ret << " ret=" << ret << "\n";
+        std::cout << " reqAfterInfluence=" << toString((LaneChangeAction)retTraCI) << " ret=" << toString((LaneChangeAction)ret) << "\n";
     }
 #endif
     return ret;
@@ -3069,6 +3077,8 @@ MSLCM_SL2015::keepLatGap(int state,
     double gapFactor = computeGapFactor(state);
     const double oldLatDist = latDist;
     const double oldManeuverDist = maneuverDist;
+    /// passed state is without traci-influence but we need it here
+    const int traciState = myVehicle.influenceChangeDecision(state);
 
     // compute gaps after maneuver
     const double halfWidth = getWidth() * 0.5;
@@ -3080,8 +3090,8 @@ MSLCM_SL2015::keepLatGap(int state,
     double surplusGapRight = oldCenter - halfWidth;
     double surplusGapLeft = getLeftBorder(laneOffset != 0) - oldCenter - halfWidth;
     const bool stayInLane = (laneOffset == 0
-                             || ((state & LCA_STRATEGIC) != 0
-                                 && (state & LCA_STAY) != 0
+                             || ((traciState & LCA_STRATEGIC) != 0
+                                 && (traciState & LCA_STAY) != 0
                                  // permit wide vehicles to stay on the road
                                  && (surplusGapLeft >= 0 && surplusGapRight >= 0)));
 
@@ -3094,6 +3104,7 @@ MSLCM_SL2015::keepLatGap(int state,
                   << " latDist=" << latDist
                   << " maneuverDist=" << maneuverDist
                   << " state=" << toString((LaneChangeAction)state)
+                  << " traciState=" << toString((LaneChangeAction)traciState)
                   << " blocked=" << toString((LaneChangeAction)blocked)
                   << " gapFactor=" << gapFactor
                   << " stayInLane=" << stayInLane << "\n"
@@ -3203,7 +3214,7 @@ MSLCM_SL2015::keepLatGap(int state,
     }
     // if we cannot move in the desired direction, consider the maneuver blocked anyway
     const bool nonSublaneChange = (state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT)) != 0;
-    const bool traciChange = (state & LCA_TRACI) != 0;
+    const bool traciChange = ((state | traciState) & LCA_TRACI) != 0;
     if (nonSublaneChange && !traciChange) {
         if ((latDist < NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) && (oldLatDist > 0)) {
 #ifdef DEBUG_KEEP_LATGAP
@@ -3487,22 +3498,24 @@ MSLCM_SL2015::getDesiredAlignment() const {
     LatAlignmentDefinition align = MSAbstractLaneChangeModel::getDesiredAlignment();
     // Check whether the vehicle should adapt its alignment to an upcoming turn
     if (myTurnAlignmentDist > 0) {
-        const std::pair<double, LinkDirection>& turnInfo = myVehicle.getNextTurn();
+        const std::pair<double, const MSLink*>& turnInfo = myVehicle.getNextTurn();
+        const LinkDirection turnDir = turnInfo.second == nullptr ? LinkDirection::NODIR : turnInfo.second->getDirection();
+        const bool indirect = turnInfo.second == nullptr ? false : turnInfo.second->isIndirect();
         if (turnInfo.first < myTurnAlignmentDist) {
             // Vehicle is close enough to the link to change its default alignment
-            switch (turnInfo.second) {
+            switch (turnDir) {
                 case LinkDirection::TURN:
                 case LinkDirection::LEFT:
                 case LinkDirection::PARTLEFT:
                     if (myVehicle.getLane()->getBidiLane() == nullptr) {
                         // no left alignment on bidi lane to avoid blocking oncoming traffic
-                        align = MSGlobals::gLefthand ? LatAlignmentDefinition::RIGHT : LatAlignmentDefinition::LEFT;
+                        align = MSGlobals::gLefthand != indirect ? LatAlignmentDefinition::RIGHT : LatAlignmentDefinition::LEFT;
                     }
                     break;
                 case LinkDirection::TURN_LEFTHAND:
                 case LinkDirection::RIGHT:
                 case LinkDirection::PARTRIGHT:
-                    align = MSGlobals::gLefthand ? LatAlignmentDefinition::LEFT : LatAlignmentDefinition::RIGHT;
+                    align = MSGlobals::gLefthand != indirect ? LatAlignmentDefinition::LEFT : LatAlignmentDefinition::RIGHT;
                     break;
                 case LinkDirection::STRAIGHT:
                 case LinkDirection::NODIR:
@@ -3988,4 +4001,9 @@ MSLCM_SL2015::saveBlockerLength(double length, double foeLeftSpace) {
     }
 }
 
+
+bool
+MSLCM_SL2015::outsideEdge() const {
+    return myVehicle.getLeftSideOnEdge() < 0 || myVehicle.getRightSideOnEdge() > myVehicle.getLane()->getEdge().getWidth();
+}
 /****************************************************************************/

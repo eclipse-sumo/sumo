@@ -195,6 +195,10 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 if (toEdge == nullptr) { // removed by explicit list, vclass, ...
                     continue;
                 }
+                if (toEdge->getFromNode() != nbe->getToNode()) { // inconsistency may occur when merging networks
+                    WRITE_WARNINGF("Removing invalid connection from edge '%' to edge '%'", nbe->getID(), toEdge->getID());
+                    continue;
+                }
                 // patch attribute uncontrolled for legacy networks where it is not set explicitly
                 bool uncontrolled = c.uncontrolled;
 
@@ -621,12 +625,12 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (myCurrentEdge == nullptr) {
-        WRITE_ERRORF(TL("Found lane '%' not within edge element."), id );
+        WRITE_ERRORF(TL("Found lane '%' not within edge element."), id);
         return;
     }
     const std::string expectedID = myCurrentEdge->id + "_" + toString(myCurrentEdge->lanes.size());
     if (id != expectedID) {
-        WRITE_WARNINGF(TL("Renaming lane '%' to '%'."), id , expectedID);
+        WRITE_WARNINGF(TL("Renaming lane '%' to '%'."), id, expectedID);
     }
     myCurrentLane = new LaneAttrs();
     myLastParameterised.push_back(myCurrentLane);
@@ -978,7 +982,7 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
 
 
 GeoConvHelper*
-NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs) {
+NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs, bool setLoaded) {
     // @todo refactor parsing of location since its duplicated in NLHandler and PCNetProjectionLoader
     bool ok = true;
     GeoConvHelper* result = nullptr;
@@ -990,7 +994,9 @@ NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs) {
         Position networkOffset = s[0];
         result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
         result->resolveAbstractProjection();
-        GeoConvHelper::setLoaded(*result);
+        if (setLoaded) {
+            GeoConvHelper::setLoaded(*result);
+        }
     }
     return result;
 }

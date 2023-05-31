@@ -604,6 +604,11 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                         || (length > 3 * POSITION_EPS
                             && (e->getPermissions() & (SVC_PASSENGER | SVC_TRAM)) == 0
                             && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth))) {
+#ifdef DEBUG_JOINJUNCTIONS
+                        if (DEBUGCOND(s)) {
+                            std::cout << " ignored s=" << s->getID() << " pedestrian edge=" << e->getID() << " cd=" << n->getPosition().distanceTo2D(s->getPosition()) << "\n";
+                        }
+#endif
                     continue;
                 }
                 // never join rail_crossings with other node types unless the crossing is only for tram
@@ -1742,13 +1747,16 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
 
     // determine possible connectivity from outside edges
     std::map<NBEdge*, EdgeSet> reachable;
+    std::map<std::pair<NBEdge*, NBEdge*>, SVCPermissions> conPermissions;
+    EdgeSet specialPermissions;
     for (NBEdge* e : clusterIncoming) {
         EdgeVector open;
         EdgeSet seen;
         open.push_back(e);
         while (open.size() > 0) {
             NBEdge* cur = open.back();
-            //std::cout << "   e=" << e->getID() << " cur=" << cur->getID() << " open=" << toString(open) << "\n";
+            SVCPermissions pCur = conPermissions.count({e, cur}) == 0 ? cur->getPermissions() : conPermissions[{e, cur}];
+            //std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " pCur=" << getVehicleClassNames(pCur) << " open=" << toString(open) << "\n";
             seen.insert(cur);
             open.pop_back();
             if (cluster.count(cur->getToNode()) == 0) {
@@ -1759,19 +1767,30 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             if (cons.size() == 0 || ec.hasPostProcessConnection(cur->getID()) || cur->getStep() == NBEdge::EdgeBuildingStep::INIT) {
                 // check permissions to determine reachability
                 for (NBEdge* out : cur->getToNode()->getOutgoingEdges()) {
-                    if (seen.count(out) == 0
-                            && allEdges.count(out) != 0
-                            && (out->getPermissions() & cur->getPermissions() & ~SVC_PEDESTRIAN) != 0) {
-                        open.push_back(out);
+                    if (allEdges.count(out) != 0) {
+                        SVCPermissions p = pCur & out->getPermissions();
+                        if (seen.count(out) == 0 || (~conPermissions[{e, out}] & p) != 0) {
+                            if ((p & ~SVC_PEDESTRIAN) != 0) {
+                                open.push_back(out);
+                                conPermissions[{e, out}] |= p;
+                                //std::cout << "  e=" << e->getID() << " out=" << out->getID() << " pOut=" << getVehicleClassNames(out->getPermissions()) << "\n    p=" << getVehicleClassNames(p) << "\n    q=" << getVehicleClassNames(conPermissions[{e, out}]) << "\n";
+                            }
+                        }
                     }
                 }
             } else {
                 // check existing connections
                 for (const auto& con : cons) {
-                    if (con.toEdge != nullptr
-                            && seen.count(con.toEdge) == 0
-                            && allEdges.count(con.toEdge) != 0) {
-                        open.push_back(con.toEdge);
+                    if (con.toEdge != nullptr && allEdges.count(con.toEdge) != 0) {
+                        SVCPermissions p = pCur & con.toEdge->getPermissions();
+                        if (con.permissions != SVC_UNSPECIFIED) {
+                            p &= con.permissions;
+                        }
+                        if (seen.count(con.toEdge) == 0 || (~conPermissions[{e, con.toEdge}] & p) != 0) {
+                            open.push_back(con.toEdge);
+                            conPermissions[{e, con.toEdge}] |= p;
+                            //std::cout << "  e=" << e->getID() << " con.toEdge=" << con.toEdge->getID() << " pSpecial=" << toString(con.permissions) << " pOut=" << getVehicleClassNames(con.toEdge->getPermissions()) << "\n    p=" << getVehicleClassNames(p) << "\n    q=" << getVehicleClassNames(conPermissions[{e, con.toEdge}]) << "\n";
+                        }
                     }
                 }
             }
@@ -1781,6 +1800,10 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             // filter out inside edges from reached
             if (inside.count(reached) == 0) {
                 reachable[e].insert(reached);
+                SVCPermissions pDefault = e->getPermissions() & reached->getPermissions();
+                if (conPermissions[{e, reached}] != pDefault) {
+                    specialPermissions.insert(e);
+                }
             }
         }
 #ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
@@ -1839,11 +1862,21 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
     }
     if (!resetConnections) {
         // disable connections that were impossible with the old topology
+        // if connectivity has special permissions, set edge to edge connections explicitly
         for (NBEdge* in : newNode->getIncomingEdges()) {
             for (NBEdge* out : newNode->getOutgoingEdges()) {
-                if (reachable[in].count(out) == 0 && !ec.hasPostProcessConnection(in->getID(), out->getID())) {
-                    //std::cout << " removeUnreachable in=" << in->getID() << " out=" << out->getID() << "\n";
-                    in->removeFromConnections(out, -1, -1, true, false, true);
+                if (reachable[in].count(out) == 0) {
+                    if (!ec.hasPostProcessConnection(in->getID(), out->getID())) {
+                        //std::cout << " removeUnreachable in=" << in->getID() << " out=" << out->getID() << "\n";
+                        in->removeFromConnections(out, -1, -1, true, false, true);
+                    } else {
+                        //std::cout << " hasPostProcessConnection in=" << in->getID() << " out=" << out->getID() << "\n";
+                    }
+                } else if (specialPermissions.count(in) != 0) {
+                    SVCPermissions pDefault = in->getPermissions() & out->getPermissions();
+                    SVCPermissions p = conPermissions[{in, out}] == 0 ? pDefault : conPermissions[{in, out}];
+                    in->addEdge2EdgeConnection(out, true, p == pDefault ? SVC_UNSPECIFIED : p);
+                    //std::cout << " addEdge2Edge in=" << in->getID() << " out=" << out->getID() << "\n";
                 }
             }
         }

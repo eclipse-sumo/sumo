@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-06 15:38:35 by Eclipse SUMO sumo Version v1_15_0+2216-04c786d205d
+<!-- generated on 2023-05-02 09:30:49 by Eclipse SUMO sumo Version v1_15_0+2216-04c786d205d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,7 +23,7 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="51931"/>
+        <remote-port value="63314"/>
     </traci_server>
 
 </configuration>
@@ -35,8 +35,8 @@
     <safety collisions="0" emergencyStops="0"/>
     <persons loaded="10" running="0" jammed="0"/>
     <personTeleports total="0" abortWait="0" wrongDest="0"/>
-    <vehicleTripStatistics count="2" routeLength="3823.20" speed="4.11" duration="930.00" waitingTime="15.00" timeLoss="104.61" departDelay="0.00" departDelayWaiting="0.00" totalTravelTime="1860.00" totalDepartDelay="0.00"/>
+    <vehicleTripStatistics count="2" routeLength="3433.43" speed="3.69" duration="930.00" waitingTime="15.00" timeLoss="97.83" departDelay="0.00" departDelayWaiting="0.00" totalTravelTime="1860.00" totalDepartDelay="0.00"/>
     <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
-    <rideStatistics number="10" waitingTime="151.80" routeLength="1515.94" duration="278.80" bus="0" train="0" taxi="10" bike="0" aborted="0"/>
+    <rideStatistics number="10" waitingTime="141.60" routeLength="1519.83" duration="280.70" bus="0" train="0" taxi="10" bike="0" aborted="0"/>
     <transportStatistics number="0"/>
 </statistics>

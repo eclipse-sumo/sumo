@@ -46,16 +46,18 @@ public:
      * @param[in] parent The parent window
      * @param[in] optionsContainer edited option container
      * @param[in] name The title to show
+     * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static int Options(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
+    static std::pair<int, bool> Options(GUIMainWindow* windows, OptionsCont* optionsContainer, const char* titleName);
 
     /**@brief Constructor for run dialogs
      *
      * @param[in] parent The parent window
      * @param[in] optionsContainer edited option container
      * @param[in] name The title to show
+     * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static int Run(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
+    static std::pair<int, bool> Run(GUIMainWindow* windows, OptionsCont* optionsContainer, const char* titleName);
 
     /// @brief Destructor
     ~GUIDialog_Options();
@@ -67,183 +69,125 @@ public:
     // Option input classes
     // ===========================================================================
 
-    class InputString : public FXHorizontalFrame {
+    class InputOption : public FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputString)
+        FXDECLARE_ABSTRACT(GUIDialog_Options::InputOption)
+
+    public:
+        /// @brief constructor
+        InputOption(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
+
+        /// @brief try to set new attribute value
+        long onCmdSetOption(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(InputOption)
+
+        /// @brief GUIDialog_Options parent
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
+
+        /// @brief name
+        const std::string myName;
+
+    private:
+        /// @brief set new option value
+        virtual bool setOption() = 0;
+    };
+
+    class InputString : public InputOption {
 
     public:
         /// @brief constructor
         InputString(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputString)
-
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
+        /// @brief set new option value
+        bool setOption();
 
         /// @brief text field
         FXTextField* myTextField;
     };
 
-    class InputStringVector : public FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputStringVector)
+    class InputStringVector : public InputOption {
 
     public:
         /// @brief constructor
         InputStringVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputStringVector)
-
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
+        /// @brief set new option value
+        bool setOption();
 
         /// @brief text field
         FXTextField* myTextField;
     };
 
-    class InputBool : public FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputBool)
+    class InputBool : public InputOption {
 
     public:
         /// @brief constructor
         InputBool(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputBool)
-
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
+        /// @brief set new option value
+        bool setOption();
 
         /// @brief menu check
         FXMenuCheck* myCheck;
     };
 
-    class InputInt : public FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputInt)
+    class InputInt : public InputOption {
 
     public:
         /// @brief
         InputInt(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputInt)
-
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
+        /// @brief set new option value
+        bool setOption();
 
         /// @brief text field
         FXTextField* myTextField;
     };
 
-    class InputIntVector : public FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputIntVector)
+    class InputIntVector : public InputOption {
 
     public:
         /// @brief
         InputIntVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputIntVector)
-
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
+        /// @brief set new option value
+        bool setOption();
 
         /// @brief text field
         FXTextField* myTextField;
     };
 
-    class InputFloat : public FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputFloat)
+    class InputFloat : public InputOption {
 
     public:
         /// @brief constructor
         InputFloat(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputFloat)
-
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
+        /// @brief set new option value
+        bool setOption();
 
         /// @brief text field
         FXTextField* myTextField;
     };
 
-    class InputFilename : public FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GUIDialog_Options::InputFilename)
+    class InputFilename : public InputOption {
 
     public:
         /// @brief constructor
         InputFilename(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
-        /// @brief try to set new attribute value
-        long onCmdSetOption(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputFilename)
-
     private:
-        /// @brief GUIDialog_Options parent
-        GUIDialog_Options* myGUIDialogOptions = nullptr;
-
-        /// @brief name
-        std::string myName;
+        /// @brief set new option value
+        bool setOption();
 
         /// @brief text field
         FXTextField* myTextField;
@@ -258,6 +202,9 @@ protected:
 
     /// @brief refecente to edited Option container
     OptionsCont* myOptionsContainer;
+
+    /// @brief flag for check if value was modified
+    bool myModified = false;
 
 private:
     /**@brief Constructor

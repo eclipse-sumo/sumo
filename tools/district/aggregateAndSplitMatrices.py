@@ -15,6 +15,7 @@
 # @author  Yun-Pang Floetteroed
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2008-08-20
 
 """
@@ -32,25 +33,28 @@ generate trip files.
 """
 from __future__ import absolute_import
 from __future__ import print_function
-
+import os
 import sys
-from optparse import OptionParser
 from xml.sax import make_parser, handler
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+from sumolib.options import ArgumentParser  # noqa
 
 OUTPUTDIR = "./input/"
-optParser = OptionParser()
-optParser.add_option("-m", "--matrix-file", dest="mtxpsfile",
-                     help="read OD matrix for passenger vehicles(long dist.) from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-z", "--districts-file", dest="districtsfile",
-                     help="read connecting links from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-t", "--timeSeries-file", dest="timeseries",
-                     help="read hourly traffic demand rate from FILE", metavar="FILE")
-optParser.add_option("-d", "--dir", dest="OUTPUTDIR", default=OUTPUTDIR,
-                     help="Directory to store the output files. Default: " + OUTPUTDIR)
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
+ap = ArgumentParser()
+ap.add_argument("-m", "--matrix-file", dest="mtxpsfile", category="input", type=ap.file, required=True,
+                help="read OD matrix for passenger vehicles(long dist.) from FILE (mandatory)", metavar="FILE")
+ap.add_argument("-z", "--districts-file", dest="districtsfile", category="input", type=ap.file, required=True,
+                help="read connecting links from FILE (mandatory)", metavar="FILE")
+ap.add_argument("-t", "--timeSeries-file", dest="timeseries", category="input", type=ap.file,
+                help="read hourly traffic demand rate from FILE", metavar="FILE")
+ap.add_argument("-d", "--dir", dest="OUTPUTDIR", default=OUTPUTDIR, category="output", type=str,
+                help="Directory to store the output files. Default: " + OUTPUTDIR)
+ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
+                default=False, help="tell me what you are doing")
 
-(options, args) = optParser.parse_args()
+options = ap.parse_args()
 
 
 class District:
@@ -213,7 +217,7 @@ def getMatrix(verbose, matrix):  # , mtxplfile, mtxtfile):
 
 def main():
     if not options.mtxpsfile:
-        optParser.print_help()
+        ap.print_help()
         sys.exit()
 
     districtList = []

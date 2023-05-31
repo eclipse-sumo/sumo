@@ -120,7 +120,7 @@ buildNetwork(NBNetBuilder& nb) {
             hadError = true;
         }
         if (oc.getInt("spider.arm-number") > 4 && oc.isDefault("spider.omit-center")) {
-            WRITE_WARNING(TL("Spider networks with many arms should use option ommit-center"));
+            WRITE_WARNING(TL("Spider networks with many arms should use option spider.omit-center"));
         }
         if (oc.getInt("spider.circle-number") < 1) {
             WRITE_ERROR(TL("Spider networks need at least one circle."));
@@ -139,7 +139,8 @@ buildNetwork(NBNetBuilder& nb) {
         // build if everything's ok
         NGNet* net = new NGNet(nb);
         net->createSpiderWeb(oc.getInt("spider.arm-number"), oc.getInt("spider.circle-number"),
-                             oc.getFloat("spider.space-radius"), !oc.getBool("spider.omit-center"));
+                             oc.getFloat("spider.space-radius"), !oc.getBool("spider.omit-center"),
+                             oc.getFloat("spider.attach-length"));
         return net;
     }
     // grid-net

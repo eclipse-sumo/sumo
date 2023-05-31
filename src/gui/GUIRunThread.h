@@ -112,6 +112,10 @@ public:
         return myBreakpointLock;
     }
 
+    SUMOTime& getSimBegin() {
+        return mySimStartTime;
+    }
+
     void enableLibsumo() {
         myAmLibsumo = true;
     }

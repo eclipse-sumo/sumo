@@ -24,7 +24,7 @@ simple_stop
 close_to_start
 
 # define stop at start of edge
-very_close_to_start_copy
+very_close_to_start
 
 # stop on position 0 of a lane
 at_start
@@ -70,7 +70,6 @@ teleport_across_stopped
 
 # waiting for the stop to be free
 occupied
-simple_stop_expecting2
 
 # teleport should remove stops from the list
 teleport

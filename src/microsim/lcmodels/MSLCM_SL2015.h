@@ -193,6 +193,9 @@ protected:
     /// @brief reserve space at the end of the lane to avoid dead locks
     bool saveBlockerLength(double length, double foeLeftSpace) override;
 
+    /// @brief whether the ego vehicle is driving outside edgebounds
+    bool outsideEdge() const;
+
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;
     }

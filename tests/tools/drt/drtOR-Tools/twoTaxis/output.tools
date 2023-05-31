@@ -1,3 +1,10 @@
+Simulation parameters:
+  end: 900.0
+  interval: 30
+  time_limit: 10
+  cost_type: CostType.DISTANCE
+  drf: -1.0
+  fix_allocation: False
 timestep:  0.0
 Reservations waiting: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 Taxis empty: ('v0', 'v1')
@@ -25,53 +32,105 @@ Reservation 6 ends at edge C2D2
 Reservation 7 ends at edge C0C1
 Reservation 8 ends at edge B2B1
 Reservation 9 ends at edge E0D0
+Reservation 0 has direct route costs 870
+Reservation 1 has direct route costs 771
+Reservation 2 has direct route costs 785
+Reservation 3 has direct route costs 770
+Reservation 4 has direct route costs 1576
+Reservation 5 has direct route costs 777
+Reservation 6 has direct route costs 1166
+Reservation 7 has direct route costs 565
+Reservation 8 has direct route costs 276
+Reservation 9 has direct route costs 1575
 Start solving the problem.
  Register distance callback.
  Add distance constraints...
  Add pickup and delivery constraints...
+pickup/dropoff nodes: 1/11
+allow to reject new reservation 0
+pickup/dropoff nodes: 2/12
+allow to reject new reservation 1
+pickup/dropoff nodes: 3/13
+allow to reject new reservation 2
+pickup/dropoff nodes: 4/14
+allow to reject new reservation 3
+pickup/dropoff nodes: 5/15
+allow to reject new reservation 4
+pickup/dropoff nodes: 6/16
+allow to reject new reservation 5
+pickup/dropoff nodes: 7/17
+allow to reject new reservation 6
+pickup/dropoff nodes: 8/18
+allow to reject new reservation 7
+pickup/dropoff nodes: 9/19
+allow to reject new reservation 8
+pickup/dropoff nodes: 10/20
+allow to reject new reservation 9
  Add dropoff constraints...
  Add capacity constraints...
  Add time windows constraints...
+window for node 1: [1, 900]
+window for node 2: [1, 900]
+window for node 3: [1, 900]
+window for node 4: [1, 900]
+window for node 5: [1, 900]
+window for node 6: [1, 900]
+window for node 7: [1, 900]
+window for node 8: [1, 900]
+window for node 9: [1, 900]
+window for node 10: [1, 900]
+window for node 11: [1, 900]
+window for node 12: [1, 900]
+window for node 13: [1, 900]
+window for node 14: [1, 900]
+window for node 15: [1, 900]
+window for node 16: [1, 900]
+window for node 17: [1, 900]
+window for node 18: [1, 900]
+window for node 19: [1, 900]
+window for node 20: [1, 900]
+window for node 21: [1, 900]
+window for node 22: [1, 900]
 ## Done
  Set solution heuristic...
 Start solving the problem.
-Objective:  534198
+Objective: 9617
 Route for vehicle 0:
-     21 (L: 0, C: 0, T: (1,178))
- ->  9 (L: 1, C: 387, T: (33,210))
- ->  4 (L: 2, C: 772, T: (64,241))
- ->  5 (L: 3, C: 1159, T: (94,271))
- ->  19 (L: 2, C: 1835, T: (150,327))
- ->  14 (L: 1, C: 1921, T: (216,393))
- ->  3 (L: 2, C: 2486, T: (264,441))
- ->  6 (L: 3, C: 3071, T: (312,489))
- ->  8 (L: 4, C: 3157, T: (318,495))
- ->  18 (L: 3, C: 3722, T: (426,603))
- ->  13 (L: 2, C: 4502, T: (547,724))
- ->  15 (L: 1, C: 4678, T: (622,799))
- ->  16 (L: 0, C: 5160, T: (723,900))
- ->  0 (L: 0, C: 5160, T: (723,42936))
-Costs of the route: 5160
+     21 (L: 0, C: 0, T: (1,315))
+ ->  9 (L: 1, C: 387, T: (33,347))
+ ->  4 (L: 2, C: 772, T: (64,378))
+ ->  5 (L: 3, C: 1159, T: (94,408))
+ ->  19 (L: 2, C: 1835, T: (150,464))
+ ->  14 (L: 1, C: 1921, T: (216,530))
+ ->  3 (L: 2, C: 2486, T: (264,578))
+ ->  6 (L: 3, C: 3071, T: (312,626))
+ ->  13 (L: 2, C: 3551, T: (410,724))
+ ->  15 (L: 1, C: 3727, T: (485,799))
+ ->  16 (L: 0, C: 4209, T: (586,900))
+ ->  0 (L: 0, C: 4209, T: (586,900))
+Costs of the route: 4209
 
 Route for vehicle 1:
-     22 (L: 0, C: 0, T: (1,257))
- ->  2 (L: 1, C: 382, T: (29,285))
- ->  1 (L: 2, C: 867, T: (70,326))
- ->  10 (L: 3, C: 1337, T: (107,363))
- ->  11 (L: 2, C: 2022, T: (221,477))
- ->  12 (L: 1, C: 2802, T: (343,599))
- ->  7 (L: 2, C: 3388, T: (385,641))
- ->  20 (L: 1, C: 4163, T: (504,760))
- ->  17 (L: 0, C: 5238, T: (644,900))
- ->  0 (L: 0, C: 5238, T: (644,42936))
-Costs of the route: 5238
+     22 (L: 0, C: 0, T: (1,1))
+ ->  2 (L: 1, C: 382, T: (29,29))
+ ->  1 (L: 2, C: 867, T: (70,70))
+ ->  10 (L: 3, C: 1337, T: (107,107))
+ ->  11 (L: 2, C: 2022, T: (221,221))
+ ->  8 (L: 3, C: 2707, T: (274,274))
+ ->  7 (L: 4, C: 3187, T: (311,311))
+ ->  20 (L: 3, C: 3962, T: (430,430))
+ ->  18 (L: 2, C: 4642, T: (540,540))
+ ->  17 (L: 1, C: 5122, T: (637,637))
+ ->  12 (L: 0, C: 5408, T: (718,718))
+ ->  0 (L: 0, C: 5408, T: (718,718))
+Costs of the route: 5408
 
-Total cost of the routes: 10398
+Total cost of the routes: 9617
 Start interpreting the solution for SUMO.
-Dispatching v0 with ['8', '3', '4', '8', '3', '2', '5', '7', '7', '2', '4', '5']
-Costs for v0: 5160
-Dispatching v1 with ['1', '0', '9', '0', '1', '6', '9', '6']
-Costs for v1: 10398
+Dispatching v0 with ['8', '3', '4', '8', '3', '2', '5', '2', '4', '5']
+Costs for v0: 4209
+Dispatching v1 with ['1', '0', '9', '0', '7', '6', '9', '7', '6', '1']
+Costs for v1: 9617
 timestep:  30.0
 Reservations being picked up: ['0', '1', '2', '3', '4', '5', '6', '7', '9']
 Reservations en route: ['8']
@@ -121,62 +180,51 @@ Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  270.0
-Reservations being picked up: ['5', '6', '7']
-Reservations en route: ['1', '2', '4', '9']
+Reservations being picked up: ['5', '6']
+Reservations en route: ['1', '2', '4', '7', '9']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  300.0
-Reservations being picked up: ['6']
-Reservations en route: ['1', '2', '4', '5', '7', '9']
-Taxis picking up: ('v1',)
+Reservations en route: ['1', '2', '4', '5', '6', '7', '9']
 Taxis occupied: ('v0', 'v1')
-Taxis occupied and picking up: ('v1',)
 timestep:  330.0
-Reservations being picked up: ['6']
-Reservations en route: ['1', '2', '4', '5', '7', '9']
-Taxis picking up: ('v1',)
+Reservations en route: ['1', '2', '4', '5', '6', '7', '9']
 Taxis occupied: ('v0', 'v1')
-Taxis occupied and picking up: ('v1',)
 timestep:  360.0
-Reservations en route: ['2', '4', '5', '6', '7', '9']
+Reservations en route: ['1', '2', '4', '5', '6', '7', '9']
 Taxis occupied: ('v0', 'v1')
 timestep:  390.0
-Reservations en route: ['2', '4', '5', '6', '7', '9']
+Reservations en route: ['1', '2', '4', '5', '6', '7', '9']
 Taxis occupied: ('v0', 'v1')
 timestep:  420.0
-Reservations en route: ['2', '4', '5', '6', '9']
+Reservations en route: ['1', '4', '5', '6', '7']
 Taxis occupied: ('v0', 'v1')
 timestep:  450.0
-Reservations en route: ['2', '4', '5', '6', '9']
+Reservations en route: ['1', '4', '5', '6', '7']
 Taxis occupied: ('v0', 'v1')
 timestep:  480.0
-Reservations en route: ['2', '4', '5', '6']
+Reservations en route: ['1', '5', '6', '7']
 Taxis occupied: ('v0', 'v1')
 timestep:  510.0
-Reservations en route: ['2', '4', '5', '6']
+Reservations en route: ['1', '5', '6', '7']
 Taxis occupied: ('v0', 'v1')
 timestep:  540.0
-Reservations en route: ['4', '5', '6']
+Reservations en route: ['1', '5', '6']
 Taxis occupied: ('v0', 'v1')
 timestep:  570.0
-Reservations en route: ['4', '5', '6']
+Reservations en route: ['1', '5', '6']
 Taxis occupied: ('v0', 'v1')
 timestep:  600.0
-Reservations en route: ['4', '5', '6']
-Taxis occupied: ('v0', 'v1')
+Reservations en route: ['1', '6']
+Taxis empty: ('v0',)
+Taxis occupied: ('v1',)
 timestep:  630.0
-Reservations en route: ['5']
-Taxis empty: ('v1',)
-Taxis occupied: ('v0',)
+Taxis empty: ('v0', 'v1')
 timestep:  660.0
-Reservations en route: ['5']
-Taxis empty: ('v1',)
-Taxis occupied: ('v0',)
+Taxis empty: ('v0', 'v1')
 timestep:  690.0
-Reservations en route: ['5']
-Taxis empty: ('v1',)
-Taxis occupied: ('v0',)
+Taxis empty: ('v0', 'v1')
 timestep:  720.0
 Taxis empty: ('v0', 'v1')
 timestep:  750.0

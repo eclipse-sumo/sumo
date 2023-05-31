@@ -22,6 +22,9 @@ edge_stops
 # include line and vehID information if relevant
 comments
 
+# include line and vehID information if relevant
+comments_params
+
 # like 'basic' but repeat the same trains again after 1000s
 repeat
 

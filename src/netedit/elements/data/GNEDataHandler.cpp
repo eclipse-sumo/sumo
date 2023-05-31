@@ -89,8 +89,10 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            // insert dataInterval without allowing undo/redo
+            // insert dataSet allowing undo/redo
             myNet->getAttributeCarriers()->insertDataSet(dataSet);
+            dataSet->incRef("buildDataInterval");
+            // insert dataInterval without allowing undo/redo
             dataSet->addDataIntervalChild(dataInterval);
             dataInterval->incRef("buildDataInterval");
         }
@@ -169,7 +171,7 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
                     dataInterval->addGenericDataChild(edgeData);
                     fromEdge->addChildElement(edgeData);
                     toEdge->addChildElement(edgeData);
-                    edgeData->incRef("buildEdgeData");
+                    edgeData->incRef("buildEdgeRelationData");
                 }
             } else {
                 writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE);
@@ -214,7 +216,7 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                 } else {
                     dataInterval->addGenericDataChild(edgeData);
                     fromTAZ->addChildElement(edgeData);
-                    edgeData->incRef("buildEdgeData");
+                    edgeData->incRef("buildTAZRelationData");
                 }
             } else {
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, toTAZ, parameters);
@@ -226,7 +228,7 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                     dataInterval->addGenericDataChild(edgeData);
                     fromTAZ->addChildElement(edgeData);
                     toTAZ->addChildElement(edgeData);
-                    edgeData->incRef("buildEdgeData");
+                    edgeData->incRef("buildTAZRelationData");
                 }
             }
         } else {

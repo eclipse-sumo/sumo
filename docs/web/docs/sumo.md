@@ -115,6 +115,7 @@ configuration:
 | **--tripinfo-output** {{DT_FILE}} | Save single vehicle trip info into FILE |
 | **--tripinfo-output.write-unfinished** {{DT_BOOL}} | Write tripinfo output for vehicles which have not arrived at simulation end; *default:* **false** |
 | **--tripinfo-output.write-undeparted** {{DT_BOOL}} | Write tripinfo output for vehicles which have not departed at simulation end because of depart delay; *default:* **false** |
+| **--personinfo-output** {{DT_FILE}} | Save personinfo and containerinfo to separate FILE |
 | **--vehroute-output** {{DT_FILE}} | Save single vehicle route info into FILE |
 | **--vehroute-output.exit-times** {{DT_BOOL}} | Write the exit times for all edges; *default:* **false** |
 | **--vehroute-output.last-route** {{DT_BOOL}} | Write the last route only; *default:* **false** |
@@ -213,11 +214,12 @@ configuration:
 | **--default.speeddev** {{DT_FLOAT}} | Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class; *default:* **-1** |
 | **--default.emergencydecel** {{DT_STR}} | Select default emergencyDecel value among ('decel', 'default', FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2; *default:* **default** |
 | **--overhead-wire.solver** {{DT_BOOL}} | Use Kirchhoff's laws for solving overhead wire circuit; *default:* **true** |
-| **--overhead-wire.recuperation** {{DT_BOOL}} | Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire.; *default:* **true** |
+| **--overhead-wire.recuperation** {{DT_BOOL}} | Enable recuperation from the vehicle equipped with elecHybrid device into the overhead wire.; *default:* **true** |
 | **--overhead-wire.substation-current-limits** {{DT_BOOL}} | Enable current limits of traction substation during solving the overhead wire electrical circuit.; *default:* **true** |
 | **--emergencydecel.warning-threshold** {{DT_FLOAT}} | Sets the fraction of emergency decel capability that must be used to trigger a warning.; *default:* **1** |
 | **--parking.maneuver** {{DT_BOOL}} | Whether parking simulation includes maneuvering time and associated lane blocking; *default:* **false** |
 | **--use-stop-ended** {{DT_BOOL}} | Override stop until times with stop ended times when given; *default:* **false** |
+| **--use-stop-started** {{DT_BOOL}} | Override stop arrival times with stop started times when given; *default:* **false** |
 | **--pedestrian.model** {{DT_STR}} | Select among pedestrian models ['nonInteracting', 'striping', 'remote']; *default:* **striping** |
 | **--pedestrian.striping.stripe-width** {{DT_FLOAT}} | Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'; *default:* **0.64** |
 | **--pedestrian.striping.dawdling** {{DT_FLOAT}} | Factor for random slow-downs [0,1] for use with model 'striping'; *default:* **0.2** |
@@ -404,6 +406,7 @@ configuration:
 | **--device.driverstate.errorNoiseIntensityCoefficient** {{DT_FLOAT}} | Noise intensity driving the error process.; *default:* **0.2** |
 | **--device.driverstate.speedDifferenceErrorCoefficient** {{DT_FLOAT}} | General scaling coefficient for applying the error to the perceived speed difference (error also scales with distance).; *default:* **0.15** |
 | **--device.driverstate.headwayErrorCoefficient** {{DT_FLOAT}} | General scaling coefficient for applying the error to the perceived distance (error also scales with distance).; *default:* **0.75** |
+| **--device.driverstate.freeSpeedErrorCoefficient** {{DT_FLOAT}} | General scaling coefficient for applying the error to the vehicle's own speed when driving without a leader (error also scales with own speed).; *default:* **0** |
 | **--device.driverstate.speedDifferenceChangePerceptionThreshold** {{DT_FLOAT}} | Base threshold for recognizing changes in the speed difference (threshold also scales with distance).; *default:* **0.1** |
 | **--device.driverstate.headwayChangePerceptionThreshold** {{DT_FLOAT}} | Base threshold for recognizing changes in the headway (threshold also scales with distance).; *default:* **0.1** |
 | **--device.driverstate.minAwareness** {{DT_FLOAT}} | Minimal admissible value for the driver's awareness.; *default:* **0.1** |
@@ -534,6 +537,7 @@ configuration:
 | **-d** {{DT_FLOAT}}<br> **--delay** {{DT_FLOAT}} | Use FLOAT in ms as delay between simulation steps; *default:* **0** |
 | **-B** {{DT_STR[]}}<br> **--breakpoints** {{DT_STR[]}} | Use TIME[] as times when the simulation should halt |
 | **--edgedata-files** {{DT_FILE}} | Load edge/lane weights for visualization from FILE |
+| **-N** {{DT_FILE}}<br> **--alternative-net-file** {{DT_FILE}} | Load a secondary road network for abstract visualization from FILE |
 | **-D** {{DT_BOOL}}<br> **--demo** {{DT_BOOL}} | Restart the simulation after ending (demo mode); *default:* **false** |
 | **-T** {{DT_BOOL}}<br> **--disable-textures** {{DT_BOOL}} | Do not load background pictures; *default:* **false** |
 | **--registry-viewport** {{DT_BOOL}} | Load current viewport from registry; *default:* **false** |
@@ -600,7 +604,7 @@ they may be grouped into multiple files as convenient.
 The additional file always needs a top level tag with arbitrary name
 (*additional* is customary). An example file is given below:
 
-```
+```xml
 <additional>
     <inductionLoop id="myLoop1" lane="foo_0" pos="42" period="900" file="out.xml"/>
     <inductionLoop id="myLoop2" lane="foo_2" pos="42" period="900" file="out.xml"/>

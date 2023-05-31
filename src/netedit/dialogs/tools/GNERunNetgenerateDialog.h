@@ -21,6 +21,8 @@
 #include <config.h>
 
 #include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/MFXSynchQue.h>
+#include <utils/foxtools/MFXThreadEvent.h>
 #include <utils/options/OptionsCont.h>
 
 // ===========================================================================
@@ -30,6 +32,7 @@
 class GNEApplicationWindow;
 class GNERunNetgenerate;
 class OptionsCont;
+class GUIEvent;
 
 // ===========================================================================
 // class definitions
@@ -54,19 +57,7 @@ public:
     GNEApplicationWindow* getGNEApp() const;
 
     /// @brief run tool (this open windows)
-    void run(const OptionsCont *netgenerateOptions);
-
-    /// @brief add info (green) text to output console
-    void appendInfoMessage(const std::string text);
-
-    /// @brief add error (green) text to output console
-    void appendErrorMessage(const std::string text);
-
-    /// @brief add text buffer to output console
-    void appendBuffer(const char *buffer);
-
-    /// @brief update toolDialog
-    void updateDialog();
+    void run(const OptionsCont* netgenerateOptions);
 
     /// @name FOX-callbacks
     /// @{
@@ -89,13 +80,16 @@ public:
     /// @brief event after press cancel button
     long onCmdCancel(FXObject*, FXSelector, void*);
 
+    /// @brief called when the thread signals an event
+    long onThreadEvent(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
     /// @brief FOX needs this
     GNERunNetgenerateDialog();
 
-    /// @brief 
+    /// @brief update toolDialog
+    void updateDialog();
 
 private:
     /// @brief pointer to GNEApplicationWindow
@@ -120,7 +114,13 @@ private:
     FXButton* myCloseButton = nullptr;
 
     /// @brief netgenerate options
-    const OptionsCont *myNetgenerateOptions;
+    const OptionsCont* myNetgenerateOptions;
+
+    /// @brief List of received events
+    MFXSynchQue<GUIEvent*> myEvents;
+
+    /// @brief io-event with the runner thread
+    FXEX::MFXThreadEvent myThreadEvent;
 
     /// @brief Invalidated copy constructor.
     GNERunNetgenerateDialog(const GNERunNetgenerateDialog&) = delete;

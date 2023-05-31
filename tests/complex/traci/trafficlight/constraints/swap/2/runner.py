@@ -39,7 +39,10 @@ for tlsID in traci.trafficlight.getIDList():
     for c in traci.trafficlight.getConstraints(tlsID):
         print(" tls=%s %s" % (tlsID, c))
 
-traci.trafficlight.swapConstraints("H", "t2", "C", "t0")
+derived = traci.trafficlight.swapConstraints("H", "t2", "C", "t0")
+print("derived constraints")
+for c in derived:
+    print(c)
 
 print("constraints after swap")
 for tlsID in traci.trafficlight.getIDList():

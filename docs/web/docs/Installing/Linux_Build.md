@@ -48,7 +48,7 @@ alternatives below.
  - ccache (to speed up builds)
  - ffmpeg-devel (for video output),
  - libOpenSceneGraph-devel (for the experimental 3D GUI),
- - gtest (for unit testing)
+ - gtest (for [unit testing](../Developer/Unit_Tests.md), do not use 1.13 or later)
  - gettext (for internationalization)
  - texttest, xvfb  and tkdiff (for the acceptance tests)
  - flake, astyle and autopep for style checking
@@ -131,18 +131,16 @@ echo $SUMO_HOME
 
 and console shows "/home/<user\>/sumo-<version\>"
 
-## Install python packages
+## Installing Python packages for the tools
 
-Compiling netedit requieres a list of python packages to generate templates. Install it using pip:
-
-```
-pip install google lxml rtree pandas matplotlib pulp pyproj ezdxf scipy fmpy ortools texttest pyautogui pyperclip
-```
-Or if you're using python3
+Calling the tools from netedit requires a list of Python packages to generate templates during compilation.
+Install them using pip:
 
 ```
-pip3 install google lxml rtree pandas matplotlib pulp pyproj ezdxf scipy fmpy ortools texttest pyautogui pyperclip
+pip install -r tools/requirements.txt
 ```
+You might need to replace `pip` with `pip3` if you are using python3 on Linux.
+
 
 ## Building the SUMO binaries with cmake
 
@@ -198,6 +196,7 @@ Other useful cmake options:
 - `-D FOX_CONFIG=` disable FOX toolkit (GUI and multithreading)
 - `-D PYTHON_EXECUTABLE=/usr/bin/python3` select a different python version (also for libsumo / libtraci)
 - `-D MVN_EXECUTABLE=` disable maven packaging (especially useful if you have no network connection)
+- `-D ENABLE_CS_BINDINGS=ON` enable C# bindings when compiling libsumo / libtraci
 
 
 ## Building with clang
@@ -264,6 +263,33 @@ $SUMO_HOME points to the right directory (see above) and run
 ```
 sudo xargs rm -r $SUMO_HOME
 ```
+
+## Building Python wheels for sumolib, traci and libsumo
+
+If you want to distribute sumolib, traci and/or libsumo as wheels
+you can build those wheels directly from the tools tree. Please be aware
+that nightly builds of those packages are also available on https://test.pypi.org
+```
+pip install wheel build
+cd tools
+python build/version.py build/setup-sumolib.py ./setup.py
+python -m build --wheel
+python build/version.py build/setup-traci.py ./setup.py
+python -m build --wheel
+python build/version.py build/setup-libsumo.py ./setup.py
+python -m build --wheel
+```
+You will need a recent version of pip (>=22) for this to work. If for some reason
+you cannot update your pip you can also use the (discouraged!) method of calling
+setup.py directly.
+```
+cd tools
+python build/setup-sumolib.py bdist_wheel
+```
+Please note that you always need to be in the tools directory for this to work
+and your wheels will be placed in tools/dist. Furthermore the traci and the sumolib wheel
+are platform and Python version independent while libsumo depends on the exact
+platform and Python you built it with.
 
 ## (Frequent) Rebuilds
 

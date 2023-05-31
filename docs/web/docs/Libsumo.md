@@ -36,9 +36,13 @@ The following things currently do not work (or work differently than with the Tr
 - libsumo by itself cannot be used to [connect multiple clients to the simulation](TraCI/Interfacing_TraCI_from_Python.md#controlling_the_same_simulation_from_multiple_clients) (though connecting normal TraCI clients to a libsumo instance is possible)
 - running parallel instances of libsumo requires the [multiprocessing module (in python)](https://docs.python.org/3/library/multiprocessing.html)
 
-To avoid the limituations with respect to GUI, multi-clients support, you can also use [libraci](Libtraci.md). This is a C++ traci client library which is fully API-compatible with libsumo.
+To avoid the limitations with respect to GUI, multi-clients support, you can also use [libraci](Libtraci.md). This is a C++ traci client library which is fully API-compatible with libsumo.
 
-# Building it
+# Building and Installing it
+
+The binary windows release already contains the readily compiled libsumo
+for C++ and Java. For Python you can install it via `pip install libsumo`.
+Only if your platform or language is not supported follow the steps below.
 
 It currently requires cmake and swig being installed together with the
 developer packages for Python (and Java if needed), for Windows see
@@ -50,6 +54,8 @@ make again if you previously did a build without swig).
 For the python bindings you will get a libsumo.py and a
 _libsumo.so (or .pyd on Windows). If you place them somewhere on your
 python path you should be able to use them as described below.
+If you want to enable the experimental C# support, make sure that
+you have `ENABLE_CS_BINDINGS` set in your cmake configuration.
 
 !!! note
     Make sure to add `"/your/path/to/sumo/tools"` to the `PYTHONPATH` environment variable.
@@ -61,6 +67,8 @@ in your start command instead of `sumo` or define the environment variable
 `LIBSUMO_GUI`.
 
 ## Python
+
+Make sure you have libsumo installed (`pip install libsumo`).
 
 ```py
 import libsumo
@@ -165,4 +173,13 @@ for (Map.Entry<Integer, TraCIResult> entry : ssRes.entrySet()) {
         System.out.println("Subscription Departed vehicles: " + vehID);
     }
 }
+```
+## Matlab
+
+Please install the [Python package](#python). You can then use all commands inside your Matlab scripts
+just as in Python by adding the `py.` prefix.
+
+```
+py.libsumo.start(["sumo", "-c", "test.sumocfg"])
+py.libsumo.simulationStep()
 ```

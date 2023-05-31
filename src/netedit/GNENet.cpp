@@ -1005,8 +1005,11 @@ GNENet::reverseEdge(GNEEdge* edge, GNEUndoList* undoList) {
 
 GNEEdge*
 GNENet::addReversedEdge(GNEEdge* edge, const bool disconnected, GNEUndoList* undoList) {
+    GNEEdge* reversed = edge->getReverseEdge();
+    if (reversed != nullptr) {
+        return reversed;
+    }
     undoList->begin(GUIIcon::EDGE, TL("add reversed edge"));
-    GNEEdge* reversed = nullptr;
     if (!disconnected) {
         // for rail edges, we assume bi-directional tracks are wanted
         reversed = createEdge(edge->getToJunction(), edge->getFromJunction(), edge, undoList, "-" + edge->getID(), false, true);

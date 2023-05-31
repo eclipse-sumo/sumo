@@ -1238,8 +1238,15 @@ MSLCM_LC2013::_wantsChange(
     double laDist = myLookAheadSpeed * LOOK_FORWARD * myStrategicParam * (right ? 1 : myLookaheadLeft);
     laDist += myVehicle.getVehicleType().getLengthWithGap() *  2.;
     const bool hasStoppedLeader = leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane);
+    const bool hasBidiLeader = (myVehicle.getLane()->getBidiLane() != nullptr
+                                && leader.first != nullptr
+                                && leader.first->getLane()->getBidiLane() != nullptr
+                                && std::find(curr.bestContinuations.begin(), curr.bestContinuations.end(), leader.first->getLane()->getBidiLane()) != curr.bestContinuations.end());
 
-    if (bestLaneOffset == 0 && hasStoppedLeader) {
+    if (bestLaneOffset == 0 && hasBidiLeader) {
+        // getting out of the way is enough to clear the blockage
+        laDist = 0;
+    } else if (bestLaneOffset == 0 && hasStoppedLeader) {
         // react to a stopped leader on the current lane
         // The value of laDist is doubled below for the check whether the lc-maneuver can be taken out
         // on the remaining distance (because the vehicle has to change back and forth). Therefore multiply with 0.5.
@@ -1367,7 +1374,7 @@ MSLCM_LC2013::_wantsChange(
         const bool currFreeUntilNeighEnd = leader.first == nullptr || neighDist - posOnLane <= leader.second;
         const double overtakeDist = (leader.first == 0 ? -1 :
                                      leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap());
-        if (leader.first != 0 && leader.first->isStopped() && leader.second < REACT_TO_STOPPED_DISTANCE
+        if (leader.first != 0 && (leader.first->isStopped() || hasBidiLeader) && leader.second < REACT_TO_STOPPED_DISTANCE
                 // current destination leaves enough space to overtake the leader
                 && MIN2(neighDist, currentDist) - posOnLane > overtakeDist
                 // maybe do not overtake on the right at high speed

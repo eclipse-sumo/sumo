@@ -29,22 +29,21 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
-netedit.setZoom("25", "0", "25")
+netedit.setZoom("0", "5", "25")
 
 # go to additional mode
 netedit.additionalMode()
 
-# select E3
-netedit.changeElement("entryExitDetector")
-
-# create E3 with default parameters
-netedit.leftClick(referencePosition, 270, 29)
-
-# select Entry detector
+# select entry detector
 netedit.changeElement("detExit")
 
-# try to create Entry without select child
-netedit.leftClick(referencePosition, 50, 200)
+# Create entry detector with default value
+netedit.leftClick(referencePosition, 194, 321)
+
+# select exit detector
+netedit.changeElement("detEntry")
+
+netedit.leftClick(referencePosition, 619, 321)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

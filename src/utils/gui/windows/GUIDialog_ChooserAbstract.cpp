@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 #include <fxkeys.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -83,7 +84,7 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     myCenterButton = new FXButton(layoutRight, (TL("Center") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_CHOOSER_CENTER, GUIDesignChooserButtons);
     myTrackButton = new FXButton(layoutRight, (TL("Track") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_CHOOSER_TRACK, GUIDesignChooserButtons);
     // only enable Track Button if we're locating vehicles
-    if (title.text() != std::string("Vehicle Chooser")) {
+    if (title.text() != std::string(TL("Vehicle Chooser"))) {
         myTrackButton->disable();
         myTrackButton->hide();
     }
@@ -325,7 +326,7 @@ GUIDialog_ChooserAbstract::refreshList(const std::vector<GUIGlID>& ids) {
         GUIGlObjectStorage::gIDStorage.unblockObject(i);
     }
     myList->update();
-    myCountLabel->setText((toString(ids.size()) + " objects").c_str());
+    myCountLabel->setText(TLF("% objects", toString(ids.size())).c_str());
 }
 
 

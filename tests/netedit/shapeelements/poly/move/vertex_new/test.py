@@ -35,17 +35,20 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create Shape
-netedit.createSquaredPoly(referencePosition, 372, 144, 200, True)
+netedit.createSquaredPoly(referencePosition, 500, 331, 600, True)
 
 # go to move mode
 netedit.moveMode()
 
-# move new vertex Shape
-netedit.moveElement(referencePosition, 325, 130, 325, 319)
+# move vertex Shape
+netedit.moveElement(referencePosition, 500, 331, 500, 425)
+
+# move vertex Shape
+netedit.moveElement(referencePosition, 497, 45, 593, 45)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

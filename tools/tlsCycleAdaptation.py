@@ -20,7 +20,22 @@
   and the green times of the traffic lights at common intersections
   in a sumo network with a given route file (vehicles and bicycles).
 
+- The parameters in the Webster's equation may need to be adjusted
+  according to the respective user case. Otherwise, worse results
+  may occur. E.g. saturation headway can affect the road capacity,
+  minimal green time or minimal cycle length.
+
+- The allowed movements per lane in the network should correspond to
+  those in the respective signal group/phase. E.g. if through and
+  right movements are allowed in a phase, they should be able to
+  share their lanes without conflicts.  Otherwise, worse results
+  may occur.
+
 - Traffic lights without traffic flows will not be optimized.
+
+- Flows are considered only for one hour, corresponding to
+  the Webster's equation. Using the option --begin to define the
+  start time of the investigated one hour.
 
 - PCE is used instead of the number of vehicles.
 
@@ -28,15 +43,20 @@
   the respective flows will be equally divided into the corresponding
   phases for calculating the green splits.
 
+- If multiple major greens exist, the respective flows will be evenly
+  distributed in each major green.
+
+- consider flows only with minor greens at a certain direction
 - If the critical flow or the sum of the critical flows is larger than 1,
- the optimal cycle length will be set to 120 sec.
+  the optimal cycle length will be set to 120 sec which can be adjusted
+  in the option.
 
 - Duration for yellow phase will be adjusted according to
   the defined option value
 
-- Duration for all-red phase will be not adjusted.
+- Duration for all-red phase will not be adjusted.
 
-- Pedestrains are not considered yet.
+- Pedestrians are not considered yet.
 """
 
 from __future__ import absolute_import
@@ -85,7 +105,7 @@ def get_options(args=None):
                          help="use the calculated max cycle length as the cycle length for all intersections")
     optParser.add_option("--sorted", category="processing", action="store_true", default=False,
                          help="assume the route file is sorted (aborts reading earlier)")
-    optParser.add_option("--skip", category="processing", dest="skip", type=str,
+    optParser.add_option("--skip", category="processing", dest="skip",
                          default='', help="the tls ids, which are skipped and seperated by comma")
     optParser.add_option("-v", "--verbose", category="processing", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
@@ -388,6 +408,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multi
     sumCriticalFlows = sum(criticalFlowRateMap.values())
     if options.write_critical_flows:
         print(tl.getID(), criticalFlowRateMap)
+        print('sum of the critical flow ratios: ', sumCriticalFlows)
 
     if options.existcycle:
         optCycle = currentLength
@@ -395,6 +416,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multi
         optCycle = options.maxcycle
         if options.verbose:
             print("Warning: the sum of the critical flows >= 1:%s" % sumCriticalFlows)
+            print('Warning: the maximal cycle defined in the option will be used as the optimal cycle.')
     else:
         optCycle = int(round((1.5 * lostTime + 5.) / (1. - sumCriticalFlows)))
 

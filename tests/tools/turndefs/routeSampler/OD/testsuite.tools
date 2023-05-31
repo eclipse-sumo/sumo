@@ -1,0 +1,8 @@
+# test option --od-files
+od_edges
+
+# test option --od-files with tazRelations
+od_taz
+
+# test option --od-files with tazRelations
+od_taz_extra

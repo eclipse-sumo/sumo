@@ -24,7 +24,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
-
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include "GNEVehicleFrame.h"
 
 // ===========================================================================
@@ -38,7 +38,7 @@
 GNEVehicleFrame::HelpCreation::HelpCreation(GNEVehicleFrame* vehicleFrameParent) :
     MFXGroupBoxModule(vehicleFrameParent, TL("Help")),
     myVehicleFrameParent(vehicleFrameParent) {
-    myInformationLabel = new FXLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
+    myInformationLabel = new MFXDynamicLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -68,46 +68,36 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
         // vehicles
         case SUMO_TAG_VEHICLE:
             information
-                    << TL("- Click over a route to\n")
-                    << TL("  create a vehicle.");
+                    << "- " << TL("Click over a route to create a vehicle.");
             break;
         case SUMO_TAG_TRIP:
             information
-                    << TL("- Select two edges to\n")
-                    << TL("  create a Trip.");
+                    << "- " << TL("Select two edges to create a trip.");
             break;
         case GNE_TAG_VEHICLE_WITHROUTE:
             information
-                    << TL("- Select two edges to\n")
-                    << TL("  create a vehicle with\n")
-                    << TL("  embedded route.");
+                    << "- " << TL("Select two edges to create a vehicle with embedded route.");
             break;
         case GNE_TAG_TRIP_JUNCTIONS:
             information
-                    << TL("- Select two junctions\n")
-                    << TL("  to create a Trip.");
+                    << "- " << TL("Select two junctions to create a trip.");
             break;
         // flows
         case GNE_TAG_FLOW_ROUTE:
             information
-                    << TL("- Click over a route to\n")
-                    << TL("  create a routeFlow.");
+                    << "- " << TL("Click over a route to create a routeFlow.");
             break;
         case SUMO_TAG_FLOW:
             information
-                    << TL("- Select two edges to\n")
-                    << TL("  create a flow.");
+                    << "- " << TL("Select two edges to create a flow.");
             break;
         case GNE_TAG_FLOW_WITHROUTE:
             information
-                    << TL("- Select two edges to\n")
-                    << TL("  create a flow with\n")
-                    << TL("  embedded route.");
+                    << "- " << TL("Select two edges to create a flow with embedded route.");
             break;
         case GNE_TAG_FLOW_JUNCTIONS:
             information
-                    << TL("- Select two junctions\n")
-                    << TL("  to create a flow.");
+                    << "- " << TL("Select two junctions to create a flow.");
             break;
         default:
             break;

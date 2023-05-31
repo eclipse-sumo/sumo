@@ -39,8 +39,8 @@ def add_options():
     argParser = sumolib.options.ArgumentParser()
     argParser.add_argument("-r", "--region", default="gtfs",
                            help="define the region to process")
-    argParser.add_argument("--gtfs", help="define gtfs zip file to load (mandatory)", fix_path=True)
-    argParser.add_argument("--date", help="define the day to import, format: 'YYYYMMDD'")
+    argParser.add_argument("--gtfs", help="define gtfs zip file to load (mandatory)", required=True, fix_path=True)
+    argParser.add_argument("--date", help="define the day to import, format: 'YYYYMMDD'", required=True)
     argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
     argParser.add_argument("--modes", help="comma separated list of modes to import (%s)" %
@@ -57,8 +57,6 @@ def add_options():
 
 
 def check_options(options):
-    if options.gtfs is None or options.date is None:
-        sys.exit("Please give a GTFS file using --gtfs FILE and a date using --date YYYYMMDD.")
     if options.fcd is None:
         options.fcd = os.path.join('fcd', options.region)
     if options.gpsdat is None:

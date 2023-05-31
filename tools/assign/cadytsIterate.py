@@ -49,11 +49,11 @@ def initOptions():
         glob.glob(os.path.join(TOOLS_DIR, "..", "bin", "*.jar"))
     argParser = sumolib.options.ArgumentParser()
     addGenericOptions(argParser)
-    argParser.add_argument("-r", "--route-alternatives", dest="routes",
+    argParser.add_argument("-r", "--route-alternatives", dest="routes", type=argParser.route_file,
                            help="route alternatives from sumo (comma separated list, mandatory)", metavar="FILE")
-    argParser.add_argument("-d", "--detector-values", dest="detvals",
+    argParser.add_argument("-d", "--detector-values", dest="detvals", type=argParser.file,
                            help="adapt to the flow on the given edges", metavar="FILE")
-    argParser.add_argument("--classpath", dest="classpath", default=os.pathsep.join(jars),
+    argParser.add_argument("--classpath", dest="classpath", default=os.pathsep.join(jars), type=str,
                            help="classpath for the calibrator [default: %default]")
     argParser.add_argument("-l", "--last-calibration-step", dest="calibStep",
                            type=int, default=100, help="last step of the calibration [default: %default]")
@@ -79,9 +79,9 @@ def initOptions():
                            default=False, help="No summaries are written by the simulation")
     argParser.add_argument("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                            default=False, help="No tripinfos are written by the simulation")
-    argParser.add_argument("-M", "--matrix-prefix", dest="fmaprefix",
+    argParser.add_argument("-M", "--matrix-prefix", dest="fmaprefix", type=str,
                            help="prefix of OD matrix files in visum format")
-    argParser.add_argument("-N", "--clone-postfix", dest="clonepostfix",
+    argParser.add_argument("-N", "--clone-postfix", dest="clonepostfix", type=str,
                            default='-CLONE', help="postfix attached to clone ids")
     argParser.add_argument("-X", "--cntfirstlink", action="store_true", dest="cntfirstlink",
                            default=False, help="if entering vehicles are assumed to cross the upstream sensor of" +

@@ -1,4 +1,12 @@
-<routes>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-19 15:59:44.610216 by vissim_parseRoutes.py v1_16_0+2200-fc4278a7f46
+<configuration>
+    <vissimNet value="vissim.inp"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="0_1_0" depart="0"><route edges="9 10000 1 10002 4 10005 6 10007 5"/></vehicle>
     <vehicle id="0_1_1" depart="0"><route edges="9 10000 1 10002 4 10005 6 10007 5"/></vehicle>
     <vehicle id="0_1_10" depart="0"><route edges="9 10000 1 10002 4 10005 6 10007 5"/></vehicle>

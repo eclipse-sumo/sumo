@@ -17,6 +17,8 @@ set(utils_foxtools_STAT_SRCS
    MFXGroupBoxModule.h
    MFXComboBoxIcon.cpp
    MFXComboBoxIcon.h
+   MFXDynamicLabel.cpp
+   MFXDynamicLabel.h
    MFXListIcon.cpp
    MFXListIcon.h
    MFXListItemIcon.cpp

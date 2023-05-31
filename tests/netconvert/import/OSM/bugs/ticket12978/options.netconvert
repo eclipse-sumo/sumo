@@ -1,0 +1,7 @@
+--osm-files osm.xml
+--keep-edges.by-type highway.motorway,highway.motorway_link,highway.trunk,highway.trunk_link,highway.primary,highway.primary_link,highway.secondary,highway.secondary_link,highway.tertiary,highway.tertiary_link,highway.unclassified,highway.residential,highway.living_street
+--keep-edges.components 1
+--keep-edges.in-geo-boundary "8.387108,47.43391,8.437093,47.47050,8.499445,47.49833,8.561282,47.49318,8.654553,47.44113,8.701446,47.36589,8.691140,47.33291,8.683410,47.32209,8.653522,47.30715,8.624150,47.30663,8.522119,47.26438,8.464404,47.26695,8.371133,47.36383,8.387108,47.43391"
+-R
+--osm.lane-access 
+--osm.turn-lanes

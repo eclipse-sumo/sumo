@@ -22,7 +22,7 @@ and then [assigning that type to the
 vehicle](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes).
 An example is given below:
 
-```
+```xml
 <routes>
   <vType id="myType" vClass="bus"/>
 

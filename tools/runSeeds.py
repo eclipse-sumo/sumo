@@ -41,12 +41,15 @@ def get_options(args=None):
     ap = sumolib.options.ArgumentParser()
     ap.add_option("-v", "--verbose", category="processing", action="store_true", default=False,
                   help="tell me what you are doing")
-    ap.add_option("-k", "--configuration", category="input", metavar="FILE",
-                  help="configuration to run")
+    ap.add_option("-k", "--configuration", category="input", metavar="FILE", required=True, type=ap.file_list,
+                  help="configuration to run or comma-separated list of configurations")
     ap.add_option("-a", "--application", category="processing", default="sumo", metavar="FILE",
-                  help="application to run")
+                  help="application to run or comma-separated list of applications")
     ap.add_option("-p", "--output-prefix",  category="processing", default="SEED.", dest="prefix",
                   help="output prefix",)
+    ap.add_option("--no-folders", action="store_true", category="output", default=False, dest="noFolders",
+                  help=("do not create folders to distinguish multiple configurations or applications" +
+                        "but use prefixes instead"))
     ap.add_option("--seeds", category="processing", default="0:10",
                   help="which seeds to run")
     ap.add_option("--threads", category="processing", type=int, default=1,
@@ -58,7 +61,7 @@ def get_options(args=None):
     if ":" in options.seeds:
         options.seeds = range(*map(int, options.seeds.split(":")))
     else:
-        options.seeds = map(int, options.seeds.split(","))
+        options.seeds = list(map(int, options.seeds.split(",")))
 
     if not options.configuration:
         sys.stderr.write("Error: option configuration is mandatory\n")
@@ -84,7 +87,6 @@ def get_options(args=None):
 
 def getUniqueFolder(options, app, cfg, folders):
     key = []
-    i = 0
     if len(options.application) > 1:
         key.append(os.path.basename(app))
     if len(options.configuration) > 1:
@@ -92,14 +94,33 @@ def getUniqueFolder(options, app, cfg, folders):
     if not key:
         return ""
 
-    folder = '_'.join(key + [str(i)])
-    while folder in folders:
-        i += 1
+    folder = '_'.join(key)
+    if folder in folders:
+        i = 0
         folder = '_'.join(key + [str(i)])
+        while folder in folders:
+            i += 1
+            folder = '_'.join(key + [str(i)])
+
     folders.add(folder)
-    if not os.path.exists(folder):
+    if not options.noFolders and not os.path.exists(folder):
         os.makedirs(folder)
     return folder
+
+
+def getCommExtensionLength(names):
+    if not names or len(names) == 1:
+        return 0
+    common = reversed(names[0])
+    for n in names[1:]:
+        common2 = []
+        for c1, c2 in zip(common, reversed(n)):
+            if c1 == c2:
+                common2.append(c1)
+            else:
+                break
+        common = ''.join(common2)
+    return len(common)
 
 
 def main(options):
@@ -110,7 +131,10 @@ def main(options):
             app, cfg, seed, folder = q.get()
             prefix = options.prefix.replace("SEED", str(seed))
             if folder:
-                prefix = os.path.join(folder, prefix)
+                if options.noFolders:
+                    prefix = "%s_%s" % (folder, prefix)
+                else:
+                    prefix = os.path.join(folder, prefix)
             if options.verbose:
                 print("running seed %s" % seed)
             args = [app,
@@ -127,9 +151,10 @@ def main(options):
 
     folders = set()
 
+    cEL = getCommExtensionLength(options.configuration)
     for app in options.application:
         for cfg in options.configuration:
-            folder = getUniqueFolder(options, app, cfg, folders)
+            folder = getUniqueFolder(options, app, cfg[:-cEL], folders)
             for seed in options.seeds:
                 q.put((app, cfg, seed, folder))
     q.join()

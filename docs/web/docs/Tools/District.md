@@ -64,7 +64,7 @@ When applied to a typical OSM network, and edge and the edge with the
 negated id describe opposite direction edges of the same road. The
 generated bidi-taz would look like this:
 
-```
+```xml
 <taz id="-123" edges="-123 123"/>
 <taz id="123" edges="-123 123"/>
 ```
@@ -72,7 +72,7 @@ generated bidi-taz would look like this:
 The `<trip>` definitions that would typically use attributes *from* and *to*
 instead use the attributes *fromTaz* and *toTaz*:
 
-```
+```xml
 <trip id="someTrip" from="123" to="456" depart="0"/>
 <trip id="someTripWithBidiTaz fromTaz="123" toTaz="456"/>
 ```

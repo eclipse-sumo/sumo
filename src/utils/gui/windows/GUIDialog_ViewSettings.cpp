@@ -935,7 +935,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
 
 void
 GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
-    for (const auto &decal : myParent->getDecals()) {
+    for (const auto& decal : myParent->getDecals()) {
         // only save decals with non empty filename
         if (decal.filename.size() > 0) {
             // check if decal is a light
@@ -1194,6 +1194,8 @@ GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* /*data*/) 
     myParent->getDecals().clear();
     // update view
     myParent->update();
+    // fill table again
+    myDecalsTable->fillTable();
     // unlock decals mutex
     myParent->getDecalsLockMutex().unlock();
     return 1;

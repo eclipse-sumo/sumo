@@ -85,7 +85,7 @@ NIXMLEdgesHandler::myStartElement(int element,
             break;
         case SUMO_TAG_LOCATION:
             delete myLocation;
-            myLocation = NIImporter_SUMO::loadLocation(attrs);
+            myLocation = NIImporter_SUMO::loadLocation(attrs, false);
             break;
         case SUMO_TAG_EDGE:
             addEdge(attrs);

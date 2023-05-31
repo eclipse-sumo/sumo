@@ -39,24 +39,27 @@ def get_options():
     ap = ArgumentParser()
     ap.add_option("-v", "--verbose", action="store_true", default=False,
                   help="tell me what you are doing")
-    ap.add_option("-n", "--net-file", dest="netfile", help="the network to read lane and edge permissions")
-    ap.add_option("-s", "--stop-file", dest="stopfile", help="the additional file with stops")
-    ap.add_option("-o", "--output", help="output taz file")
-    ap.add_option("--split-output", dest="splitOutput",
+    ap.add_option("-n", "--net-file", dest="netfile", required=True, category="input", type=ap.net_file,
+                  help="the network to read lane and edge permissions")
+    ap.add_option("-s", "--stop-file", dest="stopfile", required=True, category="input", type=ap.additional_file,
+                  help="the additional file with stops")
+    ap.add_option("-o", "--output", required=True, category="output", type=ap.additional_file,
+                  help="output taz file")
+    ap.add_option("--split-output", dest="splitOutput", category="output", type=ap.file,
                   help="generate splits for edges assigned to multiple stations")
-    ap.add_option("--poi-output", dest="poiOutput",
+    ap.add_option("--poi-output", dest="poiOutput", category="output", type=ap.file,
                   help="generate a point of interest for every station")
-    ap.add_option("--vclasses", default="rail,rail_urban",
+    ap.add_option("--vclasses", default="rail,rail_urban", type=str,
                   help="Include only edges allowing VCLASS")
     ap.add_option("--parallel-radius", type=float, default=100, dest="parallelRadius",
                   help="search radius for finding parallel edges")
     ap.add_option("--merge", action="store_true", default=False,
                   help="merge stations that have a common edge")
-    ap.add_option("--hue", default="random",
+    ap.add_option("--hue", default="random", type=str,
                   help="hue for taz (float from [0,1] or 'random')")
-    ap.add_option("--saturation", default=1,
+    ap.add_option("--saturation", default=1, type=str,
                   help="saturation for taz (float from [0,1] or 'random')")
-    ap.add_option("--brightness", default=1,
+    ap.add_option("--brightness", default=1, type=str,
                   help="brightness for taz (float from [0,1] or 'random')")
     ap.add_option("--seed", type=int, default=42, help="random seed")
     options = ap.parse_args()

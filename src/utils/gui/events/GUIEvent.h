@@ -65,6 +65,12 @@ enum class GUIEventType {
     */
     SIMULATION_ENDED,
 
+    /// @brief send when a tool produces output
+    OUTPUT_OCCURRED,
+
+    /// @brief send when a tool finishes
+    TOOL_ENDED,
+
     /// @brief End of events list; use this to define new
     END
 };

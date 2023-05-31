@@ -25,6 +25,7 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -265,27 +266,14 @@ GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame* selec
 GNESelectorFrame::SelectionOperation::~SelectionOperation() {}
 
 
-long
-GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
-    // get the new file name
-    FXFileDialog opendialog(getCollapsableFrame(), "Open List of Selected Items");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Selection files (*.txt)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        std::vector<GNEAttributeCarrier*> loadedACs;
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
-        std::ostringstream msg;
-        std::ifstream strm(file.c_str());
-        // check if file can be opened
-        if (!strm.good()) {
-            WRITE_ERRORF(TL("Could not open '%'."), file);
-            return 0;
-        }
+void
+GNESelectorFrame::SelectionOperation::loadFromFile(const std::string& file) const {
+    std::vector<GNEAttributeCarrier*> loadedACs;
+    std::ifstream strm(file.c_str());
+    // check if file can be opened
+    if (!strm.good()) {
+        WRITE_ERRORF(TL("Could not open '%'."), file);
+    } else {
         // convert all glObjects into GNEAttributeCarriers
         std::map<const std::string, GNEAttributeCarrier*> GLFUllNameAC;
         const auto GLObjects = GUIGlObjectStorage::gIDStorage.getAllGLObjects();
@@ -304,6 +292,9 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
             // check if line isn't empty
             if (line.length() != 0) {
                 // obtain AC from GLFUllNameAC
+                if (StringUtils::startsWith(line, "node:")) {
+                    line = StringUtils::replace(line, "node:", "junction:");
+                }
                 GNEAttributeCarrier* AC = GLFUllNameAC.count(line) > 0 ? GLFUllNameAC.at(line) : nullptr;
                 // check if AC exist, is selectable, and isn't locked
                 if (AC && AC->getTagProperty().isSelectable() && !mySelectorFrameParent->getViewNet()->getLockManager().isObjectLocked(AC->getGUIGlObject()->getType(), false)) {
@@ -322,8 +313,25 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
             mySelectorFrameParent->handleIDs(loadedACs);
             mySelectorFrameParent->myViewNet->getUndoList()->end();
         }
+        mySelectorFrameParent->myViewNet->updateViewNet();
     }
-    mySelectorFrameParent->myViewNet->updateViewNet();
+}
+
+
+long
+GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
+    // get the new file name
+    FXFileDialog opendialog(getCollapsableFrame(), TL("Open List of Selected Items"));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("Selection files (*.txt)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        gCurrentFolder = opendialog.getDirectory();
+        loadFromFile(opendialog.getFilename().text());
+    }
     return 1;
 }
 
@@ -1397,7 +1405,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
 GNESelectorFrame::Information::Information(GNESelectorFrame* selectorFrameParent) :
     MFXGroupBoxModule(selectorFrameParent, TL("Information")) {
     // Create Selection Hint
-    new FXLabel(getCollapsableFrame(), " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected objects.", nullptr, GUIDesignLabelFrameInformation);
+    new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + "Hold <SHIFT> for rectangle selection." + std::string("\n- ") + "Press <DEL> to delete selected objects.").c_str(), nullptr, GUIDesignLabelFrameInformation);
 }
 
 
@@ -1735,8 +1743,14 @@ GNESelectorFrame::getContentFrame() const {
 
 
 GNESelectorFrame::ModificationMode*
-GNESelectorFrame::getModificationModeModule() const {
+GNESelectorFrame::getModificationModeModul() const {
     return myModificationMode;
+}
+
+
+GNESelectorFrame::SelectionOperation*
+GNESelectorFrame::getSelectionOperationModul() const {
+    return mySelectionOperation;
 }
 
 

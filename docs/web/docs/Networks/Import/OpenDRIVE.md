@@ -62,7 +62,7 @@ As a conclusion, if you wish to import lanes of type
 types](../../Networks/PlainXML.md#type_descriptions)
 file like this:
 
-```
+```xml
 <types>
 
   <type id="border" priority="0" numLanes="1" speed="1.39"/>
@@ -125,7 +125,7 @@ Furthermore, when exporting to OpenDrive with option **--opendrive-output** and 
 each `<road>`-element will get an additional element which references the
 corresponding edge id in the *.net.xml* file:
 
-```
+```xml
 <userData sumoId="sumo_edge_id"/>
 ```
 

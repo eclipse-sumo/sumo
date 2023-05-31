@@ -435,11 +435,13 @@ MSPerson::MSPersonStage_Walking::loadState(MSTransportable* transportable, std::
 /* -------------------------------------------------------------------------
 * MSPerson::MSPersonStage_Access - methods
 * ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
+MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop,
         const double arrivalPos, const double dist, const bool isExit) :
     MSStage(destination, toStop, arrivalPos, MSStageType::ACCESS),
+    myOrigin(origin),
     myDist(dist), myAmExit(isExit) {
-    myPath.push_back(destination->getLanes()[0]->geometryPositionAtOffset(myDestinationStop->getAccessPos(destination)));
+    const MSEdge* accessEdge = myAmExit ? destination : origin;
+    myPath.push_back(accessEdge->getLanes()[0]->geometryPositionAtOffset(myDestinationStop->getAccessPos(accessEdge)));
     myPath.push_back(toStop->getCenterPos());
     if (isExit) {
         myPath = myPath.reverse();
@@ -451,7 +453,7 @@ MSPerson::MSPersonStage_Access::~MSPersonStage_Access() {}
 
 MSStage*
 MSPerson::MSPersonStage_Access::clone() const {
-    return new MSPersonStage_Access(myDestination, myDestinationStop, myArrivalPos, myDist, myAmExit);
+    return new MSPersonStage_Access(myOrigin, myDestination, myDestinationStop, myArrivalPos, myDist, myAmExit);
 }
 
 void
@@ -459,6 +461,7 @@ MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUM
     myDeparted = now;
     myEstimatedArrival = now + TIME2STEPS(myDist / person->getMaxSpeed());
     net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, &myDestinationStop->getLane().getEdge()), myEstimatedArrival);
+    net->getPersonControl().startedAccess();
     myDestinationStop->getLane().getEdge().addTransportable(person);
 }
 
@@ -506,6 +509,7 @@ MSPerson::MSPersonStage_Access::tripInfoOutput(OutputDevice& os, const MSTranspo
 
 SUMOTime
 MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
+    MSNet::getInstance()->getPersonControl().endedAccess();
     myStopEdge->removeTransportable(myPerson);
     if (!myPerson->proceed(MSNet::getInstance(), currentTime)) {
         MSNet::getInstance()->getPersonControl().erase(myPerson);
@@ -536,17 +540,18 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
         prevStop = dynamic_cast<const MSStageTrip*>(prior)->getOriginStop();
     }
     if (prevStop != nullptr) {
+        const MSEdge* stopEdge = &prevStop->getLane().getEdge();
         if (waitAtStop) {
             const double accessDist = prevStop->getAccessDistance(prior->getDestination());
             if (accessDist > 0.) {
                 const double arrivalAtBs = (prevStop->getBeginLanePosition() + prevStop->getEndLanePosition()) / 2;
-                myStep = myPlan->insert(myStep, new MSPersonStage_Access(prior->getDestination(), prevStop, arrivalAtBs, accessDist, false));
+                myStep = myPlan->insert(myStep, new MSPersonStage_Access(prior->getDestination(), stopEdge, prevStop, arrivalAtBs, accessDist, false));
                 return true;
             }
         } else {
             const double accessDist = prevStop->getAccessDistance((*myStep)->getFromEdge());
             if (accessDist > 0.) {
-                myStep = myPlan->insert(myStep, new MSPersonStage_Access((*myStep)->getFromEdge(), prevStop, prevStop->getAccessPos((*myStep)->getFromEdge()), accessDist, true));
+                myStep = myPlan->insert(myStep, new MSPersonStage_Access(stopEdge, (*myStep)->getFromEdge(), prevStop, prevStop->getAccessPos((*myStep)->getFromEdge()), accessDist, true));
                 return true;
             }
         }

@@ -39,7 +39,7 @@ TOOLS = [
     # "detector/detector.py",         NO CONFIG
     "detector/edgeDataFromFlow.py",
     # "detector/filterFlows.py",      NO CONFIG
-    # "detector/flowFromEdgeData.py", NO CONFIG
+    "detector/flowFromEdgeData.py",
     # "detector/flowFromRoutes.py",   NO CONFIG
     # "detector/flowrouter.py",       NO CONFIG
     "detector/mapDetectors.py",
@@ -51,8 +51,8 @@ TOOLS = [
     # "district/aggregateAndSplitMatrices.py",    NO CONFIG
     # "district/countConnectionsInDistricts.py",  NO CONFIG
     # "district/districtMapper.py",               NO CONFIG
-    # "district/filterDistricts.py",              NO CONFIG
-    # "district/gridDistricts.py",                NO CONFIG
+    "district/filterDistricts.py",
+    "district/gridDistricts.py",
     "district/stationDistricts.py",
 
     # drt
@@ -76,9 +76,9 @@ TOOLS = [
     # "import/vissim/convert_vissimXML_flows_statRoutes.py",    NO CONFIG
     # "import/vissim/tls_vissimXML2SUMOnet_update.py",          NO CONFIG
     # "import/vissim/vissim_parseBusStops.py",                  NO CONFIG
-    # "import/vissim/vissim_parseRoutes.py",                    NO CONFIG
+    "import/vissim/vissim_parseRoutes.py",
     # "import/vissim/vissim2poly.py",                           NO CONFIG
-    # "import/visum/visum_convertEdgeTypes.py",                 NO CONFIG
+    "import/visum/visum_convertEdgeTypes.py",
     # "import/visum/visum_convertRoutes.py",                    NO CONFIG
     # "import/visum/visum_convertTurnPercentages.py",           NO CONFIG
     # "import/visum/visum_parseZaehlstelle.py",                 NO CONFIG
@@ -141,8 +141,9 @@ TOOLS = [
     # "output/aggregateBatteryOutput.py",             NO CONFIG
     # "output/analyze_pedestrian_jam.py",             NO CONFIG
     "output/analyze_teleports.py",
-    "output/attributeDiff.py",
     "output/attributeStats.py",
+    "output/attributeDiff.py",
+    "output/attributeCompare.py",
     "output/computeCoordination.py",
     "output/computePassengerCounts.py",
     "output/computeStoppingPlaceUsage.py",
@@ -186,16 +187,16 @@ TOOLS = [
     # "tls/createTlsCsv.py",          NO CONFIG
     # "tls/tls_check.py",             NO CONFIG
     # "tls/tls_csv2SUMO.py",          NO CONFIG
-    # "tls/tls_csvSignalGroups.py",   NO CONFIG
+    "tls/tls_csvSignalGroups.py",
 
     # turn-defs
     # "turn-defs/collectinghandler.py",       NO CONFIG
     # "turn-defs/connections.py",             NO CONFIG
     # "turn-defs/generateTurnDefs.py",        NO CONFIG
-    # "turn-defs/generateTurnRatios.py",      NO CONFIG
-    # "turn-defs/turnCount2EdgeCount.py",     NO CONFIG
+    "turn-defs/generateTurnRatios.py",
+    "turn-defs/turnCount2EdgeCount.py",
     # "turn-defs/turndefinitions.py",         NO CONFIG
-    # "turn-defs/turnFile2EdgeRelations.py",  NO CONFIG
+    "turn-defs/turnFile2EdgeRelations.py",
 
     # visualization
     # "visualization/macrOutput.py",                  NO CONFIG
@@ -206,7 +207,7 @@ TOOLS = [
     # "visualization/plot_csv_bars.py",               NO CONFIG
     # "visualization/plot_csv_pie.py",                NO CONFIG
     # "visualization/plot_csv_timeline.py",           NO CONFIG
-    # "visualization/plot_net_dump.py",               NO CONFIG
+    "visualization/plot_net_dump.py",
     # "visualization/plot_net_selection.py",          NO CONFIG
     # "visualization/plot_net_speeds.py",             NO CONFIG
     # "visualization/plot_net_trafficLights.py",      NO CONFIG
@@ -217,11 +218,11 @@ TOOLS = [
     # xml
     # "xml/addSchema.py",         NO CONFIG
     # "xml/binary2plain.py",      NO CONFIG
-    # "xml/changeAttribute.py",   NO CONFIG
-    # "xml/csv2xml.py",           NO CONFIG
-    # "xml/filterElements.py",    NO CONFIG
+    "xml/csv2xml.py",
+    "xml/xml2csv.py",
+    "xml/changeAttribute.py",
+    "xml/filterElements.py",
     # "xml/protobuf2xml.py",      NO CONFIG
-    # "xml/xml2csv.py",           NO CONFIG
     # "xml/xml2protobuf.py",      NO CONFIG
     # "xml/xsd.py",               NO CONFIG
 
@@ -230,7 +231,7 @@ TOOLS = [
     "countEdgeUsage.py",
     # "createVehTypeDistribution.py",   NO CONFIG
     "edgesInDistricts.py",
-    "evacuateAreas.py",
+    # "evacuateAreas.py",               NOT_SUITABLE
     "extractTest.py",
     "fcdReplay.py",
     "findAllRoutes.py",
@@ -242,9 +243,9 @@ TOOLS = [
     "generateRailSignalConstraints.py",
     "generateRerouters.py",
     # "jtcrouter.py",                   NO CONFIG
-    "osmBuild.py",
+    # "osmBuild.py",                    NOT_SUITABLE
     "osmGet.py",
-    "osmWebWizard.py",
+    # "osmWebWizard.py",                NOT_WORKING_YET
     "plot_trajectories.py",
     # "ptlines2flows.py",               NO CONFIG
     "randomTrips.py",
@@ -369,8 +370,9 @@ def generateToolTemplate(toolDir, toolPath):
         print("Obtaining '" + toolName + "' tool template.")
         # obtain template piping stdout using check_output
         try:
-            template = check_output([sys.executable, join(toolDir, toolPath),
-                                     "--save-template", "stdout"], universal_newlines=True)
+            with open(os.devnull, "w") as null:
+                template = check_output([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"],
+                                        stderr=null, universal_newlines=True)
             # join variable and formated template
             return templateTool + formatToolTemplate(template) + '),\n'
         except CalledProcessError as e:
@@ -395,7 +397,7 @@ def checkMod(toolDir, reference):
 
 
 def main():
-    if len(sys.argv) == 2:
+    if len(sys.argv) != 3:
         sys.exit("Arguments: <pathToSumo> <pathToNetgenerate>")
     # get tool dir path (SUMO/tools)
     toolDir = join(dirname(__file__), '..')

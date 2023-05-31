@@ -113,7 +113,7 @@ GNELoadThread::run() {
         validInput = true;
     }
     // check input
-    if (!validInput) {    
+    if (!validInput) {
         WRITE_ERROR(TL("Invalid input network option. Load with either sumo/netedit/netconvert config or with -new option"));
         submitEndAndCleanup(net, loadedFile);
         return 0;

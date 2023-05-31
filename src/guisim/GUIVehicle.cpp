@@ -262,8 +262,8 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
 std::string
 GUIVehicle::getDynamicAlignment() const {
     std::string align = myType->getPreferredLateralAlignment() == LatAlignmentDefinition::GIVEN
-        ? toString(myType->getPreferredLateralAlignmentOffset())
-        : toString(myType->getPreferredLateralAlignment());
+                        ? toString(myType->getPreferredLateralAlignmentOffset())
+                        : toString(myType->getPreferredLateralAlignment());
     std::string align2 = toString(getLaneChangeModel().getDesiredAlignment());
     if (align2 != align) {
         align = align2 + " (default: " + align + ")";
@@ -1153,7 +1153,7 @@ GUIVehicle::getVisualAngle(bool s2) const {
         Position p1 = getVisualPosition(s2);
         Position p2 = getVisualPosition(s2, MAX2(0.0, -myType->getLength()));
         double result = (p1 != p2 ? p2.angleTo2D(p1) :
-                shape.rotationAtOffset(getPositionOnLane() * myLane->getLengthGeometryFactor(s2)));
+                         shape.rotationAtOffset(getPositionOnLane() * myLane->getLengthGeometryFactor(s2)));
         if (myLaneChangeModel->isChangingLanes()) {
             result += lefthandSign * DEG2RAD(myLaneChangeModel->getAngleOffset());
         }

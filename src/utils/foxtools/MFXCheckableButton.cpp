@@ -55,8 +55,15 @@ MFXCheckableButton::amChecked() const {
 
 
 void
-MFXCheckableButton::setChecked(bool val) {
+MFXCheckableButton::setChecked(bool val, const bool inform) {
     myAmChecked = val;
+    if (inform) {
+        if (myAmChecked) {
+            FXButton::onCheck(nullptr, 0, nullptr);
+        } else {
+            FXButton::onUncheck(nullptr, 0, nullptr);
+        }
+    }
 }
 
 
@@ -76,8 +83,7 @@ MFXCheckableButton::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
         buildColors();
     }
     setColors();
-    long ret = FXButton::onUpdate(sender, sel, ptr);
-    return ret;
+    return FXButton::onUpdate(sender, sel, ptr);
 }
 
 

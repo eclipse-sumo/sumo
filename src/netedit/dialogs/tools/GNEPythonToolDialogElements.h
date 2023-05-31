@@ -40,6 +40,24 @@ class Option;
 class GNEPythonToolDialogElements {
 
 public:
+    /// @brief category
+    class Category : public FXHorizontalFrame {
+
+    public:
+        /// @brief constructor
+        Category(FXVerticalFrame* argumentFrame, const std::string& category);
+
+        /// @brief destructor
+        ~Category();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        Category(const Category&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        Category& operator=(const Category&) = delete;
+    };
+
     /// @brief argument
     class Argument : public FXHorizontalFrame {
         /// @brief FOX-declaration
@@ -47,7 +65,7 @@ public:
 
     public:
         /// @brief constructor
-        Argument(GNEPythonToolDialog* toolDialogParent, const std::string &parameter, Option* option);
+        Argument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string& parameter, Option* option);
 
         /// @brief destructor
         ~Argument();
@@ -60,6 +78,9 @@ public:
 
         /// @brief get argument
         const std::string getArgument() const;
+
+        /// @brief check if required attribute is set
+        bool requiredAttributeSet() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -82,14 +103,17 @@ public:
         /// @brief get value
         virtual const std::string getValue() const = 0;
 
+        /// @brief tool dialog parent
+        GNEPythonToolDialog* myToolDialogParent;
+
         /// @brief option
         Option* myOption;
 
         /// @brief default value
         const std::string myDefaultValue;
 
-        /// @brief auxliar text field for textfield frames
-        FXHorizontalFrame* myAuxiliarTextFieldFrame = nullptr;
+        /// @brief auxiliar elements frame
+        FXHorizontalFrame* myElementsFrame = nullptr;
 
     private:
         /// @brief parameter label
@@ -112,8 +136,9 @@ public:
 
     public:
         /// @brief constructor
-        FileNameArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
-    
+        FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                         const std::string name, Option* option);
+
         /// @brief reset to default value
         void reset();
 
@@ -127,15 +152,22 @@ public:
         /// @brief FOX need this
         FileNameArgument();
 
+        /// @brief constructor for current buttons
+        FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                         const std::string name, Option* option, const std::string& useCurrent);
+
         /// @brief get value
         const std::string getValue() const;
 
-    private:
-        /// @brief filename button
-        FXButton* myFilenameButton = nullptr;
-
         /// @brief filename textField
         FXTextField* myFilenameTextField = nullptr;
+
+    private:
+        /// @brief current button
+        FXButton* myCurrentButton = nullptr;
+
+        /// @brief filename button
+        FXButton* myOpenFilenameButton = nullptr;
 
         /// @brief Invalidated copy constructor.
         FileNameArgument(const FileNameArgument&) = delete;
@@ -144,12 +176,136 @@ public:
         FileNameArgument& operator=(const FileNameArgument&) = delete;
     };
 
+    /// @brief network argument
+    class NetworkArgument : public FileNameArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::NetworkArgument)
+
+    public:
+        /// @brief constructor
+        NetworkArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                        const std::string name, Option* option);
+
+        /// @brief Called when user press open filename button
+        long onCmdOpenFilename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press use current button
+        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use current button
+        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        NetworkArgument();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        NetworkArgument(const NetworkArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        NetworkArgument& operator=(const NetworkArgument&) = delete;
+    };
+
+    /// @brief network argument
+    class AdditionalArgument : public FileNameArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::AdditionalArgument)
+
+    public:
+        /// @brief constructor
+        AdditionalArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                           const std::string name, Option* option);
+
+        /// @brief Called when user press open filename button
+        long onCmdOpenFilename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press use current button
+        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use current button
+        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        AdditionalArgument();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        AdditionalArgument(const AdditionalArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        AdditionalArgument& operator=(const AdditionalArgument&) = delete;
+    };
+
+    /// @brief network argument
+    class RouteArgument : public FileNameArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::RouteArgument)
+
+    public:
+        /// @brief constructor
+        RouteArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                      const std::string name, Option* option);
+
+        /// @brief Called when user press open filename button
+        long onCmdOpenFilename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press use current button
+        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use current button
+        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        RouteArgument();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        RouteArgument(const RouteArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        RouteArgument& operator=(const RouteArgument&) = delete;
+    };
+
+    /// @brief network argument
+    class DataArgument : public FileNameArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::DataArgument)
+
+    public:
+        /// @brief constructor
+        DataArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                     const std::string name, Option* option);
+
+        /// @brief Called when user press open filename button
+        long onCmdOpenFilename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press use current button
+        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use current button
+        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        DataArgument();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        DataArgument(const DataArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        DataArgument& operator=(const DataArgument&) = delete;
+    };
+
     /// @brief string argument
     class StringArgument : public Argument {
 
     public:
         /// @brief constructor
-        StringArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
+        StringArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -177,7 +333,7 @@ public:
 
     public:
         /// @brief constructor
-        IntArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
+        IntArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -208,8 +364,8 @@ public:
 
     public:
         /// @brief constructor
-        FloatArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
-    
+        FloatArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option);
+
         /// @brief reset to default value
         void reset();
 
@@ -240,7 +396,7 @@ public:
 
     public:
         /// @brief constructor
-        BoolArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
+        BoolArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();

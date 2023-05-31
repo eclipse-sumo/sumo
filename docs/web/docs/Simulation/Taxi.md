@@ -17,7 +17,7 @@ procedures](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) can
 
 For instance, a single vehicle can configured as taxi as in the following minimal example
 
-```
+```xml
     <vehicle id="v0" route="route0" depart="0" line="taxi">
         <param key="has.taxi.device" value="true"/>  
     </vehicle>
@@ -28,7 +28,7 @@ For instance, a single vehicle can configured as taxi as in the following minima
 ## Direct ride hailing
 A person can be defined as taxi customer with the following definition:
 
-```
+```xml
     <person id="p0" depart="0.00">
         <ride from="B2C2" to="A0B0" lines="taxi"/>
     </person>
@@ -37,7 +37,7 @@ A person can be defined as taxi customer with the following definition:
 ## Intermodal Routing
 A person can also use a taxi by including it as a [personTrip](../Specification/Persons.md#persontrips) mode:
 
-```
+```xml
     <person id="p0" depart="0.00">
         <personTrip from="B2C2" to="A0B0" modes="taxi"/>
     </person>
@@ -92,13 +92,11 @@ algorithms are available
 
 By default, taxis will remain in the simulation until all persons have left. To make them leave the simulation at an earlier time, the end time can be defined using a generic parameter in their ```vType``` or ```vehicle```-definition:
 
-```
-```
+```xml
     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>
         <param key="device.taxi.end" value="3600"/>
     </vType>
-```
 ```
 
 ## Idle Behavior
@@ -114,7 +112,7 @@ By default, vehicles will leave the simulation after reaching the end of their f
 
 Taxis will stop to pick-up and drop-off customers. The 'actType' attribute of a stop indicates the purpose ('pickup' / 'dropOff') as well as the ids of the customers and their reservation id. Stop attributes can be configured using [generic parameters]() `<vType>` or `<vehicle>` definition of the taxi:
 
-```
+```xml
     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>
         <param key="device.taxi.pickUpDuration" value="0"/>
@@ -210,7 +208,7 @@ If a taxi is not in state empty the following re-dispatch calls are supported
 The Taxi device generates output within a tripinfo-output file in the following
 form:
 
-```
+```xml
     <tripinfo id="trip_0" ... >
         <taxi customers="5" occupiedDistance="6748.77" occupiedTime="595.00"/>
     </tripinfo>

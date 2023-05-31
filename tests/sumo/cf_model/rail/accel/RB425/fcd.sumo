@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-26 20:32:11 by Eclipse SUMO sumo Version v1_14_1+1635-30347d4bd51
+<!-- generated on 2023-04-11 15:10:58 by Eclipse SUMO sumo Version v1_16_0+1988-5b1275c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -268,7 +268,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="r0" x="1996.52" y="17.21" z="9.99" angle="89.46" type="0" speed="39.79" pos="1996.75" lane="e0_0" slope="0.29"/>
     </timestep>
     <timestep time="75.00">
-        <vehicle id="r0" x="2002.49" y="17.22" z="9.98" angle="89.55" type="0" speed="39.98" pos="38.10" lane="e1_0" slope="0.22"/>
+        <vehicle id="r0" x="2002.49" y="17.22" z="9.98" angle="90.21" type="0" speed="39.98" pos="38.10" lane="e1_0" slope="0.22"/>
     </timestep>
     <timestep time="76.00">
         <vehicle id="r0" x="2006.50" y="17.20" z="9.96" angle="90.21" type="0" speed="40.18" pos="78.28" lane="e1_0" slope="-0.29"/>
@@ -1672,49 +1672,49 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="r0" x="3996.94" y="9.77" z="0.00" angle="90.21" type="0" speed="6.13" pos="19995.98" lane="e1_0" slope="-0.29"/>
     </timestep>
     <timestep time="543.00">
-        <vehicle id="r0" x="3998.78" y="9.76" z="0.00" angle="90.22" type="0" speed="5.15" pos="1.14" lane="e2_0" slope="-0.24"/>
+        <vehicle id="r0" x="3998.78" y="9.76" z="0.00" angle="90.24" type="0" speed="5.15" pos="1.14" lane="e2_0" slope="-0.24"/>
     </timestep>
     <timestep time="544.00">
-        <vehicle id="r0" x="4003.21" y="9.74" z="0.00" angle="90.26" type="0" speed="4.44" pos="5.58" lane="e2_0" slope="-0.15"/>
+        <vehicle id="r0" x="4003.21" y="9.74" z="0.00" angle="90.30" type="0" speed="4.44" pos="5.58" lane="e2_0" slope="-0.15"/>
     </timestep>
     <timestep time="545.00">
-        <vehicle id="r0" x="4007.65" y="9.71" z="0.00" angle="90.28" type="0" speed="4.44" pos="10.02" lane="e2_0" slope="-0.10"/>
+        <vehicle id="r0" x="4007.65" y="9.71" z="0.00" angle="90.31" type="0" speed="4.44" pos="10.02" lane="e2_0" slope="-0.10"/>
     </timestep>
     <timestep time="546.00">
-        <vehicle id="r0" x="4012.09" y="9.69" z="0.00" angle="90.29" type="0" speed="4.44" pos="14.46" lane="e2_0" slope="-0.08"/>
+        <vehicle id="r0" x="4012.09" y="9.69" z="0.00" angle="90.32" type="0" speed="4.44" pos="14.46" lane="e2_0" slope="-0.08"/>
     </timestep>
     <timestep time="547.00">
-        <vehicle id="r0" x="4016.53" y="9.66" z="0.00" angle="90.30" type="0" speed="4.44" pos="18.90" lane="e2_0" slope="-0.06"/>
+        <vehicle id="r0" x="4016.53" y="9.66" z="0.00" angle="90.33" type="0" speed="4.44" pos="18.90" lane="e2_0" slope="-0.06"/>
     </timestep>
     <timestep time="548.00">
-        <vehicle id="r0" x="4020.97" y="9.64" z="0.00" angle="90.31" type="0" speed="4.44" pos="23.34" lane="e2_0" slope="-0.05"/>
+        <vehicle id="r0" x="4020.97" y="9.64" z="0.00" angle="90.33" type="0" speed="4.44" pos="23.34" lane="e2_0" slope="-0.05"/>
     </timestep>
     <timestep time="549.00">
-        <vehicle id="r0" x="4025.41" y="9.61" z="0.00" angle="90.31" type="0" speed="4.44" pos="27.78" lane="e2_0" slope="-0.04"/>
+        <vehicle id="r0" x="4025.41" y="9.61" z="0.00" angle="90.33" type="0" speed="4.44" pos="27.78" lane="e2_0" slope="-0.04"/>
     </timestep>
     <timestep time="550.00">
-        <vehicle id="r0" x="4029.85" y="9.59" z="0.00" angle="90.31" type="0" speed="4.44" pos="32.22" lane="e2_0" slope="-0.03"/>
+        <vehicle id="r0" x="4029.85" y="9.59" z="0.00" angle="90.33" type="0" speed="4.44" pos="32.22" lane="e2_0" slope="-0.03"/>
     </timestep>
     <timestep time="551.00">
-        <vehicle id="r0" x="4034.29" y="9.56" z="0.00" angle="90.32" type="0" speed="4.44" pos="36.66" lane="e2_0" slope="-0.02"/>
+        <vehicle id="r0" x="4034.29" y="9.56" z="0.00" angle="90.33" type="0" speed="4.44" pos="36.66" lane="e2_0" slope="-0.02"/>
     </timestep>
     <timestep time="552.00">
-        <vehicle id="r0" x="4038.73" y="9.54" z="0.00" angle="90.32" type="0" speed="4.44" pos="41.10" lane="e2_0" slope="-0.02"/>
+        <vehicle id="r0" x="4038.73" y="9.54" z="0.00" angle="90.33" type="0" speed="4.44" pos="41.10" lane="e2_0" slope="-0.02"/>
     </timestep>
     <timestep time="553.00">
-        <vehicle id="r0" x="4043.17" y="9.51" z="0.00" angle="90.32" type="0" speed="4.44" pos="45.54" lane="e2_0" slope="-0.01"/>
+        <vehicle id="r0" x="4043.17" y="9.51" z="0.00" angle="90.33" type="0" speed="4.44" pos="45.54" lane="e2_0" slope="-0.01"/>
     </timestep>
     <timestep time="554.00">
-        <vehicle id="r0" x="4047.61" y="9.49" z="0.00" angle="90.32" type="0" speed="4.44" pos="49.98" lane="e2_0" slope="-0.01"/>
+        <vehicle id="r0" x="4047.61" y="9.49" z="0.00" angle="90.33" type="0" speed="4.44" pos="49.98" lane="e2_0" slope="-0.01"/>
     </timestep>
     <timestep time="555.00">
-        <vehicle id="r0" x="4052.05" y="9.46" z="0.00" angle="90.32" type="0" speed="4.44" pos="54.42" lane="e2_0" slope="-0.01"/>
+        <vehicle id="r0" x="4052.05" y="9.46" z="0.00" angle="90.33" type="0" speed="4.44" pos="54.42" lane="e2_0" slope="-0.01"/>
     </timestep>
     <timestep time="556.00">
-        <vehicle id="r0" x="4056.49" y="9.43" z="0.00" angle="90.32" type="0" speed="4.44" pos="58.86" lane="e2_0" slope="-0.00"/>
+        <vehicle id="r0" x="4056.49" y="9.43" z="0.00" angle="90.33" type="0" speed="4.44" pos="58.86" lane="e2_0" slope="-0.00"/>
     </timestep>
     <timestep time="557.00">
-        <vehicle id="r0" x="4060.93" y="9.41" z="0.00" angle="90.32" type="0" speed="4.44" pos="63.30" lane="e2_0" slope="-0.00"/>
+        <vehicle id="r0" x="4060.93" y="9.41" z="0.00" angle="90.33" type="0" speed="4.44" pos="63.30" lane="e2_0" slope="-0.00"/>
     </timestep>
     <timestep time="558.00">
         <vehicle id="r0" x="4065.37" y="9.38" z="0.00" angle="90.33" type="0" speed="4.44" pos="67.74" lane="e2_0" slope="0.00"/>

@@ -104,7 +104,7 @@ NBTrafficLightDefinition::~NBTrafficLightDefinition() {}
 
 
 NBTrafficLightLogic*
-NBTrafficLightDefinition::compute(OptionsCont& oc) {
+NBTrafficLightDefinition::compute(const OptionsCont& oc) {
     // it is not really a traffic light if no incoming edge exists
     if (amInvalid()) {
         // make a copy of myControlledNodes because it will be modified;

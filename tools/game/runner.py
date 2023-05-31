@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
@@ -15,6 +15,7 @@
 # @file    runner.py
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2010-01-30
 
 """
@@ -35,7 +36,6 @@ try:
     import Tkinter
 except ImportError:
     import tkinter as Tkinter
-from optparse import OptionParser
 from xml.dom import pulldom
 from collections import defaultdict
 
@@ -43,67 +43,49 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
-
+from sumolib.translation import addLanguageOption, setLanguage, TL
 
 _UPLOAD = False if "noupload" in sys.argv else True
 _SCOREFILE = "scores.pkl"
+REFSCOREFILE = "refscores.pkl"
 if _UPLOAD:
     _TIMEOUT = 5
     _SCORESERVER = "sumo.dlr.de"
     _SCORESCRIPT = "/scores.php?game=TLS&"
 _DEBUG = True if "debug" in sys.argv else False
 _SCORES = 30
+BASE = os.path.dirname(sys.argv[0])
+_LANGUAGE_CAPTIONS = {}
 
-_LANGUAGE_EN = {'title': 'Interactive Traffic Light',
-                'fkk_in': 'Research intersection Ingolstadt',
-                'cross': 'Simple Junction',
-                'cross_demo': 'Simple Junction (Demo)',
-                'square': 'Four Junctions',
-                'grid6': 'Six Junctions',
-                'kuehne': 'Prof. Kühne',
-                'bs3d': '3D Junction Virtual World',
-                'bs3Dosm': '3D Junction OpenStreetMap',
-                'highway': 'Autobahnauffahrt',
-                'ramp': 'Combined Highway On and Off Ramp',
-                'corridor': 'Corridor',
-                'A10KW': 'Highway Ramp A10',
-                'DRT': 'Demand Responsive Transport (new)',
-                'DRT2': 'DRT - Advanced (new)',
-                'DRT_demo': 'DRT - Demo',
-                'high': 'Highscore',
-                'reset': 'Reset Highscore',
-                'lang': 'Deutsch',
-                'quit': 'Quit',
-                'Highscore': 'Highscore',
-                'Congratulations': 'Congratulations!',
-                'your score': 'Your Score',
-                'Continue': 'Continue',
-                }
-_LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
-                'fkk_in': 'Forschungskreuzung Ingolstadt',
-                'cross': 'Einfache Kreuzung',
-                'cross_demo': 'Einfache Kreuzung (Demo)',
-                'square': 'Vier Kreuzungen',
-                'grid6': 'Sechs Kreuzungen',
-                'kuehne': 'Prof. Kühne',
-                'bs3d': '3D Forschungskreuzung Virtuelle Welt',
-                'bs3Dosm': '3D Forschungskreuzung OpenStreetMap',
-                'highway': 'Autobahnauffahrt',
-                'ramp': 'Kombinierte Autobahnauf- und -abfahrt',
-                'A10KW': 'A10 KW',
-                'DRT': 'Bedarfsbus (neu)',
-                'DRT2': 'Bedarfsbus für Fortgeschrittene (neu)',
-                'DRT_demo': 'Bedarfsbus - Demo',
-                'corridor': 'Strecke',
-                'high': 'Bestenliste',
-                'reset': 'Bestenliste zurücksetzen',
-                'lang': 'Englisch',
-                'quit': 'Beenden',
-                'Highscore': 'Bestenliste',
-                'Congratulations': 'Gratulation!',
-                'your score': 'Deine Punkte',
-                'Continue': 'Weiter',
-                }
+
+def updateLocalMessages():
+    global _LANGUAGE_CAPTIONS
+    _LANGUAGE_CAPTIONS = {'title': TL('Interactive Traffic Light'),
+                    'fkk_in': TL('Research intersection Ingolstadt'),
+                    'cross': TL('Simple Junction'),
+                    'cross_demo': TL('Simple Junction (Demo)'),
+                    'square': TL('Four Junctions'),
+                    'grid6': TL('Six Junctions'),
+                    'kuehne': TL('Prof. Kühne'),
+                    'bs3d': TL('3D Junction Virtual World'),
+                    'bs3Dosm': TL('3D Junction OpenStreetMap'),
+                    'highway': TL('Highway Ramp'),
+                    'ramp': TL('Combined Highway On and Off Ramp'),
+                    'corridor': TL('Corridor'),
+                    'A10KW': TL('Highway Ramp A10'),
+                    'DRT': TL('Demand Responsive Transport (new)'),
+                    'DRT2': TL('DRT - Advanced (new)'),
+                    'DRT_demo': TL('DRT - Demo'),
+                    'high': TL('Highscore'),
+                    'reset': TL('Reset Highscore'),
+                    'german': TL('German'),
+                    'english': TL('English'),
+                    'quit': TL("Quit"),
+                    'Highscore': TL("Highscore"),
+                    'Congratulations': TL("Congratulations!"),
+                    'your score': TL('Your Score'),
+                    'Continue': TL('Continue'),
+                    }
 
 
 def printDebug(*args):
@@ -129,30 +111,16 @@ else:
 
 
 def computeScoreFromWaitingTime(gamename):
-    totalDistance = 0
-    totalFuel = 0
     totalArrived = 0
     totalWaitingTime = 0
     complete = True
-    for line in open(os.path.join(base, "%s.netstate.xml" % start.category)):
-        m = re.search('<interval begin="0(.00)?" end="([^"]*)"', line)
-        if m and float(m.group(2)) != start.gametime:
-            print("error: incomplete output")
-            complete = False
-        m = re.search('sampledSeconds="([^"]*)".*speed="([^"]*)"', line)
-        if m:
-            totalDistance += float(m.group(1)) * float(m.group(2))
-        m = re.search('fuel_abs="([^"]*)"', line)
-        if m:
-            totalFuel += float(m.group(1))
-        m = re.search('arrived="([^"]*)"', line)
-        if m:
-            totalArrived += float(m.group(1))
-        m = re.search('waitingTime="([^"]*)"', line)
-        if m:
-            totalWaitingTime += float(m.group(1))
-    # doing nothing gives a waitingTime of 6033 for cross and 6700 for
-    # square
+    for s in sumolib.xml.parse(os.path.join(BASE, gamename + ".stats.xml"), ("performance", "vehicleTripStatistics")):
+        if s.name == "performance":
+            if float(s.end) != parseEndTime(gamename + ".sumocfg"):
+                return 0, 0, False
+        else:
+            totalWaitingTime = float(s.waitingTime) * float(s.count)
+            totalArrived = float(s.count)
     score = 10000 - totalWaitingTime
     return score, totalArrived, complete
 
@@ -295,6 +263,9 @@ def loadHighscore():
     except Exception as e:
         print(e)
         pass
+    if os.path.exists(REFSCOREFILE):
+        with open(REFSCOREFILE, 'rb') as sf:
+            return pickle.load(sf)
     return {}
 
 
@@ -311,11 +282,12 @@ class IMAGE:
 
 class StartDialog(Tkinter.Frame):
 
-    def __init__(self, parent, lang):
+    def __init__(self, parent, lang, langCode):
         Tkinter.Frame.__init__(self, parent)
         # variables for changing language
         self.parent = parent
         self._language_text = lang
+        self._langCode = langCode
         self.buttons = []
         # misc variables
         self.name = ''
@@ -323,12 +295,13 @@ class StartDialog(Tkinter.Frame):
         self.parent.title(self._language_text['title'])
         self.parent.minsize(250, 50)
         self.category = None
+        self.high = loadHighscore()
 
         # we use a grid layout with 4 columns
         COL_DLRLOGO, COL_START, COL_HIGH, COL_SUMOLOGO = range(4)
         # there is one column for every config, +2 more columns for control
         # buttons
-        configs = sorted(glob.glob(os.path.join(base, "*.sumocfg")))
+        configs = sorted(glob.glob(os.path.join(BASE, "*.sumocfg")))
         numButtons = len(configs) + 3
         # button dimensions
         bWidth_start = 30
@@ -342,6 +315,7 @@ class StartDialog(Tkinter.Frame):
             row=0, rowspan=numButtons, column=COL_DLRLOGO)
         Tkinter.Label(self, image=IMAGE.sumoLogo).grid(
             row=0, rowspan=numButtons, column=COL_SUMOLOGO)
+        haveOSG = "OSG" in subprocess.check_output(sumolib.checkBinary("sumo"), universal_newlines=True)
 
         # 2 button for each config (start, highscore)
         for row, cfg in enumerate(configs):
@@ -356,14 +330,13 @@ class StartDialog(Tkinter.Frame):
 
             button = Tkinter.Button(self, width=bWidth_high,
                                     command=lambda cfg=cfg: ScoreDialog(self, [], None, self.category_name(cfg),
-                                                                        self._language_text)
+                                                                        self._language_text, self.high)
                                     )  # .grid(row=row, column=COL_HIGH)
             self.addButton(button, 'high')
             button.grid(row=row, column=COL_HIGH)
 
         # control buttons
-        button = Tkinter.Button(
-            self, width=bWidth_control, command=high.clear)
+        button = Tkinter.Button(self, width=bWidth_control, command=self.clear)
         self.addButton(button, 'reset')
         button.grid(row=numButtons - 3, column=COL_START, columnspan=2)
 
@@ -374,7 +347,7 @@ class StartDialog(Tkinter.Frame):
 
         button = Tkinter.Button(
             self, width=bWidth_control, command=lambda: self.change_language())
-        self.addButton(button, 'lang')
+        self.addButton(button, 'german', key='lang')
         button.grid(row=numButtons - 2, column=COL_START, columnspan=2)
 
         self.grid()
@@ -384,20 +357,30 @@ class StartDialog(Tkinter.Frame):
         self.parent.update()
         self.parent.deiconify()
 
-    def addButton(self, button, text):
+    def addButton(self, button, text, key=None):
         button["text"] = self._language_text.get(text, text)
-        self.buttons.append((text, button))
+        if key == None:
+            key = text
+        self.buttons.append((key, button))
 
     def change_language(self):
-        if self._language_text == _LANGUAGE_DE:
-            self._language_text = _LANGUAGE_EN
-        else:
-            self._language_text = _LANGUAGE_DE
-        for text, button in self.buttons:
-            button["text"] = self._language_text[text]
+        self._langCode = "en" if self._langCode == "de" else "de"
+        setLanguage(self._langCode)
+        updateLocalMessages()
+        self._language_text = _LANGUAGE_CAPTIONS
+        for key, button in self.buttons:
+            if key == "lang":
+                key = "english"if self._langCode == "de" else "german"
+            button["text"] = self._language_text[key]
 
     def category_name(self, cfg):
         return os.path.basename(cfg)[:-8]
+
+    def clear(self):
+        self.high.clear()
+        if os.path.exists(REFSCOREFILE):
+            with open(REFSCOREFILE, 'rb') as sf:
+                self.high.update(pickle.load(sf))
 
     def start_cfg(self, cfg):
         # remember which which cfg was launched
@@ -406,9 +389,9 @@ class StartDialog(Tkinter.Frame):
             print("starting", cfg)
         self.gametime = parseEndTime(cfg)
         self.ret = subprocess.call(
-            [guisimPath, "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
-                '--output-prefix', "%s." % self.category,
-                '--duration-log.statistics',
+            [sumolib.checkBinary("sumo-gui", BASE), "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
+                '--output-prefix', "%s." % self.category, '--language', self._langCode,
+                '--duration-log.statistics', '--statistic-output', 'stats.xml',
                 '--tripinfo-output.write-unfinished'], stderr=sys.stderr)
 
         if _DEBUG:
@@ -420,7 +403,7 @@ class StartDialog(Tkinter.Frame):
         # parse switches
         switch = []
         lastProg = {}
-        tlsfile = os.path.join(base, "%s.tlsstate.xml" % start.category)
+        tlsfile = os.path.join(BASE, "%s.tlsstate.xml" % self.category)
         if os.path.exists(tlsfile):
             for line in open(tlsfile):
                 m = re.search(r'tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
@@ -431,11 +414,11 @@ class StartDialog(Tkinter.Frame):
                         lastProg[tls] = program
                         switch += [m.group(3), m.group(1)]
 
-        lang = start._language_text
+        lang = self._language_text
         if _DEBUG:
             print(switch, score, totalArrived, complete)
         if complete:
-            ScoreDialog(self, switch, score, self.category, lang)
+            ScoreDialog(self, switch, score, self.category, lang, self.high)
 
         # if ret != 0:
         # quit on error
@@ -444,7 +427,7 @@ class StartDialog(Tkinter.Frame):
 
 class ScoreDialog:
 
-    def __init__(self, parent, switch, score, category, lang):
+    def __init__(self, parent, switch, score, category, lang, high):
         self.root = Tkinter.Toplevel(parent)
         # self.root.transient(parent)
         self.name = None
@@ -453,15 +436,18 @@ class ScoreDialog:
         self.category = category
         self.root.title(lang["Highscore"])
         self.root.minsize(250, 50)
+        self.high = high
+
         haveHigh = False
 
-        if category not in high:
-            high[category] = _SCORES * [("", "", -1.)]
+        if category not in self.high:
+            self.high[category] = _SCORES * [("", "", -1.)]
+        if len(self.high[category]) < _SCORES:
+            self.high[category] += (_SCORES - len(self.high[category])) * [("", "", -1.)]
         idx = 0
-        for n, g, p in high[category]:
+        for n, g, p in self.high[category]:
             if not haveHigh and score is not None and p < score:
-                Tkinter.Label(
-                    self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
+                Tkinter.Label(self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
                 self.name = Tkinter.Entry(self.root)
                 self.name.grid(row=idx, sticky=Tkinter.W, column=1)
                 self.scoreLabel = Tkinter.Label(self.root, text=str(score),
@@ -507,16 +493,15 @@ class ScoreDialog:
     def save(self, event=None):
         if self.name and self.name.get():
             name = self.name.get()
-            high[self.category].insert(
-                self.idx, (name, self.switch, self.score))
-            high[self.category].pop()
+            self.high[self.category].insert(self.idx, (name, self.switch, self.score))
+            self.high[self.category].pop()
             self.name.destroy()
             self.name = None
             Tkinter.Label(self.root, text=name, padx=5,
                           bg="pale green").grid(row=self.idx, sticky=Tkinter.W, column=1)
             try:
                 f = open(_SCOREFILE, 'wb')
-                pickle.dump(high, f)
+                pickle.dump(self.high, f)
                 f.close()
             except Exception as e:
                 print(e)
@@ -540,39 +525,38 @@ class ScoreDialog:
         self.root.destroy()
 
 
-stereoModes = (
-    'ANAGLYPHIC', 'QUAD_BUFFER', 'VERTICAL_SPLIT', 'HORIZONTAL_SPLIT')
-optParser = OptionParser()
-optParser.add_option("-s", "--stereo", metavar="OSG_STEREO_MODE",
-                     help="Defines the stereo mode to use for 3D output; unique prefix of %s" % (
-                           ", ".join(stereoModes)))
-options, args = optParser.parse_args()
+def main():
+    stereoModes = ('ANAGLYPHIC', 'QUAD_BUFFER', 'VERTICAL_SPLIT', 'HORIZONTAL_SPLIT')
+    optParser = sumolib.options.ArgumentParser()
+    optParser.add_option("-s", "--stereo", metavar="OSG_STEREO_MODE",
+                         help=("Defines the stereo mode to use for 3D output; unique prefix of %s" % (
+                               ", ".join(stereoModes))))
+    addLanguageOption(optParser)
+    options = optParser.parse_args()
+    setLanguage(options.language)
+    updateLocalMessages()
+    
+    if options.stereo:
+        for m in stereoModes:
+            if m.lower().startswith(options.stereo.lower()):
+                os.environ["OSG_STEREO_MODE"] = m
+                os.environ["OSG_STEREO"] = "ON"
+                break
 
-base = os.path.dirname(sys.argv[0])
-high = loadHighscore()
+    if "OSG_FILE_PATH" in os.environ:
+        os.environ["OSG_FILE_PATH"] += os.pathsep + \
+            os.path.join(os.environ.get("SUMO_HOME", ""), "data", "3D")
+    else:
+        os.environ["OSG_FILE_PATH"] = os.path.join(
+            os.environ.get("SUMO_HOME", ""), "data", "3D")
+
+    root = Tkinter.Tk()
+    IMAGE.dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
+    IMAGE.sumoLogo = Tkinter.PhotoImage(file='sumo_logo.gif')
+    IMAGE.qrCode = Tkinter.PhotoImage(file='qr_sumo.dlr.de.gif')
+    StartDialog(root, _LANGUAGE_CAPTIONS, options.language)
+    root.mainloop()
 
 
-guisimPath = sumolib.checkBinary("sumo-gui", os.path.dirname(os.path.abspath(__file__)))
-haveOSG = "OSG" in subprocess.check_output(sumolib.checkBinary("sumo"), universal_newlines=True)
-
-if options.stereo:
-    for m in stereoModes:
-        if m.lower().startswith(options.stereo.lower()):
-            os.environ["OSG_STEREO_MODE"] = m
-            os.environ["OSG_STEREO"] = "ON"
-            break
-
-lang = _LANGUAGE_EN
-if "OSG_FILE_PATH" in os.environ:
-    os.environ["OSG_FILE_PATH"] += os.pathsep + \
-        os.path.join(os.environ.get("SUMO_HOME", ""), "data", "3D")
-else:
-    os.environ["OSG_FILE_PATH"] = os.path.join(
-        os.environ.get("SUMO_HOME", ""), "data", "3D")
-
-root = Tkinter.Tk()
-IMAGE.dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
-IMAGE.sumoLogo = Tkinter.PhotoImage(file='sumo_logo.gif')
-IMAGE.qrCode = Tkinter.PhotoImage(file='qr_sumo.dlr.de.gif')
-start = StartDialog(root, lang)
-root.mainloop()
+if __name__ == "__main__":
+    main()

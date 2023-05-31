@@ -42,12 +42,13 @@ a negative lower limit.
 import sys
 import csv
 import re
-import argparse
+
+from sumolib.options import ArgumentParser
 from sumolib.vehicletype import CreateVehTypeDistribution
 
 
 def get_options(args=None):
-    argParser = argparse.ArgumentParser()
+    argParser = ArgumentParser()
     argParser.add_argument(
         "configFile", help="file path of the config file which defines the car-following parameter distributions")
     argParser.add_argument(
@@ -66,7 +67,7 @@ def get_options(args=None):
         "value until it lies in the specified bounds")
     argParser.add_argument("--seed", type=int, help="random seed", default=42)
 
-    options = argParser.parse_args()
+    options = argParser.parse_args(args)
     return options
 
 
@@ -170,6 +171,6 @@ def main(options):
 
 if __name__ == "__main__":
     try:
-        main(get_options(sys.argv))
+        main(get_options())
     except ValueError as e:
         sys.exit(e)

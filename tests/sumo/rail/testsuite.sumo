@@ -53,6 +53,9 @@ model_railroad
 # load a rail_signal where all connections are marked as uncontrolled
 uncontrolled_links
 
+# check default rail type
+default_rail_type
+
 # railway-specific bugs
 bugs
 

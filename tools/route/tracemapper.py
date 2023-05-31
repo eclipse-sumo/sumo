@@ -64,7 +64,7 @@ def readLines(traceFile, net, geo):
             trace = [tuple(map(float, pos.split(","))) for pos in traceString.split()]
             if geo:
                 trace = [net.convertLonLat2XY(*pos) for pos in trace]
-            yield tid, trace
+            yield tid.strip(), trace
 
 
 if __name__ == "__main__":
@@ -150,7 +150,7 @@ if __name__ == "__main__":
             for tid, trace in traces:
                 if poiOut is not None:
                     for idx, pos in enumerate(trace):
-                        poiOut.write('<poi id="%s:%s" x="%s" y="%s"/>\n' % (tid, idx, pos[0], pos[1]))
+                        poiOut.write('    <poi id="%s:%s" x="%s" y="%s"/>\n' % (tid, idx, pos[0], pos[1]))
                 edges = [e.getID() for e in sumolib.route.mapTrace(
                     trace, net, *mapOpts) if e.getFunction() != "internal"]
                 if polyOut is not None and edges:

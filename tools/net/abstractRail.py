@@ -48,19 +48,25 @@ COMPRESSION_WEIGHT = 0.01
 STRAIGHT_WEIGHT = 2
 OTHER_WEIGHT = 1
 
+NETCONVERT = sumolib.checkBinary('netconvert')
+STATION_DISTRICTS = os.path.join(SUMO_HOME, 'tools', 'district', 'stationDistricts.py')
+
 
 def get_options():
     ap = ArgumentParser()
     ap.add_option("-v", "--verbose", action="store_true", default=False,
                   help="tell me what you are doing")
-    ap.add_option("-n", "--net-file", dest="netfile",
+    ap.add_option("-n", "--net-file", dest="netfile", required=True, type=ap.net_file,
                   help="the network to read lane and edge permissions")
-    ap.add_option("-s", "--stop-file", dest="stopfile",
+    ap.add_option("-s", "--stop-file", dest="stopfile", required=True, type=ap.additional_file,
                   help="the additional file with stops")
-    ap.add_option("-a", "--region-file", dest="regionfile",
+    ap.add_option("-a", "--region-file", dest="regionfile", type=ap.additional_file,
                   help="Load network regions from additional file (as taz elements)")
-    ap.add_option("-o", "--output-prefix", dest="prefix",
+    ap.add_option("-o", "--output-prefix", dest="prefix", required=True, type=ap.file,
                   help="output prefix for patch files")
+    ap.add_option("--split", action="store_true", default=False,
+                  help="automatically create a region file from the loaded stops,"
+                  + " automatically split the network if needed")
     ap.add_option("--filter-regions", dest="filterRegions",
                   help="filter regions by name or id")
     ap.add_option("--keep-all", action="store_true", dest="keepAll", default=False,
@@ -94,6 +100,9 @@ def get_options():
     if not options.prefix:
         ap.print_help()
         ap.exit("Error! setting output is mandatory")
+    if options.regionfile and options.split:
+        ap.print_help()
+        ap.exit("Error! Only one of the options --split or --region-file may be given")
 
     options.output_nodes = options.prefix + ".nod.xml"
     options.output_edges = options.prefix + ".edg.xml"
@@ -134,7 +143,7 @@ def initShapes(edges, nodeCoords, edgeShapes):
         edgeShapes[edge.getID()] = edge.getShape(True)
 
 
-def findMainline(options, net, edges):
+def findMainline(options, name, net, edges):
     """use platforms to determine mainline orientation"""
     knownEdges = set([e.getID() for e in edges])
 
@@ -148,6 +157,13 @@ def findMainline(options, net, edges):
         begCoord = gh.positionAtShapeOffset(edge.getShape(), float(stop.startPos))
         endCoord = gh.positionAtShapeOffset(edge.getShape(), float(stop.endPos))
         angles.append((gh.angleTo2D(begCoord, endCoord), (begCoord, endCoord)))
+
+    if not angles:
+        print("Warning: No stops loaded for region '%s'. Using median edge angle instead" % name, file=sys.stderr)
+        for edge in edges:
+            begCoord = edge.getShape()[0]
+            endCoord = edge.getShape()[-1]
+            angles.append((gh.angleTo2D(begCoord, endCoord), (begCoord, endCoord)))
 
     angles.sort()
     mainLine = angles[int(len(angles) / 2)][1]
@@ -276,7 +292,7 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
                 orderings.append((node.getID(), ordering))
                 prevOrdering = ordering
                 if options.verbose2:
-                    print(x, list(map(lambda x: x.getID(), ordering)))
+                    print(x, list(map(lambda vn: vn.getID(), ordering)))
             else:
                 sameOrdering.append((prevOrdering, ordering))
                 if options.verbose2:
@@ -286,9 +302,10 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
     nodeYValues = optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords)
 
     # step 4: apply yValues to virtual nodes that were skipped
-    for prevOrdering, ordering in sameOrdering:
-        for n1, n2 in zip(prevOrdering, ordering):
-            nodeYValues[n2] = nodeYValues[n1]
+    if nodeYValues:
+        for prevOrdering, ordering in sameOrdering:
+            for n1, n2 in zip(prevOrdering, ordering):
+                nodeYValues[n2] = nodeYValues[n1]
 
     if options.verbose2:
         for k, v in nodeYValues.items():
@@ -506,7 +523,52 @@ def shapeStr(shape):
     return ' '.join(["%.2f,%.2f" % coord for coord in shape])
 
 
+def splitNet(options):
+    # 1. create region file from stops
+    options.regionfile = options.prefix + ".taz.xml"
+    splitfile = options.prefix + ".split.edg.xml"
+    oldNet = options.netfile
+    oldStops = options.stopfile
+
+    if options.verbose:
+        print("Creating region file '%s'" % options.regionfile)
+    subprocess.call([sys.executable, STATION_DISTRICTS,
+                     '-n', options.netfile,
+                     '-s', options.stopfile,
+                     '-o', options.regionfile,
+                     '--split-output', splitfile])
+
+    # 2. optionally split the network if regions have shared edges
+    numSplits = len(list(sumolib.xml.parse(splitfile, 'edge')))
+    if numSplits > 0:
+        if options.verbose:
+            print("Splitting %s edges to ensure distinct regions" % numSplits)
+
+        # rebuilt the network and stop file
+        options.netfile = options.netfile[:-8] + ".split.net.xml"
+        if options.stopfile[-8:] == ".add.xml":
+            options.stopfile = options.stopfile[:-8] + ".split.add.xml"
+        else:
+            options.stopfile = options.stopfile[:-4] + ".split.xml"
+
+        subprocess.call([NETCONVERT,
+                         '-e', splitfile,
+                         '-s', oldNet,
+                         '-o', options.netfile,
+                         '--ptstop-files', oldStops,
+                         '--ptstop-output', options.stopfile])
+
+        if options.verbose:
+            print("Re-creating region file '%s' after splitting network" % options.regionfile)
+        subprocess.call([sys.executable, STATION_DISTRICTS,
+                         '-n', options.netfile,
+                         '-s', options.stopfile,
+                         '-o', options.regionfile])
+
+
 def main(options):
+    if options.split:
+        splitNet(options)
 
     if options.verbose:
         print("Reading net")
@@ -522,7 +584,7 @@ def main(options):
         if options.verbose:
             print("Processing region '%s' with %s edges" % (name, len(edges)))
         initShapes(edges, nodeCoords, edgeShapes)
-        mainLine = findMainline(options, net, edges)
+        mainLine = findMainline(options, name, net, edges)
         rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, False)
         if not options.skipYOpt:
             nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
@@ -564,7 +626,7 @@ def main(options):
         if options.verbose:
             print("Building new net")
         sys.stderr.flush()
-        subprocess.call([sumolib.checkBinary('netconvert'),
+        subprocess.call([NETCONVERT,
                          '-s', options.netfile,
                          '-n', options.output_nodes,
                          '-e', options.output_edges,

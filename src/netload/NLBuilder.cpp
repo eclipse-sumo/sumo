@@ -457,6 +457,10 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
 void
 NLBuilder::buildDefaultMeanData(const std::string& optionName, const std::string& id, bool useLanes) {
     if (OptionsCont::getOptions().isSet(optionName)) {
+        if (useLanes && MSGlobals::gUseMesoSim && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
+            WRITE_WARNING(TL("LaneData requested for mesoscopic simulation but --meso-lane-queue is not active. Falling back to edgeData."));
+            useLanes = false;
+        }
         try {
             myDetectorBuilder.createEdgeLaneMeanData(id, -1, 0, -1, "traffic", useLanes, false, false,
                     false, false, false, 100000, 0, SUMO_const_haltingSpeed, "", "", std::vector<MSEdge*>(), false,

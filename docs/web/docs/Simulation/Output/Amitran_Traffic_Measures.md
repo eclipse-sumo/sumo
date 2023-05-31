@@ -11,7 +11,7 @@ using the format defined in
 An edge based Amitran output is defined way within an additional file as
 following:
 
-```
+```xml
 <edgeData id="<DETECTOR_ID>" type="amitran" period="<PERIOD>"
 file="<OUTPUT_FILE>" \[vTypes="<LIST>"\] \[excludeEmpty="true"\]/\>
 ```
@@ -28,7 +28,7 @@ file="<OUTPUT_FILE>" \[vTypes="<LIST>"\] \[excludeEmpty="true"\]/\>
 
 ## Generated Output
 
-```
+```xml
 <linkData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/amitran/linkdata.xsd">
    <timeSlice startTime="0" duration="60000"/>
    <timeSlice startTime="60000" duration="60000">

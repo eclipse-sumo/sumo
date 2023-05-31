@@ -62,6 +62,8 @@ Editing the CMake settings using Visual Studio
 
 If you need a different python version or want to test with multiple Pythons you can either install them directly from Visual Studio or [Download Python for Windows](http://www.python.org/download/) and install it. Most SUMO tools should work with Python 2 and 3. Please make sure that you install the recommended python modules as explained above and that the `PATH` environment variable contains the directory where the desired Python interpreter is.
 
+If you want to build SUMO in Debug mode, then you will need the *Python Debug binaries*. The Python interepreter that comes with Visual Studio doesn't install these libraries by default (at least in the case of Visual Studio Community 2022); you need to install the *Data Science stack* in addition to the *Python and C++ development stacks* mentionned above. More precisely, the component you need is called *Python native development tools*, make sure you check the correct box.
+
 If you want to clone / checkout a special SUMO version, you can of course do it from the command line (if you have installed the command line tools)
 using `git clone --recursive https://github.com/eclipse/sumo` or download and extract a source package, see [Downloads](../Downloads.md).
 
@@ -102,7 +104,7 @@ folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
 
 ## Install python packages
 
-Compiling netedit requieres a list of python packages to generate templates. Install it using pip:
+Compiling netedit requires a list of python packages to generate templates. Install it using pip:
 
 ```
 pip install google lxml rtree pandas matplotlib pulp pyproj ezdxf scipy fmpy ortools texttest pyautogui pyperclip

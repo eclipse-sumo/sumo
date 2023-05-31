@@ -30,9 +30,8 @@ from sumolib.options import ArgumentParser  # noqa
 
 def parse_args():
     optParser = ArgumentParser()
-    optParser.add_argument("tripinfos", help="Trip Info file")
-    optParser.add_option("--length", action="store_true", required=False,
-                         default=0.1, help="length threshold (default: 0.1)")
+    optParser.add_argument("tripinfos", category="input", type=optParser.file, help="Trip Info file")
+    optParser.add_argument("--length", type=float, default=0.1, help="length threshold (default: 0.1)")
     return optParser.parse_args()
 
 

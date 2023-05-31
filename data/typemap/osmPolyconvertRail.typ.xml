@@ -16,6 +16,7 @@
     <polygonType id="man_made.pipeline"       name="pipeline"    color="1.0,.90,.90" layer="-1" discard="true"/>
     <polygonType id="building"                name="building"    color="1.0,.90,.90" layer="-1" discard="true"/>
     <polygonType id="amenity"                 name="amenity"     color=".93,.78,.78" layer="-1" discard="true"/>
+    <polygonType id="barrier"                 name="barrier"     color="1.0,.3,.3"   layer="0" fill="false" discard="true"/>
     <polygonType id="power"                   name="power"       color=".10,.10,.30" layer="-1" discard="true"/>
     <polygonType id="highway"                 name="highway"     color=".10,.10,.10" layer="-1" discard="true"/>
 

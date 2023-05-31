@@ -421,7 +421,7 @@ protected:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeEdge(OutputDevice& dev, const std::vector<MeanDataValues*>& edgeValues,
-                   MSEdge* edge, SUMOTime startTime, SUMOTime stopTime);
+                   const MSEdge* const edge, SUMOTime startTime, SUMOTime stopTime);
 
 
     /** @brief Writes aggregate of all edge values into the given stream

@@ -85,70 +85,109 @@ TemplateHandler::~TemplateHandler() {}
 void
 TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes) {
     // get current topic
-    myTopic = StringUtils::transcode(name);
+    myOptionName = StringUtils::transcode(name);
     if (myLevel++ == 0) {
         // skip root elemnt
         return;
     }
     // check if this is a subtopic
     if (attributes.getLength() == 0) {
-        mySubTopic = myTopic;
+        mySubTopic = myOptionName;
         myOptions.addOptionSubTopic(mySubTopic);
     } else {
-        std::vector<std::string> optionAttrs;
-        optionAttrs.resize(5);
+        // declare options parameters (by default all empty)
+        std::string value;
+        std::string synonymes;
+        std::string type;
+        std::string help;
+        bool required = false;
+        bool positional = false;
+        std::string listSep = "";
+        // iterate over attributes
         for (int i = 0; i < (int)attributes.getLength(); i++) {
-            if (StringUtils::transcode(attributes.getName(i)) == "value") {
-                optionAttrs.at(0) = StringUtils::transcode(attributes.getValue(i));
-            } else if (StringUtils::transcode(attributes.getName(i)) == "synonymes") {
-                optionAttrs.at(1) = StringUtils::transcode(attributes.getValue(i));
-            } else if (StringUtils::transcode(attributes.getName(i)) == "type") {
-                optionAttrs.at(2) = StringUtils::transcode(attributes.getValue(i));
-            } else if (StringUtils::transcode(attributes.getName(i)) == "help") {
-                optionAttrs.at(3) = StringUtils::transcode(attributes.getValue(i));
-            } else if (StringUtils::transcode(attributes.getName(i)) == "category") {
-                optionAttrs.at(4) = StringUtils::transcode(attributes.getValue(i));
+            const std::string attributeName = StringUtils::transcode(attributes.getName(i));
+            const std::string attributeValue = StringUtils::transcode(attributes.getValue(i));
+            // check attribute name
+            if (attributeName == "value") {
+                value = attributeValue;
+            } else if (attributeName == "synonymes") {
+                synonymes = attributeValue;
+            } else if (attributeName == "type") {
+                type = attributeValue;
+            } else if (attributeName == "help") {
+                help = attributeValue;
+            } else if (attributeName == "category") {
+                // tool templates have subtopic as attribute category
+                mySubTopic = attributeValue;
+                const auto& topics = myOptions.getSubTopics();
+                if (std::find(topics.begin(), topics.end(), attributeValue) == topics.end()) {
+                    myOptions.addOptionSubTopic(attributeValue);
+                }
+            } else if (attributeName == "required") {
+                required = StringUtils::toBool(attributeValue);
+            } else if (attributeName == "positional") {
+                positional = StringUtils::toBool(attributeValue);
+            } else if (attributeName == "listSeparator") {
+                listSep = attributeValue;
             }
         }
         // add option
-        addOption(optionAttrs.at(0), optionAttrs.at(1), optionAttrs.at(2), optionAttrs.at(3), optionAttrs.at(4));
+        addOption(value, synonymes, type, help, required, positional, listSep);
     }
 }
 
 
 bool
-TemplateHandler::addOption(const std::string value, const std::string& synonymes,
-                           const std::string& type, const std::string& help, const std::string& category) const {
-    if (myOptions.exists(myTopic)) {
-        WRITE_WARNING(myTopic + " already exists");
+TemplateHandler::addOption(std::string value, const std::string& synonymes, const std::string& type,
+                           const std::string& help, bool required, bool positional, const std::string& listSep) const {
+    if (myOptions.exists(myOptionName)) {
+        WRITE_WARNING(myOptionName + " already exists");
         return false;
     } else {
         // declare option
         Option* option = nullptr;
+        // handle "None" as empty
+        if (value == "None") {
+            value.clear();
+        }
         // create register depending of type
         if ((type == "STR") || (type == "string")) {
             option = new Option_String(value);
         } else if ((type == "INT") || (type == "int")) {
             option = new Option_Integer(0);
-            if (value.empty() || (value == "None")) {
+            if (value.empty()) {
                 option->set(INVALID_INT_STR, "", true);
+            } else {
+                option->set(value, value, true);
             }
-        } else if ((type == "FLOAT") || (type == "float") || (type == "TIME")) {
+        } else if ((type == "FLOAT") || (type == "float") || (type == "TIME") || (type == "time")) {
             option = new Option_Float(0);
-            if (value.empty() || (value == "None")) {
+            if (value.empty()) {
                 option->set(INVALID_DOUBLE_STR, "", true);
+            } else {
+                option->set(value, value, true);
             }
         } else if ((type == "BOOL") || (type == "bool")) {
             option = new Option_Bool(false);
-            if (value.empty() || (value == "None")) {
+            if (value.empty()) {
                 option->set("false", "", true);
+            } else {
+                option->set(value, value, true);
             }
         } else if (type == "INT[]") {
             option = new Option_IntVector();
         } else if (type == "STR[]") {
             option = new Option_StringVector();
-        } else if (type == "FILE") {
+        } else if ((type == "FILE") || (type == "file")) {
             option = new Option_FileName();
+        } else if ((type == "NETWORK") || (type == "net_file")) {
+            option = new Option_Network(value);
+        } else if ((type == "ADDITIONAL") || (type == "additional_file")) {
+            option = new Option_Additional(value);
+        } else if ((type == "ROUTE") || (type == "route_file")) {
+            option = new Option_Route(value);
+        } else if ((type == "DATA") || (type == "data_file") || (type == "edgedata_file")) {
+            option = new Option_Data(value);
         } else if (type.size() > 0) {
             WRITE_WARNING(type + " is an invalid type");
         }
@@ -156,21 +195,18 @@ TemplateHandler::addOption(const std::string value, const std::string& synonymes
         if (option) {
             // set value
             if (!option->isSet()) {
-                option->set(value, "", true);
+                option->set(value, "", false);
             }
-            myOptions.doRegister(myTopic, option);
+            myOptions.doRegister(myOptionName, option);
             // check if add synonyme
             if (synonymes.size() > 0) {
-                myOptions.addSynonyme(myTopic, synonymes);
+                myOptions.addSynonyme(myOptionName, synonymes);
             }
             // check if add help
             if (help.size() > 0) {
-                myOptions.addDescription(myTopic, mySubTopic, help);
+                myOptions.addDescription(myOptionName, mySubTopic, help);
             }
-            // check if add category
-            if (category.size() > 0) {
-                myOptions.addCategory(myTopic, mySubTopic, category);
-            }
+            myOptions.setFurtherAttributes(myOptionName, mySubTopic, required, positional, listSep);
             return true;
         } else {
             return false;
@@ -182,10 +218,10 @@ TemplateHandler::addOption(const std::string value, const std::string& synonymes
 void
 TemplateHandler::endElement(const XMLCh* const /*name*/) {
     myLevel--;
-    if (myTopic.length() == 0) {
+    if (myOptionName.length() == 0) {
         return;
     }
-    myTopic = "";
+    myOptionName = "";
 }
 
 

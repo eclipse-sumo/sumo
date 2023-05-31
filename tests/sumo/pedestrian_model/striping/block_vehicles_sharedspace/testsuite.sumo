@@ -21,6 +21,14 @@ walkingarea_noconflict
 # 
 walkingarea_exit
 
+# vehicles moving across a walkingarea when leaving the intersection
+# deliberately ignoring pedestrians
+walkingarea_ignore
+
+# vehicles moving across a walkingarea when leaving the intersection
+# deliberately ignoring pedestrians. Vehicle has no vehicular conflict
+walkingarea_ignore2
+
 # walkingarea shared by pedestrians and vehicles moving in all directions
 walkingarea_shared
 

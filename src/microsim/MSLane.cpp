@@ -100,9 +100,11 @@
 // ===========================================================================
 MSLane::DictType MSLane::myDict;
 MSLane::CollisionAction MSLane::myCollisionAction(MSLane::COLLISION_ACTION_TELEPORT);
+MSLane::CollisionAction MSLane::myIntermodalCollisionAction(MSLane::COLLISION_ACTION_WARN);
 bool MSLane::myCheckJunctionCollisions(false);
 double MSLane::myCheckJunctionCollisionMinGap(0);
 SUMOTime MSLane::myCollisionStopTime(0);
+SUMOTime MSLane::myIntermodalCollisionStopTime(0);
 double MSLane::myCollisionMinGapFactor(1.0);
 bool MSLane::myExtrapolateSubstepDepart(false);
 std::vector<SumoRNG> MSLane::myRNGs;
@@ -1613,19 +1615,19 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                         }
                     }
                 }
-                detectPedestrianJunctionCollision(collider, colliderBoundary, foeLane, timestep, stage);
+                detectPedestrianJunctionCollision(collider, colliderBoundary, foeLane, timestep, stage, toRemove, toTeleport);
             }
             if (myLinks.front()->getWalkingAreaFoe() != nullptr) {
-                detectPedestrianJunctionCollision(collider, colliderBoundary, myLinks.front()->getWalkingAreaFoe(), timestep, stage);
+                detectPedestrianJunctionCollision(collider, colliderBoundary, myLinks.front()->getWalkingAreaFoe(), timestep, stage, toRemove, toTeleport);
             }
             if (myLinks.front()->getWalkingAreaFoeExit() != nullptr) {
-                detectPedestrianJunctionCollision(collider, colliderBoundary, myLinks.front()->getWalkingAreaFoeExit(), timestep, stage);
+                detectPedestrianJunctionCollision(collider, colliderBoundary, myLinks.front()->getWalkingAreaFoeExit(), timestep, stage, toRemove, toTeleport);
             }
         }
     }
 
 
-    if (myEdge->getPersons().size() > 0 && hasPedestrians()) {
+    if (myIntermodalCollisionAction != COLLISION_ACTION_NONE && myEdge->getPersons().size() > 0 && hasPedestrians()) {
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
         if (DEBUG_COND) {
             std::cout << SIMTIME << " detect pedestrian collisions stage=" << stage << " lane=" << getID() << "\n";
@@ -1653,12 +1655,8 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     // aircraft wings and body are above walking level
                     continue;
                 }
-                const bool newCollision = MSNet::getInstance()->registerCollision(v, leader.first, "sharedLane", this, leader.first->getEdgePos());
-                if (newCollision) {
-                    WRITE_WARNINGF(TL("Vehicle '%' collision with person '%', lane='%', gap=%, time=%, stage=%."),
-                                   v->getID(), leader.first->getID(), getID(), leader.second - length, time2string(timestep), stage);
-                    MSNet::getInstance()->getVehicleControl().registerCollision(false);
-                }
+                const double gap = leader.second - length;
+                handleIntermodalCollisionBetween(timestep, stage, v, leader.first, gap, "sharedLane", toRemove, toTeleport);
             }
         }
     }
@@ -1765,8 +1763,10 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 
 void
 MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const PositionVector& colliderBoundary, const MSLane* foeLane,
-        SUMOTime timestep, const std::string& stage) {
-    if (foeLane->getEdge().getPersons().size() > 0 && foeLane->hasPedestrians()) {
+        SUMOTime timestep, const std::string& stage,
+        std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
+        std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) {
+    if (myIntermodalCollisionAction != COLLISION_ACTION_NONE && foeLane->getEdge().getPersons().size() > 0 && foeLane->hasPedestrians()) {
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
         if (DEBUG_COND) {
             std::cout << SIMTIME << " detect pedestrian junction collisions stage=" << stage << " lane=" << getID() << " foeLane=" << foeLane->getID() << "\n";
@@ -1795,12 +1795,7 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
                 } else if (foeLane->getEdge().isWalkingArea()) {
                     collisionType = "walkingarea";
                 }
-                const bool newCollision = MSNet::getInstance()->registerCollision(collider, *it_p, collisionType, foeLane, (*it_p)->getEdgePos());
-                if (newCollision) {
-                    WRITE_WARNINGF(TL("Vehicle '%' collision with person '%', lane='%', time=%, stage=%."),
-                                   collider->getID(), (*it_p)->getID(), getID(), time2string(timestep), stage);
-                    MSNet::getInstance()->getVehicleControl().registerCollision(false);
-                }
+                handleIntermodalCollisionBetween(timestep, stage, collider, *it_p, 0, collisionType, toRemove, toTeleport);
             }
         }
     }
@@ -1863,6 +1858,10 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                   << "\n";
     }
 #endif
+    if (victimOpposite && gap < -(collider->getLength() + victim->getLength())) {
+        // already past each other
+        return false;
+    }
     if (gap < -NUMERICAL_EPS) {
         double latGap = 0;
         if (MSGlobals::gSublane) {
@@ -2038,6 +2037,83 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
     if (DEBUG_COND2(victim)) {
         toRemove.erase(victim);
         toTeleport.erase(victim);
+    }
+#endif
+}
+
+
+void
+MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSTransportable* victim,
+                               double gap, const std::string& collisionType,
+                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
+                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
+    if (collider->ignoreCollision()) {
+        return;
+    }
+    std::string prefix = TLF("Vehicle '%'", collider->getID());
+    if (myIntermodalCollisionStopTime > 0) {
+        if (collider->collisionStopTime() >= 0) {
+            return;
+        }
+        std::string dummyError;
+        SUMOVehicleParameter::Stop stop;
+        stop.duration = myIntermodalCollisionStopTime;
+        stop.parametersSet |= STOP_DURATION_SET;
+        // determine new speeds from collision angle (@todo account for vehicle mass)
+        double colliderSpeed = collider->getSpeed();
+        const double victimStopPos = victim->getEdgePos();
+        // double victimOrigSpeed = victim->getSpeed();
+        // double colliderOrigSpeed = collider->getSpeed();
+        if (collider->collisionStopTime() < 0) {
+            stop.collision = true;
+            stop.lane = collider->getLane()->getID();
+            stop.startPos = MIN2(collider->getPositionOnLane() + collider->getCarFollowModel().brakeGap(colliderSpeed, collider->getCarFollowModel().getEmergencyDecel(), 0),
+                                 MAX3(0.0, victimStopPos - 0.75 * victim->getVehicleType().getLength(),
+                                      collider->getPositionOnLane() - SPEED2DIST(collider->getSpeed())));
+            stop.endPos = stop.startPos;
+            stop.parametersSet |= STOP_START_SET | STOP_END_SET;
+            ((MSBaseVehicle*)collider)->addStop(stop, dummyError, 0);
+        }
+    } else {
+        switch (myIntermodalCollisionAction) {
+            case COLLISION_ACTION_WARN:
+                break;
+            case COLLISION_ACTION_TELEPORT:
+                prefix = TLF("Teleporting vehicle '%' after", collider->getID());
+                toRemove.insert(collider);
+                toTeleport.insert(collider);
+                break;
+            case COLLISION_ACTION_REMOVE: {
+                prefix = TLF("Removing vehicle '%' after", collider->getID());
+                bool removeCollider = true;
+                removeCollider = !(collider->hasInfluencer() && collider->getInfluencer()->isRemoteAffected(timestep));
+                if (!removeCollider) {
+                    prefix = TLF("Keeping remote-controlled  vehicle '%' after", collider->getID());
+                } else {
+                    toRemove.insert(collider);
+                }
+                break;
+            }
+            default:
+                break;
+        }
+    }
+    const bool newCollision = MSNet::getInstance()->registerCollision(collider, victim, collisionType, this, victim->getEdgePos());
+    if (newCollision) {
+        if (gap != 0) {
+            WRITE_WARNING(prefix + TLF(" collision with person '%', lane='%', gap=%, time=%, stage=%.",
+                        victim->getID(), getID(), gap, time2string(timestep), stage));
+        } else {
+            WRITE_WARNING(prefix + TLF(" collision with person '%', lane='%', time=%, stage=%.",
+                        victim->getID(), getID(), time2string(timestep), stage));
+        }
+        MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
+        MSNet::getInstance()->getVehicleControl().registerCollision(myIntermodalCollisionAction == COLLISION_ACTION_TELEPORT);
+    }
+#ifdef DEBUG_COLLISIONS
+    if (DEBUG_COND2(collider)) {
+        toRemove.erase(collider);
+        toTeleport.erase(collider);
     }
 #endif
 }
@@ -4164,24 +4240,30 @@ MSLane::getOppositeFollower(const MSVehicle* ego) const {
     }
 }
 
+void
+MSLane::initCollisionAction(const OptionsCont& oc, const std::string& option, CollisionAction& myAction) {
+    const std::string action = oc.getString(option);
+    if (action == "none") {
+        myAction = COLLISION_ACTION_NONE;
+    } else if (action == "warn") {
+        myAction = COLLISION_ACTION_WARN;
+    } else if (action == "teleport") {
+        myAction = COLLISION_ACTION_TELEPORT;
+    } else if (action == "remove") {
+        myAction = COLLISION_ACTION_REMOVE;
+    } else {
+        WRITE_ERROR(TLF("Invalid % '%'.", option, action));
+    }
+}
 
 void
 MSLane::initCollisionOptions(const OptionsCont& oc) {
-    const std::string action = oc.getString("collision.action");
-    if (action == "none") {
-        myCollisionAction = COLLISION_ACTION_NONE;
-    } else if (action == "warn") {
-        myCollisionAction = COLLISION_ACTION_WARN;
-    } else if (action == "teleport") {
-        myCollisionAction = COLLISION_ACTION_TELEPORT;
-    } else if (action == "remove") {
-        myCollisionAction = COLLISION_ACTION_REMOVE;
-    } else {
-        WRITE_ERRORF(TL("Invalid collision.action '%'."), action);
-    }
+    initCollisionAction(oc, "collision.action", myCollisionAction);
+    initCollisionAction(oc, "intermodal-collision.action", myIntermodalCollisionAction);
     myCheckJunctionCollisions = oc.getBool("collision.check-junctions");
     myCheckJunctionCollisionMinGap = oc.getFloat("collision.check-junctions.mingap");
     myCollisionStopTime = string2time(oc.getString("collision.stoptime"));
+    myIntermodalCollisionStopTime = string2time(oc.getString("intermodal-collision.stoptime"));
     myCollisionMinGapFactor = oc.getFloat("collision.mingap-factor");
     myExtrapolateSubstepDepart = oc.getBool("extrapolate-departpos");
 }
@@ -4321,7 +4403,10 @@ MSLane::getBidiLane() const {
 
 bool
 MSLane::mustCheckJunctionCollisions() const {
-    return myCheckJunctionCollisions && myEdge->isInternal() && myLinks.front()->getFoeLanes().size() > 0;
+    return myCheckJunctionCollisions && myEdge->isInternal() && (
+            myLinks.front()->getFoeLanes().size() > 0
+            || myLinks.front()->getWalkingAreaFoe() != nullptr
+            || myLinks.front()->getWalkingAreaFoeExit() != nullptr);
 }
 
 

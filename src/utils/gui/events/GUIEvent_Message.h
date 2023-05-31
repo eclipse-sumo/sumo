@@ -40,6 +40,9 @@ public:
         : GUIEvent(GUIEventType::STATUS_OCCURRED), myMsg(msg) {
     }
 
+    GUIEvent_Message(GUIEventType type, const std::string& msg):
+        GUIEvent(type), myMsg(msg) {}
+
     /// constructor
     GUIEvent_Message(MsgHandler::MsgType type, const std::string& msg)
         : GUIEvent(GUIEventType::MESSAGE_OCCURRED), myMsg(msg) {

@@ -251,6 +251,23 @@ Vehicle::getFollower(const std::string& vehID, double dist) {
 }
 
 
+std::vector<libsumo::TraCIJunctionFoe>
+Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
+    std::vector<libsumo::TraCIJunctionFoe> result;
+    tcpip::Storage content;
+    StoHelp::writeTypedDouble(content, dist);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
+    tcpip::Storage& ret = Dom::get(libsumo::VAR_FOES, vehID, &content);
+    const int n = ret.readInt(); // number of foe informations
+    for (int i = 0; i < n; ++i) {
+        libsumo::TraCIJunctionFoe info;
+        // TODO implement server side and result retrieval
+        result.push_back(info);
+    }
+    return result;
+}
+
+
 double
 Vehicle::getWaitingTime(const std::string& vehID) {
     return Dom::getDouble(libsumo::VAR_WAITING_TIME, vehID);
@@ -409,13 +426,13 @@ Vehicle::getNextLinks(const std::string& vehID) {
         double length = ret.readDouble();
 
         result.push_back(libsumo::TraCIConnection(approachedLane,
-            hasPrio,
-            isOpen,
-            hasFoe,
-            approachedLaneInternal,
-            state,
-            direction,
-            length));
+                         hasPrio,
+                         isOpen,
+                         hasFoe,
+                         approachedLaneInternal,
+                         state,
+                         direction,
+                         length));
     }
     return result;
 }

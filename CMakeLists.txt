@@ -95,6 +95,10 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set (CLANG_COMPILER True)
 endif ()
 
+# C++14 is needed by Google Test >= 1.13, for all the other parts C++11 should be enough.
+# This will silently fall back to C++11 if 14 is not supported by the compiler.
+set(CMAKE_CXX_STANDARD 14)
+
 # compiler specific flags
 if (GNU_COMPILER OR CLANG_COMPILER)
     # set flags for clang in windows
@@ -105,8 +109,8 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         set(CMAKE_CONFIGURATION_TYPES "Release")
         set(CMAKE_BUILD_TYPE "Release")
     else ()
-        #flags for clang and gcc in linux
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -Wall -pedantic -Wextra")
+        # flags for clang and gcc in linux
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -pedantic -Wextra")
     endif ()
     if (PROFILING)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
@@ -532,9 +536,9 @@ install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO::)
 if (NOT ${PYTHON_SETUPTOOLS_MISSING})
     set(TOOLS_DIR "${CMAKE_SOURCE_DIR}/tools")
     if (${PYTHON_BUILD_MISSING})
-        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${TOOLS_DIR}/build/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
+        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
                 COMPONENT pysumolib)
-        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${TOOLS_DIR}/build/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
+        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
                 COMPONENT pytraci)
     else ()
         install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build/version.py ./build/setup-sumolib.py ./setup.py COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} . WORKING_DIRECTORY ${TOOLS_DIR})"
@@ -735,6 +739,7 @@ set_property(TARGET examples PROPERTY FOLDER "doc")
 find_program(PYINSTALLER_FOUND "pyinstaller")
 if (PYINSTALLER_FOUND AND EXISTS ${CMAKE_SOURCE_DIR}/tools/game/runner.spec)
     add_custom_target(game
+        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/game/minwait.py
         COMMAND pyinstaller --noconfirm ${CMAKE_SOURCE_DIR}/tools/game/runner.spec
         COMMAND ${CMAKE_COMMAND} -E chdir dist/runner ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_BINARY_DIR}/sumo-game.zip" --format=zip "."
     )

@@ -193,7 +193,7 @@ Vehicles that reach an [impatience](../Definition_of_Vehicles,_Vehicle_Types,_an
 ## Configuration by edge type
 
 The model parameters described above can be customized for each edge type id by loading the following configuration from an additional file:
-```
+```xml
 <additional>
     <type id="highway.motorway" ...>
         <meso tauff="1.13" taufj="1.13" taujf="1.73" taujj="1.4" jamThreshold="-1"

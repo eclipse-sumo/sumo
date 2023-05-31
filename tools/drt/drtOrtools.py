@@ -15,6 +15,7 @@
 # @file    drtOrtools.py
 # @author  Philip Ritzer
 # @author  Johannes Rummel
+# @author  Mirko Barthauer
 # @date    2021-12-16
 
 """
@@ -39,6 +40,7 @@ else:
 # SUMO modules
 import sumolib  # noqa
 import traci  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 verbose = False
 
@@ -48,11 +50,11 @@ class CostType(Enum):
     TIME = 2
 
 
-def dispatch(reservations, fleet, time_limit, cost_type, drf, end, fix_allocation, verbose):
+def dispatch(reservations, fleet, time_limit, cost_type, drf, end, fix_allocation, solution_requests, verbose):
     """Dispatch using ortools."""
     if verbose:
         print('Start creating the model.')
-    data = create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, verbose)
+    data = create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, solution_requests, verbose)
     if verbose:
         print('Start solving the problem.')
     solution_ortools = ortools_pdp.main(data, time_limit, verbose)
@@ -62,7 +64,7 @@ def dispatch(reservations, fleet, time_limit, cost_type, drf, end, fix_allocatio
     return solution_requests
 
 
-def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, verbose):
+def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, solution_requests, verbose):
     """Creates the data for the problem."""
     n_vehicles = len(fleet)
     # use only reservations that haven't been picked up yet; reservation.state!=8 (not picked up)
@@ -93,8 +95,10 @@ def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, 
         if verbose:
             print('Reservation %s ends at edge %s' % (reservation.id, to_edge))
     for reservation in dp_reservations:
-        if reservation.state == 1 | reservation.state == 2:
+        if reservation.state == 1 or reservation.state == 2:
             setattr(reservation, 'is_new', True)
+        else:
+            setattr(reservation, 'is_new', False)
     for reservation in do_reservations:
         to_edge = reservation.toEdge
         edges.append(to_edge)
@@ -124,11 +128,21 @@ def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, 
 
     # add "direct route cost" to the requests:
     for res in reservations:
+        if hasattr(res, 'direct_route_cost'):
+            continue
         if hasattr(res, 'from_node'):
             setattr(res, 'direct_route_cost', cost_matrix[res.from_node][res.to_node])
+            if verbose:
+                print('Reservation %s has direct route costs %s' % (res.id, res.direct_route_cost))
         else:
             # TODO: use 'historical data' from dict in get_cost_matrix instead
-            direct_route_cost = traci.simulation.findRoute(res.fromEdge, res.toEdge, vType=type_vehicle)
+            route = traci.simulation.findRoute(res.fromEdge, res.toEdge, vType=type_vehicle)
+            if cost_type == CostType.TIME:
+                direct_route_cost = route.traveltime
+            elif cost_type == CostType.DISTANCE:
+                direct_route_cost = route.length
+            else:
+                raise ValueError("Cannot set given cost ('%s')." % (cost_type))
             setattr(res, 'direct_route_cost', direct_route_cost)
 
     # add "current route cost" to the already picked up reservations:
@@ -183,6 +197,8 @@ def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, 
     data['drf'] = drf
     data['time_windows'] = time_windows
     data['fix_allocation'] = fix_allocation
+    data['max_time'] = end
+    data['initial_routes'] = solution_requests
     return data
 
 
@@ -306,10 +322,10 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
 
     solution_requests = {}
     for key in solution_ortools:  # key is the vehicle number (0,1,...)
-        solution = [[], []]  # request order and costs
+        solution = [[], [], []]  # request order, costs, node order
         for i_route in solution_ortools[key][0][1:-1]:  # take only the routes ([0]) without the start node ([1:-1])
             if i_route in route2request:
-                solution[0].append(route2request[i_route])  # add node to route
+                solution[0].append(route2request[i_route])  # add request id to route
                 res = [res for res in reservations if res.id == route2request[i_route]][0]  # get the reservation
                 setattr(res, 'vehicle_index', key)
             else:
@@ -317,6 +333,7 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
                     print('!solution ignored: %s' % (i_route))
                 continue
             solution[1] = solution_ortools[key][1]  # costs
+            solution[2].append(i_route)  # node
             solution_requests[key] = solution
     return solution_requests
 
@@ -343,7 +360,18 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
     timestep = traci.simulation.getTime()
     if not end:
         end = get_max_time()
+
+    if verbose:
+        print('Simulation parameters:')
+        print('  end: %s' % end)
+        print('  interval: %s' % interval)
+        print('  time_limit: %s' % time_limit)
+        print('  cost_type: %s' % cost_type)
+        print('  drf: %s' % drf)
+        print('  fix_allocation: %s' % fix_allocation)
+
     reservations_all = list()
+    solution_requests = None
     while running:
 
         traci.simulationStep(timestep)
@@ -398,11 +426,12 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
         else:
             reservations_all = current_reservations
 
+        # if reservations_all:  # used for debugging
         if reservations_not_assigned:
             if verbose:
                 print("Solve CPDP")
             solution_requests = dispatch(reservations_all, fleet, time_limit,
-                                         cost_type, drf, end, fix_allocation, verbose)
+                                         cost_type, drf, int(end), fix_allocation, solution_requests, verbose)
             if solution_requests is not None:
                 for index_vehicle in solution_requests:  # for each vehicle
                     id_vehicle = fleet[index_vehicle]
@@ -427,17 +456,18 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
 
 def get_arguments():
     """Get command line arguments."""
-    ap = sumolib.options.ArgumentParser()
-    ap.add_argument("-s", "--sumo-config", required=True, help="sumo config file to run")
-    ap.add_argument("-e", "--end", type=float,
+    ap = ArgumentParser()
+    ap.add_argument("-s", "--sumo-config", required=True, category="input", type=ap.file,
+                    help="sumo config file to run")
+    ap.add_argument("-e", "--end", type=ap.time,
                     help="time step to end simulation at")
-    ap.add_argument("-i", "--interval", type=float, default=30,
+    ap.add_argument("-i", "--interval", type=ap.time, default=30,
                     help="dispatching interval in s")
     ap.add_argument("-n", "--nogui", action="store_true", default=False,
                     help="run the commandline version of sumo")
     ap.add_argument("-v", "--verbose", action="store_true", default=False,
                     help="print debug information")
-    ap.add_argument("-t", "--time-limit", type=float, default=10,
+    ap.add_argument("-t", "--time-limit", type=ap.time, default=10,
                     help="time limit for solver in s")
     ap.add_argument("-d", "--cost-type", default="distance",
                     help="type of costs to minimize (distance or time)")
@@ -447,8 +477,7 @@ def get_arguments():
     ap.add_argument("-a", "--fix-allocation", action="store_true", default=False,
                     help="if true: after first solution the allocation of reservations to vehicles" +
                     "does not change anymore")
-    arguments = ap.parse_args()
-    return arguments
+    return ap.parse_args()
 
 
 def check_set_arguments(arguments):

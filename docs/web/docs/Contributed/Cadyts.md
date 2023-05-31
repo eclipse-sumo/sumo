@@ -29,7 +29,7 @@ os.path.join(os.path.dirname(sys.argv\[0\]), "..",
 \-S scaled demand, optional, default=2 (in Cadyts: -demandscale); If -M
 is defined, this parameter will be used in the calibration.
 
-\-F define the number of iterations for stablizing the results in the
+\-F define the number of iterations for stabilizing the results in the
 DTA-calibration, default= 85 (in Cadyts: - freezeit)
 
 \-V define variance of the measured traffic flows for the

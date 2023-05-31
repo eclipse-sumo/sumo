@@ -61,7 +61,7 @@ order is right:
 - connections between edges (need usually references to edges)
 - traffic lights (need references to nodes)
 
-Some more outrageous programmers may try to optimise the order a bit if
+Some more outrageous programmers may try to optimize the order a bit if
 the original data is aligned different. This may be possible in some
 cases.
 

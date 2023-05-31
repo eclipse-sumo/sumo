@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:39 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2023-05-09 15:52:05 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -25,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -35,20 +39,9 @@ SPDX-License-Identifier: EPL-2.0
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
-    <type id="a" priority="3" numLanes="3" speed="13.89">
-        <laneType index="0" speed="10.00" width="3.00"/>
-        <laneType index="1" speed="20.00" width="4.50"/>
-        <laneType index="2" speed="30.00" width="6.00"/>
-    </type>
     <type id="b" priority="2" numLanes="2" speed="11.11">
         <laneType index="0" speed="15.00"/>
         <laneType index="1" width="2.00"/>
-    </type>
-    <type id="c" priority="1" numLanes="1" speed="11.11" allow="bicycle">
-        <laneType index="0" speed="25.00" allow="bus"/>
-    </type>
-    <type id="d" priority="1" numLanes="1" speed="2.90" allow="pedestrian">
-        <laneType index="0" speed="35.00" disallow="pedestrian"/>
     </type>
 
     <edge id=":0_0" function="internal">

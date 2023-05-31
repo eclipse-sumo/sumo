@@ -1,0 +1,4 @@
+Warning: The given time value 8.00 is not reached with step length 2.00 and begin time 1.00 for save-state.times.
+Warning: Value of tau=1.00 in vehicle type 'type0' lower than simulation step size may cause collisions.
+Warning: Value of tau=1.00 in vehicle type 'type1' lower than simulation step size may cause collisions.
+Warning: Value of tau=1.00 in vehicle type 'type2' lower than simulation step size may cause collisions.

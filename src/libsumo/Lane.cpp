@@ -30,6 +30,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSInsertionControl.h>
+#include <utils/geom/GeomHelper.h>
 #include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
 #include "Lane.h"
@@ -130,8 +131,10 @@ std::vector<std::string>
 Lane::getChangePermissions(const std::string& laneID, const int direction) {
     if (direction == libsumo::LANECHANGE_LEFT) {
         return getVehicleClassNamesList(getLane(laneID)->getChangeLeft());
-    } else {
+    } else if (direction == libsumo::LANECHANGE_RIGHT) {
         return getVehicleClassNamesList(getLane(laneID)->getChangeRight());
+    } else {
+        throw TraCIException("Invalid direction for change permission (must be " + toString(libsumo::LANECHANGE_LEFT) + " or " + toString(libsumo::LANECHANGE_RIGHT));
     }
 }
 
@@ -330,6 +333,23 @@ Lane::getPendingVehicles(const std::string& laneID) {
 }
 
 
+double 
+Lane::getAngle(const std::string& laneID, double relativePosition) {
+    double angle;
+    MSLane* lane = getLane(laneID);
+    if (relativePosition == libsumo::INVALID_DOUBLE_VALUE) {
+        Position start = lane->getShape().front();
+        Position end = lane->getShape().back();
+        angle = start.angleTo2D(end);
+    }
+    else {
+        angle = lane->getShape().rotationAtOffset(lane->interpolateLanePosToGeometryPos(relativePosition));
+    }
+
+    return GeomHelper::naviDegree(angle);
+}
+
+
 void
 Lane::setAllowed(const std::string& laneID, std::string allowedClass) {
     setAllowed(laneID, std::vector<std::string>({allowedClass}));
@@ -363,8 +383,10 @@ Lane::setChangePermissions(const std::string& laneID, std::vector<std::string> a
     MSLane* const l = getLane(laneID);
     if (direction == libsumo::LANECHANGE_LEFT) {
         l->setChangeLeft(parseVehicleClasses(allowedClasses));
-    } else {
+    } else if (direction == libsumo::LANECHANGE_RIGHT) {
         l->setChangeRight(parseVehicleClasses(allowedClasses));
+    } else {
+        throw TraCIException("Invalid direction for change permission (must be " + toString(libsumo::LANECHANGE_LEFT) + " or " + toString(libsumo::LANECHANGE_RIGHT));
     }
 }
 
@@ -489,6 +511,9 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapPositionVector(objID, variable, getShape(objID));
         case VAR_PENDING_VEHICLES:
             return wrapper->wrapStringList(objID, variable, getPendingVehicles(objID));
+        case VAR_ANGLE:
+            paramData->readUnsignedByte();
+            return wrapper->wrapDouble(objID, variable, getAngle(objID, paramData->readDouble()));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

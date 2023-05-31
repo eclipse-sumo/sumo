@@ -34,7 +34,7 @@ To delay output (i.e. until some warm-up time has passed), the option **--device
 The emission output is a xml-file containing the emission values for
 each time step for every vehicle. The produced XML File looks like this:
 
-```
+```xml
 <emission-export>
 
  <timestep time="<TIME_STEP>">

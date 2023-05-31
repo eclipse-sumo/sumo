@@ -461,15 +461,22 @@ public:
 
     /** @brief Get the vehicle's lateral position on the edge of the given lane
      * (or its current edge if lane == 0)
+     * @return The lateral position of the vehicle (in m distance between left
+     * side of vehicle and right side of edge
+     */
+    double getLeftSideOnEdge(const MSLane* lane = 0) const;
+
+    /** @brief Get the vehicle's lateral position on the edge of the given lane
+     * (or its current edge if lane == 0)
      * @return The lateral position of the vehicle (in m distance between right
-     * side of vehicle and ride side of edge
+     * side of vehicle and right side of edge
      */
     double getRightSideOnEdge(const MSLane* lane = 0) const;
 
     /** @brief Get the vehicle's lateral position on the edge of the given lane
      * (or its current edge if lane == 0)
      * @return The lateral position of the vehicle (in m distance between center
-     * of vehicle and ride side of edge
+     * of vehicle and right side of edge
      */
     double getCenterOnEdge(const MSLane* lane = 0) const;
 
@@ -827,7 +834,7 @@ public:
     /** @brief Get the distance and direction of the next upcoming turn for the vehicle (within its look-ahead range)
      *  @return The first entry of the returned pair is the distance for the upcoming turn, the second is the link direction
      */
-    const std::pair<double, LinkDirection>& getNextTurn() {
+    const std::pair<double, const MSLink*>& getNextTurn() {
         return myNextTurn;
     }
 
@@ -1846,6 +1853,9 @@ protected:
     /// @brief optionally return an upper bound on speed to stay within the schedule
     double slowDownForSchedule(double vMinComfortable) const;
 
+    /// @brief perform lateral z interpolation in elevated networks
+    void interpolateLateralZ(Position& pos, double offset, double posLat) const;
+
 protected:
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
@@ -1899,7 +1909,7 @@ protected:
 
     /// @brief the upcoming turn for the vehicle
     /// @todo calculate during plan move
-    std::pair<double, LinkDirection> myNextTurn;
+    std::pair<double, const MSLink*> myNextTurn;
 
     /// @brief The information into which lanes the vehicle laps into
     std::vector<MSLane*> myFurtherLanes;
@@ -2010,7 +2020,7 @@ protected:
     DriveItemVector::iterator myNextDriveItem;
 
     /// @todo: documentation
-    void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, LinkDirection>& myNextTurn) const;
+    void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, const MSLink*>& myNextTurn) const;
 
     /// @brief runs heuristic for keeping the intersection clear in case of downstream jamming
     void checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const;
@@ -2030,6 +2040,9 @@ protected:
                        double seen,
                        DriveProcessItem* const lastLink,
                        double& v, double& vLinkPass) const;
+
+    /// @brief handle with transitions
+    bool brakeForOverlap(const MSLink* link, const MSLane* lane) const;
 
 public:
     void adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leaderInfo,

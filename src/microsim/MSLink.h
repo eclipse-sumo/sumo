@@ -659,6 +659,10 @@ public:
     /// @brief post-processing for legacy networks
     static void recheckSetRequestInformation();
 
+    static bool ignoreFoe(const SUMOTrafficObject* ego, const SUMOTrafficObject* foe);
+
+    static const double NO_INTERSECTION;
+
 private:
     /// @brief return whether the given vehicles may NOT merge safely
     static inline bool unsafeMergeSpeeds(double leaderSpeed, double followerSpeed, double leaderDecel, double followerDecel) {
@@ -702,8 +706,6 @@ private:
 
     /// @brief check whether the given vehicle positions overlap laterally
     static bool lateralOverlap(double posLat, double width, double posLat2, double width2);
-
-    static bool ignoreFoe(const SUMOTrafficObject* ego, const SUMOVehicle* foe);
 
     /// @brief return CustomConflict with foeLane if it is defined
     const CustomConflict* getCustomConflict(const MSLane* foeLane) const;

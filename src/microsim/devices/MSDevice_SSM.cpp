@@ -76,11 +76,12 @@
 //                                 and a default threshold must be defined. A corresponding
 //                                 case should be added to the switch in buildVehicleDevices,
 //                                 and in computeSSMs(), the SSM-value should be computed.)
-#define AVAILABLE_SSMS "TTC DRAC PET BR SGAP TGAP"
+#define AVAILABLE_SSMS "TTC DRAC PET BR SGAP TGAP PPET"
 
 #define DEFAULT_THRESHOLD_TTC 3. // in [s.], events get logged if time to collision is below threshold (1.5s. is an appropriate criticality threshold according to Van der Horst, A. R. A. (1991). Time-to-collision as a Cue for Decision-making in Braking [also see Guido et al. 2011])
 #define DEFAULT_THRESHOLD_DRAC 3. // in [m/s^2], events get logged if "deceleration to avoid a crash" is above threshold (3.4s. is an appropriate criticality threshold according to American Association of State Highway and Transportation Officials (2004). A Policy on Geometric Design of Highways and Streets [also see Guido et al. 2011])
 #define DEFAULT_THRESHOLD_PET 2. // in seconds, events get logged if post encroachment time is below threshold
+#define DEFAULT_THRESHOLD_PPET 2. // in seconds, events get logged if predicted post encroachment time is below threshold
 
 #define DEFAULT_THRESHOLD_BR 0.0 // in [m/s^2], events get logged if brake rate is above threshold
 #define DEFAULT_THRESHOLD_SGAP 0.2 // in [m.], events get logged if the space headway is below threshold.
@@ -217,7 +218,7 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
 
     // custom options
     oc.doRegister("device.ssm.measures", new Option_String(""));
-    oc.addDescription("device.ssm.measures", "SSM Device", TL("Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET'))"));
+    oc.addDescription("device.ssm.measures", "SSM Device", TL("Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET'))"));
     oc.doRegister("device.ssm.thresholds", new Option_String(""));
     oc.addDescription("device.ssm.thresholds", "SSM Device", TL("Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."));
     oc.doRegister("device.ssm.trajectories",  new Option_Bool(false));
@@ -344,6 +345,7 @@ MSDevice_SSM::Encounter::Encounter(const MSVehicle* _ego, const MSVehicle* const
     minTTC(INVALID_DOUBLE, Position::INVALID, ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID_DOUBLE),
     maxDRAC(INVALID_DOUBLE, Position::INVALID, ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID_DOUBLE),
     PET(INVALID_DOUBLE, Position::INVALID, ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID_DOUBLE),
+    minPPET(INVALID_DOUBLE, Position::INVALID, ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID_DOUBLE),
     closingRequested(false) {
 #ifdef DEBUG_ENCOUNTER
     if (DEBUG_COND_ENCOUNTER(this)) {
@@ -364,7 +366,7 @@ MSDevice_SSM::Encounter::~Encounter() {
 void
 MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position egoX, std::string egoLane, double egoLanePos, Position egoV,
                              Position foeX, std::string foeLane, double foeLanePos, Position foeV,
-                             Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet) {
+                             Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet, double ppet) {
 #ifdef DEBUG_ENCOUNTER
     if (DEBUG_COND_ENCOUNTER(this))
         std::cout << time << " Adding data point for encounter of '" << egoID << "' and '" << foeID << "':\n"
@@ -413,6 +415,13 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
         PET.pos = conflictPoint;
         PET.type = PET.value <= 0 ? ENCOUNTER_TYPE_COLLISION : type;
     }
+    PPETspan.push_back(ppet);
+    if (ppet != INVALID_DOUBLE && (ppet < minPPET.value || minPPET.value == INVALID_DOUBLE)) {
+        minPPET.value = ppet;
+        minPPET.time = time;
+        minPPET.pos = conflictPoint;
+        minPPET.type = ppet <= 0 ? ENCOUNTER_TYPE_COLLISION :  type;
+    }
 }
 
 
@@ -448,11 +457,10 @@ MSDevice_SSM::EncounterApproachInfo::EncounterApproachInfo(Encounter* e) :
     foeEstimatedConflictExitTime(INVALID_DOUBLE),
     egoConflictAreaLength(INVALID_DOUBLE),
     foeConflictAreaLength(INVALID_DOUBLE),
-    egoLeftConflict(false),
-    foeLeftConflict(false),
     ttc(INVALID_DOUBLE),
     drac(INVALID_DOUBLE),
-    pet(std::make_pair(INVALID_DOUBLE, INVALID_DOUBLE)) {
+    pet(std::make_pair(INVALID_DOUBLE, INVALID_DOUBLE)),
+    ppet(INVALID_DOUBLE) {
 }
 
 
@@ -732,6 +740,9 @@ MSDevice_SSM::qualifiesAsConflict(Encounter* e) {
     if (myComputeDRAC && e->maxDRAC.value != INVALID_DOUBLE && e->maxDRAC.value >= myThresholds["DRAC"]) {
         return true;
     }
+    if (myComputePPET && e->minPPET.value != INVALID_DOUBLE && e->minPPET.value <= myThresholds["PPET"]) {
+        return true;
+    }
     return false;
 }
 
@@ -878,7 +889,7 @@ MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo) {
         // Add current states to trajectories and update type
         e->add(SIMTIME, eInfo.type, e->ego->getPosition(), e->ego->getLane()->getID(), e->ego->getPositionOnLane(), e->ego->getVelocityVector(),
                e->foe->getPosition(), e->foe->getLane()->getID(), e->foe->getPositionOnLane(), e->foe->getVelocityVector(),
-               eInfo.conflictPoint, eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, eInfo.ttc, eInfo.drac, eInfo.pet);
+               eInfo.conflictPoint, eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, eInfo.ttc, eInfo.drac, eInfo.pet, eInfo.ppet);
     }
     // Keep encounter
     return true;
@@ -949,8 +960,10 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
     if (DEBUG_COND(e->ego))
         std::cout << SIMTIME << " estimateConflictTimes() for ego '" << e->egoID << "' and foe '" << e->foeID << "'\n"
                   << "    encounter type: " << eInfo.type << "\n"
-                  << "    egoConflictEntryDist=" << (eInfo.egoConflictEntryDist == INVALID_DOUBLE ? "NA" : ::toString(eInfo.egoConflictEntryDist))
-                  << ", foeConflictEntryDist=" << (eInfo.foeConflictEntryDist == INVALID_DOUBLE ? "NA" : ::toString(eInfo.foeConflictEntryDist))
+                  << "    egoConflictEntryDist=" << writeNA(eInfo.egoConflictEntryDist)
+                  << " foeConflictEntryDist=" << writeNA(eInfo.foeConflictEntryDist)
+                  << " egoConflictExitDist=" << writeNA(eInfo.egoConflictExitDist)
+                  << " foeConflictExitDist=" << writeNA(eInfo.foeConflictExitDist)
                   << "\n    ego speed=" << e->ego->getSpeed()
                   << ", foe speed=" << e->foe->getSpeed()
                   << std::endl;
@@ -1026,13 +1039,22 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
 #endif
 
     // Estimate exit times from conflict area for leader / follower.
+    // assume vehicles start to accelerate after entring the intersection
     if (eInfo.egoConflictExitDist >= 0.) {
         eInfo.egoEstimatedConflictExitTime = e->ego->getCarFollowModel().estimateArrivalTime(eInfo.egoConflictExitDist, e->ego->getSpeed(), e->ego->getMaxSpeedOnLane(), MIN2(0., e->ego->getAcceleration()));
+        //eInfo.egoEstimatedConflictExitTime = eInfo.egoEstimatedConflictEntryTime + e->ego->getCarFollowModel().estimateArrivalTime(
+        //        eInfo.egoConflictExitDist - MAX2(0.0, eInfo.egoConflictEntryDist),
+        //        e->ego->getSpeed(), e->ego->getMaxSpeedOnLane(),
+        //        e->ego->getCarFollowModel().getMaxAccel());
     } else {
         eInfo.egoEstimatedConflictExitTime = 0.;
     }
     if (eInfo.foeConflictExitDist >= 0.) {
         eInfo.foeEstimatedConflictExitTime = e->foe->getCarFollowModel().estimateArrivalTime(eInfo.foeConflictExitDist, e->foe->getSpeed(), e->foe->getMaxSpeedOnLane(), MIN2(0., e->foe->getAcceleration()));
+        //eInfo.foeEstimatedConflictExitTime = eInfo.foeEstimatedConflictEntryTime + e->foe->getCarFollowModel().estimateArrivalTime(
+        //        eInfo.foeConflictExitDist - MAX2(0.0, eInfo.foeConflictEntryDist),
+        //        e->foe->getSpeed(), e->foe->getMaxSpeedOnLane(),
+        //        e->foe->getCarFollowModel().getMaxAccel());
     } else {
         eInfo.foeEstimatedConflictExitTime = 0.;
     }
@@ -1097,8 +1119,8 @@ MSDevice_SSM::computeSSMs(EncounterApproachInfo& eInfo) const {
             || type == ENCOUNTER_TYPE_MERGING_FOLLOWER || type == ENCOUNTER_TYPE_MERGING_LEADER
             || type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER || type == ENCOUNTER_TYPE_FOLLOWING_LEADER
             || type == ENCOUNTER_TYPE_ONCOMING) {
-        if (myComputeTTC || myComputeDRAC) {
-            determineTTCandDRAC(eInfo);
+        if (myComputeTTC || myComputeDRAC || myComputePPET) {
+            determineTTCandDRACandPPET(eInfo);
         }
         determinePET(eInfo);
     } else if (type == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA) {
@@ -1234,11 +1256,12 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
 
 
 void
-MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
+MSDevice_SSM::determineTTCandDRACandPPET(EncounterApproachInfo& eInfo) const {
     Encounter* e = eInfo.encounter;
     const EncounterType& type = eInfo.type;
     double& ttc = eInfo.ttc;
     double& drac = eInfo.drac;
+    double& ppet = eInfo.ppet;
 
 #ifdef DEBUG_SSM
     if (DEBUG_COND(myHolderMS))
@@ -1314,6 +1337,10 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
         double leaderConflictDist = leaderEntryTime == egoEntryTime ? eInfo.egoConflictEntryDist : eInfo.foeConflictEntryDist;
         double followerConflictDist = leaderEntryTime == egoEntryTime ? eInfo.foeConflictEntryDist : eInfo.egoConflictEntryDist;
         double leaderLength = leaderEntryTime == egoEntryTime ? e->ego->getLength() : e->foe->getLength();
+        if (myComputePPET && followerEntryTime != INVALID_DOUBLE && leaderEntryTime != INVALID_DOUBLE) {
+            ppet = followerEntryTime - leaderExitTime;
+            //std::cout << " debug1 ppet=" << ppet << "\n";
+        }
         if (leaderExitTime >= followerEntryTime) {
             // collision would occur at merge area
             if (myComputeTTC) {
@@ -1377,7 +1404,7 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
         if (myComputeDRAC) {
             drac = computeDRAC(eInfo);
         }
-        if (eInfo.egoEstimatedConflictEntryTime <= eInfo.foeEstimatedConflictExitTime) {
+        if (eInfo.egoEstimatedConflictEntryTime <= eInfo.foeEstimatedConflictExitTime && eInfo.egoEstimatedConflictEntryTime != INVALID_DOUBLE) {
             // follower's predicted arrival at the crossing area is earlier than the leader's predicted exit -> collision predicted
             double gap = eInfo.egoConflictEntryDist;
             if (myComputeTTC) {
@@ -1387,12 +1414,21 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
             // encounter is expected to happen without collision
             ttc = INVALID_DOUBLE;
         }
+        if (myComputePPET) {
+            const double entryTime = eInfo.egoEstimatedConflictEntryTime;
+            const double exitTime = (e->foeConflictExitTime == INVALID_DOUBLE
+                    ? eInfo.foeEstimatedConflictExitTime : e->foeConflictExitTime);
+            if (entryTime != INVALID_DOUBLE && exitTime != INVALID_DOUBLE) {
+                ppet = entryTime - exitTime;
+            }
+            //std::cout << " debug2 ppet=" << ppet << "\n";
+        }
     } else if (type == ENCOUNTER_TYPE_CROSSING_LEADER
                || type == ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA) {
         if (myComputeDRAC) {
             drac = computeDRAC(eInfo);
         }
-        if (eInfo.foeEstimatedConflictEntryTime <= eInfo.egoEstimatedConflictExitTime) {
+        if (eInfo.foeEstimatedConflictEntryTime <= eInfo.egoEstimatedConflictExitTime && eInfo.foeEstimatedConflictEntryTime != INVALID_DOUBLE) {
             // follower's predicted arrival at the crossing area is earlier than the leader's predicted exit -> collision predicted
             double gap = eInfo.foeConflictEntryDist;
             if (myComputeTTC) {
@@ -1401,6 +1437,19 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
         } else {
             // encounter is expected to happen without collision
             ttc = INVALID_DOUBLE;
+        }
+        if (myComputePPET) {
+            const double entryTime = eInfo.foeEstimatedConflictEntryTime;
+            const double exitTime = (e->egoConflictExitTime == INVALID_DOUBLE
+                    ? eInfo.egoEstimatedConflictExitTime : e->egoConflictExitTime);
+            if (entryTime != INVALID_DOUBLE && exitTime != INVALID_DOUBLE) {
+                ppet = entryTime - exitTime;
+            }
+            //std::cout << SIMTIME << " debug3 ppet=" << writeNA(ppet)
+            //    << " fecet=" << writeNA(eInfo.foeEstimatedConflictEntryTime)
+            //    << " ecet=" << writeNA(e->egoConflictExitTime)
+            //    << " eecec=" << writeNA(eInfo.egoEstimatedConflictExitTime)
+            //    << "\n";
         }
     } else {
 #ifdef DEBUG_SSM
@@ -1834,11 +1883,10 @@ MSDevice_SSM::updatePassedEncounter(Encounter* e, FoeInfo* foeInfo, EncounterApp
 #endif
 
         // Determine actual encounter type
-        bool egoEnteredConflict =  eInfo.egoConflictEntryDist < 0.;
-        bool foeEnteredConflict =  eInfo.foeConflictEntryDist < 0.;
-        bool egoLeftConflict =  eInfo.egoConflictExitDist < 0.;
-        bool foeLeftConflict =  eInfo.foeConflictExitDist < 0.;
-
+        bool egoEnteredConflict = eInfo.egoConflictEntryDist < 0.;
+        bool foeEnteredConflict = eInfo.foeConflictEntryDist < 0.;
+        bool egoLeftConflict = eInfo.egoConflictExitDist < 0.;
+        bool foeLeftConflict = eInfo.foeConflictExitDist < 0.;
         if ((!egoEnteredConflict) && !foeEnteredConflict) {
             // XXX: do we need to recompute the follow/lead order, here?
             assert(lastPotentialConflictType == ENCOUNTER_TYPE_CROSSING_FOLLOWER
@@ -2674,7 +2722,7 @@ MSDevice_SSM::flushGlobalMeasures() {
                 if (myUseGeoCoords) {
                     toGeo(myMaxBR.first.second);
                 }
-                myOutputFile->openTag("maxBR").writeAttr("time", myMaxBR.first.first).writeAttr("position", ::toString(myMaxBR.first.second)).writeAttr("value", myMaxBR.second).closeTag();
+                myOutputFile->openTag("maxBR").writeAttr("time", myMaxBR.first.first).writeAttr("position", makeStringWithNAs(myMaxBR.first.second)).writeAttr("value", myMaxBR.second).closeTag();
             }
         }
 
@@ -2685,7 +2733,7 @@ MSDevice_SSM::flushGlobalMeasures() {
                     toGeo(myMinSGAP.first.first.second);
                 }
                 myOutputFile->openTag("minSGAP").writeAttr("time", myMinSGAP.first.first.first)
-                .writeAttr("position", ::toString(myMinSGAP.first.first.second))
+                .writeAttr("position", makeStringWithNAs(myMinSGAP.first.first.second))
                 .writeAttr("value", myMinSGAP.first.second)
                 .writeAttr("leader", myMinSGAP.second).closeTag();
             }
@@ -2698,7 +2746,7 @@ MSDevice_SSM::flushGlobalMeasures() {
                     toGeo(myMinTGAP.first.first.second);
                 }
                 myOutputFile->openTag("minTGAP").writeAttr("time", myMinTGAP.first.first.first)
-                .writeAttr("position", ::toString(myMinTGAP.first.first.second))
+                .writeAttr("position", makeStringWithNAs(myMinTGAP.first.first.second))
                 .writeAttr("value", myMinTGAP.first.second)
                 .writeAttr("leader", myMinTGAP.second).closeTag();
             }
@@ -2759,7 +2807,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
         }
         myOutputFile->openTag("foeVelocity").writeAttr("values", ::toString(e->foeTrajectory.v)).closeTag();
 
-        myOutputFile->openTag("conflictPoint").writeAttr("values", makeStringWithNAs(e->conflictPointSpan, myUseGeoCoords ? gPrecisionGeo : gPrecision)).closeTag();
+        myOutputFile->openTag("conflictPoint").writeAttr("values", makeStringWithNAs(e->conflictPointSpan)).closeTag();
     }
 
     if (myComputeTTC) {
@@ -2775,7 +2823,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             if (myUseGeoCoords) {
                 toGeo(e->minTTC.pos);
             }
-            std::string position = ::toString(e->minTTC.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
+            std::string position = makeStringWithNAs(e->minTTC.pos);
             myOutputFile->openTag("minTTC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
     }
@@ -2792,7 +2840,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             if (myUseGeoCoords) {
                 toGeo(e->maxDRAC.pos);
             }
-            std::string position = ::toString(e->maxDRAC.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
+            std::string position = makeStringWithNAs(e->maxDRAC.pos);
             myOutputFile->openTag("maxDRAC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
     }
@@ -2808,6 +2856,23 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             }
             std::string position = ::toString(e->PET.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
             myOutputFile->openTag("PET").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
+        }
+    }
+    if (myComputePPET) {
+        if (mySaveTrajectories) {
+            myOutputFile->openTag("PPETSpan").writeAttr("values", makeStringWithNAs(e->PPETspan, INVALID_DOUBLE)).closeTag();
+        }
+        if (e->minPPET.time == INVALID_DOUBLE) {
+            myOutputFile->openTag("minPPET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").closeTag();
+        } else {
+            std::string time = ::toString(e->minPPET.time);
+            std::string type = ::toString(int(e->minPPET.type));
+            std::string value = ::toString(e->minPPET.value);
+            if (myUseGeoCoords) {
+                toGeo(e->minPPET.pos);
+            }
+            std::string position = makeStringWithNAs(e->minPPET.pos);
+            myOutputFile->openTag("minPPET").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
     }
     myOutputFile->closeTag();
@@ -2832,7 +2897,8 @@ MSDevice_SSM::makeStringWithNAs(const std::vector<double>& v, const std::vector<
 }
 
 std::string
-MSDevice_SSM::makeStringWithNAs(const PositionVector& v, const int precision) {
+MSDevice_SSM::makeStringWithNAs(const PositionVector& v) {
+    const int precision = myUseGeoCoords ? gPrecisionGeo : gPrecision;
     std::string res = "";
     for (PositionVector::const_iterator i = v.begin(); i != v.end(); ++i) {
         res += (i == v.begin() ? "" : " ") + (*i == Position::INVALID ? "NA" : ::toString(*i, precision));
@@ -2840,6 +2906,17 @@ MSDevice_SSM::makeStringWithNAs(const PositionVector& v, const int precision) {
     return res;
 }
 
+std::string
+MSDevice_SSM::makeStringWithNAs(const Position& p) {
+    const int precision = myUseGeoCoords ? gPrecisionGeo : gPrecision;
+    return p == Position::INVALID ? "NA" : toString(p, precision);
+}
+
+
+std::string
+MSDevice_SSM::writeNA(double v, double NA) {
+    return v == NA ? "NA" : toString(v);
+}
 
 // ---------------------------------------------------------------------------
 // MSDevice_SSM-methods
@@ -2864,6 +2941,7 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myComputeTTC = myThresholds.find("TTC") != myThresholds.end();
     myComputeDRAC = myThresholds.find("DRAC") != myThresholds.end();
     myComputePET = myThresholds.find("PET") != myThresholds.end();
+    myComputePPET = myThresholds.find("PPET") != myThresholds.end();
 
     myComputeBR = myThresholds.find("BR") != myThresholds.end();
     myComputeSGAP = myThresholds.find("SGAP") != myThresholds.end();
@@ -3766,6 +3844,8 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
                 thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_DRAC));
             } else if (*i == "PET") {
                 thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_PET));
+            } else if (*i == "PPET") {
+                thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_PPET));
             } else if (*i == "BR") {
                 thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_BR));
             } else if (*i == "SGAP") {

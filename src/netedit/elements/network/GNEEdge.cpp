@@ -518,17 +518,25 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             // snap new position to grid
             newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
             undoList->begin(GUIIcon::EDGE, "set endpoint");
-            int index = geom.indexOfClosest(pos, true);
-            // check if snap to existing geometry
-            if (geom[index].distanceSquaredTo2D(pos) < getSnapRadius(true)) {
-                pos = geom[index];
-            }
-            Position destPos = getToJunction()->getNBNode()->getPosition();
-            Position sourcePos = getFromJunction()->getNBNode()->getPosition();
+            const int index = geom.indexOfClosest(pos, true);
+            const Position destPos = getToJunction()->getNBNode()->getPosition();
+            const Position sourcePos = getFromJunction()->getNBNode()->getPosition();
             if (pos.distanceTo2D(destPos) < pos.distanceTo2D(sourcePos)) {
+                // check if snap to existing geometrypoint
+                if (geom[index].distanceSquaredTo2D(pos) < getSnapRadius(true)) {
+                    newPos = geom[index];
+                    // remove existent geometry point to avoid double points
+                    removeGeometryPoint(newPos, undoList);
+                }
                 setAttribute(GNE_ATTR_SHAPE_END, toString(newPos), undoList);
                 getToJunction()->invalidateShape();
             } else {
+                // check if snap to existing geometry point
+                if (geom[index].distanceSquaredTo2D(pos) < getSnapRadius(true)) {
+                    newPos = geom[index];
+                    // remove existent geometry point to avoid double points
+                    removeGeometryPoint(newPos, undoList);
+                }
                 setAttribute(GNE_ATTR_SHAPE_START, toString(newPos), undoList);
                 getFromJunction()->invalidateShape();
             }
@@ -1051,7 +1059,10 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             if (myNBEdge->getTurnDestination(true) != nullptr) {
                 GNEEdge* bidi = myNet->getAttributeCarriers()->retrieveEdge(myNBEdge->getTurnDestination(true)->getID());
                 undoList->changeAttribute(new GNEChange_Attribute(bidi, key, value));
-                if (myNBEdge->getGeometry() != bidi->getNBEdge()->getGeometry().reverse() && myNBEdge->getGeometry().size() == 2 && bidi->getNBEdge()->getGeometry().size() == 2) {
+                if (myNBEdge->getGeometry() != bidi->getNBEdge()->getGeometry().reverse()
+                        && myNBEdge->getGeometry().size() == 2
+                        && bidi->getNBEdge()->getGeometry().size() == 2
+                        && myNBEdge->getBidiEdge() == nullptr) {
                     // NBEdge::avoidOverlap was already active so we need to reset the
                     // geometry to it's default
                     resetBothEndpoint(undoList);

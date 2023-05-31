@@ -521,7 +521,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     // expected persons
     const std::vector<std::string>& expected = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EXPECTED, nullptr, ok);
     stop.awaitedPersons.insert(expected.begin(), expected.end());
-    if (stop.awaitedPersons.size() > 0 && (stop.parametersSet & STOP_TRIGGER_SET) == 0) {
+    if (stop.awaitedPersons.size() > 0) {
         stop.triggered = true;
         if ((stop.parametersSet & STOP_PARKING_SET) == 0) {
             stop.parking = ParkingType::OFFROAD;
@@ -535,7 +535,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     // expected containers
     const std::vector<std::string>& expectedContainers = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EXPECTED_CONTAINERS, nullptr, ok);
     stop.awaitedContainers.insert(expectedContainers.begin(), expectedContainers.end());
-    if (stop.awaitedContainers.size() > 0 && (stop.parametersSet & STOP_CONTAINER_TRIGGER_SET) == 0) {
+    if (stop.awaitedContainers.size() > 0) {
         stop.containerTriggered = true;
         if ((stop.parametersSet & STOP_PARKING_SET) == 0) {
             stop.parking = ParkingType::OFFROAD;

@@ -41,6 +41,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSParkingArea.h>
+#include <microsim/MSJunctionLogic.h>
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/devices/MSDispatch_TraCI.h>
 #include <mesosim/MEVehicle.h>
@@ -341,6 +342,58 @@ Vehicle::getFollower(const std::string& vehID, double dist) {
 }
 
 
+std::vector<TraCIJunctionFoe>
+Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
+    std::vector<TraCIJunctionFoe> result;
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
+    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
+    if (veh == nullptr) {
+        WRITE_WARNING("getJunctionFoes not applicable for meso");
+    } else if (veh->isOnRoad()) {
+        if (dist == 0) {
+            dist = veh->getCarFollowModel().brakeGap(veh->getSpeed()) + veh->getVehicleType().getMinGap();
+        }
+        const std::vector<const MSLane*> internalLanes;
+        // distance to the end of the lane
+        double curDist = veh->getPositionOnLane();
+        for (const MSLane* lane : veh->getUpcomingLanesUntil(dist)) {
+            curDist += lane->getLength();
+            if (lane->isInternal()) {
+                const MSLink* exitLink = lane->getLinkCont().front();
+                int foeIndex = 0;
+                const std::vector<MSLink::ConflictInfo>& conflicts = exitLink->getConflicts();
+                const MSJunctionLogic* logic = exitLink->getJunction()->getLogic();
+                for (const MSLane* foeLane : exitLink->getFoeLanes()) {
+                    const MSLink::ConflictInfo& ci = conflicts[foeIndex];
+                    const double distBehindCrossing = ci.getLengthBehindCrossing(exitLink);
+                    if (distBehindCrossing == -MSLink::NO_INTERSECTION) {
+                        continue;
+                    }
+                    const MSLink* foeExitLink = foeLane->getLinkCont().front();
+                    const double distToCrossing = curDist - distBehindCrossing;
+                    const double foeDistBehindCrossing = ci.getFoeLengthBehindCrossing(foeExitLink);
+                    for (auto item : foeExitLink->getApproaching()) {
+                        TraCIJunctionFoe jf;
+                        jf.foeId = item.first->getID();
+                        jf.egoDist = distToCrossing;
+                        jf.foeDist = item.second.dist - foeDistBehindCrossing;
+                        jf.egoExitDist = jf.egoDist + ci.conflictSize;
+                        jf.foeExitDist = jf.foeDist + ci.getFoeConflictSize(foeExitLink);
+                        jf.egoLane = lane->getID();
+                        jf.foeLane = foeLane->getID();
+                        jf.egoResponse = logic->getResponseFor(exitLink->getIndex()).test(foeExitLink->getIndex());
+                        jf.foeResponse = logic->getResponseFor(foeExitLink->getIndex()).test(exitLink->getIndex());
+                        result.push_back(jf);
+                    }
+                    foeIndex++;
+                }
+            }
+        }
+    }
+    return result;
+}
+
+
 double
 Vehicle::getWaitingTime(const std::string& vehID) {
     return STEPS2TIME(Helper::getVehicle(vehID)->getWaitingTime());
@@ -491,7 +544,7 @@ Vehicle::getNextStops(const std::string& vehID) {
     return getStops(vehID, 0);
 }
 
-std::vector<libsumo::TraCIConnection> 
+std::vector<libsumo::TraCIConnection>
 Vehicle::getNextLinks(const std::string& vehID) {
     std::vector<libsumo::TraCIConnection> result;
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
@@ -512,7 +565,7 @@ Vehicle::getNextLinks(const std::string& vehID) {
                 const bool hasPrio = link->havePriority();
                 const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
                 const bool isOpen = link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
-                    SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
+                                                 SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
                 const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel());
                 const std::string approachedInternal = link->getViaLane() != nullptr ? link->getViaLane()->getID() : "";
                 const std::string state = SUMOXMLDefinitions::LinkStates.getString(link->getState());
@@ -539,7 +592,7 @@ Vehicle::getNextLinks(const std::string& vehID) {
                         const bool hasPrio = link->havePriority();
                         const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
                         const bool isOpen = link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
-                            SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
+                                                         SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
                         const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel());
                         const std::string approachedInternal = link->getViaLane() != nullptr ? link->getViaLane()->getID() : "";
                         const std::string state = SUMOXMLDefinitions::LinkStates.getString(link->getState());
@@ -548,14 +601,12 @@ Vehicle::getNextLinks(const std::string& vehID) {
                         result.push_back(TraCIConnection(approachedLane, hasPrio, isOpen, hasFoe, approachedInternal, state, direction, length));
                     }
                 }
-            }
-            else {
+            } else {
                 // invalid route, cannot determine nextTLS
                 break;
             }
         }
-    }
-    else {
+    } else {
         WRITE_WARNING("getNextLinks not yet implemented for meso");
     }
     return result;
@@ -1635,7 +1686,7 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
         //  note that the route ("edges") is not changed in this case
 
         found = Helper::moveToXYMap_matchingRoutePosition(pos, origID,
-                veh->getRoute().getEdges(), (int)(veh->getCurrentRouteEdge() - veh->getRoute().begin()),
+                veh->getRoute().getEdges(), veh->getRoutePosition(),
                 vClass, setLateralPos,
                 bestDistance, &lane, lanePos, routeOffset);
         // @note silenty ignoring mapping failure

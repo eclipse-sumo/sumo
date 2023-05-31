@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# apply zoom
+netedit.setZoom("0", "0", "25")
+
 # go to select mode
 netedit.selectMode()
 
@@ -38,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect entry
-netedit.leftClick(referencePosition, 183, 240)
+netedit.leftClick(referencePosition, 347, 296)
 
 # Change Netedit parameter parent with a non valid value (Invalid E3 ID)
 netedit.modifyAttribute(netedit.attrs.entryExit.inspectSelection.parent, "invalidE3", True)

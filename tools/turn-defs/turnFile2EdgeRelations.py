@@ -23,7 +23,6 @@ from __future__ import print_function
 
 import os
 import sys
-from argparse import ArgumentParser
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -31,17 +30,17 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    parser = ArgumentParser(description="Sample routes to match counts")
-    parser.add_argument("-t", "--turn-file", dest="turnFile",
-                        help="Input turn-count file")
-    parser.add_argument("-o", "--output-file", dest="out",
-                        help="Output edgeRelations file")
-    parser.add_argument("--turn-attribute", dest="turnAttr", default="probability",
-                        help="Write turning 'probability' to the given attribute")
+    ap = sumolib.options.ArgumentParser(description="Sample routes to match counts")
+    ap.add_argument("-t", "--turn-file", dest="turnFile", required=True, type=ap.file,
+                    help="Input turn-count file")
+    ap.add_argument("-o", "--output-file", dest="out", required=True, type=ap.file,
+                    help="Output edgeRelations file")
+    ap.add_argument("--turn-attribute", dest="turnAttr", default="probability",
+                    help="Write turning 'probability' to the given attribute")
 
-    options = parser.parse_args(args=args)
+    options = ap.parse_args(args=args)
     if options.turnFile is None or options.out is None:
-        parser.print_help()
+        ap.print_help()
         sys.exit()
     return options
 

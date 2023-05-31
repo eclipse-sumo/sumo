@@ -165,7 +165,7 @@ public:
      * @return The stored value encoded into a string-
      */
     const std::string& getValueString() const;
-    
+
     /** @brief Returns the information whether the option holds the default value
     *
     * @return true if the option was not set from command line / configuration, false otherwise
@@ -203,6 +203,38 @@ public:
      * @return true if the Option is an Option_FileName, false otherwise
      */
     virtual bool isFileName() const;
+
+    /** @brief Returns the information whether this option is a network file
+     *
+     * Returns false. Only Option_Network overrides this method returning true.
+     *
+     * @return true if the Option is an Option_Network, false otherwise
+     */
+    virtual bool isNetwork() const;
+
+    /** @brief Returns the information whether this option is an additional file
+     *
+     * Returns false. Only Option_Additional overrides this method returning true.
+     *
+     * @return true if the Option is an Option_Additional, false otherwise
+     */
+    virtual bool isAdditional() const;
+
+    /** @brief Returns the information whether this option is a route file
+     *
+     * Returns false. Only Option_Route overrides this method returning true.
+     *
+     * @return true if the Option is an Option_Route, false otherwise
+     */
+    virtual bool isRoute() const;
+
+    /** @brief Returns the information whether this option is a data file
+     *
+     * Returns false. Only Option_Data overrides this method returning true.
+     *
+     * @return true if the Option is an Option_Data, false otherwise
+     */
+    virtual bool isData() const;
 
     /** @brief Returns the information whether the option may be set a further time
      *
@@ -243,21 +275,29 @@ public:
      */
     void setDescription(const std::string& desc);
 
-    /** @brief Returns the category of what this option does
-     *
-     * The category stored in myDescription is returned.
-     *
-     * @return The category of this option's purpose
-     */
-    const std::string& getCategory() const;
+    /// @brief check if option is required
+    bool isRequired() const;
 
-    /** @brief Sets the category of what this option does
-     *
-     * The category stored in myCategory is returned.
-     *
-     * @return The category of this option's purpose
-     */
-    void setCategory(const std::string& desc);
+    /// @brief mark option as required
+    void setRequired();
+
+    /// @brief check if option is positional
+    bool isPositional() const;
+
+    /// @brief mark option as positional
+    void setPositional();
+
+    /// @brief retrieve list separator
+    const std::string& getListSeparator() const;
+
+    /// @brief set list separator
+    void setListSeparator(const std::string& listSep);
+
+    /// @brief Returns the subtopic to which this option belongs
+    const std::string& getSubTopic() const;
+
+    /// @brief Sets the subtopic to which this option belongs
+    void setSubtopic(const std::string& subtopic);
 
     /** @brief Returns the mml-type name of this option
      *
@@ -296,16 +336,25 @@ private:
     bool myAmSet;
 
     /// @brief information whether the value is the default value (is then set)
-    bool myHaveTheDefaultValue;
+    bool myHaveTheDefaultValue = true;
 
     /// @brief information whether the value may be changed
-    bool myAmWritable;
+    bool myAmWritable = true;
 
     /// @brief The description what this option does
     std::string myDescription;
 
-    /// @brief The category what this option does
-    std::string myCategory;
+    /// @brief this option is required (needed for python tools)
+    bool myRequired = false;
+
+    /// @brief this option is positional (needed for python tools)
+    bool myPositional = false;
+
+    /// @brief the list separator for this option (needed for python tools)
+    std::string myListSeparator = "";
+
+    /// @brief The subtopic to which this option belongs
+    std::string mySubTopic;
 };
 
 // -------------------------------------------------------------------------
@@ -635,4 +684,93 @@ public:
      * not in line with code style of the Options sub-system.
      */
     std::string getString() const;
+};
+
+// -------------------------------------------------------------------------
+// Option_Network
+// -------------------------------------------------------------------------
+
+class Option_Network : public Option_String {
+
+public:
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_Network(const std::string& value);
+
+    /** @brief Returns true, the information whether this option is a file name
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isNetwork() const;
+};
+
+// -------------------------------------------------------------------------
+// Option_Additional
+// -------------------------------------------------------------------------
+
+class Option_Additional : public Option_String {
+
+public:
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_Additional(const std::string& value);
+
+    /** @brief Returns true, the information whether this option is a file name
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isAdditional() const;
+};
+
+// -------------------------------------------------------------------------
+// Option_Route
+// -------------------------------------------------------------------------
+
+class Option_Route : public Option_String {
+
+public:
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_Route(const std::string& value);
+
+    /** @brief Returns true, the information whether this option is a file name
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isRoute() const;
+};
+
+// -------------------------------------------------------------------------
+// Option_Data
+// -------------------------------------------------------------------------
+
+class Option_Data : public Option_String {
+
+public:
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_Data(const std::string& value);
+
+    /** @brief Returns true, the information whether this option is a file name
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isData() const;
+
 };

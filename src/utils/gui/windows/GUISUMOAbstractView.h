@@ -408,10 +408,10 @@ public:
     };
 
     /// @brief The list of decals to show
-    std::vector<Decal> &getDecals();
+    std::vector<Decal>& getDecals();
 
     /// @brief The mutex to use before accessing the decals list in order to avoid thread conflicts
-    FXMutex &getDecalsLockMutex();
+    FXMutex& getDecalsLockMutex();
 
     /// @brief get coloring schemes combo
     FXComboBox* getColoringSchemesCombo();

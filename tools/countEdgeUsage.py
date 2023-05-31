@@ -30,8 +30,7 @@ def parse_args():
     # when departure time must be known
     DEFAULT_ELEMENTS2 = ['vehicle', 'trip', 'flow']
 
-    USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
-    op = sumolib.options.ArgumentParser(description="count edge usage by vehicles", usage=USAGE)
+    op = sumolib.options.ArgumentParser(description="count edge usage by vehicles")
     op.add_argument("-o", "--output-file", dest="outfile", category="output", type=op.file,
                     help="name of output file")
     op.add_argument("--subpart", category="processing",
@@ -57,8 +56,8 @@ def parse_args():
                     help="parse net for geo locations of the edges")
     op.add_argument("-p", "--poi-file", category="processing", type=op.additional_file,
                     help="write geo POIs")
-    op.add_argument("routefiles", nargs="+", category="input",
-                    help="Set on or more input route files")
+    op.add_argument("routefiles", nargs="+", category="input", type=op.route_file,
+                    help="Set one or more input route files")
 
     options = op.parse_args()
     if options.outfile is None:

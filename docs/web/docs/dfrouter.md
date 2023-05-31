@@ -76,8 +76,8 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **--emitters-poi-output** {{DT_FILE}} | Saves emitter positions as pois to FILE |
 | **--variable-speed-sign-output** {{DT_FILE}} | Saves variable seed sign definitions for sink detectors to FILE |
 | **--end-reroute-output** {{DT_FILE}} | Saves rerouter definitions for sink detectors to FILE |
-| **--validation-output** {{DT_FILE}} |  |
-| **--validation-output.add-sources** {{DT_BOOL}} | *default:* **false** |
+| **--validation-output** {{DT_FILE}} | Write induction loop definitions for the given detector positions to FILE |
+| **--validation-output.add-sources** {{DT_BOOL}} | Add source detectors to the validation output; *default:* **false** |
 
 ### Processing
 
@@ -101,10 +101,10 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **--time-offset** {{DT_TIME}} | Subtracts TIME seconds from (scaled) flow times; *default:* **0** |
 | **--time-step** {{DT_TIME}} | Expected distance between two successive data sets; *default:* **60** |
 | **--calibrator-output** {{DT_BOOL}} | Write calibrators to FILE; *default:* **false** |
-| **--include-unused-routes** {{DT_BOOL}} | *default:* **false** |
-| **--revalidate-flows** {{DT_BOOL}} | *default:* **false** |
+| **--include-unused-routes** {{DT_BOOL}} | Include routes in the output which have no vehicles; *default:* **false** |
+| **--revalidate-flows** {{DT_BOOL}} | Checks whether detectors with calculated flow 0 can attract additional traffic; *default:* **false** |
 | **--remove-empty-detectors** {{DT_BOOL}} | Removes empty detectors from the list; *default:* **false** |
-| **--strict-sources** {{DT_BOOL}} | *default:* **false** |
+| **--strict-sources** {{DT_BOOL}} | Whether edges with unknown status can prevent an edge from becoming a source; *default:* **false** |
 | **--respect-concurrent-inflows** {{DT_BOOL}} | Try to determine further inflows to an inbetween detector when computing split probabilities; *default:* **false** |
 | **--scale** {{DT_FLOAT}} | Scale factor for flows; *default:* **1** |
 

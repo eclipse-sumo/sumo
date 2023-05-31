@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-07 09:56:43 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
+<!-- generated on 2023-04-21 08:55:05 by Eclipse SUMO netedit Version v1_16_0+2264-6d5ab3ff809
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <trip id="trip_0" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" triggered="" speed="10.00"/>
+        <stop containerStop="containerStop" speed="10.00"/>
     </trip>
     <trip id="trip_1" depart="0.00" from="gneE0" to="gneE1"/>
     <trip id="trip_2" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" triggered="" speed="10.00"/>
+        <stop containerStop="containerStop" speed="10.00"/>
     </trip>
     <trip id="trip_3" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" triggered="" speed="10.00"/>
+        <stop containerStop="containerStop" speed="10.00"/>
     </trip>
     <trip id="trip_4" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" triggered="" speed="10.00"/>
+        <stop containerStop="containerStop" speed="10.00"/>
     </trip>
     <trip id="trip_5" depart="0.00" from="gneE0" to="gneE1">
         <stop containerStop="containerStop" triggered="person" speed="10.00"/>

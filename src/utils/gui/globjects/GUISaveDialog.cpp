@@ -21,6 +21,7 @@
 #include "GUISaveDialog.h"
 
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/common/MsgHandler.h>
 
 // Padding for message box buttons
 #define HORZ_PAD 30
@@ -83,9 +84,9 @@ GUISaveDialog::initialize(const FXString& text, FXIcon* ic) {
     new FXHorizontalSeparator(content, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
     FXHorizontalFrame* buttons = new FXHorizontalFrame(content, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 5);
     buttons->setPackingHints(PACK_NORMAL);
-    FXButton* saveChanges = new FXButton(buttons, tr("&Save changes"), NULL, this, CLICKED_SAVE, GUIDesignSaveDialogButtonInitial);
-    new FXButton(buttons, tr("&Don't save"), NULL, this, CLICKED_DISCARD, GUIDesignSaveDialogButton);
-    new FXButton(buttons, tr("&Abort"), NULL, this, CLICKED_ABORT, GUIDesignSaveDialogButton);
+    FXButton* saveChanges = new FXButton(buttons, TL("&Save changes"), NULL, this, CLICKED_SAVE, GUIDesignSaveDialogButtonInitial);
+    new FXButton(buttons, TL("&Don't save"), NULL, this, CLICKED_DISCARD, GUIDesignSaveDialogButton);
+    new FXButton(buttons, TL("&Abort"), NULL, this, CLICKED_ABORT, GUIDesignSaveDialogButton);
     saveChanges->setFocus();
 }
 

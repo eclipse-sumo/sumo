@@ -38,7 +38,8 @@
 // ===========================================================================
 NLNetShapeHandler::NLNetShapeHandler(const std::string& file, MSNet& net) :
     SUMOSAXHandler(file, "net"),
-    myNet(net) {
+    myNet(net),
+    myPrimaryEdges(MSEdge::getAllEdges().begin(), MSEdge::getAllEdges().end()) {
 }
 
 
@@ -47,7 +48,7 @@ NLNetShapeHandler::~NLNetShapeHandler() {}
 
 void
 NLNetShapeHandler::myStartElement(int element,
-                          const SUMOSAXAttributes& attrs) {
+                                  const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_LANE:
             addLane(attrs);
@@ -82,6 +83,7 @@ NLNetShapeHandler::addLane(const SUMOSAXAttributes& attrs) {
     }
     const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     lane->addSecondaryShape(shape);
+    myPrimaryEdges.erase(&lane->getEdge());
 }
 
 
@@ -144,7 +146,7 @@ NLNetShapeHandler::sortInternalShapes() {
     // even when the alternative network has the same topology as
     // the primary network, the ids of internal lanes may differ
     // since they are based on a clockwise sorting of the edges.
-    // hence we must verify connections and suffle the shapes as needed
+    // hence we must verify connections and shuffle the shapes as needed
     for (auto item : myShuffledJunctions) {
         const MSJunction* junction = item.first;
         std::map<MSLane*, PositionVector> shapes2;
@@ -155,6 +157,10 @@ NLNetShapeHandler::sortInternalShapes() {
         for (auto laneMap : item.second) {
             laneMap.first->addSecondaryShape(shapes2[laneMap.second]);
         }
+    }
+    // final warning
+    if (myPrimaryEdges.size() > 0) {
+        WRITE_WARNING(TLF("% edges of the primary network did not occur in the alternative-net-file", myPrimaryEdges.size()));
     }
 }
 /****************************************************************************/

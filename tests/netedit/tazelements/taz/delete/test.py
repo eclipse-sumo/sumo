@@ -32,19 +32,19 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.TAZMode()
 
 # create TAZ
-netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
+netedit.createSquaredTAZ(referencePosition, 407, 142, 200, True)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete created TAZ
-netedit.leftClick(referencePosition, 182, 130)
+netedit.leftClick(referencePosition, 407, 142)
 
 # delete second TAZ
-netedit.leftClick(referencePosition, 155, 35)
+netedit.leftClick(referencePosition, 544, 142)
 
-# try to delete third TAZ
-netedit.leftClick(referencePosition, 275, 25)
+# delete third TAZ clicking center
+netedit.leftClick(referencePosition, 691, 120)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

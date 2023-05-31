@@ -41,7 +41,7 @@ netedit.changeDefaultValue(netedit.attrs.POIGEO.create.type, "<<poi_test>>")
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.type, "custom type")
 
 # create poi
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

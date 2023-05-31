@@ -646,8 +646,8 @@ TRACI_CONST int TRAFFICLIGHT_TYPE_DELAYBASED = 0x04;
 // ****************************************
 // Lane change directions
 // ****************************************
-TRACI_CONST int LANECHANGE_LEFT = 0x00;
-TRACI_CONST int LANECHANGE_RIGHT = 0x01;
+TRACI_CONST int LANECHANGE_LEFT = 0x01;
+TRACI_CONST int LANECHANGE_RIGHT = -0x01;
 
 // ****************************************
 // FILTER TYPES (for context subscription filters)
@@ -938,7 +938,7 @@ TRACI_CONST int VAR_EXIT_POSITIONS = 0x43;
 // position (3D) (get: vehicle, poi, set: poi)
 TRACI_CONST int VAR_POSITION3D = 0x39;
 
-// angle (get: vehicle, poi, gui; set: poi, gui)
+// angle (get: vehicle, edge, lane, poi, gui; set: poi, gui)
 TRACI_CONST int VAR_ANGLE = 0x43;
 
 // length (get: vehicle types, lanes, lane area detector, set: lanes)

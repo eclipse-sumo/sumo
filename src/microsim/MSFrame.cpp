@@ -215,6 +215,10 @@ MSFrame::fillOptions() {
     oc.doRegister("tripinfo-output.write-undeparted", new Option_Bool(false));
     oc.addDescription("tripinfo-output.write-undeparted", "Output", TL("Write tripinfo output for vehicles which have not departed at simulation end because of depart delay"));
 
+    oc.doRegister("personinfo-output", new Option_FileName());
+    oc.addSynonyme("personinfo-output", "personinfo");
+    oc.addDescription("personinfo-output", "Output", TL("Save personinfo and containerinfo to separate FILE"));
+
     oc.doRegister("vehroute-output", new Option_FileName());
     oc.addSynonyme("vehroute-output", "vehroutes");
     oc.addDescription("vehroute-output", "Output", TL("Save single vehicle route info into FILE"));
@@ -375,8 +379,14 @@ MSFrame::fillOptions() {
     oc.doRegister("collision.action", new Option_String("teleport"));
     oc.addDescription("collision.action", "Processing", TL("How to deal with collisions: [none,warn,teleport,remove]"));
 
+    oc.doRegister("intermodal-collision.action", new Option_String("warn"));
+    oc.addDescription("intermodal-collision.action", "Processing", TL("How to deal with collisions between vehicle and pedestrian: [none,warn,teleport,remove]"));
+
     oc.doRegister("collision.stoptime", new Option_String("0", "TIME"));
     oc.addDescription("collision.stoptime", "Processing", TL("Let vehicle stop for TIME before performing collision.action (except for action 'none')"));
+
+    oc.doRegister("intermodal-collision.stoptime", new Option_String("0", "TIME"));
+    oc.addDescription("intermodal-collision.stoptime", "Processing", TL("Let vehicle stop for TIME before performing intermodal-collision.action (except for action 'none')"));
 
     oc.doRegister("collision.check-junctions", new Option_Bool(false));
     oc.addDescription("collision.check-junctions", "Processing", TL("Enables collisions checks on junctions"));
@@ -880,7 +890,7 @@ MSFrame::checkOptions() {
             if (end > 0 && saveT >= end) {
                 WRITE_WARNINGF(TL("The save-state time=% will not be used before simulation end at %."), timeStr, time2string(end));
             } else {
-                checkStepLengthMultiple(saveT, " for save-state.times", deltaT);
+                checkStepLengthMultiple(saveT, " for save-state.times", deltaT, begin);
             }
         } catch (ProcessError& e) {
             WRITE_ERROR("Invalid time '" + timeStr + "' for option 'save-state.times'. " + e.what());
@@ -941,7 +951,7 @@ MSFrame::checkOptions() {
         }
     }
     if (!SUMOXMLDefinitions::CarFollowModels.hasString(oc.getString("carfollow.model"))) {
-        WRITE_ERRORF(TL("Unknown model '%' for option 'carfollow.model'."), oc.getString("carfollow.model") );
+        WRITE_ERRORF(TL("Unknown model '%' for option 'carfollow.model'."), oc.getString("carfollow.model"));
         ok = false;
     }
     if (oc.isSet("default.emergencydecel")) {

@@ -70,6 +70,10 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime t) {
     }
     int step1 = myTLLogic->getCurrentPhaseIndex();
     SUMOTime next = myTLLogic->trySwitch();
+    while (next == 0) {
+        // skip phase and switch again
+        next = myTLLogic->trySwitch();
+    }
     int step2 = myTLLogic->getCurrentPhaseIndex();
     if (step1 != step2) {
         if (myTLLogic->isActive()) {
@@ -260,10 +264,9 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                     for (MSPhaseDefinition* p : phases) {
                                         if (minor.find(p->getState()[tlu]) != std::string::npos
                                                 && minor.find(p->getState()[tlv]) != std::string::npos) {
-                                            WRITE_ERROR("Program '" + getProgramID() + "' at tlLogic '" + getID() + "' is incompatible with logic at junction '" + junction->getID() + "'"
-                                                        + " (mututal conflict between link indices " + toString(u) + "," + toString(v)
-                                                        + " tl indices " + toString(tlu) + "," + toString(tlv) + " phase " + toString(phaseIndex) + ")."
-                                                        + "\n       Rebuild the network with option '--tls.ignore-internal-junction-jam or include the program when building.");
+                                            WRITE_ERRORF(TL("Program '%' at tlLogic '%' is incompatible with logic at junction '%' (mutual conflict between link indices %,% tl indices %,% phase %).\n"
+                                                            "  Rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building."),
+                                                         getProgramID(), getID(), junction->getID(), u, v, tlu, tlv, phaseIndex);
                                             return;
                                         }
                                         phaseIndex++;

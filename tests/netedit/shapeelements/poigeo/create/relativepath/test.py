@@ -38,7 +38,7 @@ netedit.changeElement("poiGeo")
 netedit.changeDefaultBoolValue(netedit.attrs.POIGEO.create.relativePath)
 
 # create poi
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 292, 117)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

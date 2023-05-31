@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-13 12:18:19 by Eclipse SUMO netconvert Version v1_13_0+0234-b8e58c6a531
+<!-- generated on 2023-05-09 16:00:33 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -8,21 +8,9 @@
         <opendrive-files value="opendrive"/>
     </input>
 
-    <processing>
-        <geometry.max-grade.fix value="false"/>
-    </processing>
-
-    <tls_building>
-        <tls.left-green.time value="0"/>
-    </tls_building>
-
     <junctions>
-        <rectangular-lane-cut value="true"/>
+        <no-turnarounds.except-deadend value="true"/>
     </junctions>
-
-    <report>
-        <aggregate-warnings value="5"/>
-    </report>
 
 </configuration>
 -->
@@ -35,13 +23,8 @@
 
     <type id="biking" priority="1" speed="22.22" allow="bicycle" width="1.50"/>
     <type id="driving" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
-    <type id="mwyEntry" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
-    <type id="mwyExit" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
-    <type id="parking" priority="1" speed="1.39" disallow="pedestrian" width="3.65"/>
     <type id="restricted" priority="1" speed="22.22" allow="pedestrian bicycle" width="1.50"/>
     <type id="sidewalk" priority="1" speed="22.22" allow="pedestrian" width="2.50"/>
-    <type id="special1" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
-    <type id="stop" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
 
     <edge id=":1_0" function="internal">
         <lane id=":1_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" width="3.20" shape="471.07,47.45 471.77,46.19 472.53,45.72 473.36,46.05 474.26,47.18"/>

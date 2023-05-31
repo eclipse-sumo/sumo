@@ -243,7 +243,7 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
             }
             if (probs.size() > 0 && probIndex != (int)probs.size()) {
                 WRITE_WARNING("Got " + toString(probs.size()) + " probabilities for " + toString(probIndex) +
-                        " types in vTypeDistribution '" + myCurrentVTypeDistributionID + "'");
+                              " types in vTypeDistribution '" + myCurrentVTypeDistributionID + "'");
             }
         }
     }
@@ -544,7 +544,7 @@ MSRouteHandler::closeVehicle() {
         route = MSRoute::dictionary(embeddedRouteID, &myParsingRNG);
     }
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
-    if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN || myVehicleParameter->departProcedure == DepartDefinition::BEGIN) {
+    if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
         if (!(myAddVehiclesDirectly || checkLastDepart()) || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
             return;

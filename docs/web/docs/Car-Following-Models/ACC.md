@@ -11,8 +11,8 @@ three modes: (i) speed (or cruising) control, (ii) gap control
 and (iii) gap-closing control. A fourth mode (i.e. collision avoidance mode) has
 been introduced within the project [TransAID](https://www.transaid.eu), when the ACC model was first integrated to SUMO [\[3\]](#references).
 
-Note, that the additional modes (iii) and (iv) aim to enable stable and safe car-following behaviour in SUMO, 
-whereas the original publication [\[1\]](#references) reveals string instablities in experimental data and simulations 
+Note, that the additional modes (iii) and (iv) aim to enable stable and safe car-following behavior in SUMO, 
+whereas the original publication [\[1\]](#references) reveals string instabilities in experimental data and simulations 
 for vehicle platoons with ACC controllers (see [String Instabilities in ACC Platoons](#string_instabilities_in_acc_platoons)).
 
 see also [CACC model](CACC.md).
@@ -52,7 +52,7 @@ Also, if the `followSpeed` computed by the ACC model grows higher than the safe 
 # String Instabilities in ACC Platoons
 Milanés & Shladover [\[1\]](#references) showed in their experiments that the proposed ACC controller is string instable. Although ACC controllers can be calibrated to be string stable, e.g. Gunter et al. [\[4\]](#references) raise concern that commercial vehicles mostly deploy ACC controllers that are string instable due to driving comfort reasons.
 
-To investigate stablity effects of vehicle platoons deploying the original ACC model with SUMO, it's possible to disable the modes (iii) and (iv) by resetting the following parameters to:
+To investigate stability effects of vehicle platoons deploying the original ACC model with SUMO, it's possible to disable the modes (iii) and (iv) by resetting the following parameters to:
 
 | Mode | Attribute | Value |
 | --- | --- | --- |
@@ -61,11 +61,11 @@ To investigate stablity effects of vehicle platoons deploying the original ACC m
 | iv | collisionAvoidanceGainSpeed | 0.07 |
 | iv | collisionAvoidanceGainSpace | 0.23 |
 
-Note, that the parameter `collisionAvoidanceOverride` (default: 2) affects the mode (iv) by overriding the followSpeed when deemed unsafe by the given margin. To eliminate this case, which slightly affects the platooning behaviour, but not the string instability itself, this parameter may be set to to a much larger value (i.e. 100) to avoid the effect.
+Note, that the parameter `collisionAvoidanceOverride` (default: 2) affects the mode (iv) by overriding the followSpeed when deemed unsafe by the given margin. To eliminate this case, which slightly affects the platooning behavior, but not the string instability itself, this parameter may be set to to a much larger value (i.e. 100) to avoid the effect.
 
 The default parameters of the ACC model can be found here: [Car-Following Model Parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_model_parameters)
 
-Given the parametrization from the table, you could replicate the platoon oscilation as in Fig.12 in [\[1\]](#references) with SUMO:
+Given the parametrization from the table, you could replicate the platoon oscillation as in Fig.12 in [\[1\]](#references) with SUMO:
 
 ![ACC platoon](../images/ACC_platoon_speed.png "ACC platoon")
 

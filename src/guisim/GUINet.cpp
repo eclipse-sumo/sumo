@@ -342,7 +342,7 @@ GUINet::initGUIStructures() {
         for (GUIEdge* edge : myEdgeWrapper) {
             Boundary b;
             for (MSLane* lane : edge->getLanes()) {
-                b.add(static_cast<GUILane*>(lane)->getSecondaryShape().getBoxBoundary());
+                b.add(static_cast<GUILane*>(lane)->getShape(true).getBoxBoundary());
             }
             // make sure persons are always drawn and selectable since they depend on their edge being drawn
             b.grow(MSPModel::SIDEWALK_OFFSET + 1);
@@ -363,7 +363,7 @@ GUINet::initGUIStructures() {
 
 
 void
-GUINet::registerRenderedObject(GUIGlObject *o) {
+GUINet::registerRenderedObject(GUIGlObject* o) {
     getVisualisationSpeedUp().addAdditionalGLObject(o);
     if (OptionsCont::getOptions().isSet("alternative-net-file")) {
         GUIGlobals::gSecondaryShape = true;
@@ -783,6 +783,7 @@ GUINet::addHotkey(int key, Command* press, Command* release) {
 
 void
 GUINet::flushOutputsAtEnd() {
+    mySkipFinalReset = true;
     myDetectorControl->close(SIMSTEP);
     OutputDevice::flushAll();
     // update tracker windows

@@ -38,7 +38,7 @@ else:
 
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Sample routes to match counts")
-    parser.add_argument("-r", "--route-files", dest="routeFiles",
+    parser.add_argument("-r", "--route-files", category='input', dest="routeFiles",
                         help="Input route file")
     parser.add_argument("-H", "--human-readable-time", dest="hrTime", action="store_true", default=False,
                         help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds")
