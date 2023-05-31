@@ -15,3 +15,6 @@ TWLT_bidi_sequence
 
 # median lane is shared with tram
 TWLT_tram
+
+# transition between shared median lane and unshared lanes
+TWLT_end
