@@ -30,7 +30,6 @@ else:
 
 import sumolib  # noqa
 import connections  # noqa
-import collectinghandler  # noqa
 
 LOGGER = logging.getLogger(__name__)
 
