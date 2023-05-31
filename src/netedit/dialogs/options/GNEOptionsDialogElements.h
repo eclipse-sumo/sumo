@@ -62,6 +62,9 @@ public:
         /// @brief get description  (Lower)
         const std::string getDescriptionLower() const;
 
+        /// @brief update option (used after load options)
+        virtual void updateOption() = 0;
+
         /// @brief called when user set value in textField/button/checkBox
         virtual long onCmdSetOption(FXObject*, FXSelector, void*) = 0;
 
@@ -112,6 +115,9 @@ public:
         InputString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                     const std::string& name, const std::string& description, const std::string& defaultValue);
 
+        /// @brief update option
+        void updateOption();
+
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
@@ -133,6 +139,9 @@ public:
         /// @brief constructor
         InputStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                           const std::string& name, const std::string& description, const std::string& defaultValue);
+
+        /// @brief update option
+        void updateOption();
 
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -156,6 +165,9 @@ public:
         InputBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                   const std::string& name, const std::string& description, const std::string& defaultValue);
 
+        /// @brief update option
+        void updateOption();
+
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
@@ -177,6 +189,9 @@ public:
         /// @brief
         InputInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                  const std::string& name, const std::string& description, const std::string& defaultValue);
+
+        /// @brief update option
+        void updateOption();
 
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -200,6 +215,9 @@ public:
         InputIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                        const std::string& name, const std::string& description, const std::string& defaultValue);
 
+        /// @brief update option
+        void updateOption();
+
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
@@ -221,6 +239,9 @@ public:
         /// @brief constructor
         InputFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                    const std::string& name, const std::string& description, const std::string& defaultValue);
+
+        /// @brief update option
+        void updateOption();
 
         /// @brief called when user set value in textField/button/checkBox
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -248,6 +269,9 @@ public:
         /// @brief constructor
         InputFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
                       const std::string& name, const std::string& description, const std::string& defaultValue);
+
+        /// @brief update option
+        void updateOption();
 
         /// @brief called when user press open dialog button
         long onCmdOpenDialog(FXObject*, FXSelector, void*);

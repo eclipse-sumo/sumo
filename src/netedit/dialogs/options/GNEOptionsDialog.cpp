@@ -120,8 +120,10 @@ GNEOptionsDialog::onCmdLoadOptions(FXObject*, FXSelector, void*) {
     const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, false);
     // check file
     if ((file.size() > 0) && loadConfiguration(file)) {
-        // rebuild arguments
-        //buildArguments((mySortedCheckButton->getCheck() == TRUE), (myGroupedCheckButton->getCheck() == TRUE));
+        // update entries
+        for (const auto &entry : myInputOptionEntries) {
+            entry->updateOption();
+        }
     }
     return 1;
 }
