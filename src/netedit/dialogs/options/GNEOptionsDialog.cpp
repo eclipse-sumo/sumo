@@ -209,21 +209,23 @@ GNEOptionsDialog::GNEOptionsDialog(GUIMainWindow* parent, GUIIcon icon, OptionsC
                     const std::string type = myOptionsContainer->getTypeName(entry);
                     // get description
                     const std::string description = myOptionsContainer->getDescription(entry);
+                    // get default value
+                    const std::string defaultValue = myOptionsContainer->getValueString(entry);
                     // continue depending of type
                     if (type == "STR") {
-                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputString(this, myEntriesFrame, topic, entry, description));
+                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputString(this, myEntriesFrame, topic, entry, description, defaultValue));
                     } else if ((type == "FILE") || (type == "NETWORK") || (type == "ADDITIONAL") || (type == "ROUTE") || (type == "DATA")) {
-                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputFilename(this, myEntriesFrame, topic, entry, description));
+                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputFilename(this, myEntriesFrame, topic, entry, description, defaultValue));
                     } else if (type == "BOOL") {
-                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputBool(this, myEntriesFrame, topic, entry, description));
+                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputBool(this, myEntriesFrame, topic, entry, description, defaultValue));
                     } else if (type == "INT") {
-                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputInt(this, myEntriesFrame, topic, entry, description));
+                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputInt(this, myEntriesFrame, topic, entry, description, defaultValue));
                     } else if (type == "FLOAT") {
-                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputFloat(this, myEntriesFrame, topic, entry, description));
+                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputFloat(this, myEntriesFrame, topic, entry, description, defaultValue));
                     } else if (type == "INT[]") {
-                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputIntVector(this, myEntriesFrame, topic, entry, description));
+                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputIntVector(this, myEntriesFrame, topic, entry, description, defaultValue));
                     } else if (type == "STR[]") {
-                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputStringVector(this, myEntriesFrame, topic, entry, description));
+                        myInputOptionEntries.push_back(new GNEOptionsDialogElements::InputStringVector(this, myEntriesFrame, topic, entry, description, defaultValue));
                     }
                 }
             }
