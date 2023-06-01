@@ -562,8 +562,8 @@ GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sum
 
 void
 GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                                 const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, double arrivalPos,
-                                 const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) {
+                                 const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
+                                 double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) {
     // get previous plan edge
     const auto previousEdge = getPreviousPlanEdge(true, sumoBaseObject);
     // parse parents
@@ -573,6 +573,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
     GNEJunction* fromJunction = myNet->getAttributeCarriers()->retrieveJunction(fromJunctionID, false);
     GNEJunction* toJunction = myNet->getAttributeCarriers()->retrieveJunction(toJunctionID, false);
     GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
+    GNEAdditional* toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toTrainStopID, false);
     // check from edge
     if ((fromEdge == nullptr) && previousEdge) {
         fromEdge = previousEdge;
@@ -605,7 +606,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             }
         } else if (fromEdge && toBusStop) {
             // create personTrip from->busStop
-            GNEDemandElement* personTrip = new GNEPersonTrip(myNet, personParent, fromEdge, toBusStop, arrivalPos, types, modes, lines);
+            GNEDemandElement* personTrip = new GNEPersonTrip(false, myNet, personParent, fromEdge, toBusStop, arrivalPos, types, modes, lines);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(personTrip->getTagProperty().getGUIIcon(), TL("add ") + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
@@ -618,6 +619,22 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
                 fromEdge->addChildElement(personTrip);
                 toBusStop->addChildElement(personTrip);
                 personTrip->incRef("buildPersonTripFromBusStop");
+            }
+        } else if (fromEdge && toTrainStop) {
+            // create personTrip from->trainStop
+            GNEDemandElement* personTrip = new GNEPersonTrip(true, myNet, personParent, fromEdge, toTrainStop, arrivalPos, types, modes, lines);
+            if (myAllowUndoRedo) {
+                myNet->getViewNet()->getUndoList()->begin(personTrip->getTagProperty().getGUIIcon(), TL("add ") + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
+                myNet->getViewNet()->getUndoList()->end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(personTrip);
+                // set child references
+                personParent->addChildElement(personTrip);
+                fromEdge->addChildElement(personTrip);
+                toTrainStop->addChildElement(personTrip);
+                personTrip->incRef("buildPersonTripFromTrainStop");
             }
         } else if (fromJunction && toJunction) {
             // create personTrip from->to (junctions)
@@ -1250,7 +1267,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_PERSONTRIP_EDGE: {
             // check if person trip busStop->edge can be created
             if (fromEdge && toEdge) {
-                buildPersonTrip(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", "", arrivalPos, types, modes, lines);
+                buildPersonTrip(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", "", "", arrivalPos, types, modes, lines);
             } else {
                 myNet->getViewNet()->setStatusBarText(TL("A person trip from edge to edge needs two edges edge"));
                 return false;
@@ -1260,9 +1277,19 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_PERSONTRIP_BUSSTOP: {
             // check if person trip busStop->busStop can be created
             if (fromEdge && toBusStop) {
-                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", toBusStop->getID(), arrivalPos, types, modes, lines);
+                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", toBusStop->getID(), "", arrivalPos, types, modes, lines);
             } else {
                 myNet->getViewNet()->setStatusBarText(TL("A person trip from edge to busStop needs one edge and one busStop"));
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_PERSONTRIP_TRAINSTOP: {
+            // check if person trip trainStop->trainStop can be created
+            if (fromEdge && toTrainStop) {
+                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", "", toTrainStop->getID(), arrivalPos, types, modes, lines);
+            } else {
+                myNet->getViewNet()->setStatusBarText(TL("A person trip from edge to trainStop needs one edge and one trainStop"));
                 return false;
             }
             break;
@@ -1270,7 +1297,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_PERSONTRIP_JUNCTIONS: {
             // check if person trip busStop->junction can be created
             if (fromJunction && toJunction) {
-                buildPersonTrip(personPlanObject, "", "", fromJunction->getID(), toJunction->getID(), "", arrivalPos, types, modes, lines);
+                buildPersonTrip(personPlanObject, "", "", fromJunction->getID(), toJunction->getID(), "", "", arrivalPos, types, modes, lines);
             } else {
                 myNet->getViewNet()->setStatusBarText(TL("A person trip from junction to junction needs two junctions junction"));
                 return false;

@@ -38,7 +38,7 @@
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-myArrivalPosition(0) {
+    myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -49,22 +49,23 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdg
                              const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes),
-myLines(lines) {
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes),
+    myLines(lines) {
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
+GNEPersonTrip::GNEPersonTrip(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toStoppingPlace,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                              const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_BUSSTOP),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes),
-myLines(lines) {
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, isTrain? GNE_TAG_PERSONTRIP_TRAINSTOP : GNE_TAG_PERSONTRIP_BUSSTOP, 
+                     GUIIconSubSys::getIcon(isTrain? GUIIcon::PERSONTRIP_TRAINSTOP : GUIIcon::PERSONTRIP_BUSSTOP),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toStoppingPlace}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes),
+    myLines(lines) {
 }
 
 
@@ -151,7 +152,7 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
     }
     // avoid write arrival positions in person trip to busStop
-    if ((myTagProperty.getTag() != GNE_TAG_PERSONTRIP_BUSSTOP) && (myArrivalPosition > 0)) {
+    if (!((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_TRAINSTOP)) && (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // write modes
@@ -347,7 +348,7 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VTYPES:
             return joinToString(myVTypes, " ");
         case SUMO_ATTR_ARRIVALPOS:
-            if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) {
+            if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_TRAINSTOP)) {
                 return getParentAdditionals().front()->getAttribute(SUMO_ATTR_ENDPOS);
             } else if (myArrivalPosition == -1) {
                 return "";
@@ -556,7 +557,7 @@ GNEPersonTrip::getHierarchyName() const {
         return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_JUNCTIONS) {
         return "personTrip: " + getParentJunctions().front()->getID() + " -> " + getParentJunctions().back()->getID();
-    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) {
+    } else if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP)) {
         return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().front()->getID();
     } else {
         throw ("Invalid personTrip tag");

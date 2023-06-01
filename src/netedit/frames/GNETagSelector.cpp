@@ -458,6 +458,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         case GNE_TAG_PERSONTRIP_EDGE:
         case GNE_TAG_PERSONTRIP_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_TRAINSTOP:
         case GNE_TAG_PERSONTRIP_JUNCTIONS:
             myAC = new GNEPersonTrip(tagProperty.getTag(), net);
             break;

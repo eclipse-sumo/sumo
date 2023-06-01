@@ -39,7 +39,7 @@ public:
     GNEPersonTrip(SumoXMLTag tag, GNENet* net);
 
     /**@brief parameter constructor for person edge->edge
-     * @param[in] viewNet view in which this PersonTrip is placed
+     * @param[in] net Network in which this PersonTrip is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
      * @param[in] toEdge to edge
@@ -52,22 +52,22 @@ public:
                   double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                   const std::vector<std::string>& lines);
 
-    /**@brief parameter constructor for person edge->busStop
-     * @param[in] viewNet view in which this PersonTrip is placed
+    /**@brief parameter constructor for person edge->stoppingPlace
+     * @param[in] net Network in which this PersonTrip is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
-     * @param[in] toBusStop to busStop
+     * @param[in] toStoppingPlace to stoppingPlace
      * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      * @param[in] lines list of lines
      */
-    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
+    GNEPersonTrip(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toStoppingPlace,
                   double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                   const std::vector<std::string>& lines);
 
     /**@brief parameter constructor for person junction->junction
-     * @param[in] viewNet view in which this PersonTrip is placed
+     * @param[in] net Network in which this PersonTrip is placed
      * @param[in] personParent person parent
      * @param[in] fromJunction from junction
      * @param[in] toJunction to junction

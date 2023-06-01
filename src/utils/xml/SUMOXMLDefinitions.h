@@ -427,10 +427,6 @@ enum SumoXMLTag {
     GNE_TAG_FLOW_ROUTE,
     /// @brief description of a vehicle with an embedded route
     GNE_TAG_FLOW_WITHROUTE,
-    // @brief person trips
-    GNE_TAG_PERSONTRIP_EDGE,
-    GNE_TAG_PERSONTRIP_BUSSTOP,
-    GNE_TAG_PERSONTRIP_JUNCTIONS,
     /// @brief waypoint for vehicles
     GNE_TAG_WAYPOINT,
     /// @brief waypoint placed over a lane
@@ -445,6 +441,11 @@ enum SumoXMLTag {
     GNE_TAG_WAYPOINT_CHARGINGSTATION,
     /// @brief waypoint placed over a parking area
     GNE_TAG_WAYPOINT_PARKINGAREA,
+    // @brief person trips
+    GNE_TAG_PERSONTRIP_EDGE,
+    GNE_TAG_PERSONTRIP_BUSSTOP,
+    GNE_TAG_PERSONTRIP_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_JUNCTIONS,
     // @brief walks
     GNE_TAG_WALK_EDGE,
     GNE_TAG_WALK_BUSSTOP,
