@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-01 10:22+0000\n"
+"PO-Revision-Date: 2023-06-01 22:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9316,33 +9316,33 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:145
 msgid "Route creator"
-msgstr ""
+msgstr "Creatore d'itinerari"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:152
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:948
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1156
 msgid "No edges selected"
-msgstr ""
+msgstr "Nessun'arco selezionato"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:154
 msgid "Use last route"
-msgstr ""
+msgstr "Usa l'ultimo itinerario"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:157
 msgid "Finish route creation"
-msgstr ""
+msgstr "Termina la creazione dell'itinerario"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:160
 msgid "Abort route creation"
-msgstr ""
+msgstr "Annulla la creazione dell'itinerario"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:163
 msgid "Remove last edge"
-msgstr ""
+msgstr "Rimuovi l'ultimo arco"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:166
 msgid "Show candidate edges"
-msgstr ""
+msgstr "Mostra gli archi candidati"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:374
 msgid "Double junctions aren't allowed"
