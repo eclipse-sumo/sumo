@@ -495,34 +495,29 @@ GNEStop::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
-    bool drawStop = false;
-    if (getTagProperty().isStopPerson()) {
-        drawStop = drawPersonPlan();
-    } else if (getTagProperty().isStopContainer()) {
-        drawStop = drawContainerPlan();
-    } else {
-        drawStop = canDrawVehicleStop();
-    }
-    // check if stop can be drawn
-    if (drawStop) {
-        // Obtain exaggeration of the draw
-        const double exaggeration = getExaggeration(s);
-        // check if draw an stop for person/containers or for vehicles/routes
-        if (getTagProperty().isStopPerson() || getTagProperty().isStopContainer()) {
+    // Obtain exaggeration of the draw
+    const double exaggeration = getExaggeration(s);
+    // check if draw an stop for person/containers or for vehicles/routes
+    if (getTagProperty().isStopPerson() || getTagProperty().isStopContainer()) {
+        // check if stop can be draw
+        if ((getTagProperty().isStopPerson() && drawPersonPlan()) ||
+            (getTagProperty().isStopContainer() && drawContainerPlan())) {
             // check if draw stopPerson over busStop oder over lane
             if (getParentAdditionals().size() > 0) {
-                drawStopPersonOverBusStop(s, exaggeration);
+                drawStopPersonOverStoppingPlace(s, exaggeration);
             } else {
                 drawStopPersonOverEdge(s, exaggeration);
             }
-            // draw person parent if this stop if their first person plan child
-            if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
-                getParentDemandElements().front()->drawGL(s);
-            }
-        } else {
-            // draw vehicle over stop
-            drawVehicleStop(s, exaggeration);
         }
+        // draw person parent if this stop if their first person plan child
+        if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
+            getParentDemandElements().front()->drawGL(s);
+        }
+        // Draw name
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    } else if (canDrawVehicleStop()) {
+        // draw vehicle over stop
+        drawVehicleStop(s, exaggeration);
         // Draw name
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
@@ -1401,7 +1396,7 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
 
 
 void
-GNEStop::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEStop::drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const {
     // declare stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
     // avoid draw invisible elements

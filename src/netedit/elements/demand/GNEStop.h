@@ -244,8 +244,8 @@ protected:
     /// @brief draw stopPerson over lane
     void drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const;
 
-    /// @brief draw stopPerson over busStop
-    void drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration) const;
+    /// @brief draw stopPerson over stoppingPlace
+    void drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const;
 
     /// @brief draw index
     bool drawIndex() const;
