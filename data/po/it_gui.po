@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-31 11:39+0000\n"
+"PO-Revision-Date: 2023-06-01 08:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8707,31 +8707,31 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEWalk.cpp:331
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEWalk.cpp:346
 msgid "This walk use junctions"
-msgstr ""
+msgstr "Questo cammino utilizza incroci"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEConnection.cpp:679
 msgid "Could not set attribute '%' (tls is broken)"
-msgstr ""
+msgstr "Non ho potuto impostare l'attributo '%' (il semaforo è invalido)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEEdge.cpp:2180
 msgid "Could not compute smooth shape for edge '%'"
-msgstr ""
+msgstr "Non ho potuto appianare la forma dell'arco '%'"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEEdge.cpp:2198
 msgid "Could not compute smooth elevation for edge '%'"
-msgstr ""
+msgstr "Non ho potuto calcolare il livello appianato per l'arco '%'"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEInternalLane.cpp:241
 msgid "invalid link state='%'"
-msgstr ""
+msgstr "stato del collegamento invalido ('%')"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEJunction.cpp:335
 msgid "Reset junction shapes"
-msgstr ""
+msgstr "Resetta le forme degli incroci"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNELane.cpp:470
 msgid "Unexpected LinkState '%'"
-msgstr ""
+msgstr "Stato di collegamento inaspettato '%'"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNELane.cpp:810
 msgid "Lane Parametric Length cannot be never 0"
