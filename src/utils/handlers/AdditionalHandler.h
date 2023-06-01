@@ -148,12 +148,13 @@ public:
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
+     * @param[in] lefthand enable or disable lefthand
      * @param[in] parameters generic parameters
      */
     virtual void buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                   const double startPos, const double endPos, const std::string& departPos, const std::string& name,
                                   const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width,
-                                  const double length, const double angle, const Parameterised::Map& parameters) = 0;
+                                  const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a Parking Space
      * @param[in] sumoBaseObject sumo base object used for build

@@ -822,8 +822,9 @@ class parkingArea:
         width = 11
         length = 12
         angle = 13
-        references = 17
-        referencesLength = 19
+        lefthand = 14
+        references = 18
+        referencesLength = 20
 
     class inspect:
         id = 1
@@ -838,7 +839,8 @@ class parkingArea:
         width = 10
         length = 11
         angle = 12
-        parameters = 15
+        lefthand = 13
+        parameters = 16
 
     class inspectSelection:
         departPos = 1
@@ -849,7 +851,8 @@ class parkingArea:
         width = 6
         length = 7
         angle = 8
-        parameters = 11
+        lefthand = 9
+        parameters = 12
 
 # parkingSpace
 

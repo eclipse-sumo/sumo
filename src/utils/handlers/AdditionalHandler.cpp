@@ -314,6 +314,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                              obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
                              obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
                              obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                             obj->getBoolAttribute(SUMO_ATTR_LEFTHAND),
                              obj->getParameters());
             break;
         case SUMO_TAG_PARKING_SPACE:
@@ -866,6 +867,7 @@ AdditionalHandler::parseParkingAreaAttributes(const SUMOSAXAttributes& attrs) {
     const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), parsedOk, 0);
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, 0);
     const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, 0);
+    const bool lefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, id.c_str(), parsedOk, false);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -883,6 +885,7 @@ AdditionalHandler::parseParkingAreaAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WIDTH, width);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_LEFTHAND, lefthand);
     }
 }
 

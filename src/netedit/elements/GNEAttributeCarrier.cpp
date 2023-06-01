@@ -1889,6 +1889,12 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LEFTHAND,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Enable or disable lefthand position"),
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
     }
     currentTag = SUMO_TAG_PARKING_SPACE;
     {
