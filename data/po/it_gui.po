@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-01 08:15+0000\n"
+"PO-Revision-Date: 2023-06-01 10:22+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8735,7 +8735,7 @@ msgstr "Stato di collegamento inaspettato '%'"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNELane.cpp:810
 msgid "Lane Parametric Length cannot be never 0"
-msgstr ""
+msgstr "La lunghezza parametrica della corsia non può in nessun caso essere 0"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNELane.cpp:972
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
