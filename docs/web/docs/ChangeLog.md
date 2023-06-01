@@ -20,8 +20,10 @@ title: ChangeLog
   - Fixed unnecessary emergency braking when cars urgently needs to swap lanes. Issue #13295
   - Fixed invalid collision warning when using bidi lane. Issue #13312
   - Fixed unsafe right-of-way rules at junction with shared median lane. Issue #13316
+  - Fixed frontal collision on shared median lane. Issue #13313
 
 - netedit
+  - Fixed crash when importing OSM data direclty. Issue #13297 (regression in 1.16.0)
   - Fixed segfault when closing netedit and no net is loaded #13131 (regression in 1.17.0)
   - Fixed spacing for person mode path info subframe. Issue #13140 (regression in 1.17.0)
   - Loading Data Elements via menu item is working again. Issue #13224 (regression in 1.17.0)
@@ -32,12 +34,17 @@ title: ChangeLog
   - Function 'add reverse edge' applied on a selection, no longer adds duplicate reverse edges. Issue #13209
   - Fixed inconsistent ordering of popup functions for additionals. Issue #13261
   - Stops at a `trainStop` can now be defined. Issue #13258
+  - Loading a second .sumocfg now properly resets all options. Issue #13123
+  - Object ids that contain the characters `!`, `?` or `*` (which are permitted in sumo) can now be loaded (such ids are discouraged since they make it more difficult to list object ids on the command line). Issue #13351
+  - A person with a single stop stage is now visible after loading. Issue #13126
+  - Creation of busStops and trainStops with the same id is now prevented (since this would give an error when loading the simulation). Issue #13269
 
 - sumo-gui
   - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
   - game mode now switches time display style for all time labels. Issue #13211
   - Fixed crash when switching to a (mismatching) alternative net file. Issue #13215
   - Clicking on a vehicle id which is not in the network no longer moves the view to Position::INVALID. Issue #13251
+  - Fixed invalid rendering of spread-bidi lanes for shared median lane network. Issue #13343
 
 - netconvert
   - Fixed inconsistent network file after setting **--default.spreadtype center**. Issue #13127
@@ -51,12 +58,15 @@ title: ChangeLog
   - Fixed invalid consistency error for circular public transport line. Issue #13255
   - OSM: fixed incomplete pt-route. Issue #13249
   - User defined node radius is no longer ignored for geometry-like nodes. Issue #13064
+  - Fixed missing bidi attribute for shared median lane with disconnected outer lanes. Issue #13335
+  - Fixed invalid bidi attribute for internal edge. Issue #13344
 
 - duarouter
   - Fixed railway routing failure if the stop is defined on a short buffer edge (also applies to sumo). Issue #13277
 
 - activitygen
   - Fixed crash when there are no work positions within a city. Issue #13315
+  - Now handling `nan` values in population input. Issue #13323
 
 - TraCI
   - Fixed crash when calling traci.load and running with sumo-gui. Issue #13150 (regression in 1.16.0)
@@ -75,6 +85,8 @@ title: ChangeLog
   - Added options **--intermodal-collision.action** and **--intermodal-collision.stoptime** to configure vehicle behavior after colliding with a pedestrian. Issue #13133
   - In the sublane mode, vehicle elevation is now interpolated when lane changing between lanes that have different z-values. Issue #13170
   - Element `parkingArea` now supports placing stopping places to the left of the lane in right-hand networks by setting attribute `lefthand="true"`. Issue #13303
+  - Added `device.taxi.idle-algorithm` value `taxistand` which makes idle taxis return to a pre-configured set of locations. Issue #13334
+  - The SSM-device now supports the new surrogate safety measure "MDRAC" which is modified maximum deceleration rate to avoid crash with perception/reaction time. Issue #13350
 
 - sumo-gui
   - Simulation end time is now written into the message window. Issue #13145
@@ -82,6 +94,8 @@ title: ChangeLog
 
 - netedit
   - Supermodes can now be activated using the modes menu. Issue #13138
+  - After generating a network without warnings, the new network will open directly without manually closing the output dialog. Issue #13149
+  - Implemented new dialog for setting netedit and sumo options. This dialog supports option help, file selection dialogs and permits dynamic filtering of listed options. Issue #12007
 
 - netconvert
   - OpenDRIVE import: now supports road objects from connecting roads. Issue #13196
@@ -122,6 +136,7 @@ title: ChangeLog
 - Netedit demand mode hotkeys changed: **C** now activates container mode and **L** activates person plan mode. Issue #13141
 - All strings send and received by TraCI are now utf8 encoded and interpreted as utf8. Issue #7171
 - traci.simulationStep has no return value on Python any longer (similar to the other languages), use traci.simulationStepLegacy for the old behavior. Issue #13296
+- The default file extension for netedit configuration files was changed from `.neteditconfig` to `.netecfg` for consistency with other config extensions. Issue #13100
 
 
 ## Version 1.17.0 (25.04.2023)
