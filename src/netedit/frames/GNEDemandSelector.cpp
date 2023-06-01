@@ -273,6 +273,7 @@ DemandElementSelector::getPersonPlanPreviousEdge() const {
         case GNE_TAG_WALK_TRAINSTOP:
         // stops
         case GNE_TAG_STOPPERSON_BUSSTOP:
+        case GNE_TAG_STOPPERSON_TRAINSTOP:
             return lastPersonPlan->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
         // route walks
         case GNE_TAG_WALK_ROUTE:

@@ -1168,7 +1168,11 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 // create stop using stopParameters and stoppingPlace
                 GNEDemandElement* stop = nullptr;
                 if (stopParent->getTagProperty().isPerson()) {
-                    stop = new GNEStop(GNE_TAG_STOPPERSON_BUSSTOP, myNet, stopParent, stoppingPlace, stopParameters);
+                    if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+                        stop = new GNEStop(GNE_TAG_STOPPERSON_BUSSTOP, myNet, stopParent, stoppingPlace, stopParameters);
+                    } else {
+                        stop = new GNEStop(GNE_TAG_STOPPERSON_TRAINSTOP, myNet, stopParent, stoppingPlace, stopParameters);
+                    }
                 } else if (stopParent->getTagProperty().isContainer()) {
                     stop = new GNEStop(GNE_TAG_STOPCONTAINER_CONTAINERSTOP, myNet, stopParent, stoppingPlace, stopParameters);
                 } else {
@@ -1247,7 +1251,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
     // get stop parameters
     SUMOVehicleParameter::Stop stopParameters;
     // fill stops parameters
-    if ((tag == GNE_TAG_STOPPERSON_BUSSTOP) || (tag == GNE_TAG_STOPPERSON_EDGE)) {
+    if ((tag == GNE_TAG_STOPPERSON_BUSSTOP) || (tag == GNE_TAG_STOPPERSON_TRAINSTOP) || (tag == GNE_TAG_STOPPERSON_EDGE)) {
         stopParameters.actType = personPlanObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
         if (personPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
             stopParameters.duration = personPlanObject->getTimeAttribute(SUMO_ATTR_DURATION);
@@ -1432,6 +1436,17 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
                 buildStop(personPlanObject, stopParameters);
             } else {
                 myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a busStop"));
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_STOPPERSON_TRAINSTOP: {
+            // check if ride trainStop->trainStop can be created
+            if (toTrainStop) {
+                stopParameters.busstop = toTrainStop->getID();
+                buildStop(personPlanObject, stopParameters);
+            } else {
+                myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a trainStop"));
                 return false;
             }
             break;

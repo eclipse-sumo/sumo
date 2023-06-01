@@ -339,7 +339,7 @@ GNEDemandElement::getPathElementArrivalValue() const {
         // get next person Plan
         const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
         // continue depending if is an stop or a person plan
-        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP)) {
+        if (nextPersonPlan && ((nextPersonPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP) || (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_TRAINSTOP))) {
             // calculate busStop end
             const double endPos = getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
             // check endPos
@@ -364,7 +364,7 @@ GNEDemandElement::getPathElementArrivalPos() const {
         // get next person Plan
         const GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
         // continue depending if is an stop or a person plan
-        if (nextPersonPlan && (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP)) {
+        if (nextPersonPlan && ((nextPersonPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP) || (nextPersonPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_TRAINSTOP))) {
             // get busStop
             const GNEAdditional* busStop = nextPersonPlan->getParentAdditionals().front();
             // get length

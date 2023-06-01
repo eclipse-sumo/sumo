@@ -194,9 +194,11 @@ void
 GNEStop::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STOP);
     if (getParentAdditionals().size() > 0) {
-        if ((getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) ||
-            (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
             device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().front()->getID());
+        }
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+            device.writeAttr(SUMO_ATTR_TRAIN_STOP, getParentAdditionals().front()->getID());
         }
         if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
             device.writeAttr(SUMO_ATTR_CONTAINER_STOP, getParentAdditionals().front()->getID());

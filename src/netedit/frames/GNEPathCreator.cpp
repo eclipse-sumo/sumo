@@ -311,6 +311,10 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myCreationMode |= STOP;
             myCreationMode |= END_BUSSTOP;
             break;
+        case GNE_TAG_STOPPERSON_TRAINSTOP:
+            myCreationMode |= STOP;
+            myCreationMode |= END_TRAINSTOP;
+            break;
         case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
             myCreationMode |= STOP;
             myCreationMode |= END_CONTAINERSTOP;

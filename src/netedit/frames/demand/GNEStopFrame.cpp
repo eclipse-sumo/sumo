@@ -328,6 +328,8 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_PARKING_AREA) + " to create a stop placed in a " + toString(SUMO_TAG_PARKING_AREA));
         } else if (stopTag == GNE_TAG_STOPPERSON_BUSSTOP) {
             WRITE_WARNING("Click over a " + toString(GNE_TAG_STOP_BUSSTOP) + " to create a person stop placed in a " + toString(GNE_TAG_STOP_BUSSTOP));
+        } else if (stopTag == GNE_TAG_STOPPERSON_TRAINSTOP) {
+            WRITE_WARNING("Click over a " + toString(GNE_TAG_STOP_TRAINSTOP) + " to create a person stop placed in a " + toString(GNE_TAG_STOP_TRAINSTOP));
         }
         return false;
     }

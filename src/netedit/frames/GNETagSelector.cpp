@@ -428,6 +428,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case GNE_TAG_STOP_PARKINGAREA:
         case GNE_TAG_STOPPERSON_EDGE:
         case GNE_TAG_STOPPERSON_BUSSTOP:
+        case GNE_TAG_STOPPERSON_TRAINSTOP:
         case GNE_TAG_STOPCONTAINER_EDGE:
         case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
         // waypoints
