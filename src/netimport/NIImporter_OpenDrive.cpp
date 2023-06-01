@@ -747,9 +747,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // traffic lights
     // -------------------------
     std::map<std::string, std::string> signal2junction;
-    std::map<std::string, std::vector<std::string>>& junction2controllers = handler.getJunctions2Controllers();
-
-    std::map<std::string, OpenDriveSignal>& signals = handler.getSignals();
+    //std::map<std::string, std::vector<std::string>>& junction2controllers = handler.getJunctions2Controllers();
+    //std::map<std::string, OpenDriveSignal>& signals = handler.getSignals();
     std::map<std::string, OpenDriveController>& controllers = handler.getControllers();
 
     for (const auto& it : edges) {
@@ -2252,7 +2251,7 @@ NIImporter_OpenDrive::OpenDriveEdge::getPriority(OpenDriveXMLTag dir) const {
 // ---------------------------------------------------------------------------
 NIImporter_OpenDrive::NIImporter_OpenDrive(const NBTypeCont& tc, std::map<std::string, OpenDriveEdge*>& edges)
     : GenericSAXHandler(openDriveTags, OPENDRIVE_TAG_NOTHING, openDriveAttrs, OPENDRIVE_ATTR_NOTHING, "opendrive"),
-      myTypeContainer(tc), myCurrentEdge("", "", "", -1), myEdges(edges), myOffset(0, 0), myCurrentController("", "") {
+      myTypeContainer(tc), myCurrentEdge("", "", "", -1), myCurrentController("", ""), myEdges(edges), myOffset(0, 0) {
 }
 
 
