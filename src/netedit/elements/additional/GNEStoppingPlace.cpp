@@ -232,8 +232,13 @@ GNEStoppingPlace::getParentName() const {
 
 void
 GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
+    if (getParentLanes().empty() || getParentLanes().front() == nullptr) {
+        // may happen during initialization
+        return;
+    }
     // Get value of option "lefthand"
-    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+    const bool lefthandAttr = hasAttribute(SUMO_ATTR_LEFTHAND) && parse<bool>(getAttribute(SUMO_ATTR_LEFTHAND));
+    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") != lefthandAttr  ? -1 : 1;
 
     // obtain laneShape
     PositionVector laneShape = getParentLanes().front()->getLaneShape();

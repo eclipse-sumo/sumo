@@ -59,7 +59,9 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net
     myOnRoad(onRoad),
     myWidth(width),
     myLength(length),
-    myAngle(angle) {
+    myAngle(angle),
+    myLefthand(lefthand)
+{
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -121,7 +123,7 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
 void
 GNEParkingArea::updateGeometry() {
     // Get value of option "lefthand"
-    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") != myLefthand ? -1 : 1;
     // calculate spaceDim
     const double spaceDim = myRoadSideCapacity > 0 ? (getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) / myRoadSideCapacity * getParentLanes().front()->getLengthGeometryFactor() : 7.5;
     // calculate length
@@ -529,6 +531,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LEFTHAND:
             myLefthand = parse<bool>(value);
+            updateGeometry();
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
