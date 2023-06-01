@@ -58,7 +58,7 @@ The possible parameters are summarized in the following table
 | Parameter  |  Type  |  Default  | Remark  |
 |---|---|---|---|
 | measures  | list of strings  | All available SSMs  | This space or comma-separated  list of SSM-identifiers determines, which encounter-specific SSMs are calculated for the equipped vehicle's encounters and which global measures are recorded (see [below](#available_ssms))   |
-| thresholds  | list of floats  | <ul><li>TTC < 3.0[s]</li><li>DRAC > 3.0[m/s^2]</li><li>PET < 2.0[s]</li><li>BR > 0.0[m/s^2]</li><li>SGAP < 0.2[m]</li><li>TGAP < 0.5[s]</li></ul>  | This space or comma-separated list of SSM-thresholds determines, which encounters are classified as conflicts (if their measurements exceed a threshold) and thus written to the output file as a `<conflict>`-element. This list is required to have the same length as the list of measures if given.<br><br>**Note:** Currently the global measures are recorded as a single timeline for the whole simulation span and thresholds have only effect insofar a leader is looked for in the distance corresponding to the SGAP and, respectively, TGAP values.   |
+| thresholds  | list of floats  | <ul><li>TTC < 3.0[s]</li><li>DRAC > 3.0[m/s^2]</li><li>MDRAC > 3.4[m/s^2]</li><li>PET < 2.0[s]</li><li>BR > 0.0[m/s^2]</li><li>SGAP < 0.2[m]</li><li>TGAP < 0.5[s]</li></ul>  | This space or comma-separated list of SSM-thresholds determines, which encounters are classified as conflicts (if their measurements exceed a threshold) and thus written to the output file as a `<conflict>`-element. This list is required to have the same length as the list of measures if given.<br><br>**Note:** Currently the global measures are recorded as a single timeline for the whole simulation span and thresholds have only effect insofar a leader is looked for in the distance corresponding to the SGAP and, respectively, TGAP values.   |
 | range  | double  | 50.0 [m]  | The devices detection range in meters. Other vehicles are tracked as soon as they are closer than `<range>` to the the equipped vehicle *along the road-network*. A tree search is performed to find all vehicles up to range upstream and downstream to the vehicle's current position. Further, for all downstream junctions in range, an upstream search for the given range is performed.  |
 | extratime  | double  | 5.0 [s]  | The extra time that an encounter is tracked on after not being associated to a potential conflict (either after crossing the conflict area, deviating from a common route, changing lanes, or because vehicles leave the device range, etc.).  |
 | file  | string  | "ssm_<equipped_vehicleID\>.xml"  | The filename for storing the conflict information of the equipped vehicle. Several vehicles may write to the same file. Conflicts of a single vehicle are written in the order of the log-begin of the encounter.   |
@@ -131,6 +131,7 @@ Currently, the following safety surrogate measures are implemented:
 - [TTC](#ttc) (time to collision)
 - [DRAC](#drac) (deceleration rate to avoid a crash)
 - [PET](#pet) (post encroachment time)
+- [MDRAC](#mdrac) (modified DRAC) 
 
 Further, the following additional safety-relevant output can be generated, which will not be linked to a specific encounter:
 
@@ -181,6 +182,19 @@ For a merging situation, both variants for the DRAC calculation must be tested a
 !!! note
     This has still to be implemented, currently only one variant is used.
 
+### MDRAC
+A modified indicator of the DRAC called MDRAC considering a perception-reaction-time (PRT) is defined as 
+
+```
+MDRAC = 0.5*speed_difference/(TTC - PRT).
+
+```
+
+The `PRT` is currently set per default at `1sec`, but can be configured via: ...
+
+!!! note
+	This metric is not fully implemented for all conflict types yet! (only type 0 - 8 are partly tested so far)
+	
 ### PET
 For merging and crossing situations, the PET (post encroachment time) is defined as the difference of the leading vehicle's conflict area exit time tA and the following vehicle's conflict area entry time tB:
 
