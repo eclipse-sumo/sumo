@@ -297,7 +297,16 @@ bool
 GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
+            if (isValidAdditionalID(value)) {
+                // busStops and trainStops share namespace
+                if (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) {
+                    return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value, false) == nullptr);
+                } else {
+                    return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) == nullptr);
+                }
+            } else {
+                return false;
+            }
         case SUMO_ATTR_LANE:
             if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
                 return true;

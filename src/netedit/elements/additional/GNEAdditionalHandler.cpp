@@ -81,7 +81,7 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_BUS_STOP, id);
-    } else if (checkDuplicatedAdditional(SUMO_TAG_BUS_STOP, id)) {
+    } else if (checkDuplicatedAdditional(SUMO_TAG_BUS_STOP, id) && checkDuplicatedAdditional(SUMO_TAG_TRAIN_STOP, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -125,7 +125,7 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TRAIN_STOP, id);
-    } else if (checkDuplicatedAdditional(SUMO_TAG_TRAIN_STOP, id)) {
+    } else if (checkDuplicatedAdditional(SUMO_TAG_TRAIN_STOP, id) && checkDuplicatedAdditional(SUMO_TAG_BUS_STOP, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
