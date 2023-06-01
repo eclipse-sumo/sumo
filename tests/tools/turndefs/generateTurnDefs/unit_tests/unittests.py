@@ -29,6 +29,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 
 import connections  # noqa
 import turndefinitions  # noqa
 
+
 class CollectingHandler(logging.Handler):
 
     """ Handler for loggers from logging module. Collects all log messages. """
