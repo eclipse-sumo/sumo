@@ -210,7 +210,7 @@ private:
         /// @brief add a new data point and update encounter type
         void add(double time, EncounterType type, Position egoX, std::string egoLane, double egoLanePos,
                  Position egoV, Position foeX, std::string foeLane, double foeLanePos, Position foeV,
-                 Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet, double ppet);
+                 Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet, double ppet, double mdrac);
 
         /// @brief Returns the number of trajectory points stored
         std::size_t size() const {
@@ -276,6 +276,8 @@ private:
         std::vector<double> TTCspan;
         /// @brief All values for DRAC
         std::vector<double> DRACspan;
+        /// @brief All values for MDRAC
+        std::vector<double> MDRACspan;        
         /// @brief All values for PPET
         std::vector<double> PPETspan;
 
@@ -287,6 +289,7 @@ private:
         /// @{
         ConflictPointInfo minTTC;
         ConflictPointInfo maxDRAC;
+        ConflictPointInfo maxMDRAC;        
         ConflictPointInfo PET;
         ConflictPointInfo minPPET;
         /// @}
@@ -321,6 +324,7 @@ private:
         double foeConflictAreaLength;
         double ttc;
         double drac;
+        double mdrac;
         std::pair<double, double> pet;  // (egoConflictEntryTime, PET);
         double ppet;
         std::pair<const MSLane*, double> egoConflictEntryCrossSection;
@@ -654,7 +658,7 @@ private:
     /** @brief Discriminates between different encounter types and correspondingly determines TTC and DRAC for those cases
      *         and writes the result to eInfo.ttc and eInfo.drac
      */
-    void determineTTCandDRACandPPET(EncounterApproachInfo& eInfo) const;
+    void determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) const;
 
 
     /** @brief Computes the time to collision (in seconds) for two vehicles with a given initial gap under the assumption
@@ -662,13 +666,19 @@ private:
      */
     double computeTTC(double gap, double followerSpeed, double leaderSpeed) const;
 
-
     /** @brief Computes the DRAC (deceleration to avoid a collision) for a lead/follow situation as defined,
      *         e.g., in Guido et al. (2011, Safety performance measures:  a comparison between microsimulation and observational data)
      *         for two vehicles with a given gap.
      *         Returns 0.0 if no deceleration is required by the follower to avoid a crash, INVALID if collision is detected.
      */
     static double computeDRAC(double gap, double followerSpeed, double leaderSpeed);
+    
+    /** @brief Computes the MDRAC (deceleration to avoid a collision) for a lead/follow situation as defined considering a reaction time of follower,
+     *         e.g., in Fazekas et al. (2017, A Novel Surrogate Indicator Based on Constant Initial Acceleration and Reaction Time Assumption)
+     *         for two vehicles with a given gap.
+     *         Returns 0.0 if no deceleration is required by the follower to avoid a crash, INVALID if collision is detected.
+     */    
+    static double computeMDRAC(double gap, double followerSpeed, double leaderSpeed);
 
     /** @brief Computes the DRAC a crossing situation, determining the minimal constant deceleration needed
      *         for one of the vehicles to reach the conflict area after the other has left.
@@ -733,7 +743,7 @@ private:
     /// Wether to print the lanes and positions for all timesteps and conflicts
     bool myWriteLanesPositions;
     /// Flags for switching on / off comutation of different SSMs, derived from myMeasures
-    bool myComputeTTC, myComputeDRAC, myComputePET, myComputeBR, myComputeSGAP, myComputeTGAP, myComputePPET;
+    bool myComputeTTC, myComputeDRAC, myComputePET, myComputeBR, myComputeSGAP, myComputeTGAP, myComputePPET,myComputeMDRAC;
     MSVehicle* myHolderMS;
     /// @}
 
