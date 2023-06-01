@@ -678,7 +678,7 @@ private:
      *         for two vehicles with a given gap.
      *         Returns 0.0 if no deceleration is required by the follower to avoid a crash, INVALID if collision is detected.
      */    
-    static double computeMDRAC(double gap, double followerSpeed, double leaderSpeed);
+    static double computeMDRAC(double gap, double followerSpeed, double leaderSpeed, double prt);
 
     /** @brief Computes the DRAC a crossing situation, determining the minimal constant deceleration needed
      *         for one of the vehicles to reach the conflict area after the other has left.
@@ -710,6 +710,7 @@ private:
     /// @{
     static std::string getOutputFilename(const SUMOVehicle& v, std::string deviceID);
     static double getDetectionRange(const SUMOVehicle& v);
+    static double getMDRAC_PRT(const SUMOVehicle& v);
     static double getExtraTime(const SUMOVehicle& v);
     static bool useGeoCoords(const SUMOVehicle& v);
     static bool writePositions(const SUMOVehicle& v);
@@ -734,6 +735,8 @@ private:
     bool mySaveTrajectories;
     /// Detection range. For vehicles closer than this distance from the ego vehicle, SSMs are traced
     double myRange;
+    /// @brief perception reaction time for MDRAC
+    double myMDRACPRT;
     /// Extra time in seconds to be logged after a conflict is over
     double myExtraTime;
     /// Whether to use the original coordinate system for output
@@ -802,6 +805,7 @@ private:
         SSM_WARN_THRESHOLDS = 1 << 1,
         SSM_WARN_TRAJECTORIES = 1 << 2,
         SSM_WARN_RANGE = 1 << 3,
+        SSM_WARN_MDRAC_PRT = 1 << 3,
         SSM_WARN_EXTRATIME = 1 << 4,
         SSM_WARN_FILE = 1 << 5,
         SSM_WARN_GEO = 1 << 6,

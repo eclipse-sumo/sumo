@@ -229,6 +229,8 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.ssm.range", "SSM Device", TL("Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced."));
     oc.doRegister("device.ssm.extratime", new Option_Float(DEFAULT_EXTRA_TIME));
     oc.addDescription("device.ssm.extratime", "SSM Device", TL("Specifies the time in seconds to be logged after a conflict is over. Required >0 if PET is to be calculated for crossing conflicts."));
+    oc.doRegister("device.ssm.mdrac.prt", new Option_Float(1.));
+    oc.addDescription("device.ssm.mdrac.prt", "SSM Device", TL("Specifies the perception reaction time for MDRAC computation."));
     oc.doRegister("device.ssm.file", new Option_String(""));
     oc.addDescription("device.ssm.file", "SSM Device", TL("Give a global default filename for the SSM output"));
     oc.doRegister("device.ssm.geo", new Option_Bool(false));
@@ -1295,7 +1297,7 @@ MSDevice_SSM::determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) c
             drac = computeDRAC(gap, e->ego->getSpeed(), e->foe->getSpeed());
         }
         if (myComputeMDRAC) {
-            mdrac = computeMDRAC(gap, e->ego->getSpeed(), e->foe->getSpeed());
+            mdrac = computeMDRAC(gap, e->ego->getSpeed(), e->foe->getSpeed(), myMDRACPRT);
         }
     } else if (type == ENCOUNTER_TYPE_FOLLOWING_LEADER) {
         double gap = eInfo.foeConflictEntryDist;
@@ -1306,7 +1308,7 @@ MSDevice_SSM::determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) c
             drac = computeDRAC(gap, e->foe->getSpeed(), e->ego->getSpeed());
         }
         if (myComputeMDRAC) {
-            mdrac = computeMDRAC(gap, e->foe->getSpeed(), e->ego->getSpeed());
+            mdrac = computeMDRAC(gap, e->foe->getSpeed(), e->ego->getSpeed(), myMDRACPRT);
         }
     } else if (type == ENCOUNTER_TYPE_ONCOMING) {
         if (myComputeTTC) {
@@ -1374,7 +1376,7 @@ MSDevice_SSM::determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) c
                 drac = computeDRAC(followerConflictDist, followerSpeed, 0.);
             }
             if (myComputeMDRAC) {
-                mdrac = computeMDRAC(followerConflictDist, followerSpeed, 0.);
+                mdrac = computeMDRAC(followerConflictDist, followerSpeed, 0., myMDRACPRT);
             }
 
 #ifdef DEBUG_SSM
@@ -1417,7 +1419,7 @@ MSDevice_SSM::determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) c
                     mdrac = INVALID_DOUBLE;
                 } else {
                     // compute drac as for a following situation
-                    mdrac = computeMDRAC(g0, followerSpeed, leaderSpeed);
+                    mdrac = computeMDRAC(g0, followerSpeed, leaderSpeed, myMDRACPRT);
                 }                
             }
 #ifdef DEBUG_SSM
@@ -1548,26 +1550,25 @@ MSDevice_SSM::computeDRAC(double gap, double followerSpeed, double leaderSpeed) 
 }
 
 double
-MSDevice_SSM::computeMDRAC(double gap, double followerSpeed, double leaderSpeed) {
+MSDevice_SSM::computeMDRAC(double gap, double followerSpeed, double leaderSpeed, double prt) {
 //#ifdef DEBUG_SSM_DRAC
 //    if (DEBUG_COND)
 //    std::cout << "computeMDRAC() with gap=" << gap << ", followerSpeed=" << followerSpeed << ", leaderSpeed=" << leaderSpeed
 //              << std::endl;
 //#endif
-	double PRT = 1.; // PRT = Perception-Reaction-Time. This should be of course be configurable
     if (gap <= 0.) {
         return INVALID_DOUBLE;    // collision!
     }
     double dv = followerSpeed - leaderSpeed;
     if (dv <= 0.) {
-        return 0.0;    // no need to break
+        return 0.0;    // no need to brake
     }
-    if (gap / dv == PRT)
+    if (gap / dv == prt)
     {
-    	return -1.; // HACK: avoid divison by zero (Please check!)
+    	return INVALID_DOUBLE;
     }
     assert(followerSpeed > 0.);
-    return 0.5 * dv / (gap / dv - PRT); // REACTION TIME (here 1s) NEEDS TO BE ADDED AS PARAMETER PRT("perception-reaction-time")!
+    return 0.5 * dv / (gap / dv - prt);
 }
 
 
@@ -3006,6 +3007,7 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myThresholds(thresholds),
     mySaveTrajectories(trajectories),
     myRange(range),
+    myMDRACPRT(getMDRAC_PRT(holder)),
     myExtraTime(extraTime),
     myUseGeoCoords(useGeoCoords),
     myWritePositions(writePositions),
@@ -3777,6 +3779,35 @@ MSDevice_SSM::getDetectionRange(const SUMOVehicle& v) {
     }
     return range;
 }
+
+
+double
+MSDevice_SSM::getMDRAC_PRT(const SUMOVehicle& v) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    double prt = 1;
+    if (v.getParameter().knowsParameter("device.ssm.mdrac.prt")) {
+        try {
+            prt = StringUtils::toDouble(v.getParameter().getParameter("device.ssm.mdrac.prt", ""));
+        } catch (...) {
+            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.mdrac.prt'."), v.getParameter().getParameter("device.ssm.mdrac.prt", ""));
+        }
+    } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.mdrac.prt")) {
+        try {
+            prt = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device.ssm.mdrac.prt", ""));
+        } catch (...) {
+            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.mdrac.prt'."), v.getVehicleType().getParameter().getParameter("device.ssm.mdrac.prt", ""));
+        }
+    } else {
+        prt = oc.getFloat("device.ssm.mdrac.prt");
+        if (oc.isDefault("device.ssm.mdrac.prt") && (myIssuedParameterWarnFlags & SSM_WARN_MDRAC_PRT) == 0) {
+            WRITE_MESSAGEF(TL("Vehicle '%' does not supply vehicle parameter 'device.ssm.mdrac.prt'. Using default of '%'."), v.getID(), toString(prt));
+            myIssuedParameterWarnFlags |= SSM_WARN_MDRAC_PRT;
+        }
+    }
+    return prt;
+}
+
+
 
 
 double
