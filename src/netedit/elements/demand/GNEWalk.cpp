@@ -153,7 +153,11 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
         }
         // write to depending if personplan ends in a busStop, edge or junction
         if (getParentAdditionals().size() > 0) {
+        if (getParentAdditionals().back()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
             device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
+        } else {
+            device.writeAttr(SUMO_ATTR_TRAIN_STOP, getParentAdditionals().back()->getID());
+        }
         } else if (getParentEdges().size() > 0) {
             device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
         } else {
@@ -161,7 +165,8 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
         }
     }
     // avoid write arrival positions in walk to busStop
-    if (!((myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_WALK_TRAINSTOP)) && (myArrivalPosition > 0)) {
+    if ((myTagProperty.getTag() != GNE_TAG_RIDE_BUSSTOP) && (myTagProperty.getTag() != GNE_TAG_RIDE_TRAINSTOP) &&
+        (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // close tag

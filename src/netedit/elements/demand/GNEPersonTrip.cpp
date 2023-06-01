@@ -145,14 +145,19 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     }
     // write to depending if personplan ends in a busStop, edge or junction
     if (getParentAdditionals().size() > 0) {
-        device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
+        if (getParentAdditionals().back()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+            device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
+        } else {
+            device.writeAttr(SUMO_ATTR_TRAIN_STOP, getParentAdditionals().back()->getID());
+        }
     } else if (getParentEdges().size() > 0) {
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
     } else {
         device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
     }
     // avoid write arrival positions in person trip to busStop
-    if (!((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_TRAINSTOP)) && (myArrivalPosition > 0)) {
+    if ((myTagProperty.getTag() != GNE_TAG_RIDE_BUSSTOP) && (myTagProperty.getTag() != GNE_TAG_RIDE_TRAINSTOP) &&
+        (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // write modes
@@ -557,7 +562,7 @@ GNEPersonTrip::getHierarchyName() const {
         return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_JUNCTIONS) {
         return "personTrip: " + getParentJunctions().front()->getID() + " -> " + getParentJunctions().back()->getID();
-    } else if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP)) {
+    } else if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_TRAINSTOP)) {
         return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().front()->getID();
     } else {
         throw ("Invalid personTrip tag");

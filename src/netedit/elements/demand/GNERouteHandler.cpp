@@ -574,6 +574,11 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
     GNEJunction* toJunction = myNet->getAttributeCarriers()->retrieveJunction(toJunctionID, false);
     GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
     GNEAdditional* toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toTrainStopID, false);
+    // chek if we're parsing the train stop as a busStop
+    if ((toBusStop == nullptr) && (toTrainStop == nullptr)) {
+        toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toTrainStopID, false);
+        toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toBusStopID, false);
+    }
     // check from edge
     if ((fromEdge == nullptr) && previousEdge) {
         fromEdge = previousEdge;
@@ -671,6 +676,11 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     GNEJunction* toJunction = myNet->getAttributeCarriers()->retrieveJunction(toJunctionID, false);
     GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
     GNEAdditional* toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toTrainStopID, false);
+    // chek if we're parsing the train stop as a busStop
+    if ((toBusStop == nullptr) && (toTrainStop == nullptr)) {
+        toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toTrainStopID, false);
+        toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toBusStopID, false);
+    }
     GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
     std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
     // avoid consecutive duplicated edges
@@ -801,6 +811,11 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
     GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
     GNEAdditional* toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toTrainStopID, false);
+    // chek if we're parsing the train stop as a busStop
+    if ((toBusStop == nullptr) && (toTrainStop == nullptr)) {
+        toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toTrainStopID, false);
+        toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toBusStopID, false);
+    }
     // check from edge
     if ((fromEdge == nullptr) && previousEdge) {
         fromEdge = previousEdge;
