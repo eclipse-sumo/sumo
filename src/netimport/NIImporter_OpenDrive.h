@@ -636,11 +636,11 @@ protected:
         return myJunctions2Controllers;
     }
 
-    OpenDriveController& getController(std::string signalID) {
+    const OpenDriveController& getController(std::string signalID) {
         if (mySignals.find(signalID) != mySignals.end() && myControllers.find(mySignals[signalID].controller) != myControllers.end()) {
             return myControllers[mySignals[signalID].controller];
         }
-        return OpenDriveController("", "");
+        return myDummyController;
     }
 
     int getTLIndexForController(std::string controllerID) {
@@ -692,6 +692,7 @@ private:
     static bool myImportWidths;
     static double myMinWidth;
     static bool myImportInternalShapes;
+    static OpenDriveController myDummyController;
 
 
 protected:

@@ -176,6 +176,7 @@ bool NIImporter_OpenDrive::myImportAllTypes;
 bool NIImporter_OpenDrive::myImportWidths;
 double NIImporter_OpenDrive::myMinWidth;
 bool NIImporter_OpenDrive::myImportInternalShapes;
+NIImporter_OpenDrive::OpenDriveController NIImporter_OpenDrive::myDummyController("", "");
 
 // ===========================================================================
 // method definitions
@@ -870,7 +871,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                 }
                             }
                             // set tlIndex to allow signal groups (defined in OpenDRIVE controller elements)
-                            OpenDriveController& controller = handler.getController(signal.id);
+                            const OpenDriveController& controller = handler.getController(signal.id);
                             if (controller.id != "") {
                                 if (c.getParameter("controllerID") != "") {
                                     WRITE_WARNINGF(TL("The signaling of the connection from '%' to '%' (controller '%') is ambiguous because it is overwritten signal '%' and with controller '%'."), from->getID(), c.toEdge->getID(), c.getParameter("controllerID"), signal.id, controller.id);
@@ -914,7 +915,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         }
                     }
                     // set tlIndex to allow signal groups (defined in OpenDRIVE controller elements)
-                    OpenDriveController& controller = handler.getController(signal.id);
+                    const OpenDriveController& controller = handler.getController(signal.id);
                     if (controller.id != "") {
                         if (c.getParameter("controllerID") != "") {
                             WRITE_WARNINGF(TL("The signaling of the connection from '%' to '%' (controller '%') is ambiguous because it is overwritten with signal '%' and controller '%'."), edge->getID(), c.toEdge->getID(), c.getParameter("controllerID"), signal.id, controller.id);
