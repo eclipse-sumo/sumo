@@ -39,6 +39,7 @@ The detail of information given for each conflict and the criteria to qualify an
         <param key="device.ssm.measures" value="TTC DRAC PET MDRAC"/>
         <param key="device.ssm.thresholds" value="3.0 3.0 2.0 3.4"/> 
         <param key="device.ssm.range" value="50.0" />
+        <param key="device.ssm.mdrac.prt" value="1.0" />
         <param key="device.ssm.extratime" value="5.0" />
         <param key="device.ssm.file" value="ssm_v0.xml" />
         <param key="device.ssm.trajectories" value="false" />
@@ -190,7 +191,7 @@ MDRAC = 0.5*speed_difference/(TTC - PRT).
 
 ```
 
-The `PRT` is currently set per default at `1sec`, but will be made configurable in the future.
+The `PRT` is configured with param key `device.ssm.mdrac.prt` or via option **--device.ssm.mdrac.prt** and defaults to a value of `1` second.
 
 !!! note
 	This metric is not fully implemented for all conflict types yet! (only type 0 - 8 are partly tested so far)
