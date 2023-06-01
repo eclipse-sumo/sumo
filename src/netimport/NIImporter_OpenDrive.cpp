@@ -765,7 +765,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 if ((signal.minLane == 0 && signal.maxLane == 0) || (signal.maxLane >= connection.fromLane && signal.minLane <= connection.fromLane)) {
                     const OpenDriveEdge* connectedEdge = edges[connection.toEdge];
                     if (controllers[signal.controller].junction.size() > 0 && controllers[signal.controller].junction != connectedEdge->junction) {
-                        WRITE_WARNINGF(TL("Controlling multiple junctions by the same controller %' is currently not implemented."), signal.controller);
+                        WRITE_WARNINGF(TL("Controlling multiple junctions by the same controller '%' is currently not implemented."), signal.controller);
                     }
                     controllers[signal.controller].junction = connectedEdge->junction;
                 }
@@ -773,7 +773,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
     }
 
-    std::set<std::string> junctionsWithControllers;
+    //std::set<std::string> junctionsWithControllers;
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
         for (const OpenDriveSignal& signal : e->signals) {
@@ -872,7 +872,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             // set tlIndex to allow signal groups (defined in OpenDRIVE controller elements)
                             OpenDriveController& controller = handler.getController(signal.id);
                             if (controller.id != "") {
-                                junctionsWithControllers.insert(from->getToNode()->getID());
+                                if (c.getParameter("controllerID") != "") {
+                                    WRITE_WARNINGF(TL("The signaling of the connection from '%' to '%' (controller '%') is ambiguous because it is overwritten signal '%' and with controller '%'."), from->getID(), c.toEdge->getID(), c.getParameter("controllerID"), signal.id, controller.id);
+                                }
+                                //junctionsWithControllers.insert(from->getToNode()->getID());
                                 int tlIndex = handler.getTLIndexForController(controller.id);
                                 c.tlLinkIndex = tlIndex;
                                 c.setParameter("controllerID", controller.id);
@@ -913,80 +916,24 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     // set tlIndex to allow signal groups (defined in OpenDRIVE controller elements)
                     OpenDriveController& controller = handler.getController(signal.id);
                     if (controller.id != "") {
-                        junctionsWithControllers.insert(edge->getToNode()->getID());
+                        if (c.getParameter("controllerID") != "") {
+                            WRITE_WARNINGF(TL("The signaling of the connection from '%' to '%' (controller '%') is ambiguous because it is overwritten with signal '%' and controller '%'."), edge->getID(), c.toEdge->getID(), c.getParameter("controllerID"), signal.id, controller.id);
+                        }
+                        //junctionsWithControllers.insert(edge->getToNode()->getID());
                         int tlIndex = handler.getTLIndexForController(controller.id);
                         c.tlLinkIndex = tlIndex;
                         c.setParameter("controllerID", controller.id);
-                    }
-                    
+                    }                  
                 }
                 getTLSSecure(edge, nb);
                 //std::cout << "odrEdge=" << e->id << " sumoID=" << (*k).sumoID << " sumoEdge=" << edge->getID()
                 //    << " signal=" << signal.id << " minLane=" << signal.minLane << " maxLane=" << signal.maxLane << "\n";
             }
             // @note: tls 'signalID' parameters are set via NBTrafficLightLogicCont::setOpenDriveSignalParameters
+            // @note: OpenDRIVE controllers are applied to the signal programs in NBTrafficLightLogicCont::applyOpenDriveControllers
         }
     }
-
-    // -------------------------
-    // implement signal groups = OpenDRIVE controllers in traffic lights
-    // -------------------------
-
-    // iterate through traffic lights from junctionsWithControllers list
-    /*
-    for (auto& junctionID : junctionsWithControllers) {
-        NBNode* junction = nb.getNodeCont().retrieve(junctionID);
-        junction->sortEdges(false);
-        junction->computeLogic(nb.getEdgeCont());
-        NBTrafficLightDefinition* def = *junction->getControllingTLS().begin();
-        NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
-
-        if (lDef == nullptr) {
-            def->setParticipantsInformation(); 
-            NBTrafficLightLogic* logic = def->compute(const_cast<OptionsCont&>(oc));
-            if (logic != nullptr) {
-                lDef = new NBLoadedSUMOTLDef(*def, *logic);  
-                lDef->setParticipantsInformation();
-                
-                for (NBNode* node : lDef->getNodes()) {
-                    
-                    node->removeTrafficLight(def);
-                    node->addTrafficLight(lDef);
-                    
-                    for (NBEdge* edge : node->getIncomingEdges()) {
-                        for (NBEdge::Connection& c : edge->getConnections()) {
-                            if (c.knowsParameter("controllerID")) { // add connections again with custom tlIndex
-                                lDef->addConnection(edge, c.toEdge, c.fromLane, c.toLane, handler.getTLIndexForController(c.getParameter("controllerID")), -1, false);
-                            }
-                        }
-                    }    
-                }
-                //lDef->cleanupStates();
-                
-
-                nb.getTLLogicCont().removeProgram(def->getID(), def->getProgramID());
-                nb.getTLLogicCont().insert(lDef);
-                // TODO: repair the phase generation / replace the single "off" phase
-                /*
-                int phaseCount = lDef->getLogic()->getPhases().size();
-                if (phaseCount > 1) {
-                    for (int i = phaseCount - 1; i >= 1; i--) {
-                        lDef->getLogic()->deletePhase(i);
-                    }
-                }
-                lDef->getLogic()->overrideState(0, LINKSTATE_TL_OFF_NOSIGNAL);
-                
-                delete logic;
-            }
-        }
-    }*/
     
-    // transform into NBLoadedSUMOTLDef like the example from the input option tls.group-signals
-    // remove phases
-    // use methods like delete...Index to recreate the signal groups as defined
-    // create a program with one phase per signal group
-
-
     // -------------------------
     // clean up
     // -------------------------
