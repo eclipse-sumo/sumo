@@ -146,9 +146,13 @@ Options:
 
 - **--xml-output FILE** (**-o**): write statistics to FILE in xml format
 - **--statistic-type** (**-t**): select among statistics to be computed
-  - 'd' : depart delay
-  - 'a' : arrival delay
+  - 'd' : stop depart delay
+  - 'a' : stop arrival delay
   - 's' : stop duration difference
+  - 'de' : stop depart delay comppared to 'ended' in input
+  - 'as' : stop arrivalt delay comppared to recorded 'started' in input
+  - 't'  : traveltime according to schedule versus traveltime in simulation (between stops)
+  - 'T'  : traveltime according to recording versus traveltime in simulation (between stops)
   
 - **--group-by** (**-g**): group results by one or more attributes (vehID,tripId,stopID,priorStop)
 - **--group-statistic-type** (**-T**): select among statistics over the group values (i.e. to compare the groups by their mean depart delay). permitted values are mean, median, min, max
