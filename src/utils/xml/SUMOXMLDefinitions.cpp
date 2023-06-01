@@ -284,6 +284,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // GNE Rides
     { "ride: edge->edge",               GNE_TAG_RIDE_EDGE },
     { "ride: edge->busStop",            GNE_TAG_RIDE_BUSSTOP },
+    { "ride: edge->trainStop",          GNE_TAG_RIDE_TRAINSTOP },
     // GNE Person Stops
     { "stopPerson: busStop",            GNE_TAG_STOPPERSON_BUSSTOP },
     { "stopPerson: edge",               GNE_TAG_STOPPERSON_EDGE },

@@ -266,6 +266,7 @@ DemandElementSelector::getPersonPlanPreviousEdge() const {
         case GNE_TAG_PERSONTRIP_BUSSTOP:
         // person trips
         case GNE_TAG_RIDE_BUSSTOP:
+        case GNE_TAG_RIDE_TRAINSTOP:
         // walks
         case GNE_TAG_WALK_BUSSTOP:
         case GNE_TAG_WALK_TRAINSTOP:

@@ -122,7 +122,7 @@ public:
 
     /// @brief build ride
     void buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                   const std::string& toBusStopID, double arrivalPos, const std::vector<std::string>& lines);
+                   const std::string& toBusStopID, const std::string& toTrainStopID, double arrivalPos, const std::vector<std::string>& lines);
 
     /// @brief build container
     void buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters);

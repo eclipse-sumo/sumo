@@ -335,6 +335,7 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TO:
             return getParentEdges().back()->getID();
         case GNE_ATTR_TO_BUSSTOP:
+        case GNE_ATTR_TO_TRAINSTOP:
             return getParentAdditionals().back()->getID();
         case SUMO_ATTR_FROMJUNCTION:
             return getParentJunctions().front()->getID();
@@ -452,6 +453,23 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             }
             break;
         }
+        case GNE_ATTR_TO_TRAINSTOP: {
+            // get next person plan
+            GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            // continue depending of nextPersonPlan
+            if (nextPersonPlan) {
+                // obtain trainStop
+                const GNEAdditional* trainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value);
+                // change from attribute using edge ID
+                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, trainStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                undoList->end();
+            } else {
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -470,6 +488,8 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveJunction(value, false) != nullptr);
         case GNE_ATTR_TO_BUSSTOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+        case GNE_ATTR_TO_TRAINSTOP:
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value, false) != nullptr);
         // specific person plan attributes
         case SUMO_ATTR_MODES: {
             SVCPermissions dummyModeSet;
@@ -571,6 +591,11 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_TO_BUSSTOP:
             replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
+            // compute person trip
+            computePathElement();
+            break;
+        case GNE_ATTR_TO_TRAINSTOP:
+            replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value);
             // compute person trip
             computePathElement();
             break;

@@ -775,7 +775,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 void
 GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                           const std::string& toBusStopID, double arrivalPos, const std::vector<std::string>& lines) {
+                           const std::string& toBusStopID, const std::string& toTrainStopID, double arrivalPos, const std::vector<std::string>& lines) {
     // get previous plan edge
     const auto previousEdge = getPreviousPlanEdge(true, sumoBaseObject);
     // parse parents
@@ -783,6 +783,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
     GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
+    GNEAdditional* toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toTrainStopID, false);
     // check from edge
     if ((fromEdge == nullptr) && previousEdge) {
         fromEdge = previousEdge;
@@ -807,7 +808,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         } else if (toBusStop) {
             // create ride from->busStop
-            GNEDemandElement* ride = new GNERide(myNet, personParent, fromEdge, toBusStop, arrivalPos, lines);
+            GNEDemandElement* ride = new GNERide(false, myNet, personParent, fromEdge, toBusStop, arrivalPos, lines);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(ride->getTagProperty().getGUIIcon(), TL("add ") + ride->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
@@ -820,6 +821,22 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 fromEdge->addChildElement(ride);
                 toBusStop->addChildElement(ride);
                 ride->incRef("buildRideFromBusStop");
+            }
+        } else if (toTrainStop) {
+            // create ride from->trainStop
+            GNEDemandElement* ride = new GNERide(true, myNet, personParent, fromEdge, toTrainStop, arrivalPos, lines);
+            if (myAllowUndoRedo) {
+                myNet->getViewNet()->getUndoList()->begin(ride->getTagProperty().getGUIIcon(), TL("add ") + ride->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
+                myNet->getViewNet()->getUndoList()->end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(ride);
+                // set child references
+                personParent->addChildElement(ride);
+                fromEdge->addChildElement(ride);
+                toTrainStop->addChildElement(ride);
+                ride->incRef("buildRideFromTrainStop");
             }
         }
     }
@@ -1323,9 +1340,9 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         }
         // Rides
         case GNE_TAG_RIDE_EDGE: {
-            // check if ride busStop->edge can be created
+            // check if ride edge->edge can be created
             if (fromEdge && toEdge) {
-                buildRide(personPlanObject, fromEdge->getID(), toEdge->getID(), "", arrivalPos, lines);
+                buildRide(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", arrivalPos, lines);
             } else {
                 myNet->getViewNet()->setStatusBarText(TL("A ride from edge to edge needs two edges edge"));
                 return false;
@@ -1333,11 +1350,21 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             break;
         }
         case GNE_TAG_RIDE_BUSSTOP: {
-            // check if ride busStop->busStop can be created
+            // check if ride edge->busStop can be created
             if (fromEdge && toBusStop) {
-                buildRide(personPlanObject, fromEdge->getID(), "", toBusStop->getID(), arrivalPos, lines);
+                buildRide(personPlanObject, fromEdge->getID(), "", toBusStop->getID(), "", arrivalPos, lines);
             } else {
                 myNet->getViewNet()->setStatusBarText(TL("A ride from edge to busStop needs one edge and one busStop"));
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_RIDE_TRAINSTOP: {
+            // check if ride edge->trainStop can be created
+            if (fromEdge && toTrainStop) {
+                buildRide(personPlanObject, fromEdge->getID(), "", "", toTrainStop->getID(), arrivalPos, lines);
+            } else {
+                myNet->getViewNet()->setStatusBarText(TL("A ride from edge to trainStop needs one edge and one trainStop"));
                 return false;
             }
             break;

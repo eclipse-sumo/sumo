@@ -4825,6 +4825,30 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                               "ANY");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = GNE_TAG_RIDE_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GUIIcon::RIDE_TRAINSTOP, SUMO_TAG_RIDE, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(210, 233, 255, 255));
+        // from edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("The ID of the edge the ride starts at"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // to trainStop
+        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_TRAINSTOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("ID of the destination train stop"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // lines
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("list of vehicle alternatives to take for the ride"),
+                                              "ANY");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 }
 
 

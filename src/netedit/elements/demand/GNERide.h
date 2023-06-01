@@ -40,7 +40,7 @@ public:
     GNERide(SumoXMLTag tag, GNENet* net);
 
     /**@brief parameter constructor for person edge->edge
-     * @param[in] viewNet view in which this Ride is placed
+     * @param[in] net Network in which this Ride is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
      * @param[in] toEdge to edge
@@ -52,7 +52,7 @@ public:
             double arrivalPosition, const std::vector<std::string>& lines);
 
     /**@brief parameter constructor for person edge->busStop
-     * @param[in] viewNet view in which this Ride is placed
+     * @param[in] net Network in which this Ride is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
      * @param[in] toBusStop to busStop
@@ -60,7 +60,7 @@ public:
      * @param[in] types list of possible vehicle types to take
      * @param[in] lines list of lines
      */
-    GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
+    GNERide(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
             double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief destructor

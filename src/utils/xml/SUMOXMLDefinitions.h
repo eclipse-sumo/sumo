@@ -455,6 +455,7 @@ enum SumoXMLTag {
     // @brief rides
     GNE_TAG_RIDE_EDGE,
     GNE_TAG_RIDE_BUSSTOP,
+    GNE_TAG_RIDE_TRAINSTOP,
     // @brief person stops
     GNE_TAG_STOPPERSON_BUSSTOP,
     GNE_TAG_STOPPERSON_EDGE,

@@ -294,6 +294,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                       obj->getStringAttribute(SUMO_ATTR_FROM),
                       obj->getStringAttribute(SUMO_ATTR_TO),
                       obj->getStringAttribute(SUMO_ATTR_BUS_STOP),
+                      obj->getStringAttribute(SUMO_ATTR_TRAIN_STOP),
                       obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                       obj->getStringListAttribute(SUMO_ATTR_LINES));
             break;
@@ -731,6 +732,7 @@ RouteHandler::parseRide(const SUMOSAXAttributes& attrs) {
     const std::string from = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
     const std::string to = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
     const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
+    const std::string trainStop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, "", parsedOk, "");
     const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, "", parsedOk);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
     if (parsedOk) {
@@ -740,6 +742,7 @@ RouteHandler::parseRide(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_BUS_STOP, busStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TRAIN_STOP, trainStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
     }
@@ -975,7 +978,9 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     }
     // stopping places
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
-    stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, nullptr, ok, stop.busstop);
+    if (stop.busstop.empty()) {
+        stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, nullptr, ok, stop.busstop);
+    }
     stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, nullptr, ok, "");
     stop.overheadWireSegment = attrs.getOpt<std::string>(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, nullptr, ok, "");
     stop.containerstop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");

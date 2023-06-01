@@ -46,18 +46,18 @@ GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
                  double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE, GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myLines(lines) {
+    myArrivalPosition(arrivalPosition),
+    myLines(lines) {
 }
 
 
-GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
+GNERide::GNERide(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                  double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP, GUIIconSubSys::getIcon(GUIIcon::RIDE_BUSSTOP),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myLines(lines) {
+    GNEDemandElement(personParent, net, GLO_RIDE, isTrain? GNE_TAG_RIDE_TRAINSTOP : GNE_TAG_RIDE_BUSSTOP, 
+                     GUIIconSubSys::getIcon(isTrain? GUIIcon::RIDE_TRAINSTOP : GUIIcon::RIDE_BUSSTOP),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myLines(lines) {
 }
 
 
@@ -118,12 +118,16 @@ GNERide::writeDemandElement(OutputDevice& device) const {
     }
     // write to depending if personplan ends in a busStop
     if (getParentAdditionals().size() > 0) {
-        device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
+        if (getParentAdditionals().back()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+            device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
+        } else {
+            device.writeAttr(SUMO_ATTR_TRAIN_STOP, getParentAdditionals().back()->getID());
+        }
     } else {
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
     }
     // avoid write arrival positions in ride to busStop
-    if ((myTagProperty.getTag() != GNE_TAG_RIDE_BUSSTOP) && (myArrivalPosition > 0)) {
+    if (!((myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_RIDE_TRAINSTOP)) && (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // write lines
@@ -287,6 +291,7 @@ GNERide::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TO:
             return getParentEdges().back()->getID();
         case GNE_ATTR_TO_BUSSTOP:
+        case GNE_ATTR_TO_TRAINSTOP:
             return getParentAdditionals().back()->getID();
         // specific person plan attributes
         case SUMO_ATTR_LINES:
@@ -384,6 +389,23 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             }
             break;
         }
+        case GNE_ATTR_TO_TRAINSTOP: {
+            // get next person plan
+            GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+            // continue depending of nextPersonPlan
+            if (nextPersonPlan) {
+                // obtain trainStop
+                const GNEAdditional* trainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value);
+                // change from attribute using edge ID
+                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, trainStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                undoList->end();
+            } else {
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -399,6 +421,8 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case GNE_ATTR_TO_BUSSTOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+        case GNE_ATTR_TO_TRAINSTOP:
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value, false) != nullptr);
         // specific person plan attributes
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
@@ -454,7 +478,7 @@ std::string
 GNERide::getHierarchyName() const {
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE) {
         return "ride: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
-    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP) {
+    } else if ((myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_RIDE_TRAINSTOP)) {
         return "ride: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().back()->getID();
     } else {
         throw ("Invalid ride tag");
@@ -489,6 +513,11 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_TO_BUSSTOP:
             replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
+            // compute ride
+            computePathElement();
+            break;
+        case GNE_ATTR_TO_TRAINSTOP:
+            replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value);
             // compute ride
             computePathElement();
             break;

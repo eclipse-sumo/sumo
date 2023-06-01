@@ -471,6 +471,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         case GNE_TAG_RIDE_EDGE:
         case GNE_TAG_RIDE_BUSSTOP:
+        case GNE_TAG_RIDE_TRAINSTOP:
             myAC = new GNERide(tagProperty.getTag(), net);
             break;
         default:

@@ -151,7 +151,7 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     // declare flags for requirements
     const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == GNE_TAG_WALK_BUSSTOP) ||
                                  (personPlanTag == GNE_TAG_RIDE_BUSSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_BUSSTOP));
-    const bool requireTrainStop = ((personPlanTag == GNE_TAG_WALK_TRAINSTOP));
+    const bool requireTrainStop = ((personPlanTag == GNE_TAG_WALK_TRAINSTOP) || (personPlanTag == GNE_TAG_RIDE_TRAINSTOP));
     const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGE) ||
                               (personPlanTag == GNE_TAG_RIDE_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGES) ||
                               (personPlanTag == GNE_TAG_STOPPERSON_EDGE));
