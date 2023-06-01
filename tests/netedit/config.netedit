@@ -5,7 +5,7 @@ virtual_display_wm_executable:fluxbox
 virtual_display_extra_args:-dpi 100 -shmem
 
 copy_test_path:test.py
-copy_test_path:netedit.neteditcfg
+copy_test_path:netedit.netecfg
 copy_test_path:net.net.xml
 copy_test_path:net.netccfg
 copy_test_path:net.net.xml
@@ -15,7 +15,7 @@ copy_test_path:net.nod.xml
 copy_test_path:net.tll.xml
 copy_test_path:net.net.xml
 copy_test_path:net_loadedmanually.net.xml
-copy_test_path:netedit_loadedmanually.neteditcfg
+copy_test_path:netedit_loadedmanually.netecfg
 copy_test_path:sumo_loadedmanually.sumocfg
 copy_test_path:additionals.add.xml
 copy_test_path:routes.rou.xml
@@ -34,7 +34,7 @@ copy_test_path:errorScreenshot.png
 net:net.net.xml
 net:netedit.net.xml
 net:net_loadedmanually.net.xml
-configmanually:netedit_savedmanually.neteditcfg
+configmanually:netedit_savedmanually.netecfg
 configmanually:sumo_savedmanually.sumocfg
 netcon:net.con.xml
 netedg:net.edg.xml

@@ -320,8 +320,8 @@ def Popen(extraParameters):
     neteditCall = [_NETEDIT_APP]
 
     # check if a netedit config must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "netedit.neteditcfg")):
-        neteditCall += ['-c', os.path.join(_TEXTTEST_SANDBOX, "netedit.neteditcfg")]
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "netedit.netecfg")):
+        neteditCall += ['-c', os.path.join(_TEXTTEST_SANDBOX, "netedit.netecfg")]
 
     # add extra parameters
     neteditCall += extraParameters
@@ -872,7 +872,7 @@ def openNeteditConfigAs(waitTime=2):
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("netedit_loadedmanually.neteditcfg")
+    pasteIntoTextField("netedit_loadedmanually.netecfg")
     typeEnter()
     # wait for saving
     time.sleep(waitTime)
@@ -922,7 +922,7 @@ def saveNeteditConfigAs(referencePosition):
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("netedit_savedmanually.neteditcfg")
+    pasteIntoTextField("netedit_savedmanually.netecfg")
     typeEnter()
     # wait for saving
     time.sleep(DELAY_SAVING)
