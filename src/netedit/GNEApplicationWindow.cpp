@@ -1088,9 +1088,10 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
         // get filedata
         const std::string recentFile = ((const char*)fileData);
         // check if we're loading a network o a config
-        if ((recentFile.find(".neteditcfg") != std::string::npos) ||
-                (recentFile.find(".sumocfg") != std::string::npos) ||
-                (recentFile.find(".netccfg") != std::string::npos)) {
+        if ((recentFile.find(".neteditcfg") != std::string::npos) ||    // neteditcfg deprecated
+            (recentFile.find(".netecfg") != std::string::npos) ||
+            (recentFile.find(".sumocfg") != std::string::npos) ||
+            (recentFile.find(".netccfg") != std::string::npos)) {
             // load config
             loadConfiguration(recentFile);
         } else {
@@ -3204,7 +3205,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
         // get file path
         const auto filePath = FileHelpers::getFilePath(neteditConfigFile);
         // get patter file
-        const auto patterFile = StringUtils::replace(neteditConfigFile, ".neteditcfg", "");
+        const auto patterFile = StringUtils::replace(neteditConfigFile, ".netecfg", "");
         // get config file without extension
         if (neteditOptions.getString("net-file").empty()) {
             neteditOptions.set("net-file", patterFile + ".net.xml");

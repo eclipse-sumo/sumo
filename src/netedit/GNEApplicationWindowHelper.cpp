@@ -2248,7 +2248,7 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     neteditOptions.set("route-files", mySumoOptions.getString("route-files"));
     // check if we need to define the configuration file
     if (neteditOptions.getString("configuration-file").empty()) {
-        const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".sumocfg", ".neteditcfg");
+        const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".sumocfg", ".netecfg");
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", newConfiguration);
     }
@@ -2294,7 +2294,7 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     neteditOptions.relocateFiles(myFile);
     // check if we have loaded a netedit config or a netconvert config
     if (neteditOptions.getString("configuration-file").find(".netccfg") != std::string::npos) {
-        const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".netccfg", ".neteditcfg");
+        const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".netccfg", ".netecfg");
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", newConfiguration);
     }
@@ -2805,11 +2805,12 @@ std::string
 GNEApplicationWindowHelper::openNeteditConfigFileDialog(FXWindow* window, bool save) {
     if (save) {
         return openFileDialog(window, TL("Save netedit Config file as"), GUIIcon::SAVE_NETEDITCONFIG,
-                              TL("Netedit Config files (*.neteditcfg)") + std::string("\n") +
+                              TL("Netedit Config files (*.netecfg)") + std::string("\n") +   
                               TL("All files (*)"), save);
     } else {
         return openFileDialog(window, TL("Open netedit Config file"), GUIIcon::OPEN_NETEDITCONFIG,
-                              TL("Netedit Config files (*.neteditcfg)") + std::string("\n") +
+                              TL("Netedit Config files (*.netecfg)") + std::string("\n") +
+                              TL("Netedit Config files (*.neteditcfg)") + std::string("\n") +   // neteditcfg deprecated
                               TL("All files (*)"), save);
     }
 }
