@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_17_0+0480-b4173846450
+Eclipse SUMO sumo Version v1_17_0+0629-a4cb7c1
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -586,7 +586,7 @@ SSM Device Options:
   --device.ssm.measures STR            Specifies which measures will be logged
                                         (as a space or comma-separated sequence
                                         of IDs in ('TTC', 'DRAC', 'PET',
-                                        'PPET'))
+                                        'PPET','MDRAC'))
   --device.ssm.thresholds STR          Specifies space or comma-separated
                                         thresholds corresponding to the
                                         specified measures (see documentation
@@ -603,6 +603,8 @@ SSM Device Options:
                                         logged after a conflict is over.
                                         Required >0 if PET is to be calculated
                                         for crossing conflicts.
+  --device.ssm.mdrac.prt FLOAT         Specifies the perception reaction time
+                                        for MDRAC computation.
   --device.ssm.file STR                Give a global default filename for the
                                         SSM output
   --device.ssm.geo                     Whether to use coordinates of the
@@ -886,8 +888,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

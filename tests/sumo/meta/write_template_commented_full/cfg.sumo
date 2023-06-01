@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-25 14:50:08 by Eclipse SUMO sumo Version v1_17_0+0480-b4173846450
+<!-- generated on 2023-06-01 14:19:11 by Eclipse SUMO sumo Version v1_17_0+0629-a4cb7c1
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -843,7 +843,7 @@
         <!-- The &apos;ssm&apos; devices are set deterministic using a fraction of 1000 -->
         <device.ssm.deterministic value="false" type="BOOL"/>
 
-        <!-- Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;)) -->
+        <!-- Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;,&apos;MDRAC&apos;)) -->
         <device.ssm.measures value="" type="STR"/>
 
         <!-- Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. -->
@@ -857,6 +857,9 @@
 
         <!-- Specifies the time in seconds to be logged after a conflict is over. Required &gt;0 if PET is to be calculated for crossing conflicts. -->
         <device.ssm.extratime value="5" type="FLOAT"/>
+
+        <!-- Specifies the perception reaction time for MDRAC computation. -->
+        <device.ssm.mdrac.prt value="1" type="FLOAT"/>
 
         <!-- Give a global default filename for the SSM output -->
         <device.ssm.file value="" type="STR"/>
@@ -1256,9 +1259,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
