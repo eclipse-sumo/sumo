@@ -501,10 +501,17 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributeModules::P
     myTLDef(nullptr) {
     // call auxiliar constructor
     constructor("Parameters");
-    // get AC Front
-    const GNEAttributeCarrier* AC = parametersEditor->getViewNet()->getInspectedAttributeCarriers().front();
-    // fill myParametersValues
-    myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
+    if (parametersEditor->getInspectorFrameParent()) {
+        // get AC Front
+        const auto AC = parametersEditor->getViewNet()->getInspectedAttributeCarriers().front();
+        // fill myParametersValues
+        myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
+    } else if (parametersEditor->getTypeFrameParent()) {
+        // get type
+        const auto type = parametersEditor->getTypeFrameParent()->getTypeSelector()->getCurrentType();
+        // fill myParametersValues
+        myParametersValues->setParameters(type->getACParameters<std::vector<std::pair<std::string, std::string> > >());
+    }
 }
 
 

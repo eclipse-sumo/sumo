@@ -165,6 +165,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
     // show modules
     myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
     myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
+    myTypeFrameParent->myParametersEditor->refreshParametersEditor();
     myTypeFrameParent->myVTypeDistributions->showVTypeDistributionsModule();
 }
 
@@ -193,6 +194,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // show modules if selected item is valid
             myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
             myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
+            myTypeFrameParent->myParametersEditor->refreshParametersEditor();
             myTypeFrameParent->myVTypeDistributions->showVTypeDistributionsModule();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeSelector").text());
