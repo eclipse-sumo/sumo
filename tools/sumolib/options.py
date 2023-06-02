@@ -190,6 +190,14 @@ class ArgumentParser(argparse.ArgumentParser):
         # arbitrary data file (i.e. for attributeStats.py and plotXMLAttributes.py)
         return s
 
+    @staticmethod
+    def config_file(s):
+        return s
+
+    @staticmethod
+    def config_file_list(s):
+        return s
+
     def __init__(self, *args, **kwargs):
         self._allowed_programs = kwargs.get("allowed_programs", [])
         if "allowed_programs" in kwargs:
@@ -314,10 +322,11 @@ class ArgumentParser(argparse.ArgumentParser):
                                 typeName = a.type.__name__
                                 if typeName == 'parseTime':
                                     typeName = 'time'
-                                knownTypes = ['bool', 'float', 'int',
-                                              'time', 'file', 'net_file', 'route_file',
-                                              'additional_file', 'edgedata_file', 'data_file',
-                                              'file_list', 'route_file_list']
+                                knownTypes = ['bool', 'float', 'int', 'time', 'file',
+                                              'net_file', 'route_file','additional_file',
+                                              'edgedata_file', 'data_file','file_list',
+                                              'route_file_list', 'config_file',
+                                              'config_file_list']
                                 if typeName not in knownTypes:
                                     typeName = 'string'
                                 elif typeName.endswith("_list"):
