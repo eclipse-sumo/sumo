@@ -1,15 +1,13 @@
 Warning: Vehicle 'b.5'; collision with vehicle 'v.2', lane='-E1_1', gap=-6.14, time=64.00 stage=move.
 Warning: Teleporting vehicle 'v.4'; waited too long (wrong lane), lane='E1_0', time=351.00.
-Warning: Vehicle 'v.4' ends teleporting on edge 'E4', time=353.00.
+Warning: Vehicle 'v.4' ends teleporting on edge 'E4', time=351.00.
 Warning: Teleporting vehicle 'v.6'; waited too long (wrong lane), lane='E1_0', time=654.00.
-Warning: Vehicle 'v.6' teleports beyond arrival edge 'E4', time=657.00.
+Warning: Vehicle 'v.6' ends teleporting on edge 'E4', time=654.00.
 Warning: Teleporting vehicle 'b.6'; waited too long (yield), lane='-E1_1', time=658.00.
 Warning: Teleporting vehicle 'b.8'; waited too long (wrong lane), lane='-E1_0', time=658.00.
 Warning: Vehicle 'b.6' ends teleporting on edge 'E3', time=658.00.
 Warning: Vehicle 'b.8' ends teleporting on edge 'E3', time=658.00.
 Warning: Teleporting vehicle 'b.4'; waited too long (yield), lane='-E1_1', time=659.00.
 Warning: Teleporting vehicle 'b.5'; waited too long (yield), lane='-E1_1', time=660.00.
-Warning: Teleporting vehicle 'v.7'; waited too long (yield), lane='E0_1', time=660.00.
 Warning: Vehicle 'b.4' ends teleporting on edge 'E3', time=660.00.
-Warning: Vehicle 'b.5' ends teleporting on edge 'E3', time=663.00.
-Warning: Vehicle 'v.7' ends teleporting on edge 'E1', time=683.00.
+Warning: Vehicle 'b.5' ends teleporting on edge 'E3', time=662.00.
