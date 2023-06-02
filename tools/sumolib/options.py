@@ -191,11 +191,11 @@ class ArgumentParser(argparse.ArgumentParser):
         return s
 
     @staticmethod
-    def config_file(s):
+    def sumoconfig_file(s):
         return s
 
     @staticmethod
-    def config_file_list(s):
+    def sumoconfig_file_list(s):
         return s
 
     def __init__(self, *args, **kwargs):
@@ -325,8 +325,8 @@ class ArgumentParser(argparse.ArgumentParser):
                                 knownTypes = ['bool', 'float', 'int', 'time', 'file',
                                               'net_file', 'route_file','additional_file',
                                               'edgedata_file', 'data_file','file_list',
-                                              'route_file_list', 'config_file',
-                                              'config_file_list']
+                                              'route_file_list', 'sumoconfig_file',
+                                              'sumoconfig_file_list']
                                 if typeName not in knownTypes:
                                     typeName = 'string'
                                 elif typeName.endswith("_list"):
