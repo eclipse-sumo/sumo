@@ -4887,13 +4887,6 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
             return myState.myBackPos / myFurtherLanes.back()->getLength() * lane->getLength();
         }
     } else {
-        if (lane->getBidiLane() != nullptr) {
-            if (myLane == lane->getBidiLane()) {
-                return lane->getLength() - (myState.myPos - myType->getLength());
-            } else if (myFurtherLanes.size() > 0 && lane->getBidiLane() == myFurtherLanes.back()) {
-                return lane->getLength() - myState.myBackPos;
-            }
-        }
         //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myFurtherLanes=" << toString(myFurtherLanes) << "\n";
         double leftLength = myType->getLength() - myState.myPos;
 
@@ -4904,7 +4897,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
             if (*i == lane) {
                 return -leftLength;
             } else if (*i == lane->getBidiLane()) {
-                return lane->getLength() + leftLength;
+                return lane->getLength() + leftLength - (calledByGetPosition ? 2 * myType->getLength() : 0);
             }
             ++i;
         }
