@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-31 16:47:32 by Eclipse SUMO netconvert Version v1_17_0+0610-08f7890
+<!-- generated on 2023-06-02 09:54:51 by Eclipse SUMO netconvert Version v1_17_0+0652-1215d8a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -123,13 +123,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="J0" type="dead_end" x="0.00" y="50.00" incLanes="-E0_0 -E0_1" intLanes="" shape="0.00,51.60 0.00,54.80 0.00,48.40"/>
     <junction id="J1" type="priority" x="150.00" y="50.00" incLanes="-E1_0 -E1_1 -E3_0 E0_0 E0_1" intLanes=":J1_0_0 :J1_0_1 :J1_8_0 :J1_3_0 :J1_4_0 :J1_5_0 :J1_6_0 :J1_6_1" shape="157.20,56.40 157.20,43.60 154.98,43.16 154.20,42.60 153.64,41.82 153.31,40.82 153.20,39.60 146.80,39.60 146.36,42.71 145.80,43.80 145.02,44.58 144.02,45.04 142.80,45.20 142.80,54.80 145.88,54.92 148.14,55.21 151.86,55.99 154.12,56.28">
         <request index="0" response="00000000" foes="00010000" cont="0"/>
-        <request index="1" response="00000000" foes="00010000" cont="0"/>
+        <request index="1" response="10000000" foes="10010000" cont="0"/>
         <request index="2" response="11100000" foes="11110000" cont="1"/>
         <request index="3" response="11000000" foes="11000000" cont="0"/>
         <request index="4" response="11000111" foes="11000111" cont="0"/>
         <request index="5" response="00000000" foes="00000100" cont="0"/>
         <request index="6" response="00000000" foes="00011100" cont="0"/>
-        <request index="7" response="00000000" foes="00011100" cont="0"/>
+        <request index="7" response="00000000" foes="00011110" cont="0"/>
     </junction>
     <junction id="J2" type="priority" x="200.00" y="50.00" incLanes="-E4_0 -E2_0 -E2_1 E1_0 E1_1" intLanes=":J2_0_0 :J2_1_0 :J2_2_0 :J2_3_0 :J2_3_1 :J2_5_0 :J2_5_1 :J2_8_0" shape="196.80,60.40 203.20,60.40 203.64,58.18 204.20,57.40 204.98,56.84 205.98,56.51 207.20,56.40 207.20,43.60 192.80,43.60 192.80,56.40 195.02,56.84 195.80,57.40 196.36,58.18 196.69,59.18">
         <request index="0" response="00011000" foes="00011000" cont="0"/>

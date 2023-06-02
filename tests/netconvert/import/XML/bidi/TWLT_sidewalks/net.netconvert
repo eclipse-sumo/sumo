@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-31 13:54:35 by Eclipse SUMO netconvert Version v1_17_0+0596-58b66ed
+<!-- generated on 2023-06-02 09:54:51 by Eclipse SUMO netconvert Version v1_17_0+0652-1215d8a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -131,10 +131,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="cluster3892451598_766875150" type="priority" x="22.58" y="13.54" incLanes="178028204#1_0 178028204#1_1 178028204#1_2 -178028204#3_0 -178028204#3_1 -178028204#3_2" intLanes=":cluster3892451598_766875150_0_0 :cluster3892451598_766875150_1_0 :cluster3892451598_766875150_2_0 :cluster3892451598_766875150_3_0 :cluster3892451598_766875150_4_0 :cluster3892451598_766875150_5_0" shape="19.58,20.79 27.19,7.18 25.58,6.28 18.00,19.90">
         <request index="0" response="000000" foes="010000" cont="0"/>
         <request index="1" response="101000" foes="101000" cont="0"/>
-        <request index="2" response="000000" foes="010000" cont="0"/>
+        <request index="2" response="000000" foes="110000" cont="0"/>
         <request index="3" response="000000" foes="000010" cont="0"/>
         <request index="4" response="000101" foes="000101" cont="0"/>
-        <request index="5" response="000000" foes="000010" cont="0"/>
+        <request index="5" response="000000" foes="000110" cont="0"/>
     </junction>
     <junction id="cluster_237253947_3909915214" type="dead_end" x="90.48" y="51.41" incLanes="-178028204#1_0 -178028204#1_1 -178028204#1_2 :cluster_237253947_3909915214_w0_0" intLanes="" shape="91.23,50.07 94.25,44.67 89.66,52.87">
         <param key="origEdgeIds" value="-178028204#0 -179699939#4 178028204#0 179699939#4"/>
