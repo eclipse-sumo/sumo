@@ -143,8 +143,11 @@ public:
                 std::cout << "RailEdge " << getID() << " actual turnaround " << myTurnaround->getID() << "\n";
 #endif
                 myTurnaround->myIsVirtual = false;
+                // ensure at least one virtual turnaround (at the start of the
+                // edge) to avoid driving up to the end of long edges
+                const double initialDist = MAX2(maxTrainLength - getLength(), POSITION_EPS);
                 addVirtualTurns(myOriginal, viaPair.first, railEdges, numericalID,
-                                maxTrainLength - getLength(), getLength(), std::vector<const E*> {myOriginal});
+                                initialDist, getLength(), std::vector<const E*> {myOriginal});
             } else {
                 myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(),
                                           viaPair.second == nullptr ? nullptr : viaPair.second->getRailwayRoutingEdge()));
