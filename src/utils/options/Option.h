@@ -236,6 +236,14 @@ public:
      */
     virtual bool isData() const;
 
+    /** @brief Returns the information whether this option is a sumo config file
+     *
+     * Returns false. Only Option_SumoConfig overrides this method returning true.
+     *
+     * @return true if the Option is an Option_SumoConfig, false otherwise
+     */
+    virtual bool isSumoConfig() const;
+
     /** @brief Returns the information whether the option may be set a further time
      *
      * This method returns whether the option was not already set using command line
@@ -765,12 +773,33 @@ public:
      */
     Option_Data(const std::string& value);
 
-    /** @brief Returns true, the information whether this option is a file name
+    /** @brief Returns true, the information whether this option is a data file
      *
      * Returns true.
      *
      * @return true
      */
     bool isData() const;
+};
 
+// -------------------------------------------------------------------------
+// Option_Data
+// -------------------------------------------------------------------------
+
+class Option_SumoConfig : public Option_String {
+
+public:
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_SumoConfig(const std::string& value);
+
+    /** @brief Returns true, the information whether this option is a sumo config name
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isSumoConfig() const;
 };

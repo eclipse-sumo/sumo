@@ -188,6 +188,8 @@ TemplateHandler::addOption(std::string value, const std::string& synonymes, cons
             option = new Option_Route(value);
         } else if ((type == "DATA") || (type == "data_file") || (type == "edgedata_file")) {
             option = new Option_Data(value);
+        } else if ((type == "SUMOCONFIG") || (type == "sumoconfig_file")) {
+            option = new Option_SumoConfig(value);
         } else if (type.size() > 0) {
             WRITE_WARNING(type + " is an invalid type");
         }
