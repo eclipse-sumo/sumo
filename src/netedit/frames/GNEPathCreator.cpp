@@ -374,7 +374,7 @@ GNEPathCreator::setVClass(SUMOVehicleClass vClass) {
 
 
 bool
-GNEPathCreator::addJunction(GNEJunction* junction, const bool /* shiftKeyPressed */, const bool /* controlKeyPressed */) {
+GNEPathCreator::addJunction(GNEJunction* junction) {
     // check if junctions are allowed
     if (((myCreationMode & START_JUNCTION) == 0) && ((myCreationMode & END_JUNCTION) == 0)) {
         return false;

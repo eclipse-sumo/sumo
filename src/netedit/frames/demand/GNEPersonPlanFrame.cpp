@@ -167,7 +167,7 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     } else if (requireEdge && objectsUnderCursor.getEdgeFront()) {
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (requireJunction && objectsUnderCursor.getJunctionFront()) {
-        return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront());
     } else {
         return false;
     }
@@ -219,9 +219,9 @@ GNEPersonPlanFrame::tagSelected() {
             myPathLegend->showPathLegendModule();
             // add previous edge or junction
             if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
-                myPathCreator->addJunction(previousEdge->getToJunction(), false, false);
+                myPathCreator->addJunction(previousEdge->getToJunction());
             } else if (!myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-                myPathCreator->addEdge(previousEdge, false, false);
+                myPathCreator->addEdge(previousEdge, true, true);
             }
         } else {
             // set path creator mode

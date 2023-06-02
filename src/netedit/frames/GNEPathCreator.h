@@ -111,7 +111,7 @@ public:
     void setVClass(SUMOVehicleClass vClass);
 
     /// @brief add junction
-    bool addJunction(GNEJunction* junction, const bool shiftKeyPressed, const bool controlKeyPressed);
+    bool addJunction(GNEJunction* junction);
 
     /// @brief add edge
     bool addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
