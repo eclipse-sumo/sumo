@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netbuild/NBLoadedSUMOTLDef.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -490,7 +491,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributeModules::G
 }
 
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEInspectorFrame::ParametersEditor* parametersEditor) :
+GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributeModules::ParametersEditor* parametersEditor) :
     FXDialogBox(parametersEditor->getInspectorFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myGenericDataAttributes(nullptr),
     myParametersEditor(parametersEditor),

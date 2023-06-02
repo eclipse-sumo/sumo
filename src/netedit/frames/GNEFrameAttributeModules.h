@@ -36,6 +36,7 @@
 class GNEFrame;
 class GNEViewParent;
 class GNEFlowEditor;
+class GNEInspectorFrame;
 
 // ===========================================================================
 // class definitions
@@ -286,6 +287,57 @@ public:
 
         /// @brief button for edit parameters using specific dialog
         FXButton* myButtonEditParameters = nullptr;
+    };
+
+    // ===========================================================================
+    // class ParametersEditor
+    // ===========================================================================
+
+    class ParametersEditor : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrameAttributeModules::ParametersEditor)
+
+    public:
+        /// @brief constructor
+        ParametersEditor(GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief destructor
+        ~ParametersEditor();
+
+        /// @brief show netedit attributes EditorInspector
+        void showParametersEditor();
+
+        /// @brief hide netedit attributes EditorInspector
+        void hideParametersEditor();
+
+        /// @brief refresh netedit attributes
+        void refreshParametersEditor();
+
+        /// @brief get inspector frame parent
+        GNEInspectorFrame* getInspectorFrameParent() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user clicks over add parameter
+        long onCmdEditParameters(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user udpate the parameter text field
+        long onCmdSetParameters(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(ParametersEditor)
+
+    private:
+        /// @brief current GNEInspectorFrame parent
+        GNEInspectorFrame* myInspectorFrameParent;
+
+        /// @brief text field for write parameters
+        FXTextField* myTextFieldParameters;
+
+        /// @brief button for edit parameters using specific dialog
+        FXButton* myButtonEditParameters;
     };
 
     /// @brief return true if AC can be edited in the current supermode

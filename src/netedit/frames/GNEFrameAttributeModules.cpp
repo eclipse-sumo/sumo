@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/dialogs/GNEMultipleParametersDialog.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -60,11 +61,17 @@ FXDEFMAP(GNEFrameAttributeModules::GenericDataAttributes) GenericDataAttributesM
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters)
 };
 
+FXDEFMAP(GNEFrameAttributeModules::ParametersEditor) ParametersEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEFrameAttributeModules::ParametersEditor::onCmdEditParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters)
+};
+
 // Object implementation
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontalFrame,       AttributesEditorRowMap,        ARRAYNUMBER(AttributesEditorRowMap))
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             MFXGroupBoxModule,       AttributesEditorMap,           ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     MFXGroupBoxModule,       AttributesEditorExtendedMap,   ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        MFXGroupBoxModule,       GenericDataAttributesMap,      ARRAYNUMBER(GenericDataAttributesMap))
+FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontalFrame,      AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
+FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             MFXGroupBoxModule,      AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     MFXGroupBoxModule,      AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
+FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        MFXGroupBoxModule,      GenericDataAttributesMap,       ARRAYNUMBER(GenericDataAttributesMap))
+FXIMPLEMENT(GNEFrameAttributeModules::ParametersEditor,             MFXGroupBoxModule,      ParametersEditorMap,            ARRAYNUMBER(ParametersEditorMap))
 
 
 // ===========================================================================
@@ -1135,6 +1142,165 @@ GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters(FXObject*, F
         myTextFieldParameters->setText(getParametersStr().c_str(), FALSE);
     } else {
         myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
+    }
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrameAttributeModules::ParametersEditor - methods
+// ---------------------------------------------------------------------------
+
+GNEFrameAttributeModules::ParametersEditor::ParametersEditor(GNEInspectorFrame* inspectorFrameParent) :
+    MFXGroupBoxModule(inspectorFrameParent, TL("Parameters")),
+    myInspectorFrameParent(inspectorFrameParent) {
+    // create textfield and buttons
+    myTextFieldParameters = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myButtonEditParameters = new FXButton(getCollapsableFrame(), TL("Edit parameters"), nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
+}
+
+
+GNEFrameAttributeModules::ParametersEditor::~ParametersEditor() {}
+
+
+void
+GNEFrameAttributeModules::ParametersEditor::showParametersEditor() {
+    // firt check if there is
+    if ((myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) &&
+            myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasParameters()) {
+        // refresh ParametersEditor
+        refreshParametersEditor();
+        // show groupbox
+        show();
+    } else {
+        hide();
+    }
+}
+
+
+void
+GNEFrameAttributeModules::ParametersEditor::hideParametersEditor() {
+    // hide groupbox
+    hide();
+}
+
+
+void
+GNEFrameAttributeModules::ParametersEditor::refreshParametersEditor() {
+    // get front AC
+    const GNEAttributeCarrier* frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0 ? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
+    // continue depending of frontAC
+    if (frontAC && frontAC->getTagProperty().hasParameters()) {
+        // check if we're editing a single or a multiple AC
+        if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            // set text field parameters
+            myTextFieldParameters->setText(frontAC->getAttribute(GNE_ATTR_PARAMETERS).c_str());
+        } else if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+            // check if parameters of all inspected ACs are different
+            std::string parameters = frontAC->getAttribute(GNE_ATTR_PARAMETERS);
+            for (const auto& AC : myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
+                if (parameters != AC->getAttribute(GNE_ATTR_PARAMETERS)) {
+                    parameters = "different parameters";
+                }
+            }
+            // set text field
+            myTextFieldParameters->setText(parameters.c_str());
+        }
+        // reset color
+        myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+        // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+        if (GNEFrameAttributeModules::isSupermodeValid(myInspectorFrameParent->getViewNet(), frontAC)) {
+            myTextFieldParameters->enable();
+            myButtonEditParameters->enable();
+        } else {
+            myTextFieldParameters->disable();
+            myButtonEditParameters->disable();
+        }
+    }
+}
+
+
+GNEInspectorFrame*
+GNEFrameAttributeModules::ParametersEditor::getInspectorFrameParent() const {
+    return myInspectorFrameParent;
+}
+
+
+long
+GNEFrameAttributeModules::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, void*) {
+    // get front AC
+    const GNEAttributeCarrier* frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0 ? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
+    // continue depending of frontAC
+    if (frontAC && frontAC->getTagProperty().hasParameters()) {
+        if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
+            // write debug information
+            WRITE_DEBUG("Open multiple parameters dialog");
+            // open multiple parameters dialog
+            if (GNEMultipleParametersDialog(this).execute()) {
+                // write debug information
+                WRITE_DEBUG("Close multiple parameters dialog");
+                // update frame parent after attribute successfully set
+                myInspectorFrameParent->attributeUpdated(GNE_ATTR_PARAMETERS);
+                // Refresh parameter EditorInspector
+                refreshParametersEditor();
+            } else {
+                // write debug information
+                WRITE_DEBUG("Cancel multiple parameters dialog");
+            }
+        } else {
+            // write debug information
+            WRITE_DEBUG("Open single parameters dialog");
+            if (GNESingleParametersDialog(this).execute()) {
+                // write debug information
+                WRITE_DEBUG("Close single parameters dialog");
+                // update frame parent after attribute successfully set
+                myInspectorFrameParent->attributeUpdated(GNE_ATTR_PARAMETERS);
+                // Refresh parameter EditorInspector
+                refreshParametersEditor();
+            } else {
+                // write debug information
+                WRITE_DEBUG("Cancel single parameters dialog");
+            }
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, void*) {
+    const auto& ACs = myInspectorFrameParent->getAttributesEditor()->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    // get front AC
+    GNEAttributeCarrier* frontAC = ACs.size() > 0 ? ACs.front() : nullptr;
+    // continue depending of frontAC
+    if (frontAC && frontAC->getTagProperty().hasParameters()) {
+        // check if current given string is valid
+        if (frontAC->isValid(GNE_ATTR_PARAMETERS, myTextFieldParameters->getText().text())) {
+            // parsed parameters ok, then set text field black and continue
+            myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldParameters->killFocus();
+            // check inspected parameters
+            if (ACs.size() == 1) {
+                // begin undo list
+                myInspectorFrameParent->getViewNet()->getUndoList()->begin(frontAC->getTagProperty().getGUIIcon(), "change parameters");
+                // set parameters
+                frontAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+                // end undo list
+                myInspectorFrameParent->getViewNet()->getUndoList()->end();
+            } else if (ACs.size() > 0) {
+                // begin undo list
+                myInspectorFrameParent->getViewNet()->getUndoList()->begin(frontAC->getTagProperty().getGUIIcon(), "change multiple parameters");
+                // set parameters in all ACs
+                for (const auto& inspectedAC : ACs) {
+                    inspectedAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+                }
+                // end undo list
+                myInspectorFrameParent->getViewNet()->getUndoList()->end();
+            }
+            // update frame parent after attribute successfully set
+            myInspectorFrameParent->attributeUpdated(GNE_ATTR_PARAMETERS);
+        } else {
+            myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
+        }
     }
     return 1;
 }

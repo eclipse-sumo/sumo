@@ -224,6 +224,9 @@ private:
     /// @brief modul for open extended attributes dialog
     GNEFrameAttributeModules::AttributesEditorExtended* myAttributesEditorExtended = nullptr;
 
+    /// @brief Parameters editor inspector
+    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
+
     /// @brief modul for open vType distributions dialog
     VTypeDistributions* myVTypeDistributions = nullptr;
 };

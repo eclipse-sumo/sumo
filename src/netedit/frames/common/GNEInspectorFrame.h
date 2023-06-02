@@ -41,6 +41,9 @@ class GNEInspectorFrame : public GNEFrame {
     /// @brief FOX-declaration
     FXDECLARE(GNEInspectorFrame)
 
+    /// @brief declare friend class
+    friend class GNEFrameAttributeModules::ParametersEditor;
+
 public:
     // ===========================================================================
     // class NeteditAttributesEditor
@@ -260,57 +263,6 @@ public:
     };
 
     // ===========================================================================
-    // class ParametersEditor
-    // ===========================================================================
-
-    class ParametersEditor : public MFXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::ParametersEditor)
-
-    public:
-        /// @brief constructor
-        ParametersEditor(GNEInspectorFrame* inspectorFrameParent);
-
-        /// @brief destructor
-        ~ParametersEditor();
-
-        /// @brief show netedit attributes EditorInspector
-        void showParametersEditor();
-
-        /// @brief hide netedit attributes EditorInspector
-        void hideParametersEditor();
-
-        /// @brief refresh netedit attributes
-        void refreshParametersEditor();
-
-        /// @brief get inspector frame parent
-        GNEInspectorFrame* getInspectorFrameParent() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user clicks over add parameter
-        long onCmdEditParameters(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user udpate the parameter text field
-        long onCmdSetParameters(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(ParametersEditor)
-
-    private:
-        /// @brief current GNEInspectorFrame parent
-        GNEInspectorFrame* myInspectorFrameParent;
-
-        /// @brief text field for write parameters
-        FXTextField* myTextFieldParameters;
-
-        /// @brief button for edit parameters using specific dialog
-        FXButton* myButtonEditParameters;
-    };
-
-    // ===========================================================================
     // class AdditionalDialog
     // ===========================================================================
 
@@ -452,7 +404,7 @@ private:
     GEOAttributesEditor* myGEOAttributesEditor;
 
     /// @brief Parameters editor inspector
-    ParametersEditor* myParametersEditor;
+    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
 
     /// @brief Additional dialog
     AdditionalDialog* myAdditionalDialog;

@@ -23,7 +23,6 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/frames/GNEFrameAttributeModules.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/dialogs/GNEVehicleTypeDialog.h>
 
 // ===========================================================================
@@ -234,7 +233,7 @@ public:
     GNESingleParametersDialog(GNEFrameAttributeModules::GenericDataAttributes* genericDataAttributes);
 
     /// @brief Constructor for parameter editor
-    GNESingleParametersDialog(GNEInspectorFrame::ParametersEditor* parametersEditor);
+    GNESingleParametersDialog(GNEFrameAttributeModules::ParametersEditor* parametersEditor);
 
     /// @brief Constructor for Vehicle Type Row (Vehicle Type Dialog)
     GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet);
@@ -268,7 +267,7 @@ protected:
     GNEFrameAttributeModules::GenericDataAttributes* myGenericDataAttributes;
 
     /// @brief pointer to ParametersEditor
-    GNEInspectorFrame::ParametersEditor* myParametersEditor;
+    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
 
     /// @brief pointer to VTypeAttributeRow
     GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow;
