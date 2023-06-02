@@ -688,11 +688,12 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                     const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k])
                                                     || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
                                                   || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
-                    if (((myForbids[idx2][idx] || (zipper && myForbids[idx][idx2])) && hasLaneConflict)
+                    if (((myForbids[idx2][idx] || (zipper && myForbids[idx][idx2])) && hasLaneConflict && !bidiConflict(*i, connected[k], from, queryCon, false))
                             || rightTurnConflict(from, queryCon, *i, connected[k])
                             || mergeConflict(from, queryCon, *i, connected[k], zipper)
                             || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
                             || indirectLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
+                            || bidiConflict(from, queryCon, *i, connected[k], false)
                             || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                             || (myJunction->tlsContConflict(from, c, *i, connected[k]) && hasLaneConflict
                                 && !OptionsCont::getOptions().getBool("tls.ignore-internal-junction-jam"))
@@ -745,6 +746,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
                         || mergeConflict(from, queryCon, *i, connected[k], true)
                         || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], true)
                         || indirectLeftTurnConflict(from, queryCon, *i, connected[k], true)
+                        || bidiConflict(from, queryCon, *i, connected[k], true)
                    ) {
                     result += '1';
                 } else {
@@ -863,6 +865,38 @@ NBRequest::indirectLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
             LinkDirection dir = myJunction->getDirection(from, con.toEdge);
             return (dir == LinkDirection::STRAIGHT);
         }
+    }
+    return false;
+}
+
+bool
+NBRequest::bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
+                                    const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+    if (from == prohibitorFrom) {
+        return false;
+    }
+    if (isRailway(from->getPermissions())) {
+        // railways manage right-of-way via signals
+        return false;
+    }
+    if ((foes && (from->getBidiEdge() == prohibitorCon.toEdge))
+            || prohibitorFrom->getBidiEdge() == con.toEdge) {
+        const bool fromBidi = from->getLaneShape(con.fromLane).reverse().almostSame(
+                prohibitorCon.toEdge->getLaneShape(prohibitorCon.toLane), POSITION_EPS);
+        const bool prohibitorFromBidi = prohibitorFrom->getLaneShape(prohibitorCon.fromLane).reverse().almostSame(
+                con.toEdge->getLaneShape(con.toLane), POSITION_EPS);
+        if (!foes && fromBidi && prohibitorFromBidi) {
+            // do not create a symmetrical conflict
+            return false;
+        }
+        if (prohibitorFromBidi &&
+                prohibitorFrom->getLaneShape(prohibitorCon.fromLane).reverse().almostSame(
+                prohibitorCon.toEdge->getLaneShape(prohibitorCon.toLane), POSITION_EPS)) {
+            // prohibitor has a bidi-turnaround
+            return false;
+        }
+
+        return fromBidi || prohibitorFromBidi;
     }
     return false;
 }
