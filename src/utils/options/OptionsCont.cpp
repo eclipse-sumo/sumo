@@ -891,8 +891,6 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
     os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/";
     if (myAppName == "sumo-gui") {
         os << "sumo";
-    } else if (myAppName == "netedit") {
-        os << "netconvert";
     } else {
         os << myAppName;
     }
