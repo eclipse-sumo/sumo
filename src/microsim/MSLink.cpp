@@ -1502,6 +1502,10 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 }
                 continue;
             }
+            if (myInternalLaneBefore == foeLane->getBidiLane() && leader->isBidiOn(foeLane)) {
+                // conflict resolved via normal car-following
+                continue;
+            }
             // check whether foe is blocked and might need to change before leaving the junction
             const bool foeStrategicBlocked = (leader->getLaneChangeModel().isStrategicBlocked() &&
                                               leader->getCarFollowModel().brakeGap(leader->getSpeed()) <= foeLane->getLength() - leaderBack);
