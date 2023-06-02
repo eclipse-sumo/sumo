@@ -257,8 +257,16 @@ public:
         length += e->getLength();
     }
 
+    bool isValid(const std::vector<const E*>& edges, const V* const v) const {
+        for (const E* const e : edges) {
+            if (isProhibited(e, v)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-    inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp = nullptr) const {
+    virtual double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp = nullptr) const {
         double time = STEPS2TIME(msTime);
         double effort = 0.;
         double length = 0.;
@@ -269,9 +277,6 @@ public:
         }
         const E* prev = nullptr;
         for (const E* const e : edges) {
-            if (isProhibited(e, v)) {
-                return -1;
-            }
             updateViaCost(prev, e, v, time, effort, *lengthp);
             prev = e;
         }
