@@ -575,10 +575,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         progCount = "(" + toString(numbers.second) + " programs) ";
     }
     WRITE_MESSAGEF(TL(" % traffic light(s) %computed."), toString(numbers.first), progCount);
-    if (oc.exists("opendrive-files") && oc.isSet("opendrive-files")) {
-        // TODO: how to get the relation between controlled connections and the signal program?
-        // Better start with NBNodeCont?
-        // 
+    if (oc.exists("opendrive-files") && oc.isSet("opendrive-files") && oc.getBool("opendrive.signal-groups")) {
         myTLLCont.applyOpenDriveControllers(oc); 
     }
 

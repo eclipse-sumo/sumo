@@ -364,6 +364,8 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     oc.addDescription("opendrive.position-ids", "Formats", TL("Sets edge-id based on road-id and offset in m (legacy)"));
     oc.doRegister("opendrive.lane-shapes", new Option_Bool(false));
     oc.addDescription("opendrive.lane-shapes", "Formats", TL("Use custom lane shapes to compensate discarded lane types"));
+    oc.doRegister("opendrive.signal-groups", new Option_Bool(false));
+    oc.addDescription("opendrive.signal-groups", "Formats", TL("Use the OpenDRIVE controller information for the generated signal program"));
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));

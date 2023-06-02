@@ -773,7 +773,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
     }
 
-    //std::set<std::string> junctionsWithControllers;
+    const bool importSignalGroups = oc.getBool("opendrive.signal-groups");
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
         for (const OpenDriveSignal& signal : e->signals) {
@@ -870,18 +870,19 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                 }
                             }
                             // set tlIndex to allow signal groups (defined in OpenDRIVE controller elements)
-                            const OpenDriveController& controller = handler.getController(signal.id);
-                            if (controller.id != "") {
-                                if (c.getParameter("controllerID") != "") {
-                                    WRITE_WARNINGF(TL("The signaling of the connection from '%' to '%' (controller '%') is ambiguous because it is overwritten signal '%' and with controller '%'."), from->getID(), c.toEdge->getID(), c.getParameter("controllerID"), signal.id, controller.id);
+                            if (importSignalGroups) {
+                                const OpenDriveController& controller = handler.getController(signal.id);
+                                if (controller.id != "") {
+                                    if (c.getParameter("controllerID") != "") {
+                                        WRITE_WARNINGF(TL("The signaling of the connection from '%' to '%' (controller '%') is ambiguous because it is overwritten signal '%' and with controller '%'."), from->getID(), c.toEdge->getID(), c.getParameter("controllerID"), signal.id, controller.id);
+                                    }
+                                    //junctionsWithControllers.insert(from->getToNode()->getID());
+                                    int tlIndex = handler.getTLIndexForController(controller.id);
+                                    c.tlLinkIndex = tlIndex;
+                                    c.setParameter("controllerID", controller.id);
                                 }
-                                //junctionsWithControllers.insert(from->getToNode()->getID());
-                                int tlIndex = handler.getTLIndexForController(controller.id);
-                                c.tlLinkIndex = tlIndex;
-                                c.setParameter("controllerID", controller.id);
                             }
-                        }
-                        
+                        }                      
                     }
                     getTLSSecure(from, nb);
 
@@ -913,17 +914,20 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             c.setParameter("signalID", signal.id);
                         }
                     }
+                    
                     // set tlIndex to allow signal groups (defined in OpenDRIVE controller elements)
-                    const OpenDriveController& controller = handler.getController(signal.id);
-                    if (controller.id != "") {
-                        if (c.getParameter("controllerID") != "") {
-                            WRITE_WARNINGF(TL("The signaling of the connection from '%' to '%' (controller '%') is ambiguous because it is overwritten with signal '%' and controller '%'."), edge->getID(), c.toEdge->getID(), c.getParameter("controllerID"), signal.id, controller.id);
+                    if (importSignalGroups) {
+                        const OpenDriveController& controller = handler.getController(signal.id);
+                        if (controller.id != "") {
+                            if (c.getParameter("controllerID") != "") {
+                                WRITE_WARNINGF(TL("The signaling of the connection from '%' to '%' (controller '%') is ambiguous because it is overwritten with signal '%' and controller '%'."), edge->getID(), c.toEdge->getID(), c.getParameter("controllerID"), signal.id, controller.id);
+                            }
+                            //junctionsWithControllers.insert(edge->getToNode()->getID());
+                            int tlIndex = handler.getTLIndexForController(controller.id);
+                            c.tlLinkIndex = tlIndex;
+                            c.setParameter("controllerID", controller.id);
                         }
-                        //junctionsWithControllers.insert(edge->getToNode()->getID());
-                        int tlIndex = handler.getTLIndexForController(controller.id);
-                        c.tlLinkIndex = tlIndex;
-                        c.setParameter("controllerID", controller.id);
-                    }                  
+                    }                
                 }
                 getTLSSecure(edge, nb);
                 //std::cout << "odrEdge=" << e->id << " sumoID=" << (*k).sumoID << " sumoEdge=" << edge->getID()
