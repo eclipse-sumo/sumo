@@ -37,6 +37,7 @@ class GNEFrame;
 class GNEViewParent;
 class GNEFlowEditor;
 class GNEInspectorFrame;
+class GNETypeFrame;
 
 // ===========================================================================
 // class definitions
@@ -298,9 +299,12 @@ public:
         FXDECLARE(GNEFrameAttributeModules::ParametersEditor)
 
     public:
-        /// @brief constructor
+        /// @brief constructor for inspector frame
         ParametersEditor(GNEInspectorFrame* inspectorFrameParent);
-
+        
+        /// @brief constructor for type frame
+        ParametersEditor(GNETypeFrame* typeFrameParent);
+        
         /// @brief destructor
         ~ParametersEditor();
 
@@ -316,6 +320,9 @@ public:
         /// @brief get inspector frame parent
         GNEInspectorFrame* getInspectorFrameParent() const;
 
+        /// @brief get type frame parent
+        GNETypeFrame* getTypeFrameParent() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user clicks over add parameter
@@ -330,14 +337,17 @@ public:
         FOX_CONSTRUCTOR(ParametersEditor)
 
     private:
-        /// @brief current GNEInspectorFrame parent
-        GNEInspectorFrame* myInspectorFrameParent;
+        /// @brief inspector frame parent
+        GNEInspectorFrame* myInspectorFrameParent = nullptr;
+
+        /// @brief type frame parent
+        GNETypeFrame* myTypeFrameParent = nullptr;
 
         /// @brief text field for write parameters
-        FXTextField* myTextFieldParameters;
+        FXTextField* myTextFieldParameters = nullptr;
 
         /// @brief button for edit parameters using specific dialog
-        FXButton* myButtonEditParameters;
+        FXButton* myButtonEditParameters = nullptr;
     };
 
     /// @brief return true if AC can be edited in the current supermode

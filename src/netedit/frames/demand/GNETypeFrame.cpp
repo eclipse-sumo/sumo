@@ -481,6 +481,9 @@ GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     // create module for open extended attributes dialog
     myAttributesEditorExtended = new GNEFrameAttributeModules::AttributesEditorExtended(this);
 
+    /// create module for edit parameteres
+    myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);
+
     // create module for open vType distribution dialog
     myVTypeDistributions = new VTypeDistributions(this);
 
