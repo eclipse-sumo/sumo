@@ -5460,7 +5460,7 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) 
                 clane->setPartialOccupation(this);
                 if (clane->getBidiLane() != nullptr
                         && (!isRailway(getVClass()) || (clane->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
-                    clane->getBidiLane()->resetPartialOccupation(this);
+                    clane->getBidiLane()->setPartialOccupation(this);
                 }
             }
             leftLength -= clane->getLength();
