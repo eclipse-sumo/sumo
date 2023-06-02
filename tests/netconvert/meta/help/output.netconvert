@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_17_0+0284-21a361d
+Eclipse SUMO netconvert Version v1_17_0+0676-2c0a9e8
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -643,6 +643,8 @@ Formats Options:
                                         in m (legacy)
   --opendrive.lane-shapes              Use custom lane shapes to compensate
                                         discarded lane types
+  --opendrive.signal-groups            Use the OpenDRIVE controller information
+                                        for the generated signal program
 
 Report Options:
   -v, --verbose                        Switches to verbose output

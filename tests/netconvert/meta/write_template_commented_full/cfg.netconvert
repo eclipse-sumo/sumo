@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-14 23:03:00 by Eclipse SUMO netconvert Version v1_17_0+0284-21a361d
+<!-- generated on 2023-06-02 14:43:51 by Eclipse SUMO netconvert Version v1_17_0+0676-2c0a9e8
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -986,6 +986,9 @@
 
         <!-- Use custom lane shapes to compensate discarded lane types -->
         <opendrive.lane-shapes value="false" type="BOOL"/>
+
+        <!-- Use the OpenDRIVE controller information for the generated signal program -->
+        <opendrive.signal-groups value="false" type="BOOL"/>
 
     </formats>
 
