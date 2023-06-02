@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-31 16:38:44 by Eclipse SUMO netedit Version v1_17_0+0606-c9c96fb
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-06-02 10:04:36 by Eclipse SUMO netedit Version v1_17_0+0652-1215d8a
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
         <sumo-net-file value="net.net.xml"/>
@@ -175,13 +175,13 @@
     <junction id="J0" type="dead_end" x="2950.00" y="1850.00" incLanes="-E0_0 -E0_1" intLanes="" shape="2950.00,1851.60 2950.00,1854.80 2950.00,1848.40"/>
     <junction id="J1" type="priority" x="3100.00" y="1850.00" incLanes="-E1_0 -E1_1 -E3_0 E0_0 E0_1" intLanes=":J1_0_0 :J1_0_1 :J1_8_0 :J1_3_0 :J1_4_0 :J1_5_0 :J1_6_0 :J1_6_1" shape="3107.20,1856.40 3107.20,1843.60 3104.98,1843.16 3104.20,1842.60 3103.64,1841.82 3103.31,1840.82 3103.20,1839.60 3096.80,1839.60 3096.36,1842.71 3095.80,1843.80 3095.02,1844.58 3094.02,1845.04 3092.80,1845.20 3092.80,1854.80 3095.88,1854.92 3098.14,1855.21 3101.86,1855.99 3104.12,1856.28">
         <request index="0" response="00000000" foes="00010000" cont="0"/>
-        <request index="1" response="00000000" foes="00010000" cont="0"/>
+        <request index="1" response="10000000" foes="10010000" cont="0"/>
         <request index="2" response="11100000" foes="11110000" cont="1"/>
         <request index="3" response="11000000" foes="11000000" cont="0"/>
         <request index="4" response="11000111" foes="11000111" cont="0"/>
         <request index="5" response="00000000" foes="00000100" cont="0"/>
         <request index="6" response="00000000" foes="00011100" cont="0"/>
-        <request index="7" response="00000000" foes="00011100" cont="0"/>
+        <request index="7" response="00000000" foes="00011110" cont="0"/>
     </junction>
     <junction id="J2" type="priority" x="3150.00" y="1850.00" incLanes="-E4_0 -E2_0 -E2_1 E1_0 E1_1" intLanes=":J2_0_0 :J2_1_0 :J2_2_0 :J2_3_0 :J2_3_1 :J2_5_0 :J2_5_1 :J2_8_0" shape="3146.80,1860.40 3153.20,1860.40 3153.64,1858.18 3154.20,1857.40 3154.98,1856.84 3155.98,1856.51 3157.20,1856.40 3157.20,1843.60 3142.80,1843.60 3142.80,1856.40 3145.02,1856.84 3145.80,1857.40 3146.36,1858.18 3146.69,1859.18">
         <request index="0" response="00011000" foes="00011000" cont="0"/>
