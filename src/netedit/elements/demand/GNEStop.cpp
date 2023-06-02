@@ -1108,6 +1108,8 @@ GNEStop::getHierarchyName() const {
     if (getParentAdditionals().size() > 0) {
         if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
             return "BusStop: " + getParentAdditionals().front()->getID();
+        } else if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+            return "TrainStop: " + getParentAdditionals().front()->getID();
         } else if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
             return "containerStop: " + getParentAdditionals().front()->getID();
         } else if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION) {
