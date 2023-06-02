@@ -72,6 +72,12 @@ FXDEFMAP(GNEPythonToolDialogElements::DataArgument) DataArgumentMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::DataArgument::onUpdUseCurrent)
 };
 
+FXDEFMAP(GNEPythonToolDialogElements::SumoConfigArgument) SumoConfigArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,         GNEPythonToolDialogElements::SumoConfigArgument::onCmdOpenFilename),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::SumoConfigArgument::onCmdUseCurrent),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_USE_CURRENT,    GNEPythonToolDialogElements::SumoConfigArgument::onUpdUseCurrent)
+};
+
 // Object implementation
 FXIMPLEMENT_ABSTRACT(GNEPythonToolDialogElements::Argument,     FXHorizontalFrame,                              ArgumentMap,            ARRAYNUMBER(ArgumentMap))
 FXIMPLEMENT(GNEPythonToolDialogElements::FileNameArgument,      GNEPythonToolDialogElements::Argument,          FileNameArgumentMap,    ARRAYNUMBER(FileNameArgumentMap))
@@ -79,7 +85,7 @@ FXIMPLEMENT(GNEPythonToolDialogElements::NetworkArgument,       GNEPythonToolDia
 FXIMPLEMENT(GNEPythonToolDialogElements::AdditionalArgument,    GNEPythonToolDialogElements::FileNameArgument,  AdditionalArgumentMap,  ARRAYNUMBER(AdditionalArgumentMap))
 FXIMPLEMENT(GNEPythonToolDialogElements::RouteArgument,         GNEPythonToolDialogElements::FileNameArgument,  RouteArgumentMap,       ARRAYNUMBER(RouteArgumentMap))
 FXIMPLEMENT(GNEPythonToolDialogElements::DataArgument,          GNEPythonToolDialogElements::FileNameArgument,  DataArgumentMap,        ARRAYNUMBER(DataArgumentMap))
-
+FXIMPLEMENT(GNEPythonToolDialogElements::SumoConfigArgument,    GNEPythonToolDialogElements::FileNameArgument,  SumoConfigArgumentMap,  ARRAYNUMBER(SumoConfigArgumentMap))
 
 // ===========================================================================
 // member method definitions
@@ -415,6 +421,49 @@ GNEPythonToolDialogElements::DataArgument::onUpdUseCurrent(FXObject* sender, FXS
 
 
 GNEPythonToolDialogElements::DataArgument::DataArgument() {}
+
+// ---------------------------------------------------------------------------
+// GNEPythonToolDialogElements::FileNameArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEPythonToolDialogElements::SumoConfigArgument::SumoConfigArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+        const std::string name, Option* option) :
+    FileNameArgument(toolDialogParent, argumentFrame, name, option, TL("sumo config")) {
+}
+
+
+long
+GNEPythonToolDialogElements::SumoConfigArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
+    // get sumoConfig file
+    const auto sumoConfigFile = GNEApplicationWindowHelper::openSumoConfigFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
+    // check that file is valid
+    if (sumoConfigFile.size() > 0) {
+        myFilenameTextField->setText(sumoConfigFile.c_str(), TRUE);
+    }
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::SumoConfigArgument::onCmdUseCurrent(FXObject*, FXSelector, void*) {
+    myFilenameTextField->setText(OptionsCont::getOptions().getString("sumocfg-file").c_str(), TRUE);
+    return 1;
+}
+
+
+long
+GNEPythonToolDialogElements::SumoConfigArgument::onUpdUseCurrent(FXObject* sender, FXSelector, void*) {
+    if (myToolDialogParent->getGNEApplicationWindow()->getViewNet() == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (OptionsCont::getOptions().getString("sumocfg-file").empty()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
+GNEPythonToolDialogElements::SumoConfigArgument::SumoConfigArgument() {}
 
 // ---------------------------------------------------------------------------
 // GNEPythonToolDialogElements::StringArgument - methods

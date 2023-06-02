@@ -300,6 +300,37 @@ public:
         DataArgument& operator=(const DataArgument&) = delete;
     };
 
+    /// @brief network argument
+    class SumoConfigArgument : public FileNameArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::SumoConfigArgument)
+
+    public:
+        /// @brief constructor
+        SumoConfigArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                      const std::string name, Option* option);
+
+        /// @brief Called when user press open filename button
+        long onCmdOpenFilename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press use current button
+        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use current button
+        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        SumoConfigArgument();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        SumoConfigArgument(const SumoConfigArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SumoConfigArgument& operator=(const SumoConfigArgument&) = delete;
+    };
+
     /// @brief string argument
     class StringArgument : public Argument {
 
