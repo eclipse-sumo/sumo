@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vType id="train" length="120.00" vClass="rail"/>
     <vehicle id="t0" type="train" depart="0.00">
         <routeDistribution last="0">
-            <route cost="752.11" probability="1.00000000" edges="a b c d e -e -d -c -b2 -a2"/>
+            <route cost="98.94" probability="1.00000000" edges="a b c E0 E1 E2 E3 -a2"/>
         </routeDistribution>
     </vehicle>
 </routes>
