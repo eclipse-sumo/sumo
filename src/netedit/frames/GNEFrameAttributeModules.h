@@ -308,6 +308,9 @@ public:
         /// @brief destructor
         ~ParametersEditor();
 
+        /// @get viewNet
+        GNEViewNet* getViewNet() const;
+
         /// @brief show netedit attributes EditorInspector
         void showParametersEditor();
 

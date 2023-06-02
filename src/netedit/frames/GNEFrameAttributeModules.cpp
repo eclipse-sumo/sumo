@@ -1172,6 +1172,12 @@ GNEFrameAttributeModules::ParametersEditor::ParametersEditor(GNETypeFrame* typeF
 GNEFrameAttributeModules::ParametersEditor::~ParametersEditor() {}
 
 
+GNEViewNet*
+GNEFrameAttributeModules::ParametersEditor::getViewNet() const {
+    return myInspectorFrameParent? myInspectorFrameParent->getViewNet() : myTypeFrameParent->getViewNet();
+}
+
+
 void
 GNEFrameAttributeModules::ParametersEditor::showParametersEditor() {
     if (myInspectorFrameParent) {
@@ -1186,7 +1192,14 @@ GNEFrameAttributeModules::ParametersEditor::showParametersEditor() {
             hideParametersEditor();
         }
     } else if (myTypeFrameParent) {
-        //
+        if (myTypeFrameParent->getTypeSelector()->getCurrentType() != nullptr) {
+            /// refresh ParametersEditor
+            refreshParametersEditor();
+            // show groupbox
+            show();
+        } else {
+            hideParametersEditor();
+        }
     } else {
         hideParametersEditor();
     }
@@ -1236,7 +1249,23 @@ GNEFrameAttributeModules::ParametersEditor::refreshParametersEditor() {
             }
         }
     } else if (myTypeFrameParent) {
-        //
+        // get type
+        GNEDemandElement *type = myTypeFrameParent->getTypeSelector()->getCurrentType();
+        // continue depending of frontAC
+        if (type) {
+            // set text field parameters
+            myTextFieldParameters->setText(type->getAttribute(GNE_ATTR_PARAMETERS).c_str());
+            // reset color
+            myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+            // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+            if (GNEFrameAttributeModules::isSupermodeValid(myTypeFrameParent->getViewNet(), type)) {
+                myTextFieldParameters->enable();
+                myButtonEditParameters->enable();
+            } else {
+                myTextFieldParameters->disable();
+                myButtonEditParameters->disable();
+            }
+        }
     } 
 }
 
@@ -1294,7 +1323,22 @@ GNEFrameAttributeModules::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
             }
         }
     } else if (myTypeFrameParent) {
-        //
+        // get type
+        GNEDemandElement *type = myTypeFrameParent->getTypeSelector()->getCurrentType();
+        // continue depending of type
+        if (type) {
+            // write debug information
+            WRITE_DEBUG("Open single parameters dialog");
+            if (GNESingleParametersDialog(this).execute()) {
+                // write debug information
+                WRITE_DEBUG("Close single parameters dialog");
+                // Refresh parameter EditorInspector
+                refreshParametersEditor();
+            } else {
+                // write debug information
+                WRITE_DEBUG("Cancel single parameters dialog");
+            }
+        }
     } 
     return 1;
 }
@@ -1338,7 +1382,25 @@ GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
             }
         }
     } else if (myTypeFrameParent) {
-        //
+        // get type
+        GNEDemandElement *type = myTypeFrameParent->getTypeSelector()->getCurrentType();
+        // continue depending of frontAC
+        if (type) {
+            // check if current given string is valid
+            if (type->isValid(GNE_ATTR_PARAMETERS, myTextFieldParameters->getText().text())) {
+                // parsed parameters ok, then set text field black and continue
+                myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldParameters->killFocus();
+                // begin undo list
+                myTypeFrameParent->getViewNet()->getUndoList()->begin(type->getTagProperty().getGUIIcon(), "change parameters");
+                // set parameters
+                type->setACParameters(myTextFieldParameters->getText().text(), myTypeFrameParent->getViewNet()->getUndoList());
+                // end undo list
+                myTypeFrameParent->getViewNet()->getUndoList()->end();
+            } else {
+                myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
+            }
+        }
     } 
     return 1;
 }
