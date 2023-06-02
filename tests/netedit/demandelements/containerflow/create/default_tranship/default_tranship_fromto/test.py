@@ -38,7 +38,7 @@ netedit.containerMode()
 netedit.changeElement("containerFlow")
 
 # change container plan
-netedit.changeContainerPlan("tranship: edge->edge", True)
+netedit.changeContainerPlan("tranship: edge", True)
 
 # create route using three edges
 netedit.leftClick(referencePosition, 274, 400)

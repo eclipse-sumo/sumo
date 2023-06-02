@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("transport: edge->edge", False)
+netedit.changeContainerPlan("transport: edge", False)
 
 # create route using three edges
 netedit.leftClick(referencePosition, 274, 400)
