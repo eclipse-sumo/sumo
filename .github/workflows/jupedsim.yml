@@ -77,6 +77,7 @@ jobs:
         cd sumo/cmake-build 
         cmake -DJUPEDSIM_DIR=$PWD/../../jpscore-install ..
         make -j4
+        make traas
         sudo make install
 
     - name: Building Examples and Tests
