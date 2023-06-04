@@ -234,11 +234,11 @@ def get(args=None):
 
 
 if __name__ == "__main__":
-    # try:
+    try:
         get()
-    # except urlerror as e:
-    #     print("Error: Tile server returned %s." % e, file=sys.stderr)
-    #     if e.code == 403:
-    #         print(" Maybe an API key is required.", file=sys.stderr)
-    # except ValueError as e:
-    #     print("Error: Tile server returned %s." % e, file=sys.stderr)
+    except urlerror as e:
+        print("Error: Tile server returned %s." % e, file=sys.stderr)
+        if e.code == 403:
+            print(" Maybe an API key is required.", file=sys.stderr)
+    except ValueError as e:
+        print("Error: Tile server returned %s." % e, file=sys.stderr)
