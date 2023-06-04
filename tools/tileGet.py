@@ -21,7 +21,8 @@ from __future__ import division
 import math
 import os
 import sys
-from concurrent.futures import ThreadPoolExecutor as PoolExecutor
+from multiprocessing.pool import Pool
+import signal
 
 try:
     # python3
@@ -74,7 +75,7 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
         height /= 2
     return center, zoom, width, height
 
-def worker(x, y, zoom, options, decals, net, request, filename):
+def worker(options, request, filename):
     # print(request)
     urllib.urlretrieve(request, filename)
     if os.stat(filename).st_size < options.min_file_size:
@@ -93,32 +94,43 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net):
     # opener.addheaders = [('User-agent', 'Mozilla/5.0')]
     # urllib.install_opener(opener)
     
-    with PoolExecutor(8) as executor:
-        futures = []
+    # N = (ex - sx + 1) * (ey - sy + 1)
+    
+    if options.parallel_jobs != 0:
+        original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
+        pool = Pool(options.parallel_jobs)
+        signal.signal(signal.SIGINT, original_sigint_handler)
+    
+    futures = []
 
-        N = (ex - sx + 1) * (ey - sy + 1)
-        for x in range(sx, ex + 1):
-            for y in range(sy, ey + 1):
-                request = "%s/%s/%s/%s" % (options.url, zoom, y, x)
-                filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
-                
+    # i = 0
+    for x in range(sx, ex + 1):
+        for y in range(sy, ey + 1):
+            request = "%s/%s/%s/%s" % (options.url, zoom, y, x)
+            filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
+            
+            if options.parallel_jobs == 0:
+                worker(x, y, zoom, options, decals, net, request, filename)
+                # i += 1
+                # print("{%f}% ({%s})" % (100.0 * (i+1)/N, request))
+            else:
                 futures.append((
-                    x, y, executor.submit(worker, x, y, zoom, options, decals, net, request, filename)
+                    x, y, pool.apply_async(worker, (options, request, filename))
                 ))
 
-        for i, (x, y, future) in enumerate(futures):
-            future.result()
+    for i, (x, y, future) in enumerate(futures):
+        future.get()
 
-            # print(f"{(100.0 * (i+1)/N):.2f}% ({request})")
-            
-            if net is not None:
-                lat, lon = fromTileToLatLon(x, y, zoom)
-                upperLeft = net.convertLonLat2XY(lon, lat)
-                lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
-                center = net.convertLonLat2XY(lon, lat)
-                print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-                      (os.path.basename(filename), center[0], center[1],
-                       2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
+        # print('%f%% (%s)' % (100.0 * (i+1)/N, request))
+        if net is not None:
+        
+            lat, lon = fromTileToLatLon(x, y, zoom)
+            upperLeft = net.convertLonLat2XY(lon, lat)
+            lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
+            center = net.convertLonLat2XY(lon, lat)
+            print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+                    (os.path.basename(filename), center[0], center[1],
+                    2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
 
 
 def get_options(args=None):
@@ -143,6 +155,8 @@ def get_options(args=None):
                          help="Download from the given tile server")
     optParser.add_option("-f", "--min-file-size", category="processing", type=int, default=3000,
                          help="maximum number of tiles the output gets split into")
+    optParser.add_option("-j", "--parallel-jobs", category="processing", type=int, default=8,
+                         help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
     URL_SHORTCUTS = {
         "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
         "mapquest": "https://open.mapquestapi.com/staticmap/v4/getmap",
@@ -220,11 +234,11 @@ def get(args=None):
 
 
 if __name__ == "__main__":
-    try:
+    # try:
         get()
-    except urlerror as e:
-        print("Error: Tile server returned %s." % e, file=sys.stderr)
-        if e.code == 403:
-            print(" Maybe an API key is required.", file=sys.stderr)
-    except ValueError as e:
-        print("Error: Tile server returned %s." % e, file=sys.stderr)
+    # except urlerror as e:
+    #     print("Error: Tile server returned %s." % e, file=sys.stderr)
+    #     if e.code == 403:
+    #         print(" Maybe an API key is required.", file=sys.stderr)
+    # except ValueError as e:
+    #     print("Error: Tile server returned %s." % e, file=sys.stderr)
