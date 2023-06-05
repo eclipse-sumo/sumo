@@ -247,19 +247,15 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
 
 
 GUIParameterTableWindow*
-GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
-                                  GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    // add items
-    ret->mkItem("Type Information:", false, "");
-    ret->mkItem("type [id]", false, myVType->getID());
+GUIPerson::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, "vType:" + myVType->getID());
     ret->mkItem("length", false, myVType->getLength());
     ret->mkItem("width", false, myVType->getWidth());
     ret->mkItem("height", false, myVType->getHeight());
     ret->mkItem("minGap", false, myVType->getMinGap());
+    ret->mkItem("mass [kg]", false, myVType->getMass());
     ret->mkItem("desired max speed [m/s]", false, myVType->getDesiredMaxSpeed());
     ret->mkItem("maximum speed [m/s]", false, myVType->getMaxSpeed());
-    // close building
     ret->closeBuilding(&(myVType->getParameter()));
     return ret;
 }
