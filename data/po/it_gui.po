@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-05 11:42+0000\n"
+"PO-Revision-Date: 2023-06-05 12:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10456,23 +10456,23 @@ msgstr "Modifiche"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:93
 msgid "Discard connection modifications (Esc)"
-msgstr ""
+msgstr "Rigetta le modifiche fatte ai collegamenti (Esc)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:96
 msgid "Save connection modifications (Enter)"
-msgstr ""
+msgstr "Salva le modifiche ai collegamenti (Enter)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:100
 msgid "Protect routes"
-msgstr ""
+msgstr "Proteggi gli itinerari"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:112
 msgid "Changes reverted"
-msgstr ""
+msgstr "Modifiche annullate"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:129
 msgid "Error saving connection operations"
-msgstr ""
+msgstr "Errore nel salvare i collegamenti"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:130
 msgid "Connection edition  cannot be saved because route '"
@@ -10484,11 +10484,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:138
 msgid "Changes accepted"
-msgstr ""
+msgstr "Modifiche accettate"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:151
 msgid "Operations"
-msgstr ""
+msgstr "Operazioni"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:155
 msgid "Select Dead Ends"
@@ -10645,38 +10645,38 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:72
 msgid "Template selector"
-msgstr ""
+msgstr "Selezione di modelli"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:77
 msgid "Create default edge"
-msgstr ""
+msgstr "Crea arco standard"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:80
 msgid "Disallow for pedestrians"
-msgstr ""
+msgstr "Vieta l'accesso ai pedoni"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:82
 msgid "Add sidewalk"
-msgstr ""
+msgstr "Aggiungi marciapiede"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:85
 msgid "Use edgeType/template"
-msgstr ""
+msgstr "Utilizza tipo di arco/modello"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:93
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:437
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1245
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1310
 msgid "Add"
-msgstr ""
+msgstr "Aggiungi"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:93
 msgid "Add edge type"
-msgstr ""
+msgstr "Aggiungi tipo di arco"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:96
 msgid "Delete edge type"
-msgstr ""
+msgstr "Rimuovi tipo di arco"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:99
 msgid "Create from template"
@@ -10689,15 +10689,15 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:318
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:367
 msgid "create new edge type"
-msgstr ""
+msgstr "crea un nuovo tipo di arco"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:340
 msgid "delete edge type"
-msgstr ""
+msgstr "rimuovi tipo di arco"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:405
 msgid "template: "
-msgstr ""
+msgstr "modello: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:429
 msgid "LaneType selector"
