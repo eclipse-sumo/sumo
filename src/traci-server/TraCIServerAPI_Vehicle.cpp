@@ -221,8 +221,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "getting stop parameter needs a compound object description.", outputStorage);
                     }
                     int compoundSize = inputStorage.readInt();
-                    if (compoundSize != 2) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "getting a stop parameter needs a compound object description of 2 items.", outputStorage);
+                    if (compoundSize != 2 && compoundSize != 3) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "getting a stop parameter needs a compound object description of 2 or 3 items.", outputStorage);
                     }
                     int nextStopIndex;
                     if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
@@ -232,8 +232,14 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     if (!server.readTypeCheckingString(inputStorage, param)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second setStopParameter parameter must be the param given as a string.", outputStorage);
                     }
+                    int customParam = false;
+                    if (compoundSize == 3) {
+                        if (!server.readTypeCheckingByte(inputStorage, customParam)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third setStopParameter parameter must be the customParam flag given as a byte.", outputStorage);
+                        }
+                    }
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(libsumo::Vehicle::getStopParameter(id, nextStopIndex, param));
+                    server.getWrapperStorage().writeString(libsumo::Vehicle::getStopParameter(id, nextStopIndex, param, customParam));
                 }
                 break;
                 case libsumo::DISTANCE_REQUEST: {
@@ -581,8 +587,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting stop parameter needs a compound object description.", outputStorage);
                 }
                 int compoundSize = inputStorage.readInt();
-                if (compoundSize != 3) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting a stop parameter needs a compound object description of 3 items.", outputStorage);
+                if (compoundSize != 3 && compoundSize != 4) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting a stop parameter needs a compound object description of 3 or 4 items.", outputStorage);
                 }
                 int nextStopIndex;
                 if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
@@ -596,7 +602,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, value)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third setStopParameter parameter must be the value given as a string.", outputStorage);
                 }
-                libsumo::Vehicle::setStopParameter(id, nextStopIndex, param, value);
+                int customParam = false;
+                if (compoundSize == 4) {
+                    if (!server.readTypeCheckingByte(inputStorage, customParam)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fourth setStopParameter parameter must be the customParam flag given as a byte.", outputStorage);
+                    }
+                }
+                libsumo::Vehicle::setStopParameter(id, nextStopIndex, param, value, customParam);
             }
             break;
             case libsumo::CMD_REROUTE_TO_PARKING: {

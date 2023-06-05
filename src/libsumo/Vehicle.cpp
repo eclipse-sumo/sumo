@@ -1162,7 +1162,7 @@ Vehicle::insertStop(const std::string& vehID,
 
 
 std::string
-Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std::string& param) {
+Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std::string& param, bool customParam) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     try {
         if (nextStopIndex >= (int)vehicle->getStops().size() || (nextStopIndex < 0 && -nextStopIndex > (int)vehicle->getPastStops().size())) {
@@ -1173,6 +1173,10 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
         const SUMOVehicleParameter::Stop& pars = (nextStopIndex >= 0
                 ? vehicle->getStop(nextStopIndex).pars
                 : vehicle->getPastStops()[vehicle->getPastStops().size() + nextStopIndex]);
+        if (customParam) {
+            // custom user parameter
+            return pars.getParameter(param, "");
+        }
 
         if (param == toString(SUMO_ATTR_EDGE)) {
             return pars.edge;
@@ -1243,11 +1247,16 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
 
 void
 Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
-                          const std::string& param, const std::string& value) {
+                          const std::string& param, const std::string& value,
+                          bool customParam) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     try {
         MSStop& stop = vehicle->getStop(nextStopIndex);
         SUMOVehicleParameter::Stop& pars = const_cast<SUMOVehicleParameter::Stop&>(stop.pars);
+        if (customParam) {
+            pars.setParameter(param, value);
+            return;
+        }
         std::string error;
         if (param == toString(SUMO_ATTR_EDGE)
                 || param == toString(SUMO_ATTR_BUS_STOP)

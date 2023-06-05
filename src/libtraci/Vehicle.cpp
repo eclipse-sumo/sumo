@@ -454,11 +454,12 @@ Vehicle::getStops(const std::string& vehID, int limit) {
 }
 
 std::string
-Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std::string& param) {
+Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std::string& param, bool customParam) {
     tcpip::Storage content;
-    StoHelp::writeCompound(content, 2);
+    StoHelp::writeCompound(content, 3);
     StoHelp::writeTypedInt(content, nextStopIndex);
     StoHelp::writeTypedString(content, param);
+    StoHelp::writeTypedByte(content, customParam);
     return Dom::getString(libsumo::VAR_STOP_PARAMETER, vehID, &content);
 }
 
@@ -831,12 +832,14 @@ Vehicle::insertStop(const std::string& vehID,
 
 void
 Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
-                          const std::string& param, const std::string& value) {
+                          const std::string& param, const std::string& value,
+                          bool customParam) {
     tcpip::Storage content;
-    StoHelp::writeCompound(content, 3);
+    StoHelp::writeCompound(content, 4);
     StoHelp::writeTypedInt(content, nextStopIndex);
     StoHelp::writeTypedString(content, param);
     StoHelp::writeTypedString(content, value);
+    StoHelp::writeTypedByte(content, customParam);
     Dom::set(libsumo::VAR_STOP_PARAMETER, vehID, &content);
 }
 
