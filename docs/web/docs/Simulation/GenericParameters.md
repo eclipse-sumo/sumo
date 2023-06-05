@@ -13,6 +13,7 @@ their XML definitions:
 - Lane
 - Person
 - Vehicle
+- Stop
 - VehicleType
 - PoI
 - Polygon
