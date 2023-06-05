@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0" from="beg" to="rend">
+        <stop lane="left_0" duration="10" posLat="-2" actType="custom">
+            <param key="a" value="1"/>
+        </stop>
+        <stop lane="end_0" duration="10" posLat="-2" actType="custom2">
+            <param key="b" value="2"/>
+        </stop>
+        <param key="c" value="3"/>
+    </trip>
+</routes>
