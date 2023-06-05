@@ -850,6 +850,8 @@ class VehicleDomain(VTypeDomain):
         Gets the value of the given parameter for the stop at the given index
         Negative indices permit access to past stops.
         Supported params correspond to all legal stop xml-attributes
+        If customParam is set to True, the user defined stop parameter with the
+        specified param name will be returned instead (or "" if undefined)
         """
         return self._getUniversal(tc.VAR_STOP_PARAMETER, vehID, "tisb", 3, nextStopIndex, param, customParam)
 
@@ -1092,6 +1094,8 @@ class VehicleDomain(VTypeDomain):
         given index (within the list of all stops).
         Supported params correspond to (almost) all legal stop xml-attributes
         and their value semantics
+        If customParam is set to True, the user defined stop parameter with the
+        specified param name will be set instead
         """
         self._setCmd(tc.VAR_STOP_PARAMETER, vehID, "tissb", 4, nextStopIndex, param, value, customParam)
 
