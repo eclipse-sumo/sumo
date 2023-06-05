@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_17_0+0629-a4cb7c1
+Eclipse SUMO sumo Version v1_17_0+0716-331573c
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -613,6 +613,14 @@ SSM Device Options:
                                         for each timestep
   --device.ssm.write-lane-positions    Whether to write lanes and their
                                         positions for each timestep
+  --device.ssm.exclude-conflict-types STR  Which conflicts will be excluded
+                                        from the log according to the conflict
+                                        type they have been classified
+                                        (combination of values in 'ego', 'foe' ,
+                                        '', any numerical valid conflict type
+                                        code). An empty value will log all and
+                                        'ego'/'foe' refer to a certain conflict
+                                        type subset.
 
 ToC Device Options:
   --device.toc.probability FLOAT       The probability for a vehicle to have a
@@ -888,6 +896,8 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

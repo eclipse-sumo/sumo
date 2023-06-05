@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-01 14:19:11 by Eclipse SUMO sumo Version v1_17_0+0629-a4cb7c1
+<!-- generated on 2023-06-05 14:40:13 by Eclipse SUMO sumo Version v1_17_0+0716-331573c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -873,6 +873,9 @@
         <!-- Whether to write lanes and their positions for each timestep -->
         <device.ssm.write-lane-positions value="false" type="BOOL"/>
 
+        <!-- Which conflicts will be excluded from the log according to the conflict type they have been classified (combination of values in &apos;ego&apos;, &apos;foe&apos; , &apos;&apos;, any numerical valid conflict type code). An empty value will log all and &apos;ego&apos;/&apos;foe&apos; refer to a certain conflict type subset. -->
+        <device.ssm.exclude-conflict-types value="" type="STR"/>
+
     </ssm_device>
 
     <toc_device>
@@ -1259,6 +1262,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
