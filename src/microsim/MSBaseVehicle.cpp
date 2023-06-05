@@ -994,6 +994,67 @@ MSBaseVehicle::isStoppedInRange(const double pos, const double tolerance, bool c
     return false;
 }
 
+bool
+MSBaseVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg) {
+    // Check if there is a parking area to be replaced
+    if (parkingArea == 0) {
+        errorMsg = "new parkingArea is NULL";
+        return false;
+    }
+    if (myStops.size() == 0) {
+        errorMsg = "vehicle has no stops";
+        return false;
+    }
+    if (myStops.front().parkingarea == 0) {
+        errorMsg = "first stop is not at parkingArea";
+        return false;
+    }
+    MSStop& first = myStops.front();
+    SUMOVehicleParameter::Stop& stopPar = const_cast<SUMOVehicleParameter::Stop&>(first.pars);
+    // merge subsequent duplicate stops equals to parking area
+    for (std::list<MSStop>::iterator iter = ++myStops.begin(); iter != myStops.end();) {
+        if (iter->parkingarea == parkingArea) {
+            stopPar.duration += iter->duration;
+            myStops.erase(iter++);
+        } else {
+            break;
+        }
+    }
+    stopPar.lane = parkingArea->getLane().getID();
+    stopPar.parkingarea = parkingArea->getID();
+    stopPar.startPos = parkingArea->getBeginLanePosition();
+    stopPar.endPos = parkingArea->getEndLanePosition();
+    first.edge = myRoute->end(); // will be patched in replaceRoute
+    first.lane = &parkingArea->getLane();
+    first.parkingarea = parkingArea;
+    return true;
+}
+
+
+MSParkingArea*
+MSBaseVehicle::getNextParkingArea() {
+    MSParkingArea* nextParkingArea = nullptr;
+    if (!myStops.empty()) {
+        SUMOVehicleParameter::Stop stopPar;
+        MSStop stop = myStops.front();
+        if (!stop.reached && stop.parkingarea != nullptr) {
+            nextParkingArea = stop.parkingarea;
+        }
+    }
+    return nextParkingArea;
+}
+
+
+MSParkingArea*
+MSBaseVehicle::getCurrentParkingArea() {
+    MSParkingArea* currentParkingArea = nullptr;
+    if (isParking()) {
+        currentParkingArea = myStops.begin()->parkingarea;
+    }
+    return currentParkingArea;
+}
+
+
 
 double
 MSBaseVehicle::basePos(const MSEdge* edge) const {

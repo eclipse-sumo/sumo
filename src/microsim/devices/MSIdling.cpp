@@ -192,11 +192,7 @@ MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
     if (lastStop == nullptr || lastStop->parkingarea == nullptr) {
         const MSParkingArea* pa = rerouteDef->parkProbs.getVals().front().first;
         SUMOVehicleParameter::Stop stop;
-        if (MSGlobals::gUseMesoSim) {
-            stop.edge = pa->getLane().getEdge().getID();
-        } else {
-            stop.lane = pa->getLane().getID();
-        }
+        stop.lane = pa->getLane().getID();
         stop.startPos = pa->getBeginLanePosition();
         stop.endPos = pa->getEndLanePosition();
 

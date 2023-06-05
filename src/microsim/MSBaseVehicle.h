@@ -619,6 +619,17 @@ public:
         return !myStops.empty();
     }
 
+    /** @brief replace the current parking area stop with a new stop with merge duration
+     */
+    bool replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg);
+
+    /** @brief get the upcoming parking area stop or nullptr
+     */
+    MSParkingArea* getNextParkingArea();
+
+    /** @brief get the current  parking area stop or nullptr */
+    MSParkingArea* getCurrentParkingArea();
+
     /// @brief departure position where the vehicle fits fully onto the edge (if possible)
     double basePos(const MSEdge* edge) const;
 

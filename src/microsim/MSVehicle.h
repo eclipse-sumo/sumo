@@ -1000,27 +1000,13 @@ public:
         return myCFVariables;
     }
 
-    /// @name vehicle stops definitions and i/o
-    //@{
-
-
-
-    /** @brief replace the current parking area stop with a new stop with merge duration
-     */
-    bool replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg);
-
-    /** @brief get the upcoming parking area stop or nullptr
-     */
-    MSParkingArea* getNextParkingArea();
-
-    /** @brief get the current  parking area stop or nullptr */
-    MSParkingArea* getCurrentParkingArea();
-
     /** @brief Whether this vehicle is equipped with a MSDriverState
      */
     inline bool hasDriverState() const {
         return myDriverState != nullptr;
     }
+    /// @name vehicle stops definitions and i/o
+    //@{
 
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const;
