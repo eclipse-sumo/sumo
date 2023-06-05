@@ -4698,6 +4698,7 @@ MSVehicle::updateState(double vNext) {
                                //+ " prevAccel=" + toString(previousAcceleration)
                                //+ " reserve=" + toString(MAX2(NUMERICAL_EPS, getCarFollowModel().getEmergencyDecel() - getCarFollowModel().getMaxDecel()))
                                getID(), myLane->getID(), -myAcceleration, getCarFollowModel().getMaxDecel(), emergencyFraction, time2string(SIMSTEP));
+                MSNet::getInstance()->getVehicleControl().registerEmergencyBraking();
             }
         }
     }
