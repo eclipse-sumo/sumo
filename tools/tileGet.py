@@ -110,7 +110,7 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net):
             filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
             
             if options.parallel_jobs == 0:
-                worker(x, y, zoom, options, decals, net, request, filename)
+                worker(options, request, filename)
                 # i += 1
                 # print("{%f}% ({%s})" % (100.0 * (i+1)/N, request))
             else:
