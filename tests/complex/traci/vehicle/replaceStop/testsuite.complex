@@ -86,3 +86,6 @@ first_parameter_only
 
 # replace parameters of first stop (but keep the location)
 first_parameter_only_triggered
+
+# change userDefined stop params
+customParam
