@@ -153,7 +153,7 @@ protected:
     MSStoppingPlace* retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, SUMOVehicleParameter::Stop* stopParam = nullptr);
 
     /// @brief Processing of a stop
-    SUMOVehicleParameter::Stop* addStop(const SUMOSAXAttributes& attrs);
+    Parameterised* addStop(const SUMOSAXAttributes& attrs);
 
     /// @brief add a routing request for a walking or intermodal person
     void addPersonTrip(const SUMOSAXAttributes& attrs);

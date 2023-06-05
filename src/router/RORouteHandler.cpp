@@ -847,9 +847,9 @@ RORouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std:
     return toStop;
 }
 
-SUMOVehicleParameter::Stop*
+Parameterised*
 RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
-    SUMOVehicleParameter::Stop* result = nullptr;
+    Parameterised* result = nullptr;
     if (myActiveContainerPlan != nullptr) {
         myActiveContainerPlan->openTag(SUMO_TAG_STOP);
         (*myActiveContainerPlan) << attrs;

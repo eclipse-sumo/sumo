@@ -65,7 +65,7 @@ enum class MSStageType {
 * The "abstract" class for a single stage of a movement
 * Contains the destination of the current movement step
 */
-class MSStage {
+class MSStage : public Parameterised {
 public:
     /// constructor
     MSStage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, MSStageType type, const std::string& group = "");

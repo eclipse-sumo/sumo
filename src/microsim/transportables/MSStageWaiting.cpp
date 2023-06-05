@@ -142,6 +142,8 @@ MSStageWaiting::routeOutput(const bool /* isPerson */, OutputDevice& os, const b
         if (myActType != "") {
             os.writeAttr(SUMO_ATTR_ACTTYPE, myActType);
         }
+        // Write rest of parameters
+        writeParams(os);
         os.closeTag(comment);
     }
 }

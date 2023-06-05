@@ -154,7 +154,7 @@ protected:
     const SUMOVehicleParameter::Stop* retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, std::string& id, const SUMOVehicleParameter::Stop* stopParam = nullptr);
 
     /// @brief Processing of a stop
-    SUMOVehicleParameter::Stop* addStop(const SUMOSAXAttributes& attrs);
+    Parameterised* addStop(const SUMOSAXAttributes& attrs);
 
     /// @brief Processing of a person
     void addPerson(const SUMOSAXAttributes& attrs);

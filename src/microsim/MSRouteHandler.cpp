@@ -1159,9 +1159,9 @@ MSRouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std:
     return toStop;
 }
 
-SUMOVehicleParameter::Stop*
+Parameterised*
 MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
-    SUMOVehicleParameter::Stop* result = nullptr;
+    Parameterised* result = nullptr;
     try {
         std::string errorSuffix;
         if (myActiveType == ObjectTypeEnum::PERSON) {
@@ -1281,11 +1281,14 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 pos = myActiveTransportablePlan->back()->getArrivalPos();
             }
             myActiveTransportablePlan->push_back(new MSStageWaiting(edge, toStop, stop.duration, stop.until, pos, actType, false));
+            result = myActiveTransportablePlan->back();
 
         } else if (myVehicleParameter != nullptr) {
             myVehicleParameter->stops.push_back(stop);
+            result = &myVehicleParameter->stops.back();
         } else {
             myActiveRouteStops.push_back(stop);
+            result = &myActiveRouteStops.back();
         }
         if (myInsertStopEdgesAt >= 0) {
             //std::cout << " myInsertStopEdgesAt=" << myInsertStopEdgesAt << " edge=" << edge->getID() << " myRoute=" << toString(myActiveRoute) << "\n";
