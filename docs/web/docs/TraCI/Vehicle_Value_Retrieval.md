@@ -476,18 +476,6 @@ value is also shown in the table.
   <td><p>Returns the list of upcoming links with each compound containing info about (lane, via, priority, opened, foe, state, direction, length)</p></td>
   <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getNextLinks">getNextLinks</a></p></td>
 </tr>
-<tr class="odd">
-  <td><p>junction foes (0x37)</p></td>
-  <td><p>complex</p></td>
-  <td><p>Returns the list of foes within a certain distance of the ego vehicle.</p></td>
-  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getJunctionFoes">getJunctionFoes</a></p></td>
-</tr>
-<tr class="even">
-  <td><p>stop parameters (0x55)</p></td>
-  <td><p>string</p></td>
-  <td><p>Returns the attribute by the given name for the stop of the given index (0 is the next stop, -1 is the previous stop etc) for the specified vehicle. If customParam is set to True (1), the user defined custom parameter will returned instead.
-  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getNextLinks">getNextLinks</a></p></td>
-</tr>
 </tbody>
 </table>
 
@@ -606,6 +594,18 @@ Return the lane change state for the vehicle.</p></td>
 <td><p>Return the safe speed for stopping at gap computed by the carFollowModel of vehicle</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStopSpeed">getStopSpeed</a></p></td>
 </tr>
+  <tr class="even">
+  <td><p>junction foes (0x37)</p></td>
+  <td><p>complex</p></td>
+  <td><p>Returns the list of foes within a certain distance of the ego vehicle.</p></td>
+  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getJunctionFoes">getJunctionFoes</a></p></td>
+</tr>
+<tr class="odd">
+  <td><p>stop parameters (0x55)</p></td>
+  <td><p>string</p></td>
+  <td><p>Returns the attribute by the given name for the stop of the given index (0 is the next stop, -1 is the previous stop etc) for the specified vehicle. If customParam is set to True (1), the user defined custom parameter will returned instead.
+  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStopParameter">getStopParameter</a></p></td>
+</tr>
 </tbody>
 </table>
 
@@ -709,6 +709,25 @@ The returned value is the safe gap for following the given leader in m.
 
 The returned value is the safe speed in m/s for stopping after gap when braking
 from the given speed.
+
+### junction foes (0x37)
+
+|         byte          |  double |
+| :-------------------: |  :----: |
+| value type *double*   |  lookahead distance in m   |
+
+The returned value is the safe speed in m/s for stopping after gap when braking
+from the given speed.
+
+### stopParameter (0x55)
+
+|         byte          | int   | int | string | byte
+| :-------------------: | :---: | :----: | :----: |:----: |
+| value type *compound* | 3     | stopIndex  | param    | customParam 
+
+The stopIndex must be in range [-numberOfPassedStops, numberORemaingStops - 1]
+The customParam is interpreted as a boolean and deterines whether an attribute values or a user defined parama is returned.
+
 
 ## Device and LaneChangeModel Parameter Retrieval 0x7e
 
