@@ -32,6 +32,7 @@
             <xsd:element name="safety">
                 <xsd:attribute name="collisions" use="required" type="xsd:nonNegativeInteger"/>
                 <xsd:attribute name="emergencyStops" use="required" type="xsd:nonNegativeInteger"/>
+                <xsd:attribute name="emergencyBraking" use="required" type="xsd:nonNegativeInteger"/>
             </xsd:element>
             <xsd:element name="persons">
                 <xsd:attribute name="loaded" use="required" type="xsd:nonNegativeInteger"/>
