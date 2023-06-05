@@ -47,6 +47,7 @@ The detail of information given for each conflict and the criteria to qualify an
         <param key="device.ssm.write-positions" value="false" />
         <param key="device.ssm.write-lane-positions" value="false" />
         <param key="device.ssm.filter-edges.input-file" value="input_list.txt" />
+        <param key="device.ssm.exclude-conflict-types" value="" />
     </vehicle>
     ....
 </routes>
@@ -68,6 +69,7 @@ The possible parameters are summarized in the following table
 | write-positions  | bool  | false  | Whether to write the positions (coordinates) to the output.  |
 | write-lane-positions  | bool  | false  | Whether to write the lanes and the positions on the lanes to the output.  |
 | filter-edges.input-file | string | - | If defined, only conflicts occured at the provided edges and junctions are measured. See [Restricting SSM Device to Edges and Junctions](#restricting_ssm_device_to_edges_and_junctions)  |
+| exclude-conflict-types | list of strings | - | This space or comma-separated list of SSM device conflict type codes determines which conflicts will appear in the output file. Any conflict which has been classified during at least one time step as one of the mentioned types is excluded from the output. Special values "foe" and "ego" select predefined sets of conflict types:<br/>**"foe"** : {3,7,11,13,15}<br/> **ego** : {2,6,10,12,14}|
 
 ## Encounter types
 Different types of encounters, e.g. crossing, merging, or lead/follow situations, may imply different calculation procedures for the safety measures. Therefore the SSM-device keeps track of these classifications and provides them in the output to allow the correct interpretation of the corresponding values.
