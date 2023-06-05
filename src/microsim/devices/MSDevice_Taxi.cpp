@@ -307,7 +307,10 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
     const MSEdge* rerouteOrigin = *myHolder.getRerouteOrigin();
     if (isEmpty()) {
         // start fresh from the current edge
-        myHolder.abortNextStop();
+        while (myHolder.hasStops()) {
+            // in meso there might be more than 1 stop at this point
+            myHolder.abortNextStop();
+        }
         assert(!myHolder.hasStops());
         tmpEdges.push_back(myHolder.getEdge());
         if (myHolder.getEdge() != rerouteOrigin) {
