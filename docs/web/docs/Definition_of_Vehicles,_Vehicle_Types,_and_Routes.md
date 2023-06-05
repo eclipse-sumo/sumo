@@ -1196,6 +1196,18 @@ A typical use case for jumps would be a public transport vehicle that has some o
 !!! caution
     The next stop must be on a different edge that that on which the jump started or the next stop will be skipped.
 
+## User defined Parameters
+
+Stops support [Generic Parameters](Simulation/GenericParameters.md). These may also be retrieved and modified via [TraCI]()
+
+```xml
+<trip id="r0" depart="0"/>
+  <stop edge="E0" duration="10">
+      <param key="userDefined" value="42"/>
+  </stop>
+</trip>
+```
+
 # Colors
 
 A color is defined as *red,green,blue* or *red,green,blue,alpha* either
