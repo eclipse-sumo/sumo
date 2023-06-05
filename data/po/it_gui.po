@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-05 11:34+0000\n"
+"PO-Revision-Date: 2023-06-05 11:37+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10393,11 +10393,12 @@ msgstr "Il veicolo selezionato non è valido."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:87
 msgid "Current selected additional isn't valid."
-msgstr ""
+msgstr "L'elemento addizionale selezionato non è valido."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:156
 msgid "E2 multilane detectors need at least two consecutive lanes"
 msgstr ""
+"Rivelatori E2 di più corsie hanno bisgno di almeno due corsie consecutive"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:282
 msgid " must be selected before insertion of "
@@ -10422,11 +10423,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:439
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEWireFrame.cpp:232
 msgid "Currently unsupported. Create rerouter elements using rerouter dialog"
-msgstr ""
+msgstr "Non supportato. Crea elementi rerouter utilizzando il dialogo apposito"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:444
 msgid "Currently unsupported. Create VSS steps using VSS dialog"
 msgstr ""
+"Non supportato. Configura i limiti dinamici di velocità utlizzando il "
+"dialogo apposito"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:449
 msgid "Currently unsupported. Create calibratorFlows using calibrator dialog"
