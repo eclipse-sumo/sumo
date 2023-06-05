@@ -30,3 +30,6 @@ stop_edge_in_route
 
 # A bus stopping at a bus stop with a user defined color.
 busstop_change_color
+
+# load stop with custom params
+stop_param
