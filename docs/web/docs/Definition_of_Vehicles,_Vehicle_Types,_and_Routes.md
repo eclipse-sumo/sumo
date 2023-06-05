@@ -1198,7 +1198,7 @@ A typical use case for jumps would be a public transport vehicle that has some o
 
 ## User defined Parameters
 
-Stops support [Generic Parameters](Simulation/GenericParameters.md). These may also be retrieved and modified via [TraCI]()
+Stops support [Generic Parameters](Simulation/GenericParameters.md). These may also be retrieved and modified via [TraCI](TraCI/Vehicle_Value_Retrieval.md)
 
 ```xml
 <trip id="r0" depart="0"/>
