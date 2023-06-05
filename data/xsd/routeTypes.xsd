@@ -780,6 +780,9 @@
     </xsd:complexType>
 
     <xsd:complexType name="stopType">
+        <xsd:sequence>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
         <xsd:attribute name="lane" type="xsd:string"/>
         <xsd:attribute name="edge" type="xsd:string"/>
         <xsd:attribute name="busStop" type="xsd:string"/>
