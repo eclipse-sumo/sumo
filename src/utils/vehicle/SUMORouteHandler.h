@@ -165,7 +165,7 @@ protected:
     //@{
 
     /// @brief Processing of a stop
-    virtual void addStop(const SUMOSAXAttributes& attrs) = 0;
+    virtual SUMOVehicleParameter::Stop* addStop(const SUMOSAXAttributes& attrs) = 0;
 
     /// @brief add a routing request for a walking or intermodal person
     virtual void addPersonTrip(const SUMOSAXAttributes& attrs) = 0;
@@ -208,6 +208,9 @@ protected:
 
     /// @brief Parameter of the current vehicle, trip, person, container or flow
     SUMOVehicleParameter* myVehicleParameter;
+
+    /// @brief The currently parsed vehicle stop
+    SUMOVehicleParameter::Stop* myCurrentStop;
 
     /// @brief The insertion time of the vehicle read last
     SUMOTime myLastDepart;

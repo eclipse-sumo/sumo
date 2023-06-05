@@ -847,14 +847,15 @@ RORouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std:
     return toStop;
 }
 
-void
+SUMOVehicleParameter::Stop*
 RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
+    SUMOVehicleParameter::Stop* result = nullptr;
     if (myActiveContainerPlan != nullptr) {
         myActiveContainerPlan->openTag(SUMO_TAG_STOP);
         (*myActiveContainerPlan) << attrs;
         myActiveContainerPlan->closeTag();
         myActiveContainerPlanSize++;
-        return;
+        return result;
     }
     std::string errorSuffix;
     if (myActivePlan != nullptr) {
@@ -869,7 +870,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     SUMOVehicleParameter::Stop stop;
     bool ok = parseStop(stop, attrs, errorSuffix, myErrorOutput);
     if (!ok) {
-        return;
+        return result;
     }
     // try to parse the assigned bus stop
     const ROEdge* edge = nullptr;
@@ -889,13 +890,13 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             edge = myNet.getEdge(stop.edge);
             if (edge == nullptr) {
                 myErrorOutput->inform("The edge '" + stop.edge + "' for a stop is not known" + errorSuffix);
-                return;
+                return result;
             }
         } else if (ok && stop.lane != "") {
             edge = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane));
             if (edge == nullptr) {
                 myErrorOutput->inform("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
-                return;
+                return result;
             }
         } else if (ok && ((attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y))
                           || (attrs.hasAttribute(SUMO_ATTR_LON) && attrs.hasAttribute(SUMO_ATTR_LAT)))) {
@@ -920,11 +921,11 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 stop.parametersSet |= STOP_END_SET;
                 stop.endPos = edge->getLanes()[0]->getShape().nearest_offset_to_point2D(pos, false);
             } else {
-                return;
+                return result;
             }
         } else if (!ok || (stop.lane == "" && stop.edge == "")) {
             myErrorOutput->inform("A stop must be placed on a bus stop, a container stop, a parking area, an edge or a lane" + errorSuffix);
-            return;
+            return result;
         }
         if (!hasPos) {
             stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, edge->getLength());
@@ -934,21 +935,25 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         const double endPosOffset = edge->isInternal() ? edge->getNormalBefore()->getLength() : 0;
         if (!ok || (checkStopPos(stop.startPos, stop.endPos, edge->getLength() + endPosOffset, POSITION_EPS, friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID)) {
             myErrorOutput->inform("Invalid start or end position for stop" + errorSuffix);
-            return;
+            return result;
         }
     }
     stop.edge = edge->getID();
     if (myActivePlan != nullptr) {
         ROPerson::addStop(*myActivePlan, stop, edge);
+        result = myActivePlan->back()->getStopParameters();
     } else if (myVehicleParameter != nullptr) {
         myVehicleParameter->stops.push_back(stop);
+        result = &myVehicleParameter->stops.back();
     } else {
         myActiveRouteStops.push_back(stop);
+        result = &myActiveRouteStops.back();
     }
     if (myInsertStopEdgesAt >= 0) {
         myActiveRoute.insert(myActiveRoute.begin() + myInsertStopEdgesAt, edge);
         myInsertStopEdgesAt++;
     }
+    return result;
 }
 
 

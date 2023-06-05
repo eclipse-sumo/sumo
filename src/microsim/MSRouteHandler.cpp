@@ -1159,8 +1159,9 @@ MSRouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std:
     return toStop;
 }
 
-void
+SUMOVehicleParameter::Stop*
 MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
+    SUMOVehicleParameter::Stop* result = nullptr;
     try {
         std::string errorSuffix;
         if (myActiveType == ObjectTypeEnum::PERSON) {
@@ -1175,7 +1176,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         SUMOVehicleParameter::Stop stop;
         bool ok = parseStop(stop, attrs, errorSuffix, MsgHandler::getErrorInstance());
         if (!ok) {
-            return;
+            return result;
         }
         const MSEdge* edge = nullptr;
         MSStoppingPlace* toStop = retrieveStoppingPlace(attrs, errorSuffix, &stop);
@@ -1199,7 +1200,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 edge = MSEdge::dictionary(stop.edge);
                 if (edge == nullptr || (edge->isInternal() && !MSGlobals::gUsingInternalLanes)) {
                     WRITE_ERROR("The edge '" + stop.edge + "' for a stop is not known" + errorSuffix);
-                    return;
+                    return result;
                 }
             } else if (ok && stop.lane != "") { // lane is given directly
                 MSLane* stopLane = MSLane::dictionary(stop.lane);
@@ -1214,7 +1215,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 }
                 if (stopLane == nullptr || (stopLane->isInternal() && !MSGlobals::gUsingInternalLanes)) {
                     WRITE_ERROR("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
-                    return;
+                    return result;
                 }
             } else {
                 if (myActiveTransportablePlan && !myActiveTransportablePlan->empty()) { // use end of movement before
@@ -1232,7 +1233,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     }
                 } else {
                     WRITE_ERROR("A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea, an edge or a lane" + errorSuffix);
-                    return;
+                    return result;
                 }
             }
             stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, edge->getLength());
@@ -1248,7 +1249,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                                 + (stop.lane != ""
                                    ? ("lane '" + stop.lane)
                                    : ("edge '" + stop.edge)) + "'" + errorSuffix);
-                    return;
+                    return result;
                 }
             }
         }
@@ -1309,6 +1310,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         deleteActivePlanAndVehicleParameter();
         throw;
     }
+    return result;
 }
 
 

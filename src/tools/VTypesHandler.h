@@ -81,8 +81,9 @@ public:
     void closeContainerFlow() {}
     void closeFlow() {}
     void closeTrip() {}
-    void addStop(const SUMOSAXAttributes& attrs) {
+    SUMOVehicleParameter::Stop* addStop(const SUMOSAXAttributes& attrs) {
         UNUSED_PARAMETER(attrs);
+        return nullptr;
     }
     void addPersonTrip(const SUMOSAXAttributes& attrs) {
         UNUSED_PARAMETER(attrs);
