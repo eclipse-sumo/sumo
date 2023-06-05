@@ -1187,7 +1187,7 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* ptr) {
             destroyPopup();
         }
     }
-    if (myPopup == nullptr && !myApp->isGaming()) {
+    if (myPopup == nullptr) {
         if (myGUIDialogEditViewport == nullptr || !myGUIDialogEditViewport->haveGrabbed()) {
             myChanger->onMouseMove(ptr);
         }
