@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-05 11:37+0000\n"
+"PO-Revision-Date: 2023-06-05 11:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10434,24 +10434,25 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:449
 msgid "Currently unsupported. Create calibratorFlows using calibrator dialog"
 msgstr ""
+"Non supportato. Crea elementi calibratorFlow utilizzando il dialogo apposito"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:66
 msgid "Lane"
-msgstr ""
+msgstr "Corsia"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:68
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:78
 msgid "No lane selected"
-msgstr ""
+msgstr "Nessuna corsia selezionata"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:80
 msgid "Current Lane: "
-msgstr ""
+msgstr "Corsia attuale: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:89
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:395
 msgid "Modifications"
-msgstr ""
+msgstr "Modifiche"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:93
 msgid "Discard connection modifications (Esc)"
@@ -10491,7 +10492,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:155
 msgid "Select Dead Ends"
-msgstr ""
+msgstr "Seleziona rami secchi"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:155
 msgid ""
