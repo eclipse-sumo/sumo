@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-05 12:45+0000\n"
+"PO-Revision-Date: 2023-06-06 05:41+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -6380,7 +6380,7 @@ msgstr "Il livello del poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2836
 msgid "A typename for the polygon"
-msgstr ""
+msgstr "Un tipo di poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2842
 msgid "Polygon's name"
@@ -6388,7 +6388,7 @@ msgstr "Il nome del poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2847
 msgid "A bitmap to use for rendering this polygon"
-msgstr ""
+msgstr "Un'immagine bitmap da disegnare sopra il poligono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2853
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2924
@@ -6402,7 +6402,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3020
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3097
 msgid "Angle of rendered image in degree"
-msgstr ""
+msgstr "Angolo dell'immagine in gradi"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2873
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2944
@@ -6424,7 +6424,7 @@ msgstr "Il colore da usare per il punto di interesse"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2979
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3056
 msgid "A typename for the POI"
-msgstr ""
+msgstr "Un tipo per il punto di interesse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2895
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2985
