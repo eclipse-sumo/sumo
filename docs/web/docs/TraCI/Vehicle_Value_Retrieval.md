@@ -476,11 +476,17 @@ value is also shown in the table.
   <td><p>Returns the list of upcoming links with each compound containing info about (lane, via, priority, opened, foe, state, direction, length)</p></td>
   <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getNextLinks">getNextLinks</a></p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
   <td><p>junction foes (0x37)</p></td>
   <td><p>complex</p></td>
   <td><p>Returns the list of foes within a certain distance of the ego vehicle.</p></td>
   <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getJunctionFoes">getJunctionFoes</a></p></td>
+</tr>
+<tr class="even">
+  <td><p>stop parameters (0x55)</p></td>
+  <td><p>string</p></td>
+  <td><p>Returns the attribute by the given name for the stop of the given index (0 is the next stop, -1 is the previous stop etc) for the specified vehicle. If customParam is set to True (1), the user defined custom parameter will returned instead.
+  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getNextLinks">getNextLinks</a></p></td>
 </tr>
 </tbody>
 </table>
