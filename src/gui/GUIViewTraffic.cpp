@@ -490,11 +490,12 @@ GUIViewTraffic::onGamingClick(Position pos) {
                     }
                     // transition after the next green
                     if (numGreen == 1) {
-                        SUMOTime dur = minTll->getPhase(i).duration;
+                        int transitionIndex = (i - 2 + n) % n;
+                        SUMOTime dur = minTll->getPhase(transitionIndex).duration;
                         if (dur <= spentTransition) {
                             spentTransition -= dur;
                         } else {
-                            nextPhase = i;
+                            nextPhase = transitionIndex;
                             nextDuration = dur - spentTransition;
                             break;
                         }
