@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-06 13:23+0000\n"
+"PO-Revision-Date: 2023-06-06 13:40+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -10796,7 +10796,7 @@ msgstr "连接与所选择的连接有相互冲突"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
-msgstr "保存禁止的修改（输入）。"
+msgstr "存储修改的禁止事项 (登录键(Enter))"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
@@ -12434,53 +12434,53 @@ msgstr "打开一个选单，您可以在其中编辑检视区(viewport)。 (Ctr
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:128
 msgid "Toggle Zooming Style"
-msgstr ""
+msgstr "切换缩放样式"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:128
 msgid ""
 "Toggles whether zooming is based at cursor position or at the center of the "
 "view."
-msgstr ""
+msgstr "切换是否缩放应基于游标位置，还是基于视图的中心。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate Structures"
-msgstr ""
+msgstr "定位结构(structures)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate structures within the network."
-msgstr ""
+msgstr "在路网內定位结构(structures)。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:139
 msgid "Toggle View Tooltips"
-msgstr ""
+msgstr "切换查看工具提示"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:139
 msgid "Toggles whether tooltips in the view shall be shown."
-msgstr ""
+msgstr "切换是否应显示视图中的工具提示。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:145
 msgid "Toggle Menu Tooltips"
-msgstr ""
+msgstr "切换选单工具提示"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:145
 msgid "Toggles whether tooltips in the menu shall be shown."
-msgstr ""
+msgstr "切换是否显示选单中的工具提示。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:161
 msgid "Edit Coloring Schemes"
-msgstr ""
+msgstr "编辑著色方案(schemes)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:161
 msgid "Opens a menu which lets you edit the coloring schemes. (F9)"
-msgstr ""
+msgstr "打开一个选单，您可以在其中编辑著色方案(schemes)。 (F9)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Make Snapshot"
-msgstr ""
+msgstr "制作快照(snapshot)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Makes a snapshot of the view."
-msgstr ""
+msgstr "制作视图的快照(snapshot)。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:294
 msgid "option window-size requires INT,INT"
@@ -12512,11 +12512,11 @@ msgstr "将语言改为法语。(fr)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:350
 msgid "Change language to italian. (it)"
-msgstr ""
+msgstr "改变为意大利语。 (it)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:352
 msgid "简体中文 (zh)"
-msgstr "简体中文 (zh)"
+msgstr "简体中文"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:354
 msgid "繁體中文 (zh-Hant)"
@@ -12544,7 +12544,7 @@ msgstr "法文"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:384
 msgid "italian"
-msgstr ""
+msgstr "意大利语"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:388
 msgid "chinese"
