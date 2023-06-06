@@ -747,8 +747,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // traffic lights
     // -------------------------
     std::map<std::string, std::string> signal2junction;
-    //std::map<std::string, std::vector<std::string>>& junction2controllers = handler.getJunctions2Controllers();
-    //std::map<std::string, OpenDriveSignal>& signals = handler.getSignals();
     std::map<std::string, OpenDriveController>& controllers = handler.getControllers();
 
     for (const auto& it : edges) {
@@ -2445,7 +2443,6 @@ NIImporter_OpenDrive::myStartElement(int element,
             bool dynamic = attrs.get<std::string>(OPENDRIVE_ATTR_DYNAMIC, myCurrentEdge.id.c_str(), ok) == "no" ? false : true;
             OpenDriveSignal signal = OpenDriveSignal(id, type, name, orientationCode, dynamic, s);
             myCurrentEdge.signals.push_back(signal);
-            myCurrentEdge.signals.back().type = ""; // to get updated just like OPENDRIVE_TAG_SIGNALREFERENCE
             mySignals[id] = signal;
         }
         break;
