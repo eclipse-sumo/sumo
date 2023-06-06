@@ -3033,7 +3033,14 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
                          DriveProcessItem* const lastLink,
                          double& v, double& vLinkPass) const {
     if (leaderInfo.first != 0) {
-        assert(leaderInfo.first != 0);
+        if (ignoreFoe(leaderInfo.first)) {
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) {
+                std::cout << "  foe ignored\n";
+            }
+#endif
+            return;
+        }
         const MSCFModel& cfModel = getCarFollowModel();
         double vsafeLeader = 0;
         if (!MSGlobals::gSemiImplicitEulerUpdate) {
@@ -3112,6 +3119,14 @@ MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leade
                                  const MSLane* const lane, double& v, double& vLinkPass,
                                  double distToCrossing) const {
     if (leaderInfo.first != 0) {
+        if (ignoreFoe(leaderInfo.first)) {
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) {
+                std::cout << "  foe ignored\n";
+            }
+#endif
+            return;
+        }
         const MSCFModel& cfModel = getCarFollowModel();
         double vsafeLeader = 0;
         if (!MSGlobals::gSemiImplicitEulerUpdate) {
@@ -7132,6 +7147,23 @@ MSVehicle::ignoreRed(const MSLink* link, bool canBrake) const {
     }
 }
 
+bool
+MSVehicle::ignoreFoe(const SUMOTrafficObject* foe) const {
+    if (!getParameter().wasSet(VEHPARS_CFMODEL_PARAMS_SET)) {
+        return false;
+    }
+    for (const std::string& typeID : StringTokenizer(getParameter().getParameter(toString(SUMO_ATTR_CF_IGNORE_TYPES), "")).getVector()) {
+        if (typeID == foe->getVehicleType().getID()) {
+            return true;
+        }
+    }
+    for (const std::string& id : StringTokenizer(getParameter().getParameter(toString(SUMO_ATTR_CF_IGNORE_IDS), "")).getVector()) {
+        if (id == foe->getID()) {
+            return true;
+        }
+    }
+    return false;
+}
 
 bool
 MSVehicle::passingMinor() const {

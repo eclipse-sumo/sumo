@@ -135,7 +135,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
         calculateArrivalParams(true);
     }
-    initJunctionModelParams();
+    initTransientModelParams();
 }
 
 
@@ -2020,7 +2020,25 @@ MSBaseVehicle::setJunctionModelParameter(const std::string& key, const std::stri
 
 
 void
-MSBaseVehicle::initJunctionModelParams() {
+MSBaseVehicle::setCarFollowModelParameter(const std::string& key, const std::string& value) {
+    // handle some generic params first and then delegate to the carFollowModel itself
+    if (key == toString(SUMO_ATTR_CF_IGNORE_IDS) || key == toString(SUMO_ATTR_CF_IGNORE_TYPES)) {
+        getParameter().parametersSet |= VEHPARS_CFMODEL_PARAMS_SET;
+        const_cast<SUMOVehicleParameter&>(getParameter()).setParameter(key, value);
+        // checked in MSVehicle::planMove
+    } else {
+        MSVehicle* microVeh = dynamic_cast<MSVehicle*>(this);
+        if (microVeh) {
+            // remove 'carFollowModel.' prefix
+            const std::string attrName = key.substr(15);
+            microVeh->getCarFollowModel().setParameter(microVeh, attrName, value);
+        }
+    }
+}
+
+
+void
+MSBaseVehicle::initTransientModelParams() {
     /* Design idea for additional junction model parameters:
        We can distinguish between 3 levels of parameters
        1. typically shared by multiple vehicles -> vType parameter
@@ -2030,6 +2048,8 @@ MSBaseVehicle::initJunctionModelParams() {
     for (auto item : getParameter().getParametersMap()) {
         if (StringUtils::startsWith(item.first, "junctionModel.")) {
             setJunctionModelParameter(item.first, item.second);
+        } else if (StringUtils::startsWith(item.first, "carFollowModel.")) {
+            setCarFollowModelParameter(item.first, item.second);
         }
     }
 }

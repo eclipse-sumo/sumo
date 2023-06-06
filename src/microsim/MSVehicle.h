@@ -2045,8 +2045,11 @@ public:
                 DriveProcessItem* const lastLink,
                 double& v, double& vLinkPass) const;
 
-    /// @brief decide whether a red (or yellow light) may be ignore
+    /// @brief decide whether a red (or yellow light) may be ignored
     bool ignoreRed(const MSLink* link, bool canBrake) const;
+
+    /// @brief decide whether a given foe object may be ignored
+    bool ignoreFoe(const SUMOTrafficObject* foe) const;
 
     /// @brief maximum acceleration to consider a vehicle as 'waiting' at low speed
     inline double accelThresholdForWaiting() const {

@@ -128,6 +128,9 @@ public:
     /// @brief set individual junction model paramete (not type related)
     void setJunctionModelParameter(const std::string& key, const std::string& value);
 
+    /// @brief set individual carFollow model parameters (not type related)
+    void setCarFollowModelParameter(const std::string& key, const std::string& value);
+
     /** @brief Returns the current route
      * @return The route the vehicle uses
      */
@@ -1049,7 +1052,8 @@ private:
 
     static NumericalID myCurrentNumericalIndex;
 
-    void initJunctionModelParams();
+    /// @brief init model parameters from generic params
+    void initTransientModelParams();
 
 private:
     /// invalidated assignment operator

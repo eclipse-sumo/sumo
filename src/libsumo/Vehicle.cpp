@@ -2415,9 +2415,8 @@ Vehicle::setParameter(const std::string& vehID, const std::string& key, const st
         if (microVeh == nullptr) {
             throw TraCIException("Meso Vehicle '" + vehID + "' does not support carFollowModel parameters.");
         }
-        const std::string attrName = key.substr(15);
         try {
-            microVeh->getCarFollowModel().setParameter(microVeh, attrName, value);
+            veh->setCarFollowModelParameter(key, value);
         } catch (InvalidArgument& e) {
             throw TraCIException("Vehicle '" + vehID + "' does not support carFollowModel parameter '" + key + "' (" + e.what() + ").");
         }
