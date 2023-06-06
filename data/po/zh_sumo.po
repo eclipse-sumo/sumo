@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-06 07:59+0000\n"
+"PO-Revision-Date: 2023-06-06 08:22+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -10716,26 +10716,26 @@ msgstr "当解析 vType '%' 时, 未知的跟车模式"
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1209
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1225
 msgid "Invalid Car-Following-Model Attribute %. Cannot be parsed to float"
-msgstr ""
+msgstr "无效的跟 车模式属性 %。 无法解析为浮点数"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1213
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1236
 msgid "Invalid Car-Following-Model Attribute %. Must be greater than 0"
-msgstr ""
+msgstr "无效的跟车模式属性 %。必须大于 0"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1247
 msgid ""
 "Invalid Car-Following-Model Attribute %. Only values between [0-1] are "
 "allowed"
-msgstr ""
+msgstr "无效的跟车模式属性 %。 只允许 [0-1] 之间的值"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1506
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
-msgstr ""
+msgstr "无效的车道变换模式属性 %。 无法解析为浮点数"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1523
 msgid "Invalid Lane-Change-Model Attribute %. Must be equal or greater than 0"
-msgstr ""
+msgstr "无效的车道变换模式属性 %。必须等于或是大于 0"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1534
 msgid "Invalid Lane-Change-Model Attribute %. Must be greater than 0"
