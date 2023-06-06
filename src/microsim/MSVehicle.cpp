@@ -3122,7 +3122,7 @@ MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leade
         if (ignoreFoe(leaderInfo.first)) {
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
             if (DEBUG_COND) {
-                std::cout << "  foe ignored\n";
+                std::cout << "  junction foe ignored\n";
             }
 #endif
             return;
@@ -3224,6 +3224,14 @@ MSVehicle::adaptToOncomingLeader(const std::pair<const MSVehicle*, double> leade
                          DriveProcessItem* const lastLink,
                          double& v, double& vLinkPass) const {
     if (leaderInfo.first != 0) {
+        if (ignoreFoe(leaderInfo.first)) {
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) {
+                std::cout << "  oncoming foe ignored\n";
+            }
+#endif
+            return;
+        }
         const MSCFModel& cfModel = getCarFollowModel();
         const MSVehicle* lead = leaderInfo.first;
         const MSCFModel& cfModelL = lead->getCarFollowModel();
