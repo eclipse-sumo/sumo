@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-06 05:41+0000\n"
+"PO-Revision-Date: 2023-06-06 14:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -7140,25 +7140,32 @@ msgid ""
 "A string specifying the id of a public transport line which can be used when "
 "specifying person rides"
 msgstr ""
+"Un codice identificativo di una linea di trasporto pubblico che una persona "
+"può usare per un passaggio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4919
 msgid "The number of occupied seats when the vehicle is inserted"
 msgstr ""
+"Il numero di posti occupati al momento dell'entrata del veicolo nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4925
 msgid "The number of occupied container places when the vehicle is inserted"
 msgstr ""
+"Il numero di posti per contenitori occupati al momento dell'entrata del "
+"veicolo nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4931
 msgid ""
 "The lateral position on the departure lane at which the vehicle shall enter "
 "the net"
 msgstr ""
+"Lo spostamento laterale sulla corsia di partenza dove il veicolo deve "
+"entrare nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4937
 msgid ""
 "The lateral position on the arrival lane at which the vehicle shall arrive"
-msgstr ""
+msgstr "Lo spostamento laterale sulla corsia di arrivo del veicolo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4943
 msgid "Insertion checks"
