@@ -6,8 +6,8 @@ Consolidating statistics ... done.
 Building street representation ... done.
 Generating work positions ... --> work position: 
   |-> in city: 790
-  |-> out city: 778
-  |-> in+out city: 1568
+  |-> out city: 0
+  |-> in+out city: 790
 done.
 Building bus lines ... done.
 Generating population ... --> population: 
