@@ -647,9 +647,9 @@ GNEPythonToolDialogElements::BoolArgument::onCmdSetValue(FXObject*, FXSelector, 
 const std::string
 GNEPythonToolDialogElements::BoolArgument::getValue() const {
     if (myCheckButton->getCheck() == TRUE) {
-        return "true";
+        return "True";
     } else {
-        return "false";
+        return "False";
     }
 }
 
