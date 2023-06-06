@@ -76,7 +76,7 @@ MFXTextFieldSearch::onPaint(FXObject* obj, FXSelector sel, void* ptr) {
         dc.fillRectangle(border, border, width - (border << 1), height - (border << 1));
         // Draw text,  clipped against frame interior
         dc.setClipRectangle(border, border, width - (border << 1), height - (border << 1));
-        drawSearchTextRange(searchString.c_str(), dc, 0, searchString.length());
+        drawSearchTextRange(searchString.c_str(), dc);
         // Draw caret
         if (flags & FLAG_CARET) {
             int xx = coord(cursor) - 1;
@@ -119,11 +119,13 @@ MFXTextFieldSearch::MFXTextFieldSearch() :
 
 
 void 
-MFXTextFieldSearch::drawSearchTextRange(const FXString &searchString, FXDCWindow& dc,FXint fm,FXint to) {
-    register FXint xx, yy, cw, hh, ww, si, ei, lx, rx, t;
-    register FXint rr = width - border - padright;
-    register FXint ll = border + padleft;
-    register FXint mm = (ll + rr)/2;
+MFXTextFieldSearch::drawSearchTextRange(const FXString &searchString, FXDCWindow& dc) {
+    FXint xx, yy, cw, hh, ww, si, ei, lx, rx, t;
+    FXint rr = width - border - padright;
+    FXint ll = border + padleft;
+    FXint mm = (ll + rr)/2;
+    FXint fm = 0;
+    FXint to = (int)searchString.length();
     if (to <= fm) {
         return;
     }

@@ -654,7 +654,7 @@ protected:
         }
         std::sort(junctionControllers.begin(), junctionControllers.end());
         auto it = std::find(junctionControllers.begin(), junctionControllers.end(), controllerID);
-        return it - junctionControllers.begin();
+        return (int)(it - junctionControllers.begin());
     }
 
 

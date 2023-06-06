@@ -187,7 +187,7 @@ MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
     }
     MSStop* lastStop = nullptr;
     if (veh.hasStops()) {
-        lastStop = &veh.getStop(veh.getStops().size() - 1);
+        lastStop = &veh.getStop((int)veh.getStops().size() - 1);
     }
     if (lastStop == nullptr || lastStop->parkingarea == nullptr) {
         const MSParkingArea* pa = rerouteDef->parkProbs.getVals().front().first;
