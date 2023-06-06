@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-06 13:20+0000\n"
+"PO-Revision-Date: 2023-06-06 13:23+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -11597,7 +11597,7 @@ msgstr "处理完成\n"
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunNetgenerate.cpp:142
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunPythonTool.cpp:125
 msgid "starting process silently...\n"
-msgstr ""
+msgstr "靜靜地开始处理...\n"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:75
 msgid "&Load selection"
@@ -11697,15 +11697,15 @@ msgstr "对象必须是一个车道"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUISaveDialog.cpp:87
 msgid "&Save changes"
-msgstr ""
+msgstr "&存储改变"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUISaveDialog.cpp:88
 msgid "&Don't save"
-msgstr ""
+msgstr "&不存储"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUISaveDialog.cpp:89
 msgid "&Abort"
-msgstr ""
+msgstr "&中止"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIShapeContainer.cpp:56
 msgid "Replacing POI '%'"
@@ -11818,7 +11818,7 @@ msgstr "汽车中心"
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:329
 #, c-format
 msgid "% objects"
-msgstr ""
+msgstr "% 物件"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:65
 msgid "Load viewport from file"
@@ -11838,11 +11838,11 @@ msgstr "保存视口"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_Options.cpp:277
 msgid "Run tool"
-msgstr ""
+msgstr "执行工具"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_Options.cpp:278
 msgid "Cancel tool"
-msgstr ""
+msgstr "取消工具"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_Options.cpp:280
 msgid "Accept settings"
@@ -12422,15 +12422,15 @@ msgstr "天空的颜色"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:120
 msgid "Recenter View"
-msgstr ""
+msgstr "重新将视图置中"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:120
 msgid "Recenter view to the simulated area."
-msgstr ""
+msgstr "重新将视图置于仿真区域。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:124
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
-msgstr ""
+msgstr "打开一个选单，您可以在其中编辑检视区(viewport)。 (Ctrl+I)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:128
 msgid "Toggle Zooming Style"
