@@ -133,6 +133,10 @@ def get_options(args=None):
                     help="generates the given number of intermediate way points")
     op.add_argument("--flows", category="processing", default=0, type=int,
                     help="generates INT flows that together output vehicles with the specified period")
+    op.add_argument("--from-stops", category="processing", dest="fromStops",
+                    help="Create trips that start at stopping places of the indicated type(s). i.e. 'busStop'")
+    op.add_argument("--to-stops", category="processing", dest="toStops",
+                    help="Create trips that end at stopping places of the indicated type(s). i.e. 'busStop'")
     op.add_argument("--jtrrouter", category="processing", action="store_true", default=False,
                     help="Create flows without destination as input for jtrrouter")
     op.add_argument("--maxtries",  category="processing", default=100, type=int,
@@ -265,6 +269,9 @@ def get_options(args=None):
         print("Error: Option --random-factor requires a value >= 1.")
         sys.exit(1)
 
+    if options.fromStops or options.toStops:
+        options.edgeFromStops, options.edgeToStops = loadStops(options)
+
     if options.viaEdgeTypes:
         options.viaEdgeTypes = options.viaEdgeTypes.split(',')
     if options.fringe_speed_exponent is None:
@@ -287,6 +294,53 @@ def get_options(args=None):
 
 class InvalidGenerator(Exception):
     pass
+
+
+def loadStops(options):
+    edgeFromStops = defaultdict(list) # edge -> [(stopType1, stopID1), ...]
+    edgeToStops = defaultdict(list) # edge -> [(stopType1, stopID1), ...]
+    if options.additional is None:
+        print("Error: Option %s requires option --additional-files for loading infrastructure elements" %
+                ("--from-stops" if options.fromStops else "--to-stops"), file=sys.stderr)
+        sys.exit(1)
+    stopTypes = []
+    if options.fromStops:
+        options.fromStops = options.fromStops.split(',')
+        stopTypes += options.fromStops
+    else:
+        options.fromStops = []
+    if options.toStops:
+        options.toStops = options.toStops.split(',')
+        stopTypes += options.toStops
+    else:
+        options.toStops = []
+    stopTypes = list(set(stopTypes))
+    typeCounts = defaultdict(lambda : 0)
+    for additional in options.additional.split(','):
+        for stop in sumolib.xml.parse(additional, stopTypes):
+            edgeID = stop.lane.rsplit('_', 1)[0]
+            if stop.name in options.fromStops:
+                edgeFromStops[edgeID].append((stop.name, stop.id))
+            if stop.name in options.toStops:
+                edgeToStops[edgeID].append((stop.name, stop.id))
+            typeCounts[stop.name] += 1
+
+    if options.fromStops:
+        available = sum([typeCounts[t] for t in options.fromStops])
+        if available == 0:
+            print("No stops of type%s '%s' were found in additional-files %s" % (
+                ('' if len(options.fromStops) == 1 else 's'),
+                options.fromStops[0], options.additional), file=sys.stderr)
+            sys.exit(1)
+    if options.toStops:
+        available = sum([typeCounts[t] for t in options.toStops])
+        if available == 0:
+            print("No stops of type%s '%s' were found in additional-files %s" % (
+                ('' if len(options.toStops) == 1 else 's'),
+                options.toStops[0], options.additional), file=sys.stderr)
+            sys.exit(1)
+    return edgeFromStops, edgeToStops
+
 
 # assigns a weight to each edge using weight_fun and then draws from a discrete
 # distribution with these weights
@@ -375,10 +429,16 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
         for roundabout in options.net.getRoundabouts():
             roundabouts.update(roundabout.getEdges())
 
+    stopDict = None
+    if options.fromStops and fringe_bonus == "_incoming":
+        stopDict = options.edgeFromStops
+    elif options.toStops and fringe_bonus == "_outgoing":
+        stopDict = options.edgeToStops
+
     def edge_probability(edge):
         bonus_connections = None if fringe_bonus is None else getattr(edge, fringe_bonus)
         forbidden_connections = None if fringe_forbidden is None else getattr(edge, fringe_forbidden)
-        if options.vclass and not edge.allows(options.vclass):
+        if options.vclass and not edge.allows(options.vclass) and not stopDict:
             return 0  # not allowed
         if fringe_bonus is None and edge.is_fringe() and not options.pedestrians:
             return 0  # not suitable as intermediate way point
@@ -394,6 +454,8 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
         if fringe_bonus is not None and edge.getID() in roundabouts:
             return 0  # traffic typically does not start/end inside a roundabout
         prob = randomProbs[edge.getID()]
+        if stopDict:
+            prob *= len(stopDict[edge.getID()])
         if options.length:
             if (options.fringe_factor != 1.0 and fringe_bonus is not None and
                     edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions)):
@@ -626,6 +688,10 @@ def main(options):
         else:
             attrFrom = ' from="%s"' % origin.getID()
             attrTo = ' to="%s"' % destination.getID()
+        if options.fromStops:
+            attrFrom = ' %s="%s"' % random.choice(options.edgeFromStops[origin.getID()])
+        if options.toStops:
+            attrTo = ' %s="%s"' % random.choice(options.edgeToStops[destination.getID()])
         via = ""
         if intermediate:
             via = ' via="%s" ' % ' '.join(
@@ -639,6 +705,9 @@ def main(options):
             '    <person id="%s" depart="%.2f"%s>\n' % (label, departureTime, personattrs))
         element = "walk"
         attrs = otherattrs
+        if options.fromStops:
+            fouttrips.write('        <stop%s duration="0"/>\n' % attrFrom)
+            attrFrom=''
         if options.persontrips:
             element = "personTrip"
         elif options.personrides:
