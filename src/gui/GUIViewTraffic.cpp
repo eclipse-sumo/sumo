@@ -467,7 +467,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
             }
             int nextPhase = (ci + 1) % n;
             SUMOTime nextDuration = 0;
-            if (minTll->getCurrentPhaseDef().isGreenPhase() || (greenCount == 1 && minTll->getCurrentPhaseDef().isRedPhase())) {
+            if (minTll->getCurrentPhaseDef().isGreenPhase() || (greenCount == 1 && minTll->getCurrentPhaseDef().isAllRedPhase())) {
                 nextDuration = minTll->getPhase(nextPhase).duration;
             } else {
                 // we are in transition to a green phase

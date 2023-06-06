@@ -200,8 +200,8 @@ public:
      *  and no stream has yellow. 
      * @return Whether this phase is an "all red" phase
      */
-    bool isRedPhase() const {
-        return myState.size() == std::count(myState.begin(), myState.end(), 'r');
+    bool isAllRedPhase() const {
+        return (int)myState.size() == (int)std::count(myState.begin(), myState.end(), 'r');
     }
 
 
