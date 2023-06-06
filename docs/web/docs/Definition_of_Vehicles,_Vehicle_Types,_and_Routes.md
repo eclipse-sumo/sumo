@@ -872,6 +872,29 @@ model as in [{{SUMO}}/src/microsim/cfmodels/MSCFModel_Krauss.cpp]({{Source}}src/
   collisions when using *Ballistic*. See also
   [Simulation/Basic_Definition\#Defining_the_Integration_Method](Simulation/Basic_Definition.md#defining_the_integration_method).
 
+### Transient carFollowModel Parameters
+
+carFollowModel parameters that are expected to change during the simulation are modelled via [generic parameters](https://sumo.dlr.de/docs/Simulation/GenericParameters.md). The following parameters are supported (via xml input and `traci.vehicle.setParameter`):
+
+- carFollowModel.ignoreIDs : ignore foe vehicles with the given ids
+- carFollowModel.ignoreTypes : ignore foe vehicles that have any of the given types
+
+If multiple ignore parameters are set, they are combined with "or".
+Foes are ignored while they are being followed.
+Example:
+
+```xml
+<vehicle id="ego" depart="0" route="r0">
+   <param key="carFollowModel.ignoreIDs" value="foe1 foe2"/>
+   <param key="carFollowModel.ignoreTypes" value="bikeType"/>
+</vehicle>
+```
+
+!!! note
+    These parameters take no effect in [meso] (Simulation/Meso.md)
+    
+See also [transient junctionModel parameters](#transient_parameters).
+
 ## Lane-Changing Models
 
 The lane-changing models currently implemented in SUMO are given in the
