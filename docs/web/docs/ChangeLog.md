@@ -21,6 +21,7 @@ title: ChangeLog
   - Fixed invalid collision warning when using bidi lane. Issue #13312
   - Fixed unsafe right-of-way rules at junction with shared median lane. Issue #13316
   - Fixed frontal collision on shared median lane. Issue #13313
+  - IDM no longer violates right of way due to imprecise stopping at minor link. Issue #13369
 
 - netedit
   - Fixed crash when importing OSM data direclty. Issue #13297 (regression in 1.16.0)
@@ -38,6 +39,8 @@ title: ChangeLog
   - Object ids that contain the characters `!`, `?` or `*` (which are permitted in sumo) can now be loaded (such ids are discouraged since they make it more difficult to list object ids on the command line). Issue #13351
   - A person with a single stop stage is now visible after loading. Issue #13126
   - Creation of busStops and trainStops with the same id is now prevented (since this would give an error when loading the simulation). Issue #13269
+  - Person rides between rail stops can now be defined. Issue #13273
+  - Simplified selection of .sumocfg files when calling runSeeds.py tool. Issue #13118
 
 - sumo-gui
   - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
@@ -45,6 +48,7 @@ title: ChangeLog
   - Fixed crash when switching to a (mismatching) alternative net file. Issue #13215
   - Clicking on a vehicle id which is not in the network no longer moves the view to Position::INVALID. Issue #13251
   - Fixed invalid rendering of spread-bidi lanes for shared median lane network. Issue #13343
+  - Fixed bug where vehicle context menu function 'select foes' did not select all relevant junction foes. Issue #13358
 
 - netconvert
   - Fixed inconsistent network file after setting **--default.spreadtype center**. Issue #13127
@@ -60,9 +64,11 @@ title: ChangeLog
   - User defined node radius is no longer ignored for geometry-like nodes. Issue #13064
   - Fixed missing bidi attribute for shared median lane with disconnected outer lanes. Issue #13335
   - Fixed invalid bidi attribute for internal edge. Issue #13344
+  - Fixed invalid right of way rules when shared median lane ends. Issue #13345
 
 - duarouter
   - Fixed railway routing failure if the stop is defined on a short buffer edge (also applies to sumo). Issue #13277
+  - Fixed invalid route cost for train reversal on long edge (also applies to sumo). Issue #13360
 
 - activitygen
   - Fixed crash when there are no work positions within a city. Issue #13315
@@ -87,6 +93,8 @@ title: ChangeLog
   - Element `parkingArea` now supports placing stopping places to the left of the lane in right-hand networks by setting attribute `lefthand="true"`. Issue #13303
   - Added `device.taxi.idle-algorithm` value `taxistand` which makes idle taxis return to a pre-configured set of locations. Issue #13334
   - The SSM-device now supports the new surrogate safety measure "MDRAC" which is modified maximum deceleration rate to avoid crash with perception/reaction time. Issue #13350
+  - statistic-output now include the number of emergency braking events. Issue #10596
+  - Vehicles can now be configured to ignore specific vehicles during car-following by using [generic parameters](Simulation/GenericParameters.md) `carFollowMode.ignoreIDs` and `carFollowModel.ignoreTypes`. Issue #13362
 
 - sumo-gui
   - Simulation end time is now written into the message window. Issue #13145
@@ -127,6 +135,7 @@ title: ChangeLog
   - ptlines2flows.py: now support configuration files. Issue #13254
   - checkStopOrder.py: can now generate a combined stop table for multiple stop locations. Issue #13259
   - generateParkingAreas.py: now support option **--lefthand** to create lefthand parking areas. Issue #13305
+  - [scheduleStats.py](Tools/Railways.md#schedulestatspy): Now permits analysis of planned and actual travel time between pairs of stops. Issue #13354
 
 ### Miscellaneous
 
