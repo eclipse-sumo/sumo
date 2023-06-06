@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-05 13:10+0000\n"
+"PO-Revision-Date: 2023-06-06 07:59+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -10632,64 +10632,69 @@ msgstr "电路电压源 '%' 连接到少于两个节点, 请调整区段定义(�
 msgid ""
 "Circuit Element '%' is connected to less than two nodes, please adjust the "
 "definition of the section (with substation '%')."
-msgstr ""
+msgstr "电路元素 '%' 连接到少于两个节点, 请调整区段定义(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:942
 msgid ""
 "Circuit Node with id '-1' is not the grounded, please adjust the definition "
 "of the section (with substation '%')."
-msgstr ""
+msgstr "带有识别名(id) '-1' 的电路节点未连接到地面, 请调整区段定义(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:966
 msgid ""
 "A Circuit Resistor Element connects the ground, please adjust the definition "
 "of the section (with substation '%')."
-msgstr ""
+msgstr "电路电阻元素(Circuit Resistor Element)连接地面, 请调整区段定义(具有分站 "
+"'%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:975
 msgid ""
 "Circuit Node or Voltage Source with internal id '%' has been not visited "
 "during checking of the circuit. The circuit is disconnected, please adjust "
 "the definition of the section (with substation '%')."
-msgstr ""
+msgstr "在电路检查期间,未访问到內部识别名(id)为 '%' "
+"的电路节点或电压源。电路已切断，请调整区段(section)定义(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Element.cpp:53
 msgid "Undefined element type for '%'."
-msgstr ""
+msgstr "'%' 有未定义的元素类型。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteHandler.cpp:63
 msgid "Route file should be sorted by departure time, ignoring '%'!"
-msgstr ""
+msgstr "路径文件应按出发时间排序, 忽略 '%'!"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:653
 msgid "Invalid % % given for %. Using edge end instead."
-msgstr ""
+msgstr "无效的 % %给定给 %。 改用路段末端。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:703
 msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
 "boolean"
 msgstr ""
+"停靠属性 'trigger' 的值必须是 '人员(person)', '货柜(container)', "
+"'合并(join)'或一个布林值(boolean)"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:268
 msgid "Undefined end for % '%', defaulting to 24hour duration."
-msgstr ""
+msgstr "% '%' 的结束未定义, 预设为 24 小時持续时间。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:402
 msgid "Invalid % id '%'."
-msgstr ""
+msgstr "无效的 % 的识别名(id) '%'。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:404
 msgid "Invalid % id '%'. Contains invalid characters."
-msgstr ""
+msgstr "无效的 % 的识别名(id) '%'。 含有无效字元。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:947
 msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
-msgstr ""
+msgstr "车道变换模式 'JE2013'已经不适用。 改为使用预设模式。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1139
 msgid "maneuverAngleTimes format for vType '%' % contains an invalid triplet."
-msgstr ""
+msgstr "车辆类型(vType) '%' % 的 maneuverAngleTimes "
+"格式含有一个无效的三个二进制元素位元组(Triplet)。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1148
 #, c-format
@@ -10697,14 +10702,16 @@ msgid ""
 "Triplet '%' for vType '%' maneuverAngleTimes cannot be parsed as 'int double "
 "double'"
 msgstr ""
+"maneuverAngleTimes 的三个二进制元素位元组(Triplet) '%' (车辆类型(vType)为%')"
+"无法解析为 'int double double'"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1174
 msgid "Unknown car-following model % when parsing vType '%'"
-msgstr ""
+msgstr "未知的跟车模式 % 出现于解析 vType '%' 的时候"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1176
 msgid "Unknown car-following model when parsing vType '%'"
-msgstr ""
+msgstr "当解析 vType '%' 时, 未知的跟车模式"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1209
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1225
