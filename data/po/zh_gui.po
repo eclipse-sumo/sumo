@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 13:17+0000\n"
-"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
+"PO-Revision-Date: 2023-06-06 10:41+0000\n"
+"Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
@@ -888,7 +888,7 @@ msgstr "定位路口"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:114
 msgid "Locate a junction within the network."
-msgstr ""
+msgstr "在路网內定位一个路口。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:119
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:336
@@ -897,7 +897,7 @@ msgstr "定位路段"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:119
 msgid "Locate an edge within the network."
-msgstr ""
+msgstr "在路网內定位一个路段。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:124
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:344
@@ -906,7 +906,7 @@ msgstr "定位车辆"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:124
 msgid "Locate a vehicle within the network."
-msgstr ""
+msgstr "在路网內定位一辆車。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:129
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:348
@@ -915,7 +915,7 @@ msgstr "定位人员"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:129
 msgid "Locate a person within the network."
-msgstr ""
+msgstr "在路网內定位一位人员。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:134
 msgid "Locate Container"
