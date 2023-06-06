@@ -1131,7 +1131,7 @@ NBNode::computeNodeShape(double mismatchThreshold) {
     }
     try {
         NBNodeShapeComputer computer(*this);
-        myPoly = computer.compute();
+        myPoly = computer.compute(OptionsCont::getOptions().getBool("junctions.minimal-shape"));
         if (myRadius == UNSPECIFIED_RADIUS && !OptionsCont::getOptions().isDefault("default.junctions.radius")) {
             myRadius = computer.getRadius();
         }

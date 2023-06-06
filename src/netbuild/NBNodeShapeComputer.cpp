@@ -61,7 +61,7 @@ NBNodeShapeComputer::~NBNodeShapeComputer() {}
 
 
 const PositionVector
-NBNodeShapeComputer::compute() {
+NBNodeShapeComputer::compute(bool forceSmall) {
 #ifdef DEBUG_NODE_SHAPE
     if (DEBUGCOND) {
         // annotate edges edges to make their ordering visible
@@ -74,7 +74,7 @@ NBNodeShapeComputer::compute() {
 #endif
     // check whether the node is a dead end node or a node where only turning is possible
     //  in this case, we will use "computeNodeShapeSmall"
-    if (myNode.getEdges().size() == 1) {
+    if (myNode.getEdges().size() == 1 || forceSmall) {
         return computeNodeShapeSmall();
     }
     if (myNode.getEdges().size() == 2 && myNode.getIncomingEdges().size() == 1) {

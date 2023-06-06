@@ -391,7 +391,6 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addDescription("junctions.limit-turn-speed.warn.turn", "Junctions",
                       "Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT");
 
-
     oc.doRegister("junctions.small-radius", new Option_Float(1.5));
     oc.addDescription("junctions.small-radius", "Junctions",
                       "Default radius for junctions that do not require wide vehicle turns");
@@ -399,6 +398,10 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("junctions.higher-speed", new Option_Bool(false));
     oc.addDescription("junctions.higher-speed", "Junctions",
                       "Use maximum value of incoming and outgoing edge speed on junction instead of average");
+
+    oc.doRegister("junctions.minimal-shape", new Option_Bool(false));
+    oc.addDescription("junctions.minimal-shape", "Junctions",
+                      "Build junctions with minimal shapes (igoring edge overlap)");
 
     oc.doRegister("internal-junctions.vehicle-width", new Option_Float(1.8));
     oc.addDescription("internal-junctions.vehicle-width", "Junctions",

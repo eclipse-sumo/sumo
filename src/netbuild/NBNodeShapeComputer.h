@@ -48,7 +48,7 @@ public:
     ~NBNodeShapeComputer();
 
     /// Computes the shape of the assigned junction
-    const PositionVector compute();
+    const PositionVector compute(bool forceSmall);
 
     /// @brief get computed radius for node
     double getRadius() const {
