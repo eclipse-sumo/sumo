@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-06 14:06+0000\n"
+"PO-Revision-Date: 2023-06-06 14:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -7169,11 +7169,11 @@ msgstr "Lo spostamento laterale sulla corsia di arrivo del veicolo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4943
 msgid "Insertion checks"
-msgstr ""
+msgstr "Prova d'inserimento"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4956
 msgid "First flow departure time"
-msgstr ""
+msgstr "Partenza iniziale del flusso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4968
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4989
