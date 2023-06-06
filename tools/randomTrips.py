@@ -64,10 +64,10 @@ def get_options(args=None):
                     help="generates weights files for visualisation")
     op.add_argument("--pedestrians", category="processing", action="store_true", default=False,
                     help="create a person file with pedestrian trips instead of vehicle trips")
-    op.add_argument("--persontrips", category="processing", action="store_true", default=False,
-                    help="create a person file with person trips instead of vehicle trips")
     op.add_argument("--personrides", category="processing",
                     help="create a person file with rides using STR as lines attribute")
+    op.add_argument("--persontrips", category="processing", action="store_true", default=False,
+                    help="create a person file with person trips instead of vehicle trips")
     op.add_argument("--persontrip.transfer.car-walk", category="processing", dest="carWalkMode",
                     help="Where are mode changes from car to walking allowed " +
                     "(possible values: 'ptStops', 'allJunctions' and combinations)")
