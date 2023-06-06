@@ -38,6 +38,8 @@
     <max-distance value="None" type="float" help="require start and end edges for each trip to be at most 'FLOAT' m apart (default 0 which disables any checks)" category="processing"/>
     <intermediate value="0" type="int" help="generates the given number of intermediate way points" category="processing"/>
     <flows value="0" type="int" help="generates INT flows that together output vehicles with the specified period" category="processing"/>
+    <from-stops value="None" type="string" help="Create trips that start at stopping places of the indicated type(s). i.e. 'busStop'" category="processing"/>
+    <to-stops value="None" type="string" help="Create trips that end at stopping places of the indicated type(s). i.e. 'busStop'" category="processing"/>
     <jtrrouter value="False" type="bool" help="Create flows without destination as input for jtrrouter" category="processing"/>
     <maxtries value="100" type="int" help="number of attemps for finding a trip which meets the distance constraints" category="processing"/>
     <binomial value="None" type="int" help="If this is set, the number of departures per second will be drawn from a binomial distribution with n=N and p=PERIOD/N where PERIOD is the argument given to --period" category="processing"/>
