@@ -194,6 +194,17 @@ public:
     }
 
 
+    /** @brief Returns whether this phase is an "all red" phase
+     *
+     * "all red " means in this case that at all streams have red 
+     *  and no stream has yellow. 
+     * @return Whether this phase is an "all red" phase
+     */
+    bool isRedPhase() const {
+        return myState.size() == std::count(myState.begin(), myState.end(), 'r');
+    }
+
+
     /** @brief Returns the state of the tls signal at the given position
      * @param[in] pos The position of the signal to return the state for
      * @return The state of the signal at the given position

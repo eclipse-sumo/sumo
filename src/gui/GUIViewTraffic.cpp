@@ -459,9 +459,15 @@ GUIViewTraffic::onGamingClick(Position pos) {
             }
             const int ci = minTll->getCurrentPhaseIndex();
             const int n = minTll->getPhaseNumber();
+            int greenCount = 0;
+            for (auto& phase : minTll->getPhases()) {
+                if (phase->isGreenPhase()) {
+                    greenCount++;
+                }
+            }
             int nextPhase = (ci + 1) % n;
             SUMOTime nextDuration = 0;
-            if (minTll->getCurrentPhaseDef().isGreenPhase()) {
+            if (minTll->getCurrentPhaseDef().isGreenPhase() || (greenCount == 1 && minTll->getCurrentPhaseDef().isRedPhase())) {
                 nextDuration = minTll->getPhase(nextPhase).duration;
             } else {
                 // we are in transition to a green phase
@@ -490,12 +496,12 @@ GUIViewTraffic::onGamingClick(Position pos) {
                     }
                     // transition after the next green
                     if (numGreen == 1) {
-                        int transitionIndex = (i - 2 + n) % n;
-                        SUMOTime dur = minTll->getPhase(transitionIndex).duration;
+                        SUMOTime dur = minTll->getPhase(i).duration;
                         if (dur <= spentTransition) {
                             spentTransition -= dur;
-                        } else {
-                            nextPhase = transitionIndex;
+                        }
+                        else {
+                            nextPhase = i;
                             nextDuration = dur - spentTransition;
                             break;
                         }
