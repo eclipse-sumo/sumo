@@ -52,7 +52,9 @@
        <walk from="E9" to="E10" arrivalPos="2"/>
     </personFlow>
 
-    <vehicle id="v3"  type="vt3" depart="450.00" route="r_0"/>
+    <vehicle id="v3"  type="vt3" depart="450.00" route="r_0">
+        <param key="carFollowModel.ignoreIDs" value="v4"/>
+    </vehicle>
 
     <vehicle id="v4"  type="vt0s" depart="800.00" route="r_0"/>
 
