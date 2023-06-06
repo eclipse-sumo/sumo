@@ -33,3 +33,6 @@ high_overlap
 
 # see #12735
 curved_back
+
+# force building junctions with minimal shapes.
+minimal-shape
