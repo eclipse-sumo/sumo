@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-02 14:43:51 by Eclipse SUMO netconvert Version v1_17_0+0676-2c0a9e8
+<!-- generated on 2023-06-06 12:40:31 by Eclipse SUMO netconvert Version v1_17_0+0735-ed7251a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -257,6 +257,7 @@
         <junctions.limit-turn-speed.warn.turn value="22" type="FLOAT" help="Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT"/>
         <junctions.small-radius value="1.5" type="FLOAT" help="Default radius for junctions that do not require wide vehicle turns"/>
         <junctions.higher-speed value="false" type="BOOL" help="Use maximum value of incoming and outgoing edge speed on junction instead of average"/>
+        <junctions.minimal-shape value="false" type="BOOL" help="Build junctions with minimal shapes (igoring edge overlap)"/>
         <internal-junctions.vehicle-width value="1.8" type="FLOAT" help="Assumed vehicle width for computing internal junction positions"/>
         <rectangular-lane-cut value="false" type="BOOL" help="Forces rectangular cuts between lanes and intersections"/>
         <check-lane-foes.roundabout value="true" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"/>

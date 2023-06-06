@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_17_0+0159-32ef28bfb10
+Eclipse SUMO netgenerate Version v1_17_0+0735-ed7251a
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -412,6 +412,8 @@ Junctions Options:
   --junctions.higher-speed             Use maximum value of incoming and
                                         outgoing edge speed on junction instead
                                         of average
+  --junctions.minimal-shape            Build junctions with minimal shapes
+                                        (igoring edge overlap)
   --internal-junctions.vehicle-width FLOAT  Assumed vehicle width for computing
                                         internal junction positions
   --rectangular-lane-cut               Forces rectangular cuts between lanes

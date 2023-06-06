@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-02 14:43:51 by Eclipse SUMO netconvert Version v1_17_0+0676-2c0a9e8
+<!-- generated on 2023-06-06 12:40:31 by Eclipse SUMO netconvert Version v1_17_0+0735-ed7251a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -698,6 +698,9 @@
 
         <!-- Use maximum value of incoming and outgoing edge speed on junction instead of average -->
         <junctions.higher-speed value="false" type="BOOL"/>
+
+        <!-- Build junctions with minimal shapes (igoring edge overlap) -->
+        <junctions.minimal-shape value="false" type="BOOL"/>
 
         <!-- Assumed vehicle width for computing internal junction positions -->
         <internal-junctions.vehicle-width value="1.8" type="FLOAT"/>
