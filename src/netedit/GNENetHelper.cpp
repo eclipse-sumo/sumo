@@ -1518,7 +1518,8 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
 }
 
 
-int GNENetHelper::AttributeCarriers::getStopIndex() {
+int
+GNENetHelper::AttributeCarriers::getStopIndex() {
     return myStopIndex++;
 }
 

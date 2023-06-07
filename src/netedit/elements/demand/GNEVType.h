@@ -198,15 +198,6 @@ protected:
     /// @brief vType distribution
     std::string myDistribution;
 
-    /// @brief edit vType distribution
-    void editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoList* undoList);
-
-    /// @brief ask if add vTypeDistribution
-    bool askAddVTypeDistribution(const std::string& vTypeDistribution) const;
-
-    /// @brief ask if remove vTypeDistribution
-    bool askRemoveVTypeDistribution(const std::string& vTypeDistribution) const;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -219,6 +210,12 @@ private:
 
     /// @brief function called after set new VClass
     void updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues);
+
+    /// @brief edit distribution
+    void editDistribution(const std::string& value, GNEUndoList* undoList);
+
+    /// @brief clear empty distributions
+    void clearEmptyDistributions();
 
     /// @brief Invalidated copy constructor.
     GNEVType(GNEVType*) = delete;

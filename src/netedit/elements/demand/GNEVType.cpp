@@ -214,12 +214,6 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            if (getParentDemandElements().empty()) {
-                return "";
-            } else {
-                return getParentDemandElements().front()->getID();
-            }
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
@@ -481,7 +475,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_CARRIAGE_GAP);
             }
-        case GNE_ATTR_DISTRIBUTION:
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
             return myDistribution;
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -558,9 +552,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
     switch (key) {
         case SUMO_ATTR_ID:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
-            break;
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            editVTypeDistribution(value, undoList);
             break;
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
@@ -671,7 +662,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_CARRIAGE_LENGTH:
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
         case SUMO_ATTR_CARRIAGE_GAP:
-        case GNE_ATTR_DISTRIBUTION:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
@@ -691,6 +681,9 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
             // force change
             vTypeChangeAttributeForced->forceChange();
             undoList->changeAttribute(vTypeChangeAttributeForced);
+            break;
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            editDistribution(value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -713,12 +706,6 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else {
                 return false;
-            }
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            if (value.empty()) {
-                return true;
-            } else {
-                return SUMOXMLDefinitions::isValidVehicleID(value);
             }
         // CFM Attributes
         case SUMO_ATTR_SIGMA:
@@ -906,8 +893,12 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_CARRIAGE_GAP:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case GNE_ATTR_DISTRIBUTION:
-            return SUMOXMLDefinitions::isValidVehicleID(value);
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::isValidVehicleID(value);
+            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -1329,114 +1320,6 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
 }
 
 // ===========================================================================
-// protected
-// ===========================================================================
-
-void
-GNEVType::editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoList* undoList) {
-    if (vTypeDistributionID.empty()) {
-        // first check if previosly this vType has a vTypeDistribution
-        if (getParentDemandElements().size() > 0) {
-            // get parent vTypeDistribution
-            GNEDemandElement* vTypeDistribution = getParentDemandElements().front();
-            // check if this is the last vType of the vTypeDistribution
-            if (vTypeDistribution->getChildDemandElements().size() == 1) {
-                // ask if remove vTypeDistribution
-                if (askRemoveVTypeDistribution(vTypeDistribution->getID())) {
-                    undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
-                    // clear attribute
-                    undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, ""));
-                    // remove vType Distribution
-                    undoList->add(new GNEChange_DemandElement(vTypeDistribution, false), true);
-                    undoList->end();
-                }
-            } else {
-                // clear attribute
-                undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, ""));
-            }
-        }
-    } else {
-        // check if vTypeDistribution exist
-        const auto vTypeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vTypeDistributionID, false);
-        // get current vTypeDistribution parent
-        const auto vTypeDistributionParent = (getParentDemandElements().size() > 0) ? getParentDemandElements().front() : nullptr;
-        if (vTypeDistribution) {
-            // add in vTypeDistribution
-            undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, vTypeDistributionID));
-        } else if (vTypeDistributionParent && (vTypeDistributionParent->getChildDemandElements().size() == 1)) {
-            // ask if remove vTypeDistribution
-            if (askRemoveVTypeDistribution(vTypeDistributionParent->getID())) {
-                undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "add/remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
-                // clear attribute
-                undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, ""));
-                // remove old vTypeDistribution
-                undoList->add(new GNEChange_DemandElement(vTypeDistributionParent, false), true);
-                // create newTypeDistribution
-                undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID, -1), true), true);
-                // set new vTypeDistribution
-                undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, vTypeDistributionID));
-                undoList->end();
-            }
-        } else {
-            undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "add " + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
-            // create newTypeDistribution
-            undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID, -1), true), true);
-            // set new vTypeDistribution
-            undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, vTypeDistributionID));
-            undoList->end();
-        }
-    }
-}
-
-
-bool
-GNEVType::askAddVTypeDistribution(const std::string& vTypeDistribution) const {
-    // show warning in gui testing debug mode
-    WRITE_DEBUG("Opening FXMessageBox 'add vTypeDistribution'");
-    // Ask confirmation to user
-    const FXuint answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO,
-                          ("Add " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + "s").c_str(), "%s",
-                          (toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + vTypeDistribution + "' doesn't exist. Create?").c_str());
-    if (answer == 1) { // 1:yes, 2:no, 4:esc
-        WRITE_DEBUG("Closed FXMessageBox 'add vTypeDistribution' with 'yes'");
-        return true;
-    } else {
-        // write warning if netedit is running in testing mode
-        if (answer == 2) {
-            WRITE_DEBUG("Closed FXMessageBox 'add vTypeDistribution' with 'No'");
-            return false;
-        } else {
-            WRITE_DEBUG("Closed FXMessageBox 'add vTypeDistribution' with 'ESC'");
-            return false;
-        }
-    }
-}
-
-
-bool
-GNEVType::askRemoveVTypeDistribution(const std::string& vTypeDistribution) const {
-    // show warning in gui testing debug mode
-    WRITE_DEBUG("Opening FXMessageBox 'remove vTypeDistribution'");
-    // Ask confirmation to user
-    const FXuint answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO,
-                          ("Remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION)).c_str(), "%s",
-                          ("Changing attribute will remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + vTypeDistribution + "'. Continue?").c_str());
-    if (answer == 1) { // 1:yes, 2:no, 4:esc
-        WRITE_DEBUG("Closed FXMessageBox 'remove vTypeDistribution' with 'yes'");
-        return true;
-    } else {
-        // write warning if netedit is running in testing mode
-        if (answer == 2) {
-            WRITE_DEBUG("Closed FXMessageBox 'remove vTypeDistribution' with 'No'");
-            return false;
-        } else {
-            WRITE_DEBUG("Closed FXMessageBox 'remove vTypeDistribution' with 'ESC'");
-            return false;
-        }
-    }
-}
-
-// ===========================================================================
 // private
 // ===========================================================================
 
@@ -1450,9 +1333,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             setMicrosimID(value);
             // manually change VType parameters ID
             id = value;
-            break;
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            setVTypeDistributionParent(value);
             break;
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
@@ -1944,7 +1824,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 SUMOVTypeParameter::unsetParameter(toString(key));
             }
             break;
-        case GNE_ATTR_DISTRIBUTION:
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
             myDistribution = value;
             break;
         case GNE_ATTR_SELECTED:
@@ -2025,6 +1905,50 @@ GNEVType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues
     }
     if (!wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET)) {
         locomotiveLength = defaultValues.locomotiveLength;
+    }
+}
+
+
+void
+GNEVType::editDistribution(const std::string& value, GNEUndoList* undoList) {
+    // begin edit distribution
+    undoList->begin(GUIIcon::ROUTE, TL("edit ") + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
+    // check if distribution exist
+    auto distribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value, false);
+    // check if create new distribution
+    if ((distribution == nullptr) && (value.size() > 0)) {
+        // create distribution
+        distribution = new GNEVTypeDistribution(myNet, value);
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(distribution, true), true);
+    }
+    // change attribute
+    undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, value));
+    // clear empty distributions
+    clearEmptyDistributions();
+    // end edit distribution
+    myNet->getViewNet()->getUndoList()->end();
+}
+
+
+void
+GNEVType::clearEmptyDistributions() {
+    std::vector<GNEDemandElement*> distributionToRemove;
+    // iterate over all distributions and find ocurrence in vTypes
+    for (const auto &distribution : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
+        bool remove = true;
+        for (const auto &vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+            if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == distribution->getID()) {
+                // reference found in vType, then don't remove
+                remove = false;
+            }
+        }
+        if (remove) {
+            distributionToRemove.push_back(distribution);
+        }
+    }
+    // now clear distributions
+    for (const auto &vTypeDistribution : distributionToRemove) {
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, false), true);
     }
 }
 

@@ -39,7 +39,7 @@ GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& vTypeID, const int deterministic) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION,  GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-myDeterministic(deterministic) {
+    myDeterministic(deterministic) {
 }
 
 
