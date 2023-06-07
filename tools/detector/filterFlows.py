@@ -25,7 +25,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 from sumolib.options import ArgumentParser  # noqa
 
-parser = ArgumentParser(usage="usage: %prog [options]")
+parser = ArgumentParser(usage="usage: %(prog)s [options]")
 parser.add_argument("-f", "--flows", type=parser.file, category="input", metavar="FILE",
                     help="read detector flows from FILE(s) (mandatory)")
 parser.add_argument("-o", "--output", type=parser.file, category="output", help="filtered file", metavar="FILE")

@@ -40,7 +40,7 @@ else:
 
 
 def get_options(args=None):
-    USAGE = """Usage %prog [options] <new_net.xml> <trips> [<trips2> ...]
+    USAGE = """Usage %(prog)s [options] <new_net.xml> <trips> [<trips2> ...]
 If the given routes contain exit times these will be used to compute new
 departure times. If the option --orig-net is given departure times will be
 extrapolated based on edge-lengths and maximum speeds multiplied with --speed-factor"""

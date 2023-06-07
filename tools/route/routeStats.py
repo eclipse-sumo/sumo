@@ -36,7 +36,7 @@ from sumolib.miscutils import Statistics, parseTime  # noqa
 
 
 def get_options():
-    USAGE = """Usage %prog [options] <rou.xml> [<rou2.xml>]"""
+    USAGE = """Usage %(prog)s [options] <rou.xml> [<rou2.xml>]"""
     optParser = sumolib.options.ArgumentParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
