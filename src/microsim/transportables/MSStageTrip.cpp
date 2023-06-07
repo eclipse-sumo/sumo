@@ -285,7 +285,10 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
         // append stage so the GUI won't crash due to inconsistent state
         transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), -1);
         if (MSGlobals::gCheckRoutes) {  // if not pedestrians will teleport
-            return "Empty route between edge '" + myOrigin->getID() + "' and edge '" + (myDestinationStop != nullptr ? myDestinationStop->getID() : myDestination->getID()) + "' for person '" + transportable->getID() + "'.";
+            std::string dest = (myDestinationStop != nullptr
+                ? toString(myDestinationStop->getElement()) + " '" + myDestinationStop->getID()
+                : "edge '" + myDestinationStop->getID()) + "'";
+            return "Empty route between edge '" + myOrigin->getID() + "' and " + dest + " for person '" + transportable->getID() + "'.";
         }
     }
     return "";
