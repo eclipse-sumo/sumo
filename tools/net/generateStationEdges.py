@@ -20,26 +20,31 @@ Generate pedestrian edges for every public transport stop to serve as access
 edge in otherwise pure railway networks
 """
 from __future__ import absolute_import
+from __future__ import print_function
 import sys
-from optparse import OptionParser
+import os
 
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <netfile> <stopfile> [options]"
-    optParser = OptionParser()
-    optParser.add_option("-o", "--outfile", help="prefix of output file")
-    optParser.add_option("-l", "--length", type=float, default=10., help="length of generated solitary edges")
-    optParser.add_option("-w", "--width", type=float, default=8., help="width of generated solitary edges")
+    ap = ArgumentParser()
+    ap.add_option("-n", "--net-file", category="input", dest="netfile", required=True, type=ap.net_file,
+                  help="input network file")
+    ap.add_option("-s", "--stop-file", category="input", dest="stopfile", required=True, type=ap.additional_file,
+                  help="input network file")
+    ap.add_option("-o", "--output-prefix", category="output", dest="outfile", required=True, type=ap.file,
+                  help="prefix of output files")
+    ap.add_option("-l", "--length", type=float, default=10.,
+                  help="length of generated solitary edges")
+    ap.add_option("-w", "--width", type=float, default=8.,
+                  help="width of generated solitary edges")
     # optParser.add_option("-d", "--cluster-dist", type=float, default=500., help="length of generated edges")
-    options, args = optParser.parse_args()
-    try:
-        options.netfile, options.stopfile = args
-    except Exception:
-        sys.exit(USAGE)
-    if options.outfile is None:
-        options.outfile = options.stopfile[:-4] + ".access"
+    options = ap.parse_args()
     return options
 
 
