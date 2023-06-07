@@ -1,2 +1,2 @@
-Error: Empty route between edge 'railWE' and edge 'stopA_E' for person 'p0'.
+Error: Empty route between edge 'railWE' and busStop 'stopA_E' for person 'p0'.
 Quitting (on error).
