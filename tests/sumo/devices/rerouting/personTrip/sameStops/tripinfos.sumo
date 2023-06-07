@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-07 11:25:37 by Eclipse SUMO sumo Version v1_17_0+0763-a440d00
+<!-- generated on 2023-06-07 11:59:43 by Eclipse SUMO sumo Version v1_17_0+0766-5023a30
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,4 +38,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p0" depart="400.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <stop duration="1.00" arrival="401.00" arrivalPos="300.00" actType="waiting"/>
+        <stop duration="0.00" arrival="401.00" arrivalPos="300.00" actType="sameStop"/>
+    </personinfo>
 </tripinfos>
