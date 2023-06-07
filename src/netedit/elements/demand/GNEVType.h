@@ -195,6 +195,9 @@ protected:
     /// @brief flag to check if this default GNEVType was modified
     bool myDefaultVehicleTypeModified;
 
+    /// @brief vType distribution
+    std::string myDistribution;
+
     /// @brief edit vType distribution
     void editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoList* undoList);
 

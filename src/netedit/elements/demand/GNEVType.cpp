@@ -35,9 +35,9 @@
 GNEVType::GNEVType(GNENet* net) :
     GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-                                SUMOVTypeParameter(""),
-                                myDefaultVehicleType(true),
-myDefaultVehicleTypeModified(false) {
+    SUMOVTypeParameter(""),
+    myDefaultVehicleType(true),
+    myDefaultVehicleTypeModified(false) {
     // reset default values
     resetDefaultValues();
     // init Rail Visualization Parameters
@@ -48,9 +48,9 @@ myDefaultVehicleTypeModified(false) {
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(vTypeID),
-myDefaultVehicleType(true),
-myDefaultVehicleTypeModified(false) {
+    SUMOVTypeParameter(vTypeID),
+    myDefaultVehicleType(true),
+    myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
     // init Rail Visualization Parameters
@@ -481,6 +481,8 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_CARRIAGE_GAP);
             }
+        case GNE_ATTR_DISTRIBUTION:
+            return myDistribution;
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -669,6 +671,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_CARRIAGE_LENGTH:
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
         case SUMO_ATTR_CARRIAGE_GAP:
+        case GNE_ATTR_DISTRIBUTION:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
@@ -903,6 +906,8 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_CARRIAGE_GAP:
             return canParse<double>(value) && (parse<double>(value) >= 0);
+        case GNE_ATTR_DISTRIBUTION:
+            return SUMOXMLDefinitions::isValidVehicleID(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -1302,6 +1307,7 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
         vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, newVTypeParameter.getParameter(toString(SUMO_ATTR_CARRIAGE_GAP), ""), undoList);
     }
+
     // parse parameters
     std::string parametersStr;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -1937,6 +1943,9 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // remove from params (needed for writting in XML)
                 SUMOVTypeParameter::unsetParameter(toString(key));
             }
+            break;
+        case GNE_ATTR_DISTRIBUTION:
+            myDistribution = value;
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

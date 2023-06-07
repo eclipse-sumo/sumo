@@ -3586,7 +3586,12 @@ GNEAttributeCarrier::fillDemandElements() {
                                               TL("Gap between carriages"),
                                               "1");
         myTagProperties[currentTag].addAttribute(attrProperty);
-
+        
+        attrProperty = GNEAttributeProperties(GNE_ATTR_DISTRIBUTION,
+                                              GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("VType distribution in which this VType is placed"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        
         // fill VType Car Following Model Values (implemented in a separated function to improve code legibility)
         fillCarFollowingModelAttributes(currentTag);
 
