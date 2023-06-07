@@ -80,21 +80,21 @@ Traffic data related to turning traffic can also be provided as ratios in the fo
 ```xml
 <data>
   <interval id="generated" begin="0.0" end="99.0">
-    <edgeRelation from="-58.121.42" to="64" ratio="0.3"/>
-    <edgeRelation from="-58.121.42" to="-31" ratio="0.7"/>    
-    <edgeRelation from="-31.80.00" to="31" ratio="0.1"/>
-    <edgeRelation from="-31.80.00" to="37" ratio="0.1"/>
-    <edgeRelation from="-31.80.00" to="-23" ratio="0.8"/>    
+    <edgeRelation from="-58.121.42" to="64" probability="0.3"/>
+    <edgeRelation from="-58.121.42" to="-31" probability="0.7"/>    
+    <edgeRelation from="-31.80.00" to="31" probability="0.1"/>
+    <edgeRelation from="-31.80.00" to="37" probability="0.1"/>
+    <edgeRelation from="-31.80.00" to="-23" probability="0.8"/>    
   </interval>
 </data>
 ```
 
 Example call:
 ```
-python tools/routeSampler.py -r <input-route-file> --turn-files <turn-files> -o <output-file> --turn-ratio-attribute ratio
+python tools/routeSampler.py -r <input-route-file> --turn-ratio-files <turn-ratio-files> -o <output-file>
 ```
 
-The attributes for reading the ratios from the turn-data file must be set with option **--turn-ratio-attribute** (there is no default)
+The attributes for reading the ratios from the turn-data file can be set with option **--turn-ratio-attribute** (default *probability*)
 
 !!! caution
     Turning ratios must be combined with some other counting data to define the absolute level of traffic. This can be any of the other counting data formats or by setting option **--total-count**.
