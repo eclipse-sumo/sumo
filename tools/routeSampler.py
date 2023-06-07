@@ -112,6 +112,8 @@ def get_options(args=None):
                     help="random seed")
     op.add_argument("--mismatch-output", category="processing", dest="mismatchOut",
                     help="write cout-data with overflow/underflow information to FILE")
+    op.add_argument("--precision", category="output", type=int, dest="precision", default=2,
+                    help="Number of decimal digits in output")
     op.add_argument("--weighted", category="processing", dest="weighted", action="store_true", default=False,
                     help="Sample routes according to their probability (or count)")
     op.add_argument("--keep-stops", category="outut", dest="keepStops", action="store_true", default=False,
@@ -284,6 +286,13 @@ class CountData:
                 for cd2 in self.ratioSiblings:
                     if cd2 != self:
                         cd2.updateTurnRatioCounts(openRoutes, openCounts)
+
+    def assignedProbability(self):
+        if not self.isRatio:
+            return None
+        total = sum([cd2.assignedCount for cd2 in self.ratioSiblings])
+        return self.assignedCount / total
+
 
     def __repr__(self):
         return "CountData(edges=%s, count=%s, origCount=%s%s%s%s%s)\n" % (
@@ -1162,8 +1171,13 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s"/>\n' % (
                     cd.edgeTuple[0], cd.origCount, cd.count))
             elif len(cd.edgeTuple) == 2:
-                mismatchf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
-                    cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
+                if cd.isRatio:
+                    deficit = ("%%.%if" % options.precision) % (cd.assignedProbability() - cd.origCount)
+                    mismatchf.write('        <edgeRelation from="%s" to="%s" measuredProbability="%s" deficit="%s"/>\n' % (
+                        cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, deficit))
+                else:
+                    mismatchf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
+                        cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
             else:
                 print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple,
                       file=sys.stderr)
