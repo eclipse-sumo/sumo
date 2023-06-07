@@ -81,6 +81,15 @@ def worker(options, request, filename):
     if os.stat(filename).st_size < options.min_file_size:
         raise ValueError("small file")
 
+def writeDecals(x, y, zoom, net, filename, decals, options):
+    lat, lon = fromTileToLatLon(x, y, zoom)
+    upperLeft = net.convertLonLat2XY(lon, lat)
+    lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
+    center = net.convertLonLat2XY(lon, lat)
+    print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+            (os.path.basename(filename), center[0], center[1],
+            2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
+
 def retrieveMapServerTiles(options, west, south, east, north, decals, net):
     zoom = 20
     numTiles = options.tiles + 1
@@ -94,55 +103,33 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net):
     # opener.addheaders = [('User-agent', 'Mozilla/5.0')]
     # urllib.install_opener(opener)
     
-    # N = (ex - sx + 1) * (ey - sy + 1)
-    
     if options.parallel_jobs != 0:
         original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
         pool = Pool(options.parallel_jobs)
         signal.signal(signal.SIGINT, original_sigint_handler)
+        
+    futures = []
 
-        futures = []
+    for x in range(sx, ex + 1):
+        for y in range(sy, ey + 1):
+            request = "%s/%s/%s/%s" % (options.url, zoom, y, x)
+            filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
 
-        # i = 0
-        for x in range(sx, ex + 1):
-            for y in range(sy, ey + 1):
-                request = "%s/%s/%s/%s" % (options.url, zoom, y, x)
-                filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
-                
+            if options.parallel_jobs == 0:
+                worker(options, request, filename)
+                if net is not None:
+                    writeDecals(x, y, zoom, net, filename, decals, options)
+            else:
                 futures.append((
                     x, y, pool.apply_async(worker, (options, request, filename))
                 ))
 
-        for i, (x, y, future) in enumerate(futures):
-            future.get()
-
-            # print('%f%% (%s)' % (100.0 * (i+1)/N, request))
-            if net is not None:
-            
-                lat, lon = fromTileToLatLon(x, y, zoom)
-                upperLeft = net.convertLonLat2XY(lon, lat)
-                lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
-                center = net.convertLonLat2XY(lon, lat)
-                print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-                        (os.path.basename(filename), center[0], center[1],
-                        2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
-    else:
-        for x in range(sx, ex + 1):
-            for y in range(sy, ey + 1):
-                request = "%s/%s/%s/%s" % (options.url, zoom, y, x)
-                filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
-                
-                worker(options, request, filename)
-                
-                if net is not None:
-
-                    lat, lon = fromTileToLatLon(x, y, zoom)
-                    upperLeft = net.convertLonLat2XY(lon, lat)
-                    lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
-                    center = net.convertLonLat2XY(lon, lat)
-                    print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-                            (os.path.basename(filename), center[0], center[1],
-                            2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
+    # N = (ex - sx + 1) * (ey - sy + 1)
+    for i, (x, y, future) in enumerate(futures):
+        future.get()
+        # print('%f%% (%s)' % (100.0 * (i+1)/N, request))
+        if net is not None:
+            writeDecals(x, y, zoom, net, filename, decals, options)
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser()
