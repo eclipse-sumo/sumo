@@ -274,7 +274,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                 if (vehicle != nullptr) {
                     vehControl.deleteVehicle(vehicle, true);
                 }
-                return "No connection found between edge '" + myOrigin->getID() + "' and edge '" + (myDestinationStop != nullptr ? myDestinationStop->getID() : myDestination->getID()) + "' for person '" + transportable->getID() + "'.";
+                return "No connection found between " + getOriginDescription() + " and " + getDestinationDescription() + " for person '" + transportable->getID() + "'.";
             }
         }
         if (vehicle != nullptr && (isTaxi || !carUsed)) {
@@ -288,10 +288,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
         } else {
             transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), -1);
             if (MSGlobals::gCheckRoutes) {  // if not pedestrians will teleport
-                std::string dest = (myDestinationStop != nullptr
-                        ? toString(myDestinationStop->getElement()) + " '" + myDestinationStop->getID()
-                        : "edge '" + myDestinationStop->getID()) + "'";
-                return "Empty route between edge '" + myOrigin->getID() + "' and " + dest + " for person '" + transportable->getID() + "'.";
+                return "Empty route between " + getOriginDescription() + " and " + getDestinationDescription() + " for person '" + transportable->getID() + "'.";
             }
         }
     }
@@ -307,8 +304,22 @@ MSStageTrip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, M
 
 
 std::string
+MSStageTrip::getOriginDescription() const {
+    return (myOriginStop != nullptr
+            ? toString(myOriginStop->getElement()) + " '" + myOriginStop->getID()
+            : "edge '" + myOrigin->getID()) + "'";
+}
+
+std::string
+MSStageTrip::getDestinationDescription() const {
+    return (myDestinationStop != nullptr
+            ? toString(myDestinationStop->getElement()) + " '" + myDestinationStop->getID()
+            : "edge '" + myDestination->getID()) + "'";
+}
+
+std::string
 MSStageTrip::getStageSummary(const bool) const {
-    return "trip from '" + myOrigin->getID() + "' to '" + getDestination()->getID() + "'";
+    return "trip from " + getOriginDescription() + " to " + getDestinationDescription();
 }
 
 void

@@ -74,6 +74,9 @@ public:
         return "trip";
     }
 
+    std::string getOriginDescription() const;
+    std::string getDestinationDescription() const;
+
     std::string getStageSummary(const bool isPerson) const;
 
     /// logs end of the step
