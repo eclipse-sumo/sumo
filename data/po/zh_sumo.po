@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-06 10:41+0000\n"
+"PO-Revision-Date: 2023-06-07 08:30+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -1289,7 +1289,7 @@ msgstr "移除没有有效路径的车辆'%'。"
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:447
 #, c-format
 msgid "current edge '%' not found in new route"
-msgstr "在新路径中没有找到当前的路段'%'。"
+msgstr "在新路径中没有找到当前的路段'%'"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:460
 msgid "Vehicle is on junction-internal edge leading elsewhere"
@@ -1767,7 +1767,8 @@ msgstr "定义了以秒为单位的步长"
 msgid ""
 "Whether to use ballistic method for the positional update of vehicles "
 "(default is a semi-implicit Euler method)."
-msgstr "是否使用弹道法进行车辆的位置更新（默认是半隐式欧拉法）"
+msgstr "是否使用弹道法进行车辆的位置更新（默认是半隐式欧拉法 (semi-implicit Euler "
+"method)）。"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:355
 msgid ""
@@ -3564,7 +3565,7 @@ msgstr "调度算法'%'不详"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:313
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
-msgstr "现有客戶  '%' 新预约的重新派送(re-dispatch)无效"
+msgstr "现有客戶   '%' 新预约的重新派送(re-dispatch)无效"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:346
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
@@ -3762,7 +3763,7 @@ msgstr "空载的出租车'%'没有下一个区段要停。 时间=%。"
 #: /home/micha/programming/sumo/src/microsim/devices/MSIdling.cpp:102
 #, c-format
 msgid "Idle taxi '%' could not stop within %m"
-msgstr "空载的出租车'%'无法在%米（m）内停下。"
+msgstr "空载的出租车'%'无法在%米（m）内停下"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSIdling.cpp:155
 #, c-format
@@ -3781,9 +3782,8 @@ msgstr "权重。优先因子（weights.priority-factor）不能是负数。"
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority"
-msgstr ""
-"选项权重。优先因子（weights.priority-factor）不生效，因为所有路段都有相同的优"
-"先级。"
+msgstr "选项权重。优先因子（weights.priority-"
+"factor）不生效，因为所有路段都有相同的优先级"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSRoutingEngine.cpp:411
 msgid "Unknown routing algorithm '%'!"
@@ -3795,7 +3795,7 @@ msgstr "该人应改道的期间"
 
 #: /home/micha/programming/sumo/src/microsim/engine/VehicleEngineHandler.cpp:157
 msgid "Invalid engine map type. Only \"poly\" is supported for now"
-msgstr "无效的引擎地图类型。目前只支持 \"poly\"。"
+msgstr "无效的引擎地图类型。目前只支持 \"poly\""
 
 #: /home/micha/programming/sumo/src/microsim/engine/VehicleEngineHandler.cpp:197
 msgid "Unknown tag '%' while parsing."
@@ -3974,7 +3974,7 @@ msgstr "无法辨识的交通流量阈值计算模式"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:57
 msgid "NO VALID POLICY LIST READ"
-msgstr "未读到有效的政策清单。"
+msgstr "未读到有效的政策清单"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:81
 msgid "VEHICLE TYPES WEIGHT only works with phase policy, which is missing"
@@ -3985,16 +3985,14 @@ msgstr "车辆类型权重（VEHICLE TYPES WEIGHT）仅适用于相位策略，�
 msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneInputLanes: lane "
 "% not allowed"
-msgstr ""
-"MSSwarmTrafficLightLogic::init 路口  % pheromoneInputLanes: 车道 % 不被允许"
+msgstr "MSSwarmTrafficLightLogic::init 路口    % pheromoneInputLanes: 车道 % 不被允许"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:182
 #, c-format
 msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneOutputLanes lane "
 "% not allowed"
-msgstr ""
-"MSSwarmTrafficLightLogic::init 路口  % pheromoneOutputLanes 车道 % 不被允许"
+msgstr "MSSwarmTrafficLightLogic::init 路口    % pheromoneOutputLanes 车道 % 不被允许"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
@@ -6781,7 +6779,7 @@ msgstr "无法建立路段 '%'。 已存在具有相同识别名(id)的路段。
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:368
 msgid "Could not create edge '-%'. An edge with the same id already exists."
-msgstr "无法建立路段  '-%'。 已存在具有相同识别名(id)的路段。"
+msgstr "无法建立路段    '-%'。 已存在具有相同识别名(id)的路段。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:382
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:331
@@ -7483,7 +7481,7 @@ msgstr "交通信号逻辑(tl-logic) '%' 的定义未完成。"
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:941
 #: /home/micha/programming/sumo/src/netimport/NIXMLTrafficLightsHandler.cpp:127
 msgid "Unknown traffic light type '%' for tlLogic '%'."
-msgstr "未知的交通信号类型  '%' ;发生在信号逻辑(tl-logic) '%'。"
+msgstr "未知的交通信号类型    '%' ;发生在信号逻辑(tl-logic) '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:955
 msgid "found phase without tl-logic"
