@@ -120,7 +120,7 @@ public:
         //std::cout << "compute from=" << from->getID() << " to=" << to->getID() << " dPos=" << departPos << " aPos=" << arrivalPos << " stopID=" << stopID << " speed=" << speed << " veh=" << Named::getIDSecure(vehicle) << " modeSet=" << modeSet << " t=" << msTime << " iFrom=" << myIntermodalNet->getDepartEdge(from, trip.departPos)->getID() << " iTo=" << (stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos))->getID() << "\n";
         const _IntermodalEdge* iFrom = originStopID != "" ? myIntermodalNet->getStopEdge(originStopID) : myIntermodalNet->getDepartEdge(from, trip.departPos);
         const _IntermodalEdge* iTo = stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos);
-        const bool success = myInternalRouter->compute(iFrom, iTo, &trip, msTime, intoEdges);
+        const bool success = myInternalRouter->compute(iFrom, iTo, &trip, msTime, intoEdges, true);
         if (success) {
             std::string lastLine = "";
             double time = STEPS2TIME(msTime);
@@ -184,6 +184,12 @@ public:
                     }
                 }
             }
+        } else {
+            const std::string oType = originStopID != "" ? "stop" : "edge";
+            const std::string oID = originStopID != "" ? originStopID : from->getID();
+            const std::string dType = stopID != "" ? "stop" : "edge";
+            const std::string dID = stopID != "" ? stopID : to->getID();
+            this->myErrorMsgHandler->informf("No connection between % '%' and % '%' found.", oType, oID, dType, dID);
         }
         if (into.size() > 0) {
             into.back().arrivalPos = arrivalPos;
