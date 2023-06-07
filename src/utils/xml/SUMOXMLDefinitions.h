@@ -1427,6 +1427,8 @@ enum SumoXMLAttr {
     GNE_ATTR_STOPINDEX,
     /// @brief stop index (position in the parent's path)
     GNE_ATTR_PATHSTOPINDEX,
+    /// @brief vtype distribution
+    GNE_ATTR_DISTRIBUTION,
 
     // @}
 
