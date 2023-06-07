@@ -1,0 +1,6 @@
+<routes>
+    <person id="p0" depart="400">
+        <stop busStop="stopA_E" duration="0.1"/>
+        <personTrip busStop="stopC_E" modes="public"/>
+    </person>
+</routes>
