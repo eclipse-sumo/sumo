@@ -273,7 +273,7 @@ class CountData:
 
     def updateTurnRatioCounts(self, openRoutes, openCounts, updateSiblings=False):
         if self.isRatio:
-            total = sum([cd2.assignedCount for cd2 in self.ratioSiblings])
+            total = self.getSiblingCount()
             permitted = total * self.origCount + self.options.turnRatioAbsTolerance
             if permitted > self.assignedCount:
                 self.count = permitted - self.assignedCount
@@ -287,11 +287,16 @@ class CountData:
                     if cd2 != self:
                         cd2.updateTurnRatioCounts(openRoutes, openCounts)
 
+    def getSiblingCount(self):
+        if not self.isRatio:
+            return None
+        return sum([cd2.assignedCount for cd2 in self.ratioSiblings])
+    
+
     def assignedProbability(self):
         if not self.isRatio:
             return None
-        total = sum([cd2.assignedCount for cd2 in self.ratioSiblings])
-        return self.assignedCount / total
+        return self.assignedCount / self.getSiblingCount()
 
 
     def __repr__(self):
@@ -1173,8 +1178,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             elif len(cd.edgeTuple) == 2:
                 if cd.isRatio:
                     deficit = ("%%.%if" % options.precision) % (cd.assignedProbability() - cd.origCount)
-                    mismatchf.write('        <edgeRelation from="%s" to="%s" measuredProbability="%s" deficit="%s"/>\n' % (
-                        cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, deficit))
+                    mismatchf.write('        <edgeRelation from="%s" to="%s" measuredProbability="%s" deficit="%s" totalAssignedFromCount="%s"/>\n' % (
+                        cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, deficit, cd.getSiblingCount()))
                 else:
                     mismatchf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
                         cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
