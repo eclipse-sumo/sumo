@@ -1,0 +1,3 @@
+Warning: No connection between edge 'stopA_E' and edge 'stopC_E' found.
+Error: No connection found between edge 'railWE' and edge 'stopC_E' for person 'p0'.
+Quitting (on error).
