@@ -438,7 +438,7 @@ NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
                     }
                     it++;
                     for (; it != indexSet.second.end(); it++) {
-                        char compareChar = (phase.state[*it] != LINKSTATE_TL_GREEN_MAJOR) ? phase.state[*it] : LINKSTATE_TL_GREEN_MINOR;
+                        const char compareChar = (phase.state[*it] != LINKSTATE_TL_GREEN_MAJOR) ? phase.state[*it] : (char)LINKSTATE_TL_GREEN_MINOR;
                         if (compareChar != firstChar) {
                             same = false;
                             break;
@@ -460,7 +460,7 @@ NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
                     lDef = new NBLoadedSUMOTLDef(*defsToGroup[computedID], *computed);
                     lDef->setParticipantsInformation();
                     for (int index : major2minor) { // update the signal states (G -> g where needed)
-                        for (int i = 0; i < phases.size(); i++) {
+                        for (int i = 0; i < (int)phases.size(); i++) {
                             if (phases[i].state[index] == LINKSTATE_TL_GREEN_MAJOR) {
                                 lDef->getLogic()->setPhaseState(i, index, LINKSTATE_TL_GREEN_MINOR);
                             }

@@ -77,15 +77,6 @@ public:
      */
     bool compute(const ROEdge* from, const ROEdge* to, const ROVehicle* const vehicle,
                  SUMOTime time, ConstROEdgeVector& into, bool silent = false);
-
-
-    /** @brief Recomputes the costs of a route
-     * @param[in] edges The route
-     * @param[in] v The vehicle that belongs to the route
-     * @param[in] msTime The departure time of the vehicle
-     * @return The route costs
-     */
-    double recomputeCosts(const ConstROEdgeVector& edges, const ROVehicle* const v, SUMOTime msTime) const;
     /// @}
 
 private:
