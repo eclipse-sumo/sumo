@@ -30,7 +30,7 @@ for line in csv.DictReader(open(sys.argv[1])):
     factor = 1000.
     if line["e"] == "FC_MJ":
         factor /= 3.6  # MJ to Wh
-    params[line["Subsegment"]][line["e"]] = [factor * float(x) for x in (line['E0'], line['V'], line['A'], line['V2'], line['V3'], line['AV'], line['AV2'])]
+    params[line["Subsegment"]][line["e"]] = [factor * float(x) for x in (line['E0'], line['V'], line['A'], line['V2'], line['V3'], line['AV'], line['AV2'])]  # noqa
 for segment, data in params.items():
     data["PM + PM (non-exhaust)"] = [a + b for a, b in zip(data["PM"], data["PM (non-exhaust)"])]
     if data["FC"] != 7 * [0]:

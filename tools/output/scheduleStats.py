@@ -48,9 +48,9 @@ STATS = {
            lambda r, s: s.add(r['sim_started'] - (r['arrival'] if isnan(r['started']) else r['started']), key(r))),
     's': ('stop delay', lambda r, s: s.add(r['until'] - r['arrival'] - (r['sim_ended'] - r['sim_started']), key(r))),
     't': ('traveltime schedule delta', lambda r, s: s.add(r['traveltime'] - (r['sim_traveltime'])
-        if not isnan(r['traveltime']) and not isnan(r['sim_traveltime']) else 0, key(r))),
+          if not isnan(r['traveltime']) and not isnan(r['sim_traveltime']) else 0, key(r))),
     'T': ('traveltime recording delta', lambda r, s: s.add(r['traveltime_actual'] - (r['sim_traveltime'])
-        if not isnan(r['traveltime_actual']) and not isnan(r['sim_traveltime']) else 0, key(r))),
+          if not isnan(r['traveltime_actual']) and not isnan(r['sim_traveltime']) else 0, key(r))),
 }
 
 GROUPSTATS = {
@@ -135,13 +135,13 @@ def main(options):
         'started',  # route-input
         'ended',    # route-input
         'traveltime',  # route-input (as scheduled)
-        'traveltime_actual', # route-input
+        'traveltime_actual',  # route-input
     ]
 
     columns2 = columns[:3] + [
         'sim_started',  # stop-output
         'sim_ended',    # stop-input
-        'sim_traveltime', # stop-input
+        'sim_traveltime',  # stop-input
     ]
 
     stops = []
@@ -174,7 +174,7 @@ def main(options):
                 priorEnded[vehID] = ended
 
                 stops.append((vehID, tripId, stopID, priorStop, arrival, until,
-                    started, ended, traveltime, traveltime_actual))
+                              started, ended, traveltime, traveltime_actual))
 
     print("Parsed %s stops" % len(stops))
 
@@ -198,7 +198,7 @@ def main(options):
         priorEnded[vehID] = ended
 
         simStops.append((vehID, tripId, stopID,  # priorStop,
-            started, ended, sim_traveltime))
+                         started, ended, sim_traveltime))
 
     print("Parsed %s stopinfos" % len(simStops))
 

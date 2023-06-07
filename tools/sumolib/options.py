@@ -323,8 +323,8 @@ class ArgumentParser(argparse.ArgumentParser):
                                 if typeName == 'parseTime':
                                     typeName = 'time'
                                 knownTypes = ['bool', 'float', 'int', 'time', 'file',
-                                              'net_file', 'route_file','additional_file',
-                                              'edgedata_file', 'data_file','file_list',
+                                              'net_file', 'route_file', 'additional_file',
+                                              'edgedata_file', 'data_file', 'file_list',
                                               'route_file_list', 'sumoconfig_file',
                                               'sumoconfig_file_list']
                                 if typeName not in knownTypes:

@@ -297,11 +297,11 @@ class InvalidGenerator(Exception):
 
 
 def loadStops(options):
-    edgeFromStops = defaultdict(list) # edge -> [(stopType1, stopID1), ...]
-    edgeToStops = defaultdict(list) # edge -> [(stopType1, stopID1), ...]
+    edgeFromStops = defaultdict(list)  # edge -> [(stopType1, stopID1), ...]
+    edgeToStops = defaultdict(list)  # edge -> [(stopType1, stopID1), ...]
     if options.additional is None:
         print("Error: Option %s requires option --additional-files for loading infrastructure elements" %
-                ("--from-stops" if options.fromStops else "--to-stops"), file=sys.stderr)
+              ("--from-stops" if options.fromStops else "--to-stops"), file=sys.stderr)
         sys.exit(1)
     stopTypes = []
     if options.fromStops:
@@ -315,7 +315,7 @@ def loadStops(options):
     else:
         options.toStops = []
     stopTypes = list(set(stopTypes))
-    typeCounts = defaultdict(lambda : 0)
+    typeCounts = defaultdict(lambda: 0)
     for additional in options.additional.split(','):
         for stop in sumolib.xml.parse(additional, stopTypes):
             edgeID = stop.lane.rsplit('_', 1)[0]
@@ -707,7 +707,7 @@ def main(options):
         attrs = otherattrs
         if options.fromStops:
             fouttrips.write('        <stop%s duration="0"/>\n' % attrFrom)
-            attrFrom=''
+            attrFrom = ''
         if options.persontrips:
             element = "personTrip"
         elif options.personrides:
