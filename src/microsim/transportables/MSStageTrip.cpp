@@ -283,12 +283,16 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
     }
     if (transportable->getNumStages() == oldNumStages) {
         // append stage so the GUI won't crash due to inconsistent state
-        transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), -1);
-        if (MSGlobals::gCheckRoutes) {  // if not pedestrians will teleport
-            std::string dest = (myDestinationStop != nullptr
-                ? toString(myDestinationStop->getElement()) + " '" + myDestinationStop->getID()
-                : "edge '" + myDestinationStop->getID()) + "'";
-            return "Empty route between edge '" + myOrigin->getID() + "' and " + dest + " for person '" + transportable->getID() + "'.";
+        if (myOriginStop != nullptr && myOriginStop == myDestinationStop) {
+            transportable->appendStage(new MSStageWaiting(myDestination, myDestinationStop, 0, -1, previous->getArrivalPos(), "sameStop", false));
+        } else {
+            transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), -1);
+            if (MSGlobals::gCheckRoutes) {  // if not pedestrians will teleport
+                std::string dest = (myDestinationStop != nullptr
+                        ? toString(myDestinationStop->getElement()) + " '" + myDestinationStop->getID()
+                        : "edge '" + myDestinationStop->getID()) + "'";
+                return "Empty route between edge '" + myOrigin->getID() + "' and " + dest + " for person '" + transportable->getID() + "'.";
+            }
         }
     }
     return "";
