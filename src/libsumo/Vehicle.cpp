@@ -1519,8 +1519,10 @@ Vehicle::add(const std::string& vehID,
     if (!vehicleType) {
         throw TraCIException("Invalid type '" + typeID + "' for vehicle '" + vehID + "'.");
     }
-    vehicleParams.vtypeid = vehID;
-    vehicleParams.parametersSet |= VEHPARS_VTYPE_SET;
+    if (typeID != "DEFAULT_VEHTYPE") {
+        vehicleParams.vtypeid = typeID;
+        vehicleParams.parametersSet |= VEHPARS_VTYPE_SET;
+    }
     ConstMSRoutePtr route = MSRoute::dictionary(routeID);
     if (!route) {
         if (routeID == "") {
