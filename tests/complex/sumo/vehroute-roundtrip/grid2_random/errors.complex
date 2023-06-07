@@ -1,0 +1,6 @@
+Warning: Teleporting vehicle '410'; waited too long (yield), lane='C2B2_1', time=711.00.
+Warning: Vehicle '410' ends teleporting on edge 'B2C2', time=711.00.
+Warning: Teleporting vehicle '682'; waited too long (jam), lane=':C2_24_0', time=718.00.
+Warning: Vehicle '682' ends teleporting on edge 'C2B2', time=720.00.
+Error: Replayed route replacement failed for vehicle '1178' route=!1178#1 time=650.00 (current edge 'E12' not found in new route).
+Quitting (on error).
