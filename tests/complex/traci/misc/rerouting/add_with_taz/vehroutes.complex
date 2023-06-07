@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-11 13:41:07 by Eclipse SUMO sumo Version v1_12_0+1336-a87ef3e
+<!-- generated on 2023-06-07 10:28:41 by Eclipse SUMO sumo Version v1_17_0+0760-eaaf797
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,22 +27,22 @@
     </report>
 
     <traci_server>
-        <remote-port value="39665"/>
+        <remote-port value="39184"/>
     </traci_server>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="toTAZ" depart="1.00" toTaz="A" arrival="26.00">
+    <vehicle id="toTAZ" type="toTAZ" depart="1.00" toTaz="A" arrival="26.00">
         <route edges="A3B3 B3C3 C3D3"/>
     </vehicle>
 
-    <vehicle id="fromTAZ" depart="1.00" fromTaz="A" arrival="34.00">
+    <vehicle id="fromTAZ" type="fromTAZ" depart="1.00" fromTaz="A" arrival="34.00">
         <route edges="D3C3 C3B3 B3A3 A3B3"/>
     </vehicle>
 
-    <vehicle id="betweenTAZ" depart="1.00" fromTaz="A" toTaz="C" arrival="49.00">
+    <vehicle id="betweenTAZ" type="betweenTAZ" depart="1.00" fromTaz="A" toTaz="C" arrival="49.00">
         <route edges="D3D2 D2D1 D1D0 D0C0 C0B0 B0A0"/>
     </vehicle>
 
