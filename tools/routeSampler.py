@@ -70,6 +70,8 @@ def get_options(args=None):
                     help="Input route file")
     op.add_argument("-t", "--turn-files", category="input", dest="turnFiles", type=op.file_list,
                     help="Input turn-count file")
+    op.add_argument("-T", "--turn-ratio-files", category="input", dest="turnRatioFiles", type=op.file_list,
+                    help="Input turn-ratio file")
     op.add_argument("-d", "--edgedata-files", category="input", dest="edgeDataFiles", type=op.file_list,
                     help="Input edgeData file (for counts)")
     op.add_argument("-O", "--od-files", category="input", dest="odFiles", type=op.file_list,
@@ -84,7 +86,7 @@ def get_options(args=None):
                     help="Read departure counts from the given edgeData file attribute")
     op.add_argument("--turn-attribute", category="turn-ratio", dest="turnAttr", default="count",
                     help="Read turning counts and origin-destination counts from the given attribute")
-    op.add_argument("--turn-ratio-attribute", category="turn-ratio", dest="turnRatioAttr",
+    op.add_argument("--turn-ratio-attribute", category="turn-ratio", dest="turnRatioAttr", default="probability",
                     help="Read turning ratios from the given attribute")
     op.add_argument("--turn-ratio-total", category="turn-ratio", dest="turnRatioTotal", type=float, default=1,
                     help="Set value for normalizing turning ratios (default 1)")
@@ -149,7 +151,10 @@ def get_options(args=None):
 
     options = op.parse_args(args=args)
     if (options.routeFiles is None or
-            (options.turnFiles is None and options.edgeDataFiles is None and options.odFiles is None)):
+            (options.turnFiles is None
+             and options.turnRatioFiles is None
+             and options.edgeDataFiles is None
+             and options.odFiles is None)):
         op.print_help()
         sys.exit()
     if options.writeRouteIDs and options.writeRouteDist:
@@ -161,6 +166,7 @@ def get_options(args=None):
 
     options.routeFiles = options.routeFiles.split(',')
     options.turnFiles = options.turnFiles.split(',') if options.turnFiles is not None else []
+    options.turnRatioFiles = options.turnRatioFiles.split(',') if options.turnRatioFiles is not None else []
     options.edgeDataFiles = options.edgeDataFiles.split(',') if options.edgeDataFiles is not None else []
     options.odFiles = options.odFiles.split(',') if options.odFiles is not None else []
     options.tazFiles = options.tazFiles.split(',') if options.tazFiles is not None else []
@@ -309,7 +315,8 @@ def inTaz(options, edge, tazID, isOrigin):
 
 
 def getIntervals(options):
-    begin, end, interval = parseTimeRange(options.turnFiles + options.edgeDataFiles + options.odFiles)
+    begin, end, interval = parseTimeRange(options.turnFiles + options.turnRatioFiles
+                                          + options.edgeDataFiles + options.odFiles)
     if options.begin is not None:
         begin = parseTime(options.begin)
     if options.end is not None:
@@ -836,7 +843,7 @@ def _solveIntervalMP(options, routes, interval, cpuIndex):
 def parseCounts(options, routes, b, e, warn=False):
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
                                     routes, options.turnAttr, options=options, warn=warn)
-                 + parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
+                 + parseDataIntervals(parseTurnCounts, options.turnRatioFiles, b, e,
                                       routes, options.turnRatioAttr, options=options, isRatio=True, warn=warn)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
                                       routes, options.edgeDataAttr, options=options, warn=warn)
@@ -869,7 +876,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     countData = parseCounts(options, routes, begin, end)
 
     ratioIndices = None
-    if options.turnFiles and options.turnRatioAttr:
+    if options.turnRatioFiles:
         ratioIndices = initTurnRatioSiblings(routes, countData)
 
     routeUsage = getRouteUsage(routes, countData)
