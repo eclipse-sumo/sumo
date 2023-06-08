@@ -257,6 +257,7 @@
 #include "modestop.xpm"
 #include "modevehicle.xpm"
 #include "modetype.xpm"
+#include "modetypedistribution.xpm"
 
 #include "modeedgedata.xpm"
 #include "modeedgereldata.xpm"
@@ -729,6 +730,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
     myIcons[GUIIcon::MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
     myIcons[GUIIcon::MODETYPE] = new FXXPMIcon(a, modetype_xpm);
+    myIcons[GUIIcon::MODETYPEDISTRIBUTION] = new FXXPMIcon(a, modetypedistribution_xpm);
     myIcons[GUIIcon::MODESTOP] = new FXXPMIcon(a, modestop_xpm);
     myIcons[GUIIcon::MODEPERSON] = new FXXPMIcon(a, modeperson_xpm);
     myIcons[GUIIcon::MODEPERSONPLAN] = new FXXPMIcon(a, modepersonplan_xpm);
