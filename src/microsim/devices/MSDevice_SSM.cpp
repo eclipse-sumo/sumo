@@ -1112,12 +1112,16 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
             eInfo.egoConflictExitDist >= 0 && eInfo.foeConflictExitDist >= 0) {
         type = ENCOUNTER_TYPE_COLLISION;
         WRITE_WARNINGF(TL("SSM device of vehicle '%' detected collision with vehicle '%' at time=%."), e->egoID, e->foeID, time2string(SIMSTEP));
-    } else if (eInfo.egoEstimatedConflictEntryTime < eInfo.foeEstimatedConflictEntryTime) {
+    } else if (eInfo.egoEstimatedConflictEntryTime == INVALID_DOUBLE && eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE) {
+    	type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;    
+    } else if (eInfo.egoEstimatedConflictEntryTime < eInfo.foeEstimatedConflictEntryTime || eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE) {
         // ego is estimated first at conflict point
 #ifdef DEBUG_SSM
         if (DEBUG_COND(e->ego))
             std::cout << "    -> ego is estimated leader at conflict entry."
                       << " egoConflictExitTime=" << (eInfo.egoEstimatedConflictExitTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.egoEstimatedConflictExitTime))
+                      << " egoEstimatedConflictEntryTime=" << (eInfo.egoEstimatedConflictEntryTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.egoEstimatedConflictEntryTime))
+                      << " foeEstimatedConflictEntryTime=" << (eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.foeEstimatedConflictEntryTime))
                       << std::endl;
 #endif
         type = type == ENCOUNTER_TYPE_CROSSING ? ENCOUNTER_TYPE_CROSSING_LEADER : ENCOUNTER_TYPE_MERGING_LEADER;
@@ -1127,6 +1131,8 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
         if (DEBUG_COND(e->ego))
             std::cout << "    -> foe is estimated leader at conflict entry."
                       << " foeConflictExitTime=" << (eInfo.foeEstimatedConflictExitTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.foeEstimatedConflictExitTime))
+                      << " egoEstimatedConflictEntryTime=" << (eInfo.egoEstimatedConflictEntryTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.egoEstimatedConflictEntryTime))
+                      << " foeEstimatedConflictEntryTime=" << (eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.foeEstimatedConflictEntryTime))                      
                       << std::endl;
 #endif
         type = type == ENCOUNTER_TYPE_CROSSING ? ENCOUNTER_TYPE_CROSSING_FOLLOWER : ENCOUNTER_TYPE_MERGING_FOLLOWER;
