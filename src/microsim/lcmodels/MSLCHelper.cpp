@@ -324,4 +324,21 @@ MSLCHelper::getSpeedPreservingSecureGap(const MSVehicle& leader, const MSVehicle
     }
 }
 
+
+bool
+MSLCHelper::isBidiLeader(const MSVehicle* leader, const std::vector<MSLane*>& cont) {
+    if (leader == nullptr) {
+        return false;
+    }
+    const MSLane* lane1 = leader->getLane()->getNormalSuccessorLane();
+    const MSLane* lane2 = leader->getLane()->getNormalPredecessorLane();
+    if (lane1->getBidiLane() == nullptr && lane2->getBidiLane() == nullptr) {
+        return false;
+    }
+    bool result = std::find(cont.begin(), cont.end(), lane1->getBidiLane()) != cont.end();
+    if (!result && lane1 != lane2) {
+        result = std::find(cont.begin(), cont.end(), lane2->getBidiLane()) != cont.end();
+    }
+    return result;
+}
 /****************************************************************************/

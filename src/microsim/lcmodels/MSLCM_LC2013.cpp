@@ -1238,10 +1238,8 @@ MSLCM_LC2013::_wantsChange(
     double laDist = myLookAheadSpeed * LOOK_FORWARD * myStrategicParam * (right ? 1 : myLookaheadLeft);
     laDist += myVehicle.getVehicleType().getLengthWithGap() *  2.;
     const bool hasStoppedLeader = leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane);
-    const bool hasBidiLeader = (myVehicle.getLane()->getBidiLane() != nullptr
-                                && leader.first != nullptr
-                                && leader.first->getLane()->getBidiLane() != nullptr
-                                && std::find(curr.bestContinuations.begin(), curr.bestContinuations.end(), leader.first->getLane()->getBidiLane()) != curr.bestContinuations.end());
+    const bool hasBidiLeader = myVehicle.getLane()->getBidiLane() != nullptr && MSLCHelper::isBidiLeader(leader.first, curr.bestContinuations);
+    const bool hasBidiNeighLeader = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiLeader(neighLead.first, neigh.bestContinuations);
 
     if (bestLaneOffset == 0 && hasBidiLeader) {
         // getting out of the way is enough to clear the blockage
@@ -1253,7 +1251,7 @@ MSLCM_LC2013::_wantsChange(
         laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap()
                         + leader.first->getVehicleType().getLengthWithGap()
                         + leader.second);
-    } else if (bestLaneOffset == laneOffset && neighLead.first != 0 && neighLead.first->isStopped() && neighLead.second < (currentDist - posOnLane)) {
+    } else if (bestLaneOffset == laneOffset && neighLead.first != 0 && (neighLead.first->isStopped() || hasBidiNeighLeader) && neighLead.second < (currentDist - posOnLane)) {
         // react to a stopped leader on the target lane (if it is the bestLane)
         if (isOpposite()) {
             // always allow changing back
@@ -1261,7 +1259,8 @@ MSLCM_LC2013::_wantsChange(
                       + neighLead.first->getVehicleType().getLengthWithGap()
                       + neighLead.second);
         } else if (!hasStoppedLeader &&
-                   (neighLead.second + myVehicle.getVehicleType().getLengthWithGap() + neighLead.first->getVehicleType().getLengthWithGap()) < (currentDist - posOnLane)) {
+                   ((neighLead.second + myVehicle.getVehicleType().getLengthWithGap() + neighLead.first->getVehicleType().getLengthWithGap()) < (currentDist - posOnLane)
+                    || hasBidiNeighLeader)) {
             // do not change to the target lane until passing the stopped vehicle
             // (unless the vehicle blocks our intended stopping position, then we have to wait anyway)
             changeToBest = false;
@@ -1315,6 +1314,8 @@ MSLCM_LC2013::_wantsChange(
                   << " maxJam=" << maxJam
                   << " neighDist=" << neighDist
                   << " neighLeftPlace=" << neighLeftPlace
+                  << (hasBidiLeader ? " bidiLeader" : "")
+                  << (hasBidiNeighLeader ? " bidiNeighLeader" : "")
                   << "\n";
     }
 #endif
@@ -1372,7 +1373,7 @@ MSLCM_LC2013::_wantsChange(
             }
         }
         const bool currFreeUntilNeighEnd = leader.first == nullptr || neighDist - posOnLane <= leader.second;
-        const double overtakeDist = (leader.first == 0 ? -1 :
+        const double overtakeDist = (leader.first == 0 || hasBidiLeader ? -1 :
                                      leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap());
         if (leader.first != 0 && (leader.first->isStopped() || hasBidiLeader) && leader.second < REACT_TO_STOPPED_DISTANCE
                 // current destination leaves enough space to overtake the leader
@@ -1394,7 +1395,7 @@ MSLCM_LC2013::_wantsChange(
             }
 #endif
             ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
-        } else if (!changeToBest && (currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist))) {
+        } else if (!changeToBest && currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist) && !hasBidiLeader) {
             // the opposite lane-changing direction should be done than the one examined herein
             //  we'll check whether we assume we could change anyhow and get back in time...
             //
@@ -1420,6 +1421,7 @@ MSLCM_LC2013::_wantsChange(
             ret = ret | LCA_STAY | LCA_STRATEGIC;
         } else if (bestLaneOffset == 0
                    && (leader.first == 0 || !leader.first->isStopped())
+                   && !hasBidiLeader
                    && neigh.bestContinuations.back()->getLinkCont().size() != 0
                    && roundaboutBonus == 0
                    && !checkOpposite

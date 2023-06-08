@@ -77,4 +77,7 @@ public:
     static bool divergentRoute(const MSVehicle& v1, const MSVehicle& v2);
 
     static double getSpeedPreservingSecureGap(const MSVehicle& leader, const MSVehicle& follower, double currentGap, double leaderPlannedSpeed);
+
+    static bool isBidiLeader(const MSVehicle* leader, const std::vector<MSLane*>& cont);
+
 };
