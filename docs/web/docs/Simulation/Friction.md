@@ -3,7 +3,7 @@ title: GLOSA
 ---
 
 # Introduction
-Thanks to Thomas Weber et al SUMO supports simulation of friction on streets since version 1.14.0
+Thanks to [Thomas Weber et al](https://easychair.org/publications/paper/3S4X) SUMO supports simulation of friction on streets since version 1.14.0
 via network annotation and the friction device. This forces vehicles to reduce their
 maximum speed when they are on a slippery road.
 
@@ -41,7 +41,7 @@ All device parameters may be set via sumo option, vType parameter or vehicle par
 
 # TraCI
 
-# Friction Modification
+## Friction Modification
 
 Lanes support the setFriction and getFriction functions.
 
