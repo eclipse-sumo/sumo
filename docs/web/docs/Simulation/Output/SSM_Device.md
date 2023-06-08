@@ -249,11 +249,11 @@ An example for the contents of an output file:
          <foeVelocity values="13.02,0.00 12.57,0.00 12.12,0.00 ..."/>
          <conflictPoint values="99.23,49.46 99.23,49.46 99.23,49.46 ..."/>
          <TTCSpan values="1.78 1.74 1.70 1.67 1.63 1.60 1.56 ..."/>
-         <minTTC time="7.40" position="99.23,49.46" type="10" value="1.48"/>
+         <minTTC time="7.40" position="99.23,49.46" type="10" value="1.48" speed="13.50"/>
          <DRACSpan values="3.66 3.61 3.56 3.50 3.44 3.37 3.30 ..."/>
          <maxDRAC time="6.50" position="99.23,49.46" type="10" 
-value="3.66"/>
-         <PET time="9.42" position="99.23,49.46" type="17" value="0.72"/>
+value="3.66" speed="12.95"/>
+         <PET time="9.42" position="99.23,49.46" type="17" value="0.72" speed="5.12"/>
      </conflict>
      <conflict begin="21.50" end="27.20" ego="ego1" foe="foe2">
          ...
@@ -295,14 +295,17 @@ Elements of type `<conflict>` hold the following information in their child elem
 |              | position  | 2D-coordinate     | Coordinate of the corresponding conflict point.               | --device.ssm.measures "TTC" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type. (Defines the variant of [TTC-calculation](#ttc).) | --device.ssm.measures "TTC" |
 |              | value   | float >= 0          | The minimal measured TTC-value.                               | --device.ssm.measures "TTC" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of minTTC.| --device.ssm.measures "TTC" |
 | maxDRAC      | time    | float               | Time point of the maximal measured value for the DRAC.        | --device.ssm.measures "DRAC" |
 |              | position  | 2D-coordinate     | Coordinate of the corresponding conflict point.               | --device.ssm.measures "DRAC" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type. (Defines the variant of [DRAC-calculation](#drac).)  | --device.ssm.measures "DRAC" |
 |              | value   | float >= 0          | The maximal measured DRAC-value.                              | --device.ssm.measures "DRAC" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of maxDRAC.| --device.ssm.measures "DRAC" |
 | PET          | time    | float               | Time point of the minimal measured value for the PET. (Usually the PET is only measured once, therefore no PETSpan is reported.)  | --device.ssm.measures "PET" |
 |              | position  | 2D-coordinate     | Coordinate of the corresponding encroachment point.           | --device.ssm.measures "PET" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type.  | --device.ssm.measures "PET" |
 |              | value   | float >= 0          | The measured PET-value.                                       | --device.ssm.measures "PET" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of PET.   | --device.ssm.measures "PET" |
 
 
 The `<globalMeasures>` element has the following structure:
