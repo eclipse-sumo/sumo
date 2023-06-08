@@ -221,8 +221,6 @@ class CountData:
         for routeIndex, edges in enumerate(allRoutes.unique):
             if self.routePasses(edges) is not None:
                 self.routeSet.add(routeIndex)
-        if isRatio:
-            self.count = options.turnRatioAbsTolerance
 
     def routePasses(self, edges):
         if self.isTaz:
@@ -632,7 +630,7 @@ class Routes:
             outf.write('%s</route>\n' % indent)
 
 
-def initTurnRatioSiblings(routes, countData):
+def initTurnRatioSiblings(routes, countData, turnTotal):
     ratioIndices = set()
     # todo: use routes to complete incomplete sibling lists
     ratioOrigins = defaultdict(list)
@@ -640,6 +638,7 @@ def initTurnRatioSiblings(routes, countData):
         if cd.isRatio:
             ratioOrigins[cd.edgeTuple[0]].append(cd)
             ratioIndices.add(cd.index)
+            cd.origCount /= turnTotal
 
     for edge, cDs in ratioOrigins.items():
         for cd in cDs:
@@ -899,7 +898,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     ratioIndices = None
     if options.turnRatioFiles:
-        ratioIndices = initTurnRatioSiblings(routes, countData)
+        ratioIndices = initTurnRatioSiblings(routes, countData, options.turnRatioTotal)
 
     routeUsage = getRouteUsage(routes, countData)
     unrestricted_list = [r for r, usage in enumerate(routeUsage) if len(usage) < options.minCount]
