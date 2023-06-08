@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-06 14:15+0000\n"
+"PO-Revision-Date: 2023-06-09 14:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8979,17 +8979,17 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:211
 #, c-format
 msgid "Default Vehicle Type '%' cannot be removed"
-msgstr ""
+msgstr "Il tipo di veicoli standard '%' non può essere rimosso"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:316
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:84
 msgid "Center"
-msgstr ""
+msgstr "Centra"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:323
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:1252
 msgid "Inspect"
-msgstr ""
+msgstr "Ispeziona"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:324
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:259
@@ -8997,96 +8997,96 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:440
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1356
 msgid "Delete"
-msgstr ""
+msgstr "Rimuovi"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:397
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:416
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:477
 msgid " origin"
-msgstr ""
+msgstr " origine"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:398
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:417
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:478
 msgid " destination"
-msgstr ""
+msgstr " destinazione"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:506
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:632
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:706
 msgid " additionals..."
-msgstr ""
+msgstr " elementi addizionali..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:520
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:583
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:646
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:720
 msgid " demand elements..."
-msgstr ""
+msgstr " elementi di domanda..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:534
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:597
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:660
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:738
 msgid " edges..."
-msgstr ""
+msgstr " archi..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:548
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:611
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:674
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:756
 msgid " lanes..."
-msgstr ""
+msgstr " corsie..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:569
 msgid " TAZElements..."
-msgstr ""
+msgstr " zone di assegnazione del traffico..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:815
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:911
 msgid "Data elements"
-msgstr ""
+msgstr "Elementi di dati"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:841
 msgid "Incomings"
-msgstr ""
+msgstr "Entranti"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:851
 msgid "Outgoing"
-msgstr ""
+msgstr "Uscenti"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:890
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:65
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1325
 msgid "Edges"
-msgstr ""
+msgstr "Archi"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:890
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:71
 msgid "Lanes"
-msgstr ""
+msgstr "Corsie"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:50
 msgid "Flow attributes"
-msgstr ""
+msgstr "Attributi del flusso"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:170
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:469
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:596
 msgid "rate"
-msgstr ""
+msgstr "rata"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:343
 msgid "change multiple flow attributes"
-msgstr ""
+msgstr "modifica più attributi di flussi"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:369
 msgid "enable multiple flow attributes"
-msgstr ""
+msgstr "attiva più attributi di flussi"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:385
 msgid "disable multiple flow attributes"
-msgstr ""
+msgstr "disattiva più attributi di flussi"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:540
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:568
@@ -9959,36 +9959,36 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:152
 msgid "add"
-msgstr ""
+msgstr "aggiungi"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:152
 msgid "Selected objects are added to the previous selection"
-msgstr ""
+msgstr "Gli oggetti selezionati vengono aggiunti alla previa selezione"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:154
 msgid "remove"
-msgstr ""
+msgstr "rimuovi"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:154
 msgid "Selected objects are removed from the previous selection"
-msgstr ""
+msgstr "Gli oggetti selezionati vengono rimossi dalla previa selezione"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:156
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:662
 msgid "keep"
-msgstr ""
+msgstr "mantieni"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:156
 msgid "Restrict previous selection by the current selection"
-msgstr ""
+msgstr "Mantieni l'intersezione tra la previa selezione e quella attuale"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:158
 msgid "replace"
-msgstr ""
+msgstr "rimpiazza"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:158
 msgid "Replace previous selection by the current selection"
-msgstr ""
+msgstr "Rimpiazza la previa selezione con quella attuale"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:213
 msgid "Visual Scaling"
