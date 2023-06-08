@@ -144,51 +144,6 @@ public:
         FXButton* myCopyTypeButton;
     };
 
-    // ===========================================================================
-    // class VTypeDistributions
-    // ===========================================================================
-
-    class VTypeDistributions  : public MFXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNETypeFrame::VTypeDistributions)
-
-    public:
-        /// @brief constructor
-        VTypeDistributions(GNETypeFrame* typeFrameParent);
-
-        /// @brief destructor
-        ~VTypeDistributions();
-
-        /// @brief get pointer to type frame Parent
-        GNETypeFrame* getTypeFrameParent() const;
-
-        /// @brief show VTypeDistributions  modul
-        void showVTypeDistributionsModule();
-
-        /// @brief hide group box
-        void hideVTypeDistributionsModule();
-
-        /// @brief get vType distribution dialog
-        GNEVTypeDistributionsDialog* getVTypeDistributionsDialog() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when open dialog button is clicked
-        long onCmdOpenDialog(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(VTypeDistributions)
-
-    private:
-        /// @brief pointer to type frame Parent
-        GNETypeFrame* myTypeFrameParent = nullptr;
-
-        /// @brief VType distribution dialog
-        GNEVTypeDistributionsDialog* myVTypeDistributionsDialog = nullptr;
-    };
-
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -226,7 +181,4 @@ private:
 
     /// @brief Parameters editor inspector
     GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
-
-    /// @brief modul for open vType distributions dialog
-    VTypeDistributions* myVTypeDistributions = nullptr;
 };

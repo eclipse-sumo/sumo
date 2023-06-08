@@ -46,15 +46,9 @@ FXDEFMAP(GNETypeFrame::TypeEditor) typeEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_COPY,      GNETypeFrame::TypeEditor::onCmdCopyType)
 };
 
-FXDEFMAP(GNETypeFrame::VTypeDistributions) VTypeDistributionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNETypeFrame::VTypeDistributions::onCmdOpenDialog)
-};
-
 // Object implementation
 FXIMPLEMENT(GNETypeFrame::TypeSelector,         MFXGroupBoxModule,  typeSelectorMap,        ARRAYNUMBER(typeSelectorMap))
 FXIMPLEMENT(GNETypeFrame::TypeEditor,           MFXGroupBoxModule,  typeEditorMap,          ARRAYNUMBER(typeEditorMap))
-FXIMPLEMENT(GNETypeFrame::VTypeDistributions,   MFXGroupBoxModule,  VTypeDistributionsMap,  ARRAYNUMBER(VTypeDistributionsMap))
-
 
 // ===========================================================================
 // method definitions
@@ -166,7 +160,6 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
     myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
     myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
     myTypeFrameParent->myParametersEditor->refreshParametersEditor();
-    myTypeFrameParent->myVTypeDistributions->showVTypeDistributionsModule();
 }
 
 
@@ -195,7 +188,6 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
             myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
             myTypeFrameParent->myParametersEditor->refreshParametersEditor();
-            myTypeFrameParent->myVTypeDistributions->showVTypeDistributionsModule();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeSelector").text());
             // update viewNet
@@ -209,7 +201,6 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // hide all modules if selected item isn't valid
     myTypeFrameParent->myTypeAttributesEditor->hideAttributesEditorModule();
     myTypeFrameParent->myAttributesEditorExtended->hideAttributesEditorExtendedModule();
-    myTypeFrameParent->myVTypeDistributions->hideVTypeDistributionsModule();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -415,56 +406,6 @@ GNETypeFrame::TypeEditor::deleteType() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributeModules::VTypeDistributions - methods
-// ---------------------------------------------------------------------------
-
-GNETypeFrame::VTypeDistributions::VTypeDistributions(GNETypeFrame* typeFrameParent) :
-    MFXGroupBoxModule(typeFrameParent, TL("VType Distributions")),
-    myTypeFrameParent(typeFrameParent) {
-    // Create open dialog button
-    new FXButton(getCollapsableFrame(), TL("Show VType Distributions"), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
-    // create vType distribution dialog
-    myVTypeDistributionsDialog = new GNEVTypeDistributionsDialog(typeFrameParent);
-}
-
-
-GNETypeFrame::VTypeDistributions::~VTypeDistributions() {}
-
-
-GNETypeFrame*
-GNETypeFrame::VTypeDistributions::getTypeFrameParent() const {
-    return myTypeFrameParent;
-}
-
-
-void
-GNETypeFrame::VTypeDistributions::showVTypeDistributionsModule() {
-    show();
-}
-
-
-void
-GNETypeFrame::VTypeDistributions::hideVTypeDistributionsModule() {
-    // always close dialog
-    myVTypeDistributionsDialog->close();
-    hide();
-}
-
-
-GNEVTypeDistributionsDialog*
-GNETypeFrame::VTypeDistributions::getVTypeDistributionsDialog() const {
-    return myVTypeDistributionsDialog;
-}
-
-
-long
-GNETypeFrame::VTypeDistributions::onCmdOpenDialog(FXObject*, FXSelector, void*) {
-    // open VTypeDistributions Dialog
-    myVTypeDistributionsDialog->openDialog();
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
 // GNETypeFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -486,9 +427,6 @@ GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     /// create module for edit parameteres
     myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);
 
-    // create module for open vType distribution dialog
-    myVTypeDistributions = new VTypeDistributions(this);
-
     // set "VTYPE_DEFAULT" as default vehicle Type
     myTypeSelector->setCurrentType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
 }
@@ -506,7 +444,6 @@ GNETypeFrame::show() {
     // show modules
     myTypeAttributesEditor->showAttributeEditorModule(false, true);
     myAttributesEditorExtended->showAttributesEditorExtendedModule();
-    myVTypeDistributions->showVTypeDistributionsModule();
     // show frame
     GNEFrame::show();
 }
