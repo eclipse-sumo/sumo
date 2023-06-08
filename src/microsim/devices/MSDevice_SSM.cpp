@@ -1473,9 +1473,13 @@ MSDevice_SSM::determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) c
             if (myComputeTTC) {
                 ttc = computeTTC(gap, e->ego->getSpeed(), 0.);
             }
+            if (myComputeMDRAC) {
+                mdrac = computeMDRAC(gap, e->ego->getSpeed(), 0., myMDRACPRT);
+            }
         } else {
             // encounter is expected to happen without collision
             ttc = INVALID_DOUBLE;
+            mdrac = INVALID_DOUBLE;
         }
         if (myComputePPET) {
             const double entryTime = eInfo.egoEstimatedConflictEntryTime;
@@ -1498,9 +1502,13 @@ MSDevice_SSM::determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) c
             if (myComputeTTC) {
                 ttc = computeTTC(gap, e->foe->getSpeed(), 0.);
             }
+            if (myComputeMDRAC) {
+                mdrac = computeMDRAC(gap, e->foe->getSpeed(), 0., myMDRACPRT);
+            }
         } else {
             // encounter is expected to happen without collision
             ttc = INVALID_DOUBLE;
+            mdrac = INVALID_DOUBLE;
         }
         if (myComputePPET) {
             const double entryTime = eInfo.foeEstimatedConflictEntryTime;
