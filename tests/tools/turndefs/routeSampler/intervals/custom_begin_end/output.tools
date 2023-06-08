@@ -2,7 +2,7 @@
 Warning: underflow locations: count 1, min 9.00 (('5',)), max 9.00 (('5',)), mean 9.00, Q1 9.00, median 9.00, Q3 9.00 (total 9)
 450: Wrote 4 routes (2 distinct) achieving total count 4 (50.00%) at 2 locations. GEH<5 for 50.00%
 Warning: underflow locations: count 1, min 4.00 (('11',)), max 4.00 (('11',)), mean 4.00, Q1 4.00, median 4.00, Q3 4.00 (total 4)
-750: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 0 locations. GEH<5 for -
+750: Wrote 0 routes (0 distinct) no data
 avg interval input count: count 3, min 0.00 (750.0), max 108.00 (150.0), mean 38.67, Q1 0.00, median 8.00, Q3 108.00
 avg interval written vehs: count 3, min 0.00 (750.0), max 54.00 (150.0), mean 19.33, Q1 0.00, median 4.00, Q3 54.00
 avg interval underflow: count 3, min 0.00 (750.0), max 9.00 (150.0), mean 4.33, Q1 0.00, median 4.00, Q3 9.00
