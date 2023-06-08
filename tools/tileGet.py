@@ -21,6 +21,8 @@ from __future__ import division
 import math
 import os
 import sys
+from multiprocessing.pool import Pool
+import signal
 
 try:
     # python3
@@ -73,6 +75,20 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
         height /= 2
     return center, zoom, width, height
 
+def worker(options, request, filename):
+    # print(request)
+    urllib.urlretrieve(request, filename)
+    if os.stat(filename).st_size < options.min_file_size:
+        raise ValueError("small file")
+
+def writeDecals(x, y, zoom, net, filename, decals, options):
+    lat, lon = fromTileToLatLon(x, y, zoom)
+    upperLeft = net.convertLonLat2XY(lon, lat)
+    lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
+    center = net.convertLonLat2XY(lon, lat)
+    print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+            (os.path.basename(filename), center[0], center[1],
+            2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
 
 def retrieveMapServerTiles(options, west, south, east, north, decals, net):
     zoom = 20
@@ -82,26 +98,38 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net):
         sx, sy = fromLatLonToTile(north, west, zoom)
         ex, ey = fromLatLonToTile(south, east, zoom)
         numTiles = (ex - sx + 1) * (ey - sy + 1)
+        
+    # opener = urllib.build_opener()
+    # opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+    # urllib.install_opener(opener)
+    
+    if options.parallel_jobs != 0:
+        original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
+        pool = Pool(options.parallel_jobs)
+        signal.signal(signal.SIGINT, original_sigint_handler)
+        
+    futures = []
+
     for x in range(sx, ex + 1):
         for y in range(sy, ey + 1):
             request = "%s/%s/%s/%s" % (options.url, zoom, y, x)
-#            print(request)
-#            opener = urllib.build_opener()
-#            opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-#            urllib.install_opener(opener)
             filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
-            urllib.urlretrieve(request, filename)
-            if os.stat(filename).st_size < options.min_file_size:
-                raise ValueError("small file")
-            if net is not None:
-                lat, lon = fromTileToLatLon(x, y, zoom)
-                upperLeft = net.convertLonLat2XY(lon, lat)
-                lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
-                center = net.convertLonLat2XY(lon, lat)
-                print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-                      (os.path.basename(filename), center[0], center[1],
-                       2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
 
+            if options.parallel_jobs == 0:
+                worker(options, request, filename)
+                if net is not None:
+                    writeDecals(x, y, zoom, net, filename, decals, options)
+            else:
+                futures.append((
+                    x, y, pool.apply_async(worker, (options, request, filename))
+                ))
+
+    # N = (ex - sx + 1) * (ey - sy + 1)
+    for i, (x, y, future) in enumerate(futures):
+        future.get()
+        # print('%f%% (%s)' % (100.0 * (i+1)/N, request))
+        if net is not None:
+            writeDecals(x, y, zoom, net, filename, decals, options)
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser()
@@ -125,6 +153,8 @@ def get_options(args=None):
                          help="Download from the given tile server")
     optParser.add_option("-f", "--min-file-size", category="processing", type=int, default=3000,
                          help="maximum number of tiles the output gets split into")
+    optParser.add_option("-j", "--parallel-jobs", category="processing", type=int, default=8,
+                         help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
     URL_SHORTCUTS = {
         "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
         "mapquest": "https://open.mapquestapi.com/staticmap/v4/getmap",
