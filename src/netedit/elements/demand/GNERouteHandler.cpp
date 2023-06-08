@@ -2265,11 +2265,12 @@ GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure
     }
     // get parent object
     const CommonXMLStructure::SumoBaseObject* parentObject = obj->getParentSumoBaseObject();
-    // check person/container conditions
+    // check person conditions
     if (person && (parentObject->getTag() != SUMO_TAG_PERSON) && (parentObject->getTag() != SUMO_TAG_PERSONFLOW)) {
         // invalid parent
         return nullptr;
     }
+    // check container conditions
     if (!person && (parentObject->getTag() != SUMO_TAG_CONTAINER) && (parentObject->getTag() != SUMO_TAG_CONTAINERFLOW)) {
         // invalid parent
         return nullptr;
@@ -2281,13 +2282,15 @@ GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure
     }
     // get last children
     const CommonXMLStructure::SumoBaseObject* previousPlan = *(it - 1);
-    // check conditions
+    // check person conditions
     if (person && (previousPlan->getTag() != SUMO_TAG_WALK) && (previousPlan->getTag() != SUMO_TAG_RIDE) &&
             (previousPlan->getTag() != SUMO_TAG_PERSONTRIP) && (previousPlan->getTag() != SUMO_TAG_STOP)) {
         // invalid last child
         return nullptr;
     }
-    if (!person && (previousPlan->getTag() != SUMO_TAG_TRANSPORT) && (previousPlan->getTag() != SUMO_TAG_TRANSHIP)) {
+    // check container conditions
+    if (!person && (previousPlan->getTag() != SUMO_TAG_TRANSPORT) && (previousPlan->getTag() != SUMO_TAG_TRANSHIP) &&
+        (previousPlan->getTag() != SUMO_TAG_STOP)) {
         // invalid last child
         return nullptr;
     }
