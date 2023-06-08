@@ -1,62 +1,10 @@
-Warning: Vehicle 't.0' performs emergency braking on lane '-E0_1' with decel=7.00, wished=3.00, severity=1.00, time=45.00.
-Warning: Vehicle 't.1' performs emergency braking on lane '-E0_1' with decel=7.00, wished=3.00, severity=1.00, time=75.00.
-Warning: Vehicle 'v.24'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=180.00 stage=laneChange.
-Warning: Vehicle 'v.27'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=205.00 stage=laneChange.
-Warning: Vehicle 'v.29'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=213.00 stage=laneChange.
-Warning: Vehicle 'v.30'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=223.00 stage=laneChange.
-Warning: Vehicle 'v.31'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=228.00 stage=laneChange.
-Warning: Vehicle 'v.33'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=234.00 stage=laneChange.
-Warning: Vehicle 'v.34'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=242.00 stage=laneChange.
-Warning: Vehicle 'v.35'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=251.00 stage=laneChange.
-Warning: Vehicle 'v.36'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=254.00 stage=laneChange.
-Warning: Vehicle 'v.37'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=261.00 stage=laneChange.
-Warning: Vehicle 'v.39'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=274.00 stage=laneChange.
-Warning: Vehicle 'v.40'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=276.00 stage=laneChange.
-Warning: Vehicle 'v.48'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=295.00 stage=laneChange.
-Warning: Vehicle 'v.49'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=304.00 stage=laneChange.
-Warning: Vehicle 'v.51'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=312.00 stage=laneChange.
-Warning: Vehicle 'v.52'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=314.00 stage=laneChange.
-Warning: Vehicle 'v.53'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=324.00 stage=laneChange.
-Warning: Vehicle 'v.54'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=330.00 stage=laneChange.
-Warning: Vehicle 'v.55'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=333.00 stage=laneChange.
-Warning: Vehicle 'v.57'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=347.00 stage=laneChange.
-Warning: Vehicle 'v.58'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=356.00 stage=laneChange.
-Warning: Vehicle 'v.60'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=362.00 stage=laneChange.
-Warning: Vehicle 'v.61'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=367.00 stage=laneChange.
-Warning: Vehicle 'v.62'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=379.00 stage=laneChange.
-Warning: Vehicle 'v.63'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=382.00 stage=laneChange.
-Warning: Vehicle 'v.64'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=390.00 stage=laneChange.
-Warning: Vehicle 'v.65'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=399.00 stage=laneChange.
-Warning: Vehicle 'v.66'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=414.00 stage=laneChange.
-Warning: Teleporting vehicle 'v.11'; waited too long (jam), lane='E0_1', time=416.00.
-Warning: Vehicle 'v.11' ends teleporting on edge 'E1', time=416.00.
-Warning: Vehicle 'v.67'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=426.00 stage=laneChange.
-Warning: Vehicle 'v.68'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=428.00 stage=laneChange.
-Warning: Teleporting vehicle 't.5'; waited too long (jam), lane='-E2_1', time=431.00.
-Warning: Vehicle 'v.69'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=433.00 stage=laneChange.
-Warning: Vehicle 'v.70'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=440.00 stage=laneChange.
-Warning: Vehicle 't.5' teleports beyond arrival edge '-E0', time=443.00.
-Warning: Vehicle 'v.71'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=447.00 stage=laneChange.
-Warning: Vehicle 'v.72'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=449.00 stage=laneChange.
-Warning: Vehicle 'v.73'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=454.00 stage=laneChange.
-Warning: Vehicle 'v.74'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=456.00 stage=laneChange.
-Warning: Vehicle 'v.75'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=461.00 stage=laneChange.
-Warning: Vehicle 'v.76'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=464.00 stage=laneChange.
-Warning: Vehicle 'v.79'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=472.00 stage=laneChange.
-Warning: Vehicle 'v.80'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=477.00 stage=laneChange.
-Warning: Vehicle 'v.82'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=496.00 stage=laneChange.
-Warning: Vehicle 'v.83'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=502.00 stage=laneChange.
-Warning: Vehicle 'v.84'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=513.00 stage=laneChange.
-Warning: Vehicle 'v.86'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=517.00 stage=laneChange.
-Warning: Vehicle 'v.87'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=521.00 stage=laneChange.
-Warning: Vehicle 'v.91'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=530.00 stage=laneChange.
-Warning: Vehicle 'v.93'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=537.00 stage=laneChange.
-Warning: Vehicle 'v.94'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=542.00 stage=laneChange.
-Warning: Vehicle 'v.95'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=544.00 stage=laneChange.
-Warning: Vehicle 'v.96'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=555.00 stage=laneChange.
-Warning: Vehicle 'v.97'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=559.00 stage=laneChange.
-Warning: Vehicle 'v.98'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=561.00 stage=laneChange.
-Warning: Teleporting vehicle 't.3'; waited too long (jam), lane=':J1_0_1', time=719.00.
-Warning: Teleporting vehicle 't.6'; waited too long (jam), lane='-E2_1', time=736.00.
-Warning: Vehicle 't.6' teleports beyond arrival edge '-E0', time=748.00.
-Warning: Vehicle 't.3' ends teleporting on edge '-E0', time=757.00.
+Warning: Vehicle 'v.13'; junction collision with vehicle 't.3', lane=':J1_6_1', gap=-1.00, time=119.00 stage=laneChange.
+Warning: Vehicle 'v.64'; junction collision with vehicle 't.8', lane=':J1_6_1', gap=-1.00, time=390.00 stage=laneChange.
+Warning: Vehicle 'v.65'; junction collision with vehicle 't.8', lane=':J1_6_1', gap=-1.00, time=399.00 stage=laneChange.
+Warning: Teleporting vehicle 'v.82'; waited too long (yield), lane=':J2_7_0', time=803.00.
+Warning: Vehicle 'v.82' ends teleporting on edge 'E4', time=803.00.
+Warning: Vehicle 't.10'; junction collision with vehicle 'v.90', lane=':J1_0_1', gap=-1.00, time=825.00 stage=laneChange.
+Warning: Vehicle 'v.91'; junction collision with vehicle 't.10', lane=':J1_6_1', gap=-1.00, time=833.00 stage=laneChange.
+Warning: Vehicle 'v.93'; junction collision with vehicle 't.10', lane=':J1_6_1', gap=-1.00, time=859.00 stage=laneChange.
+Warning: Vehicle 'v.94'; junction collision with vehicle 't.10', lane=':J1_6_1', gap=-1.00, time=864.00 stage=laneChange.
+Warning: Vehicle 'v.92'; junction collision with vehicle 't.10', lane=':J1_6_1', gap=-1.00, time=867.00 stage=laneChange.
