@@ -288,7 +288,7 @@ GNEStop::isDemandElementValid() const {
 std::string
 GNEStop::getDemandElementProblem() const {
     if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
-        if (friendlyPos) {
+        if (friendlyPos || (getParentAdditionals().size() > 0)) {
             return getPersonPlanProblem();
         } else {
             // obtain lane length
