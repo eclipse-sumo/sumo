@@ -1873,7 +1873,7 @@ MSLink::computeParallelLink(int direction) {
 double
 MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                        SUMOTime arrivalTime,
-                       BlockingFoes* collectFoes) const {
+                       const BlockingFoes* foes) const {
     if (myFoeLinks.size() == 0) {
         // link should have LINKSTATE_MAJOR in this case
         assert(false);
@@ -1897,11 +1897,11 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                                         << " dist=" << dist
                                         << " brakeGap=" << brakeGap
                                         << " vSafe=" << vSafe
-                                        << " numFoes=" << collectFoes->size()
+                                        << " numFoes=" << foes->size()
                                         << "\n")
 #endif
         MSLink* foeLink = myFoeLinks[0];
-    for (const auto& item : *collectFoes) {
+    for (const auto& item : *foes) {
         const MSVehicle* foe = dynamic_cast<const MSVehicle*>(item);
         assert(foe != 0);
         const ApproachingVehicleInformation& avi = foeLink->getApproaching(foe);
