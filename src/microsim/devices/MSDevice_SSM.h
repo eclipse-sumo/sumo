@@ -196,9 +196,11 @@ private:
             EncounterType type;
             /// @brief value of the corresponding SSM
             double value;
+            /// @brief speed of the reporting vehicle at the given time/position
+            double speed;
 
-            ConflictPointInfo(double time, Position x, EncounterType type, double ssmValue) :
-                time(time), pos(x), type(type), value(ssmValue) {};
+            ConflictPointInfo(double time, Position x, EncounterType type, double ssmValue, double speed) :
+                time(time), pos(x), type(type), value(ssmValue), speed(speed) {};
         };
 
     public:
