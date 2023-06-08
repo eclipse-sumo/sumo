@@ -528,6 +528,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--opendrive.internal-shapes** {{DT_BOOL}} | Import internal lane shapes; *default:* **false** |
 | **--opendrive.position-ids** {{DT_BOOL}} | Sets edge-id based on road-id and offset in m (legacy); *default:* **false** |
 | **--opendrive.lane-shapes** {{DT_BOOL}} | Use custom lane shapes to compensate discarded lane types; *default:* **false** |
+| **--opendrive.signal-groups** {{DT_BOOL}} | Experimental: Build default signal program using the controller information from OpenDRIVE; *default:* **false** |
 
 ### Report
 
