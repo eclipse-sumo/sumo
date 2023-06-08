@@ -63,6 +63,8 @@ enum {
     MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,
     /// @brief hotkey for mode editing TLS AND Vehicle Types
     MID_HOTKEY_T_MODE_TLS_TYPE,
+    /// @brief hotkey for mode type distribution
+    MID_HOTKEY_U_MODE_TYPEDISTRIBUTION,
     /// @brief hotkey for mode create vehicles
     MID_HOTKEY_V_MODE_VEHICLE,
     /// @brief hotkey for mode editing overhead wires
