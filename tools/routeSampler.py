@@ -291,13 +291,11 @@ class CountData:
         if not self.isRatio:
             return None
         return sum([cd2.assignedCount for cd2 in self.ratioSiblings])
-    
 
     def assignedProbability(self):
         if not self.isRatio:
             return None
         return self.assignedCount / self.getSiblingCount()
-
 
     def __repr__(self):
         return "CountData(edges=%s, count=%s, origCount=%s%s%s%s%s)\n" % (
@@ -1178,7 +1176,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             elif len(cd.edgeTuple) == 2:
                 if cd.isRatio:
                     deficit = ("%%.%if" % options.precision) % (cd.assignedProbability() - cd.origCount)
-                    mismatchf.write('        <edgeRelation from="%s" to="%s" measuredProbability="%s" deficit="%s" totalAssignedFromCount="%s"/>\n' % (
+                    mismatchf.write('        <edgeRelation from="%s" to="%s" measuredProbability="%s" deficit="%s" totalAssignedFromCount="%s"/>\n' % (  # noqa
                         cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, deficit, cd.getSiblingCount()))
                 else:
                     mismatchf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (

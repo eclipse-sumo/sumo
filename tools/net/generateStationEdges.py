@@ -31,8 +31,8 @@ from sumolib.options import ArgumentParser  # noqa
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <netfile> <stopfile> [options]"
-    ap = ArgumentParser()
+    USAGE = "%(prog)s -n <netfile> -s <stopfile> -o <utput> [options]"
+    ap = ArgumentParser(usage=USAGE)
     ap.add_option("-n", "--net-file", category="input", dest="netfile", required=True, type=ap.net_file,
                   help="input network file")
     ap.add_option("-s", "--stop-file", category="input", dest="stopfile", required=True, type=ap.additional_file,
