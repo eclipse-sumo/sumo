@@ -45,6 +45,7 @@
 #include <netedit/frames/demand/GNERouteFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
+#include <netedit/frames/demand/GNETypeDistributionFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
@@ -98,6 +99,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,        GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,             GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE,                          GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION,                  GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE,                           GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE,                              GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL,                        GNEViewNet::onCmdSetMode),
@@ -2019,6 +2021,9 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_T_MODE_TLS_TYPE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPE);
                 break;
+            case MID_HOTKEY_U_MODE_TYPEDISTRIBUTION:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPEDISTRIBUTION);
+                break;  
             case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_STOP);
                 break;
@@ -4733,6 +4738,13 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // set checkable button
             myDemandCheckableButtons.typeButton->setChecked(true);
             break;
+        case DemandEditMode::DEMAND_TYPEDISTRIBUTION:
+            myViewParent->getTypeDistributionFrame()->show();
+            myViewParent->getTypeDistributionFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getTypeDistributionFrame();
+            // set checkable button
+            myDemandCheckableButtons.typeDistributionButton->setChecked(true);
+            break;
         case DemandEditMode::DEMAND_STOP:
             myViewParent->getStopFrame()->show();
             myViewParent->getStopFrame()->focusUpperElement();
@@ -5043,6 +5055,9 @@ GNEViewNet::updateControls() {
                 break;
             case DemandEditMode::DEMAND_TYPE:
                 myViewParent->getTypeFrame()->show();
+                break;
+            case DemandEditMode::DEMAND_TYPEDISTRIBUTION:
+                myViewParent->getTypeDistributionFrame()->show();
                 break;
             case DemandEditMode::DEMAND_STOP:
                 myViewParent->getStopFrame()->show();

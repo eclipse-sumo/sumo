@@ -704,6 +704,9 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMe
     typeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                TL("Type"), "T", TL("Create types (vehicles, person an containers)."),
                GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODE_TLS_TYPE);
+    typeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+               TL("TypeDistribution"), "U", TL("Create type distributions."),
+               GUIIconSubSys::getIcon(GUIIcon::MODETYPEDISTRIBUTION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION);
     stopMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                TL("Stop"), "A", TL("Create stops."),
                GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP);
