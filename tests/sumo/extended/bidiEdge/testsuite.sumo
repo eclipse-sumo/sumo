@@ -18,3 +18,6 @@ TWLT_tram
 
 # transition between shared median lane and unshared lanes
 TWLT_end
+
+# vehicle entering bidi lane from side road
+TWLT_side
