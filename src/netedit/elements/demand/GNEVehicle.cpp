@@ -767,7 +767,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // draw stack label
                 if ((myStackedLabelNumber > 0) && !drawSpreadVehicles) {
-                    drawStackLabel("Vehicle", vehiclePosition, vehicleRotation, width, length, exaggeration);
+                    drawStackLabel(myStackedLabelNumber, "Vehicle", vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
                 // draw flow label
                 if (myTagProperty.isFlow()) {
