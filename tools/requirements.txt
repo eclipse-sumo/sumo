@@ -1,7 +1,7 @@
 lxml>=4.9.1
 rtree>=0.9.4
 pandas>=1.2.4
-matplotlib>=3.6.2
+matplotlib>=3.1.2
 pulp>=2.4
 pyproj>=2.6.1
 ezdxf>=1.0.0
