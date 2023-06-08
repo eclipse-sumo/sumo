@@ -544,6 +544,9 @@ private:
     /// @brief write route sorted by ID
     void writeRoutes(OutputDevice& device, const bool additionalFile) const;
 
+    /// @brief write vTypeDistributions sorted by ID
+    void writeVTypeDistributions(OutputDevice& device, const bool additionalFile) const;
+
     /// @brief write vTypes sorted by ID
     void writeVTypes(OutputDevice& device, const bool additionalFile) const;
 

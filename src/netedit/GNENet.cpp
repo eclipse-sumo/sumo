@@ -2199,6 +2199,7 @@ GNENet::saveAdditionalsConfirmed() {
     device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
     // write vTypes with additional childrens (due calibrators)
     writeVTypeComment(device, true);
+    writeVTypeDistributions(device, true);
     writeVTypes(device, true);
     // write routes with additional children (due route prob reroutes)
     writeRouteComment(device, true);
@@ -2253,6 +2254,7 @@ GNENet::saveDemandElementsConfirmed() {
     device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
     // first  write all vTypeDistributions (and their vTypes)
     writeVTypeComment(device, false);
+    writeVTypeDistributions(device, false);
     writeVTypes(device, false);
     // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
     writeRouteComment(device, false);
@@ -2364,12 +2366,13 @@ GNENet::writeRoutes(OutputDevice& device, const bool additionalFile) const {
 
 
 void
-GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
+GNENet::writeVTypeDistributions(OutputDevice& device, const bool additionalFile) const {
     std::map<std::string, GNEDemandElement*> sortedElements;
-    // write vType Distributions
+    // first write vType Distributions
     for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-        if ((additionalFile && (vTypeDistribution->getChildAdditionals().size() > 0)) ||
-                (!additionalFile && (vTypeDistribution->getChildAdditionals().size() == 0))) {
+        // get number of additional children
+        const auto numChildren = vTypeDistribution->getAttributeDouble(GNE_ATTR_ADDITIONALCHILDREN);
+        if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
             sortedElements[vTypeDistribution->getID()] = vTypeDistribution;
         }
     }
@@ -2377,15 +2380,19 @@ GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
         element.second->writeDemandElement(device);
     }
     sortedElements.clear();
+}
+
+
+void
+GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
+    std::map<std::string, GNEDemandElement*> sortedElements;
     // write vTypes
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        // special case for default vTypes
-        const bool defaultVType = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE));
-        const bool defaultVTypeModified = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED));
-        // only write default vType modified
-        if ((vType->getParentDemandElements().size() == 0) && (!defaultVType || (defaultVType && defaultVTypeModified))) {
-            if ((additionalFile && (vType->getChildAdditionals().size() > 0)) ||
-                    (!additionalFile && (vType->getChildAdditionals().size() == 0))) {
+        // get number of additional children
+        const auto numChildren = vType->getChildAdditionals().size();
+        // only write if doesn't appear in a distribution,
+        if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION).size() == 0) {
+            if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
                 sortedElements[vType->getID()] = vType;
             }
         }
@@ -2413,16 +2420,6 @@ GNENet::writeMeanDatas(OutputDevice& device, SumoXMLTag tag) const {
 
 bool
 GNENet::writeVTypeComment(OutputDevice& device, const bool additionalFile) const {
-    // vType Distributions
-    for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-        if (additionalFile && (vTypeDistribution->getChildAdditionals().size() > 0)) {
-            device << ("    <!-- VTypes (used in calibratorFlows) -->\n");
-            return true;
-        } else if (!additionalFile && (vTypeDistribution->getChildAdditionals().size() == 0)) {
-            device << ("    <!-- VTypes -->\n");
-            return true;
-        }
-    }
     // vTypes
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         // special case for default vTypes
@@ -2430,7 +2427,7 @@ GNENet::writeVTypeComment(OutputDevice& device, const bool additionalFile) const
         const bool defaultVTypeModified = GNEAttributeCarrier::parse<bool>(vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED));
         // only write default vType modified
         if ((vType->getParentDemandElements().size() == 0) && (!defaultVType || (defaultVType && defaultVTypeModified))) {
-            if (additionalFile && (vType->getChildAdditionals().size() > 0)) {
+            if (additionalFile && (vType->getChildAdditionals().size() != 0)) {
                 device << ("    <!-- VTypes (used in calibratorFlows) -->\n");
                 return true;
             } else if (!additionalFile && (vType->getChildAdditionals().size() == 0)) {
@@ -2446,7 +2443,7 @@ GNENet::writeVTypeComment(OutputDevice& device, const bool additionalFile) const
 bool
 GNENet::writeRouteComment(OutputDevice& device, const bool additionalFile) const {
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (additionalFile && (route->getChildAdditionals().size() > 0)) {
+        if (additionalFile && (route->getChildAdditionals().size() != 0)) {
             device << ("    <!-- Routes (used in RouteProbReroutes and calibratorFlows) -->\n");
             return true;
         } else if (!additionalFile && (route->getChildAdditionals().size() == 0)) {

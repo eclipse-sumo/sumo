@@ -56,9 +56,16 @@ void
 GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
     device.openTag(getTagProperty().getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    // write all vTypes
-    for (const auto& vType : getChildDemandElements()) {
-        vType->writeDemandElement(device);
+    // write vTypes sorted by ID
+    std::map<std::string, GNEDemandElement*> sortedElements;
+    for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        // only write if appear in this distribution
+        if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID()) {
+            sortedElements[vType->getID()] = vType;
+        }
+    }
+    for (const auto& element : sortedElements) {
+        element.second->writeDemandElement(device);
     }
     device.closeTag();
 }
@@ -183,7 +190,20 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEVTypeDistribution::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    switch (key) {
+        case GNE_ATTR_ADDITIONALCHILDREN: {
+            double counter = 0;
+            for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+                // only write if appear in this distribution
+                if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID() && vType->getChildAdditionals().size() > 0) {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
