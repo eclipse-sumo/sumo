@@ -1344,7 +1344,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
             if (myViewParent->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToggleButtonEnabled()) {
                 myViewParent->getTLSEditorFrame()->getTLSAttributes()->disableE1DetectorMode();
             } else if (myViewParent->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions()) {
-                myViewParent->getTLSEditorFrame()->getTLSJunction()->disableJoiningJunctionMode();
+                myViewParent->getTLSEditorFrame()->getTLSJunction()->onCmdCancelJoin(nullptr, 0, nullptr);
             } else {
                 myViewParent->getTLSEditorFrame()->getTLSDefinition()->discardChanges(false);
             }
@@ -1489,7 +1489,7 @@ GNEViewNet::hotkeyEnter() {
             if (myViewParent->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToggleButtonEnabled()) {
                 myViewParent->getTLSEditorFrame()->getTLSAttributes()->disableE1DetectorMode();
             } else if (myViewParent->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions()) {
-                myViewParent->getTLSEditorFrame()->getTLSJunction()->disableJoiningJunctionMode();
+                myViewParent->getTLSEditorFrame()->getTLSJunction()->onCmdAcceptJoin(nullptr, 0, nullptr);
             } else if (myViewParent->getTLSEditorFrame()->getTLSDefinition()->checkHaveModifications()) {
                 myViewParent->getTLSEditorFrame()->getTLSDefinition()->onCmdSaveChanges(nullptr, 0, nullptr);
             }
