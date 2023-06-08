@@ -3669,15 +3669,6 @@ GNEViewNetHelper::NetworkCheckableButtons::updateNetworkCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* viewNet) :
-    moveDemandElementsButton(nullptr),
-    routeButton(nullptr),
-    vehicleButton(nullptr),
-    typeButton(nullptr),
-    stopButton(nullptr),
-    personButton(nullptr),
-    personPlanButton(nullptr),
-    containerButton(nullptr),
-    containerPlanButton(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -3708,6 +3699,12 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
                                         std::string("\t") + TL("Create type mode") + std::string("\t") + TL("Mode for creating types (vehicles, person and containers). (T)"),
                                         GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myViewNet, MID_HOTKEY_T_MODE_TLS_TYPE, GUIDesignMFXCheckableButtonSquare);
     typeButton->create();
+    // type distribution mode
+    typeDistributionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+                                                    myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+                                                    std::string("\t") + TL("Create type distribution mode") + std::string("\t") + TL("Mode for creating type distribution. (U)"),
+                                                    GUIIconSubSys::getIcon(GUIIcon::MODETYPEDISTRIBUTION), myViewNet, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
+    typeDistributionButton->create();
     // stop mode
     stopButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
                                         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
@@ -3749,6 +3746,7 @@ GNEViewNetHelper::DemandCheckableButtons::showDemandCheckableButtons() {
     routeButton->show();
     vehicleButton->show();
     typeButton->show();
+    typeDistributionButton->show();
     stopButton->show();
     personButton->show();
     personPlanButton->show();
@@ -3763,6 +3761,7 @@ GNEViewNetHelper::DemandCheckableButtons::hideDemandCheckableButtons() {
     routeButton->hide();
     vehicleButton->hide();
     typeButton->hide();
+    typeDistributionButton->hide();
     stopButton->hide();
     personButton->hide();
     personPlanButton->hide();
@@ -3777,6 +3776,7 @@ GNEViewNetHelper::DemandCheckableButtons::disableDemandCheckableButtons() {
     routeButton->setChecked(false);
     vehicleButton->setChecked(false);
     typeButton->setChecked(false);
+    typeDistributionButton->setChecked(false);
     stopButton->setChecked(false);
     personButton->setChecked(false);
     personPlanButton->setChecked(false);
@@ -3791,6 +3791,7 @@ GNEViewNetHelper::DemandCheckableButtons::updateDemandCheckableButtons() {
     routeButton->update();
     vehicleButton->update();
     typeButton->update();
+    typeDistributionButton->update();
     stopButton->update();
     personButton->update();
     personPlanButton->update();
