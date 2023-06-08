@@ -103,10 +103,11 @@ folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
 
 ## Install python packages
 
-Compiling netedit requires a list of python packages to generate templates. Install it using pip:
+For using the SUMO Python tools from the command line or in netedit it is recommended to install a list of python packages.
+From your SUMO directory you can install them using pip:
 
 ```
-pip install google lxml rtree pandas matplotlib pulp pyproj ezdxf scipy fmpy ortools texttest pyautogui pyperclip
+pip install -r tools\requirements.txt
 ```
 
 ## Manual CMake configuration

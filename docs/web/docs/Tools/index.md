@@ -11,7 +11,8 @@ under certain input, but may be not verified for other cases.
 All tools should work with Python 3.7 or later on Windows, Linux and macOS.
 We try to keep them compatible with Python 3.5 and 2.7 as well. Some of them
 depend on external libraries, which can be installed using
-`pip install tools/requirements.txt`.
+`pip install -r tools/requirements.txt`. For details on installation
+and required versions see also the [Linux installation instructions](../Installing/Linux_Build.md#installing_python_packages_for_the_tools).
 
 # How to use python tools
 
