@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-08 16:12:01 by Eclipse SUMO netedit Version v1_17_0+0865-a39499a
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2023-06-09 09:51:41 by Eclipse SUMO netconvert Version v1_17_0+0877-4d6f3a0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="net.net.xml"/>
     </input>
-
-    <output>
-        <output-file value="net.net.xml"/>
-    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -19,7 +15,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.internal-link-detail value="5"/>
@@ -149,7 +144,7 @@
     <junction id="J3" type="dead_end" x="3200.00" y="1850.00" incLanes="E2_0 E2_1" intLanes="" shape="3200.00,1848.40 3200.00,1845.20 3200.00,1851.60"/>
     <junction id="J5" type="dead_end" x="3150.00" y="1900.00" incLanes="E4_0" intLanes="" shape="3150.00,1900.00 3153.20,1900.00 3150.00,1900.00"/>
 
-    <junction id=":J2_8_0" type="internal" x="3146.80" y="1850.64" incLanes=":J2_7_0 -E2_0 -E2_1" intLanes=":J2_1_0 :J2_2_0 :J2_3_0 :J2_3_1"/>
+    <junction id=":J2_8_0" type="internal" x="3146.80" y="1850.64" incLanes=":J2_7_0 -E2_0 -E2_1" intLanes=":J2_0_0 :J2_1_0 :J2_2_0 :J2_3_0 :J2_3_1"/>
 
     <connection from="-E2" to="E4" fromLane="0" toLane="0" via=":J2_2_0" dir="r" state="M"/>
     <connection from="-E2" to="-E0" fromLane="0" toLane="0" via=":J2_3_0" dir="s" state="M"/>
