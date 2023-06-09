@@ -278,11 +278,7 @@ MSVehicleType::setWidth(const double& width) {
 
 void
 MSVehicleType::setImpatience(const double impatience) {
-    if (myOriginalType != nullptr && impatience < 0) {
-        myParameter.impatience = myOriginalType->getImpatience();
-    } else {
-        myParameter.impatience = impatience;
-    }
+    myParameter.impatience = impatience;
     myParameter.parametersSet |= VTYPEPARS_IMPATIENCE_SET;
 }
 
