@@ -75,11 +75,13 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
         height /= 2
     return center, zoom, width, height
 
+
 def worker(options, request, filename):
     # print(request)
     urllib.urlretrieve(request, filename)
     if os.stat(filename).st_size < options.min_file_size:
         raise ValueError("small file")
+
 
 def writeDecals(x, y, zoom, net, filename, decals, options):
     lat, lon = fromTileToLatLon(x, y, zoom)
@@ -87,8 +89,9 @@ def writeDecals(x, y, zoom, net, filename, decals, options):
     lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
     center = net.convertLonLat2XY(lon, lat)
     print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-            (os.path.basename(filename), center[0], center[1],
-            2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
+          (os.path.basename(filename), center[0], center[1],
+           2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
+
 
 def retrieveMapServerTiles(options, west, south, east, north, decals, net):
     zoom = 20
@@ -98,16 +101,16 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net):
         sx, sy = fromLatLonToTile(north, west, zoom)
         ex, ey = fromLatLonToTile(south, east, zoom)
         numTiles = (ex - sx + 1) * (ey - sy + 1)
-        
+
     # opener = urllib.build_opener()
     # opener.addheaders = [('User-agent', 'Mozilla/5.0')]
     # urllib.install_opener(opener)
-    
+
     if options.parallel_jobs != 0:
         original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
         pool = Pool(options.parallel_jobs)
         signal.signal(signal.SIGINT, original_sigint_handler)
-        
+
     futures = []
 
     for x in range(sx, ex + 1):
@@ -130,6 +133,7 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net):
         # print('%f%% (%s)' % (100.0 * (i+1)/N, request))
         if net is not None:
             writeDecals(x, y, zoom, net, filename, decals, options)
+
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser()

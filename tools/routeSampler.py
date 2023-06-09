@@ -804,9 +804,8 @@ def main(options):
             for i, (begin, end) in enumerate(intervals):
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
                 intervalCount = options.totalCount[i] if options.totalCount else None
-                uFlow, oFlow, gehOK, ratioPerc, inputCount, usedRoutes, _ = solveInterval(options, routes, begin, end,
-                                                                               intervalPrefix, outf, mismatchf, rng,
-                                                                               intervalCount)
+                uFlow, oFlow, gehOK, ratioPerc, inputCount, usedRoutes, _ = solveInterval(
+                        options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount)
                 underflowSummary.add(uFlow, begin)
                 overflowSummary.add(oFlow, begin)
                 gehSummary.add(gehOK, begin)
@@ -828,7 +827,6 @@ def main(options):
         print(gehSummary)
         if ratioSummary.count() > 0:
             print(ratioSummary)
-
 
 
 def _sample_skewed(sampleSet, rng, probabilityMap):
