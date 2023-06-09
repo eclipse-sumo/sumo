@@ -230,6 +230,12 @@ VehicleType::setActionStepLength(const std::string& typeID, double actionStepLen
 
 
 void
+VehicleType::setBoardingDuration(const std::string& typeID, double boardingDuration)  {
+    getVType(typeID)->setBoardingDuration(TIME2STEPS(boardingDuration), true);
+}
+
+
+void
 VehicleType::setImpatience(const std::string& typeID, double impatience)  {
     getVType(typeID)->setImpatience(impatience);
 }

@@ -288,6 +288,20 @@ MSVehicleType::setImpatience(const double impatience) {
 
 
 void
+MSVehicleType::setBoardingDuration(SUMOTime duration, bool isPerson) {
+    if (myOriginalType != nullptr && duration < 0) {
+        myParameter.boardingDuration = myOriginalType->getBoardingDuration(isPerson);
+    } else {
+        if (isPerson) {
+            myParameter.boardingDuration = duration;
+        } else {
+            myParameter.loadingDuration = duration;
+        }
+    }
+    myParameter.parametersSet |= VTYPEPARS_BOARDING_DURATION;
+}
+
+void
 MSVehicleType::setShape(SUMOVehicleShape shape) {
     myParameter.shape = shape;
     myParameter.parametersSet |= VTYPEPARS_SHAPE_SET;

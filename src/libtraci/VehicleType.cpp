@@ -207,6 +207,11 @@ VehicleType::setImpatience(const std::string& typeID, double impatience) {
 }
 
 void
+VehicleType::setBoardingDuration(const std::string& typeID, double boardingDuration) {
+    Dom::setDouble(libsumo::VAR_BOARDING_DURATION, typeID, boardingDuration);
+}
+
+void
 VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset) {
     //if (actionStepLength < 0) {
     //    raise TraCIException("Invalid value for actionStepLength. Given value must be non-negative.")

@@ -232,6 +232,14 @@ class VTypeDomain(Domain):
         """
         self._setCmd(tc.VAR_IMPATIENCE, typeID, "d", impatience)
 
+    def setBoardingDuration(self, typeID, boardingDuration):
+        """setBoardingDuration(string, double) -> None
+
+        Sets the boarding duration of the this type.
+        If called in the context of a person or vehicle, it will change the value just for the single instance.
+        """
+        self._setCmd(tc.VAR_BOARDING_DURATION, typeID, "d", boardingDuration)
+
     def setLength(self, typeID, length):
         """setLength(string, double) -> None
 

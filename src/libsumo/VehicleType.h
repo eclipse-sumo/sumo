@@ -73,6 +73,7 @@ static void setMinGapLat(const std::string& typeID, double minGapLat); \
 static void setMaxSpeedLat(const std::string& typeID, double speed); \
 static void setLateralAlignment(const std::string& typeID, const std::string& latAlignment); \
 static void setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset=true); \
+static void setBoardingDuration(const std::string& typeID, double boardingDuration); \
 static void setImpatience(const std::string& typeID, double impatience); \
 
 // ===========================================================================
