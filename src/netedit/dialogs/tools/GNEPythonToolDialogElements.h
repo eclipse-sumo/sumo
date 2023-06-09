@@ -30,6 +30,7 @@
 
 class GNEPythonToolDialog;
 class MFXLabelTooltip;
+class MFXButtonTooltip;
 class Option;
 
 // ===========================================================================
@@ -164,7 +165,7 @@ public:
 
     private:
         /// @brief current edges button
-        FXButton* myCurrentEdgesButton = nullptr;
+        MFXButtonTooltip* myCurrentEdgesButton = nullptr;
 
         /// @brief Invalidated copy constructor.
         EdgeVectorArgument(const EdgeVectorArgument&) = delete;
@@ -209,10 +210,10 @@ public:
 
     private:
         /// @brief current button
-        FXButton* myCurrentButton = nullptr;
+        MFXButtonTooltip* myCurrentButton = nullptr;
 
         /// @brief filename button
-        FXButton* myOpenFilenameButton = nullptr;
+        MFXButtonTooltip* myOpenFilenameButton = nullptr;
 
         /// @brief Invalidated copy constructor.
         FileNameArgument(const FileNameArgument&) = delete;

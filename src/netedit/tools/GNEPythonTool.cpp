@@ -116,15 +116,15 @@ GNEPythonTool::getCommand() const {
                 if (!option.second->isPositional()) {
                     arguments += ("--" + option.first + " ");
                 }
-                const std::string sep = option.second->getListSeparator();
-                if (sep != "") {
+                const std::string listSeparator = option.second->getListSeparator();
+                if (listSeparator != "") {
                     StringTokenizer st(option.second->getValueString(), " ", true);
                     bool first = true;
                     for (const std::string& v : st.getVector()) {
                         if (first) {
                             first = false;
                         } else {
-                            arguments += sep;
+                            arguments += listSeparator;
                         }
                         arguments += ("\"" + v + "\"");
                     }

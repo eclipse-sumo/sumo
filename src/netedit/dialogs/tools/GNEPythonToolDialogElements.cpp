@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/tools/GNEPythonTool.h>
+#include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
@@ -239,13 +240,15 @@ GNEPythonToolDialogElements::FileNameArgument::FileNameArgument(GNEPythonToolDia
     Argument(toolDialogParent, argumentFrame, name, option) {
     // check if create current button
     if (useCurrent.size() > 0) {
-        myCurrentButton = new FXButton(myElementsFrame, (std::string("\t\t") + TLF("Use current % file", useCurrent)).c_str(),
-                                       GUIIconSubSys::getIcon(GUIIcon::CURRENT), this, MID_GNE_USE_CURRENT, GUIDesignButtonIcon);
+        myCurrentButton = new MFXButtonTooltip(myElementsFrame, toolDialogParent->myGNEApp->getStaticTooltipMenu(), "",
+                                               GUIIconSubSys::getIcon(GUIIcon::CURRENT), this, MID_GNE_USE_CURRENT, GUIDesignButtonIcon);
+        myCurrentButton->setTipText(TLF("Use current % file", useCurrent).c_str());
         myCurrentButton->create();
     }
     // Create Open button
-    myOpenFilenameButton = new FXButton(myElementsFrame, (std::string("\t\t") + TL("Select filename")).c_str(),
-                                        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SELECT, GUIDesignButtonIcon);
+    myOpenFilenameButton = new MFXButtonTooltip(myElementsFrame, toolDialogParent->myGNEApp->getStaticTooltipMenu(), "",
+                                                GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SELECT, GUIDesignButtonIcon);
+    myOpenFilenameButton->setTipText(TLF("Select % file", useCurrent).c_str());
     myOpenFilenameButton->create();
     // create text field for filename
     myFilenameTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -266,8 +269,9 @@ GNEPythonToolDialogElements::FileNameArgument::getValue() const {
 GNEPythonToolDialogElements::EdgeVectorArgument::EdgeVectorArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
         const std::string name, Option* option) :
     Argument(toolDialogParent, argumentFrame, name, option) {
-    myCurrentEdgesButton = new FXButton(myElementsFrame, (std::string("\t\t") + TL("Use current selected edges")).c_str(),
-                                GUIIconSubSys::getIcon(GUIIcon::EDGE), this, MID_GNE_USE_CURRENT, GUIDesignButtonIcon);
+    myCurrentEdgesButton = new MFXButtonTooltip(myElementsFrame, toolDialogParent->myGNEApp->getStaticTooltipMenu(), "",
+                                                GUIIconSubSys::getIcon(GUIIcon::EDGE), this, MID_GNE_USE_CURRENT, GUIDesignButtonIcon);
+    myCurrentEdgesButton->setTipText(TL("Use current selected edges"));
     myCurrentEdgesButton->create();
         // create text field for string
     myEdgeVectorTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -306,7 +310,7 @@ GNEPythonToolDialogElements::EdgeVectorArgument::onCmdUseCurrent(FXObject*, FXSe
     for (const auto &edge : selectedEdges) {
         selectedEdgesStr.append(edge->getID());
         if (edge != selectedEdges.back()) {
-            selectedEdgesStr.append(",");
+            selectedEdgesStr.append(" ");
         }
     }
     myEdgeVectorTextField->setText(selectedEdgesStr.c_str(), TRUE);
