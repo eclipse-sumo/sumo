@@ -184,6 +184,10 @@ class ArgumentParser(argparse.ArgumentParser):
     @staticmethod
     def edgedata_file(s):
         return s
+        
+    @staticmethod
+    def edge_list(s):
+        return s
 
     @staticmethod
     def data_file(s):
@@ -326,7 +330,7 @@ class ArgumentParser(argparse.ArgumentParser):
                                               'net_file', 'route_file', 'additional_file',
                                               'edgedata_file', 'data_file', 'file_list',
                                               'route_file_list', 'sumoconfig_file',
-                                              'sumoconfig_file_list']
+                                              'sumoconfig_file_list', 'edge_list']
                                 if typeName not in knownTypes:
                                     typeName = 'string'
                                 elif typeName.endswith("_list"):
