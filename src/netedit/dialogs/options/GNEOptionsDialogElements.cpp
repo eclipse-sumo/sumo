@@ -99,17 +99,13 @@ GNEOptionsDialogElements::InputOption::getTopic() const {
 
 const std::string
 GNEOptionsDialogElements::InputOption::getNameLower() const {
-    std::string lowerName = myName;
-    std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
-    return lowerName;
+    return StringUtils::to_lower_case(myName);
 }
 
 
 const std::string
 GNEOptionsDialogElements::InputOption::getDescriptionLower() const {
-    std::string lowerDescription = myDescription;
-    std::transform(lowerDescription.begin(), lowerDescription.end(), lowerDescription.begin(), ::tolower);
-    return lowerDescription;
+    return StringUtils::to_lower_case(myDescription);
 }
 
 

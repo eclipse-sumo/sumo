@@ -224,7 +224,7 @@ GNEOptionsDialog::updateVisibleEntriesByTopic() {
 void
 GNEOptionsDialog::updateVisibleEntriesBySearch(std::string searchText) {
     // first tolow search text
-    std::transform(searchText.begin(), searchText.end(), searchText.begin(), ::tolower);
+    searchText = StringUtils::to_lower_case(searchText);
     // iterate over entries
     for (const auto &entry : myInputOptionEntries) {
         if (searchText.empty()) {
