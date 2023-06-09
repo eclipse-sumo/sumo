@@ -169,6 +169,18 @@ Option::isSumoConfig() const {
 
 
 bool
+Option::isEdge() const {
+    return false;
+}
+
+
+bool
+Option::isEdgeVector() const {
+    return false;
+}
+
+
+bool
 Option::isWriteable() const {
     return myAmWritable;
 }
@@ -575,4 +587,33 @@ bool
 Option_SumoConfig::isSumoConfig() const {
     return true;
 }
+
+// -------------------------------------------------------------------------
+// Option_Data - methods
+// -------------------------------------------------------------------------
+
+Option_Edge::Option_Edge(const std::string& value) :
+    Option_String(value, "EDGE") {
+}
+
+
+bool
+Option_Edge::isEdge() const {
+    return true;
+}
+
+// -------------------------------------------------------------------------
+// Option_Data - methods
+// -------------------------------------------------------------------------
+
+Option_EdgeVector::Option_EdgeVector(const std::string& value) :
+    Option_String(value, "EDGE[]") {
+}
+
+
+bool
+Option_EdgeVector::isEdgeVector() const {
+    return true;
+}
+
 /****************************************************************************/

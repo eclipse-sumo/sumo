@@ -244,6 +244,22 @@ public:
      */
     virtual bool isSumoConfig() const;
 
+    /** @brief Returns the information whether this option is an edge
+     *
+     * Returns false. Only Option_Edge overrides this method returning true.
+     *
+     * @return true if the Option is an Option_Edge, false otherwise
+     */
+    virtual bool isEdge() const;
+
+    /** @brief Returns the information whether this option is a vector of edges
+     *
+     * Returns false. Only Option_EdgeVector overrides this method returning true.
+     *
+     * @return true if the Option is an Option_EdgeVector, false otherwise
+     */
+    virtual bool isEdgeVector() const;
+
     /** @brief Returns the information whether the option may be set a further time
      *
      * This method returns whether the option was not already set using command line
@@ -783,7 +799,7 @@ public:
 };
 
 // -------------------------------------------------------------------------
-// Option_Data
+// Option_SumoConfig
 // -------------------------------------------------------------------------
 
 class Option_SumoConfig : public Option_String {
@@ -802,4 +818,48 @@ public:
      * @return true
      */
     bool isSumoConfig() const;
+};
+
+// -------------------------------------------------------------------------
+// Option_Edge
+// -------------------------------------------------------------------------
+
+class Option_Edge : public Option_String {
+
+public:
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_Edge(const std::string& value);
+
+    /** @brief Returns true, the information whether this option is a list of edges
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isEdge() const;
+};
+
+// -------------------------------------------------------------------------
+// Option_EdgeVector
+// -------------------------------------------------------------------------
+
+class Option_EdgeVector : public Option_String {
+
+public:
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_EdgeVector(const std::string& value);
+
+    /** @brief Returns true, the information whether this option is a list of edges
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isEdgeVector() const;
 };
