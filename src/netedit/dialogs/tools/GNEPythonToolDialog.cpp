@@ -319,7 +319,9 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
             } else if (option.second->isSumoConfig()) {
                 myArguments.push_back(new GNEPythonToolDialogElements::SumoConfigArgument(this, argumentFrame, option.first, option.second));
             } else if (option.second->isEdge()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::EdgesArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::EdgeArgument(this, argumentFrame, option.first, option.second));
+            } else if (option.second->isEdgeVector()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::EdgeVectorArgument(this, argumentFrame, option.first, option.second));
             } else {
                 myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, argumentFrame, option.first, option.second));
             }

@@ -207,7 +207,7 @@ public:
         NetworkArgument& operator=(const NetworkArgument&) = delete;
     };
 
-    /// @brief network argument
+    /// @brief additional argument
     class AdditionalArgument : public FileNameArgument {
         /// @brief FOX-declaration
         FXDECLARE(GNEPythonToolDialogElements::AdditionalArgument)
@@ -238,7 +238,7 @@ public:
         AdditionalArgument& operator=(const AdditionalArgument&) = delete;
     };
 
-    /// @brief network argument
+    /// @brief route argument
     class RouteArgument : public FileNameArgument {
         /// @brief FOX-declaration
         FXDECLARE(GNEPythonToolDialogElements::RouteArgument)
@@ -269,7 +269,7 @@ public:
         RouteArgument& operator=(const RouteArgument&) = delete;
     };
 
-    /// @brief network argument
+    /// @brief data argument
     class DataArgument : public FileNameArgument {
         /// @brief FOX-declaration
         FXDECLARE(GNEPythonToolDialogElements::DataArgument)
@@ -331,14 +331,45 @@ public:
         SumoConfigArgument& operator=(const SumoConfigArgument&) = delete;
     };
 
-    /// @brief network argument
-    class EdgesArgument : public FileNameArgument {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEPythonToolDialogElements::EdgesArgument)
+    /// @brief int argument
+    class EdgeArgument : public Argument {
 
     public:
         /// @brief constructor
-        EdgesArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+        EdgeArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option);
+
+        /// @brief reset to default value
+        void reset();
+
+        /// @brief Called when user set int value
+        long onCmdSetValue(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief get value
+        const std::string getValue() const;
+
+        /// @brief int textField
+        FXTextField* myEdgeTextField = nullptr;
+
+    private:
+        /// @brief invalid int in string format
+        static const std::string INVALID_INT_STR;
+
+        /// @brief Invalidated copy constructor.
+        EdgeArgument(const EdgeArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        EdgeArgument& operator=(const EdgeArgument&) = delete;
+    };
+
+    /// @brief edge vector argument
+    class EdgeVectorArgument : public FileNameArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::EdgeVectorArgument)
+
+    public:
+        /// @brief constructor
+        EdgeVectorArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
                       const std::string name, Option* option);
 
         /// @brief Called when user press open filename button
@@ -352,14 +383,14 @@ public:
 
     protected:
         /// @brief FOX need this
-        EdgesArgument();
+        EdgeVectorArgument();
 
     private:
         /// @brief Invalidated copy constructor.
-        EdgesArgument(const EdgesArgument&) = delete;
+        EdgeVectorArgument(const EdgeVectorArgument&) = delete;
 
         /// @brief Invalidated assignment operator.
-        EdgesArgument& operator=(const EdgesArgument&) = delete;
+        EdgeVectorArgument& operator=(const EdgeVectorArgument&) = delete;
     };
 
     /// @brief string argument
