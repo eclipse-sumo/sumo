@@ -70,6 +70,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2991.4328065
@@ -158,7 +159,8 @@ lanePosLat 0.2
 person number 0
 person IDs ()
 personCapacity 4
-boardingDuration 0.5
+boardingDuration 26.0
+impatience 0.8
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2966.04808174
@@ -248,6 +250,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -357,6 +360,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2989.98165544
@@ -511,6 +515,7 @@ step 62.0
 vehicle routeTest2 lane 2fi_0 lanePos 37.2186303396 stopped False
 step 63.0
 vehicle routeTest2 lane 2fi_0 lanePos 43.5909553958 stopped False
+waitingTime=0.0 dynamicImpatience=0.3
 step 64.0
 vehicle bus lane 2fi_0 lanePos 0.0 stopped False 
  stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
@@ -715,6 +720,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -731,6 +737,7 @@ lane change wish left False
 tazVeh edges ('taz34-source', 'taz12-sink')
 step 127.0
 tazVeh pos=0.0 edges=('3fi', '3si', '1o', '1fi')
+waitingTime=23.0 dynamicImpatience=0.461111111111
 failVeh edges ('3fi', 'disconnected')
 step 128.0
 failVeh pos=-1073741824.0 edges=('3fi', 'disconnected')
@@ -856,6 +863,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -937,6 +945,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -1018,6 +1027,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -1099,6 +1109,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -1134,6 +1145,7 @@ elVeh speed="9.02521993655" consumed="-0.79" charged="0.00" totalConsumed="16.58
 [(57, (944.5861861667917, 501.65, 0.0)), (66, (944.5861861667917, 501.65))]
 elVeh speed="9.387179254" consumed="1.39" charged="0.00" totalConsumed="17.97" totalRegenerated="0.79" cap="17482.82" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/default electricityConsumption=1.39119271053
 [(57, (935.2553299883202, 501.65, 0.0)), (66, (935.2553299883202, 501.65))]
+waitingTime=0.0 dynamicImpatience=0.0
 triptest route: ('3si', '4si')
 triptest route: ('3si', '4o', '4fi', '4si')
 noRouteGiven routeID: DUMMY_ROUTE_passenger edges: ('1fi',)
