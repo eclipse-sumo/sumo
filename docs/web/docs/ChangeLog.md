@@ -143,6 +143,7 @@ title: ChangeLog
   - getAllContextSubscriptionResults has now entries also for objects without results. Issue #6446
   - Vehicles with SSM device now permit retrieval of the minimum PPET using param `device.ssm.minPPET`. Issue 13293
   - Function `traci.vehicle.setStopParameter` and `getStopParameter` now supports optional argument `customParam=True` to work with user defined stop parameters. Issue #13365
+  - vehicle and vehicletype domain now support the functions set/getBoardingDuration and set/getImpatience. Issue #10430
 
 - tools
   - randomTrips.py: added options **--from-stops** and **--to-stops** to define pedestrians, personTrips and person rides from and to stops (i.e. busStop). Issue #13375
