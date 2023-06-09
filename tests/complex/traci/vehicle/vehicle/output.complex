@@ -70,6 +70,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2991.4328065
@@ -159,6 +160,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.8
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2966.04808174
@@ -248,6 +250,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -357,6 +360,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2989.98165544
@@ -715,6 +719,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -856,6 +861,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -937,6 +943,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -1018,6 +1025,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -1099,6 +1107,7 @@ person number 0
 person IDs ()
 personCapacity 4
 boardingDuration 0.5
+impatience 0.0
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
