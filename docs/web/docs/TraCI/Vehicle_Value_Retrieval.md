@@ -417,6 +417,18 @@ value is also shown in the table.
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getMaxSpeedLat">getMaxSpeedLat</a></p></td>
 </tr>
 <tr class="odd">
+<td><p>boarding duration (0x2f)</p></td>
+<td><p>double</p></td>
+<td><p>Returns the boarding duration of the vehicle in s</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getBoardingDuration">getBoarding</a></p></td>
+</tr>
+<tr class="even">
+<td><p>max impatience (0x26)</p></td>
+<td><p>double</p></td>
+<td><p>Returns the impatience of this vehicle.</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getImpatience">getImpatience</a></p></td>
+</tr>  
+<tr class="odd">
 <td><p>lateral gap (0xbb)</p></td>
 <td><p>double</p></td>
 <td><p>Returns the desired lateral gap of this vehicle at 50km/h in m.</p></td>
