@@ -901,8 +901,9 @@ MSBaseVehicle::setDepartAndArrivalEdge() {
 
 double
 MSBaseVehicle::getImpatience() const {
-    return MAX2(0., MIN2(1., getVehicleType().getImpatience() +
-                         (MSGlobals::gTimeToImpatience > 0 ? (double)getWaitingTime() / (double)MSGlobals::gTimeToImpatience : 0.)));
+    return MAX2(0., MIN2(1., getVehicleType().getImpatience()
+                + (hasInfluencer() ? getBaseInfluencer()->getExtraImpatience() : 0)
+                + (MSGlobals::gTimeToImpatience > 0 ? (double)getWaitingTime() / (double)MSGlobals::gTimeToImpatience : 0.)));
 }
 
 

@@ -851,11 +851,27 @@ public:
         }
 
 
+        /// @brief return the current routing mode
+        double getExtraImpatience() const {
+            return myExtraImpatience;
+        }
+
+        /** @brief Sets routing behavior
+         * @param[in] value an enum value controlling the different modes
+         */
+        void setExtraImpatience(double value) {
+            myExtraImpatience = value;
+        }
+
+
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex, SUMOVehicleClass svc) const;
 
     protected:
         ///@brief routing mode (see TraCIConstants.h)
         int myRoutingMode;
+
+        /// @brief dynamic impatience offset
+        double myExtraImpatience = 0;
 
     };
 

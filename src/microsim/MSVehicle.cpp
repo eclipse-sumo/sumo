@@ -3980,6 +3980,9 @@ MSVehicle::updateWaitingTime(double vNext) {
     } else {
         myWaitingTime = 0;
         myWaitingTimeCollector.passTime(DELTA_T, false);
+        if (hasInfluencer()) {
+            getInfluencer().setExtraImpatience(0);
+        }
     }
 }
 

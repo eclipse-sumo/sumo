@@ -470,9 +470,14 @@ Person::getPersonCapacity(const std::string& personID) {
 
 double
 Person::getBoardingDuration(const std::string& personID) {
-    return STEPS2TIME(getPerson(personID)->getVehicleType().getLoadingDuration(true));
+    return STEPS2TIME(getPerson(personID)->getVehicleType().getBoardingDuration(true));
 }
 
+
+double
+Person::getImpatience(const std::string& personID) {
+    return getPerson(personID)->getImpatience();
+}
 
 
 void
@@ -1195,6 +1200,8 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
             return wrapper->wrapColor(objID, variable, getColor(objID));
         case VAR_WAITING_TIME:
             return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
+        case VAR_IMPATIENCE:
+            return wrapper->wrapDouble(objID, variable, getImpatience(objID));
         case VAR_TYPE:
             return wrapper->wrapString(objID, variable, getTypeID(objID));
         case VAR_SPEED_FACTOR:

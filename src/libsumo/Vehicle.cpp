@@ -903,6 +903,13 @@ Vehicle::getStopDelay(const std::string& vehID) {
     return Helper::getVehicle(vehID)->getStopDelay();
 }
 
+
+double
+Vehicle::getImpatience(const std::string& vehID) {
+    return Helper::getVehicle(vehID)->getImpatience();
+}
+
+
 double
 Vehicle::getStopArrivalDelay(const std::string& vehID) {
     double result = Helper::getVehicle(vehID)->getStopArrivalDelay();
@@ -2196,6 +2203,20 @@ Vehicle::setActionStepLength(const std::string& vehID, double actionStepLength, 
 
 
 void
+Vehicle::setBoardingDuration(const std::string& vehID, double boardingDuration)  {
+    Helper::getVehicle(vehID)->getSingularType().setBoardingDuration(boardingDuration);
+}
+
+
+void
+Vehicle::setImpatience(const std::string& vehID, double impatience)  {
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
+    const double normalImpatience = vehicle->getImpatience();
+    vehicle->getBaseInfluencer().setExtraImpatience(impatience - normalImpatience);
+}
+
+
+void
 Vehicle::remove(const std::string& vehID, char reason) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     MSMoveReminder::Notification n = MSMoveReminder::NOTIFICATION_ARRIVED;
@@ -2801,6 +2822,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapDouble(objID, variable, getLastActionTime(objID));
         case VAR_STOP_DELAY:
             return wrapper->wrapDouble(objID, variable, getStopDelay(objID));
+        case VAR_IMPATIENCE:
+            return wrapper->wrapDouble(objID, variable, getImpatience(objID));
         case VAR_STOP_ARRIVALDELAY:
             return wrapper->wrapDouble(objID, variable, getStopArrivalDelay(objID));
         case VAR_TIMELOSS:

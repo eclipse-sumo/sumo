@@ -949,6 +949,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 libsumo::Vehicle::moveTo(id, laneID, position, reason);
             }
             break;
+            case libsumo::VAR_IMPATIENCE: {
+                double impatience = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, impatience)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting impatience requires a double.", outputStorage);
+                }
+                libsumo::Vehicle::setImpatience(id, impatience);
+            }
+            break;
             case libsumo::VAR_SPEED: {
                 double speed = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, speed)) {
