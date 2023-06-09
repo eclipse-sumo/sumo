@@ -227,6 +227,12 @@ def get_options(args=None):
             print("Error: Period must be positive", file=sys.stderr)
             sys.exit(1)
         options.period = list(map(intIfPossible, options.period))
+        if options.binomial is not None:
+            for p in options.period:
+                if 1.0 / p / options.binomial >= 1:
+                    print(("Warning: Option --binomial %s is too low for insertion period %s." % (
+                           options.binomial, p))
+                          + " Insertions will not be randomized.", file=sys.stderr)
 
     if options.jtrrouter and options.flows <= 0:
         print("Error: Option --jtrrouter must be used with option --flows", file=sys.stderr)
