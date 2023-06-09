@@ -7,6 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
+  - Fixed invalid emission and consumption outputs for the HBEFA4 emission classes (model was calibrated on km/h instead of m/s). Issue #13250
   - Collisions on shared walkingareas without vehicular road intersection are now detected. Issue #13132
   - A warning is now given if save-state.times are not reached due to a mismatch with step-length and begin time. Issue #13162
   - Fixed crash when loading rail simulation state with step-length > 1. Issue #13161
@@ -17,11 +18,17 @@ title: ChangeLog
   - Fixed crash after rerouting and losing a stop. Issue #13190
   - Fixed invalid TTC computation when both vehicles are extrapolated to stop. Issue #13212
   - A parkingReroute now works even if the parkingArea on the current edge is not included in the alternatives list. Issue #13288
-  - Fixed unnecessary emergency braking when cars urgently needs to swap lanes. Issue #13295
-  - Fixed invalid collision warning when using bidi lane. Issue #13312
-  - Fixed unsafe right-of-way rules at junction with shared median lane. Issue #13316
-  - Fixed frontal collision on shared median lane. Issue #13313
+  - Fixed unnecessary emergency braking when cars urgently needs to swap lanes. Issue #13295  
   - IDM no longer violates right of way due to imprecise stopping at minor link. Issue #13369
+  - Fixed error when loading personTrip between identical stops. Issue #13385
+  - Fixed invalid error message for disconnected personTrip between stops. Issue #13386
+  - Fixed collision on junction due to unsafe lane changing. Issue #13363  
+  - Fixed error when using option **--replay-rerouting**. Issue #13389
+  - bidirectional lane use:
+    - Fixed invalid collision warning when using bidi lane. Issue #13312
+    - Fixed unsafe right-of-way rules at junction with shared median lane. Issue #13316
+    - Fixed frontal collision on shared median lane. Issue #13313
+    - Fixed deadlock on bidi edge. Issue #13396
 
 - netedit
   - Fixed crash when importing OSM data direclty. Issue #13297 (regression in 1.16.0)
@@ -40,7 +47,9 @@ title: ChangeLog
   - A person with a single stop stage is now visible after loading. Issue #13126
   - Creation of busStops and trainStops with the same id is now prevented (since this would give an error when loading the simulation). Issue #13269
   - Person rides between rail stops can now be defined. Issue #13273
-  - Simplified selection of .sumocfg files when calling runSeeds.py tool. Issue #13118
+  - Fixed crash saving network with stop container plans #13390
+  - In the vType editor, the vClass attribute is now updated when switching current type. Issue #13317
+  - The "stacked" person indicator is now working for persons that start at a busStop. Issue #12380
 
 - sumo-gui
   - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
@@ -65,6 +74,7 @@ title: ChangeLog
   - Fixed missing bidi attribute for shared median lane with disconnected outer lanes. Issue #13335
   - Fixed invalid bidi attribute for internal edge. Issue #13344
   - Fixed invalid right of way rules when shared median lane ends. Issue #13345
+  - Fixed unsafe right of way rules at internal junction with bidiLane. Issue #13400
 
 - duarouter
   - Fixed railway routing failure if the stop is defined on a short buffer edge (also applies to sumo). Issue #13277
@@ -73,16 +83,21 @@ title: ChangeLog
 - activitygen
   - Fixed crash when there are no work positions within a city. Issue #13315
   - Now handling `nan` values in population input. Issue #13323
+  - Fixed invalid work position statistics when stat file is lacking city gates. Issue #13381
 
 - TraCI
   - Fixed crash when calling traci.load and running with sumo-gui. Issue #13150 (regression in 1.16.0)
   - Calling `vehicle.insertStop` now preserves the original route edges beyond the inserted stop. Issue #13092
   - Fixed libtraci crashes when working on closed connection. Issue #13285
+  - Fixed missing vehicle type in saved state and vehroute-output for vehicle added via TraCI. Issue #13384
 
 - Tools
-  - abstractRail.py: Failure to optimize on region is now recoverable. Issue #13193
+  - Fixed mouse control in several game scenarios. Issue #13366 (regression in 1.17.0)
+  - Fixed error when calling some tools without argument. Issue #13388 (regression in 1.17.0)
+  - abstractRail.py: Failure to optimize one region is now recoverable. Issue #13193
   - gridDistricts.py: Networks with non-normalized offsets now create correct taz shapes. Issue #13264
   - Function `sumolib.net.getBoxXY` now returns correct results for large networks. Issue #13320
+  
   
 
 ### Enhancements
@@ -94,7 +109,8 @@ title: ChangeLog
   - Added `device.taxi.idle-algorithm` value `taxistand` which makes idle taxis return to a pre-configured set of locations. Issue #13334
   - The SSM-device now supports the new surrogate safety measure "MDRAC" which is modified maximum deceleration rate to avoid crash with perception/reaction time. Issue #13350
   - statistic-output now include the number of emergency braking events. Issue #10596
-  - Vehicles can now be configured to ignore specific vehicles during car-following by using [generic parameters](Simulation/GenericParameters.md) `carFollowMode.ignoreIDs` and `carFollowModel.ignoreTypes`. Issue #13362
+  - Vehicles can now be configured to ignore specific vehicles during car-following by using [generic parameters](Simulation/GenericParameters.md) `carFollowMode.ignoreIDs` and `carFollowModel.ignoreTypes`. Issue #13362  
+  - Stops now support customparameters #13365
 
 - sumo-gui
   - Simulation end time is now written into the message window. Issue #13145
@@ -104,6 +120,9 @@ title: ChangeLog
   - Supermodes can now be activated using the modes menu. Issue #13138
   - After generating a network without warnings, the new network will open directly without manually closing the output dialog. Issue #13149
   - Implemented new dialog for setting netedit and sumo options. This dialog supports option help, file selection dialogs and permits dynamic filtering of listed options. Issue #12007
+  - Simplified selection of .sumocfg files when calling runSeeds.py tool. Issue #13118
+  - Simplified seelction of edge is when calling python tools. Issue #12852
+  - The traffic light join mode now has  'OK / 'cancel' buttons. Issue #13028
 
 - netconvert
   - OpenDRIVE import: now supports road objects from connecting roads. Issue #13196
@@ -113,6 +132,8 @@ title: ChangeLog
   - Unused edge types are now excluded from .net.xml. Issue #13228
   - Added option **--railway.signal.guess.by-stops** to add rail_signal nodes to a network that is lacking them. Issue #5143
   - When using option **--tls.rebuild**, the tltype can be changed by setting option **--tls.default-type**. Issue #13267
+  - Added option **--junctions.minimal-shape** to enforoce small junctions. Issue #13377
+  - Added option **--opendrive.signal-groups** to import controller information from openDrive. Issue #2365
 
 - TraCI
   - Added function `simpla.getPlatoonID`. Issue #13029
@@ -121,8 +142,10 @@ title: ChangeLog
   - Using UTF-8 consistently. Issue #7171  
   - getAllContextSubscriptionResults has now entries also for objects without results. Issue #6446
   - Vehicles with SSM device now permit retrieval of the minimum PPET using param `device.ssm.minPPET`. Issue 13293
+  - Function `traci.vehicle.setStopParameter` and `getStopParameter` now supports optional argument `customParam=True` to work with user defined stop parameters. Issue #13365
 
 - tools
+  - randomTrips.py: added options **--from-stops** and **--to-stops** to define pedestrians, personTrips and person rides from and to stops (i.e. busStop). Issue #13375
   - plotXMLAttributes.py and plot_trajectories.py now show the plot by default. Issue #13158
   - plotXMLAttributes.py: Added option **--join-files** to treat data points from different files as if coming from the same file. Issue #13154
   - plotXMLAttributes.py: Now supports attribute value `@DENSITY` to create density plots. Issue #13182
@@ -136,6 +159,8 @@ title: ChangeLog
   - checkStopOrder.py: can now generate a combined stop table for multiple stop locations. Issue #13259
   - generateParkingAreas.py: now support option **--lefthand** to create lefthand parking areas. Issue #13305
   - [scheduleStats.py](Tools/Railways.md#schedulestatspy): Now permits analysis of planned and actual travel time between pairs of stops. Issue #13354
+  - tileGet.py now supports option **--parallel-jobs** to speed up data retrieval. Issue #13327
+  - improved game internationalization. Issue #13082
 
 ### Miscellaneous
 
