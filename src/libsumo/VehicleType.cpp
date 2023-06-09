@@ -186,7 +186,23 @@ VehicleType::getLateralAlignment(const std::string& typeID) {
 
 std::string
 VehicleType::getParameter(const std::string& typeID, const std::string& key) {
-    return getVType(typeID)->getParameter().getParameter(key, "");
+    if (StringUtils::startsWith(key, "junctionModel.")) {
+        const std::string attrName = key.substr(14);
+        if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
+            throw TraCIException("Invalid junctionModel parameter '" + key + "' for type '" + typeID + "'");
+        }
+        SumoXMLAttr attr = (SumoXMLAttr)SUMOXMLDefinitions::Attrs.get(attrName);
+        if (SUMOVTypeParameter::AllowedJMAttrs.count(attr) == 0) {
+            throw TraCIException("Invalid junctionModel parameter '" + key + "' for type '" + typeID + "'");
+        }
+        if (getVType(typeID)->getParameter().jmParameter.count(attr) != 0) {
+            return getVType(typeID)->getParameter().jmParameter.find(attr)->second;
+        } else {
+            return "";
+        }
+    } else {
+        return getVType(typeID)->getParameter().getParameter(key, "");
+    }
 }
 
 LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(VehicleType)
@@ -380,7 +396,24 @@ VehicleType::copy(const std::string& origTypeID, const std::string& newTypeID)  
 
 void
 VehicleType::setParameter(const std::string& typeID, const std::string& name, const std::string& value) {
-    ((SUMOVTypeParameter&)getVType(typeID)->getParameter()).setParameter(name, value);
+    if (StringUtils::startsWith(name, "junctionModel.")) {
+        const std::string attrName = name.substr(14);
+        if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
+            throw TraCIException("Invalid junctionModel parameter '" + name + "' for type '" + typeID + "'");
+        }
+        SumoXMLAttr attr = (SumoXMLAttr)SUMOXMLDefinitions::Attrs.get(attrName);
+        if (SUMOVTypeParameter::AllowedJMAttrs.count(attr) == 0) {
+            throw TraCIException("Invalid junctionModel parameter '" + name + "' for type '" + typeID + "'");
+        }
+        try {
+            StringUtils::toDouble(value); // check number format
+            ((SUMOVTypeParameter&)getVType(typeID)->getParameter()).jmParameter[attr] = value;
+        } catch (NumberFormatException&) {
+            throw InvalidArgument("Invalid junctionModel parameter value '" + value + "' for type '" + typeID + " (should be numeric)'");
+        }
+    } else {
+        ((SUMOVTypeParameter&)getVType(typeID)->getParameter()).setParameter(name, value);
+    }
 }
 
 
