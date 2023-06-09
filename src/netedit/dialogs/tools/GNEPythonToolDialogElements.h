@@ -129,6 +129,51 @@ public:
         Argument& operator=(const Argument&) = delete;
     };
 
+    
+    /// @brief edge vector argument
+    class EdgeVectorArgument : public Argument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::EdgeVectorArgument)
+
+    public:
+        /// @brief constructor
+        EdgeVectorArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                      const std::string name, Option* option);
+
+        /// @brief reset to default value
+        void reset();
+
+        /// @brief Called when user changes argument value
+        long onCmdSetValue(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press use seleted edges button
+        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use selected edges button
+        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        EdgeVectorArgument();
+
+        /// @brief get value
+        const std::string getValue() const;
+
+        /// @brief edge vectgor textField
+        FXTextField* myEdgeVectorTextField = nullptr;
+
+    private:
+        /// @brief current edges button
+        FXButton* myCurrentEdgesButton = nullptr;
+
+        /// @brief Invalidated copy constructor.
+        EdgeVectorArgument(const EdgeVectorArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        EdgeVectorArgument& operator=(const EdgeVectorArgument&) = delete;
+    };
+
+
     /// @brief filename argument
     class FileNameArgument : public Argument {
         /// @brief FOX-declaration
@@ -190,10 +235,10 @@ public:
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press use current button
-        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+        long onCmdUseCurrentNetworkFile(FXObject*, FXSelector, void*);
 
         /// @brief enable or disable use current button
-        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+        long onUpdUseCurrentNetworkFile(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -221,10 +266,10 @@ public:
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press use current button
-        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+        long onCmdUseCurrentAdditionalFile(FXObject*, FXSelector, void*);
 
         /// @brief enable or disable use current button
-        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+        long onUpdUseCurrentAdditionalFile(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -252,10 +297,10 @@ public:
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press use current button
-        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+        long onCmdUseCurrentRouteFile(FXObject*, FXSelector, void*);
 
         /// @brief enable or disable use current button
-        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+        long onUpdUseCurrentRouteFile(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -283,10 +328,10 @@ public:
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press use current button
-        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+        long onCmdUseCurrentDataFile(FXObject*, FXSelector, void*);
 
         /// @brief enable or disable use current button
-        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+        long onUpdUseCurrentDataFile(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -314,10 +359,10 @@ public:
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press use current button
-        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+        long onCmdUseCurrentSumoConfigFile(FXObject*, FXSelector, void*);
 
         /// @brief enable or disable use current button
-        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+        long onUpdUseCurrentSumoConfigFile(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -360,37 +405,6 @@ public:
 
         /// @brief Invalidated assignment operator.
         EdgeArgument& operator=(const EdgeArgument&) = delete;
-    };
-
-    /// @brief edge vector argument
-    class EdgeVectorArgument : public FileNameArgument {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEPythonToolDialogElements::EdgeVectorArgument)
-
-    public:
-        /// @brief constructor
-        EdgeVectorArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
-                      const std::string name, Option* option);
-
-        /// @brief Called when user press open filename button
-        long onCmdOpenFilename(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press use current button
-        long onCmdUseCurrent(FXObject*, FXSelector, void*);
-
-        /// @brief enable or disable use current button
-        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
-
-    protected:
-        /// @brief FOX need this
-        EdgeVectorArgument();
-
-    private:
-        /// @brief Invalidated copy constructor.
-        EdgeVectorArgument(const EdgeVectorArgument&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        EdgeVectorArgument& operator=(const EdgeVectorArgument&) = delete;
     };
 
     /// @brief string argument
