@@ -1143,6 +1143,9 @@ TRACI_CONST int VAR_DEPART_DELAY = 0x3b;
 // boarding time (get: vehicle type, vehicle, person)
 TRACI_CONST int VAR_BOARDING_DURATION = 0x2f;
 
+// impatience (get,set: vehicle type, vehicle, person)
+TRACI_CONST int VAR_IMPATIENCE = 0x26;
+
 TRACI_CONST int VAR_BUS_STOP_ID_LIST = 0x9f;
 
 // number of persons waiting at a defined bus stop (get: simulation)

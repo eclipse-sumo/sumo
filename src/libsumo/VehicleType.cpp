@@ -206,6 +206,11 @@ VehicleType::getBoardingDuration(const std::string& typeID) {
     return STEPS2TIME(getVType(typeID)->getBoardingDuration(true));
 }
 
+double
+VehicleType::getImpatience(const std::string& typeID) {
+    return getVType(typeID)->getImpatience();
+}
+
 void
 VehicleType::setLength(const std::string& typeID, double length)  {
     getVType(typeID)->setLength(length);
@@ -221,6 +226,12 @@ VehicleType::setMaxSpeed(const std::string& typeID, double speed)  {
 void
 VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset)  {
     getVType(typeID)->setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength), resetActionOffset);
+}
+
+
+void
+VehicleType::setImpatience(const std::string& typeID, double impatience)  {
+    getVType(typeID)->setImpatience(impatience);
 }
 
 
@@ -445,6 +456,8 @@ VehicleType::handleVariableWithID(const std::string& objID, const std::string& t
             return wrapper->wrapInt(objID, variable, getPersonCapacity(typeID));
         case VAR_BOARDING_DURATION:
             return wrapper->wrapDouble(objID, variable, getBoardingDuration(typeID));
+        case VAR_IMPATIENCE:
+            return wrapper->wrapDouble(objID, variable, getImpatience(typeID));
         case VAR_SCALE:
             return wrapper->wrapDouble(objID, variable, getScale(typeID));
         case libsumo::VAR_PARAMETER:

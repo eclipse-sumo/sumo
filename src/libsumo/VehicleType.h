@@ -49,6 +49,7 @@ static double getActionStepLength(const std::string& typeID); \
 \
 static double getSpeedDeviation(const std::string& typeID); \
 static double getBoardingDuration(const std::string& typeID); \
+static double getImpatience(const std::string& typeID); \
 
 
 #define LIBSUMO_VEHICLE_TYPE_SETTER \
@@ -72,6 +73,7 @@ static void setMinGapLat(const std::string& typeID, double minGapLat); \
 static void setMaxSpeedLat(const std::string& typeID, double speed); \
 static void setLateralAlignment(const std::string& typeID, const std::string& latAlignment); \
 static void setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset=true); \
+static void setImpatience(const std::string& typeID, double impatience); \
 
 // ===========================================================================
 // class declarations
