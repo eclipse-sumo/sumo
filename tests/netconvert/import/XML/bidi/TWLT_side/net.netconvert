@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-09 09:11:50 by Eclipse SUMO netconvert Version v1_17_0+0873-e9d563d
+<!-- generated on 2023-06-09 09:50:12 by Eclipse SUMO netconvert Version v1_17_0+0877-4d6f3a0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -97,7 +97,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="J3" type="dead_end" x="200.00" y="1.60" incLanes="E2_0 E2_1" intLanes="" shape="200.00,0.00 200.00,-3.20 200.00,3.20"/>
     <junction id="J5" type="dead_end" x="150.00" y="51.60" incLanes="E4_0" intLanes="" shape="150.00,51.60 153.20,51.60 150.00,51.60"/>
 
-    <junction id=":J2_8_0" type="internal" x="146.80" y="2.24" incLanes=":J2_7_0 -E2_0 -E2_1" intLanes=":J2_1_0 :J2_2_0 :J2_3_0 :J2_3_1"/>
+    <junction id=":J2_8_0" type="internal" x="146.80" y="2.24" incLanes=":J2_7_0 -E2_0 -E2_1" intLanes=":J2_0_0 :J2_1_0 :J2_2_0 :J2_3_0 :J2_3_1"/>
 
     <connection from="-E2" to="E4" fromLane="0" toLane="0" via=":J2_2_0" dir="r" state="M"/>
     <connection from="-E2" to="-E0" fromLane="0" toLane="0" via=":J2_3_0" dir="s" state="M"/>
