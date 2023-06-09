@@ -83,16 +83,6 @@ def worker(options, request, filename):
         raise ValueError("small file")
 
 
-def writeDecals(x, y, zoom, net, filename, decals, options):
-    lat, lon = fromTileToLatLon(x, y, zoom)
-    upperLeft = net.convertLonLat2XY(lon, lat)
-    lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
-    center = net.convertLonLat2XY(lon, lat)
-    print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-          (os.path.basename(filename), center[0], center[1],
-           2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
-
-
 def retrieveMapServerTiles(options, west, south, east, north, decals, net):
     zoom = 20
     numTiles = options.tiles + 1
@@ -112,27 +102,24 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net):
         signal.signal(signal.SIGINT, original_sigint_handler)
 
     futures = []
-
     for x in range(sx, ex + 1):
         for y in range(sy, ey + 1):
             request = "%s/%s/%s/%s" % (options.url, zoom, y, x)
             filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
-
             if options.parallel_jobs == 0:
                 worker(options, request, filename)
-                if net is not None:
-                    writeDecals(x, y, zoom, net, filename, decals, options)
             else:
-                futures.append((
-                    x, y, pool.apply_async(worker, (options, request, filename))
-                ))
-
-    # N = (ex - sx + 1) * (ey - sy + 1)
-    for i, (x, y, future) in enumerate(futures):
+                futures.append((x, y, pool.apply_async(worker, (options, request, filename))))
+            if net is not None:
+                lat, lon = fromTileToLatLon(x, y, zoom)
+                upperLeft = net.convertLonLat2XY(lon, lat)
+                lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
+                center = net.convertLonLat2XY(lon, lat)
+                print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+                      (os.path.basename(filename), center[0], center[1],
+                       2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
+    for x, y, future in futures:
         future.get()
-        # print('%f%% (%s)' % (100.0 * (i+1)/N, request))
-        if net is not None:
-            writeDecals(x, y, zoom, net, filename, decals, options)
 
 
 def get_options(args=None):
@@ -144,7 +131,7 @@ def get_options(args=None):
                          help="maximum number of tiles the output gets split into")
     optParser.add_option("-d", "--output-dir", category="output", default=".",
                          help="optional output directory (must already exist)")
-    optParser.add_option("-s", "--decals-file", category="input",
+    optParser.add_option("-s", "--decals-file", category="output",
                          default="settings.xml", help="name of decals settings file")
     optParser.add_option("-l", "--layer", category="processing", type=int, default=0,
                          help="(int) layer at which the image will appear, default 0")
@@ -204,7 +191,7 @@ def get(args=None):
 
     prefix = os.path.join(options.output_dir, options.prefix)
     mapQuest = "mapquest" in options.url
-    with open(os.path.join(options.output_dir, options.decals_file), "w") as decals:
+    with sumolib.openz(os.path.join(options.output_dir, options.decals_file), "w") as decals:
         sumolib.xml.writeHeader(decals, root="viewsettings")
         if "MapServer" in options.url:
             retrieveMapServerTiles(options, west, south, east, north, decals, net)

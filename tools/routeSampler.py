@@ -1164,16 +1164,16 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         gehOKPerc = 100 * numGehOK / float(gehStats.count()) if countData else 100
         gehOK = "%.2f%%" % gehOKPerc if countData else "-"
         gehInfo = "total count %s (%s) at %s locations. GEH<%s for %s" % (
-                totalCount, countPercentage,
-                gehStats.count(),
-                options.gehOk, gehOK)
+            totalCount, countPercentage,
+            gehStats.count(),
+            options.gehOk, gehOK)
 
     if ratioStats.count() > 0:
         if gehStats.count() > 0:
             ratioInfo = " and "
         ratioPerc = ratioStats.avg_abs() * 100
         ratioInfo += setPrecision("avg ratio mismatch %.2f%% at %s ratio locations (count %s)", options.precision) % (
-                ratioPerc, ratioStats.count(), totalRatioCount)
+            ratioPerc, ratioStats.count(), totalRatioCount)
 
     outputIntervalPrefix = "" if intervalPrefix == "" else "%s: " % int(begin)
     print("%sWrote %s routes (%s distinct) %s%s%s" % (
