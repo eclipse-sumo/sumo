@@ -56,6 +56,7 @@ MaxSpeedLat 1.0
 LateralAlignment center
 width 1.1
 height 1.9
+boardingDuration 42.0
 impatience 0.5
 color (255, 0, 0, 255)
 Copying vType 'DEFAULT_VEHTYPE' to 'DEFAULT_VEHTYPE_copy'

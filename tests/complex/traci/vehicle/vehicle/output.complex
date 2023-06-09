@@ -159,7 +159,7 @@ lanePosLat 0.0
 person number 0
 person IDs ()
 personCapacity 4
-boardingDuration 0.5
+boardingDuration 26.0
 impatience 0.8
 waiting time 0.0
 accumulated waiting time 0.0
