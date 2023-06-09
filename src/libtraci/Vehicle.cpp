@@ -216,6 +216,12 @@ Vehicle::getBoardingDuration(const std::string& vehID) {
 }
 
 
+double
+Vehicle::getImpatience(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_IMPATIENCE, vehID);
+}
+
+
 std::vector<std::string>
 Vehicle::getPersonIDList(const std::string& vehID) {
     return Dom::getStringVector(libsumo::LAST_STEP_PERSON_ID_LIST, vehID);
@@ -1282,6 +1288,17 @@ Vehicle::setMaxSpeedLat(const std::string& vehID, double speed) {
 void
 Vehicle::setLateralAlignment(const std::string& vehID, const std::string& latAlignment) {
     Dom::setString(libsumo::VAR_LATALIGNMENT, vehID, latAlignment);
+}
+
+
+void
+Vehicle::setImpatience(const std::string& vehID, double impatience) {
+    Dom::setDouble(libsumo::VAR_IMPATIENCE, vehID, impatience);
+}
+
+void
+Vehicle::setBoardingDuration(const std::string& vehID, double boardingDuration) {
+    Dom::setDouble(libsumo::VAR_BOARDING_DURATION, vehID, boardingDuration);
 }
 
 

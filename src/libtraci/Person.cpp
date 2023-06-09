@@ -308,6 +308,12 @@ Person::getBoardingDuration(const std::string& personID) {
     return Dom::getDouble(libsumo::VAR_BOARDING_DURATION, personID);
 }
 
+double
+Person::getImpatience(const std::string& personID) {
+    return Dom::getDouble(libsumo::VAR_IMPATIENCE, personID);
+}
+
+
 
 LIBTRACI_PARAMETER_IMPLEMENTATION(Person, PERSON)
 
@@ -323,6 +329,16 @@ Person::setType(const std::string& personID, const std::string& typeID) {
     Dom::setString(libsumo::VAR_TYPE, personID, typeID);
 }
 
+
+void
+Person::setImpatience(const std::string& personID, double impatience) {
+    Dom::setDouble(libsumo::VAR_IMPATIENCE, personID, impatience);
+}
+
+void
+Person::setBoardingDuration(const std::string& personID, double boardingDuration) {
+    Dom::setDouble(libsumo::VAR_BOARDING_DURATION, personID, boardingDuration);
+}
 
 void
 Person::add(const std::string& personID, const std::string& edgeID, double pos, double departInSecs, const std::string typeID) {
