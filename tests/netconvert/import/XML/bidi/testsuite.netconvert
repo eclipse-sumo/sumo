@@ -22,3 +22,6 @@ TWLT_sidewalks
 
 # test right of way ruleswhen TLWT ends
 TWLT_end
+
+# test right of way rules when side lane turns into TLWT 
+TWLT_side
