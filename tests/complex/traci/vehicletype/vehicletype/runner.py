@@ -132,15 +132,15 @@ print("jmParam", traci.vehicletype.getParameter(typeID, "junctionModel.jmTimegap
 
 try:
     traci.vehicletype.setParameter(typeID, "junctionModel.dummy", "2")
-except:
+except traci.TraCIException:
     pass
 try:
     traci.vehicletype.setParameter(typeID, "junctionModel.speed", "2")
-except:
+except traci.TraCIException:
     pass
 try:
     traci.vehicletype.setParameter(typeID, "junctionModel.jmTimegapMinor", "notANumber")
-except:
+except traci.TraCIException:
     pass
 
 
