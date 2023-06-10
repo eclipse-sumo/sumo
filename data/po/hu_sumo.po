@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-07 17:24+0000\n"
+"PO-Revision-Date: 2023-06-10 06:16+0000\n"
 "Last-Translator: ovari <ovari123@zoho.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/hu/>\n"
@@ -315,74 +315,79 @@ msgstr "Kalibrátorok írjása a FILE-fájlba"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:188
 msgid "Include routes in the output which have no vehicles"
-msgstr ""
+msgstr "Olyan útvonalakat adjon meg a kimenetben, amelyeken nincsenek járművek"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:192
 msgid ""
 "Checks whether detectors with calculated flow 0 can attract additional "
 "traffic"
 msgstr ""
+"Ellenőrzi, hogy a 0 számított áramlással rendelkező észlelők vonzhatnak-e "
+"további forgalmat"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:195
 msgid "Removes empty detectors from the list"
-msgstr ""
+msgstr "Eltávolítja az üres észlelőket a listáról"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:198
 msgid ""
 "Whether edges with unknown status can prevent an edge from becoming a source"
 msgstr ""
+"Az ismeretlen állapotú élek megakadályozhatják-e, hogy egy él forrássá váljon"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:201
 msgid ""
 "Try to determine further inflows to an inbetween detector when computing "
 "split probabilities"
 msgstr ""
+"Próbálja meg meghatározni a további beáramlásokat egy köztes észlelőhöz a "
+"felosztási valószínűségek kiszámításakor"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:205
 msgid "Scale factor for flows"
-msgstr ""
+msgstr "Az áramlások léptéktényezője"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:209
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:123
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:167
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:199
 msgid "Assigns a default depart lane"
-msgstr ""
+msgstr "Alapértelmezett indulási sáv hozzárendelése"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:212
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:127
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:170
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:202
 msgid "Assigns a default depart position"
-msgstr ""
+msgstr "Alapértelmezett indulási hely hozzárendelése"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:215
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:131
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:173
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:205
 msgid "Assigns a default depart speed"
-msgstr ""
+msgstr "Alapértelmezett indulási sebesség hozzárendelése"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:218
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:135
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:176
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:208
 msgid "Assigns a default arrival lane"
-msgstr ""
+msgstr "Alapértelmezett érkezési sáv hozzárendelése"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:221
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:139
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:179
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:211
 msgid "Assigns a default arrival position"
-msgstr ""
+msgstr "Alapértelmezett érkezési hely hozzárendelése"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:224
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:143
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:182
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:214
 msgid "Assigns a default arrival speed"
-msgstr ""
+msgstr "Alapértelmezett érkezési sebesség hozzárendelése"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:227
 msgid "The default speed deviation of vehicles"
