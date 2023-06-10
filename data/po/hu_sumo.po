@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-10 06:16+0000\n"
+"PO-Revision-Date: 2023-06-10 19:38+0000\n"
 "Last-Translator: ovari <ovari123@zoho.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/hu/>\n"
@@ -391,15 +391,17 @@ msgstr "Alapértelmezett érkezési sebesség hozzárendelése"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:227
 msgid "The default speed deviation of vehicles"
-msgstr ""
+msgstr "Járművek alapértelmezett sebességeltérése"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:231
 msgid "Defines the begin time; Previous defs will be discarded"
-msgstr ""
+msgstr "Meghatározza a kezdési időpontot; A korábbi meghatározásokat elveti"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:234
 msgid "Defines the end time; Later defs will be discarded; Defaults to one day"
 msgstr ""
+"Meghatározza a befejezési időt; A későbbi meghatározásokat elveti; "
+"Alapértelmezés szerint egy nap"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:239
 msgid "Lists detectors with no flow (enable -v)"
@@ -444,7 +446,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:281
 msgid "Could not close route for '%'"
-msgstr ""
+msgstr "Nem sikerült lezárni az útvonalat a következőhöz: %"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:439
 #, c-format
@@ -452,6 +454,8 @@ msgid ""
 "Detector '%' has no flows.\n"
 " Trying to rebuild."
 msgstr ""
+"A(z) „%” észlelőnek nincs folyamata.\n"
+" Újraépítési kísérlet."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:467
 msgid " Could not build list of previous flows."
@@ -3008,6 +3012,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Battery.cpp:329
 msgid "Trying to set into the battery device of vehicle '%' an invalid % (%)."
 msgstr ""
+"Érvénytelen % (%) megpróbál beállítani a(z) „%” jármű akkumulátor-eszközébe."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:59
 msgid ""
@@ -5941,7 +5946,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:41
 msgid "Read edge-type defs from FILE"
-msgstr ""
+msgstr "Éltípus definíciók olvasása a(z) FILE-fájlból"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:44
 msgid ""
@@ -6203,23 +6208,23 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:60
 msgid "Read XML-node defs from FILE"
-msgstr ""
+msgstr "XML-csomópont definíciók olvasása a(z) FILE-fájlból"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:66
 msgid "Read XML-edge defs from FILE"
-msgstr ""
+msgstr "XML-éldefiníciók olvasása a(z) FILE-fájlból"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:72
 msgid "Read XML-connection defs from FILE"
-msgstr ""
+msgstr "XML-kapcsolat definíciók olvasása a(z) FILE-fájlból"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:75
 msgid "Read XML-traffic light defs from FILE"
-msgstr ""
+msgstr "XML-közlekedési lámpa definíciók olvasása a(z) FILE-fájlból"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:81
 msgid "Read XML-type defs from FILE"
-msgstr ""
+msgstr "XML-típusdefiníciók olvasása a(z) FILE-fájlból"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:86
 msgid "Reads public transport stops from FILE"
@@ -8054,11 +8059,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:85
 msgid "Trying to set the effort for the unknown edge '%'."
-msgstr ""
+msgstr "Megpróbálja beállítani az erőfeszítést az ismeretlen „%” élhez."
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:100
 msgid "Trying to set the travel time for the unknown edge '%'."
-msgstr ""
+msgstr "Megpróbálja beállítani az utazási időt az ismeretlen „%” élhez."
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:129
 msgid "Invalid network, no network version declared."
@@ -8190,6 +8195,8 @@ msgid ""
 "Trying to specify detector's lane by the given id since the argument 'lane' "
 "is missing."
 msgstr ""
+"Megpróbálja megadni az érzékelő sávját a megadott azonosítóval, mivel az "
+"argumentum „sáv” hiányzik."
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1131
 msgid ""
@@ -9205,7 +9212,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:83
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:85
 msgid "Trying to set a weight for the unknown edge '%'."
-msgstr ""
+msgstr "Súlyt próbál beállítani az ismeretlen „%” élhez."
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:114
 #, c-format
@@ -9390,7 +9397,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:52
 msgid "Interrupt signal received, trying to exit gracefully."
-msgstr ""
+msgstr "Megszakítási jel érkezett, kecsesen próbál kilépni."
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:86
 msgid "A microscopic, multi-modal traffic simulation."
@@ -9974,7 +9981,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/geom/PositionVector.cpp:1503
 #: /home/micha/programming/sumo/src/utils/geom/PositionVector.cpp:1517
 msgid "Trying to subtract PositionVectors of different lengths."
-msgstr ""
+msgstr "Megpróbálja kivonni a különböző hosszúságú helyvektorokat."
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:960
 msgid "'lane' and 'length' must be defined together in a lane area detector."
@@ -10459,12 +10466,15 @@ msgid ""
 "Trying to add resistor element into the overhead wire circuit with "
 "resistance < 1e-6. "
 msgstr ""
+"Ellenállás elemet próbálnak hozzáadni a felsővezeték áramköréhez < 1e-6 "
+"ellenállással. "
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:800
 msgid ""
 "Trying to add resistor element into the overhead wire circuit with "
 "resistance < 0. "
 msgstr ""
+"Ellenálláselem hozzáadása a felsővezeték áramköréhez < 0 ellenállással. "
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:919
 msgid ""
@@ -10618,6 +10628,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/xml/CommonXMLStructure.cpp:513
 msgid "Trying to get undefined % attribute '%' in SUMOBaseObject '%'"
 msgstr ""
+"Nem definiált % attribútum „%” beszerzése a(z) „%” SUMOBaseObject-objektumban"
 
 #: /home/micha/programming/sumo/src/utils/xml/GenericHandler.cpp:83
 #: /home/micha/programming/sumo/src/utils/xml/GenericSAXHandler.cpp:105
