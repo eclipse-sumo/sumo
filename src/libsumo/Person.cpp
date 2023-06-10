@@ -1094,7 +1094,7 @@ Person::setImperfection(const std::string& personID, double imperfection) {
 
 void
 Person::setBoardingDuration(const std::string& personID, double boardingDuration)  {
-    Helper::getVehicle(personID)->getSingularType().setBoardingDuration(boardingDuration);
+    Helper::getPerson(personID)->getSingularType().setBoardingDuration(TIME2STEPS(boardingDuration));
 }
 
 

@@ -2204,7 +2204,7 @@ Vehicle::setActionStepLength(const std::string& vehID, double actionStepLength, 
 
 void
 Vehicle::setBoardingDuration(const std::string& vehID, double boardingDuration)  {
-    Helper::getVehicle(vehID)->getSingularType().setBoardingDuration(boardingDuration);
+    Helper::getVehicle(vehID)->getSingularType().setBoardingDuration(TIME2STEPS(boardingDuration));
 }
 
 
