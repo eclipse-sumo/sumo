@@ -409,7 +409,7 @@ VehicleType::setParameter(const std::string& typeID, const std::string& name, co
             StringUtils::toDouble(value); // check number format
             ((SUMOVTypeParameter&)getVType(typeID)->getParameter()).jmParameter[attr] = value;
         } catch (NumberFormatException&) {
-            throw InvalidArgument("Invalid junctionModel parameter value '" + value + "' for type '" + typeID + " (should be numeric)'");
+            throw TraCIException("Invalid junctionModel parameter value '" + value + "' for type '" + typeID + " (should be numeric)'");
         }
     } else {
         ((SUMOVTypeParameter&)getVType(typeID)->getParameter()).setParameter(name, value);
