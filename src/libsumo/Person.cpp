@@ -1093,6 +1093,19 @@ Person::setImperfection(const std::string& personID, double imperfection) {
 
 
 void
+Person::setBoardingDuration(const std::string& personID, double boardingDuration)  {
+    Helper::getVehicle(personID)->getSingularType().setBoardingDuration(boardingDuration);
+}
+
+
+void
+Person::setImpatience(const std::string& personID, double impatience)  {
+    Helper::getVehicle(personID)->getSingularType().setImpatience(impatience);
+}
+
+
+
+void
 Person::setTau(const std::string& personID, double tau) {
     getPerson(personID)->getSingularType().setTau(tau);
 }
