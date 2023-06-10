@@ -184,11 +184,11 @@ class ArgumentParser(argparse.ArgumentParser):
     @staticmethod
     def edgedata_file(s):
         return s
-        
+
     @staticmethod
     def edge(s):
         return s
-        
+
     @staticmethod
     def edge_list(s):
         return s
