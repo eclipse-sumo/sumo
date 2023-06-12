@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-09 14:50+0000\n"
+"PO-Revision-Date: 2023-06-12 13:28+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9895,11 +9895,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:262
 msgid "Relative value"
-msgstr ""
+msgstr "Valore relativo"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:262
 msgid "Set Z value as relative"
-msgstr ""
+msgstr "Imposta valore relativo per Z"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:265
 msgid "Apply Z value"
