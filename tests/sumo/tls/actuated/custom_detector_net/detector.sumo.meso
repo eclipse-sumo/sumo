@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-23 12:57:19 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <tls.actuated.show-detectors value="true"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
+    <interval begin="0.00" end="120.00" id="customLoop1" sampledSeconds="552.05" density="55.20" laneDensity="18.40" occupancy="9.20" waitingTime="0.00" timeLoss="420.03" speed="3.32" speedRelative="0.24" departed="0" arrived="0" entered="25" left="16"/>
+    <interval begin="0.00" end="120.00" id="customLoop2" sampledSeconds="285.04" density="28.50" laneDensity="9.50" occupancy="4.75" waitingTime="0.00" timeLoss="236.62" speed="2.36" speedRelative="0.17" departed="0" arrived="0" entered="9" left="5"/>
+    <interval begin="120.00" end="240.00" id="customLoop1" sampledSeconds="864.41" density="86.44" laneDensity="28.81" occupancy="14.41" waitingTime="0.00" timeLoss="734.72" speed="2.08" speedRelative="0.15" departed="0" arrived="0" entered="22" left="22"/>
+    <interval begin="120.00" end="240.00" id="customLoop2" sampledSeconds="609.33" density="60.93" laneDensity="20.31" occupancy="10.16" waitingTime="0.00" timeLoss="550.00" speed="1.35" speedRelative="0.10" departed="0" arrived="0" entered="10" left="7"/>
+    <interval begin="240.00" end="360.00" id="customLoop1" sampledSeconds="889.21" density="88.92" laneDensity="29.64" occupancy="14.82" waitingTime="0.00" timeLoss="737.56" speed="2.37" speedRelative="0.17" departed="0" arrived="0" entered="26" left="24"/>
+    <interval begin="240.00" end="360.00" id="customLoop2" sampledSeconds="1101.31" density="110.13" laneDensity="36.71" occupancy="18.36" waitingTime="0.00" timeLoss="1037.34" speed="0.81" speedRelative="0.06" departed="0" arrived="0" entered="14" left="10"/>
+    <interval begin="360.00" end="480.00" id="customLoop1" sampledSeconds="1208.86" density="120.89" laneDensity="40.30" occupancy="20.15" waitingTime="0.00" timeLoss="1106.54" speed="1.18" speedRelative="0.08" departed="0" arrived="0" entered="14" left="16"/>
+    <interval begin="360.00" end="480.00" id="customLoop2" sampledSeconds="1314.01" density="131.40" laneDensity="43.80" occupancy="21.90" waitingTime="0.00" timeLoss="1267.32" speed="0.49" speedRelative="0.04" departed="0" arrived="0" entered="5" left="5"/>
+    <interval begin="480.00" end="600.00" id="customLoop1" sampledSeconds="214.81" density="21.48" laneDensity="7.16" occupancy="3.58" waitingTime="0.00" timeLoss="208.55" speed="0.41" speedRelative="0.03" departed="0" arrived="0" entered="0" left="9"/>
+    <interval begin="480.00" end="600.00" id="customLoop2" sampledSeconds="870.19" density="87.02" laneDensity="29.01" occupancy="14.50" waitingTime="0.00" timeLoss="812.63" speed="0.92" speedRelative="0.07" departed="0" arrived="0" entered="8" left="19"/>
+    <interval begin="600.00" end="639.00" id="customLoop1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="600.00" end="639.00" id="customLoop2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+</detector>
