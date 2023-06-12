@@ -1271,6 +1271,22 @@ MSVehicle::interpolateLateralZ(Position& pos, double offset, double posLat) cons
     }
 }
 
+
+double
+MSVehicle::getDistanceToLeaveJunction() const {
+    double result = getLength() - getPositionOnLane();
+    if (myLane->isNormal()) {
+        return MAX2(0.0, result);
+    }
+    const MSLane* lane = myLane;
+    while (lane->isInternal()) {
+        result += lane->getLength();
+        lane = lane->getCanonicalSuccessorLane();
+    }
+    return result;
+}
+
+
 Position
 MSVehicle::getPositionAlongBestLanes(double offset) const {
     assert(MSGlobals::gUsingInternalLanes);
@@ -3239,9 +3255,18 @@ MSVehicle::adaptToOncomingLeader(const std::pair<const MSVehicle*, double> leade
         const double leaderBrakeGap = cfModelL.brakeGap(lead->getSpeed(), cfModelL.getMaxDecel(), 0);
         const double egoBrakeGap = cfModel.brakeGap(getSpeed(), cfModel.getMaxDecel(), 0);
         const double gapSum = leaderBrakeGap + egoBrakeGap;
+        // ensure that both vehicles can leave an intersection if they are currently on it
+        double egoExit = getDistanceToLeaveJunction();
+        const double leaderExit = lead->getDistanceToLeaveJunction();
+        double gap = leaderInfo.second;
+        if (egoExit + leaderExit < gap) {
+            gap -= egoExit + leaderExit;
+        } else {
+            egoExit = 0;
+        }
         // assume remaining distance is allocated in proportion to braking distance
         const double gapRatio = gapSum > 0 ? egoBrakeGap / gapSum : 0.5;
-        const double vsafeLeader = cfModel.stopSpeed(this, getSpeed(), leaderInfo.second * gapRatio);
+        const double vsafeLeader = cfModel.stopSpeed(this, getSpeed(), gap * gapRatio + egoExit);
         if (lastLink != nullptr) {
             const double futureVSafe = cfModel.stopSpeed(this, lastLink->accelV, leaderInfo.second, MSCFModel::CalcReason::FUTURE);
             lastLink->adaptLeaveSpeed(futureVSafe);
@@ -3261,6 +3286,8 @@ MSVehicle::adaptToOncomingLeader(const std::pair<const MSVehicle*, double> leade
                     << " oncomingLead=" << lead->getID()
                     << " leadSpeed=" << lead->getSpeed()
                     << " gap=" << leaderInfo.second
+                    << " gap2=" << gap
+                    << " gapRatio=" << gapRatio
                     << " leadLane=" << lead->getLane()->getID()
                     << " predPos=" << lead->getPositionOnLane()
                     << " myLane=" << myLane->getID()
