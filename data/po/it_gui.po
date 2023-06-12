@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-06-12 13:28+0000\n"
+"PO-Revision-Date: 2023-06-12 15:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9903,22 +9903,22 @@ msgstr "Imposta valore relativo per Z"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:265
 msgid "Apply Z value"
-msgstr ""
+msgstr "Applica valore Z"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:265
 msgid "Apply Z value to all selected junctions"
-msgstr ""
+msgstr "Applica valore Z a tutti gli incroci selezionati"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:518
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:534
 msgid "Shift shape geometry"
-msgstr ""
+msgstr "Sposta forma"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:534
 msgid ""
 "Shift shape geometry orthogonally to driving direction for all selected "
 "shapes"
-msgstr ""
+msgstr "Sposta ogni forma selezionata ortogonalmente alla direzione di marcia"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:619
 msgid "-Click over edge to"
