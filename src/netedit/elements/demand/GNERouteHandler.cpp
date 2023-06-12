@@ -126,19 +126,10 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPEDISTRIBUTION, TL("add ") + vTypeDistribution->getTagStr() + " '" + id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
-                // set this vTypeDistribution as parent of the other vTypes
-                for (const auto& vTypeID : vTypes) {
-                    auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID);
-                    vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
-                }
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
                 vTypeDistribution->incRef("buildVType");
-                for (const auto& vTypeID : vTypes) {
-                    auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID);
-                    vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id);
-                }
             }
         }
     }
