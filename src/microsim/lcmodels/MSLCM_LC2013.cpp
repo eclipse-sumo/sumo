@@ -1502,12 +1502,17 @@ MSLCM_LC2013::_wantsChange(
                                          //MAX2(STEPS2TIME(TS), (myLeftSpace-myLeadingBlockerLength) / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / remainingLanes / urgency) :
                                          MAX2(STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / remainingLanes / urgency) :
                                          myVehicle.getInfluencer().changeRequestRemainingSeconds(currentTime));
-        const double plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
-        // NOTE: for the  ballistic update case negative speeds may indicate a stop request,
-        //       while informLeader returns -1 in that case. Refs. #2577
-        if (plannedSpeed >= 0 || (!MSGlobals::gSemiImplicitEulerUpdate && plannedSpeed != -1)) {
-            // maybe we need to deal with a blocking follower
-            informFollower(msgPass, blocked, myLca, neighFollow, remainingSeconds, plannedSpeed);
+        if (!hasBidiNeighLeader) {
+            const double plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
+            // NOTE: for the  ballistic update case negative speeds may indicate a stop request,
+            //       while informLeader returns -1 in that case. Refs. #2577
+            if (plannedSpeed >= 0 || (!MSGlobals::gSemiImplicitEulerUpdate && plannedSpeed != -1)) {
+                // maybe we need to deal with a blocking follower
+                const bool hasBidiNeighFollower = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiFollower(&myVehicle, neighFollow.first);
+                if (!hasBidiNeighFollower) {
+                    informFollower(msgPass, blocked, myLca, neighFollow, remainingSeconds, plannedSpeed);
+                }
+            }
         }
 
 #ifdef DEBUG_WANTS_CHANGE

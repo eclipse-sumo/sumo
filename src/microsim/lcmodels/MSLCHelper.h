@@ -80,4 +80,6 @@ public:
 
     static bool isBidiLeader(const MSVehicle* leader, const std::vector<MSLane*>& cont);
 
+    static bool isBidiFollower(const MSVehicle* ego, const MSVehicle* follower);
+
 };
