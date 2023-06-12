@@ -1,14 +1,13 @@
 Warning: Teleporting vehicle 'v.82'; waited too long (yield), lane=':J2_7_0', time=805.00.
 Warning: Vehicle 'v.82' ends teleporting on edge 'E4', time=805.00.
 Warning: Vehicle 'v.88'; junction collision with vehicle 't.9', lane=':J1_6_1', gap=-1.00, time=815.00 stage=move.
-Warning: Vehicle 'v.83'; junction collision with vehicle 't.10', lane=':J2_8_0', gap=-1.00, time=816.00 stage=move.
-Warning: Vehicle 'v.84'; junction collision with vehicle 't.10', lane=':J2_8_0', gap=-1.00, time=819.00 stage=move.
-Warning: Vehicle 'v.85'; junction collision with vehicle 't.10', lane=':J2_8_0', gap=-1.00, time=822.00 stage=move.
-Warning: Vehicle 'v.89'; junction collision with vehicle 't.9', lane=':J1_6_1', gap=-1.00, time=825.00 stage=laneChange.
 Warning: Teleporting vehicle 't.11'; waited too long (jam), lane='-E2_1', time=827.00.
-Warning: Vehicle 'v.90'; junction collision with vehicle 't.9', lane=':J1_6_1', gap=-1.00, time=828.00 stage=laneChange.
-Warning: Vehicle 'v.91'; junction collision with vehicle 't.9', lane=':J1_6_1', gap=-1.00, time=832.00 stage=laneChange.
-Warning: Vehicle 'v.92'; junction collision with vehicle 't.9', lane=':J1_6_1', gap=-1.00, time=834.00 stage=laneChange.
-Warning: Vehicle 'v.93'; junction collision with vehicle 't.9', lane=':J1_6_1', gap=-1.00, time=838.00 stage=laneChange.
 Warning: Vehicle 't.11' teleports beyond arrival edge '-E0', time=839.00.
-Warning: Vehicle 'v.94'; junction collision with vehicle 't.9', lane=':J1_6_1', gap=-1.00, time=841.00 stage=laneChange.
+Warning: Teleporting vehicle 'v.83'; waited too long (yield), lane=':J2_7_0', time=1111.00.
+Warning: Vehicle 'v.83' ends teleporting on edge 'E4', time=1111.00.
+Warning: Teleporting vehicle 't.9'; waited too long (jam), lane=':J1_0_1', time=1115.00.
+Warning: Teleporting vehicle 'v.89'; waited too long (jam), lane='E0_1', time=1117.00.
+Warning: Vehicle 'v.89' teleports beyond arrival edge 'E4', time=1131.00.
+Warning: Teleporting vehicle 't.12'; waited too long (jam), lane='-E2_1', time=1132.00.
+Warning: Vehicle 't.9' ends teleporting on edge '-E0', time=1144.00.
+Warning: Vehicle 't.12' teleports beyond arrival edge '-E0', time=1144.00.
