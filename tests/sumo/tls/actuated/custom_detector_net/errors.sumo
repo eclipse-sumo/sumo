@@ -1,9 +1,2 @@
 Error: Unknown inductionLoop 'customLoop2' given as custom detector for actuated tlLogic '0', program '0.
-Error: Unknown inductionLoop 'customLoop2' given as custom detector for actuated tlLogic '0', program '0.
-Error: Unknown inductionLoop 'customLoop1' given as custom detector for actuated tlLogic '0', program '0.
-Error: Unknown inductionLoop 'customLoop1' given as custom detector for actuated tlLogic '0', program '0.
-Warning: At actuated tlLogic '0', actuated phase 6 has no controlling detector.
-Warning: At actuated tlLogic '0', linkIndex 6 has no controlling detector.
-Warning: At actuated tlLogic '0', linkIndex 7 has no controlling detector.
-Warning: At actuated tlLogic '0', linkIndex 14 has no controlling detector.
-Warning: At actuated tlLogic '0', linkIndex 15 has no controlling detector.
+Quitting (on error).
