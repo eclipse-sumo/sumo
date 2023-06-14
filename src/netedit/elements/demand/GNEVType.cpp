@@ -665,6 +665,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
         case SUMO_ATTR_CARRIAGE_GAP:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
@@ -683,9 +684,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
             // force change
             vTypeChangeAttributeForced->forceChange();
             undoList->changeAttribute(vTypeChangeAttributeForced);
-            break;
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            editDistribution(value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1907,50 +1905,6 @@ GNEVType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues
     }
     if (!wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET)) {
         locomotiveLength = defaultValues.locomotiveLength;
-    }
-}
-
-
-void
-GNEVType::editDistribution(const std::string& value, GNEUndoList* undoList) {
-    // begin edit distribution
-    undoList->begin(GUIIcon::ROUTE, TL("edit ") + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
-    // check if distribution exist
-    auto distribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value, false);
-    // check if create new distribution
-    if ((distribution == nullptr) && (value.size() > 0)) {
-        // create distribution
-        distribution = new GNEVTypeDistribution(myNet, value);
-        myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(distribution, true), true);
-    }
-    // change attribute
-    undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, value));
-    // clear empty distributions
-    clearEmptyDistributions();
-    // end edit distribution
-    myNet->getViewNet()->getUndoList()->end();
-}
-
-
-void
-GNEVType::clearEmptyDistributions() {
-    std::vector<GNEDemandElement*> distributionToRemove;
-    // iterate over all distributions and find ocurrence in vTypes
-    for (const auto &distribution : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-        bool remove = true;
-        for (const auto &vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-            if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == distribution->getID()) {
-                // reference found in vType, then don't remove
-                remove = false;
-            }
-        }
-        if (remove) {
-            distributionToRemove.push_back(distribution);
-        }
-    }
-    // now clear distributions
-    for (const auto &vTypeDistribution : distributionToRemove) {
-        myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, false), true);
     }
 }
 
