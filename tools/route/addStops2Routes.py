@@ -56,7 +56,7 @@ def get_options(args=None):
                   help="relative stopping position along the route [0,1] or 'random' (1 indicates the last edge)")
     op.add_option("--probability", type=float, default=1,
                   help="app stop with the given probability ]0, 1]")
-    op.add_option("--parking-areas", dest="parkingareas", default=False,
+    op.add_option("--parking-areas", dest="parkingareas", default=False, type=op.additional_file,
                   help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
     op.add_option("--start-at-stop", dest="startAtStop", action="store_true",
                   default=False, help="shorten route so it starts at stop")
