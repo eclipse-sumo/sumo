@@ -65,14 +65,18 @@ FXIMPLEMENT(GNEOptionsDialog,   FXDialogBox,    GUIDialogOptionsMap,    ARRAYNUM
 std::pair<int, bool>
 GNEOptionsDialog::Options(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont &optionsContainer, const OptionsCont &originalOptionsContainer, const char* titleName) {
     GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, false);
-    return std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
+    auto result = std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
+    delete optionsDialog;
+    return result;
 }
 
 
 std::pair<int, bool>
 GNEOptionsDialog::Run(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont &optionsContainer, const OptionsCont &originalOptionsContainer, const char* titleName) {
     GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, true);
-    return std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
+    auto result = std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
+    delete optionsDialog;
+    return result;
 }
 
 
