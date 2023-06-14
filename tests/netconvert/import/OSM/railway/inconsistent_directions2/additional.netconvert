@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-14 10:59:23 by Eclipse SUMO netconvert Version v1_17_0+0277-c73eb30
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-2513869313" name="S Griebnitzsee" lane="-4469442_0" startPos="384.49" endPos="584.49" friendlyPos="true"/>
+    <busStop id="-2514016658" name="S Potsdam Hauptbahnhof" lane="-28984028#1_0" startPos="0.00" endPos="48.83" friendlyPos="true"/>
+    <busStop id="-318701320" name="S Babelsberg" lane="-28983424#1_0" startPos="0.00" endPos="162.46" friendlyPos="true"/>
+    <busStop id="2513869313" name="S Griebnitzsee" lane="4469442_0" startPos="189.88" endPos="389.88" friendlyPos="true" lines="S7"/>
+    <busStop id="2514016658" name="S Potsdam Hauptbahnhof" lane="28984028#1_0" startPos="0.00" endPos="48.83" friendlyPos="true"/>
+    <busStop id="318701320" name="S Babelsberg" lane="28983424#1_0" startPos="0.00" endPos="162.46" friendlyPos="true" lines="S7"/>
+</additional>

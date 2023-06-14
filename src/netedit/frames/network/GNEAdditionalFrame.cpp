@@ -326,7 +326,7 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(const GNETagProperties& tagP
         myBaseAdditional->addStringListAttribute(SUMO_ATTR_EDGES, myEdgesSelector->getSelectedIDs());
         // check if attribute has at least one edge
         if (myBaseAdditional->getStringListAttribute(SUMO_ATTR_EDGES).empty()) {
-            myAdditionalAttributes->showWarningMessage(TL("List ofe dges cannot be empty"));
+            myAdditionalAttributes->showWarningMessage(TL("List of edges cannot be empty"));
             return false;
         }
     }

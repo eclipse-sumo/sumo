@@ -61,6 +61,7 @@ class GNERouteFrame;
 class GNEStopFrame;
 class GNEVehicleFrame;
 class GNETypeFrame;
+class GNETypeDistributionFrame;
 // data frames
 class GNEGenericDataFrame;
 class GNEEdgeDataFrame;
@@ -161,8 +162,11 @@ public:
     /// @brief get frame for DEMAND_VEHICLE
     GNEVehicleFrame* getVehicleFrame() const;
 
-    /// @brief get frame for DEMAND_VEHICLETYPE
+    /// @brief get frame for DEMAND_TYPE
     GNETypeFrame* getTypeFrame() const;
+
+    /// @brief get frame for DEMAND_TYPEDISTRIBUTION
+    GNETypeDistributionFrame* getTypeDistributionFrame() const;
 
     /// @brief get frame for DEMAND_STOP
     GNEStopFrame* getStopFrame() const;
@@ -352,28 +356,31 @@ protected:
         GNEFrame* getCurrentShownFrame() const;
 
         /// @brief frame for DEMAND_ROUTE
-        GNERouteFrame* routeFrame;
+        GNERouteFrame* routeFrame = nullptr;
 
         /// @brief frame for DEMAND_VEHICLE
-        GNEVehicleFrame* vehicleFrame;
+        GNEVehicleFrame* vehicleFrame = nullptr;
 
-        /// @brief frame for DEMAND_VEHICLETYPE
-        GNETypeFrame* vehicleTypeFrame;
+        /// @brief frame for DEMAND_TYPE
+        GNETypeFrame* typeFrame = nullptr;
+
+        /// @brief frame for DEMAND_TYPEDISTRIBUTION
+        GNETypeDistributionFrame* typeDistributionFrame = nullptr;
 
         /// @brief frame for DEMAND_STOP
-        GNEStopFrame* stopFrame;
+        GNEStopFrame* stopFrame = nullptr;
 
         /// @brief frame for DEMAND_PERSON
-        GNEPersonFrame* personFrame;
+        GNEPersonFrame* personFrame = nullptr;
 
         /// @brief frame for DEMAND_PERSONPLAN
-        GNEPersonPlanFrame* personPlanFrame;
+        GNEPersonPlanFrame* personPlanFrame = nullptr;
 
         /// @brief frame for DEMAND_CONTAINER
-        GNEContainerFrame* containerFrame;
+        GNEContainerFrame* containerFrame = nullptr;
 
         /// @brief frame for DEMAND_CONTAINERPLAN
-        GNEContainerPlanFrame* containerPlanFrame;
+        GNEContainerPlanFrame* containerPlanFrame = nullptr;
     };
 
     /// @brief class for data frames

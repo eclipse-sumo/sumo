@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-05-05 13:10+0000\n"
+"PO-Revision-Date: 2023-06-07 08:30+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -120,9 +120,9 @@ msgid ""
 msgstr "为微观、多模态的交通仿真软件SUMO生成全天的人员行程。"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:113
-#, fuzzy, c-format
+#, c-format
 msgid "Loaded % edges."
-msgstr "已加载 % edges。"
+msgstr "已载入 %路段。"
 
 #: /home/micha/programming/sumo/src/activitygen/city/AGCity.cpp:427
 msgid "No street that allows passenger vehicles found in this city."
@@ -137,9 +137,8 @@ msgid "At least one value lies beyond given time boundaries."
 msgstr "至少有一个值超出了给定的时间界限。"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetFlowLoader.cpp:104
-#, fuzzy
 msgid "At least one line does not contain the correct number of columns."
-msgstr "至少有一行未包含正确的一列数字"
+msgstr "至少有一列包含正确的一行数字(number of columns)。"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
@@ -201,14 +200,12 @@ msgid "Saves emitter positions as pois to FILE"
 msgstr "将发射器位置保存为 pois 并添加至FILE"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:108
-#, fuzzy
 msgid "Saves variable seed sign definitions for sink detectors to FILE"
-msgstr "将下沉检测器的变量种子符号定义保存至 FILE"
+msgstr "将起点探测器(sink detectors)的可变速度标志定义存储于文件中"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:111
-#, fuzzy
 msgid "Saves rerouter definitions for sink detectors to FILE"
-msgstr "将下沉检测器的重发器定义保存到 FILE"
+msgstr "將起点探测器(sink detectors)的改道装置(rerouter)定义存储于文件中"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:114
 msgid ""
@@ -398,7 +395,7 @@ msgstr "计算出的探测器类型："
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:143
 #, c-format
 msgid " % source detectors"
-msgstr " %  源检测器"
+msgstr " % 起点探测器(source detectors)"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:144
 #, c-format
@@ -512,7 +509,7 @@ msgstr "探测器的类型没有定义；与网络结合使用"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:162
 msgid "The emitters have no routes; use in combination with a network"
-msgstr "发射器没有路径；与网络结合使用。"
+msgstr "车辆(emitters)沒有路径； 与路网合并使用"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:193
 msgid "Rechecking loaded flows"
@@ -605,7 +602,7 @@ msgstr "从给定文件中初始化astar ALT-variant的查找表"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:107
 msgid "Save lookup table for astar ALT-variant to the given file"
-msgstr "将astar ALT-variant的查询表保存到给定的文件中。"
+msgstr "將astar ALT-variant路径搜寻法的查找表存储于指定的文件"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:117
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:206
@@ -894,11 +891,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:1399
 msgid "Vehicle '%' was removed though being controlled by TraCI"
-msgstr "车辆'%'被移除，但被TraCI控制。"
+msgstr "'%' 车辆受交通控制界面(TraCI)的控制而被移除"
 
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:1408
 msgid "Person '%' was removed though being controlled by TraCI"
-msgstr "虽然被TraCI控制，但'%'的人被删除了。"
+msgstr "'%' 人员受交通控制界面(TraCI)的控制而被移除"
 
 #: /home/micha/programming/sumo/src/libsumo/MeanData.cpp:83
 msgid "Found % meanData definitions with id '%'."
@@ -930,7 +927,8 @@ msgstr ""
 msgid ""
 "Cannot check for all deadlocks on swapConstraints because the route for "
 "vehicle '%' is not computed yet"
-msgstr "不能检查swapConstraints的所有死锁，因为车辆'%'的路径还没有被计算出来。"
+msgstr "由于车辆 '%' "
+"的路径尚未计算，所以无法检查在swapConstraintsg上所有的交通死结(deadlocks)"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1122
 msgid ""
@@ -990,7 +988,7 @@ msgstr "对vType'%'自动设置紧急减速（emergencyDecel）为%，以匹配�
 
 #: /home/micha/programming/sumo/src/libsumo/VehicleType.cpp:301
 msgid "New value of emergencyDecel (%) is lower than decel (%)"
-msgstr "紧急减速（emergencyDecel） (%)的新值低于减速（decel ）(%)。"
+msgstr "紧急減速度 (%) 的新值低于减速度 (%)"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAAssignments.cpp:190
 msgid "Unknown origin '%'."
@@ -1016,17 +1014,17 @@ msgstr "将完整的距离矩阵写进文件（FILE）"
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:81
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:85
 msgid "Loads O/D-files from FILE(s)"
-msgstr "从文件FILE(s)中加载O/D文件。"
+msgstr "从文件载入交通起始矩阵文件(O/D-files)"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:86
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:90
 msgid "Loads O/D-matrix in Amitran format from FILE(s)"
-msgstr "从FILE(s)加载Amitran格式的O/D矩阵。"
+msgstr "从文件载入以Amitran为格式的交通起始矩阵文件（O/D-files)"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:89
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:93
 msgid "Loads O/D-matrix in tazRelation format from FILE(s)"
-msgstr "从FILE(s)中加载交通分区关系（tazRelation）格式的O/D矩阵。"
+msgstr "从文件载入以分区关系(tazRelation)为格式的交通起始矩阵文件(O/D-files)"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:93
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:97
@@ -1291,7 +1289,7 @@ msgstr "移除没有有效路径的车辆'%'。"
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:447
 #, c-format
 msgid "current edge '%' not found in new route"
-msgstr "在新路径中没有找到当前的路段'%'。"
+msgstr "在新路径中没有找到当前的路段'%'"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:460
 msgid "Vehicle is on junction-internal edge leading elsewhere"
@@ -1329,9 +1327,8 @@ msgstr "车辆'%'没有有效的路径。%"
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
-msgstr ""
-"车辆'%'在时间=%（路径长度=%）改变路径后，忽略了 抵达路径（arrivalEdge）=%这一"
-"属性。"
+msgstr "车辆 '%' 忽略属性抵达路段(arrivalEdge)= % 其发生在时间=% "
+"的重新引导路径后（路段长度(routeLength)=%）"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:813
 msgid "Vehicle '%' will not be able to arrive at the given position!"
@@ -1433,7 +1430,7 @@ msgstr "在倾倒时也要完全写空路段"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:124
 msgid "Write positions and speeds with the given precision (default 2)"
-msgstr "以给定的精度写入位置和速度（默认为2）。"
+msgstr "根据给定的精确度数，写出位置及速度(预设值为2)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:128
 msgid "Save the emission values of each vehicle"
@@ -1499,7 +1496,7 @@ msgstr "使用地理坐标（lon/lat）保存浮动车数据"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:165
 msgid "Add the vehicle signal state to the FCD output (brake lights etc.)"
-msgstr "将车辆信号状态添加到FCD输出（刹车灯等）。"
+msgstr "將车辆信号状态加入到浮动车(FCD)输出文件內（刹车灯等）"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:167
 msgid "Add kilometrage to the FCD output (linear referencing)"
@@ -1770,7 +1767,8 @@ msgstr "定义了以秒为单位的步长"
 msgid ""
 "Whether to use ballistic method for the positional update of vehicles "
 "(default is a semi-implicit Euler method)."
-msgstr "是否使用弹道法进行车辆的位置更新（默认是半隐式欧拉法）"
+msgstr "是否使用弹道法进行车辆的位置更新（默认是半隐式欧拉法 (semi-implicit Euler "
+"method)）。"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:355
 msgid ""
@@ -2415,7 +2413,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:945
 #, c-format
 msgid "Unknown model '%' for option 'carfollow.model'."
-msgstr "选项 \"carfollow.model \"的未知模型'%'"
+msgstr "选项 '跟车模式(carfollow.model)' 的模式 '%' 未知。"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:954
 #, c-format
@@ -2564,7 +2562,7 @@ msgstr "一个网络已经建成。"
 msgid ""
 "Option weights.separate-turns is only supported when simulating with "
 "internal lanes"
-msgstr "选项weights.separate-turns仅在使用内部车道进行仿真时被支持。"
+msgstr "仅在使用內部车道进行仿真时,才可以使用选项 weights.separate-turns"
 
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:388
 msgid "Simulation version % started with time: %."
@@ -2680,7 +2678,7 @@ msgstr "车辆'%'没有路径。"
 msgid ""
 "Could not merge vehicle stops for vehicle '%' into implicitly defined route "
 "'%'"
-msgstr "无法将车辆'%'的车辆停靠点合并到隐式定义的路径%'中。"
+msgstr "无法将车辆 '%' 的车辆停靠点合并到隐式定义的路径中 '%'"
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:755
 #: /home/micha/programming/sumo/src/microsim/transportables/MSTransportable.cpp:327
@@ -2725,7 +2723,7 @@ msgstr "无效的停靠定义%。"
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1305
 msgid "Stop edge '%' missing in attribute 'via' for % '%'"
-msgstr "在属性'via'中缺少'%'的停靠路段，为%的'%'的属性。"
+msgstr "在属性'via'中缺少'%'的停靠点路段，其是针对% '%'"
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1324
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1198
@@ -2772,7 +2770,7 @@ msgstr "为人'%'没有步行的路段。"
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
-msgstr "解释departPosLat时，找不到人走的出发车道'%'。"
+msgstr "在解释出发侧向位置(departPosLat)时,找不到人员'%' 步行的出发巷道"
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1600
 msgid "Could not read tranship speed for container '%'."
@@ -2792,7 +2790,8 @@ msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
 msgstr ""
-"货箱'%'的转运（tranship）不一致，只允许一个选项： '路段', '到', '货箱停靠'。"
+"货柜 '%' 的转运(tranship)不一致，只允许一个选项：'路段(edges)', '到(to)', "
+"'货柜停靠点(containerStop)'"
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1659
 msgid "No edges to tranship container '%'."
@@ -2823,7 +2822,7 @@ msgstr "未知车道'%'处于加载状态。"
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:389
 #, c-format
 msgid "Ignoring program '%' for traffic light '%' in loaded state"
-msgstr "忽略交通信号灯'%'在加载状态下的程序'%'。"
+msgstr "忽略载入状态(state)內的配时方案 '%'; 交通信号为'%'"
 
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:424
 msgid "Could not load vehicle control state"
@@ -2836,7 +2835,7 @@ msgstr "删除了加载状态时的%车辆。"
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:459
 #, c-format
 msgid "Could not load vehicle '%' from state"
-msgstr "无法从状态中加载车辆'%'。"
+msgstr "无法从状态载入车辆 '%'"
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:319
 msgid "No gap control available for meso."
@@ -2944,7 +2943,7 @@ msgstr ""
 msgid ""
 "The number of lanes needs to be specified in the attributes of carFollowing-"
 "CC with the \"lanesCount\" attribute"
-msgstr "车道的数量需要在carFollowing-CC的属性中用 \"lanesCount \"属性指定。"
+msgstr "在 carFollowing-CC 的属性中, 需要指定属性 \"lanesCount\" 的车道数"
 
 #: /home/micha/programming/sumo/src/microsim/cfmodels/MSCFModel_Daniel1.cpp:61
 msgid ""
@@ -2954,7 +2953,7 @@ msgstr "车辆的最大速度'%'低于最小速度（最小：%，最大：%）�
 
 #: /home/micha/programming/sumo/src/microsim/cfmodels/MSCFModel_Krauss.cpp:58
 msgid "Rounding 'sigmaStep' to % for vType '%'"
-msgstr "将'sigmaStep'四舍五入到%，用于vType'%'。"
+msgstr "将车辆类型(vType)的参数 'sigmaStep' 四舍五入为 %; 车辆类型为 '%'"
 
 #: /home/micha/programming/sumo/src/microsim/cfmodels/MSCFModel_Rail.cpp:50
 msgid "Unknown train type: %. Exiting!"
@@ -3044,7 +3043,7 @@ msgstr "设置其他司机对蓝光和警笛声的反应距离"
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:68
 msgid ""
 "bluelight device is not compatible with mesosim (ignored for vehicle '%')"
-msgstr "蓝光设备与mesosim不兼容（对于车辆'%'，忽略不计）。"
+msgstr "蓝光(bluelight)装置与中观模拟(mesosim)不兼容 （被车辆 '%' 忽略）"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:66
 msgid "Initial value assigned to the driver's awareness."
@@ -3103,7 +3102,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:102
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:116
 msgid "Invalid value '%'for vType parameter '%'"
-msgstr "vType参数'%'的无效值'%'。"
+msgstr "无效的值 '%'; 车辆类型(vType)参数为 '%'"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:166
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:179
@@ -3154,7 +3153,7 @@ msgstr "车辆参数'示范（example）'的数值'%'无效"
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Example.cpp:75
 #, c-format
 msgid "Invalid value '%'for vType parameter 'example'"
-msgstr "vType参数'示范（example）'的无效值'%'。"
+msgstr "车辆类型(vType参数 '范例(example)' 的值 '%' 无效"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:67
 msgid "Recording begin time for FCD-data"
@@ -3239,7 +3238,7 @@ msgstr "使用区域（地区）作为路径的起点和终点"
 msgid ""
 "Use weight files given with option --weight-files for initializing edge "
 "weights"
-msgstr "使用选项--weight-files指定权重文件，以进行路段权重的初始化。"
+msgstr "使用选项--weight-files 指定权重文件，以进行路段权重的初始化"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:82
 msgid "The number of parallel execution threads used for rerouting"
@@ -3534,7 +3533,7 @@ msgstr "将调度算法的信息写到文档中"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:88
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
-msgstr "以KEY1:VALUE1[,KEY2:VALUE]的格式载入调度算法参数。"
+msgstr "以 KEY1:VALUE1[,KEY2:VALUE] 的格式载入调度演算法的参数"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:91
 msgid "The period between successive calls to the dispatcher"
@@ -3566,11 +3565,11 @@ msgstr "调度算法'%'不详"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:313
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
-msgstr "现有客戶  '%' 新预约的重新派送(re-dispatch)无效"
+msgstr "现有客戶   '%' 新预约的重新派送(re-dispatch)无效"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:346
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
-msgstr "重新派送时没有提及接取现有客户'%'。"
+msgstr "重新派送未提及接取现有客户'%'"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:453
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
@@ -3747,7 +3746,7 @@ msgstr "未知的ToC状态(ToCState)'%'"
 msgid ""
 "Mixing reservations of persons and containers with the same group is not "
 "supported for % and %"
-msgstr "不支持%和%的同一群组的人员和货箱混合预约。"
+msgstr "不支持 % 和 % 的同一群组的人员和货柜混合预约"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDispatch.cpp:200
 msgid "Inconsistent group reservations."
@@ -3764,7 +3763,7 @@ msgstr "空载的出租车'%'没有下一个区段要停。 时间=%。"
 #: /home/micha/programming/sumo/src/microsim/devices/MSIdling.cpp:102
 #, c-format
 msgid "Idle taxi '%' could not stop within %m"
-msgstr "空载的出租车'%'无法在%米（m）内停下。"
+msgstr "空载的出租车'%'无法在%米（m）内停下"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSIdling.cpp:155
 #, c-format
@@ -3783,9 +3782,8 @@ msgstr "权重。优先因子（weights.priority-factor）不能是负数。"
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority"
-msgstr ""
-"选项权重。优先因子（weights.priority-factor）不生效，因为所有路段都有相同的优"
-"先级。"
+msgstr "选项权重。优先因子（weights.priority-"
+"factor）不生效，因为所有路段都有相同的优先级"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSRoutingEngine.cpp:411
 msgid "Unknown routing algorithm '%'!"
@@ -3797,7 +3795,7 @@ msgstr "该人应改道的期间"
 
 #: /home/micha/programming/sumo/src/microsim/engine/VehicleEngineHandler.cpp:157
 msgid "Invalid engine map type. Only \"poly\" is supported for now"
-msgstr "无效的引擎地图类型。目前只支持 \"poly\"。"
+msgstr "无效的引擎地图类型。目前只支持 \"poly\""
 
 #: /home/micha/programming/sumo/src/microsim/engine/VehicleEngineHandler.cpp:197
 msgid "Unknown tag '%' while parsing."
@@ -3811,7 +3809,7 @@ msgstr "车道变化模式'%'与子车道(sublane)模拟不兼容"
 #: /home/micha/programming/sumo/src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:98
 #, c-format
 msgid "Lane change model '%' not implemented"
-msgstr "未实施车道变更模式'%'。"
+msgstr "车道变换模式 '%' 尚未构建"
 
 #: /home/micha/programming/sumo/src/microsim/output/MSE2Collector.cpp:124
 msgid ""
@@ -3963,7 +3961,7 @@ msgstr "在铁路信号（RailSignal）%（边缘%，长度%）处找到圆形�
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSRailSignalConstraint.cpp:147
 #, c-format
 msgid "Unknown tracker lane '%' in loaded state."
-msgstr "在载入状态内，未知的追踪车道(tracker lane)'%'"
+msgstr "在载入的状态內,未知的追踪车道(tracker lane) '%'。"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
@@ -3976,7 +3974,7 @@ msgstr "无法辨识的交通流量阈值计算模式"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:57
 msgid "NO VALID POLICY LIST READ"
-msgstr "未读到有效的政策清单。"
+msgstr "未读到有效的政策清单"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:81
 msgid "VEHICLE TYPES WEIGHT only works with phase policy, which is missing"
@@ -3987,16 +3985,14 @@ msgstr "车辆类型权重（VEHICLE TYPES WEIGHT）仅适用于相位策略，�
 msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneInputLanes: lane "
 "% not allowed"
-msgstr ""
-"MSSwarmTrafficLightLogic::init 路口  % pheromoneInputLanes: 车道 % 不被允许"
+msgstr "MSSwarmTrafficLightLogic::init 路口    % pheromoneInputLanes: 车道 % 不被允许"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:182
 #, c-format
 msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneOutputLanes lane "
 "% not allowed"
-msgstr ""
-"MSSwarmTrafficLightLogic::init 路口  % pheromoneOutputLanes 车道 % 不被允许"
+msgstr "MSSwarmTrafficLightLogic::init 路口    % pheromoneOutputLanes 车道 % 不被允许"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
@@ -4234,7 +4230,7 @@ msgstr "为可变速标志(vss) '%' 设定了两次时间% ; 替换第一个登�
 msgid ""
 "Overhead circuit solver requested, but solver support (Eigen) not compiled "
 "in."
-msgstr "已请求架空线路解算器(solver)，但解算器的支持(Eigen) 尚未编译"
+msgstr "已请求架空线路解算器(solver)，但解算器的支持(Eigen) 尚未编译。"
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSOverheadWire.cpp:579
 msgid "Overhead circuit solver requested, but solver support not compiled in."
@@ -4536,13 +4532,13 @@ msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "connections with directions '%' but target edge '%' has only % suitable lanes"
 msgstr "无法在路段'%'上应用转弯标志信息，因为有具有%方向的'%'连接线，但目标路段'%'只"
-"有%的合适车道。"
+"有%的合适车道"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2716
 msgid ""
 "Cannot apply turn sign information for edge '%' because not enough target "
 "lanes could be determined for direction '%'"
-msgstr "无法在路段\"%\"应用转弯标志信息，因为无法为方向\"%\"确定有足够的目标车道。"
+msgstr "无法在路段\"%\"应用转弯标志信息，因为无法为方向\"%\"确定有足够的目标车道"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2955
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
@@ -4677,7 +4673,7 @@ msgstr "路段'%'与路段'%'重叠在%。"
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1755
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
-msgstr "路段 '%' 有一个% 米的垂直跳位(jump)"
+msgstr "路段 '%' 有一个% 米的垂直跳位(jump)。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1757
 #, c-format
@@ -4687,7 +4683,7 @@ msgstr "路段 '%' 的坡度(grade)为%%。"
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1767
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
-msgstr "连接线(connection) '%' 有一个 % 米的垂直跳位(jump)"
+msgstr "连接线(connection) '%' 有一个 % 米的垂直跳位(jump)。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1769
 #, c-format
@@ -4707,14 +4703,14 @@ msgstr "车道'%'的电车路段'%'和'%'模糊不清。"
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
-msgstr "路段的 '%' 从节点(from-node)'%' 未知"
+msgstr "路段的 '%' 从节点(from-node)'%' 未知。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:2041
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:142
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:566
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
-msgstr "路段的 '%' 到节点(to-node)'%' 未知"
+msgstr "路段的 '%' 到节点(to-node)'%' 未知。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
@@ -4960,7 +4956,7 @@ msgstr "允许双向火车在与相反方向行驶的火车以直角相遇的任
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:235
 msgid "Add turn-around connections at all loaded stops."
-msgstr "在所有载入的停靠点增加回转的连接线(turn-around connections)"
+msgstr "在所有载入的停靠点增加回转的连接线(turn-around connections)。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:238
 msgid "Make all rails usable in both direction"
@@ -5124,7 +5120,7 @@ msgid ""
 msgstr ""
 "只保留文件中的路段（每个识别名（ID）在每个单一的列上，也支持来自sumo-"
 "gui的选择文件(Selection files)）或由于其他保留路段（keep-edges）或删除路段"
-"（remove-edges）选项而被保留的路段。"
+"（remove-edges）选项而被保留的路段"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:619
 msgid ""
@@ -5430,7 +5426,7 @@ msgstr "正在合并轻轨电车(tram)路段"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:190
 msgid " Joined % tram edges into roads."
-msgstr " % 轻轨电车(tram)路段合并于道路內"
+msgstr " % 轻轨电车(tram)路段合并于道路內。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:228
 msgid "Joining junction clusters"
@@ -5779,7 +5775,7 @@ msgstr "忽略合并群集(join-cluster) '%' ,因为它的大小为 '%'。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:722
 msgid "unknown junction '%' while joining."
-msgstr "当合并时,未知的路口 '%'"
+msgstr "当合并时,未知的路口 '%'。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:780
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:821
@@ -5787,7 +5783,7 @@ msgstr "当合并时,未知的路口 '%'"
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:833
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:840
 msgid "Not joining junctions % (%)."
-msgstr "沒有合并的路口"
+msgstr "沒有合并的路口% (%)。"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:800
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:814
@@ -6783,7 +6779,7 @@ msgstr "无法建立路段 '%'。 已存在具有相同识别名(id)的路段。
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:368
 msgid "Could not create edge '-%'. An edge with the same id already exists."
-msgstr "无法建立路段  '-%'。 已存在具有相同识别名(id)的路段。"
+msgstr "无法建立路段    '-%'。 已存在具有相同识别名(id)的路段。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:382
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:331
@@ -6934,7 +6930,7 @@ msgstr "忽略无效车道索引 '%', 其与起始路段(from edge) '%' (有 % �
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:816
 msgid "Ignoring invalid lane index '%' in connection to edge '%' with % lanes"
-msgstr "忽略无效车道索引 '%', 其与结束路段(to edge) '%' (有 % 车道) 连接。"
+msgstr "忽略无效车道索引 '%', 其与结束路段(to edge) '%' (有 % 车道) 连接"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:821
 msgid "Could not set loaded connection from '%' to '%'."
@@ -6971,11 +6967,11 @@ msgstr "节点 '%' 內缺少数据。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:260
 msgid "Missing node in laneset '%'."
-msgstr "车道集合(laneset) '%' 內缺少节点"
+msgstr "车道集合(laneset) '%' 內缺少节点。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:263
 msgid "Fond laneset-id '%' twice."
-msgstr "已发现两次车道集合识别名(laneset-id) '%'"
+msgstr "已发现两次车道集合识别名(laneset-id) '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:277
 msgid "Not numeric value in laneset '%'."
@@ -7485,7 +7481,7 @@ msgstr "交通信号逻辑(tl-logic) '%' 的定义未完成。"
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:941
 #: /home/micha/programming/sumo/src/netimport/NIXMLTrafficLightsHandler.cpp:127
 msgid "Unknown traffic light type '%' for tlLogic '%'."
-msgstr "未知的交通信号类型  '%' ;发生在信号逻辑(tl-logic) '%'。"
+msgstr "未知的交通信号类型    '%' ;发生在信号逻辑(tl-logic) '%'。"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:955
 msgid "found phase without tl-logic"
@@ -10040,7 +10036,7 @@ msgstr "无效列"
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:332
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:790
 msgid "Open decal"
-msgstr "开启贴印(decal)。"
+msgstr "开启贴印(decal)"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:337
 msgid "All files (*)"
@@ -10632,64 +10628,69 @@ msgstr "电路电压源 '%' 连接到少于两个节点, 请调整区段定义(�
 msgid ""
 "Circuit Element '%' is connected to less than two nodes, please adjust the "
 "definition of the section (with substation '%')."
-msgstr ""
+msgstr "电路元素 '%' 连接到少于两个节点, 请调整区段定义(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:942
 msgid ""
 "Circuit Node with id '-1' is not the grounded, please adjust the definition "
 "of the section (with substation '%')."
-msgstr ""
+msgstr "带有识别名(id) '-1' 的电路节点未连接到地面, 请调整区段定义(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:966
 msgid ""
 "A Circuit Resistor Element connects the ground, please adjust the definition "
 "of the section (with substation '%')."
-msgstr ""
+msgstr "电路电阻元素(Circuit Resistor Element)连接地面, 请调整区段定义(具有分站 "
+"'%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:975
 msgid ""
 "Circuit Node or Voltage Source with internal id '%' has been not visited "
 "during checking of the circuit. The circuit is disconnected, please adjust "
 "the definition of the section (with substation '%')."
-msgstr ""
+msgstr "在电路检查期间,未访问到內部识别名(id)为 '%' "
+"的电路节点或电压源。电路已切断，请调整区段(section)定义(具有分站 '%')。"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Element.cpp:53
 msgid "Undefined element type for '%'."
-msgstr ""
+msgstr "'%' 有未定义的元素类型。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteHandler.cpp:63
 msgid "Route file should be sorted by departure time, ignoring '%'!"
-msgstr ""
+msgstr "路径文件应按出发时间排序, 忽略 '%'!"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:653
 msgid "Invalid % % given for %. Using edge end instead."
-msgstr ""
+msgstr "无效的 % %给定给 %。 改用路段末端。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:703
 msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
 "boolean"
 msgstr ""
+"停靠属性 'trigger' 的值必须是 '人员(person)', '货柜(container)', "
+"'合并(join)'或一个布林值(boolean)"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:268
 msgid "Undefined end for % '%', defaulting to 24hour duration."
-msgstr ""
+msgstr "% '%' 的结束未定义, 预设为 24 小時持续时间。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:402
 msgid "Invalid % id '%'."
-msgstr ""
+msgstr "无效的 % 的识别名(id) '%'。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:404
 msgid "Invalid % id '%'. Contains invalid characters."
-msgstr ""
+msgstr "无效的 % 的识别名(id) '%'。 含有无效字元。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:947
 msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
-msgstr ""
+msgstr "车道变换模式 'JE2013'已经不适用。 改为使用预设模式。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1139
 msgid "maneuverAngleTimes format for vType '%' % contains an invalid triplet."
-msgstr ""
+msgstr "车辆类型(vType) '%' % 的 maneuverAngleTimes "
+"格式含有一个无效的三个二进制元素位元组(Triplet)。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1148
 #, c-format
@@ -10697,120 +10698,122 @@ msgid ""
 "Triplet '%' for vType '%' maneuverAngleTimes cannot be parsed as 'int double "
 "double'"
 msgstr ""
+"maneuverAngleTimes 的三个二进制元素位元组(Triplet) '%' (车辆类型(vType)为%')"
+"无法解析为 'int double double'"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1174
 msgid "Unknown car-following model % when parsing vType '%'"
-msgstr ""
+msgstr "未知的跟车模式 % 出现于解析 vType '%' 的时候"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1176
 msgid "Unknown car-following model when parsing vType '%'"
-msgstr ""
+msgstr "当解析 vType '%' 时, 未知的跟车模式"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1209
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1225
 msgid "Invalid Car-Following-Model Attribute %. Cannot be parsed to float"
-msgstr ""
+msgstr "无效的跟 车模式属性 %。 无法解析为浮点数"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1213
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1236
 msgid "Invalid Car-Following-Model Attribute %. Must be greater than 0"
-msgstr ""
+msgstr "无效的跟车模式属性 %。必须大于 0"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1247
 msgid ""
 "Invalid Car-Following-Model Attribute %. Only values between [0-1] are "
 "allowed"
-msgstr ""
+msgstr "无效的跟车模式属性 %。 只允许 [0-1] 之间的值"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1506
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
-msgstr ""
+msgstr "无效的车道变换模式属性 %。 无法解析为浮点数"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1523
 msgid "Invalid Lane-Change-Model Attribute %. Must be equal or greater than 0"
-msgstr ""
+msgstr "无效的车道变换模式属性 %。必须等于或是大于 0"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1534
 msgid "Invalid Lane-Change-Model Attribute %. Must be greater than 0"
-msgstr ""
+msgstr "无效的车道变换模式属性 %。 必须大于 0"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1545
 msgid "Invalid Lane-Change-Model Attribute %. Must be between -1 and 1"
-msgstr ""
+msgstr "无效的车道变换模式属性 %。 必须在 -1与 1 之间"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1591
 msgid "Invalid Junction-Model Attribute %. Cannot be parsed to float"
-msgstr ""
+msgstr "无效的路口模式属性 %。 无法解析为浮点数"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1600
 msgid ""
 "Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"
-msgstr ""
+msgstr "无效的路口模式属性 %。 只允许 [0-1] 之间的值"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1606
 msgid "Invalid Junction-Model Attribute %. Must be equal or greater than 0"
-msgstr ""
+msgstr "无效的路口模式属性 %。 必须等于或大于 0"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1636
 msgid "The vehicle class '%' for % '%' is not known."
-msgstr ""
+msgstr "% '%' 的车辆类别(vehicle class)未知。"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1654
 msgid "The shape '%' for % '%' is not known."
-msgstr ""
+msgstr "% '%' 的形状(shape)未知。"
 
 #: /home/micha/programming/sumo/src/utils/xml/CommonXMLStructure.cpp:271
 msgid "Undefined vehicleType parameter"
-msgstr ""
+msgstr "未定义的车辆类型(vehicleType)参数"
 
 #: /home/micha/programming/sumo/src/utils/xml/CommonXMLStructure.cpp:281
 msgid "Undefined vehicle parameter"
-msgstr ""
+msgstr "未定义的车辆参数"
 
 #: /home/micha/programming/sumo/src/utils/xml/CommonXMLStructure.cpp:291
 msgid "Undefined stop parameter"
-msgstr ""
+msgstr "未定义的停靠点参数(stop parameter)"
 
 #: /home/micha/programming/sumo/src/utils/xml/CommonXMLStructure.cpp:513
 msgid "Trying to get undefined % attribute '%' in SUMOBaseObject '%'"
-msgstr ""
+msgstr "尝试在 SUMOBaseObject '%' 中得到未定义的 % 属性 '%'"
 
 #: /home/micha/programming/sumo/src/utils/xml/GenericHandler.cpp:83
 #: /home/micha/programming/sumo/src/utils/xml/GenericSAXHandler.cpp:105
 msgid "Found root element '%' in file '%' (expected '%')."
-msgstr ""
+msgstr "在文件'%' （应为 '%'）中找到根元件(root element) '%'。"
 
 #: /home/micha/programming/sumo/src/utils/xml/GenericSAXHandler.cpp:209
 msgid " In file '"
-msgstr ""
+msgstr " 在文件 '"
 
 #: /home/micha/programming/sumo/src/utils/xml/GenericSAXHandler.cpp:210
 msgid " At line/column "
-msgstr ""
+msgstr " 在列/行(line/column) "
 
 #: /home/micha/programming/sumo/src/utils/xml/SAXWeightsHandler.cpp:145
 msgid "Missing value '%' in edge '%'."
-msgstr ""
+msgstr "路段 '%' 中缺少值 '%' 。"
 
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:110
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:136
 msgid "Cannot read file '%'!"
-msgstr ""
+msgstr "无法读取文件 '%'!"
 
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:113
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:139
 #, c-format
 msgid "File '%' is a directory!"
-msgstr ""
+msgstr "文件 '%' 是一个资料夹!"
 
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:156
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:165
 msgid "The XML-parser was not initialized."
-msgstr ""
+msgstr "XML解析器(parser)无法初始化。"
 
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:191
 msgid "The XML-parser could not be build."
-msgstr ""
+msgstr "无法建立XML解析器(parser)。"
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:92
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:98
@@ -10819,40 +10822,45 @@ msgid ""
 "Environment variable SUMO_HOME is not set properly, disabling XML "
 "validation. Set 'auto' or 'always' for web lookups."
 msgstr ""
+"环境参数 SUMO_HOME 设置不正确，禁用了 XML "
+"验证。设定'自动(auto)'或'一直(always)'进行在网路上查找(web lookups)。"
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:111
 msgid ""
 "Environment variable SUMO_HOME is not set properly, XML validation will fail "
 "or use slow website lookups."
-msgstr ""
+msgstr "环境参数 SUMO_HOME 设置不正确，XML 验证将失败或是使用慢速网站查找(website "
+"lookups)。"
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:120
 msgid "Cannot read local schema '%'."
-msgstr ""
+msgstr "无法读取局部纲目(local schema) '%'。"
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:167
 msgid ""
 "Disabling XML validation for external file '%'. Use 'auto' or 'always' to "
 "enable."
-msgstr ""
+msgstr "对外部文件'%'禁用 XML 验证。使用'自动(auto)'或'一直(always)'启用 XML 验证。"
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:189
 msgid "Runtime error: % while parsing '%'"
-msgstr ""
+msgstr "执行期错误: % 发生于解析 '%' 时"
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:191
 msgid "Error occurred: % while parsing '%'"
-msgstr ""
+msgstr "发生错误: % 发生于解析 '%' 时"
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:193
 msgid ""
 "SAX error occured while parsing '%':\n"
 " %"
 msgstr ""
+"SAX 错误发生于解析 '%' 时:\n"
+" %"
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:195
 msgid "Unspecified error occurred wile parsing '%'"
-msgstr ""
+msgstr "当解析'%'时,发生未指定的错误"
 
 #~ msgid "Driver State Device"
 #~ msgstr "驾驶者状态装置"

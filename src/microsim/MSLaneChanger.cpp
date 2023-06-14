@@ -553,21 +553,34 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
             //if (vehicle->getID() == "flow.21") std::cout << SIMTIME << " neighLead=" << Named::getIDSecure(neighLead) << " (422)\n";
         }
     }
-    if (neighLead == nullptr) {
+    // extra check for shared lane
+    const bool checkBidi = target->lane->getBidiLane() != nullptr && target->lane->getBidiLane()->getVehicleNumberWithPartials() > 0;
+    if (neighLead == nullptr || checkBidi) {
 #ifdef DEBUG_SURROUNDING_VEHICLES
         if (DEBUG_COND) {
             std::cout << "Looking for leader on consecutive lanes." << std::endl;
         }
 #endif
         // There's no leader on the target lane. Look for leaders on consecutive lanes.
-        // (there might also be partial leaders due to continuous lane changing)
+        // (there might also be partial leaders due to continuous lane changing or bidiLane)
         MSLane* targetLane = target->lane;
         const double egoBack = vehicle->getBackPositionOnLane();
         double leaderBack = targetLane->getLength();
+        if (neighLead != nullptr) {
+            leaderBack = neighLead->getBackPositionOnLane(targetLane);
+        }
         for (MSVehicle* pl : targetLane->myPartialVehicles) {
             double plBack = pl->getBackPositionOnLane(targetLane);
-            if (plBack < leaderBack &&
-                    pl->getPositionOnLane(targetLane) + pl->getVehicleType().getMinGap() >= egoBack) {
+            if (pl->isBidiOn(targetLane)) {
+                plBack -= pl->getVehicleType().getLengthWithGap();
+            }
+            const double plPos = plBack + pl->getVehicleType().getLength();
+#ifdef DEBUG_SURROUNDING_VEHICLES
+            if (DEBUG_COND) {
+                std::cout << "   partial=" << pl->getID() << " plBack=" << plBack << " plPos=" << plPos << " leaderBack=" << leaderBack << " egoBack=" << egoBack << "\n";
+            }
+#endif
+            if (plBack < leaderBack && plPos + pl->getVehicleType().getMinGap() >= egoBack) {
                 neighLead = pl;
                 leaderBack = plBack;
             }
@@ -578,7 +591,8 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
                 std::cout << "  found leader=" << neighLead->getID() << " (partial)\n";
             }
 #endif
-            return std::pair<MSVehicle*, double>(neighLead, leaderBack - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap());
+            const double gap = leaderBack - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
+            return std::pair<MSVehicle*, double>(neighLead, gap);
         }
         double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
         double speed = vehicle->getSpeed();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-22 17:16:56 by Eclipse SUMO sumo Version v1_16_0+1570-ec89ba0
+<!-- generated on 2023-05-24 14:19:28 by Eclipse SUMO sumo Version v1_17_0+0455-173a08d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,11 +57,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <stopinfo id="ego.2" type="car" lane="A0A1_0" pos="55.00" parking="1" started="90.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkA0A1"/>
     <stopinfo id="ego.3" type="car" lane="A1A2_0" pos="55.00" parking="1" started="121.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkA1A2"/>
     <stopinfo id="ego.4" type="car" lane="B1B2_0" pos="55.00" parking="1" started="93.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkB1B2"/>
-    <stopinfo id="ego.5" type="car" lane="D2D3_0" pos="55.00" parking="1" started="453.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkD2D3"/>
     <stopinfo id="ego.6" type="car" lane="B2B3_0" pos="55.00" parking="1" started="205.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkB2B3"/>
     <stopinfo id="ego.10" type="car" lane="B0B1_0" pos="55.00" parking="1" started="280.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkB0B1"/>
     <stopinfo id="ego.12" type="car" lane="C0C1_0" pos="55.00" parking="1" started="192.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkC0C1"/>
-    <stopinfo id="ego.17" type="car" lane="D1D2_0" pos="55.00" parking="1" started="725.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkD1D2"/>
-    <stopinfo id="ego.24" type="car" lane="C1C2_0" pos="55.00" parking="1" started="305.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkC1C2"/>
-    <stopinfo id="ego.52" type="car" lane="D0D1_0" pos="55.00" parking="1" started="597.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkD0D1"/>
+    <stopinfo id="ego.24" type="car" lane="C1C2_0" pos="55.00" parking="1" started="304.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkC1C2"/>
+    <stopinfo id="ego.40" type="car" lane="D1D2_0" pos="55.00" parking="1" started="655.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkD1D2"/>
+    <stopinfo id="ego.44" type="car" lane="D2D3_0" pos="55.00" parking="1" started="531.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkD2D3"/>
+    <stopinfo id="ego.61" type="car" lane="D0D1_0" pos="55.00" parking="1" started="616.00" ended="-1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkD0D1"/>
 </stops>

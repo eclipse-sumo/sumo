@@ -87,9 +87,10 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
                                     unsigned int capacity,
                                     double width, double length, double angle, const std::string& name,
                                     bool onRoad,
-                                    const std::string& departPos) {
+                                    const std::string& departPos,
+                                    bool lefthand) {
     assert(myParkingArea == 0);
-    GUIParkingArea* stop = new GUIParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos);
+    GUIParkingArea* stop = new GUIParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos, lefthand);
     if (!net.addStoppingPlace(SUMO_TAG_PARKING_AREA, stop)) {
         delete stop;
         throw InvalidArgument("Could not build parking area '" + id + "'; probably declared twice.");

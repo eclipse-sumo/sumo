@@ -5,8 +5,8 @@
     <vehicle id="ego1" type="1" depart="0" departPos="0" arrivalPos="300" departSpeed="0" color="1,0,0">
         <route edges="WE"/>
         <param key="has.ssm.device" value="true"/>
-        <param key="device.ssm.measures" value="TTC DRAC PET BR SGAP TGAP"/>
-        <param key="device.ssm.thresholds" value="10 0 10 0 100 100"/> 
+        <param key="device.ssm.measures" value="TTC MDRAC DRAC PET BR SGAP TGAP"/>
+        <param key="device.ssm.thresholds" value="10 0 0 10 0 100 100"/> 
         <param key="device.ssm.frequency" value="10" /> 
         <param key="device.ssm.range" value="20" />
         <param key="device.ssm.file" value="ssm.xml" />

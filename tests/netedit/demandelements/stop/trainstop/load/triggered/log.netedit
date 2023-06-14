@@ -1,0 +1,10 @@
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'trainStop'
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.22May154524.174452/netedit.gui/demandelements/stop/trainstop/load/triggered/routes.rou.xml failed.
+Warning: Speed of straight connection 'gneE1_0->gneE0_0' reduced by 10.07 due to turning radius of 2.65 (length=4.67, angle=180.00).
+Warning: Speed of straight connection 'gneE0_0->gneE1_0' reduced by 10.07 due to turning radius of 2.65 (length=4.67, angle=180.00).
+Warning: Speed of straight connection 'gneE1_0->gneE0_0' reduced by 10.07 due to turning radius of 2.65 (length=4.67, angle=180.00).
+Warning: Speed of straight connection 'gneE0_0->gneE1_0' reduced by 10.07 due to turning radius of 2.65 (length=4.67, angle=180.00).

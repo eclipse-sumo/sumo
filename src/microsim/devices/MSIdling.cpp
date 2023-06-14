@@ -24,7 +24,9 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStop.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/transportables/MSTransportable.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 #include <mesosim/MELoop.h>
 #include "MSRoutingEngine.h"
 #include "MSIdling.h"
@@ -166,6 +168,54 @@ MSIdling_RandomCircling::idle(MSDevice_Taxi* taxi) {
         veh.replaceRouteEdges(newEdges, -1, 0, "taxi:idling:randomCircling", false, false, false);
     }
 }
+
+// ===========================================================================
+// MSIdling_TaxiStand methods
+// ===========================================================================
+
+void
+MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
+    MSBaseVehicle& veh = dynamic_cast<MSBaseVehicle&>(taxi->getHolder());
+
+    const MSTriggeredRerouter::RerouteInterval* rerouteDef = myRerouter->getCurrentReroute(SIMSTEP);
+    if (rerouteDef == nullptr || rerouteDef->parkProbs.getVals().size() == 0) {
+        if (!myHaveWarned) {
+            WRITE_WARNINGF(TL("Could not determine taxi stand for vehicle '%' at time=%"), veh.getID(), time2string(SIMSTEP));
+            myHaveWarned = true;
+        }
+        return;
+    }
+    MSStop* lastStop = nullptr;
+    if (veh.hasStops()) {
+        lastStop = &veh.getStop((int)veh.getStops().size() - 1);
+    }
+    if (lastStop == nullptr || lastStop->parkingarea == nullptr) {
+        const MSParkingArea* pa = rerouteDef->parkProbs.getVals().front().first;
+        SUMOVehicleParameter::Stop stop;
+        stop.lane = pa->getLane().getID();
+        stop.startPos = pa->getBeginLanePosition();
+        stop.endPos = pa->getEndLanePosition();
+
+        if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
+            stop.containerTriggered = true;
+        } else {
+            stop.triggered = true;
+        }
+        stop.actType = "idling";
+        stop.parkingarea = pa->getID();
+        stop.parking = ParkingType::OFFROAD;
+        const int nextStopIndex = (int)veh.getStops().size();
+        std::string error;
+        if (!veh.insertStop(nextStopIndex, stop, "taxi:taxistand", false, error)) {
+            WRITE_WARNING("Stop insertion failed for idling taxi '" + veh.getID() + "' (" + error + ").");
+        }
+        //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  driving to parkingArea " << pa->getID() << "\n";
+        veh.activateReminders(MSMoveReminder::NOTIFICATION_PARKING_REROUTE, &pa->getLane());
+    } else {
+        //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  already driving to parkingArea\n";
+    }
+}
+
 
 
 /****************************************************************************/

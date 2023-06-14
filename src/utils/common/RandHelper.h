@@ -29,6 +29,11 @@
 #include <iostream>
 
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class OptionsCont;
 
 // ===========================================================================
 // class definitions
@@ -107,9 +112,10 @@ public:
  * @brief Utility functions for using a global, resetable random number generator
  */
 class RandHelper {
+
 public:
     /// @brief Initialises the given options container with random number options
-    static void insertRandOptions();
+    static void insertRandOptions(OptionsCont& oc);
 
     /// @brief Initialises the random number generator with hardware randomness or seed
     static void initRand(SumoRNG* which = nullptr, const bool random = false, const int seed = 23423);

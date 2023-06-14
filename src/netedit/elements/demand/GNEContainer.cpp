@@ -430,7 +430,27 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw stack label
             if (myStackedLabelNumber > 0) {
-                drawStackLabel("container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
+                drawStackLabel(myStackedLabelNumber, "container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
+            } else if (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_CONTAINERSTOP) {
+                // declare counter for stacked containers over stops
+                int stackedCounter = 0;
+                // get stoppingPlace
+                const auto stoppingPlace = getChildDemandElements().front()->getParentAdditionals().front();
+                // get stacked containers
+                for (const auto &stopContainer : stoppingPlace->getChildDemandElements()) {
+                    if (stopContainer->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_CONTAINERSTOP) {
+                         // get container parent
+                         const auto containerParent = stopContainer->getParentDemandElements().front();
+                         // check if the stop if the first container plan parent
+                         if (stopContainer->getPreviousChildDemandElement(containerParent) == nullptr) {
+                            stackedCounter++;
+                         }
+                    }
+                }
+                // if we have more than two stacked elements, draw label
+                if (stackedCounter > 1) {
+                    drawStackLabel(stackedCounter, "container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
+                }
             }
             // draw flow label
             if (myTagProperty.isFlow()) {

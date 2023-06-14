@@ -143,8 +143,11 @@ public:
                 std::cout << "RailEdge " << getID() << " actual turnaround " << myTurnaround->getID() << "\n";
 #endif
                 myTurnaround->myIsVirtual = false;
+                // ensure at least one virtual turnaround (at the start of the
+                // edge) to avoid driving up to the end of long edges
+                const double initialDist = MAX2(maxTrainLength - getLength(), POSITION_EPS);
                 addVirtualTurns(myOriginal, viaPair.first, railEdges, numericalID,
-                                maxTrainLength - getLength(), getLength(), std::vector<const E*> {myOriginal});
+                                initialDist, getLength(), std::vector<const E*> {myOriginal});
             } else {
                 myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(),
                                           viaPair.second == nullptr ? nullptr : viaPair.second->getRailwayRoutingEdge()));
@@ -181,6 +184,7 @@ public:
         } else {
             double seen = myStartLength;
             int nPushed = 0;
+            //std::cout << "insertOriginalEdges e=" << getID() << " length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
             if (seen >= length && !myIsVirtual) {
                 return;
             }
@@ -189,10 +193,10 @@ public:
                 into.push_back(edge);
                 nPushed++;
                 seen += edge->getLength();
+                //std::cout << "insertOriginalEdges e=" << getID() << " length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
                 if (seen >= length && edge->isConnectedTo(*edge->getBidiEdge(), SVC_IGNORING)) {
                     break;
                 }
-                //std::cout << "insertOriginalEdges length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
             }
             const int last = (int)into.size() - 1;
             for (int i = 0; i < nPushed; i++) {

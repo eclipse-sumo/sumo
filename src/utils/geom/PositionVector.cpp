@@ -1888,7 +1888,7 @@ PositionVector::bezier(int numPoints) {
         }
         t += step;
         Position current(x, y, z);
-        if (prev != current && !ISNAN(x) && !ISNAN(y) && !ISNAN(z)) {
+        if (prev != current && !std::isnan(x) && !std::isnan(y) && !std::isnan(z)) {
             ret.push_back(current);
         }
         prev = current;

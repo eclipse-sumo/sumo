@@ -23,13 +23,6 @@
 
 #include <string>
 #include <fstream>
-#include "NBFrame.h"
-#include "NBNodeCont.h"
-#include "NBEdgeCont.h"
-#include "NBTrafficLightLogicCont.h"
-#include "NBDistrictCont.h"
-#include "NBRequest.h"
-#include "NBTypeCont.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -39,13 +32,20 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
+#include "NBFrame.h"
+#include "NBNodeCont.h"
+#include "NBEdgeCont.h"
+#include "NBTrafficLightLogicCont.h"
+#include "NBDistrictCont.h"
+#include "NBRequest.h"
+#include "NBTypeCont.h"
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 void
-NBFrame::fillOptions(bool forNetgen) {
-    OptionsCont& oc = OptionsCont::getOptions();
+NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     // register building defaults
     oc.doRegister("default.lanenumber", 'L', new Option_Integer(1));
     oc.addSynonyme("default.lanenumber", "lanenumber", true);
@@ -238,6 +238,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("railway.topology.repair.stop-turn", new Option_Bool(false));
         oc.addDescription("railway.topology.repair.stop-turn", "Railway", TL("Add turn-around connections at all loaded stops."));
 
+        oc.doRegister("railway.topology.repair.bidi-penalty", new Option_Float(1.2));
+        oc.addDescription("railway.topology.repair.bidi-penalty", "Railway", TL("Penalty factor for adding new bidi edges to connect public transport stops"));
+
         oc.doRegister("railway.topology.all-bidi", new Option_Bool(false));
         oc.addDescription("railway.topology.all-bidi", "Railway", TL("Make all rails usable in both direction"));
 
@@ -249,6 +252,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("railway.topology.extend-priority", new Option_Bool(false));
         oc.addDescription("railway.topology.extend-priority", "Railway", TL("Extend loaded edge priority values based on estimated main direction"));
+
+        oc.doRegister("railway.signal.guess.by-stops", new Option_Bool(false));
+        oc.addDescription("railway.signal.guess.by-stops", "Railway", TL("Guess signals that guard public transport stops"));
 
         oc.doRegister("railway.access-distance", new Option_Float(150.f));
         oc.addDescription("railway.access-distance", "Railway", TL("The search radius for finding suitable road accesses for rail stops"));
@@ -385,7 +391,6 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.limit-turn-speed.warn.turn", "Junctions",
                       "Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT");
 
-
     oc.doRegister("junctions.small-radius", new Option_Float(1.5));
     oc.addDescription("junctions.small-radius", "Junctions",
                       "Default radius for junctions that do not require wide vehicle turns");
@@ -393,6 +398,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("junctions.higher-speed", new Option_Bool(false));
     oc.addDescription("junctions.higher-speed", "Junctions",
                       "Use maximum value of incoming and outgoing edge speed on junction instead of average");
+
+    oc.doRegister("junctions.minimal-shape", new Option_Bool(false));
+    oc.addDescription("junctions.minimal-shape", "Junctions",
+                      "Build junctions with minimal shapes (igoring edge overlap)");
 
     oc.doRegister("internal-junctions.vehicle-width", new Option_Float(1.8));
     oc.addDescription("internal-junctions.vehicle-width", "Junctions",
@@ -709,8 +718,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
 
 bool
-NBFrame::checkOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
+NBFrame::checkOptions(OptionsCont& oc) {
     bool ok = true;
     //
     if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(oc.getString("tls.default-type"))) {
@@ -796,6 +804,5 @@ NBFrame::checkOptions() {
     }
     return ok;
 }
-
 
 /****************************************************************************/

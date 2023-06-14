@@ -67,10 +67,10 @@ def readLines(lines):
                 int(flowDef[1]), int(flowDef[2]), float(flowDef[3]), float(flowDef[4]))
 
 
-parser = sumolib.options.ArgumentParser(usage="usage: %prog [options] [flow.txt|flows.zip]+")
+parser = sumolib.options.ArgumentParser(usage="usage: %(prog)s [options] [flow.txt|flows.zip]+")
 parser.add_option("-d", "--det-file", dest="detfile", category="input", type=parser.file,
                   help="read detectors of interest from FILE", metavar="FILE")
-parser.add_option("flow-files", dest="flowFiles", category="input", nargs="+", type=parser.file,
+parser.add_option("flowFiles", category="input", nargs="+", type=parser.file,
                   help="one or more flow input files", metavar="FILE")
 options = parser.parse_args()
 

@@ -44,7 +44,9 @@ def get_args(args=None):
 
 
 def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, py_pot_file, fuzzy):
-    pots = {pot_file: open(pot_file + ".txt", "w"), gui_pot_file: open(gui_pot_file + ".txt", "w"), py_pot_file: open(py_pot_file + ".txt", "w")}
+    pots = {pot_file: open(pot_file + ".txt", "w"),
+            gui_pot_file: open(gui_pot_file + ".txt", "w"),
+            py_pot_file: open(py_pot_file + ".txt", "w")}
     for f in sorted(glob(sumo_home + "/src/*.cpp") +
                     glob(sumo_home + "/src/*/*.cpp") +
                     glob(sumo_home + "/src/*/*/*.cpp") +
@@ -52,7 +54,7 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, py_pot_file,
                     glob(sumo_home + "/src/*.h") +
                     glob(sumo_home + "/src/*/*.h") +
                     glob(sumo_home + "/src/*/*/*.h") +
-                    glob(sumo_home + "/src/*/*/*/*.h") + 
+                    glob(sumo_home + "/src/*/*/*/*.h") +
                     glob(sumo_home + "/tools/game/*.py")):
         if f[-3:] == ".py":
             print(f, file=pots[py_pot_file])
@@ -63,8 +65,8 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, py_pot_file,
     for pot, sources in pots.items():
         sources.close()
         arguments = [path + "xgettext", "--files-from=" + sources.name, "--from-code=UTF-8",
-                               "--keyword=TL", "--keyword=TLC:1c,2", "--keyword=TLF", "--output=" + pot + ".new",
-                               "--package-name=sumo", "--msgid-bugs-address=sumo-dev@eclipse.org"]
+                     "--keyword=TL", "--keyword=TLC:1c,2", "--keyword=TLF", "--output=" + pot + ".new",
+                     "--package-name=sumo", "--msgid-bugs-address=sumo-dev@eclipse.org"]
         if pot == py_pot_file:
             arguments.append("--language=Python")
         subprocess.check_call(arguments)

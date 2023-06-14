@@ -81,7 +81,7 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_BUS_STOP, id);
-    } else if (checkDuplicatedAdditional(SUMO_TAG_BUS_STOP, id)) {
+    } else if (checkDuplicatedAdditional(SUMO_TAG_BUS_STOP, id) && checkDuplicatedAdditional(SUMO_TAG_TRAIN_STOP, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -125,7 +125,7 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TRAIN_STOP, id);
-    } else if (checkDuplicatedAdditional(SUMO_TAG_TRAIN_STOP, id)) {
+    } else if (checkDuplicatedAdditional(SUMO_TAG_TRAIN_STOP, id) && checkDuplicatedAdditional(SUMO_TAG_BUS_STOP, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -185,7 +185,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
     } else if (!accessCanBeCreated(busStop, lane->getParentEdge())) {
         WRITE_WARNING(TL("Could not build access in netedit; busStop parent already owns an access in the edge '") + lane->getParentEdge()->getID() + "'");
     } else if (!lane->allowPedestrians()) {
-        WRITE_WARNING(TL("Could not build access in netedit; The lane '") + lane->getID() + TL("' doesn't support pedestrians"));
+        WRITE_WARNING(TLF("Could not build access in netedit; The lane '%' doesn't support pedestrians", lane->getID()));
     } else {
         // build access
         GNEAdditional* access = new GNEAccess(busStop, lane, myNet, pos, length, friendlyPos, parameters);
@@ -296,7 +296,8 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
 void
 GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                        const double startPos, const double endPos, const std::string& departPos, const std::string& name, const bool friendlyPosition,
-                                       const int roadSideCapacity, const bool onRoad, const double width, const double length, const double angle, const Parameterised::Map& parameters) {
+                                       const int roadSideCapacity, const bool onRoad, const double width, const double length, const double angle, 
+                                       const bool lefthand, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_PARKING_AREA, id);
@@ -319,12 +320,12 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
         } else if (length < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_LENGTH);
         } else if ((departPosDouble < 0) || (departPosDouble > lane->getParentEdge()->getNBEdge()->getFinalLength())) {
-            writeError(TL("Could not build parking area with ID '") + id + TL("' in netedit; Invalid departPos over lane."));
+            writeError(TLF("Could not build parking area with ID '%' in netedit; Invalid departPos over lane.", id));
         } else {
             // build parkingArea
             GNEAdditional* parkingArea = new GNEParkingArea(id, lane, myNet, startPos, endPos, GNEAttributeCarrier::canParse<double>(departPos) ? departPos : "",
                     name, friendlyPosition, roadSideCapacity, onRoad,
-                    (width == 0) ? SUMO_const_laneWidth : width, length, angle, parameters);
+                    (width == 0) ? SUMO_const_laneWidth : width, length, angle, lefthand, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::PARKINGAREA, TL("add parking area '") + id + "'");
@@ -458,7 +459,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
             writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_PERIOD);
         } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
             // temporal
-            writeError(TL("Could not build lane area detector with ID '") + id + TL("' in netedit; invalid traffic light ID."));
+            writeError(TLF("Could not build lane area detector with ID '%' in netedit; invalid traffic light ID.", id));
         } else if (timeThreshold < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
         } else if (speedThreshold < 0) {
@@ -516,7 +517,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
         if (lanes.size() > 0) {
             // calculate path
             if (!GNEAdditional::areLaneConsecutives(lanes)) {
-                writeError(TL("Could not build lane area detector with ID '") + id + TL("' in netedit; Lanes aren't consecutives."));
+                writeError(TLF("Could not build lane area detector with ID '%' in netedit; Lanes aren't consecutives.", id));
             } else if (!checkMultiLanePosition(
                            pos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
                            endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
@@ -525,7 +526,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                 writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_PERIOD);
             } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
                 // temporal
-                writeError(TL("Could not build lane area detector with ID '") + id + TL("' in netedit; invalid traffic light ID."));
+                writeError(TLF("Could not build lane area detector with ID '%' in netedit; invalid traffic light ID.", id));
             } else if (timeThreshold < 0) {
                 writeErrorInvalidNegativeValue(SUMO_TAG_LANE_AREA_DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
             } else if (speedThreshold < 0) {
@@ -936,7 +937,7 @@ GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseOb
     } else if (end < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_INTERVAL, rerouter->getID(), SUMO_ATTR_END);
     } else if (end < begin) {
-        writeError(TL("Could not build interval with ID '") + rerouter->getID() + TL("' in netedit; begin is greather than end."));
+        writeError(TLF("Could not build interval with ID '%' in netedit; begin is greather than end.", rerouter->getID()));
     } else {
         // check if new interval will produce a overlapping
         if (checkOverlappingRerouterIntervals(rerouter, begin, end)) {
@@ -953,7 +954,7 @@ GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseOb
                 rerouterInterval->incRef("buildRerouterInterval");
             }
         } else {
-            writeError(TL("Could not build interval with begin '") + toString(begin) + TL("' and '") + toString(end) + TL("' in '") + rerouter->getID() + TL("' due overlapping."));
+            writeError(TLF("Could not build interval with begin '%' and end '%' in '%' due overlapping.", toString(begin), toString(end), rerouter->getID()));
         }
     }
 }
@@ -1241,7 +1242,7 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
         } else if (endTime < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_VAPORIZER, edge->getID(), SUMO_ATTR_END);
         } else if (endTime < beginTime) {
-            writeError(TL("Could not build Vaporizer with ID '") + edge->getID() + TL("' in netedit; begin is greather than end."));
+            writeError(TLF("Could not build Vaporizer with ID '%' in netedit; begin is greather than end.", edge->getID()));
         } else {
             // build vaporizer
             GNEAdditional* vaporizer = new GNEVaporizer(myNet, edge, beginTime, endTime, name, parameters);
@@ -1302,7 +1303,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
     } else if (!checkDuplicatedAdditional(SUMO_TAG_POLY, id)) {
         writeErrorDuplicated(SUMO_TAG_TAZ, id);
     } else if (TAZShape.size() == 0) {
-        writeError(TL("Could not build TAZ with ID '") + id + TL("' in netedit; Invalid Shape."));
+        writeError(TLF("Could not build TAZ with ID '%' in netedit; Invalid Shape.", id));
     } else {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1540,7 +1541,7 @@ GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject
         if (lanes.size() > 0) {
             // calculate path
             if (!GNEAdditional::areLaneConsecutives(lanes)) {
-                writeError(TL("Could not build overhead wire with ID '") + id + TL("' in netedit; Lanes aren't consecutives."));
+                writeError(TLF("Could not build overhead wire with ID '%' in netedit; Lanes aren't consecutives.", id));
             } else if (!checkMultiLanePosition(
                            startPos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
                            endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
@@ -1708,7 +1709,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
     } else if (GeoConvHelper::getFinal().getProjString() == "!") {
-        writeError(TL("Could not build POI with ID '") + id + TL("' in netedit; Network requires a geo projection."));
+        writeError(TLF("Could not build POI with ID '%' in netedit", id) + std::string("; ") + TL("Network requires a geo projection."));
     } else if (checkDuplicatedAdditional(SUMO_TAG_POI, id) && checkDuplicatedAdditional(GNE_TAG_POILANE, id) && checkDuplicatedAdditional(GNE_TAG_POIGEO, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1904,49 +1905,49 @@ GNEAdditionalHandler::fixMultiLanePosition(double fromPos, const double fromLane
 
 void
 GNEAdditionalHandler::writeInvalidID(const SumoXMLTag tag, const std::string& id) {
-    writeError(TL("Could not build ") + toString(tag) + TL(" with ID '") + id + TL("' in netedit; ID contains invalid characters."));
+    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("ID contains invalid characters."));
 }
 
 
 void
 GNEAdditionalHandler::writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id) {
-    writeError(TL("Could not build ") + toString(tag) + TL(" with ID '") + id + TL("' in netedit; Invalid position over lane."));
+    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("Invalid position over lane."));
 }
 
 
 void
 GNEAdditionalHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
-    writeError(TL("Could not build ") + toString(tag) + TL(" with ID '") + id + TL("' in netedit; declared twice."));
+    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("Declared twice."));
 }
 
 
 void
 GNEAdditionalHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) {
-    writeError(TL("Could not build ") + toString(tag) + " in netedit; " + toString(parent) + TL(" doesn't exist."));
+    writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(parent)));
 }
 
 
 void
 GNEAdditionalHandler::writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute) {
-    writeError(TL("Could not build ") + toString(tag) + TL(" with ID '") + id + TL("' in netedit; attribute ") + toString(attribute) + TL(" cannot be negative."));
+    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TLF("Attribute % cannot be negative.", toString(attribute)));
 }
 
 
 void
 GNEAdditionalHandler::writeErrorInvalidVTypes(const SumoXMLTag tag, const std::string& id) {
-    writeError(TL("Could not build ") + toString(tag) + TL(" with ID '") + id + TL("' in netedit; list of VTypes isn't valid."));
+    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("List of VTypes isn't valid."));
 }
 
 
 void
 GNEAdditionalHandler::writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id) {
-    writeError(TL("Could not build ") + toString(tag) + TL(" with ID '") + id + TL("' in netedit; filename is invalid."));
+    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("Filename is invalid."));
 }
 
 
 void
 GNEAdditionalHandler::writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id) {
-    writeError(TL("Could not build ") + toString(tag) + TL(" with ID '") + id + TL("' in netedit; list of lanes isn't valid."));
+    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("List of lanes isn't valid."));
 }
 
 
@@ -2001,7 +2002,7 @@ GNEAdditionalHandler::parseEdges(const SumoXMLTag tag, const std::vector<std::st
         GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
         // empty edges aren't allowed. If edge is empty, write error, clear edges and stop
         if (edge == nullptr) {
-            writeError(TL("Could not build ") + toString(tag) + TL(" in netedit; ") + toString(SUMO_TAG_EDGE) + TL(" doesn't exist."));
+            writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(SUMO_TAG_EDGE)));
             edges.clear();
             return edges;
         } else {
@@ -2019,7 +2020,7 @@ GNEAdditionalHandler::parseLanes(const SumoXMLTag tag, const std::vector<std::st
         GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
         // empty lanes aren't allowed. If lane is empty, write error, clear lanes and stop
         if (lane == nullptr) {
-            writeError(TL("Could not build ") + toString(tag) + TL(" in netedit; ") + toString(SUMO_TAG_LANE) + TL(" doesn't exist."));
+            writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(SUMO_TAG_LANE)));
             lanes.clear();
             return lanes;
         } else {

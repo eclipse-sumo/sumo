@@ -39,6 +39,7 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     SUMOSAXHandler(file, expectedRoot),
     myHardFail(hardFail),
     myVehicleParameter(nullptr),
+    myCurrentStop(nullptr),
     myLastDepart(-1),
     myActiveRouteColor(nullptr),
     myCurrentCosts(0.),
@@ -175,7 +176,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             openRouteDistribution(attrs);
             break;
         case SUMO_TAG_STOP:
-            addStop(attrs);
+            myCurrentStop = addStop(attrs);
             break;
         case SUMO_TAG_TRIP: {
             // delete if myVehicleParameter isn't null
@@ -238,6 +239,9 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 void
 SUMORouteHandler::myEndElement(int element) {
     switch (element) {
+        case SUMO_TAG_STOP:
+            myCurrentStop = nullptr;
+            break;
         case SUMO_TAG_ROUTE:
             closeRoute();
             break;
@@ -379,7 +383,9 @@ SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
         // circumventing empty string test
         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
         // add parameter in current created element, or in myLoadedParameterised
-        if (myVehicleParameter != nullptr) {
+        if (myCurrentStop != nullptr) {
+            myCurrentStop->setParameter(key, val);
+        } else if (myVehicleParameter != nullptr) {
             myVehicleParameter->setParameter(key, val);
         } else if (myCurrentVType != nullptr) {
             myCurrentVType->setParameter(key, val);

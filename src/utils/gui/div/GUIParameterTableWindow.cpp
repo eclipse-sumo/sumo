@@ -60,8 +60,8 @@ std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o) :
-    FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 40, 200, 500),
+GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, const std::string& title) :
+    FXMainWindow(app.getApp(), ((title == "" ? o.getFullName() : title) + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 40, 200, 500),
     GUIPersistentWindowPos(this, "DIALOG_PARAMETERS", false, 20, 40),
     myObject(&o),
     myApplication(&app),

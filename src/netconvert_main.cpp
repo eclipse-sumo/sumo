@@ -71,19 +71,20 @@ fillOptions() {
     oc.addOptionSubTopic("Railway");
     oc.addOptionSubTopic("Formats");
 
-    NIFrame::fillOptions();
-    NBFrame::fillOptions(false);
-    NWFrame::fillOptions(false);
-    RandHelper::insertRandOptions();
+    NIFrame::fillOptions(oc);
+    NBFrame::fillOptions(oc, false);
+    NWFrame::fillOptions(oc, false);
+    RandHelper::insertRandOptions(oc);
 }
 
 
 bool
 checkOptions() {
-    bool ok = NIFrame::checkOptions();
-    ok &= NBFrame::checkOptions();
-    ok &= NWFrame::checkOptions();
-    ok &= SystemFrame::checkOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
+    bool ok = NIFrame::checkOptions(oc);
+    ok &= NBFrame::checkOptions(oc);
+    ok &= NWFrame::checkOptions(oc);
+    ok &= SystemFrame::checkOptions(oc);
     return ok;
 }
 

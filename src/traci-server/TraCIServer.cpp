@@ -1068,38 +1068,42 @@ TraCIServer::initialiseSubscription(libsumo::Subscription& s) {
     tcpip::Storage writeInto;
     std::string errors;
     libsumo::Subscription* modifiedSubscription = nullptr;
-    if (processSingleSubscription(s, writeInto, errors)) {
-        if (s.endTime < MSNet::getInstance()->getCurrentTimeStep()) {
-            writeStatusCmd(s.commandId, libsumo::RTYPE_ERR, "Subscription has ended.");
-        } else {
-            if (libsumo::Helper::needNewSubscription(s, mySubscriptions, modifiedSubscription)) {
-                // Add new subscription to subscription cache (note: seems a bit inefficient)
-                if (s.beginTime < MSNet::getInstance()->getCurrentTimeStep()) {
-                    // copy new subscription into cache
-                    int noActive = 1 + (mySubscriptionCache.size() > 0 ? mySubscriptionCache.readInt() : 0);
-                    tcpip::Storage tmp;
-                    tmp.writeInt(noActive);
-                    while (mySubscriptionCache.valid_pos()) {
-                        tmp.writeByte(mySubscriptionCache.readByte());
+    try {
+        if (processSingleSubscription(s, writeInto, errors)) {
+            if (s.endTime < MSNet::getInstance()->getCurrentTimeStep()) {
+                writeStatusCmd(s.commandId, libsumo::RTYPE_ERR, "Subscription has ended.");
+            } else {
+                if (libsumo::Helper::needNewSubscription(s, mySubscriptions, modifiedSubscription)) {
+                    // Add new subscription to subscription cache (note: seems a bit inefficient)
+                    if (s.beginTime < MSNet::getInstance()->getCurrentTimeStep()) {
+                        // copy new subscription into cache
+                        int noActive = 1 + (mySubscriptionCache.size() > 0 ? mySubscriptionCache.readInt() : 0);
+                        tcpip::Storage tmp;
+                        tmp.writeInt(noActive);
+                        while (mySubscriptionCache.valid_pos()) {
+                            tmp.writeByte(mySubscriptionCache.readByte());
+                        }
+                        tmp.writeStorage(writeInto);
+                        mySubscriptionCache.reset();
+                        mySubscriptionCache.writeStorage(tmp);
                     }
-                    tmp.writeStorage(writeInto);
-                    mySubscriptionCache.reset();
-                    mySubscriptionCache.writeStorage(tmp);
                 }
+                writeStatusCmd(s.commandId, libsumo::RTYPE_OK, "");
             }
-            writeStatusCmd(s.commandId, libsumo::RTYPE_OK, "");
-        }
-        if (modifiedSubscription != nullptr && (
-                    modifiedSubscription->isVehicleToVehicleContextSubscription()
-                    || modifiedSubscription->isVehicleToPersonContextSubscription())) {
-            // Set last modified vehicle context subscription active for filter modifications
-            myLastContextSubscription = modifiedSubscription;
+            if (modifiedSubscription != nullptr && (
+                        modifiedSubscription->isVehicleToVehicleContextSubscription()
+                        || modifiedSubscription->isVehicleToPersonContextSubscription())) {
+                // Set last modified vehicle context subscription active for filter modifications
+                myLastContextSubscription = modifiedSubscription;
+            } else {
+                // adding other subscriptions deactivates the activation for filter addition
+                myLastContextSubscription = nullptr;
+            }
         } else {
-            // adding other subscriptions deactivates the activation for filter addition
-            myLastContextSubscription = nullptr;
+            writeStatusCmd(s.commandId, libsumo::RTYPE_ERR, "Could not add subscription. " + errors);
         }
-    } else {
-        writeStatusCmd(s.commandId, libsumo::RTYPE_ERR, "Could not add subscription. " + errors);
+    } catch (libsumo::TraCIException& e) {
+        writeStatusCmd(s.commandId, libsumo::RTYPE_ERR, e.what());
     }
     myOutputStorage.writeStorage(writeInto);
 }

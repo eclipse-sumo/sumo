@@ -116,6 +116,12 @@ section is composed by the original lane section's
 
 Geometry in OpenDRIVE takes the form of parametric curves (arcs, spirals and splines). These are all sampled with a configurable precision (**--opendrive.curve-resolution** {{DT_FLOAT}}) to produce polylines in the .net.xml. Junction shapes are not encoded in OpenDRIVE. They are generated based on points where the shapes of normal roads and connecting roads meet. 
 
+## Handling of traffic light signaling
+
+OpenDRIVE considers traffic lights by the physical aspect of the signals, their position and the lanes they control. Optionally, signals can be grouped in a `<controller>` element.
+The car signals are imported into SUMO by default and organised into one traffic light per intersection. If the option **--opendrive.signal-groups** {{DT_FLOAT}} is set to true, netconvert will try to build the same signal groups in SUMO
+as given by the OpenDRIVE `<controller>` items. **This can generate invalid SUMO signal programs (minor "g" vs. major green "G", see [signal state](../../Simulation/Traffic_Lights.md#signal_state_definitions)) or fail due to complex signal group settings.** Currently, signals for cyclists and pedestrians are not imported.
+
 ## Referencing original IDs
 
 When using the option **--output.original-names**, each lane will receive a `<param origID="EDGE_ID LANE_INDEX"/>` which can be used with

@@ -204,9 +204,9 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
             } else if (toTAZ == nullptr) {
                 writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, toTAZID);
             } else if ((fromTAZ != toTAZ) && dataInterval->TAZRelExists(fromTAZ, toTAZ)) {
-                writeError(TL("There is already a TAZ rel defined between '") + toTAZID + TL("' and '") + toTAZID + "'.");
+                writeError(TLF("There is already a TAZ rel defined between '%' and '%'.", fromTAZID, toTAZID));
             } else if ((fromTAZ == toTAZ) && dataInterval->TAZRelExists(fromTAZ)) {
-                writeError(TL("There is already a TAZ rel defined in '") + toTAZID + "'.");
+                writeError(TLF("There is already a TAZ rel defined in '%'.", toTAZID));
             } else if (fromTAZ == toTAZ) {
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, parameters);
                 if (myAllowUndoRedo) {
@@ -242,19 +242,19 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
 
 void
 GNEDataHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
-    writeError(TL("Could not build ") + toString(tag) + TL(" with ID '") + id + TL("' in netedit; declared twice."));
+    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("Declared twice."));
 }
 
 
 void
 GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) {
-    writeError(TL("Could not build ") + toString(tag) + TL(" in netedit; ") + toString(parent) + TL(" doesn't exist."));
+    writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(parent)));
 }
 
 
 void
 GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& ID) {
-    writeError(TL("Could not build ") + toString(tag) + TL(" in netedit; ") + toString(parent) + TL(" with ID '") + ID + TL("' doesn't exist."));
+    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), ID) + std::string("; ") + TLF("% doesn't exist.", toString(parent)));
 }
 
 /****************************************************************************/

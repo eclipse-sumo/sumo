@@ -1,0 +1,8 @@
+Warning: The referenced geometry information (ref='318693766') is not known
+Warning: The referenced geometry information (ref='3934891980') is not known
+Warning: The referenced geometry information (ref='27133048') is not known
+Warning: The referenced geometry information (ref='365416591') is not known
+Warning: The referenced geometry information (ref='318693769') is not known
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurrence for edge '4469442').
+Warning: Could not re-assign PT stop '2514016658', probably broken osm file.
+Warning: 11 total messages of type: The referenced geometry information (ref='%') is not known

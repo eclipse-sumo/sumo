@@ -217,6 +217,29 @@ class VTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_BOARDING_DURATION, typeID)
 
+    def getImpatience(self, typeID):
+        """getImpatience(string) -> double
+
+        Returns the Impatience of this type
+        """
+        return self._getUniversal(tc.VAR_IMPATIENCE, typeID)
+
+    def setImpatience(self, typeID, impatience):
+        """setImpatience(string, double) -> None
+
+        Sets the impatience of the this type.
+        If called in the context of a person or vehicle, it will change the value just for the single instance.
+        """
+        self._setCmd(tc.VAR_IMPATIENCE, typeID, "d", impatience)
+
+    def setBoardingDuration(self, typeID, boardingDuration):
+        """setBoardingDuration(string, double) -> None
+
+        Sets the boarding duration of the this type.
+        If called in the context of a person or vehicle, it will change the value just for the single instance.
+        """
+        self._setCmd(tc.VAR_BOARDING_DURATION, typeID, "d", boardingDuration)
+
     def setLength(self, typeID, length):
         """setLength(string, double) -> None
 

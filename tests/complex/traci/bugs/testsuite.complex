@@ -139,3 +139,6 @@ ticket12944
 
 # invalid route offset after moveToXY moves backwards onto internal lane
 ticket13053
+
+# missing vehicle type in save state
+ticket13384

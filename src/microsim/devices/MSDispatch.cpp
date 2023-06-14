@@ -238,13 +238,13 @@ MSDispatch::computeDetourTime(SUMOTime t, SUMOTime viaTime, const MSDevice_Taxi*
     ConstMSEdgeVector edges;
     if (timeDirect < 0) {
         router.compute(from, fromPos, to, toPos, &taxi->getHolder(), t, edges, true);
-        timeDirect = router.recomputeCosts(edges, &taxi->getHolder(), fromPos, toPos, t);
+        timeDirect = router.recomputeCostsPos(edges, &taxi->getHolder(), fromPos, toPos, t);
         edges.clear();
     }
 
     router.compute(from, fromPos, via, viaPos, &taxi->getHolder(), t, edges, true);
     const double start = STEPS2TIME(t);
-    const double leg1 = router.recomputeCosts(edges, &taxi->getHolder(), fromPos, viaPos, t);
+    const double leg1 = router.recomputeCostsPos(edges, &taxi->getHolder(), fromPos, viaPos, t);
 #ifdef DEBUG_DETOUR
     std::cout << "        leg1=" << toString(edges) << " startPos=" << fromPos << " toPos=" << viaPos << " time=" << leg1 << "\n";
 #endif
@@ -252,7 +252,7 @@ MSDispatch::computeDetourTime(SUMOTime t, SUMOTime viaTime, const MSDevice_Taxi*
     edges.clear();
     const SUMOTime timeContinue = TIME2STEPS(start + leg1 + wait);
     router.compute(via, viaPos, to, toPos, &taxi->getHolder(), timeContinue, edges, true);
-    const double leg2 = router.recomputeCosts(edges, &taxi->getHolder(), viaPos, toPos, timeContinue);
+    const double leg2 = router.recomputeCostsPos(edges, &taxi->getHolder(), viaPos, toPos, timeContinue);
     const double timeDetour = leg1 + wait + leg2;
 #ifdef DEBUG_DETOUR
     std::cout << "        leg2=" << toString(edges) << " startPos=" << viaPos << " toPos=" << toPos << " time=" << leg2 << "\n";

@@ -26,7 +26,7 @@ changed, the parameter which must be given are also shown in the table.
 | angle (0x43)      | float                              | sets the angle for the rendered image file                                                               | [setAngle](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-setAngle)         |
 | ADD (0x80)        | PoI-definition, see below          | Adds the defined PoI                                                                                     | [add](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-add)                   |
 | REMOVE (0x81)     | int (layer), see below             | Removes the defined PoI                                                                                  | [remove](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-remove)             |
-| highlight (0x6c)  | highlight specification, see below | Adds a highlight to the PoI                                                                              | [remove](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-remove)             |
+| highlight (0x6c)  | highlight specification, see below | Adds a highlight to the PoI                                                                              | [highlight](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-highlight)             |
 |                   |                                    |                                                                                                          |                                                                                  |
 
 

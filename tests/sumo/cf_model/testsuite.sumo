@@ -50,11 +50,15 @@ adap_speed_for_new_lane
 # tests behavior with different values of the reactionTime/headway parameter tau
 tau
 vehs_per_hour
-errors
+
+# Two vehicles follow each other. The first one stops but is ignored
+ignoreIDs
+
+# Two vehicles follow each other. The first one stops but is ignored
+ignoreTypes
 
 # tests for rail following model
 rail
-collisions
 
 # tests for setting apparentDecel  and emergentDecel to be distinct from decel
 apparentDecel_emergencyDecel
@@ -74,5 +78,6 @@ ACC
 
 # CACC model tests
 CACC
+collisions
+errors
 bugs
-

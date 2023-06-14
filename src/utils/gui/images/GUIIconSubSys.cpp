@@ -257,6 +257,7 @@
 #include "modestop.xpm"
 #include "modevehicle.xpm"
 #include "modetype.xpm"
+#include "modetypedistribution.xpm"
 
 #include "modeedgedata.xpm"
 #include "modeedgereldata.xpm"
@@ -344,14 +345,17 @@
 #include "personflow.xpm"
 #include "persontripfromto.xpm"
 #include "persontripbusstop.xpm"
+#include "persontriptrainstop.xpm"
 #include "persontripjunctions.xpm"
 #include "walkedges.xpm"
 #include "walkfromto.xpm"
 #include "walkbusstop.xpm"
+#include "walktrainstop.xpm"
 #include "walkroute.xpm"
 #include "walkjunctions.xpm"
 #include "ridefromto.xpm"
 #include "ridebusstop.xpm"
+#include "ridetrainstop.xpm"
 #include "container.xpm"
 #include "containerflow.xpm"
 #include "transhipcontainerstop.xpm"
@@ -726,6 +730,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
     myIcons[GUIIcon::MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
     myIcons[GUIIcon::MODETYPE] = new FXXPMIcon(a, modetype_xpm);
+    myIcons[GUIIcon::MODETYPEDISTRIBUTION] = new FXXPMIcon(a, modetypedistribution_xpm);
     myIcons[GUIIcon::MODESTOP] = new FXXPMIcon(a, modestop_xpm);
     myIcons[GUIIcon::MODEPERSON] = new FXXPMIcon(a, modeperson_xpm);
     myIcons[GUIIcon::MODEPERSONPLAN] = new FXXPMIcon(a, modepersonplan_xpm);
@@ -812,14 +817,17 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::PERSONFLOW] = new FXXPMIcon(a, personflow_xpm);
     myIcons[GUIIcon::PERSONTRIP_FROMTO] = new FXXPMIcon(a, persontripfromto_xpm);
     myIcons[GUIIcon::PERSONTRIP_BUSSTOP] = new FXXPMIcon(a, persontripbusstop_xpm);
+    myIcons[GUIIcon::PERSONTRIP_TRAINSTOP] = new FXXPMIcon(a, persontriptrainstop_xpm);
     myIcons[GUIIcon::PERSONTRIP_JUNCTIONS] = new FXXPMIcon(a, persontripjunctions_xpm);
     myIcons[GUIIcon::WALK_EDGES] = new FXXPMIcon(a, walkedges_xpm);
     myIcons[GUIIcon::WALK_FROMTO] = new FXXPMIcon(a, walkfromto_xpm);
     myIcons[GUIIcon::WALK_BUSSTOP] = new FXXPMIcon(a, walkbusstop_xpm);
+    myIcons[GUIIcon::WALK_TRAINSTOP] = new FXXPMIcon(a, walktrainstop_xpm);
     myIcons[GUIIcon::WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);
     myIcons[GUIIcon::WALK_JUNCTIONS] = new FXXPMIcon(a, walkjunctions_xpm);
     myIcons[GUIIcon::RIDE_FROMTO] = new FXXPMIcon(a, ridefromto_xpm);
     myIcons[GUIIcon::RIDE_BUSSTOP] = new FXXPMIcon(a, ridebusstop_xpm);
+    myIcons[GUIIcon::RIDE_TRAINSTOP] = new FXXPMIcon(a, ridetrainstop_xpm);
 
     myIcons[GUIIcon::CONTAINER] = new FXXPMIcon(a, container_xpm);
     myIcons[GUIIcon::CONTAINERFLOW] = new FXXPMIcon(a, containerflow_xpm);

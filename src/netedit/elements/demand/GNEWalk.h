@@ -40,7 +40,7 @@ public:
     GNEWalk(SumoXMLTag tag, GNENet* net);
 
     /**@brief parameter constructor for person edge->edge
-     * @param[in] viewNet view in which this Walk is placed
+     * @param[in] net network in which this Walk is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
      * @param[in] toEdge to edge
@@ -48,17 +48,18 @@ public:
      */
     GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition);
 
-    /**@brief parameter constructor for person edge->busStop
-     * @param[in] viewNet view in which this Walk is placed
+    /**@brief parameter constructor for person edge->busStop or edge->trainStop
+     * @param[in] isTrain check if si tran or busStop
+     * @param[in] net network in which this Walk is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
      * @param[in] toBusStop to busStop
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop, double arrivalPosition);
+    GNEWalk(const bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toAdditional, double arrivalPosition);
 
     /**@brief parameter constructor for person edge->edge
-     * @param[in] viewNet view in which this Walk is placed
+     * @param[in] net network in which this Walk is placed
      * @param[in] personParent person parent
      * @param[in] edges list of edges
      * @param[in] arrivalPosition arrival position on the destination edge
@@ -66,7 +67,7 @@ public:
     GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition);
 
     /**@brief parameter constructor for person edge->edge
-     * @param[in] viewNet view in which this Walk is placed
+     * @param[in] net network in which this Walk is placed
      * @param[in] personParent person parent
      * @param[in] route route
      * @param[in] arrivalPosition arrival position on the destination edge
@@ -74,7 +75,7 @@ public:
     GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition);
 
     /**@brief parameter constructor for person junction->junction
-     * @param[in] viewNet view in which this Walk is placed
+     * @param[in] net network in which this Walk is placed
      * @param[in] personParent person parent
      * @param[in] fromJunction from junction
      * @param[in] toJunction to junction

@@ -59,6 +59,10 @@ def get_options(args=None):
                     help="length for a train stop")
     ap.add_argument("--tram-stop-length", default=60, type=float,
                     help="length for a tram stop")
+    ap.add_argument("--center-stops", action="store_true", default=False,
+                    help="use stop position as center not as front")
+    ap.add_argument("--skip-access", action="store_true", default=False,
+                    help="do not create access links")
     ap.add_argument("--sort", action="store_true", default=False,
                     help="sorting the output-file")
     ap.add_argument("--stops", help="file with predefined stop positions to use")
@@ -256,7 +260,8 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
         fixed = {}
         for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "x", "y", "until", "name",
                                                            "fareZone", "fareSymbol", "startFare")):
-            addAttrs = ' friendlyPos="true" name="%s"' % veh.attr_name
+            stopName = veh.attr_name
+            addAttrs = ' friendlyPos="true" name="%s"' % stopName
             params = ""
             if veh.fareZone:
                 params = "".join(['        <param key="%s" value="%s"/>\n' %
@@ -305,7 +310,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
                 s = fixedStops[stop]
                 laneID, start, end = s.lane, float(s.startPos), float(s.endPos)
             else:
-                result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength,
+                result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength, options.center_stops,
                                               route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
                 if result is None:
                     if options.warn_unmapped:
@@ -316,14 +321,14 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
             lastIndex = route.index(edgeID, lastIndex)
             lastPos = end
             keep = True
-            for otherStop, otherStart, otherEnd in stopEnds[edgeID]:
+            for otherStop, otherStart, otherEnd in stopEnds[laneID]:
                 if (otherEnd > start and otherEnd <= end) or (end > otherStart and end <= otherEnd):
                     keep = False
                     stop = otherStop
                     break
             if keep:
-                stopEnds[edgeID].append((stop, start, end))
-                access = gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID)
+                stopEnds[laneID].append((stop, start, end))
+                access = None if options.skip_access else gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID)
                 if not access and not params:
                     addAttrs += "/"
                 typ = "busStop" if mode == "bus" else "trainStop"
@@ -333,7 +338,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
                     for a in sorted(access):
                         rout.write(a)
                     rout.write(u'    </%s>\n' % typ)
-            stops[rid].append((stop, int(veh.until)))
+            stops[rid].append((stop, int(veh.until), stopName))
     return stops
 
 
@@ -446,8 +451,8 @@ def main(options):
                     for stop in stops[vehID]:
                         if offset is None:
                             offset = stop[1]
-                        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"/>\n' %
-                                   (stop[0], options.duration, stop[1] - offset))
+                        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"/> <!-- %s -->\n' %
+                                   (stop[0], options.duration, stop[1] - offset, stop[2]))
                     rout.write(u'    </route>\n')
                 else:
                     print("Warning! Empty route", vehID, file=sys.stderr)

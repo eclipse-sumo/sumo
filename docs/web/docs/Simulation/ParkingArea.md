@@ -58,6 +58,7 @@ The parkingArea supports the following attributes:
 | width            | float          | positive                                                                                     | 3.2                                    | The width of the road-side parking spaces                                                                                  |
 | length           | float          | positive                                                                                     | (endPos - startPos) / roadsideCapacity | The length of the road-side parking spaces                                                                                 |
 | angle            | float (degree) |                                                                                              | 0                                      | The angle of the road-side parking spaces relative to the lane angle, positive means clockwise                             |
+| lefthand            | bool |     | *false*    | Whether roadside parking spaces should be drawn on the left side of the lane   |
 
 ## Custom parking spaces
 

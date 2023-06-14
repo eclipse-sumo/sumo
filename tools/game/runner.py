@@ -43,7 +43,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
-from sumolib.translation import addLanguageOption, setLanguage, TL
+from sumolib.translation import addLanguageOption, setLanguage, TL  # noqa
 
 _UPLOAD = False if "noupload" in sys.argv else True
 _SCOREFILE = "scores.pkl"
@@ -61,31 +61,36 @@ _LANGUAGE_CAPTIONS = {}
 def updateLocalMessages():
     global _LANGUAGE_CAPTIONS
     _LANGUAGE_CAPTIONS = {'title': TL('Interactive Traffic Light'),
-                    'fkk_in': TL('Research intersection Ingolstadt'),
-                    'cross': TL('Simple Junction'),
-                    'cross_demo': TL('Simple Junction (Demo)'),
-                    'square': TL('Four Junctions'),
-                    'grid6': TL('Six Junctions'),
-                    'kuehne': TL('Prof. Kühne'),
-                    'bs3d': TL('3D Junction Virtual World'),
-                    'bs3Dosm': TL('3D Junction OpenStreetMap'),
-                    'highway': TL('Highway Ramp'),
-                    'ramp': TL('Combined Highway On and Off Ramp'),
-                    'corridor': TL('Corridor'),
-                    'A10KW': TL('Highway Ramp A10'),
-                    'DRT': TL('Demand Responsive Transport (new)'),
-                    'DRT2': TL('DRT - Advanced (new)'),
-                    'DRT_demo': TL('DRT - Demo'),
-                    'high': TL('Highscore'),
-                    'reset': TL('Reset Highscore'),
-                    'german': TL('German'),
-                    'english': TL('English'),
-                    'quit': TL("Quit"),
-                    'Highscore': TL("Highscore"),
-                    'Congratulations': TL("Congratulations!"),
-                    'your score': TL('Your Score'),
-                    'Continue': TL('Continue'),
-                    }
+                          'fkk_in': TL('Research intersection Ingolstadt'),
+                          'cross': TL('Simple Junction'),
+                          'cross_demo': TL('Simple Junction (Demo)'),
+                          'square': TL('Four Junctions'),
+                          'grid6': TL('Six Junctions'),
+                          'kuehne': TL('Prof. Kühne'),
+                          'bs3d': TL('3D Junction Virtual World'),
+                          'bs3Dosm': TL('3D Junction OpenStreetMap'),
+                          'highway': TL('Highway Ramp'),
+                          'ramp': TL('Combined Highway On and Off Ramp'),
+                          'corridor': TL('Corridor'),
+                          'A10KW': TL('Highway Ramp A10'),
+                          'DRT': TL('Demand Responsive Transport (new)'),
+                          'DRT2': TL('DRT - Advanced (new)'),
+                          'DRT_demo': TL('DRT - Demo'),
+                          'high': TL('Highscore'),
+                          'reset': TL('Reset Highscore'),
+                          'german': TL('German'),
+                          'english': TL('English'),
+                          'italian': TL('Italian'),
+                          'spanish': TL('Spanish'),
+                          'french': TL('French'),
+                          'chinese (simplified)': TL('Chinese (simplified)'),
+                          'chinese (traditional)': TL('Chinese (traditional)'),
+                          'quit': TL("Quit"),
+                          'Highscore': TL("Highscore"),
+                          'Congratulations': TL("Congratulations!"),
+                          'your score': TL('Your Score'),
+                          'Continue': TL('Continue'),
+                          }
 
 
 def printDebug(*args):
@@ -97,9 +102,9 @@ def printDebug(*args):
 
 
 if _UPLOAD:
-    printDebug("import httplib...")
+    printDebug("import http.client...")
     try:
-        import httplib  # noqa
+        import http.client as httplib  # noqa
         printDebug("SUCCESS")
     except ImportError:
         printDebug("FAILED - disabling upload...")
@@ -287,7 +292,6 @@ class StartDialog(Tkinter.Frame):
         # variables for changing language
         self.parent = parent
         self._language_text = lang
-        self._langCode = langCode
         self.buttons = []
         # misc variables
         self.name = ''
@@ -302,11 +306,10 @@ class StartDialog(Tkinter.Frame):
         # there is one column for every config, +2 more columns for control
         # buttons
         configs = sorted(glob.glob(os.path.join(BASE, "*.sumocfg")))
-        numButtons = len(configs) + 3
+        numButtons = len(configs) + 2
         # button dimensions
         bWidth_start = 30
         bWidth_high = 10
-        bWidth_control = 41
 
         self.gametime = 0
         self.ret = 0
@@ -336,19 +339,34 @@ class StartDialog(Tkinter.Frame):
             button.grid(row=row, column=COL_HIGH)
 
         # control buttons
-        button = Tkinter.Button(self, width=bWidth_control, command=self.clear)
+        button = Tkinter.Button(self, width=bWidth_start, command=self.clear)
         self.addButton(button, 'reset')
-        button.grid(row=numButtons - 3, column=COL_START, columnspan=2)
+        button.grid(row=numButtons - 2, column=COL_START, columnspan=1)
+
+        # language selection
+        self.langChoices = {
+            "de": 'german',
+            "en": 'english',
+            "es": 'spanish',
+            "it": 'italian',
+            "fr": 'french',
+            "zh": 'chinese (simplified)',
+            "zh-Hant": 'chinese (traditional)',
+        }
+        self._langCode = langCode
+        self.langDrop = Tkinter.Listbox(self, height=3, selectmode=Tkinter.SINGLE, width=bWidth_high)
+        self.langDrop.bind('<<ListboxSelect>>', self.change_language)
+        self.scrollbar = Tkinter.Scrollbar(self, orient=Tkinter.VERTICAL)
+        self.scrollbar.config(command=self.langDrop.yview)
+        self.langDrop.config(yscrollcommand=self.scrollbar.set)
+        self.updateLanguageMenu()
+        self.langDrop.grid(row=numButtons - 2, column=COL_HIGH, rowspan=3, sticky="nsew")
+        self.scrollbar.grid(row=numButtons - 2, column=COL_SUMOLOGO, rowspan=3, sticky="nsw")
 
         button = Tkinter.Button(
-            self, width=bWidth_control, command=sys.exit)
+            self, width=bWidth_start, command=sys.exit)
         self.addButton(button, 'quit')
-        button.grid(row=numButtons - 1, column=COL_START, columnspan=2)
-
-        button = Tkinter.Button(
-            self, width=bWidth_control, command=lambda: self.change_language())
-        self.addButton(button, 'german', key='lang')
-        button.grid(row=numButtons - 2, column=COL_START, columnspan=2)
+        button.grid(row=numButtons, column=COL_START, columnspan=1)
 
         self.grid()
         # The following three commands are needed so the window pops
@@ -357,21 +375,39 @@ class StartDialog(Tkinter.Frame):
         self.parent.update()
         self.parent.deiconify()
 
+    def updateLanguageMenu(self):
+        self.langDrop.delete(0, Tkinter.END)
+        langChoices = [self._language_text.get(longName, longName) for longName in self.langChoices.values()]
+        scrollPos = self.scrollbar.get()
+        self.langDrop.insert(0, *langChoices)
+        self.langDrop.activate(list(self.langChoices.keys()).index(self._langCode))
+        self.langDrop.yview_moveto(scrollPos[0])
+
     def addButton(self, button, text, key=None):
         button["text"] = self._language_text.get(text, text)
-        if key == None:
+        if key is None:
             key = text
         self.buttons.append((key, button))
 
-    def change_language(self):
-        self._langCode = "en" if self._langCode == "de" else "de"
+    def change_language(self, *args):
+        selection = self.langDrop.curselection()
+        if len(selection) == 0:
+            return
+        chosenLang = self.langDrop.get(selection[0])
+        for code, longName in self.langChoices.items():
+            if self._language_text[longName] == chosenLang:
+                self._langCode = code
+                break
         setLanguage(self._langCode)
         updateLocalMessages()
         self._language_text = _LANGUAGE_CAPTIONS
+
+        # update language menu
+        self.updateLanguageMenu()
+
         for key, button in self.buttons:
-            if key == "lang":
-                key = "english"if self._langCode == "de" else "german"
             button["text"] = self._language_text[key]
+        self.parent.title(self._language_text['title'])
 
     def category_name(self, cfg):
         return os.path.basename(cfg)[:-8]
@@ -531,11 +567,12 @@ def main():
     optParser.add_option("-s", "--stereo", metavar="OSG_STEREO_MODE",
                          help=("Defines the stereo mode to use for 3D output; unique prefix of %s" % (
                                ", ".join(stereoModes))))
+    optParser.add_option("add", nargs="*", help="additional flags: {debug|noupload}")
     addLanguageOption(optParser)
     options = optParser.parse_args()
     setLanguage(options.language)
     updateLocalMessages()
-    
+
     if options.stereo:
         for m in stereoModes:
             if m.lower().startswith(options.stereo.lower()):

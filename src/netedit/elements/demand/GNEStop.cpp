@@ -46,7 +46,7 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // reset default values
     resetDefaultValues();
     // enable parking for stops in parkin)gAreas
-    if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
+    if ((tag == GNE_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
     // set parking
@@ -66,7 +66,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
 SUMOVehicleParameter::Stop(stopParameter),
 myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
-    if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
+    if ((tag == GNE_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
     // set parking
@@ -110,7 +110,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEE
 SUMOVehicleParameter::Stop(stopParameter),
 myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
-    if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
+    if ((tag == GNE_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
     // set flags
@@ -139,7 +139,7 @@ GNEStop::getMoveOperation() {
     if ((myTagProperty.getTag() == GNE_TAG_STOPPERSON_EDGE) || (myTagProperty.getTag() == GNE_TAG_STOPCONTAINER_EDGE)) {
         // return move operation for additional placed over shape
         return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), endPos, false);
-    } else if ((myTagProperty.getTag() == SUMO_TAG_STOP_LANE) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_LANE)) {
+    } else if ((myTagProperty.getTag() == GNE_TAG_STOP_LANE) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_LANE)) {
         // get allow change lane
         const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
         // fist check if we're moving only extremes
@@ -197,6 +197,9 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
         if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
             device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().front()->getID());
         }
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+            device.writeAttr(SUMO_ATTR_TRAIN_STOP, getParentAdditionals().front()->getID());
+        }
         if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
             device.writeAttr(SUMO_ATTR_CONTAINER_STOP, getParentAdditionals().front()->getID());
         }
@@ -230,7 +233,7 @@ GNEStop::isDemandElementValid() const {
         // get lane
         const GNELane* firstLane = getFirstAllowedLane();
         // only Stops placed over lanes can be invalid
-        if (myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
+        if (myTagProperty.getTag() != GNE_TAG_STOP_LANE) {
             return isPersonPlanValid();
         } else if (friendlyPos) {
             // with friendly position enabled position are "always fixed"
@@ -253,7 +256,7 @@ GNEStop::isDemandElementValid() const {
         return Problem::STOP_DOWNSTREAM;
     } else {
         // only Stops placed over lanes can be invalid
-        if (myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
+        if (myTagProperty.getTag() != GNE_TAG_STOP_LANE) {
             return Problem::OK;
         } else if (friendlyPos) {
             // with friendly position enabled position are "always fixed"
@@ -285,7 +288,7 @@ GNEStop::isDemandElementValid() const {
 std::string
 GNEStop::getDemandElementProblem() const {
     if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
-        if (friendlyPos) {
+        if (friendlyPos || (getParentAdditionals().size() > 0)) {
             return getPersonPlanProblem();
         } else {
             // obtain lane length
@@ -492,34 +495,29 @@ GNEStop::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
-    bool drawStop = false;
-    if (getTagProperty().isStopPerson()) {
-        drawStop = drawPersonPlan();
-    } else if (getTagProperty().isStopContainer()) {
-        drawStop = drawContainerPlan();
-    } else {
-        drawStop = canDrawVehicleStop();
-    }
-    // check if stop can be drawn
-    if (drawStop) {
-        // Obtain exaggeration of the draw
-        const double exaggeration = getExaggeration(s);
-        // check if draw an stop for person/containers or for vehicles/routes
-        if (getTagProperty().isStopPerson() || getTagProperty().isStopContainer()) {
+    // Obtain exaggeration of the draw
+    const double exaggeration = getExaggeration(s);
+    // check if draw an stop for person/containers or for vehicles/routes
+    if (getTagProperty().isStopPerson() || getTagProperty().isStopContainer()) {
+        // check if stop can be draw
+        if ((getTagProperty().isStopPerson() && drawPersonPlan()) ||
+            (getTagProperty().isStopContainer() && drawContainerPlan())) {
             // check if draw stopPerson over busStop oder over lane
             if (getParentAdditionals().size() > 0) {
-                drawStopPersonOverBusStop(s, exaggeration);
+                drawStopPersonOverStoppingPlace(s, exaggeration);
             } else {
                 drawStopPersonOverEdge(s, exaggeration);
             }
-            // draw person parent if this stop if their first person plan child
-            if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
-                getParentDemandElements().front()->drawGL(s);
-            }
-        } else {
-            // draw vehicle over stop
-            drawVehicleStop(s, exaggeration);
         }
+        // draw person parent if this stop if their first person plan child
+        if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
+            getParentDemandElements().front()->drawGL(s);
+        }
+        // Draw name
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    } else if (canDrawVehicleStop()) {
+        // draw vehicle over stop
+        drawVehicleStop(s, exaggeration);
         // Draw name
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
@@ -635,6 +633,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(speed);
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
+        case SUMO_ATTR_TRAIN_STOP:
         case SUMO_ATTR_CONTAINER_STOP:
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
@@ -680,6 +679,8 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         }
         case GNE_ATTR_PATHSTOPINDEX:
             return toString(getPathStopIndex());
+        case GNE_ATTR_PARAMETERS:
+            return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -792,6 +793,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         //
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
+        case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         // special case for person plans
@@ -817,6 +819,26 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 if (nextPersonPlan) {
                     // obtain busStop
                     const GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
+                    // change from attribute using edge ID
+                    undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
+                    nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
+                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    undoList->end();
+                } else {
+                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                }
+            } else {
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        case SUMO_ATTR_TRAIN_STOP:
+            if (myTagProperty.isStopPerson()) {
+                // get next person plan
+                GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+                // continue depending of nextPersonPlan
+                if (nextPersonPlan) {
+                    // obtain busStop
+                    const GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value);
                     // change from attribute using edge ID
                     undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                     nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
@@ -953,6 +975,8 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+        case SUMO_ATTR_TRAIN_STOP:
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value, false) != nullptr);
         case SUMO_ATTR_CONTAINER_STOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
         case SUMO_ATTR_CHARGING_STATION:
@@ -1006,6 +1030,8 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case GNE_ATTR_PARAMETERS:
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1049,6 +1075,7 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         // Currently stops parents cannot be edited
         case SUMO_ATTR_BUS_STOP:
+        case SUMO_ATTR_TRAIN_STOP:
         case SUMO_ATTR_CONTAINER_STOP:
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
@@ -1062,7 +1089,7 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_EXPECTED:
             return (parametersSet & STOP_TRIGGER_SET) != 0;
         case SUMO_ATTR_PARKING:
-            if (myTagProperty.getTag() == SUMO_TAG_STOP_PARKINGAREA) {
+            if (myTagProperty.getTag() == GNE_TAG_STOP_PARKINGAREA) {
                 return false;
             } else if (myTagProperty.getTag() == GNE_TAG_WAYPOINT_PARKINGAREA) {
                 return false;
@@ -1086,6 +1113,8 @@ GNEStop::getHierarchyName() const {
     if (getParentAdditionals().size() > 0) {
         if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
             return "BusStop: " + getParentAdditionals().front()->getID();
+        } else if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+            return "TrainStop: " + getParentAdditionals().front()->getID();
         } else if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
             return "containerStop: " + getParentAdditionals().front()->getID();
         } else if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION) {
@@ -1374,7 +1403,7 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
 
 
 void
-GNEStop::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEStop::drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const {
     // declare stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
     // avoid draw invisible elements
@@ -1388,7 +1417,11 @@ GNEStop::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const doub
         // set base color
         GLHelper::setColor(stopColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.trainStopWidth * exaggeration);
+        } else {
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
+        }
         // move to icon position and front
         glTranslated(myDemandElementGeometry.getShape().getLineCenter().x(), myDemandElementGeometry.getShape().getLineCenter().y(), .1);
         // rotate over lane
@@ -1593,6 +1626,10 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
             updateGeometry();
             break;
+        case SUMO_ATTR_TRAIN_STOP:
+            replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value);
+            updateGeometry();
+            break;
         case SUMO_ATTR_CONTAINER_STOP:
             replaceAdditionalParent(SUMO_TAG_CONTAINER_STOP, value);
             updateGeometry();
@@ -1651,6 +1688,9 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 replaceDemandElementParent(SUMO_TAG_PERSONFLOW, value, 0);
             }
             updateGeometry();
+            break;
+        case GNE_ATTR_PARAMETERS:
+            setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

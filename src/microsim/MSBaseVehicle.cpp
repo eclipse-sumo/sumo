@@ -135,7 +135,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
         calculateArrivalParams(true);
     }
-    initJunctionModelParams();
+    initTransientModelParams();
 }
 
 
@@ -901,8 +901,9 @@ MSBaseVehicle::setDepartAndArrivalEdge() {
 
 double
 MSBaseVehicle::getImpatience() const {
-    return MAX2(0., MIN2(1., getVehicleType().getImpatience() +
-                         (MSGlobals::gTimeToImpatience > 0 ? (double)getWaitingTime() / (double)MSGlobals::gTimeToImpatience : 0.)));
+    return MAX2(0., MIN2(1., getVehicleType().getImpatience()
+                + (hasInfluencer() ? getBaseInfluencer()->getExtraImpatience() : 0)
+                + (MSGlobals::gTimeToImpatience > 0 ? (double)getWaitingTime() / (double)MSGlobals::gTimeToImpatience : 0.)));
 }
 
 
@@ -993,6 +994,67 @@ MSBaseVehicle::isStoppedInRange(const double pos, const double tolerance, bool c
     }
     return false;
 }
+
+bool
+MSBaseVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg) {
+    // Check if there is a parking area to be replaced
+    if (parkingArea == 0) {
+        errorMsg = "new parkingArea is NULL";
+        return false;
+    }
+    if (myStops.size() == 0) {
+        errorMsg = "vehicle has no stops";
+        return false;
+    }
+    if (myStops.front().parkingarea == 0) {
+        errorMsg = "first stop is not at parkingArea";
+        return false;
+    }
+    MSStop& first = myStops.front();
+    SUMOVehicleParameter::Stop& stopPar = const_cast<SUMOVehicleParameter::Stop&>(first.pars);
+    // merge subsequent duplicate stops equals to parking area
+    for (std::list<MSStop>::iterator iter = ++myStops.begin(); iter != myStops.end();) {
+        if (iter->parkingarea == parkingArea) {
+            stopPar.duration += iter->duration;
+            myStops.erase(iter++);
+        } else {
+            break;
+        }
+    }
+    stopPar.lane = parkingArea->getLane().getID();
+    stopPar.parkingarea = parkingArea->getID();
+    stopPar.startPos = parkingArea->getBeginLanePosition();
+    stopPar.endPos = parkingArea->getEndLanePosition();
+    first.edge = myRoute->end(); // will be patched in replaceRoute
+    first.lane = &parkingArea->getLane();
+    first.parkingarea = parkingArea;
+    return true;
+}
+
+
+MSParkingArea*
+MSBaseVehicle::getNextParkingArea() {
+    MSParkingArea* nextParkingArea = nullptr;
+    if (!myStops.empty()) {
+        SUMOVehicleParameter::Stop stopPar;
+        MSStop stop = myStops.front();
+        if (!stop.reached && stop.parkingarea != nullptr) {
+            nextParkingArea = stop.parkingarea;
+        }
+    }
+    return nextParkingArea;
+}
+
+
+MSParkingArea*
+MSBaseVehicle::getCurrentParkingArea() {
+    MSParkingArea* currentParkingArea = nullptr;
+    if (isParking()) {
+        currentParkingArea = myStops.begin()->parkingarea;
+    }
+    return currentParkingArea;
+}
+
 
 
 double
@@ -1959,7 +2021,25 @@ MSBaseVehicle::setJunctionModelParameter(const std::string& key, const std::stri
 
 
 void
-MSBaseVehicle::initJunctionModelParams() {
+MSBaseVehicle::setCarFollowModelParameter(const std::string& key, const std::string& value) {
+    // handle some generic params first and then delegate to the carFollowModel itself
+    if (key == toString(SUMO_ATTR_CF_IGNORE_IDS) || key == toString(SUMO_ATTR_CF_IGNORE_TYPES)) {
+        getParameter().parametersSet |= VEHPARS_CFMODEL_PARAMS_SET;
+        const_cast<SUMOVehicleParameter&>(getParameter()).setParameter(key, value);
+        // checked in MSVehicle::planMove
+    } else {
+        MSVehicle* microVeh = dynamic_cast<MSVehicle*>(this);
+        if (microVeh) {
+            // remove 'carFollowModel.' prefix
+            const std::string attrName = key.substr(15);
+            microVeh->getCarFollowModel().setParameter(microVeh, attrName, value);
+        }
+    }
+}
+
+
+void
+MSBaseVehicle::initTransientModelParams() {
     /* Design idea for additional junction model parameters:
        We can distinguish between 3 levels of parameters
        1. typically shared by multiple vehicles -> vType parameter
@@ -1969,6 +2049,8 @@ MSBaseVehicle::initJunctionModelParams() {
     for (auto item : getParameter().getParametersMap()) {
         if (StringUtils::startsWith(item.first, "junctionModel.")) {
             setJunctionModelParameter(item.first, item.second);
+        } else if (StringUtils::startsWith(item.first, "carFollowModel.")) {
+            setCarFollowModelParameter(item.first, item.second);
         }
     }
 }

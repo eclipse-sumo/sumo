@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+	<!-- In this chargingStation vehicle need to stop to start charging -->
+	<chargingStation id="CS1" lane="D1D2_0" startPos="220" endPos="250" power="10000"  efficiency="0.95" chargeInTransit="false" chargeDelay="0"/>
+	<parkingArea id="RPA1" lane="D1D2_0" startPos="220" endPos="250" roadsideCapacity="1"/>
+	
+	<!-- In this chargingStation vehicle don't need to stop to start charging -->
+	<chargingStation id="CS2" lane="D2C2_0" startPos="220" endPos="250" power="11000"  efficiency="0.9" chargeInTransit="true" chargeDelay="0"/>
+	<parkingArea id="RPA2" lane="D2C2_0" startPos="220" endPos="250" roadsideCapacity="1"/>
+	
+	<!-- In this chargingStation vehicle need to stop for charging but charging start with a delay of 3 timeSteps -->
+	<chargingStation id="CS3" lane="C3C2_0" startPos="220" endPos="250" power="12000"  efficiency="0.85" chargeInTransit="false" chargeDelay="3"/>
+	<parkingArea id="RPA3" lane="C3C2_0" startPos="220" endPos="250" roadsideCapacity="1"/>
+	
+	<!-- In this chargingStation vehicle don0't need to stop for charging but charging start with a delay of 5 timeSteps -->
+	<chargingStation id="CS4" lane="C3C4_0" startPos="220" endPos="250" power="13000"  efficiency="0.8" chargeInTransit="true" chargeDelay="5"/>
+	<parkingArea id="RPA4" lane="C3C4_0" startPos="220" endPos="250" roadsideCapacity="1"/>
+	
+	<!-- in this charging station vehicle will not charge energy because efficiency is 0 -->
+	<chargingStation id="CS5" lane="D3D2_0" startPos="220" endPos="250" power="14000"  efficiency="0" chargeInTransit="false" chargeDelay="0"/>
+	<parkingArea id="RPA5" lane="D3D2_0" startPos="220" endPos="250" roadsideCapacity="1"/>
+	
+	<!-- In this chargingStation vehicle need to stop to start charging -->
+	<chargingStation id="PCS1" lane="-E2_0" startPos="20" endPos="60" power="10000"  efficiency="0.95" chargeInTransit="false" chargeDelay="0"/>
+	<parkingArea id="PA1" lane="-E2_0" startPos="5" endPos="55" roadsideCapacity="5" width="2.5" angle="90"/>
+
+	<!-- In this chargingStation vehicle need to stop to start charging -->
+	<chargingStation id="PCS2" lane="-E3_0" startPos="20" endPos="60" power="10000"  efficiency="0.95" chargeInTransit="false" chargeDelay="0"/>
+	<parkingArea id="PA2" lane="-E3_0" startPos="10" endPos="60" roadsideCapacity="5" width="2.5" angle="90"/>
+	
+	<!-- In this chargingStation vehicle need to stop to start charging -->
+	<chargingStation id="PCS3" lane="E2_0" startPos="20" endPos="60" power="10000"  efficiency="0.95" chargeInTransit="false" chargeDelay="0"/>
+	<parkingArea id="PA3" lane="E2_0" startPos="10" endPos="60" roadsideCapacity="5" width="2.5" angle="90"/>
+	
+	<!-- In this chargingStation vehicle need to stop to start charging -->
+	<chargingStation id="PCS4" lane="E3_0" startPos="20" endPos="60" power="10000"  efficiency="0.95" chargeInTransit="false" chargeDelay="0"/>
+	<parkingArea id="PA4" lane="E3_0" startPos="5" endPos="55" roadsideCapacity="5" width="2.5" angle="90"/>
+	
+	<!-- Parking lots without charging stations -->
+    <parkingArea id="PA5" lane="E4_0" startPos="5" endPos="55" roadsideCapacity="5" width="2.5" angle="90"/>
+    <parkingArea id="PA6" lane="-E4_0" startPos="10" endPos="60" roadsideCapacity="5" width="2.5" angle="90"/>
+    <parkingArea id="PA7" lane="E5_0" startPos="5" endPos="55" roadsideCapacity="5" width="2.5" angle="90"/>
+    <parkingArea id="PA8" lane="-E5_0" startPos="10" endPos="60" roadsideCapacity="5" width="2.5" angle="90"/>
+
+</additional>

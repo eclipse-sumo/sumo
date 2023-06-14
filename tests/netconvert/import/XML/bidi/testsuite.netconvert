@@ -15,3 +15,13 @@ TWLT
 
 # only the inner lane is bidi (diagonal road)
 TWLT_diagonal
+
+# the outer lanes are not connected
+TWLT_disconnected_outer
+TWLT_sidewalks
+
+# test right of way ruleswhen TLWT ends
+TWLT_end
+
+# test right of way rules when side lane turns into TLWT 
+TWLT_side

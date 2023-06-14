@@ -54,9 +54,9 @@ std::map<std::string, int> lastThreadIndex; // by rng
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 void
-RandHelper::insertRandOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
+RandHelper::insertRandOptions(OptionsCont& oc) {
     // registers random number options
     oc.addOptionSubTopic("Random Number");
 

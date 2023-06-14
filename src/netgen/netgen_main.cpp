@@ -83,12 +83,12 @@ fillOptions() {
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NGFrame::fillOptions();
-    NBFrame::fillOptions(true);
-    NWFrame::fillOptions(true);
+    NBFrame::fillOptions(oc, true);
+    NWFrame::fillOptions(oc, true);
     oc.doRegister("default-junction-type", 'j', new Option_String());
     oc.addSynonyme("default-junction-type", "junctions");
     oc.addDescription("default-junction-type", "Building Defaults", TL("[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)"));
-    RandHelper::insertRandOptions();
+    RandHelper::insertRandOptions(oc);
 
     oc.doRegister("tls.discard-simple", new Option_Bool(false));
     oc.addDescription("tls.discard-simple", "TLS Building", "Does not instatiate traffic lights at geometry-like nodes");
@@ -97,10 +97,11 @@ fillOptions() {
 
 bool
 checkOptions() {
+    OptionsCont& oc = OptionsCont::getOptions();
     bool ok = NGFrame::checkOptions();
-    ok &= NBFrame::checkOptions();
-    ok &= NWFrame::checkOptions();
-    ok &= SystemFrame::checkOptions();
+    ok &= NBFrame::checkOptions(oc);
+    ok &= NWFrame::checkOptions(oc);
+    ok &= SystemFrame::checkOptions(oc);
     return ok;
 }
 
@@ -119,7 +120,7 @@ buildNetwork(NBNetBuilder& nb) {
             WRITE_ERROR(TL("Spider networks need at least 3 arms."));
             hadError = true;
         }
-        if (oc.getInt("spider.arm-number") > 4 && oc.isDefault("spider.omit-center")) {
+        if (oc.getInt("spider.arm-number") > 4 && !oc.getBool("spider.omit-center")) {
             WRITE_WARNING(TL("Spider networks with many arms should use option spider.omit-center"));
         }
         if (oc.getInt("spider.circle-number") < 1) {

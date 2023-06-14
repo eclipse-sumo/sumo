@@ -1,0 +1,1 @@
+-v --net-file activitygen-example.net.xml --stat-file activitygen-example.stat.xml --output-file routes.activitygen --seed 1

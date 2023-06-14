@@ -116,15 +116,15 @@ GNEPythonTool::getCommand() const {
                 if (!option.second->isPositional()) {
                     arguments += ("--" + option.first + " ");
                 }
-                const std::string sep = option.second->getListSeparator();
-                if (sep != "") {
+                const std::string listSeparator = option.second->getListSeparator();
+                if (listSeparator != "") {
                     StringTokenizer st(option.second->getValueString(), " ", true);
                     bool first = true;
                     for (const std::string& v : st.getVector()) {
                         if (first) {
                             first = false;
                         } else {
-                            arguments += sep;
+                            arguments += listSeparator;
                         }
                         arguments += ("\"" + v + "\"");
                     }
@@ -166,11 +166,11 @@ GNEPythonTool::loadConfiguration(const std::string& file) {
         parser.setErrorHandler(&handler);
         parser.parse(StringUtils::transcodeToLocal(file).c_str());
         if (handler.errorOccurred()) {
-            WRITE_ERROR(TL("Could not load netedit configuration '") + file + "'.");
+            WRITE_ERROR(TL("Could not load tool configuration '") + file + "'.");
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TL("Could not load netedit configuration '") + file + "':\n " + StringUtils::transcode(e.getMessage()));
+        WRITE_ERROR(TL("Could not load tool configuration '") + file + "':\n " + StringUtils::transcode(e.getMessage()));
         return false;
     }
     // write info

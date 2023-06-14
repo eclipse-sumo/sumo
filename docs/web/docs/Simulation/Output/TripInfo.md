@@ -97,7 +97,8 @@ with units as following
 | `HC_abs`   | mg   | The complete amount of HC emitted by the vehicle during the trip             |
 | `PMx_abs`  | mg   | The complete amount of PM<sub>x</sub> emitted by the vehicle during the trip |
 | `NOx_abs`  | mg   | The complete amount of NO<sub>x</sub> emitted by the vehicle during the trip |
-| `fuel_abs` | ml   | The complete amount of fuel the vehicle used during the trip                 |
+| `fuel_abs` | mg   | The complete amount of fuel the vehicle used during the trip                 |
+| `electricity_abs` | Wh   | The complete amount of electricity the vehicle used during the trip   |
 
 ## Output for vehicles that have not arrived at simulation end
 By default, tripinfo-output is only written on vehicle arrival. This means vehicles that have not arrived at simulation end (i.e. due to option **--end**) generate no output.

@@ -36,9 +36,10 @@ The detail of information given for each conflict and the criteria to qualify an
     ...
     <vehicle id="v0" route="route0" depart="0">
         <param key="has.ssm.device" value="true"/>
-        <param key="device.ssm.measures" value="TTC DRAC PET"/>
-        <param key="device.ssm.thresholds" value="3.0 3.0 2.0"/> 
+        <param key="device.ssm.measures" value="TTC DRAC PET MDRAC"/>
+        <param key="device.ssm.thresholds" value="3.0 3.0 2.0 3.4"/> 
         <param key="device.ssm.range" value="50.0" />
+        <param key="device.ssm.mdrac.prt" value="1.0" />
         <param key="device.ssm.extratime" value="5.0" />
         <param key="device.ssm.file" value="ssm_v0.xml" />
         <param key="device.ssm.trajectories" value="false" />
@@ -46,6 +47,7 @@ The detail of information given for each conflict and the criteria to qualify an
         <param key="device.ssm.write-positions" value="false" />
         <param key="device.ssm.write-lane-positions" value="false" />
         <param key="device.ssm.filter-edges.input-file" value="input_list.txt" />
+        <param key="device.ssm.exclude-conflict-types" value="" />
     </vehicle>
     ....
 </routes>
@@ -58,7 +60,7 @@ The possible parameters are summarized in the following table
 | Parameter  |  Type  |  Default  | Remark  |
 |---|---|---|---|
 | measures  | list of strings  | All available SSMs  | This space or comma-separated  list of SSM-identifiers determines, which encounter-specific SSMs are calculated for the equipped vehicle's encounters and which global measures are recorded (see [below](#available_ssms))   |
-| thresholds  | list of floats  | <ul><li>TTC < 3.0[s]</li><li>DRAC > 3.0[m/s^2]</li><li>PET < 2.0[s]</li><li>BR > 0.0[m/s^2]</li><li>SGAP < 0.2[m]</li><li>TGAP < 0.5[s]</li></ul>  | This space or comma-separated list of SSM-thresholds determines, which encounters are classified as conflicts (if their measurements exceed a threshold) and thus written to the output file as a `<conflict>`-element. This list is required to have the same length as the list of measures if given.<br><br>**Note:** Currently the global measures are recorded as a single timeline for the whole simulation span and thresholds have only effect insofar a leader is looked for in the distance corresponding to the SGAP and, respectively, TGAP values.   |
+| thresholds  | list of floats  | <ul><li>TTC < 3.0[s]</li><li>DRAC > 3.0[m/s^2]</li><li>MDRAC > 3.4[m/s^2]</li><li>PET < 2.0[s]</li><li>BR > 0.0[m/s^2]</li><li>SGAP < 0.2[m]</li><li>TGAP < 0.5[s]</li></ul>  | This space or comma-separated list of SSM-thresholds determines, which encounters are classified as conflicts (if their measurements exceed a threshold) and thus written to the output file as a `<conflict>`-element. This list is required to have the same length as the list of measures if given.<br><br>**Note:** Currently the global measures are recorded as a single timeline for the whole simulation span and thresholds have only effect insofar a leader is looked for in the distance corresponding to the SGAP and, respectively, TGAP values.   |
 | range  | double  | 50.0 [m]  | The devices detection range in meters. Other vehicles are tracked as soon as they are closer than `<range>` to the the equipped vehicle *along the road-network*. A tree search is performed to find all vehicles up to range upstream and downstream to the vehicle's current position. Further, for all downstream junctions in range, an upstream search for the given range is performed.  |
 | extratime  | double  | 5.0 [s]  | The extra time that an encounter is tracked on after not being associated to a potential conflict (either after crossing the conflict area, deviating from a common route, changing lanes, or because vehicles leave the device range, etc.).  |
 | file  | string  | "ssm_<equipped_vehicleID\>.xml"  | The filename for storing the conflict information of the equipped vehicle. Several vehicles may write to the same file. Conflicts of a single vehicle are written in the order of the log-begin of the encounter.   |
@@ -67,6 +69,7 @@ The possible parameters are summarized in the following table
 | write-positions  | bool  | false  | Whether to write the positions (coordinates) to the output.  |
 | write-lane-positions  | bool  | false  | Whether to write the lanes and the positions on the lanes to the output.  |
 | filter-edges.input-file | string | - | If defined, only conflicts occured at the provided edges and junctions are measured. See [Restricting SSM Device to Edges and Junctions](#restricting_ssm_device_to_edges_and_junctions)  |
+| exclude-conflict-types | list of strings | - | This space or comma-separated list of SSM device conflict type codes determines which conflicts will appear in the output file. Any conflict which has been classified during at least one time step as one of the mentioned types is excluded from the output. Special values **"foe"** (types {3,7,11,13,15}) and **"ego"** (types {2,6,10,12,14}) add predefined sets to the list. |
 
 ## Encounter types
 Different types of encounters, e.g. crossing, merging, or lead/follow situations, may imply different calculation procedures for the safety measures. Therefore the SSM-device keeps track of these classifications and provides them in the output to allow the correct interpretation of the corresponding values.
@@ -131,6 +134,7 @@ Currently, the following safety surrogate measures are implemented:
 - [TTC](#ttc) (time to collision)
 - [DRAC](#drac) (deceleration rate to avoid a crash)
 - [PET](#pet) (post encroachment time)
+- [MDRAC](#mdrac) (modified DRAC) 
 
 Further, the following additional safety-relevant output can be generated, which will not be linked to a specific encounter:
 
@@ -181,6 +185,19 @@ For a merging situation, both variants for the DRAC calculation must be tested a
 !!! note
     This has still to be implemented, currently only one variant is used.
 
+### MDRAC
+A modified indicator of the DRAC called MDRAC considering a perception-reaction-time (PRT) is defined as 
+
+```
+MDRAC = 0.5*speed_difference/(TTC - PRT).
+
+```
+
+The `PRT` is configured with param key `device.ssm.mdrac.prt` or via option **--device.ssm.mdrac.prt** and defaults to a value of `1` second.
+
+!!! note
+	This metric is not fully implemented for all conflict types yet! (only type 0 - 8 are partly tested so far)
+	
 ### PET
 For merging and crossing situations, the PET (post encroachment time) is defined as the difference of the leading vehicle's conflict area exit time tA and the following vehicle's conflict area entry time tB:
 
@@ -232,11 +249,11 @@ An example for the contents of an output file:
          <foeVelocity values="13.02,0.00 12.57,0.00 12.12,0.00 ..."/>
          <conflictPoint values="99.23,49.46 99.23,49.46 99.23,49.46 ..."/>
          <TTCSpan values="1.78 1.74 1.70 1.67 1.63 1.60 1.56 ..."/>
-         <minTTC time="7.40" position="99.23,49.46" type="10" value="1.48"/>
+         <minTTC time="7.40" position="99.23,49.46" type="10" value="1.48" speed="13.50"/>
          <DRACSpan values="3.66 3.61 3.56 3.50 3.44 3.37 3.30 ..."/>
          <maxDRAC time="6.50" position="99.23,49.46" type="10" 
-value="3.66"/>
-         <PET time="9.42" position="99.23,49.46" type="17" value="0.72"/>
+value="3.66" speed="12.95"/>
+         <PET time="9.42" position="99.23,49.46" type="17" value="0.72" speed="5.12"/>
      </conflict>
      <conflict begin="21.50" end="27.20" ego="ego1" foe="foe2">
          ...
@@ -278,14 +295,17 @@ Elements of type `<conflict>` hold the following information in their child elem
 |              | position  | 2D-coordinate     | Coordinate of the corresponding conflict point.               | --device.ssm.measures "TTC" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type. (Defines the variant of [TTC-calculation](#ttc).) | --device.ssm.measures "TTC" |
 |              | value   | float >= 0          | The minimal measured TTC-value.                               | --device.ssm.measures "TTC" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of minTTC.| --device.ssm.measures "TTC" |
 | maxDRAC      | time    | float               | Time point of the maximal measured value for the DRAC.        | --device.ssm.measures "DRAC" |
 |              | position  | 2D-coordinate     | Coordinate of the corresponding conflict point.               | --device.ssm.measures "DRAC" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type. (Defines the variant of [DRAC-calculation](#drac).)  | --device.ssm.measures "DRAC" |
 |              | value   | float >= 0          | The maximal measured DRAC-value.                              | --device.ssm.measures "DRAC" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of maxDRAC.| --device.ssm.measures "DRAC" |
 | PET          | time    | float               | Time point of the minimal measured value for the PET. (Usually the PET is only measured once, therefore no PETSpan is reported.)  | --device.ssm.measures "PET" |
 |              | position  | 2D-coordinate     | Coordinate of the corresponding encroachment point.           | --device.ssm.measures "PET" |
 |              | type    | integer (Encounter type code)  | [Type code](#encounter_types) of the corresponding encounter type.  | --device.ssm.measures "PET" |
 |              | value   | float >= 0          | The measured PET-value.                                       | --device.ssm.measures "PET" |
+|              | speed   | float >= 0          | The speed of the reporting vehicle at the occurence of PET.   | --device.ssm.measures "PET" |
 
 
 The `<globalMeasures>` element has the following structure:

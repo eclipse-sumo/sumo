@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-03 11:18:02 by Eclipse SUMO sumo Version v1_17_0+0343-e1e55835e3a
+<!-- generated on 2023-06-14 20:38:39 by Eclipse SUMO sumo Version v1_17_0+0346-147b0cca96e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -280,6 +280,17 @@
     </communication>
 
     <battery>
+        <device.stationfinder.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;stationfinder&apos; device"/>
+        <device.stationfinder.explicit value="" synonymes="device.stationfinder.knownveh" type="STR[]" help="Assign a &apos;stationfinder&apos; device to named vehicles"/>
+        <device.stationfinder.deterministic value="false" type="BOOL" help="The &apos;stationfinder&apos; devices are set deterministic using a fraction of 1000"/>
+        <device.stationfinder.rescueTime value="1800" type="TIME" help="Time to wait for a rescue vehicle on the road side when the battery is empty"/>
+        <device.stationfinder.reserveFactor value="1.1" type="FLOAT" help="Additional battery buffer for unexpected traffic situation when estimating the battery need"/>
+        <device.stationfinder.emptyThreshold value="5" type="FLOAT" help="Battery percentage to go into rescue mode"/>
+        <device.stationfinder.radius value="180" type="TIME" help="Search radius in travel time seconds"/>
+        <device.stationfinder.repeat value="60" type="TIME" help="When to trigger a new search if no station has been found"/>
+        <device.stationfinder.maxChargePower value="1000" type="FLOAT" help="The maximum charging speed of the vehicle battery"/>
+        <device.stationfinder.chargeType value="charging" type="STR" help="Type of energy transfer"/>
+        <device.stationfinder.waitForCharge value="600" type="TIME" help="After this waiting time vehicle searches for a new station when the initial one is blocked"/>
         <device.battery.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;battery&apos; device"/>
         <device.battery.explicit value="" synonymes="device.battery.knownveh" type="STR[]" help="Assign a &apos;battery&apos; device to named vehicles"/>
         <device.battery.deterministic value="false" type="BOOL" help="The &apos;battery&apos; devices are set deterministic using a fraction of 1000"/>
@@ -297,15 +308,17 @@
         <device.ssm.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;ssm&apos; device"/>
         <device.ssm.explicit value="" synonymes="device.ssm.knownveh" type="STR[]" help="Assign a &apos;ssm&apos; device to named vehicles"/>
         <device.ssm.deterministic value="false" type="BOOL" help="The &apos;ssm&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;))"/>
+        <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;,&apos;MDRAC&apos;))"/>
         <device.ssm.thresholds value="" type="STR" help="Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."/>
         <device.ssm.trajectories value="false" type="BOOL" help="Specifies whether trajectories will be logged (if false, only the extremal values and times are reported)."/>
         <device.ssm.range value="50" type="FLOAT" help="Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced."/>
         <device.ssm.extratime value="5" type="FLOAT" help="Specifies the time in seconds to be logged after a conflict is over. Required &gt;0 if PET is to be calculated for crossing conflicts."/>
+        <device.ssm.mdrac.prt value="1" type="FLOAT" help="Specifies the perception reaction time for MDRAC computation."/>
         <device.ssm.file value="" type="STR" help="Give a global default filename for the SSM output"/>
         <device.ssm.geo value="false" type="BOOL" help="Whether to use coordinates of the original reference system in output"/>
         <device.ssm.write-positions value="false" type="BOOL" help="Whether to write positions (coordinates) for each timestep"/>
         <device.ssm.write-lane-positions value="false" type="BOOL" help="Whether to write lanes and their positions for each timestep"/>
+        <device.ssm.exclude-conflict-types value="" type="STR" help="Which conflicts will be excluded from the log according to the conflict type they have been classified (combination of values in &apos;ego&apos;, &apos;foe&apos; , &apos;&apos;, any numerical valid conflict type code). An empty value will log all and &apos;ego&apos;/&apos;foe&apos; refer to a certain conflict type subset."/>
     </ssm_device>
 
     <toc_device>

@@ -332,6 +332,11 @@ public:
         return myEmergencyStops;
     }
 
+    /// @brief return the number of emergency stops
+    int getEmergencyBrakingCount() const {
+        return myEmergencyBrakingCount;
+    }
+
     /// @brief return the number of vehicles that are currently stopped
     int getStoppedVehiclesCount() const {
         return myStoppedVehicles;
@@ -479,6 +484,11 @@ public:
     }
 
     /// @brief register emergency stop
+    void registerEmergencyBraking() {
+        myEmergencyBrakingCount++;
+    }
+
+    /// @brief register emergency stop
     void registerStopStarted() {
         myStoppedVehicles++;
     }
@@ -593,6 +603,9 @@ private:
 
     /// @brief The number of emergency stops
     int myEmergencyStops;
+
+    /// @brief The number of emergency stops
+    int myEmergencyBrakingCount;
 
     /// @brief The number of stopped vehicles
     int myStoppedVehicles;

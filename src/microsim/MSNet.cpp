@@ -477,6 +477,9 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
         if (myVehicleControl->getEmergencyStops() > 0) {
             msg << " Emergency Stops: " << myVehicleControl->getEmergencyStops() << "\n";
         }
+        if (myVehicleControl->getEmergencyBrakingCount() > 0) {
+            msg << " Emergency Braking: " << myVehicleControl->getEmergencyBrakingCount() << "\n";
+        }
         if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
             msg << "Persons: " << "\n"
                 << " Inserted: " << myPersonControl->getLoadedNumber() << "\n"
@@ -574,6 +577,7 @@ MSNet::writeStatistics(const SUMOTime start, const long now) const {
     od.openTag("safety");
     od.writeAttr("collisions", myVehicleControl->getCollisionCount());
     od.writeAttr("emergencyStops", myVehicleControl->getEmergencyStops());
+    od.writeAttr("emergencyBraking", myVehicleControl->getEmergencyBrakingCount());
     od.closeTag();
     od.openTag("persons");
     od.writeAttr("loaded", myPersonControl != nullptr ? myPersonControl->getLoadedNumber() : 0);

@@ -556,7 +556,7 @@ public:
     /// @brief return the speed at which ego vehicle must approach the zipper link
     double getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                           SUMOTime arrivalTime,
-                          BlockingFoes* collectFoes) const;
+                          const BlockingFoes* foes) const;
 
     /// @brief return the via lane if it exists and the lane otherwise
     inline MSLane* getViaLaneOrLane() const {

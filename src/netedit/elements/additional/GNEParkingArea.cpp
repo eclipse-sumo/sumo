@@ -41,15 +41,17 @@ GNEParkingArea::GNEParkingArea(GNENet* net) :
     myOnRoad(false),
     myWidth(0),
     myLength(0),
-    myAngle(0) {
+    myAngle(0),
+    myLefthand(false) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
-                               const std::string& departPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width,
-                               const double length, double angle, const Parameterised::Map& parameters) :
+                               const std::string& departPos, const std::string& name, const bool friendlyPosition, const int roadSideCapacity, 
+                               const bool onRoad, const double width, const double length, const double angle, const bool lefthand,
+                               const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA),
                      lane, startPos, endPos, name, friendlyPosition, parameters),
     myDepartPos(departPos),
@@ -57,7 +59,9 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net
     myOnRoad(onRoad),
     myWidth(width),
     myLength(length),
-    myAngle(angle) {
+    myAngle(angle),
+    myLefthand(lefthand)
+{
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -101,6 +105,9 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_DEPARTPOS) != myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTPOS)) {
         device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPos);
     }
+    if (getAttribute(SUMO_ATTR_LEFTHAND) != myTagProperty.getDefaultValue(SUMO_ATTR_LEFTHAND)) {
+        device.writeAttr(SUMO_ATTR_LEFTHAND, myLefthand);
+    }
     // write all parking spaces
     for (const auto& space : getChildAdditionals()) {
         if (space->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
@@ -116,7 +123,7 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
 void
 GNEParkingArea::updateGeometry() {
     // Get value of option "lefthand"
-    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") != myLefthand ? -1 : 1;
     // calculate spaceDim
     const double spaceDim = myRoadSideCapacity > 0 ? (getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) / myRoadSideCapacity * getParentLanes().front()->getLengthGeometryFactor() : 7.5;
     // calculate length
@@ -276,6 +283,8 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return toString(myLength);
         case SUMO_ATTR_ANGLE:
             return toString(myAngle);
+        case SUMO_ATTR_LEFTHAND:
+            return toString(myLefthand);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -335,6 +344,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
+        case SUMO_ATTR_LEFTHAND:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
@@ -409,6 +419,8 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
+        case SUMO_ATTR_LEFTHAND:
+            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -516,6 +528,10 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ANGLE:
             myAngle = parse<double>(value);
+            break;
+        case SUMO_ATTR_LEFTHAND:
+            myLefthand = parse<bool>(value);
+            updateGeometry();
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

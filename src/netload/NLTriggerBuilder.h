@@ -151,7 +151,8 @@ public:
                                   unsigned int capacity,
                                   double width, double length, double angle, const std::string& name,
                                   bool onRoad,
-                                  const std::string& departPos);
+                                  const std::string& departPos,
+                                  bool lefthand);
 
 
     /** @brief Add a lot entry to current parking area

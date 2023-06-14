@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-08 09:58:11 by Eclipse SUMO netconvert Version v1_17_0+0123-4dbdc7a
+<!-- generated on 2023-06-06 12:40:31 by Eclipse SUMO netconvert Version v1_17_0+0735-ed7251a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -699,6 +699,9 @@
         <!-- Use maximum value of incoming and outgoing edge speed on junction instead of average -->
         <junctions.higher-speed value="false" type="BOOL"/>
 
+        <!-- Build junctions with minimal shapes (igoring edge overlap) -->
+        <junctions.minimal-shape value="false" type="BOOL"/>
+
         <!-- Assumed vehicle width for computing internal junction positions -->
         <internal-junctions.vehicle-width value="1.8" type="FLOAT"/>
 
@@ -777,6 +780,9 @@
         <!-- Add turn-around connections at all loaded stops. -->
         <railway.topology.repair.stop-turn value="false" type="BOOL"/>
 
+        <!-- Penalty factor for adding new bidi edges to connect public transport stops -->
+        <railway.topology.repair.bidi-penalty value="1.2" type="FLOAT"/>
+
         <!-- Make all rails usable in both direction -->
         <railway.topology.all-bidi value="false" type="BOOL"/>
 
@@ -788,6 +794,9 @@
 
         <!-- Extend loaded edge priority values based on estimated main direction -->
         <railway.topology.extend-priority value="false" type="BOOL"/>
+
+        <!-- Guess signals that guard public transport stops -->
+        <railway.signal.guess.by-stops value="false" type="BOOL"/>
 
         <!-- The search radius for finding suitable road accesses for rail stops -->
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT"/>
@@ -850,10 +859,10 @@
         <osm.stop-output.length.train value="200" type="FLOAT"/>
 
         <!-- Whether additional attributes shall be imported -->
-        <osm.all-attributes value="false" type="BOOL"/>
+        <osm.all-attributes value="false" synonymes="osm.all-tags" type="BOOL"/>
 
         <!-- List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all) -->
-        <osm.extra-attributes value="bridge,tunnel,layer,postal_code" type="STR[]"/>
+        <osm.extra-attributes value="all" synonymes="osm.extra-tags" type="STR[]"/>
 
         <!-- The speed limit to be set when there is no actual speed limit in reality -->
         <osm.speedlimit-none value="39.4444" type="FLOAT"/>
@@ -980,6 +989,9 @@
 
         <!-- Use custom lane shapes to compensate discarded lane types -->
         <opendrive.lane-shapes value="false" type="BOOL"/>
+
+        <!-- Use the OpenDRIVE controller information for the generated signal program -->
+        <opendrive.signal-groups value="false" type="BOOL"/>
 
     </formats>
 

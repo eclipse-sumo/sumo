@@ -195,14 +195,8 @@ protected:
     /// @brief flag to check if this default GNEVType was modified
     bool myDefaultVehicleTypeModified;
 
-    /// @brief edit vType distribution
-    void editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoList* undoList);
-
-    /// @brief ask if add vTypeDistribution
-    bool askAddVTypeDistribution(const std::string& vTypeDistribution) const;
-
-    /// @brief ask if remove vTypeDistribution
-    bool askRemoveVTypeDistribution(const std::string& vTypeDistribution) const;
+    /// @brief vType distribution
+    std::string myDistribution;
 
 private:
     /// @brief method for setting the attribute and nothing else

@@ -163,6 +163,24 @@ Option::isData() const {
 
 
 bool
+Option::isSumoConfig() const {
+    return false;
+}
+
+
+bool
+Option::isEdge() const {
+    return false;
+}
+
+
+bool
+Option::isEdgeVector() const {
+    return false;
+}
+
+
+bool
 Option::isWriteable() const {
     return myAmWritable;
 }
@@ -514,7 +532,6 @@ bool Option_Network::isNetwork() const {
     return true;
 }
 
-
 // -------------------------------------------------------------------------
 // Option_Additional - methods
 // -------------------------------------------------------------------------
@@ -528,7 +545,6 @@ bool
 Option_Additional::isAdditional() const {
     return true;
 }
-
 
 // -------------------------------------------------------------------------
 // Option_Route - methods
@@ -544,7 +560,6 @@ Option_Route::isRoute() const {
     return true;
 }
 
-
 // -------------------------------------------------------------------------
 // Option_Data - methods
 // -------------------------------------------------------------------------
@@ -556,6 +571,48 @@ Option_Data::Option_Data(const std::string& value) :
 
 bool
 Option_Data::isData() const {
+    return true;
+}
+
+// -------------------------------------------------------------------------
+// Option_Data - methods
+// -------------------------------------------------------------------------
+
+Option_SumoConfig::Option_SumoConfig(const std::string& value) :
+    Option_String(value, "SUMOCONFIG") {
+}
+
+
+bool
+Option_SumoConfig::isSumoConfig() const {
+    return true;
+}
+
+// -------------------------------------------------------------------------
+// Option_Data - methods
+// -------------------------------------------------------------------------
+
+Option_Edge::Option_Edge(const std::string& value) :
+    Option_String(value, "EDGE") {
+}
+
+
+bool
+Option_Edge::isEdge() const {
+    return true;
+}
+
+// -------------------------------------------------------------------------
+// Option_Data - methods
+// -------------------------------------------------------------------------
+
+Option_EdgeVector::Option_EdgeVector(const std::string& value) :
+    Option_String(value, "EDGE[]") {
+}
+
+
+bool
+Option_EdgeVector::isEdgeVector() const {
     return true;
 }
 

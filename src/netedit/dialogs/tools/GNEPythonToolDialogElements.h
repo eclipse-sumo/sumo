@@ -30,6 +30,7 @@
 
 class GNEPythonToolDialog;
 class MFXLabelTooltip;
+class MFXButtonTooltip;
 class Option;
 
 // ===========================================================================
@@ -129,6 +130,51 @@ public:
         Argument& operator=(const Argument&) = delete;
     };
 
+    
+    /// @brief edge vector argument
+    class EdgeVectorArgument : public Argument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::EdgeVectorArgument)
+
+    public:
+        /// @brief constructor
+        EdgeVectorArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                      const std::string name, Option* option);
+
+        /// @brief reset to default value
+        void reset();
+
+        /// @brief Called when user changes argument value
+        long onCmdSetValue(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press use seleted edges button
+        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use selected edges button
+        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        EdgeVectorArgument();
+
+        /// @brief get value
+        const std::string getValue() const;
+
+        /// @brief edge vectgor textField
+        FXTextField* myEdgeVectorTextField = nullptr;
+
+    private:
+        /// @brief current edges button
+        MFXButtonTooltip* myCurrentEdgesButton = nullptr;
+
+        /// @brief Invalidated copy constructor.
+        EdgeVectorArgument(const EdgeVectorArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        EdgeVectorArgument& operator=(const EdgeVectorArgument&) = delete;
+    };
+
+
     /// @brief filename argument
     class FileNameArgument : public Argument {
         /// @brief FOX-declaration
@@ -164,10 +210,10 @@ public:
 
     private:
         /// @brief current button
-        FXButton* myCurrentButton = nullptr;
+        MFXButtonTooltip* myCurrentButton = nullptr;
 
         /// @brief filename button
-        FXButton* myOpenFilenameButton = nullptr;
+        MFXButtonTooltip* myOpenFilenameButton = nullptr;
 
         /// @brief Invalidated copy constructor.
         FileNameArgument(const FileNameArgument&) = delete;
@@ -190,10 +236,10 @@ public:
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press use current button
-        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+        long onCmdUseCurrentNetworkFile(FXObject*, FXSelector, void*);
 
         /// @brief enable or disable use current button
-        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+        long onUpdUseCurrentNetworkFile(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -207,7 +253,7 @@ public:
         NetworkArgument& operator=(const NetworkArgument&) = delete;
     };
 
-    /// @brief network argument
+    /// @brief additional argument
     class AdditionalArgument : public FileNameArgument {
         /// @brief FOX-declaration
         FXDECLARE(GNEPythonToolDialogElements::AdditionalArgument)
@@ -221,10 +267,10 @@ public:
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press use current button
-        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+        long onCmdUseCurrentAdditionalFile(FXObject*, FXSelector, void*);
 
         /// @brief enable or disable use current button
-        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+        long onUpdUseCurrentAdditionalFile(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -238,7 +284,7 @@ public:
         AdditionalArgument& operator=(const AdditionalArgument&) = delete;
     };
 
-    /// @brief network argument
+    /// @brief route argument
     class RouteArgument : public FileNameArgument {
         /// @brief FOX-declaration
         FXDECLARE(GNEPythonToolDialogElements::RouteArgument)
@@ -252,10 +298,10 @@ public:
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press use current button
-        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+        long onCmdUseCurrentRouteFile(FXObject*, FXSelector, void*);
 
         /// @brief enable or disable use current button
-        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+        long onUpdUseCurrentRouteFile(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -269,7 +315,7 @@ public:
         RouteArgument& operator=(const RouteArgument&) = delete;
     };
 
-    /// @brief network argument
+    /// @brief data argument
     class DataArgument : public FileNameArgument {
         /// @brief FOX-declaration
         FXDECLARE(GNEPythonToolDialogElements::DataArgument)
@@ -283,10 +329,10 @@ public:
         long onCmdOpenFilename(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press use current button
-        long onCmdUseCurrent(FXObject*, FXSelector, void*);
+        long onCmdUseCurrentDataFile(FXObject*, FXSelector, void*);
 
         /// @brief enable or disable use current button
-        long onUpdUseCurrent(FXObject* sender, FXSelector, void*);
+        long onUpdUseCurrentDataFile(FXObject* sender, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -298,6 +344,68 @@ public:
 
         /// @brief Invalidated assignment operator.
         DataArgument& operator=(const DataArgument&) = delete;
+    };
+
+    /// @brief sumo config argument
+    class SumoConfigArgument : public FileNameArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPythonToolDialogElements::SumoConfigArgument)
+
+    public:
+        /// @brief constructor
+        SumoConfigArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
+                      const std::string name, Option* option);
+
+        /// @brief Called when user press open filename button
+        long onCmdOpenFilename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press use current button
+        long onCmdUseCurrentSumoConfigFile(FXObject*, FXSelector, void*);
+
+        /// @brief enable or disable use current button
+        long onUpdUseCurrentSumoConfigFile(FXObject* sender, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        SumoConfigArgument();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        SumoConfigArgument(const SumoConfigArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SumoConfigArgument& operator=(const SumoConfigArgument&) = delete;
+    };
+
+    /// @brief int argument
+    class EdgeArgument : public Argument {
+
+    public:
+        /// @brief constructor
+        EdgeArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame, const std::string name, Option* option);
+
+        /// @brief reset to default value
+        void reset();
+
+        /// @brief Called when user set int value
+        long onCmdSetValue(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief get value
+        const std::string getValue() const;
+
+        /// @brief int textField
+        FXTextField* myEdgeTextField = nullptr;
+
+    private:
+        /// @brief invalid int in string format
+        static const std::string INVALID_INT_STR;
+
+        /// @brief Invalidated copy constructor.
+        EdgeArgument(const EdgeArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        EdgeArgument& operator=(const EdgeArgument&) = delete;
     };
 
     /// @brief string argument

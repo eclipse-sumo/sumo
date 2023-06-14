@@ -25,14 +25,14 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <utils/common/UtilExceptions.h>
+
 #include "NBEdgeCont.h"
 #include "NBTypeCont.h"
 #include "NBNodeCont.h"
 #include "NBNode.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBDistrictCont.h"
-#include <utils/common/UtilExceptions.h>
-
 
 // ===========================================================================
 // class definitions
@@ -42,17 +42,16 @@
  * @brief Sets and checks options for netbuild
  */
 class NBFrame {
+
 public:
     /** @brief Inserts options used by the network converter
      * @param[in] forNetgen Whether netconvert options shall be omitted
      */
-    static void fillOptions(bool forNetgen);
+    static void fillOptions(OptionsCont& oc, bool forNetgen);
 
 
     /** @brief Checks set options from the OptionsCont-singleton for being valid
      * @return Whether needed (netbuild) options are set and have proper values
      */
-    static bool checkOptions();
-
-
+    static bool checkOptions(OptionsCont& oc);
 };

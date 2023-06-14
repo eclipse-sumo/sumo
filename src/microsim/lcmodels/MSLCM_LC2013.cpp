@@ -44,6 +44,7 @@
 // ===========================================================================
 // variable definitions
 // ===========================================================================
+#define MAGIC_OFFSET  1.
 #define LOOK_FORWARD 10.
 
 #define JAM_FACTOR 1.
@@ -238,18 +239,17 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, double max, const MSC
 #endif
 
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
-    double MAGIC_offset = 1.;
     double nVSafe = wanted;
     bool gotOne = false;
     //   if we want to change and have a blocking leader and there is enough room for him in front of us
     if (myLeadingBlockerLength != 0) {
-        double space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
+        double space = myLeftSpace - myLeadingBlockerLength - MAGIC_OFFSET - myVehicle.getVehicleType().getMinGap();
 #ifdef DEBUG_PATCH_SPEED
         if (DEBUG_COND) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeftSpace=" << myLeftSpace << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
         }
 #endif
-        if (space > 0) { // XXX space > -MAGIC_offset
+        if (space > 0) { // XXX space > -MAGIC_OFFSET
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
             const double vMinEmergency = myVehicle.getCarFollowModel().minNextSpeedEmergency(myVehicle.getSpeed(), &myVehicle);
             double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space, MSCFModel::CalcReason::LANE_CHANGE);
@@ -1238,10 +1238,8 @@ MSLCM_LC2013::_wantsChange(
     double laDist = myLookAheadSpeed * LOOK_FORWARD * myStrategicParam * (right ? 1 : myLookaheadLeft);
     laDist += myVehicle.getVehicleType().getLengthWithGap() *  2.;
     const bool hasStoppedLeader = leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane);
-    const bool hasBidiLeader = (myVehicle.getLane()->getBidiLane() != nullptr
-                                && leader.first != nullptr
-                                && leader.first->getLane()->getBidiLane() != nullptr
-                                && std::find(curr.bestContinuations.begin(), curr.bestContinuations.end(), leader.first->getLane()->getBidiLane()) != curr.bestContinuations.end());
+    const bool hasBidiLeader = myVehicle.getLane()->getBidiLane() != nullptr && MSLCHelper::isBidiLeader(leader.first, curr.bestContinuations);
+    const bool hasBidiNeighLeader = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiLeader(neighLead.first, neigh.bestContinuations);
 
     if (bestLaneOffset == 0 && hasBidiLeader) {
         // getting out of the way is enough to clear the blockage
@@ -1253,7 +1251,7 @@ MSLCM_LC2013::_wantsChange(
         laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap()
                         + leader.first->getVehicleType().getLengthWithGap()
                         + leader.second);
-    } else if (bestLaneOffset == laneOffset && neighLead.first != 0 && neighLead.first->isStopped() && neighLead.second < (currentDist - posOnLane)) {
+    } else if (bestLaneOffset == laneOffset && neighLead.first != 0 && (neighLead.first->isStopped() || hasBidiNeighLeader) && neighLead.second < (currentDist - posOnLane)) {
         // react to a stopped leader on the target lane (if it is the bestLane)
         if (isOpposite()) {
             // always allow changing back
@@ -1261,7 +1259,8 @@ MSLCM_LC2013::_wantsChange(
                       + neighLead.first->getVehicleType().getLengthWithGap()
                       + neighLead.second);
         } else if (!hasStoppedLeader &&
-                   (neighLead.second + myVehicle.getVehicleType().getLengthWithGap() + neighLead.first->getVehicleType().getLengthWithGap()) < (currentDist - posOnLane)) {
+                   ((neighLead.second + myVehicle.getVehicleType().getLengthWithGap() + neighLead.first->getVehicleType().getLengthWithGap()) < (currentDist - posOnLane)
+                    || hasBidiNeighLeader)) {
             // do not change to the target lane until passing the stopped vehicle
             // (unless the vehicle blocks our intended stopping position, then we have to wait anyway)
             changeToBest = false;
@@ -1315,6 +1314,8 @@ MSLCM_LC2013::_wantsChange(
                   << " maxJam=" << maxJam
                   << " neighDist=" << neighDist
                   << " neighLeftPlace=" << neighLeftPlace
+                  << (hasBidiLeader ? " bidiLeader" : "")
+                  << (hasBidiNeighLeader ? " bidiNeighLeader" : "")
                   << "\n";
     }
 #endif
@@ -1372,7 +1373,7 @@ MSLCM_LC2013::_wantsChange(
             }
         }
         const bool currFreeUntilNeighEnd = leader.first == nullptr || neighDist - posOnLane <= leader.second;
-        const double overtakeDist = (leader.first == 0 ? -1 :
+        const double overtakeDist = (leader.first == 0 || hasBidiLeader ? -1 :
                                      leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap());
         if (leader.first != 0 && (leader.first->isStopped() || hasBidiLeader) && leader.second < REACT_TO_STOPPED_DISTANCE
                 // current destination leaves enough space to overtake the leader
@@ -1394,7 +1395,7 @@ MSLCM_LC2013::_wantsChange(
             }
 #endif
             ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
-        } else if (!changeToBest && (currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist))) {
+        } else if (!changeToBest && currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist) && !hasBidiLeader) {
             // the opposite lane-changing direction should be done than the one examined herein
             //  we'll check whether we assume we could change anyhow and get back in time...
             //
@@ -1420,6 +1421,7 @@ MSLCM_LC2013::_wantsChange(
             ret = ret | LCA_STAY | LCA_STRATEGIC;
         } else if (bestLaneOffset == 0
                    && (leader.first == 0 || !leader.first->isStopped())
+                   && !hasBidiLeader
                    && neigh.bestContinuations.back()->getLinkCont().size() != 0
                    && roundaboutBonus == 0
                    && !checkOpposite
@@ -1479,9 +1481,9 @@ MSLCM_LC2013::_wantsChange(
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1
         //   if there is a leader and he wants to change to the opposite direction
         const bool canContinue = curr.bestContinuations.size() > 1;
-        bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLead.first, lcaCounter, myLeftSpace, canContinue, myLeadingBlockerLength);
+        bool canReserve = MSLCHelper::updateBlockerLength(myVehicle, neighLead.first, lcaCounter, myLeftSpace - MAGIC_OFFSET, canContinue, myLeadingBlockerLength);
         if (*firstBlocked != neighLead.first) {
-            canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace,  canContinue, myLeadingBlockerLength);
+            canReserve &= MSLCHelper::updateBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace - MAGIC_OFFSET, canContinue, myLeadingBlockerLength);
         }
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
         if (DEBUG_COND) {
@@ -1500,12 +1502,17 @@ MSLCM_LC2013::_wantsChange(
                                          //MAX2(STEPS2TIME(TS), (myLeftSpace-myLeadingBlockerLength) / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / remainingLanes / urgency) :
                                          MAX2(STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / remainingLanes / urgency) :
                                          myVehicle.getInfluencer().changeRequestRemainingSeconds(currentTime));
-        const double plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
-        // NOTE: for the  ballistic update case negative speeds may indicate a stop request,
-        //       while informLeader returns -1 in that case. Refs. #2577
-        if (plannedSpeed >= 0 || (!MSGlobals::gSemiImplicitEulerUpdate && plannedSpeed != -1)) {
-            // maybe we need to deal with a blocking follower
-            informFollower(msgPass, blocked, myLca, neighFollow, remainingSeconds, plannedSpeed);
+        if (!hasBidiNeighLeader) {
+            const double plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
+            // NOTE: for the  ballistic update case negative speeds may indicate a stop request,
+            //       while informLeader returns -1 in that case. Refs. #2577
+            if (plannedSpeed >= 0 || (!MSGlobals::gSemiImplicitEulerUpdate && plannedSpeed != -1)) {
+                // maybe we need to deal with a blocking follower
+                const bool hasBidiNeighFollower = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiFollower(&myVehicle, neighFollow.first);
+                if (!hasBidiNeighFollower) {
+                    informFollower(msgPass, blocked, myLca, neighFollow, remainingSeconds, plannedSpeed);
+                }
+            }
         }
 
 #ifdef DEBUG_WANTS_CHANGE

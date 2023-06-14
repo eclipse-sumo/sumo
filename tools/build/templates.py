@@ -247,7 +247,7 @@ TOOLS = [
     "osmGet.py",
     # "osmWebWizard.py",                NOT_WORKING_YET
     "plot_trajectories.py",
-    # "ptlines2flows.py",               NO CONFIG
+    "ptlines2flows.py",
     "randomTrips.py",
     "routeSampler.py",
     "runSeeds.py",

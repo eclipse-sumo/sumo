@@ -1889,6 +1889,12 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LEFTHAND,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Enable or disable lefthand position"),
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
     }
     currentTag = SUMO_TAG_PARKING_SPACE;
     {
@@ -3927,7 +3933,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         fillCommonFlowAttributes(currentTag, SUMO_ATTR_VEHSPERHOUR);
     }
     /* currently disabled. See #5259
-    currentTag = SUMO_TAG_TRIP_TAZ;
+    currentTag = GNE_TAG_TRIP_TAZ;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -3944,12 +3950,12 @@ GNEAttributeCarrier::fillStopElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
     // fill stops ACs
-    SumoXMLTag currentTag = SUMO_TAG_STOP_LANE;
+    SumoXMLTag currentTag = GNE_TAG_STOP_LANE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP,
-                                      GNETagProperties::CHILD | GNETagProperties::MASKSTARTENDPOS | GNETagProperties::NOPARAMETERS,
+                                      GNETagProperties::CHILD | GNETagProperties::MASKSTARTENDPOS,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
@@ -3983,12 +3989,12 @@ GNEAttributeCarrier::fillStopElements() {
         // fill common stop attributes
         fillCommonStopAttributes(currentTag, false);
     }
-    currentTag = SUMO_TAG_STOP_BUSSTOP;
+    currentTag = GNE_TAG_STOP_BUSSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP,
-                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GNETagProperties::CHILD,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
@@ -3999,12 +4005,28 @@ GNEAttributeCarrier::fillStopElements() {
         // fill common stop attributes
         fillCommonStopAttributes(currentTag, false);
     }
-    currentTag = SUMO_TAG_STOP_CONTAINERSTOP;
+    currentTag = GNE_TAG_STOP_TRAINSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP,
-                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GNETagProperties::CHILD,
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("TrainStop associated with this stop"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // fill common stop attributes
+        fillCommonStopAttributes(currentTag, false);
+    }
+    currentTag = GNE_TAG_STOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP,
+                                      GNETagProperties::CHILD,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
@@ -4015,12 +4037,12 @@ GNEAttributeCarrier::fillStopElements() {
         // fill common stop attributes
         fillCommonStopAttributes(currentTag, false);
     }
-    currentTag = SUMO_TAG_STOP_CHARGINGSTATION;
+    currentTag = GNE_TAG_STOP_CHARGINGSTATION;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP,
-                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GNETagProperties::CHILD,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
@@ -4031,12 +4053,12 @@ GNEAttributeCarrier::fillStopElements() {
         // fill common stop attributes
         fillCommonStopAttributes(currentTag, false);
     }
-    currentTag = SUMO_TAG_STOP_PARKINGAREA;
+    currentTag = GNE_TAG_STOP_PARKINGAREA;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP,
-                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GNETagProperties::CHILD,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
@@ -4060,7 +4082,7 @@ GNEAttributeCarrier::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP | GNETagProperties::WAYPOINT,
-                                      GNETagProperties::CHILD | GNETagProperties::MASKSTARTENDPOS | GNETagProperties::NOPARAMETERS,
+                                      GNETagProperties::CHILD | GNETagProperties::MASKSTARTENDPOS,
                                       GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
@@ -4099,12 +4121,28 @@ GNEAttributeCarrier::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP | GNETagProperties::WAYPOINT,
-                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GNETagProperties::CHILD,
                                       GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               TL("BusWaypoint associated with this waypoint"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // fill common waypoint (stop) attributes
+        fillCommonStopAttributes(currentTag, true);
+    }
+    currentTag = GNE_TAG_WAYPOINT_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP | GNETagProperties::WAYPOINT,
+                                      GNETagProperties::CHILD,
+                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("TrainWaypoint associated with this waypoint"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common waypoint (stop) attributes
@@ -4131,7 +4169,7 @@ GNEAttributeCarrier::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP | GNETagProperties::WAYPOINT,
-                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GNETagProperties::CHILD,
                                       GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
@@ -4146,7 +4184,7 @@ GNEAttributeCarrier::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP | GNETagProperties::WAYPOINT,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP,
                                       GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
@@ -4572,6 +4610,40 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                               "ANY");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GUIIcon::PERSONTRIP_TRAINSTOP, SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+        // from edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("The ID of the edge the person trip starts at"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // to trainStop
+        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_TRAINSTOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("Id of the destination trainStop"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // vTypes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of possible vehicle types to take"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // modes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_MODES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of possible traffic modes. Walking is always possible regardless of this value"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // lines
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("list of vehicle alternatives to take for the person trip"),
+                                              "ANY");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTIONS;
     {
         // set values of tag
@@ -4654,6 +4726,24 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         attrProperty = GNEAttributeProperties(GNE_ATTR_TO_BUSSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               TL("Id of the destination bus stop"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = GNE_TAG_WALK_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(240, 255, 205, 255));
+        // from edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("The ID of the edge the walk starts at"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // to trainStop
+        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_TRAINSTOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("Id of the destination train stop"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_WALK_EDGES;
@@ -4775,6 +4865,30 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                               "ANY");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = GNE_TAG_RIDE_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GUIIcon::RIDE_TRAINSTOP, SUMO_TAG_RIDE, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(210, 233, 255, 255));
+        // from edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("The ID of the edge the ride starts at"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // to trainStop
+        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_TRAINSTOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("ID of the destination train stop"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // lines
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("list of vehicle alternatives to take for the ride"),
+                                              "ANY");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 }
 
 
@@ -4840,6 +4954,38 @@ GNEAttributeCarrier::fillStopPersonElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               TL("BusStop associated with this stop"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
+                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Minimum duration for stopping"),
+                                              "60");
+        attrProperty.setDefaultActivated(true);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
+                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("The time step at which the route continues"),
+                                              "0.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Activity displayed for stopped person in GUI and output files "));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = GNE_TAG_STOPPERSON_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::STOPPERSON,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
+
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("TrainStop associated with this stop"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,

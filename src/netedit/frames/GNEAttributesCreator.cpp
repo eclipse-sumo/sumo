@@ -18,6 +18,7 @@
 // Attribute creator
 /****************************************************************************/
 
+#include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <utils/gui/div/GUIDesigns.h>

@@ -1131,7 +1131,7 @@ NBNode::computeNodeShape(double mismatchThreshold) {
     }
     try {
         NBNodeShapeComputer computer(*this);
-        myPoly = computer.compute();
+        myPoly = computer.compute(OptionsCont::getOptions().getBool("junctions.minimal-shape"));
         if (myRadius == UNSPECIFIED_RADIUS && !OptionsCont::getOptions().isDefault("default.junctions.radius")) {
             myRadius = computer.getRadius();
         }
@@ -2065,6 +2065,15 @@ NBNode::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
         return false;
     }
     return myRequest->mergeConflict(from, con, prohibitorFrom, prohibitorCon, foes);
+}
+
+bool
+NBNode::bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
+                      const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+    if (myRequest == nullptr) {
+        return false;
+    }
+    return myRequest->bidiConflict(from, con, prohibitorFrom, prohibitorCon, foes);
 }
 
 bool

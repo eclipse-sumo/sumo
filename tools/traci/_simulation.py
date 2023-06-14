@@ -271,7 +271,7 @@ class SimulationDomain(Domain):
         """
         if self._connection is None:
             raise FatalTraCIError("Not connected.")
-        return self._connection.simulationStep(time)
+        self._connection.simulationStep(time)
 
     def executeMove(self):
         """executeMove() -> None

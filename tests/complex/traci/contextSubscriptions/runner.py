@@ -75,8 +75,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
         elif hasattr(module, "getShape"):
             shape = module.getShape(objID)
         elif module == traci.edge:
-            # it's a hack, I know,  but do we really need to introduce
-            # edge.getShape?
+            # it's a hack, I know, but do we really need to introduce edge.getShape?
             shape = traci.lane.getShape(objID + "_0")
         near2 = set()
         for v in pos:
@@ -108,10 +107,12 @@ def runSingle(traciEndTime, viewRange, module, objID):
 
         step += 1
     module.unsubscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
-    responses = traci.simulationStep()
-    print([r[0] for r in responses])  # person subscription should still be active
+    traci.simulationStep()
+    responses = list(module.getAllContextSubscriptionResults())
+    print(responses)  # person subscription should still be active
     module.unsubscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange)
-    responses = traci.simulationStep()
+    traci.simulationStep()
+    responses = module.getAllContextSubscriptionResults()
     if responses:
         print("Error: Unsubscribe did not work", responses)
     else:

@@ -74,6 +74,8 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             && variable != libsumo::VAR_MINGAP_LAT
             && variable != libsumo::VAR_MAXSPEED_LAT
             && variable != libsumo::VAR_LATALIGNMENT
+            && variable != libsumo::VAR_BOARDING_DURATION
+            && variable != libsumo::VAR_IMPATIENCE
             && variable != libsumo::VAR_PARAMETER
             && variable != libsumo::COPY
        ) {
@@ -343,6 +345,22 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "Invalid headway time.", outputStorage);
             }
             libsumo::VehicleType::setTau(id, value);
+        }
+        break;
+        case libsumo::VAR_IMPATIENCE: {
+            double value = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting impatience requires a double.", outputStorage);
+            }
+            libsumo::VehicleType::setImpatience(id, value);
+        }
+        break;
+        case libsumo::VAR_BOARDING_DURATION: {
+            double value = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting boardingDuration requires a double.", outputStorage);
+            }
+            libsumo::VehicleType::setBoardingDuration(id, value);
         }
         break;
         case libsumo::VAR_COLOR: {

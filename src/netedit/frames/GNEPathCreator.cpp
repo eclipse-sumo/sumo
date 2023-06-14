@@ -281,6 +281,15 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myCreationMode |= START_EDGE;
             myCreationMode |= END_BUSSTOP;
             break;
+        // edge->trainStop
+        case GNE_TAG_PERSONTRIP_TRAINSTOP:
+        case GNE_TAG_RIDE_TRAINSTOP:
+        case GNE_TAG_WALK_TRAINSTOP:
+            myCreationMode |= SHOW_CANDIDATE_EDGES;
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= START_EDGE;
+            myCreationMode |= END_TRAINSTOP;
+            break;
         // edge->containerStop
         case GNE_TAG_TRANSPORT_CONTAINERSTOP:
         case GNE_TAG_TRANSHIP_CONTAINERSTOP:
@@ -301,6 +310,10 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
         case GNE_TAG_STOPPERSON_BUSSTOP:
             myCreationMode |= STOP;
             myCreationMode |= END_BUSSTOP;
+            break;
+        case GNE_TAG_STOPPERSON_TRAINSTOP:
+            myCreationMode |= STOP;
+            myCreationMode |= END_TRAINSTOP;
             break;
         case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
             myCreationMode |= STOP;
@@ -361,7 +374,7 @@ GNEPathCreator::setVClass(SUMOVehicleClass vClass) {
 
 
 bool
-GNEPathCreator::addJunction(GNEJunction* junction, const bool /* shiftKeyPressed */, const bool /* controlKeyPressed */) {
+GNEPathCreator::addJunction(GNEJunction* junction) {
     // check if junctions are allowed
     if (((myCreationMode & START_JUNCTION) == 0) && ((myCreationMode & END_JUNCTION) == 0)) {
         return false;
@@ -516,11 +529,14 @@ GNEPathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shif
     if (stoppingPlace == nullptr) {
         return false;
     }
-    // check if stoppingPlaces aren allowed
-    if (((myCreationMode & END_BUSSTOP) == 0) && ((myCreationMode & END_CONTAINERSTOP) == 0)) {
+    // check if stoppingPlaces are allowed
+    if (((myCreationMode & END_BUSSTOP) == 0) && ((myCreationMode & END_TRAINSTOP) == 0) && ((myCreationMode & END_CONTAINERSTOP) == 0)) {
         return false;
     }
     if (((myCreationMode & END_BUSSTOP) != 0) && (stoppingPlace->getTagProperty().getTag() != SUMO_TAG_BUS_STOP)) {
+        return false;
+    }
+    if (((myCreationMode & END_TRAINSTOP) != 0) && (stoppingPlace->getTagProperty().getTag() != SUMO_TAG_TRAIN_STOP)) {
         return false;
     }
     if (((myCreationMode & END_CONTAINERSTOP) != 0) && (stoppingPlace->getTagProperty().getTag() != SUMO_TAG_CONTAINER_STOP)) {

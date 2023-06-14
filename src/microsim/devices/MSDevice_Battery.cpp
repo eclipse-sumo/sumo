@@ -30,7 +30,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
-#include "MSDevice_Tripinfo.h"
+#include "MSDevice_StationFinder.h"
 #include "MSDevice_Emissions.h"
 #include "MSDevice_Battery.h"
 
@@ -54,9 +54,9 @@ MSDevice_Battery::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
+MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into, MSDevice_StationFinder* sf) {
     // Check if vehicle should get a battery
-    if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "battery", v, false)) {
+    if (sf != nullptr || equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "battery", v, false)) {
         const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
         // obtain maximumBatteryCapacity
         const double maximumBatteryCapacity = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY), DEFAULT_MAX_CAPACITY);
@@ -79,6 +79,10 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 
         // Add device to vehicle
         into.push_back(device);
+
+        if (sf != nullptr) {
+            sf->setBattery(device);
+        }
     }
 }
 

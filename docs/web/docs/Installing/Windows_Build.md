@@ -52,10 +52,9 @@ Editing the CMake settings using Visual Studio
 - If you decide to use the Python which comes with Visual Studio
   - Test start a python script and add association
   - Add Python to the path (also the Scripts dir), find it at `C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64`
-  - Install pyautogui, matplotlib, rtree, pyproj, lxml, pipwin following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
-- If not, use `pip install pyautogui matplotlib pyproj lxml pipwin`, possibly with the `--user` option if you don't have admin rights
+  - Install pyautogui, scipy, rtree, pyproj, lxml following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
+- If not, use `pip install tools\requirements.txt`, possibly with the `--user` option if you don't have admin rights
 
-- Run `pipwin install rtree` (or download Rtree [from here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#rtree) and install it manually)
 - (after 30 days) Setup a Microsoft account (if you do not already have one) and register your Visual Studio
 
 ## Further notes
@@ -104,10 +103,11 @@ folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
 
 ## Install python packages
 
-Compiling netedit requires a list of python packages to generate templates. Install it using pip:
+For using the SUMO Python tools from the command line or in netedit it is recommended to install a list of python packages.
+From your SUMO directory you can install them using pip:
 
 ```
-pip install google lxml rtree pandas matplotlib pulp pyproj ezdxf scipy fmpy ortools texttest pyautogui pyperclip
+pip install -r tools\requirements.txt
 ```
 
 ## Manual CMake configuration

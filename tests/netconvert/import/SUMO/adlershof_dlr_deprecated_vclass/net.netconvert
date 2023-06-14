@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-13 11:31:48 by Eclipse SUMO netconvert Version v1_13_0+0231-194ea10
+<!-- generated on 2023-05-12 11:25:50 by Eclipse SUMO netconvert Version v1_17_0+0239-789d1ff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,24 +27,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
-        <junctions.limit-turn-speed value="-1"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -784,8 +783,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-239335494#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="11.23" shape="4414.73,369.34 4414.74,369.54"/>
     </edge>
     <edge id="-24214694#0" from="294169342" to="1560223686" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="-24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="26.38" width="3.00" shape="4433.28,567.07 4434.27,577.35"/>
-        <lane id="-24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="26.38" shape="4430.20,567.37 4431.19,577.65"/>
+        <lane id="-24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="11.26" width="3.00" shape="4433.28,567.07 4433.50,569.30"/>
+        <lane id="-24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="11.26" shape="4430.20,567.37 4430.41,569.60"/>
     </edge>
     <edge id="-24214694#1" from="1560223635" to="294169342" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="-24214694#1_0" index="0" allow="pedestrian" speed="13.89" length="16.14" width="3.00" shape="4431.84,552.11 4432.38,557.71"/>
@@ -1657,14 +1656,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="143308581_1" index="1" disallow="pedestrian rail_fast" speed="27.78" length="10.76" shape="4430.57,646.35 4430.52,646.54"/>
         <lane id="143308581_2" index="2" disallow="pedestrian rail_fast" speed="27.78" length="10.76" shape="4427.47,645.56 4427.42,645.75"/>
     </edge>
-    <edge id="143308587" from="1560223815" to="1560223686" name="Wegedornstraße" priority="7" type="highway.secondary" spreadType="center" shape="4421.87,639.86 4423.65,629.94 4426.41,590.63 4429.24,574.12">
-        <lane id="143308587_0" index="0" allow="pedestrian" speed="13.89" length="52.08" width="3.00" shape="4421.42,633.30 4422.06,629.74 4424.49,595.07"/>
-        <lane id="143308587_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="52.08" shape="4424.47,633.85 4425.14,630.13 4427.57,595.60"/>
+    <edge id="143308587" from="1560223815" to="1560223686" name="Wegedornstraße" priority="7" type="highway.secondary" spreadType="center" shape="4421.87,639.86 4423.65,629.94 4426.41,590.63 4426.18,573.60">
+        <lane id="143308587_0" index="0" allow="pedestrian" speed="13.89" length="67.10" width="3.00" shape="4421.42,633.30 4422.06,629.74 4424.81,590.58 4424.64,577.71"/>
+        <lane id="143308587_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="67.10" shape="4424.47,633.85 4425.14,630.13 4427.91,590.67 4427.74,577.58"/>
     </edge>
-    <edge id="143308590#0" from="1560223686" to="56231397" name="Wegedornstraße" priority="7" type="highway.secondary" spreadType="center" shape="4429.24,574.12 4434.62,592.93 4433.84,616.97 4433.41,631.36 4431.46,642.46">
-        <lane id="143308590#0_0" index="0" allow="pedestrian" speed="13.89" length="55.09" width="3.00" shape="4437.80,593.59 4437.04,617.07 4436.60,631.69 4435.76,636.47"/>
-        <lane id="143308590#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="55.09" shape="4434.67,594.46 4433.94,616.97 4433.51,631.37 4432.71,635.93"/>
-        <lane id="143308590#0_2" index="2" disallow="pedestrian rail_fast" speed="13.89" length="55.09" shape="4431.44,595.36 4430.74,616.87 4430.32,631.04 4429.56,635.38"/>
+    <edge id="143308590#0" from="1560223686" to="56231397" name="Wegedornstraße" priority="7" type="highway.secondary" spreadType="center" shape="4433.76,572.83 4434.62,592.93 4433.84,616.97 4433.41,631.36 4431.46,642.46">
+        <lane id="143308590#0_0" index="0" allow="pedestrian" speed="13.89" length="71.04" width="3.00" shape="4437.15,577.18 4437.82,592.91 4437.04,617.07 4436.60,631.69 4435.76,636.47"/>
+        <lane id="143308590#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="71.04" shape="4434.05,577.31 4434.72,592.93 4433.94,616.97 4433.51,631.37 4432.71,635.93"/>
+        <lane id="143308590#0_2" index="2" disallow="pedestrian rail_fast" speed="13.89" length="71.04" shape="4430.85,577.44 4431.52,592.95 4430.74,616.87 4430.32,631.04 4429.56,635.38"/>
     </edge>
     <edge id="143308600#0" from="664166133" to="1421174996" name="Zum Trudelturm" priority="2" type="highway.service">
         <lane id="143308600#0_0" index="0" allow="pedestrian delivery" speed="5.56" length="13.19" shape="4594.20,947.35 4586.55,940.72"/>
@@ -2252,8 +2251,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="239335494#1_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="143.48" shape="4411.24,365.87 4410.95,362.28 4404.44,306.81 4397.67,227.21"/>
     </edge>
     <edge id="24214694#0" from="1560223686" to="294169342" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="26.38" width="3.00" shape="4424.92,578.25 4423.93,567.97"/>
-        <lane id="24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="26.38" shape="4428.00,577.95 4427.01,567.67"/>
+        <lane id="24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="11.26" width="3.00" shape="4424.14,570.21 4423.93,567.97"/>
+        <lane id="24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="11.26" shape="4427.23,569.91 4427.01,567.67"/>
     </edge>
     <edge id="24214694#1" from="294169342" to="1560223635" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="24214694#1_0" index="0" allow="pedestrian" speed="13.89" length="16.14" width="3.00" shape="4423.02,558.61 4422.48,553.01"/>
@@ -3308,13 +3307,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="9"  response="00001100110" foes="00001101110"/>
         <request index="10" response="00001000000" foes="00001000000"/>
     </junction>
-    <junction id="1560223686" type="priority" x="4429.24" y="574.12" incLanes="-24214694#0_0 -24214694#0_1 143308587_0 143308587_1" intLanes="" shape="4429.82,595.81 4439.31,593.17 4435.77,577.20 4423.42,578.39 4423.01,594.82 4429.15,595.87">
+    <junction id="1560223686" type="priority" x="4429.24" y="574.12" incLanes="143308587_0 143308587_1 -24214694#0_0 -24214694#0_1" intLanes="" shape="4423.14,577.77 4438.65,577.11 4434.99,569.16 4422.65,570.35">
         <request index="0" response="0000000" foes="0000000"/>
-        <request index="1" response="0000000" foes="1100000"/>
-        <request index="2" response="0010000" foes="0010000"/>
-        <request index="3" response="0000000" foes="0000000"/>
-        <request index="4" response="0000000" foes="0000100"/>
-        <request index="5" response="0000010" foes="0000010"/>
+        <request index="1" response="0000000" foes="1000000"/>
+        <request index="2" response="0100000" foes="0100000"/>
+        <request index="3" response="0100000" foes="0100000"/>
+        <request index="4" response="0000000" foes="0000000"/>
+        <request index="5" response="0000000" foes="0001100"/>
         <request index="6" response="0000010" foes="0000010"/>
     </junction>
     <junction id="1560223721" type="priority" x="4125.32" y="600.05" incLanes="142575699#3_0 142575699#3_1 46039050#1_0 46039050#1_1 46039050#1_2 -142575699#4_0 -142575699#4_1" intLanes="" shape="4131.64,605.29 4132.41,595.92 4130.97,594.22 4120.60,593.44 4118.99,594.81 4118.22,604.18 4119.67,605.88 4130.04,606.66">
@@ -7133,8 +7132,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="143308581" to="143308538" fromLane="2" toLane="2" dir="l" state="M"/>
     <connection from="143308587" to="24214694#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="143308587" to="24214694#0" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="143308587" to="143308590#0" fromLane="1" toLane="1" dir="l" state="m"/>
-    <connection from="143308587" to="143308590#0" fromLane="1" toLane="2" dir="l" state="m"/>
+    <connection from="143308587" to="143308590#0" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="143308587" to="143308590#0" fromLane="1" toLane="2" dir="t" state="m"/>
     <connection from="143308590#0" to="143308542#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="143308590#0" to="143308581" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="143308590#0" to="143308581" fromLane="1" toLane="1" dir="s" state="M"/>

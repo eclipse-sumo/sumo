@@ -197,6 +197,9 @@ public:
     /// @brief set OpenDRIVE signal reference parameters after all link indices are known
     void setOpenDriveSignalParameters();
 
+    /// @brief post processing of signal programs to group tl indices according to OpenDrive controllers (signal groups)
+    void applyOpenDriveControllers(OptionsCont& oc);
+
     /// @brief Returns a list of all definitions (convenience for easier iteration)
     typedef std::vector<NBTrafficLightDefinition*> Definitions;
     Definitions getDefinitions() const;

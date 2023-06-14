@@ -35,7 +35,7 @@
 //#define DEBUG_FIND_WAY
 //#define DEBUG_CONSTRUCT_ROUTE
 
-#define DEBUGLINEID "1986097"
+#define DEBUGLINEID ""
 #define DEBUGSTOPID ""
 
 // ===========================================================================
@@ -293,29 +293,42 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
     std::vector<NBEdge*> currentWayMinusEdges;
     for (auto it3 = pTLine->getWays().begin(); it3 != pTLine->getWays().end(); it3++) {
 
+        int foundForward = 0;
         if (cont.retrieve(*it3, false) != nullptr) {
             currentWayEdges.push_back(cont.retrieve(*it3, false));
+            foundForward++;
         } else {
             int i = 0;
             while (cont.retrieve(*it3 + "#" + std::to_string(i), true) != nullptr) {
                 if (cont.retrieve(*it3 + "#" + std::to_string(i), false)) {
                     currentWayEdges.push_back(cont.retrieve(*it3 + "#" + std::to_string(i), false));
+                    foundForward++;
                 }
                 i++;
             }
         }
 
+        int foundReverse = 0;
         if (cont.retrieve("-" + *it3, false) != nullptr) {
             currentWayMinusEdges.push_back(cont.retrieve("-" + *it3, false));
+            foundReverse++;
         } else {
             int i = 0;
             while (cont.retrieve("-" + *it3 + "#" + std::to_string(i), true) != nullptr) {
                 if (cont.retrieve("-" + *it3 + "#" + std::to_string(i), false)) {
                     currentWayMinusEdges.insert(currentWayMinusEdges.begin(),
                                                 cont.retrieve("-" + *it3 + "#" + std::to_string(i), false));
+                    foundReverse++;
                 }
                 i++;
             }
+        }
+        bool fakeMinus = false;
+        if (foundReverse == 0 && foundForward > 0 && isRailway(pTLine->getVClass())) {
+            // rail tracks may be used in both directions and are often not tagged as such.
+            // This can be repaired later with option --railway.topology.repair
+            currentWayMinusEdges.insert(currentWayMinusEdges.begin(), currentWayEdges.rbegin(), currentWayEdges.rbegin() + foundForward);
+            fakeMinus = true;
         }
 #ifdef DEBUG_CONSTRUCT_ROUTE
         if (pTLine->getLineID() == DEBUGLINEID) {
@@ -351,7 +364,11 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
                 continue;
             } else {
                 edges.insert(edges.end(), currentWayMinusEdges.begin(), currentWayMinusEdges.end());
-                last = currentWayMinusEdges.back()->getToNode();
+                if (fakeMinus) {
+                    last = currentWayMinusEdges.back()->getFromNode();
+                } else {
+                    last = currentWayMinusEdges.back()->getToNode();
+                }
             }
         } else if (first == currentWayEdges.front()->getFromNode() && first != nullptr) {
             edges.insert(edges.end(), prevWayMinusEdges.begin(), prevWayMinusEdges.end());

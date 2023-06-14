@@ -245,7 +245,7 @@ RODFFrame::fillOptions() {
     oc.doRegister("no-step-log", new Option_Bool(false));
     oc.addDescription("no-step-log", "Report", TL("Disable console output of route parsing step"));
 
-    RandHelper::insertRandOptions();
+    RandHelper::insertRandOptions(oc);
 }
 
 

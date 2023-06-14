@@ -207,7 +207,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (addJunction && objectsUnderCursor.getJunctionFront()) {
         // add clicked junction in GNEPathCreator
-        return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront());
     } else {
         return false;
     }

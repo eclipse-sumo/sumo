@@ -391,6 +391,9 @@ public:
     /// @brief cached value of parameters which may restrict access to certain edges
     std::vector<double> paramRestrictions;
 
+    /// @brief allowed attrs for the junction model
+    static std::set<SumoXMLAttr> AllowedJMAttrs;
+
     /// @brief satisfy vType / router template requirements
     inline double getLength() const {
         return length;

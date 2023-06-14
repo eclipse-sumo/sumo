@@ -1,2 +1,2 @@
-Error: Invalid departSpeed used in trip 'trip_3'. 500.00 is greater than vTypemaxSpeed
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip.25Jan182728.9910/netedit.daily.demand.trip/demandelements/trip/load/departspeed/routes.rou.xml failed.
+Error: Invalid departSpeed used in trip 'trip_3'. 500.00 is greater than vType maxSpeed
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.edges.22May115309.2066/netedit.daily.demand.edges/demandelements/trip/load/departspeed/routes.rou.xml failed.

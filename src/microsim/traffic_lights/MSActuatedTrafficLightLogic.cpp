@@ -226,8 +226,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             } else {
                 loop = dynamic_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(customID));
                 if (loop == nullptr) {
-                    WRITE_ERRORF(TL("Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', program '%."), customID, getID(), getProgramID());
-                    continue;
+                    throw ProcessError(TLF("Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', program '%.", customID, getID(), getProgramID()));
                 }
                 ilpos = loop->getPosition();
                 inductLoopPosition = length - ilpos;

@@ -272,6 +272,8 @@ public:
         myChosenSpeedFactor = factor;
     }
 
+    double getImpatience() const;
+
     /// @brief whether the person is jammed as defined by the current pedestrian model
     bool isJammed() const;
 

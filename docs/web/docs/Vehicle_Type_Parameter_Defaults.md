@@ -479,7 +479,6 @@ vehicle types).
 - (35): https://www.researchgate.net/publication/311633504_Improving_Road_Safety_of_Tank_Truck_in_Indonesia_by_Speed_Limiter_Installation
 - (36): <http://ka.stadtwiki.net/H%C3%B6chstgeschwindigkeit_(Bahn)>
 - (37): https://www.rettungsdienst.brk.de/leichte-sprache/abteilung/beschaffung/rettungswagen-rtw/rtw-by-2010.html
-- (38): <https://www.berlin.de/binaries/asset/image_assets/5859948/source/1565347986/624x468/>
 - (39): <https://electric-scooter.guide/comparisons/electric-scooter-performance-tests/>
 - (40): <https://www.chip.de/artikel/E-Scooter-Test-Die-besten-Elektro-Scooter-mit-Strassenzulassung_165587317.html>
 - (\*): estimated

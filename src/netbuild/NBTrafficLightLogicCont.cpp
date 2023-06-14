@@ -168,7 +168,11 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
         for (NBTrafficLightDefinition* def : getDefinitions()) {
             NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
             if (lDef != nullptr) {
-                NBOwnTLDef* oDef = new NBOwnTLDef(def->getID(), def->getNodes(), def->getOffset(), def->getType());
+                TrafficLightType type = def->getType();
+                if (!oc.isDefault("tls.default-type")) {
+                    type = SUMOXMLDefinitions::TrafficLightTypes.get(oc.getString("tls.default-type"));
+                }
+                NBOwnTLDef* oDef = new NBOwnTLDef(def->getID(), def->getNodes(), def->getOffset(), type);
                 oDef->setProgramID(def->getProgramID());
                 oDef->setParticipantsInformation();
                 for (NBEdge* e : oDef->getIncomingEdges()) {
@@ -380,6 +384,113 @@ NBTrafficLightLogicCont::setOpenDriveSignalParameters() {
                 WRITE_WARNINGF(TL("Guessing signalID for link index % at traffic light '%'."), con.getTLIndex(), def->getID());
                 def->setParameter("linkSignalID:" + toString(con.getTLIndex()), defaultSignalIDs[con.getFrom()]);
             }
+        }
+    }
+}
+
+
+void
+NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
+    // collect connections with controllerID which can be controlled together
+    Definitions definitions = getDefinitions();
+    std::map<std::string, NBTrafficLightDefinition*> defsToGroup;
+    std::map<std::string, std::map<std::string, std::set<int>>> controllerID2tlIndex;
+    for (NBTrafficLightDefinition* def : definitions) {
+        bool makeGroups = false;
+        NBConnectionVector& connections = def->getControlledLinks();
+        std::string defID = def->getID();
+
+        for (NBConnection conn : connections) {
+            std::string controllerID = conn.getFrom()->getConnection(conn.getFromLane(), conn.getTo(), conn.getToLane()).getParameter("controllerID");
+            if (controllerID != "") {
+                if (controllerID2tlIndex.find(defID) == controllerID2tlIndex.end()) {
+                    controllerID2tlIndex[defID][controllerID] = std::set<int>({ conn.getTLIndex() });
+                } else if (controllerID2tlIndex[defID].find(controllerID) != controllerID2tlIndex[defID].end()) {
+                    controllerID2tlIndex[defID][controllerID].insert(conn.getTLIndex());
+                } else {
+                    controllerID2tlIndex[defID][controllerID] = std::set<int>({ conn.getTLIndex() });
+                }
+                makeGroups = controllerID2tlIndex[defID][controllerID].size() > 1 || makeGroups;
+            }
+        }
+        if (makeGroups) {
+            defsToGroup[def->getID()] = def;
+        }
+    }
+    bool same = true;
+    for (NBTrafficLightLogic* computed : getComputed()) {
+        const std::string computedID = computed->getID();
+        if (defsToGroup.find(computedID) != defsToGroup.end()) {
+            // remember corresponding tl indices and check if they can be joined            
+            // execute tl index joins if possible
+            const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = computed->getPhases();
+            std::vector<int> major2minor;
+            for (const auto& indexSet : controllerID2tlIndex[computedID]) {
+                if (indexSet.second.size() < 2) {
+                    continue;
+                }
+                bool toMinor = false;
+                for (NBTrafficLightLogic::PhaseDefinition phase : phases) {
+                    std::set<int>::iterator it = indexSet.second.begin();
+                    char firstChar = phase.state[*it];
+                    if (firstChar == LINKSTATE_TL_GREEN_MAJOR) {
+                        firstChar = LINKSTATE_TL_GREEN_MINOR;
+                    }
+                    it++;
+                    for (; it != indexSet.second.end(); it++) {
+                        const char compareChar = (phase.state[*it] != LINKSTATE_TL_GREEN_MAJOR) ? phase.state[*it] : (char)LINKSTATE_TL_GREEN_MINOR;
+                        if (compareChar != firstChar) {
+                            same = false;
+                            break;
+                        } else if (phase.state[*it] == LINKSTATE_TL_GREEN_MINOR) {
+                            toMinor = true;
+                        }
+                    }
+                    if (!same) {
+                        break;
+                    }
+                }
+                if (toMinor) {
+                    major2minor.push_back(*indexSet.second.begin());
+                }
+            }
+            if (same) {
+                NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(defsToGroup[computedID]);
+                if (lDef == nullptr) {
+                    lDef = new NBLoadedSUMOTLDef(*defsToGroup[computedID], *computed);
+                    lDef->setParticipantsInformation();
+                    for (int index : major2minor) { // update the signal states (G -> g where needed)
+                        for (int i = 0; i < (int)phases.size(); i++) {
+                            if (phases[i].state[index] == LINKSTATE_TL_GREEN_MAJOR) {
+                                lDef->getLogic()->setPhaseState(i, index, LINKSTATE_TL_GREEN_MINOR);
+                            }
+                        }
+                    }
+                    // join signal groups, update the connections
+                    std::vector<int> indexToRemove;
+                    for (const auto& indexSet : controllerID2tlIndex[computedID]) {
+                        int minIndex = *indexSet.second.begin();                      
+                        for (int index : indexSet.second) {
+                            if (index != minIndex) {
+                                lDef->replaceIndex(index, minIndex);
+                                indexToRemove.push_back(index);
+                            }
+                        }
+                    }
+                    // remove unused indices from signal programs
+                    lDef->cleanupStates();
+                    for (NBNode* node : lDef->getNodes()) {
+                        node->removeTrafficLight(defsToGroup[computedID]);
+                        node->addTrafficLight(lDef);
+                    }
+                    removeProgram(defsToGroup[computedID]->getID(), defsToGroup[computedID]->getProgramID());
+                    insert(lDef);
+                    computeSingleLogic(oc, lDef);
+                }
+            } else { // TODO: try other strategy to build signal groups
+                WRITE_WARNINGF(TL("Was not able to apply the OpenDRIVE signal group information onto the signal program of traffic light % generated by SUMO."), computed->getID());
+            }
+            break;
         }
     }
 }

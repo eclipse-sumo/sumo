@@ -508,6 +508,32 @@ GNEApplicationWindowHelper::FileMenuCommands::buildMeanDataSection(FXMenuPane* m
 }
 
 // ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::ModesMenuCommands::SupermodeMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::ModesMenuCommands::SupermodeMenuCommands::SupermodeMenuCommands(const ModesMenuCommands* modesMenuCommandsParent) :
+    networkSupermode(nullptr),
+    demandSupermode(nullptr),
+    dataSupermode(nullptr),
+    myModesMenuCommandsParent(modesMenuCommandsParent) {
+}
+
+
+void
+GNEApplicationWindowHelper::ModesMenuCommands::SupermodeMenuCommands::buildSupermodeMenuCommands(FXMenuPane* modesMenu) {
+    // build every FXMenuCommand giving it a shortcut
+    networkSupermode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                  TL("&Network"), "F2", TL("Supermode network."),
+                  GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F2_SUPERMODE_NETWORK);
+    demandSupermode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                 TL("&Demand"), "F3", TL("Sueprmode demand."),
+                 GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F3_SUPERMODE_DEMAND);
+    dataSupermode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                 TL("&Data"), "F4", TL("Supermode data."),
+                 GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F4_SUPERMODE_DATA);
+}
+
+// ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper::ModesMenuCommands::CommonMenuCommands - methods
 // ---------------------------------------------------------------------------
 
@@ -678,6 +704,9 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMe
     typeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                TL("Type"), "T", TL("Create types (vehicles, person an containers)."),
                GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODE_TLS_TYPE);
+    typeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+               TL("TypeDistribution"), "U", TL("Create type distributions."),
+               GUIIconSubSys::getIcon(GUIIcon::MODETYPEDISTRIBUTION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION);
     stopMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                TL("Stop"), "A", TL("Create stops."),
                GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP);
@@ -744,6 +773,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DataMenuCommands::buildDataMenuCo
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::ModesMenuCommands::ModesMenuCommands(GNEApplicationWindow* GNEApp) :
+    supermodeMenuCommands(this),
     commonMenuCommands(this),
     networkMenuCommands(this),
     demandMenuCommands(this),
@@ -754,7 +784,11 @@ GNEApplicationWindowHelper::ModesMenuCommands::ModesMenuCommands(GNEApplicationW
 
 void
 GNEApplicationWindowHelper::ModesMenuCommands::buildModesMenuCommands(FXMenuPane* modesMenu) {
-    // build Common modes commands and hide it
+    // build supermode commands
+    supermodeMenuCommands.buildSupermodeMenuCommands(modesMenu);
+    // add separator
+    new FXSeparator(modesMenu);
+    // build Common modes commands
     commonMenuCommands.buildCommonMenuCommands(modesMenu);
     // build Network modes commands and hide it
     networkMenuCommands.buildNetworkMenuCommands(modesMenu);
@@ -2184,6 +2218,9 @@ bool
 GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     // get options
     auto& neteditOptions = OptionsCont::getOptions();
+    // reset options
+    mySumoOptions.resetDefault();
+    neteditOptions.resetDefault();
     // make all options writables
     mySumoOptions.resetWritable();
     neteditOptions.resetWritable();
@@ -2214,7 +2251,7 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     neteditOptions.set("route-files", mySumoOptions.getString("route-files"));
     // check if we need to define the configuration file
     if (neteditOptions.getString("configuration-file").empty()) {
-        const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".sumocfg", ".neteditcfg");
+        const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".sumocfg", ".netecfg");
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", newConfiguration);
     }
@@ -2234,6 +2271,8 @@ bool
 GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     // get options
     auto& neteditOptions = OptionsCont::getOptions();
+    // reset options
+    neteditOptions.resetDefault();
     // make all options writables
     neteditOptions.resetWritable();
     // build parser
@@ -2258,7 +2297,7 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     neteditOptions.relocateFiles(myFile);
     // check if we have loaded a netedit config or a netconvert config
     if (neteditOptions.getString("configuration-file").find(".netccfg") != std::string::npos) {
-        const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".netccfg", ".neteditcfg");
+        const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".netccfg", ".netecfg");
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", newConfiguration);
     }
@@ -2769,11 +2808,12 @@ std::string
 GNEApplicationWindowHelper::openNeteditConfigFileDialog(FXWindow* window, bool save) {
     if (save) {
         return openFileDialog(window, TL("Save netedit Config file as"), GUIIcon::SAVE_NETEDITCONFIG,
-                              TL("Netedit Config files (*.neteditcfg)") + std::string("\n") +
+                              TL("Netedit Config files (*.netecfg)") + std::string("\n") +   
                               TL("All files (*)"), save);
     } else {
         return openFileDialog(window, TL("Open netedit Config file"), GUIIcon::OPEN_NETEDITCONFIG,
-                              TL("Netedit Config files (*.neteditcfg)") + std::string("\n") +
+                              TL("Netedit Config files (*.netecfg)") + std::string("\n") +
+                              TL("Netedit Config files (*.neteditcfg)") + std::string("\n") +   // neteditcfg deprecated
                               TL("All files (*)"), save);
     }
 }

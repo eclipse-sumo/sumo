@@ -55,6 +55,9 @@ public:
      */
     static void computeTurnDirectionsForNode(NBNode* node, bool warn);
 
+    /// @brief compute angle to junction at a point further away
+    static double getFarAngleAtNode(const NBEdge* e, const NBNode* n, double dist = 50);
+
 private:
     /** @struct Combination
      * @brief Stores the information about the angle between an incoming ("from") and an outgoing ("to") edge

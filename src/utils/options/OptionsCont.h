@@ -89,9 +89,11 @@
 class OptionsCont {
 
 public:
-
     /// @brief Retrieves the options
     static OptionsCont& getOptions();
+
+    /// @brief empty option container
+    static OptionsCont EMPTY_OPTIONS;
 
     /// @brief Constructor
     OptionsCont();

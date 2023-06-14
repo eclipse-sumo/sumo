@@ -38,7 +38,7 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # change person plan
-netedit.changePersonPlan("walk: edge->busStop", True)
+netedit.changePersonPlan("walk: busStop", True)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.departPos, "dummy")

@@ -49,11 +49,13 @@ public:
      * @param[in] width ParkingArea's length
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
+     * @param[in] lefthand enable or disable lefthand
      * @param[in] parameters generic parameters
      */
-    GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, const std::string& departPos,
-                   const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const double length,
-                   double angle, const Parameterised::Map& parameters);
+    GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+                   const std::string& departPos, const std::string& name, const bool friendlyPosition, const int roadSideCapacity, 
+                   const bool onRoad, const double width, const double length, const double angle, const bool lefthand,
+                   const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEParkingArea();
@@ -154,6 +156,9 @@ protected:
 
     /// @brief Angle of Parking Area
     double myAngle;
+
+    /// @brief lefthand
+    bool myLefthand;
 
     /// @brief vector with GNELotSpaceDefinition
     std::vector<GNELotSpaceDefinition> myLotSpaceDefinitions;

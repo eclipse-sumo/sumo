@@ -6,3 +6,18 @@ multilane
 
 # simulated shared median lane for turning (Two-Way-Left-Turn-lane)
 TWLT
+
+# successive vehicles driving on the shared median lane
+TWLT_sequence
+
+# successive vehicles driving on the shared median lane in both directions
+TWLT_bidi_sequence
+
+# median lane is shared with tram
+TWLT_tram
+
+# transition between shared median lane and unshared lanes
+TWLT_end
+
+# vehicle entering bidi lane from side road
+TWLT_side

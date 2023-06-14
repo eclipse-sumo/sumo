@@ -45,14 +45,14 @@
 MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::string>& lines,
                              MSLane& lane, double begPos, double endPos, int capacity, double width, double length,
                              double angle, const std::string& name, bool onRoad,
-                             const std::string& departPos) :
+                             const std::string& departPos, bool lefthand) :
     MSStoppingPlace(id, SUMO_TAG_PARKING_AREA, lines, lane, begPos, endPos, name),
     myRoadSideCapacity(capacity),
     myCapacity(0),
     myOnRoad(onRoad),
     myWidth(width),
     myLength(length),
-    myAngle(angle),
+    myAngle(lefthand ? -angle : angle),
     myEgressBlocked(false),
     myReservationTime(-1),
     myReservations(0),
@@ -83,7 +83,7 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
         }
     }
 
-    const double offset = MSGlobals::gLefthand ? -1 : 1;
+    const double offset = (MSGlobals::gLefthand != lefthand) ? -1 : 1;
     myShape = lane.getShape().getSubpart(
                   lane.interpolateLanePosToGeometryPos(begPos),
                   lane.interpolateLanePosToGeometryPos(endPos));

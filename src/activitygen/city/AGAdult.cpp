@@ -70,7 +70,9 @@ AGAdult::tryToWork(double rate, std::vector<AGWorkPosition>* wps) {
             work->let();
         }
         work = newWork;
-        work->take(this);
+        if (work != nullptr) {
+            work->take(this);
+        }
     } else {
         if (work != nullptr) {
             // Also sets work = 0 with the call back lostWorkPosition

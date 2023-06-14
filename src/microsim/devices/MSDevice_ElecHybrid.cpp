@@ -213,7 +213,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
     //
     // myParam[SUMO_ATTR_ANGLE] = myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
     // myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(), veh.getSlope(), &myParam);
-    assert(!ISNAN(myConsum));
+    assert(!std::isnan(myConsum));
 
     // is battery pack discharged (from previous timestep)
     if (myActualBatteryCapacity < mySOCMin * myMaximumBatteryCapacity) {
@@ -401,7 +401,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 // 10 and 1500 Volts that are used below are chosen fairly arbitrarily to keep the initial values within
                 // reasonable limits.
                 double voltage = myCircuitVoltage;
-                if (voltage < 10.0 || voltage > 1500.0 || ISNAN(voltage)) {
+                if (voltage < 10.0 || voltage > 1500.0 || std::isnan(voltage)) {
                     // RICE_TODO : It seems to output warning whenever a vehicle is appearing under the overhead wire for the first time?
                     // WRITE_WARNINGF(TL("The initial voltage is was % V, replacing it with substation voltage % V."), toString(voltage), toString(actualSubstation->getSubstationVoltage()));
                     voltage = actualSubstation->getSubstationVoltage();
@@ -552,10 +552,10 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
 
     // Update the statistical values
     // RICE_TODO: update these statistical values also after solving circuit by electric circuit
-    if (ISNAN(myMaxBatteryCharge) || myMaxBatteryCharge < myActualBatteryCapacity) {
+    if (std::isnan(myMaxBatteryCharge) || myMaxBatteryCharge < myActualBatteryCapacity) {
         myMaxBatteryCharge = myActualBatteryCapacity;
     }
-    if (ISNAN(myMinBatteryCharge) || myMinBatteryCharge > myActualBatteryCapacity) {
+    if (std::isnan(myMinBatteryCharge) || myMinBatteryCharge > myActualBatteryCapacity) {
         myMinBatteryCharge = myActualBatteryCapacity;
     }
 
@@ -951,13 +951,13 @@ MSDevice_ElecHybrid::setParameter(const std::string& key, const std::string& val
 
 double
 MSDevice_ElecHybrid::acceleration(SUMOVehicle& veh, double power, double oldSpeed) {
-    myHolder.getEmissionParameters()->setDouble(SUMO_ATTR_ANGLE, ISNAN(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
+    myHolder.getEmissionParameters()->setDouble(SUMO_ATTR_ANGLE, std::isnan(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
     return PollutantsInterface::getEnergyHelper().acceleration(0, PollutantsInterface::ELEC, oldSpeed, power, veh.getSlope(), myHolder.getEmissionParameters());
 }
 
 double
 MSDevice_ElecHybrid::consumption(SUMOVehicle& veh, double a, double newSpeed) {
-    myHolder.getEmissionParameters()->setDouble(SUMO_ATTR_ANGLE, ISNAN(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
+    myHolder.getEmissionParameters()->setDouble(SUMO_ATTR_ANGLE, std::isnan(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
     return PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, newSpeed, a, veh.getSlope(), myHolder.getEmissionParameters()) * TS;
 }
 

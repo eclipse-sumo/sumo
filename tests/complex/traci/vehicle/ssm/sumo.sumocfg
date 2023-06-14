@@ -16,8 +16,8 @@
     </report>
 
     <ssm_device>
-        <device.ssm.measures value="TTC DRAC PET BR SGAP TGAP"/>
-        <device.ssm.thresholds value="5 5 3 0 1 1"/>
+        <device.ssm.measures value="TTC DRAC PET BR SGAP TGAP PPET"/>
+        <device.ssm.thresholds value="5 5 3 0 1 1 1"/>
         <device.ssm.file value="ssm.xml"/>
     </ssm_device>
 

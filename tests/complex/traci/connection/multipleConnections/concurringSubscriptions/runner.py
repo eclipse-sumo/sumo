@@ -83,7 +83,8 @@ def traciLoop(port, traciEndTime, i, runNr, steplength=0):
         sys.stdout.flush()
         message = ""
         time.sleep(0.01)  # give message time to be printed
-        simResults = traci.simulationStep(step * steplength)
+        traci.simulationStep(step * steplength)
+        simResults = traci.simulation.getSubscriptionResults()
         vehResults = sorted((k, sorted(v.items())) for k, v in traci.vehicle.getAllSubscriptionResults().items())
         step += 1
     endTime = traci.simulation.getTime()

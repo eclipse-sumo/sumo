@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-27 15:44:46 by Eclipse SUMO netconvert Version v1_16_0+1683-528af99
+<!-- generated on 2023-06-02 09:54:51 by Eclipse SUMO netconvert Version v1_17_0+0652-1215d8a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -154,15 +154,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="J1" type="priority" x="50.00" y="50.00" incLanes="-E1_0 -E1_1 -E3_0 E0_0 E0_1" intLanes=":J1_0_0 :J1_0_1 :J1_11_0 :J1_3_0 :J1_4_0 :J1_5_0 :J1_6_0 :J1_7_0 :J1_8_0 :J1_8_1 :J1_10_0" shape="57.20,54.80 57.20,45.20 54.98,44.76 54.20,44.20 53.64,43.42 53.31,42.42 53.20,41.20 46.80,41.20 46.36,43.42 45.80,44.20 45.02,44.76 44.02,45.09 42.80,45.20 42.80,54.80">
         <request index="0"  response="00000000000" foes="10000100000" cont="0"/>
-        <request index="1"  response="00000000000" foes="10000100000" cont="0"/>
-        <request index="2"  response="01110000000" foes="01111100000" cont="1"/>
+        <request index="1"  response="00000000000" foes="11000100000" cont="0"/>
+        <request index="2"  response="00110000000" foes="01111100000" cont="1"/>
         <request index="3"  response="01100000000" foes="01100000000" cont="0"/>
         <request index="4"  response="01100000000" foes="01100000000" cont="0"/>
         <request index="5"  response="01100000111" foes="11100000111" cont="0"/>
         <request index="6"  response="00010000100" foes="00010000100" cont="0"/>
         <request index="7"  response="00000000000" foes="00001000100" cont="0"/>
         <request index="8"  response="00000000000" foes="00000111100" cont="0"/>
-        <request index="9"  response="00000000000" foes="00000111100" cont="0"/>
+        <request index="9"  response="00000000100" foes="00000111110" cont="0"/>
         <request index="10" response="00000100011" foes="00000100011" cont="0"/>
     </junction>
     <junction id="J2" type="priority" x="100.00" y="50.00" incLanes="-E4_0 -E2_0 -E2_1 E1_0 E1_1" intLanes=":J2_0_0 :J2_1_0 :J2_2_0 :J2_3_0 :J2_4_0 :J2_4_1 :J2_6_0 :J2_7_0 :J2_7_1 :J2_11_0 :J2_10_0" shape="96.80,58.80 103.20,58.80 103.64,56.58 104.20,55.80 104.98,55.24 105.98,54.91 107.20,54.80 107.20,45.20 92.80,45.20 92.80,54.80 95.02,55.24 95.80,55.80 96.36,56.58 96.69,57.58">
@@ -171,11 +171,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2"  response="01000001000" foes="01000001000" cont="0"/>
         <request index="3"  response="00000000000" foes="01000000100" cont="0"/>
         <request index="4"  response="00000000000" foes="11000000011" cont="0"/>
-        <request index="5"  response="00000000000" foes="11000000011" cont="0"/>
+        <request index="5"  response="01000000000" foes="11100000011" cont="0"/>
         <request index="6"  response="00110000010" foes="00110000010" cont="0"/>
         <request index="7"  response="00000000000" foes="00001000010" cont="0"/>
-        <request index="8"  response="00000000000" foes="00001000010" cont="0"/>
-        <request index="9"  response="00000111000" foes="00000111110" cont="1"/>
+        <request index="8"  response="00000000000" foes="00001100010" cont="0"/>
+        <request index="9"  response="00000011000" foes="00000111110" cont="1"/>
         <request index="10" response="00000110000" foes="00000110000" cont="0"/>
     </junction>
     <junction id="J3" type="priority" x="150.00" y="50.00" incLanes="E2_0 E2_1" intLanes=":J3_0_0" shape="150.00,48.40 150.00,45.20 150.00,51.60">
@@ -198,7 +198,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-E1" to="E1" fromLane="1" toLane="1" via=":J1_3_0" dir="t" state="m"/>
     <connection from="-E2" to="E4" fromLane="0" toLane="0" via=":J2_3_0" dir="r" state="M"/>
     <connection from="-E2" to="-E1" fromLane="0" toLane="0" via=":J2_4_0" dir="s" state="M"/>
-    <connection from="-E2" to="-E1" fromLane="1" toLane="1" via=":J2_4_1" dir="s" state="M"/>
+    <connection from="-E2" to="-E1" fromLane="1" toLane="1" via=":J2_4_1" dir="s" state="m"/>
     <connection from="-E2" to="E2" fromLane="1" toLane="1" via=":J2_6_0" dir="t" state="m"/>
     <connection from="-E3" to="E1" fromLane="0" toLane="0" via=":J1_4_0" dir="r" state="m"/>
     <connection from="-E3" to="-E0" fromLane="0" toLane="1" via=":J1_5_0" dir="l" state="m"/>
@@ -208,7 +208,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-E4" to="E4" fromLane="0" toLane="0" via=":J2_2_0" dir="t" state="m"/>
     <connection from="E0" to="E3" fromLane="0" toLane="0" via=":J1_7_0" dir="r" state="M"/>
     <connection from="E0" to="E1" fromLane="0" toLane="0" via=":J1_8_0" dir="s" state="M"/>
-    <connection from="E0" to="E1" fromLane="1" toLane="1" via=":J1_8_1" dir="s" state="M"/>
+    <connection from="E0" to="E1" fromLane="1" toLane="1" via=":J1_8_1" dir="s" state="m"/>
     <connection from="E0" to="-E0" fromLane="1" toLane="1" via=":J1_10_0" dir="t" state="m"/>
     <connection from="E1" to="E2" fromLane="0" toLane="0" via=":J2_7_0" dir="s" state="M"/>
     <connection from="E1" to="E2" fromLane="1" toLane="1" via=":J2_7_1" dir="s" state="M"/>

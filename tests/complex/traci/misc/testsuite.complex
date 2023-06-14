@@ -35,3 +35,6 @@ execute_move
 
 # test access from multiple threads
 concurrent
+
+# test setting and getting encoded strings
+encoding

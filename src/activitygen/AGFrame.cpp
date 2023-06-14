@@ -65,7 +65,7 @@ void AGFrame::fillOptions() {
 
     // need to do this here to be able to check for network and route input options
     SystemFrame::addReportOptions(oc);
-    RandHelper::insertRandOptions();
+    RandHelper::insertRandOptions(oc);
 
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output", true);

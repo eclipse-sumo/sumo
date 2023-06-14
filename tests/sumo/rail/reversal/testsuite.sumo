@@ -61,3 +61,6 @@ reverse_at_route_end
 
 # reversal must be delayed if the bidi-edges of 'furtherLanes' lie beyond the end of the route
 reverse_at_route_end_impossible
+
+# see #13260
+double_reversal_same_dir

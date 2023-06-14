@@ -88,7 +88,7 @@ ROJTRFrame::fillOptions() {
     oc.addDescription("discount-sources", "Processing", TL("Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remaining part terminates."));
 
     // add rand options
-    RandHelper::insertRandOptions();
+    RandHelper::insertRandOptions(oc);
 }
 
 

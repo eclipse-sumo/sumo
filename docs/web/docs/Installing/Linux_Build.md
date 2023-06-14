@@ -96,7 +96,7 @@ local project history.
 ### release version or nightly tarball
 
 Download
-[sumo-src-{{Version}}.tar.gz](https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.tar.gz) or <http://sumo.dlr.de/daily/sumo-src-git.tar.gz>
+[sumo-src-{{Version}}.tar.gz](https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.tar.gz) or <https://sumo.dlr.de/daily/sumo-src-git.tar.gz>
 
 ```
 tar xzf sumo-src-<version>.tar.gz
@@ -134,11 +134,24 @@ and console shows "/home/<user\>/sumo-<version\>"
 ## Installing Python packages for the tools
 
 Calling the tools from netedit requires a list of Python packages to generate templates during compilation.
-Install them using pip:
+Many of them might be available with the package manager of your distribution and most of the time we prefer
+to use those. For ubuntu this currently means, you should first do
+
+```
+sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-flake8 python3-autopep8 python3-scipy python3-pulp python3-ezdxf
+```
+
+and then install the remaining parts using pip:
 
 ```
 pip install -r tools/requirements.txt
 ```
+
+The pip installation will ensure that all libraries are there, so it is safe to skip the first `apt-get` step.
+If you need information about the minimum required versions of the packages read them directly
+from the [requirements.txt](https://github.com/eclipse/sumo/blob/main/tools/requirements.txt). Be aware that
+the minimum versions in the requirements file just reflect our current test server setup, so you might also get away with earlier versions.
+
 You might need to replace `pip` with `pip3` if you are using python3 on Linux.
 
 

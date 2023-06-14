@@ -18,14 +18,14 @@ In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui
 | Shortcut | Network mode | Demand Mode | Data Mode |
 |:---:|:---:|:-:|:---:|
 | A | <span style="color:orange">Additional mode | <span style="color:orange">Stop Mode | <span style="color:orange">- |
-| C | <span style="color:orange">Connection Mode | <span style="color:orange">Person Plan mode | <span style="color:orange">Connection Data Mode |
+| C | <span style="color:orange">Connection Mode | <span style="color:orange">Container mode | <span style="color:orange">Connection Data Mode |
 | D | <span style="color:orange">Delete Mode | <span style="color:orange">Delete Mode | <span style="color:orange">Delete Mode |
 | E | <span style="color:orange">Edge Mode | <span style="color:orange">- | <span style="color:orange">Edge Data Mode |
-| G | <span style="color:orange">- | <span style="color:orange">Container mode | <span style="color:orange">- |
+| G | <span style="color:orange">- | <span style="color:orange">- | <span style="color:orange">- |
 | H | <span style="color:orange">Prohibition mode | <span style="color:orange">Container Plan mode | <span style="color:orange">- |
 | I | <span style="color:orange">Inspect Mode | <span style="color:orange">Inspect Mode | <span style="color:orange">Inspect Mode |
 | J | <span style="color:orange">- | <span style="color:orange">- | <span style="color:orange">Junction Data Mode |
-| L | <span style="color:orange">- | <span style="color:orange">- | <span style="color:orange">Lane Data Mode |
+| L | <span style="color:orange">- | <span style="color:orange"> Person plan mode | <span style="color:orange">Lane Data Mode |
 | M | <span style="color:orange">Move Mode | <span style="color:orange">Move Mode | <span style="color:orange">- |
 | P | <span style="color:orange">Polygon Mode | <span style="color:orange">Person Mode | <span style="color:orange">- |
 | R | <span style="color:orange">Crossing Mode | <span style="color:orange">Route Mode | <span style="color:orange">Edge Rel Data Mode |

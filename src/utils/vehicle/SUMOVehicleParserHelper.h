@@ -203,6 +203,4 @@ private:
     /// @brief allowed attrs for each known LC-model
     static LCAttrMap allowedLCModelAttrs;
 
-    /// @brief allowed attrs for the junction model
-    static std::set<SumoXMLAttr> allowedJMAttrs;
 };

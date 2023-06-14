@@ -4,6 +4,9 @@ default
 no_memory
 probability
 
+# define 2 parking areas which only differ in probability and check their usage
+probability2
+
 # always remember all visibly occupied parking areas along the way
 active_memory
 
@@ -36,3 +39,6 @@ opposite
 
 # permit opposite direction driving during parking search
 opposite2
+
+# the current target parkingArea should always be visible while the ego vehicle is on the parkingArea edge regardless of inclusion in the parkingAreaReroute alternatives.
+implicit_visibility

@@ -151,6 +151,8 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     // declare flags for requirements
     const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == GNE_TAG_WALK_BUSSTOP) ||
                                  (personPlanTag == GNE_TAG_RIDE_BUSSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_BUSSTOP));
+    const bool requireTrainStop = ((personPlanTag == GNE_TAG_PERSONTRIP_TRAINSTOP) || (personPlanTag == GNE_TAG_WALK_TRAINSTOP) ||
+                                   (personPlanTag == GNE_TAG_RIDE_TRAINSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_TRAINSTOP));
     const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGE) ||
                               (personPlanTag == GNE_TAG_RIDE_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGES) ||
                               (personPlanTag == GNE_TAG_STOPPERSON_EDGE));
@@ -160,10 +162,12 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
         return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
         return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+    } else if (requireTrainStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
+        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (requireEdge && objectsUnderCursor.getEdgeFront()) {
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (requireJunction && objectsUnderCursor.getJunctionFront()) {
-        return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront());
     } else {
         return false;
     }
@@ -215,9 +219,9 @@ GNEPersonPlanFrame::tagSelected() {
             myPathLegend->showPathLegendModule();
             // add previous edge or junction
             if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
-                myPathCreator->addJunction(previousEdge->getToJunction(), false, false);
+                myPathCreator->addJunction(previousEdge->getToJunction());
             } else if (!myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-                myPathCreator->addEdge(previousEdge, false, false);
+                myPathCreator->addEdge(previousEdge, true, true);
             }
         } else {
             // set path creator mode

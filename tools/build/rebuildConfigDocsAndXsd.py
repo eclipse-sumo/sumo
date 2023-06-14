@@ -91,7 +91,8 @@ if __name__ == "__main__":
     homeDir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     if len(sys.argv) == 1:
         for app in ("activitygen", "dfrouter", "duarouter", "jtrrouter", "marouter",
-                    "od2trips", "polyconvert", "netgenerate", "netconvert", "sumo"):
+                    "od2trips", "polyconvert", "netgenerate", "netconvert",
+                    "sumo", "netedit"):
             cfg = subprocess.check_output([app, "--save-template", "stdout"], universal_newlines=True)
             docs = os.path.join(homeDir, "docs", "web", "docs", app + ".md")
             parseString(cfg, ConfigReader(open(docs).readlines(), docs))

@@ -5,6 +5,10 @@ stopOffsets
 connections
 customTLS
 
+# network with one actuated and one static tls,
+# test rebuilding with different tlType
+rebuild_tlType
+
 # handle them!
 internal_lanes
 

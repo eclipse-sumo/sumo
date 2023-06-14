@@ -128,6 +128,9 @@ public:
     /// @brief set individual junction model paramete (not type related)
     void setJunctionModelParameter(const std::string& key, const std::string& value);
 
+    /// @brief set individual carFollow model parameters (not type related)
+    void setCarFollowModelParameter(const std::string& key, const std::string& value);
+
     /** @brief Returns the current route
      * @return The route the vehicle uses
      */
@@ -619,6 +622,17 @@ public:
         return !myStops.empty();
     }
 
+    /** @brief replace the current parking area stop with a new stop with merge duration
+     */
+    bool replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg);
+
+    /** @brief get the upcoming parking area stop or nullptr
+     */
+    MSParkingArea* getNextParkingArea();
+
+    /** @brief get the current  parking area stop or nullptr */
+    MSParkingArea* getCurrentParkingArea();
+
     /// @brief departure position where the vehicle fits fully onto the edge (if possible)
     double basePos(const MSEdge* edge) const;
 
@@ -837,11 +851,27 @@ public:
         }
 
 
+        /// @brief return the current routing mode
+        double getExtraImpatience() const {
+            return myExtraImpatience;
+        }
+
+        /** @brief Sets routing behavior
+         * @param[in] value an enum value controlling the different modes
+         */
+        void setExtraImpatience(double value) {
+            myExtraImpatience = value;
+        }
+
+
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex, SUMOVehicleClass svc) const;
 
     protected:
         ///@brief routing mode (see TraCIConstants.h)
         int myRoutingMode;
+
+        /// @brief dynamic impatience offset
+        double myExtraImpatience = 0;
 
     };
 
@@ -1038,7 +1068,8 @@ private:
 
     static NumericalID myCurrentNumericalIndex;
 
-    void initJunctionModelParams();
+    /// @brief init model parameters from generic params
+    void initTransientModelParams();
 
 private:
     /// invalidated assignment operator

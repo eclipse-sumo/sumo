@@ -42,11 +42,13 @@ def runSingle(viewRange, domain, domain2):
         name2, name, egoID, traci.simulation.getTime()))
     domain.subscribeContext(egoID, domain2.DOMAIN_ID, viewRange,
                             [traci.constants.TRACI_ID_LIST])
-    responses = traci.simulationStep()
+    traci.simulationStep()
+    responses = domain.getAllContextSubscriptionResults()
     print("   found %s objects" % len(responses))
 
     domain.unsubscribeContext(egoID, domain2.DOMAIN_ID, viewRange)
-    responses = traci.simulationStep()
+    traci.simulationStep()
+    responses = domain.getAllContextSubscriptionResults()
     if responses:
         print("Error: Unsubscribe did not work", responses)
     else:
@@ -54,25 +56,15 @@ def runSingle(viewRange, domain, domain2):
     sys.stdout.flush()
 
 
-def restart():
-    traci.start([sumolib.checkBinary(sys.argv[1]),
-                 '-Q', "-c", "sumo.sumocfg",
-                 '-a', 'input_additional.add.xml'])
-    traci.simulationStep()
-
-
 #  main
-restart()
+traci.start([sumolib.checkBinary(sys.argv[1]),
+             '-Q', "-c", "sumo.sumocfg",
+             '-a', 'input_additional.add.xml'])
+traci.simulationStep()
 for domain in traci.DOMAINS:
     for domain2 in traci.DOMAINS:
         try:
             runSingle(100, domain, domain2)
-        except traci.FatalTraCIError as e:
-            print("restarting sumo due to FatalTraCIError '%s'" % e)
-            traci.close()
-            restart()
-        except traci.TraCIException as e:  # libsumo case
-            print("restarting sumo due to FatalTraCIError '%s'" % e)
-            traci.close()
-            restart()
+        except traci.TraCIException:
+            pass
 traci.close()

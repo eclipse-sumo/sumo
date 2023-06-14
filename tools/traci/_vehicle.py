@@ -230,6 +230,34 @@ def _readNextLinks(result):
     return tuple(links)
 
 
+def _readJunctionFoes(result):
+    result.read("!Bi")
+    nbJunctionFoes = result.readInt()
+    junctionFoes = []
+    for _ in range(nbJunctionFoes):
+        result.read("!B")
+        foeId = result.readString()
+        result.read("!B")
+        egoDist = result.readDouble()
+        result.read("!B")
+        foeDist = result.readDouble()
+        result.read("!B")
+        egoExitDist = result.readDouble()
+        result.read("!B")
+        foeExitDist = result.readDouble()
+        result.read("!B")
+        egoLane = result.readString()
+        result.read("!B")
+        foeLane = result.readString()
+        result.read("!B")
+        egoResponse = bool(result.read("!B")[0])
+        result.read("!B")
+        foeResponse = bool(result.read("!B")[0])
+        junctionFoes.append((foeId, egoDist, foeDist, egoExitDist, foeExitDist,
+                             egoLane, foeLane, egoResponse, foeResponse))
+    return tuple(junctionFoes)
+
+
 _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[0]),
                       tc.VAR_BEST_LANES: _readBestLanes,
                       tc.VAR_LEADER: _readLeader,
@@ -239,6 +267,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[
                       tc.VAR_NEXT_STOPS: _readNextStops,
                       tc.VAR_NEXT_LINKS: _readNextLinks,
                       tc.VAR_NEXT_STOPS2: _readStopData,
+                      tc.VAR_FOES: _readJunctionFoes,
                       # ignore num compounds and type int
                       tc.CMD_CHANGELANE: lambda result: result.read("!iBiBi")[2::2]}
 
@@ -729,6 +758,14 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
 
+    def getJunctionFoes(self, vehID, distance):
+        """getJunctionFoes(string, double) -> complex
+
+        Return list of junction foes [(foeId, egoDist, foeDist, egoExitDist, foeExitDist,
+        egoLane, foeLane, egoResponse, foeResponse), ...] within the given distance to the given vehicle.
+        """
+        return self._getUniversal(tc.VAR_FOES, vehID, "d", distance)
+
     @deprecated()
     def getNextStops(self, vehID):
         """getNextStop(string) -> [(string, double, string, int, double, double), ...]
@@ -808,13 +845,15 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_DISTANCE, vehID)
 
-    def getStopParameter(self, vehID, nextStopIndex, param):
+    def getStopParameter(self, vehID, nextStopIndex, param, customParam=False):
         """getStopParameter(string, int, string) -> string
         Gets the value of the given parameter for the stop at the given index
         Negative indices permit access to past stops.
         Supported params correspond to all legal stop xml-attributes
+        If customParam is set to True, the user defined stop parameter with the
+        specified param name will be returned instead (or "" if undefined)
         """
-        return self._getUniversal(tc.VAR_STOP_PARAMETER, vehID, "tis", 2, nextStopIndex, param)
+        return self._getUniversal(tc.VAR_STOP_PARAMETER, vehID, "tisb", 3, nextStopIndex, param, customParam)
 
     def getStopState(self, vehID):
         """getStopState(string) -> integer
@@ -1049,14 +1088,16 @@ class VehicleDomain(VTypeDomain):
         self._setCmd(tc.CMD_INSERT_STOP, vehID, "tsdbdiddib", 9, edgeID, pos,
                      laneIndex, duration, flags, startPos, until, nextStopIndex, teleport)
 
-    def setStopParameter(self, vehID, nextStopIndex, param, value):
+    def setStopParameter(self, vehID, nextStopIndex, param, value, customParam=False):
         """setStopParameter(string, int, string, string) -> None
         Sets the value of the given parameter for the (upcoming) stop at the
         given index (within the list of all stops).
         Supported params correspond to (almost) all legal stop xml-attributes
         and their value semantics
+        If customParam is set to True, the user defined stop parameter with the
+        specified param name will be set instead
         """
-        self._setCmd(tc.VAR_STOP_PARAMETER, vehID, "tiss", 3, nextStopIndex, param, value)
+        self._setCmd(tc.VAR_STOP_PARAMETER, vehID, "tissb", 4, nextStopIndex, param, value, customParam)
 
     def resume(self, vehID):
         """resume(string) -> None

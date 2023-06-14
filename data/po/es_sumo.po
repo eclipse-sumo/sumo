@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-02-21 13:12+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"PO-Revision-Date: 2023-05-10 11:50+0000\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1760,10 +1760,14 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:343
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr ""
+"Define el tiempo de inicio en segundos; La simulación comienza en este "
+"momento"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:346
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr ""
+"Define el tiempo de finalización en segundos; La simulación termina en este "
+"momento"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:349
 msgid "Defines the step duration in seconds"
@@ -2243,7 +2247,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:698
 msgid "Load visualisation settings from FILE"
-msgstr ""
+msgstr "Cargar configuración de visualización desde archivo"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:701
 msgid "Quits the GUI when the simulation stops"
@@ -2287,15 +2291,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:732
 msgid "Load current viewport from registry"
-msgstr ""
+msgstr "Cargar ventana gráfica actual desde el registro"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:735
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "Crear ventana inicial con el tamaño x,y dado"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:738
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "Crear ventana inicial en la posición x,y dada"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:741
 msgid "The aggregation period for value tracker windows"
@@ -2311,7 +2315,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:754
 msgid "Enable output messages during GUI-Testing"
-msgstr ""
+msgstr "Habilitar mensajes de salida durante la prueba de GUI"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:758
 msgid "Save gui settings in the given settings output file"
@@ -9901,15 +9905,15 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:151
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:162
 msgid "Invalid row or column"
-msgstr ""
+msgstr "Fila o columna inválida"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:186
 msgid "Invalid row"
-msgstr ""
+msgstr "Fila invalida"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:196
 msgid "Invalid column"
-msgstr ""
+msgstr "Columna inválida"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:332
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:790
@@ -9918,7 +9922,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:337
 msgid "All files (*)"
-msgstr ""
+msgstr "Todos los archivos (*)"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:790
 msgid "Open decal."

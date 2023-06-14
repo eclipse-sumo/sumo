@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-04-24 13:17+0000\n"
-"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
+"PO-Revision-Date: 2023-06-06 13:40+0000\n"
+"Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
@@ -888,7 +888,7 @@ msgstr "定位路口"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:114
 msgid "Locate a junction within the network."
-msgstr ""
+msgstr "在路网內定位一个路口。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:119
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:336
@@ -897,7 +897,7 @@ msgstr "定位路段"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:119
 msgid "Locate an edge within the network."
-msgstr ""
+msgstr "在路网內定位一个路段。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:124
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:344
@@ -906,7 +906,7 @@ msgstr "定位车辆"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:124
 msgid "Locate a vehicle within the network."
-msgstr ""
+msgstr "在路网內定位一辆車。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:129
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:348
@@ -915,15 +915,15 @@ msgstr "定位人员"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:129
 msgid "Locate a person within the network."
-msgstr ""
+msgstr "在路网內定位一位人员。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:134
 msgid "Locate Container"
-msgstr ""
+msgstr "定位货柜"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:134
 msgid "Locate a container within the network."
-msgstr ""
+msgstr "在路网內定位一个货柜。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:139
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:367
@@ -932,7 +932,7 @@ msgstr "定位交通信号"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:139
 msgid "Locate a tls within the network."
-msgstr ""
+msgstr "在路网內定位一个交通信号。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:144
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:371
@@ -941,7 +941,7 @@ msgstr "定位附加物"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:144
 msgid "Locate an additional structure within the network."
-msgstr ""
+msgstr "在路网內定位一个附加的结构。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:149
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:375
@@ -950,7 +950,7 @@ msgstr "定位兴趣点"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:149
 msgid "Locate a PoI within the network."
-msgstr ""
+msgstr "在路网內定位一个兴趣点。"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:154
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:379
@@ -959,7 +959,7 @@ msgstr "定位多边形物件"
 
 #: /home/micha/programming/sumo/src/gui/GUIViewTraffic.cpp:154
 msgid "Locate a Polygon within the network."
-msgstr ""
+msgstr "在路网內定位一个多边形。"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AboutSUMO.cpp:69
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Feedback.cpp:58
@@ -1210,43 +1210,43 @@ msgstr "&工具"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1416
 msgid "Detectors"
-msgstr ""
+msgstr "探测器"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1417
 msgid "Districts"
-msgstr ""
+msgstr "分区"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1418
 msgid "DRT"
-msgstr ""
+msgstr "需求反应运输(DRT)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1419
 msgid "Emissions"
-msgstr ""
+msgstr "排放物"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1420
 msgid "CityBrain"
-msgstr ""
+msgstr "城市大脑(CityBrain)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1421
 msgid "GTFS"
-msgstr ""
+msgstr "一般公共交通数据规范(GTFS)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1422
 msgid "Vissim"
-msgstr ""
+msgstr "Vissim"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1423
 msgid "Visum"
-msgstr ""
+msgstr "Visum"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1424
 msgid "Import"
-msgstr ""
+msgstr "导入"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1425
 msgid "Net"
-msgstr ""
+msgstr "路网"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1426
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:673
@@ -1256,7 +1256,7 @@ msgstr "路径"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1427
 msgid "Output"
-msgstr ""
+msgstr "输出"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1428
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:227
@@ -1269,15 +1269,15 @@ msgstr "交通信号"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1430
 msgid "Turn-defs"
-msgstr ""
+msgstr "转向定义(Turn-defs)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1431
 msgid "Visualization"
-msgstr ""
+msgstr "视觉化"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1432
 msgid "XML"
-msgstr ""
+msgstr "可延伸标示语言(XML)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1519
 msgid "Network computed"
@@ -1354,7 +1354,7 @@ msgstr "载入Sumo的设定档"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2317
 msgid "Netedit options"
-msgstr ""
+msgstr "Netedit 选项"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2334
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1826
@@ -1363,7 +1363,7 @@ msgstr "sumo选项"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2351
 msgid "Netgenerate options"
-msgstr ""
+msgstr "Netedit 选项"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2368
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1253
@@ -1387,7 +1387,7 @@ msgstr "路网存储于 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3084
 msgid "Could not save network in '"
-msgstr ""
+msgstr "无法将路网存储于 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3130
 msgid "Plain XML saved with prefix '"
@@ -1465,7 +1465,7 @@ msgstr "附加档案存储于 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3650
 msgid "Saving additionals failed!"
-msgstr ""
+msgstr "存储附加物(additional)失败!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3720
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4659
@@ -1493,7 +1493,7 @@ msgstr "交通需求要素存储于 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3812
 msgid "Saving demand elements failed!"
-msgstr ""
+msgstr "存储需求元素失败!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3884
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4728
@@ -1524,7 +1524,7 @@ msgstr "数据要素存储于 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3976
 msgid "Saving data elements failed!"
-msgstr ""
+msgstr "存储文件元素失败!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4048
 msgid "load meanDatas from '"
@@ -1551,7 +1551,7 @@ msgstr "MeanDatas存储于 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4133
 msgid "Saving meanData failed!"
-msgstr ""
+msgstr "存储平均数据(meanData)失败!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4182
 msgid "Confirm close Network"
@@ -1643,11 +1643,11 @@ msgstr "打开新的netedit 视窗。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:204
 msgid "Generate Network"
-msgstr ""
+msgstr "产生路网"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:204
 msgid "Create network using netgenerate."
-msgstr ""
+msgstr "使用netgenerate建立路网。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:211
 msgid "Load Netedit config..."
@@ -2693,7 +2693,7 @@ msgstr "无法载入netedit的設定档案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2700
 msgid "Save file as"
-msgstr ""
+msgstr "将文件另存为"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2701
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2705
@@ -2746,7 +2746,7 @@ msgstr "所有档案 (*)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2704
 msgid "Open file"
-msgstr ""
+msgstr "开启文件"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2714
 msgid "Save Network file as"
@@ -2798,11 +2798,11 @@ msgstr "路口档案(*.nod.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2753
 msgid "Save tool log"
-msgstr ""
+msgstr "存储工具记录(log)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2754
 msgid "Text file (*.txt)"
-msgstr ""
+msgstr "文字档（*.txt）"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2761
 msgid "Open OSM file"
@@ -2921,11 +2921,11 @@ msgstr "打开MeanData档案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2893
 msgid "Save options file as"
-msgstr ""
+msgstr "将选项文件另存于"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2897
 msgid "Open options file"
-msgstr ""
+msgstr "开启选项文件"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:95
 #, c-format
@@ -3596,11 +3596,11 @@ msgstr "拉直路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2222
 msgid "smooth selected edges"
-msgstr ""
+msgstr "使选定的路段平滑"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2229
 msgid "smooth edge"
-msgstr ""
+msgstr "使路段平滑"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2243
 msgid "straighten elevation of selected edges"
@@ -4365,27 +4365,27 @@ msgstr "计算路径管理器。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:521
 msgid "WalkingArea Chooser"
-msgstr ""
+msgstr "步行区域选择器"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:590
 msgid "Route Chooser"
-msgstr ""
+msgstr "路径选择器"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:598
 msgid "Stop Chooser"
-msgstr ""
+msgstr "停靠点选择器"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:629
 msgid "TLS Chooser"
-msgstr ""
+msgstr "交通信号选择器"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:640
 msgid "Additional Chooser"
-msgstr ""
+msgstr "附加物(additional)选择器"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:669
 msgid "Poly Chooser"
-msgstr ""
+msgstr "多边形选择器"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Additional.cpp:120
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Connection.cpp:96
@@ -5015,16 +5015,16 @@ msgstr "改道裝置(rerouter) 有一个以上的路段"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:321
 msgid "There are no lanes in the network"
-msgstr ""
+msgstr "路网内没有车道"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:341
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:361
 msgid "There are no edges in the network"
-msgstr ""
+msgstr "路网內沒有路段"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:398
 msgid "There are no parking areas in the network"
-msgstr ""
+msgstr "路网內沒有停车区域"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEUndoListDialog.cpp:58
 msgid "OK\tclose dialog"
@@ -5033,7 +5033,7 @@ msgstr "确定\t关闭对话窗"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:459
 #, c-format
 msgid "Key '%' already exists"
-msgstr ""
+msgstr "键(key) '%' 已经存在"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:446
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:753
@@ -5061,19 +5061,19 @@ msgstr "开启OSG档案"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:63
 msgid "Grid"
-msgstr ""
+msgstr "网格"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:64
 msgid "Spider"
-msgstr ""
+msgstr "蜘蛛网"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:65
 msgid "Random grid"
-msgstr ""
+msgstr "随机网络"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:66
 msgid "Random"
-msgstr ""
+msgstr "随机"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:82
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:232
@@ -5082,125 +5082,125 @@ msgstr "选择文件名"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:92
 msgid "Advanced"
-msgstr ""
+msgstr "高级的"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:92
 msgid "open advance netgenerate dialog"
-msgstr ""
+msgstr "开启高级的的 netgenerate 对话窗"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:94
 msgid "Close dialog"
-msgstr ""
+msgstr "关闭对话窗"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:71
 msgid "Save options"
-msgstr ""
+msgstr "存储选项"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:73
 msgid "Load options"
-msgstr ""
+msgstr "载入选项"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:75
 msgid "Sorted by name"
-msgstr ""
+msgstr "按名称排序"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:76
 msgid "Grouped by categories"
-msgstr ""
+msgstr "按类别f分组"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:89
 msgid "run python tool"
-msgstr ""
+msgstr "执行 python 工具"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:91
 msgid "close tool dialog"
-msgstr ""
+msgstr "关闭工具对话窗"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:93
 msgid "reset to default values"
-msgstr ""
+msgstr "重新设回为预设值"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:122
 msgid "Reset value"
-msgstr ""
+msgstr "重设值"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:227
 #, c-format
 msgid "Use current % file"
-msgstr ""
+msgstr "使用目前 % 文件"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:253
 msgid "network"
-msgstr ""
+msgstr "路网"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:296
 msgid "additional"
-msgstr ""
+msgstr "附加物(additional)"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:339
 msgid "route"
-msgstr ""
+msgstr "路径"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:382
 msgid "data"
-msgstr ""
+msgstr "数据"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:556
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:568
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:582
 msgid "true"
-msgstr ""
+msgstr "真值"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:559
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:571
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:585
 msgid "false"
-msgstr ""
+msgstr "伪值"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:63
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:64
 msgid "Save output"
-msgstr ""
+msgstr "存储输出"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:65
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:66
 msgid "Console output"
-msgstr ""
+msgstr "控制台输出"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:75
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:76
 msgid "Abort"
-msgstr ""
+msgstr "放弃"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:75
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:76
 msgid "abort running"
-msgstr ""
+msgstr "放弃执行"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:77
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:78
 msgid "Rerun"
-msgstr ""
+msgstr "重新执行"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:77
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:78
 msgid "rerun tool"
-msgstr ""
+msgstr "重新执行工具"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:79
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:80
 msgid "Back"
-msgstr ""
+msgstr "返回"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:79
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:80
 msgid "back to tool dialog"
-msgstr ""
+msgstr "返回到工具对话框"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:87
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:88
 msgid "close dialog"
-msgstr ""
+msgstr "关闭对话框"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:134
 msgid "Nothing to enable, implement in Children"
@@ -5368,7 +5368,7 @@ msgstr "路段的长度(单位为米)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1155
 msgid "street name (does not need to be unique, used for visualization)"
-msgstr ""
+msgstr "街道名 (不需要是唯一的, 作为视觉化使用)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1166
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1247
@@ -5475,7 +5475,7 @@ msgstr "设定此穿越道的对向交通信号指数(tls-index)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1342
 msgid "Overrides default shape of pedestrian crossing"
-msgstr ""
+msgstr "覆盖预设的人行穿越道形状"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1355
 msgid "Walking Area ID"
@@ -5491,15 +5491,15 @@ msgstr "步行区(WalkingArea)的长度(米)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1371
 msgid "Overrides default shape of pedestrian sidewalk"
-msgstr ""
+msgstr "覆盖预设的人行道形状"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1384
 msgid "The ID of the edge the vehicles leave"
-msgstr ""
+msgstr "车辆离开的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1389
 msgid "The ID of the edge the vehicles may reach when leaving 'from'"
-msgstr ""
+msgstr "车辆离开 'from' 时，可能到达的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1394
 msgid "the lane index of the incoming lane (numbers starting with 0)"
@@ -6134,7 +6134,7 @@ msgstr "用于此校准器流量的车辆类型的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2549
 msgid "Number of vehicles per hour, equally spaced"
-msgstr ""
+msgstr "每小時车辆数，等间距"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2555
 msgid "Vehicle's speed"
@@ -6352,11 +6352,11 @@ msgstr "兴趣点所在的已命名车道的侧向偏移值(lateral offset)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3040
 msgid "The longitude position of the parking vehicle on the view"
-msgstr ""
+msgstr "视图中停车车辆的经度位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3045
 msgid "The latitude position of the parking vehicle on the view"
-msgstr ""
+msgstr "视图中停车车辆的纬度位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3119
 msgid "The id of the TAZ"
@@ -6515,15 +6515,15 @@ msgstr "车辆的最大速度[米/秒]"
 msgid ""
 "The vehicle's expected multiplicator for lane speed limits (or a "
 "distribution specifier)"
-msgstr ""
+msgstr "车辆预期的车道速度限制乘数(multiplicator) (或一个分布说明符(specifier))"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3463
 msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
-msgstr ""
+msgstr "车辆所需的最大速度 (与 speedFactor 交互作用)。"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3464
 msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
-msgstr ""
+msgstr "适用于沒有速度限制的情況 (自行车, 某些高速公路） [m/s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3469
 msgid "An abstract emission class"
@@ -6553,7 +6553,7 @@ msgstr "用于车道变换的模式"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3505
 msgid "The model used for car-following"
-msgstr ""
+msgstr "使用的跟车模式"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3512
 msgid ""
@@ -6613,7 +6613,7 @@ msgstr "火车长度"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3580
 msgid "Gap between carriages"
-msgstr ""
+msgstr "车厢之间的距离"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3613
 msgid "The ID of trip"
@@ -6626,11 +6626,11 @@ msgstr "用于此行程的车辆类型识别名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3624
 msgid "The ID of the edge the trip starts at"
-msgstr ""
+msgstr "旅程开始的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3629
 msgid "The ID of the edge the trip ends at"
-msgstr ""
+msgstr "旅程结束的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3634
 msgid "List of intermediate edge ids which shall be part of the trip"
@@ -6693,11 +6693,11 @@ msgstr "用于此流量的流量类型的识别名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3794
 msgid "The ID of the edge the flow starts at"
-msgstr ""
+msgstr "流量开始的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3799
 msgid "The ID of the edge the flow ends at"
-msgstr ""
+msgstr "流量结束的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3804
 msgid "List of intermediate edge ids which shall be part of the flow"
@@ -6795,11 +6795,11 @@ msgstr "货箱(container)应该进入路网的时间步长"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4259
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4289
 msgid "The ID of the edge the transport starts at"
-msgstr ""
+msgstr "运送开始的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4264
 msgid "The ID of the edge the transport ends at"
-msgstr ""
+msgstr "运送结束的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4269
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4337
@@ -6816,15 +6816,15 @@ msgstr "运送的替代车辆清单"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4294
 msgid "ID of the destination container stop"
-msgstr ""
+msgstr "货柜(container)目的地停靠点的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4321
 msgid "The ID of the edge the tranship starts at"
-msgstr ""
+msgstr "转运开始的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4326
 msgid "The ID of the edge the tranship ends at"
-msgstr ""
+msgstr "转运结束的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4331
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4367
@@ -6860,7 +6860,7 @@ msgstr "目的地路段上的抵达位置"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4427
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4797
 msgid "The ID of the edge the stop shall be located at"
-msgstr ""
+msgstr "停靠站应该位于的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4445
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4477
@@ -6886,11 +6886,11 @@ msgstr "在GUI及输入文件中显示停靠的货箱(container)的活动 "
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4511
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4551
 msgid "The ID of the edge the person trip starts at"
-msgstr ""
+msgstr "人旅程开始的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4516
 msgid "The ID of the edge the person trip ends at"
-msgstr ""
+msgstr "人旅程结束的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4527
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4561
@@ -6927,11 +6927,11 @@ msgstr "人行程结束的路口的名称"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4627
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4651
 msgid "The ID of the edge the walk starts at"
-msgstr ""
+msgstr "步行开始的路段的名称(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4632
 msgid "The ID of the edge the walk ends at"
-msgstr ""
+msgstr "步行结束的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4656
 msgid "Id of the destination bus stop"
@@ -6952,11 +6952,11 @@ msgstr "步行结束的路口的名称"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4734
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4764
 msgid "The ID of the edge the ride starts at"
-msgstr ""
+msgstr "乘车(ride)开始的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4739
 msgid "The ID of the edge the ride ends at"
-msgstr ""
+msgstr "乘车(ride)结束的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4750
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4774
@@ -6965,7 +6965,7 @@ msgstr "乘车时可以使用的替代车辆清单"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4769
 msgid "ID of the destination bus stop"
-msgstr ""
+msgstr "目的地公车站的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4828
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4860
@@ -7513,11 +7513,11 @@ msgstr "路段 ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5701
 msgid "The ID of the edge the edgeRel starts at"
-msgstr ""
+msgstr "路段关系(edgeRel)开始的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5706
 msgid "The ID of the edge the edgeRel ends at"
-msgstr ""
+msgstr "路段关系(edgeRel)结束的路段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5720
 msgid "The name of the TAZ the TAZRel starts at"
@@ -7558,7 +7558,7 @@ msgstr "如果设置，结点内部路段/车道也将被写入"
 msgid ""
 "The maximum travel time in seconds to write if only very small movements "
 "occur"
-msgstr ""
+msgstr "如果仅发生非常小的移动, 则写出以秒为单位最长旅行时间"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5804
 msgid ""
@@ -8252,7 +8252,7 @@ msgstr "无法建立meanData路段; "
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:64
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:93
 msgid " already exists"
-msgstr ""
+msgstr " 已经存在"
 
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:70
 msgid "add meanDataEdge"
@@ -8369,7 +8369,7 @@ msgstr "'不能创建在 "
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:819
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:850
 msgid "VType distributions currently unsupported in netedit"
-msgstr ""
+msgstr "netedit 目前不支持车辆类型(VType)分配"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:194
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:246
@@ -10526,7 +10526,7 @@ msgstr "不允许行人进入"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:82
 msgid "Add sidewalk"
-msgstr ""
+msgstr "增加人行道"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:85
 msgid "Use edgeType/template"
@@ -10796,7 +10796,7 @@ msgstr "连接与所选择的连接有相互冲突"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
-msgstr "保存禁止的修改（输入）。"
+msgstr "存储修改的禁止事项 (登录键(Enter))"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
@@ -11509,95 +11509,95 @@ msgstr "用于SUMO网络、需求和额外基础设施的图形编辑器。"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:126
 msgid "Original network"
-msgstr ""
+msgstr "原始路网"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:129
 msgid "Modified network"
-msgstr ""
+msgstr "修改路网"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:132
 msgid "Output prefix network"
-msgstr ""
+msgstr "输出字首(prefix)路网"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:136
 msgid "Select modified elements"
-msgstr ""
+msgstr "选择修改元素"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:139
 msgid "Select added elements"
-msgstr ""
+msgstr "选择增加元素"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:142
 msgid "Select deleted elements"
-msgstr ""
+msgstr "选择刪除元素"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:146
 msgid "Load shapes for elements"
-msgstr ""
+msgstr "载入元素的形状"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:149
 msgid "Load shapes for added"
-msgstr ""
+msgstr "载入增加的形状"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:152
 msgid "Load shapes for deleted elements"
-msgstr ""
+msgstr "载入刪除元素的形状"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:165
 msgid "load shapes from '"
-msgstr ""
+msgstr "从 ' 载入形状"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:169
 msgid "Loading of shape file failed: "
-msgstr ""
+msgstr "载入形狀文件失败: "
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:172
 msgid "Loading of shape file sucessfully: "
-msgstr ""
+msgstr "成功地载入形状文件: "
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNEPythonTool.cpp:42
 msgid "Execute python tool '"
-msgstr ""
+msgstr "执行python工具 '"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNEPythonTool.cpp:153
 #, c-format
 msgid "Loaded % configuration."
-msgstr ""
+msgstr "已载入 % 设定(configuration)。"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNEPythonTool.cpp:182
 #, c-format
 msgid "Saved % configuration."
-msgstr ""
+msgstr "已存储 % 设定(configuration)。"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunNetgenerate.cpp:71
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunPythonTool.cpp:55
 msgid "cancelled by user\n"
-msgstr ""
+msgstr "由使用者取消\n"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunNetgenerate.cpp:102
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunPythonTool.cpp:86
 msgid "popen() failed!"
-msgstr ""
+msgstr "popen() 失败!"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunNetgenerate.cpp:114
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunPythonTool.cpp:98
 msgid "starting process...\n"
-msgstr ""
+msgstr "开始处理...\n"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunNetgenerate.cpp:124
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunPythonTool.cpp:108
 msgid "error processing command\n"
-msgstr ""
+msgstr "错误处理指令\n"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunNetgenerate.cpp:136
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunPythonTool.cpp:120
 msgid "process finished\n"
-msgstr ""
+msgstr "处理完成\n"
 
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunNetgenerate.cpp:142
 #: /home/micha/programming/sumo/src/netedit/tools/GNERunPythonTool.cpp:125
 msgid "starting process silently...\n"
-msgstr ""
+msgstr "靜靜地开始处理...\n"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:75
 msgid "&Load selection"
@@ -11697,15 +11697,15 @@ msgstr "对象必须是一个车道"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUISaveDialog.cpp:87
 msgid "&Save changes"
-msgstr ""
+msgstr "&存储改变"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUISaveDialog.cpp:88
 msgid "&Don't save"
-msgstr ""
+msgstr "&不存储"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUISaveDialog.cpp:89
 msgid "&Abort"
-msgstr ""
+msgstr "&中止"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIShapeContainer.cpp:56
 msgid "Replacing POI '%'"
@@ -11818,7 +11818,7 @@ msgstr "汽车中心"
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:329
 #, c-format
 msgid "% objects"
-msgstr ""
+msgstr "% 物件"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:65
 msgid "Load viewport from file"
@@ -11838,11 +11838,11 @@ msgstr "保存视口"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_Options.cpp:277
 msgid "Run tool"
-msgstr ""
+msgstr "执行工具"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_Options.cpp:278
 msgid "Cancel tool"
-msgstr ""
+msgstr "取消工具"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_Options.cpp:280
 msgid "Accept settings"
@@ -12422,65 +12422,65 @@ msgstr "天空的颜色"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:120
 msgid "Recenter View"
-msgstr ""
+msgstr "重新将视图置中"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:120
 msgid "Recenter view to the simulated area."
-msgstr ""
+msgstr "重新将视图置于仿真区域。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:124
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
-msgstr ""
+msgstr "打开一个选单，您可以在其中编辑检视区(viewport)。 (Ctrl+I)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:128
 msgid "Toggle Zooming Style"
-msgstr ""
+msgstr "切换缩放样式"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:128
 msgid ""
 "Toggles whether zooming is based at cursor position or at the center of the "
 "view."
-msgstr ""
+msgstr "切换是否缩放应基于游标位置，还是基于视图的中心。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate Structures"
-msgstr ""
+msgstr "定位结构(structures)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate structures within the network."
-msgstr ""
+msgstr "在路网內定位结构(structures)。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:139
 msgid "Toggle View Tooltips"
-msgstr ""
+msgstr "切换查看工具提示"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:139
 msgid "Toggles whether tooltips in the view shall be shown."
-msgstr ""
+msgstr "切换是否应显示视图中的工具提示。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:145
 msgid "Toggle Menu Tooltips"
-msgstr ""
+msgstr "切换选单工具提示"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:145
 msgid "Toggles whether tooltips in the menu shall be shown."
-msgstr ""
+msgstr "切换是否显示选单中的工具提示。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:161
 msgid "Edit Coloring Schemes"
-msgstr ""
+msgstr "编辑著色方案(schemes)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:161
 msgid "Opens a menu which lets you edit the coloring schemes. (F9)"
-msgstr ""
+msgstr "打开一个选单，您可以在其中编辑著色方案(schemes)。 (F9)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Make Snapshot"
-msgstr ""
+msgstr "制作快照(snapshot)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Makes a snapshot of the view."
-msgstr ""
+msgstr "制作视图的快照(snapshot)。"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:294
 msgid "option window-size requires INT,INT"
@@ -12512,11 +12512,11 @@ msgstr "将语言改为法语。(fr)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:350
 msgid "Change language to italian. (it)"
-msgstr ""
+msgstr "改变为意大利语。 (it)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:352
 msgid "简体中文 (zh)"
-msgstr "简体中文 (zh)"
+msgstr "简体中文"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:354
 msgid "繁體中文 (zh-Hant)"
@@ -12544,7 +12544,7 @@ msgstr "法文"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:384
 msgid "italian"
-msgstr ""
+msgstr "意大利语"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:388
 msgid "chinese"

@@ -7,8 +7,8 @@
     <weights-prefix value="None" type="file" help="loads probabilities for being source, destination and via-edge from the files named 'prefix'.src.xml, 'prefix'.dst.xml and 'prefix'.via.xml" category="processing"/>
     <weights-output-prefix value="None" type="string" help="generates weights files for visualisation" category="processing"/>
     <pedestrians value="False" type="bool" help="create a person file with pedestrian trips instead of vehicle trips" category="processing"/>
-    <persontrips value="False" type="bool" help="create a person file with person trips instead of vehicle trips" category="processing"/>
     <personrides value="None" type="string" help="create a person file with rides using STR as lines attribute" category="processing"/>
+    <persontrips value="False" type="bool" help="create a person file with person trips instead of vehicle trips" category="processing"/>
     <persontrip.transfer.car-walk value="None" type="string" help="Where are mode changes from car to walking allowed (possible values: 'ptStops', 'allJunctions' and combinations)" category="processing"/>
     <persontrip.walkfactor value="None" type="float" help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing" category="processing"/>
     <persontrip.walk-opposite-factor value="None" type="float" help="Use FLOAT as a factor on pedestrian maximum speed against vehicle traffic direction" category="processing"/>
@@ -38,6 +38,8 @@
     <max-distance value="None" type="float" help="require start and end edges for each trip to be at most 'FLOAT' m apart (default 0 which disables any checks)" category="processing"/>
     <intermediate value="0" type="int" help="generates the given number of intermediate way points" category="processing"/>
     <flows value="0" type="int" help="generates INT flows that together output vehicles with the specified period" category="processing"/>
+    <from-stops value="None" type="string" help="Create trips that start at stopping places of the indicated type(s). i.e. 'busStop'" category="processing"/>
+    <to-stops value="None" type="string" help="Create trips that end at stopping places of the indicated type(s). i.e. 'busStop'" category="processing"/>
     <jtrrouter value="False" type="bool" help="Create flows without destination as input for jtrrouter" category="processing"/>
     <maxtries value="100" type="int" help="number of attemps for finding a trip which meets the distance constraints" category="processing"/>
     <binomial value="None" type="int" help="If this is set, the number of departures per second will be drawn from a binomial distribution with n=N and p=PERIOD/N where PERIOD is the argument given to --period" category="processing"/>

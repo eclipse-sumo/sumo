@@ -11,6 +11,9 @@ radius0
 radius5
 
 # set a non-default node-radius
+radius5_geometryLike
+
+# set a non-default node-radius
 default1
 
 # set a non-default node-radius

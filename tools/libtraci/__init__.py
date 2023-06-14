@@ -38,8 +38,8 @@ DOMAINS = [
     gui,
     inductionloop,  # noqa
     junction,  # noqa
-    lanearea,  # noqa
     lane,  # noqa
+    lanearea,  # noqa
     meandata,  # noqa
     multientryexit,  # noqa
     overheadwire,  # noqa
@@ -150,18 +150,14 @@ isLoaded = simulation.isLoaded
 getVersion = simulation.getVersion
 executeMove = simulation.executeMove
 setOrder = simulation.setOrder
+switch = simulation.switchConnection
 
 _libtraci_step = simulation.step
 
 
 def simulationStep(step=0):
     _libtraci_step(step)
-    result = []
-    for domain in DOMAINS:
-        result += [(k, v) for k, v in domain.getAllSubscriptionResults().items()]
-        result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
     _stepManager.manageStepListeners(step)
-    return result
 
 
 simulation.step = simulationStep

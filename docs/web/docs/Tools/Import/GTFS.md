@@ -6,7 +6,8 @@ title: GTFS
 
 [The General Transit Feed Specification](https://developers.google.com/transit/gtfs) defines a common format
 for public transportation schedules and associated geographic information. The tools described here 
-facilitate the import of schedules (and also routes to a limited degree) into SUMO.
+facilitate the import of schedules (and also routes to a limited degree) into SUMO. They require the installation
+of the pandas library. For best performance it is recommended to use at least pandas 2.0.
 
 See also the [GTFS tutorial](../../Tutorials/GTFS.md).
 

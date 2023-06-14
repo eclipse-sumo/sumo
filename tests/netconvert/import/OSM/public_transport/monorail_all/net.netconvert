@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:27 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2023-05-11 15:21:18 by Eclipse SUMO netconvert Version v1_17_0+0239-789d1ff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertAerialway.typ.xml"/>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertAerialway.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -203,9 +203,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="4337430962" type="dead_end" x="10925.19" y="4654.96" incLanes="" intLanes="" shape="10925.40,4656.54 10924.97,4653.37"/>
     <junction id="4337430964" type="dead_end" x="10924.87" y="4648.18" incLanes="" intLanes="" shape="10925.11,4649.76 10924.62,4646.60"/>
     <junction id="4337430966" type="priority" x="11014.05" y="4638.48" incLanes="326352997#1_0 435850746_0 435850745_0" intLanes="" shape="11014.90,4632.98 11011.73,4633.42 11011.67,4634.05 11011.52,4634.26 11011.28,4634.39 11010.97,4634.46 11010.57,4634.45 11008.48,4637.48 11009.88,4638.90 11009.08,4640.07 11007.64,4641.26 11005.81,4642.25 11003.84,4642.80 11006.03,4645.45 11006.12,4645.63 11009.52,4647.40 11011.58,4645.93 11013.17,4644.09 11014.30,4641.88 11014.96,4639.29 11015.16,4636.32">
-        <request index="0" response="000" foes="110"/>
-        <request index="1" response="101" foes="101"/>
-        <request index="2" response="001" foes="011"/>
+        <request index="0" response="00" foes="10"/>
+        <request index="1" response="01" foes="01"/>
     </junction>
     <junction id="453246005" type="priority" x="2471.34" y="1143.68" incLanes="-326203720_0 326203721_0 326203722_0" intLanes="" shape="2469.97,1145.63 2473.15,1145.24 2473.03,1144.15 2473.03,1143.76 2473.07,1143.37 2473.15,1142.91 2473.28,1142.29 2470.15,1141.61 2472.59,1141.82 2469.46,1142.47">
         <request index="0" response="0000" foes="0000"/>
@@ -248,7 +247,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="37195413" to="326352998" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="435850743" to="224023134" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="435850744" to="326352997#1" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="435850745" to="326352997#2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="435850746" to="326352997#2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="666559889" to="366271217" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="666559890" to="366271231" fromLane="0" toLane="0" dir="s" state="M"/>

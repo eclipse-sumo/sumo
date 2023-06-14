@@ -26,6 +26,7 @@
 #include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netedit/dialogs/GNEOverwriteElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
+#include <netedit/dialogs/options/GNEOptionsDialog.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -54,7 +55,6 @@
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
-#include <utils/gui/windows/GUIDialog_Options.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/xml/XMLSubSys.h>
@@ -198,6 +198,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,       GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,            GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_MODE_TLS_TYPE,                         GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_U_MODE_TYPEDISTRIBUTION,                 GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_V_MODE_VEHICLE,                          GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_MODE_WIRE,                             GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_MODE_TAZ_TAZREL,                       GNEApplicationWindow::onCmdSetMode),
@@ -467,9 +468,14 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     // set SUMO Options descriptions
     mySumoOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
     mySumoOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
+    // set default netedit options
+    GNELoadThread::fillOptions(myOriginalNeteditOptions);
+    GNELoadThread::setDefaultOptions(myOriginalNeteditOptions);
     // parse options
     TemplateHandler::parseTemplate(mySumoOptions, sumoTemplate);
+    TemplateHandler::parseTemplate(myOriginalSumoOptions, sumoTemplate);
     TemplateHandler::parseTemplate(myNetgenerateOptions, netgenerateTemplate);
+    TemplateHandler::parseTemplate(myOriginalNetgenerateOptions, netgenerateTemplate);
 }
 
 void
@@ -1083,9 +1089,10 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
         // get filedata
         const std::string recentFile = ((const char*)fileData);
         // check if we're loading a network o a config
-        if ((recentFile.find(".neteditcfg") != std::string::npos) ||
-                (recentFile.find(".sumocfg") != std::string::npos) ||
-                (recentFile.find(".netccfg") != std::string::npos)) {
+        if ((recentFile.find(".neteditcfg") != std::string::npos) ||    // neteditcfg deprecated
+            (recentFile.find(".netecfg") != std::string::npos) ||
+            (recentFile.find(".sumocfg") != std::string::npos) ||
+            (recentFile.find(".netccfg") != std::string::npos)) {
             // load config
             loadConfiguration(recentFile);
         } else {
@@ -1703,8 +1710,8 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
     neteditOptions.set("tls.guess-signals", "true");
     neteditOptions.set("tls.discard-simple", "true");
     // open wizard dialog
-    if (GUIDialog_Options::Options(this, &OptionsCont::getOptions(), TL("Select Import Options")).first == TRUE) {
-        NIFrame::checkOptions(); // needed to set projection parameters
+    if (GNEOptionsDialog::Options(this, GUIIcon::SUPERMODENETWORK, OptionsCont::getOptions(), myOriginalNeteditOptions, TL("Select Import Options")).first == TRUE) {
+        NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
         // set file to load
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", OSMFile);
@@ -1713,8 +1720,6 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
         // load config
         myLoadThread->loadNetworkOrConfig();
     }
-    // after load, mark network saved
-    myNet->getSavingStatus()->networkSaved();
 }
 
 void
@@ -2316,12 +2321,13 @@ GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
-    const auto dialog = GUIDialog_Options::Options(this, &OptionsCont::getOptions(), TL("Netedit options"));
+    auto& neteditOptions = OptionsCont::getOptions();
+    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::NETEDIT_MINI, neteditOptions, myOriginalNeteditOptions, TL("Netedit options"));
     if (dialog.first == TRUE) {
-        NIFrame::checkOptions(); // needed to set projection parameters
-        NBFrame::checkOptions();
-        NWFrame::checkOptions();
-        SystemFrame::checkOptions(); // needed to set precision
+        NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
+        NBFrame::checkOptions(neteditOptions);
+        NWFrame::checkOptions(neteditOptions);
+        SystemFrame::checkOptions(neteditOptions); // needed to set precision
         // check if mar netedit config as unsaved
         if (dialog.second) {
             myNet->getSavingStatus()->requireSaveNeteditConfig();
@@ -2333,7 +2339,7 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
-    const auto dialog = GUIDialog_Options::Options(this, &mySumoOptions, TL("Sumo options"));
+    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::SUMO_MINI, mySumoOptions, myOriginalSumoOptions, TL("Sumo options"));
     // check if mark sumoConfig as unsaved
     if ((dialog.first == TRUE) && dialog.second) {
         myNet->getSavingStatus()->requireSaveSumoConfig();
@@ -2350,7 +2356,7 @@ GNEApplicationWindow::onCmdOpenNetgenerateDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*) {
-    return GUIDialog_Options::Run(this, &myNetgenerateOptions, TL("Netgenerate options")).first;
+    return GNEOptionsDialog::Run(this, GUIIcon::NETGENERATE, myNetgenerateOptions, myOriginalNetgenerateOptions, TL("Netgenerate options")).first;
 }
 
 
@@ -3200,7 +3206,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
         // get file path
         const auto filePath = FileHelpers::getFilePath(neteditConfigFile);
         // get patter file
-        const auto patterFile = StringUtils::replace(neteditConfigFile, ".neteditcfg", "");
+        const auto patterFile = StringUtils::replace(neteditConfigFile, ".netecfg", "");
         // get config file without extension
         if (neteditOptions.getString("net-file").empty()) {
             neteditOptions.set("net-file", patterFile + ".net.xml");

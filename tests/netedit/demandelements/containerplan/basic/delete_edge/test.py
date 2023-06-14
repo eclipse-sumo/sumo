@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("tranship: edge->edge", False)
+netedit.changeContainerPlan("tranship: edge", False)
 
 # create route using two one
 netedit.leftClick(referencePosition, 274, 400)
@@ -50,7 +50,7 @@ netedit.containerPlanMode()
 netedit.leftClick(referencePosition, 92, 412)
 
 # go to container plan mode
-netedit.changeContainerPlanMode("transport: edge->edge")
+netedit.changeContainerPlanMode("transport: edge")
 
 # create containerTripEdgeEdge
 netedit.leftClick(referencePosition, 350, 55)

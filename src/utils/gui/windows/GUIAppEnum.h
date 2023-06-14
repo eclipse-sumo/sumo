@@ -63,6 +63,8 @@ enum {
     MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,
     /// @brief hotkey for mode editing TLS AND Vehicle Types
     MID_HOTKEY_T_MODE_TLS_TYPE,
+    /// @brief hotkey for mode type distribution
+    MID_HOTKEY_U_MODE_TYPEDISTRIBUTION,
     /// @brief hotkey for mode create vehicles
     MID_HOTKEY_V_MODE_VEHICLE,
     /// @brief hotkey for mode editing overhead wires
@@ -1360,6 +1362,8 @@ enum {
     MID_GNE_BUTTON_ABORT,
     /// @brief back button
     MID_GNE_BUTTON_BACK,
+    /// @brief default button
+    MID_GNE_BUTTON_DEFAULT,
 
     /// @}
 
@@ -1476,6 +1480,14 @@ enum {
 
     /// @}
 
+    /// @name GNEOptionsDialog
+    /// @{
+
+    /// @brief use search description
+    MID_GNE_SEARCH_USEDESCRIPTION,
+
+    /// @}
+
     /// @name MFXDecalsTable
     /// @{
 
@@ -1507,6 +1519,13 @@ enum {
     MID_GNE_UNDOLIST_UPDATE,
     /// @brief check if recomputing is needed
     MID_GNE_RECOMPUTINGNEEDED,
+
+    /// @}
+
+    /// @brief callback for MFXTextFieldSearch
+    /// @{
+
+    MID_MTFS_UPDATED,
 
     /// @}
 

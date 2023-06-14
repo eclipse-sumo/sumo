@@ -196,9 +196,11 @@ private:
             EncounterType type;
             /// @brief value of the corresponding SSM
             double value;
+            /// @brief speed of the reporting vehicle at the given time/position
+            double speed;
 
-            ConflictPointInfo(double time, Position x, EncounterType type, double ssmValue) :
-                time(time), pos(x), type(type), value(ssmValue) {};
+            ConflictPointInfo(double time, Position x, EncounterType type, double ssmValue, double speed) :
+                time(time), pos(x), type(type), value(ssmValue), speed(speed) {};
         };
 
     public:
@@ -210,7 +212,7 @@ private:
         /// @brief add a new data point and update encounter type
         void add(double time, EncounterType type, Position egoX, std::string egoLane, double egoLanePos,
                  Position egoV, Position foeX, std::string foeLane, double foeLanePos, Position foeV,
-                 Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet, double ppet);
+                 Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet, double ppet, double mdrac);
 
         /// @brief Returns the number of trajectory points stored
         std::size_t size() const {
@@ -276,6 +278,8 @@ private:
         std::vector<double> TTCspan;
         /// @brief All values for DRAC
         std::vector<double> DRACspan;
+        /// @brief All values for MDRAC
+        std::vector<double> MDRACspan;        
         /// @brief All values for PPET
         std::vector<double> PPETspan;
 
@@ -287,6 +291,7 @@ private:
         /// @{
         ConflictPointInfo minTTC;
         ConflictPointInfo maxDRAC;
+        ConflictPointInfo maxMDRAC;        
         ConflictPointInfo PET;
         ConflictPointInfo minPPET;
         /// @}
@@ -321,6 +326,7 @@ private:
         double foeConflictAreaLength;
         double ttc;
         double drac;
+        double mdrac;
         std::pair<double, double> pet;  // (egoConflictEntryTime, PET);
         double ppet;
         std::pair<const MSLane*, double> egoConflictEntryCrossSection;
@@ -513,9 +519,11 @@ private:
      * @param useGeoCoords Whether coordinates should be written out in the original coordinate reference system or as sumo's x,y values
      * @param writePositions Whether positions (coordinates) should be written for each timestep
      * @param writeLanesPositions Whether lanes and their positions should be written for each timestep and each conflict
+     * @param conflictOrder Vector of order keywords ego/foe to be considered
      */
     MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
-                 bool trajectories, double range, double extraTime, bool useGeoCoords, bool writePositions, bool writeLanesPositions);
+        bool trajectories, double range, double extraTime, bool useGeoCoords, bool writePositions, bool writeLanesPositions, 
+        std::vector<int> conflictOrder);
 
     /** @brief Finds encounters for which the foe vehicle has disappeared from range.
      *         remainingExtraTime is decreased until it reaches zero, which triggers closing the encounter.
@@ -654,7 +662,7 @@ private:
     /** @brief Discriminates between different encounter types and correspondingly determines TTC and DRAC for those cases
      *         and writes the result to eInfo.ttc and eInfo.drac
      */
-    void determineTTCandDRACandPPET(EncounterApproachInfo& eInfo) const;
+    void determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) const;
 
 
     /** @brief Computes the time to collision (in seconds) for two vehicles with a given initial gap under the assumption
@@ -662,13 +670,19 @@ private:
      */
     double computeTTC(double gap, double followerSpeed, double leaderSpeed) const;
 
-
     /** @brief Computes the DRAC (deceleration to avoid a collision) for a lead/follow situation as defined,
      *         e.g., in Guido et al. (2011, Safety performance measures:  a comparison between microsimulation and observational data)
      *         for two vehicles with a given gap.
      *         Returns 0.0 if no deceleration is required by the follower to avoid a crash, INVALID if collision is detected.
      */
     static double computeDRAC(double gap, double followerSpeed, double leaderSpeed);
+    
+    /** @brief Computes the MDRAC (deceleration to avoid a collision) for a lead/follow situation as defined considering a reaction time of follower,
+     *         e.g., in Fazekas et al. (2017, A Novel Surrogate Indicator Based on Constant Initial Acceleration and Reaction Time Assumption)
+     *         for two vehicles with a given gap.
+     *         Returns 0.0 if no deceleration is required by the follower to avoid a crash, INVALID if collision is detected.
+     */    
+    static double computeMDRAC(double gap, double followerSpeed, double leaderSpeed, double prt);
 
     /** @brief Computes the DRAC a crossing situation, determining the minimal constant deceleration needed
      *         for one of the vehicles to reach the conflict area after the other has left.
@@ -700,10 +714,12 @@ private:
     /// @{
     static std::string getOutputFilename(const SUMOVehicle& v, std::string deviceID);
     static double getDetectionRange(const SUMOVehicle& v);
+    static double getMDRAC_PRT(const SUMOVehicle& v);
     static double getExtraTime(const SUMOVehicle& v);
     static bool useGeoCoords(const SUMOVehicle& v);
     static bool writePositions(const SUMOVehicle& v);
     static bool writeLanesPositions(const SUMOVehicle& v);
+    static bool filterByConflictType(const SUMOVehicle& v, std::string deviceID, std::vector<int>& conflictTypes);
     static bool requestsTrajectories(const SUMOVehicle& v);
     static bool getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceID,
                                          std::map<std::string, double>& thresholds);
@@ -724,6 +740,8 @@ private:
     bool mySaveTrajectories;
     /// Detection range. For vehicles closer than this distance from the ego vehicle, SSMs are traced
     double myRange;
+    /// @brief perception reaction time for MDRAC
+    double myMDRACPRT;
     /// Extra time in seconds to be logged after a conflict is over
     double myExtraTime;
     /// Whether to use the original coordinate system for output
@@ -732,8 +750,13 @@ private:
     bool myWritePositions;
     /// Wether to print the lanes and positions for all timesteps and conflicts
     bool myWriteLanesPositions;
+    /// Whether to exclude certain conflicts containing certain conflict types from the output
+    bool myFilterConflictTypes;
+    /// Which conflict types to exclude from the output
+    std::vector<int> myDroppedConflictTypes;
+
     /// Flags for switching on / off comutation of different SSMs, derived from myMeasures
-    bool myComputeTTC, myComputeDRAC, myComputePET, myComputeBR, myComputeSGAP, myComputeTGAP, myComputePPET;
+    bool myComputeTTC, myComputeDRAC, myComputePET, myComputeBR, myComputeSGAP, myComputeTGAP, myComputePPET,myComputeMDRAC;
     MSVehicle* myHolderMS;
     /// @}
 
@@ -792,14 +815,17 @@ private:
         SSM_WARN_THRESHOLDS = 1 << 1,
         SSM_WARN_TRAJECTORIES = 1 << 2,
         SSM_WARN_RANGE = 1 << 3,
+        SSM_WARN_MDRAC_PRT = 1 << 3,
         SSM_WARN_EXTRATIME = 1 << 4,
         SSM_WARN_FILE = 1 << 5,
         SSM_WARN_GEO = 1 << 6,
         SSM_WARN_POS = 1 << 7,
-        SSM_WARN_LANEPOS = 1 << 8
+        SSM_WARN_LANEPOS = 1 << 8,
+        SSM_WARN_CONFLICTFILTER = 1 << 9
     };
 
-
+    static const std::set<int> FOE_ENCOUNTERTYPES;
+    static const std::set<int> EGO_ENCOUNTERTYPES;
 
 private:
     /// @brief Invalidated copy constructor.

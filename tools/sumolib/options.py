@@ -186,8 +186,24 @@ class ArgumentParser(argparse.ArgumentParser):
         return s
 
     @staticmethod
+    def edge(s):
+        return s
+
+    @staticmethod
+    def edge_list(s):
+        return s
+
+    @staticmethod
     def data_file(s):
         # arbitrary data file (i.e. for attributeStats.py and plotXMLAttributes.py)
+        return s
+
+    @staticmethod
+    def sumoconfig_file(s):
+        return s
+
+    @staticmethod
+    def sumoconfig_file_list(s):
         return s
 
     def __init__(self, *args, **kwargs):
@@ -314,10 +330,11 @@ class ArgumentParser(argparse.ArgumentParser):
                                 typeName = a.type.__name__
                                 if typeName == 'parseTime':
                                     typeName = 'time'
-                                knownTypes = ['bool', 'float', 'int',
-                                              'time', 'file', 'net_file', 'route_file',
-                                              'additional_file', 'edgedata_file', 'data_file',
-                                              'file_list', 'route_file_list']
+                                knownTypes = ['bool', 'float', 'int', 'time', 'file',
+                                              'net_file', 'route_file', 'additional_file',
+                                              'edgedata_file', 'data_file', 'file_list',
+                                              'route_file_list', 'sumoconfig_file',
+                                              'sumoconfig_file_list', 'edge', 'edge_list']
                                 if typeName not in knownTypes:
                                     typeName = 'string'
                                 elif typeName.endswith("_list"):

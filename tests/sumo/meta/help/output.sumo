@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_17_0+0343-e1e55835e3a
+Eclipse SUMO sumo Version v1_17_0+0346-147b0cca96e
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -538,6 +538,28 @@ Communication Options:
                                         deterministic using a fraction of 1000
 
 Battery Options:
+  --device.stationfinder.probability FLOAT  The probability for a vehicle to
+                                        have a 'stationfinder' device
+  --device.stationfinder.explicit STR[]  Assign a 'stationfinder' device to
+                                        named vehicles
+  --device.stationfinder.deterministic  The 'stationfinder' devices are set
+                                        deterministic using a fraction of 1000
+  --device.stationfinder.rescueTime TIME  Time to wait for a rescue vehicle on
+                                        the road side when the battery is empty
+  --device.stationfinder.reserveFactor FLOAT  Additional battery buffer for
+                                        unexpected traffic situation when
+                                        estimating the battery need
+  --device.stationfinder.emptyThreshold FLOAT  Battery percentage to go into
+                                        rescue mode
+  --device.stationfinder.radius TIME   Search radius in travel time seconds
+  --device.stationfinder.repeat TIME   When to trigger a new search if no
+                                        station has been found
+  --device.stationfinder.maxChargePower FLOAT  The maximum charging speed of
+                                        the vehicle battery
+  --device.stationfinder.chargeType STR  Type of energy transfer
+  --device.stationfinder.waitForCharge TIME  After this waiting time vehicle
+                                        searches for a new station when the
+                                        initial one is blocked
   --device.battery.probability FLOAT   The probability for a vehicle to have a
                                         'battery' device
   --device.battery.explicit STR[]      Assign a 'battery' device to named
@@ -566,7 +588,7 @@ SSM Device Options:
   --device.ssm.measures STR            Specifies which measures will be logged
                                         (as a space or comma-separated sequence
                                         of IDs in ('TTC', 'DRAC', 'PET',
-                                        'PPET'))
+                                        'PPET','MDRAC'))
   --device.ssm.thresholds STR          Specifies space or comma-separated
                                         thresholds corresponding to the
                                         specified measures (see documentation
@@ -583,6 +605,8 @@ SSM Device Options:
                                         logged after a conflict is over.
                                         Required >0 if PET is to be calculated
                                         for crossing conflicts.
+  --device.ssm.mdrac.prt FLOAT         Specifies the perception reaction time
+                                        for MDRAC computation.
   --device.ssm.file STR                Give a global default filename for the
                                         SSM output
   --device.ssm.geo                     Whether to use coordinates of the
@@ -591,6 +615,14 @@ SSM Device Options:
                                         for each timestep
   --device.ssm.write-lane-positions    Whether to write lanes and their
                                         positions for each timestep
+  --device.ssm.exclude-conflict-types STR  Which conflicts will be excluded
+                                        from the log according to the conflict
+                                        type they have been classified
+                                        (combination of values in 'ego', 'foe' ,
+                                        '', any numerical valid conflict type
+                                        code). An empty value will log all and
+                                        'ego'/'foe' refer to a certain conflict
+                                        type subset.
 
 ToC Device Options:
   --device.toc.probability FLOAT       The probability for a vehicle to have a

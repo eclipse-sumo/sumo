@@ -297,7 +297,7 @@ NLBuilder::init(const bool isLibsumo) {
         SystemFrame::close();
         return nullptr;
     }
-    SystemFrame::checkOptions();
+    SystemFrame::checkOptions(oc);
     std::string validation = oc.getString("xml-validation");
     std::string routeValidation = oc.getString("xml-validation.routes");
     if (isLibsumo) {

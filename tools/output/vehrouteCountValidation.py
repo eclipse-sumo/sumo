@@ -43,6 +43,8 @@ def get_options(args=None):
                         help="Input route file (vehroute-output)")
     parser.add_argument("-t", "--turn-files", dest="turnFiles",
                         help="Input turn-count file")
+    parser.add_argument("-T", "--turn-ratio-files", category="input", dest="turnRatioFiles", type=parser.file_list,
+                        help="Input turn-ratio file")
     parser.add_argument("-d", "--edgedata-files", dest="edgeDataFiles",
                         help="Input edgeData file (for counts)")
     parser.add_argument("-O", "--od-files", category="input", dest="odFiles", type=parser.file_list,
@@ -57,7 +59,7 @@ def get_options(args=None):
                         help="Read departure counts from the given edgeData file attribute")
     parser.add_argument("--turn-attribute", dest="turnAttr", default="count",
                         help="Read turning counts from the given attribute")
-    parser.add_argument("--turn-ratio-attribute", dest="turnRatioAttr",
+    parser.add_argument("--turn-ratio-attribute", dest="turnRatioAttr", default="probability",
                         help="Read turning ratios from the given attribute")
     parser.add_argument("--turn-ratio-total", dest="turnRatioTotal", type=float, default=1,
                         help="Set value for normalizing turning ratios (default 1)")
@@ -85,12 +87,15 @@ def get_options(args=None):
 
     options = parser.parse_args(args=args)
     if (options.routeFiles is None or
-            (options.turnFiles is None and options.edgeDataFiles is None and options.odFiles is None)):
-        parser.print_help()
+            (options.turnFiles is None
+             and options.turnRatioFiles is None
+             and options.edgeDataFiles is None
+             and options.odFiles is None)):
         sys.exit()
 
     options.routeFiles = options.routeFiles.split(',')
     options.turnFiles = options.turnFiles.split(',') if options.turnFiles is not None else []
+    options.turnRatioFiles = options.turnRatioFiles.split(',') if options.turnRatioFiles is not None else []
     options.edgeDataFiles = options.edgeDataFiles.split(',') if options.edgeDataFiles is not None else []
     options.odFiles = options.odFiles.split(',') if options.odFiles is not None else []
 

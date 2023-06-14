@@ -33,6 +33,7 @@
 #include "MSDevice_BTreceiver.h"
 #include "MSDevice_BTsender.h"
 #include "MSDevice_Example.h"
+#include "MSDevice_StationFinder.h"
 #include "MSDevice_Battery.h"
 #include "MSDevice_SSM.h"
 #include "MSDevice_ToC.h"
@@ -73,6 +74,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSVehicleDevice_BTreceiver::insertOptions(oc);
     MSVehicleDevice_BTsender::insertOptions(oc);
     MSDevice_Example::insertOptions(oc);
+    MSDevice_StationFinder::insertOptions(oc);
     MSDevice_Battery::insertOptions(oc);
     MSDevice_SSM::insertOptions(oc);
     MSDevice_ToC::insertOptions(oc);
@@ -110,7 +112,9 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
     MSVehicleDevice_BTreceiver::buildVehicleDevices(v, into);
     MSVehicleDevice_BTsender::buildVehicleDevices(v, into);
     MSDevice_Example::buildVehicleDevices(v, into);
-    MSDevice_Battery::buildVehicleDevices(v, into);
+    const size_t numBefore = into.size();
+    MSDevice_StationFinder::buildVehicleDevices(v, into);
+    MSDevice_Battery::buildVehicleDevices(v, into, into.size() == numBefore ? nullptr : static_cast<MSDevice_StationFinder*>(into.back()));
     MSDevice_SSM::buildVehicleDevices(v, into);
     MSDevice_ToC::buildVehicleDevices(v, into);
     MSDevice_DriverState::buildVehicleDevices(v, into);

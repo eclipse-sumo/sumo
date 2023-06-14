@@ -56,7 +56,7 @@ protected:
     
 private:
     void computeIndentation();
-    void reformatLineBreaks(int width);
+    void reformatLineBreaks(const int curWidth);
 
     std::string myOriginalString;
     std::string myIndentString;

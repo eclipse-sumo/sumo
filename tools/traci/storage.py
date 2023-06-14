@@ -66,7 +66,7 @@ class Storage:
 
     def readString(self):
         length = self.read("!i")[0]
-        return str(self.read("!%ss" % length)[0].decode("latin1"))
+        return str(self.read("!%ss" % length)[0].decode("utf8"))
 
     def readTypedString(self):
         t = self.read("!B")[0]

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-01 14:34:30 by Eclipse SUMO sumo Version v1_16_0+0853-bb3bf2e
+<!-- generated on 2023-06-08 13:44:51 by Eclipse SUMO sumo Version v1_14_1+7768-1e29f036a77
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,10 +44,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <foeVelocity values="13.07,0.00 8.57,0.00 4.07,0.00 5.59,3.63 0.00,9.27 0.00,11.87 0.00,13.89 0.00,13.89"/>
         <conflictPoint values="98.86,49.24 98.86,49.24 98.86,49.24 98.86,49.24 98.86,49.24 98.86,49.24 98.86,49.24 98.86,49.24"/>
         <TTCSpan values="1.26 0.93 NA NA NA NA NA NA"/>
-        <minTTC time="8.00" position="98.86,49.24" type="12" value="0.93"/>
+        <minTTC time="8.00" position="98.86,49.24" type="12" value="0.93" speed="5.70"/>
         <DRACSpan values="4.36 4.62 NA NA NA NA NA NA"/>
-        <maxDRAC time="8.00" position="98.86,49.24" type="12" value="4.62"/>
-        <PET time="9.58" position="98.86,49.24" type="17" value="0.77"/>
+        <maxDRAC time="8.00" position="98.86,49.24" type="12" value="4.62" speed="5.70"/>
+        <PET time="9.58" position="98.86,49.24" type="17" value="0.77" speed="13.50"/>
     </conflict>
     <globalMeasures ego="ego1">
         <timeSpan values="0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 11.00 12.00 13.00 14.00"/>

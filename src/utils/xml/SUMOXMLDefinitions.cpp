@@ -108,7 +108,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "condition",                      SUMO_TAG_CONDITION },
     { "assignment",                     SUMO_TAG_ASSIGNMENT },
     { "function",                       SUMO_TAG_FUNCTION },
-    { "tripTAZ",                        SUMO_TAG_TRIP_TAZ },
+    { "tripTAZ",                        GNE_TAG_TRIP_TAZ },
     { "edgeControl",                    SUMO_TAG_EDGECONTROL },
 
     { "edgeRelation",                   SUMO_TAG_EDGEREL },
@@ -124,11 +124,12 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "segment",                        SUMO_TAG_SEGMENT },
     { "delete",                         SUMO_TAG_DEL },
     { "stop",                           SUMO_TAG_STOP },
-    { "stopBusStop",                    SUMO_TAG_STOP_BUSSTOP },
-    { "stopContainerStop",              SUMO_TAG_STOP_CONTAINERSTOP },
-    { "stopChargingStation",            SUMO_TAG_STOP_CHARGINGSTATION },
-    { "stopParkingArea",                SUMO_TAG_STOP_PARKINGAREA },
-    { "stopLane",                       SUMO_TAG_STOP_LANE },
+    { "stopBusStop",                    GNE_TAG_STOP_BUSSTOP },
+    { "stopTrainStop",                  GNE_TAG_STOP_TRAINSTOP },
+    { "stopContainerStop",              GNE_TAG_STOP_CONTAINERSTOP },
+    { "stopChargingStation",            GNE_TAG_STOP_CHARGINGSTATION },
+    { "stopParkingArea",                GNE_TAG_STOP_PARKINGAREA },
+    { "stopLane",                       GNE_TAG_STOP_LANE },
     { "polygonType",                    SUMO_TAG_POLYTYPE },
     { "connection",                     SUMO_TAG_CONNECTION },
     { "conflict",                       SUMO_TAG_CONFLICT },
@@ -265,31 +266,36 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "waypoint",                       GNE_TAG_WAYPOINT },
     { "waypointLane",                   GNE_TAG_WAYPOINT_LANE },
     { "waypointBusStop",                GNE_TAG_WAYPOINT_BUSSTOP },
+    { "waypointTrainStop",              GNE_TAG_WAYPOINT_TRAINSTOP },
     { "waypointContainerStop",          GNE_TAG_WAYPOINT_CONTAINERSTOP },
     { "waypointChargingStation",        GNE_TAG_WAYPOINT_CHARGINGSTATION },
     { "waypointParkingArea",            GNE_TAG_WAYPOINT_PARKINGAREA },
     // GNE Person trips
-    { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE },
-    { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_BUSSTOP },
+    { "personTrip: edge",         GNE_TAG_PERSONTRIP_EDGE },
+    { "personTrip: busStop",      GNE_TAG_PERSONTRIP_BUSSTOP },
+    { "personTrip: trainStop",    GNE_TAG_PERSONTRIP_TRAINSTOP },
     { "personTrip: junctions",          GNE_TAG_PERSONTRIP_JUNCTIONS },
     // GNE Walks
-    { "walk: edge->edge",               GNE_TAG_WALK_EDGE },
-    { "walk: edge->busStop",            GNE_TAG_WALK_BUSSTOP },
+    { "walk: edge",               GNE_TAG_WALK_EDGE },
+    { "walk: busStop",            GNE_TAG_WALK_BUSSTOP },
+    { "walk: trainStop",            GNE_TAG_WALK_TRAINSTOP },
     { "walk: edges",                    GNE_TAG_WALK_EDGES },
     { "walk: route",                    GNE_TAG_WALK_ROUTE },
     { "walk: junctions",                GNE_TAG_WALK_JUNCTIONS },
     // GNE Rides
-    { "ride: edge->edge",               GNE_TAG_RIDE_EDGE },
-    { "ride: edge->busStop",            GNE_TAG_RIDE_BUSSTOP },
+    { "ride: edge",               GNE_TAG_RIDE_EDGE },
+    { "ride: busStop",            GNE_TAG_RIDE_BUSSTOP },
+    { "ride: trainStop",          GNE_TAG_RIDE_TRAINSTOP },
     // GNE Person Stops
     { "stopPerson: busStop",            GNE_TAG_STOPPERSON_BUSSTOP },
+    { "stopPerson: trainStop",          GNE_TAG_STOPPERSON_TRAINSTOP },
     { "stopPerson: edge",               GNE_TAG_STOPPERSON_EDGE },
     // GNE Transports
-    { "transport: edge->edge",          GNE_TAG_TRANSPORT_EDGE },
-    { "transport: edge->containerStop", GNE_TAG_TRANSPORT_CONTAINERSTOP },
+    { "transport: edge",          GNE_TAG_TRANSPORT_EDGE },
+    { "transport: containerStop", GNE_TAG_TRANSPORT_CONTAINERSTOP },
     // GNE Tranships
-    { "tranship: edge->edge",           GNE_TAG_TRANSHIP_EDGE },
-    { "tranship: edge->containerStop",  GNE_TAG_TRANSHIP_CONTAINERSTOP },
+    { "tranship: edge",           GNE_TAG_TRANSHIP_EDGE },
+    { "tranship: containerStop",  GNE_TAG_TRANSHIP_CONTAINERSTOP },
     { "tranship: edges",                GNE_TAG_TRANSHIP_EDGES },
     // GNE Container Stops
     { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
@@ -621,8 +627,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "jmSigmaMinor",           SUMO_ATTR_JM_SIGMA_MINOR },
     { "jmStoplineGap",          SUMO_ATTR_JM_STOPLINE_GAP },
     { "jmTimegapMinor",         SUMO_ATTR_JM_TIMEGAP_MINOR },
-    { "junctionModel.ignoreIDs", SUMO_ATTR_JM_IGNORE_IDS },
-    { "junctionModel.ignoreTypes", SUMO_ATTR_JM_IGNORE_TYPES },
+    { "junctionModel.ignoreIDs",    SUMO_ATTR_JM_IGNORE_IDS },
+    { "junctionModel.ignoreTypes",  SUMO_ATTR_JM_IGNORE_TYPES },
+    { "carFollowModel.ignoreIDs",   SUMO_ATTR_CF_IGNORE_IDS },
+    { "carFollowModel.ignoreTypes", SUMO_ATTR_CF_IGNORE_TYPES },
 
     { "last",                   SUMO_ATTR_LAST },
     { "cost",                   SUMO_ATTR_COST },
@@ -961,6 +969,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
     { "centerAfterCreation",                GNE_ATTR_CENTER_AFTER_CREATION },
     { "toBusStop",                          GNE_ATTR_TO_BUSSTOP },
+    { "toTrainStop",                        GNE_ATTR_TO_TRAINSTOP },
     { "toContainerStop",                    GNE_ATTR_TO_CONTAINERSTOP },
     { "opposite",                           GNE_ATTR_OPPOSITE },
     { "shiftLaneIndex",                     GNE_ATTR_SHIFTLANEINDEX },
@@ -970,6 +979,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "poisson",                            GNE_ATTR_POISSON },
     { "stopIndex",                          GNE_ATTR_STOPINDEX },
     { "pathStopIndex",                      GNE_ATTR_PATHSTOPINDEX },
+    { "additionalChildren",                 GNE_ATTR_ADDITIONALCHILDREN },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
@@ -1301,30 +1311,30 @@ SUMOXMLDefinitions::getIndexFromLane(const std::string laneID) {
 
 bool
 SUMOXMLDefinitions::isValidNetID(const std::string& value) {
-    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,!<>&*?") == std::string::npos && value[0] != ':';
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,<>&") == std::string::npos && value[0] != ':';
 }
 
 
 bool
 SUMOXMLDefinitions::isValidVehicleID(const std::string& value) {
-    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,!<>&*?") == std::string::npos;
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,<>&") == std::string::npos;
 }
 
 
 bool
 SUMOXMLDefinitions::isValidTypeID(const std::string& value) {
-    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,<>&*?") == std::string::npos;
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,<>&") == std::string::npos;
 }
 
 bool
 SUMOXMLDefinitions::isValidAdditionalID(const std::string& value) {
-    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,!<>&*?") == std::string::npos;
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,<>&") == std::string::npos;
 }
 
 bool
 SUMOXMLDefinitions::isValidDetectorID(const std::string& value) {
     // special case: ' ' allowed
-    return (value.size() > 0) && value.find_first_of("\t\n\r|\\'\";,!<>&*?") == std::string::npos;
+    return (value.size() > 0) && value.find_first_of("\t\n\r|\\'\";,<>&") == std::string::npos;
 }
 
 bool

@@ -1216,7 +1216,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
 
 
 std::vector<NBEdge::Connection>
-NBEdge::getConnectionsFromLane(int lane, NBEdge* to, int toLane) const {
+NBEdge::getConnectionsFromLane(int lane, const NBEdge* to, int toLane) const {
     std::vector<NBEdge::Connection> ret;
     for (const Connection& c : myConnections) {
         if ((lane < 0 || c.fromLane == lane)
@@ -1753,8 +1753,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     const bool indirectTurnConflit = con.indirectLeft && this == i2 && dir2 == LinkDirection::STRAIGHT;
                     const bool mergeConflict = myTo->mergeConflict(this, con, i2, k2, true);
                     const bool mergeResponse = myTo->mergeConflict(this, con, i2, k2, false);
+                    const bool bidiConflict = myTo->bidiConflict(this, con, i2, k2, true);
                     // compute foe internal lanes
-                    if (foes || rightTurnConflict || oppositeLeftIntersect || mergeConflict || indirectTurnConflit) {
+                    if (foes || rightTurnConflict || oppositeLeftIntersect || mergeConflict || indirectTurnConflit || bidiConflict) {
                         foeInternalLinks.push_back(index);
                     }
                     // only warn once per pair of intersecting turns

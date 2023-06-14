@@ -63,7 +63,7 @@ public:
                 // see [Gawron, 1998] (4.3a, 4.3b)
                 double newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
                 double newPS = pR->getProbability() + pS->getProbability() - newPR;
-                if (ISNAN(newPR) || ISNAN(newPS)) {
+                if (std::isnan(newPR) || std::isnan(newPS)) {
                     newPR = pS->getCosts() > pR->getCosts()
                             ? (double) 1. : 0;
                     newPS = pS->getCosts() > pR->getCosts()

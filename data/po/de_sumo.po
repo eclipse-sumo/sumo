@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-04-15 12:21+0200\n"
-"PO-Revision-Date: 2023-03-24 09:56+0000\n"
+"PO-Revision-Date: 2023-05-12 09:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -65,14 +65,12 @@ msgid "Unknown bus station '%'."
 msgstr "Unbekannte Busstation '%'."
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:61
-#, fuzzy
 msgid "Use FILE as SUMO-network to create trips for"
-msgstr "Verwende FILE als SUMO-Netz, um Fahrten zu erstellen"
+msgstr "Verwende FILE als SUMO-Netz, für das Fahrten zu erstellen sind"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:64
-#, fuzzy
 msgid "Loads the SUMO-statistics FILE"
-msgstr "SUMO-Statistik FILE lädt"
+msgstr "Lädt die SUMO-Statistik aus FILE"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:72
 msgid "Write generated trips to FILE"
@@ -167,14 +165,12 @@ msgstr ""
 "bereits verwendet)."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:61
-#, fuzzy
 msgid "Loads the SUMO-network FILE"
-msgstr "Lädt den SUMO-Netz FILE"
+msgstr "Lädt SUMO-Netz aus FILE"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:70
-#, fuzzy
 msgid "Loads detector descriptions from FILE"
-msgstr "Detektorbeschreibung aus dem FILE lädt"
+msgstr "Lädt Detektorbeschreibung aus FILE"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:75
 msgid "Loads detector flows from FILE(s)"
@@ -238,16 +234,14 @@ msgid "Add source detectors to the validation output"
 msgstr "Quelldetektoren zur validierten Ausgabe hinzufügen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:123
-#, fuzzy
 msgid "Derive missing flow values from upstream or downstream (not working!)"
 msgstr ""
 "Fehlende Durchflusswerte von oberhalb oder unterhalb ableiten (funktioniert "
 "nicht!)"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:127
-#, fuzzy
 msgid "Switches to highway-mode"
-msgstr "In Autobahn-Modus wechseln"
+msgstr "In Autobahnmodus wechseln"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:131
 msgid "Only warn about unparseable detectors"
@@ -262,10 +256,9 @@ msgid "Recomputes routes even if given"
 msgstr "Berechnet Routen neu, auch wenn angegeben"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:143
-#, fuzzy
 msgid "Keeps routes even if they have exhausted max-search-depth"
 msgstr ""
-"Behält Routen bei, auch wenn sie die maximale Suchtiefe ausgereift haben"
+"Behält Routen bei, auch wenn sie die maximale Suchtiefe ausgereizt haben"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:146
 msgid "Keeps routes even if a shorter one exists"
@@ -299,9 +292,8 @@ msgid "Minimum distance in meters between start and end node of every route"
 msgstr "Mindestabstand in Metern zwischen Start- und Endknoten jeder Route"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:170
-#, fuzzy
 msgid "generate random departure times for emitted vehicles"
-msgstr "Generiert zufällige Abfahrtszeiten für emittierte Fahrzeuge"
+msgstr "generiert zufällige Abfahrtszeiten für emittierte Fahrzeuge"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:174
 msgid "Multiply flow times with TIME to get seconds"
@@ -309,9 +301,8 @@ msgstr ""
 "Multiplizier die Durchflusszeiten mit der Zeit, um Sekunden zu erhalten"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:177
-#, fuzzy
 msgid "Subtracts TIME seconds from (scaled) flow times"
-msgstr "Subtrahiert Zeit-Sekunden von (skalierten) Durchflusszeiten"
+msgstr "Zieht TIME Sekunden von (skalierten) Durchflusszeiten ab"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:180
 msgid "Expected distance between two successive data sets"
@@ -623,13 +614,12 @@ msgstr "Kostenattribut in die Routenausgabe einschließen"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:92
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:559
-#, fuzzy
 msgid ""
 "Edge weights for routing are dynamically disturbed by a random factor drawn "
 "uniformly from [1,FLOAT)"
 msgstr ""
 "Kantengewichte für das Routing werden dynamisch durch einen Zufallsfaktor "
-"gestört, der einheitlich aus [1,FLOAT) gezogen wird."
+"aus der Gleichverteilung im Bereich [1,FLOAT] gestört"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:95
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:118
@@ -651,27 +641,24 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:101
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:574
-#, fuzzy
 msgid ""
 "Initialize lookup table for astar from the given file (generated by marouter "
 "--all-pairs-output)"
 msgstr ""
-"Nachschlagetabelle für Astar aus der angegebenen Datei initialisieren "
-"(erzeugt durch marouter --all-pairs-output)"
+"Nachschlagetabelle für Astar aus der angegebenen Datei initialisieren ("
+"erzeugt durch marouter --all-pairs-output)"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:104
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:577
-#, fuzzy
 msgid "Initialize lookup table for astar ALT-variant from the given file"
 msgstr ""
-"Nachschlagetabelle für eine astar ALT-Variante aus der angegebenen Datei "
+"Nachschlagetabelle für die Astar ALT-Variante aus der angegebenen Datei "
 "initialisieren"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:107
-#, fuzzy
 msgid "Save lookup table for astar ALT-variant to the given file"
 msgstr ""
-"Nachschlagetabelle für eine astar ALT-Variante in der angegebenen Datei "
+"Nachschlagetabelle für die Astar ALT-Variante in der angegebenen Datei "
 "speichern"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:117
@@ -710,13 +697,11 @@ msgid "The probability of keeping the old route"
 msgstr "Die Wahrscheinlichkeit, die alte Route beizubehalten"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:139
-#, fuzzy
 msgid "Route all public transport input"
-msgstr "Alle Eingaben des öffentlichen Verkehrs routen"
+msgstr "Routen für Öffentlichen Verkehr bestimmen"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:142
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:202
-#, fuzzy
 msgid "Choose a route choice method: gawron, logit, or lohse"
 msgstr "Wähle eine Methode zur Routenauswahl: gawron, logit oder lohse"
 
@@ -741,7 +726,6 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:160
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:580
-#, fuzzy
 msgid ""
 "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"
 msgstr ""
@@ -846,12 +830,10 @@ msgid "Read turning ratios from FILE(s)"
 msgstr "Wendeverhältnisse aus FILE(s) lesen"
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRFrame.cpp:69
-#, fuzzy
 msgid "Use STR[] as default turn definition"
-msgstr "STR[] als Standard-Wendedefinition verwenden"
+msgstr "STR[] als Standardabbiegedefinition verwenden"
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRFrame.cpp:73
-#, fuzzy
 msgid "Use STR[] as list of sink edges"
 msgstr "STR[] als Liste der Zielkanten verwenden"
 
@@ -1173,15 +1155,13 @@ msgid "The travel time influence of prior intervals"
 msgstr "Der Reisezeiteinfluss früherer Intervalle"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:99
-#, fuzzy
 msgid "Parameter key(s) defining source (and sink) taz"
 msgstr ""
-"Parameterschlüssel, die Quell (und Ziel) Verkehrsumlegungszone definieren"
+"Parameterschlüssel, die Quell- (und Ziel-)Verkehrsumlegungszone definieren"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:102
-#, fuzzy
 msgid "Ignore attributes 'fromTaz' and 'toTaz'"
-msgstr "Ignoriere Attribute  'fromTaz' und 'toTaz'"
+msgstr "Ignoriere Attribute 'fromTaz' und 'toTaz'"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:106
 msgid ""
@@ -1232,9 +1212,8 @@ msgid "Keep traffic flows of all time slots in the net"
 msgstr "Verkehrsströme aller Zeitintervalle im Netz behalten"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:172
-#, fuzzy
 msgid "Choose a assignment method: incremental, UE or SUE"
-msgstr "Wähle eine Zuweisungsmethode: inkrementell, UE oder SUE"
+msgstr "Wähle eine Umlegemethode: inkrementell, UE oder SUE"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:175
 msgid "Use FLOAT as tolerance when checking for SUE stability"
@@ -1295,9 +1274,8 @@ msgid "Use FLOAT as (c-)logit's beta for the commonality factor"
 msgstr "FLOAT in (c-)Logit als beta für den Gemeinsamkeitsfaktor verwenden"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:227
-#, fuzzy
 msgid "Use FLOAT as (c-)logit's gamma for the commonality factor"
-msgstr "FLOAT als (c-)Logit´s gamma für den Gemeinsamkeitsfaktor verwenden"
+msgstr "FLOAT als (c-)Logit's gamma für den Gemeinsamkeitsfaktor verwenden"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:231
 msgid "Use FLOAT as (c-)logit's theta"
@@ -1613,22 +1591,20 @@ msgstr "Entfernt Fahrzeuge mit den gegebenen IDs aus dem geladenen Stand"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:104
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:134
-#, fuzzy
 msgid ""
 "Initialize a TAZ for every junction to use attributes toJunction and "
 "fromJunction"
 msgstr ""
-"Eine Verkehrsumlegungszone für jeden Knotenpunkt, um die Attribute "
-"Endknotenpunkt und Ausgangsknotenpunkt zu verwenden, initialisieren"
+"Eine Verkehrsumlegungszone für jeden Knotenpunkt initialisieren, um die "
+"Attribute toJunction und fromJunction zu verwenden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:114
 msgid "Save complete network states into FILE"
 msgstr "Komplette Netzzustände in FILE speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:119
-#, fuzzy
 msgid "Write also empty edges completely when dumping"
-msgstr "Beim Abladen auch leere Kanten vollständig schreiben"
+msgstr "Bei der Ausgabe auch leere Kanten vollständig schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:124
 msgid "Write positions and speeds with the given precision (default 2)"
@@ -1744,12 +1720,11 @@ msgstr ""
 "Shape-Namen die zum Filtern der FCD-Ausgabe verwendet werden sollen auflisten"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:182
-#, fuzzy
 msgid ""
 "Restrict SSM device output to the edge selection from the given input file"
 msgstr ""
-"SSM-Geräteausgabe auf die Kantenauswahl aus der angegebenen Eingabedatei "
-"beschränken"
+"SSM-Einrichtungsausgabe auf die Kantenauswahl aus der angegebenen "
+"Eingabedatei beschränken"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:185
 msgid "Save a lot of information for each timestep (very redundant)"
@@ -1764,13 +1739,12 @@ msgid "Save vehicle queues with the given period"
 msgstr "Fahrzeugwarteschlangen mit dem angegebenen Zeitraum speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:193
-#, fuzzy
 msgid ""
 "Save complete vehicle positions inclusive speed values in the VTK Format "
 "(usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"
 msgstr ""
-"Komplette Fahrzeugpositionen inklusive Geschwindigkeitswerte im VTK-Format "
-"(Verwendung: /path/out erzeugt /path/out_$TIMESTEP$.vtp-Dateien) speichern"
+"Komplette Fahrzeugpositionen inklusive Geschwindigkeitswerten im VTK-Format "
+"speichern (Verwendung: /path/out erzeugt /path/out_$TIMESTEP$.vtp-Dateien)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:195
 msgid "Save the vehicle trajectories in the Amitran format"
@@ -1809,7 +1783,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:220
 msgid "Save personinfo and containerinfo to separate FILE"
-msgstr ""
+msgstr "Personinfo und containerinfo in FILE schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:224
 msgid "Save single vehicle route info into FILE"
@@ -1828,7 +1802,6 @@ msgid "Sorts the output by departure time"
 msgstr "Sortiert die Ausgabe nach der Abfahrtszeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:240
-#, fuzzy
 msgid "Write the output in the duarouter alternatives style"
 msgstr "Die Ausgabe im alternativen duarouter-Stil schreiben"
 
@@ -1854,10 +1827,9 @@ msgid "Skip vehroute output for public transport vehicles"
 msgstr "Fahrzeugausgabe für Fahrzeuge des öffentlichen Verkehrs überspringen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:260
-#, fuzzy
 msgid "Include invalid routes and route stubs in vehroute output"
 msgstr ""
-"Ungültige Routen und Routen-Stubs in die Fahrzeugroutenausgabe einschließen"
+"Ungültige/unvollständige Routen in die Fahrzeugroutenausgabe einschließen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:263
 msgid "Include information about edges between stops"
@@ -1948,10 +1920,9 @@ msgid "Save movereminder states of selected vehicles into FILE"
 msgstr "Erinnerungszustände ausgewählter Fahrzeuge in FILE speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:317
-#, fuzzy
 msgid "List of vehicle ids which shall save their movereminder states"
 msgstr ""
-"Liste der Fahrzeug IDs, die die Bewegungserinnerungszustände speichern sollen"
+"Liste der Fahrzeug-IDs, die ihre \"movereminder\"-Zustände speichern sollen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:321
 msgid "Use TIME[] as times at which a network state written"
@@ -1962,9 +1933,8 @@ msgid "save state repeatedly after TIME period"
 msgstr "Stand nach der Zeitperiode wiederholt speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:325
-#, fuzzy
 msgid "Keep only the last INT periodic state files"
-msgstr "Nur die letzten periodischen INT-Zustandsdateien behalten"
+msgstr "Nur die letzten INT periodischen Zustandsdateien behalten"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:327
 msgid "Prefix for network states"
@@ -1979,7 +1949,6 @@ msgid "Files for network states"
 msgstr "Dateien für Netzstände"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:333
-#, fuzzy
 msgid "Save random number generator states"
 msgstr "Zustände des Zufallszahlengenerators speichern"
 
@@ -2012,13 +1981,12 @@ msgid "Defines the step duration in seconds"
 msgstr "Definiert die Schrittdauer in Sekunden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:352
-#, fuzzy
 msgid ""
 "Whether to use ballistic method for the positional update of vehicles "
 "(default is a semi-implicit Euler method)."
 msgstr ""
 "Ob die ballistische Methode für die Positionsaktualisierung von Fahrzeugen "
-"verwendet werden soll (Standard ist eine semi-implizierte Euler-Methode)."
+"verwendet werden soll (Standard ist eine semi-implizite Euler-Methode)."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:355
 msgid ""
@@ -2029,9 +1997,8 @@ msgstr ""
 "Abfahrtsposition extrapolieren sollen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:358
-#, fuzzy
 msgid "Defines the number of threads for parallel simulation"
-msgstr "Definiert die Anzahl der Fäden für die parallele Simulation"
+msgstr "Definiert die Anzahl an Threads für die parallele Simulation"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:361
 msgid ""
@@ -2246,11 +2213,8 @@ msgid "Sets default visibility for actuation detectors"
 msgstr "Legt die Standardsichtbarkeit für Betätigungsdetektoren fest"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:461
-#, fuzzy
 msgid "Sets default jam-threshold parameter for all actuation detectors"
-msgstr ""
-"Legt den standardmäßigen Blockierungsgrenz-Parameter für alle "
-"Betätigungsdetektoren fest"
+msgstr "Legt den standardmäßigen Staugrenzwert für alle LSA-Detektoren fest"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:464
 msgid "Sets default detector length parameter for all actuation detectors"
@@ -2321,7 +2285,6 @@ msgid "Use Kirchhoff's laws for solving overhead wire circuit"
 msgstr "Kirchhoff´s Regel zum Lösen der Oberleitungsschaltung verwenden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:495
-#, fuzzy
 msgid ""
 "Enable recuperation from the vehicle equipped with elecHybrid device into "
 "the overhead wire."
@@ -2330,7 +2293,6 @@ msgstr ""
 "Oberleitung ermöglichen."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:498
-#, fuzzy
 msgid ""
 "Enable current limits of traction substation during solving the overhead "
 "wire electrical circuit."
@@ -2355,19 +2317,18 @@ msgstr ""
 "Fahrstreifensperrung beinhaltet"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:507
-#, fuzzy
 msgid "Override stop until times with stop ended times when given"
-msgstr "Halte-bis-Zeiten mit Halt-Ende-Zeiten, wenn angegeben, überschreiben"
+msgstr "Haltabfahrtszeiten mit Haltendezeiten überschreiben (wenn angegeben)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:510
 msgid "Override stop arrival times with stop started times when given"
 msgstr ""
+"Ankunftszeiten am Halt mit Haltbeginnzeiten überschreiben (wenn vorhanden)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:514
-#, fuzzy
 msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
 msgstr ""
-"Untere Fußgängermodelle ['nonInteracting', 'striping', 'remote'] auswählen"
+"Aus Fußgängermodellen ['nonInteracting', 'striping', 'remote'] auswählen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:517
 msgid ""
@@ -2517,7 +2478,6 @@ msgstr "Bestimmt, woher PHEMlight-Definitionen geladen werden"
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:93
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:139
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:129
-#, fuzzy
 msgid "Enable fleet age modelling with the given reference year in PHEMlight5"
 msgstr ""
 "Modellierung des Flottenalters mit dem gegebenen Bezugsjahr in PHEMlight5 "
@@ -2565,24 +2525,20 @@ msgid "Length of an edge segment in mesoscopic simulation"
 msgstr "Länge eines Kantensegments in der mesoskopischen Simulation"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:652
-#, fuzzy
 msgid "Factor for calculating the net free-free headway time"
-msgstr "Faktor zur Berechnung der Netto-Frei-Frei-Taktzeit"
+msgstr "Faktor zur Berechnung der Netto-Frei-Frei-Folgezeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:654
-#, fuzzy
 msgid "Factor for calculating the net free-jam headway time"
-msgstr "Faktor zur Berechnung der Netto-Stauvorlaufzeit"
+msgstr "Faktor zur Berechnung der Netto-Stau-Folgezeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:656
-#, fuzzy
 msgid "Factor for calculating the jam-free headway time"
-msgstr "Faktor zur Berechnung der staufreien Taktzeit"
+msgstr "Faktor zur Berechnung der Stau-Frei-Folgezeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:658
-#, fuzzy
 msgid "Factor for calculating the jam-jam headway time"
-msgstr "Faktor zur Berechnung der Stau-Stau-Vorlaufzeit"
+msgstr "Faktor zur Berechnung der Stau-Stau-Folgezeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:663
 msgid "Enable multiple queues at edge ends"
@@ -2601,9 +2557,8 @@ msgstr ""
 "die nur die angegebenen Fahrzeugklassen zulassen bauen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:670
-#, fuzzy
 msgid "Enable mesoscopic traffic light and priority junction handling"
-msgstr "Mesoskopische LSA und Vorrangs-Knotenpunkt-Handhabung aktivieren"
+msgstr "Mesoskopische LSA- und Vorrangsknotenpunktlogik aktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:684
 msgid "Enable mesoscopic overtaking"
@@ -2621,9 +2576,8 @@ msgid "Load visualisation settings from FILE"
 msgstr "Darstellungseinstellung von FILE laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:701
-#, fuzzy
 msgid "Quits the GUI when the simulation stops"
-msgstr "Beendet die gui, wenn die Simulation stoppt"
+msgstr "Schließt die grafische Oberfläche nach dem Simulationsende"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:704
 msgid "Start the GUI in gaming mode"
@@ -2655,18 +2609,16 @@ msgid "Load a secondary road network for abstract visualization from FILE"
 msgstr "Sekundäres Straßennetz zur abstrakten Visualisierung aus FILE laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:726
-#, fuzzy
 msgid "Restart the simulation after ending (demo mode)"
-msgstr "Simulation nach beenden (demo Modus) neu starten"
+msgstr "Simulation nach Ende neu beginnen (Demomodus)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:729
 msgid "Do not load background pictures"
 msgstr "Konnte keine Hintergrundbilder laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:732
-#, fuzzy
 msgid "Load current viewport from registry"
-msgstr "Aktuellen Ansichtsbereich vom Eintrag laden"
+msgstr "Aktuellen Ansichtsbereich aus Registry laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:735
 msgid "Create initial window with the given x,y size"
@@ -3293,7 +3245,6 @@ msgstr ""
 "Höchstgeschwindigkeit %). Zeit =%."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:1701
-#, fuzzy
 msgid "Vehicle '%' aborts joining after extension of %s at time %."
 msgstr ""
 "Fahrzeug '%' bricht Beitritt nach Verlängerung von %s zum Zeitpunkt % ab."
@@ -3440,7 +3391,6 @@ msgid "Invalid time value '%'for parameter '%'"
 msgstr "Ungültiger Zeit-Wert '%' für Parameter '%'"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:65
-#, fuzzy
 msgid "The range of the bt receiver"
 msgstr "Die Reichweite des BT-Empfängers"
 
@@ -3553,6 +3503,8 @@ msgid ""
 "General scaling coefficient for applying the error to the vehicle's own "
 "speed when driving without a leader (error also scales with own speed)."
 msgstr ""
+"Allgemeiner Skalierfaktor für den Schätzfehler der eigenen Geschwindigkeit "
+"bei freier Fahrt (der Fehler skaliert mit der eigenen Geschwindigkeit)."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:78
 msgid ""
@@ -3685,13 +3637,12 @@ msgstr ""
 "kann"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Friction.cpp:50
-#, fuzzy
 msgid ""
 "The measurement offset parameter which can be applied to the friction device "
 "-> e.g. to force false measurements"
 msgstr ""
-"Der Messversatzparameter, der auf die Friktionsvorrichtung angewendet werden "
-"kann -> z. falsche Messungen zu erzwingen"
+"Der Messversatzparameter, der auf die Friktionseinrichtung angewendet werden "
+"kann -> z. um falsche Messungen zu erzwingen"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:49
 msgid "The communication range to the traffic light"
@@ -3844,7 +3795,7 @@ msgid ""
 "Required >0 if PET is to be calculated for crossing conflicts."
 msgstr ""
 "Gibt die Zeit in Sekunden an, die protokolliert werden soll, nachdem ein "
-"Konflikt beendet ist. Erforderlich >0, wenn PET für Fußgängerfurtkonflikte "
+"Konflikt beendet ist. Muss >0 sein, wenn PET für Fußgängerfurtkonflikte "
 "berechnet werden soll."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:230
@@ -4074,29 +4025,26 @@ msgstr ""
 "Bitte geben Sie für jede Maßnahme genau einen Schwellenwert an."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:82
-#, fuzzy
 msgid ""
 "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
 msgstr ""
-"Der Dispatch-Algorithmus [greedy|greedyClosest|greedyShared|routeExtension|"
-"traci]"
+"Der Dispositionsalgorithmus "
+"[greedy|greedyClosest|greedyShared|routeExtension|traci]"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:85
 msgid "Write information from the dispatch algorithm to FILE"
 msgstr "Informationen vom Versandalgorithmus in FILE schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:88
-#, fuzzy
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
 msgstr ""
-"Parameter des Dispatch-Algorithmus im Format SCHLÜSSEL1:WERT1[,SCHLÜSSEL2:"
-"WERT] laden"
+"Parameter des Dispositionsalgorithmus im Format "
+"SCHLÜSSEL1:WERT1[,SCHLÜSSEL2:WERT] laden"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:91
-#, fuzzy
 msgid "The period between successive calls to the dispatcher"
-msgstr "Der Zeitraum zwischen aufeinanderfolgenden Anrufen beim Abfertiger"
+msgstr "Der Zeitraum zwischen aufeinanderfolgenden Aufrufen der Disposition"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:94
 msgid "The behavior of idle taxis [stop|randomCircling]"
@@ -4168,9 +4116,8 @@ msgstr ""
 "zurückzuerlangen."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:122
-#, fuzzy
 msgid "Recovery rate for the driver's awareness after a ToC."
-msgstr "Erholungsrate für das Bewusstsein des Fahrers nach einer ToC."
+msgstr "Erholungsrate des Fahrerbewusstseins nach einer ToC."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:124
 msgid ""
@@ -4181,7 +4128,6 @@ msgstr ""
 "unterbindet (Wert in [0,1])."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:126
-#, fuzzy
 msgid "Average awareness a driver has initially after a ToC (value in [0,1])."
 msgstr ""
 "Durchschnittliches Bewusstsein, das ein Fahrer anfänglich nach einem ToC hat "
@@ -4209,13 +4155,12 @@ msgstr ""
 "beantwortet wird."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:134
-#, fuzzy
 msgid "If true, the vehicle tries to change to the right during an MRM."
 msgstr ""
-"Wenn wahr, versucht das Fahrzeug während eines MRM nach rechts zu wechseln."
+"Wenn auf den Wert true gesetzt, versucht das Fahrzeug während eines MRM nach "
+"rechts zu wechseln."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:136
-#, fuzzy
 msgid ""
 "If set, the vehicle tries to reach the given named stopping place during an "
 "MRM."
@@ -4224,44 +4169,38 @@ msgstr ""
 "benannten Haltepunkt zu erreichen."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:138
-#, fuzzy
 msgid "Duration the vehicle stays at the safe spot after an MRM."
 msgstr "Verweildauer des Fahrzeugs am sicheren Ort nach einem MRM."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:140
-#, fuzzy
 msgid ""
 "Maximal acceleration that may be applied during the ToC preparation phase."
 msgstr ""
-"Maximale Beschleunigung, die während der Steuerungsübergabe-"
-"Vorbereitungsphase (ToC) angewendet werden kann."
+"Maximale Beschleunigung, die während der "
+"Steuerungsübergabevorbereitungsphase (ToC) angewendet werden kann."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:142
-#, fuzzy
 msgid "Timegap for ToC preparation phase."
-msgstr "Zeitlücke für Steuerungsübergaben-Vorbereitungsphase (ToC)."
+msgstr "Zeitlücke für Steuerungsübergabenvorbereitungsphase (ToC)."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:144
-#, fuzzy
 msgid "Additional spacing for ToC preparation phase."
-msgstr "Zusätzlicher Abstand für Steuerübergaben-Vorbereitungsphase (ToC)."
+msgstr "Zusätzlicher Abstand für Steuerübergabenvorbereitungsphase (ToC)."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:146
-#, fuzzy
 msgid ""
 "Maximal deceleration applied for establishing increased gap in ToC "
 "preparation phase."
 msgstr ""
-"Maximale Verzögerung, die angewendet wird, um eine vergrößerte Lücke in der "
-"ToC-Vorbereitungsphase herzustellen."
+"Maximale Verzögerung, die angewendet wird, um eine Lücke in der ToC-"
+"Vorbereitungsphase zu vergrößern."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:148
-#, fuzzy
 msgid ""
 "Rate of adaptation towards the increased headway during ToC preparation."
 msgstr ""
-"Anpassungsrate an den erhöhten Fortschritt während der Steuerungsübergaben-"
-"Vorbereitung (ToC)."
+"Anpassungsrate an die höhere Folgezeit während der "
+"Steuerungsübergabenvorbereitung (ToC)."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:150
 msgid ""
@@ -4683,6 +4622,11 @@ msgid ""
 "  Rebuild the network with option '--tls.ignore-internal-junction-jam' or "
 "include the program when building."
 msgstr ""
+"Das Programm '%' der LSA '%' ist nicht mit der Logik am Knotenpunkt '%' "
+"kompatibel (gegenseitiger Konflikt zwischen link index % und %, tl index % "
+"und %, Phase % und %).\n"
+"  Baue das Netzwerk erneut mit der Option '--tls.ignore-internal-junction-"
+"jam' oder füge das Programm dem Bauprozess hinzu."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTrafficLightLogic.cpp:460
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
@@ -5447,7 +5391,6 @@ msgid "The default width of lanes"
 msgstr "Die Standardbreite von Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:59
-#, fuzzy
 msgid "The default method for computing lane shapes from edge shapes"
 msgstr ""
 "Die Standardmethode zum Berechnen von Fahrstreifen-Shapes aus Kanten-Shapes"
@@ -5579,9 +5522,8 @@ msgstr ""
 "Deaktiviert das Erstellen von Kehrtwenden an geometrieähnlichen Knotenpunkten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:148
-#, fuzzy
 msgid "Disables building turnarounds except at dead end junctions"
-msgstr "Deaktiviert das Erstellen von Kehrtwenden außer an Sackgassen"
+msgstr "Deaktiviert die Erstellung von Kehrtwenden außer an Sackgassen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:151
 msgid ""
@@ -5629,29 +5571,27 @@ msgid "reduces too similar geometry points"
 msgstr "reduziert zu ähnlichen Geometriepunkten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:195
-#, fuzzy
 msgid ""
 "Warn about edge geometries with an angle above DEGREES in successive segments"
 msgstr ""
-"Warnt vor Kantengeometrien mit einem Winkel über Grad in "
+"Warnt vor Kantengeometrien mit einem Winkel über DEGREES in "
 "aufeinanderfolgenden Segmenten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:198
-#, fuzzy
 msgid ""
 "Warn about edge geometries with a turning radius less than METERS at the "
 "start or end"
 msgstr ""
-"Warnt  vor Kantengeometrien mit einem Wenderadius von weniger als die Meter "
-"am Anfang oder Ende"
+"Warnt vor Kantengeometrien mit einem Wenderadius von weniger als METERS am "
+"Anfang oder Ende"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:201
-#, fuzzy
 msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius"
 msgstr ""
-"Kantengeometrien, um Wenderadien kleiner als geometry.min-radius begradigen"
+"Kantengeometrien begradigen, um Wenderadien kleiner als geometry.min-radius "
+"zu vermeiden"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:204
 msgid ""
@@ -5687,14 +5627,12 @@ msgstr ""
 "Ändert Kantengeometrien um das Überlappen von Knotenpunkten zu verhindern"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:219
-#, fuzzy
 msgid ""
 "join adjacent lanes that have the same permissions and which do not admit "
 "lane-changing (sidewalks and disallowed lanes)"
 msgstr ""
-"auf benachbarte Fahrstreifen auffahren, die die gleichen Berechtigungen "
-"haben und die keinen Fahrstreifenwechsel zulassen (Bürgersteige und nicht "
-"zugelassene Fahrstreifen)"
+"benachbarte Fahrstreifen mit den gleichen Berechtigungen und "
+"Fahrstreifenwechselverbot zusammenführen (Fußwege und gesperrte Fahrstreifen)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:222
 msgid ""
@@ -5717,13 +5655,12 @@ msgstr ""
 "Linien zum Laufen zu bringen, reparieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:232
-#, fuzzy
 msgid ""
 "Allow bidirectional rail use wherever rails with opposite directions meet at "
 "a straight angle"
 msgstr ""
-"Zweirichtungs Gleiseinsatz überall dort, wo Gleise mit entgegengesetzten "
-"Richtungen in einem geraden Winkel aufeinander treffen, zulassen"
+"Zweirichtungsnutzung der Gleise überall dort, wo Gleise entgegengesetzter "
+"Richtung in einem geraden Winkel aufeinander treffen, zulassen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:235
 msgid "Add turn-around connections at all loaded stops."
@@ -5772,9 +5709,9 @@ msgstr ""
 "Zweirichtungskante eines geladenen Haltepunktes"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:266
-#, fuzzy, c-format
+#, c-format
 msgid "Warn about edge geometries with a grade in % above FLOAT."
-msgstr "Warnung vor Kantengeometrien mit einer Steigung in % über die FLOAT."
+msgstr "Warnung vor Kantengeometrien mit einer Steigung in % über FLOAT."
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:269
 msgid "Smooth edge geometries with a grade above the warning threshold."
@@ -5804,35 +5741,29 @@ msgid "Flips the y-coordinate along zero"
 msgstr "Kehrt die y-Koordinate entlang Null um"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:292
-#, fuzzy
 msgid "Enable roundabout-guessing"
-msgstr "Kreisverkehr-Raten aktivieren"
+msgstr "Kreisverkehrheuristik aktivieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:295
 msgid "Default visibility when approaching a roundabout"
 msgstr "Standardsichtbarkeit bei Annäherung an einen Kreisverkehr"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:298
-#, fuzzy
 msgid "Enable guessing of opposite direction lanes usable for overtaking"
-msgstr ""
-"Das Annehmen von Fahrspuren in entgegengesetzter Richtung, die zum Überholen "
-"verwendet werden können aktivieren"
+msgstr "Heuristik für Fahrstreifen der Gegenrichtung zum Überholen aktivieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:301
 msgid "Ensure that opposite edges have the same length"
 msgstr "Achte darauf, dass gegenüberliegende Kanten die gleiche Länge haben"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:304
-#, fuzzy
 msgid "Enable guessing of network fringe nodes"
-msgstr "Schätzen von Netzrandknoten aktivieren"
+msgstr "Heuristik für Netzrandknoten aktivieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:307
-#, fuzzy
 msgid "Guess disconnected edges above the given speed as outer fringe"
 msgstr ""
-"Getrennte Kanten oberhalb der gegebenen Geschwindigkeit als äußerer Rand "
+"Isolierte Kanten oberhalb der gegebenen Geschwindigkeit als äußeren Rand "
 "erraten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:310
@@ -5840,11 +5771,10 @@ msgid "Assumes left-hand traffic on the network"
 msgstr "Geht von Linksverkehr im Netz aus"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:326
-#, fuzzy
 msgid "Interprets STR[] as list of junctions to exclude from joining"
 msgstr ""
-"Interpretiert STRING[] als Liste von Knotenpunkten, die vom Zusammenführen "
-"ausgeschlossen werden sollen"
+"Interpretiert STRING[] als Liste von Knotenpunkten, die nie mit anderen "
+"vereinigt werden sollen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:338
 msgid "Modifies all edge speeds by adding FLOAT"
@@ -5860,9 +5790,8 @@ msgid "Modifies all edge speeds to at least FLOAT"
 msgstr "Ändert alle Kantengeschwindigkeiten auf mindestens FLOAT"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:352
-#, fuzzy
 msgid "Generate INT intermediate points to smooth out intersection corners"
-msgstr "INT Zwischenpunkte zum Glätten von Schnittecken generieren"
+msgstr "INT Zwischenpunkte zum Glätten von Knotenpunktecken generieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:355
 msgid ""
@@ -5904,7 +5833,6 @@ msgid "Remove edges in STR[]"
 msgstr "Kanten in STR[] entfernen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:613
-#, fuzzy
 msgid ""
 "Only keep edges in STR[] or those which are kept due to other keep-edges or "
 "remove-edges options"
@@ -5997,13 +5925,12 @@ msgid "Enable ramp-guessing"
 msgstr "Zufahrtsrampenheuristik aktivieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:675
-#, fuzzy
 msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
 msgstr ""
-"Auffahrten erraten und markiere Beschleunigungsfahrstreifen, falls "
-"vorhanden, aber füge keine neuen Fahrstreifen hinzu"
+"Auffahrten erraten und, falls vorhanden, Beschleunigungsfahrstreifen "
+"markieren, aber keine neuen Fahrstreifen hinzufügen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:679
 msgid "Treat edges with speed > FLOAT as no ramps"
@@ -6981,24 +6908,22 @@ msgstr ""
 "Verteilung anwenden"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:63
-#, fuzzy
 msgid "Defines the probability to build a reverse edge"
-msgstr "Definiert die Wahrscheinlichkeit, eine Umkehrkante zu bilden"
+msgstr ""
+"Definiert die Wahrscheinlichkeit, eine Kante für die Gegenrichtung zu "
+"erstellen"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:67
-#, fuzzy
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
-msgstr "Fahrstreifennummern zufällig aus [1,default.lanenumber] zeichnen"
+msgstr "Fahrstreifenanzahl zufällig aus [1,default.lanenumber] ziehen"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:71
-#, fuzzy
 msgid "Draw edge priority randomly from [1,default.priority]"
-msgstr "Kantenpriorität zufällig aus [1,default.priority] zeichnen"
+msgstr "Kantenpriorität zufällig aus [1,default.priority] ziehen"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:74
-#, fuzzy
 msgid "Draw edge type randomly from all loaded types"
-msgstr "Kantentyp zufällig aus allen geladenen Typen zeichnen"
+msgstr "Kantentyp zufällig aus allen geladenen Typen ziehen"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:80
 msgid "Forces NETGEN to build a grid-like network"
@@ -7090,9 +7015,8 @@ msgid "The minimum distance for each edge"
 msgstr "Die minimale Distanz für jede Kante"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:172
-#, fuzzy
 msgid "The minimum angle for each pair of (bidirectional) roads in DEGREES"
-msgstr "Das minimale angle für jedes Paar von (Zweirichtungs-) Straßen in Grad"
+msgstr "Der minimale Winkel für jedes Paar von (Zweirichtungs-) Straßen in Grad"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:177
 msgid "The number of tries for creating each node"
@@ -7159,6 +7083,8 @@ msgstr "Spinnennetz benötigt mindestens 3 Arme."
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:123
 msgid "Spider networks with many arms should use option spider.omit-center"
 msgstr ""
+"Bei Spinnennetzwerken mit vielen Armen sollte die Option spider.omit-center "
+"verwendet werden"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:126
 msgid "Spider networks need at least one circle."
@@ -7329,9 +7255,8 @@ msgid "Continue on unknown edge types"
 msgstr "Mit unbekannten Kantentypen fortfahren"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:157
-#, fuzzy
 msgid "vmax is parsed as given in km/h"
-msgstr "maximale Geschwindigkeit wurde in km/h eingelesen"
+msgstr "maximale Geschwindigkeit wird in km/h eingelesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:160
 msgid ""
@@ -7345,9 +7270,8 @@ msgid "Remove all z-data"
 msgstr "Alle z-Daten entfernen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:166
-#, fuzzy
 msgid "Remove the list of keys from all params"
-msgstr "Die Schlüsselliste für alle Parameter entfernen"
+msgstr "Alle in der Liste angegebenen Schlüssel aus den Parametern entfernen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:169
 msgid ""
@@ -7395,11 +7319,10 @@ msgid "Import lane-specific access restrictions"
 msgstr "Fahrstreifenspezifische Zugangsbeschränkungen importieren"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:197
-#, fuzzy
 msgid "Import bike lanes and fix directions and permissions on bike paths"
 msgstr ""
-"Radwege und Wegbeschreibungen und Genehmigungen auf Radwegen festlegen "
-"importieren"
+"Radwege importieren und Fahrtrichtungen und Berechtigungen im Radnetz "
+"korrigieren"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:200
 msgid "Import sidewalks"
@@ -7410,9 +7333,8 @@ msgid "Import crossings"
 msgstr "Fußgängerfurten importieren"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:206
-#, fuzzy
 msgid "Import turning arrows from OSM to help with connection building"
-msgstr "Drehpfeile aus OSM, um beim Verbindungsaufbau zu helfen importieren"
+msgstr "Abbiegepfeile aus OSM importieren, um beim Verbindungsaufbau zu helfen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:209
 msgid "The default length of a public transport stop in FLOAT m"
@@ -7490,36 +7412,32 @@ msgid "Read total edge width from column STR"
 msgstr "Totale Kantenbreite aus Spalte STR lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:264
-#, fuzzy
 msgid "Read (non-unique) name from column STR"
-msgstr "(nicht einheitlichen) Namen aus Spalte STR lesen"
+msgstr "(nicht einzigartigen) Namen aus Spalte STR lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:267
-#, fuzzy
 msgid ""
 "Distance threshold for determining whether distinct shapes are connected "
 "(used when from-id and to-id are not available)"
 msgstr ""
-"Abstandsschwellenwert zum Bestimmen, ob unterschiedliche Shapes verbunden "
-"sind (wird verwendet, wenn Ausgangs-ID und End-ID nicht verfügbar sind)"
+"Abstandsschwellwert zum Bestimmen, ob separate Shapes verbunden sind (wird "
+"verwendet, wenn Ausgangs-ID und End-ID nicht verfügbar sind)"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:270
 msgid "Add the list of field names as edge params"
 msgstr "Die Liste der Feldnamen als Kantenparameter hinzufügen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:274
-#, fuzzy
 msgid "Uses edge type defaults on problems"
-msgstr "Nutzt Kantentypstandard bei Problemen"
+msgstr "Nutzt Kantentypstandardwerte bei Problemen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:279
 msgid "Insert edges in both directions"
 msgstr "Kanten in beide Richtungen einfügen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:283
-#, fuzzy
 msgid "Guess the proper projection"
-msgstr "Die richtige Projektion annehmen"
+msgstr "Die richtige Projektion erraten"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:286
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:125
@@ -7536,7 +7454,6 @@ msgstr ""
 "Die in der DLR Navteq-Datei angegebenen Kantenlängen werden beibehalten"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:300
-#, fuzzy
 msgid "Structure join offset"
 msgstr "Strukturvereinigungsversatz"
 
@@ -7558,32 +7475,26 @@ msgid "Load language mappings from FILE"
 msgstr "Sprachzuordnungen aus FILE laden"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:317
-#, fuzzy
 msgid "Uses priorities from types"
 msgstr "Verwendet Vorränge von Typen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:320
-#, fuzzy
 msgid "Uses lane numbers from types"
-msgstr "Verwendet Fahrstreifennummern von Typen"
+msgstr "Verwendet Fahrstreifenanzahl aus Typen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:323
-#, fuzzy
 msgid "Uses speeds from types"
-msgstr "Verwendet Geschwindigkeiten von Typen"
+msgstr "Verwendet Geschwindigkeiten aus Typen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:326
-#, fuzzy
 msgid "Sets connector speed"
 msgstr "Stellt die Verbindungsgeschwindigkeit ein"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:330
-#, fuzzy
 msgid "Sets connector lane number"
 msgstr "Stellt die Verbindungsfahrstreifennummer ein"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:333
-#, fuzzy
 msgid "Excludes connectors"
 msgstr "Schließt Konnektoren aus"
 
@@ -7649,13 +7560,12 @@ msgstr ""
 "kompensieren verwenden"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:375
-#, fuzzy
 msgid ""
 "Discard all railway signal information loaded from other formats than plain-"
 "xml"
 msgstr ""
 "Alle Eisenbahnsignalinformationen, die aus anderen Formaten als plain-XML "
-"geladen wurden verwerfen"
+"geladen wurden, verwerfen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:397
 msgid ""
@@ -8106,6 +8016,8 @@ msgid ""
 "Will discard access settings as both denied and allowed classes have been "
 "specified."
 msgstr ""
+"Zugangseinstellungen werden verworfen, da sowohl erlaubte als auch verbotene "
+"Klassen angegeben worden."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:2320
 msgid "Ignoring invalid pRange value '%' for road '%'."
@@ -8268,7 +8180,6 @@ msgid "Ignoring track count % for edge '%'."
 msgstr "Spuranzahl % für Kante '%' wird ignoriert."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1605
-#, fuzzy
 msgid "Unknown lane use specifier '%' ignored for way '%'"
 msgstr ""
 "Unbekannter Fahrstreifennutzungsbezeichner '%' wird für Weg '%' ignoriert"
@@ -9126,7 +9037,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:210
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:262
-#, fuzzy, c-format
+#, c-format
 msgid "Would have to split edge '%' to build a prohibition"
 msgstr "Müsste Kante '%' teilen, um ein Verbot zu erstellen"
 
@@ -9136,7 +9047,6 @@ msgid "Could not prohibit '%' - it was not built."
 msgstr "Konnte '%' nicht verbieten - es wurde nicht erstellt."
 
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:243
-#, fuzzy
 msgid "Could not prohibit '%' by '%'."
 msgstr "Konnte '%' von '%' nicht verbieten."
 
@@ -9236,9 +9146,8 @@ msgid "TL traffic lights are not supported (lsa=%)"
 msgstr "TL-LSAs werden nicht unterstützt (lsa=%)"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:186
-#, fuzzy
 msgid "POS traffic lights are not supported (lsa=%)"
-msgstr "POS-LSAs werden nicht unterstützt (lsa=%)"
+msgstr "POS-LSA werden nicht unterstützt (lsa=%)"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:194
 msgid "externally defined traffic lights are not supported (lsa=%)"
@@ -9462,16 +9371,16 @@ msgstr "Ungültiger Fahrstreifenindex in der Verbindung von '%' zu '%'."
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1506
 #, c-format
 msgid "Unknown from-edge '%' in conflict."
-msgstr ""
+msgstr "Unbekannte Zufahrtskante '%' im Konflikt."
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1511
 #, c-format
 msgid "Unknown to-edge '%' in connflict."
-msgstr ""
+msgstr "Unbekannte Ausfahrtskante '%' im Konflikt."
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1516
 msgid "Invalid lane index in conflict with '%' to '%'."
-msgstr ""
+msgstr "Ungültiger Fahrstreifenindex im Konflikt von '%' nach '%'."
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1568
 msgid ""
@@ -10250,9 +10159,8 @@ msgid "Reads shapes from shapefiles FILE+"
 msgstr "Liest Shapes aus Shapedatei FILE"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:122
-#, fuzzy
 msgid "Guesses the shapefile's projection"
-msgstr "Errät die Shapedatei Projektion"
+msgstr "Errät die Projektion der Shape-Datei"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:130
 msgid "Defines in which column the id can be found"
@@ -10271,7 +10179,6 @@ msgid "Extract all additional columns as params"
 msgstr "Alle zusätzlichen Spalten als Parameter extrahieren"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:143
-#, fuzzy
 msgid ""
 "[auto|true|false]. Forces the 'fill' status to the given value. Default "
 "'auto' tries to determine it from the data type"
@@ -10288,7 +10195,6 @@ msgid "Write generated polygons/pois to FILE"
 msgstr "Generierte Polygone/Pole in FILE schreiben"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:159
-#, fuzzy
 msgid "Write generated polygons/pois to a dlr-tdp file with the given prefix"
 msgstr ""
 "Generierte Polygone/Pole in eine dlr-tdp Datei mit der gegebenen Präfix "
@@ -10352,9 +10258,8 @@ msgid "Sets STR as default type"
 msgstr "Legt STR als Standardtyp fest"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:215
-#, fuzzy
 msgid "Fills polygons by default"
-msgstr "Füllt standardmäßig Polygone"
+msgstr "Füllt Polygone standardmäßig"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:218
 msgid "Sets FLOAT as default layer"
@@ -10414,7 +10319,6 @@ msgid "Write used vehicle types into separate FILE"
 msgstr "Verwendete Fahrzeugtypen in separaten FILE schreiben"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:56
-#, fuzzy
 msgid "Keep vTypeDistribution ids when writing vehicles and their types"
 msgstr ""
 "Fahrzeugtypverteilungs-IDs beibehalten, wenn Fahrzeuge und ihre Typen "
@@ -10501,9 +10405,8 @@ msgstr ""
 "zum Straßennetz"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:166
-#, fuzzy
 msgid "Match positions to junctions instead of edges"
-msgstr "Ordnet Positionen zu Knotenpunkten statt Kanten zu"
+msgstr "Ordnet Positionen Knotenpunkten statt Kanten zu"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:169
 msgid "Aggregate routing queries with the same origin"
@@ -10805,7 +10708,6 @@ msgid "Defines the file to read the driving cycle from."
 msgstr "Definiert die Datei, aus der der Fahrzyklus gelesen werden soll."
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:74
-#, fuzzy
 msgid "Skips the first NUM lines."
 msgstr "Überspringt die ersten NUM Zeilen."
 
@@ -10891,7 +10793,6 @@ msgid "Defines the attributes to write."
 msgstr "Definiert die zu schreibenden Attribute."
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:125
-#, fuzzy
 msgid "Save the emission values of each vehicle in XML"
 msgstr "Die Emissionswerte jedes Fahrzeugs in XML speichern"
 
@@ -11373,7 +11274,6 @@ msgid "Rotation (clockwise degrees) for input coordinates"
 msgstr "Drehung (Grad im Uhrzeigersinn) für Eingabekoordinaten"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:298
-#, fuzzy
 msgid ""
 "Determine the UTM zone (for a universal transversal mercator projection "
 "based on the WGS84 ellipsoid)"
@@ -11382,7 +11282,6 @@ msgstr ""
 "basierend auf dem WGS84-Ellipsoid)"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:304
-#, fuzzy
 msgid "Uses STR as proj.4 definition for projection"
 msgstr "Verwendet STR als proj.4-Definition für die Projektion"
 
@@ -11562,6 +11461,8 @@ msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
 msgstr ""
+"Die Definition von Fahrzeugfolgeparametern als Kindelemente des vType '%' is "
+"veraltet —verwende stattdessen Attribute!"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:884
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:886
@@ -12075,11 +11976,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1174
 msgid "Unknown car-following model % when parsing vType '%'"
-msgstr ""
+msgstr "Unbekanntes Fahrzeugfolgemodell % im vType % gefunden"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1176
 msgid "Unknown car-following model when parsing vType '%'"
-msgstr ""
+msgstr "Unbekanntes Fahrzeugfolgemodell im vType '%' gefunden"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1209
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1225

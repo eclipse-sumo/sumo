@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-17 10:22:08 by Eclipse SUMO netconvert Version v1_10_0+0759-0b3a782ef3e
+<!-- generated on 2023-05-14 00:53:51 by Eclipse SUMO netconvert Version v1_17_0+0272-c60cea0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -28,7 +33,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -68,11 +72,11 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="30695393" name="Möllendorffstraße/Storkower Straße"/>
     </ptLine>
     <ptLine id="2022133" name="Tram 16: S+U Frankfurter Allee =&gt; Ahrensfelde/Stadtgrenze" line="16" type="tram" vClass="tram" period="600" color="0,102,153" completeness="0.04">
-        <route edges="171184262 155531552"/>
+        <route edges="171184262 155531552 23913905#3 23913905#2 23913905#1 23913905#0"/>
         <busStop id="1679204628" name="Möllendorffstraße/Storkower Straße"/>
     </ptLine>
     <ptLine id="2077076" name="Tram M13: S Warschauer Straße =&gt; Wedding, Virchow-Klinikum" line="M13" type="tram" vClass="tram" period="600" color="0,204,0" completeness="0.03">
-        <route edges="171184262 155531552"/>
+        <route edges="171184262 155531552 23913905#3 23913905#2 23913905#1 23913905#0"/>
         <busStop id="1679204628" name="Möllendorffstraße/Storkower Straße"/>
     </ptLine>
     <ptLine id="2077077" name="Tram M13: Wedding, Virchow-Klinikum =&gt; S Warschauer Straße" line="M13" type="tram" vClass="tram" period="600" color="0,204,0" completeness="0.05">

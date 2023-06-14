@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-05-11 12:12+0200\n"
-"PO-Revision-Date: 2023-05-10 14:05+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-05-16 14:49+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"python-tools/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: D:\Repos\sumo/tools/game\runner.py:63
 msgid "Interactive Traffic Light"
@@ -91,11 +93,11 @@ msgstr "Bestenliste zurücksetzen"
 
 #: D:\Repos\sumo/tools/game\runner.py:81
 msgid "German"
-msgstr ""
+msgstr "Deutsch"
 
 #: D:\Repos\sumo/tools/game\runner.py:82
 msgid "English"
-msgstr ""
+msgstr "Englisch"
 
 #: D:\Repos\sumo/tools/game\runner.py:83
 msgid "Quit"
@@ -103,7 +105,7 @@ msgstr "Beenden"
 
 #: D:\Repos\sumo/tools/game\runner.py:85
 msgid "Congratulations!"
-msgstr "Glueckwunsch 1A"
+msgstr "Glückwunsch!"
 
 #: D:\Repos\sumo/tools/game\runner.py:86
 msgid "Your Score"

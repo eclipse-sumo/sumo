@@ -908,7 +908,7 @@ TRACI_CONST int LANE_DISALLOWED = 0x35;
 // list of allowed vehicle classes for lane changes (get&set: lanes)
 TRACI_CONST int LANE_CHANGES = 0x3c;
 
-// list of foe lanes (get: lanes)
+// list of foe lanes (get: lane, vehicle)
 TRACI_CONST int VAR_FOES = 0x37;
 
 // slope (get: edge, lane, vehicle, person)
@@ -1143,6 +1143,9 @@ TRACI_CONST int VAR_DEPART_DELAY = 0x3b;
 // boarding time (get: vehicle type, vehicle, person)
 TRACI_CONST int VAR_BOARDING_DURATION = 0x2f;
 
+// impatience (get,set: vehicle type, vehicle, person)
+TRACI_CONST int VAR_IMPATIENCE = 0x26;
+
 TRACI_CONST int VAR_BUS_STOP_ID_LIST = 0x9f;
 
 // number of persons waiting at a defined bus stop (get: simulation)
@@ -1327,7 +1330,6 @@ TRACI_CONST int VAR_PARAMETER = 0x7e;
 
 // retrieves abstract parameter and returns (key, value) tuple
 TRACI_CONST int VAR_PARAMETER_WITH_KEY = 0x3e;
-
 
 // add an instance (poi, polygon, vehicle, person, route, gui)
 TRACI_CONST int ADD = 0x80;

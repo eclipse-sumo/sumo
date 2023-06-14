@@ -573,7 +573,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             && e->myIsOneWay != "yes" && e->myIsOneWay != "-1" && e->myIsOneWay != "1" && e->myIsOneWay != "reverse") {
         WRITE_WARNINGF(TL("New value for oneway found: %"), e->myIsOneWay);
     }
-    if (isBikepath(permissions) && e->myCyclewayType != WAY_UNKNOWN && e->myCyclewayType != WAY_NONE) {
+    if ((permissions == SVC_BICYCLE || permissions == (SVC_BICYCLE | SVC_PEDESTRIAN))
+            && e->myCyclewayType != WAY_UNKNOWN && e->myCyclewayType != WAY_NONE) {
         if ((e->myCyclewayType & WAY_BACKWARD) == 0) {
             addBackward = false;
         }
@@ -937,7 +938,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             } else if (myImportElevation && key == "ele") {
                 try {
                     const double elevation = StringUtils::toDouble(value);
-                    if (ISNAN(elevation)) {
+                    if (std::isnan(elevation)) {
                         WRITE_WARNINGF(TL("Value of key '%' is invalid ('%') in node '%'."), key, value, myLastNodeID);
                     } else {
                         myCurrentNode->ele = elevation;

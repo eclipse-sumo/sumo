@@ -18,11 +18,12 @@
 // Dialog for edit multiple parameters
 /****************************************************************************/
 
+#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/xml/XMLSubSys.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 
 #include "GNEMultipleParametersDialog.h"
 
@@ -491,7 +492,7 @@ GNEMultipleParametersDialog::ParametersOptions::onlyForExistentKeys() const {
 // GNEMultipleParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditor* parametersEditorInspector) :
+GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEFrameAttributeModules::ParametersEditor* parametersEditorInspector) :
     FXDialogBox(parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(430, 300)),
     myParametersEditor(parametersEditorInspector) {
     // call auxiliar constructor

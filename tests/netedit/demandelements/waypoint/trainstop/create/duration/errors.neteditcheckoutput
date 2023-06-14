@@ -1,0 +1,5 @@
+Warning: busStop 'trainStop' on lane 'gneE1_0' is too short for vehicle 'vehicle_0'.
+Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-3.50, offset=0.33), time=15.00.
+Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.25), time=17.00.
+Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.25), time=19.00.
+Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.25), time=21.00.

@@ -42,8 +42,10 @@ violateMingap
 
 # exhibit extreme minGap violation inherent in the model (with some parameter combinations) - see #11199
 violateMingap_warn
-
 ticket11498
 
 # emergency braking on insertion
 ticket11564
+
+# right of way violation due to imprecise stopping on minor link
+ticket13369

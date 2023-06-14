@@ -81,7 +81,7 @@ double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, dou
         gap = MAX2(0.0, gap + veh->getVehicleType().getMinGap() - 50);
     }
 
-    const double vsafe = maximumSafeStopSpeed(gap, myDecel, speed, false, TS); // absolute breaking distance
+    const double vsafe = maximumSafeStopSpeed(gap, myDecel, speed, false, TS, false); // absolute breaking distance
     const double vmin = minNextSpeed(speed, veh);
     const double vmax = maxNextSpeed(speed, veh);
 
@@ -255,5 +255,5 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* spe
 }
 
 double MSCFModel_Rail::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
-    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, TS), maxNextSpeed(speed, veh));
+    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, TS, false), maxNextSpeed(speed, veh));
 }

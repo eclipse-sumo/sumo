@@ -130,8 +130,7 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
 
 
 bool
-SystemFrame::checkOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
+SystemFrame::checkOptions(OptionsCont& oc) {
     gPrecision = oc.getInt("precision");
     gPrecisionGeo = oc.getInt("precision.geo");
     gHumanReadableTime = oc.getBool("human-readable-time");

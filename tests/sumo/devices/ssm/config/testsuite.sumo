@@ -4,6 +4,15 @@ commaSeparated
 # No specific parameters given
 defaults
 
+# log only MDRAC using default threshold.
+onlyMDRAC
+
+# log only MDRAC using increased threshold - expected outcome: no written maxMDRAC because threshold is higher than default
+onlyMDRAC_threshold
+
+# log only MDRAC using default threshold with custom perception/reaction time
+onlyMDRAC_prt
+
 # log only TTC using default threshold.
 onlyTTC
 

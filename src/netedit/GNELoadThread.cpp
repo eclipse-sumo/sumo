@@ -79,8 +79,13 @@ GNELoadThread::run() {
     std::string loadedFile;
     // check conditions
     if (neteditOptions.getBool("new")) {
+        // create new network
+        validInput = true;
+    } else if (neteditOptions.getString("osm-files").size() > 0) {
+        // load an osm file
         validInput = true;
     } else if (neteditOptions.getString("net-file").size() > 0) {
+        // load a network file
         validInput = true;
         loadedFile = neteditOptions.getString("net-file");
     } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
@@ -125,7 +130,8 @@ GNELoadThread::run() {
     // init output options
     MsgHandler::initOutputOptions();
     // if there is an error checking options, stop
-    if (!(NIFrame::checkOptions() && NBFrame::checkOptions() && NWFrame::checkOptions() && SystemFrame::checkOptions())) {
+    if (!(NIFrame::checkOptions(neteditOptions) && NBFrame::checkOptions(neteditOptions) && 
+          NWFrame::checkOptions(neteditOptions) && SystemFrame::checkOptions(neteditOptions))) {
         // options are not valid
         WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
         submitEndAndCleanup(net, loadedFile);
@@ -470,10 +476,10 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
 
     // fill rest of options
 
-    NIFrame::fillOptions(true);
-    NBFrame::fillOptions(false);
-    NWFrame::fillOptions(false);
-    RandHelper::insertRandOptions();
+    NIFrame::fillOptions(neteditOptions, true);
+    NBFrame::fillOptions(neteditOptions, false);
+    NWFrame::fillOptions(neteditOptions, false);
+    RandHelper::insertRandOptions(neteditOptions);
 }
 
 

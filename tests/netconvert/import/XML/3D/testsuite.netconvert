@@ -6,3 +6,6 @@ basic2
 
 # internal lanes should all be at the z-level of the intersection
 internal_lanes
+
+# see #13318
+large_junction

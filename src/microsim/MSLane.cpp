@@ -427,7 +427,7 @@ MSLane::incorporateVehicle(MSVehicle* veh, double pos, double speed, double posL
     if (wasInactive) {
         MSNet::getInstance()->getEdgeControl().gotActive(this);
     }
-    if (!isRailway(veh->getVClass()) && getBidiLane() != nullptr) {
+    if (getBidiLane() != nullptr && (!isRailway(veh->getVClass()) || (getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
         // railways don't need to "see" each other when moving in opposite directions on the same track (efficiency)
         getBidiLane()->setPartialOccupation(veh);
     }
@@ -1691,6 +1691,12 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                         if (*veh == *veh2 && !isRailway((*veh)->getVClass())) {
                             continue;
                         }
+                        if ((*veh)->getLane() == (*veh2)->getLane() ||
+                                (*veh)->getLane() == (*veh2)->getBackLane() ||
+                                (*veh)->getBackLane() == (*veh2)->getLane()) {
+                            // vehicles are not in a bidi relation
+                            continue;
+                        }
                         double low2 = myLength - (*veh2)->getPositionOnLane(bidiLane);
                         double high2 = myLength - (*veh2)->getBackPositionOnLane(bidiLane);
                         if (stage == MSNet::STAGE_MOVEMENTS) {
@@ -1816,8 +1822,8 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         return false;
     }
 
-    const bool colliderOpposite = collider->getLaneChangeModel().isOpposite() || collider->getLane() == getBidiLane();
-    const bool victimOpposite = victim->getLaneChangeModel().isOpposite() || victim->getLane() == getBidiLane();
+    const bool colliderOpposite = collider->getLaneChangeModel().isOpposite() || collider->isBidiOn(this);
+    const bool victimOpposite = victim->getLaneChangeModel().isOpposite() || victim->isBidiOn(this);
     const bool bothOpposite = victimOpposite && colliderOpposite;
     if (bothOpposite) {
         std::swap(victim, collider);
@@ -3681,7 +3687,8 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                     const MSLink::LinkLeaders linkLeaders = (*it).viaLink->getLeaderInfo(ego, -backOffset);
                     for (const auto& ll : linkLeaders) {
                         if (ll.vehAndGap.first != nullptr) {
-                            const bool egoIsLeader = ll.vehAndGap.first->isLeader((*it).viaLink, ego, ll.vehAndGap.second);
+                            const bool bidiFoe = (*it).viaLink->getLane() == ll.vehAndGap.first->getLane()->getNormalPredecessorLane()->getBidiLane();
+                            const bool egoIsLeader = !bidiFoe && ll.vehAndGap.first->isLeader((*it).viaLink, ego, ll.vehAndGap.second);
                             // if ego is leader the returned gap still assumes that ego follows the leader
                             // if the foe vehicle follows ego we need to deduce that gap
                             const double gap = (egoIsLeader
@@ -3693,6 +3700,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                                 std::cout << SIMTIME << " ego=" << ego->getID() << "    link=" << (*it).viaLink->getViaLaneOrLane()->getID()
                                           << " (3) added veh=" << Named::getIDSecure(ll.vehAndGap.first)
                                           << " gap=" << ll.vehAndGap.second << " dtC=" << ll.distToCrossing
+                                          << " bidiFoe=" << bidiFoe
                                           << " egoIsLeader=" << egoIsLeader << " gap2=" << gap
                                           << "\n";
                             }
@@ -3741,12 +3749,17 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                                 }
                             }
                         } else {
-                            agap = (*it).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
+                            if (next->getBidiLane() != nullptr && v->isBidiOn(next)) {
+                                agap = v->getPositionOnLane() + backOffset - v->getVehicleType().getLengthWithGap();
+                            } else {
+                                agap = (*it).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
+                            }
                             if (!(*it).viaLink->havePriority() && !ego->onFurtherEdge(&(*it).lane->getEdge())
                                     && ego->isOnRoad() // during insertion, this can lead to collisions because ego's further lanes are not set (see #3053)
                                     && !ego->getLaneChangeModel().isOpposite()
+                                    && v->getSpeed() < SUMO_const_haltingSpeed
                                ) {
-                                // if v comes from a minor side road it should not block lane changing
+                                // if v is stopped on a minor side road it should not block lane changing
                                 agap = MAX2(agap, 0.0);
                             }
                         }

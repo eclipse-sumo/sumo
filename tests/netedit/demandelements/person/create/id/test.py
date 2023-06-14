@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge->busStop", False)
+netedit.changePersonPlan("walk: busStop", False)
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, 274, 400)

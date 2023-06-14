@@ -166,13 +166,21 @@ AGActivityGenHandler::parseStreets(const SUMOSAXAttributes& attrs) {
         double pop = 0;
         double work = 0;
 
+        std::string eid = attrs.getString(SUMO_ATTR_EDGE);
         if (attrs.hasAttribute(AGEN_ATTR_POPULATION)) {
             pop = attrs.getFloat(AGEN_ATTR_POPULATION);
+            if (std::isnan(pop)) {
+                pop = 0;
+                WRITE_WARNINGF(TL("Invalid % value of edge % is treated as zero."), SUMOXMLDefinitions::Attrs.getString(AGEN_ATTR_POPULATION), eid);
+            }
         }
         if (attrs.hasAttribute(AGEN_ATTR_OUT_WORKPOSITION)) {
             work = attrs.getFloat(AGEN_ATTR_OUT_WORKPOSITION);
+            if (std::isnan(work)) {
+                work = 0;
+                WRITE_WARNINGF(TL("Invalid % value of edge % is treated as zero."), SUMOXMLDefinitions::Attrs.getString(AGEN_ATTR_OUT_WORKPOSITION), eid);
+            }
         }
-        std::string eid = attrs.getString(SUMO_ATTR_EDGE);
         AGStreet* street = dynamic_cast<AGStreet*>(net->getEdge(eid));
         if (street == nullptr) {
             WRITE_ERRORF(TL("Edge '%' is not known."), eid);

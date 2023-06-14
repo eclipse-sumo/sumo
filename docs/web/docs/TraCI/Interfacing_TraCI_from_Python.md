@@ -3,25 +3,28 @@ title: Interfacing TraCI from Python
 ---
 
 The [TraCI](../TraCI.md#traci_commands) commands are split into the
-13 domains gui, lane, poi, simulation, trafficlight, vehicletype, edge,
-inductionloop, junction, multientryexit, polygon, route, person and
+domains busstop, calibrator, chargingstation, edge, gui, inductionloop, junction, lane,
+lanearea, meandata, multientryexit, overheadwire, parkingarea, person, poi, polygon,
+rerouter, route, routeprobe, simulation, trafficlight, variablespeedsign, vehicle, and vehicletype,
 vehicle, which correspond to individual modules. For a detailed list of
 available functions see the [pydoc generated documentation](https://sumo.dlr.de/pydoc/traci.html). The source code
 can be found at
-[\[1\]](https://github.com/eclipse/sumo/tree/main/tools/traci)
+[\[1\]](https://github.com/eclipse/sumo/tree/main/tools/traci).
+
+Please note that if performance is an issue and you don't a need GUI, it is almost always better
+to use [libsumo](../Libsumo.md) instead of traci, which has the same API.
 
 ## importing **traci** in a script
 
-To use the library, the {{SUMO}}/tools directory must be on the python load
-path. This is typically done with a stanza like this:
+To use the library, you can install it using `pip install traci` or add the {{SUMO}}/tools directory
+to your Python load path. This is typically done with a stanza like this:
 
 ```python
-import os, sys
+import os
+import sys
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import traci
 ```
 
 This assumes that the [environment variable
@@ -32,6 +35,14 @@ path to *sumo/tools* directly as in the line
 ```python
 sys.path.append(os.path.join('c:', os.sep, 'whatever', 'path', 'to', 'sumo', 'tools'))
 ```
+
+If you decide to switch to libsumo at a later stage or want to be flexible here,
+you can replace the import line later by:
+
+```python
+import libsumo as traci
+```
+
 
 ## First Steps
 
@@ -100,6 +111,10 @@ traci.close()
 The values retrieved are always the ones from the last time step, it is
 not possible to retrieve older values.
 
+!!! note
+    Before version 1.18.0 `traci.simulationStep()` returned all subscription results, now it returns None.
+    If you need the old behavior, use `traci.simulationStepLegacy()`.
+
 ## Context Subscriptions
 
 Context subscriptions work like subscriptions in that they retrieve a
@@ -133,6 +148,11 @@ traci.close()
 
 The values retrieved are always the ones from the last time step, it is
 not possible to retrieve older values.
+
+!!! note
+    Before version 1.18.0 `traci.junction.getAllContextSubscriptionResults` would not contain
+    the ids of the junctions which did not have objects in their context.
+    Now it returns their id mapped to an empty dictionary (similar to libsumo). This holds for the other domains as well.
 
 ## Context Subscription Filters
 
@@ -309,7 +329,8 @@ For this functionality it is recommended to use
 
 ## Pitfalls and Solutions
 
-- Note that strings, if exchanged, have to be ASCII-encoded.
+- Note that strings, if exchanged, had to be plain ASCII before 1.18.0.
+  Currently UTF-8 should be possible for all the strings.
 - If you start sumo from within your python script using
   subprocess.Popen, be sure to call wait() on the resulting process
   object before quitting your script. You might loose output
@@ -325,7 +346,8 @@ print("TRACIPATH:", traci.__file__)
 sys.exit()
 ```
 Make sure that the TRACIPATH corresponds to the sumo version that you wish to use. 
-If it does not, then the order of directories in LOADPATH (sys.path) must be changed or the SUMO installation must be removed from any directories that come before the wanted directory.
+If it does not, then the order of directories in LOADPATH (sys.path) must be changed
+or the SUMO installation must be removed from any directories that come before the wanted directory.
 
 ### Debugging a TraCI session on Linux
 

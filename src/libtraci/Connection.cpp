@@ -51,9 +51,10 @@ Connection::Connection(const std::string& host, int port, int numRetries, const 
             mySocket.connect();
             break;
         } catch (tcpip::SocketException& e) {
+            mySocket.close();
             if (i == numRetries) {
                 close();
-                throw;
+                throw libsumo::FatalTraCIError("Could not connect in " + toString(numRetries + 1) + " tries");
             }
             std::cout << "Could not connect to TraCI server at " << host << ":" << port << " " << e.what() << std::endl;
             std::cout << " Retrying in 1 second" << std::endl;
@@ -165,7 +166,7 @@ Connection::setOrder(int order) {
 void
 Connection::createCommand(int cmdID, int varID, const std::string* const objID, tcpip::Storage* add) const {
     if (!mySocket.has_client_connection()) {
-        throw libsumo::FatalTraCIError("Not connected.");
+        throw libsumo::FatalTraCIError("Connection already closed.");
     }
     myOutput.reset();
     // command length
@@ -452,7 +453,8 @@ Connection::readContextSubscription(int responseID, tcpip::Storage& inMsg) {
     // see also https://github.com/eclipse/sumo/issues/7288
     libsumo::SubscriptionResults& results = myContextSubscriptionResults[responseID][contextID];
     while (numObjects-- > 0) {
-        std::string objectID = inMsg.readString();
+        const std::string& objectID = inMsg.readString();
+        results[objectID]; // instantiate empty map for id lists
         readVariables(inMsg, objectID, variableCount, results);
     }
 }

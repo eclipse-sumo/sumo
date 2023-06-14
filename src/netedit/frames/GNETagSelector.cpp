@@ -420,18 +420,21 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             myAC = new GNEVehicle(tagProperty.getTag(), net);
             break;
         // stops
-        case SUMO_TAG_STOP_LANE:
-        case SUMO_TAG_STOP_BUSSTOP:
-        case SUMO_TAG_STOP_CONTAINERSTOP:
-        case SUMO_TAG_STOP_CHARGINGSTATION:
-        case SUMO_TAG_STOP_PARKINGAREA:
+        case GNE_TAG_STOP_LANE:
+        case GNE_TAG_STOP_BUSSTOP:
+        case GNE_TAG_STOP_TRAINSTOP:
+        case GNE_TAG_STOP_CONTAINERSTOP:
+        case GNE_TAG_STOP_CHARGINGSTATION:
+        case GNE_TAG_STOP_PARKINGAREA:
         case GNE_TAG_STOPPERSON_EDGE:
         case GNE_TAG_STOPPERSON_BUSSTOP:
+        case GNE_TAG_STOPPERSON_TRAINSTOP:
         case GNE_TAG_STOPCONTAINER_EDGE:
         case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
         // waypoints
         case GNE_TAG_WAYPOINT_LANE:
         case GNE_TAG_WAYPOINT_BUSSTOP:
+        case GNE_TAG_WAYPOINT_TRAINSTOP:
         case GNE_TAG_WAYPOINT_CONTAINERSTOP:
         case GNE_TAG_WAYPOINT_CHARGINGSTATION:
         case GNE_TAG_WAYPOINT_PARKINGAREA:
@@ -456,11 +459,13 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         case GNE_TAG_PERSONTRIP_EDGE:
         case GNE_TAG_PERSONTRIP_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_TRAINSTOP:
         case GNE_TAG_PERSONTRIP_JUNCTIONS:
             myAC = new GNEPersonTrip(tagProperty.getTag(), net);
             break;
         case GNE_TAG_WALK_EDGE:
         case GNE_TAG_WALK_BUSSTOP:
+        case GNE_TAG_WALK_TRAINSTOP:
         case GNE_TAG_WALK_EDGES:
         case GNE_TAG_WALK_ROUTE:
         case GNE_TAG_WALK_JUNCTIONS:
@@ -468,6 +473,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         case GNE_TAG_RIDE_EDGE:
         case GNE_TAG_RIDE_BUSSTOP:
+        case GNE_TAG_RIDE_TRAINSTOP:
             myAC = new GNERide(tagProperty.getTag(), net);
             break;
         default:

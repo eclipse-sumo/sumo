@@ -28,7 +28,7 @@ in **docs/examples**. All other applications
 etc.) have to be run from the command line. To facilitate this there is
 also a start-commandline.bat which sets up the whole environment for
 you. If you feel unsure about the command line, please read
-[Basics/Basic_Computer_Skills\#Running_Programs_from_the_Command_Line](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
+[Running Programs from the Command Line](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
 
 If you want a bleeding edge nightly build or need tests or source files,
 you can download them from the [Download](../Downloads.md) page.
@@ -81,7 +81,7 @@ Send bug reports regarding SUMO packaged as Flatpak [here](https://github.com/fl
 
 SUMO can be easily installed on macOS by using [Homebrew](http://brew.sh). If you did not already install homebrew, you can do so by invoking te following command in a macOS Terminal:
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 Please make sure your homebrew installation is up-to-date:
 ```
@@ -97,6 +97,9 @@ You can then install the latest stable release of SUMO (with minimal requirement
 brew tap dlr-ts/sumo
 brew install sumo
 ```
+!!! note
+    It is possible to install older vesions of SUMO using Homebrew. Running `brew search sumo` will list all available versions (v1.0.1 or newer). To install a specific version (e.g. version 1.9.0), just run `brew install sumo@1.9.0`.
+
 If you need to compile SUMO with support for other libraries, such as GDAL, you need to provide further command line options [as described here](https://github.com/DLR-TS/homebrew-sumo#usage).
 To finalize your setup, please make sure to set the **SUMO_HOME** environment variable and have it point to the directory of your SUMO installation. Depending on your shell, you may set this variable either in `.bashrc` or `.zshrc`. To set this variable in `.bashrc` you can use the following commands. 
 ```

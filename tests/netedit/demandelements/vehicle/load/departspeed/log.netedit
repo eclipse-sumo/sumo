@@ -1,2 +1,2 @@
-Error: Invalid departSpeed used in vehicle 'vehicle_3'. 500.00 is greater than vTypemaxSpeed
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle.12Apr084441.4881/netedit.daily.demand.vehicle/demandelements/vehicle/load/departspeed/routes.rou.xml failed.
+Error: Invalid departSpeed used in vehicle 'vehicle_3'. 500.00 is greater than vType maxSpeed
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.routes.22May115309.2074/netedit.daily.demand.routes/demandelements/vehicle/load/departspeed/routes.rou.xml failed.

@@ -485,8 +485,12 @@ public:
     /// @brief whether one of multple connections from the same edge targeting the same lane must yield
     bool mergeConflictYields(const NBEdge* from, int fromLane, int fromLaneFoe, NBEdge* to, int toLane) const;
 
-    /// @brief whether multple connections from the same edge target the same lane
+    /// @brief whether multiple connections from the same edge target the same lane
     bool mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
+                       const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon, bool foes) const;
+
+    /// @brief whether the foe connections is oncoming on the same lane
+    bool bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
                        const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon, bool foes) const;
 
     bool zipperConflict(const NBEdge* incoming, const NBEdge* outgoing, int fromLane, int toLane) const;

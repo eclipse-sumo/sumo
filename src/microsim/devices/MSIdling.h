@@ -30,6 +30,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class MSTriggeredRerouter;
 
 // ===========================================================================
 // class definitions
@@ -59,4 +60,15 @@ class MSIdling_Stop : public MSIdling {
 
 class MSIdling_RandomCircling : public MSIdling {
     void idle(MSDevice_Taxi* taxi);
+};
+
+class MSIdling_TaxiStand : public MSIdling {
+public :
+    MSIdling_TaxiStand(MSTriggeredRerouter* rerouter) : myRerouter(rerouter) {}
+    void idle(MSDevice_Taxi* taxi);
+
+protected:
+    MSTriggeredRerouter* myRerouter;
+    bool myHaveWarned = false;
+
 };

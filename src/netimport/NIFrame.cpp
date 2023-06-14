@@ -43,9 +43,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 void
-NIFrame::fillOptions(bool forNetedit) {
-    OptionsCont& oc = OptionsCont::getOptions();
+NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     // register input formats
     oc.doRegister("sumo-net-file", 's', new Option_FileName());
     oc.addSynonyme("sumo-net-file", "sumo-net", true);
@@ -215,9 +215,11 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addDescription("osm.stop-output.length.train", "Formats", TL("The default length of a train stop in FLOAT m"));
 
     oc.doRegister("osm.all-attributes", new Option_Bool(false));
+    oc.addSynonyme("osm.all-attributes", "osm.all-tags");
     oc.addDescription("osm.all-attributes", "Formats", TL("Whether additional attributes shall be imported"));
 
-    oc.doRegister("osm.extra-attributes", new Option_StringVector(StringVector({ "bridge", "tunnel", "layer", "postal_code" })));
+    oc.doRegister("osm.extra-attributes", new Option_StringVector(StringVector({ "all" })));
+    oc.addSynonyme("osm.extra-attributes", "osm.extra-tags");
     oc.addDescription("osm.extra-attributes", "Formats", TL("List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all)"));
 
     oc.doRegister("osm.speedlimit-none", new Option_Float(39.4444));
@@ -362,6 +364,8 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addDescription("opendrive.position-ids", "Formats", TL("Sets edge-id based on road-id and offset in m (legacy)"));
     oc.doRegister("opendrive.lane-shapes", new Option_Bool(false));
     oc.addDescription("opendrive.lane-shapes", "Formats", TL("Use custom lane shapes to compensate discarded lane types"));
+    oc.doRegister("opendrive.signal-groups", new Option_Bool(false));
+    oc.addDescription("opendrive.signal-groups", "Formats", TL("Use the OpenDRIVE controller information for the generated signal program"));
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));
@@ -377,8 +381,7 @@ NIFrame::fillOptions(bool forNetedit) {
 
 
 bool
-NIFrame::checkOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
+NIFrame::checkOptions(OptionsCont& oc) {
     bool ok = oc.checkDependingSuboptions("shapefile", "shapefile.");
     ok &= oc.checkDependingSuboptions("visum-file", "visum.");
     ok &= oc.checkDependingSuboptions("vissim-file", "vissim.");

@@ -195,6 +195,22 @@ VehicleType::getBoardingDuration(const std::string& typeID) {
 }
 
 
+double
+VehicleType::getImpatience(const std::string& typeID) {
+    return Dom::getDouble(libsumo::VAR_IMPATIENCE, typeID);
+}
+
+
+void
+VehicleType::setImpatience(const std::string& typeID, double impatience) {
+    Dom::setDouble(libsumo::VAR_IMPATIENCE, typeID, impatience);
+}
+
+void
+VehicleType::setBoardingDuration(const std::string& typeID, double boardingDuration) {
+    Dom::setDouble(libsumo::VAR_BOARDING_DURATION, typeID, boardingDuration);
+}
+
 void
 VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset) {
     //if (actionStepLength < 0) {

@@ -989,7 +989,7 @@ public:
      * @return The connections from the given lane
      * @see NBEdge::Connection
      */
-    std::vector<Connection> getConnectionsFromLane(int lane, NBEdge* to = nullptr, int toLane = -1) const;
+    std::vector<Connection> getConnectionsFromLane(int lane, const NBEdge* to = nullptr, int toLane = -1) const;
 
     /** @brief Returns the specified connection (unmodifiable)
      * This method goes through "myConnections" and returns the specified one

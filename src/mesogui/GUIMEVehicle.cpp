@@ -119,24 +119,20 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
 
 
 GUIParameterTableWindow*
-GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
-                                     GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    // add items
-    ret->mkItem("Type Information:", false, "");
-    ret->mkItem("type [id]", false, myType->getID());
-    ret->mkItem("length", false, myType->getLength());
-    ret->mkItem("minGap", false, myType->getMinGap());
+GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, "vType:" + myType->getID());
+    ret->mkItem("length [m]", false, myType->getLength());
+    ret->mkItem("width [m]", false, myType->getWidth());
+    ret->mkItem("height [m]", false, myType->getHeight());
+    ret->mkItem("minGap [m]", false, myType->getMinGap());
     ret->mkItem("vehicle class", false, SumoVehicleClassStrings.getString(myType->getVehicleClass()));
     ret->mkItem("emission class", false, PollutantsInterface::getName(myType->getEmissionClass()));
+    ret->mkItem("mass [kg]", false, myType->getMass());
+    ret->mkItem("guiShape", false, getVehicleShapeName(myType->getGuiShape()));
     ret->mkItem("maximum speed [m/s]", false, getMaxSpeed());
-    //ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
-    //ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
-    //ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
-    //ret->mkItem("desired headway (tau)", false, getCarFollowModel().getHeadwayTime());
+    ret->mkItem("speedFactor", false, myType->getParameter().speedFactor.toStr(gPrecision));
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
     ret->mkItem("container capacity", false, myType->getContainerCapacity());
-    // close building
     ret->closeBuilding(&(myType->getParameter()));
     return ret;
 }

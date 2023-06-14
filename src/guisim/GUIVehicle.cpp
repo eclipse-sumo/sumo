@@ -205,20 +205,17 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
 
 
 GUIParameterTableWindow*
-GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
-                                   GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    // add items
-    ret->mkItem("Type Information:", false, "");
-    ret->mkItem("type [id]", false, myType->getID());
-    ret->mkItem("length", false, myType->getLength());
-    ret->mkItem("width", false, myType->getWidth());
-    ret->mkItem("height", false, myType->getHeight());
-    ret->mkItem("minGap", false, myType->getMinGap());
+GUIVehicle::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, "vType:" + myType->getID());
+    ret->mkItem("length [m]", false, myType->getLength());
+    ret->mkItem("width [m]", false, myType->getWidth());
+    ret->mkItem("height [m]", false, myType->getHeight());
+    ret->mkItem("minGap [m]", false, myType->getMinGap());
     ret->mkItem("vehicle class", false, SumoVehicleClassStrings.getString(myType->getVehicleClass()));
     ret->mkItem("emission class", false, PollutantsInterface::getName(myType->getEmissionClass()));
+    ret->mkItem("mass [kg]", false, myType->getMass());
     ret->mkItem("carFollowModel", false, SUMOXMLDefinitions::CarFollowModels.getString((SumoXMLTag)getCarFollowModel().getModelID()));
-    ret->mkItem("LaneChangeModel", false, SUMOXMLDefinitions::LaneChangeModels.getString(getLaneChangeModel().getModelID()));
+    ret->mkItem("laneChangeModel", false, SUMOXMLDefinitions::LaneChangeModels.getString(getLaneChangeModel().getModelID()));
     ret->mkItem("guiShape", false, getVehicleShapeName(myType->getGuiShape()));
     ret->mkItem("maximum speed [m/s]", false, getVehicleType().getMaxSpeed());
     ret->mkItem("desired maximum speed [m/s]", false, getVehicleType().getDesiredMaxSpeed());
@@ -227,21 +224,21 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("emergency deceleration [m/s^2]", false, getCarFollowModel().getEmergencyDecel());
     ret->mkItem("apparent deceleration [m/s^2]", false, getCarFollowModel().getApparentDecel());
     ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
-    ret->mkItem("desired headway (tau)", false, getCarFollowModel().getHeadwayTime());
+    ret->mkItem("desired headway (tau) [s]", false, getCarFollowModel().getHeadwayTime());
     ret->mkItem("speedFactor", false, myType->getParameter().speedFactor.toStr(gPrecision));
     if (myType->getParameter().wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
         ret->mkItem("action step length [s]", false, myType->getActionStepLengthSecs());
     }
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
-    ret->mkItem("boarding time", false, STEPS2TIME(myType->getLoadingDuration(true)));
+    ret->mkItem("boarding time [s]", false, STEPS2TIME(myType->getLoadingDuration(true)));
     ret->mkItem("container capacity", false, myType->getContainerCapacity());
-    ret->mkItem("loading time", false, STEPS2TIME(myType->getLoadingDuration(false)));
+    ret->mkItem("loading time [s]", false, STEPS2TIME(myType->getLoadingDuration(false)));
     if (MSGlobals::gLateralResolution > 0) {
-        ret->mkItem("minGapLat", false, myType->getMinGapLat());
-        ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
+        ret->mkItem("minGapLat [m]", false, myType->getMinGapLat());
+        ret->mkItem("maxSpeedLat [m/s]", false, myType->getMaxSpeedLat());
         ret->mkItem("latAlignment", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getDynamicAlignment));
     } else if (MSGlobals::gLaneChangeDuration > 0) {
-        ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
+        ret->mkItem("maxSpeedLat [m/s]", false, myType->getMaxSpeedLat());
     }
     for (auto item : myType->getParameter().lcParameter) {
         ret->mkItem(toString(item.first).c_str(), false, toString(item.second));
@@ -252,8 +249,6 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     if (MSGlobals::gModelParkingManoeuver) {
         ret->mkItem("manoeuver Angle vs Times", false, myType->getParameter().getManoeuverAngleTimesS());
     }
-
-    // close building
     ret->closeBuilding(&(myType->getParameter()));
     return ret;
 }
@@ -928,7 +923,7 @@ GUIVehicle::selectBlockingFoes() const {
             // the vehicle to enter the junction first has priority
             const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(it->vehAndGap.first);
             if (leader != nullptr) {
-                if (isLeader(dpi.myLink, leader, it->vehAndGap.second)) {
+                if (isLeader(dpi.myLink, leader, it->vehAndGap.second) || it->inTheWay()) {
                     gSelected.select(leader->getGlID());
 #ifdef DEBUG_FOES
                     std::cout << "      linkLeader=" << leader->getID() << "\n";

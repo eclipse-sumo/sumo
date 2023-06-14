@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-04 09:58:35 by Eclipse SUMO GUI Version v1_17_0+0652-1215d8ae5cd
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="D:\Wang\sumo_git\tests\sumo\devices\stationfinder\searching\input.net.xml"/>
+        <route-files value="D:\Wang\sumo_git\tests\sumo\devices\stationfinder\searching\input_routes.rou.xml"/>
+        <additional-files value="D:\Wang\sumo_git\tests\sumo\devices\stationfinder\searching\input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <battery-output value="D:\Wang\sumo_git\tests\sumo\devices\stationfinder\searching\battery.xml"/>
+        <battery-output.precision value="4"/>
+        <chargingstations-output value="D:\Wang\sumo_git\tests\sumo\devices\stationfinder\searching\chargingstations.xml"/>
+        <tripinfo-output value="D:\Wang\sumo_git\tests\sumo\devices\stationfinder\searching\tripinfos.xml"/>
+        <vehroute-output value="D:\Wang\sumo_git\tests\sumo\devices\stationfinder\searching\vehroutes.xml"/>
+    </output>
+
+    <battery>
+        <device.stationfinder.probability value="1"/>
+    </battery>
+
+</configuration>
+-->
+
+<chargingstations-export>
+    <chargingStation id="CS1" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <chargingStation id="CS2" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <chargingStation id="CS3" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <chargingStation id="CS4" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <chargingStation id="CS5" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <chargingStation id="PCS1" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <chargingStation id="PCS2" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <chargingStation id="PCS3" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <chargingStation id="PCS4" totalEnergyCharged="0.00" chargingSteps="0"/>
+</chargingstations-export>

@@ -32,6 +32,7 @@
 // ===========================================================================
 class SUMOVehicle;
 class MSDevice_Emissions;
+class MSDevice_StationFinder;
 
 
 // ===========================================================================
@@ -58,7 +59,7 @@ public:
     * @param[in] v The vehicle for which a device may be built
     * @param[filled] into The vector to store the built device in
     */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into, MSDevice_StationFinder* sf);
 
 public:
     /// @brief Destructor.

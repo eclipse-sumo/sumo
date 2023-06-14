@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge->busStop", False)
+netedit.changePersonPlan("walk: busStop", False)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.person.create.departPos, "dummy")

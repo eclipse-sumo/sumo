@@ -91,6 +91,8 @@ enum class DemandEditMode {
     DEMAND_VEHICLE,
     ///@brief Mode for editing types
     DEMAND_TYPE,
+    ///@brief Mode for editing type distributions
+    DEMAND_TYPEDISTRIBUTION,
     ///@brief Mode for editing stops
     DEMAND_STOP,
     ///@brief Mode for editing person
@@ -1274,31 +1276,34 @@ struct GNEViewNetHelper {
         void updateDemandCheckableButtons();
 
         /// @brief checkable button for edit mode "move demand elements"
-        MFXCheckableButton* moveDemandElementsButton;
+        MFXCheckableButton* moveDemandElementsButton = nullptr;
 
         /// @brief checkable button for edit mode create routes
-        MFXCheckableButton* routeButton;
+        MFXCheckableButton* routeButton = nullptr;
 
         /// @brief checkable button for edit mode create vehicles
-        MFXCheckableButton* vehicleButton;
+        MFXCheckableButton* vehicleButton = nullptr;
 
         /// @brief checkable button for edit mode create type
-        MFXCheckableButton* typeButton;
+        MFXCheckableButton* typeButton = nullptr;
+
+        /// @brief checkable button for edit mode create type distribution
+        MFXCheckableButton* typeDistributionButton = nullptr;
 
         /// @brief checkable button for edit mode create stops
-        MFXCheckableButton* stopButton;
+        MFXCheckableButton* stopButton = nullptr;
 
         /// @brief checkable button for edit mode create persons
-        MFXCheckableButton* personButton;
+        MFXCheckableButton* personButton = nullptr;
 
         /// @brief checkable button for edit mode create person plans
-        MFXCheckableButton* personPlanButton;
+        MFXCheckableButton* personPlanButton = nullptr;
 
         /// @brief checkable button for edit mode create containers
-        MFXCheckableButton* containerButton;
+        MFXCheckableButton* containerButton = nullptr;
 
         /// @brief checkable button for edit mode create container plans
-        MFXCheckableButton* containerPlanButton;
+        MFXCheckableButton* containerPlanButton = nullptr;
 
     private:
         /// @brief pointer to net

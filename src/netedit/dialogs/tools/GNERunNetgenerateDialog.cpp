@@ -120,6 +120,8 @@ GNERunNetgenerateDialog::run(const OptionsCont* netgenerateOptions) {
     FXDialogBox::show(PLACEMENT_SCREEN);
     // set netgenerate options
     myNetgenerateOptions = netgenerateOptions;
+    // reset error flag
+    myError = false;
     // run tool
     myRunNetgenerate->run(myNetgenerateOptions);
 }
@@ -174,6 +176,7 @@ GNERunNetgenerateDialog::onCmdRerun(FXObject*, FXSelector, void*) {
     myText->appendStyledText("rerun tool\n", 1, TRUE);
     myText->layout();
     myText->update();
+    myError = false;
     // run tool
     myRunNetgenerate->run(myNetgenerateOptions);
     return 1;
@@ -192,8 +195,14 @@ long
 GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // close run dialog and call postprocessing
     onCmdCancel(nullptr, 0, nullptr);
+    myText->setText("", 0);
+    myError = false;
     // call postprocessing dialog
-    return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
+    if (myError) {
+        return 1;
+    } else {
+        return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
+    }
 }
 
 
@@ -208,6 +217,7 @@ GNERunNetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
+    bool toolFinished = false;
     while (!myEvents.empty()) {
         // get the next event
         GUIEvent* e = myEvents.top();
@@ -216,6 +226,7 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         FXint style = -1;
         switch (e->getOwnType()) {
             case GUIEventType::TOOL_ENDED:
+                toolFinished = true;
                 break;
             case GUIEventType::MESSAGE_OCCURRED:
                 style = 1;
@@ -225,6 +236,7 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
                 break;
             case GUIEventType::ERROR_OCCURRED:
                 style = 3;
+                myError = true;
                 break;
             default:
                 break;
@@ -238,6 +250,16 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         delete e;
         updateDialog();
     }
+    
+    if (toolFinished) {
+        // check if close dialog immediately after running
+        if (myText->getText().find("Error") != -1) {
+            myError = true;
+        } else if ((myText->getText().find("Success") != -1) && (myText->getText().find("Warning") == -1)) {
+            onCmdClose(nullptr, 0, nullptr);
+        }
+    }
+
     return 1;
 }
 

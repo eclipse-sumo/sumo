@@ -34,3 +34,9 @@ superfluous_edges
 
 # inconsistent stops and edges when importing PT
 consistent_ptline
+
+# see #13249
+inconsistent_directions
+
+# see #13249
+inconsistent_directions2

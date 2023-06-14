@@ -42,9 +42,9 @@ sr = traci.simulationStep(1.)
 traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE,
                                dist=50,
                                varIDs=(tc.VAR_SPEED, tc.VAR_EMISSIONCLASS))
-sr = traci.simulationStep()
-for vehID, response in sr:
+traci.simulationStep()
+for vehID, response in traci.vehicle.getAllContextSubscriptionResults().items():
     print("t=%s subscriptionResult=%s" % (traci.simulation.getTime(),
-                                          sorted(traci.vehicle.getContextSubscriptionResults(vehID).items())))
+                                          sorted(response.items())))
 
 traci.close()

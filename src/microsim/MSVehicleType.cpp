@@ -278,14 +278,24 @@ MSVehicleType::setWidth(const double& width) {
 
 void
 MSVehicleType::setImpatience(const double impatience) {
-    if (myOriginalType != nullptr && impatience < 0) {
-        myParameter.impatience = myOriginalType->getImpatience();
-    } else {
-        myParameter.impatience = impatience;
-    }
+    myParameter.impatience = impatience;
     myParameter.parametersSet |= VTYPEPARS_IMPATIENCE_SET;
 }
 
+
+void
+MSVehicleType::setBoardingDuration(SUMOTime duration, bool isPerson) {
+    if (myOriginalType != nullptr && duration < 0) {
+        myParameter.boardingDuration = myOriginalType->getBoardingDuration(isPerson);
+    } else {
+        if (isPerson) {
+            myParameter.boardingDuration = duration;
+        } else {
+            myParameter.loadingDuration = duration;
+        }
+    }
+    myParameter.parametersSet |= VTYPEPARS_BOARDING_DURATION;
+}
 
 void
 MSVehicleType::setShape(SUMOVehicleShape shape) {

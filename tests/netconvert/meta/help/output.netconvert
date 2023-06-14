@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_17_0+0123-4dbdc7a
+Eclipse SUMO netconvert Version v1_17_0+0735-ed7251a
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -466,6 +466,8 @@ Junctions Options:
   --junctions.higher-speed             Use maximum value of incoming and
                                         outgoing edge speed on junction instead
                                         of average
+  --junctions.minimal-shape            Build junctions with minimal shapes
+                                        (igoring edge overlap)
   --internal-junctions.vehicle-width FLOAT  Assumed vehicle width for computing
                                         internal junction positions
   --rectangular-lane-cut               Forces rectangular cuts between lanes
@@ -524,6 +526,9 @@ Railway Options:
                                         meet at a straight angle
   --railway.topology.repair.stop-turn  Add turn-around connections at all
                                         loaded stops.
+  --railway.topology.repair.bidi-penalty FLOAT  Penalty factor for adding new
+                                        bidi edges to connect public transport
+                                        stops
   --railway.topology.all-bidi          Make all rails usable in both direction
   --railway.topology.all-bidi.input-file FILE  Make all rails edge ids from
                                         FILE usable in both direction
@@ -531,6 +536,8 @@ Railway Options:
                                         estimated main direction
   --railway.topology.extend-priority   Extend loaded edge priority values based
                                         on estimated main direction
+  --railway.signal.guess.by-stops      Guess signals that guard public
+                                        transport stops
   --railway.access-distance FLOAT      The search radius for finding suitable
                                         road accesses for rail stops
   --railway.max-accesses INT           The maximum road accesses registered per
@@ -638,6 +645,8 @@ Formats Options:
                                         in m (legacy)
   --opendrive.lane-shapes              Use custom lane shapes to compensate
                                         discarded lane types
+  --opendrive.signal-groups            Use the OpenDRIVE controller information
+                                        for the generated signal program
 
 Report Options:
   -v, --verbose                        Switches to verbose output

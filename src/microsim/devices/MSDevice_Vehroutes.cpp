@@ -402,7 +402,11 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
             writeXMLRoute(od);
         }
     } else {
-        const int routesToSkip = myHolder.getParameter().wasSet(VEHPARS_FORCE_REROUTE) && !myIncludeIncomplete ? 1 : 0;
+        std::string dummyMsg;
+        const int routesToSkip = (myHolder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)
+                && !myIncludeIncomplete
+                && myReplacedRoutes.size() > 0
+                && !myHolder.hasValidRoute(dummyMsg, myReplacedRoutes[0].route) ? 1 : 0);
         if ((int)myReplacedRoutes.size() > routesToSkip) {
             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
             for (int i = routesToSkip; i < (int)myReplacedRoutes.size(); ++i) {

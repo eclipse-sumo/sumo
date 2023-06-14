@@ -150,6 +150,7 @@ GNERunNetgenerate::run() {
     myRunning = false;
     // end process
     myEventQueue.push_back(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("process finished\n"))));
+    myEventQueue.push_back(new GUIEvent_Message(GUIEventType::TOOL_ENDED, ""));
     myEventThrow.signal();
     return 1;
 }

@@ -150,7 +150,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myPTStopCont.alignIdSigns();
         PROGRESS_TIME_MESSAGE(before);
     }
-
     // analyze and fix railway topology
     int numAddedBidi = 0;
     if (oc.exists("railway.topology.all-bidi") && oc.getBool("railway.topology.all-bidi")) {
@@ -164,6 +163,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
         numAddedBidi = NBRailwayTopologyAnalyzer::repairTopology(myEdgeCont, myPTStopCont, myPTLineCont);
     }
+    NBRailwaySignalGuesser::guessRailSignals(myEdgeCont, myPTStopCont);
     if (numAddedBidi > 0) {
         // update routes
         myPTLineCont.process(myEdgeCont, myPTStopCont, true);
@@ -575,6 +575,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         progCount = "(" + toString(numbers.second) + " programs) ";
     }
     WRITE_MESSAGEF(TL(" % traffic light(s) %computed."), toString(numbers.first), progCount);
+    if (oc.exists("opendrive-files") && oc.isSet("opendrive-files") && oc.getBool("opendrive.signal-groups")) {
+        myTLLCont.applyOpenDriveControllers(oc); 
+    }
 
     for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
         (*i).second->sortOutgoingConnectionsByIndex();

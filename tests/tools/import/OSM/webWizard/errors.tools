@@ -50,26 +50,22 @@ Warning: PT stop '3869306770' has been moved to edge '-194069450#1'.
 Warning: PT stop '3869306773' has been moved to edge '-66071366#1'.
 Warning: PT stop '3869306766' has been moved to edge '-35557143#1'.
 Warning: Cannot assign stop 3867910429 on edge '478396988' to pt line '2211985'. Ignoring!
-Warning: First stop edge '148458500#1' is not part of the route of line '1981933'.
-Warning: Edge sequence is not consistent with stop sequence in line '1981933', not adding bidi edges.
 Warning: Last stop edge '207364192#0' is not part of the route of line '2014286'.
 Warning: Edge sequence is not consistent with stop sequence in line '2014286', not adding bidi edges.
-Warning: Edge sequence is not consistent with stop sequence in line '2014287', not adding bidi edges.
-Warning: Edge sequence is not consistent with stop sequence in line '2076228', not adding bidi edges.
-Warning: Edge sequence is not consistent with stop sequence in line '2076230', not adding bidi edges.
 Warning: Last stop edge '207364191#0' is not part of the route of line '2076231'.
+Warning: Edge sequence is not consistent with stop sequence in line '2076231', not adding bidi edges.
 Warning: Last stop edge '207364191#0' is not part of the route of line '2076232'.
+Warning: Edge sequence is not consistent with stop sequence in line '2076232', not adding bidi edges.
 Warning: Last stop edge '387892378' is not part of the route of line '2194813'.
+Warning: Edge sequence is not consistent with stop sequence in line '2194813', not adding bidi edges.
 Warning: First stop edge '-478396988' is not part of the route of line '2211985'.
-Warning: First stop edge '148458500#1' is not part of the route of line '28270'.
-Warning: First stop edge '25946670' is not part of the route of line '300432'.
-Warning: Last stop edge '25946670' is not part of the route of line '300432'.
-Warning: First stop edge '25946670' is not part of the route of line '6593455'.
+Warning: Edge sequence is not consistent with stop sequence in line '2211985', not adding bidi edges.
 Warning: Converting invalid rail_crossing to priority junction '2831092401'.
 Warning: Converting invalid rail_crossing to priority junction '2831092402'.
 Warning: Converting invalid rail_crossing to priority junction '2831092403'.
 Warning: Converting invalid rail_crossing to priority junction '2924018416'.
 Warning: Converting invalid rail_crossing to priority junction '2924018417'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673903'.
 Warning: Converting invalid rail_crossing to traffic_light at junction '3918673904'.
 Warning: Converting invalid rail_crossing to traffic_light at junction '3918673907'.
 Warning: Converting invalid rail_crossing to traffic_light at junction '3918673910'.
@@ -83,9 +79,9 @@ Warning: Not joining junctions 29192958,3378459483,4121410267,4590472025,4590472
 Warning: Reducing junction cluster 3513423870,3513423873,3513423879,3513423880,3513423881,3513423882 (parallel outgoing -310176513#6,54698846#0).
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
+Warning: Ambiguity in turnarounds computation at junction '1575952504'.
+Warning: Ambiguity in turnarounds computation at junction '1661927181'.
 Warning: Ambiguity in turnarounds computation at junction '196721246'.
-Warning: Ambiguity in turnarounds computation at junction '5527777343'.
-Warning: Ambiguity in turnarounds computation at junction '740379739'.
 Warning: Found sharp turn with radius 7.95 at the end of edge '-137085429'.
 Warning: Found sharp turn with radius 7.81 at the end of edge '-150634670#0'.
 Warning: Found sharp turn with radius 7.23 at the start of edge '-150634670#1'.
@@ -103,20 +99,27 @@ Warning: The rail crossing '4567083494' does not have any roads.
 Warning: The rail crossing '4603453625' does not have any roads.
 Warning: The traffic light '4363312288' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '4363312288'
+Warning: Connection '-6228154#0_0->30719903#0_0' is only 0.00m short.
+Warning: Intersecting left turns at junction 'cluster_1673527224_1673527227_21487161_303436603_#9more' from lane '388702039#11_0' and lane '-111251382#2_1' (increase junction radius to avoid this).
+Warning: Connection '388702039#11_0->-388702047#4_0' is only 0.08m short.
 Warning: The traffic light 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918' cannot be adapted to a cycle time of 90.00.
-Warning: The traffic light 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918' has a high cycle time of 172.00.
+Warning: The traffic light 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918' has a high cycle time of 206.00.
+Warning: 30 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
-Warning: 16 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 15 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
-Warning: 10 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
 Warning: 9 total messages of type: Found sharp turn with radius % at the start of edge '%'.
-Warning: 6 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 13 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
 Warning: 26 total messages of type: The rail crossing '%' does not have any roads.
+Warning: Unequal lengths of bidi lane ':1085513888_0_0' and lane ':1085513888_1_0' (1.75 != 0.80).
+Warning: Unequal lengths of bidi lane ':1633112625_2_0' and lane ':1633112625_1_0' (17.11 != 16.87).
+Warning: Unequal lengths of bidi lane ':1633759847_1_0' and lane ':1633759847_2_0' (18.18 != 18.04).
+Warning: Unequal lengths of bidi lane ':30731492_0_0' and lane ':30731492_3_0' (17.32 != 17.16).
+Warning: Unequal lengths of bidi lane ':311264846_3_0' and lane ':311264846_0_0' (13.48 != 9.46).
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 15 has no controlling detector.
@@ -124,7 +127,31 @@ Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_#
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_#6more', actuated phase 6 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 8 has no controlling detector.
+Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21_tram_12:1'.
+Warning: busStop '247603398' on lane '144014230#4_0' is too short for vehicle '26_tram_M1:0'.
 Warning: 21 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
+Warning: 21 total messages of type: Unequal lengths of bidi lane '%' and lane '%' (% != %).
+Warning: Unequal lengths of bidi lane ':1085513888_0_0' and lane ':1085513888_1_0' (1.75 != 0.80).
+Warning: Unequal lengths of bidi lane ':1633112625_2_0' and lane ':1633112625_1_0' (17.11 != 16.87).
+Warning: Unequal lengths of bidi lane ':1633759847_1_0' and lane ':1633759847_2_0' (18.18 != 18.04).
+Warning: Unequal lengths of bidi lane ':30731492_0_0' and lane ':30731492_3_0' (17.32 != 17.16).
+Warning: Unequal lengths of bidi lane ':311264846_3_0' and lane ':311264846_0_0' (13.48 != 9.46).
+Warning: Unequal lengths of bidi lane ':4213903960_0_0' and lane ':4213903960_7_0' (9.74 != 5.31).
+Warning: Unequal lengths of bidi lane ':4213903960_1_0' and lane ':4213903960_5_0' (10.53 != 5.49).
+Warning: Unequal lengths of bidi lane ':4213903960_2_0' and lane ':4213903960_6_0' (7.77 != 2.88).
+Warning: Unequal lengths of bidi lane ':4213903960_3_0' and lane ':4213903960_4_0' (8.03 != 3.44).
+Warning: Unequal lengths of bidi lane ':4673135630_1_0' and lane ':4673135630_0_0' (9.72 != 9.65).
+Warning: Unequal lengths of bidi lane ':588181297_3_0' and lane ':588181297_0_0' (13.59 != 8.69).
+Warning: Unequal lengths of bidi lane ':588181300_2_0' and lane ':588181300_1_0' (13.32 != 8.38).
+Warning: Unequal lengths of bidi lane ':98973667_1_0' and lane ':98973667_0_0' (11.42 != 11.26).
+Warning: Unequal lengths of bidi lane ':98973667_2_0' and lane ':98973667_3_0' (11.20 != 11.18).
+Warning: Unequal lengths of bidi lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_9_0' and lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_2_0' (31.29 != 27.23).
+Warning: Unequal lengths of bidi lane ':cluster_25664673_4590472030_4590472039_4590472040_4_0' and lane ':cluster_25664673_4590472030_4590472039_4590472040_9_0' (91.21 != 87.75).
+Warning: Unequal lengths of bidi lane ':cluster_25664673_4590472030_4590472039_4590472040_5_0' and lane ':cluster_25664673_4590472030_4590472039_4590472040_3_0' (30.15 != 30.14).
+Warning: Unequal lengths of bidi lane ':cluster_30731510_588181257_588181258_588181259_1_0' and lane ':cluster_30731510_588181257_588181258_588181259_6_0' (33.23 != 28.98).
+Warning: Unequal lengths of bidi lane ':cluster_30731510_588181257_588181258_588181259_2_0' and lane ':cluster_30731510_588181257_588181258_588181259_5_0' (32.78 != 28.66).
+Warning: Unequal lengths of bidi lane '-153522299#2_0' and lane '153522299#2_0' (0.32 != 0.20).
+Warning: Unequal lengths of bidi lane '93584121#1_0' and lane '-93584121#1_0' (2.76 != 0.20).
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 15 has no controlling detector.
@@ -148,15 +175,15 @@ Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_383
 Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_3831343134_cluster_4566145593_4566145594_5747234975_768074054', linkIndex 13 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 16 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 24 has no controlling detector.
-Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=479.00 stage=move.
+Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
+Warning: busStop '247603398' on lane '144014230#4_0' is too short for vehicle 'pt_tram_M1:0.0'.
+Warning: Person 'ped37' is jammed on edge ':cluster_3378459486_4590472024_4590472035_w2', time=216.00.
+Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=476.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
-Warning: Person 'ped28' aborted waiting for M1:3 at busStop '1668685086'.
-Warning: Person 'ped94' aborted waiting for M5:3 at busStop '30731508'.
-Warning: Person 'ped83' aborted waiting for M4:3 at busStop '30731497'.
-Warning: Person 'ped67' aborted waiting for M4:3 at busStop '30731508'.
-Warning: Person 'ped125' aborted waiting for S26:0 at busStop '1769645503'.
-Warning: Person 'ped65' aborted waiting for M5:1 at busStop '30731481'.
-Warning: Person 'ped23' aborted waiting for 200:0 at busStop '3867910420'.
-Warning: Person 'ped142' aborted waiting for U6:0 at busStop '3043709616'.
-Warning: Person 'ped68' aborted waiting for S7:0 at busStop '2603331695'.
-Warning: Person 'ped89' aborted waiting for S7:0 at busStop '2603331695'.
+Warning: Person 'ped3' is jammed on edge ':990017251_w0', time=579.00.
+Warning: Person 'ped61' aborted waiting for M6:1 at busStop '30731508'.
+Warning: Person 'ped78' aborted waiting for M6:1 at busStop '30731508'.
+Warning: Person 'ped2' aborted waiting for M6:1 at busStop '30731508'.
+Warning: Person 'ped132' aborted waiting for M4:1 at busStop '1633759766'.
+Warning: Person 'ped81' aborted waiting for S5:0 at busStop '2603331695'.
+Warning: Person 'ped172' aborted waiting for N2:1 at busStop '-3867910429'.

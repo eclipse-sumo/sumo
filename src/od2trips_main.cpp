@@ -182,7 +182,7 @@ fillOptions() {
     oc.addDescription("arrivalspeed", "Defaults", TL("Assigns a default arrival speed"));
 
     // add rand options
-    RandHelper::insertRandOptions();
+    RandHelper::insertRandOptions(oc);
 }
 
 bool
@@ -232,7 +232,7 @@ checkOptions() {
         WRITE_ERROR(error);
         ok = false;
     }
-    ok &= SystemFrame::checkOptions();
+    ok &= SystemFrame::checkOptions(oc);
     return ok;
 }
 

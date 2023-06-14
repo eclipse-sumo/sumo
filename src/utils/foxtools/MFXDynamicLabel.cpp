@@ -47,10 +47,10 @@ MFXDynamicLabel::MFXDynamicLabel(FXComposite* p,const FXString& text,FXIcon* ic,
 
 long
 MFXDynamicLabel::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
-    int width = getWidth();
-    if (myPreviousWidth - width != 0 && width > 1) {
-        reformatLineBreaks(width);
-        myPreviousWidth = width;
+    const int curWidth = getWidth();
+    if (myPreviousWidth - curWidth != 0 && curWidth > 1) {
+        reformatLineBreaks(curWidth);
+        myPreviousWidth = curWidth;
     }
     return FXLabel::onUpdate(sender, sel, ptr);
 }
@@ -89,7 +89,7 @@ MFXDynamicLabel::getDefaultHeight() {
 void
 MFXDynamicLabel::computeIndentation() {
     if (myOriginalString.find(myIndentString) == 0 || myOriginalString.find("\n" + myIndentString) != std::string::npos) {
-        myIndent = myIndentString.size();
+        myIndent = (int)myIndentString.size();
     } else {
         myIndent = 0;
     }
@@ -97,21 +97,21 @@ MFXDynamicLabel::computeIndentation() {
 
 
 void
-MFXDynamicLabel::reformatLineBreaks(int width) {
-    int preferredWidth = width - getPadLeft() - getPadRight();
-    int currentWidth = getApp()->getNormalFont()->getTextWidth(label);
-    if (currentWidth <= preferredWidth || preferredWidth < 1) {
+MFXDynamicLabel::reformatLineBreaks(const int curWidth) {
+    const int preferredWidth = curWidth - getPadLeft() - getPadRight();
+    const int textWidth = getApp()->getNormalFont()->getTextWidth(label);
+    if (textWidth <= preferredWidth || preferredWidth < 1) {
         return;
     }
     std::string newLine = "\n" + std::string(myIndent, ' ');
-    int newLineOffset = newLine.size();
+    const int newLineOffset = (int)newLine.size();
     std::string msg = myOriginalString;
     int pos = 0;
-    int finalPos = msg.size() - 1;
-    int nextLineBreak, currentLineWidth;
+    int finalPos = (int)msg.size() - 1;
+    std::string::size_type nextLineBreak;
     while (pos < finalPos) {
         nextLineBreak = msg.find('\n', pos);
-        int subPos = (nextLineBreak != std::string::npos) ? nextLineBreak : finalPos;
+        int subPos = (nextLineBreak != std::string::npos) ? (int)nextLineBreak : finalPos;
         if(getApp()->getNormalFont()->getTextWidth(msg.substr(pos, subPos - pos).c_str()) <= preferredWidth) {
             pos = subPos + 1;
             continue;
@@ -120,16 +120,16 @@ MFXDynamicLabel::reformatLineBreaks(int width) {
             pos += myIndent;
         }
         // select position for next line break
-        int endPos = (nextLineBreak != std::string::npos) ? nextLineBreak - 1 : finalPos;
-        int nextSpace = -1;
+        const int endPos = (nextLineBreak != std::string::npos) ? (int)nextLineBreak - 1 : finalPos;
+        std::string::size_type nextSpace = std::string::npos;
         int lastSpacePos = -1;
         int pos2 = pos;
         while (pos2 < endPos) {
             nextSpace = msg.find(' ', pos2);
-            if (nextSpace <= pos + myIndent) {
+            if (nextSpace != std::string::npos && (int)nextSpace <= pos + myIndent) {
                 nextSpace = std::string::npos;
                 pos2 += myIndent + 1;
-            } else if (nextSpace != std::string::npos && nextSpace < endPos) {
+            } else if (nextSpace != std::string::npos && (int)nextSpace < endPos) {
                 std::string testString = msg.substr(pos, nextSpace - pos);
                 if (getApp()->getNormalFont()->getTextWidth(msg.substr(pos, nextSpace - pos).c_str()) > preferredWidth) {
                     if (lastSpacePos > 0) {
@@ -138,19 +138,19 @@ MFXDynamicLabel::reformatLineBreaks(int width) {
                         finalPos += newLineOffset;
                     } else {
                         msg.replace(nextSpace, 1, newLine);
-                        pos2 = nextSpace + newLineOffset;
+                        pos2 = (int)nextSpace + newLineOffset;
                         finalPos += newLineOffset;
                     }
                     break;
                 } else {
-                    pos2 = nextSpace + 1;
+                    pos2 = (int)nextSpace + 1;
                     if (msg.find(' ', pos2) == std::string::npos && lastSpacePos > 0) { // string end condition
                         msg.replace(lastSpacePos, 1, newLine);
                         pos2 += newLineOffset;
                         break;
                     }
                 }
-                lastSpacePos = nextSpace;
+                lastSpacePos = (int)nextSpace;
             } else {
                 pos2 = endPos + 2;
             }

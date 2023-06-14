@@ -1001,8 +1001,12 @@ MSVehicle::~MSVehicle() {
 
 void
 MSVehicle::cleanupFurtherLanes() {
-    for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
-        (*i)->resetPartialOccupation(this);
+    for (MSLane* further : myFurtherLanes) {
+        further->resetPartialOccupation(this);
+        if (further->getBidiLane() != nullptr
+                && (!isRailway(getVClass()) || (further->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
+            further->getBidiLane()->resetPartialOccupation(this);
+        }
     }
     if (myLaneChangeModel != nullptr) {
         removeApproachingInformation(myLFLinkLanes);
@@ -1267,6 +1271,22 @@ MSVehicle::interpolateLateralZ(Position& pos, double offset, double posLat) cons
     }
 }
 
+
+double
+MSVehicle::getDistanceToLeaveJunction() const {
+    double result = getLength() - getPositionOnLane();
+    if (myLane->isNormal()) {
+        return MAX2(0.0, result);
+    }
+    const MSLane* lane = myLane;
+    while (lane->isInternal()) {
+        result += lane->getLength();
+        lane = lane->getCanonicalSuccessorLane();
+    }
+    return result;
+}
+
+
 Position
 MSVehicle::getPositionAlongBestLanes(double offset) const {
     assert(MSGlobals::gUsingInternalLanes);
@@ -1522,67 +1542,6 @@ MSVehicle::getBackPosition() const {
         interpolateLateralZ(result, myState.myPos - myType->getLength(), posLat);
     }
     return result;
-}
-
-
-bool
-MSVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg) {
-    // Check if there is a parking area to be replaced
-    if (parkingArea == 0) {
-        errorMsg = "new parkingArea is NULL";
-        return false;
-    }
-    if (myStops.size() == 0) {
-        errorMsg = "vehicle has no stops";
-        return false;
-    }
-    if (myStops.front().parkingarea == 0) {
-        errorMsg = "first stop is not at parkingArea";
-        return false;
-    }
-    MSStop& first = myStops.front();
-    SUMOVehicleParameter::Stop& stopPar = const_cast<SUMOVehicleParameter::Stop&>(first.pars);
-    // merge subsequent duplicate stops equals to parking area
-    for (std::list<MSStop>::iterator iter = ++myStops.begin(); iter != myStops.end();) {
-        if (iter->parkingarea == parkingArea) {
-            stopPar.duration += iter->duration;
-            myStops.erase(iter++);
-        } else {
-            break;
-        }
-    }
-    stopPar.lane = parkingArea->getLane().getID();
-    stopPar.parkingarea = parkingArea->getID();
-    stopPar.startPos = parkingArea->getBeginLanePosition();
-    stopPar.endPos = parkingArea->getEndLanePosition();
-    first.edge = myRoute->end(); // will be patched in replaceRoute
-    first.lane = &parkingArea->getLane();
-    first.parkingarea = parkingArea;
-    return true;
-}
-
-
-MSParkingArea*
-MSVehicle::getNextParkingArea() {
-    MSParkingArea* nextParkingArea = nullptr;
-    if (!myStops.empty()) {
-        SUMOVehicleParameter::Stop stopPar;
-        MSStop stop = myStops.front();
-        if (!stop.reached && stop.parkingarea != nullptr) {
-            nextParkingArea = stop.parkingarea;
-        }
-    }
-    return nextParkingArea;
-}
-
-
-MSParkingArea*
-MSVehicle::getCurrentParkingArea() {
-    MSParkingArea* currentParkingArea = nullptr;
-    if (isParking()) {
-        currentParkingArea = myStops.begin()->parkingarea;
-    }
-    return currentParkingArea;
 }
 
 
@@ -2785,7 +2744,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         const bool couldBrakeForMinor = !(*link)->havePriority() && brakeDist < seen && !(*link)->lastWasContMajor();
         if (couldBrakeForMinor && !determinedFoePresence) {
             // vehicle decelerates just enough to be able to stop if necessary and then accelerates
-            double maxSpeedAtVisibilityDist = cfModel.maximumSafeStopSpeed(visibilityDistance, cfModel.getMaxDecel(), myState.mySpeed, false, 0.);
+            double maxSpeedAtVisibilityDist = cfModel.maximumSafeStopSpeed(visibilityDistance, cfModel.getMaxDecel(), myState.mySpeed, false, 0., false);
             // XXX: estimateSpeedAfterDistance does not use euler-logic (thus returns a lower value than possible here...)
             double maxArrivalSpeed = cfModel.estimateSpeedAfterDistance(visibilityDistance, maxSpeedAtVisibilityDist, cfModel.getMaxAccel());
             arrivalSpeed = MIN2(vLinkPass, maxArrivalSpeed);
@@ -3008,6 +2967,7 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
             double gap = (lastLink == nullptr
                           ? predBack - myState.myPos - getVehicleType().getMinGap()
                           : predBack + seen - lane->getLength() - getVehicleType().getMinGap());
+            bool oncoming = false;
             if (myLaneChangeModel->isOpposite()) {
                 if (pred->getLaneChangeModel().isOpposite() || lane == pred->getLaneChangeModel().getShadowLane()) {
                     // ego might and leader are driving against lane
@@ -3034,19 +2994,19 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                     gap -= predMaxDist;
                 }
             } else if (pred->getLane() == lane->getBidiLane()) {
-                gap += -pred->getVehicleType().getLength() - pred->getVehicleType().getMinGap();
-                // when computing followSpeed, the distance of the vehicle is
-                // interpreted with the wrong sign. We increase the gap to compensate
-                gap -= pred->getSpeed() + ACCEL2SPEED(pred->getCarFollowModel().getMaxAccel())
-                       * (getSpeed() + ACCEL2SPEED(getCarFollowModel().getMaxAccel())) / getCarFollowModel().getMaxAccel();
-                gap = MAX2(0.0, gap);
+                gap -= pred->getVehicleType().getLengthWithGap();
+                oncoming = true;
             }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
-                std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << gap << " predBack=" << predBack << " seen=" << seen << " lane=" << lane->getID() << " myLane=" << myLane->getID() << " lastLink=" << (lastLink == nullptr ? "NULL" : lastLink->myLink->getDescription()) << "\n";
+                std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << gap << " predBack=" << predBack << " seen=" << seen << " lane=" << lane->getID() << " myLane=" << myLane->getID() << " lastLink=" << (lastLink == nullptr ? "NULL" : lastLink->myLink->getDescription()) << " oncoming=" << oncoming << "\n";
             }
 #endif
-            adaptToLeader(std::make_pair(pred, gap), seen, lastLink, v, vLinkPass);
+            if (oncoming && gap >= 0) {
+                adaptToOncomingLeader(std::make_pair(pred, gap), lastLink, v, vLinkPass);
+            } else {
+                adaptToLeader(std::make_pair(pred, gap), seen, lastLink, v, vLinkPass);
+            }
         }
     }
 }
@@ -3089,7 +3049,14 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
                          DriveProcessItem* const lastLink,
                          double& v, double& vLinkPass) const {
     if (leaderInfo.first != 0) {
-        assert(leaderInfo.first != 0);
+        if (ignoreFoe(leaderInfo.first)) {
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) {
+                std::cout << "  foe ignored\n";
+            }
+#endif
+            return;
+        }
         const MSCFModel& cfModel = getCarFollowModel();
         double vsafeLeader = 0;
         if (!MSGlobals::gSemiImplicitEulerUpdate) {
@@ -3168,6 +3135,14 @@ MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leade
                                  const MSLane* const lane, double& v, double& vLinkPass,
                                  double distToCrossing) const {
     if (leaderInfo.first != 0) {
+        if (ignoreFoe(leaderInfo.first)) {
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) {
+                std::cout << "  junction foe ignored\n";
+            }
+#endif
+            return;
+        }
         const MSCFModel& cfModel = getCarFollowModel();
         double vsafeLeader = 0;
         if (!MSGlobals::gSemiImplicitEulerUpdate) {
@@ -3251,6 +3226,71 @@ MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leade
                     << " lane=" << lane->getID()
                     << " myLane=" << myLane->getID()
                     << " dTC=" << distToCrossing
+                    << " v=" << v
+                    << " vSafeLeader=" << vsafeLeader
+                    << " vLinkPass=" << vLinkPass
+                    << "\n";
+#endif
+    }
+}
+
+
+void
+MSVehicle::adaptToOncomingLeader(const std::pair<const MSVehicle*, double> leaderInfo,
+                         DriveProcessItem* const lastLink,
+                         double& v, double& vLinkPass) const {
+    if (leaderInfo.first != 0) {
+        if (ignoreFoe(leaderInfo.first)) {
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) {
+                std::cout << "  oncoming foe ignored\n";
+            }
+#endif
+            return;
+        }
+        const MSCFModel& cfModel = getCarFollowModel();
+        const MSVehicle* lead = leaderInfo.first;
+        const MSCFModel& cfModelL = lead->getCarFollowModel();
+        // assume the leader reacts symmetrically (neither stopping instantly nor ignoring ego)
+        const double leaderBrakeGap = cfModelL.brakeGap(lead->getSpeed(), cfModelL.getMaxDecel(), 0);
+        const double egoBrakeGap = cfModel.brakeGap(getSpeed(), cfModel.getMaxDecel(), 0);
+        const double gapSum = leaderBrakeGap + egoBrakeGap;
+        // ensure that both vehicles can leave an intersection if they are currently on it
+        double egoExit = getDistanceToLeaveJunction();
+        const double leaderExit = lead->getDistanceToLeaveJunction();
+        double gap = leaderInfo.second;
+        if (egoExit + leaderExit < gap) {
+            gap -= egoExit + leaderExit;
+        } else {
+            egoExit = 0;
+        }
+        // assume remaining distance is allocated in proportion to braking distance
+        const double gapRatio = gapSum > 0 ? egoBrakeGap / gapSum : 0.5;
+        const double vsafeLeader = cfModel.stopSpeed(this, getSpeed(), gap * gapRatio + egoExit);
+        if (lastLink != nullptr) {
+            const double futureVSafe = cfModel.stopSpeed(this, lastLink->accelV, leaderInfo.second, MSCFModel::CalcReason::FUTURE);
+            lastLink->adaptLeaveSpeed(futureVSafe);
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) {
+                std::cout << "   vlinkpass=" << lastLink->myVLinkPass << " futureVSafe=" << futureVSafe << "\n";
+            }
+#endif
+        }
+        v = MIN2(v, vsafeLeader);
+        vLinkPass = MIN2(vLinkPass, vsafeLeader);
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) std::cout
+                    << SIMTIME
+                    //std::cout << std::setprecision(10);
+                    << " veh=" << getID()
+                    << " oncomingLead=" << lead->getID()
+                    << " leadSpeed=" << lead->getSpeed()
+                    << " gap=" << leaderInfo.second
+                    << " gap2=" << gap
+                    << " gapRatio=" << gapRatio
+                    << " leadLane=" << lead->getLane()->getID()
+                    << " predPos=" << lead->getPositionOnLane()
+                    << " myLane=" << myLane->getID()
                     << " v=" << v
                     << " vSafeLeader=" << vsafeLeader
                     << " vLinkPass=" << vLinkPass
@@ -3967,6 +4007,9 @@ MSVehicle::updateWaitingTime(double vNext) {
     } else {
         myWaitingTime = 0;
         myWaitingTimeCollector.passTime(DELTA_T, false);
+        if (hasInfluencer()) {
+            getInfluencer().setExtraImpatience(0);
+        }
     }
 }
 
@@ -4647,6 +4690,7 @@ MSVehicle::updateState(double vNext) {
                                //+ " prevAccel=" + toString(previousAcceleration)
                                //+ " reserve=" + toString(MAX2(NUMERICAL_EPS, getCarFollowModel().getEmergencyDecel() - getCarFollowModel().getMaxDecel()))
                                getID(), myLane->getID(), -myAcceleration, getCarFollowModel().getMaxDecel(), emergencyFraction, time2string(SIMSTEP));
+                MSNet::getInstance()->getVehicleControl().registerEmergencyBraking();
             }
         }
     }
@@ -4709,8 +4753,12 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
                                   << " passed=" << toString(passedLanes)
                                   << "\n";
 #endif
-    for (std::vector<MSLane*>::iterator i = furtherLanes.begin(); i != furtherLanes.end(); ++i) {
-        (*i)->resetPartialOccupation(this);
+    for (MSLane* further : furtherLanes) {
+        further->resetPartialOccupation(this);
+        if (further->getBidiLane() != nullptr
+                && (!isRailway(getVClass()) || (further->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
+            further->getBidiLane()->resetPartialOccupation(this);
+        }
     }
 
     std::vector<MSLane*> newFurther;
@@ -4723,9 +4771,14 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
         std::vector<double>::const_iterator fpi = furtherLanesPosLat.begin();
         for (auto pi = passedLanes.rbegin() + 1; pi != passedLanes.rend() && backPosOnPreviousLane < 0; ++pi) {
             // As long as vehicle back reaches into passed lane, add it to the further lanes
-            newFurther.push_back(*pi);
-            backPosOnPreviousLane += (*pi)->setPartialOccupation(this);
-            if (fi != furtherLanes.end() && *pi == *fi) {
+            MSLane* further = *pi;
+            newFurther.push_back(further);
+            backPosOnPreviousLane += further->setPartialOccupation(this);
+            if (further->getBidiLane() != nullptr
+                    && (!isRailway(getVClass()) || (further->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
+                further->getBidiLane()->setPartialOccupation(this);
+            }
+            if (fi != furtherLanes.end() && further == *fi) {
                 // Lateral position on this lane is already known. Assume constant and use old value.
                 newFurtherPosLat.push_back(*fpi);
                 ++fi;
@@ -4748,7 +4801,7 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
 #ifdef DEBUG_SETFURTHER
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " updateFurtherLanes \n"
-                          << "    further lane '" << (*pi)->getID() << "' backPosOnPreviousLane=" << backPosOnPreviousLane
+                          << "    further lane '" << further->getID() << "' backPosOnPreviousLane=" << backPosOnPreviousLane
                           << std::endl;
             }
 #endif
@@ -4827,13 +4880,6 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
             return myState.myBackPos / myFurtherLanes.back()->getLength() * lane->getLength();
         }
     } else {
-        if (lane->getBidiLane() != nullptr) {
-            if (myLane == lane->getBidiLane()) {
-                return lane->getLength() - (myState.myPos - myType->getLength());
-            } else if (myFurtherLanes.size() > 0 && lane->getBidiLane() == myFurtherLanes.back()) {
-                return lane->getLength() - myState.myBackPos;
-            }
-        }
         //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myFurtherLanes=" << toString(myFurtherLanes) << "\n";
         double leftLength = myType->getLength() - myState.myPos;
 
@@ -4843,6 +4889,8 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
             //if (DEBUG_COND) std::cout << " comparing i=" << (*i)->getID() << " lane=" << lane->getID() << "\n";
             if (*i == lane) {
                 return -leftLength;
+            } else if (*i == lane->getBidiLane()) {
+                return lane->getLength() + leftLength - (calledByGetPosition ? 2 * myType->getLength() : 0);
             }
             ++i;
         }
@@ -5245,8 +5293,9 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
             const double range2 = (myLane->getWidth() - getVehicleType().getWidth()) * 0.5 + overlap;
             myState.myPosLat *= range2 / range;
         }
-        if (!isRailway(getVClass()) && myLane->getBidiLane() != nullptr) {
+        if (myLane->getBidiLane() != nullptr && (!isRailway(getVClass()) || (myLane->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
             // railways don't need to "see" each other when moving in opposite directions on the same track (efficiency)
+            // (unless the lane is shared with cars)
             myLane->getBidiLane()->setPartialOccupation(this);
         }
     } else {
@@ -5284,8 +5333,9 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         std::cout << SIMTIME << " enterLaneAtLaneChange entered=" << Named::getIDSecure(enteredLane) << " oldFurther=" << toString(myFurtherLanes) << "\n";
     }
 #endif
-    if (!isRailway(getVClass()) && myLane->getBidiLane() != nullptr) {
+    if (myLane->getBidiLane() != nullptr && (!isRailway(getVClass()) || (myLane->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
         // railways don't need to "see" each other when moving in opposite directions on the same track (efficiency)
+        // (unless the lane is shared with cars)
         myLane->getBidiLane()->setPartialOccupation(this);
     }
     for (int i = 0; i < (int)myFurtherLanes.size(); i++) {
@@ -5300,11 +5350,19 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         if (leftLength > 0) {
             if (lane != nullptr) {
                 myFurtherLanes[i]->resetPartialOccupation(this);
+                if (myFurtherLanes[i]->getBidiLane() != nullptr
+                        && (!isRailway(getVClass()) || (myFurtherLanes[i]->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
+                    myFurtherLanes[i]->getBidiLane()->resetPartialOccupation(this);
+                }
                 // lane changing onto longer lanes may reduce the number of
                 // remaining further lanes
                 myFurtherLanes[i] = lane;
                 myFurtherLanesPosLat[i] = myState.myPosLat;
-                leftLength -= (lane)->setPartialOccupation(this);
+                leftLength -= lane->setPartialOccupation(this);
+                if (lane->getBidiLane() != nullptr
+                        && (!isRailway(getVClass()) || (lane->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
+                    lane->getBidiLane()->setPartialOccupation(this);
+                }
                 myState.myBackPos = -leftLength;
 #ifdef DEBUG_SETFURTHER
                 if (DEBUG_COND) {
@@ -5327,6 +5385,10 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             }
         } else {
             myFurtherLanes[i]->resetPartialOccupation(this);
+            if (myFurtherLanes[i]->getBidiLane() != nullptr
+                    && (!isRailway(getVClass()) || (myFurtherLanes[i]->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
+                myFurtherLanes[i]->getBidiLane()->resetPartialOccupation(this);
+            }
             deleteFurther++;
         }
     }
@@ -5382,6 +5444,10 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) 
                 myFurtherLanes.push_back(clane);
                 myFurtherLanesPosLat.push_back(myState.myPosLat);
                 clane->setPartialOccupation(this);
+                if (clane->getBidiLane() != nullptr
+                        && (!isRailway(getVClass()) || (clane->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
+                    clane->getBidiLane()->setPartialOccupation(this);
+                }
             }
             leftLength -= clane->getLength();
         }
@@ -5393,13 +5459,17 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) 
 #endif
     } else {
         // clear partial occupation
-        for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
+        for (MSLane* further : myFurtherLanes) {
 #ifdef DEBUG_SETFURTHER
             if (DEBUG_COND) {
-                std::cout << SIMTIME << " opposite: resetPartialOccupation " << (*i)->getID() << " \n";
+                std::cout << SIMTIME << " opposite: resetPartialOccupation " << further->getID() << " \n";
             }
 #endif
-            (*i)->resetPartialOccupation(this);
+            further->resetPartialOccupation(this);
+            if (further->getBidiLane() != nullptr
+                    && (!isRailway(getVClass()) || (further->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
+                further->getBidiLane()->resetPartialOccupation(this);
+            }
         }
         myFurtherLanes.clear();
         myFurtherLanesPosLat.clear();
@@ -5469,19 +5539,24 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
     if ((reason == MSMoveReminder::NOTIFICATION_JUNCTION || reason == MSMoveReminder::NOTIFICATION_TELEPORT) && myLane != nullptr) {
         myOdometer += getLane()->getLength();
     }
-    if (myLane != nullptr && myLane->getBidiLane() != nullptr && myAmOnNet && !isRailway(getVClass())) {
+    if (myLane != nullptr && myLane->getBidiLane() != nullptr && myAmOnNet
+            && (!isRailway(getVClass()) || (myLane->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
         myLane->getBidiLane()->resetPartialOccupation(this);
     }
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         // @note. In case of lane change, myFurtherLanes and partial occupation
         // are handled in enterLaneAtLaneChange()
-        for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
+        for (MSLane* further : myFurtherLanes) {
 #ifdef DEBUG_FURTHER
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " leaveLane \n";
             }
 #endif
-            (*i)->resetPartialOccupation(this);
+            further->resetPartialOccupation(this);
+            if (further->getBidiLane() != nullptr
+                    && (!isRailway(getVClass()) || (further->getPermissions() & ~SVC_RAIL_CLASSES) != 0)) {
+                further->getBidiLane()->resetPartialOccupation(this);
+            }
         }
         myFurtherLanes.clear();
         myFurtherLanesPosLat.clear();
@@ -6490,6 +6565,13 @@ MSVehicle::getCenterOnEdge(const MSLane* lane) const {
                                               << "\n";
 #endif
                 return lane->getRightSideOnEdge() + myFurtherLanesPosLat[i] + 0.5 * lane->getWidth();
+            } else if (myFurtherLanes[i]->getBidiLane() == lane) {
+#ifdef DEBUG_FURTHER
+                if (DEBUG_COND) std::cout << "    getCenterOnEdge veh=" << getID() << " lane=" << lane->getID() << " i=" << i << " furtherLat(bidi)=" << myFurtherLanesPosLat[i]
+                                              << " result=" << lane->getRightSideOnEdge() + myFurtherLanesPosLat[i] + 0.5 * lane->getWidth()
+                                              << "\n";
+#endif
+                return lane->getRightSideOnEdge() - myFurtherLanesPosLat[i] + 0.5 * lane->getWidth();
             }
         }
         //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myShadowFurtherLanes=" << toString(myLaneChangeModel->getShadowFurtherLanes()) << "\n";
@@ -6527,6 +6609,13 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
                 }
 #endif
                 return myFurtherLanesPosLat[i] - myState.myPosLat;
+            } else if (myFurtherLanes[i]->getBidiLane() == lane) {
+#ifdef DEBUG_FURTHER
+                if (DEBUG_COND) {
+                    std::cout << "    getLatOffset veh=" << getID() << " lane=" << lane->getID() << " i=" << i << " posLat=" << myState.myPosLat << " furtherBidiLat=" << myFurtherLanesPosLat[i] << "\n";
+                }
+#endif
+                return -2 * (myFurtherLanesPosLat[i] - myState.myPosLat);
             }
         }
 #ifdef DEBUG_FURTHER
@@ -6787,6 +6876,15 @@ MSVehicle::onFurtherEdge(const MSEdge* edge) const {
     }
     return false;
 }
+
+
+bool
+MSVehicle::isBidiOn(const MSLane* lane) const {
+    return lane->getBidiLane() != nullptr && (
+            myLane == lane->getBidiLane()
+            || onFurtherEdge(&lane->getBidiLane()->getEdge()));
+}
+
 
 bool
 MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& errorMsg) {
@@ -7087,6 +7185,23 @@ MSVehicle::ignoreRed(const MSLink* link, bool canBrake) const {
     }
 }
 
+bool
+MSVehicle::ignoreFoe(const SUMOTrafficObject* foe) const {
+    if (!getParameter().wasSet(VEHPARS_CFMODEL_PARAMS_SET)) {
+        return false;
+    }
+    for (const std::string& typeID : StringTokenizer(getParameter().getParameter(toString(SUMO_ATTR_CF_IGNORE_TYPES), "")).getVector()) {
+        if (typeID == foe->getVehicleType().getID()) {
+            return true;
+        }
+    }
+    for (const std::string& id : StringTokenizer(getParameter().getParameter(toString(SUMO_ATTR_CF_IGNORE_IDS), "")).getVector()) {
+        if (id == foe->getID()) {
+            return true;
+        }
+    }
+    return false;
+}
 
 bool
 MSVehicle::passingMinor() const {

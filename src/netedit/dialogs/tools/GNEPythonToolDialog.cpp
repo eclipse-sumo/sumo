@@ -63,7 +63,7 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     // create main content frame
     auto verticalContentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // create options
-    auto horizontalOptionsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrame);
+    auto horizontalOptionsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrameNoPadding);
     // build options
     myShowToolTipsMenu = new MFXCheckableButton(false, horizontalOptionsFrame,
         GNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
@@ -316,6 +316,12 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
                 myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, argumentFrame, option.first, option.second));
             } else if (option.second->isData()) {
                 myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, argumentFrame, option.first, option.second));
+            } else if (option.second->isSumoConfig()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::SumoConfigArgument(this, argumentFrame, option.first, option.second));
+            } else if (option.second->isEdge()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::EdgeArgument(this, argumentFrame, option.first, option.second));
+            } else if (option.second->isEdgeVector()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::EdgeVectorArgument(this, argumentFrame, option.first, option.second));
             } else {
                 myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, argumentFrame, option.first, option.second));
             }

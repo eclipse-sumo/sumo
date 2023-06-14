@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-10 01:29:19.341684 by gtfs2pt.py v1_17_0+0210-cfdd103a36f
+<!-- generated on 2023-05-22 08:55:37.373233 by gtfs2pt.py v1_17_0+0358-01bfcce5421
 <configuration>
     <gtfs value="https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip"/>
     <date value="20160713"/>
@@ -11,105 +11,105 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route id="257252" edges="171419641 319292807">
-        <stop busStop="257252.0" duration="10" until="0"/>
-        <stop busStop="257252.1" duration="10" until="60"/>
-        <stop busStop="257252.2" duration="10" until="120"/>
-        <stop busStop="257252.3" duration="10" until="180"/>
-        <stop busStop="257252.4" duration="10" until="240"/>
-        <stop busStop="257252.5" duration="10" until="300"/>
-        <stop busStop="257252.6" duration="10" until="360"/>
-        <stop busStop="257252.7" duration="10" until="420"/>
+        <stop busStop="257252.0" duration="10" until="0"/> <!-- Wendenschloß (Berlin) -->
+        <stop busStop="257252.1" duration="10" until="60"/> <!-- Müggelbergallee (Berlin) -->
+        <stop busStop="257252.2" duration="10" until="120"/> <!-- Lienhardweg (Berlin) -->
+        <stop busStop="257252.3" duration="10" until="180"/> <!-- Zur Nachtheide (Berlin) -->
+        <stop busStop="257252.4" duration="10" until="240"/> <!-- Dregerhoffstr. (Berlin) -->
+        <stop busStop="257252.5" duration="10" until="300"/> <!-- Pritstabelstr. (Berlin) -->
+        <stop busStop="257252.6" duration="10" until="360"/> <!-- Segewaldweg (Berlin) -->
+        <stop busStop="257252.7" duration="10" until="420"/> <!-- Mayschweg (Berlin) -->
     </route>
     <route id="257282.trimmed" edges="319292807">
-        <stop busStop="257252.5" duration="10" until="0"/>
-        <stop busStop="257252.6" duration="10" until="60"/>
-        <stop busStop="257252.7" duration="10" until="120"/>
+        <stop busStop="257252.5" duration="10" until="0"/> <!-- Pritstabelstr. (Berlin) -->
+        <stop busStop="257252.6" duration="10" until="60"/> <!-- Segewaldweg (Berlin) -->
+        <stop busStop="257252.7" duration="10" until="120"/> <!-- Mayschweg (Berlin) -->
     </route>
     <route id="257596" edges="107701626 110800148">
-        <stop busStop="257596.4" duration="10" until="0"/>
-        <stop busStop="257596.5" duration="10" until="60"/>
-        <stop busStop="257596.6" duration="10" until="120"/>
-        <stop busStop="257596.7" duration="10" until="180"/>
+        <stop busStop="257596.4" duration="10" until="0"/> <!-- Zur Nachtheide (Berlin) -->
+        <stop busStop="257596.5" duration="10" until="60"/> <!-- Lienhardweg (Berlin) -->
+        <stop busStop="257596.6" duration="10" until="120"/> <!-- Müggelbergallee (Berlin) -->
+        <stop busStop="257596.7" duration="10" until="180"/> <!-- Wendenschloß (Berlin) -->
     </route>
     <route id="259570" edges="180390329#0 180390329#1 180390329#2 180390329#3 180390329#4 180390329#5 180390329#6 180390329#7 180390329#8 180390329#9 180390329#10 180390329#11 180390329#12 180390329#13 180390329#14 180390329#15 180390329#16 180390329#17 180390329#18 180390329#19 180390329#20 180390329#21 180390329#22 180390329#23 180390329#24 180390329#25 180390329#26 180390329#27 180390329#28 170799109#0 170799109#1 170799109#2 170799109#3 158537642#0 158537642#1 158537642#2 158537642#3 158537642#4 169008810#0 169008810#2 169008810#3 169008810#4 169008810#5 169008810#6 169008810#7 169008810#8 169008810#9 169008810#10 169008810#12 169008810#13 169008810#14 169008810#15 169008810#17 158512978#0 158512978#1">
-        <stop busStop="259570.5" duration="10" until="0"/>
-        <stop busStop="259570.6" duration="10" until="60"/>
-        <stop busStop="259570.7" duration="10" until="180"/>
-        <stop busStop="259570.8" duration="10" until="240"/>
-        <stop busStop="259570.9" duration="10" until="300"/>
-        <stop busStop="259570.10" duration="10" until="420"/>
-        <stop busStop="259570.11" duration="10" until="480"/>
-        <stop busStop="259570.12" duration="10" until="540"/>
-        <stop busStop="259570.13" duration="10" until="600"/>
-        <stop busStop="259570.14" duration="10" until="660"/>
-        <stop busStop="259570.15" duration="10" until="780"/>
-        <stop busStop="259570.16" duration="10" until="840"/>
-        <stop busStop="259570.17" duration="10" until="900"/>
+        <stop busStop="259570.5" duration="10" until="0"/> <!-- Wassersportallee (Berlin) -->
+        <stop busStop="259570.6" duration="10" until="60"/> <!-- S Grünau (Berlin) [Adlergestell] -->
+        <stop busStop="259570.7" duration="10" until="180"/> <!-- Regattatribünen (Berlin) -->
+        <stop busStop="259570.8" duration="10" until="240"/> <!-- Regattastr./Sportpromenade (Berlin) -->
+        <stop busStop="259570.9" duration="10" until="300"/> <!-- Strandbad Grünau (Berlin) -->
+        <stop busStop="259570.10" duration="10" until="420"/> <!-- Bammelecke (Berlin) -->
+        <stop busStop="259570.11" duration="10" until="480"/> <!-- Richtershorn (Berlin) -->
+        <stop busStop="259570.12" duration="10" until="540"/> <!-- Schappachstr. (Berlin) -->
+        <stop busStop="259570.13" duration="10" until="600"/> <!-- Lübbenauer Weg (Berlin) -->
+        <stop busStop="259570.14" duration="10" until="660"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
+        <stop busStop="259570.15" duration="10" until="780"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="259570.16" duration="10" until="840"/> <!-- Alt-Schmöckwitz. (Berlin) -->
+        <stop busStop="259570.17" duration="10" until="900"/> <!-- Alt--Schmöckwitz (Berlin) -->
     </route>
     <route id="259632.trimmed" edges="170799109#3 158537642#0 158537642#1 158537642#2 158537642#3 158537642#4 169008810#0 169008810#2 169008810#3 169008810#4 169008810#5 169008810#6 169008810#7 169008810#8 169008810#9 169008810#10 169008810#12 169008810#13 169008810#14 169008810#15 169008810#17 158512978#0 158512978#1">
-        <stop busStop="259570.13" duration="10" until="0"/>
-        <stop busStop="259570.14" duration="10" until="60"/>
-        <stop busStop="259570.15" duration="10" until="180"/>
-        <stop busStop="259570.16" duration="10" until="240"/>
-        <stop busStop="259570.17" duration="10" until="300"/>
+        <stop busStop="259570.13" duration="10" until="0"/> <!-- Lübbenauer Weg (Berlin) -->
+        <stop busStop="259570.14" duration="10" until="60"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
+        <stop busStop="259570.15" duration="10" until="180"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="259570.16" duration="10" until="240"/> <!-- Alt-Schmöckwitz. (Berlin) -->
+        <stop busStop="259570.17" duration="10" until="300"/> <!-- Alt--Schmöckwitz (Berlin) -->
     </route>
     <route id="259780" edges="158512978#1 158512978#2 158512978#3 158512978#4 263108169#0 263108169#1 263108169#2 263108169#3 263108169#4 263108169#6 263108169#7 263108169#8 263108169#9 263108169#10 263108169#11 263108169#12 263108169#13 263108169#14 263108169#16 263108169#17 263108169#18 263108169#19 263108169#20 263108169#21 263108169#22 263108169#23 263108169#24 263108169#25 263108169#26 263108169#27 263108169#28 263108169#29 263108169#30 263108169#31 263108169#32 263108169#33 263108169#34 263108169#35 263108169#36 263108169#37 263108169#38 263108169#39 263108169#40 263108169#41 263108169#42 263108169#43 263108169#44 263108169#45 263108169#46 263108169#47 263108169#48 205681252#0 205681252#1 205681252#2 461452916">
-        <stop busStop="259780.0" duration="10" until="0"/>
-        <stop busStop="259780.1" duration="10" until="60"/>
-        <stop busStop="259780.2" duration="10" until="120"/>
-        <stop busStop="259780.3" duration="10" until="240"/>
-        <stop busStop="259780.4" duration="10" until="300"/>
-        <stop busStop="259780.5" duration="10" until="360"/>
-        <stop busStop="259780.6" duration="10" until="420"/>
-        <stop busStop="259780.7" duration="10" until="480"/>
-        <stop busStop="259780.8" duration="10" until="600"/>
-        <stop busStop="259780.9" duration="10" until="660"/>
-        <stop busStop="259780.10" duration="10" until="720"/>
-        <stop busStop="259780.11" duration="10" until="840"/>
-        <stop busStop="259780.12" duration="10" until="900"/>
-        <stop busStop="259780.13" duration="10" until="960"/>
-        <stop busStop="259780.14" duration="10" until="1020"/>
-        <stop busStop="259780.15" duration="10" until="1080"/>
+        <stop busStop="259780.0" duration="10" until="0"/> <!-- Alt--Schmöckwitz (Berlin) -->
+        <stop busStop="259780.1" duration="10" until="60"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="259780.2" duration="10" until="120"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="259780.3" duration="10" until="240"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
+        <stop busStop="259780.4" duration="10" until="300"/> <!-- Lübbenauer Weg (Berlin) -->
+        <stop busStop="259780.5" duration="10" until="360"/> <!-- Schappachstr. (Berlin) -->
+        <stop busStop="259780.6" duration="10" until="420"/> <!-- Richtershorn (Berlin) -->
+        <stop busStop="259780.7" duration="10" until="480"/> <!-- Bammelecke (Berlin) -->
+        <stop busStop="259780.8" duration="10" until="600"/> <!-- Strandbad Grünau (Berlin) -->
+        <stop busStop="259780.9" duration="10" until="660"/> <!-- Regattastr./Sportpromenade (Berlin) -->
+        <stop busStop="259780.10" duration="10" until="720"/> <!-- Regattatribünen (Berlin) -->
+        <stop busStop="259780.11" duration="10" until="840"/> <!-- S Grünau (Berlin) [Adlergestell] -->
+        <stop busStop="259780.12" duration="10" until="900"/> <!-- Wassersportallee (Berlin) -->
+        <stop busStop="259780.13" duration="10" until="960"/> <!-- Regattastr./Schule (Berlin) -->
+        <stop busStop="259780.14" duration="10" until="1020"/> <!-- Friedrich-Wolf-Str. (Berlin) -->
+        <stop busStop="259780.15" duration="10" until="1080"/> <!-- Betonwerk (Berlin) -->
     </route>
     <route id="259895.trimmed" edges="263108169#34 263108169#35 263108169#36 263108169#37 263108169#38 263108169#39 263108169#40 263108169#41 263108169#42 263108169#43 263108169#44 263108169#45 263108169#46 263108169#47 263108169#48 205681252#0 205681252#1 205681252#2 461452916">
-        <stop busStop="259780.9" duration="10" until="0"/>
-        <stop busStop="259780.10" duration="10" until="60"/>
-        <stop busStop="259780.11" duration="10" until="180"/>
-        <stop busStop="259780.12" duration="10" until="240"/>
-        <stop busStop="259780.13" duration="10" until="300"/>
-        <stop busStop="259780.14" duration="10" until="360"/>
-        <stop busStop="259780.15" duration="10" until="420"/>
+        <stop busStop="259780.9" duration="10" until="0"/> <!-- Regattastr./Sportpromenade (Berlin) -->
+        <stop busStop="259780.10" duration="10" until="60"/> <!-- Regattatribünen (Berlin) -->
+        <stop busStop="259780.11" duration="10" until="180"/> <!-- S Grünau (Berlin) [Adlergestell] -->
+        <stop busStop="259780.12" duration="10" until="240"/> <!-- Wassersportallee (Berlin) -->
+        <stop busStop="259780.13" duration="10" until="300"/> <!-- Regattastr./Schule (Berlin) -->
+        <stop busStop="259780.14" duration="10" until="360"/> <!-- Friedrich-Wolf-Str. (Berlin) -->
+        <stop busStop="259780.15" duration="10" until="420"/> <!-- Betonwerk (Berlin) -->
     </route>
     <route id="68252" edges="180390329#0 180390329#1 180390329#2 180390329#3 180390329#4 180390329#5 180390329#6 180390329#7 180390329#8 180390329#9 180390329#10 180390329#11 180390329#12 180390329#13 180390329#14 180390329#15 180390329#16 180390329#17 180390329#18 180390329#19 180390329#20 180390329#21 180390329#22 180390329#23 180390329#24 180390329#25 180390329#26 180390329#27 180390329#28 170799109#0 170799109#1 170799109#2 170799109#3 158537642#0 158537642#1 158537642#2 158537642#3 158537642#4 169008810#0 169008810#2 169008810#3 169008810#4 169008810#5 169008810#6 169008810#7 169008810#8 169008810#9 169008810#10 169008810#12 169008810#13 169008810#14 169008810#15">
-        <stop busStop="259570.5" duration="10" until="0"/>
-        <stop busStop="259570.6" duration="10" until="120"/>
-        <stop busStop="259570.7" duration="10" until="240"/>
-        <stop busStop="259570.8" duration="10" until="300"/>
-        <stop busStop="259570.9" duration="10" until="360"/>
-        <stop busStop="259570.10" duration="10" until="480"/>
-        <stop busStop="259570.11" duration="10" until="540"/>
-        <stop busStop="259570.12" duration="10" until="600"/>
-        <stop busStop="259570.13" duration="10" until="720"/>
-        <stop busStop="259570.14" duration="10" until="780"/>
-        <stop busStop="259570.15" duration="10" until="900"/>
-        <stop busStop="259570.16" duration="10" until="1020"/>
+        <stop busStop="259570.5" duration="10" until="0"/> <!-- Wassersportallee (Berlin) -->
+        <stop busStop="259570.6" duration="10" until="120"/> <!-- S Grünau (Berlin) [Adlergestell] -->
+        <stop busStop="259570.7" duration="10" until="240"/> <!-- Regattatribünen (Berlin) -->
+        <stop busStop="259570.8" duration="10" until="300"/> <!-- Regattastr./Sportpromenade (Berlin) -->
+        <stop busStop="259570.9" duration="10" until="360"/> <!-- Strandbad Grünau (Berlin) -->
+        <stop busStop="259570.10" duration="10" until="480"/> <!-- Bammelecke (Berlin) -->
+        <stop busStop="259570.11" duration="10" until="540"/> <!-- Richtershorn (Berlin) -->
+        <stop busStop="259570.12" duration="10" until="600"/> <!-- Schappachstr. (Berlin) -->
+        <stop busStop="259570.13" duration="10" until="720"/> <!-- Lübbenauer Weg (Berlin) -->
+        <stop busStop="259570.14" duration="10" until="780"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
+        <stop busStop="259570.15" duration="10" until="900"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="259570.16" duration="10" until="1020"/> <!-- Alt-Schmöckwitz. (Berlin) -->
     </route>
     <route id="68332" edges="263108169#0 263108169#1 263108169#2 263108169#3 263108169#4 263108169#6 263108169#7 263108169#8 263108169#9 263108169#10 263108169#11 263108169#12 263108169#13 263108169#14 263108169#16 263108169#17 263108169#18 263108169#19 263108169#20 263108169#21 263108169#22 263108169#23 263108169#24 263108169#25 263108169#26 263108169#27 263108169#28 263108169#29 263108169#30 263108169#31 263108169#32 263108169#33 263108169#34 263108169#35 263108169#36 263108169#37 263108169#38 263108169#39 263108169#40 263108169#41 263108169#42 263108169#43 263108169#44 263108169#45 263108169#46 263108169#47 263108169#48 205681252#0 205681252#1 205681252#2 461452916">
-        <stop busStop="259780.0" duration="10" until="0"/>
-        <stop busStop="259780.2" duration="10" until="60"/>
-        <stop busStop="259780.3" duration="10" until="240"/>
-        <stop busStop="259780.4" duration="10" until="300"/>
-        <stop busStop="259780.5" duration="10" until="360"/>
-        <stop busStop="259780.6" duration="10" until="420"/>
-        <stop busStop="259780.7" duration="10" until="480"/>
-        <stop busStop="259780.8" duration="10" until="600"/>
-        <stop busStop="259780.9" duration="10" until="660"/>
-        <stop busStop="259780.10" duration="10" until="720"/>
-        <stop busStop="259780.11" duration="10" until="840"/>
-        <stop busStop="259780.12" duration="10" until="960"/>
-        <stop busStop="259780.13" duration="10" until="1080"/>
-        <stop busStop="259780.14" duration="10" until="1140"/>
-        <stop busStop="259780.15" duration="10" until="1200"/>
+        <stop busStop="259780.0" duration="10" until="0"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="259780.2" duration="10" until="60"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="259780.3" duration="10" until="240"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
+        <stop busStop="259780.4" duration="10" until="300"/> <!-- Lübbenauer Weg (Berlin) -->
+        <stop busStop="259780.5" duration="10" until="360"/> <!-- Schappachstr. (Berlin) -->
+        <stop busStop="259780.6" duration="10" until="420"/> <!-- Richtershorn (Berlin) -->
+        <stop busStop="259780.7" duration="10" until="480"/> <!-- Bammelecke (Berlin) -->
+        <stop busStop="259780.8" duration="10" until="600"/> <!-- Strandbad Grünau (Berlin) -->
+        <stop busStop="259780.9" duration="10" until="660"/> <!-- Regattastr./Sportpromenade (Berlin) -->
+        <stop busStop="259780.10" duration="10" until="720"/> <!-- Regattatribünen (Berlin) -->
+        <stop busStop="259780.11" duration="10" until="840"/> <!-- S Grünau (Berlin) [Adlergestell] -->
+        <stop busStop="259780.12" duration="10" until="960"/> <!-- Wassersportallee (Berlin) -->
+        <stop busStop="259780.13" duration="10" until="1080"/> <!-- Regattastr./Schule (Berlin) -->
+        <stop busStop="259780.14" duration="10" until="1140"/> <!-- Friedrich-Wolf-Str. (Berlin) -->
+        <stop busStop="259780.15" duration="10" until="1200"/> <!-- Betonwerk (Berlin) -->
     </route>
     <vehicle id="257260.0" route="257252" type="tram" depart="77750" line="257252">
         <param key="gtfs.route_name" value="62"/>

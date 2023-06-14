@@ -1,0 +1,10 @@
+Warning: The referenced geometry information (ref='1333953583') is not known
+Warning: The referenced geometry information (ref='5085554840') is not known
+Warning: The referenced geometry information (ref='1333953588') is not known
+Warning: The referenced geometry information (ref='9254686327') is not known
+Warning: The referenced geometry information (ref='1333953604') is not known
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurrence for edge '26806067').
+Warning: Ambiguous railway kilometrage direction for way '26806067' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '231223363' (assuming forward)
+Warning: Could not re-assign PT stop '610830379', probably broken osm file.
+Warning: 14 total messages of type: The referenced geometry information (ref='%') is not known

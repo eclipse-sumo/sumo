@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-03 11:18:02 by Eclipse SUMO sumo Version v1_17_0+0343-e1e55835e3a
+<!-- generated on 2023-06-14 20:38:39 by Eclipse SUMO sumo Version v1_17_0+0346-147b0cca96e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -774,6 +774,39 @@
     </communication>
 
     <battery>
+        <!-- The probability for a vehicle to have a &apos;stationfinder&apos; device -->
+        <device.stationfinder.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;stationfinder&apos; device to named vehicles -->
+        <device.stationfinder.explicit value="" synonymes="device.stationfinder.knownveh" type="STR[]"/>
+
+        <!-- The &apos;stationfinder&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.stationfinder.deterministic value="false" type="BOOL"/>
+
+        <!-- Time to wait for a rescue vehicle on the road side when the battery is empty -->
+        <device.stationfinder.rescueTime value="1800" type="TIME"/>
+
+        <!-- Additional battery buffer for unexpected traffic situation when estimating the battery need -->
+        <device.stationfinder.reserveFactor value="1.1" type="FLOAT"/>
+
+        <!-- Battery percentage to go into rescue mode -->
+        <device.stationfinder.emptyThreshold value="5" type="FLOAT"/>
+
+        <!-- Search radius in travel time seconds -->
+        <device.stationfinder.radius value="180" type="TIME"/>
+
+        <!-- When to trigger a new search if no station has been found -->
+        <device.stationfinder.repeat value="60" type="TIME"/>
+
+        <!-- The maximum charging speed of the vehicle battery -->
+        <device.stationfinder.maxChargePower value="1000" type="FLOAT"/>
+
+        <!-- Type of energy transfer -->
+        <device.stationfinder.chargeType value="charging" type="STR"/>
+
+        <!-- After this waiting time vehicle searches for a new station when the initial one is blocked -->
+        <device.stationfinder.waitForCharge value="600" type="TIME"/>
+
         <!-- The probability for a vehicle to have a &apos;battery&apos; device -->
         <device.battery.probability value="-1" type="FLOAT"/>
 
@@ -813,7 +846,7 @@
         <!-- The &apos;ssm&apos; devices are set deterministic using a fraction of 1000 -->
         <device.ssm.deterministic value="false" type="BOOL"/>
 
-        <!-- Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;)) -->
+        <!-- Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;,&apos;MDRAC&apos;)) -->
         <device.ssm.measures value="" type="STR"/>
 
         <!-- Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. -->
@@ -828,6 +861,9 @@
         <!-- Specifies the time in seconds to be logged after a conflict is over. Required &gt;0 if PET is to be calculated for crossing conflicts. -->
         <device.ssm.extratime value="5" type="FLOAT"/>
 
+        <!-- Specifies the perception reaction time for MDRAC computation. -->
+        <device.ssm.mdrac.prt value="1" type="FLOAT"/>
+
         <!-- Give a global default filename for the SSM output -->
         <device.ssm.file value="" type="STR"/>
 
@@ -839,6 +875,9 @@
 
         <!-- Whether to write lanes and their positions for each timestep -->
         <device.ssm.write-lane-positions value="false" type="BOOL"/>
+
+        <!-- Which conflicts will be excluded from the log according to the conflict type they have been classified (combination of values in &apos;ego&apos;, &apos;foe&apos; , &apos;&apos;, any numerical valid conflict type code). An empty value will log all and &apos;ego&apos;/&apos;foe&apos; refer to a certain conflict type subset. -->
+        <device.ssm.exclude-conflict-types value="" type="STR"/>
 
     </ssm_device>
 

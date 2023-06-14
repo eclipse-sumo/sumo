@@ -465,7 +465,7 @@ These values have the following meanings:
 | decel             | float                             | 4.5                                                                 | The deceleration ability of vehicles of this type (in m/s^2)                                                                                                                                                           |
 | apparentDecel     | float                             | `==decel`                                                           | The apparent deceleration of the vehicle as used by the standard model (in m/s^2). The follower uses this value as expected maximal deceleration of the leader.                                                        |
 | emergencyDecel    | float                             | 9.0                                                                 | The maximal physically possible deceleration for the vehicle (in m/s^2).                                                                                                                                               |
-startupDelay        | float >= 0        | 0                | The extra delay time before starting to drive after having had to stop      
+startupDelay        | float >= 0        | 0                | The extra delay time before starting to drive after having had to stop. This is not applied after a scheduled `<stop>` except for `carFollowModel="Rail"`      
 | sigma             | float                             | 0.5                                                                 | [Car-following model](#car-following_models) parameter, see below                                                                                          |
 | tau               | float                             | 1.0                                                                 | [Car-following model](#car-following_models) parameter, see below                                                                                          |
 | length            | float                             | 5.0                                                                 | The vehicle's **netto**-length (length) (in m)                                                                                                                                                                         |
@@ -793,7 +793,7 @@ lists which parameter are used by which model(s). [Details on car-following mode
 | accel                        | [vClass-specific](Vehicle_Type_Parameter_Defaults.md) | >= 0     | The acceleration ability of vehicles of this type (in m/s^2)                                    | all models |
 | decel                        | [vClass-specific](Vehicle_Type_Parameter_Defaults.md) | >= 0     | The deceleration ability of vehicles of this type (in m/s^2)                                    | all models |
 | emergencyDecel               | [vClass-specific](Vehicle_Type_Parameter_Defaults.md) | >= decel | The maximum deceleration ability of vehicles of this type in case of emergency (in m/s^2)       | all models except "Daniel1" |
-| startupDelay                 | 0 | >=0  | The extra delay time before starting to drive after having had to stop      | all models except "Daniel1" |
+| startupDelay                 | 0 | >=0  | The extra delay time before starting to drive after having had to stop. This is not applied after a scheduled `<stop>` except for `carFollowModel="Rail"`      | all models except "Daniel1" |
 | sigma                        | 0.5                                                   | [0,1]    | The driver imperfection (0 denotes perfect driving)                                             | Krauss, SKOrig, PW2009 |
 | sigmaStep                    | step-length                                           | > 0      | The frequence for updating the acceleration associated with driver imperfection. If set to a constant value (i.e *1*), this decouples the driving imperfection from the simulation step-length                                             | Krauss, SKOrig, PW2009 |
 | tau                          | 1                                                     | >= 0     | The driver's desired (minimum) time headway. Exact interpretation varies by model. For the default model *Krauss* this is based on the net space between leader back and follower front). For limitations, see [Car-Following-Models\#tau](Car-Following-Models.md#tau)). | all models                                        |
@@ -871,6 +871,29 @@ model as in [{{SUMO}}/src/microsim/cfmodels/MSCFModel_Krauss.cpp]({{Source}}src/
   defined for the *Euler*-position updated rule and would produce
   collisions when using *Ballistic*. See also
   [Simulation/Basic_Definition\#Defining_the_Integration_Method](Simulation/Basic_Definition.md#defining_the_integration_method).
+
+### Transient carFollowModel Parameters
+
+carFollowModel parameters that are expected to change during the simulation are modelled via [generic parameters](https://sumo.dlr.de/docs/Simulation/GenericParameters.md). The following parameters are supported (via xml input and `traci.vehicle.setParameter`):
+
+- carFollowModel.ignoreIDs : ignore foe vehicles with the given ids
+- carFollowModel.ignoreTypes : ignore foe vehicles that have any of the given types
+
+If multiple ignore parameters are set, they are combined with "or".
+Foes are ignored while they are being followed.
+Example:
+
+```xml
+<vehicle id="ego" depart="0" route="r0">
+   <param key="carFollowModel.ignoreIDs" value="foe1 foe2"/>
+   <param key="carFollowModel.ignoreTypes" value="bikeType"/>
+</vehicle>
+```
+
+!!! note
+    These parameters take no effect in [meso] (Simulation/Meso.md)
+    
+See also [transient junctionModel parameters](#transient_parameters).
 
 ## Lane-Changing Models
 
@@ -1196,6 +1219,18 @@ A typical use case for jumps would be a public transport vehicle that has some o
 !!! caution
     The next stop must be on a different edge that that on which the jump started or the next stop will be skipped.
 
+## User defined Parameters
+
+Stops support [Generic Parameters](Simulation/GenericParameters.md). These may also be retrieved and modified via [TraCI](TraCI/Vehicle_Value_Retrieval.md)
+
+```xml
+<trip id="r0" depart="0"/>
+  <stop edge="E0" duration="10">
+      <param key="userDefined" value="42"/>
+  </stop>
+</trip>
+```
+
 # Colors
 
 A color is defined as *red,green,blue* or *red,green,blue,alpha* either
@@ -1262,7 +1297,7 @@ Devices can be configured globally for all vehicles in the simulation by
 setting the option **--device.<DEVICENAME\>.probability** (e.g. `--device.fcd.probability 0.25`. This will equip
 about a quarter of the vehicles with an fcd device (each vehicle
 determines this randomly with 25% probability).) To make the assignment
-exact the additional option **--device.<DEVICENAME\>.deterministic** can be set Another option is to pass the
+exact the additional option **--device.<DEVICENAME\>.deterministic** can be set. Another option is to pass the
 list of vehicle ids that shall be equipped using the option **--device.<DEVICENAME\>.explicit <ID1,ID2,...IDk\>**.
 
 !!! note

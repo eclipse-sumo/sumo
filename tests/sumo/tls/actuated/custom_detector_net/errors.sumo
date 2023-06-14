@@ -1,0 +1,2 @@
+Error: Unknown inductionLoop 'customLoop2' given as custom detector for actuated tlLogic '0', program '0.
+Quitting (on error).

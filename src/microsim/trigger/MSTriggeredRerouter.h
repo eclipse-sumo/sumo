@@ -169,10 +169,10 @@ public:
     /// Returns the rerouting probability given by the user
     double getUserProbability() const;
 
-    double getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight) const;
+    static double getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight);
 
-    MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
-                                      SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) const;
+    static MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
+                                      SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute);
 
     /// @brief return all rerouter instances
     static const std::map<std::string, MSTriggeredRerouter*>& getInstances() {
@@ -217,13 +217,13 @@ protected:
     typedef std::map<MSParkingArea*, ParkingParamMap_t, ComparatorIdLess> MSParkingAreaMap_t;
 
     /// determine attributes of candiate parking area for scoring
-    bool addParkValues(SUMOVehicle& veh, double brakeGap, bool newDestination,
+    static bool addParkValues(SUMOVehicle& veh, double brakeGap, bool newDestination,
                        MSParkingArea* pa, double paOccupancy, double prob,
                        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
                        MSParkingAreaMap_t& parkAreas,
                        std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
                        std::map<MSParkingArea*, ConstMSEdgeVector>& parkApproaches,
-                       ParkingParamMap_t& maxValues) const;
+                       ParkingParamMap_t& maxValues);
 
 protected:
     /// @brief edges where vehicles are notified

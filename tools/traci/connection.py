@@ -134,7 +134,7 @@ class Connection(StepManager):
         if not result:
             self._socket.close()
             self._socket = None
-            raise FatalTraCIError("connection closed by SUMO")
+            raise FatalTraCIError("Connection closed by SUMO.")
         for command in self._queue:
             prefix = result.read("!BBB")
             err = result.readString()
@@ -169,8 +169,8 @@ class Connection(StepManager):
             elif f == "u":  # raw unsigned byte needed for distance command and subscribe
                 packed += struct.pack("!B", int(v))
             elif f == "s":
-                v = str(v)
-                packed += struct.pack("!Bi", tc.TYPE_STRING, len(v)) + v.encode("latin1")
+                v = str(v).encode("utf8")
+                packed += struct.pack("!Bi", tc.TYPE_STRING, len(v)) + v
             elif f == "p":  # polygon
                 if len(v) <= 255:
                     packed += struct.pack("!BB", tc.TYPE_POLYGON, len(v))
@@ -186,7 +186,8 @@ class Connection(StepManager):
             elif f == "l":  # string list
                 packed += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(v))
                 for s in v:
-                    packed += struct.pack("!i", len(s)) + s.encode("latin1")
+                    s = str(s).encode("utf8")
+                    packed += struct.pack("!i", len(s)) + s
             elif f == "f":  # float list
                 packed += struct.pack("!Bi", tc.TYPE_DOUBLELIST, len(v))
                 for x in v:
@@ -200,7 +201,8 @@ class Connection(StepManager):
             elif f == "G":
                 packed += struct.pack("!Bddd", tc.POSITION_LON_LAT_ALT, *v)
             elif f == "r":
-                packed += struct.pack("!Bi", tc.POSITION_ROADMAP, len(v[0])) + v[0].encode("latin1")
+                s = str(v[0]).encode("utf8")
+                packed += struct.pack("!Bi", tc.POSITION_ROADMAP, len(s)) + s
                 packed += struct.pack("!dB", v[1], v[2])
         return packed
 
@@ -208,6 +210,7 @@ class Connection(StepManager):
         with self._lock:
             self._queue.append(cmdID)
             packed = self._pack(format, *values)
+            objID = str(objID).encode("utf8")
             length = len(packed) + 1 + 1  # length and command
             if varID is not None:
                 if isinstance(varID, tuple):  # begin and end of a subscription
@@ -223,7 +226,7 @@ class Connection(StepManager):
                     self._string += struct.pack("!dd", *varID)
                 else:
                     self._string += struct.pack("!B", varID)
-                self._string += struct.pack("!i", len(objID)) + objID.encode("latin1")
+                self._string += struct.pack("!i", len(objID)) + objID
             self._string += packed
             return self._sendExact()
 
@@ -238,7 +241,7 @@ class Connection(StepManager):
                                    response <= tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE))
         objectID = result.readString()
         if not isVariableSubscription:
-            domain = result.read("!B")[0]
+            result.read("!B")  # domain
         numVars = result.read("!B")[0]
         if isVariableSubscription:
             while numVars > 0:
@@ -253,18 +256,17 @@ class Connection(StepManager):
                 numVars -= 1
         else:
             objectNo = result.read("!i")[0]
+            self._subscriptionMapping[response].addContext(objectID)
             for _ in range(objectNo):
                 oid = result.readString()
                 if numVars == 0:
-                    self._subscriptionMapping[response].addContext(
-                        objectID, self._subscriptionMapping[domain], oid)
+                    self._subscriptionMapping[response].addContext(objectID, oid)
                 for __ in range(numVars):
                     varID, status = result.read("!BB")
                     if status:
                         print("Error!", result.readTypedString())
                     elif response in self._subscriptionMapping:
-                        self._subscriptionMapping[response].addContext(
-                            objectID, self._subscriptionMapping[domain], oid, varID, result)
+                        self._subscriptionMapping[response].addContext(objectID, oid, varID, result)
                     else:
                         raise FatalTraCIError(
                             "Cannot handle subscription response %02x for %s." % (response, objectID))

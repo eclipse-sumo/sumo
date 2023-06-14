@@ -83,8 +83,8 @@ The meanings of the written values are given in the following table.
 | pmx\@lane            | mg/s                 | The complete amount of PMX emitted by the vehicles on this lane during the actual simulation step                       |
 | noise\@vehicle       | dB                   | The noise emitted by the vehicle in the actual simulation step                                                          |
 | noise\@lane          | dB                   | The noise emitted by the vehicles on the specific lane                                                                  |
-| fuel\@vehicle        | ml/s                 | The fuel consumed by the vehicle in the actual simulation step                                                          |
-| fuel\@lane           | ml/s                 | The fuel consumed by the vehicles on the specific lane                                                                  |
+| fuel\@vehicle        | mg/s                 | The fuel consumed by the vehicle in the actual simulation step                                                          |
+| fuel\@lane           | mg/s                 | The fuel consumed by the vehicles on the specific lane                                                                  |
 | electricity\@vehicle | Wh/s                 | The electricity consumed by the vehicle in the actual simulation step                                                   |
 | electricity\@lane    | Wh/s                 | The electricity consumed by the vehicles on the specific lane                                                           |
 | route               | id                   | The name of the route                                                                                                   |

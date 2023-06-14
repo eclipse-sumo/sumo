@@ -15,3 +15,6 @@ jump2
 
 # define an explicit jump despite there being a possible route
 jump_connected
+
+# test trip with intermediate stop and custom stop parameters
+stops_params

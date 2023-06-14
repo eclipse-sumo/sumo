@@ -1171,8 +1171,15 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = toString(SUMO_TAG_TAZ);
     }
     int counter = 0;
-    // special case for calibrators
-    if ((tag == SUMO_TAG_CALIBRATOR) || (tag == GNE_TAG_CALIBRATOR_LANE)) {
+    // check special cases
+    if ((tag == SUMO_TAG_BUS_STOP) || (tag == SUMO_TAG_TRAIN_STOP)) {
+        // BusStops and trainStops share namespace
+        while ((retrieveAdditional(SUMO_TAG_BUS_STOP, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(SUMO_TAG_TRAIN_STOP, prefix + "_" + toString(counter), false) != nullptr)) {
+            counter++;
+        }
+    } else if ((tag == SUMO_TAG_CALIBRATOR) || (tag == GNE_TAG_CALIBRATOR_LANE)) {
+        // Calibrators over edge/lane share namespace
         while ((retrieveAdditional(SUMO_TAG_CALIBRATOR, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(GNE_TAG_CALIBRATOR_LANE, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
@@ -1511,7 +1518,8 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
 }
 
 
-int GNENetHelper::AttributeCarriers::getStopIndex() {
+int
+GNENetHelper::AttributeCarriers::getStopIndex() {
     return myStopIndex++;
 }
 

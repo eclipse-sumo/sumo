@@ -100,6 +100,9 @@ public:
         virtual bool needsRouting() const {
             return false;
         }
+        virtual SUMOVehicleParameter::Stop* getStopParameters() {
+            return nullptr;
+        }
 
         virtual SUMOTime getDuration() const = 0;
         virtual const std::string& getStopDest() const {
@@ -136,6 +139,9 @@ public:
         }
         bool isStop() const {
             return true;
+        }
+        virtual SUMOVehicleParameter::Stop* getStopParameters() {
+            return &stopDesc;
         }
         SUMOTime getDuration() const {
             return stopDesc.duration;

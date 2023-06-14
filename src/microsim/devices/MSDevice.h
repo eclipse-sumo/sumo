@@ -174,10 +174,10 @@ protected:
 
     /// @name Helper methods for parsing parameters
     /// @{
-    static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required);
-    static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required);
-    static bool getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required);
-    static SUMOTime getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, SUMOTime deflt, bool required);
+    static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required=false);
+    static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required=false);
+    static bool getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required=false);
+    static SUMOTime getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, SUMOTime deflt, bool required=false);
     /// @}
 
 private:

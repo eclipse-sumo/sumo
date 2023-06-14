@@ -38,7 +38,7 @@ netedit.containerMode()
 netedit.changeElement("containerFlow")
 
 # change container plan
-netedit.changeContainerPlan("tranship: edge->containerStop", True)
+netedit.changeContainerPlan("tranship: containerStop", True)
 
 # create route using edge and containerStop
 netedit.leftClick(referencePosition, 274, 400)

@@ -822,8 +822,9 @@ class parkingArea:
         width = 11
         length = 12
         angle = 13
-        references = 17
-        referencesLength = 19
+        lefthand = 14
+        references = 18
+        referencesLength = 20
 
     class inspect:
         id = 1
@@ -838,7 +839,8 @@ class parkingArea:
         width = 10
         length = 11
         angle = 12
-        parameters = 15
+        lefthand = 13
+        parameters = 16
 
     class inspectSelection:
         departPos = 1
@@ -849,7 +851,8 @@ class parkingArea:
         width = 6
         length = 7
         angle = 8
-        parameters = 11
+        lefthand = 9
+        parameters = 12
 
 # parkingSpace
 
@@ -2222,6 +2225,58 @@ class stopBusStop:
         line = 15
         onDemand = 16
 
+# stop over train stop
+
+
+class stopTrainStop:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        triggered = 12
+        expected = 14
+        permitted = 14
+        parking = 15
+        actType = 17
+        tripID = 18
+        line = 19
+        onDemand = 20
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        triggered = 5
+        expected = 7
+        permitted = 7
+        parking = 8
+        actType = 10
+        tripID = 11
+        line = 12
+        onDemand = 13
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        triggered = 7
+        expected = 9
+        permitted = 10
+        parking = 11
+        actType = 13
+        tripID = 14
+        line = 15
+        onDemand = 16
+
 # stop over container stop
 
 
@@ -2440,6 +2495,58 @@ class stopLane:
 
 
 class waypointBusStop:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        triggered = 12
+        expected = 14
+        permitted = 14
+        parking = 15
+        actType = 17
+        tripID = 18
+        line = 19
+        speed = 20
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        triggered = 5
+        expected = 7
+        permitted = 7
+        parking = 8
+        actType = 10
+        tripID = 11
+        line = 12
+        speed = 13
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        triggered = 7
+        expected = 9
+        permitted = 10
+        parking = 11
+        actType = 13
+        tripID = 14
+        line = 15
+        speed = 16
+
+# waypoint over train stops
+
+
+class waypointTrainStop:
     class create:
         durationEnable = 8
         duration = 9

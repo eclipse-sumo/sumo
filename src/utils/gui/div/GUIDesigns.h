@@ -186,6 +186,9 @@ class MFXMenuCheckIcon;
 /// @brief checkButton placed in left position
 #define GUIDesignCheckButton                (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief checkButton placed in left position
+#define GUIDesignCheckButtonThick           (CHECKBUTTON_NORMAL | FRAME_THICK | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief checkButton placed in left position with double size
 #define GUIDesignCheckButtonExtraHeight     (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight + 10, 2, 2, 2, 2
 
@@ -316,10 +319,13 @@ class MFXMenuCheckIcon;
 /// @brief Thick frame extended over frame parent
 #define GUIDesignFrameThick                 (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
-/// @brief Horizontal frame extended over frame parent
+/// @brief Horizontal frame extended over frame parent with padding and spacing
 #define GUIDesignHorizontalFrame            (LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
-/// @brief Vertical frame extended over frame parent
+/// @brief Horizontal frame extended over frame parent without padding and spacing
+#define GUIDesignHorizontalFrameNoPadding   (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 4, 4, 4, 4
+
+/// @brief Vertical frame extended over frame parent with padding and spacing
 #define GUIDesignVerticalFrame              (LAYOUT_FILL_Y), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
 /// @brief Horizontal frame used for pack icons
@@ -372,7 +378,7 @@ class MFXMenuCheckIcon;
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignChildWindowContentFrame        (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
-/// @brief design for the main content frame of every frame/dialog
+/// @brief design for the main content frame of every frame/dialog with padding and spacing
 #define GUIDesignContentsFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
 /// @brief design for auxiliar (Without borders) frame extended in all directions
@@ -387,7 +393,7 @@ class MFXMenuCheckIcon;
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
 #define GUIDesignAuxiliarHorizontalFrame        (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
-/// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames  uniform
+/// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames uniform
 #define GUIDesignAuxiliarHorizontalFrameUniform (LAYOUT_FILL_X | PACK_UNIFORM_WIDTH), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
@@ -656,14 +662,14 @@ class MFXMenuCheckIcon;
 
 /// @name design for MFXTreeListDynamic
 /// @{
-/// @brief treeListDinamic used in Inspector frame
-#define GUIDesignTreeListDinamic                (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
+/// @brief tree list with fixed width
+#define GUIDesignTreeListFixedWidth             (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y)
+
+/// @brief tree list with fixed height
+#define GUIDesignTreeListFixedHeight            (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
 
 /// @}
 
-
-/// @brief Tree list used in frames to represent elements children
-#define GUIDesignTreeListFrame                  (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
 
 /// @brief design for FXLists
 #define GUIDesignList                           (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X)
@@ -676,9 +682,6 @@ class MFXMenuCheckIcon;
 
 /// @brief design for FXLists
 #define GUIDesignListExtended                   (LIST_NORMAL | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)
-
-/// @brief design for TabBooks
-#define GUIDesignTabBook                        (TABBOOK_LEFTTABS | PACK_UNIFORM_WIDTH | PACK_UNIFORM_HEIGHT | LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_RIGHT)
 
 // ===========================================================================
 // Implementation
