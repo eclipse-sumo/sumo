@@ -48,10 +48,10 @@ def get_options(cmd_args=None):
         prog='generateParkingAreaRerouters.py', usage='%(prog)s [options]',
         description='Generate parking area rerouters from the parking area definition.')
     parser.add_argument(
-        '-a', '--parking-areas', type=str, category="input", dest='parking_area_definition', required=True,
+        '-a', '--parking-areas', type=parser.additional_file, category="input", dest='parking_area_definition', required=True,
         help='SUMO parkingArea definition.')
     parser.add_argument(
-        '-n', '--sumo-net', type=str, category="input", dest='sumo_net_definition', required=True,
+        '-n', '--sumo-net', type=parser.net_file, category="input", dest='sumo_net_definition', required=True,
         help='SUMO network definition.')
     parser.add_argument(
         '--max-number-alternatives', type=int, category="processing", dest='num_alternatives', default=10,
@@ -86,7 +86,7 @@ def get_options(cmd_args=None):
         '--processes', type=int, category="processing", dest='processes', default=1,
         help='Number of processes spawned to compute the distance between parking areas.')
     parser.add_argument(
-        '-o', '--output', type=str, category="output", dest='output', required=True,
+        '-o', '--output', type=parser.additional_file, category="output", dest='output', required=True,
         help='Name for the output file.')
     parser.add_argument(
         '--tqdm', dest='with_tqdm', category="processing", action='store_true',
