@@ -34,11 +34,11 @@ import sumolib  # noqa
 
 def get_options(args=None):
     op = ArgumentParser()
-    op.add_option("-n", "--net-file", category='input', dest="netfile",
+    op.add_option("-n", "--net-file", category='input', dest="netfile", type=op.net_file,
                   help="define the net filename (mandatory)")
-    op.add_option("-r", "--route-files", category='input', dest="routefiles",
+    op.add_option("-r", "--route-files", category='input', dest="routefiles", type=op.route_file,
                   help="define the route file separated by comma (mandatory)")
-    op.add_option("-o", "--output-file", category='output', dest="outfile",
+    op.add_option("-o", "--output-file", category='output', dest="outfile", type=op.route_file,
                   help="define the output filename")
     op.add_option("-t", "--typesfile", category='input', dest="typesfile",
                   help="Give a typesfile")
