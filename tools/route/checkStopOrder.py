@@ -104,6 +104,8 @@ def main(options):
                     flags += "F"
                 if i == len(stops) - 1:
                     flags += "L"
+                if float(stop.getAttributeSecure("speed", "0")) > 0:
+                    flags += "w"
                 stopTimes[stop.busStop].append([arrival, until, vehicle.id,
                                                 stop.getAttributeSecure("tripId", ""),
                                                 stop.getAttributeSecure("started", ""),
