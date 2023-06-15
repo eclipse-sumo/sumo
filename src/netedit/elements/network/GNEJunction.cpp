@@ -1034,7 +1034,6 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_POSITION:
-        case GNE_ATTR_MOVING_SELECTION:
             return toString(myNBNode->getPosition());
         case SUMO_ATTR_TYPE:
             return toString(myNBNode->getType());
@@ -1103,7 +1102,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_POSITION:
-        case GNE_ATTR_MOVING_SELECTION:
         case GNE_ATTR_MODIFICATION_STATUS:
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_RADIUS:
@@ -1246,7 +1244,6 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::NodeTypes.hasString(value);
         case SUMO_ATTR_POSITION:
-        case GNE_ATTR_MOVING_SELECTION:
             return canParse<Position>(value);
         case SUMO_ATTR_SHAPE:
             // empty shapes are allowed
@@ -1631,16 +1628,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_POSITION: {
             // set new position in NBNode updating edge boundaries
-            moveJunctionGeometry(parse<Position>(value), true, true);
-            // mark this connections and all of the junction's Neighbours as deprecated
-            markConnectionsDeprecated(true);
-            // update centering boundary and grid
-            updateCenteringBoundary(true);
-            break;
-        }
-        case GNE_ATTR_MOVING_SELECTION: {
-            // set new position in NBNode updating edge boundaries
-            moveJunctionGeometry(parse<Position>(value), false, false);
+            moveJunctionGeometry(parse<Position>(value), true);
             // mark this connections and all of the junction's Neighbours as deprecated
             markConnectionsDeprecated(true);
             // update centering boundary and grid
@@ -1735,7 +1723,7 @@ GNEJunction::setMoveShape(const GNEMoveResult& moveResult) {
         // set new shape
         myNBNode->setCustomShape(moveResult.shapeToUpdate);
     } else if (moveResult.shapeToUpdate.size() > 0) {
-        moveJunctionGeometry(moveResult.shapeToUpdate.front(), false, true);
+        moveJunctionGeometry(moveResult.shapeToUpdate.front(), false);
     }
     updateGeometry();
 }
@@ -1763,28 +1751,7 @@ GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
             undoList->end();
         } else if (!myNet->getViewNet()->mergeJunctions(this, secondJunction)) {
             undoList->begin(GUIIcon::JUNCTION, "position of " + getTagStr());
-            // check if update position, or single position
-            if (isAttributeCarrierSelected()) {
-                bool edgeSelected = false;
-                for (const auto &edge : myGNEIncomingEdges) {
-                    if (edge->isAttributeCarrierSelected()) {
-                        edgeSelected = true;
-                    }
-                }
-                for (const auto &edge : myGNEOutgoingEdges) {
-                    if (edge->isAttributeCarrierSelected()) {
-                        edgeSelected = true;
-                    }
-                }
-                // if edges is selected, move selection
-                if (edgeSelected) {
-                    undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_MOVING_SELECTION, toString(moveResult.shapeToUpdate.front())));
-                } else {
-                    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
-                }
-            } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
-            }
+            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
             undoList->end();
         }
     }
@@ -1875,7 +1842,7 @@ GNEJunction::checkMissingConnections() {
 
 
 void
-GNEJunction::moveJunctionGeometry(const Position& pos, const bool updateEdgeBoundaries, const bool moveSelection) {
+GNEJunction::moveJunctionGeometry(const Position& pos, const bool updateEdgeBoundaries) {
     // obtain NBNode position
     const Position orig = myNBNode->getPosition();
     // reinit NBNode
@@ -1883,7 +1850,7 @@ GNEJunction::moveJunctionGeometry(const Position& pos, const bool updateEdgeBoun
     // set new position of adjacent edges depending if we're moving a selection
     for (const auto& NBEdge : getNBNode()->getEdges()) {
         auto edge = myNet->getAttributeCarriers()->retrieveEdge(NBEdge->getID());
-        if (moveSelection) {
+        if (isAttributeCarrierSelected()) {
             if (!edge->isAttributeCarrierSelected()) {
                 edge->updateJunctionPosition(this, orig);
             }
