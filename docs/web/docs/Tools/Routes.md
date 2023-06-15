@@ -500,17 +500,17 @@ The resulting stop table may look as in the below example, where the columns cor
 
 ```
 # busStop: stop_A,stop_B
-arrival	  until	    veh	    tripId	started	  ended	    flags	busStop
-12:20:30	12:24:12	H2303_6	4199	  12:23:22	12:26:23		    stop_B
-12:21:42	12:21:42	H2303_8	11010	  12:25:15	12:25:15	F	    stop_A
-12:50:36	12:53:48	H2303_7	11023	  12:50:26	12:52:57		    stop_B
-13:20:36	13:23:42	H2303_9	11073				                      stop_B
-13:35:00	13:38:42	H2303_8	11025				                      stop_B
-13:36:24	13:36:24	H2303_3	11012				                      stop_A
-14:04:36	14:07:24	Z2602_2	1435			                      	stop_B
-14:21:12	14:24:12	H2303_1	11027			                      	stop_B
-14:35:18	14:37:18	H3458_2	28915		                      		stop_B
-14:51:36	14:54:12	Z1351_9	2075			                      	stop_B
+arrival  until	    veh      tripId	started	  ended	    flags	busStop
+12:20:30  12:24:12  H2303_6  4199   12:23:22	12:26:23		    stop_B
+12:21:42  12:21:42  H2303_8  11010  12:25:15	12:25:15	F	    stop_A
+12:50:36  12:53:48  H2303_7  11023  12:50:26	12:52:57		    stop_B
+13:20:36  13:23:42  H2303_9  11073			                      stop_B
+13:35:00  13:38:42  H2303_8  11025			                      stop_B
+13:36:24  13:36:24  H2303_3  11012			                      stop_A
+14:04:36  14:07:24  Z2602_2  1435			                        stop_B
+14:21:12  14:24:12  H2303_1  11027		                        stop_B
+14:35:18  14:37:18  H3458_2  28915	                       		stop_B
+14:51:36  14:54:12  Z1351_9  2075			                        stop_B
 ```
 
 # splitRandom.py
