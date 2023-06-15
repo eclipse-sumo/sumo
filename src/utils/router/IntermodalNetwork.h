@@ -538,9 +538,7 @@ public:
                 if (carSplit != nullptr && (transferCarWalk || transferTaxiWalk)) {
                     // adding access from car to walk
                     _IntermodalEdge* const beforeSplit = myAccessSplits[myCarLookup[stopEdge]][splitIndex];
-                    for (_IntermodalEdge* conn : {
-                                fwdSplit, backSplit
-                            }) {
+                    for (_IntermodalEdge* conn : { fwdSplit, backSplit }) {
                         if (transferCarWalk) {
                             _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, conn, length);
                             addEdge(access);
@@ -601,6 +599,36 @@ public:
                 ++splitIt;
             }
             splitList.insert(splitIt, stopConn);
+
+            if (!isAccess && (transferWalkTaxi || transferCarWalk || transferTaxiWalk)) {
+                _IntermodalEdge* carEdge =  myCarLookup[stopEdge];
+                double relPos;
+                bool needSplit;
+                const int splitIndex = findSplitIndex(carEdge, pos, relPos, needSplit);
+                if (needSplit) {
+                    _IntermodalEdge* carSplit = new CarEdge<E, L, N, V>(myNumericalID++, stopEdge, pos);
+                    splitEdge(carEdge, splitIndex, carSplit, relPos, length, needSplit, stopConn, true, false, false);
+
+                    if (transferCarWalk || transferTaxiWalk) {
+                        // adding access from car to walk
+                        _IntermodalEdge* const beforeSplit = myAccessSplits[myCarLookup[stopEdge]][splitIndex];
+                        if (transferCarWalk) {
+                            _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, stopConn, length);
+                            addEdge(access);
+                            beforeSplit->addSuccessor(access);
+                            access->addSuccessor(stopConn);
+                        } else if (transferTaxiWalk) {
+                            addRestrictedCarExit(beforeSplit, stopConn, SVC_TAXI);
+                        }
+                    }
+                    if (transferWalkTaxi) {
+                        _AccessEdge* access = new _AccessEdge(myNumericalID++, stopConn, carSplit, 0, SVC_TAXI, SVC_IGNORING, taxiWait);
+                        addEdge(access);
+                        stopConn->addSuccessor(access);
+                        access->addSuccessor(carSplit);
+                    }
+                }
+            }
         }
     }
 
