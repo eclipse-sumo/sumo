@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-15 11:25:08 by Eclipse SUMO duarouter Version v1_17_0+0949-cba0d01
+<!-- generated on 2023-06-15 13:14:20 by Eclipse SUMO duarouter Version v1_17_0+0951-c913fd6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,4 +38,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd"/>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p_train_intermodal_0" depart="0.00">
+        <personTrip from="E8" to="E9" modes="taxi" walkFactor="0.75" costs="379.41 425.59 48.00"/>
+    </person>
+</routes>
