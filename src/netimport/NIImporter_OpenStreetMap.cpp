@@ -573,13 +573,16 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             && e->myIsOneWay != "yes" && e->myIsOneWay != "-1" && e->myIsOneWay != "1" && e->myIsOneWay != "reverse") {
         WRITE_WARNINGF(TL("New value for oneway found: %"), e->myIsOneWay);
     }
-    if ((permissions == SVC_BICYCLE || permissions == (SVC_BICYCLE | SVC_PEDESTRIAN))
-            && e->myCyclewayType != WAY_UNKNOWN && e->myCyclewayType != WAY_NONE) {
-        if ((e->myCyclewayType & WAY_BACKWARD) == 0) {
+    if ((permissions == SVC_BICYCLE || permissions == (SVC_BICYCLE | SVC_PEDESTRIAN) || permissions == SVC_PEDESTRIAN)) {
+        const std::string& onewayBike = e->myExtraTags["oneway:bicycle"];
+        if (addBackward && (onewayBike == "true" || onewayBike == "yes" || onewayBike == "1")) {
             addBackward = false;
         }
-        if ((e->myCyclewayType & WAY_FORWARD) == 0) {
+        if (addForward && (onewayBike == "reverse" || onewayBike == "-1")) {
             addForward = false;
+        }
+        if (!addBackward && (onewayBike == "false" || onewayBike == "no" || onewayBike == "0")) {
+            addBackward = true;
         }
     }
     bool ok = true;
@@ -1346,14 +1349,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 myCurrentEdge->myExtraAllowed |= SVC_BICYCLE;
             }
         } else if (key == "oneway:bicycle") {
-            if (value == "yes") {
-                // actually this should be a simple "oneway" tag
-                myCurrentEdge->myIsOneWay = value;
-            }
-            if (value == "no") {
-                // need to add a cycle way in reversed direction of way
-                myCurrentEdge->myCyclewayType = WAY_BACKWARD;
-            }
+            myCurrentEdge->myExtraTags["oneway:bicycle"] = value;
         } else if (key == "oneway:bus") {
             if (value == "no") {
                 // need to add a bus way in reversed direction of way
@@ -1412,7 +1408,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
         } else if (key == "maxspeed:backward" && myCurrentEdge->myMaxSpeedBackward == MAXSPEED_UNGIVEN) {
             myCurrentEdge->myMaxSpeedBackward = interpretSpeed(key, value);
         } else if (key == "junction") {
-            if ((value == "roundabout" || value == "circular") && (myCurrentEdge->myIsOneWay.empty())) {
+            if ((value == "roundabout" || value == "circular") && myCurrentEdge->myIsOneWay.empty()) {
                 myCurrentEdge->myIsOneWay = "yes";
             }
         } else if (key == "oneway") {
