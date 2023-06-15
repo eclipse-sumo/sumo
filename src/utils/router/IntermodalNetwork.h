@@ -509,7 +509,8 @@ public:
         const bool transferWalkTaxi = (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & TAXI_PICKUP_PT) != 0);
         const double pos = (startPos + endPos) / 2.;
 #ifdef IntermodalRouter_DEBUG_ACCESS
-        std::cout << "addAccess stopId=" << stopId << " stopEdge=" << stopEdge->getID() << " pos=" << pos << " length=" << length << " cat=" << category << "\n";
+        std::cout << "addAccess stopId=" << stopId << " stopEdge=" << stopEdge->getID() << " pos=" << pos << " length=" << length << " tag=" << toString(category)
+            << " access=" << isAccess << " tWait=" << taxiWait << "\n";
 #endif
         if (myStopConnections.count(stopId) == 0) {
             myStopConnections[stopId] = new StopEdge<E, L, N, V>(stopId, myNumericalID++, stopEdge, startPos, endPos);
