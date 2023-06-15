@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-15 12:18+0000\n"
+"PO-Revision-Date: 2023-06-16 07:30+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -8537,7 +8537,7 @@ msgstr "Doppelt deklariert."
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2198
 #, c-format
 msgid "Could not build % in netedit"
-msgstr ""
+msgstr "Konnte % nicht in netedit erstellen"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1926
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2005
@@ -8549,24 +8549,24 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2198
 #, c-format
 msgid "% doesn't exist."
-msgstr ""
+msgstr "% existiert nicht."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1932
 #, c-format
 msgid "Attribute % cannot be negative."
-msgstr ""
+msgstr "Attribut % kann keinen negativen Wert annehmen."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1938
 msgid "List of VTypes isn't valid."
-msgstr ""
+msgstr "Die Liste der Fahrzeugtypen ist ungültig."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1944
 msgid "Filename is invalid."
-msgstr ""
+msgstr "Der Dateiname ist ungültig."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1950
 msgid "List of lanes isn't valid."
-msgstr ""
+msgstr "Die Fahrstreifenliste ist ungültig."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNECalibrator.cpp:194
 msgid "Both edges and lanes aren't defined"
@@ -8713,10 +8713,11 @@ msgstr "Kantenrelation hinzufügen"
 #: D:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:207
 msgid "There is already a TAZ rel defined between '%' and '%'."
 msgstr ""
+"Es wurde bereits eine Quelle-Ziel-Beziehung zwischen '%' und '%' definiert."
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:209
 msgid "There is already a TAZ rel defined in '%'."
-msgstr ""
+msgstr "Es wurde bereits eine Quelle-Ziel-Beziehung in '%' definiert."
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:213
 #: D:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:224
@@ -8743,7 +8744,7 @@ msgstr "Datenintervall wurde zuvor nicht eingefügt"
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:136
 msgid "Open % Dialog"
-msgstr ""
+msgstr "%-Dialog öffnen"
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:316
 #: D:\Repos\sumo/src\netedit\elements\network\GNEEdgeType.cpp:155
@@ -8758,7 +8759,7 @@ msgstr "Konnte keine meanData-Kante erstellen; "
 #: D:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:93
 #, c-format
 msgid "% already exists"
-msgstr ""
+msgstr "% existiert bereits"
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:70
 msgid "add meanDataEdge"
@@ -8774,12 +8775,12 @@ msgstr "meanData-Fahrstreifen hinzufügen"
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 msgid "Edge doesn't exist."
-msgstr ""
+msgstr "Kante existiert nicht."
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
 #, c-format
 msgid "Attribute '%' doesn't exist."
-msgstr ""
+msgstr "Attribut % existiert nicht."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:312
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:323
@@ -8793,7 +8794,7 @@ msgstr "Diese Personenfahrt benutzt Knotenpunkte"
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1632
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1644
 msgid "There is another % with the same ID='%'."
-msgstr ""
+msgstr "Es gibt ein weiteres % mit der gleichen ID='%'."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:76
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:126
@@ -8835,19 +8836,19 @@ msgstr "hinzufügen "
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:102
 msgid "% needs at least one %"
-msgstr ""
+msgstr "% benötigt mindestens ein(e) weiter(s) %"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:108
 msgid "% with id '%' doesn't exist in % '%'"
-msgstr ""
+msgstr "% mit der ID '%' existiert nicht in % '%'"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:115
 msgid "Invalid definition for % in % '%'"
-msgstr ""
+msgstr "Ungültige Definition von % in % '%'"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:118
 msgid "% with id '%' cannot be created in % '%'"
-msgstr ""
+msgstr "% mit der ID '%' kann nicht in % '%' erstellt werden"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:183
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:236
@@ -8871,7 +8872,7 @@ msgstr "VType-Verteilungen können derzeit nicht in netedit bearbeitet werden"
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:418
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:462
 msgid "Invalid vehicle type '%' used in % '%'."
-msgstr ""
+msgstr "Ungültiger Fahrzeugtyp '%' in % '%' verwendet."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:188
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:243
@@ -8882,6 +8883,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:465
 msgid "Invalid % used in % '%'. % is greater than number of lanes"
 msgstr ""
+"Ungültige(r) % in % '%' benutzt. % ist größer als die Anzahl der Fahrstreifen"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:190
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:245
@@ -8891,7 +8893,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:423
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:467
 msgid "Invalid % used in % '%'. % is greater than vType %"
-msgstr ""
+msgstr "Ungültige(r) % in % '%' benutzt. % ist größer als Fahrzeugtyp (vType) %"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:223
 msgid "netedit doesn't support route distributions"
@@ -8900,27 +8902,28 @@ msgstr "netedit unterstützt keine Routenverteilungen"
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:241
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:282
 msgid "Invalid route '%' used in % '%'."
-msgstr ""
+msgstr "Ungültige Route '%' in % '%' verwendet."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:502
 msgid "Invalid person type '%' used in % '%'."
-msgstr ""
+msgstr "Ungültiger Personentyp '%' in % '%' verwendet."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:533
 msgid "Invalid personFlow type '%' used in % '%'."
-msgstr ""
+msgstr "Ungültiger Personenflusstyp '%' in % '%' verwendet."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:879
 msgid "Invalid container type '%' used in % '%'."
-msgstr ""
+msgstr "Ungültiger Containertyp '%' in % '%' verwendet."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:910
 msgid "Invalid containerFlow type '%' used in % '%'."
-msgstr ""
+msgstr "Ungültiger Containerflusstyp '%' in % '%' verwendet."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1102
 msgid "Containers don't support stops at busStops or trainStops"
 msgstr ""
+"Container können nicht an Bushaltestellen und Bahnhalten verladen werden"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1110
 msgid "Persons don't support stops at containerStops"
@@ -8979,23 +8982,23 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1323
 msgid "A walk to edge needs a busStop and an edge"
-msgstr ""
+msgstr "Ein Fußweg zu einer Kante benötigt eine Bushaltestelle und eine Kante"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1333
 msgid "A walk to busStop needs two busStops"
-msgstr ""
+msgstr "Ein Fußweg zu einer Bushaltestelle benötigt zwei Bushaltestellen"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1343
 msgid "A walk to trainStop needs two trainStops"
-msgstr ""
+msgstr "Ein Fußweg zu einem Bahnhalt benötigt zwei Bahnhalte"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1353
 msgid "A walk with edges needs a list of edges"
-msgstr ""
+msgstr "Ein Fußweg über Kanten benötigt eine Liste ebendieser"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1363
 msgid "A route walk needs a route"
-msgstr ""
+msgstr "Zu einem Fußweg entlang einer Route muss ebendiese angegeben sein"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1373
 msgid "A ride from busStop to junction needs a busStop and an junction"
@@ -9101,27 +9104,27 @@ msgstr "Unerwarteter Linkstand '%'"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:672
 msgid "Copy parent edge name to clipboard"
-msgstr ""
+msgstr "Namen der zugehörigen Kante in Zwischenablage"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:681
 msgid "Remove Lane From Selected"
-msgstr ""
+msgstr "Fahrstreifen aus Auswahl entfernen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:683
 msgid "Add Lane To Selected"
-msgstr ""
+msgstr "Fahrstreifen zu Auswahl hinzufügen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:687
 msgid "Remove Edge From Selected"
-msgstr ""
+msgstr "Kante aus Auswahl entfernen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:689
 msgid "Add Edge To Selected"
-msgstr ""
+msgstr "Kante zu Auswahl hinzufügen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:706
 msgid "Reset edge end points"
-msgstr ""
+msgstr "Kantenendpunkte zurücksetzen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:733
 msgid "Select state for all links from this edge:"
@@ -9145,11 +9148,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:763
 msgid "Height: "
-msgstr ""
+msgstr "Höhe: "
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:764
 msgid "Angle: "
-msgstr ""
+msgstr "Winkel: "
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:811
 msgid "Lane Parametric Length cannot be never 0"
@@ -9164,15 +9167,15 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1846
 #, c-format
 msgid "Edge operations (% selected)"
-msgstr ""
+msgstr "Kantenoperationen (% ausgewählt)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1848
 msgid "Edge operations"
-msgstr ""
+msgstr "Kantenoperationen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1851
 msgid "Split edge here"
-msgstr ""
+msgstr "Kante hier auftrennen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1852
 msgid "Split edge in both directions here (no simmetric opposite edge)"
@@ -9180,108 +9183,108 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1857
 msgid "Split edge in both directions here (no opposite edge)"
-msgstr ""
+msgstr "Kante in beiden Richtungen hier auftrennen (keine Gegenrichtungskante)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1864
 msgid "Split edge in both directions here"
-msgstr ""
+msgstr "Kante in beiden Richtungen hier auftrennen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1868
 msgid "Set geometry endpoint here (shift-click)"
-msgstr ""
+msgstr "Geometrischen Endpunkt hier setzen (Shift-Klick)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1872
 msgid "Restore both geometry endpoints"
-msgstr ""
+msgstr "Beide geometrischen Endpunkte zurücksetzen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1874
 msgid "Restore geometry endpoints of all selected edges"
-msgstr ""
+msgstr "Geometrische Endpunkte aller ausgewählten Kanten zurücksetzen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1877
 msgid "Restore geometry endpoint (shift-click)"
-msgstr ""
+msgstr "Geometrischen Endpunkt zurücksetzen (Shift-Klick)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1879
 msgid "Reverse %"
-msgstr ""
+msgstr "% umdrehen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1880
 msgid "Add reverse direction for %"
-msgstr ""
+msgstr "Gegenrichtung von % hinzufügen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1884
 msgid "Add reverse disconnected direction for %"
-msgstr ""
+msgstr "Isolierte Gegenrichtung von % hinzufügen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1885
 msgid "Reset lengths for %"
-msgstr ""
+msgstr "Längen von % zurücksetzen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1886
 msgid "Straighten %"
-msgstr ""
+msgstr "% begradigen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1887
 msgid "Smooth %"
-msgstr ""
+msgstr "% glätten"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1888
 msgid "Straighten elevation of %"
-msgstr ""
+msgstr "Höhe von % begradigen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1889
 msgid "Smooth elevation of %"
-msgstr ""
+msgstr "Höhe von % glätten"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1936
 #, c-format
 msgid "Lane operations (% selected)"
-msgstr ""
+msgstr "Fahrstreifenoperationen (% ausgewählt)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1938
 msgid "Lane operations"
-msgstr ""
+msgstr "Fahrstreifenoperationen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1940
 msgid "Duplicate lane"
-msgstr ""
+msgstr "Fahrstreifen duplizieren"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1941
 msgid "Set custom lane shape"
-msgstr ""
+msgstr "Benutzerdefinierten Fahrstreifen-Shape setzen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1942
 msgid "Reset custom shape"
-msgstr ""
+msgstr "Benutzerdefinierten Shape zurücksetzen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1946
 msgid "Reset opposite lane"
-msgstr ""
+msgstr "Gegenrichtungsfahrstreifen zurücksetzen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1958
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1969
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1978
 msgid "Sidewalk"
-msgstr ""
+msgstr "Fußweg"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1959
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1971
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1979
 msgid "Bike lane"
-msgstr ""
+msgstr "Radfahrstreifen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1960
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1973
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1980
 msgid "Bus lane"
-msgstr ""
+msgstr "Busfahrstreifen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1963
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1975
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1981
 msgid "Green verge"
-msgstr ""
+msgstr "Grünstreifen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1965
 msgid "Green verge (front)"
@@ -9293,40 +9296,40 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1983
 msgid "Add restricted %"
-msgstr ""
+msgstr "Beschränkten % hinzufügen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1984
 msgid "Remove restricted %"
-msgstr ""
+msgstr "Beschränkten % entfernen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1985
 msgid "Transform to restricted %"
-msgstr ""
+msgstr "In beschränkten % umwandeln"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2026
 #, c-format
 msgid "Template operations (% selected)"
-msgstr ""
+msgstr "Vorlagenoperationen (% ausgewählt)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2028
 msgid "Template operations"
-msgstr ""
+msgstr "Vorlagenoperationen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2031
 msgid "Use edge as template"
-msgstr ""
+msgstr "Kante als Vorlage verwenden"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2032
 msgid "Apply template"
-msgstr ""
+msgstr "Vorlage anwenden"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2047
 msgid "Select reachable"
-msgstr ""
+msgstr "Erreichbare Fahrstreifen auswählen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2052
 msgid "Select reachable (compute junctions)"
-msgstr ""
+msgstr "Erreichbare Fahrstreifen auswählen (berechne Knotenpunkte)"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:746
@@ -9345,7 +9348,7 @@ msgstr "Name"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:65
 msgid "button"
-msgstr "Knopf"
+msgstr "Taste"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:70
 msgid "Disabled"
@@ -9473,31 +9476,31 @@ msgstr "Zeichnung"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:53
 msgid "Start drawing"
-msgstr "Beginne Zeichnen"
+msgstr "Zeichnen beginnen"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:54
 msgid "Stop drawing"
-msgstr "Zeichnen wird gestoppt"
+msgstr "Zeichnen beenden"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:55
 msgid "Abort drawing"
-msgstr "Zeichnen wird abgebrochen"
+msgstr "Zeichnen abbrechen"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:59
 msgid "'Start drawing' or ENTER to create a shape."
-msgstr ""
+msgstr "'Zeichnen beginnen' oder ENTER um ein Shape zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:60
 msgid "'Stop drawing' or ENTER to finish shape creation."
-msgstr ""
+msgstr "'Zeichnen beenden' oder ENTER um ein Shape abzuschließen."
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:61
 msgid "'Abort drawing' or ESC to abort shape creation."
-msgstr ""
+msgstr "'Zeichnen abbrechen' oder ESC um Shape zu verwerfen."
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:62
 msgid "'Shift + Click' to remove the last inserted point."
-msgstr ""
+msgstr "'Shift + Klick' um den zuletzt eingefügten Punkt zu entfernen."
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:134
 msgid "A new point cannot be added if drawing wasn't started"
@@ -10561,10 +10564,14 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:616
 msgid "Click over edge to create or edit geometry point."
 msgstr ""
+"Über der Kante klicken, um einen Geometriepunkt zu erstellen oder zu "
+"bearbeiten."
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:616
 msgid "Shift+click over edge to edit start or end geometry point."
 msgstr ""
+"Shift+Klick über der Kante, um den geometrischen Start-/Endpunkt zu "
+"bearbeiten."
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:618
 msgid "-Move geometry point"
@@ -10870,7 +10877,7 @@ msgstr "Routenmodus"
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:95
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:101
 msgid "Shift+Click to select parent"
-msgstr ""
+msgstr "Shift+Klick um das Elternelement auszuwählen"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:72
 msgid "Click over a bus stop to create a stop."
@@ -10935,11 +10942,11 @@ msgstr "Typ-Editor"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:66
 msgid "Create type distribution"
-msgstr ""
+msgstr "Typenverteilung erstellen"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:68
 msgid "Delete type distribution"
-msgstr ""
+msgstr "Typenverteilung löschen"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:122
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:62
@@ -10965,35 +10972,37 @@ msgstr "Typ zurücksetzen"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:71
 msgid "Click over a route to create a vehicle."
-msgstr ""
+msgstr "Klicke über einer Route, um ein Fahrzeug zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:75
 msgid "Select two edges to create a trip."
-msgstr ""
+msgstr "Wähle zwei Kanten aus, um eine Fahrt zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:79
 msgid "Select two edges to create a vehicle with embedded route."
 msgstr ""
+"Wähle zwei Kanten aus, um ein Fahrzeug mit integrierter Route zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:83
 msgid "Select two junctions to create a trip."
-msgstr ""
+msgstr "Wähle zwei Knotenpunkte aus, um eine Fahrt zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:88
 msgid "Click over a route to create a routeFlow."
-msgstr ""
+msgstr "Klicke über einer Route, um einen Fluss zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:92
 msgid "Select two edges to create a flow."
-msgstr ""
+msgstr "Wähle zwei Kanten aus, um einen Fluss zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:96
 msgid "Select two edges to create a flow with embedded route."
 msgstr ""
+"Wähle zwei Kanten aus, um einen Fluss mit integrierter Route zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:100
 msgid "Select two junctions to create a flow."
-msgstr ""
+msgstr "Wähle zwei Knotenpunkte aus, um einen Fluss zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:181
 msgid "Current selected vehicle isn't valid."
@@ -11027,7 +11036,7 @@ msgstr "' kann nicht größer sein als Attribut '"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:329
 msgid "List of edges cannot be empty"
-msgstr ""
+msgstr "Liste der Kanten kann nicht leer sein"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:339
 msgid "List of lanes cannot be empty"
@@ -11321,7 +11330,7 @@ msgstr "Fahrstreifentyp entfernen"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
 msgid "ESC:"
-msgstr ""
+msgstr "ESC:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:626
 msgid "Deselect origin"
@@ -11329,27 +11338,27 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:627
 msgid "Control+Click:"
-msgstr ""
+msgstr "Control+Klick:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:628
 msgid "Move view"
-msgstr ""
+msgstr "Ansicht verschieben"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:629
 msgid "Shift+Click:"
-msgstr ""
+msgstr "Shift+Klick:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:630
 msgid "Splits edge in both directions"
-msgstr ""
+msgstr "Trennt Kante in beiden Richtungen auf"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:631
 msgid "Alt+Shift+Click:"
-msgstr ""
+msgstr "Alt+Shift+Klick:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:632
 msgid "Splits edge in one direction"
-msgstr ""
+msgstr "Trennt Kante in einer Richtung auf"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:645
 msgid "Create Edge"
