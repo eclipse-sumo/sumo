@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-15 09:26+0000\n"
+"PO-Revision-Date: 2023-06-15 12:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18\n"
+"X-Generator: Weblate 4.18.1-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:292
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
@@ -5177,17 +5177,17 @@ msgstr "OSG-Datei öffnen"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:266
 msgid "Could not load configuration '"
-msgstr ""
+msgstr "Konnte die folgende Konfiguration nicht laden: '"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:271
 #: D:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:169
 #: D:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:173
 msgid "Could not load tool configuration '"
-msgstr ""
+msgstr "Konnte die folgende Werkzeugkonfiguration nicht laden: '"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:275
 msgid "Loaded configuration."
-msgstr ""
+msgstr "Konfiguration geladen."
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:295
 msgid "Save options"
@@ -5195,7 +5195,7 @@ msgstr "Optionen speichern"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:297
 msgid "Save configuration file"
-msgstr ""
+msgstr "Konfigurationsdatei speichern"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:298
 msgid "Load options"
@@ -5285,19 +5285,19 @@ msgstr "Dialog schließen"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:71
 msgid "Save toolcfg"
-msgstr ""
+msgstr "toolcfg speichern"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:73
 msgid "Save file with tool configuration"
-msgstr ""
+msgstr "Datei mit Werkzeugkonfiguration speichern"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:74
 msgid "Load toolcfg"
-msgstr ""
+msgstr "toolcfg laden"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:76
 msgid "Load file with tool configuration"
-msgstr ""
+msgstr "Datei mit Werkzeugkonfiguration laden"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:77
 msgid "Sorted by name"
@@ -5309,7 +5309,7 @@ msgstr "Nach Kategorien gruppiert"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:90
 msgid "Blue options are mandatory"
-msgstr ""
+msgstr "Blau markierte Optionen sind verpflichtend"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:93
 msgid "run python tool"
@@ -5331,11 +5331,11 @@ msgstr "Die aktuelle %-Datei benutzen"
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:251
 #, c-format
 msgid "Select % file"
-msgstr ""
+msgstr "%-Datei auswählen"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:274
 msgid "Use current selected edges"
-msgstr ""
+msgstr "Derzeit ausgewählte Kanten nutzen"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:349
 msgid "network"
@@ -5355,7 +5355,7 @@ msgstr "Daten"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:521
 msgid "sumo config"
-msgstr ""
+msgstr "sumo-Konfiguration"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:70
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:71
@@ -6147,7 +6147,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1894
 msgid "Enable or disable lefthand position"
-msgstr ""
+msgstr "Linksseitige Position aktivieren/deaktivieren"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1914
 msgid "Name of parking space"
@@ -8206,12 +8206,12 @@ msgstr " > Fahrstreifenlänge"
 #: D:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:129
 #, c-format
 msgid "Copy % name to clipboard"
-msgstr ""
+msgstr "%-Name in Zwischenablage"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:148
 #: D:\Repos\sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:147
 msgid "Copy % typed name to clipboard"
-msgstr ""
+msgstr "Namen mit Typenangabe in die Zwischenablage kopieren"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:156
 msgid "Open "
@@ -8264,6 +8264,8 @@ msgstr ""
 msgid ""
 "Could not build access in netedit; The lane '%' doesn't support pedestrians"
 msgstr ""
+"Konnte den Zuweg in netedit nicht erstellen; Der Fahrstreifen lässt keine "
+"Fußgänger zu"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:194
 msgid "add access in '"
@@ -8283,6 +8285,8 @@ msgid ""
 "Could not build parking area with ID '%' in netedit; Invalid departPos over "
 "lane."
 msgstr ""
+"Konnte in netedit keinen Parkplatz mit der ID '%' erstellen; Ungültige "
+"Ausfahrtsposition auf dem Fahrstreifen."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:331
 msgid "add parking area '"
@@ -8511,16 +8515,16 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1908
 msgid "ID contains invalid characters."
-msgstr ""
+msgstr "Die ID enthält ungültige Zeichen."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1914
 msgid "Invalid position over lane."
-msgstr ""
+msgstr "Ungültige Position auf dem Fahrstreifen."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1920
 #: D:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:245
 msgid "Declared twice."
-msgstr ""
+msgstr "Doppelt deklariert."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1926
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2005
