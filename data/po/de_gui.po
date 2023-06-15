@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-05-31 11:39+0000\n"
+"PO-Revision-Date: 2023-06-15 09:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 4.18\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:292
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
@@ -729,11 +729,11 @@ msgstr "Lade EdgeData"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1174
 msgid "Auto-Reloading."
-msgstr ""
+msgstr "Lade erneut (automatisch)."
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1174
 msgid "TraCI-Loading."
-msgstr ""
+msgstr "Lade (duch TraCI ausgelöst)."
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1176
 msgid "Reloading."
@@ -798,7 +798,7 @@ msgstr "'%' geladen."
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2031
 msgid "Simulation ended at time: %. (%)"
-msgstr ""
+msgstr "Simulation zur Zeit % (%) beendet"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2037
 msgid "Simulation ended"
@@ -813,7 +813,7 @@ msgstr "Lade '%'."
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2291
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2292
 msgid "seconds"
-msgstr ""
+msgstr "Sekunden"
 
 #: D:\Repos\sumo/src\gui\GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
@@ -2048,7 +2048,7 @@ msgstr "&Netz"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:526
 msgid "Supermode network."
-msgstr ""
+msgstr "Netzwerksupermodus."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:529
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2200
@@ -2066,7 +2066,7 @@ msgstr "&Daten"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:532
 msgid "Supermode data."
-msgstr ""
+msgstr "Datensupermodus."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:552
 msgid "&Inspect"
@@ -2188,7 +2188,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:708
 msgid "Create type distributions."
-msgstr ""
+msgstr "Erstelle Typenverteilungen."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:711
 msgid "Stop"
@@ -2884,7 +2884,7 @@ msgstr "Netedit-Konfigurationsdatei speichern unter"
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2811
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2815
 msgid "Netedit Config files (*.netecfg)"
-msgstr ""
+msgstr "netedit-Konfigurationsdateien (*.netecfg)"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2814
 msgid "Open netedit Config file"
@@ -4376,11 +4376,11 @@ msgstr "Modus zum Erstellen von Typen (Fahrzeuge, Personen und Container). (T)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3705
 msgid "Create type distribution mode"
-msgstr ""
+msgstr "Typenverteilungsmodus einstellen"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3705
 msgid "Mode for creating type distribution. (U)"
-msgstr ""
+msgstr "Modus zum Erstellen von Typenverteilungen. (U)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3711
 msgid "Create stop mode"
@@ -4404,7 +4404,7 @@ msgstr "Personenplanmodus einstellen"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3723
 msgid "Mode for creating person plans. (L)"
-msgstr ""
+msgstr "Modus zum Erstellen von Personenplänen. (L)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3729
 msgid "Create container mode"
@@ -4412,7 +4412,7 @@ msgstr "Containermodus einstellen"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3729
 msgid "Mode for creating containers. (C)"
-msgstr ""
+msgstr "Modus zum Erstellen von Containern. (C)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3735
 msgid "Create container plan mode"
@@ -4626,12 +4626,12 @@ msgstr "Kantentyperstellung löschen wiederholen"
 #: D:\Repos\sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:113
 #: D:\Repos\sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:115
 msgid "Undo enable % attribute in '%'"
-msgstr ""
+msgstr "Attribut % in '%' aktivieren rückgängig machen"
 
 #: D:\Repos\sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:123
 #: D:\Repos\sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:125
 msgid "Redo enable % attribute in '%'"
-msgstr ""
+msgstr "Attribut % in '%' aktivieren wiederholen"
 
 #: D:\Repos\sumo/src\netedit\changes\GNEChange_Junction.cpp:109
 msgid "Undo create junction '"
@@ -5203,27 +5203,27 @@ msgstr "Optionen laden"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:300
 msgid "Load configuration file"
-msgstr ""
+msgstr "Konfigurationsdatei laden"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:301
 msgid "Default options"
-msgstr ""
+msgstr "Standardwerte"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:303
 msgid "Reset all options to default"
-msgstr ""
+msgstr "Alle auf Standardwerte zurücksetzen"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:311
 msgid "Topics"
-msgstr ""
+msgstr "Themen"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:362
 msgid "Search"
-msgstr ""
+msgstr "Suche"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:364
 msgid "Include description in search"
-msgstr ""
+msgstr "Auch Beschreibung durchsuchen"
 
 #: D:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:81
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:138
