@@ -1429,6 +1429,8 @@ enum SumoXMLAttr {
     GNE_ATTR_PATHSTOPINDEX,
     /// @brief check number of additional children (used in vTypeDistribution)
     GNE_ATTR_ADDITIONALCHILDREN,
+    /// @brief move single position (used during moving of selected junctions)
+    GNE_ATTR_SINGLE_POSITION,
 
     // @}
 

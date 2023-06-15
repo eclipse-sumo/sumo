@@ -341,7 +341,7 @@ private:
      * @param[in] pos The new position
      * @note: those operations are not added to the undoList.
      */
-    void moveJunctionGeometry(const Position& pos, const bool updateEdgeBoundaries);
+    void moveJunctionGeometry(const Position& pos, const bool updateEdgeBoundaries, const bool moveAdjacentEdges);
 
     /// @brief sets junction color depending on circumstances
     RGBColor setColor(const GUIVisualizationSettings& s, bool bubble) const;

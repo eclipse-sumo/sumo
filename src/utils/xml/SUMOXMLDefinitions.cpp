@@ -980,6 +980,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "stopIndex",                          GNE_ATTR_STOPINDEX },
     { "pathStopIndex",                      GNE_ATTR_PATHSTOPINDEX },
     { "additionalChildren",                 GNE_ATTR_ADDITIONALCHILDREN },
+    { "singlePosition",                     GNE_ATTR_SINGLE_POSITION },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
