@@ -526,7 +526,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::SupermodeMenuCommands::buildSuper
                   TL("&Network"), "F2", TL("Supermode network."),
                   GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F2_SUPERMODE_NETWORK);
     demandSupermode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                 TL("&Demand"), "F3", TL("Sueprmode demand."),
+                 TL("&Demand"), "F3", TL("Supermode demand."),
                  GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F3_SUPERMODE_DEMAND);
     dataSupermode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                  TL("&Data"), "F4", TL("Supermode data."),
