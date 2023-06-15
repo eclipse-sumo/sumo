@@ -132,4 +132,7 @@ restrictionException_only
 
 # Copy of restrictionException_only
 restrictionException_no
+
+# example network from Zuerich
+oerlikon
 bugs
