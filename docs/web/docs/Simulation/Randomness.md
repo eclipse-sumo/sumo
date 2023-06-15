@@ -32,7 +32,7 @@ simulation behavior of earlier vehicles. All RNGs use the same seed.
 
 ## Running repeatedly with different Seeds
 
-The tool [runSeeds.py](../Tools/Misc.md#runseedspy) may be used to efficiently repeat simulations with multiple seeds. See the [FAQ](../FAQ.md#how_to_perform_repeated_simulations_with_different_results] for a guide on how this is done.
+The tool [runSeeds.py](../Tools/Misc.md#runseedspy) may be used to efficiently repeat simulations with multiple seeds. See the [FAQ](../FAQ.md#how_to_perform_repeated_simulations_with_different_results) for a guide on how this is done.
 
 # Route Distributions
 
