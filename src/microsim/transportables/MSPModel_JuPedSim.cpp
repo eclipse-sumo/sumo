@@ -410,8 +410,8 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
 
     geos::geom::Geometry* disjointDilatedPedestrianLanes = myGEOSGeometryFactory->createGeometryCollection(dilatedPedestrianLanes);
     myGEOSGeometryCollectionsDump.push_back(disjointDilatedPedestrianLanes);
-    geos::geom::Geometry* myGEOSPedestrianNetwork = disjointDilatedPedestrianLanes->Union().release();
-    return myGEOSPedestrianNetwork;
+    geos::geom::Geometry* pedestrianNetwork = disjointDilatedPedestrianLanes->Union().release();
+    return pedestrianNetwork;
 }
 
 
@@ -517,14 +517,34 @@ MSPModel_JuPedSim::initialize() {
     GEOSGeometryDumpFile << wkt << std::endl;
     GEOSGeometryDumpFile.close();
 
+    /*
     myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
     for (size_t i = 0; i < myGEOSPedestrianNetwork->getNumGeometries(); i++) {
         const geos::geom::Polygon* connectedComponentPolygon = dynamic_cast<const geos::geom::Polygon*>(myGEOSPedestrianNetwork->getGeometryN(i));
         std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
         std::cout << polygonId << "     " << connectedComponentPolygon->getArea() << std::endl;
         renderPolygon(connectedComponentPolygon, polygonId);
-        // preparePolygonForJPS(connectedComponentPolygon, polygonId);
+        preparePolygonForJPS(connectedComponentPolygon, polygonId);
     }
+    */
+
+    // For the moment, JuPedSim only supports one connected component
+    myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
+    const geos::geom::Polygon* maxAreaConnectedComponentPolygon = nullptr;
+    std::string maxAreaPolygonId;
+    double maxArea = 0.0;
+    for (size_t i = 0; i < myGEOSPedestrianNetwork->getNumGeometries(); i++) {
+        const geos::geom::Polygon* connectedComponentPolygon = dynamic_cast<const geos::geom::Polygon*>(myGEOSPedestrianNetwork->getGeometryN(i));
+        std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
+        double area = connectedComponentPolygon->getArea();
+        if (area > maxArea) {
+            maxArea = area;
+            maxAreaConnectedComponentPolygon = connectedComponentPolygon;
+            maxAreaPolygonId = polygonId;
+        }
+    }
+    renderPolygon(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
+    preparePolygonForJPS(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
 
     JPS_ErrorMessage message = nullptr; 
     
@@ -534,7 +554,6 @@ MSPModel_JuPedSim::initialize() {
         oss << "Error while creating the geometry: " << JPS_ErrorMessage_GetMessage(message);
         WRITE_ERROR(oss.str());
     }
-
 
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
     myJPSParameterProfileId = 1;
@@ -548,12 +567,12 @@ MSPModel_JuPedSim::initialize() {
         WRITE_ERROR(oss.str());
     }
 
-	/*myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
+	myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
     if (myJPSSimulation == nullptr) {
         std::ostringstream oss;
         oss << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(message);
         WRITE_ERROR(oss.str());
-    }*/
+    }
 
     JPS_ErrorMessage_Free(message);
 }
