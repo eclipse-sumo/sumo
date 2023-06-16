@@ -43,7 +43,6 @@ FXDEFMAP(GNETypeDistributionFrame::TypeEditor) typeEditorMap[] = {
 };
 
 FXDEFMAP(GNETypeDistributionFrame::TypeSelector) typeSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REFRESH,    GNETypeDistributionFrame::TypeSelector::onCmdRefreshTypeSelector),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeSelector::onCmdSelectTypeDistribution)
 };
 
@@ -151,13 +150,12 @@ GNETypeDistributionFrame::TypeSelector::getCurrentTypeDistribution() const {
 void
 GNETypeDistributionFrame::TypeSelector::setCurrentTypeDistribution(const GNEDemandElement* vTypeDistribution) {
     myCurrentTypeDistribution = vTypeDistribution->getID();
-    // refresh 
-    handle(this, FXSEL(SEL_COMMAND, MID_GNE_REFRESH), nullptr);
+    refreshTypeSelector();
 }
 
 
-long
-GNETypeDistributionFrame::TypeSelector::onCmdRefreshTypeSelector(FXObject*, FXSelector, void*) {
+void
+GNETypeDistributionFrame::TypeSelector::refreshTypeSelector() {
     // get ACs
     const auto &ACs = myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // clear items
@@ -185,22 +183,26 @@ GNETypeDistributionFrame::TypeSelector::onCmdRefreshTypeSelector(FXObject*, FXSe
         }
     }
     // Check that give vType type is valid
+    GNEDemandElement *vTypeDistribution = nullptr;
     if (validCurrentTypeDistribution) {
-        auto vTypeDistribution = ACs->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, myCurrentTypeDistribution);
+        vTypeDistribution = ACs->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, myCurrentTypeDistribution);
+    } else {
+        vTypeDistribution = ACs->retrieveFirstDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION);
+    }
+    // Check that give vType type is valid
+    if (vTypeDistribution) {
+        myCurrentTypeDistribution = vTypeDistribution->getID();
         // set myCurrentType as inspected element
         myTypeDistributionFrameParent->getViewNet()->setInspectedAttributeCarriers({vTypeDistribution});
         // show modules
         myTypeDistributionFrameParent->myTypeAttributesEditor->showAttributeEditorModule(true, true);
-        myTypeDistributionFrameParent->myParametersEditor->refreshParametersEditor();
     } else {
         myCurrentTypeDistribution.clear();
         // set myCurrentType as inspected element
         myTypeDistributionFrameParent->getViewNet()->setInspectedAttributeCarriers({});
         // hide modules
         myTypeDistributionFrameParent->myTypeAttributesEditor->hideAttributesEditorModule();
-        myTypeDistributionFrameParent->myParametersEditor->refreshParametersEditor();
     }
-    return 1;
 }
 
 
@@ -219,7 +221,6 @@ GNETypeDistributionFrame::TypeSelector::onCmdSelectTypeDistribution(FXObject*, F
             viewNet->setInspectedAttributeCarriers({vTypeDistribution});
             // show modules if selected item is valid
             myTypeDistributionFrameParent->myTypeAttributesEditor->showAttributeEditorModule(true, true);
-            myTypeDistributionFrameParent->myParametersEditor->refreshParametersEditor();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeSelector").text());
             // update viewNet
@@ -262,6 +263,8 @@ GNETypeDistributionFrame::~GNETypeDistributionFrame() {}
 
 void
 GNETypeDistributionFrame::show() {
+    // refresh type selector
+    myTypeSelector->refreshTypeSelector();
     // show frame
     GNEFrame::show();
 }

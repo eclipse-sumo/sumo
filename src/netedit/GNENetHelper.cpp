@@ -1345,6 +1345,21 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(GNEAttributeCarrier* AC, 
 }
 
 
+GNEDemandElement*
+GNENetHelper::AttributeCarriers::retrieveFirstDemandElement(SumoXMLTag type) const {
+    if (myDemandElements.at(type).size() == 0) {
+        return nullptr;
+    } else {
+        // map with elements sorted by ID
+        std::map<std::string, GNEDemandElement* > map;
+        for (const auto& demandElement : myDemandElements.at(type)) {
+            map[demandElement->getID()] = demandElement;
+        }
+        return map.begin()->second;
+    }
+}
+
+
 std::vector<GNEDemandElement*>
 GNENetHelper::AttributeCarriers::getSelectedDemandElements() const {
     std::vector<GNEDemandElement*> result;

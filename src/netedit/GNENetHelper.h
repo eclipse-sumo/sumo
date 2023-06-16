@@ -423,6 +423,11 @@ struct GNENetHelper {
          */
         GNEDemandElement* retrieveDemandElement(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
+        /**@brief Returns the first demand element sorted by ID (or null if type is empty)
+         * @param[in] type tag with the type of demand element
+         */
+        GNEDemandElement* retrieveFirstDemandElement(SumoXMLTag type) const;
+
         /// @brief get selected demand elements
         std::vector<GNEDemandElement*> getSelectedDemandElements() const;
 

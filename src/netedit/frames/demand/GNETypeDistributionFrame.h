@@ -96,11 +96,11 @@ public:
         /// @brief set current vehicle type distribution
         void setCurrentTypeDistribution(const GNEDemandElement* vTypeDistribution);
 
+        /// @brief refresh modul
+        void refreshTypeSelector();
+
         /// @name FOX-callbacks
         /// @{
-
-        /// @brief refresh modul
-        long onCmdRefreshTypeSelector(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user select type distribution in ComboBox
         long onCmdSelectTypeDistribution(FXObject*, FXSelector, void*);
@@ -146,7 +146,4 @@ private:
 
     /// @brief editor for vehicle type attributes
     GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor = nullptr;
-
-    /// @brief Parameters editor inspector
-    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
 };
