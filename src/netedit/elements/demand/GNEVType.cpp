@@ -479,6 +479,8 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_VTYPE_DISTRIBUTION:
             return myDistribution;
+        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY:
+            return toString(myDistributionProbability);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -666,6 +668,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_CARRIAGE_GAP:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_VTYPE_DISTRIBUTION:
+        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY:
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
@@ -898,6 +901,13 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else {
                 return SUMOXMLDefinitions::isValidVehicleID(value);
+            }
+        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY:
+            if (canParse<double>(value)) {
+                const double probability = parse<double>(value);
+                return (probability >= 0) && (probability <= 1);
+            } else {
+                return false;
             }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -1298,7 +1308,6 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
         vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, newVTypeParameter.getParameter(toString(SUMO_ATTR_CARRIAGE_GAP), ""), undoList);
     }
-
     // parse parameters
     std::string parametersStr;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -1311,9 +1320,6 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     }
     if (parametersStr != vType->getAttribute(GNE_ATTR_PARAMETERS)) {
         vType->setAttribute(GNE_ATTR_PARAMETERS, parametersStr, undoList);
-    }
-    if (parametersStr != vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)) {
-        vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, parametersStr, undoList);
     }
     // close undo list
     undoList->end();
@@ -1826,6 +1832,9 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_VTYPE_DISTRIBUTION:
             myDistribution = value;
+            break;
+        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY:
+            myDistributionProbability = parse<double>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

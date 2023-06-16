@@ -197,6 +197,9 @@ protected:
 
     /// @brief vType distribution
     std::string myDistribution;
+    
+    /// @brief vType distribution probability
+    double myDistributionProbability = 0;
 
 private:
     /// @brief method for setting the attribute and nothing else

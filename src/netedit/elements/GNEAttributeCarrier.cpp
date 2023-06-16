@@ -3416,12 +3416,12 @@ GNEAttributeCarrier::fillDemandElements() {
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              TL("The id of VehicleType"));
+                                              TL("type ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_VTYPE_DISTRIBUTION,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::VTYPE,
-                                              TL("Vehicle Type Distribution"));
+                                              TL("Type Distribution"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_VCLASS,
@@ -3433,7 +3433,7 @@ GNEAttributeCarrier::fillDemandElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("This vehicle type's color"));
+                                              TL("This type's color"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LENGTH,
