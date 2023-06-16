@@ -572,6 +572,9 @@ GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) c
                 return "undefined";
             }
         }
+        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY: {
+            return "no distribution set";
+        }
         default:
             return getAttribute(key);
     }
@@ -3421,7 +3424,13 @@ GNEAttributeCarrier::fillDemandElements() {
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_VTYPE_DISTRIBUTION,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::VTYPE,
-                                              TL("Type Distribution"));
+                                              TL("Type distribution"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::PROBABILITY,
+                                              TL("Type distribution probability"),
+                                              "1.0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_VCLASS,
