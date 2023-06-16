@@ -217,7 +217,7 @@ MSLane*
 MSPModel_JuPedSim::getPedestrianLane(MSEdge* edge) {
     for (MSLane* lane : edge->getLanes()) {
         SVCPermissions permissions = lane->getPermissions();
-        if (permissions == SVC_PEDESTRIAN) {
+        if ((permissions & SVC_PEDESTRIAN)  != 0) {
             return lane;
         }
     }
@@ -521,8 +521,9 @@ MSPModel_JuPedSim::initialize() {
     for (size_t i = 0; i < myGEOSPedestrianNetwork->getNumGeometries(); i++) {
         const geos::geom::Polygon* connectedComponentPolygon = dynamic_cast<const geos::geom::Polygon*>(myGEOSPedestrianNetwork->getGeometryN(i));
         std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
+        std::cout << polygonId << "     " << connectedComponentPolygon->getArea() << std::endl;
         renderPolygon(connectedComponentPolygon, polygonId);
-        preparePolygonForJPS(connectedComponentPolygon, polygonId);
+        // preparePolygonForJPS(connectedComponentPolygon, polygonId);
     }
 
 //	for (const MSEdge* const edge : (myNetwork->getEdgeControl()).getEdges()) {
@@ -624,12 +625,12 @@ MSPModel_JuPedSim::initialize() {
         WRITE_ERROR(oss.str());
     }
 
-	myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
+	/*myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
     if (myJPSSimulation == nullptr) {
         std::ostringstream oss;
         oss << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(message);
         WRITE_ERROR(oss.str());
-    }
+    }*/
 
     JPS_ErrorMessage_Free(message);
 }
