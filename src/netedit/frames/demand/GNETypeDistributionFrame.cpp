@@ -36,20 +36,20 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNETypeDistributionFrame::TypeEditor) typeEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,    GNETypeDistributionFrame::TypeEditor::onCmdCreateType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_DELETE,    GNETypeDistributionFrame::TypeEditor::onCmdDeleteType),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_DELETE,    GNETypeDistributionFrame::TypeEditor::onUpdDeleteType),
+FXDEFMAP(GNETypeDistributionFrame::TypeDistributionEditor) typeEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,    GNETypeDistributionFrame::TypeDistributionEditor::onCmdCreateType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_DELETE,    GNETypeDistributionFrame::TypeDistributionEditor::onCmdDeleteType),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_DELETE,    GNETypeDistributionFrame::TypeDistributionEditor::onUpdDeleteType),
 };
 
-FXDEFMAP(GNETypeDistributionFrame::TypeSelector) typeSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeSelector::onCmdSelectTypeDistribution),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeSelector::onCmdUpdateTypeDistribution)
+FXDEFMAP(GNETypeDistributionFrame::TypeDistributionSelector) typeSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeDistributionSelector::onCmdSelectTypeDistribution),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeDistributionSelector::onCmdUpdateTypeDistribution)
 };
 
 // Object implementation
-FXIMPLEMENT(GNETypeDistributionFrame::TypeEditor,   MFXGroupBoxModule,  typeEditorMap,      ARRAYNUMBER(typeEditorMap))
-FXIMPLEMENT(GNETypeDistributionFrame::TypeSelector, MFXGroupBoxModule,  typeSelectorMap,    ARRAYNUMBER(typeSelectorMap))
+FXIMPLEMENT(GNETypeDistributionFrame::TypeDistributionEditor,   MFXGroupBoxModule,  typeEditorMap,      ARRAYNUMBER(typeEditorMap))
+FXIMPLEMENT(GNETypeDistributionFrame::TypeDistributionSelector, MFXGroupBoxModule,  typeSelectorMap,    ARRAYNUMBER(typeSelectorMap))
 
 
 // ===========================================================================
@@ -57,10 +57,10 @@ FXIMPLEMENT(GNETypeDistributionFrame::TypeSelector, MFXGroupBoxModule,  typeSele
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNETypeFrame::TypeEditor - methods
+// GNETypeFrame::TypeDistributionEditor - methods
 // ---------------------------------------------------------------------------
 
-GNETypeDistributionFrame::TypeEditor::TypeEditor(GNETypeDistributionFrame* typeDistributionFrameParent) :
+GNETypeDistributionFrame::TypeDistributionEditor::TypeDistributionEditor(GNETypeDistributionFrame* typeDistributionFrameParent) :
     MFXGroupBoxModule(typeDistributionFrameParent, TL("Type Editor")),
     myTypeDistributionFrameParent(typeDistributionFrameParent) {
     // Create new vehicle type
@@ -72,11 +72,11 @@ GNETypeDistributionFrame::TypeEditor::TypeEditor(GNETypeDistributionFrame* typeD
 }
 
 
-GNETypeDistributionFrame::TypeEditor::~TypeEditor() {}
+GNETypeDistributionFrame::TypeDistributionEditor::~TypeDistributionEditor() {}
 
 
 long
-GNETypeDistributionFrame::TypeEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
+GNETypeDistributionFrame::TypeDistributionEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     auto viewNet = myTypeDistributionFrameParent->myViewNet;
     // obtain a new valid Type ID
     const std::string typeDistributionID = viewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE_DISTRIBUTION);
@@ -91,12 +91,12 @@ GNETypeDistributionFrame::TypeEditor::onCmdCreateType(FXObject*, FXSelector, voi
 
 
 long
-GNETypeDistributionFrame::TypeEditor::onCmdDeleteType(FXObject*, FXSelector, void*) {
+GNETypeDistributionFrame::TypeDistributionEditor::onCmdDeleteType(FXObject*, FXSelector, void*) {
     auto viewNet = myTypeDistributionFrameParent->myViewNet;
     // begin undo list operation
     viewNet->getUndoList()->begin(GUIIcon::VTYPE, "delete vehicle type distribution");
     // remove vehicle type (and all of their children)
-    viewNet->getNet()->deleteDemandElement(myTypeDistributionFrameParent->myTypeSelector->getCurrentTypeDistribution(), viewNet->getUndoList());
+    viewNet->getNet()->deleteDemandElement(myTypeDistributionFrameParent->myTypeDistributionSelector->getCurrentTypeDistribution(), viewNet->getUndoList());
     // end undo list operation
     viewNet->getUndoList()->end();
     return 1;
@@ -104,9 +104,9 @@ GNETypeDistributionFrame::TypeEditor::onCmdDeleteType(FXObject*, FXSelector, voi
 
 
 long
-GNETypeDistributionFrame::TypeEditor::onUpdDeleteType(FXObject* sender, FXSelector, void*) {
+GNETypeDistributionFrame::TypeDistributionEditor::onUpdDeleteType(FXObject* sender, FXSelector, void*) {
     // first check if selected VType is valid
-    if (myTypeDistributionFrameParent->myTypeSelector->getCurrentTypeDistribution()) {
+    if (myTypeDistributionFrameParent->myTypeDistributionSelector->getCurrentTypeDistribution()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -114,10 +114,10 @@ GNETypeDistributionFrame::TypeEditor::onUpdDeleteType(FXObject* sender, FXSelect
 }
 
 // ---------------------------------------------------------------------------
-// GNETypeFrame::TypeSelector - methods
+// GNETypeFrame::TypeDistributionSelector - methods
 // ---------------------------------------------------------------------------
 
-GNETypeDistributionFrame::TypeSelector::TypeSelector(GNETypeDistributionFrame* typeFrameParent) :
+GNETypeDistributionFrame::TypeDistributionSelector::TypeDistributionSelector(GNETypeDistributionFrame* typeFrameParent) :
     MFXGroupBoxModule(typeFrameParent, TL("Current Type")),
     myTypeDistributionFrameParent(typeFrameParent) {
     // Create FXComboBox
@@ -132,29 +132,29 @@ GNETypeDistributionFrame::TypeSelector::TypeSelector(GNETypeDistributionFrame* t
     } else {
         myTypeComboBox->setNumVisible(20);
     }
-    // TypeSelector is always shown
+    // TypeDistributionSelector is always shown
     show();
 }
 
 
-GNETypeDistributionFrame::TypeSelector::~TypeSelector() {}
+GNETypeDistributionFrame::TypeDistributionSelector::~TypeDistributionSelector() {}
 
 
 GNEDemandElement*
-GNETypeDistributionFrame::TypeSelector::getCurrentTypeDistribution() const {
+GNETypeDistributionFrame::TypeDistributionSelector::getCurrentTypeDistribution() const {
     return myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, myCurrentTypeDistribution, false);
 }
 
 
 void
-GNETypeDistributionFrame::TypeSelector::setCurrentTypeDistribution(const GNEDemandElement* vTypeDistribution) {
+GNETypeDistributionFrame::TypeDistributionSelector::setCurrentTypeDistribution(const GNEDemandElement* vTypeDistribution) {
     myCurrentTypeDistribution = vTypeDistribution->getID();
-    refreshTypeSelector();
+    refreshTypeDistributionSelector();
 }
 
 
 void
-GNETypeDistributionFrame::TypeSelector::refreshTypeSelector() {
+GNETypeDistributionFrame::TypeDistributionSelector::refreshTypeDistributionSelector() {
     // get ACs
     const auto &ACs = myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // clear items
@@ -206,7 +206,7 @@ GNETypeDistributionFrame::TypeSelector::refreshTypeSelector() {
 
 
 long
-GNETypeDistributionFrame::TypeSelector::onCmdSelectTypeDistribution(FXObject*, FXSelector, void*) {
+GNETypeDistributionFrame::TypeDistributionSelector::onCmdSelectTypeDistribution(FXObject*, FXSelector, void*) {
     const auto viewNet = myTypeDistributionFrameParent->getViewNet();
     const auto &vTypeDistributions = viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION);
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
@@ -221,7 +221,7 @@ GNETypeDistributionFrame::TypeSelector::onCmdSelectTypeDistribution(FXObject*, F
             // show modules if selected item is valid
             myTypeDistributionFrameParent->myTypeAttributesEditor->showAttributeEditorModule(true, true);
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeSelector").text());
+            WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeDistributionSelector").text());
             // update viewNet
             viewNet->updateViewNet();
             return 1;
@@ -233,7 +233,7 @@ GNETypeDistributionFrame::TypeSelector::onCmdSelectTypeDistribution(FXObject*, F
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in TypeSelector");
+    WRITE_DEBUG("Selected invalid item in TypeDistributionSelector");
     // update viewNet
     viewNet->updateViewNet();
     return 1;
@@ -241,7 +241,7 @@ GNETypeDistributionFrame::TypeSelector::onCmdSelectTypeDistribution(FXObject*, F
 
 
 long
-GNETypeDistributionFrame::TypeSelector::onCmdUpdateTypeDistribution(FXObject* sender, FXSelector, void*) {
+GNETypeDistributionFrame::TypeDistributionSelector::onCmdUpdateTypeDistribution(FXObject* sender, FXSelector, void*) {
     const auto &demandElements = myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
     if (demandElements.at(SUMO_TAG_VTYPE_DISTRIBUTION).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -258,10 +258,10 @@ GNETypeDistributionFrame::GNETypeDistributionFrame(GNEViewParent* viewParent, GN
     GNEFrame(viewParent, viewNet, "Type Distributions") {
 
     // create type editor
-    myTypeEditor = new TypeEditor(this);
+    myTypeDistributionEditor = new TypeDistributionEditor(this);
 
     // create type selector
-    myTypeSelector = new TypeSelector(this);
+    myTypeDistributionSelector = new TypeDistributionSelector(this);
 
     // Create vehicle type attributes editor
     myTypeAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
@@ -274,9 +274,15 @@ GNETypeDistributionFrame::~GNETypeDistributionFrame() {}
 void
 GNETypeDistributionFrame::show() {
     // refresh type selector
-    myTypeSelector->refreshTypeSelector();
+    myTypeDistributionSelector->refreshTypeDistributionSelector();
     // show frame
     GNEFrame::show();
+}
+
+
+GNETypeDistributionFrame::TypeDistributionSelector*
+GNETypeDistributionFrame::getTypeDistributionSelector() const {
+    return myTypeDistributionSelector;
 }
 
 

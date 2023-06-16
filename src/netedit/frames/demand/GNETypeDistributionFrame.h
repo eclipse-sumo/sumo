@@ -32,19 +32,19 @@ class GNETypeDistributionFrame : public GNEFrame {
 
 public:
     // ===========================================================================
-    // class TypeEditor
+    // class TypeDistributionEditor
     // ===========================================================================
 
-    class TypeEditor : public MFXGroupBoxModule {
+    class TypeDistributionEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNETypeDistributionFrame::TypeEditor)
+        FXDECLARE(GNETypeDistributionFrame::TypeDistributionEditor)
 
     public:
         /// @brief constructor
-        TypeEditor(GNETypeDistributionFrame* typeDistributionFrameParent);
+        TypeDistributionEditor(GNETypeDistributionFrame* typeDistributionFrameParent);
 
         /// @brief destructor
-        ~TypeEditor();
+        ~TypeDistributionEditor();
 
         /// @name FOX-callbacks
         /// @{
@@ -62,7 +62,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        FOX_CONSTRUCTOR(TypeEditor)
+        FOX_CONSTRUCTOR(TypeDistributionEditor)
 
     private:
         /// @brief pointer to type distribution frame parent
@@ -76,19 +76,19 @@ public:
     };
 
     // ===========================================================================
-    // class TypeSelector
+    // class TypeDistributionSelector
     // ===========================================================================
 
-    class TypeSelector : public MFXGroupBoxModule {
+    class TypeDistributionSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNETypeDistributionFrame::TypeSelector)
+        FXDECLARE(GNETypeDistributionFrame::TypeDistributionSelector)
 
     public:
         /// @brief constructor
-        TypeSelector(GNETypeDistributionFrame* typeFrameParent);
+        TypeDistributionSelector(GNETypeDistributionFrame* typeFrameParent);
 
         /// @brief destructor
-        ~TypeSelector();
+        ~TypeDistributionSelector();
 
         /// @brief get current Vehicle Type distribution
         GNEDemandElement* getCurrentTypeDistribution() const;
@@ -97,7 +97,7 @@ public:
         void setCurrentTypeDistribution(const GNEDemandElement* vTypeDistribution);
 
         /// @brief refresh modul
-        void refreshTypeSelector();
+        void refreshTypeDistributionSelector();
 
         /// @name FOX-callbacks
         /// @{
@@ -111,7 +111,7 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(TypeSelector)
+        FOX_CONSTRUCTOR(TypeDistributionSelector)
 
     private:
         /// @brief pointer to Frame Parent
@@ -136,16 +136,19 @@ public:
     /// @brief show Frame
     void show();
 
+    /// @brief get type distribution selector
+    TypeDistributionSelector* getTypeDistributionSelector() const;
+
 protected:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     void attributeUpdated(SumoXMLAttr attribute);
 
 private:
     /// @brief type editor
-    TypeEditor* myTypeEditor = nullptr;
+    TypeDistributionEditor* myTypeDistributionEditor = nullptr;
 
-    /// @brief type selector
-    TypeSelector* myTypeSelector = nullptr;
+    /// @brief type distribution selector
+    TypeDistributionSelector* myTypeDistributionSelector = nullptr;
 
     /// @brief editor for vehicle type attributes
     GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor = nullptr;
