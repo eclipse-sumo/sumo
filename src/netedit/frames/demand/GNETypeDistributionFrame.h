@@ -90,22 +90,21 @@ public:
         /// @brief destructor
         ~TypeSelector();
 
-        /// @brief get current Vehicle Type
-        GNEDemandElement* getCurrentType() const;
+        /// @brief get current Vehicle Type distribution
+        GNEDemandElement* getCurrentTypeDistribution() const;
 
-        /// @brief set current Vehicle Type
-        void setCurrentType(GNEDemandElement* vType);
-
-        /// @brief refresh vehicle type selector
-        void refreshTypeSelector();
-
-        /// @brief refresh vehicle type selector (only IDs, without refreshing attributes)
-        void refreshTypeSelectorIDs();
+        /// @brief set current vehicle type distribution
+        void setCurrentTypeDistribution(const GNEDemandElement* vTypeDistribution);
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user select another element in ComboBox
-        long onCmdSelectItem(FXObject*, FXSelector, void*);
+
+        /// @brief refresh modul
+        long onCmdRefreshTypeSelector(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user select type distribution in ComboBox
+        long onCmdSelectTypeDistribution(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -114,12 +113,12 @@ public:
     private:
         /// @brief pointer to Frame Parent
         GNETypeDistributionFrame* myTypeDistributionFrameParent;
-
-        /// @brief pointer to current vehicle type
-        GNEDemandElement* myCurrentType = nullptr;
-
-        /// @brief comboBox with the list of vTypes
+        
+        /// @brief comboBox with the list of type distributions
         MFXComboBoxIcon* myTypeComboBox = nullptr;
+
+        /// @brief current type distribution
+        std::string myCurrentTypeDistribution;
     };
 
     /**@brief Constructor
@@ -147,9 +146,6 @@ private:
 
     /// @brief editor for vehicle type attributes
     GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor = nullptr;
-
-    /// @brief modul for open extended attributes dialog
-    GNEFrameAttributeModules::AttributesEditorExtended* myAttributesEditorExtended = nullptr;
 
     /// @brief Parameters editor inspector
     GNEFrameAttributeModules::ParametersEditor* myParametersEditor;

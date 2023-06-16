@@ -899,7 +899,8 @@ enum {
     /// @name GNEFrame messages
     /// @{
 
-    // MID_GNE_WIZARD,
+    /// @brief refresh
+    MID_GNE_REFRESH,
     /// @brief attribute added
     MID_GNE_ADD_ATTRIBUTE,
     /// @brief attribute removed

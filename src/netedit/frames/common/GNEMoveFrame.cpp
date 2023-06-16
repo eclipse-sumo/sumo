@@ -298,7 +298,7 @@ GNEMoveFrame::ChangeZInSelection::disableChangeZInSelection() {
 
 
 long
-GNEMoveFrame::ChangeZInSelection::onCmdChangeZValue(FXObject* obj, FXSelector sel, void*) {
+GNEMoveFrame::ChangeZInSelection::onCmdChangeZValue(FXObject* /*obj*/, FXSelector /*sel*/, void*) {
     return 1;
 }
 
