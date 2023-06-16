@@ -112,12 +112,22 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
 
 	JPS_VelocityModelAgentParameters agent_parameters{};
 	agent_parameters.journeyId = journeyId;
-	agent_parameters.orientation = {1.0, 0.0};
+    agent_parameters.orientation = {1.0, 0.0}; // TODO: Needs to be fixed.
 	agent_parameters.position = {departurePosition.x(), departurePosition.y()};
     agent_parameters.profileId = myJPSParameterProfileId;
 
-    JPS_AgentId agentId = JPS_Simulation_AddVelocityModelAgent(myJPSSimulation, agent_parameters, nullptr);
+    JPS_ErrorMessage message = nullptr;
+    JPS_AgentId agentId = JPS_Simulation_AddVelocityModelAgent(myJPSSimulation, agent_parameters, &message);
+    if (message != nullptr) {
+        std::ostringstream oss;
+        oss << "Error while adding an agent: " << JPS_ErrorMessage_GetMessage(message);
+        WRITE_ERROR(oss.str());
+    }
+    JPS_ErrorMessage_Free(message);
+
     PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, arrivalPosition, agentId);
+    state->setPosition(agent_parameters.position.x, agent_parameters.position.y);
+    state->setAngle(atan2(agent_parameters.orientation.y, agent_parameters.orientation.x));
 	myPedestrianStates.push_back(state);
     myNumActivePedestrians++;
 		
@@ -360,7 +370,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
                 MSLane* lane = getPedestrianLane(edge);
                 if (lane) {
                     Position anchor = getAnchor(lane, edge, incoming);
-                    geos::geom::Geometry* dilatedLaneLine = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_BUTT);
+                    geos::geom::Geometry* dilatedLaneLine = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_SQUARE);
                     dilatedPedestrianLanes.push_back(dilatedLaneLine);
 
                     for (MSEdge* nextEdge : adjacent) {
@@ -383,7 +393,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
             if (edge->getFunction() == SumoXMLEdgeFunc::CROSSING) {
                 MSLane* lane = getPedestrianLane(edge);
                 if (lane) {
-                    geos::geom::Geometry* dilatedCrossingLane = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_BUTT);
+                    geos::geom::Geometry* dilatedCrossingLane = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_SQUARE);
                     dilatedPedestrianLanes.push_back(dilatedCrossingLane);
 
                     for (MSEdge* nextEdge : getAdjacentEdgesOfEdge(edge)) {
