@@ -150,8 +150,10 @@ private:
     geos::geom::Geometry* createShapeFromAnchors(Position anchor, MSLane* lane, Position otherAnchor, MSLane* otherLane);
     geos::geom::Geometry* buildPedestrianNetwork(MSNet* network);
     static PositionVector getCoordinates(const geos::geom::Geometry* geometry);
-    static std::vector<JPS_Point> convertToJpsPoints(const geos::geom::Geometry* geometry);
+    static std::vector<JPS_Point> convertToJPSPoints(const geos::geom::Geometry* geometry);
+    static std::vector<JPS_Point> convertToJPSPoints(const PositionVector& coordinates);
     geos::geom::Polygon* toPolygon(const geos::geom::LinearRing* linearRing);
     void renderPolygon(const geos::geom::Polygon* polygon, const std::string& polygonId);
     void preparePolygonForJPS(const geos::geom::Polygon* polygon, const std::string& polygonId = std::string());
+    void prepareAdditionalPolygonsForJPS(void);
 };
