@@ -1776,16 +1776,19 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
             }
 #endif
             if (dist < ego->getVehicleType().getWidth() / 2 || inFront) {
-                if (inFront && isOnComingPed(ego, p)) {
-                    // account for pedestrian movement while closing in
-                    const double timeToStop = (ego->getSpeed() + ACCEL2SPEED(ego->getCarFollowModel().getMaxAccel())) / ego->getCarFollowModel().getMaxDecel();
-                    const double pedDist = p->getMaxSpeed() * MAX2(timeToStop, TS);
-                    dist = MAX2(0.0, dist - pedDist);
+                if (inFront) {
+                    const double oncomingFactor = isOnComingPed(ego, p);
+                    if (oncomingFactor > 0) {
+                        // account for pedestrian movement while closing in
+                        const double timeToStop = (ego->getSpeed() + ACCEL2SPEED(ego->getCarFollowModel().getMaxAccel())) / ego->getCarFollowModel().getMaxDecel();
+                        const double pedDist = p->getMaxSpeed() * MAX2(timeToStop, TS) * oncomingFactor;
+                        dist = MAX2(0.0, dist - pedDist);
 #ifdef DEBUG_WALKINGAREA
-                    if (ego->isSelected()) {
-                        std::cout << "    timeToStop=" << timeToStop << " pedDist=" << pedDist << " dist2=" << dist << "\n";
-                    }
+                        if (ego->isSelected()) {
+                            std::cout << "    timeToStop=" << timeToStop << " pedDist=" << pedDist << " factor=" << oncomingFactor << " dist2=" << dist << "\n";
+                        }
 #endif
+                    }
                 }
                 if (ignoreFoe(ego, p)) {
                     continue;
@@ -1819,16 +1822,20 @@ MSLink::isInFront(const MSVehicle* ego, const PositionVector& egoPath, const Pos
 }
 
 
-bool
+double
 MSLink::isOnComingPed(const MSVehicle* ego, const MSPerson* p) const {
     const double pedToEgoAngle = p->getPosition().angleTo2D(ego->getPosition());
     const double angleDiff = fabs(GeomHelper::angleDiff(p->getAngle(), pedToEgoAngle));
 #ifdef DEBUG_WALKINGAREA
     if (ego->isSelected()) {
-        std::cout << " ped-angleDiff=" << RAD2DEG(angleDiff) << "\n";
+        std::cout << " ped-angleDiff=" << RAD2DEG(angleDiff) << " res=" << cos(angleDiff) << "\n";
     }
 #endif
-    return angleDiff < DEG2RAD(75);
+    if (angleDiff <= DEG2RAD(90)) {;
+        return cos(angleDiff);
+    } else {
+        return 0;
+    }
 }
 
 

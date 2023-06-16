@@ -681,8 +681,8 @@ private:
     /// @brief whether the given person is in front of the car
     bool isInFront(const MSVehicle* ego, const PositionVector& egoPath, const Position& pPos) const;
 
-    /// @brief whether the given person is walking towards the car
-    bool isOnComingPed(const MSVehicle* ego, const MSPerson* p) const;
+    /// @brief whether the given person is walking towards the car returned as a factor in [0, 1]
+    double isOnComingPed(const MSVehicle* ego, const MSPerson* p) const;
 
     /// @brief return extrapolated position of the given person after the given time
     Position getFuturePosition(const MSPerson* p, double timeHorizon = 1) const;
