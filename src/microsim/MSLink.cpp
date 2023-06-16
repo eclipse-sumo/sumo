@@ -1780,7 +1780,7 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
                     const double oncomingFactor = isOnComingPed(ego, p);
                     if (oncomingFactor > 0) {
                         // account for pedestrian movement while closing in
-                        const double timeToStop = (ego->getSpeed() + ACCEL2SPEED(ego->getCarFollowModel().getMaxAccel())) / ego->getCarFollowModel().getMaxDecel();
+                        const double timeToStop = sqrt(dist) / 2;
                         const double pedDist = p->getMaxSpeed() * MAX2(timeToStop, TS) * oncomingFactor;
                         dist = MAX2(0.0, dist - pedDist);
 #ifdef DEBUG_WALKINGAREA
