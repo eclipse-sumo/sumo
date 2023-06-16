@@ -636,8 +636,6 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
                 myValueTextField->setBackColor(FXRGB(255, 255, 255));
                 myValueTextField->killFocus();
-                // in this case, we need to refresh the other values (For example, allow/Disallow objects)
-                myAttributesEditorParent->refreshAttributeEditor(false, false);
             } else if (myACAttr.isDiscrete()) {
                 myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 0));
                 myValueChoicesComboBox->setBackColor(FXRGB(255, 255, 255));
@@ -647,6 +645,8 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 myValueTextField->setBackColor(FXRGB(255, 255, 255));
                 myValueTextField->killFocus();
             }
+            // in this case, we need to refresh the other values (For example, allow/Disallow objects)
+            myAttributesEditorParent->refreshAttributeEditor(false, false);
             // update frame parent after attribute successfully set
             myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
         }
@@ -815,6 +815,14 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 if (attributeEnabled == false) {
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
+                // if vTypes, the following attributes must be always enabled
+                if (ACs.front()->getTagProperty().isType() &&
+                    ((attrProperty.getAttr() == SUMO_ATTR_LENGTH) ||
+                     (attrProperty.getAttr() == SUMO_ATTR_MINGAP) ||
+                     (attrProperty.getAttr() == SUMO_ATTR_MAXSPEED) ||
+                     (attrProperty.getAttr() == SUMO_ATTR_DESIRED_MAXSPEED))) {
+                    attributeEnabled = true;
+                }
                 // extra check for Triggered and container Triggered
                 if (ACs.front()->getTagProperty().isStop() || ACs.front()->getTagProperty().isStopPerson()) {
                     if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED) && (ACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
@@ -830,8 +838,6 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 if ((ACs.size() == 1) && attrProperty.isVType()) {
                     if (attrProperty.getAttr() == SUMO_ATTR_TYPE) {
                         ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, ACs.front()->getAttribute(SUMO_ATTR_TYPE));
-                    } else if (ACs.front()->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION).size() > 0) {
-                        ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, ACs.front()->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION));
                     }
                 }
                 // create attribute editor row
