@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-16 07:30+0000\n"
+"PO-Revision-Date: 2023-06-16 08:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -8968,12 +8968,14 @@ msgstr "Eine Personenfahrt von Kante zu Kante benötigt zwei Kanten"
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1292
 msgid "A person trip from edge to busStop needs one edge and one busStop"
 msgstr ""
-"Eine Personenfahrt von Kante zur einen Bushaltepunkt benötigt eine Kante und "
-"einen Bushaltepunkt"
+"Eine Personenfahrt von einer Kante zu einem Bushaltepunkt benötigt eine "
+"Kante und einen Bushaltepunkt"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1302
 msgid "A person trip from edge to trainStop needs one edge and one trainStop"
 msgstr ""
+"Eine Personenfahrt von einer Kante zu einem Bahnhaltepunkt benötigt eine "
+"Kante und einen Bahnhaltepunkt"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1312
 msgid "A person trip from junction to junction needs two junctions junction"
@@ -9003,8 +9005,8 @@ msgstr "Zu einem Fußweg entlang einer Route muss ebendiese angegeben sein"
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1373
 msgid "A ride from busStop to junction needs a busStop and an junction"
 msgstr ""
-"Eine Fahrt von Bushaltepunkt zum Knotenpunkt benötigt einen Bushaltepunkt "
-"und einen Knotenpunkt"
+"Eine Fahrt von einem Bushaltepunkt zu einem Knotenpunkt benötigt einen "
+"Bushaltepunkt und einen Knotenpunkt"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1384
 msgid "A ride from edge to edge needs two edges edge"
@@ -9019,6 +9021,8 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1404
 msgid "A ride from edge to trainStop needs one edge and one trainStop"
 msgstr ""
+"Eine Fahrt von einer Kante zu einem Bahnhaltepunkt benötigt eine Kante und "
+"einen Bahnhaltepunkt"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1418
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1568
@@ -9032,7 +9036,7 @@ msgstr "Ein Halt muss über einen Bushaltepunkt platziert werden"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1440
 msgid "A stop has to be placed over a trainStop"
-msgstr ""
+msgstr "Ein Halt muss über einem Bahnhaltepunkt platziert werden"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1513
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1534
@@ -9058,12 +9062,11 @@ msgstr "Ein Umschlag mit Kanten-Attributen benötigt eine Liste von Kanten"
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1620
 #, c-format
 msgid "Via edge '%' doesn't exist."
-msgstr ""
+msgstr "Die Zwischenkante (via) '%' existiert nicht."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:446
-#, fuzzy
 msgid "Invalid Stop parent"
-msgstr "Ungültiger Eltern-Halt"
+msgstr "Ungültiges Elternelement eines Halts"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:461
 msgid "Invalid parent"
@@ -10881,31 +10884,31 @@ msgstr "Shift+Klick um das Elternelement auszuwählen"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:72
 msgid "Click over a bus stop to create a stop."
-msgstr ""
+msgstr "Klicke auf einen Bushaltepunkt, um einen Halt zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:78
 msgid "Click over a train stop to create a stop."
-msgstr ""
+msgstr "Klicke auf einen Bahnhaltepunkt, um einen Halt zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:84
 msgid "Click over a container stop  to create a stop."
-msgstr ""
+msgstr "Klicke auf einen Container-Stop, um einen Halt zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:90
 msgid "Click over a charging station to create a stop."
-msgstr ""
+msgstr "Klicke auf eine Ladestation, um einen Halt zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:96
 msgid "Click over a parking area to create a stop."
-msgstr ""
+msgstr "Klicke auf einen Parkplatz, um einen Halt zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:102
 msgid "Click over a lane to create a stop."
-msgstr ""
+msgstr "Klicke auf einen Fahrstreifen, um einen Halt zu erstellen."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:106
 msgid "No stop parents in current network."
-msgstr ""
+msgstr "Keine Elternelemente von Halten im aktuellen Netz vorhanden."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:189
 msgid "Selected Stop type isn't valid."
@@ -12451,48 +12454,48 @@ msgstr "Objekt muss ein Fahrstreifen sein"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:285
 msgid "Copy name to clipboard"
-msgstr ""
+msgstr "Namen in Zwischenablage"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:286
 msgid "Copy typed name to clipboard"
-msgstr ""
+msgstr "Typisierten Namen in Zwischenablage"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:296
 msgid "Remove From Selected"
-msgstr ""
+msgstr "Aus Auswahl entfernen"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:298
 msgid "Add To Selected"
-msgstr ""
+msgstr "Zu Auswahl hinzufügen"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:308
 msgid "Show Parameter"
-msgstr ""
+msgstr "Parameter anzeigen"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:317
 msgid "Show Type Parameter"
-msgstr ""
+msgstr "Typparameter anzeigen"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:326
 msgid "Copy cursor position to clipboard"
-msgstr ""
+msgstr "Zeigerposition in Zwischenablage"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:328
 msgid "Copy cursor geo-position to clipboard"
-msgstr ""
+msgstr "Geokoordinate der Zeigerposition in Zwischenablage"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:332
 msgid "Show cursor geo-position in "
-msgstr ""
+msgstr "Geokoordinate der Zeigerposition in "
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:350
 msgid "Open Manipulator..."
-msgstr ""
+msgstr "Manipulator öffnen..."
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:389
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:412
 msgid "type: %"
-msgstr ""
+msgstr "Typ: %"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:87
 msgid "&Save changes"
