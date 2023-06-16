@@ -1025,7 +1025,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         for (const auto& demandElementTag : demandElements) {
             for (const auto& demandElement : demandElementTag.second) {
                 // avoid vTypes
-                if (!demandElement->getTagProperty().isVehicleType()) {
+                if (!demandElement->getTagProperty().isType()) {
                     // iterate over every child
                     for (const auto& stop : demandElement->getChildDemandElements()) {
                         if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson() || stop->getTagProperty().isStopContainer()) {

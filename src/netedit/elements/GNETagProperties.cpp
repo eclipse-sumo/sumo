@@ -329,7 +329,7 @@ GNETagProperties::isWireElement() const {
 
 
 bool
-GNETagProperties::isVehicleType() const {
+GNETagProperties::isType() const {
     return (myTagType & VTYPE) != 0;
 }
 

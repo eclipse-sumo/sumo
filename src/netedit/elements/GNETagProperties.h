@@ -194,8 +194,8 @@ public:
     /// @brief return true if tag correspond to a Wire element
     bool isWireElement() const;
 
-    /// @brief return true if tag correspond to a vehicle type element
-    bool isVehicleType() const;
+    /// @brief return true if tag correspond to a vehicle/person/container type element
+    bool isType() const;
 
     /// @brief return true if tag correspond to a vehicle element
     bool isVehicle() const;

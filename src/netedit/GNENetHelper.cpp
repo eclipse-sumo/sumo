@@ -120,7 +120,7 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
             // decrease reference manually (because it was increased manually in GNERouteHandler)
             demandElement->decRef();
             // show extra information for tests
-            if (demandElement->getTagProperty().isVehicleType()) {
+            if (demandElement->getTagProperty().isType()) {
                 // special case for default VTypes
                 if (DEFAULT_VTYPES.count(demandElement->getID()) == 0) {
                     WRITE_DEBUG("Deleting unreferenced " + demandElement->getTagStr() + " in AttributeCarriers destructor");
@@ -2563,17 +2563,17 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
         // continue depending of demand mode
         switch (myNet->getViewNet()->getEditModes().demandEditMode) {
             case DemandEditMode::DEMAND_VEHICLE:
-                if (tagProperty.isVehicleType()) {
+                if (tagProperty.isType()) {
                     myNet->getViewNet()->getViewParent()->getVehicleFrame()->getTypeSelector()->refreshDemandElementSelector();
                 }
                 break;
             case DemandEditMode::DEMAND_TYPE:
-                if (tagProperty.isVehicleType()) {
+                if (tagProperty.isType()) {
                     myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector();
                 }
                 break;
             case DemandEditMode::DEMAND_TYPEDISTRIBUTION:
-                if (tagProperty.isVehicleType()) {
+                if (tagProperty.isType()) {
                     myNet->getViewNet()->getViewParent()->getTypeDistributionFrame()->getTypeDistributionSelector()->refreshTypeDistributionSelector();
                 }
                 break;
@@ -2581,7 +2581,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
                 myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->refreshDemandElementSelector();
                 break;
             case DemandEditMode::DEMAND_PERSON:
-                if (tagProperty.isVehicleType()) {
+                if (tagProperty.isType()) {
                     myNet->getViewNet()->getViewParent()->getPersonFrame()->getTypeSelector()->refreshDemandElementSelector();
                 }
                 break;
@@ -2591,7 +2591,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
                 }
                 break;
             case DemandEditMode::DEMAND_CONTAINER:
-                if (tagProperty.isVehicleType()) {
+                if (tagProperty.isType()) {
                     myNet->getViewNet()->getViewParent()->getContainerFrame()->getTypeSelector()->refreshDemandElementSelector();
                 }
                 break;
