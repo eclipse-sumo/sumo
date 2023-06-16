@@ -439,15 +439,27 @@ MSPModel_JuPedSim::getCoordinates(const geos::geom::Geometry* geometry) {
 
 
 std::vector<JPS_Point> 
-MSPModel_JuPedSim::convertToJpsPoints(const geos::geom::Geometry* geometry) {
-    std::vector<JPS_Point> poly;
+MSPModel_JuPedSim::convertToJPSPoints(const PositionVector& coordinates) {
+    std::vector<JPS_Point> polygon;
+    // Remove the last point so that CGAL doesn't complain of the simplicity of the polygon downstream.
+    for (size_t i = 0; i < coordinates.size() - 1; i++) {
+        Position c = coordinates[i];
+        polygon.push_back({c.x(), c.y()});
+    }
+    return polygon;
+}
+
+
+std::vector<JPS_Point>
+MSPModel_JuPedSim::convertToJPSPoints(const geos::geom::Geometry* geometry) {
+    std::vector<JPS_Point> polygon;
     std::unique_ptr<geos::geom::CoordinateSequence> coordsSeq = geometry->getCoordinates();
     // Remove the last point so that CGAL doesn't complain of the simplicity of the polygon downstream.
     for (size_t i = 0; i < coordsSeq->getSize() - 1; i++) {
         geos::geom::Coordinate c = coordsSeq->getAt(i);
-        poly.push_back({c.x, c.y});
+        polygon.push_back({ c.x, c.y });
     }
-    return poly;
+    return polygon;
 }
 
 
@@ -487,7 +499,7 @@ MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon, cons
 
     // Handle the exterior polygon.
     const geos::geom::LinearRing* exterior = polygon->getExteriorRing();
-    std::vector<JPS_Point> exteriorCoordinates = convertToJpsPoints(exterior);
+    std::vector<JPS_Point> exteriorCoordinates = convertToJPSPoints(exterior);
     JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size());
 
     for (const auto& c : exteriorCoordinates) {
@@ -500,7 +512,7 @@ MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon, cons
     for (size_t k = 0; k < polygon->getNumInteriorRing(); k++) {
         const geos::geom::LinearRing* interior = polygon->getInteriorRingN(k);
         if (toPolygon(interior)->getArea() > GEOS_MIN_AREA) {
-            std::vector<JPS_Point> holeCoordinates = convertToJpsPoints(interior);
+            std::vector<JPS_Point> holeCoordinates = convertToJPSPoints(interior);
             JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, holeCoordinates.data(), holeCoordinates.size());
 
             for (const auto& c : holeCoordinates) {
@@ -512,6 +524,22 @@ MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon, cons
     }
 
     dumpFile.close();
+}
+
+
+void MSPModel_JuPedSim::prepareAdditionalPolygonsForJPS(void) {
+    for (auto shape: myNetwork->getShapeContainer().getPolygons()) {
+        std::vector<JPS_Point> coordinates = convertToJPSPoints(shape.second->getShape());
+        if (shape.second->getShapeType() == "jupedsim.walkable_area") {
+            JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, coordinates.data(), coordinates.size());
+        }
+        else if (shape.second->getShapeType() == "jupedsim.obstacle") {
+            JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, coordinates.data(), coordinates.size());
+        }
+        else {
+            continue;
+        }
+    }
 }
 
 
@@ -528,8 +556,9 @@ MSPModel_JuPedSim::initialize() {
     GEOSGeometryDumpFile << wkt << std::endl;
     GEOSGeometryDumpFile.close();
 
-    /*
     myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
+
+    /*
     for (size_t i = 0; i < myGEOSPedestrianNetwork->getNumGeometries(); i++) {
         const geos::geom::Polygon* connectedComponentPolygon = dynamic_cast<const geos::geom::Polygon*>(myGEOSPedestrianNetwork->getGeometryN(i));
         std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
@@ -539,8 +568,7 @@ MSPModel_JuPedSim::initialize() {
     }
     */
 
-    // For the moment, JuPedSim only supports one connected component
-    myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
+    // For the moment, JuPedSim only supports one connected component.
     const geos::geom::Polygon* maxAreaConnectedComponentPolygon = nullptr;
     std::string maxAreaPolygonId;
     double maxArea = 0.0;
@@ -556,6 +584,8 @@ MSPModel_JuPedSim::initialize() {
     }
     renderPolygon(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
     preparePolygonForJPS(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
+
+    prepareAdditionalPolygonsForJPS();
 
     JPS_ErrorMessage message = nullptr; 
     
