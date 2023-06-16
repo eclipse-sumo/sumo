@@ -36,13 +36,13 @@ def convert_to_string(polygon):
         s.append(f"{coordinates[0]},{coordinates[1]}")
     return " ".join(s)
 
-def polygon_as_XML_element(polygon, typename):
-    return f'\t<poly id="{typename+"_"+str(index)}" type="{typename}" shape="{convert_to_string(polygon)}"/>\n'
+def polygon_as_XML_element(polygon, typename, color):
+    return f'\t<poly id="{typename[9:]+"_"+str(index)}" type="{typename}" color="{color}" shape="{convert_to_string(polygon)}"/>\n'
 
 with open(filename[:-3] + "add.xml", "w") as add:
     add.write("<additionals>\n")
     for index, polygon in enumerate(walkable_areas):
-        add.write(polygon_as_XML_element(polygon, "walkable_area"))
+        add.write(polygon_as_XML_element(polygon, "jupedsim.walkable_area", "blue"))
     for index, polygon in enumerate(obstacles):
-        add.write(polygon_as_XML_element(polygon, "obstacle"))
+        add.write(polygon_as_XML_element(polygon, "jupedsim.obstacle", "red"))
     add.write("</additionals>")
