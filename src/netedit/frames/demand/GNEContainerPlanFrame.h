@@ -62,6 +62,12 @@ public:
     /// @brief get path creator modul
     GNEPathCreator* getPathCreator() const;
 
+    /// @brief get container Hierarchy
+    GNEElementTree* getContainerHierarchy() const;
+
+    /// @brief get container selectors
+    DemandElementSelector* getContainerSelector() const;
+
 protected:
     /// @brief Tag selected in GNETagSelector
     void tagSelected();

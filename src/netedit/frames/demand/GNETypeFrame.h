@@ -67,8 +67,10 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+
         /// @brief Called when the user select another element in ComboBox
         long onCmdSelectItem(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:

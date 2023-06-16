@@ -93,6 +93,9 @@ public:
     /// @brief get vehicle tag selector (needed for transform vehicles)
     GNETagSelector* getVehicleTagSelector() const;
 
+    /// @brief getVehicle Type selectors
+    DemandElementSelector* getTypeSelector() const;
+
     /// @brief get GNEPathCreator module
     GNEPathCreator* getPathCreator() const;
 

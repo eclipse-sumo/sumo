@@ -191,6 +191,12 @@ GNEPersonPlanFrame::getPersonHierarchy() const {
     return myPersonHierarchy;
 }
 
+
+DemandElementSelector*
+GNEPersonPlanFrame::getPersonSelector() const {
+    return myPersonSelector;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================

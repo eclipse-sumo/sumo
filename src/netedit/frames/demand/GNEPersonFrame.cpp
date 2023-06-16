@@ -147,6 +147,12 @@ GNEPersonFrame::getPathCreator() const {
     return myPathCreator;
 }
 
+
+DemandElementSelector*
+GNEPersonFrame::getTypeSelector() const {
+    return myTypeSelector;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================

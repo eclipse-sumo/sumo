@@ -142,6 +142,18 @@ GNEContainerPlanFrame::getPathCreator() const {
     return myPathCreator;
 }
 
+
+GNEElementTree*
+GNEContainerPlanFrame::getContainerHierarchy() const {
+    return myContainerHierarchy;
+}
+
+
+DemandElementSelector*
+GNEContainerPlanFrame::getContainerSelector() const {
+    return myContainerSelector;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================

@@ -145,6 +145,12 @@ GNEContainerFrame::getPathCreator() const {
     return myPathCreator;
 }
 
+
+DemandElementSelector*
+GNEContainerFrame::getTypeSelector() const {
+    return myTypeSelector;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================

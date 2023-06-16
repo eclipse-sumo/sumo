@@ -286,8 +286,6 @@ GNETypeFrame::TypeEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     myTypeFrameParent->myViewNet->getUndoList()->end();
     // set created vehicle type in selector
     myTypeFrameParent->myTypeSelector->setCurrentType(type);
-    // refresh Type Editor Module
-    myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     return 1;
 }
 
@@ -320,12 +318,8 @@ GNETypeFrame::TypeEditor::onCmdCopyType(FXObject*, FXSelector, void*) {
         myTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(typeCopy, true), true);
         // end undo list operation
         myTypeFrameParent->myViewNet->getUndoList()->end();
-        // refresh Type Selector (to show the new VType)
-        myTypeFrameParent->myTypeSelector->refreshTypeSelector();
         // set created vehicle type in selector
         myTypeFrameParent->myTypeSelector->setCurrentType(typeCopy);
-        // refresh Type Editor Module
-        myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     }
     return 1;
 }

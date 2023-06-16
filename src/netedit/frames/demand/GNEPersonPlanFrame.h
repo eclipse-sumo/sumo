@@ -70,6 +70,9 @@ public:
     /// @brief get Person Hierarchy
     GNEElementTree* getPersonHierarchy() const;
 
+    /// @brief get person selectors
+    DemandElementSelector* getPersonSelector() const;
+
 protected:
     /// @brief Tag selected in GNETagSelector
     void tagSelected();

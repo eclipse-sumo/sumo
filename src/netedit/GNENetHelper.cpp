@@ -33,6 +33,14 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/demand/GNETypeFrame.h>
+#include <netedit/frames/demand/GNETypeDistributionFrame.h>
+#include <netedit/frames/demand/GNEStopFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
+#include <netedit/frames/demand/GNEContainerFrame.h>
+#include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/options/OptionsCont.h>
@@ -2409,6 +2417,8 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
     if (myNet->isUpdateGeometryEnabled()) {
         demandElement->updateGeometry();
     }
+    // update demand elements frames
+    updateDemandElementFrames(demandElement->getTagProperty());
     // demandElements has to be saved
     myNet->getSavingStatus()->requireSaveDemandElements();
 }
@@ -2426,6 +2436,7 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     myNet->getViewNet()->removeFromAttributeCarrierInspected(demandElement);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
     myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPersonHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
+    myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getContainerHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
     // if is the last inserted route, remove it from GNEViewNet
     if (myNet->getViewNet()->getLastCreatedRoute() == demandElement) {
         myNet->getViewNet()->setLastCreatedRoute(nullptr);
@@ -2436,6 +2447,8 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     myNet->removeGLObjectFromGrid(demandElement);
     // delete path element
     myNet->getPathManager()->removePath(demandElement);
+    // update demand elements frames
+    updateDemandElementFrames(demandElement->getTagProperty());
     // demandElements has to be saved
     myNet->getSavingStatus()->requireSaveDemandElements();
 }
@@ -2541,6 +2554,57 @@ GNENetHelper::AttributeCarriers::deleteMeanData(GNEMeanData* meanData) {
     }
     // meanDatas has to be saved
     myNet->getSavingStatus()->requireSaveMeanDatas();
+}
+
+
+void
+GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagProperties &tagProperty) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        // continue depending of demand mode
+        switch (myNet->getViewNet()->getEditModes().demandEditMode) {
+            case DemandEditMode::DEMAND_VEHICLE:
+                if (tagProperty.isVehicleType()) {
+                    myNet->getViewNet()->getViewParent()->getVehicleFrame()->getTypeSelector()->refreshDemandElementSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_TYPE:
+                if (tagProperty.isVehicleType()) {
+                    myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_TYPEDISTRIBUTION:
+                if (tagProperty.isVehicleType()) {
+                    myNet->getViewNet()->getViewParent()->getTypeDistributionFrame()->getTypeDistributionSelector()->refreshTypeDistributionSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_STOP:
+                myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->refreshDemandElementSelector();
+                break;
+            case DemandEditMode::DEMAND_PERSON:
+                if (tagProperty.isVehicleType()) {
+                    myNet->getViewNet()->getViewParent()->getPersonFrame()->getTypeSelector()->refreshDemandElementSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_PERSONPLAN:
+                if (tagProperty.isPerson()) {
+                    myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPersonSelector()->refreshDemandElementSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_CONTAINER:
+                if (tagProperty.isVehicleType()) {
+                    myNet->getViewNet()->getViewParent()->getContainerFrame()->getTypeSelector()->refreshDemandElementSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_CONTAINERPLAN:
+                if (tagProperty.isContainer()) {
+                    myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getContainerSelector()->refreshDemandElementSelector();
+                }
+                break;
+            default:
+                // nothing to update
+                break;
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------

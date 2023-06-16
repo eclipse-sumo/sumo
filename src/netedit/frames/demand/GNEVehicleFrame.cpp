@@ -220,6 +220,12 @@ GNEVehicleFrame::getVehicleTagSelector() const {
 }
 
 
+DemandElementSelector*
+GNEVehicleFrame::getTypeSelector() const {
+    return myTypeSelector;
+}
+
+
 GNEPathCreator*
 GNEVehicleFrame::getPathCreator() const {
     return myPathCreator;

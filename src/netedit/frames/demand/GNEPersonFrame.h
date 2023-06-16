@@ -63,6 +63,9 @@ public:
     /// @brief get GNEPathCreator module
     GNEPathCreator* getPathCreator() const;
 
+    /// @brief get Type selectors
+    DemandElementSelector* getTypeSelector() const;
+
 protected:
     /// @brief Tag selected in GNETagSelector
     void tagSelected();
