@@ -2425,7 +2425,7 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
 
 
 void
-GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement) {
+GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement, const bool updateFrames) {
     // find demanElement in demandElementTag
     auto itFind = myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement);
     // check if demandElement was previously inserted
@@ -2447,8 +2447,10 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     myNet->removeGLObjectFromGrid(demandElement);
     // delete path element
     myNet->getPathManager()->removePath(demandElement);
-    // update demand elements frames
-    updateDemandElementFrames(demandElement->getTagProperty());
+    // check if update demand elements frames
+    if (updateFrames) {
+        updateDemandElementFrames(demandElement->getTagProperty());
+    }
     // demandElements has to be saved
     myNet->getSavingStatus()->requireSaveDemandElements();
 }

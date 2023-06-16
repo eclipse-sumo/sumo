@@ -669,7 +669,7 @@ struct GNENetHelper {
         /**@brief delete demand element element of GNENet container
          * @throw processError if demand element wasn't previously inserted
          */
-        void deleteDemandElement(GNEDemandElement* demandElement);
+        void deleteDemandElement(GNEDemandElement* demandElement, const bool updateFrames);
 
         /// @}
 
