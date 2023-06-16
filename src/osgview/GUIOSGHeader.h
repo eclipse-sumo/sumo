@@ -51,6 +51,7 @@
 #include <osg/PositionAttitudeTransform>
 #include <osg/Sequence>
 #include <osg/ShadeModel>
+#include <osg/State>
 #include <osg/ShapeDrawable>
 #include <osg/Texture2D>
 #include <osg/Vec4>
