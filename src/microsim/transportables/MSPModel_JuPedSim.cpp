@@ -217,7 +217,7 @@ MSLane*
 MSPModel_JuPedSim::getPedestrianLane(MSEdge* edge) {
     for (MSLane* lane : edge->getLanes()) {
         SVCPermissions permissions = lane->getPermissions();
-        if (permissions == SVC_PEDESTRIAN) {
+        if ((permissions & SVC_PEDESTRIAN)  != 0) {
             return lane;
         }
     }
@@ -410,8 +410,8 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
 
     geos::geom::Geometry* disjointDilatedPedestrianLanes = myGEOSGeometryFactory->createGeometryCollection(dilatedPedestrianLanes);
     myGEOSGeometryCollectionsDump.push_back(disjointDilatedPedestrianLanes);
-    geos::geom::Geometry* myGEOSPedestrianNetwork = disjointDilatedPedestrianLanes->Union().release();
-    return myGEOSPedestrianNetwork;
+    geos::geom::Geometry* pedestrianNetwork = disjointDilatedPedestrianLanes->Union().release();
+    return pedestrianNetwork;
 }
 
 
@@ -517,90 +517,34 @@ MSPModel_JuPedSim::initialize() {
     GEOSGeometryDumpFile << wkt << std::endl;
     GEOSGeometryDumpFile.close();
 
+    /*
     myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
     for (size_t i = 0; i < myGEOSPedestrianNetwork->getNumGeometries(); i++) {
         const geos::geom::Polygon* connectedComponentPolygon = dynamic_cast<const geos::geom::Polygon*>(myGEOSPedestrianNetwork->getGeometryN(i));
         std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
+        std::cout << polygonId << "     " << connectedComponentPolygon->getArea() << std::endl;
         renderPolygon(connectedComponentPolygon, polygonId);
         preparePolygonForJPS(connectedComponentPolygon, polygonId);
     }
+    */
 
-//	for (const MSEdge* const edge : (myNetwork->getEdgeControl()).getEdges()) {
-//        const MSLane* lane = getSidewalk<MSEdge, MSLane>(edge);
-//        if (lane) {
-//            PositionVector shape = lane->getShape();
-//
-//            // Apparently CGAL expects polygons to be oriented CCW.
-//            if (shape.isClockwiseOriented()) {
-//                shape = shape.reverse();
-//            }
-//            assert(!shape.isClockwiseOriented());
-//
-//            /* The code below is in theory more robust as there would be a guarantee that
-//               the shape is CCW-oriented. However at the moment the sort algorithm doesn't
-//               work for non-convex polygons.
-//               PositionVector shape = lane->getShape();
-//               shape.sortAsPolyCWByAngle();
-//               shape = shape.reverse();
-//               assert(!shape.isClockwiseOriented());
-//            */
-//            
-//            std::vector<double> lanePolygonCoordinatesFlattened;
-//
-//            if (edge->isWalkingArea()) {
-//                if (shape.area() == 0.0) {
-//                    continue;
-//                }
-//
-//                auto last = shape.isClosed() ? shape.end()-1 : shape.end();
-//                for (auto position = shape.begin(); position != last; position++) {
-//                    lanePolygonCoordinatesFlattened.push_back(position->x());
-//                    lanePolygonCoordinatesFlattened.push_back(position->y());
-//                } 
-//
-//                /*std::vector<std::pair<double, double>> lanePolygonCoordinates;
-//                for (const Position& position : shape)
-//                    lanePolygonCoordinates.push_back(std::make_pair<double, double>(position.x(), position.y()));
-//
-//                auto end = lanePolygonCoordinates.end();
-//                for (auto it = lanePolygonCoordinates.begin(); it != end; ++it) {
-//                    end = std::remove(it + 1, end, *it);
-//                }
-//
-//                lanePolygonCoordinates.erase(end, lanePolygonCoordinates.end());
-//
-//                for (auto position = lanePolygonCoordinates.begin(); position != lanePolygonCoordinates.end(); position++) {
-//                    lanePolygonCoordinatesFlattened.push_back(position->first);
-//                    lanePolygonCoordinatesFlattened.push_back(position->second);
-//                }*/
-//            }
-//            else {
-//                double amount = lane->getWidth() / 2.0;
-//                shape.move2side(amount);
-//                Position bottomFirstCorner = shape[0];
-//                Position bottomSecondCorner = shape[1];
-//                shape = lane->getShape();
-//                shape.move2side(-amount);
-//                Position topFirstCorner = shape[0];
-//                Position topSecondCorner = shape[1];
-//
-//                std::vector<Position> lanePolygon{ topFirstCorner, bottomFirstCorner, bottomSecondCorner, topSecondCorner };
-//                for (const Position& position : lanePolygon) {
-//                    lanePolygonCoordinatesFlattened.push_back(position.x());
-//                    lanePolygonCoordinatesFlattened.push_back(position.y());
-//                }
-//            }
-//            
-//#ifdef DEBUG
-//            geometryDumpFile << "Lane " <<  lane->getID() << std::endl;
-//            for (double coordinate: lanePolygonCoordinatesFlattened) {
-//                geometryDumpFile << coordinate << std::endl;
-//            }
-//#endif
-
- //           JPS_GeometryBuilder_AddAccessibleArea(myGeometryBuilder, lanePolygonCoordinatesFlattened.data(), lanePolygonCoordinatesFlattened.size() / 2);
- //       }
-	//}
+    // For the moment, JuPedSim only supports one connected component
+    myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
+    const geos::geom::Polygon* maxAreaConnectedComponentPolygon = nullptr;
+    std::string maxAreaPolygonId;
+    double maxArea = 0.0;
+    for (size_t i = 0; i < myGEOSPedestrianNetwork->getNumGeometries(); i++) {
+        const geos::geom::Polygon* connectedComponentPolygon = dynamic_cast<const geos::geom::Polygon*>(myGEOSPedestrianNetwork->getGeometryN(i));
+        std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
+        double area = connectedComponentPolygon->getArea();
+        if (area > maxArea) {
+            maxArea = area;
+            maxAreaConnectedComponentPolygon = connectedComponentPolygon;
+            maxAreaPolygonId = polygonId;
+        }
+    }
+    renderPolygon(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
+    preparePolygonForJPS(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
 
     JPS_ErrorMessage message = nullptr; 
     
@@ -610,7 +554,6 @@ MSPModel_JuPedSim::initialize() {
         oss << "Error while creating the geometry: " << JPS_ErrorMessage_GetMessage(message);
         WRITE_ERROR(oss.str());
     }
-
 
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
     myJPSParameterProfileId = 1;
