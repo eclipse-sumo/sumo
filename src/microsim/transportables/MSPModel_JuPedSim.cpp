@@ -112,8 +112,9 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
 
 	JPS_VelocityModelAgentParameters agent_parameters{};
 	agent_parameters.journeyId = journeyId;
-    agent_parameters.orientation = {1.0, 0.0}; // TODO: Needs to be fixed.
 	agent_parameters.position = {departurePosition.x(), departurePosition.y()};
+    Position orientation = departureLane->getShape().back() - departureLane->getShape().front();
+    agent_parameters.orientation = {orientation.x(), orientation.y()};
     agent_parameters.profileId = myJPSParameterProfileId;
 
     JPS_ErrorMessage message = nullptr;
