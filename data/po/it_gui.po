@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-12 15:18+0000\n"
+"PO-Revision-Date: 2023-06-16 10:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 4.18.1-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:292
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
@@ -971,11 +971,11 @@ msgstr "Apri EdgeData"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1174
 msgid "Auto-Reloading."
-msgstr ""
+msgstr "Sta ricaricando automaticamente."
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1174
 msgid "TraCI-Loading."
-msgstr ""
+msgstr "Sta ricaricando in seguito a TraCI."
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1176
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1173
@@ -1057,7 +1057,7 @@ msgstr "Caricato '%'."
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2031
 msgid "Simulation ended at time: %. (%)"
-msgstr ""
+msgstr "Simulazione finita alle ore %. (%)"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2037
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:2027
@@ -1074,7 +1074,7 @@ msgstr "Sta caricando '%'."
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2291
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2292
 msgid "seconds"
-msgstr ""
+msgstr "secondi"
 
 #: D:\Repos\sumo/src\gui\GUILoadThread.cpp:206
 #: /home/micha/programming/sumo/src/gui/GUILoadThread.cpp:206
@@ -7928,7 +7928,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1914
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1908
 msgid "Name of parking space"
-msgstr ""
+msgstr "Il nome del parcheggio"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1924
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1918
@@ -7986,7 +7986,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1970
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1964
 msgid "Name of induction loop"
-msgstr ""
+msgstr "Il nome del circuito di induzione"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1975
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2038
