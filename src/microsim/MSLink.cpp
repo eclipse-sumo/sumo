@@ -1512,7 +1512,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                                               leader->getCarFollowModel().brakeGap(leader->getSpeed()) <= foeLane->getLength() - leaderBack);
             const bool sameInternalEdge = &myInternalLaneBefore->getEdge() == &foeExitLink->getInternalLaneBefore()->getEdge();
 
-            if (MSGlobals::gSublane && ego != nullptr && (sameSource || sameTarget)
+            const bool foeLaneIsBidi = myInternalLaneBefore->getBidiLane() == foeLane;
+            if (MSGlobals::gSublane && ego != nullptr && (sameSource || sameTarget || foeLaneIsBidi)
                     && (!foeStrategicBlocked || sameInternalEdge)) {
                 if (ego->getLane() == leader->getLane()) {
                     continue;
@@ -1520,7 +1521,11 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 // ignore vehicles if not in conflict sublane-wise
                 const double egoLatOffset = isShadowLink ? ego->getLatOffset(ego->getLaneChangeModel().getShadowLane()) : 0;
                 const double posLat = ego->getLateralPositionOnLane() + egoLatOffset;
-                const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
+                double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
+                if (foeLaneIsBidi) {
+                    // leader is oncoming
+                    posLatLeader = foeLane->getWidth() - posLatLeader;
+                }
                 const double latGap = (fabs(posLat - posLatLeader)
                                        - 0.5 * (ego->getVehicleType().getWidth() + leader->getVehicleType().getWidth()));
                 const double maneuverDist = leader->getLaneChangeModel().getManeuverDist() * (posLat < posLatLeader ? -1 : 1);
@@ -1528,6 +1533,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     std::cout << " checkIgnore sublaneFoe lane=" << myInternalLaneBefore->getID()
                               << " sameSource=" << sameSource
                               << " sameTarget=" << sameTarget
+                              << " foeLaneIsBidi=" << foeLaneIsBidi
                               << " foeLane=" << foeLane->getID()
                               << " leader=" << leader->getID()
                               << " egoLane=" << ego->getLane()->getID()
@@ -1557,7 +1563,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             }
                             continue;
                         }
-                    } else {
+                    } else if (sameTarget) {
                         // for lanes from different edges we cannot rely on the
                         // index due to wrap-around issues
                         if (myDirection != foeEntryLink->getDirection()) {
@@ -1580,6 +1586,11 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         } else {
                             // XXX figure out relative direction somehow
                         }
+                    } else {
+                        if (gDebugFlag1) {
+                            std::cout << "   ignored oncoming bidi leader\n";
+                        }
+                        continue;
                     }
                 }
             }
