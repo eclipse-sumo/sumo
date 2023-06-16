@@ -79,6 +79,22 @@ NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
                 reviseStops(line, ec, sc);
             }
         }
+        // fix circular line if necessary
+        if (line->getStops().size() > 1
+                && line->getStops().front() == line->getStops().back()
+                && line->getRoute().size() > 1
+                && line->getRoute().front() != line->getRoute().back()) {
+            // we need to duplicate either the first or the last edge depending on the stop locations
+            const std::string firstStopEdge = line->getStops().front()->getEdgeId();
+            const std::string lastStopEdge = line->getStops().back()->getEdgeId();
+            std::vector<NBEdge*> edges = line->getRoute();
+            if (firstStopEdge == edges.back()->getID()) {
+                edges.insert(edges.begin(), edges.back());
+            } else if (lastStopEdge == edges.front()->getID()) {
+                edges.push_back(edges.front());
+            }
+            line->setEdges(edges);
+        }
         line->deleteInvalidStops(ec, sc);
         //line->deleteDuplicateStops();
         for (std::shared_ptr<NBPTStop> stop : line->getStops()) {
