@@ -362,6 +362,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     const double widthFactor = 1 / MAX2(sin(DEG2RAD(angleDiff)), 0.2) * 2 - 1;
                     //std::cout << "  intersection of " << lane->getID() << " with " << foeLane->getID() << " angle1=" << angle1 << " angle2=" << angle2 << " angleDiff=" << angleDiff << " widthFactor=" << widthFactor << "\n";
                     conflictSize *= widthFactor;
+                    conflictSize = MIN2(conflictSize, lane->getLength());
                     // lane width affects the crossing point
                     intersections1.back() -= conflictSize / 2;
                     // ensure non-negative offset for weird geometries
