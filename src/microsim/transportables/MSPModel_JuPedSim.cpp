@@ -524,7 +524,7 @@ MSPModel_JuPedSim::initialize() {
         std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
         std::cout << polygonId << "     " << connectedComponentPolygon->getArea() << std::endl;
         renderPolygon(connectedComponentPolygon, polygonId);
-        // preparePolygonForJPS(connectedComponentPolygon, polygonId);
+        preparePolygonForJPS(connectedComponentPolygon, polygonId);
     }
     */
 
@@ -567,12 +567,12 @@ MSPModel_JuPedSim::initialize() {
         WRITE_ERROR(oss.str());
     }
 
-	/*myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
+	myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
     if (myJPSSimulation == nullptr) {
         std::ostringstream oss;
         oss << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(message);
         WRITE_ERROR(oss.str());
-    }*/
+    }
 
     JPS_ErrorMessage_Free(message);
 }
