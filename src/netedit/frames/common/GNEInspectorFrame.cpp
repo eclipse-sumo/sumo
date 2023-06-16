@@ -1064,7 +1064,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         getFrameHeaderLabel()->setText(headerString.c_str());
 
         // Show attributes editor
-        myAttributesEditor->showAttributeEditorModule(true, false);
+        myAttributesEditor->showAttributeEditorModule(true);
 
         // show netedit attributes editor if  we're inspecting elements with Netedit Attributes
         myNeteditAttributesEditor->showNeteditAttributesEditor();

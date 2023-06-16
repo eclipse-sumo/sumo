@@ -194,7 +194,7 @@ GNETypeDistributionFrame::TypeDistributionSelector::refreshTypeDistributionSelec
         // set myCurrentType as inspected element
         myTypeDistributionFrameParent->getViewNet()->setInspectedAttributeCarriers({vTypeDistribution});
         // show modules
-        myTypeDistributionFrameParent->myTypeAttributesEditor->showAttributeEditorModule(true, false);
+        myTypeDistributionFrameParent->myTypeAttributesEditor->showAttributeEditorModule(true);
     } else {
         myCurrentTypeDistribution.clear();
         // set myCurrentType as inspected element
@@ -219,7 +219,7 @@ GNETypeDistributionFrame::TypeDistributionSelector::onCmdSelectTypeDistribution(
             // set myCurrentType as inspected element
             viewNet->setInspectedAttributeCarriers({vTypeDistribution});
             // show modules if selected item is valid
-            myTypeDistributionFrameParent->myTypeAttributesEditor->showAttributeEditorModule(true, false);
+            myTypeDistributionFrameParent->myTypeAttributesEditor->showAttributeEditorModule(true);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeDistributionSelector").text());
             // update viewNet

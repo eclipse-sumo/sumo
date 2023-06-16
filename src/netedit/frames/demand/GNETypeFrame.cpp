@@ -157,7 +157,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
     // set myCurrentType as inspected element
     myTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentType});
     // show modules
-    myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, false);
+    myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false);
     myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
     myTypeFrameParent->myParametersEditor->refreshParametersEditor();
 }
@@ -185,7 +185,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // set myCurrentType as inspected element
             myTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentType});
             // show modules if selected item is valid
-            myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, false);
+            myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false);
             myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
             myTypeFrameParent->myParametersEditor->refreshParametersEditor();
             // Write Warning in console if we're in testing mode
@@ -436,7 +436,7 @@ GNETypeFrame::show() {
     // set myCurrentType as inspected element
     myTypeAttributesEditor->getFrameParent()->getViewNet()->setInspectedAttributeCarriers({myTypeSelector->getCurrentType()});
     // show modules
-    myTypeAttributesEditor->showAttributeEditorModule(false, false);
+    myTypeAttributesEditor->showAttributeEditorModule(false);
     myAttributesEditorExtended->showAttributesEditorExtendedModule();
     // show frame
     GNEFrame::show();
@@ -466,7 +466,7 @@ GNETypeFrame::attributesEditorExtendedDialogOpened() {
         // set myCurrentType as inspected element
         myTypeAttributesEditor->getFrameParent()->getViewNet()->setInspectedAttributeCarriers({myTypeSelector->getCurrentType()});
         // call "showAttributeEditorModule" to refresh attribute list
-        myTypeAttributesEditor->showAttributeEditorModule(false, false);
+        myTypeAttributesEditor->showAttributeEditorModule(false);
     }
 }
 

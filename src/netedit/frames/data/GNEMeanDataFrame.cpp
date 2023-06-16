@@ -387,7 +387,7 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
         if (myCurrentMeanData) {
             // set myCurrentMeanData as inspected element (needed for attribute editor)
             myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false, true);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false);
         } else {
             // set myCurrentMeanData as inspected element (needed for attribute editor)
             myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({});
@@ -421,7 +421,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
             // set myCurrentMeanData as inspected element
             myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
             // show modules if selected item is valid
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false, true);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myMeanDataComboBox->getText() + "' in MeanDataSelector").text());
             // update viewNet

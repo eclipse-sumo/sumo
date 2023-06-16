@@ -758,7 +758,7 @@ GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* framePare
 
 
 void
-GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool includeExtended, bool forceAttributeEnabled) {
+GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool includeExtended) {
     myIncludeExtended = includeExtended;
     // first remove all rows
     for (auto& row : myAttributesEditorRows) {
@@ -822,10 +822,6 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                     } else if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (ACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     }
-                }
-                // if forceAttributeEnabled is enabled, force attributeEnabled (except for ID)
-                if (forceAttributeEnabled && (attrProperty.getAttr() != SUMO_ATTR_ID)) {
-                    attributeEnabled = true;
                 }
                 // check if this attribute is computed
                 const bool computed = (ACs.size() > 1) ? false : ACs.front()->isAttributeComputed(attrProperty.getAttr());

@@ -149,7 +149,7 @@ public:
         AttributesEditor(GNEFrame* inspectorFrameParent);
 
         /// @brief show attributes of multiple ACs
-        void showAttributeEditorModule(bool includeExtended, bool forceAttributeEnabled);
+        void showAttributeEditorModule(bool includeExtended);
 
         /// @brief hide attribute editor
         void hideAttributesEditorModule();
