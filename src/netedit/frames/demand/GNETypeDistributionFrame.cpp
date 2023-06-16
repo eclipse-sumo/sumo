@@ -23,7 +23,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/elements/demand/GNEVType.h>
+#include <netedit/elements/demand/GNEVTypeDistribution.h>
 #include <netedit/dialogs/GNEVehicleTypeDialog.h>
 #include <netedit/dialogs/GNEVTypeDistributionsDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -43,7 +43,8 @@ FXDEFMAP(GNETypeDistributionFrame::TypeEditor) typeEditorMap[] = {
 };
 
 FXDEFMAP(GNETypeDistributionFrame::TypeSelector) typeSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeSelector::onCmdSelectTypeDistribution)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeSelector::onCmdSelectTypeDistribution),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeSelector::onCmdUpdateTypeDistribution)
 };
 
 // Object implementation
@@ -78,15 +79,13 @@ long
 GNETypeDistributionFrame::TypeEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     auto viewNet = myTypeDistributionFrameParent->myViewNet;
     // obtain a new valid Type ID
-    const std::string typeID = viewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE);
+    const std::string typeDistributionID = viewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE_DISTRIBUTION);
     // create new vehicle type
-    GNEDemandElement* type = new GNEVType(viewNet->getNet(), typeID);
+    GNEDemandElement* type = new GNEVTypeDistribution(viewNet->getNet(), typeDistributionID);
     // add it using undoList (to allow undo-redo)
-    viewNet->getUndoList()->begin(GUIIcon::VTYPE, "create vehicle type");
+    viewNet->getUndoList()->begin(GUIIcon::VTYPEDISTRIBUTION, "create vehicle type distribution");
     viewNet->getUndoList()->add(new GNEChange_DemandElement(type, true), true);
     viewNet->getUndoList()->end();
-    // refresh Type Editor Module
-    //myTypeDistributionFrameParent->myTypeEditor->refreshTypeEditorModule();
     return 1;
 }
 
@@ -95,7 +94,7 @@ long
 GNETypeDistributionFrame::TypeEditor::onCmdDeleteType(FXObject*, FXSelector, void*) {
     auto viewNet = myTypeDistributionFrameParent->myViewNet;
     // begin undo list operation
-    viewNet->getUndoList()->begin(GUIIcon::VTYPE, "delete vehicle type");
+    viewNet->getUndoList()->begin(GUIIcon::VTYPE, "delete vehicle type distribution");
     // remove vehicle type (and all of their children)
     viewNet->getNet()->deleteDemandElement(myTypeDistributionFrameParent->myTypeSelector->getCurrentTypeDistribution(), viewNet->getUndoList());
     // end undo list operation
@@ -122,10 +121,10 @@ GNETypeDistributionFrame::TypeSelector::TypeSelector(GNETypeDistributionFrame* t
     MFXGroupBoxModule(typeFrameParent, TL("Current Type")),
     myTypeDistributionFrameParent(typeFrameParent) {
     // Create FXComboBox
-    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTypeComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Types (always first)
     for (const auto& vType : myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-        myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon(), FXRGB(255, 255, 200));
+        myTypeComboBox->appendItem(vType->getID().c_str(), vType->getACIcon());
     }
     // Set visible items
     if (myTypeComboBox->getNumItems() <= 20) {
@@ -166,7 +165,7 @@ GNETypeDistributionFrame::TypeSelector::refreshTypeSelector() {
         typeDistributions[vTypeDistribution->getID()] = vTypeDistribution;
     }
     for (const auto& vTypeDistribution : typeDistributions) {
-        myTypeComboBox->appendIconItem(vTypeDistribution.first.c_str(), vTypeDistribution.second->getACIcon());
+        myTypeComboBox->appendItem(vTypeDistribution.first.c_str(), vTypeDistribution.second->getACIcon());
     }
     // Set visible items
     if (myTypeComboBox->getNumItems() <= 20) {
@@ -238,6 +237,17 @@ GNETypeDistributionFrame::TypeSelector::onCmdSelectTypeDistribution(FXObject*, F
     // update viewNet
     viewNet->updateViewNet();
     return 1;
+}
+
+
+long
+GNETypeDistributionFrame::TypeSelector::onCmdUpdateTypeDistribution(FXObject* sender, FXSelector, void*) {
+    const auto &demandElements = myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
+    if (demandElements.at(SUMO_TAG_VTYPE_DISTRIBUTION).size() > 0) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
 }
 
 // ---------------------------------------------------------------------------

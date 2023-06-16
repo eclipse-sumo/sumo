@@ -1410,7 +1410,7 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     std::string prefix;
     if (tag == SUMO_TAG_ROUTE) {
         prefix = neteditOptions.getString("route-prefix");
-    } else if (tag == SUMO_TAG_VTYPE) {
+    } else if ((tag == SUMO_TAG_VTYPE) || (tag == SUMO_TAG_VTYPE_DISTRIBUTION)) {
         prefix = neteditOptions.getString("vType-prefix");
     } else if ((tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_TRIP_JUNCTIONS)) {
         prefix = neteditOptions.getString("trip-prefix");

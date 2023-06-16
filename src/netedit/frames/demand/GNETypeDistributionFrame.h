@@ -105,6 +105,9 @@ public:
         /// @brief Called when the user select type distribution in ComboBox
         long onCmdSelectTypeDistribution(FXObject*, FXSelector, void*);
 
+        /// @brief update type distribution comboBox
+        long onCmdUpdateTypeDistribution(FXObject* sender, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -115,7 +118,7 @@ public:
         GNETypeDistributionFrame* myTypeDistributionFrameParent;
         
         /// @brief comboBox with the list of type distributions
-        MFXComboBoxIcon* myTypeComboBox = nullptr;
+        FXComboBox* myTypeComboBox = nullptr;
 
         /// @brief current type distribution
         std::string myCurrentTypeDistribution;
