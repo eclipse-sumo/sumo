@@ -2690,9 +2690,13 @@ NBEdge::applyTurnSigns() {
             continue;
         }
         const NBEdge* to = dirMap[dir];
+        int candidates = to->getNumLanesThatAllow(SVC_PASSENGER);
+        if (candidates == 0) {
+            WRITE_WARNINGF(TL("Cannot apply turn sign information for edge '%' because the target edge '%' has no suitable lanes"), getID(), to->getID());
+            return false;
+        }
         std::vector<int>& knownTargets = toLaneMap[to];
         if ((int)knownTargets.size() < item.second) {
-            int candidates = to->getNumLanesThatAllow(SVC_PASSENGER);
             if (candidates < item.second) {
                 WRITE_WARNINGF(TL("Cannot apply turn sign information for edge '%' because there are % signed connections with directions '%' but target edge '%' has only % suitable lanes"),
                                getID(), item.second, toString(dir), to->getID(), candidates);
@@ -2751,9 +2755,10 @@ NBEdge::applyTurnSigns() {
                             // if the source permits passenger traffic, the target should too
                             fromP = SVC_PASSENGER;
                         }
-                        int toLane = 0;
+                        int toLane = toLaneMap[to][0];
                         while ((to->getPermissions(toLane) & fromP) == 0) {
                             toLane++;
+                            /*
                             if (toLane == to->getNumLanes()) {
                                 SOFT_ASSERT(false);
 #ifdef DEBUG_TURNSIGNS
@@ -2761,13 +2766,14 @@ NBEdge::applyTurnSigns() {
 #endif
                                 return false;
                             }
+                            */
                         }
 #ifdef DEBUG_TURNSIGNS
                         std::cout << "  target=" << to->getID() << " initial toLane=" << toLane << "\n";
 #endif
                         toLaneIndex[to] = toLane;
                     }
-                    setConnection(i, to, toLaneMap[to][toLaneIndex[to]++], Lane2LaneInfoType::VALIDATED, true);
+                    setConnection(i, to, toLaneIndex[to]++, Lane2LaneInfoType::VALIDATED, true);
                 }
             }
         }
