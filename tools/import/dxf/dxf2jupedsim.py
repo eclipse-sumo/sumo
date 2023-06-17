@@ -1,48 +1,83 @@
-import argparse as ap
+#!/usr/bin/env python
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+# @file    dxf2jupedsim.py
+# @author  Benjamin Coueraud
+# @author  Michael Behrisch
+# @date    2023-06-16
+
+
+import os
 import sys
+import warnings
+
 import ezdxf
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
+import sumolib  # noqa
 
-parser = ap.ArgumentParser()
-parser.add_argument('-f','--file', help='The DXF file to read from', required=True)
-args = vars(parser.parse_args())
 
-filename = args['file']
+def polygon_as_XML_element(polygon, typename, index, color):
+    poly = " ".join(["%s,%s" % c[:2] for c in polygon])
+    return '    <poly id="%s_%s" type="%s" color="%s" shape="%s"/>\n' % (typename[9:], index, typename, color, poly)
 
-try:
-    dxf = ezdxf.readfile(filename)
-except IOError:
-    print("Input file is not a DXF file or generic I/O error occured.")
-    sys.exit(1)
-except ezdxf.DXFStructureError:
-    print("Invalid or corrupted input DXF file.")
-    sys.exit(2)
 
-walkable_areas = []
-obstacles = []
-msp = dxf.modelspace()
-for entity in msp.query("LWPOLYLINE"):
-    vertices = list(entity.vertices())
-    if entity.dxf.layer == "walkable_areas":
-        walkable_areas.append(vertices)
-    elif entity.dxf.layer == "obstacles":
-        obstacles.append(vertices)
-    else:
-        print("Polygon belonging to unknown layer.")
-        sys.exit(3)
+def create_test_dxf(args):
+    doc = ezdxf.new(dxfversion='R2000')
+    msp = doc.modelspace()
+    doc.layers.new(name=args.walkable_layer)
+    msp.add_lwpolyline(((0,0), (10,0), (10,10), (0,10)), dxfattribs={'layer': args.walkable_layer})
+    msp.add_lwpolyline(((100,100), (110,100), (110,110), (100,110)), dxfattribs={'layer': args.walkable_layer})
+    doc.layers.new(name=args.obstacle_layer)
+    msp.add_lwpolyline(((5,5), (8,5), (8,8), (5,8)), dxfattribs={'layer': args.obstacle_layer})
+    doc.saveas(args.file)
 
-def convert_to_string(polygon):
-    s = []
-    for coordinates in polygon:
-        s.append(f"{coordinates[0]},{coordinates[1]}")
-    return " ".join(s)
 
-def polygon_as_XML_element(polygon, typename, color):
-    return f'\t<poly id="{typename[9:]+"_"+str(index)}" type="{typename}" color="{color}" shape="{convert_to_string(polygon)}"/>\n'
+def main():
+    parser = sumolib.options.ArgumentParser()
+    parser.add_argument('file', help='The DXF file to read from')
+    parser.add_argument("-o", "--output", help="Name of the polygon output file")
+    parser.add_argument("--test", action="store_true", help="Write DXF test file and exit")
+    parser.add_argument("--walkable-layer", default="walkable_areas",
+                        help="Name of the DXF layer containing walkable areas")
+    parser.add_argument("--obstacle-layer", default="obstacles",
+                        help="Name of the DXF layer containing obstacles")
+    args = parser.parse_args()
+    if args.test:
+        create_test_dxf(args)
+        return
 
-with open(filename[:-3] + "add.xml", "w") as add:
-    add.write("<additionals>\n")
-    for index, polygon in enumerate(walkable_areas):
-        add.write(polygon_as_XML_element(polygon, "jupedsim.walkable_area", "blue"))
-    for index, polygon in enumerate(obstacles):
-        add.write(polygon_as_XML_element(polygon, "jupedsim.obstacle", "red"))
-    add.write("</additionals>")
+    if args.output is None:
+        args.output = args.file[:-3] + "add.xml"
+    dxf = ezdxf.readfile(args.file)
+    with sumolib.openz(args.output, "w") as add:
+        sumolib.xml.writeHeader(add, root="additional", options=args)
+        for entity in dxf.modelspace().query("LWPOLYLINE"):
+            vertices = list(entity.vertices())
+            if entity.dxf.layer == args.walkable_layer:
+                add.write(polygon_as_XML_element(vertices, "jupedsim.walkable_area", entity.dxf.handle, "blue"))
+            elif entity.dxf.layer == args.obstacle_layer:
+                add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, "red"))
+            else:
+                warnings.warn("Polygon '%s' belonging to unknown layer '%s'." % (entity.dxf.handle, entity.dxf.layer))
+        add.write("</additionals>")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except IOError as e:
+        print("Input file is not a DXF file or generic I/O error occured: %s" % e, file=sys.stderr)
+        sys.exit(1)
+    except ezdxf.DXFStructureError as e:
+        print("Invalid or corrupted input DXF file: %s" % e, file=sys.stderr)
+        sys.exit(2)
