@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-17 11:53:32.049549 by dxf2jupedsim.py v1_17_0+1044-a190fd4c051
+<configuration>
+    <file value="input.dxf"/>
+    <output value="out.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="walkable_area_2E" type="jupedsim.walkable_area" color="blue" shape="0.0,0.0 10.0,0.0 10.0,10.0 0.0,10.0"/>
+    <poly id="walkable_area_2F" type="jupedsim.walkable_area" color="blue" shape="100.0,100.0 110.0,100.0 110.0,110.0 100.0,110.0"/>
+    <poly id="obstacle_31" type="jupedsim.obstacle" color="red" shape="5.0,5.0 8.0,5.0 8.0,8.0 5.0,8.0"/>
+</additionals>
