@@ -551,6 +551,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
     }
     double bikeLaneWidth = tc.getEdgeTypeBikeLaneWidth(type);
+    const std::string& onewayBike = e->myExtraTags["oneway:bicycle"];
+    if (onewayBike == "false" || onewayBike == "no" || onewayBike == "0") {
+        e->myCyclewayType = e->myCyclewayType == WAY_UNKNOWN ? WAY_BACKWARD : (WayType)(e->myCyclewayType | WAY_BACKWARD);
+    }
     const bool addBikeLane = bikeLaneWidth != NBEdge::UNSPECIFIED_WIDTH ||
                              (myImportBikeAccess && ((e->myCyclewayType & WAY_BOTH) != 0 || e->myExtraTags.count("segregated") != 0));
     if (addBikeLane && bikeLaneWidth == NBEdge::UNSPECIFIED_WIDTH) {
@@ -574,7 +578,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         WRITE_WARNINGF(TL("New value for oneway found: %"), e->myIsOneWay);
     }
     if ((permissions == SVC_BICYCLE || permissions == (SVC_BICYCLE | SVC_PEDESTRIAN) || permissions == SVC_PEDESTRIAN)) {
-        const std::string& onewayBike = e->myExtraTags["oneway:bicycle"];
         if (addBackward && (onewayBike == "true" || onewayBike == "yes" || onewayBike == "1")) {
             addBackward = false;
         }
@@ -639,7 +642,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             forwardWidth = bikeLaneWidth;
             numLanesForward = 1;
             // do not add an additional cycle lane
-            cyclewayType = (WayType)(cyclewayType & ~WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
+            cyclewayType = (WayType)(cyclewayType & ~WAY_FORWARD);
         }
         if (!addBackward && (cyclewayType & WAY_BACKWARD) != 0) {
             addBackward = true;
@@ -647,7 +650,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             backwardWidth = bikeLaneWidth;
             numLanesBackward = 1;
             // do not add an additional cycle lane
-            cyclewayType = (WayType)(cyclewayType & ~WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
+            cyclewayType = (WayType)(cyclewayType & ~WAY_BACKWARD);
         }
     }
     // deal with sidewalks that run in the opposite direction of a one-way street
@@ -1177,7 +1180,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             myCurrentEdge->myCurrentIsRoad = true;
             // special cycleway stuff https://wiki.openstreetmap.org/wiki/Key:cycleway
             if (key == "cycleway") {
-                if (value == "no" || value == "none" || value == "separate" || value == "opposite") {
+                if (value == "no" || value == "none" || value == "separate") {
                     myCurrentEdge->myCyclewayType = WAY_NONE;
                 } else if (value == "both") {
                     myCurrentEdge->myCyclewayType = WAY_BOTH;
@@ -1188,6 +1191,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 } else if (value == "opposite_track") {
                     myCurrentEdge->myCyclewayType = WAY_BACKWARD;
                 } else if (value == "opposite_lane") {
+                    myCurrentEdge->myCyclewayType = WAY_BACKWARD;
+                } else if (value == "opposite") {
+                    // according to the wiki ref above, this should rather be a bidi lane, see #13438
                     myCurrentEdge->myCyclewayType = WAY_BACKWARD;
                 }
             }
