@@ -1,7 +1,10 @@
 two_edges
 
+# Starting two agents at the same position
+identical_start_pos
+
 # small network including a walking area
 walking_area
 
 # larger network
-#larger_net
+larger_net
