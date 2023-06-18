@@ -250,7 +250,7 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         delete e;
         updateDialog();
     }
-    
+
     if (toolFinished) {
         // check if close dialog immediately after running
         if (myText->getText().find("Error") != -1) {

@@ -111,11 +111,11 @@ MFXDecalsTable::fillTable() {
         myColumns.push_back(new Column(this, i, columnsType.at(i)));
     }
     // get num decals
-    const int numDecals = decals.size() < MAXROWS? (int)decals.size() : MAXROWS;
+    const int numDecals = decals.size() < MAXROWS ? (int)decals.size() : MAXROWS;
     // create rows
     for (int i = 0; i < numDecals; i++) {
         // get decal
-        const auto &decal = decals.at(i);
+        const auto& decal = decals.at(i);
         // create row
         auto row = new Row(this);
         // fill cells

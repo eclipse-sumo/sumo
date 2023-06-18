@@ -172,7 +172,7 @@ public:
     static double getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight);
 
     static MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
-                                      SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute);
+            SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute);
 
     /// @brief return all rerouter instances
     static const std::map<std::string, MSTriggeredRerouter*>& getInstances() {
@@ -218,12 +218,12 @@ protected:
 
     /// determine attributes of candiate parking area for scoring
     static bool addParkValues(SUMOVehicle& veh, double brakeGap, bool newDestination,
-                       MSParkingArea* pa, double paOccupancy, double prob,
-                       SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
-                       MSParkingAreaMap_t& parkAreas,
-                       std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
-                       std::map<MSParkingArea*, ConstMSEdgeVector>& parkApproaches,
-                       ParkingParamMap_t& maxValues);
+                              MSParkingArea* pa, double paOccupancy, double prob,
+                              SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
+                              MSParkingAreaMap_t& parkAreas,
+                              std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
+                              std::map<MSParkingArea*, ConstMSEdgeVector>& parkApproaches,
+                              ParkingParamMap_t& maxValues);
 
 protected:
     /// @brief edges where vehicles are notified

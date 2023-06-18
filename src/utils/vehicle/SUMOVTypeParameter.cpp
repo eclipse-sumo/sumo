@@ -38,18 +38,18 @@
 // static value definitions
 // ===========================================================================
 std::set<SumoXMLAttr> SUMOVTypeParameter::AllowedJMAttrs({
-        SUMO_ATTR_JM_CROSSING_GAP,
-        SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME,
-        SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
-        SUMO_ATTR_JM_DRIVE_RED_SPEED,
-        SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME,
-        SUMO_ATTR_JM_IGNORE_FOE_SPEED,
-        SUMO_ATTR_JM_IGNORE_FOE_PROB,
-        SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB,
-        SUMO_ATTR_JM_SIGMA_MINOR,
-        SUMO_ATTR_JM_STOPLINE_GAP,
-        SUMO_ATTR_JM_TIMEGAP_MINOR,
-        });
+    SUMO_ATTR_JM_CROSSING_GAP,
+    SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME,
+    SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
+    SUMO_ATTR_JM_DRIVE_RED_SPEED,
+    SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME,
+    SUMO_ATTR_JM_IGNORE_FOE_SPEED,
+    SUMO_ATTR_JM_IGNORE_FOE_PROB,
+    SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB,
+    SUMO_ATTR_JM_SIGMA_MINOR,
+    SUMO_ATTR_JM_STOPLINE_GAP,
+    SUMO_ATTR_JM_TIMEGAP_MINOR,
+});
 
 
 // ===========================================================================

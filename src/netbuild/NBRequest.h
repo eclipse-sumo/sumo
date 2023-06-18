@@ -160,7 +160,7 @@ public:
 
     /// @brief whether straight connections are in conflict via bidirectional lane use
     bool bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
-                                  const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
+                      const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
 
 
     /// @brief whether there are conflicting streams of traffic at this node

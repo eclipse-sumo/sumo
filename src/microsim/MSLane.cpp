@@ -2050,9 +2050,9 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
 
 void
 MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSTransportable* victim,
-                               double gap, const std::string& collisionType,
-                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
-                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
+        double gap, const std::string& collisionType,
+        std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
+        std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
     if (collider->ignoreCollision()) {
         return;
     }
@@ -2108,10 +2108,10 @@ MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& s
     if (newCollision) {
         if (gap != 0) {
             WRITE_WARNING(prefix + TLF(" collision with person '%', lane='%', gap=%, time=%, stage=%.",
-                        victim->getID(), getID(), gap, time2string(timestep), stage));
+                                       victim->getID(), getID(), gap, time2string(timestep), stage));
         } else {
             WRITE_WARNING(prefix + TLF(" collision with person '%', lane='%', time=%, stage=%.",
-                        victim->getID(), getID(), time2string(timestep), stage));
+                                       victim->getID(), getID(), time2string(timestep), stage));
         }
         MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->getVehicleControl().registerCollision(myIntermodalCollisionAction == COLLISION_ACTION_TELEPORT);
@@ -4417,9 +4417,9 @@ MSLane::getBidiLane() const {
 bool
 MSLane::mustCheckJunctionCollisions() const {
     return myCheckJunctionCollisions && myEdge->isInternal() && (
-            myLinks.front()->getFoeLanes().size() > 0
-            || myLinks.front()->getWalkingAreaFoe() != nullptr
-            || myLinks.front()->getWalkingAreaFoeExit() != nullptr);
+               myLinks.front()->getFoeLanes().size() > 0
+               || myLinks.front()->getWalkingAreaFoe() != nullptr
+               || myLinks.front()->getWalkingAreaFoeExit() != nullptr);
 }
 
 

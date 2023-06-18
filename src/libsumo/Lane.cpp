@@ -333,7 +333,7 @@ Lane::getPendingVehicles(const std::string& laneID) {
 }
 
 
-double 
+double
 Lane::getAngle(const std::string& laneID, double relativePosition) {
     double angle;
     MSLane* lane = getLane(laneID);
@@ -341,8 +341,7 @@ Lane::getAngle(const std::string& laneID, double relativePosition) {
         Position start = lane->getShape().front();
         Position end = lane->getShape().back();
         angle = start.angleTo2D(end);
-    }
-    else {
+    } else {
         angle = lane->getShape().rotationAtOffset(lane->interpolateLanePosToGeometryPos(relativePosition));
     }
 

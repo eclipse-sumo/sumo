@@ -2761,9 +2761,9 @@ NBEdge::applyTurnSigns() {
                             /*
                             if (toLane == to->getNumLanes()) {
                                 SOFT_ASSERT(false);
-#ifdef DEBUG_TURNSIGNS
+                            #ifdef DEBUG_TURNSIGNS
                                 std::cout << "  could not find passenger lane for target=" << to->getID() << "\n";
-#endif
+                            #endif
                                 return false;
                             }
                             */

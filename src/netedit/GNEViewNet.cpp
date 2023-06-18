@@ -2023,7 +2023,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_U_MODE_TYPEDISTRIBUTION:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPEDISTRIBUTION);
-                break;  
+                break;
             case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_STOP);
                 break;

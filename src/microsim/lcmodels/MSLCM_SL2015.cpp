@@ -2602,7 +2602,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
                         && vehDist.first->getSpeed() < SUMO_const_haltingSpeed
                         && -vehDist.second < vehDist.first->getVehicleType().getMinGap()
                         && &(myVehicle.getLane()->getEdge()) != &(vehDist.first->getLane()->getEdge()))
-                                                                         )) {
+                                                                                           )) {
 #ifdef DEBUG_BLOCKING
                 if (gDebugFlag2) {
                     std::cout << "       ignoring cfrelated foe=" << vehDist.first->getID()  << "\n";

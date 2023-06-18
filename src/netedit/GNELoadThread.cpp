@@ -130,8 +130,8 @@ GNELoadThread::run() {
     // init output options
     MsgHandler::initOutputOptions();
     // if there is an error checking options, stop
-    if (!(NIFrame::checkOptions(neteditOptions) && NBFrame::checkOptions(neteditOptions) && 
-          NWFrame::checkOptions(neteditOptions) && SystemFrame::checkOptions(neteditOptions))) {
+    if (!(NIFrame::checkOptions(neteditOptions) && NBFrame::checkOptions(neteditOptions) &&
+            NWFrame::checkOptions(neteditOptions) && SystemFrame::checkOptions(neteditOptions))) {
         // options are not valid
         WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
         submitEndAndCleanup(net, loadedFile);

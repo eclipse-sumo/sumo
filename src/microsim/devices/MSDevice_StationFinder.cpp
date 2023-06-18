@@ -152,13 +152,13 @@ MSDevice_StationFinder::notifyIdle(SUMOTrafficObject& /*veh*/) {
 
 void
 MSDevice_StationFinder::notifyMoveInternal(const SUMOTrafficObject& /*veh*/,
-                                       const double /* frontOnLane */,
-                                       const double /* timeOnLane */,
-                                       const double /* meanSpeedFrontOnLane */,
-                                       const double /* meanSpeedVehicleOnLane */,
-                                       const double /* travelledDistanceFrontOnLane */,
-                                       const double /* travelledDistanceVehicleOnLane */,
-                                       const double /* meanLengthOnLane */) {
+        const double /* frontOnLane */,
+        const double /* timeOnLane */,
+        const double /* meanSpeedFrontOnLane */,
+        const double /* meanSpeedVehicleOnLane */,
+        const double /* travelledDistanceFrontOnLane */,
+        const double /* travelledDistanceVehicleOnLane */,
+        const double /* meanLengthOnLane */) {
 
     // called by meso (see MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal)
 }

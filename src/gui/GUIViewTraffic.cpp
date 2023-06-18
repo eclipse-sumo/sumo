@@ -499,8 +499,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
                         SUMOTime dur = minTll->getPhase(i).duration;
                         if (dur <= spentTransition) {
                             spentTransition -= dur;
-                        }
-                        else {
+                        } else {
                             nextPhase = i;
                             nextDuration = dur - spentTransition;
                             break;

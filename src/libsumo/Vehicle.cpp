@@ -380,8 +380,8 @@ Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
                         // approach information is from the start of the previous step
                         // but the foe vehicle then moved within that steop
                         const double prevFoeDist = SPEED2DIST(MSGlobals::gSemiImplicitEulerUpdate
-                                ? foe->getSpeed()
-                                : (foe->getSpeed() + foe->getPreviousSpeed()) / 2);
+                                                              ? foe->getSpeed()
+                                                              : (foe->getSpeed() + foe->getPreviousSpeed()) / 2);
                         jf.foeDist = item.second.dist - foeDistBehindCrossing - prevFoeDist;
                         jf.egoExitDist = jf.egoDist + ci.conflictSize;
                         jf.foeExitDist = jf.foeDist + ci.getFoeConflictSize(foeExitLink);

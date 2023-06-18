@@ -66,14 +66,14 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     auto horizontalOptionsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrameNoPadding);
     // build options
     myShowToolTipsMenu = new MFXCheckableButton(false, horizontalOptionsFrame,
-        GNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
-        GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
+            GNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
+            GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
     auto saveFile = new MFXButtonTooltip(horizontalOptionsFrame, GNEApp->getStaticTooltipMenu(), TL("Save toolcfg"),
-        GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
-        saveFile->setTipText(TL("Save file with tool configuration"));
-    auto loadFile = new MFXButtonTooltip(horizontalOptionsFrame, GNEApp->getStaticTooltipMenu(), TL("Load toolcfg") ,
-        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
-        loadFile->setTipText(TL("Load file with tool configuration"));
+                                         GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
+    saveFile->setTipText(TL("Save file with tool configuration"));
+    auto loadFile = new MFXButtonTooltip(horizontalOptionsFrame, GNEApp->getStaticTooltipMenu(), TL("Load toolcfg"),
+                                         GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
+    loadFile->setTipText(TL("Load file with tool configuration"));
     mySortedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Sorted by name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myGroupedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Grouped by categories"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // add separators
@@ -91,11 +91,11 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     blueLabel->setTextColor(FXRGB(0, 0, 255));
     new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXButton(horizontalButtonsFrame, (TL("Run") + std::string("\t\t") + TL("run python tool")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
+                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
     new FXButton(horizontalButtonsFrame, (TL("Close") + std::string("\t\t") + TL("close tool dialog")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+                 GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
     new FXButton(horizontalButtonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to default values")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+                 GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXLabel(horizontalButtonsFrame, "", nullptr, GUIDesignLabelFixed(200));
     new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }

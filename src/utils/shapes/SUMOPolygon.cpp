@@ -53,7 +53,7 @@ SUMOPolygon::getShape() const {
 }
 
 
-const std::vector<PositionVector>& 
+const std::vector<PositionVector>&
 SUMOPolygon::getHoles() const {
     return myHoles;
 }

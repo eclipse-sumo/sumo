@@ -871,7 +871,7 @@ NBRequest::indirectLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
 
 bool
 NBRequest::bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
-                                    const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+                        const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     if (from == prohibitorFrom) {
         return false;
     }
@@ -882,16 +882,16 @@ NBRequest::bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
     if ((foes && (from->getBidiEdge() == prohibitorCon.toEdge))
             || prohibitorFrom->getBidiEdge() == con.toEdge) {
         const bool fromBidi = from->getLaneShape(con.fromLane).reverse().almostSame(
-                prohibitorCon.toEdge->getLaneShape(prohibitorCon.toLane), POSITION_EPS);
+                                  prohibitorCon.toEdge->getLaneShape(prohibitorCon.toLane), POSITION_EPS);
         const bool prohibitorFromBidi = prohibitorFrom->getLaneShape(prohibitorCon.fromLane).reverse().almostSame(
-                con.toEdge->getLaneShape(con.toLane), POSITION_EPS);
+                                            con.toEdge->getLaneShape(con.toLane), POSITION_EPS);
         if (!foes && fromBidi && prohibitorFromBidi) {
             // do not create a symmetrical conflict
             return false;
         }
         if (prohibitorFromBidi &&
                 prohibitorFrom->getLaneShape(prohibitorCon.fromLane).reverse().almostSame(
-                prohibitorCon.toEdge->getLaneShape(prohibitorCon.toLane), POSITION_EPS)) {
+                    prohibitorCon.toEdge->getLaneShape(prohibitorCon.toLane), POSITION_EPS)) {
             // prohibitor has a bidi-turnaround
             return false;
         }

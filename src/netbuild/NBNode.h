@@ -491,7 +491,7 @@ public:
 
     /// @brief whether the foe connections is oncoming on the same lane
     bool bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
-                       const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon, bool foes) const;
+                      const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon, bool foes) const;
 
     bool zipperConflict(const NBEdge* incoming, const NBEdge* outgoing, int fromLane, int toLane) const;
 

@@ -193,8 +193,8 @@ private:
                 }
             }
             backLengths.push_back(prev->getLength() + (backLengths.empty()
-                        ? MIN2(vehicle->getLength(), from->getLength())
-                        : backLengths.back()));
+                                  ? MIN2(vehicle->getLength(), from->getLength())
+                                  : backLengths.back()));
             start = prev;
         }
 

@@ -576,7 +576,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     WRITE_MESSAGEF(TL(" % traffic light(s) %computed."), toString(numbers.first), progCount);
     if (oc.exists("opendrive-files") && oc.isSet("opendrive-files") && oc.getBool("opendrive.signal-groups")) {
-        myTLLCont.applyOpenDriveControllers(oc); 
+        myTLLCont.applyOpenDriveControllers(oc);
     }
 
     for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {

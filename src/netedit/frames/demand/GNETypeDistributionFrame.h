@@ -116,7 +116,7 @@ public:
     private:
         /// @brief pointer to Frame Parent
         GNETypeDistributionFrame* myTypeDistributionFrameParent;
-        
+
         /// @brief comboBox with the list of type distributions
         FXComboBox* myTypeComboBox = nullptr;
 

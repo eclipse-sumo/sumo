@@ -523,14 +523,14 @@ void
 GNEApplicationWindowHelper::ModesMenuCommands::SupermodeMenuCommands::buildSupermodeMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
     networkSupermode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                  TL("&Network"), "F2", TL("Supermode network."),
-                  GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F2_SUPERMODE_NETWORK);
+                       TL("&Network"), "F2", TL("Supermode network."),
+                       GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F2_SUPERMODE_NETWORK);
     demandSupermode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                 TL("&Demand"), "F3", TL("Supermode demand."),
-                 GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F3_SUPERMODE_DEMAND);
+                      TL("&Demand"), "F3", TL("Supermode demand."),
+                      GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F3_SUPERMODE_DEMAND);
     dataSupermode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                 TL("&Data"), "F4", TL("Supermode data."),
-                 GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F4_SUPERMODE_DATA);
+                    TL("&Data"), "F4", TL("Supermode data."),
+                    GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F4_SUPERMODE_DATA);
 }
 
 // ---------------------------------------------------------------------------
@@ -2774,7 +2774,7 @@ GNEApplicationWindowHelper::openNetconvertFileDialog(FXWindow* window) {
 
 std::string
 GNEApplicationWindowHelper::savePlainXMLFileDialog(FXWindow* window) {
-    return openFileDialog(window, TL("Save plain XML as"), GUIIcon::SAVE, 
+    return openFileDialog(window, TL("Save plain XML as"), GUIIcon::SAVE,
                           TL("XML files (*.xml)") + std::string("\n") +
                           TL("All files (*)"), true);
 }
@@ -2808,7 +2808,7 @@ std::string
 GNEApplicationWindowHelper::openNeteditConfigFileDialog(FXWindow* window, bool save) {
     if (save) {
         return openFileDialog(window, TL("Save netedit Config file as"), GUIIcon::SAVE_NETEDITCONFIG,
-                              TL("Netedit Config files (*.netecfg)") + std::string("\n") +   
+                              TL("Netedit Config files (*.netecfg)") + std::string("\n") +
                               TL("All files (*)"), save);
     } else {
         return openFileDialog(window, TL("Open netedit Config file"), GUIIcon::OPEN_NETEDITCONFIG,
@@ -2954,7 +2954,7 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
     if (save) {
         opendialog.setSelectMode(SELECTFILE_ANY);
     } else {
-        if (multi) { 
+        if (multi) {
             opendialog.setSelectMode(SELECTFILE_MULTIPLE);
         } else {
             opendialog.setSelectMode(SELECTFILE_EXISTING);
@@ -2979,7 +2979,7 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
                 gCurrentFolder = opendialog.getDirectory();
                 // assureExtension
                 return MFXUtils::assureExtension(opendialog.getFilename(),
-                        opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+                                                 opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
             } else {
                 // close additional dialog
                 WRITE_DEBUG("Abort overwritte file");
@@ -2997,7 +2997,7 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
                 std::string result;
                 bool first = true;
                 if (files != nullptr) {
-                    for(int i=0; !files[i].empty(); i++){
+                    for (int i = 0; !files[i].empty(); i++) {
                         if (first) {
                             first = false;
                         } else {
@@ -3007,7 +3007,7 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
                     }
                     delete [] files;
 
-                } 
+                }
                 return result;
             } else {
                 return opendialog.getFilename().text();

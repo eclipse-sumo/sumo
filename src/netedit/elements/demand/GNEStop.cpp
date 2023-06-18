@@ -501,7 +501,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
     if (getTagProperty().isStopPerson() || getTagProperty().isStopContainer()) {
         // check if stop can be draw
         if ((getTagProperty().isStopPerson() && drawPersonPlan()) ||
-            (getTagProperty().isStopContainer() && drawContainerPlan())) {
+                (getTagProperty().isStopContainer() && drawContainerPlan())) {
             // check if draw stopPerson over busStop oder over lane
             if (getParentAdditionals().size() > 0) {
                 drawStopPersonOverStoppingPlace(s, exaggeration);

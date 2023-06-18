@@ -926,9 +926,9 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                     StringVector fileList = StringTokenizer(o->getValueString(), ",").getVector();
                     for (auto& file : fileList) {
                         file = FileHelpers::fixRelative(
-                                StringUtils::urlEncode(file, " ;%"),
-                                StringUtils::urlEncode(relativeTo, " ;%"),
-                                forceRelative || getBool("save-configuration.relative"));
+                                   StringUtils::urlEncode(file, " ;%"),
+                                   StringUtils::urlEncode(relativeTo, " ;%"),
+                                   forceRelative || getBool("save-configuration.relative"));
                     }
                     os << StringUtils::escapeXML(joinToString(fileList, ','), inComment);
                 } else {

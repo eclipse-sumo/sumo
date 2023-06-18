@@ -510,7 +510,7 @@ public:
         const double pos = (startPos + endPos) / 2.;
 #ifdef IntermodalRouter_DEBUG_ACCESS
         std::cout << "addAccess stopId=" << stopId << " stopEdge=" << stopEdge->getID() << " pos=" << pos << " length=" << length << " tag=" << toString(category)
-            << " access=" << isAccess << " tWait=" << taxiWait << "\n";
+                  << " access=" << isAccess << " tWait=" << taxiWait << "\n";
 #endif
         if (myStopConnections.count(stopId) == 0) {
             myStopConnections[stopId] = new StopEdge<E, L, N, V>(stopId, myNumericalID++, stopEdge, startPos, endPos);
@@ -538,7 +538,9 @@ public:
                 if (carSplit != nullptr && (transferCarWalk || transferTaxiWalk)) {
                     // adding access from car to walk
                     _IntermodalEdge* const beforeSplit = myAccessSplits[myCarLookup[stopEdge]][splitIndex];
-                    for (_IntermodalEdge* conn : { fwdSplit, backSplit }) {
+                    for (_IntermodalEdge* conn : {
+                                fwdSplit, backSplit
+                            }) {
                         if (transferCarWalk) {
                             _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, conn, length);
                             addEdge(access);

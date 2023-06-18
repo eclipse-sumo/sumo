@@ -32,7 +32,7 @@ FXDEFMAP(MFXCheckButtonTooltip) MFXCheckButtonTooltipMap[] = {
 FXIMPLEMENT(MFXCheckButtonTooltip, FXCheckButton, MFXCheckButtonTooltipMap, ARRAYNUMBER(MFXCheckButtonTooltipMap))
 
 
-MFXCheckButtonTooltip::MFXCheckButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXObject* tgt, 
+MFXCheckButtonTooltip::MFXCheckButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXObject* tgt,
         FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     FXCheckButton(p, text, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
     myStaticToolTip(staticToolTip) {

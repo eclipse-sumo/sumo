@@ -196,8 +196,8 @@ public:
 
     /** @brief Returns whether this phase is an "all red" phase
      *
-     * "all red " means in this case that at all streams have red 
-     *  and no stream has yellow. 
+     * "all red " means in this case that at all streams have red
+     *  and no stream has yellow.
      * @return Whether this phase is an "all red" phase
      */
     bool isAllRedPhase() const {

@@ -69,10 +69,10 @@ GNEShapeFrame::GEOPOICreator::GEOPOICreator(GNEShapeFrame* polygonFrameParent) :
     myCreateGEOPOIButton = new FXButton(getCollapsableFrame(), TL("Create GEO POI (clipboard)"), nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // create information label
     myLabelCartesianPosition = new MFXDynamicLabel(getCollapsableFrame(),
-        (TL("Cartesian equivalence:") + std::string("\n") + 
-         TL("- X = give valid longitude") + std::string("\n") + 
-         TL("- Y = give valid latitude")).c_str(), 
-        0, GUIDesignLabelFrameInformation);
+            (TL("Cartesian equivalence:") + std::string("\n") +
+             TL("- X = give valid longitude") + std::string("\n") +
+             TL("- Y = give valid latitude")).c_str(),
+            0, GUIDesignLabelFrameInformation);
 }
 
 

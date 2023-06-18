@@ -66,7 +66,7 @@ public:
      * @param[in] app The application this window belongs to
      * @param[in] o The gl-object this table describes
      */
-    GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, const std::string& title="");
+    GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, const std::string& title = "");
 
 
     /// @brief Destructor

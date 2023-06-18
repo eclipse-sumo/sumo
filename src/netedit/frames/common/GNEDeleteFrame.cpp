@@ -304,8 +304,8 @@ GNEDeleteFrame::ProtectElements::onCmdUnprotectAll(FXObject*, FXSelector, void*)
 
 long
 GNEDeleteFrame::ProtectElements::onUpdProtectAll(FXObject* sender, FXSelector, void*) {
-    if (myProtectAdditionals->getCheck() && myProtectTAZs->getCheck() && 
-        myProtectDemandElements->getCheck() && myProtectGenericDatas->getCheck()) {
+    if (myProtectAdditionals->getCheck() && myProtectTAZs->getCheck() &&
+            myProtectDemandElements->getCheck() && myProtectGenericDatas->getCheck()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -315,8 +315,8 @@ GNEDeleteFrame::ProtectElements::onUpdProtectAll(FXObject* sender, FXSelector, v
 
 long
 GNEDeleteFrame::ProtectElements::onUpdUnprotectAll(FXObject* sender, FXSelector, void*) {
-    if (!myProtectAdditionals->getCheck() && !myProtectTAZs->getCheck() && 
-        !myProtectDemandElements->getCheck() && !myProtectGenericDatas->getCheck()) {
+    if (!myProtectAdditionals->getCheck() && !myProtectTAZs->getCheck() &&
+            !myProtectDemandElements->getCheck() && !myProtectGenericDatas->getCheck()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);

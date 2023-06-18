@@ -421,7 +421,7 @@ NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
     for (NBTrafficLightLogic* computed : getComputed()) {
         const std::string computedID = computed->getID();
         if (defsToGroup.find(computedID) != defsToGroup.end()) {
-            // remember corresponding tl indices and check if they can be joined            
+            // remember corresponding tl indices and check if they can be joined
             // execute tl index joins if possible
             const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = computed->getPhases();
             std::vector<int> major2minor;
@@ -469,7 +469,7 @@ NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
                     // join signal groups, update the connections
                     std::vector<int> indexToRemove;
                     for (const auto& indexSet : controllerID2tlIndex[computedID]) {
-                        int minIndex = *indexSet.second.begin();                      
+                        int minIndex = *indexSet.second.begin();
                         for (int index : indexSet.second) {
                             if (index != minIndex) {
                                 lDef->replaceIndex(index, minIndex);

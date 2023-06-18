@@ -1831,7 +1831,8 @@ MSLink::isOnComingPed(const MSVehicle* ego, const MSPerson* p) const {
         std::cout << " ped-angleDiff=" << RAD2DEG(angleDiff) << " res=" << cos(angleDiff) << "\n";
     }
 #endif
-    if (angleDiff <= DEG2RAD(90)) {;
+    if (angleDiff <= DEG2RAD(90)) {
+        ;
         return cos(angleDiff);
     } else {
         return 0;

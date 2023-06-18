@@ -1321,7 +1321,7 @@ public:
     double getMaximumBrakeDist() const;
 
     static void initCollisionOptions(const OptionsCont& oc);
-    static void initCollisionAction(const OptionsCont& oc, const std::string& option, CollisionAction& myAction); 
+    static void initCollisionAction(const OptionsCont& oc, const std::string& option, CollisionAction& myAction);
 
     static CollisionAction getCollisionAction() {
         return myCollisionAction;
@@ -1371,9 +1371,9 @@ protected:
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
 
     void handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSTransportable* victim,
-                                double gap, const std::string& collisionType,
-                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
-                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
+                                          double gap, const std::string& collisionType,
+                                          std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
+                                          std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
 
     /* @brief determine depart speed and whether it may be patched
      * @param[in] veh The departing vehicle

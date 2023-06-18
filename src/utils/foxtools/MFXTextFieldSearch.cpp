@@ -55,12 +55,12 @@ MFXTextFieldSearch::onKeyPress(FXObject* obj, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXTextFieldSearch::onPaint(FXObject* obj, FXSelector sel, void* ptr) {
     if (hasFocus() || (contents.count() > 0)) {
         return FXTextField::onPaint(obj, sel, ptr);
     } else {
-        FXEvent *ev = (FXEvent*)ptr;
+        FXEvent* ev = (FXEvent*)ptr;
         FXDCWindow dc(this, ev);
         // declare text to search
         std::string searchString = TL("Type to search...");
@@ -81,7 +81,7 @@ MFXTextFieldSearch::onPaint(FXObject* obj, FXSelector sel, void* ptr) {
         if (flags & FLAG_CARET) {
             int xx = coord(cursor) - 1;
             dc.setForeground(cursorColor);
-            dc.fillRectangle(xx, padtop + border, 1, height - padbottom-padtop - (border << 1));
+            dc.fillRectangle(xx, padtop + border, 1, height - padbottom - padtop - (border << 1));
             dc.fillRectangle(xx - 2, padtop + border, 5, 1);
             dc.fillRectangle(xx - 2, height - border - padbottom - 1, 5, 1);
         }
@@ -118,12 +118,12 @@ MFXTextFieldSearch::MFXTextFieldSearch() :
 }
 
 
-void 
-MFXTextFieldSearch::drawSearchTextRange(const FXString &searchString, FXDCWindow& dc) {
+void
+MFXTextFieldSearch::drawSearchTextRange(const FXString& searchString, FXDCWindow& dc) {
     FXint xx, yy, cw, hh, ww, si, ei, lx, rx, t;
     FXint rr = width - border - padright;
     FXint ll = border + padleft;
-    FXint mm = (ll + rr)/2;
+    FXint mm = (ll + rr) / 2;
     FXint fm = 0;
     FXint to = (int)searchString.length();
     if (to <= fm) {
@@ -140,9 +140,9 @@ MFXTextFieldSearch::drawSearchTextRange(const FXString &searchString, FXDCWindow
     } else if (options & JUSTIFY_BOTTOM) {
         // Text sticks to bottom of field
         yy = height - padbottom - border - hh;
-    } else{ 
+    } else {
         // Text centered in y
-        yy = border + padtop + (height - padbottom - padtop - (border << 1) - hh)/2;
+        yy = border + padtop + (height - padbottom - padtop - (border << 1) - hh) / 2;
     }
     if (anchor < cursor) {
         si = anchor;
@@ -161,7 +161,7 @@ MFXTextFieldSearch::drawSearchTextRange(const FXString &searchString, FXDCWindow
         xx = shift + ll;
     } else {
         // Text centered in field
-        xx = shift + mm - ww/2;
+        xx = shift + mm - ww / 2;
     }
 
     // Reduce to avoid drawing excessive amounts of text

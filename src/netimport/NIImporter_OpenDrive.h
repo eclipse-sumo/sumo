@@ -763,7 +763,7 @@ protected:
     static void recomputeWidths(OpenDriveLaneSection& sec, double start, double end, double sectionStart, double sectionEnd);
     static void recomputeWidths(std::vector<OpenDriveLane>& lanes, double start, double end, double sectionStart, double sectionEnd);
     static void setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& sumoLane, const OpenDriveLane& odLane, bool saveOrigIDs, const NBTypeCont& tc);
-    static void writeRoadObjects(const OpenDriveEdge* e); 
+    static void writeRoadObjects(const OpenDriveEdge* e);
 
     /// The names of openDrive-XML elements (for passing to GenericSAXHandler)
     static StringBijection<int>::Entry openDriveTags[];

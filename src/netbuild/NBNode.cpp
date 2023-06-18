@@ -2069,7 +2069,7 @@ NBNode::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
 
 bool
 NBNode::bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
-                      const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+                     const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     if (myRequest == nullptr) {
         return false;
     }

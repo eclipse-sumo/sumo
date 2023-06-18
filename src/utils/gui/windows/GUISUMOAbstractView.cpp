@@ -1097,7 +1097,7 @@ long
 GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
     setFocus();
-    if(!myApp->isGaming()) {
+    if (!myApp->isGaming()) {
         myChanger->onMiddleBtnPress(ptr);
     }
     grab();
@@ -1113,7 +1113,7 @@ GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
 long
 GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    if(!myApp->isGaming()) {
+    if (!myApp->isGaming()) {
         myChanger->onMiddleBtnRelease(ptr);
     }
     ungrab();
@@ -1129,7 +1129,7 @@ GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
 long
 GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    if(!myApp->isGaming()) {
+    if (!myApp->isGaming()) {
         myChanger->onRightBtnPress(ptr);
     }
     grab();

@@ -247,7 +247,7 @@ GNEPythonToolDialogElements::FileNameArgument::FileNameArgument(GNEPythonToolDia
     }
     // Create Open button
     myOpenFilenameButton = new MFXButtonTooltip(myElementsFrame, toolDialogParent->myGNEApp->getStaticTooltipMenu(), "",
-                                                GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SELECT, GUIDesignButtonIcon);
+            GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SELECT, GUIDesignButtonIcon);
     myOpenFilenameButton->setTipText(TLF("Select % file", useCurrent).c_str());
     myOpenFilenameButton->create();
     // create text field for filename
@@ -270,10 +270,10 @@ GNEPythonToolDialogElements::EdgeVectorArgument::EdgeVectorArgument(GNEPythonToo
         const std::string name, Option* option) :
     Argument(toolDialogParent, argumentFrame, name, option) {
     myCurrentEdgesButton = new MFXButtonTooltip(myElementsFrame, toolDialogParent->myGNEApp->getStaticTooltipMenu(), "",
-                                                GUIIconSubSys::getIcon(GUIIcon::EDGE), this, MID_GNE_USE_CURRENT, GUIDesignButtonIcon);
+            GUIIconSubSys::getIcon(GUIIcon::EDGE), this, MID_GNE_USE_CURRENT, GUIDesignButtonIcon);
     myCurrentEdgesButton->setTipText(TL("Use current selected edges"));
     myCurrentEdgesButton->create();
-        // create text field for string
+    // create text field for string
     myEdgeVectorTextField = new FXTextField(myElementsFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myEdgeVectorTextField->create();
     // set value
@@ -307,7 +307,7 @@ GNEPythonToolDialogElements::EdgeVectorArgument::onCmdUseCurrent(FXObject*, FXSe
     const auto selectedEdges = myToolDialogParent->getGNEApplicationWindow()->getViewNet()->getNet()->getAttributeCarriers()->getSelectedEdges();
     // convert list to string
     std::string selectedEdgesStr;
-    for (const auto &edge : selectedEdges) {
+    for (const auto& edge : selectedEdges) {
         selectedEdgesStr.append(edge->getID());
         if (edge != selectedEdges.back()) {
             selectedEdgesStr.append(" ");

@@ -296,7 +296,7 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
 void
 GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                        const double startPos, const double endPos, const std::string& departPos, const std::string& name, const bool friendlyPosition,
-                                       const int roadSideCapacity, const bool onRoad, const double width, const double length, const double angle, 
+                                       const int roadSideCapacity, const bool onRoad, const double width, const double length, const double angle,
                                        const bool lefthand, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {

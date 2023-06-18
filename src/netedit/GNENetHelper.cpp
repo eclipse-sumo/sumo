@@ -2560,7 +2560,7 @@ GNENetHelper::AttributeCarriers::deleteMeanData(GNEMeanData* meanData) {
 
 
 void
-GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagProperties &tagProperty) {
+GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagProperties& tagProperty) {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // continue depending of demand mode
         switch (myNet->getViewNet()->getEditModes().demandEditMode) {

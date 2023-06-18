@@ -880,7 +880,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                     c.setParameter("controllerID", controller.id);
                                 }
                             }
-                        }                      
+                        }
                     }
                     getTLSSecure(from, nb);
 
@@ -901,7 +901,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     WRITE_WARNINGF(TL("Could not find edge '%' for signal '%'."), id, signal.id);
                     continue;
                 }
-                
+
                 /// XXX consider lane validity
                 for (NBEdge::Connection& c : edge->getConnections()) {
                     int odLane = laneIndexMap[std::make_pair(edge, c.fromLane)];
@@ -912,7 +912,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             c.setParameter("signalID", signal.id);
                         }
                     }
-                    
+
                     // set tlIndex to allow signal groups (defined in OpenDRIVE controller elements)
                     if (importSignalGroups) {
                         const OpenDriveController& controller = handler.getController(signal.id);
@@ -925,7 +925,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             c.tlLinkIndex = tlIndex;
                             c.setParameter("controllerID", controller.id);
                         }
-                    }                
+                    }
                 }
                 getTLSSecure(edge, nb);
                 //std::cout << "odrEdge=" << e->id << " sumoID=" << (*k).sumoID << " sumoEdge=" << edge->getID()
@@ -935,7 +935,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             // @note: OpenDRIVE controllers are applied to the signal programs in NBTrafficLightLogicCont::applyOpenDriveControllers
         }
     }
-    
+
     // -------------------------
     // clean up
     // -------------------------
@@ -949,7 +949,7 @@ void
 NIImporter_OpenDrive::writeRoadObjects(const OpenDriveEdge* e) {
     OptionsCont& oc = OptionsCont::getOptions();
     const bool writeGeo = GeoConvHelper::getLoaded().usingGeoProjection() && (
-            oc.isDefault("proj.plain-geo") || oc.getBool("proj.plain-geo"));
+                              oc.isDefault("proj.plain-geo") || oc.getBool("proj.plain-geo"));
     OutputDevice& dev = OutputDevice::getDevice(oc.getString("polygon-output"));
     dev.writeXMLHeader("additional", "additional_file.xsd");
     //SUMOPolygon poly("road_" + e->id, "road", RGBColor::BLUE, e->geom, true, false);

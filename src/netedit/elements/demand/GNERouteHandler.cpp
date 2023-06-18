@@ -2281,7 +2281,7 @@ GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure
     }
     // check container conditions
     if (!person && (previousPlan->getTag() != SUMO_TAG_TRANSPORT) && (previousPlan->getTag() != SUMO_TAG_TRANSHIP) &&
-        (previousPlan->getTag() != SUMO_TAG_STOP)) {
+            (previousPlan->getTag() != SUMO_TAG_STOP)) {
         // invalid last child
         return nullptr;
     }

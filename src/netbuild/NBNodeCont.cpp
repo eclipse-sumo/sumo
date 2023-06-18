@@ -605,9 +605,9 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                             && (e->getPermissions() & (SVC_PASSENGER | SVC_TRAM)) == 0
                             && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth))) {
 #ifdef DEBUG_JOINJUNCTIONS
-                        if (DEBUGCOND(s)) {
-                            std::cout << " ignored s=" << s->getID() << " pedestrian edge=" << e->getID() << " cd=" << n->getPosition().distanceTo2D(s->getPosition()) << "\n";
-                        }
+                    if (DEBUGCOND(s)) {
+                        std::cout << " ignored s=" << s->getID() << " pedestrian edge=" << e->getID() << " cd=" << n->getPosition().distanceTo2D(s->getPosition()) << "\n";
+                    }
 #endif
                     continue;
                 }
@@ -1755,7 +1755,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
         open.push_back(e);
         while (open.size() > 0) {
             NBEdge* const cur = open.back();
-            const SVCPermissions pCur = conPermissions.count({e, cur}) == 0 ? cur->getPermissions() : conPermissions[{e, cur}];
+            const SVCPermissions pCur = conPermissions.count({e, cur}) == 0 ? cur->getPermissions() : conPermissions[ {e, cur}];
 #ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
             if (e->getID() == "625058945") {
                 std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " pCur=" << getVehicleClassNames(cur->getPermissions()) << " open=" << toString(open) << "\n";
@@ -1774,13 +1774,13 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                 for (NBEdge* out : cur->getToNode()->getOutgoingEdges()) {
                     if (allEdges.count(out) != 0) {
                         const SVCPermissions p = pCur & out->getPermissions();
-                        if (seen.count(out) == 0 || (~conPermissions[{e, out}] & p) != 0) {
+                        if (seen.count(out) == 0 || (~conPermissions[ {e, out}] & p) != 0) {
                             if ((p & ~SVC_PEDESTRIAN) != 0) {
                                 open.push_back(out);
-                                conPermissions[{e, out}] |= p;
+                                conPermissions[ {e, out}] |= p;
 #ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
                                 if (e->getID() == "625058945") {
-                                    std::cout << "  e=" << e->getID() << " out=" << out->getID() << " pOut=" << getVehicleClassNames(out->getPermissions()) << "\n    p=" << getVehicleClassNames(p) << "\n    q=" << getVehicleClassNames(conPermissions[{e, out}]) << "\n";
+                                    std::cout << "  e=" << e->getID() << " out=" << out->getID() << " pOut=" << getVehicleClassNames(out->getPermissions()) << "\n    p=" << getVehicleClassNames(p) << "\n    q=" << getVehicleClassNames(conPermissions[ {e, out}]) << "\n";
                                 }
 #endif
                             }
@@ -1795,9 +1795,9 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                         if (con.permissions != SVC_UNSPECIFIED) {
                             p &= con.permissions;
                         }
-                        if (seen.count(con.toEdge) == 0 || (~conPermissions[{e, con.toEdge}] & p) != 0) {
+                        if (seen.count(con.toEdge) == 0 || (~conPermissions[ {e, con.toEdge}] & p) != 0) {
                             open.push_back(con.toEdge);
-                            conPermissions[{e, con.toEdge}] |= p;
+                            conPermissions[ {e, con.toEdge}] |= p;
                             //std::cout << "  e=" << e->getID() << " con.toEdge=" << con.toEdge->getID() << " pSpecial=" << toString(con.permissions) << " pOut=" << getVehicleClassNames(con.toEdge->getPermissions()) << "\n    p=" << getVehicleClassNames(p) << "\n    q=" << getVehicleClassNames(conPermissions[{e, con.toEdge}]) << "\n";
                         }
                     }
@@ -1810,11 +1810,11 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             if (inside.count(reached) == 0) {
                 reachable[e].insert(reached);
                 const SVCPermissions pDefault = e->getPermissions() & reached->getPermissions();
-                if (conPermissions[{e, reached}] != pDefault) {
+                if (conPermissions[ {e, reached}] != pDefault) {
                     specialPermissions.insert(e);
 #ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
                     if (e->getID() == "625058945") {
-                        std::cout << "e=" << e->getID() << " out=" << reached->getID() << " special=" << getVehicleClassNames(conPermissions[{e, reached}]) << "\n";
+                        std::cout << "e=" << e->getID() << " out=" << reached->getID() << " special=" << getVehicleClassNames(conPermissions[ {e, reached}]) << "\n";
                     }
 #endif
                 }
@@ -1888,7 +1888,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                     }
                 } else if (specialPermissions.count(in) != 0) {
                     SVCPermissions pDefault = in->getPermissions() & out->getPermissions();
-                    SVCPermissions p = conPermissions[{in, out}] == 0 ? pDefault : conPermissions[{in, out}];
+                    SVCPermissions p = conPermissions[ {in, out}] == 0 ? pDefault : conPermissions[ {in, out}];
                     in->addEdge2EdgeConnection(out, true, p == pDefault ? SVC_UNSPECIFIED : p);
                     //std::cout << " addEdge2Edge in=" << in->getID() << " out=" << out->getID() << "\n";
                 }

@@ -301,10 +301,10 @@ public:
     public:
         /// @brief constructor for inspector frame
         ParametersEditor(GNEInspectorFrame* inspectorFrameParent);
-        
+
         /// @brief constructor for type frame
         ParametersEditor(GNETypeFrame* typeFrameParent);
-        
+
         /// @brief destructor
         ~ParametersEditor();
 

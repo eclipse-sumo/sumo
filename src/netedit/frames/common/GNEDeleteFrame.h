@@ -96,7 +96,7 @@ public:
 
         /// @brief check if protect generic datas checkbox is enabled
         bool protectGenericDatas() const;
-    
+
         /// @name FOX-callbacks
         /// @{
         /// @brief protect all elements

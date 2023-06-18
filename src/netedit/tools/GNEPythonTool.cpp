@@ -112,7 +112,7 @@ GNEPythonTool::getCommand() const {
             // for boolean values avoid use "true"
             if (option.second->isBool()) {
                 arguments += ("--" + option.first + " ");
-            } else { 
+            } else {
                 if (!option.second->isPositional()) {
                     arguments += ("--" + option.first + " ");
                 }

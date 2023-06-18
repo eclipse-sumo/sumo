@@ -2087,27 +2087,27 @@ MSVehicle::brakeForOverlap(const MSLink* link, const MSLane* lane) const {
     //const double overlap = getLateralOverlap(futurePosLat, link->getViaLaneOrLane());
     //const double edgeWidth = link->getViaLaneOrLane()->getEdge().getWidth();
     const double futurePosLat = getLateralPositionOnLane() + (
-            lane != myLane && lane->isInternal() ? lane->getIncomingLanes()[0].viaLink->getLateralShift() : 0);
+                                    lane != myLane && lane->isInternal() ? lane->getIncomingLanes()[0].viaLink->getLateralShift() : 0);
     const double overlap = getLateralOverlap(futurePosLat, lane);
     const double edgeWidth = lane->getEdge().getWidth();
     const bool result = (overlap > POSITION_EPS
-            // do not get stuck on narrow edges
-            && getVehicleType().getWidth() <= edgeWidth
-            && link->getViaLane() == nullptr
-            // this is the exit link of a junction. The normal edge should support the shadow
-            && ((myLaneChangeModel->getShadowLane(link->getLane()) == nullptr)
-                // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
-                || (lane->getEdge().isInternal() && lane->getIncomingLanes()[0].lane->getEdge().isInternal()))
-            // ignore situations where the shadow lane is part of a double-connection with the current lane
-            && (myLaneChangeModel->getShadowLane() == nullptr
-                || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
-                || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != link->getLane()));
+                         // do not get stuck on narrow edges
+                         && getVehicleType().getWidth() <= edgeWidth
+                         && link->getViaLane() == nullptr
+                         // this is the exit link of a junction. The normal edge should support the shadow
+                         && ((myLaneChangeModel->getShadowLane(link->getLane()) == nullptr)
+                             // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
+                             || (lane->getEdge().isInternal() && lane->getIncomingLanes()[0].lane->getEdge().isInternal()))
+                         // ignore situations where the shadow lane is part of a double-connection with the current lane
+                         && (myLaneChangeModel->getShadowLane() == nullptr
+                             || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
+                             || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != link->getLane()));
 
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << getID() << " link=" << link->getDescription() << " lane=" << lane->getID()
-            << " shift=" << link->getLateralShift()
-            << " fpLat=" << futurePosLat << " overlap=" << overlap << " w=" << getVehicleType().getWidth() << " result=" << result << "\n";
+                  << " shift=" << link->getLateralShift()
+                  << " fpLat=" << futurePosLat << " overlap=" << overlap << " w=" << getVehicleType().getWidth() << " result=" << result << "\n";
     }
 #endif
     return result;
@@ -3237,8 +3237,8 @@ MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leade
 
 void
 MSVehicle::adaptToOncomingLeader(const std::pair<const MSVehicle*, double> leaderInfo,
-                         DriveProcessItem* const lastLink,
-                         double& v, double& vLinkPass) const {
+                                 DriveProcessItem* const lastLink,
+                                 double& v, double& vLinkPass) const {
     if (leaderInfo.first != 0) {
         if (ignoreFoe(leaderInfo.first)) {
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
@@ -6881,8 +6881,8 @@ MSVehicle::onFurtherEdge(const MSEdge* edge) const {
 bool
 MSVehicle::isBidiOn(const MSLane* lane) const {
     return lane->getBidiLane() != nullptr && (
-            myLane == lane->getBidiLane()
-            || onFurtherEdge(&lane->getBidiLane()->getEdge()));
+               myLane == lane->getBidiLane()
+               || onFurtherEdge(&lane->getBidiLane()->getEdge()));
 }
 
 

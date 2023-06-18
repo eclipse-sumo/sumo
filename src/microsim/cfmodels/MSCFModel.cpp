@@ -783,9 +783,9 @@ MSCFModel::maximumSafeStopSpeed(double gap, double decel, double currentSpeed, b
 #ifdef DEBUG_EMERGENCYDECEL
         if (true) {
             std::cout << SIMTIME << " maximumSafeStopSpeed()"
-                    << " g=" << gap
-                    << " v=" << currentSpeed
-                    << " initial vsafe=" << vsafe << "(decel=" << SPEED2ACCEL(v-vsafe) << ")" << std::endl;
+                      << " g=" << gap
+                      << " v=" << currentSpeed
+                      << " initial vsafe=" << vsafe << "(decel=" << SPEED2ACCEL(v - vsafe) << ")" << std::endl;
         }
 #endif
 
@@ -796,7 +796,7 @@ MSCFModel::maximumSafeStopSpeed(double gap, double decel, double currentSpeed, b
 #ifdef DEBUG_EMERGENCYDECEL
             if (true) {
                 std::cout << SIMTIME << " maximumSafeStopSpeed() results in emergency deceleration "
-                        << "initial vsafe=" << vsafe  << " egoSpeed=" << v << "(decel=" << SPEED2ACCEL(v-vsafe) << ")" << std::endl;
+                          << "initial vsafe=" << vsafe  << " egoSpeed=" << v << "(decel=" << SPEED2ACCEL(v - vsafe) << ")" << std::endl;
             }
 #endif
 
@@ -812,7 +812,7 @@ MSCFModel::maximumSafeStopSpeed(double gap, double decel, double currentSpeed, b
 
 #ifdef DEBUG_EMERGENCYDECEL
             if (true) {
-                std::cout << "     -> corrected emergency deceleration: " << SPEED2ACCEL(v-vsafe) << std::endl;
+                std::cout << "     -> corrected emergency deceleration: " << SPEED2ACCEL(v - vsafe) << std::endl;
             }
 #endif
 

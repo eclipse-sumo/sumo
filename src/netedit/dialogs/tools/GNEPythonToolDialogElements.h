@@ -130,7 +130,7 @@ public:
         Argument& operator=(const Argument&) = delete;
     };
 
-    
+
     /// @brief edge vector argument
     class EdgeVectorArgument : public Argument {
         /// @brief FOX-declaration
@@ -139,7 +139,7 @@ public:
     public:
         /// @brief constructor
         EdgeVectorArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
-                      const std::string name, Option* option);
+                           const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -354,7 +354,7 @@ public:
     public:
         /// @brief constructor
         SumoConfigArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
-                      const std::string name, Option* option);
+                           const std::string name, Option* option);
 
         /// @brief Called when user press open filename button
         long onCmdOpenFilename(FXObject*, FXSelector, void*);

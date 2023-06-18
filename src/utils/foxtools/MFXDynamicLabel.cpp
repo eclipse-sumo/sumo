@@ -29,7 +29,7 @@ FXDEFMAP(MFXDynamicLabel) MFXLabelMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(MFXDynamicLabel,FXLabel,MFXLabelMap,ARRAYNUMBER(MFXLabelMap))
+FXIMPLEMENT(MFXDynamicLabel, FXLabel, MFXLabelMap, ARRAYNUMBER(MFXLabelMap))
 
 // ===========================================================================
 // method definitions
@@ -39,7 +39,7 @@ FXIMPLEMENT(MFXDynamicLabel,FXLabel,MFXLabelMap,ARRAYNUMBER(MFXLabelMap))
 // MFXLabel - public methods
 // ---------------------------------------------------------------------------
 
-MFXDynamicLabel::MFXDynamicLabel(FXComposite* p,const FXString& text,FXIcon* ic,FXuint opts,FXint x,FXint y,FXint w,FXint h,FXint pl,FXint pr,FXint pt,FXint pb, std::string indent):
+MFXDynamicLabel::MFXDynamicLabel(FXComposite* p, const FXString& text, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, std::string indent):
     FXLabel(p, text, ic, opts, x, y, w, h, pl, pr, pt, pb), myOriginalString(text.text()), myIndentString(indent), myPreviousWidth(0) {
     computeIndentation();
 }
@@ -112,7 +112,7 @@ MFXDynamicLabel::reformatLineBreaks(const int curWidth) {
     while (pos < finalPos) {
         nextLineBreak = msg.find('\n', pos);
         int subPos = (nextLineBreak != std::string::npos) ? (int)nextLineBreak : finalPos;
-        if(getApp()->getNormalFont()->getTextWidth(msg.substr(pos, subPos - pos).c_str()) <= preferredWidth) {
+        if (getApp()->getNormalFont()->getTextWidth(msg.substr(pos, subPos - pos).c_str()) <= preferredWidth) {
             pos = subPos + 1;
             continue;
         }

@@ -141,7 +141,7 @@ public:
         MFXButtonTooltip* myDisjoinTLSButton = nullptr;
 
         /// @brief frame for accept/cancel buttons
-        FXHorizontalFrame* myJoinControlButtons = nullptr; 
+        FXHorizontalFrame* myJoinControlButtons = nullptr;
 
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction = nullptr;

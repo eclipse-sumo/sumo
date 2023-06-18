@@ -369,8 +369,8 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, lane);
     // check if E2 can be drawn
-    if ((myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && s.drawAdditionals(E2DetectorWidth) && 
-        myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+    if ((myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && s.drawAdditionals(E2DetectorWidth) &&
+            myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // calculate startPos
         const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_POSITION);
         // get endPos
@@ -479,8 +479,8 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, fromLane);
     // check if E2 can be drawn
-    if ((myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && s.drawAdditionals(E2DetectorWidth) && 
-        myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+    if ((myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && s.drawAdditionals(E2DetectorWidth) &&
+            myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // get flag for show only contour
         const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
         // Start drawing adding an gl identificator

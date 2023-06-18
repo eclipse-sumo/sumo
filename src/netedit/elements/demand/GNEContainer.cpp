@@ -437,14 +437,14 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
                 // get stoppingPlace
                 const auto stoppingPlace = getChildDemandElements().front()->getParentAdditionals().front();
                 // get stacked containers
-                for (const auto &stopContainer : stoppingPlace->getChildDemandElements()) {
+                for (const auto& stopContainer : stoppingPlace->getChildDemandElements()) {
                     if (stopContainer->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_CONTAINERSTOP) {
-                         // get container parent
-                         const auto containerParent = stopContainer->getParentDemandElements().front();
-                         // check if the stop if the first container plan parent
-                         if (stopContainer->getPreviousChildDemandElement(containerParent) == nullptr) {
+                        // get container parent
+                        const auto containerParent = stopContainer->getParentDemandElements().front();
+                        // check if the stop if the first container plan parent
+                        if (stopContainer->getPreviousChildDemandElement(containerParent) == nullptr) {
                             stackedCounter++;
-                         }
+                        }
                     }
                 }
                 // if we have more than two stacked elements, draw label

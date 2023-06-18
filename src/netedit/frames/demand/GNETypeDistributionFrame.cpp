@@ -156,7 +156,7 @@ GNETypeDistributionFrame::TypeDistributionSelector::setCurrentTypeDistribution(c
 void
 GNETypeDistributionFrame::TypeDistributionSelector::refreshTypeDistributionSelector() {
     // get ACs
-    const auto &ACs = myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers();
+    const auto& ACs = myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // clear items
     myTypeComboBox->clearItems();
     // fill myTypeMatchBox with list of type distributions sorted by ID
@@ -182,7 +182,7 @@ GNETypeDistributionFrame::TypeDistributionSelector::refreshTypeDistributionSelec
         }
     }
     // Check that give vType type is valid
-    GNEDemandElement *vTypeDistribution = nullptr;
+    GNEDemandElement* vTypeDistribution = nullptr;
     if (validCurrentTypeDistribution) {
         vTypeDistribution = ACs->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, myCurrentTypeDistribution);
     } else {
@@ -208,7 +208,7 @@ GNETypeDistributionFrame::TypeDistributionSelector::refreshTypeDistributionSelec
 long
 GNETypeDistributionFrame::TypeDistributionSelector::onCmdSelectTypeDistribution(FXObject*, FXSelector, void*) {
     const auto viewNet = myTypeDistributionFrameParent->getViewNet();
-    const auto &vTypeDistributions = viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION);
+    const auto& vTypeDistributions = viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION);
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& vTypeDistribution : vTypeDistributions) {
         if (vTypeDistribution->getID() == myTypeComboBox->getText().text()) {
@@ -242,7 +242,7 @@ GNETypeDistributionFrame::TypeDistributionSelector::onCmdSelectTypeDistribution(
 
 long
 GNETypeDistributionFrame::TypeDistributionSelector::onCmdUpdateTypeDistribution(FXObject* sender, FXSelector, void*) {
-    const auto &demandElements = myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
+    const auto& demandElements = myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
     if (demandElements.at(SUMO_TAG_VTYPE_DISTRIBUTION).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {

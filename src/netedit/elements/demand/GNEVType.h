@@ -197,7 +197,7 @@ protected:
 
     /// @brief vType distribution
     std::string myDistribution;
-    
+
     /// @brief vType distribution probability
     double myDistributionProbability = 0;
 

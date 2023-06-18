@@ -3701,9 +3701,9 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     typeButton->create();
     // type distribution mode
     typeDistributionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-                                                    myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                                    std::string("\t") + TL("Create type distribution mode") + std::string("\t") + TL("Mode for creating type distribution. (U)"),
-                                                    GUIIconSubSys::getIcon(GUIIcon::MODETYPEDISTRIBUTION), myViewNet, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
+            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+            std::string("\t") + TL("Create type distribution mode") + std::string("\t") + TL("Mode for creating type distribution. (U)"),
+            GUIIconSubSys::getIcon(GUIIcon::MODETYPEDISTRIBUTION), myViewNet, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
     typeDistributionButton->create();
     // stop mode
     stopButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,

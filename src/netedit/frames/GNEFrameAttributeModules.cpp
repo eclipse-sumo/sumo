@@ -817,10 +817,10 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 }
                 // if vTypes, the following attributes must be always enabled
                 if (ACs.front()->getTagProperty().isType() &&
-                    ((attrProperty.getAttr() == SUMO_ATTR_LENGTH) ||
-                     (attrProperty.getAttr() == SUMO_ATTR_MINGAP) ||
-                     (attrProperty.getAttr() == SUMO_ATTR_MAXSPEED) ||
-                     (attrProperty.getAttr() == SUMO_ATTR_DESIRED_MAXSPEED))) {
+                        ((attrProperty.getAttr() == SUMO_ATTR_LENGTH) ||
+                         (attrProperty.getAttr() == SUMO_ATTR_MINGAP) ||
+                         (attrProperty.getAttr() == SUMO_ATTR_MAXSPEED) ||
+                         (attrProperty.getAttr() == SUMO_ATTR_DESIRED_MAXSPEED))) {
                     attributeEnabled = true;
                 }
                 // extra check for Triggered and container Triggered
@@ -1176,7 +1176,7 @@ GNEFrameAttributeModules::ParametersEditor::~ParametersEditor() {}
 
 GNEViewNet*
 GNEFrameAttributeModules::ParametersEditor::getViewNet() const {
-    return myInspectorFrameParent? myInspectorFrameParent->getViewNet() : myTypeFrameParent->getViewNet();
+    return myInspectorFrameParent ? myInspectorFrameParent->getViewNet() : myTypeFrameParent->getViewNet();
 }
 
 
@@ -1184,7 +1184,7 @@ void
 GNEFrameAttributeModules::ParametersEditor::showParametersEditor() {
     if (myInspectorFrameParent) {
         // get inspected ACs
-        const auto &inspectedACs = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers();
+        const auto& inspectedACs = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers();
         if ((inspectedACs.size() > 0) && inspectedACs.front()->getTagProperty().hasParameters()) {
             // refresh ParametersEditor
             refreshParametersEditor();
@@ -1219,7 +1219,7 @@ void
 GNEFrameAttributeModules::ParametersEditor::refreshParametersEditor() {
     if (myInspectorFrameParent) {
         // get inspected ACs
-        const auto &inspectedACs = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers();
+        const auto& inspectedACs = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers();
         // get front AC
         const GNEAttributeCarrier* frontAC = inspectedACs.size() > 0 ? inspectedACs.front() : nullptr;
         // continue depending of frontAC
@@ -1252,7 +1252,7 @@ GNEFrameAttributeModules::ParametersEditor::refreshParametersEditor() {
         }
     } else if (myTypeFrameParent) {
         // get type
-        GNEDemandElement *type = myTypeFrameParent->getTypeSelector()->getCurrentType();
+        GNEDemandElement* type = myTypeFrameParent->getTypeSelector()->getCurrentType();
         // continue depending of frontAC
         if (type) {
             // set text field parameters
@@ -1268,7 +1268,7 @@ GNEFrameAttributeModules::ParametersEditor::refreshParametersEditor() {
                 myButtonEditParameters->disable();
             }
         }
-    } 
+    }
 }
 
 
@@ -1288,7 +1288,7 @@ long
 GNEFrameAttributeModules::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, void*) {
     if (myInspectorFrameParent) {
         // get inspected ACs
-        const auto &inspectedACs = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers();
+        const auto& inspectedACs = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers();
         // get front AC
         const GNEAttributeCarrier* frontAC = inspectedACs.size() > 0 ? inspectedACs.front() : nullptr;
         // continue depending of frontAC
@@ -1326,7 +1326,7 @@ GNEFrameAttributeModules::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
         }
     } else if (myTypeFrameParent) {
         // get type
-        GNEDemandElement *type = myTypeFrameParent->getTypeSelector()->getCurrentType();
+        GNEDemandElement* type = myTypeFrameParent->getTypeSelector()->getCurrentType();
         // continue depending of type
         if (type) {
             // write debug information
@@ -1341,7 +1341,7 @@ GNEFrameAttributeModules::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
                 WRITE_DEBUG("Cancel single parameters dialog");
             }
         }
-    } 
+    }
     return 1;
 }
 
@@ -1385,7 +1385,7 @@ GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
         }
     } else if (myTypeFrameParent) {
         // get type
-        GNEDemandElement *type = myTypeFrameParent->getTypeSelector()->getCurrentType();
+        GNEDemandElement* type = myTypeFrameParent->getTypeSelector()->getCurrentType();
         // continue depending of frontAC
         if (type) {
             // check if current given string is valid
@@ -1403,7 +1403,7 @@ GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
                 myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
             }
         }
-    } 
+    }
     return 1;
 }
 

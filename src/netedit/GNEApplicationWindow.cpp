@@ -1090,9 +1090,9 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
         const std::string recentFile = ((const char*)fileData);
         // check if we're loading a network o a config
         if ((recentFile.find(".neteditcfg") != std::string::npos) ||    // neteditcfg deprecated
-            (recentFile.find(".netecfg") != std::string::npos) ||
-            (recentFile.find(".sumocfg") != std::string::npos) ||
-            (recentFile.find(".netccfg") != std::string::npos)) {
+                (recentFile.find(".netecfg") != std::string::npos) ||
+                (recentFile.find(".sumocfg") != std::string::npos) ||
+                (recentFile.find(".netccfg") != std::string::npos)) {
             // load config
             loadConfiguration(recentFile);
         } else {
