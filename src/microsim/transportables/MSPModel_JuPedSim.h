@@ -140,14 +140,12 @@ private:
     void initialize();
     static MSLane* getNextPedestrianLane(const MSLane* const currentLane);
     
-    static MSLane* getPedestrianLane(MSEdge* edge);
-    static Position getAnchor(MSLane* lane, MSEdge* edge, ConstMSEdgeVector incoming);
-    static Position getAnchor(MSLane* lane, MSEdge* edge, MSEdgeVector incoming);
-    static std::tuple<ConstMSEdgeVector, ConstMSEdgeVector, std::unordered_set<MSEdge*>> getAdjacentEdgesOfJunction(MSJunction* junction);
-    static const MSEdgeVector getAdjacentEdgesOfEdge(MSEdge* edge);
-    static bool hasWalkingAreasInbetween(MSEdge* edge, MSEdge* otherEdge, ConstMSEdgeVector adjacentEdgesOfJunction);
+    static const Position& getAnchor(const MSLane* const lane, const MSJunction* const junction);
+    static const Position& getAnchor(const MSLane* const lane, const MSEdge* const edge, MSEdgeVector incoming);
+    static const MSEdgeVector getAdjacentEdgesOfEdge(const MSEdge* const edge);
+    static bool hasWalkingAreasInbetween(const MSEdge* const edge, const MSEdge* const otherEdge, ConstMSEdgeVector adjacentEdgesOfJunction);
     geos::geom::Geometry* createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle);
-    geos::geom::Geometry* createShapeFromAnchors(Position anchor, MSLane* lane, Position otherAnchor, MSLane* otherLane);
+    geos::geom::Geometry* createShapeFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane);
     geos::geom::Geometry* buildPedestrianNetwork(MSNet* network);
     static PositionVector getCoordinates(const geos::geom::Geometry* geometry);
     static std::vector<JPS_Point> convertToJPSPoints(const geos::geom::Geometry* geometry);

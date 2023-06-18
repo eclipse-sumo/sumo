@@ -224,57 +224,27 @@ void MSPModel_JuPedSim::clearState() {
 }
 
 
-MSLane* 
-MSPModel_JuPedSim::getPedestrianLane(MSEdge* edge) {
-    for (MSLane* lane : edge->getLanes()) {
-        SVCPermissions permissions = lane->getPermissions();
-        if ((permissions & SVC_PEDESTRIAN)  != 0) {
-            return lane;
-        }
+const Position&
+MSPModel_JuPedSim::getAnchor(const MSLane* const lane, const MSJunction* const junction) {
+    if (junction == lane->getEdge().getToJunction()) {
+        return lane->getShape().back();
     }
-
-    return nullptr;
+    return lane->getShape().front();
 }
 
 
-Position 
-MSPModel_JuPedSim::getAnchor(MSLane* lane, MSEdge* edge, ConstMSEdgeVector incoming) {
+const Position&
+MSPModel_JuPedSim::getAnchor(const MSLane* const lane, const MSEdge* const edge, MSEdgeVector incoming) {
     if (std::count(incoming.begin(), incoming.end(), edge)) {
         return lane->getShape().back();
     }
 
     return lane->getShape().front();
-}
-
-
-Position
-MSPModel_JuPedSim::getAnchor(MSLane* lane, MSEdge* edge, MSEdgeVector incoming) {
-    if (std::count(incoming.begin(), incoming.end(), edge)) {
-        return lane->getShape().back();
-    }
-
-    return lane->getShape().front();
-}
-
-
-std::tuple<ConstMSEdgeVector, ConstMSEdgeVector, std::unordered_set<MSEdge*>> 
-MSPModel_JuPedSim::getAdjacentEdgesOfJunction(MSJunction* junction) {
-    ConstMSEdgeVector incoming = junction->getIncoming();
-    ConstMSEdgeVector outgoing = junction->getOutgoing();
-    ConstMSEdgeVector adjacentVector = incoming;
-    adjacentVector.insert(adjacentVector.end(), outgoing.begin(), outgoing.end());
-    
-    std::unordered_set<MSEdge*> adjacentSet;
-    for (const MSEdge* edge : adjacentVector) {
-        adjacentSet.insert(const_cast<MSEdge*>(edge));
-    }
-
-    return std::make_tuple(incoming, outgoing, adjacentSet);
 }
 
 
 const MSEdgeVector
-MSPModel_JuPedSim::getAdjacentEdgesOfEdge(MSEdge* edge) {
+MSPModel_JuPedSim::getAdjacentEdgesOfEdge(const MSEdge* const edge) {
     const MSEdgeVector& outgoing = edge->getSuccessors();
     MSEdgeVector adjacent = edge->getPredecessors();
     adjacent.insert(adjacent.end(), outgoing.begin(), outgoing.end());
@@ -284,7 +254,7 @@ MSPModel_JuPedSim::getAdjacentEdgesOfEdge(MSEdge* edge) {
 
 
 bool 
-MSPModel_JuPedSim::hasWalkingAreasInbetween(MSEdge* edge, MSEdge* otherEdge, ConstMSEdgeVector adjacentEdgesOfJunction) {
+MSPModel_JuPedSim::hasWalkingAreasInbetween(const MSEdge* const edge, const MSEdge* const otherEdge, ConstMSEdgeVector adjacentEdgesOfJunction) {
     for (const MSEdge* nextEdge : getAdjacentEdgesOfEdge(edge)) {
         if ((nextEdge->getFunction() == SumoXMLEdgeFunc::WALKINGAREA) && 
             (std::count(adjacentEdgesOfJunction.begin(), adjacentEdgesOfJunction.end(), edge))) {
@@ -328,7 +298,7 @@ MSPModel_JuPedSim::createShapeFromCenterLine(PositionVector centerLine, double w
 
 
 geos::geom::Geometry*
-MSPModel_JuPedSim::createShapeFromAnchors(Position anchor, MSLane* lane, Position otherAnchor, MSLane* otherLane) {
+MSPModel_JuPedSim::createShapeFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane) {
     geos::geom::Geometry* shape;
     if (lane->getWidth() == otherLane->getWidth()) {
         PositionVector anchors = { anchor, otherAnchor };
@@ -360,26 +330,25 @@ geos::geom::Geometry*
 MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
     std::vector<const geos::geom::Geometry*> dilatedPedestrianLanes;
     for (const auto& junctionWithID : network->getJunctionControl()) {
-        MSJunction* junction = junctionWithID.second;
-        ConstMSEdgeVector incoming;
-        ConstMSEdgeVector outgoing;
-        std::unordered_set<MSEdge*> adjacent;
-        std::tie(incoming, outgoing, adjacent) = getAdjacentEdgesOfJunction(junction);
+        const MSJunction* const junction = junctionWithID.second;
+        const ConstMSEdgeVector& incoming = junction->getIncoming();
+        std::unordered_set<const MSEdge*> adjacent(incoming.begin(), incoming.end());
+        adjacent.insert(junction->getOutgoing().begin(), junction->getOutgoing().end());
 
-        for (MSEdge* edge : adjacent) {
-            if (edge->getFunction() == SumoXMLEdgeFunc::NORMAL) {
-                MSLane* lane = getPedestrianLane(edge);
-                if (lane) {
-                    Position anchor = getAnchor(lane, edge, incoming);
+        for (const MSEdge* const edge : adjacent) {
+            const MSLane* const lane = getSidewalk<MSEdge, MSLane>(edge);
+            if (lane != nullptr) {
+                if (edge->isNormal()) {
+                    const Position& anchor = getAnchor(lane, junction);
                     geos::geom::Geometry* dilatedLaneLine = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_SQUARE);
                     dilatedPedestrianLanes.push_back(dilatedLaneLine);
 
-                    for (MSEdge* nextEdge : adjacent) {
-                        if ((nextEdge != edge) && (nextEdge->getFunction() == SumoXMLEdgeFunc::NORMAL)) {
+                    for (const MSEdge* const nextEdge : adjacent) {
+                        if (nextEdge != edge && nextEdge->isNormal()) {
                             if (hasWalkingAreasInbetween(edge, nextEdge, ConstMSEdgeVector(adjacent.begin(), adjacent.end()))) {
-                                MSLane* nextLane = getPedestrianLane(nextEdge);
-                                if (nextLane) {
-                                    Position nextAnchor = getAnchor(nextLane, nextEdge, incoming);
+                                const MSLane* const nextLane = getSidewalk<MSEdge, MSLane>(nextEdge);
+                                if (nextLane != nullptr) {
+                                    const Position& nextAnchor = getAnchor(nextLane, junction);
                                     geos::geom::Geometry* dilatedLaneLine = createShapeFromAnchors(anchor, lane, nextAnchor, nextLane);
                                     dilatedPedestrianLanes.push_back(dilatedLaneLine);
                                 }
@@ -387,26 +356,20 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
                         }
                     }
                 }
-            }
-        }
-
-        for (MSEdge* edge : adjacent) {
-            if (edge->getFunction() == SumoXMLEdgeFunc::CROSSING) {
-                MSLane* lane = getPedestrianLane(edge);
-                if (lane) {
+                if (edge->isCrossing()) {
                     geos::geom::Geometry* dilatedCrossingLane = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_SQUARE);
                     dilatedPedestrianLanes.push_back(dilatedCrossingLane);
 
                     for (MSEdge* nextEdge : getAdjacentEdgesOfEdge(edge)) {
-                        if ((nextEdge->getFunction() == SumoXMLEdgeFunc::WALKINGAREA) && (std::count(adjacent.begin(), adjacent.end(), nextEdge))) {
+                        if (nextEdge->isWalkingArea() && (std::count(adjacent.begin(), adjacent.end(), nextEdge))) {
                             MSEdgeVector walkingAreaAdjacent = getAdjacentEdgesOfEdge(nextEdge);
                             for (MSEdge* nextNextEdge : walkingAreaAdjacent) {
                                 if (nextNextEdge != edge) {
-                                    MSLane* nextLane = getPedestrianLane(nextNextEdge);
-                                    if (nextLane) {
+                                    const MSLane* const nextLane = getSidewalk<MSEdge, MSLane>(nextNextEdge);
+                                    if (nextLane != nullptr) {
                                         MSEdgeVector nextEdgeIncoming = nextEdge->getPredecessors();
-                                        Position anchor = getAnchor(lane, edge, nextEdgeIncoming);
-                                        Position nextAnchor = getAnchor(nextLane, nextNextEdge, nextEdgeIncoming);
+                                        const Position& anchor = getAnchor(lane, edge, nextEdgeIncoming);
+                                        const Position& nextAnchor = getAnchor(nextLane, nextNextEdge, nextEdgeIncoming);
                                         geos::geom::Geometry* dilatedLaneLine = createShapeFromAnchors(anchor, lane, nextAnchor, nextLane);
                                         dilatedPedestrianLanes.push_back(dilatedLaneLine);
                                     }
