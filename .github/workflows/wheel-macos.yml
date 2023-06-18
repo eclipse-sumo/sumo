@@ -52,6 +52,7 @@ jobs:
 
     - name: Building SUMO / Libsumo wheels
       run: |
+        python3 -m pip install --upgrade pip
         python3 -m pip install build
         cp build/pyproject.toml .
         python3 tools/build/version.py tools/build/setup-sumo.py ./setup.py
@@ -102,6 +103,7 @@ jobs:
 
     - name: Preparing Python environment
       run: |
+        python3 -m pip install --upgrade pip
         python3 -m pip install wheel  # need to do this separately because the texttest install wants it
         python3 -m pip install texttest
         python3 -m pip install python-wheels/eclipse_sumo*
