@@ -17,11 +17,11 @@ from_additional
 # test supplying additional parameters
 parameters
 
+# test supplying additional parameters
+param_vTypes
+
 # test using custom detectors
 custom_detector
-
-# test using custom detectors defined with params in the .net.xml
-custom_detector_net
 
 # custom detectors should be included in the output even "their" phase has fixed duration
 custom_detector_staticPhase
