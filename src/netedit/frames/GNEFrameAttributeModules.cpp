@@ -815,7 +815,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 if (attributeEnabled == false) {
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
-                // if vTypes, the following attributes must be always enabled
+                // for types, the following attributes must be always enabled
                 if (ACs.front()->getTagProperty().isType() &&
                         ((attrProperty.getAttr() == SUMO_ATTR_LENGTH) ||
                          (attrProperty.getAttr() == SUMO_ATTR_MINGAP) ||
@@ -911,6 +911,14 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                 std::string value = oss.str();
                 // declare a flag for enabled attributes
                 bool attributeEnabled = ACs.front()->isAttributeEnabled(attrProperty.getAttr());
+                // for types, the following attributes must be always enabled
+                if (ACs.front()->getTagProperty().isType() &&
+                        ((attrProperty.getAttr() == SUMO_ATTR_LENGTH) ||
+                         (attrProperty.getAttr() == SUMO_ATTR_MINGAP) ||
+                         (attrProperty.getAttr() == SUMO_ATTR_MAXSPEED) ||
+                         (attrProperty.getAttr() == SUMO_ATTR_DESIRED_MAXSPEED))) {
+                    attributeEnabled = true;
+                }
                 // overwrite value if attribute is disabled (used by LinkIndex)
                 if (attributeEnabled == false) {
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
