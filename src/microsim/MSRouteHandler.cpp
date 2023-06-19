@@ -426,7 +426,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
             }
         }
         MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
-                                     myVehicleParameter == nullptr || myVehicleParameter->repetitionNumber >= 1,
+                                     myVehicleParameter == nullptr,
                                      myActiveRouteColor, myActiveRouteStops,
                                      myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex);
         route->setPeriod(myActiveRoutePeriod);
@@ -468,6 +468,8 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
         // ok, a vehicle is wrapping the route,
         //  we may use this vehicle's id as default
         myCurrentRouteDistributionID = "!" + myVehicleParameter->id; // !!! document this
+        // we have to record this or we cannot remove the distribution later
+        myVehicleParameter->routeid = myCurrentRouteDistributionID;
     } else {
         bool ok = true;
         myCurrentRouteDistributionID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);

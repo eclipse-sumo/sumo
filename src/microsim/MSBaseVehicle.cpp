@@ -141,7 +141,8 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
 
 MSBaseVehicle::~MSBaseVehicle() {
     delete myEdgeWeights;
-    if (myParameter->repetitionNumber == 0) {
+    if (myParameter->repetitionNumber == -1) {
+        // this is not a flow (flows call checkDist in MSInsertionControl::determineCandidates)
         MSRoute::checkDist(myParameter->routeid);
     }
     for (MSVehicleDevice* dev : myDevices) {
@@ -150,7 +151,22 @@ MSBaseVehicle::~MSBaseVehicle() {
     delete myParameter;
     delete myEnergyParams;
     delete myParkingMemory;
-    myRoute->checkRemoval();
+    checkRouteRemoval();
+}
+
+
+void
+MSBaseVehicle::checkRouteRemoval() {
+    if (myParameter->repetitionNumber == -1
+            || !MSNet::getInstance()->hasFlow(getFlowID())) {
+        myRoute->checkRemoval();
+    }
+}
+
+
+std::string
+MSBaseVehicle::getFlowID() const {
+    return getID().substr(0, getID().rfind('.'));
 }
 
 
@@ -484,7 +500,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
     }
     const bool stopsFromScratch = onInit && myRoute->getStops().empty();
     // assign new route
-    myRoute->checkRemoval();
+    checkRouteRemoval();
     myRoute = newRoute;
     // update arrival definition
     calculateArrivalParams(onInit);

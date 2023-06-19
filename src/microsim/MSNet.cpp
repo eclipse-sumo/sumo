@@ -296,6 +296,7 @@ MSNet::~MSNet() {
     // delete mean data
     delete myEdges;
     delete myInserter;
+    myInserter = nullptr;
     delete myLogics;
     delete myRouteLoaders;
     if (myPersonControl != nullptr) {
@@ -381,6 +382,14 @@ MSNet::getMesoType(const std::string& typeID) {
     }
     return myMesoEdgeTypes[typeID];
 }
+
+
+bool
+MSNet::hasFlow(const std::string& id) const {
+    // inserter is deleted at the end of the simulation
+    return myInserter != nullptr && myInserter->hasFlow(id);
+}
+
 
 MSNet::SimulationState
 MSNet::simulate(SUMOTime start, SUMOTime stop) {

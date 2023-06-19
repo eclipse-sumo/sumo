@@ -168,6 +168,11 @@ public:
         return &myFlowRNG;
     }
 
+    /// @brief checks whether the given flow still exists
+    bool hasFlow(const std::string& id) const {
+        return myFlowIDs.count(id) != 0;
+    }
+
 private:
     /** @brief Tries to emit the vehicle
      *

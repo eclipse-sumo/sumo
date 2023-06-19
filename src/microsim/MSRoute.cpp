@@ -190,6 +190,10 @@ MSRoute::checkDist(const std::string& id) {
 #endif
     RouteDistDict::iterator it = myDistDict.find(id);
     if (it != myDistDict.end() && !it->second.second) {
+        for (ConstMSRoutePtr rp : it->second.first->getVals()) {
+            const MSRoute& r = *rp;
+            r.checkRemoval();
+        }
         delete it->second.first;
         myDistDict.erase(it);
     }
