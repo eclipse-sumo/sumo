@@ -169,6 +169,11 @@ public:
     /// Returns the rerouting probability given by the user
     double getUserProbability() const;
 
+    // @brief return whether this moveReminder triggers parking reroute
+    bool isParkingRerouter() const {
+        return myHaveParkProbs;
+    }
+
     static double getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight);
 
     static MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
@@ -263,6 +268,8 @@ protected:
     RandomDistributor<ConstMSRoutePtr> myCurrentRouteProb;
     //@}
 
+    /// whether this rerouter has loaded parkingReroute definitions
+    bool myHaveParkProbs;
 
     /// @brief special destination values
     static MSEdge mySpecialDest_keepDestination;

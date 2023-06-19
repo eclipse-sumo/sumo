@@ -82,7 +82,9 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     myProbability(prob),
     myUserProbability(prob),
     myAmInUserMode(false),
-    myTimeThreshold(timeThreshold) {
+    myTimeThreshold(timeThreshold),
+    myHaveParkProbs(false)
+{
     myInstances[id] = this;
     // build actors
     for (MSEdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
@@ -232,6 +234,7 @@ MSTriggeredRerouter::myStartElement(int element,
         const bool visible = attrs.getOpt<bool>(SUMO_ATTR_VISIBLE, getID().c_str(), ok, false);
         // add
         myCurrentParkProb.add(std::make_pair(pa, visible), prob);
+        myHaveParkProbs = true;
         //MSEdge* to = &(pa->getLane().getEdge());
         //myCurrentEdgeProb.add(prob, to);
     }

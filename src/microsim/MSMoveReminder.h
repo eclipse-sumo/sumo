@@ -258,6 +258,11 @@ public:
         return myDescription;
     }
 
+    // @brief return whether this moveReminder triggers parking reroute
+    virtual bool isParkingRerouter() const {
+        return false;
+    }
+
 protected:
     void removeFromVehicleUpdateValues(SUMOTrafficObject& veh);
 

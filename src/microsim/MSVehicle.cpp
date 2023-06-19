@@ -1748,11 +1748,12 @@ MSVehicle::processNextStop(double currentVelocity) {
                 if (stop.parkingarea->getOccupancy() >= stop.parkingarea->getCapacity()) {
                     fitsOnStoppingPlace = false;
                     // trigger potential parkingZoneReroute
-                    for (std::vector< MSMoveReminder* >::const_iterator rem = myLane->getMoveReminders().begin(); rem != myLane->getMoveReminders().end(); ++rem) {
-                        addReminder(*rem);
-                    }
                     MSParkingArea* oldParkingArea = stop.parkingarea;
-                    activateReminders(MSMoveReminder::NOTIFICATION_PARKING_REROUTE, myLane);
+                    for (MSMoveReminder* rem : myLane->getMoveReminders()) {
+                        if (rem->isParkingRerouter()) {
+                            rem->notifyEnter(*this, MSMoveReminder::NOTIFICATION_PARKING_REROUTE, myLane);
+                        }
+                    }
                     if (myStops.empty() || myStops.front().parkingarea != oldParkingArea) {
                         // rerouted, keep driving
                         return currentVelocity;
