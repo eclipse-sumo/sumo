@@ -1101,7 +1101,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     }
     switch (key) {
         case SUMO_ATTR_ID:
-
         case GNE_ATTR_MODIFICATION_STATUS:
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_RADIUS:
@@ -1110,6 +1109,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_NAME:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+            undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         case SUMO_ATTR_POSITION: {
             // change Keep Clear attribute in all connections
