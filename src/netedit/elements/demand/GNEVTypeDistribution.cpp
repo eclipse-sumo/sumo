@@ -20,6 +20,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/common/StringTokenizer.h>
 
 #include "GNEVTypeDistribution.h"
 
@@ -56,17 +57,15 @@ void
 GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
     device.openTag(getTagProperty().getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    // write vTypes sorted by ID
-    std::map<std::string, GNEDemandElement*> sortedElements;
+    // get vtypes that has this vType distribution
+    std::set<std::string> sortedElements;
     for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        // only write if appear in this distribution
-        if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID()) {
-            sortedElements[vType->getID()] = vType;
+        const auto vTypeIDs = StringTokenizer(vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)).getVector();
+        if (std::find(vTypeIDs.begin(), vTypeIDs.end(), getID()) != vTypeIDs.end()) {
+            sortedElements.insert(vType->getID());
         }
     }
-    for (const auto& element : sortedElements) {
-        element.second->writeDemandElement(device);
-    }
+    device.writeAttr(SUMO_ATTR_VTYPES, sortedElements);
     device.closeTag();
 }
 

@@ -2390,11 +2390,8 @@ GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         // get number of additional children
         const auto numChildren = vType->getChildAdditionals().size();
-        // only write if doesn't appear in a distribution,
-        if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION).size() == 0) {
-            if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
-                sortedElements[vType->getID()] = vType;
-            }
+        if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
+            sortedElements[vType->getID()] = vType;
         }
     }
     for (const auto& element : sortedElements) {
