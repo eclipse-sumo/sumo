@@ -20,15 +20,16 @@
 import os
 import sys
 import warnings
-
+import numpy as np
 import ezdxf
+
+
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
 
 
-def polygon_as_XML_element(polygon, typename, index, color):
-    poly = " ".join(["%s,%s" % c[:2] for c in polygon])
-    return '    <poly id="%s_%s" type="%s" color="%s" shape="%s"/>\n' % (typename[9:], index, typename, color, poly)
+WALKABLE_COLOR = "red"
+OBSTACLE_COLOR = "blue"
 
 
 def create_test_dxf(args):
@@ -40,6 +41,17 @@ def create_test_dxf(args):
     doc.layers.new(name=args.obstacle_layer)
     msp.add_lwpolyline(((5,5), (8,5), (8,8), (5,8)), dxfattribs={'layer': args.obstacle_layer})
     doc.saveas(args.file)
+
+
+def polygon_as_XML_element(polygon, typename, index, color):
+    poly = " ".join(["%.2f,%.2f" % c[:2] for c in polygon])
+    return '    <poly id="%s_%s" type="%s" color="%s" shape="%s"/>\n' % (typename[9:], index, typename, color, poly)
+
+
+def generate_circle_vertices(center, radius, nbr_vertices=20):
+    angles = np.linspace(0., 2.0*np.pi, nbr_vertices)
+    vertices = [(center[0] + radius*np.cos(a), center[1] + radius*np.sin(a)) for a in angles]
+    return vertices
 
 
 def main():
@@ -61,14 +73,26 @@ def main():
     dxf = ezdxf.readfile(args.file)
     with sumolib.openz(args.output, "w") as add:
         sumolib.xml.writeHeader(add, root="additional", options=args)
-        for entity in dxf.modelspace().query("LWPOLYLINE"):
+        
+        msp = dxf.modelspace()
+        
+        for entity in msp.query("LWPOLYLINE"):
             vertices = list(entity.vertices())
             if entity.dxf.layer == args.walkable_layer:
-                add.write(polygon_as_XML_element(vertices, "jupedsim.walkable_area", entity.dxf.handle, "blue"))
+                add.write(polygon_as_XML_element(vertices, "jupedsim.walkable_area", entity.dxf.handle, WALKABLE_COLOR))
             elif entity.dxf.layer == args.obstacle_layer:
-                add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, "red"))
+                add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, OBSTACLE_COLOR))
             else:
                 warnings.warn("Polygon '%s' belonging to unknown layer '%s'." % (entity.dxf.handle, entity.dxf.layer))
+                
+        for entity in msp.query("CIRCLE"):
+            if entity.dxf.layer != args.obstacle_layer:
+                warnings.warn("Circle '%s' belongs to layer '%s' instead of layer '%s'." 
+                              % (entity.dxf.handle, entity.dxf.layer, args.obstacle_layer))
+            else:
+                vertices = generate_circle_vertices(list(entity.dxf.center), entity.dxf.radius)
+                add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, OBSTACLE_COLOR))
+                
         add.write("</additional>")
 
 
