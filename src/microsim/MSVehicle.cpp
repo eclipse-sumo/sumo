@@ -2778,16 +2778,23 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 }
             }
         }
-        if (couldBrakeForMinor && (*link)->getLane()->getEdge().isRoundabout()) {
-            slowedDownForMinor = true;
+
+        const SUMOTime arrivalTime = getArrivalTime(t, seen, v, arrivalSpeed);
+        if (couldBrakeForMinor && determinedFoePresence && (*link)->getLane()->getEdge().isRoundabout()) {
+            const bool wasOpened = (*link)->opened(arrivalTime, arrivalSpeed, arrivalSpeed,
+                                           getLength(), getImpatience(),
+                                           getCarFollowModel().getMaxDecel(),
+                                           getWaitingTime(), getLateralPositionOnLane(),
+                                           nullptr, false, this);
+            if (!wasOpened) {
+                slowedDownForMinor = true;
+            }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
-                std::cout << "   slowedDownForMinor at roundabout\n";
+                std::cout << "   slowedDownForMinor at roundabout=" << (!wasOpened) << "\n";
             }
 #endif
         }
-
-        const SUMOTime arrivalTime = getArrivalTime(t, seen, v, arrivalSpeed);
 
         // compute arrival speed and arrival time if vehicle starts braking now
         // if stopping is possible, arrivalTime can be arbitrarily large. A small value keeps fractional times (impatience) meaningful
