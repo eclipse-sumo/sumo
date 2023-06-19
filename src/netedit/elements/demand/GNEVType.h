@@ -27,7 +27,9 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
 class GNEVType : public GNEDemandElement, public SUMOVTypeParameter {
+
 public:
     /// @brief default constructor
     GNEVType(GNENet* net);
@@ -195,11 +197,8 @@ protected:
     /// @brief flag to check if this default GNEVType was modified
     bool myDefaultVehicleTypeModified;
 
-    /// @brief vType distribution
-    std::string myDistribution;
-
-    /// @brief vType distribution probability
-    double myDistributionProbability = 0;
+    /// @brief vType distributions
+    std::map <std::string, double> myDistributions;
 
 private:
     /// @brief method for setting the attribute and nothing else
