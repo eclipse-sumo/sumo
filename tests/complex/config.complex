@@ -108,6 +108,8 @@ output:([0-9]* ms){REPLACE (TIME)}
 log:([0-9]*ms){REPLACE (TIME)}
 log2:([0-9]*ms){REPLACE (TIME)}
 output:version .*SUMO .*{REPLACE version SUMO}
+log:version .* started .*{REPLACE version started}
+log2:version .* started .*{REPLACE version started}
 output:Running main\(\) from .*gtest_main.cc{REPLACE Running main() from gtest_main.cc}
 output: test case{REPLACE  test suite}
 output:function .* called at .*
