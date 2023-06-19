@@ -32,6 +32,12 @@ class GNETypeDistributionFrame : public GNEFrame {
 
 public:
     // ===========================================================================
+    // class declaration
+    // ===========================================================================
+
+    class TypeAttributesEditor;
+
+    // ===========================================================================
     // class TypeDistributionEditor
     // ===========================================================================
 
@@ -124,6 +130,100 @@ public:
         std::string myCurrentTypeDistribution;
     };
 
+    // ===========================================================================
+    // class TypeAttributesEditorRow
+    // ===========================================================================
+
+    class TypeAttributesEditorRow : protected FXHorizontalFrame {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETypeDistributionFrame::TypeAttributesEditorRow)
+
+    public:
+        /// @brief constructor
+        TypeAttributesEditorRow(TypeAttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value);
+
+        /// @brief destroy GNEAttributesCreatorRow (but don't delete)
+        void destroy();
+
+        /// @brief refresh current row
+        void refreshTypeAttributesEditorRow(const std::string& value);
+
+        /// @brief check if current attribute of TextField/ComboBox is valid
+        bool isTypeAttributesEditorRowValid() const;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief try to set new attribute value
+        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief default constructor
+        TypeAttributesEditorRow();
+
+    private:
+        /// @brief pointer to TypeAttributesEditor parent
+        TypeAttributesEditor* myTypeAttributesEditorParent;
+
+        /// @brief current AC Attribute
+        const GNEAttributeProperties myACAttr;
+
+        /// @brief pointer to attribute label
+        MFXLabelTooltip* myAttributeLabel = nullptr;
+
+        /// @brief textField to modify the value of string attributes
+        MFXTextFieldTooltip* myValueTextField = nullptr;
+    };
+
+    // ===========================================================================
+    // class TypeAttributesEditor
+    // ===========================================================================
+
+    class TypeAttributesEditor : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETypeDistributionFrame::TypeAttributesEditor)
+
+    public:
+        /// @brief constructor
+        TypeAttributesEditor(GNETypeDistributionFrame* typeDistributionFrameParent);
+
+        /// @brief show attributes of multiple ACs
+        void showAttributeEditorModule();
+
+        /// @brief hide attribute editor
+        void hideTypeAttributesEditorModule();
+
+        /// @brief refresh attribute editor (only the valid values will be refresh)
+        void refreshAttributeEditor();
+
+        /// @brief pointer to GNEFrame parent
+        GNETypeDistributionFrame* getTypeDistributionFrameParent() const;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when user press the help button
+        long onCmdTypeAttributesEditorHelp(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief fox need this
+        FOX_CONSTRUCTOR(TypeAttributesEditor)
+
+    private:
+        /// @brief pointer to type distribution frame parent
+        GNETypeDistributionFrame* myTypeDistributionFrameParent;
+
+        /// @brief list of Attribute editor rows
+        std::vector<TypeAttributesEditorRow*> myTypeAttributesEditorRows;
+
+        /// @brief button for help
+        FXButton* myHelpButton = nullptr;
+    };
+
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -151,5 +251,5 @@ private:
     TypeDistributionSelector* myTypeDistributionSelector = nullptr;
 
     /// @brief editor for vehicle type attributes
-    GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor = nullptr;
+    TypeAttributesEditor* myTypeTypeAttributesEditor = nullptr;
 };
