@@ -31,7 +31,7 @@
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
     GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -39,8 +39,8 @@ GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& vTypeID, const int deterministic) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION,  GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-myDeterministic(deterministic) {
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+    myDeterministic(deterministic) {
 }
 
 
@@ -55,18 +55,28 @@ GNEVTypeDistribution::getMoveOperation() {
 
 void
 GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
-    device.openTag(getTagProperty().getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
     // get vtypes that has this vType distribution
-    std::set<std::string> sortedElements;
+    std::vector<std::string> vTypes;
+    std::vector<std::string> probabilities;
     for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        const auto vTypeIDs = StringTokenizer(vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)).getVector();
-        if (std::find(vTypeIDs.begin(), vTypeIDs.end(), getID()) != vTypeIDs.end()) {
-            sortedElements.insert(vType->getID());
+        // get type distributions and probabilities
+        const auto typeDistributionIDs = StringTokenizer(vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)).getVector();
+        const auto distributionProbabilities = StringTokenizer(vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY)).getVector();
+        for (int i = 0; i < (int)typeDistributionIDs.size(); i++) {
+            if (typeDistributionIDs.at(i) == getID()) {
+                vTypes.push_back(vType->getID());
+                probabilities.push_back(distributionProbabilities.at(i));
+            }
         }
     }
-    device.writeAttr(SUMO_ATTR_VTYPES, sortedElements);
-    device.closeTag();
+    // only save if there is vTypes to save
+    if (vTypes.size() > 0) {
+        device.openTag(getTagProperty().getTag());
+        device.writeAttr(SUMO_ATTR_ID, getID());
+        device.writeAttr(SUMO_ATTR_VTYPES, vTypes);
+        device.writeAttr(SUMO_ATTR_PROBS, probabilities);
+        device.closeTag();
+    }
 }
 
 
