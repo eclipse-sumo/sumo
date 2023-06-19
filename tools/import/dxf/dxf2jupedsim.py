@@ -69,7 +69,7 @@ def main():
                 add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, "red"))
             else:
                 warnings.warn("Polygon '%s' belonging to unknown layer '%s'." % (entity.dxf.handle, entity.dxf.layer))
-        add.write("</additionals>")
+        add.write("</additional>")
 
 
 if __name__ == "__main__":
