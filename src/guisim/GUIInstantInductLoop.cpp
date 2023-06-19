@@ -95,6 +95,9 @@ GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("name", false, myDetector.myName);
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());
+    if (myDetector.isTyped()) {
+        ret->mkItem("vTypes", false, toString(myDetector.getVehicleTypes()));
+    }
     // values
     // close building
     ret->closeBuilding(&myDetector);

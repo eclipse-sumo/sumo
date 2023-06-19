@@ -142,6 +142,9 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
         ret->mkItem("end position [m]", false, myDetector.getEndPosition());
     }
     ret->mkItem("lane", false, myDetector.getLane()->getID());
+    if (myDetector.isTyped()) {
+        ret->mkItem("vTypes", false, toString(myDetector.getVehicleTypes()));
+    }
     // values
     ret->mkItem("entered vehicles [#]", true,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getEnteredNumber, 0));

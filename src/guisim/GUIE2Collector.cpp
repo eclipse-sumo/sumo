@@ -129,6 +129,9 @@ GUIE2Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("length [m]", false, myDetector.getLength());
     ret->mkItem("position [m]", false, myDetector.getStartPos());
     ret->mkItem("lane", false, myDetector.getLane()->getID());
+    if (myDetector.isTyped()) {
+        ret->mkItem("vTypes", false, toString(myDetector.getVehicleTypes()));
+    }
     // values
     ret->mkItem("vehicles [#]", true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentVehicleNumber));

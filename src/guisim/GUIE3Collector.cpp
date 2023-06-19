@@ -77,6 +77,9 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     // add items
     // values
     ret->mkItem("name", false, myDetector.myName);
+    if (myDetector.isTyped()) {
+        ret->mkItem("vTypes", false, toString(myDetector.getVehicleTypes()));
+    }
     ret->mkItem("vehicles within [#]", true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getVehiclesWithin));
     ret->mkItem("mean speed [m/s]", true,
