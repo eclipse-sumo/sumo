@@ -12,3 +12,6 @@ ticket13292
 
 # collision in mini-roundabout
 ticket13363
+
+# invalid detector output
+ticket13453
