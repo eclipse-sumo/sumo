@@ -1418,8 +1418,10 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     std::string prefix;
     if (tag == SUMO_TAG_ROUTE) {
         prefix = neteditOptions.getString("route-prefix");
-    } else if ((tag == SUMO_TAG_VTYPE) || (tag == SUMO_TAG_VTYPE_DISTRIBUTION)) {
+    } else if (tag == SUMO_TAG_VTYPE) {
         prefix = neteditOptions.getString("vType-prefix");
+    } else if (tag == SUMO_TAG_VTYPE_DISTRIBUTION) {
+        prefix = neteditOptions.getString("vTypeDistribution-prefix");
     } else if ((tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_TRIP_JUNCTIONS)) {
         prefix = neteditOptions.getString("trip-prefix");
     } else if (tagProperty.isVehicle() && !tagProperty.isFlow()) {
@@ -1441,7 +1443,15 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     }
     // declare counter
     int counter = 0;
-    if (tagProperty.isPerson()) {
+    if (tagProperty.isType()) {
+        // special case for persons (person and personFlows share nameSpaces)
+        while ((retrieveDemandElement(SUMO_TAG_VTYPE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, prefix + "_" + toString(counter), false) != nullptr)) {
+            counter++;
+        }
+        // return new person ID
+        return (prefix + "_" + toString(counter));
+    } else if (tagProperty.isPerson()) {
         // special case for persons (person and personFlows share nameSpaces)
         while ((retrieveDemandElement(SUMO_TAG_PERSON, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveDemandElement(SUMO_TAG_PERSONFLOW, prefix + "_" + toString(counter), false) != nullptr)) {

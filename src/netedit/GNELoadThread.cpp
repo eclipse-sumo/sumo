@@ -387,7 +387,10 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("route-prefix", "Netedit", TL("Prefix for route naming"));
 
     neteditOptions.doRegister("vType-prefix", new Option_String("t"));
-    neteditOptions.addDescription("vType-prefix", "Netedit", TL("Prefix for vType naming"));
+    neteditOptions.addDescription("vType-prefix", "Netedit", TL("Prefix for type naming"));
+
+    neteditOptions.doRegister("vTypeDistribution-prefix", new Option_String("td"));
+    neteditOptions.addDescription("vTypeDistribution-prefix", "Netedit", TL("Prefix for type distribution naming"));
 
     neteditOptions.doRegister("vehicle-prefix", new Option_String("v"));
     neteditOptions.addDescription("vehicle-prefix", "Netedit", TL("Prefix for vehicle naming"));

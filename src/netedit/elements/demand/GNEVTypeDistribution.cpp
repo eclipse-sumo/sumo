@@ -233,8 +233,11 @@ bool
 GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            // Vtypes and PTypes shares namespace
-            if (SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr)) {
+            if (value == getID()) {
+                return true;
+            } else if (SUMOXMLDefinitions::isValidVehicleID(value) &&
+                (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
+                (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
