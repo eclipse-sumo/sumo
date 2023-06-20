@@ -1,5 +1,5 @@
 ---
-title: GLOSA
+title: Friction
 ---
 
 # Introduction
