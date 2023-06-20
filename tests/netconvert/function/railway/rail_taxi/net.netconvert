@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-20 17:03:25 by Eclipse SUMO netconvert Version v1_17_0+1059-87fb121
+<!-- generated on 2023-06-20 17:06:15 by Eclipse SUMO netconvert Version v1_17_0+1062-bd3180f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -93,7 +93,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <connection from="-gneE0" to="gneE0" fromLane="0" toLane="0" speed="0.10" via=":gneJ0_0_0" dir="t" state="M"/>
     <connection from="-gneE1" to="-gneE0" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="s" state="M"/>
-    <connection from="-gneE2" to="-gneE0" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="s" state="m"/>
+    <connection from="-gneE2" to="-gneE0" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="s" state="M"/>
     <connection from="gneE0" to="gneE2" fromLane="0" toLane="0" via=":gneJ1_2_0" dir="R" state="M"/>
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_3_0" dir="s" state="M"/>
     <connection from="gneE1" to="-gneE1" fromLane="0" toLane="0" speed="0.10" via=":gneJ2_0_0" dir="t" state="M"/>
