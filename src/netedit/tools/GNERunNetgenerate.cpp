@@ -51,16 +51,18 @@ GNERunNetgenerate::run(const OptionsCont* netgenerateOptions) {
     std::string sumoHome = "";
     if (sumoHomeEnv != nullptr && sumoHomeEnv != std::string("")) {
         sumoHome = std::string(sumoHomeEnv);
-        // quote string to handle spaces but prevent double quotes
-        if (sumoHome.front() != '"') {
-            sumoHome = "\"" + sumoHome;
+        // prevent double quotes
+        if (sumoHome.front() == '"') {
+            sumoHome.erase(sumoHome.begin());
         }
-        if (sumoHome.back() != '"') {
-            sumoHome += "\"";
+        if (sumoHome.size() > 0 && sumoHome.back() == '"') {
+            sumoHome.pop_back();
         }
         sumoHome += "/bin/";
     }
-    myNetgenerateCommand = sumoHome + exePath;
+    // quote to handle spaces. note that this differs from GNEPythonTool because the python interpreter is a bit smarter
+    // when handling quoted parts within a path
+    myNetgenerateCommand = "\"" + sumoHome + exePath + "\"";
 
     // iterate over all topics
     for (const auto& topic : netgenerateOptions->getSubTopics()) {
