@@ -359,9 +359,11 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
                 if (edge->isCrossing()) {
                     geos::geom::Geometry* dilatedCrossingLane = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_SQUARE);
                     dilatedPedestrianLanes.push_back(dilatedCrossingLane);
-
+                    
                     for (MSEdge* nextEdge : getAdjacentEdgesOfEdge(edge)) {
-                        if (nextEdge->isWalkingArea() && (std::count(adjacent.begin(), adjacent.end(), nextEdge))) {
+                        // Checked std::count(adjacent.begin(), adjacent.end(), nextEdge) at the beginning but
+                        // does not seem to be useful anymore.
+                        if (nextEdge->isWalkingArea()) { 
                             MSEdgeVector walkingAreaAdjacent = getAdjacentEdgesOfEdge(nextEdge);
                             for (MSEdge* nextNextEdge : walkingAreaAdjacent) {
                                 if (nextNextEdge != edge) {
