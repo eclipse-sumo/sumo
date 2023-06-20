@@ -196,11 +196,12 @@ GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // close run dialog and call postprocessing
     onCmdCancel(nullptr, 0, nullptr);
     myText->setText("", 0);
-    myError = false;
     // call postprocessing dialog
     if (myError) {
         return 1;
     } else {
+        // don't run this again
+        myError = true;
         return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
     }
 }
