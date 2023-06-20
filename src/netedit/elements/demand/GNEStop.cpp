@@ -1623,23 +1623,23 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
-            replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_BUS_STOP, value);
             updateGeometry();
             break;
         case SUMO_ATTR_TRAIN_STOP:
-            replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_TRAIN_STOP, value);
             updateGeometry();
             break;
         case SUMO_ATTR_CONTAINER_STOP:
-            replaceAdditionalParent(SUMO_TAG_CONTAINER_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_CONTAINER_STOP, value);
             updateGeometry();
             break;
         case SUMO_ATTR_CHARGING_STATION:
-            replaceAdditionalParent(SUMO_TAG_CHARGING_STATION, value);
+            replaceFirstParentAdditional(SUMO_TAG_CHARGING_STATION, value);
             updateGeometry();
             break;
         case SUMO_ATTR_PARKING_AREA:
-            replaceAdditionalParent(SUMO_TAG_PARKING_AREA, value);
+            replaceFirstParentAdditional(SUMO_TAG_PARKING_AREA, value);
             updateGeometry();
             break;
         // specific of Stops over edges

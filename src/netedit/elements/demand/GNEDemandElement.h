@@ -400,8 +400,11 @@ protected:
     /// @brief replace the last parent edge
     void replaceLastParentEdge(const std::string& value);
 
-    /// @brief replace additional parent
-    void replaceAdditionalParent(SumoXMLTag tag, const std::string& value);
+    /// @brief replace the first parent additional
+    void replaceFirstParentAdditional(SumoXMLTag tag, const std::string& value);
+
+    /// @brief replace the last parent additional
+    void replaceLastParentAdditional(SumoXMLTag tag, const std::string& value);
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
