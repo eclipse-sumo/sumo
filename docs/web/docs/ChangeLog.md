@@ -123,7 +123,7 @@ title: ChangeLog
   - The SSM-device now supports the new surrogate safety measure "MDRAC" which is modified maximum deceleration rate to avoid crash with perception/reaction time. Issue #13350
   - statistic-output now include the number of emergency braking events. Issue #10596
   - Vehicles can now be configured to ignore specific vehicles during car-following by using [generic parameters](Simulation/GenericParameters.md) `carFollowMode.ignoreIDs` and `carFollowModel.ignoreTypes`. Issue #13362  
-  - Stops now support customparameters #13365
+  - Stops now support custom parameters #13365
 
 - sumo-gui
   - Simulation end time is now written into the message window. Issue #13145
