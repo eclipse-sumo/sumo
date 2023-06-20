@@ -7,6 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
+  - Setting param `vTpes` for actuated and delay_based tls detectors is working again. Issue #13448 (regression in 1.15.0)
   - Fixed invalid emission and consumption outputs for the HBEFA4 emission classes (model was calibrated on km/h instead of m/s). Issue #13250
   - Collisions on shared walkingareas without vehicular road intersection are now detected. Issue #13132
   - A warning is now given if save-state.times are not reached due to a mismatch with step-length and begin time. Issue #13162
@@ -24,14 +25,19 @@ title: ChangeLog
   - Fixed invalid error message for disconnected personTrip between stops. Issue #13386
   - Fixed collision on junction due to unsafe lane changing. Issue #13363  
   - Fixed error when using option **--replay-rerouting**. Issue #13389
+  - Fixed invalid saved state when input contains route distribution within a vehicle. Issue #13449
+  - Fixed emergency braking / collisiosn at roundabout. Issue #13292
   - bidirectional lane use:
     - Fixed invalid collision warning when using bidi lane. Issue #13312
     - Fixed unsafe right-of-way rules at junction with shared median lane. Issue #13316
     - Fixed frontal collision on shared median lane. Issue #13313
     - Fixed deadlock on bidi edge. Issue #13396
+    - Fixed blockage on intersection with oncoming leader. Issue #13397
+    - Fixed collision and emergency braking. Issue #11642
 
 - netedit
   - Fixed crash when importing OSM data direclty. Issue #13297 (regression in 1.16.0)
+  - Fixed invalid undo operation after moving a set of network elements. Issue #13421 (regression in 1.16.0)
   - Fixed segfault when closing netedit and no net is loaded #13131 (regression in 1.17.0)
   - Fixed spacing for person mode path info subframe. Issue #13140 (regression in 1.17.0)
   - Loading Data Elements via menu item is working again. Issue #13224 (regression in 1.17.0)
@@ -50,6 +56,10 @@ title: ChangeLog
   - Fixed crash saving network with stop container plans #13390
   - In the vType editor, the vClass attribute is now updated when switching current type. Issue #13317
   - The "stacked" person indicator is now working for persons that start at a busStop. Issue #12380
+  - Z value is no longer applied twice in move mode. Issue #13411
+  - Fixed error when saving sumo/netedit configs at path containing spaces. Issue #13373
+  - Added missing updates of frames after undo/redo. Issue #13429
+  - Python tools now work when the SUMO_HOME path contains spaces. Issue #13458
 
 - sumo-gui
   - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
@@ -70,15 +80,18 @@ title: ChangeLog
   - Option **--railway.topology.repair.minimal** now performs minimal repair with respect to public transport lines. Issue #13248
   - Fixed invalid consistency error for circular public transport line. Issue #13255
   - OSM: fixed incomplete pt-route. Issue #13249
+  - OSM: fixed problems with one-way bus and bicycle infrastructure. Issue #12592
   - User defined node radius is no longer ignored for geometry-like nodes. Issue #13064
   - Fixed missing bidi attribute for shared median lane with disconnected outer lanes. Issue #13335
   - Fixed invalid bidi attribute for internal edge. Issue #13344
   - Fixed invalid right of way rules when shared median lane ends. Issue #13345
   - Fixed unsafe right of way rules at internal junction with bidiLane. Issue #13400
+  - Fixed incomplete ptline-output for circular route. Issue #13431
 
 - duarouter
   - Fixed railway routing failure if the stop is defined on a short buffer edge (also applies to sumo). Issue #13277
   - Fixed invalid route cost for train reversal on long edge (also applies to sumo). Issue #13360
+  - Fixed intermodal routing failing for rail taxi (also applies to sumo). Issue #13424
 
 - activitygen
   - Fixed crash when there are no work positions within a city. Issue #13315
@@ -115,6 +128,7 @@ title: ChangeLog
 - sumo-gui
   - Simulation end time is now written into the message window. Issue #13145
   - Live edgeData can now be observed after the simulation ends. Issue #13144
+  - vTypes of typed detectors are now shown in the detector parameter dialog. Issue #13447
 
 - netedit
   - Supermodes can now be activated using the modes menu. Issue #13138
@@ -143,10 +157,11 @@ title: ChangeLog
   - getAllContextSubscriptionResults has now entries also for objects without results. Issue #6446
   - Vehicles with SSM device now permit retrieval of the minimum PPET using param `device.ssm.minPPET`. Issue 13293
   - Function `traci.vehicle.setStopParameter` and `getStopParameter` now supports optional argument `customParam=True` to work with user defined stop parameters. Issue #13365
-  - vehicle and vehicletype domain now support the functions set/getBoardingDuration and set/getImpatience. Issue #10430
-
+  - vehicle and vehicletype domain now support the functions set/getBoardingDuration and set/getImpatience. When impatience is set on a vehicle it affects the dynamic impatience which gets reset on starting to drive. Calling vehicle.getImpatience now returns the dynamic impatience instead of the base value defined in the vType. Issue #10430, #13403
+  
 - tools
   - randomTrips.py: added options **--from-stops** and **--to-stops** to define pedestrians, personTrips and person rides from and to stops (i.e. busStop). Issue #13375
+  - randomTrips.py: no issues a warning if option **--binomial** is too low for the given period. Issue #13404
   - plotXMLAttributes.py and plot_trajectories.py now show the plot by default. Issue #13158
   - plotXMLAttributes.py: Added option **--join-files** to treat data points from different files as if coming from the same file. Issue #13154
   - plotXMLAttributes.py: Now supports attribute value `@DENSITY` to create density plots. Issue #13182
@@ -161,6 +176,7 @@ title: ChangeLog
   - generateParkingAreas.py: now support option **--lefthand** to create lefthand parking areas. Issue #13305
   - [scheduleStats.py](Tools/Railways.md#schedulestatspy): Now permits analysis of planned and actual travel time between pairs of stops. Issue #13354
   - tileGet.py now supports option **--parallel-jobs** to speed up data retrieval. Issue #13327
+  - checkStopOrder.py: marks waypoints in stop table output. Issue #13420
   - improved game internationalization. Issue #13082
 
 ### Miscellaneous
@@ -168,6 +184,7 @@ title: ChangeLog
 - plotXMLAttributes.py and plot_trajectories.py no longer create 'plot.png' by default. Issue #13166
 - netconvert: road objects imported from OpenDRIVE are now placed on a higher layer to make them visible above the road. Issue #13197
 - netconvert: option **--osm.all-attributes** now defaults to exporting all attributes because the explicit list of attributes (**--osm.extra-attributes**) now defaults to value **all**. Issue #13218
+- netconvert: increased default bike path width. Issue #13425
 - Netedit demand mode hotkeys changed: **C** now activates container mode and **L** activates person plan mode. Issue #13141
 - All strings send and received by TraCI are now utf8 encoded and interpreted as utf8. Issue #7171
 - traci.simulationStep has no return value on Python any longer (similar to the other languages), use traci.simulationStepLegacy for the old behavior. Issue #13296
