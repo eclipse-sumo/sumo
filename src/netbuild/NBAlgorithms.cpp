@@ -380,7 +380,7 @@ bool
 NBNodeTypeComputer::isRailwayNode(const NBNode* n) {
     bool hasRailway = false;
     for (NBEdge* e : n->getIncomingEdges()) {
-        if ((e->getPermissions() & ~SVC_RAIL_CLASSES) != 0) {
+        if ((e->getPermissions() & ~(SVC_RAIL_CLASSES | SVC_TAXI)) != 0) {
             return false;
         } else if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
             hasRailway = true;
