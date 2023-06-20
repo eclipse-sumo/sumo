@@ -3690,6 +3690,46 @@ GNEAttributeCarrier::fillVehicleElements() {
                                               "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = GNE_TAG_TRIP_TAZS;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
+                                      0,
+                                      GUIIcon::TRIP_TAZS, SUMO_TAG_TRIP, {}, FXRGBA(255, 213, 213, 255));
+        myTagProperties[currentTag].setFieldString("trip (from-to TAZs)");
+
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
+                                              TL("The id of trip"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
+                                              TL("The id of the vehicle type to use for this trip"),
+                                              DEFAULT_VTYPE_ID);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM_TAZ,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("The name of the TAZ the trip starts at"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TO_TAZ,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("The name of the TAZ the trip ends at"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // add common attributes
+        fillCommonVehicleAttributes(currentTag);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPART,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("The departure time of the (first) trip which is generated using this trip definition"),
+                                              "0.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
     currentTag = SUMO_TAG_VEHICLE;
     {
         // set values of tag
@@ -3846,6 +3886,43 @@ GNEAttributeCarrier::fillVehicleElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TOJUNCTION,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               TL("The name of the junction the flow ends at"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // add common attributes
+        fillCommonVehicleAttributes(currentTag);
+
+        // add flow attributes
+        fillCommonFlowAttributes(currentTag, SUMO_ATTR_VEHSPERHOUR);
+    }
+    currentTag = GNE_TAG_FLOW_TAZS;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE | GNETagProperties::FLOW,
+                                      0,
+                                      GUIIcon::FLOW_TAZS, SUMO_TAG_FLOW, {}, FXRGBA(255, 213, 213, 255));
+        myTagProperties[currentTag].setFieldString("flow (from-to TAZs)");
+
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
+                                              TL("The id of the flow"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
+                                              TL("The id of the flow type to use for this flow"),
+                                              DEFAULT_VTYPE_ID);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM_TAZ,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("The name of the TAZ the flow starts at"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TO_TAZ,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("The name of the TAZ the flow ends at"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // add common attributes
