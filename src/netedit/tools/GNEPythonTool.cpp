@@ -100,7 +100,18 @@ GNEPythonTool::getCommand() const {
     const char* pythonEnv = getenv("PYTHON");
     const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
     const char* sumoHomeEnv = getenv("SUMO_HOME");
-    const std::string sumoHome = (sumoHomeEnv == nullptr) ? "" : sumoHomeEnv + std::string("/");
+    std::string sumoHome = "";
+    if (sumoHomeEnv != nullptr && sumoHomeEnv != "") {
+        sumoHome = std::string(sumoHomeEnv);
+        // quote string to handle spaces but prevent double quotes
+        if (sumoHome.front() != '"') {
+            sumoHome = "\"" + sumoHome;
+        }
+        if (sumoHome.back() != '"') {
+            sumoHome += "\"";
+        }
+        sumoHome += "/";
+    }
     // get command
     std::string command = python + " " + sumoHome + myToolPath;
     // declare arguments
