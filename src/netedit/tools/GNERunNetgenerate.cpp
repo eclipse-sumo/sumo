@@ -41,11 +41,27 @@ GNERunNetgenerate::~GNERunNetgenerate() {}
 void
 GNERunNetgenerate::run(const OptionsCont* netgenerateOptions) {
     // set command
+
 #ifdef WIN32
-    myNetgenerateCommand = getenv("SUMO_HOME") + std::string("/bin/netgenerate.exe");
+    std::string exePath = "netgenerate.exe";
 #else
-    myNetgenerateCommand = getenv("SUMO_HOME") + std::string("/bin/netgenerate");
+    std::string exePath = "netgenerate";
 #endif
+    const char* sumoHomeEnv = getenv("SUMO_HOME");
+    std::string sumoHome = "";
+    if (sumoHomeEnv != nullptr && sumoHomeEnv != std::string("")) {
+        sumoHome = std::string(sumoHomeEnv);
+        // quote string to handle spaces but prevent double quotes
+        if (sumoHome.front() != '"') {
+            sumoHome = "\"" + sumoHome;
+        }
+        if (sumoHome.back() != '"') {
+            sumoHome += "\"";
+        }
+        sumoHome += "/bin/";
+    }
+    myNetgenerateCommand = sumoHome + exePath;
+
     // iterate over all topics
     for (const auto& topic : netgenerateOptions->getSubTopics()) {
         // ignore configuration
