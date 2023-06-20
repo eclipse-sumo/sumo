@@ -256,10 +256,8 @@ MSPModel_JuPedSim::getAdjacentEdgesOfEdge(const MSEdge* const edge) {
 bool 
 MSPModel_JuPedSim::hasWalkingAreasInbetween(const MSEdge* const edge, const MSEdge* const otherEdge, ConstMSEdgeVector adjacentEdgesOfJunction) {
     for (const MSEdge* nextEdge : getAdjacentEdgesOfEdge(edge)) {
-        if ((nextEdge->getFunction() == SumoXMLEdgeFunc::WALKINGAREA) && 
-            (std::count(adjacentEdgesOfJunction.begin(), adjacentEdgesOfJunction.end(), edge))) {
-            
-            MSEdgeVector walkingAreOutgoing = nextEdge->getSuccessors();
+        if (nextEdge->isWalkingArea()) {
+            MSEdgeVector walkingAreOutgoing = getAdjacentEdgesOfEdge(nextEdge);
             if (std::count(walkingAreOutgoing.begin(), walkingAreOutgoing.end(), otherEdge)) {
                 return true;
             }
