@@ -21,6 +21,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/elements/additional/GNETAZ.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
@@ -480,6 +481,27 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                         // delete tripParameters and base object
                         delete tripParameters;
                     }
+                } else if (vehicleTag == GNE_TAG_TRIP_TAZS) {
+                    // set tag
+                    myVehicleBaseObject->setTag(SUMO_TAG_TRIP);
+                    // Add parameter departure
+                    if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
+                        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
+                    }
+                    // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+                    SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
+                    // obtain trip parameters
+                    SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
+                    // check trip parameters
+                    if (tripParameters) {
+                        myVehicleBaseObject->setVehicleParameter(tripParameters);
+                        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM_TAZ, myPathCreator->getSelectedTAZs().front()->getID());
+                        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO_TAZ, myPathCreator->getSelectedTAZs().back()->getID());
+                        // parse vehicle
+                        myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                        // delete tripParameters and base object
+                        delete tripParameters;
+                    }
                 } else if (vehicleTag == GNE_TAG_FLOW_JUNCTIONS) {
                     // set tag
                     myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
@@ -500,6 +522,31 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                         myVehicleBaseObject->setVehicleParameter(flowParameters);
                         myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROMJUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
                         myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TOJUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
+                        // parse vehicle
+                        myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
+                        // delete flowParameters and base object
+                        delete flowParameters;
+                    }
+                } else if (vehicleTag == GNE_TAG_FLOW_TAZS) {
+                    // set tag
+                    myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
+                    // set begin and end attributes
+                    if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
+                        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
+                    }
+                    // adjust poisson value
+                    if (myVehicleBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
+                        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myVehicleBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
+                    }
+                    // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+                    SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
+                    // obtain flow parameters
+                    SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
+                    // check flowParameters
+                    if (flowParameters) {
+                        myVehicleBaseObject->setVehicleParameter(flowParameters);
+                        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM_TAZ, myPathCreator->getSelectedTAZs().front()->getID());
+                        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO_TAZ, myPathCreator->getSelectedTAZs().back()->getID());
                         // parse vehicle
                         myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
                         // delete flowParameters and base object
