@@ -51,14 +51,16 @@ GNERunPythonTool::runTool(const GNEPythonTool* tool) {
 
 void
 GNERunPythonTool::abortTool() {
-    // cancel thread
-    cancel();
-    // reset flags
-    myRunning = false;
-    myErrorOccurred = false;
-    // show info
-    myEventQueue.push_back(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, std::string(TL("cancelled by user\n"))));
-    myEventThrow.signal();
+    if (myRunning) {
+        // cancel thread
+        cancel();
+        // reset flags
+        myRunning = false;
+        myErrorOccurred = false;
+        // show info
+        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, std::string(TL("cancelled by user\n"))));
+        myEventThrow.signal();
+    }
 }
 
 
