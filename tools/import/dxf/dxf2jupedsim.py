@@ -28,10 +28,6 @@ sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
 
 
-WALKABLE_COLOR = "red"
-OBSTACLE_COLOR = "blue"
-
-
 def create_test_dxf(args):
     doc = ezdxf.new(dxfversion='R2000')
     msp = doc.modelspace()
@@ -43,9 +39,9 @@ def create_test_dxf(args):
     doc.saveas(args.file)
 
 
-def polygon_as_XML_element(polygon, typename, index, color):
+def polygon_as_XML_element(polygon, typename, index, color, layer):
     poly = " ".join(["%.2f,%.2f" % c[:2] for c in polygon])
-    return '    <poly id="%s_%s" type="%s" color="%s" shape="%s"/>\n' % (typename[9:], index, typename, color, poly)
+    return '    <poly id="%s_%s" type="%s" color="%s" fill="True" layer="%s" shape="%s"/>\n' % (typename[9:], index, typename, color, layer, poly)
 
 
 def generate_circle_vertices(center, radius, nbr_vertices=20):
@@ -63,6 +59,12 @@ def main():
                         help="Name of the DXF layer containing walkable areas")
     parser.add_argument("--obstacle-layer", default="obstacles",
                         help="Name of the DXF layer containing obstacles")
+    parser.add_argument("--walkable-color", default="179,217,255",
+                        help="Color of the polygons defining walkable areas")
+    parser.add_argument("--obstacle-color", default="255,204,204",
+                        help="Color of the polygons defining obstacles")
+    parser.add_argument("--sumo-layer", default=0,
+                        help="SUMO layer used to render polygons defining walkable areas")
     args = parser.parse_args()
     if args.test:
         create_test_dxf(args)
@@ -79,9 +81,9 @@ def main():
         for entity in msp.query("LWPOLYLINE"):
             vertices = list(entity.vertices())
             if entity.dxf.layer == args.walkable_layer:
-                add.write(polygon_as_XML_element(vertices, "jupedsim.walkable_area", entity.dxf.handle, WALKABLE_COLOR))
+                add.write(polygon_as_XML_element(vertices, "jupedsim.walkable_area", entity.dxf.handle, args.walkable_color, args.sumo_layer))
             elif entity.dxf.layer == args.obstacle_layer:
-                add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, OBSTACLE_COLOR))
+                add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, args.obstacle_color, args.sumo_layer+1))
             else:
                 warnings.warn("Polygon '%s' belonging to unknown layer '%s'." % (entity.dxf.handle, entity.dxf.layer))
                 
@@ -91,7 +93,7 @@ def main():
                               % (entity.dxf.handle, entity.dxf.layer, args.obstacle_layer))
             else:
                 vertices = generate_circle_vertices(list(entity.dxf.center), entity.dxf.radius)
-                add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, OBSTACLE_COLOR))
+                add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, args.obstacle_color, args.sumo_layer+1))
                 
         add.write("</additional>")
 
