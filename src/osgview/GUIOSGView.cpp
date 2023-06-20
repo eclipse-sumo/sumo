@@ -196,6 +196,9 @@ GUIOSGView::GUIOSGView(
     recenterView();
     myViewer->home();
     getApp()->addChore(this, MID_CHORE);
+#ifdef DEBUG
+    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after first init steps");
+#endif
     myTextNode = new osg::Geode();
     myText = new osgText::Text;
     myText->setCharacterSizeMode(osgText::Text::SCREEN_COORDS);
@@ -210,6 +213,9 @@ GUIOSGView::GUIOSGView(
     myText->setDrawMode(osgText::TextBase::DrawModeMask::FILLEDBOUNDINGBOX | osgText::TextBase::DrawModeMask::TEXT);
     myText->setBoundingBoxColor(osg::Vec4(0.0f, 0.0f, 0.2f, 0.5f));
     myText->setBoundingBoxMargin(2.0f);
+#ifdef DEBUG
+    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after myText init");
+#endif
 
     myHUD = new osg::Camera;
     myHUD->setProjectionMatrixAsOrtho2D(0, 800, 0, 800); // default size will be overwritten
@@ -223,9 +229,15 @@ GUIOSGView::GUIOSGView(
     myHUD->setViewport(0, 0, w, h);
     myViewer->addSlave(myHUD, false);
     myCameraManipulator->updateHUDText();
+#ifdef DEBUG
+    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after HUD");
+#endif
 
     // adjust the main light
     adoptViewSettings();
+#ifdef DEBUG
+    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after adoptViewSettings");
+#endif
 
     osgUtil::Optimizer optimizer;
     optimizer.optimize(myRoot);
@@ -1094,6 +1106,7 @@ GUIOSGView::FXOSGAdapter::FXOSGAdapter(GUISUMOAbstractView* parent, FXCursor* cu
         getState()->setGraphicsContext(this);
 #ifdef DEBUG
         getState()->setCheckForGLErrors(osg::State::ONCE_PER_ATTRIBUTE);
+        std::cout << "OSG getCheckForGLErrors " << getState()->getCheckForGLErrors() << std::endl;
 #endif
         if (_traits.valid() && _traits->sharedContext != 0) {
             getState()->setContextID(_traits->sharedContext->getState()->getContextID());
