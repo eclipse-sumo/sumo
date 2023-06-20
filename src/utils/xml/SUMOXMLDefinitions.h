@@ -145,6 +145,8 @@ enum SumoXMLTag {
     SUMO_TAG_TRIP,
     /// @brief a trip between junctions
     GNE_TAG_TRIP_JUNCTIONS,
+    /// @brief a single trip definition that uses TAZs
+    GNE_TAG_TRIP_TAZS,
     /// @brief description of a vehicle
     SUMO_TAG_VEHICLE,
     /// @brief description of a vehicle with an embedded route
@@ -153,6 +155,8 @@ enum SumoXMLTag {
     SUMO_TAG_FLOW,
     /// @brief a flow between junctions
     GNE_TAG_FLOW_JUNCTIONS,
+    /// @brief a flow between TAZs
+    GNE_TAG_FLOW_TAZS,
     /// @brief a flow state definition (used when saving and loading simulatino state)
     SUMO_TAG_FLOWSTATE,
     /// @brief description of a vehicle/person/container type
@@ -183,8 +187,6 @@ enum SumoXMLTag {
     SUMO_TAG_ASSIGNMENT,
     /// @brief a sequence of assignments evaluated in the context of passed arguments
     SUMO_TAG_FUNCTION,
-    /// @brief a single trip definition that uses TAZs
-    GNE_TAG_TRIP_TAZ,
     /// @brief the internal state for edge control
     SUMO_TAG_EDGECONTROL,
     /// @brief a relation between two edges
