@@ -540,10 +540,12 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                                     demandElements.at(SUMO_TAG_TRIP).size() +
                                     demandElements.at(GNE_TAG_VEHICLE_WITHROUTE).size() +
                                     demandElements.at(GNE_TAG_TRIP_JUNCTIONS).size() +
+                                    demandElements.at(GNE_TAG_TRIP_TAZS).size() +
                                     demandElements.at(SUMO_TAG_FLOW).size() +
                                     demandElements.at(GNE_TAG_FLOW_ROUTE).size() +
                                     demandElements.at(GNE_TAG_FLOW_WITHROUTE).size() +
-                                    demandElements.at(GNE_TAG_FLOW_JUNCTIONS).size());
+                                    demandElements.at(GNE_TAG_FLOW_JUNCTIONS).size() + 
+                                    demandElements.at(GNE_TAG_FLOW_TAZS).size());
                 // fill ACsToLocate with vehicles,...
                 for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {
                     ACsToLocate.push_back(vehicle);
@@ -553,12 +555,16 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.push_back(trip);
                 }
                 // ...vehicles with embedded routes,...
-                for (const auto& trip : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
-                    ACsToLocate.push_back(trip);
+                for (const auto& tripEmbedded : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
+                    ACsToLocate.push_back(tripEmbedded);
                 }
                 // ...trips over junctions,...
-                for (const auto& trip : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
-                    ACsToLocate.push_back(trip);
+                for (const auto& tripJunction : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
+                    ACsToLocate.push_back(tripJunction);
+                }
+                // ...trips over TAZs,...
+                for (const auto& tripTAZ : demandElements.at(GNE_TAG_TRIP_TAZS)) {
+                    ACsToLocate.push_back(tripTAZ);
                 }
                 // ...flows,...
                 for (const auto& flow : demandElements.at(SUMO_TAG_FLOW)) {
@@ -569,12 +575,16 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.push_back(flowRoute);
                 }
                 // ...flows with embedded routes...
-                for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
-                    ACsToLocate.push_back(flowRoute);
+                for (const auto& flowRouteEmbedded : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
+                    ACsToLocate.push_back(flowRouteEmbedded);
                 }
                 // ... and flows over junctions.
-                for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
-                    ACsToLocate.push_back(flowRoute);
+                for (const auto& flowJunction : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
+                    ACsToLocate.push_back(flowJunction);
+                }
+                // ... and flows over TAZs.
+                for (const auto& flowTAZ : demandElements.at(GNE_TAG_FLOW_TAZS)) {
+                    ACsToLocate.push_back(flowTAZ);
                 }
                 break;
             }
