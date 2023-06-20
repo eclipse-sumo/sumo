@@ -7396,6 +7396,7 @@ MSVehicle::saveState(OutputDevice& out) {
         if ((stop.parametersSet & STOP_ENDED_SET) == 0) {
             out.writeAttr(SUMO_ATTR_ENDED, time2string(stop.ended));
         }
+        stop.writeParams(out);
         out.closeTag();
     }
     // save upcoming stops

@@ -306,9 +306,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     if (!actType.empty()) {
         dev.writeAttr(SUMO_ATTR_ACTTYPE, actType);
     }
-    // Write rest of parameters
-    writeParams(dev);
     if (close) {
+        // the user is closing the stop it is responsible for writing params
+        writeParams(dev);
         dev.closeTag();
     }
 }

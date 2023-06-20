@@ -104,6 +104,7 @@ MSStop::write(OutputDevice& dev) const {
     if (pars.started >= 0 && (pars.parametersSet & STOP_STARTED_SET) == 0) {
         dev.writeAttr(SUMO_ATTR_STARTED, time2string(pars.started));
     }
+    pars.writeParams(dev);
     dev.closeTag();
 }
 
