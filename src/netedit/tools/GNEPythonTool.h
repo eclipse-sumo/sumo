@@ -37,7 +37,7 @@ class GNEPythonTool {
 
 public:
     /// @brief Constructor
-    GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string& pythonPath,
+    GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string& toolPath,
                   const std::string& templateStr, FXMenuPane* menu);
 
     /// @brief destructor
@@ -86,8 +86,8 @@ protected:
     /// @brief original tools options
     OptionsCont myPythonToolsOptionsOriginal;
 
-    /// @brief python path
-    const std::string myPythonPath;
+    /// @brief python tool path relative to SUMO_HOME
+    const std::string myToolPath;
 
     /// @brief tool name
     const std::string myPythonToolName;

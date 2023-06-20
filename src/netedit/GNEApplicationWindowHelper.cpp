@@ -2035,7 +2035,8 @@ GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
 void
 GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
         const std::map<std::string, FXMenuPane*>& menuPaneToolMaps) {
-    // build template tools
+    // build tools from template
+    // the templateTools vector is imported from templates.h (which only exists in the cmake-build folder)
     for (const auto& templateTool : templateTools) {
         if (templateTool.name == "netdiff") {
             myPythonTools.push_back(new GNENetDiffTool(myGNEApp, templateTool.pythonPath,

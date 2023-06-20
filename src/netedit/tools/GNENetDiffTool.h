@@ -30,7 +30,7 @@ class GNENetDiffTool : public GNEPythonTool {
 
 public:
     /// @brief Constructor
-    GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string& pythonPath,
+    GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string& toolPath,
                    FXMenuPane* menu);
 
     /// @brief destructor

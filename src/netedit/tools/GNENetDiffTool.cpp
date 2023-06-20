@@ -33,8 +33,8 @@
 // member method definitions
 // ===========================================================================
 
-GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string& pythonPath, FXMenuPane* menu) :
-    GNEPythonTool(GNEApp, pythonPath, "", menu) {
+GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string& toolPath, FXMenuPane* menu) :
+    GNEPythonTool(GNEApp, toolPath, "", menu) {
     // fill options
     fillNetDiffOptions(myPythonToolsOptions);
     fillNetDiffOptions(myPythonToolsOptionsOriginal);
@@ -95,7 +95,7 @@ GNENetDiffTool::getCommand() const {
     const char* sumoHomeEnv = getenv("SUMO_HOME");
     const std::string sumoHome = (sumoHomeEnv == nullptr) ? "" : sumoHomeEnv + std::string("/");
     // get command
-    std::string command = python + " " + sumoHome + myPythonPath;
+    std::string command = python + " " + sumoHome + myToolPath;
     // declare arguments
     std::string arguments;
     // add arguments
