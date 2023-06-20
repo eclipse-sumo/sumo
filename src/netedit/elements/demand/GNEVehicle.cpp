@@ -499,8 +499,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
 GNEDemandElement::Problem
 GNEVehicle::isDemandElementValid() const {
     // check conditions
-    if ((myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
-        // vehicles and flows over paths are always valid
+    if ((myTagProperty.getTag() == GNE_TAG_TRIP_TAZS) || (myTagProperty.getTag() == GNE_TAG_FLOW_TAZS)) {
+        // vehicles and flows over tazs are always valid
         return Problem::OK;
     } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW) ||
             (myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
@@ -605,7 +605,7 @@ GNEVehicle::updateGeometry() {
         const Position posB = getParentAdditionals().back()->getPositionInView();
         const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) -180.0 / (double)M_PI);
         // update Geometry
-        myDemandElementGeometry.updateSinglePosGeometry(getParentJunctions().front()->getPositionInView(), rot);
+        myDemandElementGeometry.updateSinglePosGeometry(getParentAdditionals().front()->getPositionInView(), rot);
     } else {
         // get first path lane
         const GNELane* firstPathLane = getFirstPathLane();
