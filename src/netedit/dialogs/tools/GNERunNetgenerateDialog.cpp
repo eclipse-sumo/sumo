@@ -211,7 +211,8 @@ long
 GNERunNetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // abort tool
     myRunNetgenerate->abort();
-    // hide dialog
+    // workaround race conditionat that prevents hiding
+    show();
     hide();
     return 1;
 }
