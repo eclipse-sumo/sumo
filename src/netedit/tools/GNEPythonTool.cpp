@@ -101,7 +101,7 @@ GNEPythonTool::getCommand() const {
     const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
     const char* sumoHomeEnv = getenv("SUMO_HOME");
     std::string sumoHome = "";
-    if (sumoHomeEnv != nullptr && sumoHomeEnv != "") {
+    if (sumoHomeEnv != nullptr && sumoHomeEnv != std::string("")) {
         sumoHome = std::string(sumoHomeEnv);
         // quote string to handle spaces but prevent double quotes
         if (sumoHome.front() != '"') {
