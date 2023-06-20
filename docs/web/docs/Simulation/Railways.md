@@ -98,14 +98,27 @@ Visualization of bidirectional tracks has a distinct [style and dedicated settin
   here](../Netedit/neteditUsageExamples.md#creating_bidirectional_railway_tracks)
 
 ### Routing in bidirectional networks
-When computing train routes in a network with parallel tracks which are usable in both directions, it may be
-desirable that trains preferentially use one of the tracks (i.e. to always keep on
-the right side) and thereby preventing conflicts between oncoming trains.
+
+When train tracks can be used in both directions, there is considerable freedom for trains when search a path through the network. To reduce the number of conflicts (when two vehicles want to use the same track in opposite directions), the preferred direction for each track can be defined and factored into the routing decision.
 
 To express this preference, the edges in the preferred direction and on the
 preferred side may be assigned a higher priority value. This value will be taken
-into account when setting option **--weights.priority-factor** which applies to
+into account when setting option **--weights.priority-factor FLOAT** which applies to
 [sumo](../sumo.md) and [duarouter](../duarouter.md).
+
+At the default option value of 0. Edge priority is ignored when routing. When setting a positive value, the edges with the lowest priority receive a penalty factor to their estimated travel time of 1 + FLOAT (where FLOAT is the option argument) whereas the edges with the highest priority receive no penalty. Edges with medium priority will receive a penalty of 1 + x * FLOAT where 
+
+```
+  x = (edgePriority - minPriority) / (maxPriority - minPriority)
+```
+
+The priority values can either be assigned by the user or computed heuristically by [netconvert](../netconvert.md) by setting the option **--railway.topology.direction-priority**. This requires that some of the tracks in the network are uni-directional (to unambiguously define the main direction). The assigned priority values are:
+
+- 4: unidirectional track
+- 3: main direction of bidirectional track
+- 2: undetermined main direction (straight continuation from different directions of unidirectional track)
+- 1: undetermined main direction (no continuation from unidirectional track)
+- 0: reverse of main direction of bidirectional track
 
 ### Importing bidirectional tracks from OSM
 
@@ -197,24 +210,6 @@ The distances value can be written in [fcd-output](Output/FCDOutput.md#further_o
 
 !!! note
     Negative distance values are not currently supported (pending introduction of another attribute)
-
-# Routing on Bidirectional Tracks
-When train tracks can be used in both directions, there is considerable freedom for trains when search a path through the network. To reduce the number of conflicts (when two vehicles want to use the same track in opposite directions), the preferred direction for each track can be defined and factored into the routing decision.
-
-When routes are computed in the simulation, this is done by setting the option **--device.rerouting.priority-factor FLOAT**. This causes the priority values of edges to be factored into the routing decision with higher values being preferred. 
-At the default value of 0. Edge priority is ignored when routing. When setting a positive value, the edges with the lowest priority receive a penalty factor to their estimated travel time of 1 + FLOAT whereas the edges with the highest priority receive no penalty. Edges with medium priority will receive a penalty of 1 + x * FLOAT where 
-
-```
-  x = (edgePriority - minPriority) / (maxPriority - minPriority)
-```
-
-The priority values can either be assigned by the user or computed heuristically by [netconvert](../netconvert.md) by setting the option **--railway.topology.direction-priority**. This requires that some of the tracks in the network are uni-directional (to unambiguously define the main direction). The assigned priority values are:
-
-- 4: unidirectional track
-- 3: main direction of bidirectional track
-- 2: undetermined main direction (straight continuation from different directions of unidirectional track)
-- 1: undetermined main direction (no continuation from unidirectional track)
-- 0: reverse of main direction of bidirectional track
 
 # Modelling Trains
 
