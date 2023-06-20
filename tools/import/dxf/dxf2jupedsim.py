@@ -36,6 +36,7 @@ def create_test_dxf(args):
     msp.add_lwpolyline(((100,100), (110,100), (110,110), (100,110)), dxfattribs={'layer': args.walkable_layer})
     doc.layers.new(name=args.obstacle_layer)
     msp.add_lwpolyline(((5,5), (8,5), (8,8), (5,8)), dxfattribs={'layer': args.obstacle_layer})
+    msp.add_circle((2,2), 1, dxfattribs={'layer': args.obstacle_layer})
     doc.saveas(args.file)
 
 
@@ -75,27 +76,18 @@ def main():
     dxf = ezdxf.readfile(args.file)
     with sumolib.openz(args.output, "w") as add:
         sumolib.xml.writeHeader(add, root="additional", options=args)
-        
-        msp = dxf.modelspace()
-        
-        for entity in msp.query("LWPOLYLINE"):
-            vertices = list(entity.vertices())
+        for entity in dxf.modelspace().query("LWPOLYLINE CIRCLE"):
+            if entity.dxf.dxftype == "CIRCLE":
+                vertices = generate_circle_vertices(list(entity.dxf.center), entity.dxf.radius)
+            else:
+                vertices = list(entity.vertices())
             if entity.dxf.layer == args.walkable_layer:
                 add.write(polygon_as_XML_element(vertices, "jupedsim.walkable_area", entity.dxf.handle, args.walkable_color, args.sumo_layer))
             elif entity.dxf.layer == args.obstacle_layer:
                 add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, args.obstacle_color, args.sumo_layer+1))
             else:
                 warnings.warn("Polygon '%s' belonging to unknown layer '%s'." % (entity.dxf.handle, entity.dxf.layer))
-                
-        for entity in msp.query("CIRCLE"):
-            if entity.dxf.layer != args.obstacle_layer:
-                warnings.warn("Circle '%s' belongs to layer '%s' instead of layer '%s'." 
-                              % (entity.dxf.handle, entity.dxf.layer, args.obstacle_layer))
-            else:
-                vertices = generate_circle_vertices(list(entity.dxf.center), entity.dxf.radius)
-                add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, args.obstacle_color, args.sumo_layer+1))
-                
-        add.write("</additional>")
+        add.write("</additional>\n")
 
 
 if __name__ == "__main__":
