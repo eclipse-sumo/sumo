@@ -423,9 +423,9 @@ value is also shown in the table.
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getBoardingDuration">getBoarding</a></p></td>
 </tr>
 <tr class="even">
-<td><p>max impatience (0x26)</p></td>
+<td><p>current impatience (0x26)</p></td>
 <td><p>double</p></td>
-<td><p>Returns the impatience of this vehicle.</p></td>
+<td><p>Returns the current [dynamic impatience](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#impatience) of this vehicle.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getImpatience">getImpatience</a></p></td>
 </tr>  
 <tr class="odd">
