@@ -397,6 +397,51 @@ GNERouteHandler::buildTripJunctions(const CommonXMLStructure::SumoBaseObject* /*
     }
 }
 
+
+void
+GNERouteHandler::buildTripTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
+                                    const std::string& fromTAZID, const std::string& toTAZID) {
+    // parse TAZs
+    const auto fromTAZ = parseTAZ(SUMO_TAG_TRIP, fromTAZID);
+    const auto toTAZ = parseTAZ(SUMO_TAG_TRIP, toTAZID);
+    // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
+    if (fromTAZ && toTAZ && !isVehicleIdDuplicated(vehicleParameters.id)) {
+        // obtain  vtypes
+        GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
+        if (vType == nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vehicleParameters.vtypeid, false)) {
+                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
+            } else {
+                writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
+            }
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && ((vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN)) && (vehicleParameters.departLane > 0)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than vType %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
+        } else {
+            // create trip using vehicleParameters
+            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_TRIP_TAZS, myNet, vType, fromTAZ, toTAZ, vehicleParameters);
+            if (myAllowUndoRedo) {
+                myNet->getViewNet()->getUndoList()->begin(flow->getTagProperty().getGUIIcon(), TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                overwriteDemandElement();
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
+                myNet->getViewNet()->getUndoList()->end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(flow);
+                // set vehicle as child of vType
+                vType->addChildElement(flow);
+                flow->incRef("buildFlow");
+                // add reference in all TAZs
+                fromTAZ->addChildElement(flow);
+                toTAZ->addChildElement(flow);
+            }
+            // compute path
+            flow->computePathElement();
+        }
+    }
+}
+
+
 void
 GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID) {
@@ -481,6 +526,50 @@ GNERouteHandler::buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* /*
                 // add reference in all junctions
                 fromJunction->addChildElement(flow);
                 toJunction->addChildElement(flow);
+            }
+            // compute path
+            flow->computePathElement();
+        }
+    }
+}
+
+
+void
+GNERouteHandler::buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
+                                    const std::string& fromTAZID, const std::string& toTAZID) {
+    // parse TAZs
+    const auto fromTAZ = parseTAZ(SUMO_TAG_TRIP, fromTAZID);
+    const auto toTAZ = parseTAZ(SUMO_TAG_TRIP, toTAZID);
+    // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
+    if (fromTAZ && toTAZ && !isVehicleIdDuplicated(vehicleParameters.id)) {
+        // obtain  vtypes
+        GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
+        if (vType == nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vehicleParameters.vtypeid, false)) {
+                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
+            } else {
+                writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
+            }
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && ((vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN)) && (vehicleParameters.departLane > 0)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than vType %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
+        } else {
+            // create flow using vehicleParameters
+            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_TAZS, myNet, vType, fromTAZ, toTAZ, vehicleParameters);
+            if (myAllowUndoRedo) {
+                myNet->getViewNet()->getUndoList()->begin(flow->getTagProperty().getGUIIcon(), TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                overwriteDemandElement();
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
+                myNet->getViewNet()->getUndoList()->end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(flow);
+                // set vehicle as child of vType
+                vType->addChildElement(flow);
+                flow->incRef("buildFlow");
+                // add reference in all TAZs
+                fromTAZ->addChildElement(flow);
+                toTAZ->addChildElement(flow);
             }
             // compute path
             flow->computePathElement();
@@ -2174,6 +2263,17 @@ GNERouteHandler::parseJunction(const SumoXMLTag tag, const std::string& junction
         writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(SUMO_TAG_JUNCTION)));
     }
     return junction;
+}
+
+
+GNEAdditional*
+GNERouteHandler::parseTAZ(const SumoXMLTag tag, const std::string& TAZID) {
+    GNEAdditional* TAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, TAZID, false);
+    // empty TAZs aren't allowed. If TAZ is empty, write error, clear TAZs and stop
+    if (TAZ == nullptr) {
+        writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(SUMO_TAG_JUNCTION)));
+    }
+    return TAZ;
 }
 
 
