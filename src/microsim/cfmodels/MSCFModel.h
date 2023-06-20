@@ -654,6 +654,7 @@ public:
         UNUSED_PARAMETER(veh);
         UNUSED_PARAMETER(key);
         UNUSED_PARAMETER(value);
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported by carFollowModel");
     }
 
 protected:
