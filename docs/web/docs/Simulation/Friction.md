@@ -28,7 +28,9 @@ either directly in the network or dynamically using traci/libsumo.
 A vehicle with a friction device will determine a perceived friction by adding random noise to friction
 coefficient of the lane and then calculate a new maximum speed for the lane by applying the following factor:
 
+```
 factor = -0.3491 * fric * fric + 0.8922 * fric + 0.4493
+```
 
 # Parameters
 
