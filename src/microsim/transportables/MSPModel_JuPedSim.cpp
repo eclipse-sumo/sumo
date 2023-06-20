@@ -123,8 +123,9 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
         std::ostringstream oss;
         oss << "Error while adding an agent: " << JPS_ErrorMessage_GetMessage(message);
         WRITE_ERROR(oss.str());
+        JPS_ErrorMessage_Free(message);
+        return nullptr;
     }
-    JPS_ErrorMessage_Free(message);
 
     PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, arrivalPosition, agentId);
     state->setPosition(agent_parameters.position.x, agent_parameters.position.y);
