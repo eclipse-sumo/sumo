@@ -407,6 +407,10 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             const Position p = myAdditionalGeometry.getShape().getPolygonCenter() + Position(0, -0.6 * s.polyType.size / s.scale);
             GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
         }
+        // draw child demand elements
+        for (const auto& demandElement : getChildDemandElements()) {
+            demandElement->drawGL(s);
+        }
     }
 }
 
