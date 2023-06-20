@@ -1,0 +1,2 @@
+Error: trip definition needs either 'from/to' or 'fromJunction/toJunction'
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\trip_junctions\load\no_junctions\routes.rou.xml failed.

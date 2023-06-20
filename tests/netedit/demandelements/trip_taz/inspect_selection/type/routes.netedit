@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-03 12:07:37 by Eclipse SUMO netedit Version v1_15_0+2138-949a66da79b
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="typeA" length="20.00" vClass="bus" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeB" length="20.00" vClass="bus" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeC" length="20.00" vClass="bus" width="5.00" height="12.00" color="cyan"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="flowA" type="typeC" depart="0.00" departLane="0" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" fromJunction="gneJ4" toJunction="gneJ7">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA2" value="valueA3"/>
+        <param key="KeyA3" value="valueA2"/>
+    </trip>
+    <trip id="flowB" type="typeC" depart="5.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" fromJunction="gneJ5" toJunction="gneJ6">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB2" value="valueB3"/>
+        <param key="KeyB3" value="valueB2"/>
+    </trip>
+</routes>

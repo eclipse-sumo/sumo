@@ -1,0 +1,2 @@
+Error: Invalid departLane used in trip 'trip_3'. 500 is greater than number of lanes
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Apr150345.2224\netedit.gui\demandelements\trip_junctions\load\departlane\routes.rou.xml failed.

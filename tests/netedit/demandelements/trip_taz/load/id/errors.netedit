@@ -1,0 +1,8 @@
+Error: Attribute 'id' is missing in definition of trip
+Error: trip cannot be created
+Error: Attribute 'id' in definition of a trip is empty.
+Error: Invalid trip id ''.
+Error: trip cannot be created
+Error: Invalid trip id 'id with spaces'. Contains invalid characters.
+Error: trip cannot be created
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip_junctions.25Jan182728.9927/netedit.daily.demand.trip_junctions/demandelements/trip_junctions/load/id/routes.rou.xml failed.

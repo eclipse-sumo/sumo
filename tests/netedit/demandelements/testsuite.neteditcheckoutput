@@ -16,6 +16,10 @@ trip_junctions
 
 flow_junctions
 
+trip_taz
+
+flow_taz
+
 flow
 
 routeflow

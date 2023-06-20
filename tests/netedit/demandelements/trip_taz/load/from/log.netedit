@@ -1,0 +1,4 @@
+Error: trip definition needs either 'from/to' or 'fromJunction/toJunction'
+Error: Attribute 'fromJunction' in definition of trip 'trip_1' is empty.
+Error: Could not build trip in netedit; junction doesn't exist.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\trip_junctions\load\from\routes.rou.xml failed.
