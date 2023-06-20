@@ -82,6 +82,10 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
             information
                     << "- " << TL("Select two junctions to create a trip.");
             break;
+        case GNE_TAG_TRIP_TAZS:
+            information
+                    << "- " << TL("Select two TAZS to create a trip.");
+            break;
         // flows
         case GNE_TAG_FLOW_ROUTE:
             information
@@ -98,6 +102,10 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
         case GNE_TAG_FLOW_JUNCTIONS:
             information
                     << "- " << TL("Select two junctions to create a flow.");
+            break;
+        case GNE_TAG_FLOW_TAZS:
+            information
+                    << "- " << TL("Select two TAZs to create a flow.");
             break;
         default:
             break;
@@ -176,6 +184,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
     const bool addEdge = ((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == GNE_TAG_VEHICLE_WITHROUTE) || (vehicleTag == SUMO_TAG_FLOW) || (vehicleTag == GNE_TAG_FLOW_WITHROUTE));
     const bool addJunction = ((vehicleTag == GNE_TAG_TRIP_JUNCTIONS) || (vehicleTag == GNE_TAG_FLOW_JUNCTIONS));
+    const bool addTAZ = ((vehicleTag == GNE_TAG_TRIP_TAZS) || (vehicleTag == GNE_TAG_FLOW_TAZS));
     // first check that current selected vehicle is valid
     if (vehicleTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText(TL("Current selected vehicle isn't valid."));
@@ -208,6 +217,9 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     } else if (addJunction && objectsUnderCursor.getJunctionFront()) {
         // add clicked junction in GNEPathCreator
         return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront());
+    } else if (addTAZ && objectsUnderCursor.getTAZFront()) {
+        // add clicked TAZ in GNEPathCreator
+        return myPathCreator->addTAZ(objectsUnderCursor.getTAZFront());
     } else {
         return false;
     }
@@ -246,7 +258,9 @@ GNEVehicleFrame::tagSelected() {
         if ((myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_VEHICLE) &&
                 (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE) &&
                 (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_TRIP_JUNCTIONS) &&
-                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_JUNCTIONS)) {
+                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_TRIP_TAZS) &&
+                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_JUNCTIONS) &&
+                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_TAZS)) {
             myPathLegend->showPathLegendModule();
         } else {
             myPathLegend->hidePathLegendModule();

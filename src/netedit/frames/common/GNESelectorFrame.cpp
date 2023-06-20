@@ -790,22 +790,40 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 routeFlow->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
-        for (const auto& routeFlow : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
+        for (const auto& tripJunction : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
             if (onlyCount) {
                 return true;
-            } else if (onlyUnselect || routeFlow->isAttributeCarrierSelected()) {
-                routeFlow->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else if (onlyUnselect || tripJunction->isAttributeCarrierSelected()) {
+                tripJunction->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
-                routeFlow->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                tripJunction->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
-        for (const auto& routeFlow : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
+        for (const auto& tripTAZ : demandElements.at(GNE_TAG_TRIP_TAZS)) {
             if (onlyCount) {
                 return true;
-            } else if (onlyUnselect || routeFlow->isAttributeCarrierSelected()) {
-                routeFlow->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else if (onlyUnselect || tripTAZ->isAttributeCarrierSelected()) {
+                tripTAZ->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
-                routeFlow->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                tripTAZ->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& flowjunction : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || flowjunction->isAttributeCarrierSelected()) {
+                flowjunction->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                flowjunction->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& flowTAZ : demandElements.at(GNE_TAG_FLOW_TAZS)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || flowTAZ->isAttributeCarrierSelected()) {
+                flowTAZ->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                flowTAZ->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
     } else if (onlyCount) {
