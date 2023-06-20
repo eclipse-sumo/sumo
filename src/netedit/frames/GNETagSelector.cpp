@@ -409,14 +409,16 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             myAC = new GNEVTypeDistribution(net);
             break;
+            case SUMO_TAG_TRIP:
         case SUMO_TAG_VEHICLE:
         case GNE_TAG_VEHICLE_WITHROUTE:
+        case GNE_TAG_TRIP_JUNCTIONS:
+        case GNE_TAG_TRIP_TAZS:
+        case SUMO_TAG_FLOW:
         case GNE_TAG_FLOW_ROUTE:
         case GNE_TAG_FLOW_WITHROUTE:
-        case SUMO_TAG_TRIP:
-        case GNE_TAG_TRIP_JUNCTIONS:
-        case SUMO_TAG_FLOW:
         case GNE_TAG_FLOW_JUNCTIONS:
+        case GNE_TAG_FLOW_TAZS:
             myAC = new GNEVehicle(tagProperty.getTag(), net);
             break;
         // stops
