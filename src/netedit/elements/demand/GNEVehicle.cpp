@@ -262,7 +262,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_VEHICLE, tag, GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter() {
+    SUMOVehicleParameter() {
     // reset default values
     resetDefaultValues();
     // set end and vehPerHours
@@ -275,7 +275,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
     GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
                      (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType, route}, {}),
-SUMOVehicleParameter() {
+    SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -289,7 +289,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
                      (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType, route}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+    SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
@@ -303,7 +303,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, tag,
                      (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+    SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // reset routeid
@@ -320,7 +320,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
     GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == SUMO_TAG_FLOW) ? GUIIconSubSys::getIcon(GUIIcon::FLOW) : GUIIconSubSys::getIcon(GUIIcon::TRIP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {vehicleType}, {}),
-SUMOVehicleParameter() {
+    SUMOVehicleParameter() {
     // adjust default flow attributes
     adjustDefaultFlowAttributes(this);
 }
@@ -331,7 +331,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == SUMO_TAG_FLOW) ? GUIIconSubSys::getIcon(GUIIcon::FLOW) : GUIIconSubSys::getIcon(GUIIcon::TRIP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {vehicleType}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+    SUMOVehicleParameter(vehicleParameters) {
     // adjust default flow attributes
     adjustDefaultFlowAttributes(this);
 }
@@ -340,10 +340,8 @@ SUMOVehicleParameter(vehicleParameters) {
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction) :
     GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_JUNCTIONS),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {
-    fromJunction, toJunction
-}, {}, {}, {}, {vehicleType}, {}),
-SUMOVehicleParameter() {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {vehicleType}, {}),
+    SUMOVehicleParameter() {
     // adjust default flow attributes
     adjustDefaultFlowAttributes(this);
 }
@@ -352,10 +350,18 @@ SUMOVehicleParameter() {
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_JUNCTIONS),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {
-    fromJunction, toJunction
-}, {}, {}, {}, {vehicleType}, {}),
-SUMOVehicleParameter(vehicleParameters) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {vehicleType}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
+    // adjust default flow attributes
+    adjustDefaultFlowAttributes(this);
+}
+
+
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEAdditional* fromTAZ, GNEAdditional* toTAZ, const SUMOVehicleParameter& vehicleParameters) :
+    GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_TAZS) ? GLO_FLOW : GLO_TRIP, tag,
+                     (tag == GNE_TAG_FLOW_TAZS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_TAZS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_TAZS),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {vehicleType}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
     // adjust default flow attributes
     adjustDefaultFlowAttributes(this);
 }
@@ -432,11 +438,17 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_VIA, via);
         }
     }
-    // write fromJunction and toJunction
+    // write from and to junctions
     if ((myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
         // write manually from/to junctions (it correspond to front and back parent junctions)
         device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
         device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
+    }
+    // write from and to tazs
+    if ((myTagProperty.getTag() == GNE_TAG_TRIP_TAZS) || (myTagProperty.getTag() == GNE_TAG_FLOW_TAZS)) {
+        // write manually from/to junctions (it correspond to front and back parent junctions)
+        device.writeAttr(SUMO_ATTR_FROM_TAZ, getParentAdditionals().front()->getID());
+        device.writeAttr(SUMO_ATTR_TO_TAZ, getParentAdditionals().back()->getID());
     }
     // write specific routeFlow/flow attributes
     if (myTagProperty.isFlow()) {
@@ -486,10 +498,13 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNEVehicle::isDemandElementValid() const {
-    // only trips or flows can have problems
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW) ||
+    // check conditions
+    if ((myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
+        // vehicles and flows over paths are always valid
+        return Problem::OK;
+    } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW) ||
             (myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
-        // check path
+        // check vehicles and flows paths
         if (myNet->getPathManager()->isPathValid(this)) {
             return Problem::OK;
         } else {
@@ -559,7 +574,7 @@ GNEVehicle::getDemandElementProblem() const {
 
 void
 GNEVehicle::fixDemandElementProblem() {
-
+    //
 }
 
 
@@ -581,6 +596,13 @@ GNEVehicle::updateGeometry() {
         // calculate rotation between both junctions
         const Position posA = getParentJunctions().front()->getPositionInView();
         const Position posB = getParentJunctions().back()->getPositionInView();
+        const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) -180.0 / (double)M_PI);
+        // update Geometry
+        myDemandElementGeometry.updateSinglePosGeometry(getParentJunctions().front()->getPositionInView(), rot);
+    } else if (getParentAdditionals().size() > 0) {
+        // calculate rotation between both junctions
+        const Position posA = getParentAdditionals().front()->getPositionInView();
+        const Position posB = getParentAdditionals().back()->getPositionInView();
         const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) -180.0 / (double)M_PI);
         // update Geometry
         myDemandElementGeometry.updateSinglePosGeometry(getParentJunctions().front()->getPositionInView(), rot);
@@ -1292,6 +1314,11 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return getParentJunctions().front()->getID();
         case SUMO_ATTR_TOJUNCTION:
             return getParentJunctions().back()->getID();
+        // Specific of from-to tazs
+        case SUMO_ATTR_FROM_TAZ:
+            return getParentAdditionals().front()->getID();
+        case SUMO_ATTR_TO_TAZ:
+            return getParentAdditionals().back()->getID();
         // Specific of flows
         case SUMO_ATTR_END:
             return time2string(repetitionEnd);
@@ -1436,6 +1463,9 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         // Specific of from-to junctions
         case SUMO_ATTR_FROMJUNCTION:
         case SUMO_ATTR_TOJUNCTION:
+        // Specific of from-to taz
+        case SUMO_ATTR_FROM_TAZ:
+        case SUMO_ATTR_TO_TAZ:
         // Specific of flows
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
@@ -1486,6 +1516,8 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                     return true;
                 } else if (getParentJunctions().size() > 0) {
                     return (dummyDepartLane == 0);
+                } else if (getParentAdditionals().size() > 0) {
+                    return (dummyDepartLane == 0);
                 } else {
                     return dummyDepartLane < (int)getFirstPathLane()->getParentEdge()->getLanes().size();
                 }
@@ -1528,6 +1560,8 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 } else if (isTemplate()) {
                     return true;
                 } else if (getParentJunctions().size() > 0) {
+                    return (dummyArrivalLane == 0);
+                } else if (getParentAdditionals().size() > 0) {
                     return (dummyArrivalLane == 0);
                 } else {
                     return dummyArrivalLane < (int)getLastPathLane()->getParentEdge()->getLanes().size();
@@ -1624,6 +1658,10 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROMJUNCTION:
         case SUMO_ATTR_TOJUNCTION:
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveJunction(value, false) != nullptr);
+        // Specific of from-to taz
+        case SUMO_ATTR_FROM_TAZ:
+        case SUMO_ATTR_TO_TAZ:
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, value, false) != nullptr);
         // Specific of flows
         case SUMO_ATTR_END:
             if (canParse<double>(value)) {
@@ -2151,6 +2189,23 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TOJUNCTION: {
             // change last junction
             replaceLastParentJunction(value);
+            // compute vehicle
+            computePathElement();
+            updateSpreadStackGeometry = true;
+            break;
+        }
+        // Specific of from-to TAZs
+        case SUMO_ATTR_FROM_TAZ: {
+            // change first additional
+            replaceFirstParentAdditional(SUMO_TAG_TAZ, value);
+            // compute vehicle
+            computePathElement();
+            updateSpreadStackGeometry = true;
+            break;
+        }
+        case SUMO_ATTR_TO_TAZ: {
+            // change last additional
+            replaceLastParentAdditional(SUMO_TAG_TAZ, value);
             // compute vehicle
             computePathElement();
             updateSpreadStackGeometry = true;

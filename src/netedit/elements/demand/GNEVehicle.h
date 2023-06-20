@@ -168,6 +168,9 @@ public:
     /// @brief parameter constructor for trips and Flows over junctions
     GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction, const SUMOVehicleParameter& vehicleParameters);
 
+    /// @brief parameter constructor for trips and Flows over TAZs
+    GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEAdditional* fromTAZ, GNEAdditional* toTAZ, const SUMOVehicleParameter& vehicleParameters);
+
     /// @brief destructor
     ~GNEVehicle();
 
