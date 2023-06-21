@@ -23,7 +23,7 @@ You have to edit the link number field (preset with g).
 """
 from __future__ import absolute_import
 from __future__ import print_function
-
+import sys
 from lxml import etree
 import sumolib  # noqa
 
