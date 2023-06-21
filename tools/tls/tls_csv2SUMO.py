@@ -37,9 +37,9 @@ from __future__ import print_function
 
 import sys
 import os
-import argparse
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib
 import sumolib.net  # noqa
 
 
@@ -98,11 +98,11 @@ def computeLinkPhasesAndTimes(logic):
         logic.defs.append(newPhases)
 
 
-parser = argparse.ArgumentParser(description='Create tls xml def from csv.')
-parser.add_argument('TLS_CSV', help='tls definition')
-parser.add_argument('NET', help='sumo net file')
-parser.add_argument('-d', '--debug', action='store_true', help='print additional debug info')
-args = parser.parse_args()
+optParser = sumolib.options.ArgumentParser(description='Create TLS XML file from CSV file.')
+optParser.add_argument('TLS_CSV', category="input", type=optParser.data_file, help='TLS definition CSV file ')
+optParser.add_argument('NET', category="input", type=optParser.net_file, help='Network file')
+optParser.add_argument('-d', '--debug', action='store_true', help='Print additional debug info')
+args = optParser.parse_args()
 
 allLogics = []
 
