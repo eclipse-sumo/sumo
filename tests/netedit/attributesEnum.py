@@ -1665,6 +1665,81 @@ class tripFromToJunction:
 
     transformTo = 9
 
+# trip (from-to TAZs)
+
+
+class tripFromToTAZ:
+    class create:
+        type = 5
+        id = 8
+        colorButton = 9
+        color = 10
+        departLane = 11
+        departPos = 12
+        departSpeed = 13
+        arrivalLane = 14
+        arrivalPos = 15
+        arrivalSpeed = 16
+        line = 17
+        personNumber = 18
+        containerNumber = 19
+        departPosLat = 20
+        arrivalPosLat = 21
+        insertionChecks = 22
+        depart = 23
+
+    class inspect:
+        id = 1
+        typeButton = 2
+        type = 3
+        fromTAZ = 5
+        toTAZ = 6
+        colorButton = 7
+        color = 8
+        departLane = 9
+        departPos = 10
+        departSpeed = 11
+        arrivalLane = 12
+        arrivalPos = 13
+        arrivalSpeed = 14
+        line = 15
+        personNumber = 16
+        containerNumber = 17
+        departPosLat = 18
+        arrivalPosLat = 19
+        insertionChecks = 20
+        depart = 21
+        parameters = 24
+
+    class inspectSelection:
+        type = 1
+        colorButton = 2
+        color = 3
+        departLane = 4
+        departPos = 5
+        departSpeed = 6
+        arrivalLane = 7
+        arrivalPos = 8
+        arrivalSpeed = 9
+        line = 10
+        personNumber = 11
+        containerNumber = 12
+        departPosLat = 13
+        arrivalPosLat = 14
+        insertionChecks = 15
+        depart = 16
+        parameters = 19
+
+    class transform:
+        vehicle = 1
+        vehicleEmbedded = 2
+        routeFlow = 3
+        routeFlowEmbedded = 4
+        trip = 5
+        flow = 6
+
+    transformTo = 9
+
 # vehicle (over route)
 
 
@@ -1939,6 +2014,96 @@ class flowJunction:
         type = 3
         fromJunction = 5
         toJunction = 6
+        colorButton = 7
+        color = 8
+        departLane = 9
+        departPos = 10
+        departSpeed = 11
+        arrivalLane = 12
+        arrivalPos = 13
+        arrivalSpeed = 14
+        line = 15
+        personNumber = 16
+        containerNumber = 17
+        departPosLat = 18
+        arrivalPosLat = 19
+        insertionChecks = 20
+        begin = 21
+        terminate = 24
+        spacing = 26
+        end = 27
+        terminateOption = 28
+        spacingOption = 29
+        parameters = 31
+
+    class inspectSelection:
+        type = 1
+        colorButton = 2
+        color = 3
+        departLane = 4
+        departPos = 5
+        departSpeed = 6
+        arrivalLane = 7
+        arrivalPos = 8
+        arrivalSpeed = 9
+        line = 10
+        personNumber = 11
+        containerNumber = 12
+        departPosLat = 13
+        arrivalPosLat = 14
+        insertionChecks = 15
+        begin = 16
+        terminate = 19
+        spacing = 21
+        terminateOption = 23
+        spacingOption = 24
+        parameters = 24
+
+    class transform:
+        vehicle = 1
+        vehicleEmbedded = 2
+        routeFlow = 3
+        routeFlowEmbedded = 4
+        trip = 5
+        flow = 6
+
+    transformTo = 9
+
+# flow (from-to TAZs)
+
+
+class flowTAZ:
+    class create:
+        type = 5
+        id = 8
+        colorButton = 9
+        color = 10
+        departLane = 11
+        departPos = 12
+        departSpeed = 13
+        arrivalLane = 14
+        arrivalPos = 15
+        arrivalSpeed = 16
+        line = 17
+        personNumber = 18
+        containerNumber = 19
+        departPosLat = 20
+        arrivalPosLat = 21
+        insertionChecks = 22
+        begin = 23
+        terminate = 27
+        end = 29
+        number = 30
+        spacing = 29
+        terminateOption = 31
+        spacingOption = 32
+
+    class inspect:
+        id = 1
+        typeButton = 2
+        type = 3
+        fromTAZ = 5
+        toTAZ = 6
         colorButton = 7
         color = 8
         departLane = 9
