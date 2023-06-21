@@ -137,9 +137,8 @@ TOOLS = [
     # "route/vehicle2flow.py",                NO CONFIG
 
     # output
-    # "output/accelerations.py",                      NO CONFIG
-    # "output/aggregateBatteryOutput.py",             NO CONFIG
-    # "output/analyze_pedestrian_jam.py",             NO CONFIG
+    "output/aggregateBatteryOutput.py",
+    "output/analyze_pedestrian_jam.py",
     "output/analyze_teleports.py",
     "output/attributeStats.py",
     "output/attributeDiff.py",
