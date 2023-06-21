@@ -48,25 +48,24 @@ class SimObject:
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser()
-    optParser.add_option("-r", "--route-files", dest="routefiles",
-                         help="define the route file separated by comma (mandatory)")
-    optParser.add_option("-o", "--output-file", dest="outfile",
+    ap = sumolib.options.ArgumentParser()
+    ap.add_argument("-r", "--route-files", dest="routefiles", category="input", type=ap.file_list,
+                         required=True, help="define the route file separated by comma (mandatory)")
+    ap.add_argument("-o", "--output-file", dest="outfile", category="output", type=ap.file,
                          help="define the output filename")
-    optParser.add_option("--timeline-list", dest="timelinelist", type=str,
+    ap.add_argument("--timeline-list", dest="timelinelist", type=str,
                          default="3600,200,200,200,200,200,200,200,200,200,200,200,200",
                          help="Define the interval duration and then the scaled percentage for each interval; "
                               "e.g. 200% of the current demand")
-    optParser.add_option("--timeline-pair", dest="timelinepair", type=str,
+    ap.add_argument("--timeline-pair", dest="timelinepair", type=str,
                          default="7200,200;7200,200;7200,200;7200,200;7200,200;7200,200",
                          help="Define the timeline pairs (duration, scacled percentage)")
-    optParser.add_option("--random", action="store_true", dest="random",
+    ap.add_argument("--random", action="store_true", dest="random", category="random",
                          default=False, help="use a random seed to initialize the random number generator")
-    optParser.add_option("-s", "--seed", type=int, dest="seed", default=42, help="random seed")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
+    ap.add_argument("-s", "--seed", type=int, dest="seed", category="random", default=42, help="random seed")
+    ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
-
-    options, args = optParser.parse_known_args(args=args)
+    options = ap.parse_args()
 
     if options.timelinelist:
         duration = float(options.timelinelist.split(",")[0])
