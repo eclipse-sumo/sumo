@@ -98,7 +98,7 @@ The message contents are as following:
 
 |         byte          |       integer        |        byte         | string  |        byte         |    double    |       byte        |    byte    |        byte         |       double        |             byte             |           int           |              byte              |     double     |              byte              |      double      |
 | :-------------------: | :------------------: | :-----------------: | :-----: | :-----------------: | :----------: | :---------------: | :--------: | :-----------------: | :-----------------: | :--------------------------: | :---------------------: | :----------------------------: | :------------: | :----------------------------: | :--------------: |
-| value type *compound* | item number (4 to 7) | value type *string* | Edge ID | value type *double* | end position | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *byte* (optional) | stop flags: (see below) | value type *double* (optional) | start position | value type *double* (optional) | Until in seconds |
+| value type *compound* | item number (4 to 7) | value type *string* | Edge ID | value type *double* | end position | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *int* (optional) | stop flags: (see below) | value type *double* (optional) | start position | value type *double* (optional) | Until in seconds |
 
 The stop flags are a bitset with the following additive components
 
@@ -221,9 +221,9 @@ previous and the new position instead.
 
 ### replaceStop (0x17)
 
-| string | int           | string | double  | integer     | double                 | integer | double                 | double              | int        |
-| :----: | :-----------: | :----: | :-----: | :---------: | :--------------------: | :-----: | :--------------------: | :-----------------: | :--------: |
-| vehID  | nextStopIndex | edgeID | pos=1.0 | laneIndex=0 | duration=-1073741824.0 | flags=0 | startPos=-1073741824.0 | until=-1073741824.0 | teleport=0 |
+|         byte          |       integer        |        byte         | string  |        byte         |    double    |       byte        |    byte    |        byte         |       double        |             byte             |           int           |              byte              |     double     |              byte              |      double      | byte | int | byte | byte | 
+| :-------------------: | :------------------: | :-----------------: | :-----: | :-----------------: | :----------: | :---------------: | :--------: | :-----------------: | :-----------------: | :--------------------------: | :---------------------: | :----------------------------: | :------------: | :----------------------------: | :--------------: | :---: | :---: | :---: | :---: |
+| value type *compound* | item number (8 or 9) | value type *string* | Edge ID | value type *double* | end position | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *int* | stop flags (see [stop](#stop_0x12)) | value type *double* | start position | value type *double* | Until in seconds | value type *int* | nextStopIndex | value type *byte* (optional) | teleport |
 
 Replaces stop at the given index with a new stop. Automatically modifies the route if the replacement stop is at another location
 
@@ -237,9 +237,9 @@ Replaces stop at the given index with a new stop. Automatically modifies the rou
 
 ### insertStop (0x18)
 
-| string | int           | string | double  | integer     | double                 | integer | double                 | double              | int        |
-| :----: | :-----------: | :----: | :-----: | :---------: | :--------------------: | :-----: | :--------------------: | :-----------------: | :--------: |
-| vehID  | nextStopIndex | edgeID | pos=1.0 | laneIndex=0 | duration=-1073741824.0 | flags=0 | startPos=-1073741824.0 | until=-1073741824.0 | teleport=0 |
+|         byte          |       integer        |        byte         | string  |        byte         |    double    |       byte        |    byte    |        byte         |       double        |             byte             |           int           |              byte              |     double     |              byte              |      double      | byte | int | byte | byte | 
+| :-------------------: | :------------------: | :-----------------: | :-----: | :-----------------: | :----------: | :---------------: | :--------: | :-----------------: | :-----------------: | :--------------------------: | :---------------------: | :----------------------------: | :------------: | :----------------------------: | :--------------: | :---: | :---: | :---: | :---: |
+| value type *compound* | item number (8 or 9) | value type *string* | Edge ID | value type *double* | end position | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *int* | stop flags (see [stop](#stop_0x12)) | value type *double* | start position | value type *double* | Until in seconds | value type *int* | nextStopIndex | value type *byte* (optional) | teleport |
 
 Inserts stop at the given index. Automatically modifies the route to accomodate the new stop
 

@@ -221,7 +221,7 @@ value is also shown in the table.
 </tr>
 <tr class="even">
 <td><p>stop state (id 0xb5)</p></td>
-<td><p>ubyte</p></td>
+<td><p>int</p></td>
 <td><p>value = 1 * stopped + 2 * parking + 4 * triggered + 8 * containerTriggered + 16 * atBusStop + 32 * atContainerStop + 64 * atChargingStation + 128 * atParkingArea</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStopState">getStopState</a><br />
 <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-isAtBusStop">isAtBusStop</a><br />
