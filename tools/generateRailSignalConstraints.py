@@ -95,10 +95,10 @@ arrival and until times:
 
 Given two vehicles A and B which stop at the same location, if A arrives at the
 stop later than B, but A also leaves earlier than B, then B is "overtaken" by A.
-All subsquent stops of B are marked as invalid and will not
+All subsequent stops of B are marked as invalid and will not
 participate in constraint generation. If the stop where overtaking took place
 doesn't have a 'started' value (which implies that the original schedule is
-inconsistent), then this stop is also mared as invalid.
+inconsistent), then this stop is also marked as invalid.
 
 If two vehicles have a 'parking'-stop with the same 'until' time at the same
 location, their stops will also be marked as invalid since the simulation cannot
@@ -106,7 +106,7 @@ enforce an order in this case (and local desired order is ambiguous).
 
 Another kind of inconsistency is indicated by 'ended' times that lie ahead of
 the 'until' time of the respective stop by a significant margin (--.
-This situation may corrrespond to the actions of
+This situation may correspond to the actions of
 a real-life dispatcher. In such a case, the must not be constraint any further
 since it is no longer running according to the schedule.
 
@@ -349,7 +349,7 @@ def getNextStraight(edge, nextDict):
 
 
 def getBidiSequence(options, net, edge):
-    """find continuous sequene of bidi edges upstream and downstream of the given edge within the given range.
+    """find continuous sequence of bidi edges upstream and downstream of the given edge within the given range.
        The search in each direction is aborted when encountering a switch"""
     result = []
     if edge.getBidi() is None:
@@ -703,8 +703,8 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
 
             # the stop where overtaking was detected can still be used for
             # signal switching but subsequent stops cannot (as they might
-            # involve a mix of scheduled timeing (arrival/until) and actual
-            # timings (started/ende)
+            # involve a mix of scheduled timing (arrival/until) and actual
+            # timings (started/ended)
             if overtaken > 1:
                 # print("invalid veh=%s stop=%s arrival=%s until=%s" %
                 #        (stop.vehID, stop.busStop,
@@ -1607,7 +1607,7 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
 
                 # bidi conflicts can profit from additional comments/params
                 busStop2 = [("busStop2", pStop.busStop)]
-                # record stops preceeding the conflict section for ego and foe vehicle
+                # record stops preceding the conflict section for ego and foe vehicle
                 if sIb > 0:
                     busStop2.append(("priorStop", stopRoute[sIb - 1][1].busStop))
                 if sI2 > 0:
@@ -1668,7 +1668,7 @@ def checkBidiConsistency(conflicts, verbose):
 
 def getEdges(stopRoute, index, startEdge, forward, noIndex=False):
     """return all edges along the route starting at the given stop index and startEdge
-       either going forward or backard
+       either going forward or backward
        if noIndex is set only the edges are yielded
        otherwise the current stop index is yielded as well
        """
