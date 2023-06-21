@@ -67,6 +67,7 @@ def multi_process(cpu_num, interval_list, func, outf, mismatchf, **kwargs):
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Sample routes to match counts")
+    # input
     op.add_argument("-r", "--route-files", category="input", dest="routeFiles", type=op.route_file_list,
                     help="Input route file")
     op.add_argument("-t", "--turn-files", category="input", dest="turnFiles", type=op.file_list,
@@ -79,76 +80,80 @@ def get_options(args=None):
                     help="Input edgeRelation and tazRelation files for origin-destination counts")
     op.add_argument("--taz-files", category="input", dest="tazFiles", type=op.file_list,
                     help="Input TAZ (district) definitions for interpreting tazRelation files")
-    op.add_argument("--edgedata-attribute", category="attribute", dest="edgeDataAttr", default="entered",
+    op.add_argument("--edgedata-attribute", category="input", dest="edgeDataAttr", default="entered",
                     help="Read edgeData counts from the given attribute")
-    op.add_argument("--arrival-attribute", category="attribute", dest="arrivalAttr",
+    op.add_argument("--arrival-attribute", category="input", dest="arrivalAttr",
                     help="Read arrival counts from the given edgeData file attribute")
-    op.add_argument("--depart-attribute", category="attribute", dest="departAttr",
+    op.add_argument("--depart-attribute", category="input", dest="departAttr",
                     help="Read departure counts from the given edgeData file attribute")
-    op.add_argument("--turn-attribute", category="turn-ratio", dest="turnAttr", default="count",
+    op.add_argument("--turn-attribute", category="input", dest="turnAttr", default="count",
                     help="Read turning counts and origin-destination counts from the given attribute")
-    op.add_argument("--turn-ratio-attribute", category="turn-ratio", dest="turnRatioAttr", default="probability",
+    op.add_argument("--turn-ratio-attribute", category="input", dest="turnRatioAttr", default="probability",
                     help="Read turning ratios from the given attribute")
-    op.add_argument("--turn-ratio-total", category="turn-ratio", dest="turnRatioTotal", type=float, default=1,
-                    help="Set value for normalizing turning ratios (default 1)")
-    op.add_argument("--turn-ratio-tolerance", category="turn-ratio", dest="turnRatioTolerance", type=float,
-                    help="Set tolerance for error in resulting ratios (relative to turn-ratio-total)")
-    op.add_argument("--turn-ratio-abs-tolerance", category="turn-ratio", dest="turnRatioAbsTolerance", type=int,
-                    default=1, help="Set tolerance for error in resulting turning ratios as absolute count")
-    op.add_argument("--turn-max-gap", category="turn-ratio", type=int, dest="turnMaxGap", default=0,
-                    help="Allow at most a gap of INT edges between from-edge and to-edge")
-    op.add_argument("--total-count", category="processing", dest="totalCount",
-                    help="Set a total count that should be reached (either as single value that is split " +
-                    " proportionally among all intervals or as a list of counts per interval)." +
-                    " Setting the value 'input' preserves input vehicle counts in each interval.")
-    op.add_argument("--extra-od", category="processing", dest="extraOD", action="store_true", default=False,
-                    help="Permit traffic between OD-pairs that did not occur in the input")
+    # output
     op.add_argument("-o", "--output-file", category="output", dest="out", default="out.rou.xml", type=op.route_file,
                     help="Output route file")
-    op.add_argument("--prefix", category="processing", dest="prefix", default="",
-                    help="prefix for the vehicle ids")
-    op.add_argument("-a", "--attributes", category="processing", dest="vehattrs", default="",
-                    help="additional vehicle attributes")
-    op.add_argument("-s", "--seed", category="seed", type=int, default=42,
-                    help="random seed")
-    op.add_argument("--mismatch-output", category="processing", dest="mismatchOut",
+    op.add_argument("--mismatch-output", category="output", dest="mismatchOut",
                     help="write cout-data with overflow/underflow information to FILE")
     op.add_argument("--precision", category="output", type=int, dest="precision", default=2,
                     help="Number of decimal digits in output")
-    op.add_argument("--weighted", category="processing", dest="weighted", action="store_true", default=False,
-                    help="Sample routes according to their probability (or count)")
-    op.add_argument("--keep-stops", category="outut", dest="keepStops", action="store_true", default=False,
+    op.add_argument("--keep-stops", category="output", dest="keepStops", action="store_true", default=False,
                     help="Preserve stops from the input routes")
-    op.add_argument("--optimize", category="processing",
-                    help="set optimization method level (full, INT boundary)")
-    op.add_argument("--optimize-input", category="processing", dest="optimizeInput", action="store_true", default=False,
-                    help="Skip resampling and run optimize directly on the input routes")
-    op.add_argument("--min-count",  category="processing", dest="minCount", type=int, default=1,
-                    help="Set minimum number of counting locations that a route must visit")
-    op.add_argument("--minimize-vehicles", category="processing", dest="minimizeVehs", type=float, default=0,
-                    help="Set optimization factor from [0, 1[ for reducing the number of vehicles" +
-                    "(prefer routes that pass multiple counting locations over routes that pass fewer)")
-    op.add_argument("--geh-ok", category="processing", dest="gehOk", type=float, default=5,
-                    help="threshold for acceptable GEH values")
-    op.add_argument("-f", "--write-flows", category="output", dest="writeFlows",
+    op.add_argument("-v", "--verbose", category="output",action="store_true", default=False,
+                    help="tell me what you are doing")
+    op.add_argument("-V", "--verbose.histograms", category="output",dest="verboseHistogram", action="store_true", default=False,
+                    help="print histograms of edge numbers and detector passing count")
+    # attributes
+    op.add_argument("--prefix", category="attributes", dest="prefix", default="",
+                    help="prefix for the vehicle ids")
+    op.add_argument("-a", "--attributes", category="attributes", dest="vehattrs", default="",
+                    help="additional vehicle attributes")
+    op.add_argument("-f", "--write-flows", category="attributes", dest="writeFlows",
                     help="write flows with the give style instead of vehicles [number|probability|poisson]")
-    op.add_argument("-I", "--write-route-ids", category="output", dest="writeRouteIDs", action="store_true",
+    op.add_argument("-I", "--write-route-ids", category="attributes", dest="writeRouteIDs", action="store_true",
                     default=False, help="write routes with ids")
-    op.add_argument("-u", "--write-route-distribution", category="output", dest="writeRouteDist",
+    op.add_argument("-u", "--write-route-distribution", category="attributes", dest="writeRouteDist",
                     help="write routeDistribution with the given ID instead of individual routes")
-    op.add_argument("--pedestrians", category="output", action="store_true", default=False,
+    op.add_argument("--pedestrians", category="attributes", action="store_true", default=False,
                     help="write person walks instead of vehicle routes")
+    # time
     op.add_argument("-b", "--begin", category="time",
                     help="custom begin time (seconds or H:M:S)")
     op.add_argument("-e", "--end", category="time",
                     help="custom end time (seconds or H:M:S)")
     op.add_argument("-i", "--interval", category="time",
                     help="custom aggregation interval (seconds or H:M:S)")
-    op.add_argument("-v", "--verbose", action="store_true", default=False,
-                    help="tell me what you are doing")
-    op.add_argument("-V", "--verbose.histograms", dest="verboseHistogram", action="store_true", default=False,
-                    help="print histograms of edge numbers and detector passing count")
-    op.add_argument("--threads", category="processing", dest="threads", type=int, default=1,
+    # processing
+    op.add_argument("--turn-max-gap", type=int, dest="turnMaxGap", default=0,
+                    help="Allow at most a gap of INT edges between from-edge and to-edge")
+    op.add_argument("--total-count", dest="totalCount",
+                    help="Set a total count that should be reached (either as single value that is split " +
+                    " proportionally among all intervals or as a list of counts per interval)." +
+                    " Setting the value 'input' preserves input vehicle counts in each interval.")
+    op.add_argument("--extra-od", dest="extraOD", action="store_true", default=False,
+                    help="Permit traffic between OD-pairs that did not occur in the input")
+    op.add_argument("-s", "--seed", type=int, default=42,
+                    help="random seed")
+    op.add_argument("--weighted", dest="weighted", action="store_true", default=False,
+                    help="Sample routes according to their probability (or count)")
+    op.add_argument("--optimize",
+                    help="set optimization method level (full, INT boundary)")
+    op.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
+                    help="Skip resampling and run optimize directly on the input routes")
+    op.add_argument("--min-count", dest="minCount", type=int, default=1,
+                    help="Set minimum number of counting locations that a route must visit")
+    op.add_argument("--minimize-vehicles", dest="minimizeVehs", type=float, default=0,
+                    help="Set optimization factor from [0, 1[ for reducing the number of vehicles" +
+                    "(prefer routes that pass multiple counting locations over routes that pass fewer)")
+    op.add_argument("--geh-ok", dest="gehOk", type=float, default=5,
+                    help="threshold for acceptable GEH values")
+    op.add_argument("--turn-ratio-total", dest="turnRatioTotal", type=float, default=1,
+                    help="Set value for normalizing turning ratios (default 1)")
+    op.add_argument("--turn-ratio-tolerance", dest="turnRatioTolerance", type=float,
+                    help="Set tolerance for error in resulting ratios (relative to turn-ratio-total)")
+    op.add_argument("--turn-ratio-abs-tolerance", dest="turnRatioAbsTolerance", type=int,
+                    default=1, help="Set tolerance for error in resulting turning ratios as absolute count")
+    op.add_argument("--threads", dest="threads", type=int, default=1,
                     help="If parallelization is desired, enter the number of CPUs to use. Set to a value >> then " +
                     "your machines CPUs if you want to utilize all CPUs (Default is 1)")
 
