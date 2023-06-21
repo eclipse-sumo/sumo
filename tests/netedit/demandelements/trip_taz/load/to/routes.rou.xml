@@ -61,6 +61,6 @@
 
     <trip id="trip_3" fromJunction="gneJ4" toJunction="gneJ4" depart="20.00"/>
 
-    <trip id="trip_4" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
+    <trip id="trip_4" fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
 
 </routes>
