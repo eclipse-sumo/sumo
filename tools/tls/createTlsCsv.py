@@ -24,17 +24,22 @@ You have to edit the link number field (preset with g).
 from __future__ import absolute_import
 from __future__ import print_function
 
-import argparse
 from lxml import etree
+import sumolib  # noqa
 
-parser = argparse.ArgumentParser(
+op = sumolib.options.ArgumentParser(
     description='Create tls links from sumo net as needed by tls_csv2SUMO.py. You have to edit the link number ' +
     'field (preset with g). The comment gives the link number shown on demand in SUMO-GUI')
-parser.add_argument('net', help='Input file name')
+    
+op.add_argument("-n", "--net-file", category="input", type=op.net_file, dest="net", required=True, help='Input file name')
 
-args = parser.parse_args()
+try:
+    options = op.parse_args()
+except (NotImplementedError, ValueError) as e:
+    print(e, file=sys.stderr)
+    sys.exit(1)
 
-doc = etree.parse(args.net)
+doc = etree.parse(options.net)
 
 connections = {}
 
