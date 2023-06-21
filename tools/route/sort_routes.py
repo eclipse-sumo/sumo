@@ -28,6 +28,7 @@ from optparse import OptionParser
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
+from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import parseTime  # noqa
 
 DEPART_ATTRS = {'vehicle': 'depart', 'trip': 'depart', 'flow': 'begin', 'person': 'depart'}
@@ -35,14 +36,12 @@ DEPART_ATTRS = {'vehicle': 'depart', 'trip': 'depart', 'flow': 'begin', 'person'
 
 def get_options(args=None):
     USAGE = "Usage: " + sys.argv[0] + " <routefile>"
-    optParser = OptionParser()
-    optParser.add_option("-o", "--outfile", help="name of output file")
-    optParser.add_option("-b", "--big", action="store_true", default=False,
+    ap = ArgumentParser()
+    ap.add_argument("-o", "--outfile", category="output", type=ap.file, help="name of output file")
+    ap.add_argument("-b", "--big", action="store_true", default=False,
                          help="Use alternative sorting strategy for large files (slower but more memory efficient)")
-    options, args = optParser.parse_args(args=args)
-    if len(args) != 1:
-        sys.exit(USAGE)
-    options.routefile = args[0]
+    ap.add_argument("routefile", category="input", type=ap.file, help="route file whose routes should be sorted")
+    options = ap.parse_args()
     if options.outfile is None:
         options.outfile = options.routefile + ".sorted"
     return options
