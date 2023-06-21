@@ -30,20 +30,20 @@ import sumolib  # noqa
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " -n <net> <options>"
-    argParser = sumolib.options.ArgumentParser(usage=USAGE)
-    argParser.add_argument("-n", "--net-file", dest="netFile", help="The .net.xml file to convert")
-    argParser.add_argument("-o", "--output-file", dest="outFile", help="The KML output file name")
-    argParser.add_argument("-l", "--lanes", action="store_true", default=False,
+    ap = sumolib.options.ArgumentParser(usage=USAGE)
+    ap.add_argument("-n", "--net-file", category="input", type=ap.net_file, dest="netFile", help="The .net.xml file to convert")
+    ap.add_argument("-o", "--output-file", category="output", type=ap.file, dest="outFile", help="The KML output file name")
+    ap.add_argument("-l", "--lanes", action="store_true", default=False,
                            help="Export lane geometries instead of edge geometries")
-    argParser.add_argument("-i", "--internal", action="store_true", default=False,
+    ap.add_argument("-i", "--internal", action="store_true", default=False,
                            help="Export internal geometries")
-    argParser.add_argument("--color", default="0f0000ff", help="Color for normal edges")
-    argParser.add_argument("--internal-color", dest="iColor", default="5f0000ff", help="Color for internal edges")
+    ap.add_argument("--color", category="input", default="0f0000ff", help="Color for normal edges")
+    ap.add_argument("--internal-color", category="input", dest="iColor", default="5f0000ff", help="Color for internal edges")
 
-    options = argParser.parse_args()
+    options = ap.parse_args()
     if not options.netFile:
         print("Missing arguments")
-        argParser.print_help()
+        ap.print_help()
         exit()
     return options
 
