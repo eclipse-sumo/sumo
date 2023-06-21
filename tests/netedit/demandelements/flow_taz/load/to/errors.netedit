@@ -1,0 +1,3 @@
+Error: Attribute 'toJunction' in definition of flow 'flow_1' is empty.
+Error: Could not build trip in netedit; junction doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.flow_junctions.25Jan182728.9832/netedit.daily.demand.flow_junctions/demandelements/flow_junctions/load/to/routes.rou.xml failed.

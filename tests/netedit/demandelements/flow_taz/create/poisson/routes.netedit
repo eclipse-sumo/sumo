@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-23 15:08:01 by Eclipse SUMO netedit Version v1_15_0+1826-58ab4d0b50b
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="f_0" begin="0.00" fromJunction="gneJ4" toJunction="gneJ7" end="3600.00" period="exp(0.50)"/>
+    <flow id="f_1" begin="0.00" fromJunction="gneJ4" toJunction="gneJ7" end="3600.00" period="exp(2.50)"/>
+</routes>

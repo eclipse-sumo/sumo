@@ -1,0 +1,3 @@
+Error: Attribute 'toJunction' in definition of flow 'flow_1' is empty.
+Error: Could not build trip in netedit; junction doesn't exist.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.22Apr120656.4956\netedit.gui\demandelements\flow_junctions\load\to\routes.rou.xml failed.

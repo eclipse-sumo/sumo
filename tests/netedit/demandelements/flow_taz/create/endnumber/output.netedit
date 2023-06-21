@@ -1,0 +1,35 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 168
+flow (from-to junctions)
+dummyTerminate
+TestFunctions: Clicked over position 384 - 528
+TestFunctions: Clicked over position 389 - 245
+end-number
+TestFunctions: Clicked over position 384 - 528
+TestFunctions: Clicked over position 389 - 245
+dummy
+TestFunctions: Clicked over position 384 - 528
+TestFunctions: Clicked over position 389 - 245
+-30
+TestFunctions: Clicked over position 384 - 528
+TestFunctions: Clicked over position 389 - 245
+20.5
+TestFunctions: Clicked over position 384 - 528
+TestFunctions: Clicked over position 389 - 245
+22
+dummy
+TestFunctions: Clicked over position 384 - 528
+TestFunctions: Clicked over position 389 - 245
+-30
+TestFunctions: Clicked over position 384 - 528
+TestFunctions: Clicked over position 389 - 245
+20.5
+TestFunctions: Clicked over position 384 - 528
+TestFunctions: Clicked over position 389 - 245
+51
+TestFunctions: Clicked over position 384 - 528
+TestFunctions: Clicked over position 389 - 245
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Netedit closed successfully

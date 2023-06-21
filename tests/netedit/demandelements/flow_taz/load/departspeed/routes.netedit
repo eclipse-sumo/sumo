@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-28 16:22:21 by Eclipse SUMO netedit Version v1_12_0+2358-b9f176e4b05
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="flow_2" begin="20.00" departSpeed="0.00" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
+    <flow id="flow_4" begin="20.00" departSpeed="1.00" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
+    <flow id="flow_5" begin="20.00" departSpeed="random" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
+    <flow id="flow_6" begin="20.00" departSpeed="max" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
+    <flow id="flow_7" begin="20.00" departSpeed="desired" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
+    <flow id="flow_8" begin="20.00" departSpeed="speedLimit" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
+</routes>
