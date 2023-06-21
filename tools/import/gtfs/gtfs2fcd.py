@@ -36,24 +36,24 @@ import gtfs2osm  # noqa
 
 
 def add_options():
-    argParser = sumolib.options.ArgumentParser()
-    argParser.add_argument("-r", "--region", default="gtfs",
+    op = sumolib.options.ArgumentParser(description="converts GTFS data into separate fcd traces for every distinct trip")
+    op.add_argument("-r", "--region", default="gtfs", category="input",
                            help="define the region to process")
-    argParser.add_argument("--gtfs", help="define gtfs zip file to load (mandatory)", required=True, fix_path=True)
-    argParser.add_argument("--date", help="define the day to import, format: 'YYYYMMDD'", required=True)
-    argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
-    argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
-    argParser.add_argument("--modes", help="comma separated list of modes to import (%s)" %
+    op.add_argument("--gtfs", category="input", required=True, type=op.data_file, help="define gtfs zip file to load (mandatory)")
+    op.add_argument("--date", category="input", required=True, help="define the day to import, format: 'YYYYMMDD'")
+    op.add_argument("--fcd", category="input", type=op.data_file, help="directory to write / read the generated FCD files to / from")
+    op.add_argument("--gpsdat", category="input", type=op.data_file, help="directory to write / read the generated gpsdat files to / from")
+    op.add_argument("--modes", category="input", help="comma separated list of modes to import (%s)" %
                            (", ".join(gtfs2osm.OSM2SUMO_MODES.keys())))
-    argParser.add_argument("--vtype-output", default="vtypes.xml",
+    op.add_argument("--vtype-output", default="vtypes.xml", category="output", type=op.file, 
                            help="file to write the generated vehicle types to")
-    argParser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
-    argParser.add_argument("-b", "--begin", default=0,
-                           type=int, help="Defines the begin time to export")
-    argParser.add_argument("-e", "--end", default=86400,
-                           type=int, help="Defines the end time for the export")
-    argParser.add_argument("--bbox", help="define the bounding box to filter the gtfs data, format: W,S,E,N")
-    return argParser
+    op.add_argument("-v", "--verbose", action="store_true", default=False, category="processing", help="tell me what you are doing")
+    op.add_argument("-b", "--begin", default=0, category="time", type=op.time,
+                           help="Defines the begin time to export")
+    op.add_argument("-e", "--end", default=86400, category="time", type=op.time,
+                           help="Defines the end time for the export")
+    op.add_argument("--bbox", category="input", help="define the bounding box to filter the gtfs data, format: W,S,E,N")
+    return op
 
 
 def check_options(options):
