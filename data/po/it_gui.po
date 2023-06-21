@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-16 10:08+0000\n"
+"PO-Revision-Date: 2023-06-21 10:41+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.1-dev\n"
+"X-Generator: Weblate 4.18.1\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:292
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
@@ -15167,47 +15167,47 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:127
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:126
 msgid "Original network"
-msgstr ""
+msgstr "Rete originale"
 
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:130
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:129
 msgid "Modified network"
-msgstr ""
+msgstr "Rete modificata"
 
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:133
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:132
 msgid "Output prefix network"
-msgstr ""
+msgstr "Prefisso della rete in uscita"
 
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:137
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:136
 msgid "Select modified elements"
-msgstr ""
+msgstr "Seleziona elementi modificati"
 
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:140
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:139
 msgid "Select added elements"
-msgstr ""
+msgstr "Seleziona elementi aggiunti"
 
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:143
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:142
 msgid "Select deleted elements"
-msgstr ""
+msgstr "Seleziona elementi rimossi"
 
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:147
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:146
 msgid "Load shapes for elements"
-msgstr ""
+msgstr "Carica forme per elementi"
 
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:150
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:149
 msgid "Load shapes for added"
-msgstr ""
+msgstr "Carica forme per elementi aggiunti"
 
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:153
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:152
 msgid "Load shapes for deleted elements"
-msgstr ""
+msgstr "Carica forme per elementi rimossi"
 
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:166
 #: /home/micha/programming/sumo/src/netedit/tools/GNENetDiffTool.cpp:165
