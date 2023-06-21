@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to TAZs)")
 
 # try to create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -48,8 +48,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.begin, "-12")
 
 # try to create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -58,8 +58,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.begin, "30")
 
 # create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -68,8 +68,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.begin, "20")
 
 # create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create trip
 netedit.typeEnter()

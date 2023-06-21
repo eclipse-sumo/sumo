@@ -41,8 +41,8 @@ netedit.changeElement("flow (from-to TAZs)")
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departSpeed, "dummySpeed")
 
 # try to create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -51,8 +51,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departSpeed, "-12")
 
 # create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -61,8 +61,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departSpeed, "max")
 
 # create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -71,8 +71,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departSpeed, "20")
 
 # create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create trip
 netedit.typeEnter()

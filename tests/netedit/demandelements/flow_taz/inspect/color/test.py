@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to TAZs)")
 
 # create trip using two TAZs
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 80, 360)
+netedit.leftClick(referencePosition, 50, 250)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.flowTAZ.inspect.colorButton, 5, False)
