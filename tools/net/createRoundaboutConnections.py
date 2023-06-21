@@ -50,11 +50,19 @@ def writeConnections(net):
                                 edgeOut._id) + "\" lane=\"" + str(x) + ":" + str(x) + "\" />\n")
     fd.write("</connections>\n")
 
+if __name__ == "__main__":
+    op = sumolib.options.ArgumentParser(
+        description='Create connections in roundabout')
+        
+    op.add_argument("-n", "--net-file", category="input", type=op.net_file, dest="net", required=True, help='Input file name')
 
-if len(sys.argv) < 2:
-    print("Usage: " + sys.argv[0] + " <net>")
-    sys.exit()
-print("Reading net...")
-net = sumolib.net.readNet(sys.argv[1])
-print("Writing connections...")
-writeConnections(net)
+    try:
+        options = op.parse_args()
+    except (NotImplementedError, ValueError) as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
+
+    print("Reading net...")
+    net = sumolib.net.readNet(options.net)
+    print("Writing connections...")
+    writeConnections(net)
