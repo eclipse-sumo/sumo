@@ -35,11 +35,11 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("trip (from-to junctions)")
+netedit.changeElement("trip (from-to TAZs)")
 
-# create trip using two junctions
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+# create trip using two TAZs
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,16 +48,16 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 80, 360)
+netedit.leftClick(referencePosition, 110, 225)
 
 # change arrivalLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalLane, "", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.arrivalLane, "", False)
 
 # change arrivalLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalLane, "dummyLane", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.arrivalLane, "dummyLane", False)
 
 # change arrivalLane with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalLane, "current", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.arrivalLane, "current", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

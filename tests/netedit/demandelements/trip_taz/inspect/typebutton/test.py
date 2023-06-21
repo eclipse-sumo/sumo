@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("trip (from-to junctions)")
+netedit.changeElement("trip (from-to TAZs)")
 
-# create trip using two junctions
+# create trip using two TAZs
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
@@ -51,10 +51,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.type, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.type, "custom_vType", False)
 
 # inspect vtype
-netedit.modifyBoolAttribute(netedit.attrs.tripFromToJunction.inspect.typeButton, False)
+netedit.modifyBoolAttribute(netedit.attrs.tripFromToTAZ.inspect.typeButton, False)
 
 # change color with a valid value
 netedit.modifyAttribute(netedit.attrs.type.color, "12,13,14", False)

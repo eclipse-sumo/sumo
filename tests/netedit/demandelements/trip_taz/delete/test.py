@@ -35,11 +35,11 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("trip (from-to junctions)")
+netedit.changeElement("trip (from-to TAZs)")
 
-# create route using two junctions
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+# create route using two TAZs
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete vehicle
-netedit.leftClick(referencePosition, 85, 360)
+netedit.leftClick(referencePosition, 110, 225)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -59,8 +59,8 @@ netedit.supermodeNetwork()
 # go to delete mode
 netedit.deleteMode()
 
-# try to delete junction with demand elements
-netedit.leftClick(referencePosition, 85, 380)
+# try to delete TAZ with demand elements
+netedit.leftClick(referencePosition, 72, 280)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -69,7 +69,7 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their route
-netedit.leftClick(referencePosition, 85, 380)
+netedit.leftClick(referencePosition, 72, 280)
 
 # Check undo
 netedit.undo(referencePosition, 1)

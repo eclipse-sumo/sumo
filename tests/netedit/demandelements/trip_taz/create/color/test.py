@@ -34,11 +34,11 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip over junctions
+# select trip over TAZs
 netedit.changeElement("trip (from-to TAZs)")
 
 # set color using dialog color
-netedit.changeColorUsingDialog(netedit.attrs.tripFromToJunction.create.colorButton, 5)
+netedit.changeColorUsingDialog(netedit.attrs.tripFromToTAZ.create.colorButton, 5)
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set invalid color
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.color, "dummyColor")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.color, "dummyColor")
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.color, "cyan")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.color, "cyan")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.color, "12,13,14")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.color, "12,13,14")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)

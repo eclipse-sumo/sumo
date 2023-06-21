@@ -34,7 +34,7 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip over junctions
+# select trip over TAZs
 netedit.changeElement("trip (from-to TAZs)")
 
 # try to create trip
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set invalid id
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.id, "%%%;;%%%")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.id, "%%%;;%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.id, "")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.id, "")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.id, "t_0")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.id, "t_0")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -75,7 +75,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.id, "customID")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.id, "customID")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)

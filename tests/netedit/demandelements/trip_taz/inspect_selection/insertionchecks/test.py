@@ -44,11 +44,11 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 170)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.insertionChecks, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspectSelection.insertionChecks, "dummy", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.insertionChecks,
-                        "leaderGap junction speedLimit pedestrian", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspectSelection.insertionChecks,
+                        "leaderGap TAZ speedLimit pedestrian", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

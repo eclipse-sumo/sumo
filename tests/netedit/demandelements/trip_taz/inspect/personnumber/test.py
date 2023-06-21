@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("trip (from-to junctions)")
+netedit.changeElement("trip (from-to TAZs)")
 
-# create trip using two junctions
+# create trip using two TAZs
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.personNumber, "", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.personNumber, "", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.personNumber, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.personNumber, "dummyNumber", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.personNumber, "-5", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.personNumber, "-5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.personNumber, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.personNumber, "2.5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.personNumber, "3", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.personNumber, "3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

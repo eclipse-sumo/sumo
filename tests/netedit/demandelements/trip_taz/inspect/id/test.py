@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("trip (from-to junctions)")
+netedit.changeElement("trip (from-to TAZs)")
 
-# create trip using two junctions
+# create trip using two TAZs
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.id, "", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.id, ";;;;;;;;", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.id, ";;;;;;;;", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.id, "id with spaces", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.id, "id with spaces", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.id, "duplicatedVehicle", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.id, "duplicatedVehicle", False)
 
 # change ID with an invalid value (empty)
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.id, "customID", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.id, "customID", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

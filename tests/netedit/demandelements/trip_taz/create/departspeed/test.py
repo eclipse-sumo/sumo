@@ -34,11 +34,11 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip over junctions
+# select trip over TAZs
 netedit.changeElement("trip (from-to TAZs)")
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.departSpeed, "dummySpeed")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.departSpeed, "dummySpeed")
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.departSpeed, "-12")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.departSpeed, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.departSpeed, "max")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.departSpeed, "max")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.departSpeed, "20")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.departSpeed, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)

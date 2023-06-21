@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("trip (from-to junctions)")
+netedit.changeElement("trip (from-to TAZs)")
 
-# create trip using two junctions
+# create trip using two TAZs
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
@@ -51,13 +51,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.departSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.departSpeed, "", False)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.departSpeed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.departSpeed, "dummySpeed", False)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.departSpeed, "max", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.departSpeed, "max", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

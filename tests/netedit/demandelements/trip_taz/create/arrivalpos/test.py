@@ -34,11 +34,11 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip over junctions
+# select trip over TAZs
 netedit.changeElement("trip (from-to TAZs)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.arrivalPos, "dummyPos")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.arrivalPos, "dummyPos")
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.arrivalPos, "-12")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.arrivalPos, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.arrivalPos, "random_free")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.arrivalPos, "random_free")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.arrivalPos, "20")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.arrivalPos, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
