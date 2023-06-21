@@ -215,7 +215,7 @@ TOOLS = [
     "visualization/plotXMLAttributes.py",
 
     # xml
-    # "xml/addSchema.py",         NO CONFIG
+    # "xml/addSchema.py",         IGNORE
     # "xml/binary2plain.py",      NO CONFIG
     "xml/csv2xml.py",
     "xml/xml2csv.py",
