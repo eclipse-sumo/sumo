@@ -125,14 +125,14 @@ TOOLS = [
     "route/route2OD.py",
     # "route/route2poly.py",                  NO CONFIG
     # "route/route2sel.py",                   NO CONFIG
-    # "route/routecheck.py",                  NO CONFIG
-    # "route/routecompare.py",                NO CONFIG
+    "route/routecheck.py",
+    "route/routecompare.py",
     "route/routeStats.py",
     "route/scaleTimeLine.py",
-    # "route/sort_routes.py",                 NO CONFIG
-    # "route/splitRandom.py",                 NO CONFIG
-    # "route/splitRouteFiles.py",             NO CONFIG
-    # "route/tracegenerator.py",              NO CONFIG
+    "route/sort_routes.py",
+    "route/splitRandom.py",
+    "route/splitRouteFiles.py",
+    "route/tracegenerator.py",
     "route/tracemapper.py",
     # "route/vehicle2flow.py",                NO CONFIG
 
