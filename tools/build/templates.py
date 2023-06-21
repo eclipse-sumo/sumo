@@ -235,7 +235,7 @@ TOOLS = [
     "fcdReplay.py",
     "findAllRoutes.py",
     "generateBidiDistricts.py",
-    # "generateContinuousRerouters.py", NO CONFIG
+    "generateContinuousRerouters.py",
     "generateParkingAreaRerouters.py",
     "generateParkingAreas.py",
     # "generateParkingLots.py",         NO CONFIG
