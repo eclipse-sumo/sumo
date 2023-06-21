@@ -88,7 +88,7 @@ TOOLS = [
 
     # net
     "net/abstractRail.py",
-    # "net/createRoundaboutConnections.py",   NO CONFIG
+    "net/createRoundaboutConnections.py",
     "net/net2geojson.py",
     "net/net2jpsgeometry.py",
     "net/net2kml.py",
@@ -176,7 +176,7 @@ TOOLS = [
     "output/walkFactor.py",
 
     # shapes
-    # "shapes/circlePolygon.py",      NO CONFIG
+    "shapes/circlePolygon.py",
     # "shapes/CSV2polyconvertXML.py", NO CONFIG
     # "shapes/poi_alongRoads.py",     NO CONFIG
     # "shapes/poi_at_stops.py",       NO CONFIG
@@ -184,7 +184,7 @@ TOOLS = [
 
     # tls
     # "tls/buildTransitions.py",      NO CONFIG
-    # "tls/createTlsCsv.py",          NO CONFIG
+    "tls/createTlsCsv.py",
     # "tls/tls_check.py",             NO CONFIG
     # "tls/tls_csv2SUMO.py",          NO CONFIG
     "tls/tls_csvSignalGroups.py",
