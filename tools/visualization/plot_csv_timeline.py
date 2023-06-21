@@ -32,6 +32,7 @@ import csv
 
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 from sumolib.visualization import helpers  # noqa
+from sumolib.options import ArgumentParser  # noqa
 import matplotlib.pyplot as plt  # noqa
 
 
@@ -54,19 +55,18 @@ def readValues(file, verbose, columns):
 def main(args=None):
     """The main function; parses options and plots"""
     # ---------- build and read options ----------
-    from optparse import OptionParser
-    optParser = OptionParser()
-    optParser.add_option("-i", "--input", dest="input", metavar="FILE",
-                         help="Defines the input file to use")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
+    ap = ArgumentParser()
+    ap.add_argument("-i", "--input", dest="input", category="input", type=ap.file, metavar="FILE",
+                         required=True, help="Defines the input file to use")
+    ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="If set, the script says what it's doing")
-    optParser.add_option("-c", "--columns", dest="columns",
+    ap.add_argument("--columns", dest="columns",
                          default=None, help="Defines which columns shall be plotted")
     # standard plot options
-    helpers.addInteractionOptions(optParser)
-    helpers.addPlotOptions(optParser)
+    helpers.addInteractionOptions(ap)
+    helpers.addPlotOptions(ap)
     # parse
-    options, _ = optParser.parse_args(args=args)
+    options = ap.parse_args()
 
     if options.input is None:
         print("Error: an input file must be given")
