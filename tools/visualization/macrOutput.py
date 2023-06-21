@@ -22,6 +22,8 @@ from __future__ import print_function
 import sys
 from collections import Counter
 
+sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+from sumolib.options import ArgumentParser  # noqa
 import numpy as np
 import pandas as pd
 import pandas_read_xml as pdx
@@ -29,12 +31,16 @@ import matplotlib.pyplot as plt
 
 
 def main(args):
-
+    
+    ap = sumolib.options.ArgumentParser()
+    ap.add_argument("file", dest="file", category="input", type=ap.file, required=True, help="An XML input file")
+    options = ap.parse_args(args=args)
+    
     if args is None or len(args) < 2:
         print("Error: An xml file must be given as input")
         sys.exit(1)
 
-    df = pdx.read_xml(sys.argv[1], ['meandata'])
+    df = pdx.read_xml(options.file, ['meandata'])
 
     df = pdx.flatten(df)
     df = df.pipe(pdx.flatten)
