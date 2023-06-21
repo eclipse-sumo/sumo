@@ -337,6 +337,10 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
         if (getTLLogicControlToUse().add(myActiveKey, myActiveProgram, tlLogic)) {
             if (myNetIsLoaded) {
                 myAdditionalLogics.push_back(tlLogic);
+            } else if (myLogicType == TrafficLightType::RAIL_SIGNAL) {
+                // special case: intialize earlier because signals are already used when
+                // loading train routes in additional files
+                myRailSignals.push_back(tlLogic);
             } else {
                 myNetworkLogics.push_back(tlLogic);
             }
@@ -468,6 +472,9 @@ MSTLLogicControl*
 NLJunctionControlBuilder::buildTLLogics() {
     if (!myLogicControl->closeNetworkReading()) {
         throw ProcessError(TL("Traffic lights could not be built."));
+    }
+    for (MSTrafficLightLogic* const logic : myRailSignals) {
+        logic->init(myDetectorBuilder);
     }
     MSTLLogicControl* ret = myLogicControl;
     myNetIsLoaded = true;

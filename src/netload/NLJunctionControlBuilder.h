@@ -372,6 +372,7 @@ protected:
     /// @brief The container for information which junctions shall be initialised using which values
     std::vector<MSTrafficLightLogic*> myNetworkLogics;
     std::vector<MSTrafficLightLogic*> myAdditionalLogics;
+    std::vector<MSTrafficLightLogic*> myRailSignals;
     std::map<MSTrafficLightLogic*, StringParameterMap> myLogicParams;
 
     /// @brief The tls control to use (0 if net's tls control shall be used)
