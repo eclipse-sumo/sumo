@@ -668,7 +668,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
 
     with sumolib.openz(options.route_output, mode='w') as output_file:
         sumolib.xml.writeHeader(output_file, root="routes")
-        numDays = options.end // 86401
+        numDays = int(options.end) // 86401
         start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
         shapes_written = set()
 
