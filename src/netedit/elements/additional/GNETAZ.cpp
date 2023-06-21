@@ -26,6 +26,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -679,12 +680,20 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), 1);
     }
     // dotted contour for first TAZ
-    if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
+    if (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this) {
         GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FROMTAZ, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
     }
     // dotted contour for second TAZ
-    if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this)) {
+    if (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this) {
         GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::TOTAZ, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+    }
+    // check if we're selecting TAZs
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
+        // check if we're creating a trip or flow over taz
+        const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+        if (templateAC && ((templateAC->getTagProperty().getTag() == GNE_TAG_TRIP_TAZS) || (templateAC->getTagProperty().getTag() == GNE_TAG_TRIP_TAZS))) {
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+        }
     }
     // now check if mouse is over TAZ
     if (TAZRelDataFrame->shown() && (gPostDrawing.markedTAZ == nullptr) && ((TAZRelDataFrame->getFirstTAZ() == nullptr) || (TAZRelDataFrame->getSecondTAZ() == nullptr))) {
