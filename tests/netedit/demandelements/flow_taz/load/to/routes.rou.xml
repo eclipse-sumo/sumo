@@ -61,6 +61,6 @@
 
     <flow id="flow_3" fromJunction="gneJ4" toJunction="gneJ4" begin="20.00" end="50.00" number="100"/>
 
-    <flow id="flow_4" fromJunction="gneJ4" toJunction="gneJ7" begin="20.00" end="50.00" number="100"/>
+    <flow id="flow_4" fromTaz="taz_0" toTaz="taz_1" begin="20.00" end="50.00" number="100"/>
 
 </routes>
