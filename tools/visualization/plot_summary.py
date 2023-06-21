@@ -32,29 +32,25 @@ import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
+from sumolib.options import ArgumentParser  # noqa
 import matplotlib.pyplot as plt  # noqa
 
 
 def main(args=None):
     """The main function; parses options and plots"""
     # ---------- build and read options ----------
-    from optparse import OptionParser
-    optParser = OptionParser()
-    optParser.add_option("-i", "--summary-inputs", dest="summary", metavar="FILE",
-                         help="Defines the summary-output files to use as input")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
+    ap = ArgumentParser()
+    ap.add_argument("-i", "--summary-inputs", dest="summary", category="input", type=ap.file_list, metavar="FILE",
+                         required=True, help="Defines the summary-output files to use as input")
+    ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="If set, the script says what it's doing")
-    optParser.add_option("-m", "--measure", dest="measure",
+    ap.add_argument("-m", "--measure", dest="measure", category="input",
                          default="running", help="Define which measure to plot")
     # standard plot options
-    helpers.addInteractionOptions(optParser)
-    helpers.addPlotOptions(optParser)
+    helpers.addInteractionOptions(ap)
+    helpers.addPlotOptions(ap)
     # parse
-    options, _ = optParser.parse_args(args=args)
-
-    if options.summary is None:
-        print("Error: at least one summary file must be given")
-        sys.exit(1)
+    options = ap.parse_args()
 
     files = options.summary.split(",")
     fig, ax = helpers.openFigure(options)
