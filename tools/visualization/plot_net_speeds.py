@@ -39,9 +39,9 @@ def main(args=None):
     ap = ArgumentParser()
     ap.add_argument("-n", "--net", dest="net", category="input", type=ap.net_file, metavar="FILE",
                          required=True, help="Defines the network to read")
-    ap.add_argument("--edge-width", dest="defaultWidth",
+    ap.add_argument("--edge-width", dest="defaultWidth", category="visualization",
                          type=float, default=1, help="Defines the edge width")
-    ap.add_argument("--edge-color", dest="defaultColor",
+    ap.add_argument("--edge-color", dest="defaultColor", category="visualization",
                          default='k', help="Defines the edge color")
     ap.add_argument("--minV", dest="minV",
                          type=float, default=None, help="Define the minimum value boundary")

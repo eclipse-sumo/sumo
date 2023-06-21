@@ -39,11 +39,11 @@ def main(args=None):
                          default=False, help="If set, the script says what it's doing")
     ap.add_argument("-w", "--width", dest="width",
                          type=float, default=20, help="Defines the width of the dots")
-    ap.add_argument("--color", dest="color",
+    ap.add_argument("--color", dest="color", category="visualization",
                          default='r', help="Defines the dot color")
-    ap.add_argument("--edge-width", dest="defaultWidth",
+    ap.add_argument("--edge-width", dest="defaultWidth", category="visualization",
                          type=float, default=1, help="Defines the edge width")
-    ap.add_argument("--edge-color", dest="defaultColor",
+    ap.add_argument("--edge-color", dest="defaultColor", category="visualization",
                          default='k', help="Defines the edge color")
     # standard plot options
     helpers.addInteractionOptions(ap)

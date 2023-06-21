@@ -103,13 +103,13 @@ def getOptions(args=None):
                          help="clamp y values to range A:B or half-range A: / :B")
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
-    optParser.add_option("--scatterplot", action="store_true",
+    optParser.add_option("--scatterplot", action="store_true", category="visualization",
                          default=False, help="Draw a scatterplot instead of lines")
-    optParser.add_option("--barplot", action="store_true",
+    optParser.add_option("--barplot", action="store_true", category="visualization",
                          default=False, help="Draw a bar plot parallel to the y-axis")
-    optParser.add_option("--hbarplot", action="store_true",
+    optParser.add_option("--hbarplot", action="store_true", category="visualization",
                          default=False, help="Draw a bar plot parallel to the x-axis")
-    optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
+    optParser.add_option("--legend", action="store_true", default=False, category="visualization", help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     sumolib.visualization.helpers.addPlotOptions(optParser)
     sumolib.visualization.helpers.addInteractionOptions(optParser)
