@@ -36,6 +36,8 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from sumolib.options import ArgumentParser
 try:
     from StringIO import StringIO
 except ImportError:
@@ -251,21 +253,18 @@ class RouteReader(handler.ContentHandler):
             self._out.write('<?%s %s?>' % (target, data))
 
 
-optParser = OptionParser(
-    usage=os.path.basename(__file__) + " [options] <routes>*")
-optParser.add_option("-v", "--verbose", action="store_true",
+ap = ArgumentParser()
+ap.add_argument("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
-optParser.add_option("-f", "--fix", action="store_true",
+ap.add_argument("-f", "--fix", action="store_true",
                      default=False, help="fix errors into '.fixed' file")
-optParser.add_option("-l", "--fix-length", action="store_true",
+ap.add_argument("-l", "--fix-length", action="store_true",
                      default=False, help="fix vehicle type's length and guiOffset attributes")
-optParser.add_option("-i", "--inplace", action="store_true",
+ap.add_argument("-i", "--inplace", action="store_true",
                      default=False, help="replace original files")
-optParser.add_option("-n", "--net", help="network to check connectivity")
-(options, args) = optParser.parse_args()
-if len(args) == 0:
-    optParser.print_help()
-    sys.exit()
+ap.add_argument("-n", "--net", category="input", type=ap.net_file, help="network to check connectivity")
+ap.add_argument("routes", category="input", type=ap.file, nargs="+", help="route files to check")
+options = ap.parse_args()
 parser = make_parser()
 net = None
 if options.net:
@@ -277,7 +276,7 @@ parser.setContentHandler(RouteReader(net, ''))
 if options.fix_length:
     deletedKeys["vType"] += ['guiOffset']
 
-for f in args:
+for f in options.routes:
     ffix = f + '.fixed'
     if options.fix:
         if options.verbose:
