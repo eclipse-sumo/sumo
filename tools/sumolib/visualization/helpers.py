@@ -27,6 +27,7 @@ import matplotlib
 if 'matplotlib.backends' not in sys.modules:
     if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
         matplotlib.use('Agg')
+from ..options import ArgumentParser
 from pylab import arange, close, cm, get_cmap, figure, legend, log, plt, savefig, show, title  # noqa
 from pylab import xlabel, xlim, xticks, ylabel, ylim, yticks  # noqa
 from matplotlib.ticker import FuncFormatter as ff  # noqa
@@ -123,7 +124,7 @@ def addPlotOptions(optParser):
 
 
 def addInteractionOptions(optParser):
-    optParser.add_option("-o", "--output", dest="output", metavar="FILE",
+    optParser.add_option("-o", "--output", category="output", dest="output", metavar="FILE", type=ArgumentParser.file_list,
                          default=None, help="Comma separated list of filename(s) the figure shall be written to")
     optParser.add_option("-b", "--blind", dest="blind", action="store_true",
                          default=False, help="If set, the figure will not be shown")

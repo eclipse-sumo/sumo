@@ -72,15 +72,15 @@ def getOptions(args=None):
         '    plots passengers over time for vehicles from SUMO stop output',
         formatter_class=RawDescriptionHelpFormatter, conflict_handler='resolve')
 
-    optParser.add_option("files", nargs='+', type=optParser.file_list,
+    optParser.add_option("files", nargs='+', category="input", type=optParser.file_list,
                          help="List of XML files to plot")
-    optParser.add_option("-x", "--xattr",  help="attribute for x-axis")
-    optParser.add_option("-y", "--yattr",  help="attribute for y-axis")
-    optParser.add_option("-i", "--idattr",  default="id", help="attribute for grouping data points into lines")
-    optParser.add_option("--xelem",  help="element for x-axis")
-    optParser.add_option("--yelem",  help="element for y-axis")
-    optParser.add_option("--idelem",  help="element for grouping data points into lines")
-    optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
+    optParser.add_option("-x", "--xattr", help="attribute for x-axis")
+    optParser.add_option("-y", "--yattr", help="attribute for y-axis")
+    optParser.add_option("-i", "--idattr", default="id", help="attribute for grouping data points into lines")
+    optParser.add_option("--xelem", help="element for x-axis")
+    optParser.add_option("--yelem", help="element for y-axis")
+    optParser.add_option("--idelem", help="element for grouping data points into lines")
+    optParser.add_option("-s", "--show", action="store_true", category="output", default=False, help="show plot directly")
     optParser.add_option("--csv-output", dest="csv_output", category="output",
                          help="write plot as csv")
     optParser.add_option("--filter-ids", dest="filterIDs", help="only plot data points from the given list of ids")
