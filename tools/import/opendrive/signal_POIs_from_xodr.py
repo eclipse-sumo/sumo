@@ -147,13 +147,13 @@ if __name__ == "__main__":
 
     import argparse
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("xodr_file", type=str,
+    op = sumolib.options.ArgumentParser()
+    op.add_argument("xodr_file", type=str, category="input", required=True, 
                         help="file path of open drive file")
-    parser.add_argument("net_file", type=str,
+    op.add_argument("net_file", type=str, category="input", required=True,
                         help="file path of net file")
-    # parser.add_argument("workLog", type=str, help="work log file")
-    args = parser.parse_args()
+    # op.add_argument("workLog", type=str, help="work log file")
+    args = op.parse_args()
 
     net_Fp = args.net_file  # td_Dp+'/sumo/net.net.xml'
     xodr_Fp = args.xodr_file  # td_Dp+'/OpenDrive/scen_T01.02.xodr'
