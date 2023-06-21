@@ -229,7 +229,7 @@ TOOLS = [
     # other
     # "averageTripStatistics.py",       NO CONFIG
     "countEdgeUsage.py",
-    # "createVehTypeDistribution.py",   NO CONFIG
+    "createVehTypeDistribution.py",
     "edgesInDistricts.py",
     # "evacuateAreas.py",               NOT_SUITABLE
     "extractTest.py",
