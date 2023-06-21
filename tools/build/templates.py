@@ -96,7 +96,7 @@ TOOLS = [
     "net/netcheck.py",
     "net/netdiff.py",
     # "net/netduplicate.py",                  NO CONFIG
-    # "net/netmatch.py",                      NO CONFIG
+    "net/netmatch.py",
     "net/network_statistics.py",
     # "net/odConnectionsCheck.py",            NO CONFIG
     # "net/prepareVISUM.py",                  NO CONFIG
