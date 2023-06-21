@@ -34,11 +34,11 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip over junctions
-netedit.changeElement("flow (from-to junctions)")
+# select trip over TAZs
+netedit.changeElement("flow (from-to TAZs)")
 
 # set color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.flowJunction.create.colorButton, 5)
+netedit.changeColorUsingDialog(netedit.attrs.flowTAZ.create.colorButton, 5)
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid color
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.color, "dummyColor")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.color, "dummyColor")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.color, "cyan")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.color, "cyan")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.color, "12,13,14")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.color, "12,13,14")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

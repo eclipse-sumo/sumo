@@ -35,10 +35,10 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # select flow with embedded route
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("flow (from-to TAZs)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminate, "dummyTerminate")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminate, "dummyTerminate")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminate, "end-number")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminate, "end-number")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.end, "dummy")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.end, "dummy")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.end, "-30")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.end, "-30")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.end, "20.5")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.end, "20.5")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -88,10 +88,10 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.end, "22")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.end, "22")
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.number, "dummy")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.number, "dummy")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -101,7 +101,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.number, "-30")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.number, "-30")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -111,7 +111,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.number, "20.5")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.number, "20.5")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -121,7 +121,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.number, "51")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.number, "51")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)

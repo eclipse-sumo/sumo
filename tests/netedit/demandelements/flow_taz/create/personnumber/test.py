@@ -34,11 +34,11 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip over junctions
-netedit.changeElement("flow (from-to junctions)")
+# select trip over TAZs
+netedit.changeElement("flow (from-to TAZs)")
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "dummypersonNumber")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.personNumber, "dummypersonNumber")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "-12")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.personNumber, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "3.5")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.personNumber, "3.5")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "13")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.personNumber, "13")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

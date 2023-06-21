@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 170)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.terminate, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.terminate, "dummyTerminate", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.terminate, "number", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.terminate, "number", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.terminateOption, "dummyEnd", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.terminateOption, "dummyEnd", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.terminateOption, "12.5", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.terminateOption, "12.5", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.terminateOption, "26", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.terminateOption, "26", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

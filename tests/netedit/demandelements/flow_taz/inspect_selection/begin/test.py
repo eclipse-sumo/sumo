@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 170)
 
 # change begin with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.begin, "", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.begin, "", False)
 
 # change begin with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.begin, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.begin, "dummyDepart", False)
 
 # change begin with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.begin, "-3", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.begin, "-3", False)
 
 # change begin with an valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.begin, "10.2", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.begin, "10.2", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

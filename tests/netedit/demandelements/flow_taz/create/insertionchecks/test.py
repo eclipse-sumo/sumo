@@ -34,11 +34,11 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip over junctions
-netedit.changeElement("flow (from-to junctions)")
+# select trip over TAZs
+netedit.changeElement("flow (from-to TAZs)")
 
 # set invalid insertionChecks
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.insertionChecks, "%%%%%%")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.insertionChecks, "%%%%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,8 +48,8 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid Line
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.insertionChecks,
-                           "leaderGap junction speedLimit pedestrian")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.insertionChecks,
+                           "leaderGap TAZ speedLimit pedestrian")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

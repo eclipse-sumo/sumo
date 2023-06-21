@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("flow (from-to TAZs)")
 
 # create flow with embedded route using two edges
 netedit.leftClick(referencePosition, 80, 360)
@@ -51,28 +51,28 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.terminate, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.terminate, "dummyTerminate", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.terminate, "end-number", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.terminate, "end-number", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacing, "dummyEnd", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacing, "dummyEnd", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacing, "23", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacing, "23", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.end, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.end, "dummyNumber", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.end, "12.3", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.end, "12.3", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.end, "-30", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.end, "-30", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.end, "81", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.end, "81", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

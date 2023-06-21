@@ -35,10 +35,10 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # select flow with embedded route
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("flow (from-to TAZs)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacing, "dummySpacing")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacing, "dummySpacing")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacing, "period")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacing, "period")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacingOption, "dummy")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacingOption, "dummy")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacingOption, "-30")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacingOption, "-30")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacingOption, "20.5")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacingOption, "20.5")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -88,7 +88,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacingOption, "22")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacingOption, "22")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

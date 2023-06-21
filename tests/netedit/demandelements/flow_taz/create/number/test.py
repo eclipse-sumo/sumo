@@ -35,10 +35,10 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # select flow with embedded route
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("flow (from-to TAZs)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminate, "dummyTerminate")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminate, "dummyTerminate")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminate, "number")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminate, "number")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "dummy")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminateOption, "dummy")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "-30")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminateOption, "-30")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "20.5")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminateOption, "20.5")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, 80, 360)
@@ -88,7 +88,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "22")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminateOption, "22")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

@@ -34,11 +34,11 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip over junctions
-netedit.changeElement("flow (from-to junctions)")
+# select trip over TAZs
+netedit.changeElement("flow (from-to TAZs)")
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalSpeed, "dummySpeed")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.arrivalSpeed, "dummySpeed")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid arrival speed
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalSpeed, "-12")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.arrivalSpeed, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival speed
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalSpeed, "max")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.arrivalSpeed, "max")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid arrival speed
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalSpeed, "20")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.arrivalSpeed, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

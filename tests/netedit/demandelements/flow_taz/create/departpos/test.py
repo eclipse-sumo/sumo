@@ -34,11 +34,11 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip over junctions
-netedit.changeElement("flow (from-to junctions)")
+# select trip over TAZs
+netedit.changeElement("flow (from-to TAZs)")
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departPos, "dummyPos")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departPos, "dummyPos")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departPos, "-12")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departPos, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departPos, "random_free")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departPos, "random_free")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.departPos, "20")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departPos, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

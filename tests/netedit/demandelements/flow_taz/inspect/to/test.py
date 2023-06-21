@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("flow (from-to TAZs)")
 
-# create trip using two junctions
+# create trip using two TAZs
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.type, "bicycle", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.type, "bicycle", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.toJunction, "", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.toTAZ, "", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.toJunction, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.toTAZ, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.toJunction, "gneJ9", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.toTAZ, "gneJ9", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

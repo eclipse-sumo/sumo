@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("flow (from-to TAZs)")
 
-# create trip using two junctions
+# create trip using two TAZs
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.containerNumber, "", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.containerNumber, "", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.containerNumber, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.containerNumber, "dummyNumber", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.containerNumber, "-5", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.containerNumber, "-5", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.containerNumber, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.containerNumber, "2.5", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.containerNumber, "3", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.containerNumber, "3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

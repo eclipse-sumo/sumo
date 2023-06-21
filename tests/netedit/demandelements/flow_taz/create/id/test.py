@@ -34,8 +34,8 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip over junctions
-netedit.changeElement("flow (from-to junctions)")
+# select trip over TAZs
+netedit.changeElement("flow (from-to TAZs)")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid id
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.id, "%%;;%%%%")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.id, "%%;;%%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.id, "")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.id, "")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.id, "f_0")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.id, "f_0")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -75,7 +75,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.id, "customID")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.id, "customID")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)

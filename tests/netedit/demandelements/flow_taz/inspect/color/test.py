@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("flow (from-to TAZs)")
 
-# create trip using two junctions
+# create trip using two TAZs
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.flowJunction.inspect.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.flowTAZ.inspect.colorButton, 5, False)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.color, "", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "", False)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "dummyColor", False)
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.color, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "cyan", False)
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "12,13,14", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

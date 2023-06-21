@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("flow (from-to TAZs)")
 
-# create trip using two junctions
+# create trip using two TAZs
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
@@ -51,7 +51,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.flowJunction.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.flowTAZ.inspect.parameters, False)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

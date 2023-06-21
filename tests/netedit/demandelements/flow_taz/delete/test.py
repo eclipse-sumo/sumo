@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("flow (from-to TAZs)")
 
-# create route using two junctions
+# create route using two TAZs
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
@@ -59,7 +59,7 @@ netedit.supermodeNetwork()
 # go to delete mode
 netedit.deleteMode()
 
-# try to delete junction with demand elements
+# try to delete TAZ with demand elements
 netedit.leftClick(referencePosition, 85, 380)
 
 # wait warning
