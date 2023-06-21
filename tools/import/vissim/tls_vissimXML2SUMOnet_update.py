@@ -32,7 +32,7 @@ from xml.dom import minidom
 from copy import deepcopy
 
 import numpy as np
-
+import sumolib  # noqa
 
 def dict_from_node_attributes(node):
     """takes a xml node and returns a dictionary with its attributes"""
@@ -521,16 +521,18 @@ tls_state_vissim2SUMO = {'RED': 'r',
 
 # MAIN
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
+    op = sumolib.options.ArgumentParser(
         description='TLS conversion utility (VISSIM.inpx to SUMO)')
-    parser.add_argument('--vissim-input',
-                        '-V', type=str,
+    op.add_argument('--vissim-input','-V', 
+                        type=str, category="input", required=True, type=op.file, 
                         help='VISSIM inpx file path')
-    parser.add_argument('--SUMO-net', '-S', type=str,
+    op.add_argument('--SUMO-net', '-S',
+                        category="input", required=True, type=op.net_file, 
                         help='SUMO net file path')
-    parser.add_argument('--output-file', '-o', type=str,
+    op.add_argument('--output-file', '-o',
+                        category="output", required=True, type=op.file, 
                         help='output file name')
-    args = parser.parse_args()
+    args = op.parse_args()
     print("\n", args, "\n")
     print('\n---\n\n* loading VISSIM net:\n\t', args.vissim_input)
     xmldoc = minidom.parse(args.vissim_input)

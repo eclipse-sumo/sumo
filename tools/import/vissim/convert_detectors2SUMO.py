@@ -301,15 +301,14 @@ def get_conn_verb_rel(conn_tab, from_to_tab):
 
 # MAIN
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='detector conversion utility (VISSIM.inpx to SUMO)')
-    parser.add_argument('--vissim-input', '-V', type=str,
+    op = sumolib.options.ArgumentParser(description='detector conversion utility (VISSIM.inpx to SUMO)')
+    op.add_argument('--vissim-input', '-V', type=str, category="input", required=True, type=op.file,
                         help='VISSIM inpx file path')
-    parser.add_argument('--output-file', '-o', type=str,
+    op.add_argument('--output-file', '-o', type=str, category="output", required=True, type=op.file,
                         help='output file name')
-    parser.add_argument('--SUMO-net', '-S', type=str,
+    op.add_argument('--SUMO-net', '-S', type=str, category="input", required=True, type=op.net_file,
                         help='SUMO net file path')
-    args = parser.parse_args()
+    args = op.parse_args()
     print("\n", args, "\n")
     print('\n---\n\n* loading VISSIM net:\n\t', args.vissim_input)
     sumo_doc = minidom.parse(args.SUMO_net)

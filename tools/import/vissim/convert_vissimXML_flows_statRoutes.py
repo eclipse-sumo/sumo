@@ -479,17 +479,17 @@ def create_flow_elems(routes_by_start_d, flow_d, root):
 
 # MAIN
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
+    op = sumolib.options.ArgumentParser(
         description='road network conversion utility for static route flows'
         ' (VISSIM.inpx to SUMO); generates SUMO routes definition file from'
         ' given inpx and derived (by netconvert) SUMO net.')
-    parser.add_argument('--output-file', '-o', default='routes.rou.xml',
+    op.add_argument('--output-file', '-o', default='routes.rou.xml', category="output", type=op.route_file, 
                         help='output file name (default: %(default)s)')
-    parser.add_argument('--vissim-file', '-V', dest="vissim_file", required=True,
+    op.add_argument('--vissim-file', '-V', dest="vissim_file", category="input", required=True, type=op.file, 
                         help='VISSIM inpx file path')
-    parser.add_argument('--sumo-net-file', '-n', dest="sumo_net_file", required=True,
+    op.add_argument('--sumo-net-file', '-n', dest="sumo_net_file", category="input", required=True, type=op.net_file, 
                         help='SUMO net file path')
-    args = parser.parse_args()
+    args = op.parse_args()
     # print("\n", args, "\n")
 
     #
