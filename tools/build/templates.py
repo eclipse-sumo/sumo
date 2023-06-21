@@ -204,15 +204,14 @@ TOOLS = [
     # "visualization/mpl_dump_timeline.py",           NO CONFIG
     # "visualization/mpl_dump_twoAgainst.py",         NO CONFIG
     # "visualization/mpl_tripinfos_twoAgainst.py",    NO CONFIG
-    # "visualization/plot_csv_bars.py",               NO CONFIG
-    # "visualization/plot_csv_pie.py",                NO CONFIG
-    # "visualization/plot_csv_timeline.py",           NO CONFIG
+    "visualization/plot_csv_bars.py",
+    "visualization/plot_csv_pie.py",
+    "visualization/plot_csv_timeline.py",
     "visualization/plot_net_dump.py",
-    # "visualization/plot_net_selection.py",          NO CONFIG
-    # "visualization/plot_net_speeds.py",             NO CONFIG
-    # "visualization/plot_net_trafficLights.py",      NO CONFIG
-    # "visualization/plot_summary.py",                NO CONFIG
-    # "visualization/plot_tripinfo_distributions.py", NO CONFIG
+    "visualization/plot_net_selection.py",
+    "visualization/plot_net_speeds.py",
+    "visualization/plot_net_trafficLights.py",
+    "visualization/plot_summary.py",
     "visualization/plotXMLAttributes.py",
 
     # xml
