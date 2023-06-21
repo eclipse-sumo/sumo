@@ -43,7 +43,7 @@ def get_options():
     optParser.add_argument("source", category="input", type=optParser.data_file,
                            help="the input CSV file")
     # output
-    optParser.add_argument("-o", "--output", category="output",
+    optParser.add_argument("-o", "--output", category="output", required=True, type=optParser.file,
                            help="name for generic output file")
     # processing
     optParser.add_argument("-q", "--quotechar", default="",
