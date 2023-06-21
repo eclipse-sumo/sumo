@@ -93,7 +93,7 @@ TOOLS = [
     "net/net2jpsgeometry.py",
     "net/net2kml.py",
     "net/net2poly.py",
-    # "net/netcheck.py",                      NO CONFIG
+    "net/netcheck.py",
     "net/netdiff.py",
     # "net/netduplicate.py",                  NO CONFIG
     # "net/netmatch.py",                      NO CONFIG

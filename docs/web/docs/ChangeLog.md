@@ -181,7 +181,7 @@ title: ChangeLog
 
 ### Miscellaneous
 
-- plot_csv_bars.py, plot_net_trafficLights.py and plot_csv_timeline do not support the -c shortcut anymore, but all continue to work with the respective long option name (e.g. --columns). Issue #8409 and #12874
+- netcheck.py, plot_csv_bars.py, plot_net_trafficLights.py and plot_csv_timeline do not support the -c shortcut anymore, but all continue to work with the respective long option name (e.g. --columns). Issue #8409 and #12874
 - plotXMLAttributes.py and plot_trajectories.py no longer create 'plot.png' by default. Issue #13166
 - netconvert: road objects imported from OpenDRIVE are now placed on a higher layer to make them visible above the road. Issue #13197
 - netconvert: option **--osm.all-attributes** now defaults to exporting all attributes because the explicit list of attributes (**--osm.extra-attributes**) now defaults to value **all**. Issue #13218
