@@ -1,3 +1,5 @@
-Usage: circlePolygon.py [options]
-
-circlePolygon.py: error: option --radius: invalid floating-point value: 'dummy'
+usage: circlePolygon.py [-h] [-c FILE] [-C FILE] [--save-template FILE]
+                        [-r RADIUS] [-p PREFIX] [-t TYPE] [--color COLOR] [-f]
+                        [-l LAYER] [-x CORNERS] [-o OUTPUT_FILE]
+                        files [files ...]
+circlePolygon.py: error: argument -r/--radius: invalid float value: 'dummy'
