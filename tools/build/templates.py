@@ -301,7 +301,7 @@ def buildTemplateToolHeader(templateHeaderFile):
 
 def formatBinTemplate(templateStr):
     """
-    @brief parse binary of a bin template (sumo, neconvert, etc.)
+    @brief parse binary of a bin template (sumo, netconvert, etc.)
     """
     # remove endlines in Windows
     templateStr = templateStr.replace("\\r", '')
@@ -350,7 +350,7 @@ def generateTemplate(app, appBin):
         except CalledProcessError as e:
             sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
             return 'const std::string ' + app + 'Template = "";'
-        # join variable and formated template
+        # join variable and formatted template
         return 'const std::string ' + app + 'Template = "' + formatBinTemplate(template)
     # if binary wasn't found, then raise exception
     raise Exception(app + "template cannot be generated. " + app + " binary not found. "
@@ -373,7 +373,7 @@ def generateToolTemplate(toolDir, toolPath):
             with open(os.devnull, "w") as null:
                 template = check_output([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"],
                                         stderr=null, universal_newlines=True)
-            # join variable and formated template
+            # join variable and formatted template
             return templateTool + formatToolTemplate(template) + '),\n'
         except CalledProcessError as e:
             print("Error when generating tool template for %s: '%s'." % (toolName, e), file=sys.stderr)
