@@ -220,6 +220,8 @@ NLBuilder::build() {
         }
         MSTriggeredRerouter::checkParkingRerouteConsistency();
     }
+    // init tls after all detectors have been loaded
+    myJunctionBuilder.postLoadInitialization();
     // declare meandata set by options
     buildDefaultMeanData("edgedata-output", "DEFAULT_EDGEDATA", false);
     buildDefaultMeanData("lanedata-output", "DEFAULT_LANEDATA", true);

@@ -255,7 +255,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
                 // parameters that are used when initializing a logic will not take
                 // effect but parameters that are checked at runtime can be used
                 // here (i.e. device.glosa.range)
-                existing->updateParameters(myAdditionalParameter);
+                myLogicParams[existing] = myAdditionalParameter;
                 return;
             }
         }
@@ -336,9 +336,9 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
     if (tlLogic != nullptr) {
         if (getTLLogicControlToUse().add(myActiveKey, myActiveProgram, tlLogic)) {
             if (myNetIsLoaded) {
-                tlLogic->init(myDetectorBuilder);
+                myAdditionalLogics.push_back(tlLogic);
             } else {
-                myLogics2PostLoadInit.push_back(tlLogic);
+                myNetworkLogics.push_back(tlLogic);
             }
         } else {
             WRITE_ERRORF(TL("Another logic with id '%' and programID '%' exists."), myActiveKey, myActiveProgram);
@@ -466,11 +466,11 @@ NLJunctionControlBuilder::closeFunction() {
 
 MSTLLogicControl*
 NLJunctionControlBuilder::buildTLLogics() {
-    postLoadInitialization(); // must happen after edgeBuilder is finished
     if (!myLogicControl->closeNetworkReading()) {
         throw ProcessError(TL("Traffic lights could not be built."));
     }
     MSTLLogicControl* ret = myLogicControl;
+    myNetIsLoaded = true;
     myLogicControl = nullptr;
     return ret;
 }
@@ -506,10 +506,16 @@ NLJunctionControlBuilder::getActiveSubKey() const {
 
 void
 NLJunctionControlBuilder::postLoadInitialization() {
-    for (MSTrafficLightLogic* const logic : myLogics2PostLoadInit) {
+    for (MSTrafficLightLogic* const logic : myNetworkLogics) {
         logic->init(myDetectorBuilder);
     }
-    myNetIsLoaded = true;
+    for (MSTrafficLightLogic* const logic : myAdditionalLogics) {
+        logic->init(myDetectorBuilder);
+    }
+    // delay parameter loading until initialization
+    for (auto item : myLogicParams) {
+        item.first->updateParameters(item.second);
+    }
 }
 
 
