@@ -30,39 +30,39 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from sumolib.visualization import helpers  # noqa
+from sumolib.options import ArgumentParser  # noqa
 import matplotlib.pyplot as plt  # noqa
 
 
 def main(args=None):
     """The main function; parses options and plots"""
     # ---------- build and read options ----------
-    from optparse import OptionParser
-    optParser = OptionParser()
-    optParser.add_option("-i", "--input", dest="input", metavar="FILE",
+    ap = ArgumentParser()
+    ap.add_argument("-i", "--input", category="input", dest="input", metavar="FILE", type=ap.file,
                          help="Defines the csv file to use as input")
-    optParser.add_option("-c", "--column", dest="column",
-                         type="int", default=1, help="Selects the column to read values from")
-    optParser.add_option("-r", "--revert", dest="revert", action="store_true",
+    ap.add_argument("--column", dest="column",
+                         type=int, default=1, help="Selects the column to read values from")
+    ap.add_argument("-r", "--revert", dest="revert", action="store_true",
                          default=False, help="Reverts the order of read values")
-    optParser.add_option("-w", "--width", dest="width",
-                         type="float", default=.8, help="Defines the width of the bars")
-    optParser.add_option("--space", dest="space",
-                         type="float", default=.2, help="Defines the space between the bars")
-    optParser.add_option("--norm", dest="norm",
-                         type="float", default=1., help="Divides the read numbers by this value before plotting them")
-    optParser.add_option("--show-values", dest="showValues", action="store_true",
+    ap.add_argument("-w", "--width", dest="width",
+                         type=float, default=.8, help="Defines the width of the bars")
+    ap.add_argument("--space", dest="space",
+                         type=float, default=.2, help="Defines the space between the bars")
+    ap.add_argument("--norm", dest="norm",
+                         type=float, default=1., help="Divides the read numbers by this value before plotting them")
+    ap.add_argument("--show-values", dest="showValues", action="store_true",
                          default=False, help="Shows the values")
-    optParser.add_option("--values-offset", dest="valuesOffset",
-                         type="float", default=1., help="Position offset for values")
-    optParser.add_option("--vertical", dest="vertical", action="store_true",
+    ap.add_argument("--values-offset", dest="valuesOffset",
+                         type=float, default=1., help="Position offset for values")
+    ap.add_argument("--vertical", dest="vertical", action="store_true",
                          default=False, help="vertical bars are used")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
+    ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="If set, the script says what it's doing")
     # standard plot options
-    helpers.addInteractionOptions(optParser)
-    helpers.addPlotOptions(optParser)
+    helpers.addInteractionOptions(ap)
+    helpers.addPlotOptions(ap)
     # parse
-    options, remaining_args = optParser.parse_args(args=args)
+    options = ap.parse_args()
 
     if options.input is None:
         raise ValueError("Error: at least one csv file must be given")
