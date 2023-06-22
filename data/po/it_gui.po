@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-21 10:41+0000\n"
+"PO-Revision-Date: 2023-06-22 13:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -15391,11 +15391,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:285
 msgid "Copy name to clipboard"
-msgstr ""
+msgstr "Copia nome negli appunti"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:286
 msgid "Copy typed name to clipboard"
-msgstr ""
+msgstr "Copia nome tipizzato negli appunti"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:296
 msgid "Remove From Selected"
@@ -15415,11 +15415,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:326
 msgid "Copy cursor position to clipboard"
-msgstr ""
+msgstr "Copia posizione del cursore negli appunti"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:328
 msgid "Copy cursor geo-position to clipboard"
-msgstr ""
+msgstr "Copia posizione geografica negli appunti"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:332
 msgid "Show cursor geo-position in "
@@ -16613,13 +16613,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:146
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:128
 msgid " name to clipboard"
-msgstr ""
+msgstr " nome negli appunti"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:149
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:147
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:129
 msgid " typed name to clipboard"
-msgstr ""
+msgstr " nome tipizzato negli appunti"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:188
 msgid "Could not build access in netedit; The lane '"
