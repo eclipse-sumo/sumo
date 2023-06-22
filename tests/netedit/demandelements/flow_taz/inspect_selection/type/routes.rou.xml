@@ -49,7 +49,7 @@
     </flow>
 
     <!-- flow B -->
-    <flow id="flowB" type="typeB" fromJunction="gneJ5" toJunction="gneJ6" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" begin="5.00" end="36.00" number="18">
+    <flow id="flowB" type="typeB" fromTaz="taz_2" toTaz="taz_3" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" begin="5.00" end="36.00" number="18">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>
