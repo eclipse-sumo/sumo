@@ -1,5 +1,8 @@
 two_edges
 
+# Test that checks there is no bad state recorded.
+bad_state_bug
+
 # Starting two agents at the same position
 identical_start_pos
 
