@@ -34,3 +34,6 @@ comment_params
 
 # 2 common bidi edges between stations
 redundant
+
+# only one side has a diverging track and the other side has a (delayed) train insertion
+oneSideInsertion
