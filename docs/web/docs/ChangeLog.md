@@ -138,6 +138,7 @@ title: ChangeLog
   - Simplified selection of .sumocfg files when calling runSeeds.py tool. Issue #13118
   - Simplified seelction of edge is when calling python tools. Issue #12852
   - The traffic light join mode now has  'OK / 'cancel' buttons. Issue #13028
+  - Now netedit supports trip and flows over TAZs. Issue #13311
 
 - netconvert
   - OpenDRIVE import: now supports road objects from connecting roads. Issue #13196
