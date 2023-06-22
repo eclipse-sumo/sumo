@@ -682,7 +682,20 @@ MSLane::insertVehicle(MSVehicle& veh) {
         case DepartPosDefinition::BASE:
         case DepartPosDefinition::DEFAULT:
         default:
-            pos = veh.basePos(myEdge);
+            if (pars.departProcedure == DepartDefinition::SPLIT) {
+                pos = getLength();
+                // find the vehicle from which we are splitting off (should only be a single lane to check)
+                AnyVehicleIterator end = anyVehiclesEnd();
+                for (AnyVehicleIterator it = anyVehiclesBegin(); it != end; ++it) {
+                    const MSVehicle* cand = *it;
+                    if (cand->isStopped() && cand->getNextStopParameter()->split == veh.getID()) {
+                        pos = cand->getBackPositionOnLane() - veh.getVehicleType().getMinGap();
+                        break;
+                    }
+                }
+            } else {
+                pos = veh.basePos(myEdge);
+            }
             break;
     }
     // determine the lateral position for special cases
