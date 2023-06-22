@@ -38,27 +38,24 @@ def generateTrace(route, step, x=0., y=0.):
 if __name__ == "__main__":
     ap = sumolib.options.ArgumentParser()
     ap.add_argument("-v", "--verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
+                    default=False, help="tell me what you are doing")
     ap.add_argument("-n", "--net", category="input", type=ap.net_file,
-                         required=True, help="SUMO network to use (mandatory)", metavar="FILE")
+                    required=True, help="SUMO network to use (mandatory)", metavar="FILE")
     ap.add_argument("-2", "--net2", category="input", type=ap.net_file,
-                         help="immediately match routes to a second network", metavar="FILE")
+                    help="immediately match routes to a second network", metavar="FILE")
     ap.add_argument("-r", "--routes", category="input", type=ap.route_file,
-                         required=True, help="route file to use (mandatory)", metavar="FILE")
+                    required=True, help="route file to use (mandatory)", metavar="FILE")
     ap.add_argument("-s", "--step", default="10",
-                         type=float, help="distance between successive trace points")
+                    type=float, help="distance between successive trace points")
     ap.add_argument("-d", "--delta", default="1", type=float,
-                         help="maximum distance between edge and trace points when matching to the second net")
+                    help="maximum distance between edge and trace points when matching to the second net")
     ap.add_argument("-x", "--x-offset", default=0.,
-                         type=float, help="offset to add to traces")
+                    type=float, help="offset to add to traces")
     ap.add_argument("-y", "--y-offset", default=0.,
-                         type=float, help="offset to add to traces")
+                    type=float, help="offset to add to traces")
     ap.add_argument("-o", "--output", category="output", type=ap.file,
-                         required=True, help="trace or route output (mandatory)", metavar="FILE")
+                    required=True, help="trace or route output (mandatory)", metavar="FILE")
     options = ap.parse_args()
-
-    if not options.output or not options.net or not options.routes:
-        optParser.exit("missing input or output")
 
     if options.verbose:
         print("Reading net ...")

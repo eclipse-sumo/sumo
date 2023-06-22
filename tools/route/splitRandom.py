@@ -36,22 +36,23 @@ else:
 import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 
+
 def get_options(args=None):
     ap = ArgumentParser()
     ap.add_argument("-r", "--route-file", dest="routefile", category="input", type=ap.route_file,
-                         help="define the input route file with trips or vehicles")
+                    help="define the input route file with trips or vehicles")
     ap.add_argument("-n", "--number", dest="number", category="input", type=int,
-                         help="number of trips/vehicles to split (not together with percent)")
+                    help="number of trips/vehicles to split (not together with percent)")
     ap.add_argument("-p", "--percent", dest="percent", category="input", type=float,
-                         help="percent of trips/vehicles to split (not together with number")
+                    help="percent of trips/vehicles to split (not together with number")
     ap.add_argument("-a", "--output-file-a", dest="outputA", default="tripsA.rou.xml",
-                         category="output", type=ap.route_file, help="define the first output route file")
+                    category="output", type=ap.route_file, help="define the first output route file")
     ap.add_argument("-b", "--output-file-b", dest="outputB", default="tripsB.rou.xml",
-                         category="output", type=ap.route_file, help="define the second output route file")
+                    category="output", type=ap.route_file, help="define the second output route file")
     ap.add_argument("--random", action="store_true", default=False, category="random",
-                         help="use a random seed to initialize the random number generator")
+                    help="use a random seed to initialize the random number generator")
     ap.add_argument("-s", "--seed", type=int, default=42, category="random",
-                         help="random seed")
+                    help="random seed")
     options = ap.parse_args(args=args)
     if not options.routefile or not (options.number or options.percent) or (options.number and options.percent):
         ap.print_help()

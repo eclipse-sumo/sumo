@@ -25,7 +25,6 @@ import os
 import sys
 import re
 import random
-import glob
 import pickle
 import bisect
 import ctypes
@@ -255,31 +254,31 @@ class DepartChanger(handler.ContentHandler):
 def main(args=None):
     ap = sumolib.options.ArgumentParser(usage="usage: %prog [options] <routefiles>")
     ap.add_argument("-f", "--detector-file", dest="detfile", category="input", type=ap.file,
-                         help="read detectors from FILE", metavar="FILE")
+                    help="read detectors from FILE", metavar="FILE")
     ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
-                         default=False, help="tell me what you are doing")
+                    default=False, help="tell me what you are doing")
     ap.add_argument("-s", "--step", dest="step", type=int, default=900,
-                         help="time split step in seconds")
+                    help="time split step in seconds")
     ap.add_argument("-n", "--next-day", dest="nextday", type=int, default=2700,
-                         help="how far to go into the next day in seconds")
+                    help="how far to go into the next day in seconds")
     ap.add_argument("-t", "--types-file", dest="typesfile", default="vehtypes.xml",
-                         help="write vehicle types to FILE", metavar="FILE")
+                    help="write vehicle types to FILE", metavar="FILE")
     ap.add_argument("--route-collection", dest="collectfile", category="output", type=ap.route_file,
-                         help="write route collection for the distributions to FILE", metavar="FILE")
+                    help="write route collection for the distributions to FILE", metavar="FILE")
     ap.add_argument("-o", "--routes-prefix", dest="routesprefix", default="validate/validate_mofr_",
-                         help="let time splitted route files start with PREFIX", metavar="PREFIX")
+                    help="let time splitted route files start with PREFIX", metavar="PREFIX")
     ap.add_argument("-e", "--edge-count", dest="edgecount",
-                         help="dump number of routes for each edge to FILE", metavar="FILE")
+                    help="dump number of routes for each edge to FILE", metavar="FILE")
     ap.add_argument("-p", "--pickle-edges", dest="pickleedge",
-                         help="dump used edges as pickled set to FILE", metavar="FILE")
+                    help="dump used edges as pickled set to FILE", metavar="FILE")
     ap.add_argument("-a", "--saturday-factor", dest="safact", type=float, default=0.,
-                         help="generate saturday files scaled down by FACTOR", metavar="FACTOR")
+                    help="generate saturday files scaled down by FACTOR", metavar="FACTOR")
     ap.add_argument("-u", "--sunday-factor", dest="sufact", type=float, default=0.,
-                         help="generate sunday files scaled down by FACTOR", metavar="FACTOR")
+                    help="generate sunday files scaled down by FACTOR", metavar="FACTOR")
     ap.add_argument("-m", "--modify-id", action="store_true", dest="modifyid",
-                         default=False, help="try to make vehicle and route ids unique")
+                    default=False, help="try to make vehicle and route ids unique")
     ap.add_argument("routefiles", category="input", type=ap.file_list,
-                         nargs="+", help="list of route files")
+                    nargs="+", help="list of route files")
     options = ap.parse_args(args=args)
     tempPrefix = options.routesprefix
     reader = None

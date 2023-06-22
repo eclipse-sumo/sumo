@@ -50,21 +50,21 @@ class SimObject:
 def get_options(args=None):
     ap = sumolib.options.ArgumentParser()
     ap.add_argument("-r", "--route-files", dest="routefiles", category="input", type=ap.file_list,
-                         required=True, help="define the route file separated by comma (mandatory)")
+                    required=True, help="define the route file separated by comma (mandatory)")
     ap.add_argument("-o", "--output-file", dest="outfile", category="output", type=ap.file,
-                         help="define the output filename")
+                    help="define the output filename")
     ap.add_argument("--timeline-list", dest="timelinelist", type=str,
-                         default="3600,200,200,200,200,200,200,200,200,200,200,200,200",
-                         help="Define the interval duration and then the scaled percentage for each interval; "
-                              "e.g. 200% of the current demand")
+                    default="3600,200,200,200,200,200,200,200,200,200,200,200,200",
+                    help="Define the interval duration and then the scaled percentage for each interval; "
+                    "e.g. 200% of the current demand")
     ap.add_argument("--timeline-pair", dest="timelinepair", type=str,
-                         default="7200,200;7200,200;7200,200;7200,200;7200,200;7200,200",
-                         help="Define the timeline pairs (duration, scacled percentage)")
+                    default="7200,200;7200,200;7200,200;7200,200;7200,200;7200,200",
+                    help="Define the timeline pairs (duration, scacled percentage)")
     ap.add_argument("--random", action="store_true", dest="random", category="random",
-                         default=False, help="use a random seed to initialize the random number generator")
+                    default=False, help="use a random seed to initialize the random number generator")
     ap.add_argument("-s", "--seed", type=int, dest="seed", category="random", default=42, help="random seed")
     ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
+                    default=False, help="tell me what you are doing")
     options = ap.parse_args(args=args)
 
     if options.timelinelist:
@@ -78,14 +78,9 @@ def get_options(args=None):
             options.timelinelist.append([float(x) for x in data])
         # options.timelinelist = list(map(float, templist))
 
-    if not options.routefiles:
-        optParser.print_help()
-        sys.exit("--route-files missing")
-    else:
-        options.routefiles = options.routefiles.split(',')
-        if not options.outfile:
-            options.outfile = options.routefiles[0][:-4] + "_scaled.rou.xml"
-
+    options.routefiles = options.routefiles.split(',')
+    if not options.outfile:
+        options.outfile = options.routefiles[0][:-4] + "_scaled.rou.xml"
     return options
 
 

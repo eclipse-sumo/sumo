@@ -38,23 +38,23 @@ def main(args=None):
     # ---------- build and read options ----------
     ap = ArgumentParser()
     ap.add_argument("-n", "--net", dest="net", category="input", type=ap.net_file, metavar="FILE",
-                         required=True, help="Defines the network to read")
+                    required=True, help="Defines the network to read")
     ap.add_argument("--edge-width", dest="defaultWidth", category="visualization",
-                         type=float, default=1, help="Defines the edge width")
+                    type=float, default=1, help="Defines the edge width")
     ap.add_argument("--edge-color", dest="defaultColor", category="visualization",
-                         default='k', help="Defines the edge color")
+                    default='k', help="Defines the edge color")
     ap.add_argument("--minV", dest="minV",
-                         type=float, default=None, help="Define the minimum value boundary")
+                    type=float, default=None, help="Define the minimum value boundary")
     ap.add_argument("--maxV", dest="maxV",
-                         type=float, default=None, help="Define the maximum value boundary")
+                    type=float, default=None, help="Define the maximum value boundary")
     ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
+                    default=False, help="If set, the script says what it's doing")
     # standard plot options
     helpers.addInteractionOptions(ap)
     helpers.addPlotOptions(ap)
     # parse
     options = ap.parse_args(args=args)
-    
+
     if options.verbose:
         print("Reading network from '%s'" % options.net)
     net = sumolib.net.readNet(options.net)

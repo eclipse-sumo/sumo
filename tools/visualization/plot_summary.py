@@ -41,11 +41,11 @@ def main(args=None):
     # ---------- build and read options ----------
     ap = ArgumentParser()
     ap.add_argument("-i", "--summary-inputs", dest="summary", category="input", type=ap.file_list, metavar="FILE",
-                         required=True, help="Defines the summary-output files to use as input")
+                    required=True, help="Defines the summary-output files to use as input")
     ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
+                    default=False, help="If set, the script says what it's doing")
     ap.add_argument("-m", "--measure", dest="measure", category="input",
-                         default="running", help="Define which measure to plot")
+                    default="running", help="Define which measure to plot")
     # standard plot options
     helpers.addInteractionOptions(ap)
     helpers.addPlotOptions(ap)

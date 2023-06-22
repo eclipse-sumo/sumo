@@ -24,10 +24,8 @@ import sys
 from xml.dom import pulldom
 from xml.sax import handler
 from xml.sax import make_parser
-from optparse import OptionParser
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import parseTime  # noqa
 
@@ -35,11 +33,10 @@ DEPART_ATTRS = {'vehicle': 'depart', 'trip': 'depart', 'flow': 'begin', 'person'
 
 
 def get_options(args=None):
-    USAGE = "Usage: " + sys.argv[0] + " <routefile>"
     ap = ArgumentParser()
     ap.add_argument("-o", "--outfile", category="output", type=ap.file, help="name of output file")
     ap.add_argument("-b", "--big", action="store_true", default=False,
-                         help="Use alternative sorting strategy for large files (slower but more memory efficient)")
+                    help="Use alternative sorting strategy for large files (slower but more memory efficient)")
     ap.add_argument("routefile", category="input", type=ap.file, help="route file whose routes should be sorted")
     options = ap.parse_args(args=args)
     if options.outfile is None:

@@ -39,25 +39,25 @@ def main(args=None):
     # ---------- build and read options ----------
     ap = ArgumentParser()
     ap.add_argument("-i", "--input", category="input", dest="input", metavar="FILE", type=ap.file,
-                         help="Defines the csv file to use as input")
+                    help="Defines the csv file to use as input")
     ap.add_argument("--column", dest="column",
-                         type=int, default=1, help="Selects the column to read values from")
+                    type=int, default=1, help="Selects the column to read values from")
     ap.add_argument("-r", "--revert", dest="revert", action="store_true",
-                         default=False, help="Reverts the order of read values")
+                    default=False, help="Reverts the order of read values")
     ap.add_argument("-w", "--width", dest="width", category="visualization",
-                         type=float, default=.8, help="Defines the width of the bars")
+                    type=float, default=.8, help="Defines the width of the bars")
     ap.add_argument("--space", dest="space", category="visualization",
-                         type=float, default=.2, help="Defines the space between the bars")
+                    type=float, default=.2, help="Defines the space between the bars")
     ap.add_argument("--norm", dest="norm",
-                         type=float, default=1., help="Divides the read numbers by this value before plotting them")
+                    type=float, default=1., help="Divides the read numbers by this value before plotting them")
     ap.add_argument("--show-values", dest="showValues", action="store_true", category="visualization",
-                         default=False, help="Shows the values")
+                    default=False, help="Shows the values")
     ap.add_argument("--values-offset", dest="valuesOffset", category="visualization",
-                         type=float, default=1., help="Position offset for values")
+                    type=float, default=1., help="Position offset for values")
     ap.add_argument("--vertical", dest="vertical", action="store_true", category="visualization",
-                         default=False, help="vertical bars are used")
+                    default=False, help="vertical bars are used")
     ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
+                    default=False, help="If set, the script says what it's doing")
     # standard plot options
     helpers.addInteractionOptions(ap)
     helpers.addPlotOptions(ap)

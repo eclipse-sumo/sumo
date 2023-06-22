@@ -33,12 +33,17 @@ import sumolib  # noqa
 def get_options(args=None):
     ap = sumolib.options.ArgumentParser()
     ap.add_argument("stopfile", nargs="+", help="stop files to process")
-    ap.add_argument("-n", "--network", category="input", type=ap.net_file, help="validate positions against this network")
+    ap.add_argument("-n", "--network", category="input", type=ap.net_file,
+                    help="validate positions against this network")
     ap.add_argument("-r", "--routes", category="input", type=ap.route_file, help="route file to adapt")
-    ap.add_argument("--split-output", category="output", type=ap.edgedata_file, default="splits.edg.xml", help="split file to generate")
-    ap.add_argument("-o", "--output", category="output", type=ap.net_file, default="net.net.xml", help="net file to generate")
-    ap.add_argument("--stop-output", category="output", type=ap.additional_file, default="stops.add.xml", help="stop file to generate")
-    ap.add_argument("--route-output", category="output", type=ap.route_file, default="routes.rou.xml", help="route file to generate")
+    ap.add_argument("--split-output", category="output", type=ap.edgedata_file,
+                    default="splits.edg.xml", help="split file to generate")
+    ap.add_argument("-o", "--output", category="output", type=ap.net_file,
+                    default="net.net.xml", help="net file to generate")
+    ap.add_argument("--stop-output", category="output", type=ap.additional_file,
+                    default="stops.add.xml", help="stop file to generate")
+    ap.add_argument("--route-output", category="output", type=ap.route_file,
+                    default="routes.rou.xml", help="route file to generate")
     ap.add_argument("--stop-type", default="trainStop", help="which stop types to use")
     return ap.parse_args(args)
 

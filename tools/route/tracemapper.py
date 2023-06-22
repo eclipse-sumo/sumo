@@ -70,38 +70,39 @@ def readLines(traceFile, net, geo):
 if __name__ == "__main__":
     ap = sumolib.options.ArgumentParser()
     ap.add_argument("-v", "--verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
-    ap.add_argument("-n", "--net", help="SUMO network to use", category="input", type=ap.net_file, metavar="FILE", required=True)
-    ap.add_argument("-t", "--trace", category="input", type=ap.file, 
-                         help="trace files to use, separated by comma", metavar="FILE", required=True)
+                    default=False, help="tell me what you are doing")
+    ap.add_argument("-n", "--net", help="SUMO network to use", category="input",
+                    type=ap.net_file, metavar="FILE", required=True)
+    ap.add_argument("-t", "--trace", category="input", type=ap.file,
+                    help="trace files to use, separated by comma", metavar="FILE", required=True)
     ap.add_argument("-d", "--delta", default=1., type=float,
-                         help="maximum distance between edge and trace points")
+                    help="maximum distance between edge and trace points")
     ap.add_argument("-a", "--air-dist-factor", default=2., type=float,
-                         help="maximum factor between airline and route distance between successive trace points")
+                    help="maximum factor between airline and route distance between successive trace points")
     ap.add_argument("-o", "--output", help="route output", metavar="FILE", required=True)
     ap.add_argument("-p", "--poi-output", category="output", type=ap.file,
-                         help="generate POI output for the trace", metavar="FILE")
+                    help="generate POI output for the trace", metavar="FILE")
     ap.add_argument("-y", "--polygon-output", category="output", type=ap.file,
-                         help="generate polygon output for the mapped edges", metavar="FILE")
+                    help="generate polygon output for the mapped edges", metavar="FILE")
     ap.add_argument("--geo", action="store_true",
-                         default=False, help="read trace with geo-coordinates")
+                    default=False, help="read trace with geo-coordinates")
     ap.add_argument("--direction", action="store_true",
-                         default=False, help="try to use direction of consecutive points when mapping")
+                    default=False, help="try to use direction of consecutive points when mapping")
     ap.add_argument("--vehicle-class", default=None,
-                         help="filters the edges by the vehicle class the route is meant for")
+                    help="filters the edges by the vehicle class the route is meant for")
     ap.add_argument("--fill-gaps", default=0., type=float,
-                         help="repair disconnected routes bridging gaps of up to x meters")
+                    help="repair disconnected routes bridging gaps of up to x meters")
     ap.add_argument("-g", "--gap-penalty", default=-1, type=float,
-                         help="penalty to add for disconnected routes " +
-                              "(default of -1 adds the distance between the two endpoints as penalty)")
+                    help="penalty to add for disconnected routes " +
+                    "(default of -1 adds the distance between the two endpoints as penalty)")
     ap.add_argument("--internal", action="store_true",
-                         default=False, help="include internal edges in generated shapes")
+                    default=False, help="include internal edges in generated shapes")
     ap.add_argument("--spread", type=float, help="spread polygons laterally to avoid overlap")
     ap.add_argument("--blur", type=float,
-                         default=0, help="maximum random disturbance to route geometry")
+                    default=0, help="maximum random disturbance to route geometry")
     ap.add_argument("-l", "--layer", default=100, help="layer for generated polygons")
     ap.add_argument("-b", "--debug", action="store_true",
-                         default=False, help="print out the debugging messages")
+                    default=False, help="print out the debugging messages")
     options = ap.parse_args()
 
     if options.verbose:

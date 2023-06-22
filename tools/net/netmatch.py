@@ -29,11 +29,11 @@ from sumolib.geomhelper import distance  # noqa
 
 ap = sumolib.options.ArgumentParser()
 ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
-                       default=False, help="tell me what you are doing")
+                default=False, help="tell me what you are doing")
 ap.add_argument("-1", "--net1", dest="net1", required=True, category="input", type=ap.net_file,
-                       help="first SUMO network to use (mandatory)", metavar="FILE")
+                help="first SUMO network to use (mandatory)", metavar="FILE")
 ap.add_argument("-2", "--net2", dest="net2", required=True, category="input", type=ap.net_file,
-                       help="second SUMO network to use (mandatory)", metavar="FILE")
+                help="second SUMO network to use (mandatory)", metavar="FILE")
 # ap.add_argument("-t", "--trips", dest="trips",
 #                    category="input", type=ap.route_file, help="Trips to remap (mandatory)", metavar="FILE")
 # ap.add_argument("-a", "--nodes1", dest="nodes1",
@@ -43,13 +43,13 @@ ap.add_argument("-2", "--net2", dest="net2", required=True, category="input", ty
 # ap.add_argument("-d", "--dump", dest="dump",
 #                     category="output", type=ap.file, help="dump file to use", metavar="FILE")
 ap.add_argument("-d", "--delta", default=1,
-                       type=float, help="maximum distance between end points")
+                type=float, help="maximum distance between end points")
 ap.add_argument("-o", "--output", dest="output", required=True,
-                       category="output", type=ap.file, help="(base) name for the output", metavar="FILE")
+                category="output", type=ap.file, help="(base) name for the output", metavar="FILE")
 ap.add_argument("--edges1", category="output", type=ap.file,
-                       help="matched edges in net 1", metavar="FILE")
+                help="matched edges in net 1", metavar="FILE")
 ap.add_argument("--edges2", category="output", type=ap.file,
-                       help="matched edges in net 2", metavar="FILE")
+                help="matched edges in net 2", metavar="FILE")
 options = ap.parse_args()
 
 

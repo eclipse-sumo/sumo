@@ -57,11 +57,11 @@ def main(args=None):
     # ---------- build and read options ----------
     ap = ArgumentParser()
     ap.add_argument("-i", "--input", dest="input", category="input", type=ap.file, metavar="FILE",
-                         required=True, help="Defines the input file to use")
+                    required=True, help="Defines the input file to use")
     ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
+                    default=False, help="If set, the script says what it's doing")
     ap.add_argument("--columns", dest="columns",
-                         default=None, help="Defines which columns shall be plotted")
+                    default=None, help="Defines which columns shall be plotted")
     # standard plot options
     helpers.addInteractionOptions(ap)
     helpers.addPlotOptions(ap)

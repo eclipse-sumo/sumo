@@ -34,17 +34,17 @@ def main(args=None):
     # ---------- build and read options ----------
     ap = ArgumentParser()
     ap.add_argument("-n", "--net", dest="net", category="input", type=ap.net_file, metavar="FILE",
-                         required=True, help="Defines the network to read")
+                    required=True, help="Defines the network to read")
     ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
+                    default=False, help="If set, the script says what it's doing")
     ap.add_argument("-w", "--width", dest="width",
-                         type=float, default=20, help="Defines the width of the dots")
+                    type=float, default=20, help="Defines the width of the dots")
     ap.add_argument("--color", dest="color", category="visualization",
-                         default='r', help="Defines the dot color")
+                    default='r', help="Defines the dot color")
     ap.add_argument("--edge-width", dest="defaultWidth", category="visualization",
-                         type=float, default=1, help="Defines the edge width")
+                    type=float, default=1, help="Defines the edge width")
     ap.add_argument("--edge-color", dest="defaultColor", category="visualization",
-                         default='k', help="Defines the edge color")
+                    default='k', help="Defines the edge color")
     # standard plot options
     helpers.addInteractionOptions(ap)
     helpers.addPlotOptions(ap)

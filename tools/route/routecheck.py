@@ -32,18 +32,18 @@ If the route file uses the old format (<route>edge1 edge2</route>)
 this is changed without adding comments. The same is true for camelCase
 changes of attributes.
 """
-from __future__ import absolute_import
 from __future__ import print_function
+from __future__ import absolute_import
+from collections import defaultdict
+from xml.sax import saxutils, make_parser, handler
+from sumolib.options import ArgumentParser
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from sumolib.options import ArgumentParser
 try:
     from StringIO import StringIO
 except ImportError:
     from io import StringIO
-from xml.sax import saxutils, make_parser, handler
-from collections import defaultdict
 
 camelCase = {"departlane": "departLane",
              "departpos": "departPos",
@@ -254,13 +254,13 @@ class RouteReader(handler.ContentHandler):
 
 ap = ArgumentParser()
 ap.add_argument("-v", "--verbose", action="store_true",
-                     default=False, help="tell me what you are doing")
+                default=False, help="tell me what you are doing")
 ap.add_argument("-f", "--fix", action="store_true",
-                     default=False, help="fix errors into '.fixed' file")
+                default=False, help="fix errors into '.fixed' file")
 ap.add_argument("-l", "--fix-length", action="store_true",
-                     default=False, help="fix vehicle type's length and guiOffset attributes")
+                default=False, help="fix vehicle type's length and guiOffset attributes")
 ap.add_argument("-i", "--inplace", action="store_true",
-                     default=False, help="replace original files")
+                default=False, help="replace original files")
 ap.add_argument("-n", "--net", category="input", type=ap.net_file, help="network to check connectivity")
 ap.add_argument("routes", category="input", type=ap.file, nargs="+", help="route files to check")
 options = ap.parse_args()

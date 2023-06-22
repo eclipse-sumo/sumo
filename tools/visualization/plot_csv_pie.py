@@ -40,19 +40,19 @@ def main(args=None):
     # ---------- build and read options ----------
     ap = ArgumentParser()
     ap.add_argument("-i", "--input", dest="input", category="input", type=ap.file, metavar="FILE",
-                         required=True, help="Defines the csv file to use as input")
+                    required=True, help="Defines the csv file to use as input")
     ap.add_argument("-p", "--percentage", dest="percentage", action="store_true",
-                         default=False, help="Interprets read measures as percentages")
+                    default=False, help="Interprets read measures as percentages")
     ap.add_argument("-r", "--revert", dest="revert", action="store_true",
-                         default=False, help="Reverts the order of read values")
+                    default=False, help="Reverts the order of read values")
     ap.add_argument("--no-labels", dest="nolabels", action="store_true",
-                         default=False, help="Does not plot the labels")
+                    default=False, help="Does not plot the labels")
     ap.add_argument("--shadow", dest="shadow", action="store_true",
-                         default=False, help="Puts a shadow below the circle")
+                    default=False, help="Puts a shadow below the circle")
     ap.add_argument("--startangle", dest="startangle",
-                         type=float, default=0, help="Sets the start angle")
+                    type=float, default=0, help="Sets the start angle")
     ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
+                    default=False, help="If set, the script says what it's doing")
     # standard plot options
     helpers.addInteractionOptions(ap)
     helpers.addPlotOptions(ap)

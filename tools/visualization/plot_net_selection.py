@@ -33,19 +33,19 @@ def main(args=None):
     # ---------- build and read options ----------
     ap = ArgumentParser()
     ap.add_argument("-n", "--net", dest="net", category="input", type=ap.net_file, metavar="FILE",
-                         required=True, help="Defines the network to read")
+                    required=True, help="Defines the network to read")
     ap.add_argument("-i", "--selection", dest="selection", category="input", type=ap.file, metavar="FILE",
-                         required=True, help="Defines the selection to read")
+                    required=True, help="Defines the selection to read")
     ap.add_argument("--selected-width", dest="selectedWidth", category="visualization",
-                         type=float, default=1, help="Defines the width of selected edges")
+                    type=float, default=1, help="Defines the width of selected edges")
     ap.add_argument("--color", "--selected-color", dest="selectedColor", category="visualization",
-                         default='r', help="Defines the color of selected edges")
+                    default='r', help="Defines the color of selected edges")
     ap.add_argument("--edge-width", dest="defaultWidth", category="visualization",
-                         type=float, default=.2, help="Defines the width of not selected edges")
+                    type=float, default=.2, help="Defines the width of not selected edges")
     ap.add_argument("--edge-color", dest="defaultColor", category="visualization",
-                         default='#606060', help="Defines the color of not selected edges")
+                    default='#606060', help="Defines the color of not selected edges")
     ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
+                    default=False, help="If set, the script says what it's doing")
     # standard plot options
     helpers.addInteractionOptions(ap)
     helpers.addPlotOptions(ap)
