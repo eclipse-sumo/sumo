@@ -1,6 +1,6 @@
 <configuration>
     <source value="source.xml" type="file" help="the input data (stream given by digits or file" category="input" required="true" positional="true"/>
-    <output value="out" type="file" help="base name for output" category="output" required="true"/>
+    <output value="out" type="file" help="base name for output" category="output"/>
     <separator value=";" type="string" help="separating character for fields" category="processing"/>
     <quotechar value="" type="string" help="quoting character for fields" category="processing"/>
     <xsd value="None" type="string" help="xsd schema to use" category="processing"/>

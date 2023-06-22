@@ -234,7 +234,7 @@ def get_options(arglist=None):
     optParser.add_argument("source", category="input", type=optParser.file,
                            help="the input data (stream given by digits or file")
     # output
-    optParser.add_argument("-o", "--output", category="output", required=True, type=optParser.file,
+    optParser.add_argument("-o", "--output", category="output", type=optParser.file,
                            help="base name for output")
     # processing
     optParser.add_argument("-s", "--separator", default=";",
