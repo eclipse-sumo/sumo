@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2013-2017 Dresden University of Technology
