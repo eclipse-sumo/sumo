@@ -41,7 +41,7 @@ def get_options(args=None):
     ap.add_argument("-b", "--big", action="store_true", default=False,
                          help="Use alternative sorting strategy for large files (slower but more memory efficient)")
     ap.add_argument("routefile", category="input", type=ap.file, help="route file whose routes should be sorted")
-    options = ap.parse_args()
+    options = ap.parse_args(args=args)
     if options.outfile is None:
         options.outfile = options.routefile + ".sorted"
     return options
