@@ -365,6 +365,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     // mark taz parameters as set
     parametersSet |= VEHPARS_FROM_TAZ_SET;
     parametersSet |= VEHPARS_TO_TAZ_SET;
+    fromTaz = fromTAZ->getID();
+    toTaz = toTAZ->getID();
     // adjust default flow attributes
     adjustDefaultFlowAttributes(this);
 }
@@ -2195,6 +2197,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM_TAZ: {
             // change first additional
             replaceFirstParentAdditional(SUMO_TAG_TAZ, value);
+            // set taz manually
+            fromTaz = value;
             // compute vehicle
             computePathElement();
             updateSpreadStackGeometry = true;
@@ -2203,6 +2207,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TO_TAZ: {
             // change last additional
             replaceLastParentAdditional(SUMO_TAG_TAZ, value);
+            // set taz manually
+            toTaz = value;
             // compute vehicle
             computePathElement();
             updateSpreadStackGeometry = true;
