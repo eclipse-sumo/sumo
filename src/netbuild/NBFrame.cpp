@@ -508,6 +508,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addDescription("tls.join-dist", "TLS Building",
                       "Determines the maximal distance for joining traffic lights (defaults to 20)");
 
+    oc.doRegister("tls.join-exclude", new Option_StringVector());
+    oc.addDescription("tls.join-exclude", "TLS Building", TL("Interprets STR[] as list of tls ids to exclude from joining"));
+
     oc.doRegister("tls.uncontrolled-within", new Option_Bool(false));
     oc.addDescription("tls.uncontrolled-within", "TLS Building",
                       "Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used");

@@ -2345,11 +2345,13 @@ NBNodeCont::computeKeepClear() {
 
 void
 NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
+    const std::vector<std::string> excludeList = OptionsCont::getOptions().getStringVector("tls.join-exclude");
+    std::set<std::string> exclude(excludeList.begin(), excludeList.end());
     NodeClusters cands;
     generateNodeClusters(maxdist, cands);
     for (NodeSet& c : cands) {
         for (NodeSet::iterator j = c.begin(); j != c.end();) {
-            if (!(*j)->isTLControlled()) {
+            if (!(*j)->isTLControlled() || exclude.count((*(*j)->getControllingTLS().begin())->getID()) != 0) {
                 c.erase(j++);
             } else {
                 ++j;
