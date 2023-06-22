@@ -32,7 +32,6 @@ import ctypes
 
 from xml.sax import make_parser, handler
 from collections import defaultdict
-from optparse import OptionParser
 
 sys.path += [os.path.join(os.environ['SUMO_HOME'], 'tools'),
              os.path.join(os.environ['SUMO_HOME'], 'tools', 'detector')]
@@ -281,7 +280,7 @@ def main(args=None):
                          default=False, help="try to make vehicle and route ids unique")
     ap.add_argument("routefiles", category="input", type=ap.file_list,
                          nargs="+", help="list of route files")
-    options = ap.parse_args()
+    options = ap.parse_args(args=args)
     tempPrefix = options.routesprefix
     reader = None
     if options.detfile:

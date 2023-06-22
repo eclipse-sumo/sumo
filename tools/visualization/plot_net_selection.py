@@ -50,7 +50,7 @@ def main(args=None):
     helpers.addInteractionOptions(ap)
     helpers.addPlotOptions(ap)
     # parse
-    options = ap.parse_args()
+    options = ap.parse_args(args=args)
 
     if options.verbose:
         print("Reading network from '%s'" % options.net)
@@ -72,6 +72,6 @@ def main(args=None):
 
 if __name__ == "__main__":
     try:
-        main(sys.argv)
+        main()
     except ValueError as e:
         sys.exit(e)

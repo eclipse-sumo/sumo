@@ -52,7 +52,7 @@ def get_options(args=None):
                          help="use a random seed to initialize the random number generator")
     ap.add_argument("-s", "--seed", type=int, default=42, category="random",
                          help="random seed")
-    options = ap.parse_args()
+    options = ap.parse_args(args=args)
     if not options.routefile or not (options.number or options.percent) or (options.number and options.percent):
         ap.print_help()
         sys.exit()
@@ -109,5 +109,5 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
+    options = get_options(sys.argv[1:])
     main(options)

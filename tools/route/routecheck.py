@@ -43,7 +43,6 @@ try:
 except ImportError:
     from io import StringIO
 from xml.sax import saxutils, make_parser, handler
-from optparse import OptionParser
 from collections import defaultdict
 
 camelCase = {"departlane": "departLane",

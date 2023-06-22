@@ -65,7 +65,7 @@ def get_options(args=None):
     ap.add_argument("-s", "--seed", type=int, dest="seed", category="random", default=42, help="random seed")
     ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
-    options = ap.parse_args()
+    options = ap.parse_args(args=args)
 
     if options.timelinelist:
         duration = float(options.timelinelist.split(",")[0])
@@ -205,4 +205,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    main(get_options(sys.argv))
+    main(get_options(sys.argv[1:]))
