@@ -57,7 +57,7 @@ netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.fromTAZ, "", False)
 netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.fromTAZ, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.fromTAZ, "gneJ5", False)
+netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.fromTAZ, "taz_2", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

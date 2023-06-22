@@ -60,8 +60,8 @@ netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.arrivalLane, "dummyL
 netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.arrivalLane, "current", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
