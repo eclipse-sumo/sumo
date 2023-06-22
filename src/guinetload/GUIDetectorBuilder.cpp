@@ -96,8 +96,8 @@ GUIDetectorBuilder::createE3Detector(const std::string& id,
                                      SUMOTime haltingTimeThreshold,
                                      const std::string name, const std::string& vTypes,
                                      const std::string& nextEdges,
-                                     int detectPersons, bool openEntry) {
-    return new GUIE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons,  openEntry);
+                                     int detectPersons, bool openEntry, bool expectArrival) {
+    return new GUIE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry, expectArrival);
 }
 
 

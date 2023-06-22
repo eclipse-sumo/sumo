@@ -49,7 +49,7 @@ public:
                    SUMOTime haltingTimeThreshold,
                    const std::string name, const std::string& vTypes,
                    const std::string& nextEdges,
-                   int detectPersons, bool openEntry);
+                   int detectPersons, bool openEntry, bool expectArrival);
 
     /// @brief Destructor
     ~GUIE3Collector();

@@ -235,7 +235,7 @@ public:
                   SUMOTime haltingTimeThreshold,
                   const std::string name, const std::string& vTypes,
                   const std::string& nextEdges,
-                  int detectPersons, bool openEntry);
+                  int detectPersons, bool openEntry, bool expectArrival);
 
 
     /// @brief Destructor
@@ -471,6 +471,8 @@ protected:
 
     /// @brief whether this dector is declared as having incomplete entry detectors
     const bool myOpenEntry;
+    /// @brief Whether the detector expects vehicles to arrive inside (and doesn't issue a warning in this case)
+    const bool myExpectArrival;
 
 private:
     /// @brief Invalidated copy constructor.

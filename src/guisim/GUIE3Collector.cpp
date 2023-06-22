@@ -182,8 +182,8 @@ GUIE3Collector::GUIE3Collector(const std::string& id,
                                const std::string name, const std::string& vTypes,
                                const std::string& nextEdges,
                                int detectPersons,
-                               bool openEntry):
-    MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry)
+                               bool openEntry, bool expectArrival):
+    MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry, expectArrival)
 {}
 
 

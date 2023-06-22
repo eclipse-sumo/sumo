@@ -131,7 +131,7 @@ public:
             SUMOTime haltingTimeThreshold,
             const std::string name, const std::string& vTypes,
             const std::string& nextEdges,
-            int detectPersons, bool openEntry) override;
+            int detectPersons, bool openEntry, bool expectArrival) override;
     /// @}
 
 

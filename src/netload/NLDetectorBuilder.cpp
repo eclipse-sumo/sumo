@@ -66,7 +66,7 @@ NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string&
         SUMOTime haltingTimeThreshold, SUMOTime splInterval,
         const std::string name, const std::string& vTypes,
         const std::string& nextEdges,
-        int detectPersons, bool openEntry) :
+        int detectPersons, bool openEntry, bool expectArrival) :
     myID(id), myDevice(device),
     myHaltingSpeedThreshold(haltingSpeedThreshold),
     myHaltingTimeThreshold(haltingTimeThreshold),
@@ -75,7 +75,9 @@ NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string&
     myVehicleTypes(vTypes),
     myNextEdges(nextEdges),
     myDetectPersons(detectPersons),
-    myOpenEntry(openEntry) {
+    myOpenEntry(openEntry),
+    myExpectArrival(expectArrival)
+{
 }
 
 
@@ -316,9 +318,9 @@ NLDetectorBuilder::beginE3Detector(const std::string& id,
                                    const std::string name,
                                    const std::string& vTypes,
                                    const std::string& nextEdges,
-                                   int detectPersons, bool openEntry) {
+                                   int detectPersons, bool openEntry, bool expectArrival) {
     checkSampleInterval(splInterval, SUMO_TAG_E3DETECTOR, id);
-    myE3Definition = new E3DetectorDefinition(id, device, haltingSpeedThreshold, haltingTimeThreshold, splInterval, name, vTypes, nextEdges, detectPersons, openEntry);
+    myE3Definition = new E3DetectorDefinition(id, device, haltingSpeedThreshold, haltingTimeThreshold, splInterval, name, vTypes, nextEdges, detectPersons, openEntry, expectArrival);
     return myE3Definition;
 }
 
@@ -375,7 +377,8 @@ NLDetectorBuilder::endE3Detector() {
                                     myE3Definition->myVehicleTypes,
                                     myE3Definition->myNextEdges,
                                     myE3Definition->myDetectPersons,
-                                    myE3Definition->myOpenEntry);
+                                    myE3Definition->myOpenEntry,
+                                    myE3Definition->myExpectArrival);
         det->updateParameters(myE3Definition->getParametersMap());
         // add to net
         myNet.getDetectorControl().add(SUMO_TAG_ENTRY_EXIT_DETECTOR, det, myE3Definition->myDevice, myE3Definition->mySampleInterval);
@@ -464,8 +467,9 @@ NLDetectorBuilder::createE3Detector(const std::string& id,
                                     const std::string name, const std::string& vTypes,
                                     const std::string& nextEdges,
                                     int detectPersons,
-                                    bool openEntry) {
-    return new MSE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry);
+                                    bool openEntry,
+                                    bool expectArrival) {
+    return new MSE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry, expectArrival);
 }
 
 

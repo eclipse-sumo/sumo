@@ -751,6 +751,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "show",                   SUMO_ATTR_SHOW_DETECTOR },
     // E3 detector
     { "openEntry",              SUMO_ATTR_OPEN_ENTRY },
+    { "expectArrival",          SUMO_ATTR_EXPECT_ARRIVAL },
 
     { "wautID",                 SUMO_ATTR_WAUT_ID },
     { "junctionID",             SUMO_ATTR_JUNCTION_ID },

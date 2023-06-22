@@ -162,7 +162,7 @@ public:
                                    double haltingSpeedThreshold, SUMOTime haltingTimeThreshold,
                                    const std::string name, const std::string& vTypes,
                                    const std::string& nextEdges,
-                                   int detectPersons, bool openEntry);
+                                   int detectPersons, bool openEntry, bool expectArrival);
 
 
     /** @brief Builds an entry point of an e3 detector
@@ -332,7 +332,7 @@ public:
             double haltingSpeedThreshold, SUMOTime haltingTimeThreshold,
             const std::string name, const std::string& vTypes,
             const std::string& nextEdges,
-            int detectPersons, bool openEntry);
+            int detectPersons, bool openEntry, bool expectArrival);
 
 
     /** @brief Creates edge based mean data collector using the given specification
@@ -385,7 +385,7 @@ protected:
                              SUMOTime haltingTimeThreshold, SUMOTime splInterval,
                              const std::string name, const std::string& vTypes,
                              const std::string& nextEdges,
-                             int detectPersons, bool openEntry);
+                             int detectPersons, bool openEntry, bool expectArrival);
 
         /// @brief Destructor
         virtual ~E3DetectorDefinition();
@@ -414,6 +414,8 @@ protected:
         int myDetectPersons;
         /// @brief Whether the detector is declared as having incomplete entry detectors
         bool myOpenEntry;
+        /// @brief Whether the detector expects vehicles to arrive inside (and doesn't issue a warning in this case)
+        bool myExpectArrival;
         //@}
 
     private:
