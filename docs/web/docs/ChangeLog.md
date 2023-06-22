@@ -110,6 +110,7 @@ title: ChangeLog
   - abstractRail.py: Failure to optimize one region is now recoverable. Issue #13193
   - gridDistricts.py: Networks with non-normalized offsets now create correct taz shapes. Issue #13264
   - Function `sumolib.net.getBoxXY` now returns correct results for large networks. Issue #13320
+  - In circlePolygon.py, abbreviation -c is used for config, instead for color
   
   
 
