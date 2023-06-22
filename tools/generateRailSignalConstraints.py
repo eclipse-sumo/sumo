@@ -417,7 +417,7 @@ def getStopRoutes(net, options, stopEdges, stopEnds, bidiStops):
     begin = parseTime(options.begin)
     for vehicle in sumolib.xml.parse(options.routeFile, 'vehicle', heterogeneous=True):
         depart = parseTime(vehicle.depart)
-        if depart < begin:
+        if depart is not None and depart < begin:
             continue
         departTimes[vehicle.id] = depart
         numRoutes += 1
