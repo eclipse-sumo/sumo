@@ -1443,12 +1443,14 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
         for edgesBefore in sorted(approaches.keys()):
             stops = approaches[edgesBefore]
             oRoutes = set()
-            stopBidi = getBidiID(net, edgesBefore[-1])
+            stopEdgeBidi = getBidiID(net, edgesBefore[-1])
             for edge in edgesBefore:
                 if edge in usedBidi:
                     bidi = getBidiID(net, edge)
                     for route in edge2Route[bidi]:
-                        if stopBidi not in route:
+                        # insertion on the stopEdgeBidi may also define a bidi
+                        # conflict (i.e. with a foe vehicle that has delayed insertion w.r.t it's schedule)
+                        if stopEdgeBidi not in route[1:]:
                             oRoutes.add(route)
             if oRoutes:
                 # print(edgesBefore, stop, oRoutes)
@@ -1472,6 +1474,9 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                             sI2b = -1  # stop index of previous divergence
                             prevEdge = None
                             for sI2, (edgesBefore2, stop2) in enumerate(stopRoute2):
+                                if sI2 == 0:
+                                    # this is an insertion related conflict and we don't want to find a signal before the insertion edge
+                                    continue
                                 if sI2 < sI2b:
                                     continue
                                 for e in edgesBefore2:
