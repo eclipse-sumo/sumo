@@ -23,8 +23,11 @@ You have to edit the link number field (preset with g).
 """
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sys
 from lxml import etree
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(THIS_DIR, '..'))
 import sumolib  # noqa
 
 op = sumolib.options.ArgumentParser(
