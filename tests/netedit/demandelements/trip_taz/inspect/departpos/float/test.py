@@ -63,8 +63,8 @@ netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.departPos, "500", Fa
 netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.departPos, "20", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
