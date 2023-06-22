@@ -362,6 +362,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
                      (tag == GNE_TAG_FLOW_TAZS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_TAZS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_TAZS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {vehicleType}, {}),
     SUMOVehicleParameter(vehicleParameters) {
+    // mark taz parameters as set
+    parametersSet |= VEHPARS_FROM_TAZ_SET;
+    parametersSet |= VEHPARS_TO_TAZ_SET;
     // adjust default flow attributes
     adjustDefaultFlowAttributes(this);
 }
@@ -443,12 +446,6 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         // write manually from/to junctions (it correspond to front and back parent junctions)
         device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
         device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
-    }
-    // write from and to tazs
-    if ((myTagProperty.getTag() == GNE_TAG_TRIP_TAZS) || (myTagProperty.getTag() == GNE_TAG_FLOW_TAZS)) {
-        // write manually from/to junctions (it correspond to front and back parent junctions)
-        device.writeAttr(SUMO_ATTR_FROM_TAZ, getParentAdditionals().front()->getID());
-        device.writeAttr(SUMO_ATTR_TO_TAZ, getParentAdditionals().back()->getID());
     }
     // write specific routeFlow/flow attributes
     if (myTagProperty.isFlow()) {
