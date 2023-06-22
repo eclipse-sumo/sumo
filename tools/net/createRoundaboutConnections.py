@@ -50,11 +50,13 @@ def writeConnections(net):
                                 edgeOut._id) + "\" lane=\"" + str(x) + ":" + str(x) + "\" />\n")
     fd.write("</connections>\n")
 
+
 if __name__ == "__main__":
     op = sumolib.options.ArgumentParser(
         description='Create connections in roundabout')
-        
-    op.add_argument("-n", "--net-file", category="input", type=op.net_file, dest="net", required=True, help='Input file name')
+
+    op.add_argument("-n", "--net-file", category="input", type=op.net_file, dest="net", required=True,
+                    help='Input file name')
 
     try:
         options = op.parse_args()
