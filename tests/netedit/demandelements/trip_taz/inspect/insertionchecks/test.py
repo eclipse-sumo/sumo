@@ -55,7 +55,7 @@ netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.insertionChecks, "cu
 
 # change personNumber with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.insertionChecks,
-                        "leaderGap TAZ speedLimit pedestrian", False)
+                        "leaderGap junction speedLimit pedestrian", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

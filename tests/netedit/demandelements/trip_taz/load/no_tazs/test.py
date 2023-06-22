@@ -13,7 +13,7 @@
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
-# @date    2019-07-16
+# @date    2016-11-25
 
 # import common functions for netedit tests
 import os
@@ -28,31 +28,8 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# go to demand mode
+# go to demand mode (For undo-redo)
 netedit.supermodeDemand()
-
-# go to select mode
-netedit.selectMode()
-
-# select all using invert
-netedit.selectionInvert()
-
-# go to inspect mode
-netedit.inspectMode()
-
-# inspect vehicle
-netedit.leftClick(referencePosition, 100, 225)
-
-# change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspectSelection.insertionChecks, "dummy", False)
-
-# change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspectSelection.insertionChecks,
-                        "leaderGap junction speedLimit pedestrian", False)
-
-# Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

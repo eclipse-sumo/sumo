@@ -49,7 +49,7 @@ netedit.typeEnter()
 
 # set valid Line
 netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.insertionChecks,
-                           "leaderGap TAZ speedLimit pedestrian")
+                           "leaderGap junction speedLimit pedestrian")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
