@@ -20,8 +20,11 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 import sys
 import math
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(THIS_DIR, '..'))
 import sumolib  # noqa
 
 
