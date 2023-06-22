@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 100, 225)
 
 # change arrivalLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.arrivalLane, "", False)

@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 410, 170)
+netedit.leftClick(referencePosition, 160, 230)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.tripFromToTAZ.inspectSelection.colorButton, 5, False)

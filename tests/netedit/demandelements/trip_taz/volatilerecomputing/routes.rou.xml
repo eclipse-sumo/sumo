@@ -4,9 +4,8 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="t_0" depart="0.00" fromJunction="gneJ4" toJunction="gneJ5"/>
-    <trip id="t_1" depart="1.00" fromJunction="gneJ4" toJunction="gneJ6"/>
-    <trip id="t_2" depart="2.00" fromJunction="gneJ5" toJunction="gneJ7"/>
-    <trip id="t_3" depart="3.00" fromJunction="gneJ6" toJunction="gneJ9"/>
-    <trip id="t_4" depart="4.00" fromJunction="gneJ9" toJunction="gneJ4"/>
+    <trip id="t_0" depart="0.00" fromTaz="taz_0" toTaz="taz_1"/>
+    <trip id="t_1" depart="1.00" fromTaz="taz_1" toTaz="taz_2"/>
+	<trip id="t_0" depart="0.00" fromTaz="taz_2" toTaz="taz_3"/>
+    <trip id="t_1" depart="1.00" fromTaz="taz_3" toTaz="taz_0"/>
 </routes>

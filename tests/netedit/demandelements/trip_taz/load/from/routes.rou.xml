@@ -55,11 +55,11 @@
 
     <trip id="trip_0" toJunction="gneJ7" depart="20.00"/>
 
-    <trip id="trip_1" fromJunction="" toJunction="gneJ7" depart="20.00"/>
+    <trip id="trip_1" fromJunction="" toJunction="taz_0" depart="20.00"/>
 
-    <trip id="trip_2" fromJunction="dummyFrom" toJunction="gneJ7" depart="20.00"/>
+    <trip id="trip_2" fromJunction="dummyFrom" toJunction="taz_0" depart="20.00"/>
 
-    <trip id="trip_3" fromJunction="gneJ7" toJunction="gneJ7" depart="20.00"/>
+    <trip id="trip_3" fromJunction="taz_0" toJunction="taz_0" depart="20.00"/>
 
     <trip id="trip_4" fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
 
