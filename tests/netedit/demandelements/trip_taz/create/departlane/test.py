@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid depart lane
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.departLane, "20")
+netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.departLane, "0")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
