@@ -187,6 +187,7 @@
         <xsd:attribute name="nextEdges" type="xsd:string" use="optional"/>
         <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
         <xsd:attribute name="openEntry" type="boolType" use="optional"/>
+        <xsd:attribute name="expectArrival" type="boolType" use="optional"/>
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
