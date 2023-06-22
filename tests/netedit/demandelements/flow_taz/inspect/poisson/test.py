@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to TAZs)")
 
 # create flow with embedded route using two edges
-netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 100, 225)
 netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create route
@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 100, 225)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacing, "dummyTerminate", False)
@@ -66,8 +66,8 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacingOption, "12.5", Fal
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacingOption, "2.6", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

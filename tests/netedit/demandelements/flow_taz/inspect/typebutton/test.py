@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to TAZs)")
 
 # create trip using two TAZs
-netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 100, 225)
 netedit.leftClick(referencePosition, 430, 250)
 
 # press enter to create route
@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 100, 225)
 
 # change vType with a valid value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.type, "custom_vType", False)
@@ -60,8 +60,8 @@ netedit.modifyBoolAttribute(netedit.attrs.flowTAZ.inspect.typeButton, False)
 netedit.modifyAttribute(netedit.attrs.type.color, "12,13,14", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 410, 170)
+netedit.leftClick(referencePosition, 100, 225)
 
 # change departPosLat with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.departPosLat, "", False)
@@ -53,8 +53,8 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.departPosLat, "du
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.departPosLat, "random_free", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

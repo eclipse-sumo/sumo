@@ -13,7 +13,7 @@
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
-# @date    2019-07-16
+# @date    2016-11-25
 
 # import common functions for netedit tests
 import os
@@ -28,46 +28,8 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# go to demand mode
+# go to demand mode (For undo-redo)
 netedit.supermodeDemand()
-
-# go to vehicle mode
-netedit.vehicleMode()
-
-# change vehicle
-netedit.changeElement("flow (from-to TAZs)")
-
-# create trip using two TAZs
-netedit.leftClick(referencePosition, 100, 225)
-netedit.leftClick(referencePosition, 430, 250)
-
-# press enter to create route
-netedit.typeEnter()
-
-# go to inspect mode
-netedit.inspectMode()
-
-# inspect vehicle
-netedit.leftClick(referencePosition, 100, 225)
-
-# change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.departSpeed, "", False)
-
-# change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.departSpeed, "dummySpeed", False)
-
-# change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.departSpeed, "500", False)
-
-# change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.departSpeed, "-10", False)
-
-# change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.departSpeed, "20", False)
-
-# Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

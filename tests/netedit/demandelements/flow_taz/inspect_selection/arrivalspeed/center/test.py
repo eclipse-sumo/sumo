@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 410, 170)
+netedit.leftClick(referencePosition, 100, 225)
 
 # change arrivalPosLat with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.arrivalPosLat, "", False)
@@ -53,8 +53,8 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.arrivalPosLat, "d
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.arrivalPosLat, "center", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
