@@ -1267,7 +1267,10 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_EXPERIMENTAL1, "").empty()) {
         vType->setAttribute(SUMO_ATTR_LCA_EXPERIMENTAL1, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)), undoList);
     }
-    //
+    // vType parameters
+    if (newVTypeParameter.wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
+        vType->setAttribute(SUMO_ATTR_VCLASS, toString(newVTypeParameter.vehicleClass), undoList);
+    }
     if (newVTypeParameter.wasSet(VTYPEPARS_LENGTH_SET)) {
         vType->setAttribute(SUMO_ATTR_LENGTH, toString(newVTypeParameter.length), undoList);
     }
