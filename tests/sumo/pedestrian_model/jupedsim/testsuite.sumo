@@ -1,6 +1,6 @@
 two_edges
 
-# Test that checks there is no bad state recorded.
+# Test that checks there is no bad state recorded. The problem stemed from the way moveToXY works.
 bad_state_bug
 
 # Starting two agents at the same position
