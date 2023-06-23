@@ -2254,8 +2254,8 @@ GNENet::saveDemandElementsConfirmed() {
     device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
     // first  write all vTypeDistributions (and their vTypes)
     writeVTypeComment(device, false);
-    writeVTypeDistributions(device, false);
     writeVTypes(device, false);
+    writeVTypeDistributions(device, false);
     // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
     writeRouteComment(device, false);
     writeRoutes(device, false);
