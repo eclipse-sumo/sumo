@@ -373,78 +373,83 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
 
     // build walkingareaPaths
     for (MSEdgeVector::const_iterator i = MSEdge::getAllEdges().begin(); i != MSEdge::getAllEdges().end(); ++i) {
-        const MSEdge* edge = *i;
-        if (edge->isWalkingArea()) {
-            const MSLane* walkingArea = getSidewalk<MSEdge, MSLane>(edge);
-            myMinNextLengths[walkingArea] = walkingArea->getLength();
-            // build all possible paths across this walkingArea
-            // gather all incident lanes
-            std::vector<const MSLane*> lanes;
-            for (const MSEdge* in : edge->getPredecessors()) {
-                if (!in->isTazConnector()) {
-                    lanes.push_back(getSidewalk<MSEdge, MSLane>(in));
-                    if (lanes.back() == nullptr) {
-                        throw ProcessError("Invalid connection from edge '" + in->getID() + "' to walkingarea edge '" + edge->getID() + "'");
-                    }
+        insertWalkArePaths(*i, myWalkingAreaPaths);
+    }
+}
+
+
+void
+MSPModel_Striping::insertWalkArePaths(const MSEdge* edge, WalkingAreaPaths& into) {
+    if (edge->isWalkingArea()) {
+        const MSLane* walkingArea = getSidewalk<MSEdge, MSLane>(edge);
+        myMinNextLengths[walkingArea] = walkingArea->getLength();
+        // build all possible paths across this walkingArea
+        // gather all incident lanes
+        std::vector<const MSLane*> lanes;
+        for (const MSEdge* in : edge->getPredecessors()) {
+            if (!in->isTazConnector()) {
+                lanes.push_back(getSidewalk<MSEdge, MSLane>(in));
+                if (lanes.back() == nullptr) {
+                    throw ProcessError("Invalid connection from edge '" + in->getID() + "' to walkingarea edge '" + edge->getID() + "'");
                 }
             }
-            for (const MSEdge* out : edge->getSuccessors()) {
-                if (!out->isTazConnector()) {
-                    lanes.push_back(getSidewalk<MSEdge, MSLane>(out));
-                    if (lanes.back() == nullptr) {
-                        throw ProcessError("Invalid connection from walkingarea edge '" + edge->getID() + "' to edge '" + out->getID() + "'");
-                    }
+        }
+        for (const MSEdge* out : edge->getSuccessors()) {
+            if (!out->isTazConnector()) {
+                lanes.push_back(getSidewalk<MSEdge, MSLane>(out));
+                if (lanes.back() == nullptr) {
+                    throw ProcessError("Invalid connection from walkingarea edge '" + edge->getID() + "' to edge '" + out->getID() + "'");
                 }
             }
-            // build all combinations
-            for (int j = 0; j < (int)lanes.size(); ++j) {
-                for (int k = 0; k < (int)lanes.size(); ++k) {
-                    if (j != k) {
-                        // build the walkingArea
-                        const MSLane* const from = lanes[j];
-                        const MSLane* const to = lanes[k];
-                        const int fromDir = from->getLinkTo(walkingArea) != nullptr ? FORWARD : BACKWARD;
-                        const int toDir = walkingArea->getLinkTo(to) != nullptr ? FORWARD : BACKWARD;
-                        PositionVector shape;
-                        Position fromPos = from->getShape()[fromDir == FORWARD ? -1 : 0];
-                        Position toPos = to->getShape()[toDir == FORWARD ? 0 : -1];
-                        const double maxExtent = fromPos.distanceTo2D(toPos) / 4; // prevent sharp corners
-                        const double extrapolateBy = MIN2(maxExtent, walkingArea->getWidth() / 2);
-                        // assemble shape
-                        shape.push_back(fromPos);
-                        if (extrapolateBy > POSITION_EPS) {
-                            PositionVector fromShp = from->getShape();
-                            fromShp.extrapolate(extrapolateBy);
-                            shape.push_back_noDoublePos(fromDir == FORWARD ? fromShp.back() : fromShp.front());
-                            PositionVector nextShp = to->getShape();
-                            nextShp.extrapolate(extrapolateBy);
-                            shape.push_back_noDoublePos(toDir == FORWARD ? nextShp.front() : nextShp.back());
-                        }
-                        shape.push_back_noDoublePos(toPos);
-                        if (shape.size() < 2) {
-                            PositionVector fromShp = from->getShape();
-                            fromShp.extrapolate(1.5 * POSITION_EPS); // noDoublePos requires a difference of POSITION_EPS in at least one coordinate
-                            shape.push_back_noDoublePos(fromDir == FORWARD ? fromShp.back() : fromShp.front());
-                            assert(shape.size() == 2);
-                        } else if (myWalkingAreaDetail > 4) {
-                            shape = shape.bezier(myWalkingAreaDetail);
-                        }
-                        double angleOverride = INVALID_DOUBLE;
-                        if (shape.size() >= 4 && shape.length() < walkingArea->getWidth()) {
-                            const double aStart = shape.angleAt2D(0);
-                            const double aEnd = shape.angleAt2D((int)shape.size() - 2);
-                            if (fabs(aStart - aEnd) < DEG2RAD(10)) {
-                                angleOverride = (aStart + aEnd) / 2;
-                            }
-                        }
-                        if (fromDir == BACKWARD) {
-                            // will be walking backward on walkingArea
-                            shape = shape.reverse();
-                        }
-                        WalkingAreaPath wap = WalkingAreaPath(from, walkingArea, to, shape, fromDir, angleOverride);
-                        myWalkingAreaPaths.insert(std::make_pair(std::make_pair(from, to), wap));
-                        myMinNextLengths[walkingArea] = MIN2(myMinNextLengths[walkingArea], wap.length);
+        }
+        // build all combinations
+        for (int j = 0; j < (int)lanes.size(); ++j) {
+            for (int k = 0; k < (int)lanes.size(); ++k) {
+                if (j != k) {
+                    // build the walkingArea
+                    const MSLane* const from = lanes[j];
+                    const MSLane* const to = lanes[k];
+                    const int fromDir = from->getLinkTo(walkingArea) != nullptr ? FORWARD : BACKWARD;
+                    const int toDir = walkingArea->getLinkTo(to) != nullptr ? FORWARD : BACKWARD;
+                    PositionVector shape;
+                    Position fromPos = from->getShape()[fromDir == FORWARD ? -1 : 0];
+                    Position toPos = to->getShape()[toDir == FORWARD ? 0 : -1];
+                    const double maxExtent = fromPos.distanceTo2D(toPos) / 4; // prevent sharp corners
+                    const double extrapolateBy = MIN2(maxExtent, walkingArea->getWidth() / 2);
+                    // assemble shape
+                    shape.push_back(fromPos);
+                    if (extrapolateBy > POSITION_EPS) {
+                        PositionVector fromShp = from->getShape();
+                        fromShp.extrapolate(extrapolateBy);
+                        shape.push_back_noDoublePos(fromDir == FORWARD ? fromShp.back() : fromShp.front());
+                        PositionVector nextShp = to->getShape();
+                        nextShp.extrapolate(extrapolateBy);
+                        shape.push_back_noDoublePos(toDir == FORWARD ? nextShp.front() : nextShp.back());
                     }
+                    shape.push_back_noDoublePos(toPos);
+                    if (shape.size() < 2) {
+                        PositionVector fromShp = from->getShape();
+                        fromShp.extrapolate(1.5 * POSITION_EPS); // noDoublePos requires a difference of POSITION_EPS in at least one coordinate
+                        shape.push_back_noDoublePos(fromDir == FORWARD ? fromShp.back() : fromShp.front());
+                        assert(shape.size() == 2);
+                    } else if (myWalkingAreaDetail > 4) {
+                        shape = shape.bezier(myWalkingAreaDetail);
+                    }
+                    double angleOverride = INVALID_DOUBLE;
+                    if (shape.size() >= 4 && shape.length() < walkingArea->getWidth()) {
+                        const double aStart = shape.angleAt2D(0);
+                        const double aEnd = shape.angleAt2D((int)shape.size() - 2);
+                        if (fabs(aStart - aEnd) < DEG2RAD(10)) {
+                            angleOverride = (aStart + aEnd) / 2;
+                        }
+                    }
+                    if (fromDir == BACKWARD) {
+                        // will be walking backward on walkingArea
+                        shape = shape.reverse();
+                    }
+                    WalkingAreaPath wap = WalkingAreaPath(from, walkingArea, to, shape, fromDir, angleOverride);
+                    into.insert(std::make_pair(std::make_pair(from, to), wap));
+                    myMinNextLengths[walkingArea] = MIN2(myMinNextLengths[walkingArea], wap.length);
                 }
             }
         }
