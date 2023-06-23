@@ -408,7 +408,23 @@ GNEDemandElement::getTypeParent() const {
     } else if (getParentDemandElements().at(0)->getTagProperty().getTag() == SUMO_TAG_VTYPE) {
         return getParentDemandElements().at(0);
     } else {
-        return nullptr;
+        // get typeDistribution ID
+        const auto typeDistributionID = getParentDemandElements().at(0)->getID();
+        // obtain all types with the given typeDistribution sorted by ID
+        std::map<std::string, GNEDemandElement*> sortedTypes;
+        for (const auto &type : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+            if (type->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == typeDistributionID) {
+                sortedTypes[type->getID()] = type;
+            }
+        }
+        // return first type, or default vType
+        if (sortedTypes.size() > 0) {
+            return sortedTypes.begin()->second;
+        } else if (myNet->getAttributeCarriers()->getDemandElements().size() > 0){
+            return *myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).begin();
+        } else {
+            throw InvalidArgument("no vTypes");
+        }
     }
 }
 
