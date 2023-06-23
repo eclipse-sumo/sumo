@@ -223,7 +223,7 @@ GNEContainer::getBegin() const {
 void
 GNEContainer::writeDemandElement(OutputDevice& device) const {
     // attribute VType musn't be written if is DEFAULT_PEDTYPE_ID
-    if (getParentDemandElements().at(0)->getID() == DEFAULT_CONTAINERTYPE_ID) {
+    if (getTypeParent()->getID() == DEFAULT_CONTAINERTYPE_ID) {
         // unset VType parameter
         parametersSet &= ~VEHPARS_VTYPE_SET;
         // write container attributes (VType will not be written)
@@ -232,7 +232,7 @@ GNEContainer::writeDemandElement(OutputDevice& device) const {
         parametersSet |= VEHPARS_VTYPE_SET;
     } else {
         // write container attributes, including VType
-        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getTypeParent()->getID());
     }
     // write specific flow attributes
     if (myTagProperty.getTag() == SUMO_TAG_CONTAINERFLOW) {
@@ -383,12 +383,12 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
         // obtain exaggeration (and add the special containerExaggeration)
         const double exaggeration = getExaggeration(s) + s.detailSettings.personExaggeration;
         // obtain width and length
-        const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
-        const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
+        const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
+        const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
         // obtain diameter around container (used to calculate distance bewteen cursor and container)
         const double distanceSquared = pow(exaggeration * std::max(length, width), 2);
         // obtain img file
-        const std::string file = getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
+        const std::string file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
         // obtain position
         const Position containerPosition = getAttributePosition(SUMO_ATTR_DEPARTPOS);
         // check if container can be drawn
@@ -535,7 +535,7 @@ GNEContainer::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_TYPE:
-            return getParentDemandElements().at(0)->getID();
+            return getTypeParent()->getID();
         case SUMO_ATTR_COLOR:
             if (wasSet(VEHPARS_COLOR_SET)) {
                 return toString(color);
@@ -839,8 +839,8 @@ GNEContainer::getACParametersMap() const {
 void
 GNEContainer::drawAction_drawAsPoly() const {
     // obtain width and length
-    const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
-    const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
+    const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
+    const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
     // draw pedestrian shape
     glScaled(length * 0.2, width * 0.2, 1);
     glBegin(GL_QUADS);
@@ -862,10 +862,10 @@ GNEContainer::drawAction_drawAsPoly() const {
 
 void
 GNEContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
-    const std::string& file = getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
+    const std::string& file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
     // obtain width and length
-    const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
-    const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
+    const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
+    const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
     if (file != "") {
         // @todo invent an option for controlling whether images should be rotated or not
         //if (getVehicleType().getGuiShape() == SVS_CONTAINER) {

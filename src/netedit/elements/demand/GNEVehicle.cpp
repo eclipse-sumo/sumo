@@ -417,7 +417,7 @@ GNEVehicle::getBegin() const {
 void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
     // attribute VType must not be written if is DEFAULT_VTYPE_ID
-    if (getParentDemandElements().at(0)->getID() == DEFAULT_VTYPE_ID) {
+    if (getTypeParent()->getID() == DEFAULT_VTYPE_ID) {
         // unset VType parameter
         parametersSet &= ~VEHPARS_VTYPE_SET;
         // write vehicle attributes (VType will not be written)
@@ -426,12 +426,12 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         parametersSet |= VEHPARS_VTYPE_SET;
     } else {
         // write vehicle attributes, including VType
-        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getTypeParent()->getID());
     }
     // write specific attribute depending of tag property
     if (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) {
         // write route
-        device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
+        device.writeAttr(SUMO_ATTR_ROUTE, getRouteParent()->getID());
     }
     // write from, to and edge vias
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
@@ -511,14 +511,14 @@ GNEVehicle::isDemandElementValid() const {
         }
     } else if (getParentDemandElements().size() == 2) {
         // check if exist a valid path using route parent edges
-        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentDemandElements().at(1)->getParentEdges()).size() > 0) {
+        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getTypeParent()->getVClass(), getRouteParent()->getParentEdges()).size() > 0) {
             return Problem::OK;
         } else {
             return Problem::INVALID_PATH;
         }
     } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
         // check if exist a valid path using route child edges
-        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().at(0)->getParentEdges()).size() > 0) {
+        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getTypeParent()->getVClass(), getChildDemandElements().at(0)->getParentEdges()).size() > 0) {
             return Problem::OK;
         } else {
             return Problem::INVALID_PATH;
@@ -535,7 +535,7 @@ GNEVehicle::getDemandElementProblem() const {
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
+            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getTypeParent()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
                 return ("There is no valid path between edges '" + getParentEdges().at((int)i - 1)->getID() + "' and '" + getParentEdges().at(i)->getID() + "'");
             }
         }
@@ -545,10 +545,10 @@ GNEVehicle::getDemandElementProblem() const {
         return ("No path between junction '" + getParentJunctions().front()->getID() + "' and '" + getParentJunctions().back()->getID() + "'");
     } else if (getParentDemandElements().size() == 2) {
         // get route parent edges
-        const std::vector<GNEEdge*>& routeEdges = getParentDemandElements().at(1)->getParentEdges();
+        const std::vector<GNEEdge*>& routeEdges = getRouteParent()->getParentEdges();
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)routeEdges.size(); i++) {
-            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
+            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getTypeParent()->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
                 return ("There is no valid path between route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
             }
         }
@@ -559,7 +559,7 @@ GNEVehicle::getDemandElementProblem() const {
         const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().at(0)->getParentEdges();
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)routeEdges.size(); i++) {
-            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
+            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getTypeParent()->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
                 return ("There is no valid path between embedded route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
             }
         }
@@ -659,7 +659,7 @@ GNEVehicle::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 std::string
 GNEVehicle::getParentName() const {
     if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
-        return getParentDemandElements().at(1)->getID();
+        return getRouteParent()->getID();
     } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         return getParentEdges().front()->getID();
     } else {
@@ -698,8 +698,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         // declare common attributes
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
         const double exaggeration = getExaggeration(s);
-        const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
-        const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
+        const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
+        const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);
         const auto vehicleColor = setColor(s);
         // obtain Position an rotation (depending of draw spread vehicles)
@@ -727,7 +727,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // Pop last matrix
                 GLHelper::popMatrix();
             } else {
-                SUMOVehicleShape shape = getVehicleShapeID(getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE));
+                SUMOVehicleShape shape = getVehicleShapeID(getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE));
                 // push draw matrix
                 GLHelper::pushMatrix();
                 // Start with the drawing of the area translating matrix to origin
@@ -760,7 +760,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     }
                     // check if min gap has to be drawn
                     if (s.drawMinGap) {
-                        const double minGap = -1 * getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_MINGAP);
+                        const double minGap = -1 * getTypeParent()->getAttributeDouble(SUMO_ATTR_MINGAP);
                         glColor3d(0., 1., 0.);
                         glBegin(GL_LINES);
                         glVertex2d(0., 0);
@@ -773,7 +773,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(0, MIN2(length / 2, double(5)), -getType());
                     glScaled(1 / exaggeration, 1 / upscaleLength, 1);
                     glRotated(vehicleRotation, 0, 0, -1);
-                    drawName(Position(0, 0), s.scale, getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
+                    drawName(Position(0, 0), s.scale, getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
                     // draw line
                     if (s.vehicleName.show(this) && line != "") {
                         glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
@@ -906,7 +906,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.tripWidth;
         // calculate startPos
-        const double geometryDepartPos = (getParentJunctions().size() > 0) ? 0 : getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
+        const double geometryDepartPos = (getParentJunctions().size() > 0) ? 0 : getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
         // get endPos
         const double geometryEndPos = (getParentJunctions().size() > 0) ? lane->getLaneGeometry().getShape().length2D() : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         // declare path geometry
@@ -1093,12 +1093,12 @@ GNEVehicle::getFirstPathLane() const {
     // continue depending of tags
     if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
         // check departEdge
-        if ((departEdge > 0) && (departEdge < (int)getParentDemandElements().at(1)->getParentEdges().size())) {
+        if ((departEdge > 0) && (departEdge < (int)getRouteParent()->getParentEdges().size())) {
             // use departEdge
-            firstEdge = getParentDemandElements().at(1)->getParentEdges().at(departEdge);
+            firstEdge = getRouteParent()->getParentEdges().at(departEdge);
         } else {
             // use first route edge
-            firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
+            firstEdge = getRouteParent()->getParentEdges().front();
         }
     } else if (myTagProperty.hasEmbeddedRoute()) {
         // check if embedded route exist (due during loading embedded route doesn't exist
@@ -1139,12 +1139,12 @@ GNEVehicle::getLastPathLane() const {
     // continue depending of tags
     if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
         // check arrivalEdge
-        if ((arrivalEdge > 0) && (arrivalEdge < (int)getParentDemandElements().at(1)->getParentEdges().size())) {
+        if ((arrivalEdge > 0) && (arrivalEdge < (int)getRouteParent()->getParentEdges().size())) {
             // use arrival edge
-            lastEdge = getParentDemandElements().at(1)->getParentEdges().at(arrivalEdge);
+            lastEdge = getRouteParent()->getParentEdges().at(arrivalEdge);
         } else {
             // use last route edge
-            lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
+            lastEdge = getRouteParent()->getParentEdges().back();
         }
     } else if (myTagProperty.hasEmbeddedRoute()) {
         // check if embedded route exist (due during loading embedded route doesn't exist)
@@ -1186,7 +1186,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_TYPE:
-            return getParentDemandElements().at(0)->getID();
+            return getTypeParent()->getID();
         case SUMO_ATTR_COLOR:
             if (wasSet(VEHPARS_COLOR_SET)) {
                 return toString(color);
@@ -1285,7 +1285,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
-                return getParentDemandElements().at(1)->getID();
+                return getRouteParent()->getID();
             } else {
                 return "";
             }
@@ -1379,7 +1379,7 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_MINGAP:
-            return getParentDemandElements().at(0)->getAttributeDouble(key);
+            return getTypeParent()->getAttributeDouble(key);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -1542,7 +1542,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 } else if (isTemplate()) {
                     return true;
                 } else {
-                    return (dummyDepartSpeed <= getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_MAXSPEED));
+                    return (dummyDepartSpeed <= getTypeParent()->getAttributeDouble(SUMO_ATTR_MAXSPEED));
                 }
             } else {
                 return false;
@@ -1638,7 +1638,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                     return false;
                 } else if (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) {
                     // check parent route
-                    return (index < (int)getParentDemandElements().at(1)->getParentEdges().size());
+                    return (index < (int)getRouteParent()->getParentEdges().size());
                 } else {
                     // check embedded route
                     return (index < (int)getChildDemandElements().front()->getParentEdges().size());
@@ -1813,18 +1813,18 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
         switch (c.getActive()) {
             case 0: {
                 // test for emergency vehicle
-                if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
+                if (getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
                     return RGBColor::WHITE;
                 }
                 // test for firebrigade
-                if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
+                if (getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
                     return RGBColor::RED;
                 }
                 // test for police car
-                if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
+                if (getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
                     return RGBColor::BLUE;
                 }
-                if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "scooter") {
+                if (getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "scooter") {
                     return RGBColor::WHITE;
                 }
                 // check if color was set
@@ -1832,7 +1832,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                     return color;
                 } else {
                     // take their parent's color)
-                    return getParentDemandElements().at(0)->getColor();
+                    return getTypeParent()->getColor();
                 }
             }
             case 2: {
@@ -1843,22 +1843,22 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 }
             }
             case 3: {
-                if (getParentDemandElements().at(0)->isAttributeEnabled(SUMO_ATTR_COLOR)) {
-                    return getParentDemandElements().at(0)->getColor();
+                if (getTypeParent()->isAttributeEnabled(SUMO_ATTR_COLOR)) {
+                    return getTypeParent()->getColor();
                 } else {
                     return c.getScheme().getColor(0);
                 }
                 break;
             }
             case 4: {
-                if (getParentDemandElements().at(1)->getColor() != RGBColor::DEFAULT_COLOR) {
-                    return getParentDemandElements().at(1)->getColor();
+                if (getRouteParent()->getColor() != RGBColor::DEFAULT_COLOR) {
+                    return getRouteParent()->getColor();
                 } else {
                     return c.getScheme().getColor(0);
                 }
             }
             case 5: {
-                Position p = getParentDemandElements().at(1)->getParentEdges().at(0)->getLanes().at(0)->getLaneShape()[0];
+                Position p = getRouteParent()->getParentEdges().at(0)->getLanes().at(0)->getLaneShape()[0];
                 const Boundary& b = myNet->getBoundary();
                 Position center = b.getCenter();
                 double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -1866,7 +1866,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 return RGBColor::fromHSV(hue, sat, 1.);
             }
             case 6: {
-                Position p = getParentDemandElements().at(1)->getParentEdges().back()->getLanes().at(0)->getLaneShape()[-1];
+                Position p = getRouteParent()->getParentEdges().back()->getLanes().at(0)->getLaneShape()[-1];
                 const Boundary& b = myNet->getBoundary();
                 Position center = b.getCenter();
                 double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -1874,8 +1874,8 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 return RGBColor::fromHSV(hue, sat, 1.);
             }
             case 7: {
-                Position pb = getParentDemandElements().at(1)->getParentEdges().at(0)->getLanes().at(0)->getLaneShape()[0];
-                Position pe = getParentDemandElements().at(1)->getParentEdges().back()->getLanes().at(0)->getLaneShape()[-1];
+                Position pb = getRouteParent()->getParentEdges().at(0)->getLanes().at(0)->getLaneShape()[0];
+                Position pe = getRouteParent()->getParentEdges().back()->getLanes().at(0)->getLaneShape()[-1];
                 const Boundary& b = myNet->getBoundary();
                 double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
                 Position minp(b.xmin(), b.ymin());
@@ -2253,8 +2253,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             getParentEdges().front()->updateVehicleStackLabels();
             getParentEdges().front()->updateVehicleSpreadGeometries();
         } else if (getParentDemandElements().size() == 2) {
-            getParentDemandElements().at(1)->getParentEdges().front()->updateVehicleStackLabels();
-            getParentDemandElements().at(1)->getParentEdges().front()->updateVehicleSpreadGeometries();
+            getRouteParent()->getParentEdges().front()->updateVehicleStackLabels();
+            getRouteParent()->getParentEdges().front()->updateVehicleSpreadGeometries();
         } else if (getChildDemandElements().size() > 0) {
             getChildDemandElements().front()->getParentEdges().front()->updateVehicleStackLabels();
             getChildDemandElements().front()->getParentEdges().front()->updateVehicleSpreadGeometries();

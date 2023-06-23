@@ -343,6 +343,12 @@ protected:
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
+    /// @brief get type parent (needed because first parent can be either type or typeDistribution)
+    GNEDemandElement* getTypeParent() const;
+
+    /// @brief get route parent (always the second parent demand element)
+    GNEDemandElement* getRouteParent() const;
+
     /// @name Only for person plans
     /// @{
     /// @brief check if person plan can be drawn

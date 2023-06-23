@@ -399,6 +399,32 @@ GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
 }
 
 
+GNEDemandElement*
+GNEDemandElement::getTypeParent() const {
+    if (getParentDemandElements().size() < 1) {
+        throw InvalidArgument("This demand element doesn't have a type parent");
+    } else if (!getParentDemandElements().at(0)->getTagProperty().isType()) {
+        throw InvalidArgument("The first parent isn't a type");
+    } else if (getParentDemandElements().at(0)->getTagProperty().getTag() == SUMO_TAG_VTYPE) {
+        return getParentDemandElements().at(0);
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEDemandElement*
+GNEDemandElement::getRouteParent() const {
+    if (getParentDemandElements().size() < 2) {
+        throw InvalidArgument("This demand element doesn't have two parent");
+    } else if (getParentDemandElements().at(1)->getTagProperty().getTag() != SUMO_TAG_ROUTE) {
+        throw InvalidArgument("This demand element doesn't have a route parent");
+    } else {
+        return getParentDemandElements().at(1);
+    }
+}
+
+
 const Position
 GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
     if (myTagProperty.isStopPerson()) {

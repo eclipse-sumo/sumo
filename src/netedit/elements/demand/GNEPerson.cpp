@@ -223,7 +223,7 @@ GNEPerson::getBegin() const {
 void
 GNEPerson::writeDemandElement(OutputDevice& device) const {
     // attribute VType musn't be written if is DEFAULT_PEDTYPE_ID
-    if (getParentDemandElements().at(0)->getID() == DEFAULT_PEDTYPE_ID) {
+    if (getTypeParent()->getID() == DEFAULT_PEDTYPE_ID) {
         // unset VType parameter
         parametersSet &= ~VEHPARS_VTYPE_SET;
         // write person attributes (VType will not be written)
@@ -232,7 +232,7 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
         parametersSet |= VEHPARS_VTYPE_SET;
     } else {
         // write person attributes, including VType
-        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getTypeParent()->getID());
     }
     // write specific flow attributes
     if (myTagProperty.getTag() == SUMO_TAG_PERSONFLOW) {
@@ -384,12 +384,12 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         // obtain exaggeration (and add the special personExaggeration)
         const double exaggeration = getExaggeration(s) + s.detailSettings.personExaggeration;
         // obtain width and length
-        const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
-        const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
+        const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
+        const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
         // obtain diameter around person (used to calculate distance bewteen cursor and person)
         const double distanceSquared = pow(exaggeration * std::max(length, width), 2);
         // obtain img file
-        const std::string file = getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_IMGFILE);
+        const std::string file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
         // obtain position
         const Position personPosition = getAttributePosition(SUMO_ATTR_DEPARTPOS);
         // check if person can be drawn
@@ -534,7 +534,7 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_TYPE:
-            return getParentDemandElements().at(0)->getID();
+            return getTypeParent()->getID();
         case SUMO_ATTR_COLOR:
             if (wasSet(VEHPARS_COLOR_SET)) {
                 return toString(color);
