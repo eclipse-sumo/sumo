@@ -181,11 +181,16 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         double bestDistance = std::numeric_limits<double>::max();
         int routeOffset = 0;
         const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
+        
+        // Here we need the forward-looking edges of the route because of how moveToXYMap_matchingRoutePosition is written.
+        ConstMSEdgeVector route = stage->getEdges();
+        ConstMSEdgeVector forwardRoute = ConstMSEdgeVector(route.begin() + routeIndex, route.end());
         const bool found = libsumo::Helper::moveToXYMap_matchingRoutePosition(newPosition, "",
-            stage->getEdges(), routeIndex, person->getVClass(), true,
+            forwardRoute, 0, person->getVClass(), true,
             bestDistance, &lane, lanePos, routeOffset);
         if (found && currentLane->isNormal() && lane->isNormal() && lane != currentLane) {
-            stage->moveToNextEdge(person, time, 1, nullptr);
+            bool result = stage->moveToNextEdge(person, time, 1, nullptr);
+            assert(result == false); // The person has not arrived yet.
         }
         // If near the last waypoint, remove the agent.
         if (newPosition.distanceTo2D(state->getDestination()) < myExitTolerance) {
