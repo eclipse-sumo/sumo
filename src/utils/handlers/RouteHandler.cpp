@@ -282,8 +282,6 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                               obj->getVehicleParameter(),
                               obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
                               obj->getStringAttribute(SUMO_ATTR_TO_TAZ));
-            } else {
-                throw ProcessError("Invalid from-to values in flows");
             }
             break;
         // persons
