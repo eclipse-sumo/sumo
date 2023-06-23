@@ -670,10 +670,10 @@ def toCsv(options):
 def getOptions():
     ap = sumolib.options.ArgumentParser(
         description="Converts a CSV file with green times per signal group into the SUMO format.")
-    ap.add_option("-o", "--output", category="output", action="store", default="tls.add.xml",
-                  type=ap.data_file, help="File path to TLL output file (SUMO additional file) / prefix for generated CSV files.")
-    ap.add_option("-i", "--input", category="input", action="store", default="",
-                  type=ap.data_file, help="File path to input CSV or TLL file(s). Multiple file paths have to be separated by ','.")
+    ap.add_option("-o", "--output", category="output", action="store", default="tls.add.xml", type=ap.data_file,
+                  help="File path to TLL output file (SUMO additional file) / prefix for generated CSV files.")
+    ap.add_option("-i", "--input", category="input", action="store", default="", type=ap.data_file,
+                  help="File path to input CSV or TLL file(s). Multiple file paths have to be separated by ','.")
     ap.add_option("-r", "--reverse", action="store_true", default=False,
                   help="Interpret input files in TLL format and convert them to CSV files.")
     ap.add_option("-g", "--group", action="store_true", default=False,
@@ -691,8 +691,7 @@ def getOptions():
     ap.add_option("-m", "--make-input-dir", action="store", default="",
                   help="Create input file template(s) from the SUMO network file in the given directory.")
     ap.add_option("-d", "--debug", action="store_true", default=False, help="Output debugging information")
-    options = ap.parse_args()
-    return options
+    return ap.parse_args()
 
 
 # this is the main entry point of this script

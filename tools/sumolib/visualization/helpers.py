@@ -124,7 +124,8 @@ def addPlotOptions(ap):
 
 
 def addInteractionOptions(optParser):
-    optParser.add_option("-o", "--output", category="output", dest="output", metavar="FILE", type=ArgumentParser.file_list,
+    optParser.add_option("-o", "--output", category="output", dest="output", metavar="FILE",
+                         type=ArgumentParser.file_list,
                          default=None, help="Comma separated list of filename(s) the figure shall be written to")
     optParser.add_option("-b", "--blind", dest="blind", action="store_true",
                          default=False, help="If set, the figure will not be shown")

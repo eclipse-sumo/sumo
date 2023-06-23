@@ -25,33 +25,21 @@ import os
 import sys
 from lxml import etree as ET
 
-
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Set or remove an attribute for the specified XML element.")
-    # input
-    optParser.add_argument("-f", "--file", category="input", dest="file", required=True,
+    optParser.add_argument("-f", "--file", category="input", required=True,
                            type=optParser.data_file, help="define the XML input file")
-    # output
-    optParser.add_argument("-o", "--output", category="output", dest="output",
+    optParser.add_argument("-o", "--output", category="output", required=True,
                            type=optParser.data_file, help="define the XML output file")
-    # processing
-    optParser.add_argument("-t", "--tag", dest="tag",
-                           help="tag to edit")
-    optParser.add_argument("-a", "--attribute", dest="attribute",
-                           help="attribute to edit")
-    optParser.add_argument("-v", "--value", dest="value",
-                           help="value to update (deletes attribute if not specified)")
-    options = optParser.parse_args(args=args)
-    return options
+    optParser.add_argument("-t", "--tag", required=True, help="tag to edit")
+    optParser.add_argument("-a", "--attribute", required=True, help="attribute to edit")
+    optParser.add_argument("-v", "--value", help="value to update (deletes attribute if not specified)")
+    return optParser.parse_args(args=args)
 
 
 def main(options):
@@ -73,5 +61,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options()
-    main(options)
+    main(get_options())
