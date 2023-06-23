@@ -240,6 +240,9 @@ protected:
     /// @brief remove overwrited demand element
     void overwriteDemandElement();
 
+    /// @brief get type distribution
+    GNEDemandElement* getTypeDistribution(const SUMOVehicleParameter& vehicleParameters);
+
 private:
     /// @brief pointer to GNENet
     GNENet* myNet;
