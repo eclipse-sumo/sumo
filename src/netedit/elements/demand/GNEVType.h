@@ -213,9 +213,6 @@ private:
     /// @brief function called after set new VClass
     void updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues);
 
-    /// @brief check if default vClass was modified
-    bool defaultvClassModified() const;
-
     /// @brief Invalidated copy constructor.
     GNEVType(GNEVType*) = delete;
 

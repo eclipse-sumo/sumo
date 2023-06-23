@@ -200,10 +200,9 @@ public:
     /** @brief Writes the vtype
      *
      * @param[in, out] dev The device to write into
-     * @param[in] writeVClass enable or disable write vClass (if true, vClass will be written if was set)
      * @exception IOError not yet implemented
      */
-    void write(OutputDevice& dev, const bool writeVClass) const;
+    void write(OutputDevice& dev) const;
 
     /** @brief Returns the named value from the map, or the default if it is not contained there
      * @param[in] attr The corresponding xml attribute
