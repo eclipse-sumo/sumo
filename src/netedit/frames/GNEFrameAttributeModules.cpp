@@ -302,9 +302,12 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myValueChoicesComboBox->show();
             }
         } else if (ACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
-            // fill comboBox with vTypes
+            // fill comboBox with vTypes and vType distributions
             myValueChoicesComboBox->clearItems();
             for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+            }
+            for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
                 myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
             }
             // show only 10 vtypes
@@ -390,6 +393,9 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
         // fill comboBox with vTypes
         myValueChoicesComboBox->clearItems();
         for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+        }
+        for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
             myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
         }
         // show only 10 vtypes
@@ -837,7 +843,10 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 GNEAttributeCarrier* ACParent = nullptr;
                 if ((ACs.size() == 1) && attrProperty.isVType()) {
                     if (attrProperty.getAttr() == SUMO_ATTR_TYPE) {
-                        ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, ACs.front()->getAttribute(SUMO_ATTR_TYPE));
+                        ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, ACs.front()->getAttribute(SUMO_ATTR_TYPE), false);
+                        if (ACParent == nullptr) {
+                            ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, ACs.front()->getAttribute(SUMO_ATTR_TYPE), false);
+                        }
                     }
                 }
                 // create attribute editor row
@@ -938,11 +947,14 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                     myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed, nullptr);
                 } else if ((attrProperty.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
                     myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed, nullptr);
-                } else if (attrProperty.getAttr()  == SUMO_ATTR_TYPE && (attrProperty.getTagPropertyParent().isVehicle() || attrProperty.getTagPropertyParent().isPerson() ||
+                } else if (attrProperty.isVType() && (attrProperty.getTagPropertyParent().isVehicle() || attrProperty.getTagPropertyParent().isPerson() ||
                            attrProperty.getTagPropertyParent().isContainer())) {
-                    // update vType parent
-                    auto vTypeParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, ACs.front()->getAttribute(SUMO_ATTR_TYPE), false);
-                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled, computed, vTypeParent);
+                    // get type/distribution parent
+                    auto typeParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, ACs.front()->getAttribute(SUMO_ATTR_TYPE), false);
+                    if (typeParent == nullptr) {
+                        typeParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, ACs.front()->getAttribute(SUMO_ATTR_TYPE), false);
+                    }
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled, computed, typeParent);
                 } else {
                     // Refresh attributes maintain invalid values
                     myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled, computed, nullptr);
