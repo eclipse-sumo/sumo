@@ -47,6 +47,8 @@ def get_options(args=None):
                         help="Do not report conflicts with parking vehicles")
     parser.add_argument("--until-from-duration", action="store_true", default=False, dest="untilFromDuration",
                         help="Use stop arrival+duration instead of 'until' to compute overtaking")
+    parser.add_argument("--filter-ids", category="processing", dest="filterIDs",
+                        help="only consider stops for vehicles in the given list of ids")
     parser.add_argument("--stop-table", dest="stopTable",
                         help="Print timetable information for the given list of busStops")
 
@@ -56,6 +58,9 @@ def get_options(args=None):
     else:
         print("Argument --route-files is mandatory", file=sys.stderr)
         sys.exit()
+
+    if options.filterIDs:
+        options.filterIDs = set(options.filterIDs.split(','))
 
     return options
 
@@ -68,6 +73,8 @@ def main(options):
     for routefile in options.routeFiles:
         for vehicle in sumolib.xml.parse(routefile, ['vehicle', 'trip'], heterogeneous=True):
             if vehicle.stop is None:
+                continue
+            if options.filterIDs and vehicle.id not in options.filterIDs:
                 continue
             lastUntil = None
             stops = list(vehicle.stop)
