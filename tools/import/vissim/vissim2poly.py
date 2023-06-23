@@ -32,7 +32,7 @@ if __name__ == '__main__':
     op.add_option("outputFile", category="output", type=op.file,
                   help="provide the output file path")
     args = op.parse_args()
-    
+
     vissimfile = args.vissimNet
     outfile = args.outputFile
     with open(outfile, 'w') as outf:

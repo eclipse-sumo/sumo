@@ -34,7 +34,7 @@ import sumolib  # noqa
 if __name__ == '__main__':
     op = sumolib.options.ArgumentParser()
     op.add_option("sumoNet", category="input", type=op.file,
-                     help="provide the SUMO net file including the path")
+                  help="provide the SUMO net file including the path")
     op.add_option("vissumNet", category="input", type=op.file,
                   help="provide the vissum net file including the path")
     op.add_option("output", category="output", type=op.file,

@@ -78,13 +78,14 @@ def get_options(args=None):
                     help="mapping library to use")
     ap.add_argument("--map-output", category="output",
                     help="directory to write the generated mapping files to")
-    ap.add_argument("--map-output-config", default="conf/output_configuration_template.xml", category="output", type=ap.file,
-                    help="output configuration template for the mapper library")
-    ap.add_argument("--map-input-config", default="conf/input_configuration_template.xml", category="input", type=ap.file,
-                    help="input configuration template for the mapper library")
+    ap.add_argument("--map-output-config", default="conf/output_configuration_template.xml", category="output",
+                    type=ap.file, help="output configuration template for the mapper library")
+    ap.add_argument("--map-input-config", default="conf/input_configuration_template.xml", category="input",
+                    type=ap.file, help="input configuration template for the mapper library")
     ap.add_argument("--map-parameter", default="conf/parameters_template.xml", category="input", type=ap.file,
                     help="parameter template for the mapper library")
-    ap.add_argument("--poly-output", category="output", type=ap.file, help="file to write the generated polygon files to")
+    ap.add_argument("--poly-output", category="output", type=ap.file,
+                    help="file to write the generated polygon files to")
     ap.add_argument("--fill-gaps", default=5000, type=float, category="input",
                     help="maximum distance between stops")
     ap.add_argument("--skip-fcd", action="store_true", default=False, category="processing",
@@ -99,7 +100,7 @@ def get_options(args=None):
     ap.add_argument("--dua-repair-output", category="output", type=ap.file,
                     help="file to write the osm routes with errors")
     ap.add_argument("--repair", help="repair osm routes", action='store_true', category="processing")
-    ap.add_argument("--min-stops", default=1, type=int, category="input", 
+    ap.add_argument("--min-stops", default=1, type=int, category="input",
                     help="minimum number of stops a public transport line must have to be imported")
 
     options = ap.parse_args(args)

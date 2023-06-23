@@ -125,13 +125,14 @@ def sorter(idx):
         else:
             return 0
 
+
 # MAIN
 if __name__ == '__main__':
     op = sumolib.options.ArgumentParser(description="parse routes from a VISSIM network")
     op.add_option("vissimNet", category="input", type=op.file, help="the VISSIM network file")
     op.add_option("-o", "--output", default="out", category="output", help="output filename prefix")
-    op.add_option("-e", "--edgemap", category="input", type=op.edge_list, 
-                    help="mapping of edge names for renamed edges (orig1:renamed1,orig2:renamed2,...)")
+    op.add_option("-e", "--edgemap", category="input", type=op.edge_list,
+                  help="mapping of edge names for renamed edges (orig1:renamed1,orig2:renamed2,...)")
     op.add_option("-s", "--seed", type=int, default=42, category="input", help="random seed")
     options = op.parse_args()
 

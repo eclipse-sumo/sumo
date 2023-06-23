@@ -28,7 +28,10 @@ The read routes are saved as <OUTPUT_PREFIX>_stops.add.xml
 """
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sys
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
 edgemap = {}
@@ -98,6 +101,7 @@ def sorter(idx):
         else:
             return 0
 
+
 # MAIN
 if __name__ == '__main__':
     op = sumolib.options.ArgumentParser()
@@ -145,7 +149,6 @@ if __name__ == '__main__':
     for bs in stopsL:
         (id, name, strecke, spur, von, bis) = parseBusStop(bs)
         sm[id] = (id, name, strecke, spur, von, bis)
-
 
     # process bus routes
     #  build departure times

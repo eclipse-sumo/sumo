@@ -37,25 +37,28 @@ import sumolib  # noqa
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser()
-    op.add_argument("-p", "--plan-file", category="input", required=True, type=op.data_file, help="MATSim plan file (mandatory)")
-    op.add_argument("-o", "--output-file", category="input", required=True, type=op.route_file, help="SUMO output route file (mandatory)")
-    op.add_argument("-n", "--net-file", category="input", type=op.net_file, help="SUMO net file (mandatory for --repair or --remove-loops)")
+    op.add_argument("-p", "--plan-file", category="input", required=True,
+                    type=op.data_file, help="MATSim plan file (mandatory)")
+    op.add_argument("-o", "--output-file", category="input", required=True,
+                    type=op.route_file, help="SUMO output route file (mandatory)")
+    op.add_argument("-n", "--net-file", category="input", type=op.net_file,
+                    help="SUMO net file (mandatory for --repair or --remove-loops)")
     op.add_argument("--vehicles-only", action="store_true", category="processing",
-                           default=False, help="Import only vehicles instead of persons")
+                    default=False, help="Import only vehicles instead of persons")
     op.add_argument("--repair", action="store_true", category="processing",
-                           default=False, help="Repair routes after import (needs a SUMO net)")
+                    default=False, help="Repair routes after import (needs a SUMO net)")
     op.add_argument("--remove-loops", action="store_true", category="processing",
-                           default=False, help="Remove loops in routes after import (needs a SUMO net)")
+                    default=False, help="Remove loops in routes after import (needs a SUMO net)")
     op.add_argument("--default-start", metavar="TIME", default="0:0:0", category="time",
-                           help="default start time for the first activity")
+                    help="default start time for the first activity")
     op.add_argument("--default-end", metavar="TIME", default="24:0:0", category="time",
-                           help="default end time for the last activity")
+                    help="default end time for the last activity")
     op.add_argument("-v", "--verbose", action="store_true", category="processing",
-                           default=False, help="tell me what you are doing")
+                    default=False, help="tell me what you are doing")
     options = op.parse_args(args)
 
     if not options.net_file and (options.repair or options.remove_loops):
-        argParser.print_help()
+        op.print_help()
         sys.exit()
 
     return options
@@ -155,5 +158,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options()
-    main(options)
+    main(get_options())

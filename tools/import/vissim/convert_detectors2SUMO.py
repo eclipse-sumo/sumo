@@ -24,19 +24,15 @@ see documentation
 from __future__ import absolute_import
 from __future__ import print_function
 
-import argparse
+import os
+import sys
 from xml.dom import minidom
 from xml.dom.minidom import Document
 
-# want the sumolib tools
-import sys
-import os
 import numpy as np
-THIS_PATH = os.path.abspath(__file__)
-addpath = os.path.abspath(THIS_PATH + '/../../../sumolib')
-if addpath not in sys.path:
-    sys.path.append(addpath)
-import geomhelper  # noqa
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 
 def dict_from_node_attributes(node):
@@ -115,7 +111,7 @@ def create_measurement_file(induction_tab, travel_time_tab,
         shape = []
         for point in polyline:
             shape.append(point.split(","))
-        edge_offset = geomhelper.polygonOffsetWithMinimumDistanceToPoint(
+        edge_offset = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(
             sumo_loop_coords,
             [[float(coord) for coord in point] for point in shape])
         ind_loop.setAttribute("pos", str(edge_offset))
@@ -142,7 +138,7 @@ def create_measurement_file(induction_tab, travel_time_tab,
                 shape = []
                 for point in polyline:
                     shape.append(point.split(","))
-                start_offset = geomhelper.polygonOffsetWithMinimumDistanceToPoint(
+                start_offset = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(
                     sumo_point,
                     [[float(coord) for coord in point] for point in shape])
                 det_entry.setAttribute("lane", lane["id"])
@@ -164,7 +160,7 @@ def create_measurement_file(induction_tab, travel_time_tab,
                 shape = []
                 for point in polyline:
                     shape.append(point.split(","))
-                end_offset = geomhelper.polygonOffsetWithMinimumDistanceToPoint(
+                end_offset = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(
                     sumo_point,
                     [[float(coord) for coord in point] for point in shape])
                 det_exit.setAttribute("lane", lane["id"])
@@ -303,11 +299,11 @@ def get_conn_verb_rel(conn_tab, from_to_tab):
 if __name__ == '__main__':
     op = sumolib.options.ArgumentParser(description='detector conversion utility (VISSIM.inpx to SUMO)')
     op.add_argument('--vissim-input', '-V', type=str, category="input", required=True, type=op.file,
-                        help='VISSIM inpx file path')
+                    help='VISSIM inpx file path')
     op.add_argument('--output-file', '-o', type=str, category="output", required=True, type=op.file,
-                        help='output file name')
+                    help='output file name')
     op.add_argument('--SUMO-net', '-S', type=str, category="input", required=True, type=op.net_file,
-                        help='SUMO net file path')
+                    help='SUMO net file path')
     args = op.parse_args()
     print("\n", args, "\n")
     print('\n---\n\n* loading VISSIM net:\n\t', args.vissim_input)

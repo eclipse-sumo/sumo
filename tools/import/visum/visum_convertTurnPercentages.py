@@ -33,7 +33,7 @@ import sumolib  # noqa
 if __name__ == '__main__':
     op = sumolib.options.ArgumentParser()
     op.add_option("sumoNet", category="input", type=op.net_file,
-                     help="provide the SUMO net file including the path")
+                  help="provide the SUMO net file including the path")
     op.add_option("vissumTurnings", category="input", type=op.file,
                   help="provide the file containing vissum turnings")
     op.add_option("output", category="output", type=op.file,
@@ -54,7 +54,6 @@ if __name__ == '__main__':
             emap[e._id][o._id] = 0
             if o._to._id not in nmap[e._from._id]:
                 nmap[e._from._id][o._to._id] = (e._id, o._id)
-
 
     # fill with read values
     print("Reading turning percentages...")
@@ -102,7 +101,6 @@ if __name__ == '__main__':
     fd.close()
     print(" " + str(found) + " connections found (" + str(foundN) + " vehs)")
     print(" " + str(missing) + " connections missing (" + str(missingN) + " vehs)")
-
 
     # write as read by jtrrouter
     print("Writing jtrrouter turning percentages...")

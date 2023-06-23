@@ -27,12 +27,15 @@ from __future__ import print_function
 from __future__ import absolute_import
 
 import os
-import argparse
+import sys
 from xml.dom import minidom
 from copy import deepcopy
 
 import numpy as np
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
+
 
 def dict_from_node_attributes(node):
     """takes a xml node and returns a dictionary with its attributes"""
@@ -523,15 +526,15 @@ tls_state_vissim2SUMO = {'RED': 'r',
 if __name__ == '__main__':
     op = sumolib.options.ArgumentParser(
         description='TLS conversion utility (VISSIM.inpx to SUMO)')
-    op.add_argument('--vissim-input','-V', 
-                        type=str, category="input", required=True, type=op.file, 
-                        help='VISSIM inpx file path')
+    op.add_argument('--vissim-input', '-V',
+                    type=str, category="input", required=True, type=op.file,
+                    help='VISSIM inpx file path')
     op.add_argument('--SUMO-net', '-S',
-                        category="input", required=True, type=op.net_file, 
-                        help='SUMO net file path')
+                    category="input", required=True, type=op.net_file,
+                    help='SUMO net file path')
     op.add_argument('--output-file', '-o',
-                        category="output", required=True, type=op.file, 
-                        help='output file name')
+                    category="output", required=True, type=op.file,
+                    help='output file name')
     args = op.parse_args()
     print("\n", args, "\n")
     print('\n---\n\n* loading VISSIM net:\n\t', args.vissim_input)

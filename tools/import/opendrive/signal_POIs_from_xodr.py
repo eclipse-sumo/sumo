@@ -29,9 +29,13 @@
 """
 
 import os
+import sys
 import numpy as np
 # import pandas as pd         # want to drop that dep
 import lxml.etree as lET
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 # polygon & POI
 # http://www.sumo.dlr.de/userdoc/Simulation/Shapes.html
@@ -144,14 +148,11 @@ def extract_lanes_width_data(rte, ):
 
 
 if __name__ == "__main__":
-
-    import argparse
-
     op = sumolib.options.ArgumentParser()
-    op.add_argument("xodr_file", type=str, category="input", required=True, 
-                        help="file path of open drive file")
-    op.add_argument("net_file", type=str, category="input", required=True,
-                        help="file path of net file")
+    op.add_argument("xodr_file", category="input", required=True,
+                    help="file path of open drive file")
+    op.add_argument("net_file", category="input", required=True,
+                    help="file path of net file")
     # op.add_argument("workLog", type=str, help="work log file")
     args = op.parse_args()
 

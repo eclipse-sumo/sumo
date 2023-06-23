@@ -32,10 +32,14 @@ see also:
 from __future__ import absolute_import
 from __future__ import print_function
 
-import argparse
+import os
+import sys
 from xml.dom import minidom
-import numpy as np
 from xml.dom.minidom import Document
+import numpy as np
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 
 def _dict_from_node_attributes(node):
@@ -483,12 +487,12 @@ if __name__ == '__main__':
         description='road network conversion utility for static route flows'
         ' (VISSIM.inpx to SUMO); generates SUMO routes definition file from'
         ' given inpx and derived (by netconvert) SUMO net.')
-    op.add_argument('--output-file', '-o', default='routes.rou.xml', category="output", type=op.route_file, 
-                        help='output file name (default: %(default)s)')
-    op.add_argument('--vissim-file', '-V', dest="vissim_file", category="input", required=True, type=op.file, 
-                        help='VISSIM inpx file path')
-    op.add_argument('--sumo-net-file', '-n', dest="sumo_net_file", category="input", required=True, type=op.net_file, 
-                        help='SUMO net file path')
+    op.add_argument('--output-file', '-o', default='routes.rou.xml', category="output", type=op.route_file,
+                    help='output file name (default: %(default)s)')
+    op.add_argument('--vissim-file', '-V', dest="vissim_file", category="input", required=True, type=op.file,
+                    help='VISSIM inpx file path')
+    op.add_argument('--sumo-net-file', '-n', dest="sumo_net_file", category="input", required=True, type=op.net_file,
+                    help='SUMO net file path')
     args = op.parse_args()
     # print("\n", args, "\n")
 
