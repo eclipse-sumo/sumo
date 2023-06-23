@@ -1186,7 +1186,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_TYPE:
-            return getTypeParent()->getID();
+            return vtypeid;
         case SUMO_ATTR_COLOR:
             if (wasSet(VEHPARS_COLOR_SET)) {
                 return toString(color);
@@ -1485,22 +1485,26 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
 
 bool
 GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
+    // get ACs
+    const auto ACs = myNet->getAttributeCarriers();
     // declare string error
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
             // Vehicles, Trips and Flows share namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
-                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
-                    (myNet->getAttributeCarriers()->retrieveDemandElement(GNE_TAG_FLOW_ROUTE, value, false) == nullptr) &&
-                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
+                    (ACs->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
+                    (ACs->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
+                    (ACs->retrieveDemandElement(GNE_TAG_FLOW_ROUTE, value, false) == nullptr) &&
+                    (ACs->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_TYPE:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidTypeID(value) && 
+                ((ACs->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr) ||
+                 (ACs->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value, false) != nullptr));
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTLANE: {
@@ -1618,14 +1622,14 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
-                return SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+                return SUMOXMLDefinitions::isValidVehicleID(value) && (ACs->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
             } else {
                 return true;
             }
         // Specific of from-to edges
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (ACs->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_DEPARTEDGE:
         case SUMO_ATTR_ARRIVALEDGE: {
             if (value.empty()) {
@@ -1656,11 +1660,11 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         // Specific of from-to junctions
         case SUMO_ATTR_FROMJUNCTION:
         case SUMO_ATTR_TOJUNCTION:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveJunction(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (ACs->retrieveJunction(value, false) != nullptr);
         // Specific of from-to taz
         case SUMO_ATTR_FROM_TAZ:
         case SUMO_ATTR_TO_TAZ:
-            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, value, false) != nullptr);
+            return (ACs->retrieveAdditional(SUMO_TAG_TAZ, value, false) != nullptr);
         // Specific of flows
         case SUMO_ATTR_END:
             if (canParse<double>(value)) {
@@ -1919,7 +1923,11 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TYPE:
             if (getID().size() > 0) {
-                replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
+                if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr) {
+                    replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
+                } else {
+                    replaceDemandElementParent(SUMO_TAG_VTYPE_DISTRIBUTION, value, 0);
+                }
                 // set manually vtypeID (needed for saving)
                 vtypeid = value;
             }
