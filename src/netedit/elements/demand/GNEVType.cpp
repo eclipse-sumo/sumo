@@ -99,10 +99,10 @@ GNEVType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
     if (myDefaultVehicleType) {
         if (myDefaultVehicleTypeModified) {
-            write(device);
+            write(device, defaultvClassModified());
         }
     } else {
-        write(device);
+        write(device, defaultvClassModified());
     }
 }
 
@@ -1980,6 +1980,26 @@ GNEVType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues
     }
     if (!wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET)) {
         locomotiveLength = defaultValues.locomotiveLength;
+    }
+}
+
+
+bool
+GNEVType::defaultvClassModified() const {
+    if ((getID() == DEFAULT_VTYPE_ID) && (getVClass() == SVC_PASSENGER)) {
+        return false;
+    } else if ((getID() == DEFAULT_BIKETYPE_ID) && (getVClass() == SVC_BICYCLE)) {
+        return false;
+    } else if ((getID() == DEFAULT_TAXITYPE_ID) && (getVClass() == SVC_TAXI)) {
+        return false;
+    } else if ((getID() == DEFAULT_RAILTYPE_ID) && (getVClass() == SVC_RAIL)) {
+        return false;
+    } else if ((getID() == DEFAULT_PEDTYPE_ID) && (getVClass() == SVC_PEDESTRIAN)) {
+        return false;
+    } else if ((getID() == DEFAULT_CONTAINERTYPE_ID) && (getVClass() == SVC_IGNORING)) {
+        return false;
+    } else {
+        return true;
     }
 }
 

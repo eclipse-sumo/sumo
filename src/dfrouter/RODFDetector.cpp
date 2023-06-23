@@ -649,17 +649,17 @@ RODFDetectorCon::writeEmitters(const std::string& file,
         SUMOVTypeParameter pkwType = SUMOVTypeParameter("PKW", SVC_PASSENGER);
         setSpeedFactorAndDev(pkwType, net.getMaxSpeedFactorPKW(), net.getAvgSpeedFactorPKW(), speedDev, forceDev);
         pkwType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
-        pkwType.write(vTypeOut);
+        pkwType.write(vTypeOut, true);
         SUMOVTypeParameter lkwType = SUMOVTypeParameter("LKW", SVC_TRUCK);
         setSpeedFactorAndDev(lkwType, net.getMaxSpeedFactorLKW(), net.getAvgSpeedFactorLKW(), speedDev, forceDev);
         lkwType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
-        lkwType.write(vTypeOut);
+        lkwType.write(vTypeOut, true);
     } else {
         // patch default type
         SUMOVTypeParameter type = SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_PASSENGER);
         setSpeedFactorAndDev(type, MAX2(net.getMaxSpeedFactorPKW(), net.getMaxSpeedFactorLKW()), net.getAvgSpeedFactorPKW(), speedDev, forceDev);
         if (type.parametersSet != 0) {
-            type.write(vTypeOut);
+            type.write(vTypeOut, true);
         }
     }
 

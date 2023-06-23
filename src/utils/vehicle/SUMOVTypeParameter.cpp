@@ -392,7 +392,7 @@ SUMOVTypeParameter::setManoeuverAngleTimes(const SUMOVehicleClass vclass) {
 }
 
 void
-SUMOVTypeParameter::write(OutputDevice& dev) const {
+SUMOVTypeParameter::write(OutputDevice& dev, const bool writeVClass) const {
     // first check if vehicle type can be written
     if (onlyReferenced) {
         return;
@@ -424,7 +424,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         // Note: action step length is only exposed in seconds to the user
         dev.writeAttr(SUMO_ATTR_ACTIONSTEPLENGTH, STEPS2TIME(actionStepLength));
     }
-    if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
+    if (writeVClass && wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
         dev.writeAttr(SUMO_ATTR_VCLASS, toString(vehicleClass));
     }
     if (wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
