@@ -54,8 +54,6 @@ GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleCla
     myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
-    // mark parameter as set
-    parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }
@@ -367,7 +365,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case SUMO_ATTR_VCLASS:
-            if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
+            if (myDefaultVehicleType || wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
                 return toString(vehicleClass);
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_VCLASS);
