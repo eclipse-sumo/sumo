@@ -36,10 +36,11 @@ from __future__ import print_function
 from __future__ import absolute_import
 from collections import defaultdict
 from xml.sax import saxutils, make_parser, handler
-from sumolib.options import ArgumentParser
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+from sumolib.options import ArgumentParser  # noqa
 try:
     from StringIO import StringIO
 except ImportError:
