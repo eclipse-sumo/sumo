@@ -1,57 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-21 13:52:30 by Eclipse SUMO netedit Version v1_12_0+2217-2ed7c9aad7e
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-06-23 11:43:17 by Eclipse SUMO netedit Version v1_17_0+1231-4aa358dc7a6
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.21Apr123612.3293/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/default/input_net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Jun114121.14392\netedit.gui\demandelements\vehicletype_distribution\load\useExisting_overrideProbabilities\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Jun114121.14392\netedit.gui\demandelements\vehicletype_distribution\load\useExisting_overrideProbabilities\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Jun114121.14392\netedit.gui\demandelements\vehicletype_distribution\load\useExisting_overrideProbabilities\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Jun114121.14392\netedit.gui\demandelements\vehicletype_distribution\load\useExisting_overrideProbabilities\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.21Apr123612.3293/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/default/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Jun114121.14392\netedit.gui\demandelements\vehicletype_distribution\load\useExisting_overrideProbabilities\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.21Apr123612.3293/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/default/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.21Apr123612.3293/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/default/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.21Apr123612.3293/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/default/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.21Apr123612.3293/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/default/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.21Apr123612.3293/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/default/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.21Apr123612.3293/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/default/datas.xml"/>
-    </netedit>
-
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.21Apr123612.3293/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/default/gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Jun114121.14392\netedit.gui\demandelements\vehicletype_distribution\load\useExisting_overrideProbabilities\gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.21Apr123612.3293/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/default/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Jun114121.14392\netedit.gui\demandelements\vehicletype_distribution\load\useExisting_overrideProbabilities\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.21Apr123612.3293/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/default/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Jun114121.14392\netedit.gui\demandelements\vehicletype_distribution\load\useExisting_overrideProbabilities\log.txt"/>
     </report>
 
 </configuration>
