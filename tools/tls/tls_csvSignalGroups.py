@@ -668,7 +668,8 @@ def toCsv(options):
 
 
 def getOptions():
-    ap = sumolib.options.ArgumentParser(description="Converts a CSV file with green times per signal group into the SUMO format.")
+    ap = sumolib.options.ArgumentParser(
+        description="Converts a CSV file with green times per signal group into the SUMO format.")
     ap.add_option("-o", "--output", category="output", action="store", default="tls.add.xml",
                   type=ap.data_file, help="File path to TLL output file (SUMO additional file) / prefix for generated CSV files.")
     ap.add_option("-i", "--input", category="input", action="store", default="",
@@ -685,7 +686,7 @@ def getOptions():
     ap.add_option("--delimiter", action="store", default=";",
                   help="CSV delimiter used for input and template files.")
     ap.add_option("-n", "--net", category="input", required=True, action="store", default="",
-                  type=ap.net_file, help="File path to SUMO network file. Optional for creating TL XML, " + 
+                  type=ap.net_file, help="File path to SUMO network file. Optional for creating TL XML, " +
                   "obligatory for converting TL XML to CSV.")
     ap.add_option("-m", "--make-input-dir", action="store", default="",
                   help="Create input file template(s) from the SUMO network file in the given directory.")

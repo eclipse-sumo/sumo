@@ -99,10 +99,10 @@ def get_options(args=None):
                     help="Number of decimal digits in output")
     op.add_argument("--keep-stops", category="output", dest="keepStops", action="store_true", default=False,
                     help="Preserve stops from the input routes")
-    op.add_argument("-v", "--verbose", category="output",action="store_true", default=False,
+    op.add_argument("-v", "--verbose", category="output", action="store_true", default=False,
                     help="tell me what you are doing")
-    op.add_argument("-V", "--verbose.histograms", category="output",dest="verboseHistogram", action="store_true", default=False,
-                    help="print histograms of edge numbers and detector passing count")
+    op.add_argument("-V", "--verbose.histograms", category="output", dest="verboseHistogram", action="store_true",
+                    default=False, help="print histograms of edge numbers and detector passing count")
     # attributes
     op.add_argument("--prefix", category="attributes", dest="prefix", default="",
                     help="prefix for the vehicle ids")
@@ -810,7 +810,7 @@ def main(options):
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
                 intervalCount = options.totalCount[i] if options.totalCount else None
                 uFlow, oFlow, gehOK, ratioPerc, inputCount, usedRoutes, _ = solveInterval(
-                        options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount)
+                    options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount)
                 underflowSummary.add(uFlow, begin)
                 overflowSummary.add(oFlow, begin)
                 gehSummary.add(gehOK, begin)

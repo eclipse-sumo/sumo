@@ -32,7 +32,8 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser(description="Create tlLogic definitions with branching plans based on simplified input.")
+    optParser = sumolib.options.ArgumentParser(
+        description="Create tlLogic definitions with branching plans based on simplified input.")
     optParser.add_option("-d", "--description-file", category="input", dest="logic", required=True,
                          type=optParser.data_file, help="Input logic description file (mandatory)")
     optParser.add_option("-o", "--output-file", category="output", dest="out", required=True,

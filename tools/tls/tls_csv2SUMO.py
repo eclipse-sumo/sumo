@@ -35,12 +35,11 @@ time;<PHASE_LENGTH>[;<PHASE_LENGTH>]+
 from __future__ import absolute_import
 from __future__ import print_function
 
-import sys
 import os
+import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib
-import sumolib.net  # noqa
+import sumolib  # noqa
 
 
 class Logic:

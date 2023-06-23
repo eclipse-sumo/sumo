@@ -33,8 +33,9 @@ import sumolib  # noqa
 op = sumolib.options.ArgumentParser(
     description='Create tls links from sumo net as needed by tls_csv2SUMO.py. You have to edit the link number ' +
     'field (preset with g). The comment gives the link number shown on demand in SUMO-GUI')
-    
-op.add_argument("-n", "--net-file", category="input", type=op.net_file, dest="net", required=True, help='Input file name')
+
+op.add_argument("-n", "--net-file", category="input", type=op.net_file,
+                dest="net", required=True, help='Input file name')
 
 try:
     options = op.parse_args()

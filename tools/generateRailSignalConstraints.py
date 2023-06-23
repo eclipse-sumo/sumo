@@ -1475,7 +1475,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                             prevEdge = None
                             for sI2, (edgesBefore2, stop2) in enumerate(stopRoute2):
                                 if sI2 == 0:
-                                    # this is an insertion related conflict and we don't want to find a signal before the insertion edge
+                                    # this is an insertion related conflict and we don't want to find a signal
+                                    #  before the insertion edge
                                     continue
                                 if sI2 < sI2b:
                                     continue

@@ -47,7 +47,7 @@ if __name__ == "__main__":
     op = sumolib.options.ArgumentParser(description="Make a circle polygon")
 
     op.add_option("files", nargs='+', category="input", type=op.file_list,
-                  help="List of XML files to plot") 
+                  help="List of XML files to plot")
     op.add_option("-r", "--radius", type=float, default=100,
                   help="default radius")
     op.add_option("-p", "--prefix", default="poly",
@@ -62,7 +62,7 @@ if __name__ == "__main__":
                   help="layer")
     op.add_option("-x", "--corners", type=int, default=100,
                   help="default number of corners")
-    op.add_option( "-o", "--output-file", category="output", type=op.file,
+    op.add_option("-o", "--output-file", category="output", type=op.file,
                   help="output file (default: standard output)")
 
     try:
