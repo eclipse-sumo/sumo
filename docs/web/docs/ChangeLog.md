@@ -60,6 +60,8 @@ title: ChangeLog
   - Fixed error when saving sumo/netedit configs at path containing spaces. Issue #13373
   - Added missing updates of frames after undo/redo. Issue #13429
   - Python tools now work when the SUMO_HOME path contains spaces. Issue #13458
+  - Using netedit to define custom detectors for actuated traffic lights is now working. Issue #13412
+  - Resetting the `next` attribute of branching traffic light programs is now working. issue #13409
 
 - sumo-gui
   - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
@@ -81,12 +83,14 @@ title: ChangeLog
   - Fixed invalid consistency error for circular public transport line. Issue #13255
   - OSM: fixed incomplete pt-route. Issue #13249
   - OSM: fixed problems with one-way bus and bicycle infrastructure. Issue #12592
+  - OSM: fixed crash when using option **--osm.turn-lanes**. Issue #13413
   - User defined node radius is no longer ignored for geometry-like nodes. Issue #13064
   - Fixed missing bidi attribute for shared median lane with disconnected outer lanes. Issue #13335
   - Fixed invalid bidi attribute for internal edge. Issue #13344
   - Fixed invalid right of way rules when shared median lane ends. Issue #13345
   - Fixed unsafe right of way rules at internal junction with bidiLane. Issue #13400
   - Fixed incomplete ptline-output for circular route. Issue #13431
+  - Fixed minor links in rail taxi network. Issue #13456
 
 - duarouter
   - Fixed railway routing failure if the stop is defined on a short buffer edge (also applies to sumo). Issue #13277
@@ -103,6 +107,7 @@ title: ChangeLog
   - Calling `vehicle.insertStop` now preserves the original route edges beyond the inserted stop. Issue #13092
   - Fixed libtraci crashes when working on closed connection. Issue #13285
   - Fixed missing vehicle type in saved state and vehroute-output for vehicle added via TraCI. Issue #13384
+  - Added missing error reporting when setting invalid carFollowModel parameters via `traci.vehicle.setParameter`. Issue #13399
 
 - Tools
   - Fixed mouse control in several game scenarios. Issue #13366 (regression in 1.17.0)
@@ -125,6 +130,8 @@ title: ChangeLog
   - statistic-output now include the number of emergency braking events. Issue #10596
   - Vehicles can now be configured to ignore specific vehicles during car-following by using [generic parameters](Simulation/GenericParameters.md) `carFollowMode.ignoreIDs` and `carFollowModel.ignoreTypes`. Issue #13362  
   - Stops now support custom parameters #13365
+  - Multi-Entry-Exit (E3) detectors now support attribute `expectArrival` to suppress arrival warnings. Issue #13476
+  - Vehicles with `depart="split"` now automatically adapt their departPos to the rear of the [train from which they split](Simulation/Railways.md#portion_working). Issue #13480
 
 - sumo-gui
   - Simulation end time is now written into the message window. Issue #13145
@@ -150,6 +157,7 @@ title: ChangeLog
   - When using option **--tls.rebuild**, the tltype can be changed by setting option **--tls.default-type**. Issue #13267
   - Added option **--junctions.minimal-shape** to enforoce small junctions. Issue #13377
   - Added option **--opendrive.signal-groups** to import controller information from openDrive. Issue #2365
+  - Added option **--tls.join-exclude** for more control over automatic tls joining. Issue #13466
 
 - TraCI
   - Added function `simpla.getPlatoonID`. Issue #13029
@@ -180,6 +188,7 @@ title: ChangeLog
   - tileGet.py now supports option **--parallel-jobs** to speed up data retrieval. Issue #13327
   - checkStopOrder.py: marks waypoints in stop table output. Issue #13420
   - improved game internationalization. Issue #13082
+  - generateRailSignalConstraints.py: now supports [portion working](Simulation/Railways.md#portion_working) (vehicles with `depart="split"`). Issue #13478
 
 ### Miscellaneous
 
