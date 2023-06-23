@@ -61,8 +61,6 @@ GNERouteHandler::~GNERouteHandler() {
 
 void
 GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter) {
-    // check vTypeDistribution
-    const bool vTypeDistribution = sumoBaseObject->getParentSumoBaseObject() && (sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION);
     // check if loaded type is a default type
     if (DEFAULT_VTYPES.count(vTypeParameter.id) > 0) {
         // overwrite default vehicle type
@@ -76,16 +74,9 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, TL("add ") + vType->getTagStr() + " '" + vTypeParameter.id + "'");
             overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
-            // check if place this vType within a vTypeDistribution
-            if (vTypeDistribution) {
-                vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), myNet->getViewNet()->getUndoList());
-            }
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(vType);
-            if (vTypeDistribution) {
-                vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
-            }
             vType->incRef("buildVType");
         }
     }
@@ -126,10 +117,17 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPEDISTRIBUTION, TL("add ") + vTypeDistribution->getTagStr() + " '" + id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
+                // iterate over all children and set attribute
+                for (const auto &typeID : vTypes) {
+                    myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, typeID)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
+                }
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
                 vTypeDistribution->incRef("buildVType");
+
+                /* FALTA */
+
             }
         }
     }
