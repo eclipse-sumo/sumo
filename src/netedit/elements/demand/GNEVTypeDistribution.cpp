@@ -199,19 +199,29 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEVTypeDistribution::getAttributeDouble(SumoXMLAttr key) const {
-    switch (key) {
-        case GNE_ATTR_ADDITIONALCHILDREN: {
-            double counter = 0;
-            for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-                // only write if appear in this distribution
-                if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID() && vType->getChildAdditionals().size() > 0) {
-                    counter++;
-                }
+    if (key == GNE_ATTR_ADDITIONALCHILDREN) {
+        double counter = 0;
+        for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+            // only write if appear in this distribution
+            if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID() && vType->getChildAdditionals().size() > 0) {
+                counter++;
             }
-            return counter;
         }
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+        return counter;
+    } else {
+        // obtain all types with the given typeDistribution sorted by ID
+        std::map<std::string, GNEDemandElement*> sortedTypes;
+        for (const auto &type : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+            if (type->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID()) {
+                sortedTypes[type->getID()] = type;
+            }
+        }
+        // return first type, or default vType
+        if (sortedTypes.size() > 0) {
+            return sortedTypes.begin()->second->getAttributeDouble(key);
+        } else {
+            return 0;
+        }
     }
 }
 
