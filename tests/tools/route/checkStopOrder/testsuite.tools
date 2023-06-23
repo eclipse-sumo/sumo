@@ -1,6 +1,7 @@
 # Copy of basic
 basic
 stopTable
+filterIds
 
 # integrated table for multple locations (i.e. parallel tracks in the same station)
 stopTable2
