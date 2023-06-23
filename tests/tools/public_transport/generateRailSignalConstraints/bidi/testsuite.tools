@@ -37,3 +37,6 @@ redundant
 
 # only one side has a diverging track and the other side has a (delayed) train insertion
 oneSideInsertion
+
+# only one side has a diverging track and the other side has a train insertion. The train coming from the diverging side is late and therefore the insertion must be delayed as well to avoid deadlock
+oneSideInsertion2
