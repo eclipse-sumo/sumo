@@ -148,10 +148,10 @@ MSBaseVehicle::~MSBaseVehicle() {
     for (MSVehicleDevice* dev : myDevices) {
         delete dev;
     }
-    delete myParameter;
     delete myEnergyParams;
     delete myParkingMemory;
     checkRouteRemoval();
+    delete myParameter;
 }
 
 
