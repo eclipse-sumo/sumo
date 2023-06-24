@@ -80,7 +80,7 @@ private:
     */
     class PState : public MSTransportableStateAdapter {
     public:
-        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, Position destination, JPS_AgentId agentId);
+        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, Position destination);
         ~PState() override;
 
         Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
@@ -99,15 +99,30 @@ private:
         const MSEdge* getNextEdge(const MSStageMoving& stage) const;
         Position getDestination() const;
         JPS_AgentId getAgentId() const;
+        void setAgentId(JPS_AgentId id) {
+            myAgentId = id;
+            myWaitingToEnter = false;
+        }
+        JPS_JourneyId getJourneyId() const {
+            return myJourneyId;
+        }
+        bool isWaitingToEnter() const {
+            return myWaitingToEnter;
+        }
 
     private:
         MSPerson* myPerson;
         MSStageMoving* myStage;
+        /// @brief handle to the JPS journey, only needed for freeing the memory later
         JPS_JourneyDescription myJourney;
+        /// @brief id of the journey, needed for modifying it
+        JPS_JourneyId myJourneyId;
         Position myDestination;
         JPS_AgentId myAgentId;
         Position myPosition;
         double myAngle;
+        /// @brief whether the pedestrian is waiting to start its walk
+        bool myWaitingToEnter;
     };
 
     MSNet* const myNetwork;
@@ -138,12 +153,14 @@ private:
     static const double GEOS_MIN_AREA;
 
     void initialize();
+    void tryInsertion(PState* state);
+
     static MSLane* getNextPedestrianLane(const MSLane* const currentLane);
     
     static const Position& getAnchor(const MSLane* const lane, const MSJunction* const junction);
     static const Position& getAnchor(const MSLane* const lane, const MSEdge* const edge, MSEdgeVector incoming);
     static const MSEdgeVector getAdjacentEdgesOfEdge(const MSEdge* const edge);
-    static bool hasWalkingAreasInbetween(const MSEdge* const edge, const MSEdge* const otherEdge, ConstMSEdgeVector adjacentEdgesOfJunction);
+    static bool hasWalkingAreasInbetween(const MSEdge* const edge, const MSEdge* const otherEdge);
     geos::geom::Geometry* createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle);
     geos::geom::Geometry* createShapeFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane);
     geos::geom::Geometry* buildPedestrianNetwork(MSNet* network);
