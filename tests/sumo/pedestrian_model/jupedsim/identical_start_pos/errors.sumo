@@ -1,1 +1,1 @@
-Error: Error while adding an agent: Model constraint violation: Agent 2 too close to agent 1
+Warning: Error while adding an agent: Model constraint violation: Agent 2 too close to agent 1
