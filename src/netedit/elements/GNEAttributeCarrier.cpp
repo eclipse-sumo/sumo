@@ -5787,17 +5787,19 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                           "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_TRIGGERED,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("Whether a person or container or bth may end the stop"),
-                                          "0");
-    attrProperty.setDiscreteValues({"0", "person", "container", "join"}, true);
-    myTagProperties[currentTag].addAttribute(attrProperty);
+    if (!waypoint) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TRIGGERED,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Whether a person or container or bth may end the stop"),
+                                              "0");
+        attrProperty.setDiscreteValues({"0", "person", "container", "join"}, true);
+        myTagProperties[currentTag].addAttribute(attrProperty);
 
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_EXPECTED,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("List of elements that must board the vehicle before it may continue"));
-    myTagProperties[currentTag].addAttribute(attrProperty);
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_EXPECTED,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("List of elements that must board the vehicle before it may continue"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PERMITTED,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
