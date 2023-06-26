@@ -1,1 +1,4 @@
 Warning: Unused states in tlLogic 'D', program '0' in phase 0 after tl-index 21
+Warning: Program '0' at tlLogic 'D' is incompatible with logic at junction 'Center' (mutual conflict between link indices 3,8 tl indices 3,8 phase 0).
+  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
+  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
