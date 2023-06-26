@@ -1,0 +1,5 @@
+# an example for a joined tls from a real-world network (A391_AS_Weststadt)
+joined_rw
+
+# junction from acosta scenarion (#5393)
+joined_with_uncontrolled
