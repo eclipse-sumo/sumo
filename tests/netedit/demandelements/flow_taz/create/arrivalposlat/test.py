@@ -77,8 +77,8 @@ netedit.leftClick(referencePosition, 430, 250)
 # press enter to create trip
 netedit.typeEnter()
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

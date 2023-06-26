@@ -49,7 +49,7 @@ netedit.typeEnter()
 
 # set valid Line
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.insertionChecks,
-                           "leaderGap TAZ speedLimit pedestrian")
+                           "leaderGap junction speedLimit pedestrian")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -59,8 +59,8 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

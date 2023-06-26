@@ -55,7 +55,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.insertionChecks, "dummy", 
 
 # change personNumber with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.insertionChecks,
-                        "leaderGap TAZ speedLimit pedestrian", False)
+                        "leaderGap junction speedLimit pedestrian", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
