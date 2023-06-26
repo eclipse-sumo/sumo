@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-22 17:50:36 by Eclipse SUMO netedit Version v1_17_0+1203-1054fda50af
+<!-- generated on 2023-06-26 14:07:32 by Eclipse SUMO netedit Version v1_17_0+1270-c50b556498b
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -15,6 +15,8 @@
     <taz id="taz_2" shape="10.00,50.00 50.00,50.00 50.00,40.00 10.00,40.00 10.00,50.00" fill="1" color="green">
         <tazSource id="gneE5" weight="1.00"/>
         <tazSink id="gneE5" weight="1.00"/>
+        <tazSource id="gneE6" weight="1.00"/>
+        <tazSink id="gneE6" weight="1.00"/>
     </taz>
     <taz id="taz_3" shape="10.00,-10.00 10.00,0.00 50.00,0.00 50.00,-10.00 10.00,-10.00" fill="1" color="orange"/>
 </additional>
