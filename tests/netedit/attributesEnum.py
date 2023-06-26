@@ -2667,217 +2667,8 @@ class waypointBusStop:
         until = 10
         extensionEnable = 10
         extension = 11
-        triggered = 12
-        expected = 14
-        permitted = 14
-        parking = 15
-        actType = 17
-        tripID = 18
-        line = 19
-        speed = 20
-
-    class inspect:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 2
-        until = 3
-        extensionEnable = 3
-        extension = 4
-        triggered = 5
-        expected = 7
-        permitted = 7
-        parking = 8
-        actType = 10
-        tripID = 11
-        line = 12
-        speed = 13
-
-    class inspectSelection:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 3
-        until = 4
-        extensionEnable = 5
-        extension = 6
-        triggered = 7
-        expected = 9
-        permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        speed = 16
-
-# waypoint over train stops
-
-
-class waypointTrainStop:
-    class create:
-        durationEnable = 8
-        duration = 9
-        untilEnable = 9
-        until = 10
-        extensionEnable = 10
-        extension = 11
-        triggered = 12
-        expected = 14
-        permitted = 14
-        parking = 15
-        actType = 17
-        tripID = 18
-        line = 19
-        speed = 20
-
-    class inspect:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 2
-        until = 3
-        extensionEnable = 3
-        extension = 4
-        triggered = 5
-        expected = 7
-        permitted = 7
-        parking = 8
-        actType = 10
-        tripID = 11
-        line = 12
-        speed = 13
-
-    class inspectSelection:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 3
-        until = 4
-        extensionEnable = 5
-        extension = 6
-        triggered = 7
-        expected = 9
-        permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        speed = 16
-
-# waypoint over container stops
-
-
-class waypointContainerStop:
-    class create:
-        durationEnable = 8
-        duration = 9
-        untilEnable = 9
-        until = 10
-        extensionEnable = 10
-        extension = 11
-        triggered = 12
-        expected = 14
-        permitted = 14
-        parking = 15
-        actType = 17
-        tripID = 18
-        line = 19
-        speed = 20
-
-    class inspect:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 2
-        until = 3
-        extensionEnable = 3
-        extension = 4
-        triggered = 5
-        expected = 7
-        permitted = 7
-        parking = 8
-        actType = 10
-        tripID = 11
-        line = 12
-        speed = 13
-
-    class inspectSelection:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 3
-        until = 4
-        extensionEnable = 5
-        extension = 6
-        triggered = 7
-        expected = 9
-        permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        speed = 16
-
-# waypoint over charging stations
-
-
-class waypointChargingStation:
-    class create:
-        durationEnable = 8
-        duration = 9
-        untilEnable = 9
-        until = 10
-        extensionEnable = 10
-        extension = 11
-        triggered = 12
-        expected = 14
-        permitted = 14
-        parking = 15
-        actType = 17
-        tripID = 18
-        line = 19
-        speed = 20
-
-    class inspect:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 2
-        until = 3
-        extensionEnable = 3
-        extension = 4
-        triggered = 5
-        expected = 7
-        permitted = 7
-        parking = 8
-        actType = 10
-        tripID = 11
-        line = 12
-        speed = 13
-
-    class inspectSelection:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 3
-        until = 4
-        extensionEnable = 5
-        extension = 6
-        triggered = 7
-        expected = 9
-        permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        speed = 16
-
-# waypoint over parkings
-
-
-class waypointParking:
-    class create:
-        durationEnable = 8
-        duration = 9
-        untilEnable = 9
-        until = 10
-        extensionEnable = 10
-        extension = 11
-        triggered = 12
-        expected = 14
-        permitted = 14
+        permitted = 12
+        parking = 13
         actType = 15
         tripID = 16
         line = 17
@@ -2890,9 +2681,8 @@ class waypointParking:
         until = 3
         extensionEnable = 3
         extension = 4
-        triggered = 5
-        expected = 7
-        permitted = 7
+        permitted = 5
+        parking = 6
         actType = 8
         tripID = 9
         line = 10
@@ -2905,13 +2695,193 @@ class waypointParking:
         until = 4
         extensionEnable = 5
         extension = 6
-        triggered = 7
-        expected = 9
-        permitted = 10
-        actType = 11
-        tripID = 12
-        line = 13
-        speed = 14
+        permitted = 7
+        parking = 8
+        actType = 10
+        tripID = 11
+        line = 12
+        speed = 13
+
+# waypoint over train stops
+
+
+class waypointTrainStop:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        permitted = 12
+        parking = 13
+        actType = 15
+        tripID = 16
+        line = 17
+        speed = 18
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        permitted = 5
+        parking = 6
+        actType = 8
+        tripID = 9
+        line = 10
+        speed = 11
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        permitted = 7
+        parking = 8
+        actType = 10
+        tripID = 11
+        line = 12
+        speed = 13
+
+# waypoint over container stops
+
+
+class waypointContainerStop:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        permitted = 12
+        parking = 13
+        actType = 15
+        tripID = 16
+        line = 17
+        speed = 18
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        permitted = 5
+        parking = 6
+        actType = 8
+        tripID = 9
+        line = 10
+        speed = 11
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        permitted = 7
+        parking = 8
+        actType = 10
+        tripID = 11
+        line = 12
+        speed = 13
+
+# waypoint over charging stations
+
+
+class waypointChargingStation:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        permitted = 12
+        parking = 13
+        actType = 15
+        tripID = 16
+        line = 17
+        speed = 18
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        permitted = 5
+        parking = 6
+        actType = 8
+        tripID = 9
+        line = 10
+        speed = 11
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        permitted = 7
+        parking = 8
+        actType = 10
+        tripID = 11
+        line = 12
+        speed = 13
+
+# waypoint over parkings
+
+
+class waypointParking:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        permitted = 12
+        actType = 13
+        tripID = 14
+        line = 15
+        speed = 16
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        permitted = 5
+        actType = 6
+        tripID = 7
+        line = 8
+        speed = 9
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        permitted = 7
+        actType = 8
+        tripID = 9
+        line = 10
+        speed = 11
 
 # waypoint (over lane)
 
@@ -2926,14 +2896,12 @@ class waypointLane:
         until = 12
         extensionEnable = 12
         extension = 13
-        triggered = 14
-        expected = 16
-        permitted = 16
-        parking = 17
-        actType = 19
-        tripID = 20
-        line = 21
-        speed = 22
+        permitted = 14
+        parking = 15
+        actType = 17
+        tripID = 18
+        line = 19
+        speed = 20
 
     class inspect:
         lane = 1
@@ -2947,14 +2915,12 @@ class waypointLane:
         until = 8
         extensionEnable = 8
         extension = 9
-        triggered = 10
-        expected = 12
-        permitted = 12
-        parking = 13
-        actType = 15
-        tripID = 16
-        line = 17
-        speed = 18
+        permitted = 10
+        parking = 12
+        actType = 13
+        tripID = 14
+        line = 15
+        speed = 16
 
     class inspectSelection:
         friendlyPos = 1
@@ -2965,14 +2931,12 @@ class waypointLane:
         until = 6
         extensionEnable = 7
         extension = 8
-        triggered = 9
-        expected = 11
-        permitted = 12
-        parking = 13
-        actType = 15
-        tripID = 16
-        line = 17
-        speed = 18
+        permitted = 9
+        parking = 10
+        actType = 12
+        tripID = 13
+        line = 14
+        speed = 15
 
 # Person
 
