@@ -273,7 +273,10 @@ NBOwnTLDef::myCompute(int brakingTimeSeconds) {
 
 NBTrafficLightLogic*
 NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
-    myNeedsContRelation.clear();
+    if (myControlledNodes.size() == 1) {
+        // otherwise, use values from previous call to initNeedsContRelation
+        myNeedsContRelation.clear();
+    }
     myRightOnRedConflicts.clear();
     const bool isNEMA = myType == TrafficLightType::NEMA;
     const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
@@ -1023,18 +1026,20 @@ NBOwnTLDef::allowCompatible(std::string state, const EdgeVector& fromEdges, cons
         std::cout << " state after allowSingle " << state << "\n";
     }
 #endif
-    state = allowFollowers(state, fromEdges, toEdges);
+    if (myControlledNodes.size() > 1) {
+        state = allowFollowers(state, fromEdges, toEdges);
 #ifdef DEBUG_PHASES
-    if (DEBUGCOND) {
-        std::cout << " state after allowFollowers " << state << "\n";
-    }
+        if (DEBUGCOND) {
+            std::cout << " state after allowFollowers " << state << "\n";
+        }
 #endif
-    state = allowPredecessors(state, fromEdges, toEdges, fromLanes, toLanes);
+        state = allowPredecessors(state, fromEdges, toEdges, fromLanes, toLanes);
 #ifdef DEBUG_PHASES
-    if (DEBUGCOND) {
-        std::cout << " state after allowPredecessors " << state << "\n";
-    }
+        if (DEBUGCOND) {
+            std::cout << " state after allowPredecessors " << state << "\n";
+        }
 #endif
+    }
     return state;
 }
 
@@ -1074,9 +1079,9 @@ NBOwnTLDef::allowFollowers(std::string state, const EdgeVector& fromEdges, const
             if (state[i1] == 'G') {
                 continue;
             }
-            //if (forbidden(state, i1, fromEdges, toEdges)) {
-            //    continue;
-            //}
+            if (forbidden(state, i1, fromEdges, toEdges, true)) {
+                continue;
+            }
             bool followsChosen = false;
             for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
                 if (state[i2] == 'G' && fromEdges[i1] == toEdges[i2]) {
@@ -1106,7 +1111,7 @@ NBOwnTLDef::allowPredecessors(std::string state, const EdgeVector& fromEdges, co
             if (state[i1] == 'G') {
                 continue;
             }
-            if (forbidden(state, i1, fromEdges, toEdges)) {
+            if (forbidden(state, i1, fromEdges, toEdges, false)) {
                 continue;
             }
             bool preceedsChosen = false;
@@ -1164,10 +1169,14 @@ NBOwnTLDef::allowByVClass(std::string state, const EdgeVector& fromEdges, const 
 
 
 bool
-NBOwnTLDef::forbidden(const std::string& state, int index, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
+NBOwnTLDef::forbidden(const std::string& state, int index, const EdgeVector& fromEdges, const EdgeVector& toEdges, bool allowCont) {
     for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
         if (state[i2] == 'G' && foes(fromEdges[i2], toEdges[i2], fromEdges[index], toEdges[index])) {
-            return true;
+            if (!allowCont || (
+                        !needsCont(fromEdges[i2], toEdges[i2], fromEdges[index], toEdges[index]) &&
+                        !needsCont(fromEdges[index], toEdges[index], fromEdges[i2], toEdges[i2]))) {
+                return true;
+            }
         }
     }
     return false;
@@ -1194,7 +1203,9 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                     }
                     if (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true, controlledWithin) || rightTurnConflicts[i1]) {
                         state[i1] = 'g';
-                        myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2]));
+                        if (myControlledNodes.size() == 1) {
+                            myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2]));
+                        }
                         if (!isTurnaround[i1] && !hadGreenMajor[i1] && !rightTurnConflicts[i1]) {
                             haveForbiddenLeftMover = true;
                         }

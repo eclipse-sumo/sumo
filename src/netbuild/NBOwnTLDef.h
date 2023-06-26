@@ -258,7 +258,7 @@ protected:
     std::string allowByVClass(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges, SVCPermissions perm);
 
     /// @brief whether the given index is forbidden by a green link in the current state
-    bool forbidden(const std::string& state, int index, const EdgeVector& fromEdges, const EdgeVector& toEdges);
+    bool forbidden(const std::string& state, int index, const EdgeVector& fromEdges, const EdgeVector& toEdges, bool allowCont);
 
     /** @brief change 'G' to 'g' for conflicting connections
      * @param[in] state
