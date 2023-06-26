@@ -43,6 +43,7 @@
 
 //#define DEBUG_STREAM_ORDERING
 //#define DEBUG_PHASES
+//#define DEBUG_CONTRELATION
 //#define DEBUGCOND (getID() == "cluster_251050941_280598736_280598739_28902891_3142549227_3142550438")
 //#define DEBUGEDGE(edge) (edge->getID() == "23209153#1" || edge->getID() == "319583927#0")
 #define DEBUGCOND (true)
@@ -501,6 +502,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         if (!isNEMA) {
             // correct behaviour for those that are not in chosen, but may drive, though
             state = allowCompatible(state, fromEdges, toEdges, fromLanes, toLanes);
+#ifdef DEBUG_PHASES
+            if (DEBUGCOND) {
+                std::cout << " state after allowing compatible " << state << "\n";
+            }
+#endif
             if (groupTram) {
                 state = allowByVClass(state, fromEdges, toEdges, SVC_TRAM);
             } else if (groupOther) {
@@ -967,6 +973,15 @@ NBOwnTLDef::initNeedsContRelation() const {
             for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
                 (*i)->removeTrafficLight(&dummy);
             }
+#ifdef DEBUG_CONTRELATION
+            if (DEBUGCOND) {
+                std::cout << " contRelations at " << getID() << " prog=" << getProgramID() << ":\n";
+                for (const StreamPair& s : myNeedsContRelation) {
+                    std::cout << "   " << s.from1->getID() << "->" << s.to1->getID() << " foe " << s.from2->getID() << "->" << s.to2->getID() << "\n";
+                }
+            }
+#endif
+
         }
         myNeedsContRelationReady = true;
     }
@@ -991,8 +1006,23 @@ std::string
 NBOwnTLDef::allowCompatible(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
                             const std::vector<int>& fromLanes, const std::vector<int>& toLanes) {
     state = allowSingleEdge(state, fromEdges);
+#ifdef DEBUG_PHASES
+    if (DEBUGCOND) {
+        std::cout << " state after allowSingle " << state << "\n";
+    }
+#endif
     state = allowFollowers(state, fromEdges, toEdges);
+#ifdef DEBUG_PHASES
+    if (DEBUGCOND) {
+        std::cout << " state after allowFollowers " << state << "\n";
+    }
+#endif
     state = allowPredecessors(state, fromEdges, toEdges, fromLanes, toLanes);
+#ifdef DEBUG_PHASES
+    if (DEBUGCOND) {
+        std::cout << " state after allowPredecessors " << state << "\n";
+    }
+#endif
     return state;
 }
 
