@@ -2916,7 +2916,7 @@ class waypointLane:
         extensionEnable = 8
         extension = 9
         permitted = 10
-        parking = 12
+        parking = 11
         actType = 13
         tripID = 14
         line = 15
