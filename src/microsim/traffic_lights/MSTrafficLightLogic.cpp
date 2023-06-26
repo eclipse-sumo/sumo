@@ -238,10 +238,11 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
             if (logic != nullptr) {
                 // find symmetrical response
                 const int logicSize = logic->getLogicSize();
+                bool foundProblem = false;
                 std::vector<int> tlIndex;
-                for (int u = 0; u < logicSize; u++) {
+                for (int u = 0; u < logicSize && !foundProblem; u++) {
                     const MSLogicJunction::LinkBits& response = logic->getResponseFor(u);
-                    for (int v = 0; v < logicSize; v++) {
+                    for (int v = 0; v < logicSize && !foundProblem; v++) {
                         if (response.test(v)) {
                             if (logic->getResponseFor(v).test(u)) {
                                 // get tls link index for links u and v
@@ -264,9 +265,13 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                     for (MSPhaseDefinition* p : phases) {
                                         if (minor.find(p->getState()[tlu]) != std::string::npos
                                                 && minor.find(p->getState()[tlv]) != std::string::npos) {
-                                            throw ProcessError(TLF("Program '%' at tlLogic '%' is incompatible with logic at junction '%' (mutual conflict between link indices %,% tl indices %,% phase %).\n"
-                                                            "  Rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.",
+                                            WRITE_WARNING(TLF("Program '%' at tlLogic '%' is incompatible with logic at junction '%' (mutual conflict between link indices %,% tl indices %,% phase %).\n"
+                                                            "  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit\n"
+                                                            "  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.",
                                                          getProgramID(), getID(), junction->getID(), u, v, tlu, tlv, phaseIndex));
+                                            // only one warning per program
+                                            foundProblem = true;
+                                            break;
                                         }
                                         phaseIndex++;
                                     }
