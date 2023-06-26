@@ -963,15 +963,27 @@ void
 NBOwnTLDef::initNeedsContRelation() const {
     if (!myNeedsContRelationReady) {
         if (myControlledNodes.size() > 0) {
+            // setParticipantsInformation resets myAmInTLS so we need to make a copy
+            std::vector<bool> edgeInsideTLS;
+            for (const NBEdge* e : myIncomingEdges) {
+                edgeInsideTLS.push_back(e->isInsideTLS());
+            }
             // we use a dummy node just to maintain const-correctness
             myNeedsContRelation.clear();
-            NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TrafficLightType::STATIC);
-            dummy.setParticipantsInformation();
-            NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
-            delete tllDummy;
-            myNeedsContRelation = dummy.myNeedsContRelation;
-            for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-                (*i)->removeTrafficLight(&dummy);
+            for (NBNode* n : myControlledNodes) {
+                NBOwnTLDef dummy(DummyID, n, 0, TrafficLightType::STATIC);
+                dummy.setParticipantsInformation();
+                NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
+                delete tllDummy;
+                myNeedsContRelation.insert(dummy.myNeedsContRelation.begin(), dummy.myNeedsContRelation.end());
+                n->removeTrafficLight(&dummy);
+            }
+            if (myControlledNodes.size() > 1) {
+                int i = 0;
+                for (NBEdge* e : myIncomingEdges) {
+                    e->setInsideTLS(edgeInsideTLS[i]);
+                    i++;
+                }
             }
 #ifdef DEBUG_CONTRELATION
             if (DEBUGCOND) {
