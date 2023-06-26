@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-26 12:54:19 by Eclipse SUMO netconvert Version v1_17_0+1260-5baa566
+<!-- generated on 2023-06-26 16:16:09 by Eclipse SUMO netconvert Version v1_17_0+1272-c705dc1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -71,13 +71,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":Center_6_1" index="1" disallow="pedestrian" speed="13.90" length="20.80" shape="60.40,51.60 39.60,51.60"/>
     </edge>
     <edge id=":Center_8" function="internal">
-        <lane id=":Center_8_0" index="0" disallow="pedestrian" speed="9.26" length="3.91" shape="60.40,51.60 56.53,51.05"/>
+        <lane id=":Center_8_0" index="0" disallow="pedestrian" speed="9.26" length="5.01" shape="60.40,51.60 55.44,50.89"/>
     </edge>
     <edge id=":Center_9" function="internal">
         <lane id=":Center_9_0" index="0" disallow="pedestrian" speed="3.65" length="1.44" shape="60.40,51.60 59.20,50.80"/>
     </edge>
     <edge id=":Center_22" function="internal">
-        <lane id=":Center_22_0" index="0" disallow="pedestrian" speed="9.26" length="15.44" shape="56.53,51.05 55.15,50.85 51.40,48.60 49.15,44.85 48.40,39.60"/>
+        <lane id=":Center_22_0" index="0" disallow="pedestrian" speed="9.26" length="14.34" shape="55.44,50.89 55.15,50.85 51.40,48.60 49.15,44.85 48.40,39.60"/>
     </edge>
     <edge id=":Center_23" function="internal">
         <lane id=":Center_23_0" index="0" disallow="pedestrian" speed="3.65" length="3.23" shape="59.20,50.80 58.80,50.00 59.20,49.20 60.40,48.40"/>
@@ -181,11 +181,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="5"  state="r"/>
     </tlLogic>
     <tlLogic id="Center" type="static" programID="0" offset="0">
-        <phase duration="38" state="GGGgggggggGGGggrrrrrG"/>
-        <phase duration="3"  state="yyygggggggyyyggrrrrry"/>
-        <phase duration="6"  state="rrrGgGggggrrrGgrrrrrG"/>
-        <phase duration="3"  state="rrryyyyyyyrrryyrrrrry"/>
-        <phase duration="37" state="rrrrrGGGggrrrrrGGGggG"/>
+        <phase duration="42" state="GGGggrrrrrGGGggrrrrrG"/>
+        <phase duration="3"  state="yyyyyrrrrryyyyyrrrrry"/>
+        <phase duration="42" state="rrrrrGGGggrrrrrGGGggG"/>
         <phase duration="3"  state="rrrrryyyyyrrrrryyyyyy"/>
     </tlLogic>
 
@@ -200,8 +198,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="Center" type="traffic_light" x="50.00" y="50.00" incLanes="6_0 6_1 6_2 8_0 8_1 8_2 5_0 5_1 5_2 7_0 7_1 7_2" intLanes=":Center_0_0 :Center_1_0 :Center_1_1 :Center_20_0 :Center_21_0 :Center_5_0 :Center_6_0 :Center_6_1 :Center_22_0 :Center_23_0 :Center_10_0 :Center_11_0 :Center_11_1 :Center_24_0 :Center_25_0 :Center_15_0 :Center_16_0 :Center_16_1 :Center_26_0 :Center_27_0" shape="41.60,60.40 58.40,60.40 58.62,59.29 58.90,58.90 59.29,58.62 59.79,58.46 60.40,58.40 60.40,41.60 59.29,41.38 58.90,41.10 58.62,40.71 58.46,40.21 58.40,39.60 41.60,39.60 41.38,40.71 41.10,41.10 40.71,41.38 40.21,41.54 39.60,41.60 39.60,58.40 40.71,58.62 41.10,58.90 41.38,59.29 41.54,59.79">
         <request index="0"  response="00000000000000000000" foes="00000000000011000000" cont="0"/>
-        <request index="1"  response="01000000000000000000" foes="01111110000111000000" cont="0"/>
-        <request index="2"  response="01000000000000000000" foes="01111110000111000000" cont="0"/>
+        <request index="1"  response="01000000000100000000" foes="01111110000111000000" cont="0"/>
+        <request index="2"  response="01000000000100000000" foes="01111110000111000000" cont="0"/>
         <request index="3"  response="01000001100100000000" foes="01110001101111000000" cont="1"/>
         <request index="4"  response="01000001100000000000" foes="01000001100000000000" cont="1"/>
         <request index="5"  response="00000001100000000000" foes="00000001100000000000" cont="0"/>
@@ -210,8 +208,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="8"  response="00110011100000001110" foes="00110111100000001110" cont="1"/>
         <request index="9"  response="00110000000000001000" foes="00110000000000001000" cont="1"/>
         <request index="10" response="00000000000000000000" foes="00110000000000000000" cont="0"/>
-        <request index="11" response="01000000000000000000" foes="01110000000111111000" cont="0"/>
-        <request index="12" response="01000000000000000000" foes="01110000000111111000" cont="0"/>
+        <request index="11" response="01000000000100000000" foes="01110000000111111000" cont="0"/>
+        <request index="12" response="01000000000100000000" foes="01110000000111111000" cont="0"/>
         <request index="13" response="01000000000100000110" foes="11110000000111000110" cont="1"/>
         <request index="14" response="00000000000100000110" foes="00000000000100000110" cont="1"/>
         <request index="15" response="00000000000000000110" foes="00000000000000000110" cont="0"/>
@@ -226,7 +224,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <junction id=":Center_20_0" type="internal" x="49.11" y="55.44" incLanes=":Center_3_0 5_1 5_2" intLanes=":Center_6_0 :Center_6_1 :Center_8_0 :Center_9_0 :Center_10_0 :Center_11_0 :Center_11_1 :Center_16_0 :Center_16_1 :Center_18_0"/>
     <junction id=":Center_21_0" type="internal" x="49.20" y="59.20" incLanes=":Center_4_0 5_1 5_2 7_2 8_1" intLanes=":Center_5_0 :Center_11_0 :Center_11_1 :Center_18_0"/>
-    <junction id=":Center_22_0" type="internal" x="56.53" y="51.05" incLanes=":Center_8_0 5_1 5_2 6_1 6_2 7_1 7_2" intLanes=":Center_1_0 :Center_1_1 :Center_3_0 :Center_11_0 :Center_11_1 :Center_13_0 :Center_14_0 :Center_15_0 :Center_16_0 :Center_16_1"/>
+    <junction id=":Center_22_0" type="internal" x="55.44" y="50.89" incLanes=":Center_8_0 7_1 7_2" intLanes=":Center_1_0 :Center_1_1 :Center_3_0 :Center_11_0 :Center_11_1 :Center_13_0 :Center_14_0 :Center_15_0 :Center_16_0 :Center_16_1"/>
     <junction id=":Center_23_0" type="internal" x="59.20" y="50.80" incLanes=":Center_9_0 5_1 6_2 7_1 7_2" intLanes=":Center_3_0 :Center_10_0 :Center_16_0 :Center_16_1"/>
     <junction id=":Center_24_0" type="internal" x="50.89" y="44.56" incLanes=":Center_13_0 6_1 6_2" intLanes=":Center_0_0 :Center_1_0 :Center_1_1 :Center_6_0 :Center_6_1 :Center_8_0 :Center_16_0 :Center_16_1 :Center_18_0 :Center_19_0"/>
     <junction id=":Center_25_0" type="internal" x="50.80" y="40.80" incLanes=":Center_14_0 6_1 6_2 7_1 8_2" intLanes=":Center_1_0 :Center_1_1 :Center_8_0 :Center_15_0"/>
