@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-26 17:03:15 by Eclipse SUMO netedit Version v1_17_0+1277-bd30088
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="dev2.net.xml"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-389562.46,-5817979.56" convBoundary="1097.14,1908.72,1349.56,2082.83" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-144014237#0" from="cluster_25664673_4590472030_4590472039_4590472040" to="1085513888" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="1224.80,1990.78 1221.65,1988.61 1216.62,1985.56 1211.63,1983.43" spreadType="center" allow="tram" bidi="144014237#0">
+        <lane index="0">
+            <param key="origId" value="144014237"/>
+        </lane>
+        <param key="origFrom" value="4590472039"/>
+    </edge>
+    <edge id="-144014237#1" from="1673527063" to="cluster_25664673_4590472030_4590472039_4590472040" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="1236.78,1998.64 1229.96,1994.34 1224.80,1990.78" spreadType="center" allow="tram" bidi="144014237#1">
+        <lane index="0">
+            <param key="origId" value="144014237"/>
+        </lane>
+        <param key="origTo" value="4590472039"/>
+    </edge>
+    <edge id="-153698394#1" from="25664657" to="cluster_25664673_4590472030_4590472039_4590472040" name="Charlottenstraße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="1229.88,1908.72 1224.80,1990.78" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="153698394"/>
+        </lane>
+        <param key="origTo" value="4590472039"/>
+    </edge>
+    <edge id="-195411594#3" from="cluster_25664680_4603453154_577258918" to="1673585734" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="1102.27,1986.00 1104.84,1984.00 1107.28,1982.65 1112.03,1980.54 1117.55,1979.53 1127.29,1978.69 1186.32,1983.01 1194.16,1983.53 1205.69,1985.47 1210.13,1987.37 1214.50,1990.36 1218.58,1994.26 1221.53,1999.99 1222.78,2004.15 1223.13,2007.82 1223.10,2011.46 1223.02,2016.66 1218.67,2062.22 1216.97,2082.62" spreadType="center" allow="tram" bidi="167272512#7">
+        <lane index="0">
+            <param key="origId" value="195411594 167272512"/>
+        </lane>
+        <param key="origFrom" value="4603453154"/>
+    </edge>
+    <edge id="-340498976#0" from="cluster_25665679_4590472037_4590472042_4590472043" to="cluster_25664673_4590472030_4590472039_4590472040" name="Dorotheenstraße" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="1348.28,2014.17 1335.77,2013.93 1248.36,2008.68 1245.11,2007.66 1242.51,2006.58 1239.03,2004.54 1236.45,2002.72" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="340498976 83517336"/>
+        </lane>
+        <param key="origFrom" value="25665679"/>
+        <param key="origTo" value="4590472030"/>
+    </edge>
+    <edge id="-35578576#2" from="cluster_25664673_4590472030_4590472039_4590472040" to="5632884667" name="Planckstraße" priority="3" type="highway.residential" numLanes="2" speed="13.89" shape="1223.80,1992.44 1225.80,2011.07 1219.20,2082.83">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="35578576"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="35578576"/>
+        </lane>
+        <param key="origFrom" value="25664673"/>
+    </edge>
+    <edge id="-83517336#0" from="cluster_25664673_4590472030_4590472039_4590472040" to="cluster_25664680_4603453154_577258918" name="Dorotheenstraße" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="1208.40,1982.54 1205.43,1981.55 1202.28,1980.80 1160.19,1976.95 1118.22,1973.62 1097.14,1974.63" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="83517336"/>
+        </lane>
+        <param key="origFrom" value="4590472040"/>
+        <param key="origTo" value="25664680"/>
+    </edge>
+    <edge id="-93584121#0" from="cluster_25664673_4590472030_4590472039_4590472040" to="cluster_25664680_4603453154_577258918" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="1208.40,1982.54 1199.36,1980.93 1179.90,1979.51 1159.89,1977.89 1137.64,1976.63 1126.22,1975.46 1117.78,1975.90 1111.36,1977.30 1106.37,1979.21 1101.84,1982.18" spreadType="center" allow="tram" bidi="22820560#0">
+        <lane index="0">
+            <param key="origId" value="93584121 22820560"/>
+        </lane>
+        <param key="origFrom" value="4590472040"/>
+        <param key="origTo" value="577258918"/>
+    </edge>
+    <edge id="-93584121#1" from="1085513888" to="cluster_25664673_4590472030_4590472039_4590472040" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="1211.63,1983.43 1208.40,1982.54" spreadType="center" allow="tram" bidi="93584121#1">
+        <lane index="0">
+            <param key="origId" value="93584121"/>
+        </lane>
+        <param key="origTo" value="4590472040"/>
+    </edge>
+    <edge id="144014237#0" from="1085513888" to="cluster_25664673_4590472030_4590472039_4590472040" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="1211.63,1983.43 1216.62,1985.56 1221.65,1988.61 1224.80,1990.78" spreadType="center" allow="tram" bidi="-144014237#0">
+        <lane index="0">
+            <param key="origId" value="144014237"/>
+        </lane>
+        <param key="origTo" value="4590472039"/>
+    </edge>
+    <edge id="144014237#1" from="cluster_25664673_4590472030_4590472039_4590472040" to="1673527063" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="1224.80,1990.78 1229.96,1994.34 1236.78,1998.64" spreadType="center" allow="tram" bidi="-144014237#1">
+        <lane index="0">
+            <param key="origId" value="144014237"/>
+        </lane>
+        <param key="origFrom" value="4590472039"/>
+    </edge>
+    <edge id="153698394#1" from="cluster_25664673_4590472030_4590472039_4590472040" to="25664657" name="Charlottenstraße" priority="3" type="highway.residential" numLanes="2" speed="13.89" shape="1224.80,1990.78 1229.88,1908.72">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="153698394"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="153698394"/>
+        </lane>
+        <param key="origFrom" value="4590472039"/>
+    </edge>
+    <edge id="167272512#7" from="1673585734" to="cluster_25664680_4603453154_577258918" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="1216.97,2082.62 1218.67,2062.22 1223.02,2016.66 1223.10,2011.46 1223.13,2007.82 1222.78,2004.15 1221.53,1999.99 1218.58,1994.26 1214.50,1990.36 1210.13,1987.37 1205.69,1985.47 1194.16,1983.53 1186.32,1983.01 1127.29,1978.69 1117.55,1979.53 1112.03,1980.54 1107.28,1982.65 1104.84,1984.00 1102.27,1986.00" spreadType="center" allow="tram" bidi="-195411594#3">
+        <lane index="0">
+            <param key="origId" value="167272512 195411594"/>
+        </lane>
+        <param key="origTo" value="4603453154"/>
+    </edge>
+    <edge id="22820560#0" from="cluster_25664680_4603453154_577258918" to="cluster_25664673_4590472030_4590472039_4590472040" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="1101.84,1982.18 1106.37,1979.21 1111.36,1977.30 1117.78,1975.90 1126.22,1975.46 1137.64,1976.63 1159.89,1977.89 1179.90,1979.51 1199.36,1980.93 1208.40,1982.54" spreadType="center" allow="tram" bidi="-93584121#0">
+        <lane index="0">
+            <param key="origId" value="22820560 93584121"/>
+        </lane>
+        <param key="origFrom" value="577258918"/>
+        <param key="origTo" value="4590472040"/>
+    </edge>
+    <edge id="35578576#2" from="5632884667" to="cluster_25664673_4590472030_4590472039_4590472040" name="Planckstraße" priority="3" type="highway.residential" numLanes="2" speed="13.89" shape="1219.20,2082.83 1225.80,2011.07 1223.80,1992.44">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="35578576"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="35578576"/>
+        </lane>
+        <param key="origTo" value="25664673"/>
+    </edge>
+    <edge id="463829469#0" from="cluster_25664673_4590472030_4590472039_4590472040" to="1673527063" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="1236.45,2002.72 1236.78,1998.64" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="463829469"/>
+        </lane>
+        <param key="origFrom" value="4590472030"/>
+    </edge>
+    <edge id="83517336#0" from="cluster_25664680_4603453154_577258918" to="cluster_25664673_4590472030_4590472039_4590472040" name="Dorotheenstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="1097.14,1974.63 1118.22,1973.62 1160.19,1976.95 1202.28,1980.80 1205.43,1981.55 1208.40,1982.54">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="83517336"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="83517336"/>
+        </lane>
+        <param key="origFrom" value="25664680"/>
+        <param key="origTo" value="4590472040"/>
+    </edge>
+    <edge id="83517336#3" from="cluster_25664673_4590472030_4590472039_4590472040" to="cluster_25665679_4590472037_4590472042_4590472043" name="Dorotheenstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="1236.45,2002.72 1239.03,2004.54 1242.51,2006.58 1245.11,2007.66 1248.36,2008.68 1335.77,2013.93 1348.28,2014.17">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="83517336 340498976"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="83517336 340498976"/>
+        </lane>
+        <param key="origFrom" value="4590472030"/>
+        <param key="origTo" value="25665679"/>
+    </edge>
+    <edge id="93584121#1" from="cluster_25664673_4590472030_4590472039_4590472040" to="1085513888" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="1208.40,1982.54 1211.63,1983.43" spreadType="center" allow="tram" bidi="-93584121#1">
+        <lane index="0">
+            <param key="origId" value="93584121"/>
+        </lane>
+        <param key="origFrom" value="4590472040"/>
+    </edge>
+</edges>
