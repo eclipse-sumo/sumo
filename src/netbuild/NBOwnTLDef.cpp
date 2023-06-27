@@ -756,6 +756,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             }
             leftStates.push_back(leftState);
         }
+        // fix edges within joined traffic lights that did not get the green light yet
+        if (myEdgesWithin.size() > 0 && !isNEMA && toProc.size() == 0) {
+            addGreenWithin(logic, fromEdges, toProc);
+        }
     }
     // fix pedestrian crossings that did not get the green light yet
     if (crossings.size() > 0) {
@@ -1273,6 +1277,30 @@ NBOwnTLDef::correctMixed(std::string state, const EdgeVector& fromEdges,
         }
     }
     return state;
+}
+
+
+void
+NBOwnTLDef::addGreenWithin(NBTrafficLightLogic* logic, const EdgeVector& fromEdges, EdgeVector& toProc) {
+    std::vector<bool> foundGreen(fromEdges.size(), false);
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = logic->getPhases();
+    for (const auto& phase : logic->getPhases()) {
+        const std::string state = phase.state;
+        for (int j = 0; j < (int)fromEdges.size(); j++) {
+            LinkState ls = (LinkState)state[j];
+            if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
+                foundGreen[j] = true;
+            }
+        }
+    }
+    for (int j = 0; j < (int)foundGreen.size(); j++) {
+        if (!foundGreen[j]) {
+            NBEdge* e = fromEdges[j];
+            if (std::find(toProc.begin(), toProc.end(), e) == toProc.end()) {
+                toProc.push_back(e);
+            }
+        }
+    }
 }
 
 
