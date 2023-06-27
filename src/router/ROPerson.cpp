@@ -371,7 +371,9 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                     carUsed = true;
                 }
             } else {
-                trip->addTripItem(new Ride(start, nullptr, nullptr, item.line, trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop, item.intended, TIME2STEPS(item.depart)));
+                // write origin for first element of the plan
+                const ROEdge* origin = trip == myPlan.front() && trip->needsRouting() ? trip->getOrigin() : nullptr;
+                trip->addTripItem(new Ride(start, origin, nullptr, item.line, trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop, item.intended, TIME2STEPS(item.depart)));
             }
         }
         start += TIME2STEPS(item.cost);
