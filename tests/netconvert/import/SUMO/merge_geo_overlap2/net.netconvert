@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:23 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2023-06-27 19:13:09 by Eclipse SUMO netconvert Version v1_17_0+1314-3b4163efbeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -75,7 +75,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="-140407867" from="485124047" to="1538384838" name="Bürgermeister-Ulrich-Straße" priority="10" type="highway.tertiary" shape="113069.99,-31127.55 113119.90,-31039.05 113122.30,-31034.78 113133.88,-31014.28 113147.61,-30989.31 113184.35,-30926.50 113195.05,-30908.94 113200.88,-30898.90">
-        <lane id="-140407867_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="1246.79" shape="113073.34,-31124.86 113121.29,-31039.84 113123.69,-31035.57 113135.28,-31015.06 113149.00,-30990.10 113185.72,-30927.32 113196.43,-30909.76 113202.26,-30899.70">
+        <lane id="-140407867_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="1246.77" shape="113073.35,-31124.84 113121.29,-31039.84 113123.69,-31035.57 113135.28,-31015.06 113149.00,-30990.10 113185.72,-30927.32 113196.43,-30909.76 113202.26,-30899.70">
             <param key="origId" value="140407867"/>
         </lane>
         <param key="ref" value="As 6"/>
@@ -87,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="As 6"/>
     </edge>
     <edge id="-140407867#1" from="485124047" to="1490851085" name="Bürgermeister-Ulrich-Straße" priority="10" type="highway.tertiary" shape="113069.99,-31127.55,497.23 113119.90,-31039.05,496.39 113122.30,-31034.79,495.93">
-        <lane id="-140407867#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="106.52" shape="113073.34,-31124.86,497.20 113121.29,-31039.84,496.39 113123.62,-31035.71,495.94">
+        <lane id="-140407867#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="106.52" shape="113073.35,-31124.84,497.20 113121.29,-31039.84,496.39 113123.62,-31035.71,495.94">
             <param key="origId" value="140407867"/>
         </lane>
         <param key="ref" value="As 6"/>
@@ -239,7 +239,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="As 6"/>
     </edge>
     <edge id="-315121066#2" from="10712629331" to="485124047" name="Bürgermeister-Ulrich-Straße" priority="10" type="highway.tertiary" shape="113021.45,-31178.09,491.62 113034.77,-31169.77,493.24 113039.01,-31165.95,493.68 113058.28,-31146.42,495.23 113069.99,-31127.55,497.23">
-        <lane id="-315121066#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="71.37" shape="113027.70,-31176.07,491.62 113035.74,-31171.05,493.24 113040.12,-31167.11,493.68 113059.54,-31147.42,495.23 113069.26,-31131.76,497.23">
+        <lane id="-315121066#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="71.37" shape="113027.70,-31176.07,491.62 113035.74,-31171.05,493.24 113040.12,-31167.11,493.68 113059.54,-31147.42,495.23 113069.25,-31131.77,497.23">
             <param key="origId" value="315121066"/>
         </lane>
         <param key="ref" value="As 6"/>
@@ -412,7 +412,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="140407867" from="1538384838" to="485124047" name="Bürgermeister-Ulrich-Straße" priority="10" type="highway.tertiary" shape="113200.88,-30898.90 113195.05,-30908.94 113184.35,-30926.50 113147.61,-30989.31 113133.88,-31014.28 113122.30,-31034.78 113119.90,-31039.05 113069.99,-31127.55">
-        <lane id="140407867_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="1246.79" shape="113199.50,-30898.10 113193.67,-30908.12 113182.98,-30925.68 113146.22,-30988.52 113132.48,-31013.50 113120.91,-31033.99 113118.51,-31038.27 113070.56,-31123.29">
+        <lane id="140407867_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="1246.77" shape="113199.50,-30898.10 113193.67,-30908.12 113182.98,-30925.68 113146.22,-30988.52 113132.48,-31013.50 113120.91,-31033.99 113118.51,-31038.27 113070.57,-31123.27">
             <param key="origId" value="140407867"/>
         </lane>
         <param key="ref" value="As 6"/>
@@ -424,7 +424,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="As 6"/>
     </edge>
     <edge id="140407867#1" from="1490851085" to="485124047" name="Bürgermeister-Ulrich-Straße" priority="10" type="highway.tertiary" shape="113122.30,-31034.79,495.93 113119.90,-31039.05,496.39 113069.99,-31127.55,497.23">
-        <lane id="140407867#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="106.52" shape="113120.83,-31034.14,495.94 113118.51,-31038.26,496.39 113070.56,-31123.29,497.20">
+        <lane id="140407867#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="106.52" shape="113120.83,-31034.14,495.94 113118.51,-31038.26,496.39 113070.57,-31123.27,497.20">
             <param key="origId" value="140407867"/>
         </lane>
         <param key="ref" value="As 6"/>
@@ -567,10 +567,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="As 6"/>
     </edge>
     <edge id="315121066#0" from="485124047" to="10712629331" name="Bürgermeister-Ulrich-Straße" priority="10" type="highway.tertiary" shape="113069.99,-31127.55,497.23 113058.28,-31146.42,495.23 113039.01,-31165.95,493.68 113034.77,-31169.77,493.24 113021.45,-31178.09,491.62">
-        <lane id="315121066#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="71.37" shape="113063.83,-31128.38,497.23 113054.49,-31143.43,495.23 113035.69,-31162.48,493.68 113031.87,-31165.92,493.24 113024.31,-31170.64,491.62">
+        <lane id="315121066#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="71.37" shape="113063.81,-31128.40,497.23 113054.49,-31143.43,495.23 113035.69,-31162.48,493.68 113031.87,-31165.92,493.24 113024.31,-31170.64,491.62">
             <param key="origId" value="315121066"/>
         </lane>
-        <lane id="315121066#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="71.37" shape="113066.54,-31130.07,497.23 113057.02,-31145.42,495.23 113037.90,-31164.79,493.68 113033.80,-31168.49,493.24 113026.00,-31173.36,491.62">
+        <lane id="315121066#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="71.37" shape="113066.53,-31130.09,497.23 113057.02,-31145.42,495.23 113037.90,-31164.79,493.68 113033.80,-31168.49,493.24 113026.00,-31173.36,491.62">
             <param key="origId" value="315121066"/>
         </lane>
         <param key="ref" value="As 6"/>
@@ -944,7 +944,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="485124047" type="priority" x="113069.99" y="-31127.55" z="497.23" incLanes="140407867_0 140407867#1_0 -315121066#2_0" intLanes="" shape="113069.16,-31122.50,497.23 113074.74,-31125.65,497.23 113070.62,-31132.60,497.23 113062.47,-31127.54,497.23 113064.73,-31125.46,497.23 113065.87,-31125.05,497.23 113067.00,-31124.64,497.23 113068.11,-31123.90,497.23">
+    <junction id="485124047" type="priority" x="113069.99" y="-31127.55" z="497.23" incLanes="140407867_0 140407867#1_0 -315121066#2_0" intLanes="" shape="113069.17,-31122.48,497.23 113074.75,-31125.63,497.23 113070.61,-31132.62,497.23 113062.45,-31127.56,497.23 113064.72,-31125.47,497.23 113065.87,-31125.05,497.23 113067.01,-31124.63,497.23 113068.11,-31123.88,497.23">
         <request index="0" response="001100" foes="001100"/>
         <request index="1" response="001100" foes="001100"/>
         <request index="2" response="000000" foes="010011"/>

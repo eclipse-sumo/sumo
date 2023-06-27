@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-15 10:57:25 by Eclipse SUMO netconvert Version v1_17_0+0949-cba0d01c7a8
+<!-- generated on 2023-06-27 19:13:19 by Eclipse SUMO netconvert Version v1_17_0+1314-3b4163efbeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -67,16 +67,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-10597569#4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="84.13" shape="208.34,17.24 198.30,21.19 171.28,32.33 162.28,35.75 134.71,46.69"/>
     </edge>
     <edge id="-142810575#0" from="3363880864" to="273473191" priority="10" type="cycleway.track|highway.tertiary" shape="84.48,66.12 83.19,66.68 25.93,88.25">
-        <lane id="-142810575#0_0" index="0" disallow="rail_urban rail rail_electric rail_fast ship" speed="13.89" length="62.59" shape="83.75,68.18 30.24,88.33"/>
+        <lane id="-142810575#0_0" index="0" disallow="rail_urban rail rail_electric rail_fast ship" speed="13.89" length="62.59" shape="83.72,68.19 30.24,88.33"/>
     </edge>
     <edge id="-142810575#1" from="3363880865" to="3363880864" priority="10" type="cycleway.track|highway.tertiary">
-        <lane id="-142810575#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.44" shape="92.70,64.69 86.39,67.11"/>
+        <lane id="-142810575#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.44" shape="92.64,64.71 86.41,67.10"/>
     </edge>
     <edge id="-142810575#2" from="9886764479" to="3363880865" priority="10" type="cycleway.track|highway.tertiary">
-        <lane id="-142810575#2_0" index="0" disallow="rail_urban rail rail_electric rail_fast ship" speed="13.89" length="3.58" shape="95.82,63.41 95.20,63.67"/>
+        <lane id="-142810575#2_0" index="0" disallow="rail_urban rail rail_electric rail_fast ship" speed="13.89" length="12.12" shape="99.86,61.67 95.25,63.65"/>
     </edge>
     <edge id="-142810575#3" from="3186398214" to="9886764479" priority="10" type="cycleway.track|highway.tertiary">
-        <lane id="-142810575#3_0" index="0" disallow="rail_urban rail rail_electric rail_fast ship" speed="13.89" length="10.37" shape="104.53,59.78 104.34,59.85"/>
+        <lane id="-142810575#3_0" index="0" disallow="rail_urban rail rail_electric rail_fast ship" speed="13.89" length="6.92" shape="104.53,59.78 104.34,59.85"/>
     </edge>
     <edge id="-142810575#4" from="7561495436" to="3186398214" priority="10" type="cycleway.track|highway.tertiary">
         <lane id="-142810575#4_0" index="0" disallow="rail_urban rail rail_electric rail_fast ship" speed="13.89" length="3.49" shape="104.31,59.76 104.19,59.81"/>
@@ -141,24 +141,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="1091918490_0" index="0" allow="tram" speed="13.89" length="9.73" shape="99.48,30.43 97.71,24.01"/>
     </edge>
     <edge id="142810575#0" from="273473191" to="3363880864" priority="10" type="cycleway.track|highway.tertiary" shape="25.93,88.25 83.19,66.68 84.48,66.12">
-        <lane id="142810575#0_0" index="0" allow="bicycle" speed="13.89" length="62.59" width="1.50" shape="27.15,80.15 80.26,60.14"/>
-        <lane id="142810575#0_1" index="1" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="62.59" shape="27.98,82.34 81.20,62.30"/>
-        <lane id="142810575#0_2" index="2" disallow="bicycle rail_urban rail rail_electric rail_fast ship" speed="13.89" length="62.59" shape="29.11,85.34 82.47,65.24"/>
+        <lane id="142810575#0_0" index="0" allow="bicycle" speed="13.89" length="62.59" width="1.50" shape="27.15,80.15 80.23,60.16"/>
+        <lane id="142810575#0_1" index="1" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="62.59" shape="27.98,82.34 81.17,62.31"/>
+        <lane id="142810575#0_2" index="2" disallow="bicycle rail_urban rail rail_electric rail_fast ship" speed="13.89" length="62.59" shape="29.11,85.34 82.44,65.25"/>
     </edge>
     <edge id="142810575#1" from="3363880864" to="3363880865" priority="10" type="cycleway.track|highway.tertiary">
-        <lane id="142810575#1_0" index="0" allow="bicycle" speed="13.89" length="9.44" width="1.50" shape="83.29,58.92 88.82,56.80"/>
-        <lane id="142810575#1_1" index="1" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.44" shape="84.12,61.12 89.86,58.92"/>
-        <lane id="142810575#1_2" index="2" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.44" shape="85.26,64.11 91.28,61.81"/>
+        <lane id="142810575#1_0" index="0" allow="bicycle" speed="13.89" length="9.44" width="1.50" shape="83.31,58.91 88.76,56.83"/>
+        <lane id="142810575#1_1" index="1" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.44" shape="84.14,61.11 89.80,58.95"/>
+        <lane id="142810575#1_2" index="2" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.44" shape="85.28,64.10 91.22,61.83"/>
     </edge>
     <edge id="142810575#2" from="3363880865" to="9886764479" priority="10" type="cycleway.track|highway.tertiary">
-        <lane id="142810575#2_0" index="0" allow="bicycle" speed="13.89" length="3.58" width="1.50" shape="91.74,55.63 92.36,55.37"/>
-        <lane id="142810575#2_1" index="1" disallow="bicycle rail_urban rail rail_electric rail_fast ship" speed="13.89" length="3.58" shape="92.67,57.79 93.29,57.53"/>
-        <lane id="142810575#2_2" index="2" disallow="bicycle rail_urban rail rail_electric rail_fast ship" speed="13.89" length="3.58" shape="93.94,60.73 94.55,60.47"/>
+        <lane id="142810575#2_0" index="0" allow="bicycle" speed="13.89" length="12.12" width="1.50" shape="91.79,55.61 96.40,53.63"/>
+        <lane id="142810575#2_1" index="1" disallow="bicycle rail_urban rail rail_electric rail_fast ship" speed="13.89" length="12.12" shape="92.72,57.77 97.33,55.79"/>
+        <lane id="142810575#2_2" index="2" disallow="bicycle rail_urban rail rail_electric rail_fast ship" speed="13.89" length="12.12" shape="93.99,60.71 98.60,58.73"/>
     </edge>
     <edge id="142810575#3" from="9886764479" to="3186398214" priority="10" type="cycleway.track|highway.tertiary">
-        <lane id="142810575#3_0" index="0" allow="bicycle" speed="13.89" length="10.37" width="1.50" shape="101.00,51.77 101.18,51.69"/>
-        <lane id="142810575#3_1" index="1" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="10.37" shape="101.90,53.94 102.08,53.86"/>
-        <lane id="142810575#3_2" index="2" disallow="bicycle rail_urban rail rail_electric rail_fast ship" speed="13.89" length="10.37" shape="103.12,56.90 103.30,56.82"/>
+        <lane id="142810575#3_0" index="0" allow="bicycle" speed="13.89" length="6.92" width="1.50" shape="101.00,51.77 101.18,51.69"/>
+        <lane id="142810575#3_1" index="1" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="6.92" shape="101.90,53.94 102.08,53.86"/>
+        <lane id="142810575#3_2" index="2" disallow="bicycle rail_urban rail rail_electric rail_fast ship" speed="13.89" length="6.92" shape="103.12,56.90 103.30,56.82"/>
     </edge>
     <edge id="142810575#4" from="3186398214" to="7561495436" priority="10" type="cycleway.track|highway.tertiary">
         <lane id="142810575#4_0" index="0" allow="bicycle" speed="13.89" length="6.62" width="1.50" shape="97.60,53.33 97.78,53.24"/>
@@ -197,7 +197,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="173971212_0" index="0" allow="tram" speed="13.89" length="6.21" shape="136.71,45.59 139.67,44.44"/>
     </edge>
     <edge id="175760034" from="3363880864" to="1883138755" priority="17" type="railway.tram" spreadType="center" shape="83.40,63.29 88.33,61.41">
-        <lane id="175760034_0" index="0" allow="tram" speed="13.89" length="7.19" shape="84.75,62.77 87.10,61.88"/>
+        <lane id="175760034_0" index="0" allow="tram" speed="13.89" length="7.18" shape="84.77,62.76 87.10,61.88"/>
     </edge>
     <edge id="175760035#0" from="1863123407" to="cluster_2874816622_3263667187_3363880863" priority="17" type="railway.tram" spreadType="center" shape="141.10,43.88 134.13,46.17 131.52,46.80 128.60,47.26">
         <lane id="175760035#0_0" index="0" allow="tram" speed="13.89" length="11.91" shape="139.64,44.36 134.46,46.07"/>
@@ -253,16 +253,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="236529399#1_0" index="0" allow="tram" speed="13.89" length="8.49" shape="101.10,60.90 101.00,61.06"/>
     </edge>
     <edge id="236529399#2" from="3363880865" to="1863123415" priority="17" type="railway.tram" spreadType="center" shape="94.44,65.05 89.91,67.28">
-        <lane id="236529399#2_0" index="0" allow="tram" speed="13.89" length="6.57" shape="93.18,65.67 91.18,66.65"/>
+        <lane id="236529399#2_0" index="0" allow="tram" speed="13.89" length="6.53" shape="93.12,65.70 91.18,66.65"/>
     </edge>
     <edge id="236529399#2#0" from="3186398214" to="9886764479" priority="17" type="railway.tram" spreadType="center" shape="102.35,58.95 101.32,60.21 100.02,61.60 98.37,62.84 97.59,63.36">
-        <lane id="236529399#2#0_0" index="0" allow="tram" speed="13.89" length="10.06" shape="103.84,58.13 103.69,58.26"/>
+        <lane id="236529399#2#0_0" index="0" allow="tram" speed="13.89" length="6.05" shape="103.84,58.13 103.69,58.26"/>
     </edge>
     <edge id="236529400" from="9886764479" to="10000301131" priority="17" type="railway.tram" spreadType="center" shape="95.05,57.63 96.62,56.17 98.23,54.19 100.01,51.29 100.91,49.11 101.33,47.43 101.57,45.74 101.67,43.84 101.50,40.68 100.99,37.30 99.89,31.92">
-        <lane id="236529400_0" index="0" allow="tram" speed="13.89" length="29.99" shape="99.95,51.40 100.01,51.29 100.05,51.20"/>
+        <lane id="236529400_0" index="0" allow="tram" speed="13.89" length="23.22" shape="99.95,51.40 100.01,51.29 100.05,51.20"/>
     </edge>
     <edge id="236529400#0" from="1883138755" to="3363880865" priority="17" type="railway.tram" spreadType="center" shape="88.33,61.41 92.00,59.49">
-        <lane id="236529400#0_0" index="0" allow="tram" speed="13.89" length="6.19" shape="89.63,60.74 90.52,60.27"/>
+        <lane id="236529400#0_0" index="0" allow="tram" speed="13.89" length="6.15" shape="89.63,60.74 90.46,60.30"/>
     </edge>
     <edge id="465830148#0" from="1841863574" to="3094840876" priority="17" type="railway.tram" spreadType="center" shape="135.31,46.13 123.41,50.71 118.21,52.99">
         <lane id="465830148#0_0" index="0" allow="tram" speed="13.89" length="18.43" shape="133.91,46.67 123.41,50.71 119.65,52.36"/>
@@ -271,7 +271,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="465830148#1#0_0" index="0" allow="tram" speed="13.89" length="10.10" shape="117.79,53.20 117.61,53.29"/>
     </edge>
     <edge id="465830148#4" from="9886764479" to="1863123415" priority="17" type="railway.tram" spreadType="center" shape="97.76,63.90 89.91,67.28">
-        <lane id="465830148#4_0" index="0" allow="tram" speed="13.89" length="10.16" shape="96.30,64.53 91.22,66.72"/>
+        <lane id="465830148#4_0" index="0" allow="tram" speed="13.89" length="19.30" shape="100.34,62.79 91.22,66.72"/>
     </edge>
     <edge id="46733382#0" from="1045826341" to="3263667182" priority="1" type="highway.footway" spreadType="center" shape="84.87,4.25 86.54,3.86 87.89,3.55 91.27,3.29">
         <lane id="46733382#0_0" index="0" allow="pedestrian" speed="2.78" length="6.49" width="2.00" shape="84.87,4.25 86.54,3.86 87.89,3.55 88.37,3.52"/>
@@ -299,7 +299,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="998193588_0" index="0" allow="tram" speed="13.89" length="4.48" shape="2.20,98.51 0.00,99.35"/>
     </edge>
     <edge id="998193588#0" from="1863123415" to="3363880864" priority="17" type="railway.tram" spreadType="center" shape="89.91,67.28 85.64,68.94">
-        <lane id="998193588#0_0" index="0" allow="tram" speed="13.89" length="6.59" shape="88.62,67.78 86.90,68.45"/>
+        <lane id="998193588#0_0" index="0" allow="tram" speed="13.89" length="6.58" shape="88.62,67.78 86.92,68.44"/>
     </edge>
     <edge id="998193589#0" from="9220105026" to="3094840869" priority="17" type="railway.tram" spreadType="center">
         <lane id="998193589#0_0" index="0" allow="tram" speed="13.89" length="16.74" shape="104.44,37.73 104.49,37.92"/>
@@ -308,7 +308,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="998193589#1_0" index="0" allow="tram" speed="13.89" length="5.44" shape="105.52,42.46 105.56,42.65"/>
     </edge>
     <edge id="998193590#0#0" from="1883138755" to="3363880865" priority="17" type="railway.tram" spreadType="center" shape="88.33,61.41 92.12,59.91">
-        <lane id="998193590#0#0_0" index="0" allow="tram" speed="13.89" length="5.96" shape="89.70,60.87 90.64,60.50"/>
+        <lane id="998193590#0#0_0" index="0" allow="tram" speed="13.89" length="5.92" shape="89.70,60.87 90.58,60.53"/>
     </edge>
     <edge id="998193590#3" from="cluster_276248266_3363880862_7561495434_7561495435_#2more" to="1863123409" priority="17" type="railway.tram" spreadType="center" shape="114.32,51.13 122.96,47.65">
         <lane id="998193590#3_0" index="0" allow="tram" speed="13.89" length="13.86" shape="117.05,50.03 117.23,49.96"/>
@@ -469,14 +469,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="3" response="00000" foes="00000"/>
         <request index="4" response="00000" foes="00000"/>
     </junction>
-    <junction id="3363880864" type="traffic_light" x="84.48" y="66.12" incLanes="-142810575#1_0 142810575#0_0 142810575#0_1 142810575#0_2 998193588#0_0" intLanes="" shape="87.47,69.94 84.18,61.28 79.96,59.46 84.38,69.65 85.51,69.61 86.35,70.00 86.84,70.08">
+    <junction id="3363880864" type="traffic_light" x="84.48" y="66.12" incLanes="-142810575#1_0 142810575#0_0 142810575#0_1 142810575#0_2 998193588#0_0" intLanes="" shape="87.49,69.94 84.20,61.27 79.93,59.47 84.35,69.66 85.52,69.61 86.36,69.99 86.86,70.07">
         <request index="0" response="10000" foes="10000"/>
         <request index="1" response="00000" foes="00000"/>
         <request index="2" response="00000" foes="00000"/>
         <request index="3" response="00000" foes="00000"/>
         <request index="4" response="00000" foes="00001"/>
     </junction>
-    <junction id="3363880865" type="traffic_light" x="93.29" y="62.75" incLanes="-142810575#2_0 236529400#0_0 998193590#0#0_0 142810575#1_0 142810575#1_1 142810575#1_2" intLanes="" shape="95.83,65.14 91.45,54.94 89.82,58.83 93.89,67.10 94.66,66.45 94.85,66.10 95.04,65.76 95.33,65.43">
+    <junction id="3363880865" type="traffic_light" x="93.29" y="62.75" incLanes="-142810575#2_0 236529400#0_0 998193590#0#0_0 142810575#1_0 142810575#1_1 142810575#1_2" intLanes="" shape="95.88,65.12 91.50,54.92 89.76,58.86 93.83,67.14 94.64,66.46 94.84,66.10 95.05,65.75 95.36,65.42">
         <request index="0" response="0000000" foes="0000000"/>
         <request index="1" response="0000000" foes="0000000"/>
         <request index="2" response="0001000" foes="1101000"/>
@@ -522,7 +522,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="9886764479" type="traffic_light" x="96.58" y="61.33" incLanes="-142810575#3_0 236529399#2#0_0 142810575#2_0 142810575#2_1 142810575#2_2" intLanes="" shape="107.80,60.15 103.55,49.90 102.82,49.12 96.54,54.11 95.07,54.71 94.44,54.63 93.76,54.49 92.98,54.44 92.06,54.68 96.45,64.87">
+    <junction id="9886764479" type="traffic_light" x="96.58" y="61.33" incLanes="-142810575#3_0 236529399#2#0_0 142810575#2_0 142810575#2_1 142810575#2_2" intLanes="" shape="107.80,60.15 103.55,49.90 102.82,49.12 96.54,54.11 96.11,52.94 100.49,63.14">
         <request index="0"  response="10000011000" foes="10000011000"/>
         <request index="1"  response="00000010000" foes="00000010000"/>
         <request index="2"  response="01111011000" foes="01111011000"/>
