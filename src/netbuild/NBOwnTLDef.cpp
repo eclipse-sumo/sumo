@@ -1283,7 +1283,6 @@ NBOwnTLDef::correctMixed(std::string state, const EdgeVector& fromEdges,
 void
 NBOwnTLDef::addGreenWithin(NBTrafficLightLogic* logic, const EdgeVector& fromEdges, EdgeVector& toProc) {
     std::vector<bool> foundGreen(fromEdges.size(), false);
-    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = logic->getPhases();
     for (const auto& phase : logic->getPhases()) {
         const std::string state = phase.state;
         for (int j = 0; j < (int)fromEdges.size(); j++) {
