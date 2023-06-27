@@ -403,14 +403,30 @@ ROPerson::computeRoute(const RORouterProvider& provider,
             if (vehicles.empty()) {
                 computeIntermodal(time, provider, trip, nullptr, errorHandler);
             } else {
+                double bestCost = std::numeric_limits<double>::infinity();
+                PersonTrip* best = nullptr;
+                ROVehicle* bestVeh = nullptr;
                 for (std::vector<ROVehicle*>::iterator v = vehicles.begin(); v != vehicles.end();) {
                     if (!computeIntermodal(time, provider, trip, *v, errorHandler)) {
                         delete (*v)->getRouteDefinition();
                         delete *v;
                         v = vehicles.erase(v);
                     } else {
+                        const double cost = trip->getCost();
+                        if (cost < bestCost) {
+                            bestCost = cost;
+                            if (best != nullptr) {
+                                delete best;
+                            }
+                            best = static_cast<PersonTrip*>(trip->clone());
+                            bestVeh = *v;
+                        }
+                        trip->clearItems();
                         ++v;
                     }
+                }
+                if (best != nullptr) {
+                    trip->copyItems(best, bestVeh);
                 }
             }
         }
