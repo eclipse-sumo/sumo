@@ -27,6 +27,7 @@ title: ChangeLog
   - Fixed error when using option **--replay-rerouting**. Issue #13389
   - Fixed invalid saved state when input contains route distribution within a vehicle. Issue #13449
   - Fixed emergency braking / collisiosn at roundabout. Issue #13292
+  - The simulation now aborts when encountering an invalid stop definition (unless option **--ignore-errors** is set). Issue #12670
   - bidirectional lane use:
     - Fixed invalid collision warning when using bidi lane. Issue #13312
     - Fixed unsafe right-of-way rules at junction with shared median lane. Issue #13316
@@ -62,6 +63,7 @@ title: ChangeLog
   - Python tools now work when the SUMO_HOME path contains spaces. Issue #13458
   - Using netedit to define custom detectors for actuated traffic lights is now working. Issue #13412
   - Resetting the `next` attribute of branching traffic light programs is now working. issue #13409
+  - Trigger attributes can no longer be defined for waypoints (the simulation does not allow this). Issue #13499
 
 - sumo-gui
   - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
@@ -73,29 +75,33 @@ title: ChangeLog
 
 - netconvert
   - Fixed inconsistent network file after setting **--default.spreadtype center**. Issue #13127
-  - OpenDRIVE export: fixed invalid crosswalk shape. Issue #10432
-  - Fixed bug where bidi edge could not be declared. Issue #13225
+  - OpenDRIVE export: fixed invalid crosswalk shape. Issue #10432  
   - Fixed invalid connection permissions after joining junction. Issue #13217
   - Fixed broken network after setting option **--tls.rebuild**. Issue #13240
-  - Fixed classification of turnaround connection on some divided highways. Issue #13238
-  - Fixed bug where option **--railway.topology.repair** created superfluous bidi edges. Issue #13247
-  - Option **--railway.topology.repair.minimal** now performs minimal repair with respect to public transport lines. Issue #13248
+  - Fixed classification of turnaround connection on some divided highways. Issue #13238    
   - Fixed invalid consistency error for circular public transport line. Issue #13255
   - OSM: fixed incomplete pt-route. Issue #13249
   - OSM: fixed problems with one-way bus and bicycle infrastructure. Issue #12592
   - OSM: fixed crash when using option **--osm.turn-lanes**. Issue #13413
-  - User defined node radius is no longer ignored for geometry-like nodes. Issue #13064
-  - Fixed missing bidi attribute for shared median lane with disconnected outer lanes. Issue #13335
-  - Fixed invalid bidi attribute for internal edge. Issue #13344
-  - Fixed invalid right of way rules when shared median lane ends. Issue #13345
-  - Fixed unsafe right of way rules at internal junction with bidiLane. Issue #13400
+  - User defined node radius is no longer ignored for geometry-like nodes. Issue #13064      
   - Fixed incomplete ptline-output for circular route. Issue #13431
   - Fixed minor links in rail taxi network. Issue #13456
+  - Fixed unsafe signal plan at joint tls. Issue #13502
+  - bidi edges
+    - Option **--railway.topology.repair.minimal** now performs minimal repair with respect to public transport lines. Issue #13248
+    - Fixed bug where bidi edge could not be declared. Issue #13225    
+    - Fixed bug where option **--railway.topology.repair** created superfluous bidi edges. Issue #13247
+    - Fixed missing bidi attribute for shared median lane with disconnected outer lanes. Issue #13335
+    - Fixed invalid bidi attribute for internal edge. Issue #13344
+    - Fixed invalid right of way rules when shared median lane ends. Issue #13345
+    - Fixed unsafe right of way rules at internal junction with bidiLane. Issue #13400
+    - Fixed asymmetrical bidi attribute. Issue #13510  
 
 - duarouter
   - Fixed railway routing failure if the stop is defined on a short buffer edge (also applies to sumo). Issue #13277
   - Fixed invalid route cost for train reversal on long edge (also applies to sumo). Issue #13360
   - Fixed intermodal routing failing for rail taxi (also applies to sumo). Issue #13424
+  - Fixed invalid ride in output when starting personTrip on rail edge. Issue #13506
 
 - activitygen
   - Fixed crash when there are no work positions within a city. Issue #13315
@@ -116,7 +122,7 @@ title: ChangeLog
   - gridDistricts.py: Networks with non-normalized offsets now create correct taz shapes. Issue #13264
   - Function `sumolib.net.getBoxXY` now returns correct results for large networks. Issue #13320
   - In circlePolygon.py, abbreviation -c is used for config, instead for color
-  
+  - When loading a tool configuration, unknown options now raise an error. Issue #13091  
   
 
 ### Enhancements
@@ -146,6 +152,8 @@ title: ChangeLog
   - Simplified seelction of edge is when calling python tools. Issue #12852
   - The traffic light join mode now has  'OK / 'cancel' buttons. Issue #13028
   - Now netedit supports trip and flows over TAZs. Issue #13311
+  - Improved error messages when loading additional objects. Issue #13507
+  - Now supporting trips and flows between TAZ. Issue #13311
 
 - netconvert
   - OpenDRIVE import: now supports road objects from connecting roads. Issue #13196
@@ -187,6 +195,7 @@ title: ChangeLog
   - [scheduleStats.py](Tools/Railways.md#schedulestatspy): Now permits analysis of planned and actual travel time between pairs of stops. Issue #13354
   - tileGet.py now supports option **--parallel-jobs** to speed up data retrieval. Issue #13327
   - checkStopOrder.py: marks waypoints in stop table output. Issue #13420
+  - checkStopOrder.py: added option **--filter-ids** to filter the input by vehicle id. Issue #13488
   - improved game internationalization. Issue #13082
   - generateRailSignalConstraints.py: now supports [portion working](Simulation/Railways.md#portion_working) (vehicles with `depart="split"`). Issue #13478
 
