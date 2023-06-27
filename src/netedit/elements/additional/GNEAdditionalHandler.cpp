@@ -613,11 +613,11 @@ GNEAdditionalHandler::buildDetectorEntry(const CommonXMLStructure::SumoBaseObjec
     GNEAdditional* E3 = getAdditionalParent(sumoBaseObject, SUMO_TAG_ENTRY_EXIT_DETECTOR);
     // Check if Detector E3 parent and lane is correct
     if (lane == nullptr) {
-        writeErrorInvalidParent(SUMO_TAG_ENTRY, "", SUMO_TAG_LANE, laneID);
+        writeErrorInvalidParent(SUMO_TAG_DET_ENTRY, "", SUMO_TAG_LANE, laneID);
     } else if (E3 == nullptr) {
-        writeErrorInvalidParent(SUMO_TAG_ENTRY, "", SUMO_TAG_ENTRY_EXIT_DETECTOR, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
+        writeErrorInvalidParent(SUMO_TAG_DET_ENTRY, "", SUMO_TAG_ENTRY_EXIT_DETECTOR, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     } else if (!checkLanePosition(pos, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
-        writeErrorInvalidPosition(SUMO_TAG_ENTRY, E3->getID());
+        writeErrorInvalidPosition(SUMO_TAG_DET_ENTRY, E3->getID());
     } else {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -652,7 +652,7 @@ GNEAdditionalHandler::buildDetectorExit(const CommonXMLStructure::SumoBaseObject
     } else if (E3 == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_DET_EXIT, "", SUMO_TAG_ENTRY_EXIT_DETECTOR, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     } else if (!checkLanePosition(pos, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
-        writeErrorInvalidPosition(SUMO_TAG_ENTRY, E3->getID());
+        writeErrorInvalidPosition(SUMO_TAG_DET_EXIT, E3->getID());
     } else {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
