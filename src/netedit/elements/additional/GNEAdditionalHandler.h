@@ -639,7 +639,7 @@ protected:
     void writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid parent element"
-    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent);
+    void writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parent, const std::string& parentID);
 
     /// @brief write error "invalid negative element"
     void writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute);
