@@ -363,13 +363,18 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                     trip->addTripItem(new Walk(start, item.edges, item.cost, item.exitTimes, depPos, arrPos, item.destStop));
                 }
             } else if (veh != nullptr && item.line == veh->getID()) {
-                trip->addTripItem(new Ride(start, item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop));
+                double cost = item.cost;
                 if (veh->getVClass() != SVC_TAXI) {
                     RORoute* route = new RORoute(veh->getID() + "_RouteDef", item.edges);
                     route->setProbability(1);
                     veh->getRouteDefinition()->addLoadedAlternative(route);
                     carUsed = true;
+                } else if (trip->needsRouting()) {
+                    // if this is the first plan item the initial taxi waiting time wasn't added yet
+                    const double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
+                    cost += taxiWait;
                 }
+                trip->addTripItem(new Ride(start, item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), cost, item.arrivalPos, item.length, item.destStop));
             } else {
                 // write origin for first element of the plan
                 const ROEdge* origin = trip == myPlan.front() && trip->needsRouting() ? trip->getOrigin() : nullptr;
