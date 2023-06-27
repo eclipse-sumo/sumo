@@ -730,6 +730,7 @@ NBEdge::isBidiRail(bool ignoreSpread) const {
     return (isRailway(getPermissions())
             && (ignoreSpread || myLaneSpreadFunction == LaneSpreadFunction::CENTER)
             && myPossibleTurnDestination != nullptr
+            && myPossibleTurnDestination->myPossibleTurnDestination == this
             && (ignoreSpread || myPossibleTurnDestination->getLaneSpreadFunction() == LaneSpreadFunction::CENTER)
             && isRailway(myPossibleTurnDestination->getPermissions())
             && myPossibleTurnDestination->getGeometry().reverse() == getGeometry());
@@ -739,6 +740,7 @@ NBEdge::isBidiRail(bool ignoreSpread) const {
 bool
 NBEdge::isBidiEdge(bool checkPotential) const {
     return myPossibleTurnDestination != nullptr
+           && myPossibleTurnDestination->myPossibleTurnDestination == this
            && (myIsBidi || myPossibleTurnDestination->myIsBidi || checkPotential)
            && myPossibleTurnDestination->getToNode() == getFromNode()
            && myPossibleTurnDestination->getLaneSpreadFunction() == myLaneSpreadFunction
