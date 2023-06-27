@@ -1,0 +1,6 @@
+Warning: Ambiguity in turnarounds computation at junction '122'.
+Warning: Ambiguity in turnarounds computation at junction '125'.
+Warning: Ambiguity in turnarounds computation at junction '127'.
+Warning: The rail crossing '122' does not have any roads.
+Warning: The traffic light '127' cannot be adapted to a cycle time of 90.00.
+Warning: The traffic light '127' has a high cycle time of 194.00.
