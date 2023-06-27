@@ -148,6 +148,8 @@ private:
     /// @brief determine the default radius appropriate for the current junction
     double getDefaultRadius(const OptionsCont& oc);
 
+    void computeSameEnd(PositionVector& l1, PositionVector& l2); 
+
     /// @brief compute with of rightmost lanes that exlude the given permissions
     static double getExtraWidth(const NBEdge* e, SVCPermissions exclude);
 
@@ -157,6 +159,9 @@ private:
 
     /// @brief the computed node radius
     double myRadius;
+
+    /// @brief the maximum distance to search for a place where neighboring edges intersect and do not overlap
+    double EXT;
 
     static const SVCPermissions SVC_LARGE_TURN;
 
