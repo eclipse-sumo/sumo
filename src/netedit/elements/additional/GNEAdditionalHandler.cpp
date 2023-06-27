@@ -1923,11 +1923,18 @@ GNEAdditionalHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::stri
 
 void
 GNEAdditionalHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parent, const std::string& parentID) {
+    std::string first, second;
     if (id.size() > 0) {
-        writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("% '%' doesn't exist.", toString(parent), parentID));
+        first = TLF("Could not build % '%' in netedit", toString(tag), id);
     } else {
-        writeError(TLF("Could not build % '%' in netedit", toString(tag), id) + std::string("; ") + TLF("% '%' doesn't exist.", toString(parent), parentID));
+        first = TLF("Could not build % in netedit", toString(tag));
     }
+    if (parentID.size() > 0) {
+        second = TLF("% '%' doesn't exist.", toString(parent), parentID);
+    } else {
+        second = TLF("% doesn't exist.", toString(parent));
+    }
+    writeError(first + std::string("; ") + second);
 }
 
 
