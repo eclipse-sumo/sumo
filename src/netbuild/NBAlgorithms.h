@@ -83,7 +83,21 @@ private:
                 return c1.angle > c2.angle;
             }
             if (c1.from != c2.from) {
+                if (c1.to == c2.to && c1.from->getPermissions() != c2.from->getPermissions()) {
+                    if (c1.from->getPermissions() == c1.to->getPermissions()) {
+                        return true;
+                    } else if (c2.from->getPermissions() == c1.to->getPermissions()) {
+                        return false;
+                    }
+                }
                 return c1.from->getID() < c2.from->getID();
+            }
+            if (c1.to->getPermissions() != c2.to->getPermissions()) {
+                if (c1.to->getPermissions() == c1.from->getPermissions()) {
+                    return true;
+                } else if (c2.to->getPermissions() == c1.from->getPermissions()) {
+                    return false;
+                }
             }
             return c1.to->getID() < c2.to->getID();
         }
