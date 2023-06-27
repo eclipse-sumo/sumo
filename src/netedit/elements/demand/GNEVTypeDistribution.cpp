@@ -254,10 +254,8 @@ GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             if (value == getID()) {
                 return true;
-            } else if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
-                (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value, false) == nullptr)) {
-                return true;
+            } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
+                return (demandElementExist(value, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}) == false);
             } else {
                 return false;
             }

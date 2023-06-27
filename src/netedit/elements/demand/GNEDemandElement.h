@@ -420,6 +420,9 @@ protected:
 
     /// @}
 
+    /// @brief check if the given demand element exist
+    bool demandElementExist(const std::string &id, const std::vector<SumoXMLTag> tags) const;
+
     /// @brief auxiliar struct used for calculate pathStopIndex
     struct EdgeStopIndex {
 

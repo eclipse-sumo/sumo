@@ -1096,6 +1096,18 @@ GNEDemandElement::setVTypeDistributionParent(const std::string& value) {
 
 
 bool
+GNEDemandElement::demandElementExist(const std::string &id, const std::vector<SumoXMLTag> tags) const {
+    // check if there is a demand element with the given tags and id
+    for (const auto& tag : tags) {
+        if (myNet->getAttributeCarriers()->retrieveDemandElement(tag, id, false) != nullptr) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
 GNEDemandElement::checkChildDemandElementRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
     throw ProcessError(StringUtils::format("Calling non-implemented function checkChildDemandElementRestriction during saving of %. It muss be reimplemented in child class", getTagStr()));

@@ -661,16 +661,19 @@ GNEContainer::isValid(SumoXMLAttr key, const std::string& value) {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            // Containers and containerflows share namespace
-            if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINER, value, false) == nullptr) &&
-                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, value, false) == nullptr)) {
+            if (value == getID()) {
                 return true;
+            } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
+                return (demandElementExist(value, {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}) == false);
             } else {
                 return false;
             }
         case SUMO_ATTR_TYPE:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
+            if (SUMOXMLDefinitions::isValidVehicleID(value)) {
+                return demandElementExist(value, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION});
+            } else {
+                return false;
+            }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTPOS: {

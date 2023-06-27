@@ -1491,20 +1491,20 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            // Vehicles, Trips and Flows share namespace
-            if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (ACs->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
-                    (ACs->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
-                    (ACs->retrieveDemandElement(GNE_TAG_FLOW_ROUTE, value, false) == nullptr) &&
-                    (ACs->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
+            if (value == getID()) {
                 return true;
+            } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
+                return (demandElementExist(value, {SUMO_TAG_VEHICLE, GNE_TAG_VEHICLE_WITHROUTE, SUMO_TAG_TRIP, GNE_TAG_TRIP_TAZS,
+                    GNE_TAG_FLOW_ROUTE, GNE_TAG_FLOW_WITHROUTE, SUMO_TAG_FLOW, SUMO_TAG_FLOW, SUMO_TAG_FLOW, GNE_TAG_FLOW_JUNCTIONS}) == false);
             } else {
                 return false;
             }
         case SUMO_ATTR_TYPE:
-            return SUMOXMLDefinitions::isValidTypeID(value) && 
-                ((ACs->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr) ||
-                 (ACs->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value, false) != nullptr));
+            if (SUMOXMLDefinitions::isValidVehicleID(value)) {
+                return demandElementExist(value, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION});
+            } else {
+                return false;
+            }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTLANE: {
