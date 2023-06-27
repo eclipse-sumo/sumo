@@ -727,7 +727,7 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
     } else if (!checkDuplicatedAdditional(SUMO_TAG_CALIBRATOR, id) || !checkDuplicatedAdditional(GNE_TAG_CALIBRATOR_LANE, id)) {
         writeErrorDuplicated(SUMO_TAG_CALIBRATOR, id);
     } else if ((routeprobeID.size() > 0) && (routeProbe == nullptr)) {
-        writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, "", SUMO_TAG_ROUTEPROBE, routeprobeID);
+        writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, id, SUMO_TAG_ROUTEPROBE, routeprobeID);
     } else if (lane == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, id, SUMO_TAG_LANE, laneID);
     } else {
@@ -782,7 +782,7 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
     } else if (!checkDuplicatedAdditional(SUMO_TAG_CALIBRATOR, id) || !checkDuplicatedAdditional(GNE_TAG_CALIBRATOR_LANE, id)) {
         writeErrorDuplicated(SUMO_TAG_CALIBRATOR, id);
     } else if ((routeprobeID.size() > 0) && (routeProbe == nullptr)) {
-        writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, "", SUMO_TAG_ROUTEPROBE, routeprobeID);
+        writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, id, SUMO_TAG_ROUTEPROBE, routeprobeID);
     } else if (edge == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, id, SUMO_TAG_EDGE, edgeID);
     } else {
