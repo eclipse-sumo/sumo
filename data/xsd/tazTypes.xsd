@@ -20,7 +20,7 @@
 
     <xsd:complexType name="tazSubType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
-        <xsd:attribute name="weight" type="xsd:float" use="required"/>
+        <xsd:attribute name="weight" type="floatType" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

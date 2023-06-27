@@ -22,21 +22,21 @@
         <xsd:complexType>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
 
-            <xsd:attribute name="x" type="xsd:float" use="required"/>
-            <xsd:attribute name="y" type="xsd:float" use="required"/>
-            <xsd:attribute name="z" type="xsd:float" use="optional"/>
-            <xsd:attribute name="angle" type="xsd:float" use="required"/>
+            <xsd:attribute name="x" type="floatType" use="required"/>
+            <xsd:attribute name="y" type="floatType" use="required"/>
+            <xsd:attribute name="z" type="floatType" use="optional"/>
+            <xsd:attribute name="angle" type="floatType" use="required"/>
 
             <xsd:attribute name="type" use="required" type="xsd:string"/>
 
             <xsd:attribute name="speed" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="pos" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="lane" use="optional" type="xsd:string"/>
-            <xsd:attribute name="slope" type="xsd:float" use="required"/>
+            <xsd:attribute name="slope" type="floatType" use="required"/>
             <xsd:attribute name="signals" use="optional" type="xsd:int"/>
-            <xsd:attribute name="distance" use="optional" type="xsd:float"/>
-            <xsd:attribute name="acceleration" use="optional" type="xsd:float"/>
-            <xsd:attribute name="accelerationLat" use="optional" type="xsd:float"/>
+            <xsd:attribute name="distance" use="optional" type="floatType"/>
+            <xsd:attribute name="acceleration" use="optional" type="floatType"/>
+            <xsd:attribute name="accelerationLat" use="optional" type="floatType"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

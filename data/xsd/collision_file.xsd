@@ -16,7 +16,7 @@
             <xsd:attribute name="time" use="required" type="timeType"/>
             <xsd:attribute name="type" use="required" type="xsd:string"/>
             <xsd:attribute name="lane" use="required" type="xsd:string"/>
-            <xsd:attribute name="pos" use="optional" type="xsd:float"/>
+            <xsd:attribute name="pos" use="optional" type="floatType"/>
             <xsd:attribute name="collider" use="required" type="xsd:string"/>
             <xsd:attribute name="victim" use="required" type="xsd:string"/>
             <xsd:attribute name="colliderType" use="required" type="xsd:string"/>
