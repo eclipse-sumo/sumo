@@ -1,11 +1,11 @@
 Success.
 Written configuration to 'osm.polycfg'
-Parsing network projection from 'osm.net.xml.gz' ... done (7ms).
-Parsing nodes from osm-file '/home/micha/.texttest/tmp/tools.17Jun150627.275573/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (387ms).
-Parsing relations from osm-file '/home/micha/.texttest/tmp/tools.17Jun150627.275573/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (292ms).
-Parsing edges from osm-file '/home/micha/.texttest/tmp/tools.17Jun150627.275573/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (324ms).
+Parsing network projection from 'osm.net.xml.gz' ... done (19ms).
+Parsing nodes from osm-file '/home/kobo/.texttest/tmp/tools.27Jun150335.2589953/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (1676ms).
+Parsing relations from osm-file '/home/kobo/.texttest/tmp/tools.27Jun150335.2589953/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (1205ms).
+Parsing edges from osm-file '/home/kobo/.texttest/tmp/tools.27Jun150335.2589953/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (1340ms).
 Success.
-Building scenario in '/home/micha/.texttest/tmp/tools.17Jun150627.275573/tools/import/OSM/webWizard/test'.
+Building scenario in '/home/kobo/.texttest/tmp/tools.27Jun150335.2589953/tools/import/OSM/webWizard/test'.
 generating trips...
 Cannot extend route to fringe for line '1929070' (not enough edges given)
 Cannot extend route to fringe for line '1929071' (not enough edges given)
@@ -46,54 +46,54 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-Loading net-file from '/home/micha/.texttest/tmp/tools.17Jun150627.275573/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (374ms).
-Loading additional-files from '/home/micha/.texttest/tmp/tools.17Jun150627.275573/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (98ms).
-Loading additional-files from '/home/micha/.texttest/tmp/tools.17Jun150627.275573/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (11ms).
+Loading net-file from '/home/kobo/.texttest/tmp/tools.27Jun150335.2589953/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (1579ms).
+Loading additional-files from '/home/kobo/.texttest/tmp/tools.27Jun150335.2589953/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (393ms).
+Loading additional-files from '/home/kobo/.texttest/tmp/tools.27Jun150335.2589953/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (50ms).
 Loading done.
-Simulation version v1_17_0+1004-b1a93509b32 started with time: 0.00.
-Simulation ended at time: 2918.00
+Simulation version v1_17_0+1298-ea9252ce9a1 started with time: 0.00.
+Simulation ended at time: 2885.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 1.64s
- Real time factor: 1784.71
- UPS: 92545.565749
- UPS-Persons: 87876.452599
+ Duration: 6.29s
+ Real time factor: 458.519
+ UPS: 24136.204704
+ UPS-Persons: 23306.579784
 Vehicles: 
  Inserted: 415
  Running: 0
  Waiting: 0
- Teleports: 1 (Collisions: 1)
+ Teleports: 3 (Collisions: 1, Yield: 2)
 Persons: 
  Inserted: 183
  Running: 0
- Jammed: 4
+ Jammed: 3
 Statistics (avg of 340):
- RouteLength: 1901.49
- Speed: 6.00
- Duration: 355.18
- WaitingTime: 71.41
- TimeLoss: 137.43
+ RouteLength: 1901.83
+ Speed: 6.04
+ Duration: 355.72
+ WaitingTime: 73.45
+ TimeLoss: 139.02
 Bike Statistics (avg of 75):
- RouteLength: 1625.67
- Speed: 4.10
- Duration: 407.35
- WaitingTime: 60.33
- TimeLoss: 99.57
+ RouteLength: 1624.85
+ Speed: 4.09
+ Duration: 412.25
+ WaitingTime: 65.67
+ TimeLoss: 104.62
 Statistics (avg of 415):
- DepartDelay: 0.45
-Pedestrian Statistics (avg of 393 walks):
- RouteLength: 281.48
- Duration: 234.31
- TimeLoss: 32.50
-Ride Statistics (avg of 165 rides):
- WaitingTime: 109.73
- RouteLength: 788.63
- Duration: 115.80
- Bus: 61
- Train: 94
- Aborted: 10
+ DepartDelay: 0.43
+Pedestrian Statistics (avg of 391 walks):
+ RouteLength: 279.05
+ Duration: 231.77
+ TimeLoss: 31.92
+Ride Statistics (avg of 162 rides):
+ WaitingTime: 103.96
+ RouteLength: 794.10
+ Duration: 113.90
+ Bus: 59
+ Train: 89
+ Aborted: 14
 
-DijkstraRouter answered 7099 queries and explored 12.32 edges on average.
-DijkstraRouter spent 0.01s answering queries (0.00ms on average).
-DijkstraRouter answered 260 queries and explored 617.27 edges on average.
-DijkstraRouter spent 0.08s answering queries (0.31ms on average).
+DijkstraRouter answered 6995 queries and explored 11.91 edges on average.
+DijkstraRouter spent 0.05s answering queries (0.01ms on average).
+DijkstraRouter answered 260 queries and explored 617.18 edges on average.
+DijkstraRouter spent 0.27s answering queries (1.05ms on average).

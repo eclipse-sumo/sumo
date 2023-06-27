@@ -99,13 +99,16 @@ Warning: The rail crossing '4567083494' does not have any roads.
 Warning: The rail crossing '4603453625' does not have any roads.
 Warning: The traffic light '4363312288' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '4363312288'
+Warning: Connection '-388702047#0_0->388702039#7_0' is only 0.00m short.
 Warning: Connection '-6228154#0_0->30719903#0_0' is only 0.00m short.
-Warning: Intersecting left turns at junction 'cluster_1673527224_1673527227_21487161_303436603_#9more' from lane '388702039#11_0' and lane '-111251382#2_1' (increase junction radius to avoid this).
-Warning: Connection '388702039#11_0->-388702047#4_0' is only 0.08m short.
+Warning: Connection '-388702047#4_0->388702039#11_0' is only 0.00m short.
+Warning: Connection '388702039#10_0->-388702047#3_0' is only 0.00m short.
+Warning: Connection '-388702047#2_0->388702039#9_0' is only 0.00m short.
 Warning: The traffic light 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918' cannot be adapted to a cycle time of 90.00.
-Warning: The traffic light 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918' has a high cycle time of 206.00.
+Warning: The traffic light 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918' has a high cycle time of 194.00.
 Warning: 30 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
+Warning: 11 total messages of type: Connection '%_%->%_%' is only %m short.
 Warning: 15 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
@@ -118,8 +121,8 @@ Warning: 26 total messages of type: The rail crossing '%' does not have any road
 Warning: Unequal lengths of bidi lane ':1085513888_0_0' and lane ':1085513888_1_0' (1.75 != 0.80).
 Warning: Unequal lengths of bidi lane ':1633112625_2_0' and lane ':1633112625_1_0' (17.11 != 16.87).
 Warning: Unequal lengths of bidi lane ':1633759847_1_0' and lane ':1633759847_2_0' (18.18 != 18.04).
-Warning: Unequal lengths of bidi lane ':cluster_25664673_4590472030_4590472039_4590472040_4_0' and lane ':cluster_25664673_4590472030_4590472039_4590472040_9_0' (91.21 != 87.75).
-Warning: Unequal lengths of bidi lane ':cluster_25664673_4590472030_4590472039_4590472040_5_0' and lane ':cluster_25664673_4590472030_4590472039_4590472040_3_0' (30.15 != 30.14).
+Warning: Unequal lengths of bidi lane ':30731492_0_0' and lane ':30731492_3_0' (17.32 != 17.16).
+Warning: Unequal lengths of bidi lane ':311264846_3_0' and lane ':311264846_0_0' (13.48 != 9.46).
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 15 has no controlling detector.
@@ -127,15 +130,14 @@ Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_#
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_#6more', actuated phase 6 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 8 has no controlling detector.
+Warning: Missing green phase in tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', program '0' for tl-index 6.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21_tram_12:1'.
 Warning: busStop '247603398' on lane '144014230#4_0' is too short for vehicle '26_tram_M1:0'.
-Warning: 21 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
+Warning: 35 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: 21 total messages of type: Unequal lengths of bidi lane '%' and lane '%' (% != %).
 Warning: Unequal lengths of bidi lane ':1085513888_0_0' and lane ':1085513888_1_0' (1.75 != 0.80).
 Warning: Unequal lengths of bidi lane ':1633112625_2_0' and lane ':1633112625_1_0' (17.11 != 16.87).
 Warning: Unequal lengths of bidi lane ':1633759847_1_0' and lane ':1633759847_2_0' (18.18 != 18.04).
-Warning: Unequal lengths of bidi lane ':cluster_25664673_4590472030_4590472039_4590472040_4_0' and lane ':cluster_25664673_4590472030_4590472039_4590472040_9_0' (91.21 != 87.75).
-Warning: Unequal lengths of bidi lane ':cluster_25664673_4590472030_4590472039_4590472040_5_0' and lane ':cluster_25664673_4590472030_4590472039_4590472040_3_0' (30.15 != 30.14).
 Warning: Unequal lengths of bidi lane ':30731492_0_0' and lane ':30731492_3_0' (17.32 != 17.16).
 Warning: Unequal lengths of bidi lane ':311264846_3_0' and lane ':311264846_0_0' (13.48 != 9.46).
 Warning: Unequal lengths of bidi lane ':4213903960_0_0' and lane ':4213903960_7_0' (9.74 != 5.31).
@@ -148,6 +150,8 @@ Warning: Unequal lengths of bidi lane ':588181300_2_0' and lane ':588181300_1_0'
 Warning: Unequal lengths of bidi lane ':98973667_1_0' and lane ':98973667_0_0' (11.42 != 11.26).
 Warning: Unequal lengths of bidi lane ':98973667_2_0' and lane ':98973667_3_0' (11.20 != 11.18).
 Warning: Unequal lengths of bidi lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_9_0' and lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_2_0' (31.29 != 27.23).
+Warning: Unequal lengths of bidi lane ':cluster_25664673_4590472030_4590472039_4590472040_4_0' and lane ':cluster_25664673_4590472030_4590472039_4590472040_9_0' (91.21 != 87.75).
+Warning: Unequal lengths of bidi lane ':cluster_25664673_4590472030_4590472039_4590472040_5_0' and lane ':cluster_25664673_4590472030_4590472039_4590472040_3_0' (30.15 != 30.14).
 Warning: Unequal lengths of bidi lane ':cluster_30731510_588181257_588181258_588181259_1_0' and lane ':cluster_30731510_588181257_588181258_588181259_6_0' (33.23 != 28.98).
 Warning: Unequal lengths of bidi lane ':cluster_30731510_588181257_588181258_588181259_2_0' and lane ':cluster_30731510_588181257_588181258_588181259_5_0' (32.78 != 28.66).
 Warning: Unequal lengths of bidi lane '-153522299#2_0' and lane '153522299#2_0' (0.32 != 0.20).
@@ -175,17 +179,39 @@ Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_383
 Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_3831343134_cluster_4566145593_4566145594_5747234975_768074054', linkIndex 13 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 16 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 24 has no controlling detector.
+Warning: Missing green phase in tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', program '0' for tl-index 6.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 7 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 8 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 10 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 11 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 12 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 13 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 14 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 15 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 16 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 17 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 18 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 19 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 20 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918', linkIndex 21 has no controlling detector.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: busStop '247603398' on lane '144014230#4_0' is too short for vehicle 'pt_tram_M1:0.0'.
 Warning: Person 'ped26' is jammed on edge ':1797136158_w0', time=267.00.
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=476.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
-Warning: Person 'ped3' is jammed on edge ':990017251_w0', time=579.00.
-Warning: Person 'ped135' is jammed on edge ':2121324899_w0', time=857.00.
-Warning: Person 'ped127' is jammed on edge ':2121324899_w0', time=872.00.
+Warning: Person 'ped3' is jammed on edge ':990017251_w0', time=582.00.
+Warning: Person 'ped74' is jammed on edge ':1264074482_w1', time=685.00.
+Warning: Teleporting vehicle 'bike51'; waited too long (yield), lane='83517336#0_1', time=971.00.
+Warning: Vehicle 'bike51' ends teleporting on edge '153698394#1', time=971.00.
+Warning: Teleporting vehicle 'veh140'; waited too long (yield), lane='195411604_1', time=1028.00.
+Warning: Vehicle 'veh140' ends teleporting on edge '83517336#0', time=1028.00.
 Warning: Person 'ped81' aborted waiting for TXL:1 at busStop '272408975'.
 Warning: Person 'ped94' aborted waiting for M5:3 at busStop '30731508'.
+Warning: Person 'ped117' aborted waiting for M6:1 at busStop '30731508'.
+Warning: Person 'ped2' aborted waiting for M6:1 at busStop '30731497'.
+Warning: Person 'ped78' aborted waiting for M6:1 at busStop '30731508'.
 Warning: Person 'ped132' aborted waiting for M4:1 at busStop '1633759766'.
+Warning: Person 'ped175' aborted waiting for N42:1 at busStop '270727260'.
+Warning: Person 'ped157' aborted waiting for N42:1 at busStop '270727260'.
 Warning: Person 'ped179' aborted waiting for M4:3 at busStop '30731497'.
 Warning: Person 'ped142' aborted waiting for U6:0 at busStop '3043709616'.
-Warning: Person 'ped100' aborted waiting for S7:0 at busStop '2603331695'.
