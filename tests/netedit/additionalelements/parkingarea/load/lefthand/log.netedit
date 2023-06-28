@@ -1,2 +1,2 @@
-Error: Attribute 'friendlyPos' in definition of parkingArea 'parkingArea_0' Invalid Bool Format dummypos.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\parkingarea\load\friendlypos\additionals.add.xml failed.
+Error: Attribute 'lefthand' in definition of parkingArea 'parkingArea_0' Invalid Bool Format dummypos.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.28Jun113732.5520/netedit.gui/additionalelements/parkingarea/load/lefthand/additionals.add.xml failed.
