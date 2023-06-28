@@ -1,1 +1,2 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Error: Answered with error to command 0xa3: Lane ':C_c0_0' is not known

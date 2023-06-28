@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-28 08:42:52 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <save-state.times value="10,60"/>
+        <save-state.files value="state2.xml,state.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_17_0+1317-06f42fb" time="60.00" type="meso">
+    <route id="!t0!var#1" state="0" edges="a b c"/>
+    <route id="!t1!var#1" state="0" edges="d e c"/>
+    <delay number="2" begin="3" end="1" depart="0.00" time="39.00"/>
+    <vType id="train" length="50.00" vClass="rail"/>
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max" route="!t0!var#1" distance="500 1" speedFactor="1.0000" reroute="1" state="262162 0 2 0 2 0 137199 50393 9223372036854775807">
+        <stop busStop="stop_c" arrival="100.00" duration="30.00" until="130.00" started="50.39"/>
+        <device id="tripinfo_t0" state="13.89 500 0 0 0 79607 -1"/>
+        <device id="routing_t0" state="0"/>
+    </vehicle>
+    <vehicle id="t1" type="train" depart="20.00" departSpeed="max" route="!t1!var#1" distance="541.29 1" speedFactor="1.0000" reroute="1" state="262162 20000 2 0 0 0 66167 58968 9223372036854775807">
+        <stop busStop="stop_c" arrival="50.00" duration="30.00" until="80.00"/>
+        <device id="tripinfo_t1" state="13.89 541.29 0 0 0 0 -1"/>
+        <device id="routing_t1" state="0"/>
+    </vehicle>
+    <segment id="a:0">
+        <vehicles time="12288" value=""/>
+    </segment>
+    <segment id="a:1">
+        <vehicles time="19487" value=""/>
+    </segment>
+    <segment id="a:2">
+        <vehicles time="26686" value=""/>
+    </segment>
+    <segment id="a:3">
+        <vehicles time="33885" value=""/>
+    </segment>
+    <segment id="b:0">
+        <vehicles time="41084" value=""/>
+    </segment>
+    <segment id="c:0">
+        <vehicles time="48283" value="t1"/>
+    </segment>
+    <segment id="c:1">
+        <vehicles time="55482" value=""/>
+    </segment>
+    <segment id="c:2">
+        <vehicles time="-1" value="t0"/>
+    </segment>
+    <segment id="d:0">
+        <vehicles time="32289" value=""/>
+    </segment>
+    <segment id="d:1">
+        <vehicles time="39489" value=""/>
+    </segment>
+    <segment id="d:2">
+        <vehicles time="46689" value=""/>
+    </segment>
+    <segment id="d:3">
+        <vehicles time="53889" value=""/>
+    </segment>
+    <segment id="e:0">
+        <vehicles time="64057" value=""/>
+    </segment>
+</snapshot>

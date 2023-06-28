@@ -1,0 +1,92 @@
+ Retrying in 1 seconds
+step 0
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 1
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 2
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 3
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 4
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 5
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 6
+  veh=ego minTTC=3.69 maxDRAC=1.66 minPET= minPPET= curTTC=None
+  veh=leader minTTC=3.69 maxDRAC=1.66 minPET= minPPET= curTTC=None
+step 7
+  veh=ego minTTC=2.62 maxDRAC=2.37 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.37 minPET= minPPET= curTTC=None
+step 8
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 9
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 10
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=-0.215556477135
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 11
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 12
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 13
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 14
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET=1.25 minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET=1.25 minPPET= curTTC=None
+ Retrying in 1 seconds
+step 0
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 1
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 2
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 3
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 4
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 5
+  veh=ego minTTC= maxDRAC= minPET= minPPET= curTTC=None
+  veh=leader minTTC= maxDRAC= minPET= minPPET= curTTC=None
+step 6
+  veh=ego minTTC=3.69 maxDRAC=1.66 minPET= minPPET= curTTC=None
+  veh=leader minTTC=3.69 maxDRAC=1.66 minPET= minPPET= curTTC=None
+step 7
+  veh=ego minTTC=2.62 maxDRAC=2.37 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.37 minPET= minPPET= curTTC=None
+step 8
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 9
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 10
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=-0.215556477135
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 11
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 12
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 13
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
+step 14
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET=1.25 minPPET= curTTC=None
+  veh=leader minTTC=2.62 maxDRAC=2.59 minPET=1.25 minPPET= curTTC=None

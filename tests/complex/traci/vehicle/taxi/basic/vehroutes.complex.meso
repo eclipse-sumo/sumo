@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 17 09:25:23 2021 by Eclipse SUMO sumo Version v1_8_0+1673-4fec7ef
+<!-- generated on 2023-06-28 08:44:43 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net4.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
-        <additional-files value="input_additional4.add.xml"/>
     </input>
 
     <output>
+        <tripinfo-output value="tripinfos.xml"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
-
-    <processing>
-        <pedestrian.model value="nonInteracting"/>
-    </processing>
 
     <report>
         <no-step-log value="true"/>
     </report>
 
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="traci"/>
+    </taxi_device>
+
     <traci_server>
-        <remote-port value="58147"/>
+        <remote-port value="59570"/>
     </traci_server>
 
     <mesoscopic>
@@ -34,10 +34,8 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="ego" depart="0.00" arrival="158.00">
-        <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
-        <stop busStop="busStop_A1B1" duration="60.00"/>
-        <stop busStop="busStop_C1D1" duration="60.00"/>
-    </vehicle>
+    <person id="p0" depart="0.00" arrival="43.00">
+        <ride from="A2B2" to="C2D2" arrivalPos="0.00" lines="taxi"/>
+    </person>
 
 </routes>
