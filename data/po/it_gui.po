@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-28 08:36+0000\n"
+"PO-Revision-Date: 2023-06-28 09:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10041,21 +10041,25 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5575
 msgid "List of elements that must board the vehicle before it may continue"
 msgstr ""
+"Elenco di elementi che devono salire sul veicolo prima che può ripartire"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5726
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5580
 msgid "List of elements that can board the vehicle before it may continue"
 msgstr ""
+"Elenco di elementi che possone salire sul veicolo prima che questo riparte"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5731
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5585
 msgid "Whether the vehicle stops on the road or beside"
-msgstr ""
+msgstr "Se il veicolo si ferma sulla strada oppure sul lato"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5738
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5592
 msgid "Activity displayed for stopped person in GUI and output files"
 msgstr ""
+"Attività della persona ferma menzionata nell'interfaccia grafica e nei file "
+"in uscita"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5743
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5597
@@ -10063,6 +10067,8 @@ msgid ""
 "Parameter to be applied to the vehicle to track the trip id within a "
 "cyclical public transport route"
 msgstr ""
+"Parametro da associare al veicolo per ricordare il codice identificativo "
+"della corsa durante un'itinerario ciclico di trasporto pubblico"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5748
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5602
@@ -10070,11 +10076,14 @@ msgid ""
 "New line attribute to be set on the vehicle when reaching this stop (for "
 "cyclical public transport route)"
 msgstr ""
+"Nuovo attributo di linea da impostare quando il veicolo giunge alla fermata ("
+"per itinerari ciclici di trasporto pubblico)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5754
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5608
 msgid "Speed to be kept while driving between startPos and endPos"
 msgstr ""
+"Velocità da mantenere mentre ci si trova tra le posizioni startPos e endPos"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5760
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5614
@@ -13199,42 +13208,44 @@ msgstr "Rimpiazza la previa selezione con quella attuale"
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:214
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:213
 msgid "Visual Scaling"
-msgstr ""
+msgstr "Cambiare scala nella visualizzazione"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:243
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:242
 msgid "Selection operations"
-msgstr ""
+msgstr "Operazioni di selezione"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:252
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:251
 msgid "Deselect all objects (hotkey: ESC)"
-msgstr ""
+msgstr "Deseleziona tutti gli oggetti (scorciatoia: ESC)"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:254
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:253
 msgid "Invert"
-msgstr ""
+msgstr "Inverti"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:254
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:253
 msgid "Invert selection status of all objects"
-msgstr ""
+msgstr "Inverte lo stato di selezione di tutti gli oggetti"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:256
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:255
 msgid "Save ids of currently selected objects to a file."
-msgstr ""
+msgstr "Salva gli codici identificativi degli oggetti selezionati in uscita."
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:258
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:257
 msgid "Load ids from a file according to the current modification mode."
 msgstr ""
+"Carica degli codici identificativi da un file in accordo con il modo di "
+"modifiche in vigore."
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:260
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:259
 msgid "Delete all selected objects (hotkey: DEL)"
-msgstr ""
+msgstr "Rimuovi tutti gli oggetti selezionati (scorciatoia: DEL)"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:262
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:261
@@ -13275,19 +13286,19 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1131
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1141
 msgid "Select"
-msgstr ""
+msgstr "Seleziona"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1137
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1147
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1133
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1143
 msgid "Unselect"
-msgstr ""
+msgstr "Deseleziona"
 
 #: D:\Repos\sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEEdgeDataFrame.cpp:51
 msgid "There is already a % in edge '%'"
-msgstr ""
+msgstr "C'è già un % nell'arco '%'"
 
 #: D:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:69
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:69
