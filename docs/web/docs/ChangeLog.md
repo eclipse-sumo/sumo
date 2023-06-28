@@ -134,8 +134,7 @@ title: ChangeLog
 
 - Simulation
   - Added options **--intermodal-collision.action** and **--intermodal-collision.stoptime** to configure vehicle behavior after colliding with a pedestrian. Issue #13133
-  - In the sublane mode, vehicle elevation is now interpolated when lane changing between lanes that have different z-values. Issue #13170
-  - Element `parkingArea` now supports placing stopping places to the left of the lane in right-hand networks by setting attribute `lefthand="true"`. Issue #13303
+  - In the sublane mode, vehicle elevation is now interpolated when lane changing between lanes that have different z-values. Issue #13170  
   - Added `device.taxi.idle-algorithm` value `taxistand` which makes idle taxis return to a pre-configured set of locations. Issue #13334
   - The SSM-device now supports the new surrogate safety measure "MDRAC" which is modified maximum deceleration rate to avoid crash with perception/reaction time. Issue #13350
   - statistic-output now include the number of emergency braking events. Issue #10596
@@ -145,6 +144,7 @@ title: ChangeLog
   - Vehicles with `depart="split"` now automatically adapt their departPos to the rear of the [train from which they split](Simulation/Railways.md#portion_working). Issue #13480
 
 - sumo-gui
+  - Element `parkingArea` now supports placing stopping places to the left of the lane in right-hand networks by setting attribute `lefthand="true"`. Issue #13303
   - Simulation end time is now written into the message window. Issue #13145
   - Live edgeData can now be observed after the simulation ends. Issue #13144
   - vTypes of typed detectors are now shown in the detector parameter dialog. Issue #13447
