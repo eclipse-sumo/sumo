@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 225)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspectSelection.arrivalSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.arrivalSpeed, "", False)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspectSelection.arrivalSpeed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.arrivalSpeed, "dummySpeed", False)
 
 # change departColor with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspectSelection.arrivalSpeed, "500", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.arrivalSpeed, "500", False)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspectSelection.arrivalSpeed, "-10", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.arrivalSpeed, "-10", False)
 
 # change arrivalSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspectSelection.arrivalSpeed, "15.5", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.arrivalSpeed, "15.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

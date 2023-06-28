@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to TAZs)")
 
 # set invalid vType
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.type, "blue")
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.type, "blue")
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid vType
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.type, "custom_vType")
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.type, "custom_vType")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)

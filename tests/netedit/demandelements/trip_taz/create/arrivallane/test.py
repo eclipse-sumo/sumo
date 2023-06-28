@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to TAZs)")
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.arrivalLane, "dummyLane")
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.arrivalLane, "dummyLane")
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.arrivalLane, "-12")
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.arrivalLane, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.arrivalLane, "random")
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.arrivalLane, "random")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.arrivalLane, "20")
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.arrivalLane, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)

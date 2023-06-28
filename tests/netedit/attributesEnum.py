@@ -1668,7 +1668,7 @@ class tripFromToJunction:
 # trip (from-to TAZs)
 
 
-class tripFromToTAZ:
+class tripTAZ:
     class create:
         type = 5
         id = 8
@@ -1731,12 +1731,7 @@ class tripFromToTAZ:
         parameters = 19
 
     class transform:
-        vehicle = 1
-        vehicleEmbedded = 2
-        routeFlow = 3
-        routeFlowEmbedded = 4
-        trip = 5
-        flow = 6
+        flow = 1
 
     transformTo = 9
 
@@ -2150,12 +2145,7 @@ class flowTAZ:
         parameters = 24
 
     class transform:
-        vehicle = 1
-        vehicleEmbedded = 2
-        routeFlow = 3
-        routeFlowEmbedded = 4
-        trip = 5
-        flow = 6
+        trip = 1
 
     transformTo = 9
 

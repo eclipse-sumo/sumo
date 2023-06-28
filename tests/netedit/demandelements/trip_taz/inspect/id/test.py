@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 225)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.id, "", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.id, ";;;;;;;;", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.id, ";;;;;;;;", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.id, "id with spaces", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.id, "id with spaces", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.id, "duplicatedVehicle", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.id, "duplicatedVehicle", False)
 
 # change ID with an invalid value (empty)
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.id, "customID", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.id, "customID", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

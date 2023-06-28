@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to TAZs)")
 
 # set invalid insertionChecks
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.insertionChecks, "%%%%%%")
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.insertionChecks, "%%%%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid Line
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.insertionChecks,
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.insertionChecks,
                            "leaderGap junction speedLimit pedestrian")
 
 # create trip

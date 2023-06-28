@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 225)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.type, "bicycle", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.type, "bicycle", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.toTAZ, "", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.toTAZ, "", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.toTAZ, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.toTAZ, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.toTAZ, "taz_3", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.toTAZ, "taz_3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

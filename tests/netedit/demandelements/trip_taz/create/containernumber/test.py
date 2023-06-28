@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to TAZs)")
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.containerNumber, "dummyContainerNumber")
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.containerNumber, "dummyContainerNumber")
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.containerNumber, "-12")
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.containerNumber, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.containerNumber, "3.5")
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.containerNumber, "3.5")
 
 # try to create trip
 netedit.leftClick(referencePosition, 50, 250)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 430, 250)
 netedit.typeEnter()
 
 # set valid containerNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToTAZ.create.containerNumber, "13")
+netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.containerNumber, "13")
 
 # create trip
 netedit.leftClick(referencePosition, 50, 250)

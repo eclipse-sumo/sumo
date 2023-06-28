@@ -51,13 +51,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 225)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.departPosLat, "", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.departPosLat, "", False)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.departPosLat, "dummyPosLat", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.departPosLat, "dummyPosLat", False)
 
 # change departPosLat with an valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToTAZ.inspect.departPosLat, "right", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.departPosLat, "right", False)
 
 
 # Check undo redo
