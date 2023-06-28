@@ -42,7 +42,7 @@ writes the data to a file with the following format
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 
-<network xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/amitran/network.xsd">
+<network xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/network.xsd">
    <node id="0" type="rightBeforeLeft"/>
    <node id="1" type="priority"/>
    ...
