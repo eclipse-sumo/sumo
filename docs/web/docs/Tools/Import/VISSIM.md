@@ -199,7 +199,7 @@ SUMO wie folgt definiert:
 
 Allgemeine Informationen zur Definition von Routen und Zuflüssen finden
 sich unter
-<http://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html>
+<https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html>
 (zuletzt geprüft am 28.07.2015).
 
 ## Umsetzung
@@ -425,7 +425,7 @@ Zeitpunkt verändert werden:
 ```
 
 Nähere Beschreibungen zur Definition von Lichtsignalanlagen befinden
-sich unter <http://sumo.dlr.de/docs/Simulation/Traffic_Lights.html> (zuletzt
+sich unter <https://sumo.dlr.de/docs/Simulation/Traffic_Lights.html> (zuletzt
 geprüft am 28.07.2015).
 
 ## Umsetzung

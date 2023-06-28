@@ -222,6 +222,6 @@ title: Changes from Version 0.20.0 to Version 0.21.0
   - Referenze [typemap files](../SUMO_edge_type_file.md) for
     importing edges and polygon data from OSM networks as well as
     from other formats can now be found at {{SUMO}}/data
-  - SUMO builds now with [clang](http://clang.llvm.org/) as well
+  - SUMO builds now with [clang](https://clang.llvm.org/) as well
   - The shortcut **-p** for the option **--print-options** was removed because of possible
     name clashes

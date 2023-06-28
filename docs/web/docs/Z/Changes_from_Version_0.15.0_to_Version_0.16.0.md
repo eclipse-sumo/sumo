@@ -10,7 +10,7 @@ title: Changes from Version 0.15.0 to Version 0.16.0
   - Fixed building under gcc4.7; thanks to Karsten Roscher
 - Simulation
   - Fixed the bug which prevented vehicles to be inserted in the
-    middle of a street using `departPos="free"` ([ticket732](http://sourceforge.net/apps/trac/sumo/ticket/732),
+    middle of a street using `departPos="free"` ([ticket732](https://sourceforge.net/apps/trac/sumo/ticket/732),
     thanks to Björn Hendriks for reporting it)
   - Fixed several bugs that were causing collisions
   - Fixed bug in the default car-following model wich lead to
@@ -66,11 +66,11 @@ title: Changes from Version 0.15.0 to Version 0.16.0
   - Options **--offset.x** and **--offset.y** are no longer ignored
   - Renamed to [netgenerate](../netgenerate.md) due to naming
     conflicts in Debian, was
-    [ticket717](http://sourceforge.net/apps/trac/sumo/ticket/717),
-    and [Debian-ticket 673931](http://bugs.debian.org/673931)
+    [ticket717](https://sourceforge.net/apps/trac/sumo/ticket/717),
+    and [Debian-ticket 673931](https://bugs.debian.org/673931)
 - TraCI
   - fixed geo conversion
-    [ticket804](http://sourceforge.net/apps/trac/sumo/ticket/804)
+    [ticket804](https://sourceforge.net/apps/trac/sumo/ticket/804)
 - TOOLS
   - method parse_fast in sumolib.output no longer fails when using
     attributes which are also python keywords.

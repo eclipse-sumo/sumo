@@ -20,7 +20,7 @@ title: Changes from Version 0.11.0 to Version 0.11.1
     correctly)
 
 - sumo-gui
-  - implemented [request 1641989: No view reset on reload](http://sourceforge.net/tracker/?func=detail&aid=1641989&group_id=45607&atid=443424).
+  - implemented [request 1641989: No view reset on reload](https://sourceforge.net/tracker/?func=detail&aid=1641989&group_id=45607&atid=443424).
   - the number of colors used for range visualization is now variable
   - debugged problems with not shown junction names
 

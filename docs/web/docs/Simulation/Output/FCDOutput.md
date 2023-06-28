@@ -155,8 +155,8 @@ When not all vehicles are equipped with an **fcd**-device, other vehicles and pe
 
 In combination with the given geometry of the vehicles (shapes) you can
 build some nice animations, e.g [NASA
-WorldWind](http://worldwind.arc.nasa.gov/java/) or [Google
-Earth](http://earth.google.com).
+WorldWind](https://worldwind.arc.nasa.gov/java/) or [Google
+Earth](https://earth.google.com).
 
 ## Visualization example
 

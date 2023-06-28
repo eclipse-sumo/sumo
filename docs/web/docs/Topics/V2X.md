@@ -24,14 +24,14 @@ middleware.
 
 ### Veins
 
-See [the Veins Homepage](http://veins.car2x.org/) for a short overview,
+See [the Veins Homepage](https://veins.car2x.org/) for a short overview,
 download links, beginner's tutorial, full publication list, and
 documentation.
 
 ### iCS
 
 iCS is the "iTETRIS Control System", a middleware developed in the
-[iTETRIS](http://www.ict-itetris.eu/) project to join SUMO, ns-3, and
+[iTETRIS](https://www.ict-itetris.eu/) project to join SUMO, ns-3, and
 V2X application simulators. It is currently used and extended within the
 [TransAID](https://www.transaid.eu/) project.
 

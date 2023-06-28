@@ -147,7 +147,7 @@ There are several issues one should note:
 ## 'Frida' network (city of Osnabrück)
 
 The network is available at the
-[Frida-homepage](http://frida.intevation.org/) and is licensed under the
+[Frida-homepage](https://frida.intevation.org/) and is licensed under the
 GPL.
 
 Our main interest is of course the street network. The following files
@@ -165,7 +165,7 @@ Ok, let's solve these problems one after another.
 - Different field naming
 
   The only problem with this is that we can not extract street names
-  properly. Still, within [FRIDA](http://frida.intevation.org/), the
+  properly. Still, within [FRIDA](https://frida.intevation.org/), the
   edges are numbered, and we may use the street id as name.
   The call has to be extended by: **--arcview.street-id strShapeID**
 
@@ -266,4 +266,4 @@ the problem in inner-city areas, but yields in an unacceptable result
 for highways.
 
 <p style="border:1px solid #909090; padding:1px 4px 3px 4px"><img src="../../images/CC-BY-SA-small.png" alt="Creative Commons License">
-This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. The authors are listed in the history.</p>
+This work is licensed under a <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. The authors are listed in the history.</p>

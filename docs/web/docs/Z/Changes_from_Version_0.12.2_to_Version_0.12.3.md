@@ -22,5 +22,5 @@ title: Changes from Version 0.12.2 to Version 0.12.3
   - please note that the encoding of a vehicle's angle has changed
 - sumo-gui
   - corrected vehicle's angle (was
-    [ticket\#430](http://sourceforge.net/apps/trac/sumo/ticket/430))
+    [ticket\#430](https://sourceforge.net/apps/trac/sumo/ticket/430))
   - Clipboard works under Linux

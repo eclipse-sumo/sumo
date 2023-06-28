@@ -29,7 +29,7 @@ formats. Following files can be generated, sorted by application:
   \*.tcl)
 - PHEM: .dri-files, .str-files, .fzp-files, .flt-files
 - GPSDAT csv traces (id,date,x,y,status,speedKMH)
-- [GPX](http://en.wikipedia.org/wiki/GPS_eXchange_Format)
+- [GPX](https://en.wikipedia.org/wiki/GPS_eXchange_Format)
 - [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language)
 - [Kepler-JSON](https://kepler.gl/)
 - IPG Traces (experimental)
@@ -54,7 +54,7 @@ into a format using a command like this:
 traceExporter.py --fcd-input myFCDoutput.xml --omnet-output myOMNETfile.xml
 ```
 
-In the case given above, a file for [OMNET](http://www.omnetpp.org/)
+In the case given above, a file for [OMNET](https://www.omnetpp.org/)
 will be built.
 
 In the following, the command line options are described.

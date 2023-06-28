@@ -5,7 +5,7 @@ title: Changes from Version 0.11.1 to Version 0.12.0
 **Release date: 27.05.2010**
 
 - Simulation
-  - solved [regarding red light late blocks vehicles](http://sourceforge.net/apps/trac/sumo/ticket/173)
+  - solved [regarding red light late blocks vehicles](https://sourceforge.net/apps/trac/sumo/ticket/173)
   - corrected the documentation on using [an abstract vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class);
     the attribute which defines it is named `vclass` not `class`.
   - introducing flows as replacement for vehicles with repno and

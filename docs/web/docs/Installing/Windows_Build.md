@@ -59,7 +59,7 @@ Editing the CMake settings using Visual Studio
 
 ## Further notes
 
-If you need a different python version or want to test with multiple Pythons you can either install them directly from Visual Studio or [Download Python for Windows](http://www.python.org/download/) and install it. Most SUMO tools should work with Python 2 and 3. Please make sure that you install the recommended python modules as explained above and that the `PATH` environment variable contains the directory where the desired Python interpreter is.
+If you need a different python version or want to test with multiple Pythons you can either install them directly from Visual Studio or [Download Python for Windows](https://www.python.org/download/) and install it. Most SUMO tools should work with Python 2 and 3. Please make sure that you install the recommended python modules as explained above and that the `PATH` environment variable contains the directory where the desired Python interpreter is.
 
 If you want to build SUMO in Debug mode, then you will need the *Python Debug binaries*. The Python interepreter that comes with Visual Studio doesn't install these libraries by default (at least in the case of Visual Studio Community 2022); you need to install the *Data Science stack* in addition to the *Python and C++ development stacks* mentionned above. More precisely, the component you need is called *Python native development tools*, make sure you check the correct box.
 
@@ -197,7 +197,7 @@ repair your file associations or undefine **HAVE_VERSION_H** in
 
 If you did install Python correctly, double check that it passes
 [command line
-arguments](http://stackoverflow.com/questions/2640971/windows-is-not-passing-command-line-arguments-to-python-programs-executed-from-t).
+arguments](https://stackoverflow.com/questions/2640971/windows-is-not-passing-command-line-arguments-to-python-programs-executed-from-t).
 For a quick fix, you can also execute the following commands manually:
 
 ```

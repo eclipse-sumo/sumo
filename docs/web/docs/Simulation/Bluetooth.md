@@ -18,7 +18,7 @@ devices are described at
 detection process can be found in the following publication: [Behrisch,
 Michael and Gurczik, Gaby (2014) Modelling Bluetooth Inquiry for SUMO.
 In: SUMO2014 Modeling Mobility with Open Data. SUMO2014, 15.-16.
-Mai 2014, Berlin](http://elib.dlr.de/95237/)
+Mai 2014, Berlin](https://elib.dlr.de/95237/)
 
 # Enabling Sender / Receiver devices
 

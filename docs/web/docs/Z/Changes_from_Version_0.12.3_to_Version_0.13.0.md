@@ -98,8 +98,8 @@ to get a list of supported options including synonyms.
   - removed the possibility to set and retrieve traffic lights by
     phase/brake/yellow-tuples (both, state 0x21 and program 0x25)
   - completely removed old API
-  - solved tickets [ticket\#273 (consolidate speed and acceleration manipulation methods)](http://sourceforge.net/apps/trac/sumo/ticket/273) and
-    [ticket\#330 (Speed adaptation after receiving SLOWDOWN command not working.)](http://sourceforge.net/apps/trac/sumo/ticket/330)
+  - solved tickets [ticket\#273 (consolidate speed and acceleration manipulation methods)](https://sourceforge.net/apps/trac/sumo/ticket/273) and
+    [ticket\#330 (Speed adaptation after receiving SLOWDOWN command not working.)](https://sourceforge.net/apps/trac/sumo/ticket/330)
   - introduced a way to decide whether safe velocity, maximum
     deceleration and maximum acceleration shall be considered when
     changing a vehicle's speed, see:

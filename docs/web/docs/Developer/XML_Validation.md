@@ -41,11 +41,11 @@ configurations (command line option **--save-schema** {{DT_FILE}})
 files which are using Python. It seems as two are majorly used:
 
 - [lxml](https://lxml.de/validation.html)
-- [XSV](http://www.ltg.ed.ac.uk/~ht/xsv-status.html)
+- [XSV](https://www.ltg.ed.ac.uk/~ht/xsv-status.html)
 
 further candidates:
 
-- [xmlproc](http://www.garshol.priv.no/download/software/xmlproc/)
+- [xmlproc](https://www.garshol.priv.no/download/software/xmlproc/)
 - [minixsv](https://pypi.org/project/minixsv/)
 
 A short comparison:

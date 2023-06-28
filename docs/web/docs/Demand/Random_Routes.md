@@ -13,5 +13,5 @@ script which can also produce a route set employing the
 # See Also
 
 - [randomTrips.py](../Tools/Trip.md#randomtripspy) script for random routes generation
-- "bug" [random routes only created for timestep 1](http://sourceforge.net/tracker/?func=detail&aid=1914360&group_id=45607&atid=443421)
-- "bug" [About Generating random Routes](http://sourceforge.net/tracker/?func=detail&aid=2746763&group_id=45607&atid=443421)
+- "bug" [random routes only created for timestep 1](https://sourceforge.net/tracker/?func=detail&aid=1914360&group_id=45607&atid=443421)
+- "bug" [About Generating random Routes](https://sourceforge.net/tracker/?func=detail&aid=2746763&group_id=45607&atid=443421)

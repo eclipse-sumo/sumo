@@ -11,7 +11,7 @@ Screenshot of a SUMO net file opened in sumo-gui. It shows the map of the German
 | Type of content    | Map          |
 | Open format?       | Yes          |
 | SUMO specific?     | Yes          |
-| XML Schema         | [net_file.xsd](http://sumo.dlr.de/xsd/net_file.xsd) |
+| XML Schema         | [net_file.xsd](https://sumo.dlr.de/xsd/net_file.xsd) |
 
 A **SUMO network file** describes the traffic-related part of a map, the
 roads and intersections the simulated vehicles run along or across. At a

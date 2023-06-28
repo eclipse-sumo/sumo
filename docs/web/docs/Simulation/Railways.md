@@ -316,7 +316,7 @@ Functionality **a)** corresponds to the "classic" safety behavior of rail signal
 
 To switch a single signal into moving-block-mode, the following additional file may be loaded:
 ```xml
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <tlLogic id="gneJ8" programID="0">
         <param key="moving-block" value="true"/>
     </tlLogic>

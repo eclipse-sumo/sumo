@@ -36,13 +36,13 @@ extraction version 6.0.
 ## Amitran
 
 The Amitran network format consists of a single XML file conforming to
-the schema at <http://sumo-sim.org/xsd/amitran/network.xsd>. The option **--amitran-output** {{DT_FILE}}
+the schema at <https://sumo-sim.org/xsd/amitran/network.xsd>. The option **--amitran-output** {{DT_FILE}}
 writes the data to a file with the following format
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 
-<network xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/amitran/network.xsd">
+<network xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/amitran/network.xsd">
    <node id="0" type="rightBeforeLeft"/>
    <node id="1" type="priority"/>
    ...
@@ -56,6 +56,6 @@ class is a functional road class in the Navteq sense)
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
-<a href="http://amitran.eu/"><img src="../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
+<a href="https://amitran.eu/"><img src="../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project 
-<a href="http://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+<a href="https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>

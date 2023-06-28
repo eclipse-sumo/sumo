@@ -91,7 +91,7 @@ clustering of inserted vehicles.
 The algorithm for deciding when exactly to insert (and remove) vehicles
 is described in [Erdmann, Jakob (2012) Online-Kalibrierung einer
 Mikroskopischen Verkehrssimulation. ViMOS 2012, 29.11.2012, Dresden,
-Deutschland.](http://elib.dlr.de/79428/)
+Deutschland.](https://elib.dlr.de/79428/)
 
 ## Routes of generated Vehicles
 

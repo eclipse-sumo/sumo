@@ -63,15 +63,15 @@ The structures of the files described in the following are also
 available as XML Schema Definitions:
 
 - [nodes files](#node_descriptions):
-  <http://sumo.dlr.de/xsd/nodes_file.xsd>
+  <https://sumo.dlr.de/xsd/nodes_file.xsd>
 - [edges files](#edge_descriptions):
-  <http://sumo.dlr.de/xsd/edges_file.xsd>
+  <https://sumo.dlr.de/xsd/edges_file.xsd>
 - [types files](#type_descriptions):
-  <http://sumo.dlr.de/xsd/types_file.xsd>
+  <https://sumo.dlr.de/xsd/types_file.xsd>
 - [connections files](#connection_descriptions):
-  <http://sumo.dlr.de/xsd/connections_file.xsd>
+  <https://sumo.dlr.de/xsd/connections_file.xsd>
 - [tllogic files](#traffic_light_program_definition):
-  <http://sumo.dlr.de/xsd/tllogic_file.xsd>
+  <https://sumo.dlr.de/xsd/tllogic_file.xsd>
 
 # Node Descriptions
 
@@ -83,7 +83,7 @@ available as XML Schema Definitions:
 | Type of content    | Nodes (intersections/junctions) |
 | Open format?       | Yes                             |
 | SUMO specific?     | Yes                             |
-| XML Schema         | [nodes_file.xsd](http://sumo.dlr.de/xsd/nodes_file.xsd)                  |
+| XML Schema         | [nodes_file.xsd](https://sumo.dlr.de/xsd/nodes_file.xsd)                  |
 
 </center>
 
@@ -404,7 +404,7 @@ the connections.
 | Type of content    | Edges (roads/streets) |
 | Open format?       | Yes                   |
 | SUMO specific?     | Yes                   |
-| XML Schema         | [edges_file.xsd](http://sumo.dlr.de/xsd/edges_file.xsd)        |
+| XML Schema         | [edges_file.xsd](https://sumo.dlr.de/xsd/edges_file.xsd)        |
 
 Within the edges file, each description of a single edge looks like
 this: `<edge id="<STRING>" from="<NODE_ID>" to="<NODE_ID>" [type="<STRING>"] [numLanes="<INT>"] [speed="<FLOAT>"] [priority="<UINT>"] [length="<FLOAT>"] [shape="<2D-POSITION>[ <2D-POSITION>]*"] [spreadType="center"] [allow="<VEHICLE_CLASS>[ <VEHICLE_CLASS>]*"] [disallow="<VEHICLE_CLASS>[ <VEHICLE_CLASS>]*"]/>`.
@@ -769,7 +769,7 @@ by giving the attribute remove="true" to the type.
 | Type of content    | Edge Types     |
 | Open format?       | Yes            |
 | SUMO specific?     | Yes            |
-| XML Schema         | [types_file.xsd](http://sumo.dlr.de/xsd/types_file.xsd) |
+| XML Schema         | [types_file.xsd](https://sumo.dlr.de/xsd/types_file.xsd) |
 
 As mentioned, [edge types](../SUMO_edge_type_file.md) are meant to
 be used to ease the definition of edges. Each description of an edge
@@ -862,7 +862,7 @@ If the network was built with option **--junctions.higher-speed**, the maximum o
 | Type of content    | Connections          |
 | Open format?       | Yes                  |
 | SUMO specific?     | Yes                  |
-| XML Schema         | [connections_file.xsd](http://sumo.dlr.de/xsd/connections_file.xsd) |
+| XML Schema         | [connections_file.xsd](https://sumo.dlr.de/xsd/connections_file.xsd) |
 
 "Connections" describe how a node's incoming and outgoing edges are
 connected (for example to prohibit left-turns at some junctions). Your
@@ -1075,7 +1075,7 @@ have the right of way but this can be customized by using attribute
 | Type of content    | traffic light definition |
 | Open format?       | Yes                      |
 | SUMO specific?     | Yes                      |
-| XML Schema         | [tllogic_file.xsd](http://sumo.dlr.de/xsd/tllogic_file.xsd)         |
+| XML Schema         | [tllogic_file.xsd](https://sumo.dlr.de/xsd/tllogic_file.xsd)         |
 
 This file describes traffic lights, signal plans and defines which
 connections they control. It consists of two types of elements described

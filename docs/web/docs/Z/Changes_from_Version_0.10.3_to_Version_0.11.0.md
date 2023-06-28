@@ -42,8 +42,8 @@ title: Changes from Version 0.10.3 to Version 0.11.0
     - corrected behavior of using intervals in [edgelane traffic](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md),
       [edgelane hbefa](../Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md),
       and [edgelane harmonoise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md)
-      (solved [bug 2504162: multiple begins / ends should be defined in separate dumps](http://sourceforge.net/tracker/?func=detail&aid=2168007&group_id=45607&atid=443424)
-      and [bug 2504144: dump intervals are mandatory](http://sourceforge.net/tracker/?func=detail&aid=2168007&group_id=45607&atid=443424))
+      (solved [bug 2504162: multiple begins / ends should be defined in separate dumps](https://sourceforge.net/tracker/?func=detail&aid=2168007&group_id=45607&atid=443424)
+      and [bug 2504144: dump intervals are mandatory](https://sourceforge.net/tracker/?func=detail&aid=2168007&group_id=45607&atid=443424))
     - [edgelane hbefa](../Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md)
       now additionally writes per-vehicle values
   - fixed re-emission check for edges with multiple waiting vehicles
@@ -51,7 +51,7 @@ title: Changes from Version 0.10.3 to Version 0.11.0
 - sumo-gui
   - Added the possibility to load view settings and
     [decals](../sumo-gui.md#using_decals_within_sumo-gui) from
-    a configuration file (implemented [request 2168007: add possibility to load view settings file with start of gui](http://sourceforge.net/tracker/?func=detail&aid=2168007&group_id=45607&atid=443424)).
+    a configuration file (implemented [request 2168007: add possibility to load view settings file with start of gui](https://sourceforge.net/tracker/?func=detail&aid=2168007&group_id=45607&atid=443424)).
     Added the possibility to generate snapshots on startup, defined
     in a configuration file.
   - Removed the "additional weight" dialog - was not known to be

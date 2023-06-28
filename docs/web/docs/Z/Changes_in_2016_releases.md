@@ -491,7 +491,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
 
 - Documentation
   - Test coverage analysis can now be found at
-    [\[1\]](http://sumo.dlr.de/daily/lcov/html/).
+    [\[1\]](https://sumo.dlr.de/daily/lcov/html/).
   - Documented [Wireless device detection
     model](../Simulation/Bluetooth.md) which has been available
     since version 0.18.0

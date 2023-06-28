@@ -24,7 +24,7 @@ title: Changes from version 0.9.7 to version 0.9.8
 - simulation
   - debugged tls-coupled e2-output
   - debugged [bug 1886198 Segmentation
-    Fault](http://sourceforge.net/tracker/index.php?func=detail&aid=1871037&group_id=45607&atid=443421);
+    Fault](https://sourceforge.net/tracker/index.php?func=detail&aid=1871037&group_id=45607&atid=443421);
     see comment; thanks to Helcio Bezerra de Mello for the bug
     report
   - further work on detectors
@@ -34,13 +34,13 @@ title: Changes from version 0.9.7 to version 0.9.8
     his best lanes
   - simplified computation of best lanes
   - debugged [bug 1871859 vehicles do not wait on lane
-    end](http://sourceforge.net/tracker/index.php?func=detail&aid=1871859&group_id=45607&atid=443421);
+    end](https://sourceforge.net/tracker/index.php?func=detail&aid=1871859&group_id=45607&atid=443421);
     thanks to Jensen Chou for the bug report
   - debugged [bug 1871964 left-moving vehicles do not fill
-    junction](http://sourceforge.net/tracker/index.php?func=detail&aid=1871964&group_id=45607&atid=443421)
+    junction](https://sourceforge.net/tracker/index.php?func=detail&aid=1871964&group_id=45607&atid=443421)
   - patched error handling in emitters; tests added
   - debugged [bug 1873155 vehicles with depart lower than begin are
-    emitted](http://sourceforge.net/tracker/index.php?func=detail&aid=1873155&group_id=45607&atid=443421);
+    emitted](https://sourceforge.net/tracker/index.php?func=detail&aid=1873155&group_id=45607&atid=443421);
     tests added
   - tests for rerouter added; partially debugged
   - added inline-documentation for microsim/output
@@ -62,20 +62,20 @@ title: Changes from version 0.9.7 to version 0.9.8
 
 - guisim
   - debugged [bug 1830296 guiemitter destroys event
-    que](http://sourceforge.net/tracker/index.php?func=detail&aid=1830296&group_id=45607&atid=443421)
+    que](https://sourceforge.net/tracker/index.php?func=detail&aid=1830296&group_id=45607&atid=443421)
     by introducing a thread-aware event control version for guisim
     (GUIEventControl)
   - implementing [feature request 1645216 Indicator / blinker
     depending on junction
-    distance](http://sourceforge.net/tracker/index.php?func=detail&aid=1645216&group_id=45607&atid=443424)
+    distance](https://sourceforge.net/tracker/index.php?func=detail&aid=1645216&group_id=45607&atid=443424)
   - debugged [bug 1862073 view is not refreshed when (de)selecting
-    item](http://sourceforge.net/tracker/index.php?func=detail&aid=1862073&group_id=45607&atid=443421)
+    item](https://sourceforge.net/tracker/index.php?func=detail&aid=1862073&group_id=45607&atid=443421)
   - added doxygen-documentation for utils/gui/div
 - work on problems with guisim (undeterministic termination)
 
 - netconvert
   - debugged [bug 1886198 User reports unknown error while importing
-    shapefile](http://sourceforge.net/tracker/index.php?func=detail&aid=1886198&group_id=45607&atid=443421);
+    shapefile](https://sourceforge.net/tracker/index.php?func=detail&aid=1886198&group_id=45607&atid=443421);
     see comment; thanks to Maxim Raya for the bug report
 
 - dfrouter
@@ -96,14 +96,14 @@ title: Changes from version 0.9.7 to version 0.9.8
 - debugged problems with repetition of vehicles that have a color
   within guisim (application terminated)
 - patched XMLSubSys documentation (was
-  [bug 1828803](http://sourceforge.net/tracker/index.php?func=detail&aid=1828803&group_id=45607&atid=443421))
+  [bug 1828803](https://sourceforge.net/tracker/index.php?func=detail&aid=1828803&group_id=45607&atid=443421))
 - fixed vehicle decelerations when being on a higher priorised road
   (bug
-  [1830266](http://sourceforge.net/tracker/index.php?func=detail&aid=1830266&group_id=45607&atid=443421))
+  [1830266](https://sourceforge.net/tracker/index.php?func=detail&aid=1830266&group_id=45607&atid=443421))
 - fixed netconvert bugs occuring when connected nodes are too close
   together (bugs
-  [1639460](http://sourceforge.net/tracker/index.php?func=detail&aid=1639460&group_id=45607&atid=443421),
-  [1639436](http://sourceforge.net/tracker/index.php?func=detail&aid=1639436&group_id=45607&atid=443421))
+  [1639460](https://sourceforge.net/tracker/index.php?func=detail&aid=1639460&group_id=45607&atid=443421),
+  [1639436](https://sourceforge.net/tracker/index.php?func=detail&aid=1639436&group_id=45607&atid=443421))
 - moved color out of MSVehicle (affects loading classes)
 - router import classes now process input colors as strings
 - consolidated XML-definitions
@@ -116,17 +116,17 @@ approaching on incoming lanes. Quite heavy changes, in fact, I hope
 of benefit. You may read some further information on this in the
 following tracker items: [bug 1840935: exchange of vehicles over
 lanes disallow fails with two
-vehs](http://sourceforge.net/tracker/index.php?func=detail&aid=1840935&group_id=45607&atid=443421),
+vehs](https://sourceforge.net/tracker/index.php?func=detail&aid=1840935&group_id=45607&atid=443421),
 [bug 1840938: lane exchange mechanism ignores undefined lane
-order](http://sourceforge.net/tracker/index.php?func=detail&aid=1840938&group_id=45607&atid=443421),
+order](https://sourceforge.net/tracker/index.php?func=detail&aid=1840938&group_id=45607&atid=443421),
 [bug 1840952: drop vehicle exchange in lane
-changer](http://sourceforge.net/tracker/index.php?func=detail&aid=1840952&group_id=45607&atid=443421),
+changer](https://sourceforge.net/tracker/index.php?func=detail&aid=1840952&group_id=45607&atid=443421),
 [bug 1840944: replace approaching information in
-lanes](http://sourceforge.net/tracker/index.php?func=detail&aid=1840944&group_id=45607&atid=443421)
+lanes](https://sourceforge.net/tracker/index.php?func=detail&aid=1840944&group_id=45607&atid=443421)
 
 - Further work on inner-junction traffic (still not 100% complete)
   - bug [1840950: take into account inner-junction
-    state](http://sourceforge.net/tracker/index.php?func=detail&aid=1840950&group_id=45607&atid=443421)
+    state](https://sourceforge.net/tracker/index.php?func=detail&aid=1840950&group_id=45607&atid=443421)
 - speeding up simulation by not touching empty lanes
 - C2C was made optional (using defines) in order to reduce memory
   footprint; was: feature 1843267: make extensions optional

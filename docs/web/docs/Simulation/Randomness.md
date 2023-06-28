@@ -9,7 +9,7 @@ a simulation. They are described below.
 # Random number generation (RNG)
 
 Sumo implements the [Mersenne
-Twister](http://en.wikipedia.org/wiki/Mersenne_twister) algorithm for
+Twister](https://en.wikipedia.org/wiki/Mersenne_twister) algorithm for
 generating random numbers. This random number generator (RNG) is
 initialized with a seed value which defaults to the (arbitrary) value
 **23423**. This setup makes all applications deterministic by default as
