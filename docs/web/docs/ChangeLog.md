@@ -158,7 +158,6 @@ title: ChangeLog
   - The traffic light join mode now has  'OK / 'cancel' buttons. Issue #13028
   - Now netedit supports trip and flows over TAZs. Issue #13311
   - Improved error messages when loading additional objects. Issue #13507
-  - Now supporting trips and flows between TAZ. Issue #13311
 
 - netconvert
   - OpenDRIVE import: now supports road objects from connecting roads. Issue #13196
@@ -168,13 +167,13 @@ title: ChangeLog
   - Unused edge types are now excluded from .net.xml. Issue #13228
   - Added option **--railway.signal.guess.by-stops** to add rail_signal nodes to a network that is lacking them. Issue #5143
   - When using option **--tls.rebuild**, the tltype can be changed by setting option **--tls.default-type**. Issue #13267
-  - Added option **--junctions.minimal-shape** to enforoce small junctions. Issue #13377
-  - Added option **--opendrive.signal-groups** to import controller information from openDrive. Issue #2365
+  - Added option **--junctions.minimal-shape** to enforce small junctions. Issue #13377
+  - Added option **--opendrive.signal-groups** to import controller information from OpenDRIVE. Issue #2365
   - Added option **--tls.join-exclude** for more control over automatic tls joining. Issue #13466
 
 - TraCI
   - Added function `simpla.getPlatoonID`. Issue #13029
-  - Added functions `lane.getAngle' and `edge.getAngle'. Issue #10901
+  - Added functions `lane.getAngle' and `edge.getAngle`. Issue #10901
   - Added function `vehicle.getJunctionFoes`. Issue #12640
   - Using UTF-8 consistently. Issue #7171  
   - getAllContextSubscriptionResults has now entries also for objects without results. Issue #6446
@@ -184,7 +183,7 @@ title: ChangeLog
   
 - tools
   - randomTrips.py: added options **--from-stops** and **--to-stops** to define pedestrians, personTrips and person rides from and to stops (i.e. busStop). Issue #13375
-  - randomTrips.py: no issues a warning if option **--binomial** is too low for the given period. Issue #13404
+  - randomTrips.py: now issues a warning if option **--binomial** is too low for the given period. Issue #13404
   - plotXMLAttributes.py and plot_trajectories.py now show the plot by default. Issue #13158
   - plotXMLAttributes.py: Added option **--join-files** to treat data points from different files as if coming from the same file. Issue #13154
   - plotXMLAttributes.py: Now supports attribute value `@DENSITY` to create density plots. Issue #13182
@@ -194,27 +193,27 @@ title: ChangeLog
   - abstractRail.py: Now handles regions without stops. Issue #13221
   - gtfs2pt.py: can now disable generation of pedestrian access via option **--skip-access**. Issue #12774
   - gtfs2pt: stop names are now included in route-output. Issue #13274
-  - ptlines2flows.py: now support configuration files. Issue #13254
-  - checkStopOrder.py: can now generate a combined stop table for multiple stop locations. Issue #13259
+  - ptlines2flows.py: now support configuration files. Issue #13254  
   - generateParkingAreas.py: now support option **--lefthand** to create lefthand parking areas. Issue #13305
   - [scheduleStats.py](Tools/Railways.md#schedulestatspy): Now permits analysis of planned and actual travel time between pairs of stops. Issue #13354
   - tileGet.py now supports option **--parallel-jobs** to speed up data retrieval. Issue #13327
+  - checkStopOrder.py: can now generate a combined stop table for multiple stop locations. Issue #13259
   - checkStopOrder.py: marks waypoints in stop table output. Issue #13420
-  - checkStopOrder.py: added option **--filter-ids** to filter the input by vehicle id. Issue #13488
-  - improved game internationalization. Issue #13082
+  - checkStopOrder.py: added option **--filter-ids** to filter the input by vehicle id. Issue #13488  
   - generateRailSignalConstraints.py: now supports [portion working](Simulation/Railways.md#portion_working) (vehicles with `depart="split"`). Issue #13478
   - generateRailSignalConstraints.py: now finds additional bidi conflicts. Issue #12085
+  - improved game internationalization. Issue #13082
 
 ### Miscellaneous
 
-- splitRouteFiles.py, netcheck.py, plot_csv_bars.py, plot_net_trafficLights.py and plot_csv_timeline do not support the -c shortcut anymore, but all continue to work with the respective long option name (e.g. --columns). Issue #8409 and #12874
-- plotXMLAttributes.py and plot_trajectories.py no longer create 'plot.png' by default. Issue #13166
+- splitRouteFiles.py, netcheck.py, plot_csv_bars.py, plot_net_trafficLights.py and plot_csv_timeline now use the **-c** shortcut for loading a configuration. All options that previously used this continue to work with the respective long option name (e.g. --columns). Issue #8409 and #12874
+- plotXMLAttributes.py and plot_trajectories.py no longer create output file 'plot.png' by default. Issue #13166
 - netconvert: road objects imported from OpenDRIVE are now placed on a higher layer to make them visible above the road. Issue #13197
 - netconvert: option **--osm.all-attributes** now defaults to exporting all attributes because the explicit list of attributes (**--osm.extra-attributes**) now defaults to value **all**. Issue #13218
 - netconvert: increased default bike path width. Issue #13425
 - Netedit demand mode hotkeys changed: **C** now activates container mode and **L** activates person plan mode. Issue #13141
-- All strings send and received by TraCI are now utf8 encoded and interpreted as utf8. Issue #7171
-- traci.simulationStep has no return value on Python any longer (similar to the other languages), use traci.simulationStepLegacy for the old behavior. Issue #13296
+- All strings sent and received by TraCI are now utf8 encoded and interpreted as utf8. Issue #7171
+- `traci.simulationStep` has no return value on Python any longer (similar to the other languages), use `traci.simulationStepLegacy` for the old behavior. Issue #13296
 - The default file extension for netedit configuration files was changed from `.neteditconfig` to `.netecfg` for consistency with other config extensions. Issue #13100
 
 
