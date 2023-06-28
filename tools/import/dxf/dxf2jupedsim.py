@@ -81,6 +81,8 @@ def main():
                 vertices = generate_circle_vertices(list(entity.dxf.center), entity.dxf.radius)
             else:
                 vertices = list(entity.vertices())
+                if vertices[-1] != vertices[0]:
+                    vertices.append(vertices[0])
             if entity.dxf.layer == args.walkable_layer:
                 add.write(polygon_as_XML_element(vertices, "jupedsim.walkable_area", entity.dxf.handle, args.walkable_color, args.sumo_layer))
             elif entity.dxf.layer == args.obstacle_layer:
