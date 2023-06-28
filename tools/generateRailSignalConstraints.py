@@ -1473,6 +1473,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                             # since the route could be looped we must find all points of divergence
                             sI2b = -1  # stop index of previous divergence
                             prevEdge = None
+                            needInitialDivergence = False
                             for sI2, (edgesBefore2, stop2) in enumerate(stopRoute2):
                                 if sI2 == 0:
                                     # this is an insertion related conflict and we don't want to find a signal
@@ -1482,6 +1483,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                     continue
                                 for e in edgesBefore2:
                                     if e in bidiBefore:
+                                        if needInitialDivergence:
+                                            continue
                                         # if the opposite train enters the conflict section with a reversal
                                         # this doesn't provide for a useful entry signal
                                         # (we still call findDivergence to advance sI2b)
@@ -1506,10 +1509,15 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                                 print("edge:%s" % e)
 
                                         break
+                                    else:
+                                        needInitialDivergence = False
                                     prevEdge = e
                                 if sI2b is None:
                                     # no divergence found
                                     break
+                                # after finding a conflict, we first need to find a new divergence
+                                # as starting point for the next bidi conflict
+                                needInitialDivergence = True
 
                     for conflict in collectBidiConflicts(options, net, vehicleStopRoutes, stop,
                                                          stopRoute, edgesBefore, arrivals):
