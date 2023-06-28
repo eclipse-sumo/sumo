@@ -176,6 +176,7 @@ child element of [busStop](#busstop), [trainStop](#trainstop)
 |width|non-negative float|The width of the road-side parking spaces *default:* **3.20**|
 |length|non-negative float|The length of the road-side parking spaces. By default (endPos - startPos) / roadsideCapacity *default:* **0.00**|
 |angle|angle[0, 360]|The angle of the road-side parking spaces relative to the lane angle, positive means clockwise *default:* **0.00**|
+|lefthand|boolean|Enable or disable lefthand position *default:* **0**|
 
 ### space
 child element of [parkingArea](#parkingarea)
@@ -467,6 +468,8 @@ child element of [variableSpeedSign](#variablespeedsign)
 |depart|string|The departure time of the (first) trip which is generated using this trip definition *default:* **0.00**|
 |fromJunction|unique string|The name of the junction the trip starts at|
 |toJunction|unique string|The name of the junction the trip ends at|
+|fromTaz|unique string|The name of the TAZ the trip starts at|
+|toTaz|unique string|The name of the TAZ the trip ends at|
 
 ## vehicle
 | Attribute | Type | Description |
@@ -525,16 +528,19 @@ also child element of [calibrator](#calibrator)
 |poisson|string|Insert flow expected vehicles per second with poisson distributed insertion rate (not together with period or vehsPerHour or probability) *default:* **0.5**|
 |fromJunction|unique string|The name of the junction the flow starts at|
 |toJunction|unique string|The name of the junction the flow ends at|
+|fromTaz|unique string|The name of the TAZ the flow starts at|
+|toTaz|unique string|The name of the TAZ the flow ends at|
 |departEdge|unique string|The index of the edge within route the flow starts at|
 |arrivalEdge|unique string|The index of the edge within route the flow ends at|
 
 ## vType
 | Attribute | Type | Description |
 |-----------|------|-------------|
-|id|unique string|The id of VehicleType|
-|VTypeDist.|string|Vehicle Type Distribution|
+|id|unique string|type ID|
+|typeDist.|string|Type distribution|
+|typeDistProb.|probability[0, 1]|Type distribution probability *default:* **1.0**|
 |vClass|discrete vClass|An abstract vehicle class *default:* **passenger**|
-|color|color|This vehicle type's color|
+|color|color|This type's color|
 |length|non-negative float|The vehicle's netto-length (length) [m]|
 |minGap|non-negative float|Empty space after leader [m]|
 |maxSpeed|non-negative float|The vehicle's maximum velocity [m/s]|
@@ -700,7 +706,7 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |duration|non-negative SUMOTime|Minimum duration for stopping *default:* **60**|
 |until|non-negative SUMOTime|The time step at which the route continues *default:* **0.00**|
 |extension|SUMOTime|If set to a non-negative time value, then the stop duration can be extended at most by the extension value in seconds *default:* **0**|
-|triggered|discrete string|Whether a person or container or bth may end the stop *default:* **0**|
+|triggered|discrete string|Whether a person or container or both may end the stop *default:* **0**|
 |expected|list of strings|List of elements that must board the vehicle before it may continue|
 |permitted|list of strings|List of elements that can board the vehicle before it may continue|
 |parking|discrete string|Whether the vehicle stops on the road or beside *default:* **0**|
@@ -710,6 +716,7 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |onDemand|boolean|Whether the stop may be skipped if no passengers wants to embark or disembark *default:* **0**|
 |jump|SUMOTime|transfer time if there shall be a jump from this stop to the next route edge *default:* **-1**|
 |busStop|list of unique strings|BusStop associated with this stop|
+|trainStop|list of unique strings|TrainStop associated with this stop|
 |containerStop|list of unique strings|ContainerStop associated with this stop|
 |chargingStation|list of unique strings|ChargingStation associated with this stop|
 |parkingArea|list of unique strings|ParkingArea associated with this stop|
@@ -809,6 +816,7 @@ child element of [person](#person), [personFlow](#personflow)
 |modes|list of strings|List of possible traffic modes. Walking is always possible regardless of this value|
 |lines|list of strings|list of vehicle alternatives to take for the person trip *default:* **ANY**|
 |toBusStop|unique string|Id of the destination busStop|
+|toTrainStop|unique string|Id of the destination trainStop|
 |fromJunction|unique string|The name of the junction the person trip starts at|
 |toJunction|unique string|The name of the junction the person trip ends at|
 
@@ -822,6 +830,7 @@ child element of [person](#person), [personFlow](#personflow)
 |arrivalPos|float|arrival position on the destination edge *default:* **-1**|
 |lines|list of strings|list of vehicle alternatives to take for the ride *default:* **ANY**|
 |toBusStop|unique string|ID of the destination bus stop|
+|toTrainStop|unique string|ID of the destination train stop|
 
 ### walk
 child element of [person](#person), [personFlow](#personflow)
@@ -832,6 +841,7 @@ child element of [person](#person), [personFlow](#personflow)
 |to|unique string|The ID of the edge the walk ends at|
 |arrivalPos|float|arrival position on the destination edge *default:* **-1**|
 |toBusStop|unique string|Id of the destination bus stop|
+|toTrainStop|unique string|Id of the destination train stop|
 |edges|list of unique strings|id of the edges to walk|
 |route|list of unique strings|The id of the route to walk|
 |fromJunction|unique string|The name of the junction the walk starts at|

@@ -177,7 +177,9 @@ configuration:
 | **--ignore-route-errors** {{DT_BOOL}} | Do not check whether routes are connected; *default:* **false** |
 | **--ignore-accidents** {{DT_BOOL}} | Do not check whether accidents occur; *default:* **false** |
 | **--collision.action** {{DT_STR}} | How to deal with collisions: [none,warn,teleport,remove]; *default:* **teleport** |
+| **--intermodal-collision.action** {{DT_STR}} | How to deal with collisions between vehicle and pedestrian: [none,warn,teleport,remove]; *default:* **warn** |
 | **--collision.stoptime** {{DT_TIME}} | Let vehicle stop for TIME before performing collision.action (except for action 'none'); *default:* **0** |
+| **--intermodal-collision.stoptime** {{DT_TIME}} | Let vehicle stop for TIME before performing intermodal-collision.action (except for action 'none'); *default:* **0** |
 | **--collision.check-junctions** {{DT_BOOL}} | Enables collisions checks on junctions; *default:* **false** |
 | **--collision.check-junctions.mingap** {{DT_FLOAT}} | Increase or decrease sensitivity for junction collision check; *default:* **0** |
 | **--collision.mingap-factor** {{DT_FLOAT}} | Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used; *default:* **-1** |
@@ -336,6 +338,17 @@ configuration:
 
 | Option | Description |
 |--------|-------------|
+| **--device.stationfinder.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'stationfinder' device; *default:* **-1** |
+| **--device.stationfinder.explicit** {{DT_STR[]}} | Assign a 'stationfinder' device to named vehicles |
+| **--device.stationfinder.deterministic** {{DT_BOOL}} | The 'stationfinder' devices are set deterministic using a fraction of 1000; *default:* **false** |
+| **--device.stationfinder.rescueTime** {{DT_TIME}} | Time to wait for a rescue vehicle on the road side when the battery is empty; *default:* **1800** |
+| **--device.stationfinder.reserveFactor** {{DT_FLOAT}} | Additional battery buffer for unexpected traffic situation when estimating the battery need; *default:* **1.1** |
+| **--device.stationfinder.emptyThreshold** {{DT_FLOAT}} | Battery percentage to go into rescue mode; *default:* **5** |
+| **--device.stationfinder.radius** {{DT_TIME}} | Search radius in travel time seconds; *default:* **180** |
+| **--device.stationfinder.repeat** {{DT_TIME}} | When to trigger a new search if no station has been found; *default:* **60** |
+| **--device.stationfinder.maxChargePower** {{DT_FLOAT}} | The maximum charging speed of the vehicle battery; *default:* **1000** |
+| **--device.stationfinder.chargeType** {{DT_STR}} | Type of energy transfer; *default:* **charging** |
+| **--device.stationfinder.waitForCharge** {{DT_TIME}} | After this waiting time vehicle searches for a new station when the initial one is blocked; *default:* **600** |
 | **--device.battery.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'battery' device; *default:* **-1** |
 | **--device.battery.explicit** {{DT_STR[]}} | Assign a 'battery' device to named vehicles |
 | **--device.battery.deterministic** {{DT_BOOL}} | The 'battery' devices are set deterministic using a fraction of 1000; *default:* **false** |
@@ -357,15 +370,17 @@ configuration:
 | **--device.ssm.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'ssm' device; *default:* **-1** |
 | **--device.ssm.explicit** {{DT_STR[]}} | Assign a 'ssm' device to named vehicles |
 | **--device.ssm.deterministic** {{DT_BOOL}} | The 'ssm' devices are set deterministic using a fraction of 1000; *default:* **false** |
-| **--device.ssm.measures** {{DT_STR}} | Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET')) |
+| **--device.ssm.measures** {{DT_STR}} | Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC')) |
 | **--device.ssm.thresholds** {{DT_STR}} | Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. |
 | **--device.ssm.trajectories** {{DT_BOOL}} | Specifies whether trajectories will be logged (if false, only the extremal values and times are reported).; *default:* **false** |
 | **--device.ssm.range** {{DT_FLOAT}} | Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced.; *default:* **50** |
 | **--device.ssm.extratime** {{DT_FLOAT}} | Specifies the time in seconds to be logged after a conflict is over. Required >0 if PET is to be calculated for crossing conflicts.; *default:* **5** |
+| **--device.ssm.mdrac.prt** {{DT_FLOAT}} | Specifies the perception reaction time for MDRAC computation.; *default:* **1** |
 | **--device.ssm.file** {{DT_STR}} | Give a global default filename for the SSM output |
 | **--device.ssm.geo** {{DT_BOOL}} | Whether to use coordinates of the original reference system in output; *default:* **false** |
 | **--device.ssm.write-positions** {{DT_BOOL}} | Whether to write positions (coordinates) for each timestep; *default:* **false** |
 | **--device.ssm.write-lane-positions** {{DT_BOOL}} | Whether to write lanes and their positions for each timestep; *default:* **false** |
+| **--device.ssm.exclude-conflict-types** {{DT_STR}} | Which conflicts will be excluded from the log according to the conflict type they have been classified (combination of values in 'ego', 'foe' , '', any numerical valid conflict type code). An empty value will log all and 'ego'/'foe' refer to a certain conflict type subset. |
 
 ### Toc Device
 
