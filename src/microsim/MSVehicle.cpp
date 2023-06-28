@@ -7268,14 +7268,19 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh, const double gap) 
                     // ensure that vehicles which are stuck on the intersection may exit
                     if (!foeEntry->haveRed() && veh->getSpeed() > SUMO_const_haltingSpeed && gap < 0) {
                         // foe might be oncoming, don't drive unless foe can still brake safely
-                        const double foeGap = -gap - veh->getLength();
+                        const double foeNextSpeed = veh->getSpeed() + ACCEL2SPEED(veh->getCarFollowModel().getMaxAccel());
+                        const double foeBrakeGap = veh->getCarFollowModel().brakeGap(
+                                foeNextSpeed, veh->getCarFollowModel().getMaxDecel(), veh->getCarFollowModel().getHeadwayTime());
+                        // the minGap was subtracted from gap in MSLink::getLeaderInfo (enlarging the negative gap)
+                        // so the -2* makes it point in the right direction
+                        const double foeGap = -gap - veh->getLength() - 2 * getVehicleType().getMinGap();
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
                         if (DEBUG_COND) {
-                            std::cout << " foeGap=" << foeGap << " foeBGap=" << veh->getBrakeGap(true) << "\n";
+                            std::cout << " foeGap=" << foeGap << " foeBGap=" << foeBrakeGap << "\n";
 
                         }
 #endif
-                        if (foeGap < veh->getBrakeGap(true)) {
+                        if (foeGap < foeBrakeGap) {
                             response = true;
                             response2 = false;
                         } else {
