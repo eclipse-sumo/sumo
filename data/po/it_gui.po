@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-28 09:31+0000\n"
+"PO-Revision-Date: 2023-06-28 13:52+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8352,31 +8352,31 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2636
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2630
 msgid "Begin"
-msgstr ""
+msgstr "Inizio"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2642
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2636
 msgid "End"
-msgstr ""
+msgstr "Fine"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2662
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2686
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2656
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2680
 msgid "allowed vehicles"
-msgstr ""
+msgstr "veicoli autorizzati"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2667
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2691
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2661
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2685
 msgid "disallowed vehicles"
-msgstr ""
+msgstr "veicoli vietati"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2680
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2674
 msgid "Lane ID"
-msgstr ""
+msgstr "Codice identificativo della corsia"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2710
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2730
@@ -8385,37 +8385,37 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2724
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2750
 msgid "SUMO Probability"
-msgstr ""
+msgstr "Probabilità SUMO"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2724
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2718
 msgid "ParkingArea ID"
-msgstr ""
+msgstr "Codice identificativo del parcheggio"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2736
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2730
 msgid "Enable or disable visibility for parking area reroutes"
-msgstr ""
+msgstr "Mostra/Nascondi elementi reroute del parcheggio"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2770
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2764
 msgid "Edge in which vaporizer is placed"
-msgstr ""
+msgstr "Arco dove il vaporizer è posizionato"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2775
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2769
 msgid "Start Time"
-msgstr ""
+msgstr "Ora iniziale"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2781
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2775
 msgid "End Time"
-msgstr ""
+msgstr "Ora finale"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2787
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2781
 msgid "Name of vaporizer"
-msgstr ""
+msgstr "Nome del vaporizer"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2808
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2802
@@ -8471,7 +8471,7 @@ msgstr "Un'immagine bitmap da disegnare sopra il poligono"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3014
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3091
 msgid "Enable or disable use image file as a relative path"
-msgstr ""
+msgstr "Attiva/disattiva percorso relativo del file che contiene l'immagine"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2865
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2936
