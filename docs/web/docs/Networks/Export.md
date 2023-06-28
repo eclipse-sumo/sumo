@@ -36,7 +36,7 @@ extraction version 6.0.
 ## Amitran
 
 The Amitran network format consists of a single XML file conforming to
-the schema at <https://sumo-sim.org/xsd/amitran/network.xsd>. The option **--amitran-output** {{DT_FILE}}
+the schema at <https://sumo.dlr.de/xsd/amitran/network.xsd>. The option **--amitran-output** {{DT_FILE}}
 writes the data to a file with the following format
 
 ```xml

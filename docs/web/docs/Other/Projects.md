@@ -47,7 +47,7 @@ title: Projects
   management approaches
 - [OIS](https://web.archive.org/web/20040826034935/https://www.dlr.de/vf/forschung/projekte/ois): Verification of
   using optical sensors for optimization of traffic lights
-- [CityMobil](https://web.archive.org/web/20191204150245/https://www.citymobil-project.eu:80/) Automatic urban
+- [CityMobil](https://web.archive.org/web/20191204150245/http://www.citymobil-project.eu/) Automatic urban
   transportation. A [simulation for a parking lot](../Tutorials/CityMobil.md) inspired by the Rome
   demonstrator is included with SUMO.
 - [DRIVE C2X](https://web.archive.org/web/20170311043037/https://www.drive-c2x.eu/project) Driving implementation
