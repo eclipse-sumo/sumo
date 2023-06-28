@@ -26,7 +26,8 @@ title: ChangeLog
   - Fixed collision on junction due to unsafe lane changing. Issue #13363  
   - Fixed error when using option **--replay-rerouting**. Issue #13389
   - Fixed invalid saved state when input contains route distribution within a vehicle. Issue #13449
-  - Fixed emergency braking / collisiosn at roundabout. Issue #13292
+  - Fixed emergency braking / collision at roundabout. Issue #13292
+  - Fixed emergency braking on traffic light junction #13516
   - The simulation now aborts when encountering an invalid stop definition (unless option **--ignore-errors** is set). Issue #12670
   - bidirectional lane use:
     - Fixed invalid collision warning when using bidi lane. Issue #13312
@@ -87,6 +88,7 @@ title: ChangeLog
   - Fixed incomplete ptline-output for circular route. Issue #13431
   - Fixed minor links in rail taxi network. Issue #13456
   - Fixed unsafe signal plan at joint tls. Issue #13502
+  - Fixed overly large junction shapes when edges meet at a sharp angle. Issue #13505
   - bidi edges
     - Option **--railway.topology.repair.minimal** now performs minimal repair with respect to public transport lines. Issue #13248
     - Fixed bug where bidi edge could not be declared. Issue #13225    
@@ -102,6 +104,8 @@ title: ChangeLog
   - Fixed invalid route cost for train reversal on long edge (also applies to sumo). Issue #13360
   - Fixed intermodal routing failing for rail taxi (also applies to sumo). Issue #13424
   - Fixed invalid ride in output when starting personTrip on rail edge. Issue #13506
+  - Initial taxi waiting time is now included in cost computation when a personTrip starts with a taxi ride. Issue #13513
+  - Fixed invalid route output when a personTrip provides alternative vehicle modes. Issue #13512
 
 - activitygen
   - Fixed crash when there are no work positions within a city. Issue #13315
@@ -123,6 +127,7 @@ title: ChangeLog
   - Function `sumolib.net.getBoxXY` now returns correct results for large networks. Issue #13320
   - In circlePolygon.py, abbreviation -c is used for config, instead for color
   - When loading a tool configuration, unknown options now raise an error. Issue #13091  
+  - generateRailSignalConstraints.py: fixed invalid bidi constraint for trains with multiple diversionary tracks between stops. Issue #13519
   
 
 ### Enhancements
@@ -198,6 +203,7 @@ title: ChangeLog
   - checkStopOrder.py: added option **--filter-ids** to filter the input by vehicle id. Issue #13488
   - improved game internationalization. Issue #13082
   - generateRailSignalConstraints.py: now supports [portion working](Simulation/Railways.md#portion_working) (vehicles with `depart="split"`). Issue #13478
+  - generateRailSignalConstraints.py: now finds additional bidi conflicts. Issue #12085
 
 ### Miscellaneous
 
