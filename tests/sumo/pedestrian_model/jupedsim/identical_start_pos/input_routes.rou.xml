@@ -13,4 +13,10 @@
     <person id="p_1" depart="0.00" color="red">
         <walk route="r_0" arrivalPos="-0.10"/>
     </person>
+    <person id="p_2" depart="0.00" color="red">
+        <walk route="r_0" arrivalPos="-0.10"/>
+    </person>
+    <person id="p_3" depart="0.00" color="red">
+        <walk route="r_0" arrivalPos="-0.10"/>
+    </person>
 </routes>

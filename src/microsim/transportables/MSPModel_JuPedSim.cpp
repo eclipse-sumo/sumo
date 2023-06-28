@@ -99,9 +99,7 @@ MSPModel_JuPedSim::tryInsertion(PState* state) {
     JPS_ErrorMessage message = nullptr;
     JPS_AgentId agentId = JPS_Simulation_AddVelocityModelAgent(myJPSSimulation, agent_parameters, &message);
     if (message != nullptr) {
-        std::ostringstream oss;
-        oss << "Error while adding an agent: " << JPS_ErrorMessage_GetMessage(message);
-        WRITE_WARNING(oss.str());
+        WRITE_WARNINGF(TL("Error while adding an agent: %"), JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
     } else {
         state->setAgentId(agentId);
@@ -157,9 +155,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         // Perform one JuPedSim iteration.
 		bool ok = JPS_Simulation_Iterate(myJPSSimulation, &message);
         if (!ok) {
-            std::ostringstream oss;
-            oss << "Error during iteration " << i << ": " << JPS_ErrorMessage_GetMessage(message);
-            WRITE_ERROR(oss.str());
+            WRITE_ERRORF(TL("Error during iteration %: %"), i, JPS_ErrorMessage_GetMessage(message));
         }
     }
 
@@ -170,6 +166,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         PState* const state = *stateIt;
         if (state->isWaitingToEnter()) {
             tryInsertion(state);
+            ++stateIt;
             continue;
         }
         // Updates the agent position.
