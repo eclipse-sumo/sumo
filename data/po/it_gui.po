@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-28 09:09+0000\n"
+"PO-Revision-Date: 2023-06-28 09:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13250,12 +13250,12 @@ msgstr "Rimuovi tutti gli oggetti selezionati (scorciatoia: DEL)"
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:262
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:261
 msgid "Reduce"
-msgstr ""
+msgstr "Ridurri"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:262
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:261
 msgid "Reduce network to current selection."
-msgstr ""
+msgstr "Ridurre la rete alla selezione attuale."
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:275
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:274
