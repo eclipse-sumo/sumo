@@ -444,7 +444,7 @@ vehicle types).
 
 
 - (1): <https://www.baua.de/DE/Angebote/Publikationen/AWE/AWE108.pdf?__blob=publicationFile>
-- (2): <https://web.archive.org/web/20100531025842/http://www.motorrad-leuschner-d.de/motorraeder.html>
+- (2): <https://web.archive.org/web/20100531025842/https://www.motorrad-leuschner-d.de/motorraeder.html>
 - (3): <https://web.archive.org/web/20110313224137/www.bvg.de/index.php/de/binaries/asset/download/470184/file/1-1>
 - (4): <https://de.wikipedia.org/wiki/S-Bahn_Berlin>
 - (5): <https://de.wikipedia.org/wiki/Schieneng%C3%BCterverkehr>
@@ -452,7 +452,7 @@ vehicle types).
 - (7): <https://de.wikipedia.org/wiki/GTxN/M/S>
 - (8): <https://de.wikipedia.org/wiki/Flachwagen>
 - (9): <https://de.wikipedia.org/wiki/Reisebus>
-- (10): <http://www.neoplan-bus.com/cms/media/de/content/downloads/skyliner/NEOPLAN_SKYLINER.pdf>
+- (10): <https://www.neoplan-bus.com/cms/media/de/content/downloads/skyliner/NEOPLAN_SKYLINER.pdf>
 - (11): <https://de.wikipedia.org/wiki/DBAG-Baureihe_425>
 - (12): <https://de.wikipedia.org/wiki/ICE_3>
 - (14): <https://www.truck.man.eu/man/media/de/content_medien/doc/business_website_truck_master_1/einsatzgebiete/de_2/man-lkw-tg-fernverkehr-volumen.pdf>
@@ -461,23 +461,23 @@ vehicle types).
 - (17): Fußgeher- und Fahrradverkehr: Planungsprinzipien; Hermann Knoflacher; Böhlau Verlag Wien, 1995
 - (18): RiLSA 2010
 - (19): <https://www.colliseum.eu/wiki/images/b/bf/Geschwindigkeiten%2C_Verz%C3%B6gerungen_und_Beschleunigungen_nicht_motorisierter%2C_ungesch%C3%BCtzter_Verkehrsteilnehmer_am_Beispiel_Fahrrad_und_Inlineskates.pdf>
-- (20): <http://tuprints.ulb.tu-darmstadt.de/905/1/Schroeder_Frank_FZD_Diss.pdf>
-- (21): <http://www.unfallrekonstruktion.de/pdf/nickel.pdf>
-- (22): <http://www.trb.org/publications/nchrp/nchrp_rpt_505.pdf> (p48)
-- (23): `http://jml2012.indexcopernicus.com/fulltxt.php?ICID=1022800` (dead link) (pdf p.229-230)
+- (20): <https://tuprints.ulb.tu-darmstadt.de/905/1/Schroeder_Frank_FZD_Diss.pdf>
+- (21): <https://www.unfallrekonstruktion.de/pdf/nickel.pdf>
+- (22): <https://www.trb.org/publications/nchrp/nchrp_rpt_505.pdf> (p48)
+- (23): `https://jml2012.indexcopernicus.com/fulltxt.php?ICID=1022800` (dead link) (pdf p.229-230)
 - (24): <https://de.wikipedia.org/wiki/Kleinkraftrad>
 - (25): <https://de.wikipedia.org/wiki/Vespa_LX>
-- (26): <http://www.colliseum.net/wiki/Bremsversuche_mit_dem_Kleinkraftrad_S_50_/_S_51>
-- (27): <https://web.archive.org/web/20120622045505/http://www.unfallaufnahme.info/uebersichten-listen-und-tabellen/geschwindigkeiten-und-bremswege/index.html>
+- (26): <https://www.colliseum.net/wiki/Bremsversuche_mit_dem_Kleinkraftrad_S_50_/_S_51>
+- (27): <https://web.archive.org/web/20120622045505/https://www.unfallaufnahme.info/uebersichten-listen-und-tabellen/geschwindigkeiten-und-bremswege/index.html>
 - (28): <https://www.bmw-motorrad.de/>
-- (29): <https://web.archive.org/web/20140227232934/http://www.volkswagen.de/de/models/golf_7/trimlevel_overview.s9_trimlevel_detail.suffix.html/der-golf-cup~2Fcup.html>
+- (29): <https://web.archive.org/web/20140227232934/https://www.volkswagen.de/de/models/golf_7/trimlevel_overview.s9_trimlevel_detail.suffix.html/der-golf-cup~2Fcup.html>
 - (30): <https://web.archive.org/web/20160320031009/https://www.buchbinder.de/de/fahrzeuge.html>
-- (31): <http://www.colliseum.net/wiki/Lkw-Anfahrbeschleunigungswerte_f%C3%BCr_die_Praxis>
+- (31): <https://www.colliseum.net/wiki/Lkw-Anfahrbeschleunigungswerte_f%C3%BCr_die_Praxis>
 - (32): <https://de.wikipedia.org/wiki/Zul%C3%A4ssige_H%C3%B6chstgeschwindigkeit_im_Stra%C3%9Fenverkehr_(Deutschland)>
-- (33): `http://www.ice-fansite.com/index.php?option=com_content&view=article&id=195:ice1-techdat&catid=50:icet&Itemid=69` (dead link)
+- (33): `https://www.ice-fansite.com/index.php?option=com_content&view=article&id=195:ice1-techdat&catid=50:icet&Itemid=69` (dead link)
 - (34): <https://en.wikipedia.org/wiki/Orders_of_magnitude_(acceleration)>
 - (35): https://www.researchgate.net/publication/311633504_Improving_Road_Safety_of_Tank_Truck_in_Indonesia_by_Speed_Limiter_Installation
-- (36): <http://ka.stadtwiki.net/H%C3%B6chstgeschwindigkeit_(Bahn)>
+- (36): <https://ka.stadtwiki.net/H%C3%B6chstgeschwindigkeit_(Bahn)>
 - (37): https://www.rettungsdienst.brk.de/leichte-sprache/abteilung/beschaffung/rettungswagen-rtw/rtw-by-2010.html
 - (39): <https://electric-scooter.guide/comparisons/electric-scooter-performance-tests/>
 - (40): <https://www.chip.de/artikel/E-Scooter-Test-Die-besten-Elektro-Scooter-mit-Strassenzulassung_165587317.html>

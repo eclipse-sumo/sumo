@@ -41,7 +41,7 @@ topics](index.md#simulation).
 
 You may use a XML schema definition file for setting up a SUMO
 configuration:
-[sumoConfiguration.xsd](http://sumo.dlr.de/xsd/sumoConfiguration.xsd).
+[sumoConfiguration.xsd](https://sumo.dlr.de/xsd/sumoConfiguration.xsd).
 
 ### Configuration
 

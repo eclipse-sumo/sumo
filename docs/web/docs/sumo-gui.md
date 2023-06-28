@@ -902,7 +902,7 @@ viewing window is opened for each file at the start of the simulation.
 # 3D Visualization
 
 When sumo-gui was compiled with [OpenSceneGraph 
-(OSG)](http://www.openscenegraph.org/) support an additional
+(OSG)](https://www.openscenegraph.org/) support an additional
 (![NewView3D.gif](images/NewView3D.gif "New 3D view"))-button is
 present to open a new 3D view. A pre-compiled Windows version for testing is available
 [here](https://sumo.dlr.de/daily/sumo-win64extra-git.zip). Optionally sumo-gui will open a 3D view already from the start by 

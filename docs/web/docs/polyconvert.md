@@ -44,7 +44,7 @@ be projected in Polyconvert again.
 
 You may use a XML schema definition file for setting up a polyconvert
 configuration:
-[polyconvertConfiguration.xsd](http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd).
+[polyconvertConfiguration.xsd](https://sumo.dlr.de/xsd/polyconvertConfiguration.xsd).
 
 ### Configuration
 

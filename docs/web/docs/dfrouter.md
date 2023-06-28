@@ -32,7 +32,7 @@ The complete list of options is given in the following.
 
 You may use a XML schema definition file for setting up a dfrouter
 configuration:
-[dfrouterConfiguration.xsd](http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd).
+[dfrouterConfiguration.xsd](https://sumo.dlr.de/xsd/dfrouterConfiguration.xsd).
 
 ### Configuration
 

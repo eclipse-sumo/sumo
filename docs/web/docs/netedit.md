@@ -20,7 +20,7 @@ For an overview of features see [Netedit Usage Documentation](Netedit/index.md).
 ## Options
 
 You may use a XML schema definition file for setting up a Netedit
-configuration: [sumoConfiguration.xsd](http://sumo.dlr.de/xsd/neteditConfiguration.xsd).
+configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfiguration.xsd).
 
 ### Configuration
 | Option | Description |

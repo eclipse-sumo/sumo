@@ -23,7 +23,7 @@ The usage is described at
 
 You may use a XML schema definition file for setting up a netgenerate
 configuration:
-[netgenerateConfiguration.xsd](http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd).
+[netgenerateConfiguration.xsd](https://sumo.dlr.de/xsd/netgenerateConfiguration.xsd).
 
 ### Configuration
 

@@ -84,7 +84,7 @@ understand how the different traffic measures change over time.
 
 You may use a XML schema definition file for setting up a marouter
 configuration:
-[marouterConfiguration.xsd](http://sumo.dlr.de/xsd/marouterConfiguration.xsd).
+[marouterConfiguration.xsd](https://sumo.dlr.de/xsd/marouterConfiguration.xsd).
 
 ### Configuration
 

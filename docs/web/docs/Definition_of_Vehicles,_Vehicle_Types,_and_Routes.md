@@ -7,7 +7,7 @@ title: Definition of Vehicles, Vehicle Types, and Routes
 | Type of content    | Vehicles, Vehicle Types, and Routes |
 | Open format?       | Yes                                 |
 | SUMO specific?     | Yes                                 |
-| XML Schema         | [routes_file.xsd](http://sumo.dlr.de/xsd/routes_file.xsd) |
+| XML Schema         | [routes_file.xsd](https://sumo.dlr.de/xsd/routes_file.xsd) |
 
 There are [various applications](index.md#data_sources_for_demand_generation)
 that can be used to define vehicular demand for SUMO from existing input data.
@@ -653,7 +653,7 @@ The following vehicle classes exist:
 | bicycle        | 16                     |                                                                                                                                                                   |
 | evehicle       | 17                     | future mobility concepts such as electric vehicles which may get special access rights                                                                            |
 | tram           | 18                     |                                                                                                                                                                   |
-| rail_urban    | 19                     | heavier than 'tram' but distinct from 'rail'. Encompasses [Light Rail](http://en.wikipedia.org/wiki/Light_Rail) and [S-Bahn](http://en.wikipedia.org/wiki/S-Bahn) |
+| rail_urban    | 19                     | heavier than 'tram' but distinct from 'rail'. Encompasses [Light Rail](https://en.wikipedia.org/wiki/Light_Rail) and [S-Bahn](https://en.wikipedia.org/wiki/S-Bahn) |
 | rail           | 20                     | heavy rail                                                                                                                                                        |
 | rail_electric | 21                     | heavy rail vehicle that may only drive on electrified tracks                                                                                                      |
 | rail_fast     | 22                     | [High-speed-rail](https://en.wikipedia.org/wiki/High-speed_rail)                                                                                                  |
@@ -776,7 +776,7 @@ following table.
 | carFollowing-KraussAB       | KraussAB                                        | the default Krauss model with bounded acceleration (only relevant when using PHEM classes)   |
 | carFollowing-SmartSK        | SmartSK                                         | Variant of the default Krauss model<br><br>**Caution:** lacking documentation                |
 | carFollowing-Wiedemann      | Wiedemann                                       | Car following model by Wiedemann (2-Parameters)                                              |
-| carFollowing-W99            | W99                                             | Car following model by Wiedemann, [10-Parameter version](http://w99demo.com/)                |
+| carFollowing-W99            | W99                                             | Car following model by Wiedemann, [10-Parameter version](https://w99demo.com/)                |
 | carFollowing-Daniel1        | Daniel1                                         | Car following model by Daniel Krajzewicz<br><br>**Caution:** lacking documentation           |
 | carFollowing-ACC            | ACC                                             | [Car following model by Milanés V. and Shladover S.E.](Car-Following-Models/ACC.md)  |
 | carFollowing-CACC           | CACC                                            | [Car following model by Milanés V. and Shladover S.E.](Car-Following-Models/CACC.md) |
@@ -855,7 +855,7 @@ To select a car following model the following syntax should be used:
 ### Default *Krauss* Model Description
 
 The default model is a modification of the model defined by Stefan Krauß
-in [Microscopic Modeling of Traffic Flow: Investigation of Collision Free Vehicle Dynamics](http://sumo.dlr.de/pdf/KraussDiss.pdf). The
+in [Microscopic Modeling of Traffic Flow: Investigation of Collision Free Vehicle Dynamics](https://sumo.dlr.de/pdf/KraussDiss.pdf). The
 implemented model follows the same idea as that of Krauß, namely: Let
 vehicles drive as fast as possibly while maintaining perfect safety
 (always being able to avoid a collision if the leader starts braking
@@ -902,9 +902,9 @@ following table.
 
 | Attribute Value | Description                                                                                              |
 | --------------- | -------------------------------------------------------------------------------------------------------- |
-| LC2013          | The default car following model, developed by Jakob Erdmann based on DK2008 (see [SUMO’s Lane-Changing Model](http://elib.dlr.de/102254/)). This is the default model.    |
+| LC2013          | The default car following model, developed by Jakob Erdmann based on DK2008 (see [SUMO’s Lane-Changing Model](https://elib.dlr.de/102254/)). This is the default model.    |
 | SL2015          | Lane-changing model for [sublane-simulation](Simulation/SublaneModel.md) (used by default when setting option **--lateral-resolution** {{DT_FLOAT}}). This model can only be used with the sublane-extension.<br><br>**Caution:** This model may technically be used without activating sublane-simulation but this usage has not been fully tested and may not work as expected.  |
-| DK2008          | The original lane-changing model of sumo until version 0.18.0, developed by Daniel Krajzewicz (see [Traffic Simulation with SUMO – Simulation of Urban Mobility](http://link.springer.com/chapter/10.1007/978-1-4419-6142-6_7)). |
+| DK2008          | The original lane-changing model of sumo until version 0.18.0, developed by Daniel Krajzewicz (see [Traffic Simulation with SUMO – Simulation of Urban Mobility](https://link.springer.com/chapter/10.1007/978-1-4419-6142-6_7)). |
 
 
 Mostly, each model uses its own set of parameters. The following table

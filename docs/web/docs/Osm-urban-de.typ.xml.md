@@ -14,4 +14,4 @@ content.
 
 | Author | Source | History | License |
 | ------ | ------ | ------- | ------- |
-| [W. Bamberger](http://sourceforge.net/users/w-bamberger)| Own work (see also [SUMO edge type file](SUMO_edge_type_file.md)) | This file is located in the SUMO repository. See the log there. | This work is licensed under a <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 1.0 Universal license</a>. To the extent possible under law, the person who associated CC0 with this work has waived all copyright and related or neighboring rights to this work. |
+| [W. Bamberger](https://sourceforge.net/users/w-bamberger)| Own work (see also [SUMO edge type file](SUMO_edge_type_file.md)) | This file is located in the SUMO repository. See the log there. | This work is licensed under a <a href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 1.0 Universal license</a>. To the extent possible under law, the person who associated CC0 with this work has waived all copyright and related or neighboring rights to this work. |
