@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Version Git Main
+## Version 1.18.0 (29.06.2023)
 
 ### Bugfixes
 
