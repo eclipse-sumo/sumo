@@ -5790,7 +5790,7 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
     if (!waypoint) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TRIGGERED,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Whether a person or container or bth may end the stop"),
+                                              TL("Whether a person or container or both may end the stop"),
                                               "0");
         attrProperty.setDiscreteValues({"0", "person", "container", "join"}, true);
         myTagProperties[currentTag].addAttribute(attrProperty);
