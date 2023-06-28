@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-22 13:18+0000\n"
+"PO-Revision-Date: 2023-06-28 08:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9988,37 +9988,40 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5641
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5495
 msgid "The name of the person"
-msgstr ""
+msgstr "Il nome della persona"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5646
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5500
 msgid "The id of the person type to use for this person"
 msgstr ""
+"Il codice identificativo del tipo di persone da utilizzare per questa persona"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5652
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5506
 msgid "This person's color"
-msgstr ""
+msgstr "Il colore della persona"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5658
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5512
 msgid "The position at which the person shall enter the net"
-msgstr ""
+msgstr "La posizione dove la persona deve entrare nella rete"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5671
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5525
 msgid "The name of the container"
-msgstr ""
+msgstr "Il nome del contenitore"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5676
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5530
 msgid "The id of the container type to use for this container"
 msgstr ""
+"Il codice identificativo del tipo di contenitori da utilizzare per questo "
+"contenitore"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5682
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5536
 msgid "This container's color"
-msgstr ""
+msgstr "Il colore del contenitore"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5708
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5562
@@ -10026,6 +10029,8 @@ msgid ""
 "If set to a non-negative time value, then the stop duration can be extended "
 "at most by the extension value in seconds"
 msgstr ""
+"Se viene impostato a una durata non negativa (in secondi) la sosta può "
+"essere prolungata fino a questo valore"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5714
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5568
