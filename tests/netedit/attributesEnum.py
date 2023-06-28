@@ -1593,7 +1593,7 @@ class trip:
 # trip (from-to junctions)
 
 
-class tripFromToJunction:
+class tripJunction:
     class create:
         type = 5
         id = 8

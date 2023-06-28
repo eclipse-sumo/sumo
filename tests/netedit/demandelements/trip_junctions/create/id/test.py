@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set invalid id
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.id, "%%%;;%%%")
+netedit.changeDefaultValue(netedit.attrs.tripJunction.create.id, "%%%;;%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.id, "")
+netedit.changeDefaultValue(netedit.attrs.tripJunction.create.id, "")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.id, "t_0")
+netedit.changeDefaultValue(netedit.attrs.tripJunction.create.id, "t_0")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
@@ -75,7 +75,7 @@ netedit.leftClick(referencePosition, 85, 77)
 netedit.typeEnter()
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.id, "customID")
+netedit.changeDefaultValue(netedit.attrs.tripJunction.create.id, "customID")
 
 # create trip
 netedit.leftClick(referencePosition, 80, 360)
