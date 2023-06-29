@@ -1331,7 +1331,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         departPos = 0.;
         if (lastStage != nullptr) {
             if (lastStage->getDestinationStop() != nullptr) {
-                departPos = lastStage->getDestinationStop()->getAccessPos(fromEdge);
+                departPos = lastStage->getDestinationStop()->getAccessPos(fromEdge, &myParsingRNG);
             } else if (lastStage->getDestination() == fromEdge) {
                 departPos = lastStage->getArrivalPos();
             } else if (lastStage->getDestination()->getToJunction() == fromEdge->getToJunction()) {

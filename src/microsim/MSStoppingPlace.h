@@ -206,7 +206,7 @@ public:
     }
 
     /// @brief the position on the given edge which is connected to this stop, -1 on failure
-    double getAccessPos(const MSEdge* edge) const;
+    double getAccessPos(const MSEdge* edge, SumoRNG* rng = nullptr) const;
 
     /// @brief the distance from the access on the given edge to the stop, -1 on failure
     double getAccessDistance(const MSEdge* edge) const;

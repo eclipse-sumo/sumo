@@ -267,13 +267,16 @@ MSStoppingPlace::computeLastFreePos() {
 
 
 double
-MSStoppingPlace::getAccessPos(const MSEdge* edge) const {
+MSStoppingPlace::getAccessPos(const MSEdge* edge, SumoRNG* rng) const {
     if (edge == &myLane.getEdge()) {
         return (myBegPos + myEndPos) / 2.;
     }
     for (const auto& access : myAccessPos) {
         if (edge == &access.lane->getEdge()) {
-            return access.endPos;
+            if (rng == nullptr || access.startPos == access.endPos) {
+                return access.endPos;
+            }
+            return RandHelper::rand(access.startPos, access.endPos, rng);
         }
     }
     return -1.;
