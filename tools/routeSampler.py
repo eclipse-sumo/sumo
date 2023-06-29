@@ -1022,7 +1022,6 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     if usedRoutes:
         outf.write('<!-- begin="%s" end="%s" -->\n' % (begin, end))
         period = (end - begin) / len(usedRoutes)
-        depart = begin
         routeCounts = getRouteCounts(routes, usedRoutes)
         if options.writeRouteIDs:
             for routeIndex in sorted(set(usedRoutes)):
@@ -1037,11 +1036,15 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             outf.write('    </routeDistribution>\n\n')
 
         routeID = options.writeRouteDist
+
         if options.writeFlows is None:
+            departs = [rng.uniform(begin, end) for ri in usedRoutes]
+            departs.sort()
             for i, routeIndex in enumerate(usedRoutes):
                 if options.writeRouteIDs:
                     routeID = routeIndex
                 vehID = options.prefix + intervalPrefix + str(i)
+                depart = departs[i]
                 if routeID is not None:
                     if options.pedestrians:
                         outf.write('    <person id="%s" depart="%.2f"%s>\n' % (
@@ -1062,15 +1065,14 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                             vehID, depart, options.vehattrs))
                         routes.write(outf, None, None, routeIndex, None)
                         outf.write('    </vehicle>\n')
-                depart += period
         else:
-            routeDeparts = defaultdict(list)
-            for routeIndex in usedRoutes:
-                routeDeparts[routeIndex].append(depart)
-                depart += period
             if options.writeRouteDist:
                 totalCount = sum(routeCounts)
                 probability = totalCount / (end - begin)
+                fBegin = begin
+                if options.writeFlows == "number":
+                    # don't always start at the interval begin
+                    fBegin += rng.uniform(0, 1 / probability)
                 flowID = options.prefix + intervalPrefix + options.writeRouteDist
                 if options.writeFlows == "poisson":
                     repeat = 'period="exp(%.4f)"' % probability
@@ -1082,16 +1084,19 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 else:
                     repeat = 'probability="%.4f"' % probability
                 outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
-                    flowID, begin, end, repeat,
+                    flowID, fBegin, end, repeat,
                     options.writeRouteDist, options.vehattrs))
             else:
                 # ensure flows are sorted
                 flows = []
                 for routeIndex in sorted(set(usedRoutes)):
                     outf2 = StringIO()
-                    fBegin = min(routeDeparts[routeIndex])
-                    fEnd = max(routeDeparts[routeIndex] + [fBegin + 1.0])
-                    probability = routeCounts[routeIndex] / (fEnd - fBegin)
+                    probability = routeCounts[routeIndex] / (end - begin)
+                    fBegin = begin
+                    fEnd = end
+                    if options.writeFlows == "number":
+                        # don't always start at the interval begin
+                        fBegin += rng.uniform(0, 1 / probability)
                     flowID = "%s%s%s" % (options.prefix, intervalPrefix, routeIndex)
                     if options.writeFlows == "poisson":
                         repeat = 'period="exp(%.4f)"' % probability
@@ -1124,9 +1129,10 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                                 flowID, fBegin, fEnd, repeat, options.vehattrs))
                             routes.write(outf2, None, None, routeIndex, None)
                             outf2.write('    </flow>\n')
-                    flows.append((fBegin, outf2))
+                    # secondary sort by routeIndex so we don't have to compare stringIO
+                    flows.append((fBegin, routeIndex, outf2))
                 flows.sort()
-                for fBegin, outf2 in flows:
+                for fBegin, index, outf2 in flows:
                     outf.write(outf2.getvalue())
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
