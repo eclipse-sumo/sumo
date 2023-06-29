@@ -535,7 +535,7 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
         throw InvalidArgument("Invalid position " + toString(pos) + " for access on lane '" + lane->getID() + "' in stop '" + myCurrentStop->getID() + "'.");
     }
     // add bus stop access
-    if (!myCurrentStop->addAccess(lane, pos, length)) {
+    if (!myCurrentStop->addAccess(lane, pos, pos, length)) {
         throw InvalidArgument("Duplicate access on lane '" + lane->getID() + "' for stop '" + myCurrentStop->getID() + "'");
     }
 }
