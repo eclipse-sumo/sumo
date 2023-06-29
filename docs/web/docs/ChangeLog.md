@@ -7,7 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
-  - Setting param `vTpes` for actuated and delay_based tls detectors is working again. Issue #13448 (regression in 1.15.0)
+  - Setting param `vyTpes` for actuated and delay_based tls detectors is working again. Issue #13448 (regression in 1.15.0)
   - Fixed invalid emission and consumption outputs for the HBEFA4 emission classes (model was calibrated on km/h instead of m/s). Issue #13250
   - Collisions on shared walkingareas without vehicular road intersection are now detected. Issue #13132
   - A warning is now given if save-state.times are not reached due to a mismatch with step-length and begin time. Issue #13162
@@ -19,7 +19,7 @@ title: ChangeLog
   - Fixed crash after rerouting and losing a stop. Issue #13190
   - Fixed invalid TTC computation when both vehicles are extrapolated to stop. Issue #13212
   - A parkingReroute now works even if the parkingArea on the current edge is not included in the alternatives list. Issue #13288
-  - Fixed unnecessary emergency braking when cars urgently needs to swap lanes. Issue #13295  
+  - Fixed unnecessary emergency braking when cars urgently need to swap lanes. Issue #13295  
   - IDM no longer violates right of way due to imprecise stopping at minor link. Issue #13369
   - Fixed error when loading personTrip between identical stops. Issue #13385
   - Fixed invalid error message for disconnected personTrip between stops. Issue #13386
@@ -70,7 +70,7 @@ title: ChangeLog
   - The breakpoint-dialog now takes into account the begin time when rounding breakpoints to a reachable step. Issue #13163
   - game mode now switches time display style for all time labels. Issue #13211
   - Fixed crash when switching to a (mismatching) alternative net file. Issue #13215
-  - Clicking on a vehicle id which is not in the network no longer moves the view to Position::INVALID. Issue #13251
+  - Clicking on a vehicle id which has left the network, no longer moves the view to Position::INVALID. Issue #13251
   - Fixed invalid rendering of spread-bidi lanes for shared median lane network. Issue #13343
   - Fixed bug where vehicle context menu function 'select foes' did not select all relevant junction foes. Issue #13358
 
@@ -87,7 +87,7 @@ title: ChangeLog
   - User defined node radius is no longer ignored for geometry-like nodes. Issue #13064      
   - Fixed incomplete ptline-output for circular route. Issue #13431
   - Fixed minor links in rail taxi network. Issue #13456
-  - Fixed unsafe signal plan at joint tls. Issue #13502
+  - Fixed unsafe signal plan at joined tls. Issue #13502
   - Fixed overly large junction shapes when edges meet at a sharp angle. Issue #13505
   - bidi edges
     - Option **--railway.topology.repair.minimal** now performs minimal repair with respect to public transport lines. Issue #13248
@@ -102,7 +102,7 @@ title: ChangeLog
 - duarouter
   - Fixed railway routing failure if the stop is defined on a short buffer edge (also applies to sumo). Issue #13277
   - Fixed invalid route cost for train reversal on long edge (also applies to sumo). Issue #13360
-  - Fixed intermodal routing failing for rail taxi (also applies to sumo). Issue #13424
+  - Fixed intermodal routing failure for rail taxi (also applies to sumo). Issue #13424
   - Fixed invalid ride in output when starting personTrip on rail edge. Issue #13506
   - Initial taxi waiting time is now included in cost computation when a personTrip starts with a taxi ride. Issue #13513
   - Fixed invalid route output when a personTrip provides alternative vehicle modes. Issue #13512
@@ -124,8 +124,7 @@ title: ChangeLog
   - Fixed error when calling some tools without argument. Issue #13388 (regression in 1.17.0)
   - abstractRail.py: Failure to optimize one region is now recoverable. Issue #13193
   - gridDistricts.py: Networks with non-normalized offsets now create correct taz shapes. Issue #13264
-  - Function `sumolib.net.getBoxXY` now returns correct results for large networks. Issue #13320
-  - In circlePolygon.py, abbreviation -c is used for config, instead for color
+  - Function `sumolib.net.getBoxXY` now returns correct results for large networks. Issue #13320  
   - When loading a tool configuration, unknown options now raise an error. Issue #13091  
   - generateRailSignalConstraints.py: fixed invalid bidi constraint for trains with multiple diversionary tracks between stops. Issue #13519
   
@@ -206,7 +205,7 @@ title: ChangeLog
 
 ### Miscellaneous
 
-- splitRouteFiles.py, netcheck.py, plot_csv_bars.py, plot_net_trafficLights.py and plot_csv_timeline now use the **-c** shortcut for loading a configuration. All options that previously used this continue to work with the respective long option name (e.g. --columns). Issue #8409 and #12874
+- splitRouteFiles.py, netcheck.py, ciclePolygon.py, plot_csv_bars.py, plot_net_trafficLights.py and plot_csv_timeline now use the **-c** shortcut for loading a configuration. All options that previously used this continue to work with the respective long option name (e.g. --columns). Issue #8409 and #12874
 - plotXMLAttributes.py and plot_trajectories.py no longer create output file 'plot.png' by default. Issue #13166
 - netconvert: road objects imported from OpenDRIVE are now placed on a higher layer to make them visible above the road. Issue #13197
 - netconvert: option **--osm.all-attributes** now defaults to exporting all attributes because the explicit list of attributes (**--osm.extra-attributes**) now defaults to value **all**. Issue #13218
