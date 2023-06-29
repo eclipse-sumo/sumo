@@ -59,6 +59,7 @@ NONE_ATTR_DEFAULT = 0
 
 POST_PROCESSING_ATTRS = [RANK_ATTR, COUNT_ATTR, BOX_ATTR, DENS_ATTR]
 SYMBOLIC_ATTRS = POST_PROCESSING_ATTRS + [INDEX_ATTR]
+NON_DATA_ATTRS = SYMBOLIC_ATTRS + [NONE_ATTR]
 
 
 def getOptions(args=None):
@@ -248,34 +249,44 @@ def getDataStream(options):
     splitY = len(attr2parts[options.yattr]) > 1 and not options.joiny
 
     level = 0
-    with openz(options.files[0]) as xmlf:
-        for event, elem in ET.iterparse(xmlf, ("start", "end")):
-            if event == "start":
-                level += 1
-                for a, e in zip(attrOptions, options.attrElems):
-                    attrOrig = getattr(options, a)
-                    for attr in attr2parts[attrOrig]:
-                        if attr in elem.keys():
-                            if e is not None and e != elem.tag:
-                                # print("skipping attribute '%s' in element '%s' (required elem '%s'" %
-                                #       (attr, elem.tag, e))
-                                continue
-                            elem2level[elem.tag] = level
-                            if attr in attr2elem:
-                                oldTag = attr2elem[attr]
-                                if oldTag != elem.tag:
-                                    if elem2level[oldTag] < level:
-                                        attr2elem[attr] = elem.tag
-                                    print("Warning: found %s '%s' in element '%s' (level %s) and "
-                                          "element '%s' (level %s). Using '%s'." %
-                                          (a, attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]))
-                            else:
-                                attr2elem[attr] = elem.tag
-                if len(attr2elem) == len(allAttrs):
-                    # all attributes have been seen
-                    break
-            elif event == "end":
-                level -= 1
+    foundAll = False
+    dataAttrs = [a for a in allAttrs if a not in NON_DATA_ATTRS]
+    for fname in options.files:
+        with openz(fname) as xmlf:
+            for event, elem in ET.iterparse(xmlf, ("start", "end")):
+                if event == "start":
+                    level += 1
+                    for a, e in zip(attrOptions, options.attrElems):
+                        attrOrig = getattr(options, a)
+                        for attr in attr2parts[attrOrig]:
+                            if attr in elem.keys():
+                                if e is not None and e != elem.tag:
+                                    # print("skipping attribute '%s' in element '%s' (required elem '%s'" %
+                                    #       (attr, elem.tag, e))
+                                    continue
+                                elem2level[elem.tag] = level
+                                if attr in attr2elem:
+                                    oldTag = attr2elem[attr]
+                                    if oldTag != elem.tag:
+                                        if elem2level[oldTag] < level:
+                                            attr2elem[attr] = elem.tag
+                                        print("Warning: found %s '%s' in element '%s' (level %s) and "
+                                              "element '%s' (level %s). Using '%s'." %
+                                              (a, attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]))
+                                else:
+                                    attr2elem[attr] = elem.tag
+                    if len(attr2elem) == len(dataAttrs):
+                        # all attributes have been seen
+                        foundAll = True
+                        break
+                elif event == "end":
+                    level -= 1
+        if foundAll:
+            break
+
+    if not elem2level:
+        print("Error: No elements found in input files.", file=sys.stderr)
+        sys.exit()
 
     if len(attr2elem) != len(allAttrs):
         for a in attrOptions:
@@ -541,6 +552,7 @@ def main(options):
     numericYCount = 0
     stringYCount = 0
 
+    usableIDs = 0 
     for fileIndex, datafile in enumerate(options.files):
         totalIDs = 0
         filteredIDs = 0
@@ -584,8 +596,11 @@ def main(options):
             filteredIDs += 1
         if totalIDs == 0 or filteredIDs == 0 or options.verbose:
             print("Found %s datapoints in %s and kept %s" % (totalIDs, datafile, filteredIDs))
+        usableIDs += filteredIDs
 
-    if filteredIDs == 0:
+    if usableIDs == 0:
+        if len(options.files) > 1:
+            print("Found no usable datapoints%s in %s files" % len(options.files))
         sys.exit()
 
     minY = uMax
