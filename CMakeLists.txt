@@ -43,7 +43,7 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif ()
 
 project("${PROJECT_NAME}" CXX C)
-set(PACKAGE_VERSION "1.18.0")
+set(PACKAGE_VERSION "git")
 cmake_minimum_required(VERSION 3.4)
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
