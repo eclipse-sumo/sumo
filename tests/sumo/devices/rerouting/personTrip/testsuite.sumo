@@ -99,6 +99,9 @@ intermodal_car_walk_junctionTaz
 # train access
 access
 
+# train access with random position
+access_random
+
 # walk to train stop via access
 access_walk
 
