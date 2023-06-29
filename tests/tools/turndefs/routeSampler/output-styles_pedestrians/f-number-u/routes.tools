@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:09:23.952672 by routeSampler.py v1_13_0+1343-240e5d48340
+<!-- generated on 2023-06-29 15:03:59.076606 by routeSampler.py v1_17_0+1318-85f891f765f
 <configuration>
-    <pedestrians value="True"/>
     <route-files value="input_routes.rou.xml"/>
     <turn-files value="input_turns.xml"/>
     <write-flows value="number"/>
     <write-route-distribution value="routeDist"/>
+    <pedestrians value="True"/>
 </configuration>
 -->
 
@@ -87,5 +87,5 @@
         <route id="96" edges="71.121.42 -3 -3.180.00 15 15.180.00" probability="1"/>
     </routeDistribution>
 
-    <flow id="routeDist" begin="0.00" end="99.00" number="87" route="routeDist"/>
+    <flow id="routeDist" begin="0.45" end="99.00" number="87" route="routeDist"/>
 </routes>
