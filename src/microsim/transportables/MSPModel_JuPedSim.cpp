@@ -95,7 +95,7 @@ MSPModel_JuPedSim::tryInsertion(PState* state) {
 	agent_parameters.position = {state->getPosition(*state->getStage(), 0).x(), state->getPosition(*state->getStage(), 0).y()};
     const double angle = state->getAngle(*state->getStage(), 0);
     agent_parameters.orientation = (fabs(angle - M_PI / 2) < NUMERICAL_EPS) ? JPS_Point{0., 1.} : JPS_Point{1., tan(angle)};
-    std::string pedestrianTypeID = (state->getPerson()->getVehicleType()).getID();
+    std::string pedestrianTypeID = state->getPerson()->getVehicleType().getID();
     std::map<std::string, JPS_ModelParameterProfileId>::iterator it = myJPSParameterProfileIds.find(pedestrianTypeID);
     if (it != myJPSParameterProfileIds.end()) {
         agent_parameters.profileId = it->second;
@@ -583,12 +583,11 @@ MSPModel_JuPedSim::initialize() {
     }
 
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
-    const std::vector<MSVehicleType*> pedestrianTypes = (myNetwork->getVehicleControl()).getPedestrianTypes();
     size_t nbrParameterProfiles = 0;
-    for (const MSVehicleType* type : pedestrianTypes) {
+    for (const MSVehicleType* type : myNetwork->getVehicleControl().getPedestrianTypes()) {
         ++nbrParameterProfiles;
         JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, nbrParameterProfiles, 1.0, 0.5, MIN2(type->getMaxSpeed(), type->getDesiredMaxSpeed()), 0.3);
-        myJPSParameterProfileIds.insert(std::make_pair(type->getID(), nbrParameterProfiles));
+        myJPSParameterProfileIds[type->getID()] = nbrParameterProfiles;
     }
     
     myJPSModel = JPS_VelocityModelBuilder_Build(modelBuilder, &message);
