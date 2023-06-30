@@ -525,13 +525,6 @@ MSPModel_JuPedSim::initialize() {
     myGEOSPedestrianNetwork = buildPedestrianNetwork(myNetwork);
     myIsPedestrianNetworkConnected = !myGEOSPedestrianNetwork->isCollection();
 
-    std::ofstream GEOSGeometryDumpFile;
-    GEOSGeometryDumpFile.open("pedestrianNetwork.wkt");
-    geos::io::WKTWriter writer;
-    std::string wkt = writer.write(myGEOSPedestrianNetwork);
-    GEOSGeometryDumpFile << wkt << std::endl;
-    GEOSGeometryDumpFile.close();
-
     myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
 
     /*
@@ -560,8 +553,14 @@ MSPModel_JuPedSim::initialize() {
     }
     renderPolygon(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
     preparePolygonForJPS(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
-
     prepareAdditionalPolygonsForJPS();
+
+    std::ofstream GEOSGeometryDumpFile;
+    GEOSGeometryDumpFile.open("pedestrianNetwork.wkt");
+    geos::io::WKTWriter writer;
+    std::string wkt = writer.write(maxAreaConnectedComponentPolygon); // Change to myGEOSPedestrianNetwork when multiple components have been implemented.
+    GEOSGeometryDumpFile << wkt << std::endl;
+    GEOSGeometryDumpFile.close();
 
     JPS_ErrorMessage message = nullptr; 
     
