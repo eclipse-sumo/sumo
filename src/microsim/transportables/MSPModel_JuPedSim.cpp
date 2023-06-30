@@ -95,15 +95,14 @@ MSPModel_JuPedSim::tryInsertion(PState* state) {
 	agent_parameters.position = {state->getPosition(*state->getStage(), 0).x(), state->getPosition(*state->getStage(), 0).y()};
     const double angle = state->getAngle(*state->getStage(), 0);
     agent_parameters.orientation = (fabs(angle - M_PI / 2) < NUMERICAL_EPS) ? JPS_Point{0., 1.} : JPS_Point{1., tan(angle)};
-    const std::vector<MSVehicleType*> vehicleTypes = (myNetwork->getVehicleControl()).getVTypes();
-    std::string vehicleTypeID = (state->getPerson()->getVehicleType()).getID();
-    std::map<std::string, JPS_ModelParameterProfileId>::iterator it = myJPSParameterProfileIds.find(vehicleTypeID);
+    std::string pedestrianTypeID = (state->getPerson()->getVehicleType()).getID();
+    std::map<std::string, JPS_ModelParameterProfileId>::iterator it = myJPSParameterProfileIds.find(pedestrianTypeID);
     if (it != myJPSParameterProfileIds.end()) {
         agent_parameters.profileId = it->second;
     }
     else {
         std::ostringstream oss;
-        oss << "Error while adding an agent: vType " << vehicleTypeID << " hasn't been registered as a JuPedSim parameter profile.";
+        oss << "Error while adding an agent: vType " << pedestrianTypeID << " hasn't been registered as a JuPedSim parameter profile.";
         WRITE_WARNING(oss.str());
     }
 
@@ -584,11 +583,11 @@ MSPModel_JuPedSim::initialize() {
     }
 
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
-    const std::vector<MSVehicleType*> pedestrianTypes = (myNetwork->getVehicleControl()).getPedestrianVTypes();
+    const std::vector<MSVehicleType*> pedestrianTypes = (myNetwork->getVehicleControl()).getPedestrianTypes();
     size_t nbrParameterProfiles = 0;
     for (const MSVehicleType* type : pedestrianTypes) {
         ++nbrParameterProfiles;
-        JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, nbrParameterProfiles, 1.0, 0.5, type->getMaxSpeed()/10, 0.3);
+        JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, nbrParameterProfiles, 1.0, 0.5, std::min(type->getMaxSpeed(), type->getDesiredMaxSpeed()), 0.3);
         myJPSParameterProfileIds.insert(std::make_pair(type->getID(), nbrParameterProfiles));
     }
     

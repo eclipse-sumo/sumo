@@ -463,17 +463,8 @@ MSVehicleControl::getVTypeDistribution(const std::string& typeDistID) const {
 }
 
 
-const std::vector<MSVehicleType*> 
-MSVehicleControl::getVTypes(void) const {
-    std::vector<MSVehicleType*> vehicleTypes;
-    for (auto const& e : myVTypeDict)
-        vehicleTypes.push_back(e.second);
-    return vehicleTypes;
-}
-
-
 const std::vector<MSVehicleType*>
-MSVehicleControl::getPedestrianVTypes(void) const {
+MSVehicleControl::getPedestrianTypes(void) const {
     std::vector<MSVehicleType*> pedestrianTypes;
     for (auto const& e : myVTypeDict)
         if (e.second->getVehicleClass() == SUMOVehicleClass::SVC_PEDESTRIAN) {

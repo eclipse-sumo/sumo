@@ -441,11 +441,8 @@ public:
     /// @brief return the vehicle type distribution with the given id
     const RandomDistributor<MSVehicleType*>* getVTypeDistribution(const std::string& typeDistID) const;
 
-    /// @brief Return all vehicle types.
-    const std::vector<MSVehicleType*> getVTypes(void) const;
-
     /// @brief Return all pedestrian vehicle types.
-    const std::vector<MSVehicleType*> getPedestrianVTypes(void) const;
+    const std::vector<MSVehicleType*> getPedestrianTypes(void) const;
 
     /// @}
 
