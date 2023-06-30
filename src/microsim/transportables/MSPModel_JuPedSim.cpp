@@ -99,11 +99,9 @@ MSPModel_JuPedSim::tryInsertion(PState* state) {
     std::map<std::string, JPS_ModelParameterProfileId>::iterator it = myJPSParameterProfileIds.find(pedestrianTypeID);
     if (it != myJPSParameterProfileIds.end()) {
         agent_parameters.profileId = it->second;
-    }
-    else {
-        std::ostringstream oss;
-        oss << "Error while adding an agent: vType " << pedestrianTypeID << " hasn't been registered as a JuPedSim parameter profile.";
-        WRITE_WARNING(oss.str());
+    } else {
+        WRITE_WARNINGF(TL("Error while adding an agent: vType '%' hasn't been registered as a JuPedSim parameter profile, using the default type."), pedestrianTypeID);
+        agent_parameters.profileId = myJPSParameterProfileIds[DEFAULT_PEDTYPE_ID];
     }
 
     JPS_ErrorMessage message = nullptr;
@@ -111,8 +109,7 @@ MSPModel_JuPedSim::tryInsertion(PState* state) {
     if (message != nullptr) {
         WRITE_WARNINGF(TL("Error while adding an agent: %"), JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
-    }
-    else {
+    } else {
         state->setAgentId(agentId);
     }
 }
@@ -577,9 +574,7 @@ MSPModel_JuPedSim::initialize() {
     
     myJPSGeometry = JPS_GeometryBuilder_Build(myJPSGeometryBuilder, &message);
     if (myJPSGeometry == nullptr) {
-        std::ostringstream oss;
-        oss << "Error while creating the geometry: " << JPS_ErrorMessage_GetMessage(message);
-        WRITE_ERROR(oss.str());
+        WRITE_WARNINGF(TL("Error creating the geometry: %"), JPS_ErrorMessage_GetMessage(message));
     }
 
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
@@ -592,16 +587,12 @@ MSPModel_JuPedSim::initialize() {
     
     myJPSModel = JPS_VelocityModelBuilder_Build(modelBuilder, &message);
     if (myJPSModel == nullptr) {
-        std::ostringstream oss;
-        oss << "Error while creating the pedestrian model: " << JPS_ErrorMessage_GetMessage(message);
-        WRITE_ERROR(oss.str());
+        WRITE_WARNINGF(TL("Error creating the pedestrian model: %"), JPS_ErrorMessage_GetMessage(message));
     }
 
 	myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
     if (myJPSSimulation == nullptr) {
-        std::ostringstream oss;
-        oss << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(message);
-        WRITE_ERROR(oss.str());
+        WRITE_WARNINGF(TL("Error creating the simulation: %"), JPS_ErrorMessage_GetMessage(message));
     }
 
     JPS_ErrorMessage_Free(message);

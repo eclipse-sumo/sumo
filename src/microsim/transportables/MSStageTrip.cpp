@@ -143,6 +143,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
     if (transportable->getNumStages() == transportable->getNumRemainingStages()) { // this is a difficult way to check that we are the first stage
         myDepartPos = transportable->getParameter().departPos;
         if (transportable->getParameter().departPosProcedure == DepartPosDefinition::RANDOM) {
+            // TODO we should probably use the rng of the lane here
             myDepartPos = RandHelper::rand(myOrigin->getLength());
         }
         previous = new MSStageWaiting(myOrigin, nullptr, -1, transportable->getParameter().depart, myDepartPos, "start", true);
