@@ -36,11 +36,12 @@ def makeFeature(vehId, coords):
     }
 
 
-def fcd2keplerjson(inpFCD, outStream, ignored):
+def fcd2keplerjson(inpFCD, outStream, further):
     tracks = defaultdict(list)
+    baseDate = further['base-date'].timestamp()
     for timestep in inpFCD:
         for v in timestep.vehicle:
-            tracks[v.id].append([v.x, v.y, v.z, timestep.time])
+            tracks[v.id].append([v.x, v.y, v.z, timestep.time + baseDate])
     jsonRoot = {
         "type": "FeatureCollection",
         "features": [makeFeature(*veh) for veh in tracks.items()]
