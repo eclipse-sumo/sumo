@@ -587,7 +587,7 @@ MSPModel_JuPedSim::initialize() {
     size_t nbrParameterProfiles = 0;
     for (const MSVehicleType* type : pedestrianTypes) {
         ++nbrParameterProfiles;
-        JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, nbrParameterProfiles, 1.0, 0.5, std::min(type->getMaxSpeed(), type->getDesiredMaxSpeed()), 0.3);
+        JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, nbrParameterProfiles, 1.0, 0.5, MIN2(type->getMaxSpeed(), type->getDesiredMaxSpeed()), 0.3);
         myJPSParameterProfileIds.insert(std::make_pair(type->getID(), nbrParameterProfiles));
     }
     
