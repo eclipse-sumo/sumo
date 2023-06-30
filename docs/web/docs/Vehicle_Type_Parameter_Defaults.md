@@ -44,7 +44,7 @@ vehicle types).
     <td class="tg-0lax">1.5m/s<sup>2(23)</sup></td>
     <td class="tg-0lax">2m/s<sup>2(23)</sup></td>    
     <td class="tg-0lax">5m/s<sup>2</sup></td>
-    <td class="tg-0lax">10.44m/s<sup>2</sup></td>
+    <td class="tg-0lax">37.58km/h<sup>(41)</sup></td>
     <td class="tg-0lax">5km/h<sup>(23)</sup></td>
     <td class="tg-0lax">-</td>
     <td class="tg-0lax">zero</td>
@@ -481,5 +481,6 @@ vehicle types).
 - (37): https://www.rettungsdienst.brk.de/leichte-sprache/abteilung/beschaffung/rettungswagen-rtw/rtw-by-2010.html
 - (39): <https://electric-scooter.guide/comparisons/electric-scooter-performance-tests/>
 - (40): <https://www.chip.de/artikel/E-Scooter-Test-Die-besten-Elektro-Scooter-mit-Strassenzulassung_165587317.html>
+- (41): Average speed on the 100m man's world record
 - (\*): estimated
 - (\*\*): need to be revisited to fit to model behavior
