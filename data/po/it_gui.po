@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-28 13:52+0000\n"
+"PO-Revision-Date: 2023-07-01 12:52+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:292
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
@@ -10035,7 +10035,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5714
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5568
 msgid "Whether a person or container or bth may end the stop"
-msgstr ""
+msgstr "Se una persona o un contenitore possono terminare la sosta"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5721
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5575
@@ -10090,12 +10090,16 @@ msgstr ""
 msgid ""
 "Whether the stop may be skipped if no passengers wants to embark or disembark"
 msgstr ""
+"Se si può saltare la fermata quando non ci sono passeggeri per scendere o "
+"salire"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5767
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5621
 msgid ""
 "transfer time if there shall be a jump from this stop to the next route edge"
 msgstr ""
+"tempo di trasferta se si deve saltare tra questa fermata e il prossimo arco "
+"dell'itinerario"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5789
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5643
@@ -14728,27 +14732,29 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1445
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1448
 msgid "TAZs"
-msgstr ""
+msgstr "Zone di assegnazione del traffico"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1611
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1614
 msgid "TAZ shape needs at least three points"
 msgstr ""
+"La forma della zona di assegnazione del traffico ha bisogno di almeno tre "
+"punti"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:121
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:119
 msgid "Edit Traffic Light"
-msgstr ""
+msgstr "Modifica semaforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:185
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:183
 msgid "Click over a junction to edit a TLS"
-msgstr ""
+msgstr "Clicca sopra un incrocio per modificare un semaforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:197
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:195
 msgid "Save TLS Changes"
-msgstr ""
+msgstr "Salva modifiche ai semafori"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:198
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:196
