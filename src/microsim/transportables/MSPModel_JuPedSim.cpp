@@ -96,13 +96,14 @@ MSPModel_JuPedSim::tryInsertion(PState* state) {
     const double angle = state->getAngle(*state->getStage(), 0);
     agent_parameters.orientation = (fabs(angle - M_PI / 2) < NUMERICAL_EPS) ? JPS_Point{0., 1.} : JPS_Point{1., tan(angle)};
     const std::vector<MSVehicleType*> vehicleTypes = (myNetwork->getVehicleControl()).getVTypes();
-    std::string vehiculeTypeID = (state->getPerson()->getVehicleType()).getID();
-    try {
-        agent_parameters.profileId = myJPSParameterProfileIds.at(vehiculeTypeID);
+    std::string vehicleTypeID = (state->getPerson()->getVehicleType()).getID();
+    std::map<std::string, JPS_ModelParameterProfileId>::iterator it = myJPSParameterProfileIds.find(vehicleTypeID);
+    if (it != myJPSParameterProfileIds.end()) {
+        agent_parameters.profileId = it->second;
     }
-    catch (std::out_of_range& e) {
+    else {
         std::ostringstream oss;
-        oss << "Error while adding an agent: vType " << vehiculeTypeID << " hasn't been registered as a JuPedSim parameter profile.";
+        oss << "Error while adding an agent: vType " << vehicleTypeID << " hasn't been registered as a JuPedSim parameter profile.";
         WRITE_WARNING(oss.str());
     }
 
@@ -583,10 +584,7 @@ MSPModel_JuPedSim::initialize() {
     }
 
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
-    const std::vector<MSVehicleType*> vehicleTypes = (myNetwork->getVehicleControl()).getVTypes();
-    std::vector<MSVehicleType*> pedestrianTypes;
-    std::copy_if(vehicleTypes.begin(), vehicleTypes.end(), std::back_inserter(pedestrianTypes), 
-        [](MSVehicleType* vehiculeType) {return vehiculeType->getVehicleClass() == SUMOVehicleClass::SVC_PEDESTRIAN;});
+    const std::vector<MSVehicleType*> pedestrianTypes = (myNetwork->getVehicleControl()).getPedestrianVTypes();
     size_t nbrParameterProfiles = 0;
     for (const MSVehicleType* type : pedestrianTypes) {
         ++nbrParameterProfiles;

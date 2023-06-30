@@ -444,6 +444,9 @@ public:
     /// @brief Return all vehicle types.
     const std::vector<MSVehicleType*> getVTypes(void) const;
 
+    /// @brief Return all pedestrian vehicle types.
+    const std::vector<MSVehicleType*> getPedestrianVTypes(void) const;
+
     /// @}
 
     /** @brief increases the count of vehicles waiting for a transport to allow recognition of person / container related deadlocks
