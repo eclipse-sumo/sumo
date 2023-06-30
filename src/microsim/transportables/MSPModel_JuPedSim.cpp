@@ -36,6 +36,7 @@
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSEventControl.h>
+#include <microsim/MSVehicleControl.h>
 #include <libsumo/Helper.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
@@ -94,14 +95,24 @@ MSPModel_JuPedSim::tryInsertion(PState* state) {
 	agent_parameters.position = {state->getPosition(*state->getStage(), 0).x(), state->getPosition(*state->getStage(), 0).y()};
     const double angle = state->getAngle(*state->getStage(), 0);
     agent_parameters.orientation = (fabs(angle - M_PI / 2) < NUMERICAL_EPS) ? JPS_Point{0., 1.} : JPS_Point{1., tan(angle)};
-    agent_parameters.profileId = myJPSParameterProfileId;
+    const std::vector<MSVehicleType*> vehicleTypes = (myNetwork->getVehicleControl()).getVTypes();
+    std::string vehiculeTypeID = (state->getPerson()->getVehicleType()).getID();
+    try {
+        agent_parameters.profileId = myJPSParameterProfileIds.at(vehiculeTypeID);
+    }
+    catch (std::out_of_range& e) {
+        std::ostringstream oss;
+        oss << "Error while adding an agent: vType " << vehiculeTypeID << " hasn't been registered as a JuPedSim parameter profile.";
+        WRITE_WARNING(oss.str());
+    }
 
     JPS_ErrorMessage message = nullptr;
     JPS_AgentId agentId = JPS_Simulation_AddVelocityModelAgent(myJPSSimulation, agent_parameters, &message);
     if (message != nullptr) {
         WRITE_WARNINGF(TL("Error while adding an agent: %"), JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
-    } else {
+    }
+    else {
         state->setAgentId(agentId);
     }
 }
@@ -110,7 +121,7 @@ MSPModel_JuPedSim::tryInsertion(PState* state) {
 MSTransportableStateAdapter*
 MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /* now */) {
 	assert(person->getCurrentStageType() == MSStageType::WALKING);
-	
+
     const MSLane* const departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
     const double halfDepartureLaneWidth = departureLane->getWidth() / 2.0;
     double departureRelativePositionY = stage->getDepartPosLat();
@@ -572,10 +583,17 @@ MSPModel_JuPedSim::initialize() {
     }
 
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
-    myJPSParameterProfileId = 1;
-    double initial_speed = 1.0; // stage->getMaxSpeed(person);
-    double pedestrian_radius = 0.3; // recommended by Jette
-    JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, myJPSParameterProfileId, 1.0, 0.5, initial_speed, pedestrian_radius);
+    const std::vector<MSVehicleType*> vehicleTypes = (myNetwork->getVehicleControl()).getVTypes();
+    std::vector<MSVehicleType*> pedestrianTypes;
+    std::copy_if(vehicleTypes.begin(), vehicleTypes.end(), std::back_inserter(pedestrianTypes), 
+        [](MSVehicleType* vehiculeType) {return vehiculeType->getVehicleClass() == SUMOVehicleClass::SVC_PEDESTRIAN;});
+    size_t nbrParameterProfiles = 0;
+    for (const MSVehicleType* type : pedestrianTypes) {
+        ++nbrParameterProfiles;
+        JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, nbrParameterProfiles, 1.0, 0.5, type->getMaxSpeed()/10, 0.3);
+        myJPSParameterProfileIds.insert(std::make_pair(type->getID(), nbrParameterProfiles));
+    }
+    
     myJPSModel = JPS_VelocityModelBuilder_Build(modelBuilder, &message);
     if (myJPSModel == nullptr) {
         std::ostringstream oss;

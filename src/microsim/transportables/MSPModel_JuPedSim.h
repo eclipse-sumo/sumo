@@ -55,12 +55,6 @@ public:
     int getActiveNumber();
     void clearState();
 
-    enum PedestrianRoutingMode
-    {
-        JUPEDSIM_ROUTING,
-        SUMO_ROUTING
-    };
-
     class Event : public Command {
     public:
         explicit Event(MSPModel_JuPedSim* remoteModel)
@@ -144,10 +138,8 @@ private:
     JPS_GeometryBuilder myJPSGeometryBuilder;
     JPS_Geometry myJPSGeometry;
     JPS_OperationalModel myJPSModel;
-    JPS_ModelParameterProfileId myJPSParameterProfileId;
+    std::map<std::string, JPS_ModelParameterProfileId> myJPSParameterProfileIds;
     JPS_Simulation myJPSSimulation;
-
-    const PedestrianRoutingMode myRoutingMode = PedestrianRoutingMode::SUMO_ROUTING;
 
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MIN_AREA;

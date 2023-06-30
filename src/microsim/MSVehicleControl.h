@@ -441,6 +441,9 @@ public:
     /// @brief return the vehicle type distribution with the given id
     const RandomDistributor<MSVehicleType*>* getVTypeDistribution(const std::string& typeDistID) const;
 
+    /// @brief Return all vehicle types.
+    const std::vector<MSVehicleType*> getVTypes(void) const;
+
     /// @}
 
     /** @brief increases the count of vehicles waiting for a transport to allow recognition of person / container related deadlocks
