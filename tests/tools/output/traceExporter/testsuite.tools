@@ -21,6 +21,7 @@ ipg
 
 # convert fcd traces to SSAM TRJ
 trj
+keplerjson
 
 # Whether setting time constaints works
 time
