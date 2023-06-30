@@ -114,7 +114,8 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
         }
         return;
     }
-    if (previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
+    if (previous->getStageType() != MSStageType::ACCESS && previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
+        // we need to adapt to the arrival position of the vehicle unless we have an explicit access
         myDepartPos = previous->getEdgePos(now);
         if (myWalkingTime > 0) {
             mySpeed = computeAverageSpeed();
