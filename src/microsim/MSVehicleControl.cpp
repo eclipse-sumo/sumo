@@ -27,6 +27,7 @@
 #include "MSEdge.h"
 #include "MSNet.h"
 #include "MSRouteHandler.h"
+#include "MSStop.h"
 #include <microsim/devices/MSVehicleDevice.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <utils/common/FileHelpers.h>
@@ -466,8 +467,25 @@ MSVehicleControl::getVTypeDistribution(const std::string& typeDistID) const {
 void
 MSVehicleControl::abortWaiting() {
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        WRITE_WARNINGF(TL("Vehicle '%' aborted waiting for a % that will never come."), i->first,
-                       i->second->getParameter().departProcedure == DepartDefinition::SPLIT ? "split" : "person or container")
+        SUMOVehicle* veh = i->second;
+        std::string waitReason;
+        if (veh->isStoppedTriggered()) {
+            const MSStop& stop = veh->getNextStop();
+            if (stop.triggered) {
+                waitReason = "a person that will never come";
+            } else if (stop.containerTriggered) {
+                waitReason = "a container that will never come";
+            } else if (stop.joinTriggered) {
+                waitReason = "a joining vehicle that will never come";
+            } else {
+                waitReason = "an unknown trigger";
+            }
+        } else if (veh->getParameter().departProcedure == DepartDefinition::SPLIT && !veh->hasDeparted()) {
+            waitReason = "a train from which to split";
+        } else {
+            waitReason = "an unknown reason";
+        }
+        WRITE_WARNINGF(TL("Vehicle '%' aborted waiting for %."), i->first, waitReason);
     }
 }
 
