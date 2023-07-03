@@ -1933,7 +1933,7 @@ bool
 MSVehicle::joinTrainPartFront(MSVehicle* veh) {
     // check if veh is close enough to be joined to the front of this vehicle
     MSLane* backLane = veh->myFurtherLanes.size() == 0 ? veh->myLane : veh->myFurtherLanes.back();
-    double gap = veh->getBackPositionOnLane() - getPositionOnLane();
+    double gap = veh->getBackPositionOnLane(backLane) - getPositionOnLane();
     if (isStopped() && myStops.begin()->joinTriggered && backLane == getLane()
             && gap >= 0 && gap <= getVehicleType().getMinGap() + 1) {
         if (veh->myFurtherLanes.size() > 0) {
