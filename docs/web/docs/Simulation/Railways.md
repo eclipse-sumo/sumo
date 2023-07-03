@@ -272,7 +272,7 @@ Trains can be split and joined (divided and coupled) at stops.
 ## Splitting a train
 To split a train, the following input definition can be used. The rear half of the train is defined as a new vehicle which depart value **split**. The train train that is being split must define the 'split' attribute in its stop definition referencing the id of the rear half.
 ```xml
-<vType id="train" vClass="rail"/>
+   <vType id="train" vClass="rail"/>
     <vType id="splitTrain" vClass="rail" length="50"/>
     <trip id="t0" type="train" depart="0.00" from="a" to="c">
         <stop busStop="B" duration="60.00" split="t1"/>
@@ -295,13 +295,13 @@ The following conditions must be met for the joining operationg to take place:
 
 - the continuing train has fulfilled its stopping duration (defined by attributes `duration` and `until`)
 - the trains are in close proximity in either of the two ways:
-    - the continuing train has it's back is on the same lane as the joining train and the gap between them is less than the minGap of the joining train +1m
-    - the joining train has it's back on the same lane as the continuing train and the gap between the trains is less the minGap of the continuing rain +1m
+  - the continuing train has it's back is on the same lane as the joining train and the gap between them is less than the minGap of the joining train +1m
+  - the joining train has it's back on the same lane as the continuing train and the gap between the trains is less the minGap of the continuing rain +1m
  
-The following is an example defiition for joining two trains:
+The following is an example definition for joining two trains:
 
 ```xml
-<vType id="train" vClass="rail"/>
+    <vType id="train" vClass="rail"/>
     <vType id="splitTrain" vClass="rail" length="50"/>
     <trip id="t0" type="splitTrain" depart="0.00" from="a" to="c">
         <stop busStop="B" duration="60.00" triggered="join"/>
