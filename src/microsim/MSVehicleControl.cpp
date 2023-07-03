@@ -472,20 +472,24 @@ MSVehicleControl::abortWaiting() {
         if (veh->isStoppedTriggered()) {
             const MSStop& stop = veh->getNextStop();
             if (stop.triggered) {
-                waitReason = "a person that will never come";
+                waitReason = "for a person that will never come";
             } else if (stop.containerTriggered) {
-                waitReason = "a container that will never come";
+                waitReason = "for a container that will never come";
             } else if (stop.joinTriggered) {
-                waitReason = "a joining vehicle that will never come";
+                if (stop.pars.join != "") {
+                    waitReason = "to be joined to vehicle '" + stop.pars.join + "'";
+                } else {
+                    waitReason = "for a joining vehicle that will never come";
+                }
             } else {
-                waitReason = "an unknown trigger";
+                waitReason = "for an unknown trigger";
             }
         } else if (veh->getParameter().departProcedure == DepartDefinition::SPLIT && !veh->hasDeparted()) {
-            waitReason = "a train from which to split";
+            waitReason = "for a train from which to split";
         } else {
-            waitReason = "an unknown reason";
+            waitReason = "for an unknown reason";
         }
-        WRITE_WARNINGF(TL("Vehicle '%' aborted waiting for %."), i->first, waitReason);
+        WRITE_WARNINGF(TL("Vehicle '%' aborted waiting %."), i->first, waitReason);
     }
 }
 
