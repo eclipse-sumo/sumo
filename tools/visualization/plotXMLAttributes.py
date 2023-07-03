@@ -56,6 +56,7 @@ DENS_ATTR = "@DENSITY"
 BOX_ATTR = "@BOX"
 NONE_ATTR = "@NONE"
 NONE_ATTR_DEFAULT = 0
+ID_ATTR_DEFAULT = ""  # use filename instead
 
 POST_PROCESSING_ATTRS = [RANK_ATTR, COUNT_ATTR, BOX_ATTR, DENS_ATTR]
 SYMBOLIC_ATTRS = POST_PROCESSING_ATTRS + [INDEX_ATTR]
@@ -553,6 +554,8 @@ def main(options):
     stringYCount = 0
 
     usableIDs = 0 
+    idFromSplitAttrs = ',' in options.xattr or ',' in options.yattr
+
     for fileIndex, datafile in enumerate(options.files):
         totalIDs = 0
         filteredIDs = 0
@@ -570,7 +573,9 @@ def main(options):
                         flag2 = True
                 if flag1 and not flag2:
                     continue
-            if len(options.files) > 1 and not options.joinFiles:
+            if options.idattr == NONE_ATTR and not idFromSplitAttrs:
+                dataID = titleFileNames[0 if options.joinFiles else fileIndex]
+            elif len(options.files) > 1 and not options.joinFiles:
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
                     dataID = str(dataID) + "#" + suffix
