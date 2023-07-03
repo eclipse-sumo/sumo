@@ -164,7 +164,7 @@ For a dependent mapping, multiple calibrators (each with a different `vTypes` at
 </additional>
 ```
 
-If there are many different vehicle types in the simulation, the creating of one calibrator per vType and location may be cumbersome to define.
+If there are many different vehicle types in the simulation, creating one calibrator per vType may be cumbersome to define.
 In this case it may be better to define a mapping between type distributions as described below.
 
 ### Mapping between vTypeDistributions
