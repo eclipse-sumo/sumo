@@ -25,3 +25,5 @@ TWLT_end
 
 # test right of way rules when side lane turns into TLWT 
 TWLT_side
+
+prio_tls
