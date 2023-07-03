@@ -150,8 +150,7 @@ If the traffic consists of multiple vehicle types (i.e. passenger cars and truck
 - perform a dependent mapping: carType -> carType2, truckType -> truckType2
 
 Both can be accomplished by using the `vTypes` attribute of the calibrator to make it apply to a subset of types only.
-For a dependent mapping, multiple calibrators (each with a different `vTypes` attribute) may be defined.
-However, if there are very many types this may be cumbersome to define. In this case it may be better to define a mapping between type distributions as described below.
+For a dependent mapping, multiple calibrators (each with a different `vTypes` attribute) may be defined as in the following example:
 
 ```xml
 <additional>
@@ -165,7 +164,11 @@ However, if there are very many types this may be cumbersome to define. In this 
 </additional>
 ```
 
+If there are many different vehicle types in the simulation, the creating of one calibrator per vType and location may be cumbersome to define.
+In this case it may be better to define a mapping between type distributions as described below.
+
 ### Mapping between vTypeDistributions
+
 A special behavior is activated if the following conditions are met:
 - the `type` in the flow element references a `vTypeDistribution`
 - the passing vehicle was defined with a type drawn from a `vTypeDistribution`
