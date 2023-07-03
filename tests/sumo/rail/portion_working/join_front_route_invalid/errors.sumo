@@ -1,2 +1,3 @@
-Warning: Teleporting vehicle 't1'; waited too long (wrong lane), lane='e_0', time=470.00.
-Warning: Vehicle 't1' ends teleporting on edge 'c2', time=470.00.
+Warning: Cannot join vehicle 't0' to vehicle 't1' due to incompatible routes. time=124.00.
+Warning: Vehicle 't0' aborted waiting for a joining vehicle that will never come.
+Warning: Vehicle 't1' aborted waiting for a joining vehicle that will never come.
