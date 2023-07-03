@@ -284,7 +284,7 @@ To split a train, the following input definition can be used. The rear half of t
 When defined this way, The rear part of the train will be created as a new simulation vehicle once the first part has reached the stop. After stopping, The front half of the train will continue with reduced length.
 
 ## Joining two trains
-To join two trains, they have to stop at in close proximity (i.e. at the same `<busStop>` or `<trainStop`) and then one of them is removed (referred to as the **joining train**) and the other made longer (referred to as the **continuing train**.
+To join two trains, they have to stop at in close proximity (i.e. at the same `<busStop>` or `<trainStop>`) and then one of them is removed (referred to as the **joining train**) and the other made longer (referred to as the **continuing train**.
 
 The continuing train requires a stop with attribute `triggered="join"`. By default this train will only continue it's route after another train has joined with it and wait indefinitely for this condition.
 However, by setting stop attribute [extension](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints), waiting for the trigger condition can be aborted (as for any other condition). 
@@ -296,7 +296,7 @@ The following conditions must be met for the joining operationg to take place:
 - the continuing train has fulfilled its stopping duration (defined by attributes `duration` and `until`)
 - the trains are in close proximity in either of the two ways:
   - the continuing train has it's back is on the same lane as the joining train and the gap between them is less than the minGap of the joining train +1m
-  - the joining train has it's back on the same lane as the continuing train and the gap between the trains is less the minGap of the continuing rain +1m
+  - the joining train has it's back on the same lane as the continuing train and the gap between the trains is less the minGap of the continuing train +1m
  
 The following is an example definition for joining two trains:
 
