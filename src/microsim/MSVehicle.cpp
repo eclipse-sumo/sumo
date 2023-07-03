@@ -1943,13 +1943,21 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
             if (myLane->isInternal()) {
                 routeIndex++;
             }
+            std::string warn = TL("Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%.");
             for (int i = (int)veh->myFurtherLanes.size() - 1; i >= 0; i--) {
                 MSEdge* edge = &veh->myFurtherLanes[i]->getEdge();
+                if (edge->isInternal()) {
+                    continue;
+                }
                 if (!edge->isInternal() && edge != myRoute->getEdges()[routeIndex]) {
-                    WRITE_WARNING("Cannot join vehicle '" + veh->getID() + " to vehicle '" + getID()
-                                  + "' due to incompatible routes. time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()));
+                    WRITE_WARNINGF(warn, veh->getID(), getID(), time2string(SIMSTEP));
                     return false;
                 }
+                routeIndex++;
+            }
+            if (veh->getCurrentEdge()->getNormalSuccessor() != myRoute->getEdges()[routeIndex]) {
+                WRITE_WARNINGF(warn, veh->getID(), getID(), time2string(SIMSTEP));
+                return false;
             }
             for (int i = (int)veh->myFurtherLanes.size() - 2; i >= 0; i--) {
                 enterLaneAtMove(veh->myFurtherLanes[i]);
