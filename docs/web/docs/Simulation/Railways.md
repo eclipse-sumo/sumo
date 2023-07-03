@@ -277,14 +277,28 @@ To split a train, the following input definition can be used. The rear half of t
     <trip id="t0" type="train" depart="0.00" from="a" to="c">
         <stop busStop="B" duration="60.00" split="t1"/>
     </trip>
-    <trip id="t1" type="splitTrain" depart="split" departPos="last" from="b" to="e">
+    <trip id="t1" type="splitTrain" depart="split" from="b" to="e">
         <stop busStop="B" duration="60.00"/>
     </trip>
 ```
 When defined this way, The rear part of the train will be created as a new simulation vehicle once the first part has reached the stop. After stopping, The front half of the train will continue with reduced length.
 
 ## Joining two trains
-To join two trains, the following input definition can be used. The front half of the train must define a stop trigger with value **join**. The rear half of the other train must define the attribute 'join' referencing the id of the front half.
+To join two trains, they have to stop at in close proximity (i.e. at the same `<busStop>` or `<trainStop`) and then one of them is removed (referred to as the **joining train**) and the other made longer (referred to as the **continuing train**.
+
+The continuing train requires a stop with attribute `triggered="join"`. By default this train will only continue it's route after another train has joined with it and wait indefinitely for this condition.
+However, by setting stop attribute [extension](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints), waiting for the trigger condition can be aborted (as for any other condition). 
+The joining train requires a stop with attribute `join="VEH_ID"` where `VEH_ID` denotes the id of the continuing train.
+
+The joining operating consists of having the joining train arrive and disappear from the simulation and the continuinig train to be made longer according to the length of the joining train.
+The following conditions must be met for the joining operationg to take place:
+
+- the continuing train has fulfilled its stopping duration (defined by attributes `duration` and `until`)
+- the trains are in close proximity in either of the two ways:
+    - the continuing train has it's back is on the same lane as the joining train and the gap between them is less than the minGap of the joining train +1m
+    - the joining train has it's back on the same lane as the continuing train and the gap between the trains is less the minGap of the continuing rain +1m
+ 
+The following is an example defiition for joining two trains:
 
 ```xml
 <vType id="train" vClass="rail"/>
@@ -296,12 +310,9 @@ To join two trains, the following input definition can be used. The front half o
         <stop busStop="B" duration="5.00" join="t0"/>
     </trip>
 ```
-The rear part of the train will be joined to the front part if the following conditions are met:
-- the rear part has fulfilled its stopping duration
-- the front part the train is present and it's back is on the same lane as the front of the rear part
-- the gap between the trains is less than 5 meters
-After being joined to the front part, the rear part will no longer be part of the simulation.
-The front half of the train will stop until the rear part is joined to it. Afterwards it will continue with increased length. 
+
+!!! caution
+    if the joined train is in the front and covers multiple edges, then these must all match the route of the continuing train. Also the joining train should have the join-stop on the last edge of it's route.
 
 # Rail Signal Behavior
 
