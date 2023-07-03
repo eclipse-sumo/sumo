@@ -24,3 +24,6 @@ join_front
 
 # the front part of the train is joined to the rear part but front part is already on another edge
 join_front_further
+
+# the front part of the train is joined to the rear part but front part is already on another edge
+join_front_route_invalid
