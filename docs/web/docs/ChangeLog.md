@@ -176,7 +176,7 @@ title: ChangeLog
 
 - TraCI
   - Added function `simpla.getPlatoonID`. Issue #13029
-  - Added functions `lane.getAngle' and `edge.getAngle`. Issue #10901
+  - Added functions `lane.getAngle` and `edge.getAngle`. Issue #10901
   - Added function `vehicle.getJunctionFoes`. Issue #12640
   - Using UTF-8 consistently. Issue #7171  
   - getAllContextSubscriptionResults has now entries also for objects without results. Issue #6446
