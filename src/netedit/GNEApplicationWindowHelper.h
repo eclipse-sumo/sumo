@@ -108,7 +108,7 @@ struct GNEApplicationWindowHelper {
         FXToolBarShell* myPythonToolBarShellSaveElements = nullptr;
         
         /// @brief menu bar drag for time switch
-        FXToolBarShell* myPythonToolBarShellTimeSwitch = nullptr;
+        FXToolBarShell* myPythonToolBarShellTimeFormat = nullptr;
         
         /// @brief menu bar drag for navigation (Zoom, coloring...)
         FXToolBarShell* myPythonToolBarShellNavigation = nullptr;

@@ -66,14 +66,14 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     // build toolbar shells
     myPythonToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    myPythonToolBarShellTimeSwitch = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    myPythonToolBarShellTimeFormat = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     // build menu bars
     superModes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
     saveElements = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
-    timeSwitch = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellTimeSwitch, GUIDesignToolBarRaisedSame);
+    timeSwitch = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellTimeFormat, GUIDesignToolBarRaisedSame);
     navigation = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellNavigation, GUIDesignToolBarRaisedSame);
     if (OptionsCont::getOptions().getBool("gui-testing")) {
         modes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellModes, GUIDesignToolBarRaisedNext);
@@ -98,7 +98,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     // create toolbar shells
     myPythonToolBarShellSuperModes->create();
     myPythonToolBarShellSaveElements->create();
-    myPythonToolBarShellTimeSwitch->create();
+    myPythonToolBarShellTimeFormat->create();
     myPythonToolBarShellNavigation->create();
     myPythonToolBarShellModes->create();
     myPythonToolBarShellIntervalBar->create();
@@ -119,7 +119,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
     // also delete toolbar shells to avoid floating windows
     delete myPythonToolBarShellSuperModes;
     delete myPythonToolBarShellSaveElements;
-    delete myPythonToolBarShellTimeSwitch;
+    delete myPythonToolBarShellTimeFormat;
     delete myPythonToolBarShellNavigation;
     delete myPythonToolBarShellModes;
     delete myPythonToolBarShellIntervalBar;

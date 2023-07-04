@@ -2129,7 +2129,7 @@ long
 GNEApplicationWindow::onCmdToogleTimeFormat(FXObject* sender, FXSelector sel, void* ptr) {
     // check that view exists
     if (myViewNet) {
-        myViewNet->getTimeSwitch().switchTimeFormat();
+        myViewNet->getTimeFormat().switchTimeFormat();
     }
     return 1;
 }

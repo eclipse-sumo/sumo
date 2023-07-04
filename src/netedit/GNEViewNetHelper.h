@@ -526,22 +526,22 @@ struct GNEViewNetHelper {
         SaveElements& operator=(const SaveElements&) = delete;
     };
 
-    /// @brief struct used to group all variables related with time switch
-    struct TimeSwitch {
+    /// @brief struct used to group all variables related with time format
+    struct TimeFormat {
 
         /// @brief default constructor
-        TimeSwitch(GNEViewNet* viewNet);
+        TimeFormat(GNEViewNet* viewNet);
 
         /// @brief destructor
-        ~TimeSwitch();
+        ~TimeFormat();
 
-        /// @brief build save buttons
-        void buildTimeSwitchButtons();
+        /// @brief build time format buttons
+        void buildTimeFormatButtons();
 
         /// @brief switch time format
         void switchTimeFormat();
 
-        /// @brief use time steps instead HH:MM:SS
+        /// @brief check if we're using timeSteps
         bool useTimeSteps() const;
 
     private:
@@ -558,10 +558,10 @@ struct GNEViewNetHelper {
         FXLabel* myLCDLabel = nullptr;
 
         /// @brief Invalidated copy constructor.
-        TimeSwitch(const TimeSwitch&) = delete;
+        TimeFormat(const TimeFormat&) = delete;
 
         /// @brief Invalidated assignment operator.
-        TimeSwitch& operator=(const TimeSwitch&) = delete;
+        TimeFormat& operator=(const TimeFormat&) = delete;
     };
 
     /// @brief struct used to group all variables related with Supermodes

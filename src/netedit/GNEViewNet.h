@@ -562,7 +562,7 @@ public:
     GNEViewNetHelper::SaveElements& getSaveElements();
 
     /// @brief get variable used to swith between time formats
-    GNEViewNetHelper::TimeSwitch& getTimeSwitch();
+    GNEViewNetHelper::TimeFormat& getTimeFormat();
 
 protected:
     /// @brief FOX needs this
@@ -650,7 +650,7 @@ private:
     GNEViewNetHelper::SaveElements mySaveElements;
 
     /// @brief variable used for grouping all variables related with switch time
-    GNEViewNetHelper::TimeSwitch myTimeSwitch;
+    GNEViewNetHelper::TimeFormat myTimeFormat;
 
     /// @brief variable used for grouping all variables related with selecting areas
     GNEViewNetHelper::SelectingArea mySelectingArea;

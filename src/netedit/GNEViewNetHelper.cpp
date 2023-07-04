@@ -2007,22 +2007,22 @@ GNEViewNetHelper::SaveElements::setSaveIndividualFiles(bool value) {
 }
 
 // ---------------------------------------------------------------------------
-// GNEViewNetHelper::TimeSwitch - methods
+// GNEViewNetHelper::TimeFormat - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::TimeSwitch::TimeSwitch(GNEViewNet* viewNet) :
+GNEViewNetHelper::TimeFormat::TimeFormat(GNEViewNet* viewNet) :
     myViewNet(viewNet),
     myLCDLabelFont(new FXFont(viewNet->getApp(), "Arial", 7, FXFont::Bold)) {
 }
 
 
-GNEViewNetHelper::TimeSwitch::~TimeSwitch() {
+GNEViewNetHelper::TimeFormat::~TimeFormat() {
     delete myLCDLabelFont;
 }
 
 
 void
-GNEViewNetHelper::TimeSwitch::buildTimeSwitchButtons() {
+GNEViewNetHelper::TimeFormat::buildTimeFormatButtons() {
     /// @brief static Font for the Header (it's common for all headers, then create only one time)
     static FXFont* myFrameHeaderFont;
     // create save sumo config button
@@ -2042,7 +2042,7 @@ GNEViewNetHelper::TimeSwitch::buildTimeSwitchButtons() {
 
 
 void
-GNEViewNetHelper::TimeSwitch::switchTimeFormat() {
+GNEViewNetHelper::TimeFormat::switchTimeFormat() {
     if (useTimeSteps()) {
         myLCDLabel->setText("HH:MM:SS");
     } else {
@@ -2052,7 +2052,7 @@ GNEViewNetHelper::TimeSwitch::switchTimeFormat() {
 
 
 bool
-GNEViewNetHelper::TimeSwitch::useTimeSteps() const {
+GNEViewNetHelper::TimeFormat::useTimeSteps() const {
     return (myLCDLabel->getText() == "TIMESTEPS");
 }
 
