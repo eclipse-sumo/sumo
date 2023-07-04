@@ -176,11 +176,9 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType,
     GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
                      (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW) : GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
-    GNEDemandElementFlow(containerparameters) {
+    GNEDemandElementFlow(this, containerparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
-    // adjust default flow attributes
-    adjustDefaultFlowAttributes(this);
 }
 
 

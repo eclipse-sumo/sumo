@@ -42,7 +42,7 @@ protected:
     GNEDemandElementFlow();
 
     /// @brief constructor with parameters
-    GNEDemandElementFlow(const SUMOVehicleParameter& vehicleParameters);
+    GNEDemandElementFlow(GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNEDemandElementFlow();
@@ -104,10 +104,10 @@ protected:
     /// @brief toggle flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
     void toggleFlowAttribute(const SumoXMLAttr attribute, const bool value);
 
-    /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
+private:
+    /// @brief adjust flow default attributes
     void adjustDefaultFlowAttributes(GNEDemandElement* flowElement);
 
-private:
     /// @brief Invalidated copy constructor.
     GNEDemandElementFlow(const GNEDemandElementFlow&) = delete;
 

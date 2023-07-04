@@ -39,8 +39,10 @@
 GNEDemandElementFlow::GNEDemandElementFlow() {}
 
 
-GNEDemandElementFlow::GNEDemandElementFlow(const SUMOVehicleParameter& vehicleParameters) :
+GNEDemandElementFlow::GNEDemandElementFlow(GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters) :
     SUMOVehicleParameter(vehicleParameters) {
+    // adjust default flow attributes
+    adjustDefaultFlowAttributes(flowElement);
 }
 
 
@@ -353,27 +355,27 @@ GNEDemandElementFlow::adjustDefaultFlowAttributes(GNEDemandElement* flowElement)
     if (tagProperty.isFlow()) {
         // end
         if ((parametersSet & VEHPARS_END_SET) == 0) {
-            flowElement->setAttribute(SUMO_ATTR_END, tagProperty.getDefaultValue(SUMO_ATTR_END));
+            setFlowAttribute(flowElement, SUMO_ATTR_END, tagProperty.getDefaultValue(SUMO_ATTR_END));
         }
         // number
         if ((parametersSet & VEHPARS_NUMBER_SET) == 0) {
-            flowElement->setAttribute(SUMO_ATTR_NUMBER, tagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
+            setFlowAttribute(flowElement, SUMO_ATTR_NUMBER, tagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
         }
         // vehicles/person/container per hour
         if (((parametersSet & VEHPARS_PERIOD_SET) == 0) &&
                 ((parametersSet & VEHPARS_POISSON_SET) == 0) &&
                 ((parametersSet & VEHPARS_VPH_SET) == 0)) {
-            flowElement->setAttribute(SUMO_ATTR_PERIOD, tagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
+            setFlowAttribute(flowElement, SUMO_ATTR_PERIOD, tagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
         }
         // probability
         if ((parametersSet & VEHPARS_PROB_SET) == 0) {
-            flowElement->setAttribute(SUMO_ATTR_PROB, tagProperty.getDefaultValue(SUMO_ATTR_PROB));
+            setFlowAttribute(flowElement, SUMO_ATTR_PROB, tagProperty.getDefaultValue(SUMO_ATTR_PROB));
         }
         // poisson
         if (repetitionOffset < 0) {
-            flowElement->toggleAttribute(SUMO_ATTR_PERIOD, false);
-            flowElement->toggleAttribute(GNE_ATTR_POISSON, true);
-            flowElement->setAttribute(GNE_ATTR_POISSON, time2string(repetitionOffset * -1));
+            toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
+            toggleFlowAttribute(GNE_ATTR_POISSON, true);
+            setFlowAttribute(flowElement, GNE_ATTR_POISSON, time2string(repetitionOffset * -1));
         }
     }
 }

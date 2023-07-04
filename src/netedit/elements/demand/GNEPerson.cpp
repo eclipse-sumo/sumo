@@ -176,11 +176,9 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const
     GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
                      (tag == SUMO_TAG_PERSONFLOW) ? GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW) : GUIIconSubSys::getIcon(GUIIcon::PERSON),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
-    GNEDemandElementFlow(personparameters) {
+    GNEDemandElementFlow(this, personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
-    // adjust default flow attributes
-    adjustDefaultFlowAttributes(this);
 }
 
 
