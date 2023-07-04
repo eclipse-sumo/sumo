@@ -484,8 +484,16 @@ MSVehicleControl::abortWaiting() {
             } else {
                 waitReason = "for an unknown trigger";
             }
-        } else if (veh->getParameter().departProcedure == DepartDefinition::SPLIT && !veh->hasDeparted()) {
-            waitReason = "for a train from which to split";
+        } else if (!veh->hasDeparted()) {
+            if (veh->getParameter().departProcedure == DepartDefinition::SPLIT) {
+                waitReason = "for a train from which to split";
+            } else if (veh->getParameter().departProcedure == DepartDefinition::TRIGGERED) {
+                waitReason = "at insertion for a person that will never come";
+            } else if (veh->getParameter().departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
+                waitReason = "at insertion for a container that will never come";
+            } else {
+                waitReason = "for an unknown departure trigger";
+            }
         } else {
             waitReason = "for an unknown reason";
         }
