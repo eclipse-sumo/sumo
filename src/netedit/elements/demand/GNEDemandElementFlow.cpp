@@ -21,6 +21,7 @@
 
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_EnableAttribute.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
 
@@ -72,7 +73,7 @@ GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotat
 
 
 std::string
-GNEDemandElementFlow::getFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key) const {
+GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_END:
             return time2string(repetitionEnd);
@@ -147,6 +148,67 @@ GNEDemandElementFlow::isValidFlowAttribute(GNEDemandElement* flowElement, SumoXM
             }
         default:
             throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void
+GNEDemandElementFlow::enableFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERSONSPERHOUR:
+        case SUMO_ATTR_CONTAINERSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case GNE_ATTR_POISSON:
+        case SUMO_ATTR_PROB:
+            undoList->add(new GNEChange_EnableAttribute(flowElement, key, true, parametersSet), true);
+            return;
+        default:
+            throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void
+GNEDemandElementFlow::disableFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERSONSPERHOUR:
+        case SUMO_ATTR_CONTAINERSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case GNE_ATTR_POISSON:
+        case SUMO_ATTR_PROB:
+            undoList->add(new GNEChange_EnableAttribute(flowElement, key, false, parametersSet), true);
+            return;
+        default:
+            throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool
+GNEDemandElementFlow::isFlowAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_END:
+            return (parametersSet & VEHPARS_END_SET) != 0;
+        case SUMO_ATTR_NUMBER:
+            return (parametersSet & VEHPARS_NUMBER_SET) != 0;
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERSONSPERHOUR:
+        case SUMO_ATTR_CONTAINERSPERHOUR:
+            return (parametersSet & VEHPARS_VPH_SET) != 0;
+        case SUMO_ATTR_PERIOD:
+            return (parametersSet & VEHPARS_PERIOD_SET) != 0;
+        case GNE_ATTR_POISSON:
+            return (parametersSet & VEHPARS_POISSON_SET) != 0;
+        case SUMO_ATTR_PROB:
+            return (parametersSet & VEHPARS_PROB_SET) != 0;
+        default:
+            return true;
     }
 }
 

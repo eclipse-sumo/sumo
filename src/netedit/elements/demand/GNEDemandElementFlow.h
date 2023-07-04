@@ -56,7 +56,7 @@ protected:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key) const;
+    std::string getFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform demand element changes
      * @param[in] key The attribute key
@@ -72,6 +72,25 @@ protected:
      * @param[in] undoList The undoList on which to register changes
      */
     bool isValidFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value);
+
+    /* @brief method for enable attribute
+     * @param[in] key The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
+     */
+    void enableFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, GNEUndoList* undoList);
+
+    /* @brief method for disable attribute
+     * @param[in] key The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
+     */
+    void disableFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, GNEUndoList* undoList);
+
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool isFlowAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief method for setting the attribute and nothing else
     void setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value);
