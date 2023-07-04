@@ -2126,7 +2126,7 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdToogleTimeFormat(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdToogleTimeFormat(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
     // check that view exists
     if (myViewNet) {
         myViewNet->getTimeFormat().switchTimeFormat();

@@ -2017,8 +2017,6 @@ GNEViewNetHelper::TimeFormat::TimeFormat(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::TimeFormat::buildTimeFormatButtons() {
-    /// @brief static Font for the Header (it's common for all headers, then create only one time)
-    static FXFont* myFrameHeaderFont;
     // create save sumo config button
     mySwitchButton = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().timeSwitch,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
