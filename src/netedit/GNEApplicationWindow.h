@@ -425,6 +425,9 @@ public:
     /// @brief called if the user press the toogle time format button
     long onCmdToogleTimeFormat(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief update toogle time format button
+    long onUpdToogleTimeFormat(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief enable or disable sender object depending if viewNet exist
     long onUpdRequireViewNet(FXObject* sender, FXSelector sel, void* ptr);
 

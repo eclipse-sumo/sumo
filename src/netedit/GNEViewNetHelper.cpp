@@ -2020,7 +2020,7 @@ GNEViewNetHelper::TimeFormat::buildTimeFormatButtons() {
     // create save sumo config button
     mySwitchButton = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().timeSwitch,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            TL("S") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS"), nullptr,
+            gHumanReadableTime?"H":"S" + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS"), nullptr,
             myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_TOGGLE_TIMEFORMAT, GUIDesignButtonToolbar);
     mySwitchButton->create();
 }
@@ -2028,17 +2028,23 @@ GNEViewNetHelper::TimeFormat::buildTimeFormatButtons() {
 
 void
 GNEViewNetHelper::TimeFormat::switchTimeFormat() {
-    if (useTimeSteps()) {
+    if (gHumanReadableTime) {
+        gHumanReadableTime = false;
+    } else {
+        gHumanReadableTime = true;
+    }
+    OptionsCont::getOptions().resetWritable();
+    OptionsCont::getOptions().set("human-readable-time", toString(gHumanReadableTime));
+}
+
+
+void
+GNEViewNetHelper::TimeFormat::updateButtonLabel() {
+    if (gHumanReadableTime) {
         mySwitchButton->setText("H");
     } else {
         mySwitchButton->setText("S");
     }
-}
-
-
-bool
-GNEViewNetHelper::TimeFormat::useTimeSteps() const {
-    return (mySwitchButton->getText() == "S");
 }
 
 // ---------------------------------------------------------------------------

@@ -538,8 +538,8 @@ struct GNEViewNetHelper {
         /// @brief switch time format
         void switchTimeFormat();
 
-        /// @brief check if we're using timeSteps
-        bool useTimeSteps() const;
+        /// @brief update button label
+        void updateButtonLabel();
 
     private:
         /// @brief pointer to net
