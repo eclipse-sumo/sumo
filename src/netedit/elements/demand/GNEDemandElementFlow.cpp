@@ -75,6 +75,21 @@ GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotat
 std::string
 GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN:
+            if (departProcedure == DepartDefinition::TRIGGERED) {
+                return "triggered";
+            } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
+                return "containerTriggered";
+            } else if (departProcedure == DepartDefinition::NOW) {
+                return "now";
+            } else if (departProcedure == DepartDefinition::SPLIT) {
+                return "split";
+            } else if (departProcedure == DepartDefinition::BEGIN) {
+                return "begin";
+            } else {
+                return time2string(depart);
+            }
         case SUMO_ATTR_END:
             return time2string(repetitionEnd);
         case SUMO_ATTR_VEHSPERHOUR:
@@ -95,9 +110,23 @@ GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, Sumo
 }
 
 
+double
+GNEDemandElementFlow::getFlowAttributeDouble(const GNEDemandElement* flowElement, SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN:
+            return STEPS2TIME(depart);
+        default:
+            throw InvalidArgument(flowElement->getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 void
 GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
         case SUMO_ATTR_VEHSPERHOUR:
@@ -116,7 +145,17 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
 
 bool
 GNEDemandElementFlow::isValidFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value) {
+    // declare string error
+    std::string error;
     switch (key) {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN: {
+            SUMOTime dummyDepart;
+            DepartDefinition dummyDepartProcedure;
+            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, dummyDepart, dummyDepartProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
+        }
         case SUMO_ATTR_END:
             if (GNEAttributeCarrier::canParse<SUMOTime>(value)) {
                 return (GNEAttributeCarrier::parse<SUMOTime>(value) >= 0);
@@ -215,7 +254,14 @@ GNEDemandElementFlow::isFlowAttributeEnabled(SumoXMLAttr key) const {
 
 void
 GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value) {
+    // declare string error
+    std::string error;
     switch (key) {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN: {
+            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
+            break;
+        }
         case SUMO_ATTR_END:
             repetitionEnd = string2time(value);
             break;
@@ -243,7 +289,7 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
 
 
 void
-GNEDemandElementFlow::setFlowParameters(const SumoXMLAttr attribute, const bool value) {
+GNEDemandElementFlow::toggleFlowAttribute(const SumoXMLAttr attribute, const bool value) {
     // modify parameters depending of given Flow attribute
     if (value) {
         switch (attribute) {

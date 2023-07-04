@@ -548,24 +548,7 @@ GNEContainer::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTPOS);
             }
-        // Specific of containers
-        case SUMO_ATTR_DEPART:
-            if (departProcedure == DepartDefinition::TRIGGERED) {
-                return "triggered";
-            } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
-                return "containerTriggered";
-            } else if (departProcedure == DepartDefinition::NOW) {
-                return "now";
-            } else if (departProcedure == DepartDefinition::SPLIT) {
-                return "split";
-            } else if (departProcedure == DepartDefinition::BEGIN) {
-                return "begin";
-            } else {
-                return time2string(depart);
-            }
-        // Specific of containerFlows
-        case SUMO_ATTR_BEGIN:
-            return time2string(depart);
+        // Other
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -582,7 +565,7 @@ GNEContainer::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_DEPARTPOS:
             return STEPS2TIME(depart);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getFlowAttributeDouble(this, key);
     }
 }
 
@@ -622,9 +605,7 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_DEPARTPOS:
-        // Specific of containers
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN:
+        // Other
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
@@ -661,15 +642,6 @@ GNEContainer::isValid(SumoXMLAttr key, const std::string& value) {
             double dummyDepartPos;
             DepartPosDefinition dummyDepartPosProcedure;
             parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartPos, dummyDepartPosProcedure, error);
-            // if error is empty, given value is valid
-            return error.empty();
-        }
-        // Specific of containers
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN: {
-            SUMOTime dummyDepart;
-            DepartDefinition dummyDepartProcedure;
-            parseDepart(value, toString(SUMO_TAG_CONTAINER), id, dummyDepart, dummyDepartProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
@@ -857,12 +829,6 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
             // compute container
             updateGeometry();
             break;
-        // Specific of containers
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN: {
-            parseDepart(value, toString(SUMO_TAG_CONTAINER), id, depart, departProcedure, error);
-            break;
-        }
         // Others
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -883,8 +849,8 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEContainer::toggleAttribute(SumoXMLAttr key, const bool value) {
-    // set flow parameters
-    setFlowParameters(this, key, value);
+    // toogle flow attributes
+    toggleFlowAttribute(key, value);
 }
 
 

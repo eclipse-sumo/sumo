@@ -547,22 +547,6 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTPOS);
             }
-        // Specific of persons
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN:
-            if (departProcedure == DepartDefinition::TRIGGERED) {
-                return "triggered";
-            } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
-                return "containerTriggered";
-            } else if (departProcedure == DepartDefinition::NOW) {
-                return "now";
-            } else if (departProcedure == DepartDefinition::SPLIT) {
-                return "split";
-            } else if (departProcedure == DepartDefinition::BEGIN) {
-                return "begin";
-            } else {
-                return time2string(depart);
-            }
         // Others
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -577,9 +561,6 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
 double
 GNEPerson::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN:
-            return STEPS2TIME(depart);
         case SUMO_ATTR_DEPARTPOS:
             if (departPosProcedure == DepartPosDefinition::GIVEN) {
                 return departPos;
@@ -587,7 +568,7 @@ GNEPerson::getAttributeDouble(SumoXMLAttr key) const {
                 return 0;
             }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getFlowAttributeDouble(this, key);
     }
 }
 
@@ -635,9 +616,6 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_DEPARTPOS:
-        // Specific of persons
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN:
         // Other
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
@@ -675,15 +653,6 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
             double dummyDepartPos;
             DepartPosDefinition dummyDepartPosProcedure;
             parseDepartPos(value, toString(SUMO_TAG_PERSON), id, dummyDepartPos, dummyDepartPosProcedure, error);
-            // if error is empty, given value is valid
-            return error.empty();
-        }
-        // Specific of persons
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN: {
-            SUMOTime dummyDepart;
-            DepartDefinition dummyDepartProcedure;
-            parseDepart(value, toString(SUMO_TAG_PERSON), id, dummyDepart, dummyDepartProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
@@ -862,12 +831,6 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             // compute person
             updateGeometry();
             break;
-        // Specific of persons
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN: {
-            parseDepart(value, toString(SUMO_TAG_PERSON), id, depart, departProcedure, error);
-            break;
-        }
         // Other
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -888,8 +851,8 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEPerson::toggleAttribute(SumoXMLAttr key, const bool value) {
-    // set flow parameters
-    setFlowParameters(key, value);
+    // toogle flow attributes
+    toggleFlowAttribute(key, value);
 }
 
 

@@ -1263,22 +1263,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_INSERTIONCHECKS:
             return getInsertionChecks();
-        // Specific of vehicles
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN:
-            if (departProcedure == DepartDefinition::TRIGGERED) {
-                return "triggered";
-            } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
-                return "containerTriggered";
-            } else if (departProcedure == DepartDefinition::NOW) {
-                return "now";
-            } else if (departProcedure == DepartDefinition::SPLIT) {
-                return "split";
-            } else if (departProcedure == DepartDefinition::BEGIN) {
-                return "begin";
-            } else {
-                return time2string(depart);
-            }
+        // Specific of vehicles over routes
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
                 return getRouteParent()->getID();
@@ -1330,9 +1315,6 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
 double
 GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN:
-            return STEPS2TIME(depart);
         case SUMO_ATTR_DEPARTLANE:
             if (wasSet(VEHPARS_DEPARTLANE_SET) && (departLaneProcedure == DepartLaneDefinition::GIVEN)) {
                 return departLane;
@@ -1364,7 +1346,7 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_MINGAP:
             return getTypeParent()->getAttributeDouble(key);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getFlowAttributeDouble(this, key);
     }
 }
 
@@ -1432,9 +1414,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
         case SUMO_ATTR_INSERTIONCHECKS:
-        // Specific of vehicles
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN:
+        // Specific of vehicles over routes
         case SUMO_ATTR_ROUTE:
         // Specific of from-to edges
         case SUMO_ATTR_FROM:
@@ -1588,15 +1568,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_INSERTIONCHECKS:
             return areInsertionChecksValid(value);
-        // Specific of vehicles
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN: {
-            SUMOTime dummyDepart;
-            DepartDefinition dummyDepartProcedure;
-            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, dummyDepart, dummyDepartProcedure, error);
-            // if error is empty, given value is valid
-            return error.empty();
-        }
+        // Specific of vehicles over routes
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
                 return SUMOXMLDefinitions::isValidVehicleID(value) && (ACs->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
@@ -2004,12 +1976,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_INSERTIONCHECKS:
             parseInsertionChecks(value);
             break;
-        // Specific of vehicles
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN: {
-            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
-            break;
-        }
+        // Specific of vehicles over routes
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
                 replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
@@ -2162,8 +2129,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEVehicle::toggleAttribute(SumoXMLAttr key, const bool value) {
-    // set flow parameters
-    setFlowParameters(this, key, value);
+    // toogle flow attributes
+    toggleFlowAttribute(key, value);
 }
 
 

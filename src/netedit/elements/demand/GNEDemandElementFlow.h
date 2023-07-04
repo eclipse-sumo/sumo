@@ -58,6 +58,12 @@ protected:
      */
     std::string getFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getFlowAttributeDouble(const GNEDemandElement* flowElement, SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform demand element changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -95,8 +101,8 @@ protected:
     /// @brief method for setting the attribute and nothing else
     void setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value);
 
-    /// @brief set flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
-    void setFlowParameters(const SumoXMLAttr attribute, const bool value);
+    /// @brief toggle flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
+    void toggleFlowAttribute(const SumoXMLAttr attribute, const bool value);
 
     /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
     void adjustDefaultFlowAttributes(GNEDemandElement* flowElement);
