@@ -22,6 +22,7 @@
 
 #include <utils/geom/Position.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 // ===========================================================================
 // class declaration
@@ -34,11 +35,14 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNEDemandElementFlow {
+class GNEDemandElementFlow : public SUMOVehicleParameter {
 
 protected:
     /// @brief constructor
     GNEDemandElementFlow();
+
+    /// @brief constructor with parameters
+    GNEDemandElementFlow(const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNEDemandElementFlow();
@@ -46,11 +50,37 @@ protected:
     /// @brief draw flow label
     void drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
 
+    /// @brief inherited from GNEAttributeCarrier and adapted to GNEDemandElementFlow
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    std::string getFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key) const;
+
+    /* @brief method for setting the attribute and letting the object perform demand element changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     * @param[in] net optionally the GNENet to inform about gui updates
+     */
+    void setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for setting the attribute and letting the object perform demand element changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    bool isValidFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value);
+
+    /// @brief method for setting the attribute and nothing else
+    void setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value);
+
     /// @brief set flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
-    void setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value);
+    void setFlowParameters(const SumoXMLAttr attribute, const bool value);
 
     /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
-    void adjustDefaultFlowAttributes(GNEDemandElement* flowElement, SUMOVehicleParameter* vehicleParameters);
+    void adjustDefaultFlowAttributes(GNEDemandElement* flowElement);
 
 private:
     /// @brief Invalidated copy constructor.
