@@ -22,6 +22,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
+#include "GNEDemandElementFlow.h"
 
 // ===========================================================================
 // class definitions
@@ -29,7 +30,7 @@
 /**
  * @class GNEVehicle
  */
-class GNEVehicle : public GNEDemandElement, public SUMOVehicleParameter {
+class GNEVehicle : public GNEDemandElement, public GNEDemandElementFlow {
 
 public:
     /// @brief class used in GUIGLObjectPopupMenu for single vehicle transformations
