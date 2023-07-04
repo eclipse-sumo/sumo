@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-06-17 16:50+0000\n"
+"PO-Revision-Date: 2023-07-04 07:54+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:292
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
@@ -7920,7 +7920,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5714
 msgid "Whether a person or container or bth may end the stop"
-msgstr "Ob eine Person oder ein Container oder beide den Halt beenden darf"
+msgstr "Ob eine Person oder ein Container oder beide den Halt beenden dürfen"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5721
 msgid "List of elements that must board the vehicle before it may continue"
