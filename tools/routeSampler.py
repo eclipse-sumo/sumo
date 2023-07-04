@@ -1021,7 +1021,6 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     if usedRoutes:
         outf.write('<!-- begin="%s" end="%s" -->\n' % (begin, end))
-        period = (end - begin) / len(usedRoutes)
         routeCounts = getRouteCounts(routes, usedRoutes)
         if options.writeRouteIDs:
             for routeIndex in sorted(set(usedRoutes)):

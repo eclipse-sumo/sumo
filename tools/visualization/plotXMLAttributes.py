@@ -553,7 +553,7 @@ def main(options):
     numericYCount = 0
     stringYCount = 0
 
-    usableIDs = 0 
+    usableIDs = 0
     idFromSplitAttrs = ',' in options.xattr or ',' in options.yattr
 
     for fileIndex, datafile in enumerate(options.files):
