@@ -680,6 +680,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                   << " mc=" << mergeConflict(from, queryCon, *i, connected[k], false)
                                   << " oltc=" << oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
                                   << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
+                                  << " bc=" <<  bidiConflict(from, queryCon, *i, connected[k], false)
                                   << " rorc=" << myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                                   << " tlscc=" << myJunction->tlsContConflict(from, c, *i, connected[k])
                                   << "\n";

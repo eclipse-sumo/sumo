@@ -517,7 +517,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             }
 #ifdef DEBUG_PHASES
             if (DEBUGCOND) {
-                std::cout << " state after grouping by vClass " << state << "\n";
+                std::cout << " state after grouping by vClass " << state << " (groupTram=" << groupTram << " groupOther=" << groupOther<< ")\n";
             }
 #endif
             if (groupOpposites || chosen.first->getToNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) {
