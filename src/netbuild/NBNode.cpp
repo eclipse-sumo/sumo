@@ -925,9 +925,6 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     if (d2 == LinkDirection::TURN) {
         return false;
     }
-    const bool thisLeft = (d1 == LinkDirection::LEFT || d1 == LinkDirection::TURN);
-    const bool otherLeft = (d2 == LinkDirection::LEFT || d2 == LinkDirection::TURN);
-    const bool bothLeft = thisLeft && otherLeft;
     if (fromE == otherFromE && !thisRight) {
         // ignore same edge links except for right-turns
         return false;
