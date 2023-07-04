@@ -21,8 +21,8 @@
 #include <config.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
-
 #include "GNEDemandElement.h"
+#include "GNEDemandElementFlow.h"
 
 // ===========================================================================
 // class definitions
@@ -30,7 +30,7 @@
 /**
  * @class GNEPerson
  */
-class GNEPerson : public GNEDemandElement, public SUMOVehicleParameter {
+class GNEPerson : public GNEDemandElement, public GNEDemandElementFlow {
 
 public:
     /// @brief class used in GUIGLObjectPopupMenu for person transformations
