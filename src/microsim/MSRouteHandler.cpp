@@ -810,8 +810,6 @@ MSRouteHandler::closeTransportableFlow() {
             deleteActivePlanAndVehicleParameter();
             return;
         }
-        // type existence has been checked on opening
-        MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
         // instantiate all persons/containers of this flow
         int i = 0;
         registerLastDepart();
@@ -822,6 +820,8 @@ MSRouteHandler::closeTransportableFlow() {
             } else {
                 for (SUMOTime t = myVehicleParameter->depart; t < myVehicleParameter->repetitionEnd; t += TIME2STEPS(1)) {
                     if (RandHelper::rand(&myParsingRNG) < myVehicleParameter->repetitionProbability) {
+                        // type existence has been checked on opening
+                        MSVehicleType* const type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                         addFlowTransportable(t, type, baseID, i++);
                     }
                 }
@@ -834,6 +834,8 @@ MSRouteHandler::closeTransportableFlow() {
                 myVehicleParameter->incrementFlow(1, &myParsingRNG);
             }
             for (; i < myVehicleParameter->repetitionNumber && (triggered || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
+                // type existence has been checked on opening
+                MSVehicleType* const type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                 addFlowTransportable(depart + myVehicleParameter->repetitionTotalOffset, type, baseID, i);
                 if (myVehicleParameter->departProcedure != DepartDefinition::TRIGGERED) {
                     myVehicleParameter->incrementFlow(1, &myParsingRNG);
