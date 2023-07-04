@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-03 17:07:51 by Eclipse SUMO netedit Version v1_17_0+1273-7ad4009364f
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2023-07-04 16:01:15 by Eclipse SUMO netconvert Version v1_18_0+0064-44003d8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="tlsnet.net.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
+        <plain-output-prefix value="input_plain"/>
         <output.street-names value="true"/>
     </output>
 
     <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="10"/>
+        <numerical-ids.edge-start value="0"/>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
@@ -19,7 +23,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -27,16 +30,16 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="1"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
 </configuration>
 -->
 
 <edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <location netOffset="-398816.96,-5809707.61" convBoundary="2195.60,722.02,2407.99,948.14" origBoundary="13.510966,52.428677,13.569823,52.453865" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-401012.56,-5810429.63" convBoundary="0.00,0.00,212.39,226.12" origBoundary="13.510966,52.428677,13.569823,52.453865" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <edge id="-140964924" from="cluster_237254713_3234767440_5641118083_5641118084_#1more" to="1625633841" name="Thomas-Müntzer-Straße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="2269.66,906.79 2274.13,900.14 2274.65,899.37 2405.28,725.61 2407.99,722.02">
+    <edge id="0" from="14" to="10" name="Thomas-Müntzer-Straße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="74.06,184.77 78.53,178.12 79.05,177.35 209.68,3.59 212.39,0.00">
         <lane index="0" allow="pedestrian" width="2.00">
             <param key="origId" value="140964924"/>
         </lane>
@@ -45,7 +48,7 @@
         </lane>
         <param key="origFrom" value="3234767440"/>
     </edge>
-    <edge id="-178028204#4" from="cluster_237254713_3234767440_5641118083_5641118084_#1more" to="257749657" name="Dörpfeldstraße" priority="10" type="highway.tertiary" numLanes="3" speed="8.33" shape="2287.85,918.26 2337.85,946.52" bidi="178028204#4">
+    <edge id="1" from="14" to="11" name="Dörpfeldstraße" priority="10" type="highway.tertiary" numLanes="3" speed="8.33" shape="92.25,196.24 142.25,224.50" bidi="5">
         <lane index="0" allow="pedestrian" width="3.00">
             <param key="origId" value="178028204"/>
         </lane>
@@ -57,7 +60,7 @@
         </lane>
         <param key="origFrom" value="5641118086"/>
     </edge>
-    <edge id="-178028204#9" from="cluster1906421961_1906421962" to="cluster_237254713_3234767440_5641118083_5641118084_#1more" name="Dörpfeldstraße" priority="10" type="highway.tertiary" numLanes="3" speed="8.33" shape="2195.60,865.19 2269.47,908.25" bidi="178028204#9">
+    <edge id="2" from="13" to="14" name="Dörpfeldstraße" priority="10" type="highway.tertiary" numLanes="3" speed="8.33" shape="0.00,143.17 73.87,186.23" bidi="6">
         <lane index="0" allow="pedestrian" width="3.00">
             <param key="origId" value="178028204"/>
         </lane>
@@ -69,7 +72,7 @@
         </lane>
         <param key="origTo" value="5641118083"/>
     </edge>
-    <edge id="-23913525#0" from="289801265" to="cluster_237254713_3234767440_5641118083_5641118084_#1more" name="Florian-Geyer-Straße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="2257.15,948.14 2275.20,916.55 2278.15,911.39">
+    <edge id="3" from="12" to="14" name="Florian-Geyer-Straße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="61.55,226.12 79.60,194.53 82.55,189.37">
         <lane index="0" allow="pedestrian" width="2.00">
             <param key="origId" value="23913525"/>
         </lane>
@@ -78,7 +81,7 @@
         </lane>
         <param key="origTo" value="237254713"/>
     </edge>
-    <edge id="140964924" from="1625633841" to="cluster_237254713_3234767440_5641118083_5641118084_#1more" name="Thomas-Müntzer-Straße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="2407.99,722.02 2405.28,725.61 2274.65,899.37 2274.13,900.14 2269.66,906.79">
+    <edge id="4" from="10" to="14" name="Thomas-Müntzer-Straße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="212.39,0.00 209.68,3.59 79.05,177.35 78.53,178.12 74.06,184.77">
         <lane index="0" allow="pedestrian" width="2.00">
             <param key="origId" value="140964924"/>
         </lane>
@@ -87,7 +90,7 @@
         </lane>
         <param key="origTo" value="3234767440"/>
     </edge>
-    <edge id="178028204#4" from="257749657" to="cluster_237254713_3234767440_5641118083_5641118084_#1more" name="Dörpfeldstraße" priority="10" type="highway.tertiary" numLanes="3" speed="8.33" shape="2339.43,943.74 2289.43,915.48" bidi="-178028204#4">
+    <edge id="5" from="11" to="14" name="Dörpfeldstraße" priority="10" type="highway.tertiary" numLanes="3" speed="8.33" shape="143.83,221.72 93.83,193.46" bidi="1">
         <lane index="0" allow="pedestrian" width="3.00">
             <param key="origId" value="178028204"/>
         </lane>
@@ -99,7 +102,7 @@
         </lane>
         <param key="origTo" value="5641118086"/>
     </edge>
-    <edge id="178028204#9" from="cluster_237254713_3234767440_5641118083_5641118084_#1more" to="cluster1906421961_1906421962" name="Dörpfeldstraße" priority="10" type="highway.tertiary" numLanes="3" speed="8.33" shape="2271.09,905.49 2197.22,862.43" bidi="-178028204#9">
+    <edge id="6" from="14" to="13" name="Dörpfeldstraße" priority="10" type="highway.tertiary" numLanes="3" speed="8.33" shape="75.49,183.47 1.62,140.41" bidi="2">
         <lane index="0" allow="pedestrian" width="3.00">
             <param key="origId" value="178028204"/>
         </lane>
@@ -111,7 +114,7 @@
         </lane>
         <param key="origFrom" value="5641118083"/>
     </edge>
-    <edge id="23913525#0" from="cluster_237254713_3234767440_5641118083_5641118084_#1more" to="289801265" name="Florian-Geyer-Straße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="2278.15,911.39 2275.20,916.55 2257.15,948.14">
+    <edge id="7" from="14" to="12" name="Florian-Geyer-Straße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="82.55,189.37 79.60,194.53 61.55,226.12">
         <lane index="0" allow="pedestrian" width="2.00">
             <param key="origId" value="23913525"/>
         </lane>
