@@ -532,9 +532,6 @@ struct GNEViewNetHelper {
         /// @brief default constructor
         TimeFormat(GNEViewNet* viewNet);
 
-        /// @brief destructor
-        ~TimeFormat();
-
         /// @brief build time format buttons
         void buildTimeFormatButtons();
 
@@ -550,12 +547,6 @@ struct GNEViewNetHelper {
 
         /// @brief checkable button for switch between timeSteps and HH:MM:SS
         MFXButtonTooltip* mySwitchButton = nullptr;
-
-        /// @brief font for lcd label
-        FXFont* myLCDLabelFont = nullptr;
-
-        /// @brief label to show either "TimeStep" or "HH:MM:SS"
-        FXLabel* myLCDLabel = nullptr;
 
         /// @brief Invalidated copy constructor.
         TimeFormat(const TimeFormat&) = delete;

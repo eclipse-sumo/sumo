@@ -2011,13 +2011,7 @@ GNEViewNetHelper::SaveElements::setSaveIndividualFiles(bool value) {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::TimeFormat::TimeFormat(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
-    myLCDLabelFont(new FXFont(viewNet->getApp(), "Arial", 7, FXFont::Bold)) {
-}
-
-
-GNEViewNetHelper::TimeFormat::~TimeFormat() {
-    delete myLCDLabelFont;
+    myViewNet(viewNet) {
 }
 
 
@@ -2028,32 +2022,25 @@ GNEViewNetHelper::TimeFormat::buildTimeFormatButtons() {
     // create save sumo config button
     mySwitchButton = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().timeSwitch,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            TL("Time:") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS"), nullptr,
+            TL("Time: S") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS"), nullptr,
             myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_TOGGLE_TIMEFORMAT, GUIDesignButtonToolbarWithText);
     mySwitchButton->create();
-    // create LCD label
-    myLCDLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().timeSwitch,
-                            "HH:MM:SS", 0, GUIDesignLabelThickedFixed(100));
-    myLCDLabel->setBackColor(FXRGB(0, 0, 0));
-    myLCDLabel->setTextColor(FXRGB(0, 255, 0));
-    myLCDLabel->setFont(myLCDLabelFont);
-    myLCDLabel->create();
 }
 
 
 void
 GNEViewNetHelper::TimeFormat::switchTimeFormat() {
     if (useTimeSteps()) {
-        myLCDLabel->setText("HH:MM:SS");
+        mySwitchButton->setText("Time: H");
     } else {
-        myLCDLabel->setText("TIMESTEPS");
+        mySwitchButton->setText("Time: S");
     }
 }
 
 
 bool
 GNEViewNetHelper::TimeFormat::useTimeSteps() const {
-    return (myLCDLabel->getText() == "TIMESTEPS");
+    return (mySwitchButton->getText() == "Time: S");
 }
 
 // ---------------------------------------------------------------------------
