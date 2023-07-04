@@ -176,7 +176,7 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType,
     GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
                      (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW) : GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
-SUMOVehicleParameter(containerparameters) {
+    GNEDemandElementFlow(containerparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
     // adjust default flow attributes
@@ -566,24 +566,12 @@ GNEContainer::getAttribute(SumoXMLAttr key) const {
         // Specific of containerFlows
         case SUMO_ATTR_BEGIN:
             return time2string(depart);
-        case SUMO_ATTR_END:
-            return time2string(repetitionEnd);
-        case SUMO_ATTR_CONTAINERSPERHOUR:
-            return toString(3600 / STEPS2TIME(repetitionOffset));
-        case SUMO_ATTR_PERIOD:
-        case GNE_ATTR_POISSON:
-            return time2string(repetitionOffset);
-        case SUMO_ATTR_PROB:
-            return toString(repetitionProbability);
-        case SUMO_ATTR_NUMBER:
-            return toString(repetitionNumber);
-        //
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getFlowAttribute(this, key);
     }
 }
 
@@ -636,21 +624,14 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_DEPARTPOS:
         // Specific of containers
         case SUMO_ATTR_DEPART:
-        // Specific of containerFlows
         case SUMO_ATTR_BEGIN:
-        case SUMO_ATTR_END:
-        case SUMO_ATTR_NUMBER:
-        case SUMO_ATTR_CONTAINERSPERHOUR:
-        case SUMO_ATTR_PERIOD:
-        case GNE_ATTR_POISSON:
-        case SUMO_ATTR_PROB:
-        //
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setFlowAttribute(this, key, value, undoList);
+            break;
     }
 }
 
@@ -692,109 +673,32 @@ GNEContainer::isValid(SumoXMLAttr key, const std::string& value) {
             // if error is empty, given value is valid
             return error.empty();
         }
-        // Specific of containerflows
-        case SUMO_ATTR_END:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_CONTAINERSPERHOUR:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                return (parse<double>(value) > 0);
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_PERIOD:
-        case GNE_ATTR_POISSON:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                return (parse<double>(value) > 0);
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_PROB:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_NUMBER:
-            if (canParse<int>(value)) {
-                return (parse<int>(value) >= 0);
-            } else {
-                return false;
-            }
-        //
+        // Other
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isValidFlowAttribute(this, key, value);
     }
 }
 
 
 void
 GNEContainer::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-    switch (key) {
-        case SUMO_ATTR_END:
-        case SUMO_ATTR_NUMBER:
-        case SUMO_ATTR_CONTAINERSPERHOUR:
-        case SUMO_ATTR_PERIOD:
-        case GNE_ATTR_POISSON:
-        case SUMO_ATTR_PROB:
-            undoList->add(new GNEChange_EnableAttribute(this, key, true, parametersSet), true);
-            return;
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
+    enableFlowAttribute(this, key, undoList);
 }
 
 
 void
 GNEContainer::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-    switch (key) {
-        case SUMO_ATTR_END:
-        case SUMO_ATTR_NUMBER:
-        case SUMO_ATTR_CONTAINERSPERHOUR:
-        case SUMO_ATTR_PERIOD:
-        case GNE_ATTR_POISSON:
-        case SUMO_ATTR_PROB:
-            undoList->add(new GNEChange_EnableAttribute(this, key, false, parametersSet), true);
-            return;
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
+    disableFlowAttribute(this, key, undoList);
 }
 
 
 bool
 GNEContainer::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_END:
-            return (parametersSet & VEHPARS_END_SET) != 0;
-        case SUMO_ATTR_NUMBER:
-            return (parametersSet & VEHPARS_NUMBER_SET) != 0;
-        case SUMO_ATTR_CONTAINERSPERHOUR:
-            return (parametersSet & VEHPARS_VPH_SET) != 0;
-        case SUMO_ATTR_PERIOD:
-            return (parametersSet & VEHPARS_PERIOD_SET) != 0;
-        case GNE_ATTR_POISSON:
-            return (parametersSet & VEHPARS_POISSON_SET) != 0;
-        case SUMO_ATTR_PROB:
-            return (parametersSet & VEHPARS_PROB_SET) != 0;
-        default:
-            return true;
-    }
+    return isFlowAttributeEnabled(key);
 }
 
 
@@ -959,23 +863,7 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
             parseDepart(value, toString(SUMO_TAG_CONTAINER), id, depart, departProcedure, error);
             break;
         }
-        case SUMO_ATTR_END:
-            repetitionEnd = string2time(value);
-            break;
-        case SUMO_ATTR_CONTAINERSPERHOUR:
-            repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
-            break;
-        case SUMO_ATTR_PERIOD:
-        case GNE_ATTR_POISSON:
-            repetitionOffset = string2time(value);
-            break;
-        case SUMO_ATTR_PROB:
-            repetitionProbability = parse<double>(value);
-            break;
-        case SUMO_ATTR_NUMBER:
-            repetitionNumber = parse<int>(value);
-            break;
-        //
+        // Others
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
@@ -987,7 +875,8 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
             setParametersStr(value);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setFlowAttribute(this, key, value);
+            break;
     }
 }
 
