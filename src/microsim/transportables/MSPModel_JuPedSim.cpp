@@ -63,6 +63,7 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
 
     JPS_Simulation_Free(myJPSSimulation);
     JPS_OperationalModel_Free(myJPSModel);
+    JPS_VelocityModelBuilder_Free(myJPSModelBuilder);
     JPS_Geometry_Free(myJPSGeometry);
     JPS_GeometryBuilder_Free(myJPSGeometryBuilder);
 
@@ -577,15 +578,15 @@ MSPModel_JuPedSim::initialize() {
         WRITE_WARNINGF(TL("Error creating the geometry: %"), JPS_ErrorMessage_GetMessage(message));
     }
 
-    JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
+    myJPSModelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
     size_t nbrParameterProfiles = 0;
     for (const MSVehicleType* type : myNetwork->getVehicleControl().getPedestrianTypes()) {
         ++nbrParameterProfiles;
-        JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, nbrParameterProfiles, 1.0, 0.5, MIN2(type->getMaxSpeed(), type->getDesiredMaxSpeed()), 0.3);
+        JPS_VelocityModelBuilder_AddParameterProfile(myJPSModelBuilder, nbrParameterProfiles, 1.0, 0.5, MIN2(type->getMaxSpeed(), type->getDesiredMaxSpeed()), 0.3);
         myJPSParameterProfileIds[type->getID()] = nbrParameterProfiles;
     }
     
-    myJPSModel = JPS_VelocityModelBuilder_Build(modelBuilder, &message);
+    myJPSModel = JPS_VelocityModelBuilder_Build(myJPSModelBuilder, &message);
     if (myJPSModel == nullptr) {
         WRITE_WARNINGF(TL("Error creating the pedestrian model: %"), JPS_ErrorMessage_GetMessage(message));
     }

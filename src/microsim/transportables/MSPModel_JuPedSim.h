@@ -137,6 +137,7 @@ private:
 
     JPS_GeometryBuilder myJPSGeometryBuilder;
     JPS_Geometry myJPSGeometry;
+    JPS_VelocityModelBuilder myJPSModelBuilder;
     JPS_OperationalModel myJPSModel;
     std::map<std::string, JPS_ModelParameterProfileId> myJPSParameterProfileIds;
     JPS_Simulation myJPSSimulation;
