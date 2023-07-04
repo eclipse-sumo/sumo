@@ -935,7 +935,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     if (thisRight && d2 != LinkDirection::STRAIGHT) {
         return false;
     }
-    if (c.tlID != "" && !bothLeft) {
+    if (c.tlID != "") {
         assert(myTrafficLights.size() > 0 || myType == SumoXMLNodeType::RAIL_CROSSING || myType == SumoXMLNodeType::RAIL_SIGNAL);
         for (std::set<NBTrafficLightDefinition*>::const_iterator it = myTrafficLights.begin(); it != myTrafficLights.end(); ++it) {
             if ((*it)->needsCont(fromE, toE, otherFromE, otherToE)) {
