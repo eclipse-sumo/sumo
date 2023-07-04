@@ -396,20 +396,6 @@ GNEVehicle::getMoveOperation() {
 }
 
 
-std::string
-GNEVehicle::getBegin() const {
-    // obtain depart
-    std::string departStr = depart < 0 ? "0.00" : time2string(depart);
-    // we need to handle depart as a tuple of 20 numbers (format: 000000...00<departTime>)
-    departStr.reserve(20 - departStr.size());
-    // add 0s at the beginning of departStr until we have 20 numbers
-    for (int i = (int)departStr.size(); i < 20; i++) {
-        departStr.insert(departStr.begin(), '0');
-    }
-    return departStr;
-}
-
-
 void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
     // attribute VType must not be written if is DEFAULT_VTYPE_ID

@@ -184,12 +184,6 @@ GNEStop::getMoveOperation() {
 }
 
 
-std::string
-GNEStop::getBegin() const {
-    return "";
-}
-
-
 void
 GNEStop::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STOP);

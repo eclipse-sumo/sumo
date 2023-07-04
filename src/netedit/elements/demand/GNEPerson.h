@@ -115,12 +115,6 @@ public:
      */
     GNEMoveOperation* getMoveOperation();
 
-    /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Person", and it has to be implemented as children
-     * @throw invalid argument if demand element doesn't has a begin time
-     */
-    std::string getBegin() const;
-
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */

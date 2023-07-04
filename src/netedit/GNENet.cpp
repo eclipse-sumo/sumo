@@ -2264,10 +2264,7 @@ GNENet::saveDemandElementsConfirmed() {
     for (const auto& demandElementTag : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElementTag.second) {
             if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson() || demandElement->getTagProperty().isContainer()) {
-                // get depart
-                const auto depart = GNEAttributeCarrier::parse<double>(demandElement->getBegin());
-                // save it in myVehiclesSortedByDepart
-                vehiclesSortedByDepart[depart][std::make_pair(demandElement->getTagProperty().getTag(), demandElement->getID())] = demandElement;
+                vehiclesSortedByDepart[demandElement->getAttributeDouble(SUMO_ATTR_DEPART)][std::make_pair(demandElement->getTagProperty().getTag(), demandElement->getID())] = demandElement;
             }
         }
     }

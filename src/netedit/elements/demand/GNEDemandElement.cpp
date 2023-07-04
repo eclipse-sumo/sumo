@@ -155,12 +155,6 @@ GNEDemandElement::openDemandElementDialog() {
 }
 
 
-std::string
-GNEDemandElement::getBegin() const {
-    throw InvalidArgument(getTagStr() + " doesn't have a begin time");
-}
-
-
 GUIGLObjectPopupMenu*
 GNEDemandElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
