@@ -525,6 +525,59 @@ struct GNEViewNetHelper {
         SaveElements& operator=(const SaveElements&) = delete;
     };
 
+    /// @brief struct used to group all variables related with time switch
+    struct TimeSwitch {
+
+        /// @brief default constructor
+        TimeSwitch(GNEViewNet* viewNet);
+
+        /// @brief destructor
+        ~TimeSwitch();
+
+        /// @brief build save buttons
+        void buildTimeSwitchButtons();
+
+        /// @brief enable or disable save individual files
+        void setSaveIndividualFiles(bool value);
+
+    private:
+        /// @brief pointer to net
+        GNEViewNet* myViewNet;
+
+        /// The locator menu
+        FXPopup* mySaveIndividualFilesPopup = nullptr;
+
+        /// @brief checkable button for save individual files
+        MFXMenuButtonTooltip* mySaveIndividualFiles = nullptr;
+
+        /// @brief checkable button for save netedit config
+        MFXButtonTooltip* mySaveNeteditConfig = nullptr;
+
+        /// @brief checkable button for save SUMO config
+        MFXButtonTooltip* mySaveSumoConfig = nullptr;
+
+        /// @brief checkable button for save network
+        MFXButtonTooltip* mySaveNetwork = nullptr;
+
+        /// @brief checkable button for save additional elements
+        MFXButtonTooltip* mySaveAdditionalElements = nullptr;
+
+        /// @brief checkable button for save demand elements
+        MFXButtonTooltip* mySaveDemandElements = nullptr;
+
+        /// @brief checkable button for save genericdata elements
+        MFXButtonTooltip* mySaveDataElements = nullptr;
+
+        /// @brief checkable button for save meanData elements
+        MFXButtonTooltip* mySaveMeanDataElements = nullptr;
+
+        /// @brief Invalidated copy constructor.
+        TimeSwitch(const TimeSwitch&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        TimeSwitch& operator=(const TimeSwitch&) = delete;
+    };
+
     /// @brief struct used to group all variables related with Supermodes
     struct EditModes {
 

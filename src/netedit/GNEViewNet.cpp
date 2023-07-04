@@ -252,6 +252,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
     mySaveElements(this),
+    myTimeSwitch(this),
     mySelectingArea(this),
     myEditNetworkElementShapes(this),
     myLockManager(this),
@@ -898,6 +899,7 @@ GNEViewNet::GNEViewNet() :
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
     mySaveElements(this),
+    myTimeSwitch(this),
     mySelectingArea(this),
     myEditNetworkElementShapes(this),
     myLockManager(this) {
@@ -4405,8 +4407,11 @@ GNEViewNet::buildEditModeControls() {
     // build supermode buttons
     myEditModes.buildSuperModeButtons();
 
-    // build save buttons
+    // build save elements buttons
     mySaveElements.buildSaveElementsButtons();
+
+    // build time switch buttons
+    myTimeSwitch.buildTimeSwitchButtons();
 
     // build menu checks for Common checkable buttons
     myCommonCheckableButtons.buildCommonCheckableButtons();

@@ -643,10 +643,13 @@ private:
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
     // @}
 
-    /// @brief variable used to save elements
+    /// @brief variable used for grouping all variables related with salve elements
     GNEViewNetHelper::SaveElements mySaveElements;
 
-    /// @brief variable used to save variables related with selecting areas
+    /// @brief variable used for grouping all variables related with switch time
+    GNEViewNetHelper::TimeSwitch myTimeSwitch;
+
+    /// @brief variable used for grouping all variables related with selecting areas
     GNEViewNetHelper::SelectingArea mySelectingArea;
 
     /// @brief struct for grouping all variables related with edit shapes
