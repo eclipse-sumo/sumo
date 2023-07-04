@@ -987,30 +987,6 @@ GNEDemandElement::drawStackLabel(const int number, const std::string& element, c
 
 
 void
-GNEDemandElement::drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const {
-    // declare contour width
-    const double contourWidth = (0.05 * exaggeration);
-    // Push matrix
-    GLHelper::pushMatrix();
-    // Traslate to  bot
-    glTranslated(position.x(), position.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
-    glRotated(rotation, 0, 0, -1);
-    glTranslated(-1 * ((width * 0.5 * exaggeration) + (0.35 * exaggeration)), 0, 0);
-    // draw external box
-    GLHelper::setColor(RGBColor::GREY);
-    GLHelper::drawBoxLine(Position(), Position(), 0, (length * exaggeration), 0.3 * exaggeration);
-    // draw internal box
-    glTranslated(0, 0, 0.1);
-    GLHelper::setColor(RGBColor::CYAN);
-    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, (length * exaggeration) - (contourWidth * 2), (0.3 * exaggeration) - contourWidth);
-    // draw stack label
-    GLHelper::drawText("Flow", Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::BLACK, 90, 0, -1);
-    // pop draw matrix
-    GLHelper::popMatrix();
-}
-
-
-void
 GNEDemandElement::replaceDemandParentEdges(const std::string& value) {
     replaceParentElements(this, parse<std::vector<GNEEdge*> >(getNet(), value));
 }
@@ -1210,95 +1186,6 @@ GNEDemandElement::getEdgeStopIndex() const {
         }
     }
     return edgeStopIndex;
-}
-
-
-void
-GNEDemandElement::setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value) {
-    // modify parameters depending of given Flow attribute
-    if (value) {
-        switch (attribute) {
-            case SUMO_ATTR_END:
-                vehicleParameters->parametersSet |= VEHPARS_END_SET;
-                break;
-            case SUMO_ATTR_NUMBER:
-                vehicleParameters->parametersSet |= VEHPARS_NUMBER_SET;
-                break;
-            case SUMO_ATTR_VEHSPERHOUR:
-            case SUMO_ATTR_PERSONSPERHOUR:
-            case SUMO_ATTR_CONTAINERSPERHOUR:
-                vehicleParameters->parametersSet |= VEHPARS_VPH_SET;
-                break;
-            case SUMO_ATTR_PERIOD:
-                vehicleParameters->parametersSet |= VEHPARS_PERIOD_SET;
-                break;
-            case GNE_ATTR_POISSON:
-                vehicleParameters->parametersSet |= VEHPARS_POISSON_SET;
-                break;
-            case SUMO_ATTR_PROB:
-                vehicleParameters->parametersSet |= VEHPARS_PROB_SET;
-                break;
-            default:
-                break;
-        }
-    } else {
-        switch (attribute) {
-            case SUMO_ATTR_END:
-                vehicleParameters->parametersSet &= ~VEHPARS_END_SET;
-                break;
-            case SUMO_ATTR_NUMBER:
-                vehicleParameters->parametersSet &= ~VEHPARS_NUMBER_SET;
-                break;
-            case SUMO_ATTR_VEHSPERHOUR:
-            case SUMO_ATTR_PERSONSPERHOUR:
-            case SUMO_ATTR_CONTAINERSPERHOUR:
-                vehicleParameters->parametersSet &= ~VEHPARS_VPH_SET;
-                break;
-            case SUMO_ATTR_PERIOD:
-                vehicleParameters->parametersSet &= ~VEHPARS_PERIOD_SET;
-                break;
-            case GNE_ATTR_POISSON:
-                vehicleParameters->parametersSet &= ~VEHPARS_POISSON_SET;
-                break;
-            case SUMO_ATTR_PROB:
-                vehicleParameters->parametersSet &= ~VEHPARS_PROB_SET;
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-
-void
-GNEDemandElement::adjustDefaultFlowAttributes(SUMOVehicleParameter* vehicleParameters) {
-    // first check that this demand element is a flow
-    if (myTagProperty.isFlow()) {
-        // end
-        if ((vehicleParameters->parametersSet & VEHPARS_END_SET) == 0) {
-            setAttribute(SUMO_ATTR_END, myTagProperty.getDefaultValue(SUMO_ATTR_END));
-        }
-        // number
-        if ((vehicleParameters->parametersSet & VEHPARS_NUMBER_SET) == 0) {
-            setAttribute(SUMO_ATTR_NUMBER, myTagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
-        }
-        // vehicles/person/container per hour
-        if (((vehicleParameters->parametersSet & VEHPARS_PERIOD_SET) == 0) &&
-                ((vehicleParameters->parametersSet & VEHPARS_POISSON_SET) == 0) &&
-                ((vehicleParameters->parametersSet & VEHPARS_VPH_SET) == 0)) {
-            setAttribute(SUMO_ATTR_PERIOD, myTagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
-        }
-        // probability
-        if ((vehicleParameters->parametersSet & VEHPARS_PROB_SET) == 0) {
-            setAttribute(SUMO_ATTR_PROB, myTagProperty.getDefaultValue(SUMO_ATTR_PROB));
-        }
-        // poisson
-        if (vehicleParameters->repetitionOffset < 0) {
-            toggleAttribute(SUMO_ATTR_PERIOD, false);
-            toggleAttribute(GNE_ATTR_POISSON, true);
-            setAttribute(GNE_ATTR_POISSON, time2string(vehicleParameters->repetitionOffset * -1));
-        }
-    }
 }
 
 

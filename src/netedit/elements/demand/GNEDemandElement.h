@@ -55,6 +55,7 @@ class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchi
 public:
     /// @brief friend declaration (needed for vTypes)
     friend class GNERouteHandler;
+    friend class GNEDemandElementFlow;
 
     /// @brief enum class for demandElement problems
     enum class Problem {
@@ -382,9 +383,6 @@ protected:
     /// @brief draw stack label
     void drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
 
-    /// @brief draw flow label
-    void drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
-
     /// @name replace parent elements
     /// @{
 
@@ -447,12 +445,6 @@ protected:
 
     /// @brief get edgeStopIndex
     std::vector<EdgeStopIndex> getEdgeStopIndex() const;
-
-    /// @brief set flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
-    void setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value);
-
-    /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
-    void adjustDefaultFlowAttributes(SUMOVehicleParameter* vehicleParameters);
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;
