@@ -561,6 +561,9 @@ public:
     /// @brief get variable used to save elements
     GNEViewNetHelper::SaveElements& getSaveElements();
 
+    /// @brief get variable used to swith between time formats
+    GNEViewNetHelper::TimeSwitch& getTimeSwitch();
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();

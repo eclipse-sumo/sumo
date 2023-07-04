@@ -428,6 +428,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,     GNEApplicationWindow::onCmdFocusFrame),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_MODESMENUTITLE,                     GNEApplicationWindow::onUpdRequireViewNet),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_RECOMPUTINGNEEDED,                  GNEApplicationWindow::onUpdRequireRecomputing),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onCmdToogleTimeFormat),
 };
 
 // Object implementation
@@ -2119,6 +2120,16 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
         myViewNet->hotkeyFocusFrame();
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdToogleTimeFormat(FXObject* sender, FXSelector sel, void* ptr) {
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->getTimeSwitch().switchTimeFormat();
     }
     return 1;
 }

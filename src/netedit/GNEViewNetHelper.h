@@ -23,6 +23,7 @@
 #include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/foxtools/MFXLCDLabel.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 
@@ -537,39 +538,24 @@ struct GNEViewNetHelper {
         /// @brief build save buttons
         void buildTimeSwitchButtons();
 
-        /// @brief enable or disable save individual files
-        void setSaveIndividualFiles(bool value);
+        /// @brief switch time format
+        void switchTimeFormat();
+
+        /// @brief use time steps instead HH:MM:SS
+        bool useTimeSteps() const;
 
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 
-        /// The locator menu
-        FXPopup* mySaveIndividualFilesPopup = nullptr;
+        /// @brief checkable button for switch between timeSteps and HH:MM:SS
+        MFXButtonTooltip* mySwitchButton = nullptr;
 
-        /// @brief checkable button for save individual files
-        MFXMenuButtonTooltip* mySaveIndividualFiles = nullptr;
+        /// @brief font for lcd label
+        FXFont* myLCDLabelFont = nullptr;
 
-        /// @brief checkable button for save netedit config
-        MFXButtonTooltip* mySaveNeteditConfig = nullptr;
-
-        /// @brief checkable button for save SUMO config
-        MFXButtonTooltip* mySaveSumoConfig = nullptr;
-
-        /// @brief checkable button for save network
-        MFXButtonTooltip* mySaveNetwork = nullptr;
-
-        /// @brief checkable button for save additional elements
-        MFXButtonTooltip* mySaveAdditionalElements = nullptr;
-
-        /// @brief checkable button for save demand elements
-        MFXButtonTooltip* mySaveDemandElements = nullptr;
-
-        /// @brief checkable button for save genericdata elements
-        MFXButtonTooltip* mySaveDataElements = nullptr;
-
-        /// @brief checkable button for save meanData elements
-        MFXButtonTooltip* mySaveMeanDataElements = nullptr;
+        /// @brief label to show either "TimeStep" or "HH:MM:SS"
+        FXLabel* myLCDLabel = nullptr;
 
         /// @brief Invalidated copy constructor.
         TimeSwitch(const TimeSwitch&) = delete;

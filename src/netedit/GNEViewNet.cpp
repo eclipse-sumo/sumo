@@ -882,6 +882,12 @@ GNEViewNet::getSaveElements() {
 }
 
 
+GNEViewNetHelper::TimeSwitch&
+GNEViewNet::getTimeSwitch() {
+    return myTimeSwitch;
+}
+
+
 GNEViewNet::GNEViewNet() :
     myEditModes(this),
     myTestingMode(this),
