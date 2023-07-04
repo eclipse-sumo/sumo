@@ -166,7 +166,7 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
-    // set end and vehPerHours
+    // set end and container per hours as default flow values
     toggleAttribute(SUMO_ATTR_END, 1);
     toggleAttribute(SUMO_ATTR_CONTAINERSPERHOUR, 1);
 }

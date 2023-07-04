@@ -264,9 +264,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
-    // set end and vehPerHours
-    toggleAttribute(SUMO_ATTR_END, 1);
-    toggleAttribute(SUMO_ATTR_VEHSPERHOUR, 1);
+    // set end and vehPerHours as default flow values
+    toggleAttribute(SUMO_ATTR_END, true);
+    toggleAttribute(SUMO_ATTR_VEHSPERHOUR, true);
 }
 
 

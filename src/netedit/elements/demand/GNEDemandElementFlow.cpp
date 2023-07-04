@@ -268,13 +268,13 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_CONTAINERSPERHOUR:
-            repetitionOffset = TIME2STEPS(3600 / string2time(value));
+            repetitionOffset = TIME2STEPS(3600 / GNEAttributeCarrier::parse<double>(value));
             break;
         case SUMO_ATTR_PERIOD:
             repetitionOffset = string2time(value);
             break;
         case GNE_ATTR_POISSON:
-            repetitionOffset = TIME2STEPS(1 / string2time(value));
+            repetitionOffset = TIME2STEPS(1 / GNEAttributeCarrier::parse<double>(value));
             break;
         case SUMO_ATTR_PROB:
             repetitionProbability = GNEAttributeCarrier::parse<double>(value);

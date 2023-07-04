@@ -166,9 +166,9 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
-    // set end and vehPerHours
-    toggleAttribute(SUMO_ATTR_END, 1);
-    toggleAttribute(SUMO_ATTR_PERSONSPERHOUR, 1);
+    // enable set and persons per hour as default flow values
+    toggleAttribute(SUMO_ATTR_END, true);
+    toggleAttribute(SUMO_ATTR_PERSONSPERHOUR, true);
 }
 
 
