@@ -2022,8 +2022,8 @@ GNEViewNetHelper::TimeFormat::buildTimeFormatButtons() {
     // create save sumo config button
     mySwitchButton = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().timeSwitch,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            TL("Time: S") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS"), nullptr,
-            myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_TOGGLE_TIMEFORMAT, GUIDesignButtonToolbarWithText);
+            TL("S") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS"), nullptr,
+            myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_TOGGLE_TIMEFORMAT, GUIDesignButtonToolbar);
     mySwitchButton->create();
 }
 
@@ -2031,16 +2031,16 @@ GNEViewNetHelper::TimeFormat::buildTimeFormatButtons() {
 void
 GNEViewNetHelper::TimeFormat::switchTimeFormat() {
     if (useTimeSteps()) {
-        mySwitchButton->setText("Time: H");
+        mySwitchButton->setText("H");
     } else {
-        mySwitchButton->setText("Time: S");
+        mySwitchButton->setText("S");
     }
 }
 
 
 bool
 GNEViewNetHelper::TimeFormat::useTimeSteps() const {
-    return (mySwitchButton->getText() == "Time: S");
+    return (mySwitchButton->getText() == "S");
 }
 
 // ---------------------------------------------------------------------------
