@@ -28,6 +28,7 @@ TAXI_STATUS_FREE_FLOW = "70"
 
 def fcd2gpsdat(inpFCD, outSTRM, further):
     date = further["base-date"]
+    date = date.replace(tzinfo=None)
     for timestep in inpFCD:
         if timestep.vehicle:
             # does not work with subseconds
