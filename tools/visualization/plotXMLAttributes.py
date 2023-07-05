@@ -273,7 +273,8 @@ def getDataStream(options):
                                             attr2elem[attr] = elem.tag
                                         print("Warning: found %s '%s' in element '%s' (level %s) and "
                                               "element '%s' (level %s). Using '%s'." %
-                                              (a, attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]))
+                                              (a, attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]),
+                                              file=sys.stderr)
                                 else:
                                     attr2elem[attr] = elem.tag
                     if len(attr2elem) == len(dataAttrs):
@@ -311,13 +312,14 @@ def getDataStream(options):
                         else:
                             sys.exit("Mandatory " + msg)
 
-    allElems = list(set(attr2elem.values()))
+    allElems = sorted(list(set(attr2elem.values())))
     attrs = [getattr(options, a) for a in attrOptions]
 
     # we don't know the order of the elements and we cannot get it from our xml parser
+    skippedLines = defaultdict(int)
     if len(allElems) == 2:
         def datastream(xmlfile):
-            skippedLines = defaultdict(int)
+            missingParents = 0
             elems = sorted(allElems, key=lambda e: elem2level[e])
             mE0 = "<%s " % elems[0]
             mE1 = "<%s " % elems[1]
@@ -328,27 +330,18 @@ def getDataStream(options):
 
             values = {}  # attr -> value
             index = 0
+            foundParent = False
             with openz(xmlfile) as xmlf:
                 for line in xmlf:
                     if mE0 in line:
-                        for a, r in mAs0:
-                            values[a] = r.search(line).groups()[0]
+                        foundParent = not parseValues(index, line, mAs0, values, skippedLines)
                     if mE1 in line:
-                        skip = False
-                        for a, r in mAs1:
-                            m = r.search(line)
-                            if m:
-                                values[a] = m.groups()[0]
-                            elif a == INDEX_ATTR:
-                                values[a] = index
-                            elif a in POST_PROCESSING_ATTRS:
-                                # set in post-processing
-                                values[a] = 0
-                            elif a == NONE_ATTR:
-                                values[a] = NONE_ATTR_DEFAULT
-                            else:
-                                skip = True
-                                skippedLines[a] += 1
+                        if not foundParent:
+                            print("Warning: Skipped element '%s' without parent element '%s'" % (elems[1], elems[0]),
+                                  file=sys.stderr)
+                            missingParents += 1
+                            continue
+                        skip = parseValues(index, line, mAs1, values, skippedLines)
                         if not skip:
                             for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
                                 yield toYield
@@ -357,41 +350,56 @@ def getDataStream(options):
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
                     count, attr), file=sys.stderr)
+            if missingParents:
+                print("Use options --xelem, --yelem, --idelem to resolve ambiguous elements")
 
         return datastream
 
     elif len(allElems) == 1:
         def datastream(xmlfile):
+            missingParents = 0
             mE = "<%s " % allElems[0]
             mAs = [re.compile('%s="([^"]*)"' % a) for a in allAttrs]
             index = 0
             with openz(xmlfile) as xmlf:
                 for line in xmlf:
                     if mE in line:
-                        skip = False
                         values = {}  # attr -> value
-                        for a, r in zip(allAttrs, mAs):
-                            if a == INDEX_ATTR:
-                                values[a] = index
-                            elif a in POST_PROCESSING_ATTRS:
-                                # set in post-processing
-                                values[a] = 0
-                            elif a == NONE_ATTR:
-                                values[a] = NONE_ATTR_DEFAULT
-                            else:
-                                m = r.search(line)
-                                if m:
-                                    values[a] = m.groups()[0]
-                                else:
-                                    skip = True
+                        skip = parseValues(index, line, zip(allAttrs, mAs), values, skippedLines)
                         if not skip:
                             for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
                                 yield toYield
                                 index += 1
+
+            for attr, count in skippedLines.items():
+                print("Warning: Skipped %s lines because of missing attributes '%s'." % (
+                    count, attr), file=sys.stderr)
+            if missingParents:
+                print("Use options --xelem, --yelem, --idelem to resolve ambiguous elements")
+
         return datastream
 
     else:
         sys.exit("Found attributes at elements %s but at most 2 elements are supported" % allElems)
+
+
+def parseValues(index, line, attributePatterns, values, skippedLines):
+    skip = False
+    for a, r in attributePatterns:
+        m = r.search(line)
+        if m:
+            values[a] = m.groups()[0]
+        elif a == INDEX_ATTR:
+            values[a] = index
+        elif a in POST_PROCESSING_ATTRS:
+            # set in post-processing
+            values[a] = 0
+        elif a == NONE_ATTR:
+            values[a] = NONE_ATTR_DEFAULT
+        else:
+            skip = True
+            skippedLines[a] += 1
+    return skip
 
 
 def combineValues(attrs, attr2parts, values, splitX, splitY):
