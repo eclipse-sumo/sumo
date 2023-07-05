@@ -5578,7 +5578,10 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
             rem = myMoveReminders.erase(rem);
         }
     }
-    if ((reason == MSMoveReminder::NOTIFICATION_JUNCTION || reason == MSMoveReminder::NOTIFICATION_TELEPORT) && myLane != nullptr) {
+    if ((reason == MSMoveReminder::NOTIFICATION_JUNCTION
+                || reason == MSMoveReminder::NOTIFICATION_TELEPORT
+                || reason == MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION)
+            && myLane != nullptr) {
         myOdometer += getLane()->getLength();
     }
     if (myLane != nullptr && myLane->getBidiLane() != nullptr && myAmOnNet
