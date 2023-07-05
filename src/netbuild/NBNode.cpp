@@ -898,39 +898,41 @@ NBNode::displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection&
 
 bool
 NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
-                  const NBEdge::Connection& c, const NBEdge::Connection& otherC) const {
+                  const NBEdge::Connection& c, const NBEdge::Connection& otherC, bool checkOnlyTLS) const {
     const NBEdge* toE = c.toEdge;
     const NBEdge* otherToE = otherC.toEdge;
 
-    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT
-            || myType == SumoXMLNodeType::LEFT_BEFORE_RIGHT
-            || myType == SumoXMLNodeType::ALLWAY_STOP) {
-        return false;
-    }
-    LinkDirection d1 = getDirection(fromE, toE);
-    const bool thisRight = (d1 == LinkDirection::RIGHT || d1 == LinkDirection::PARTRIGHT);
-    const bool rightTurnConflict = (thisRight &&
-                                    NBNode::rightTurnConflict(fromE, toE, c.fromLane, otherFromE, otherToE, otherC.fromLane));
-    if (thisRight && !rightTurnConflict) {
-        return false;
-    }
-    if (myRequest && myRequest->indirectLeftTurnConflict(fromE, c, otherFromE, otherC, false)) {
-        return true;
-    }
-    if (!(foes(otherFromE, otherToE, fromE, toE) || myRequest == nullptr || rightTurnConflict)) {
-        // if they do not cross, no waiting place is needed
-        return false;
-    }
-    LinkDirection d2 = getDirection(otherFromE, otherToE);
-    if (d2 == LinkDirection::TURN) {
-        return false;
-    }
-    if (fromE == otherFromE && !thisRight) {
-        // ignore same edge links except for right-turns
-        return false;
-    }
-    if (thisRight && d2 != LinkDirection::STRAIGHT) {
-        return false;
+    if (!checkOnlyTLS) {
+        if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT
+                || myType == SumoXMLNodeType::LEFT_BEFORE_RIGHT
+                || myType == SumoXMLNodeType::ALLWAY_STOP) {
+            return false;
+        }
+        LinkDirection d1 = getDirection(fromE, toE);
+        const bool thisRight = (d1 == LinkDirection::RIGHT || d1 == LinkDirection::PARTRIGHT);
+        const bool rightTurnConflict = (thisRight &&
+                NBNode::rightTurnConflict(fromE, toE, c.fromLane, otherFromE, otherToE, otherC.fromLane));
+        if (thisRight && !rightTurnConflict) {
+            return false;
+        }
+        if (myRequest && myRequest->indirectLeftTurnConflict(fromE, c, otherFromE, otherC, false)) {
+            return true;
+        }
+        if (!(foes(otherFromE, otherToE, fromE, toE) || myRequest == nullptr || rightTurnConflict)) {
+            // if they do not cross, no waiting place is needed
+            return false;
+        }
+        LinkDirection d2 = getDirection(otherFromE, otherToE);
+        if (d2 == LinkDirection::TURN) {
+            return false;
+        }
+        if (fromE == otherFromE && !thisRight) {
+            // ignore same edge links except for right-turns
+            return false;
+        }
+        if (thisRight && d2 != LinkDirection::STRAIGHT) {
+            return false;
+        }
     }
     if (c.tlID != "") {
         assert(myTrafficLights.size() > 0 || myType == SumoXMLNodeType::RAIL_CROSSING || myType == SumoXMLNodeType::RAIL_SIGNAL);
@@ -953,7 +955,7 @@ NBNode::tlsContConflict(const NBEdge* from, const NBEdge::Connection& c,
     return (foe.haveVia && isTLControlled() && c.tlLinkIndex >= 0 && foe.tlLinkIndex >= 0
             && !foeFrom->isTurningDirectionAt(foe.toEdge)
             && foes(from, c.toEdge, foeFrom, foe.toEdge)
-            && !needsCont(foeFrom, from, foe, c));
+            && !needsCont(foeFrom, from, foe, c, true));
 }
 
 

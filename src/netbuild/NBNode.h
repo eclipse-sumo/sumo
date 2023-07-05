@@ -600,7 +600,7 @@ public:
 
     /// @brief whether an internal junction should be built at from and respect other
     bool needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
-                   const NBEdge::Connection& c, const NBEdge::Connection& otherC) const;
+                   const NBEdge::Connection& c, const NBEdge::Connection& otherC, bool checkOnlyTLS = false) const;
 
     /// @brief whether the connection must yield if the foe remains on the intersection after its phase ends
     bool tlsContConflict(const NBEdge* from, const NBEdge::Connection& c,
