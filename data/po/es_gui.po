@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-07-05 13:25+0000\n"
+"PO-Revision-Date: 2023-07-05 13:45+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -8694,9 +8694,7 @@ msgstr "El tipo de flujo de contenedores '%' usada en % '%' no es válida."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1102
 msgid "Containers don't support stops at busStops or trainStops"
-msgstr ""
-"Los contenedores no soportan paradas sobre estaciones de autobús o "
-"estaciones de tren"
+msgstr "Los contenedores no pueden parar en paradas para autobuses o trenes"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1110
 msgid "Persons don't support stops at containerStops"
@@ -8708,27 +8706,30 @@ msgstr "Las personas no pueden parar en estaciones de carga"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1121
 msgid "Containers don't support stops at chargingStations"
-msgstr ""
+msgstr "Los contenedores no pueden parar en paradas para contenedores"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1129
 msgid "Persons don't support stops at parkingAreas"
-msgstr ""
+msgstr "Las personas no pueden parar en areas de parqueo"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1132
 msgid "Containers don't support stops at parkingAreas"
-msgstr ""
+msgstr "Los contenedores no pueden parar en areas de parqueo"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1142
 msgid "vehicles don't support stops at edges"
-msgstr ""
+msgstr "Los vehículos no pueden parar en calles (edges)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1155
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
 msgstr ""
+"Una parada debe ser definida sobre un lugar de parada, una calle (edge), o "
+"un carril (lane)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1157
 msgid "A stop requires only a stoppingPlace, edge or lane"
 msgstr ""
+"Una parada necesita solo un lugar de parada, calle (edge) o carril (lane)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1282
 msgid "A person trip from edge to edge needs two edges edge"
@@ -12195,18 +12196,20 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:383
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
 msgstr ""
+"El atributo 'filename' está obsoleto para las pegatinas. Por favor usa "
+"'file'."
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:559
 msgid " Could not decode breakpoint '%'"
-msgstr ""
+msgstr " No se puede decodificar el punto de ruptura '%'"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2348
 msgid "No color defined for LinkState '%'"
-msgstr ""
+msgstr "No se ha definido el color para el linkState '%'"
 
 #: D:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:116
 msgid "Save the data..."
-msgstr ""
+msgstr "Guardar los datos..."
 
 #: D:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:131
 msgid "Multiplot"
