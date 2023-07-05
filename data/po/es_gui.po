@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-07-05 13:45+0000\n"
+"PO-Revision-Date: 2023-07-05 14:11+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -12213,112 +12213,112 @@ msgstr "Guardar los datos..."
 
 #: D:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:131
 msgid "Multiplot"
-msgstr ""
+msgstr "Multiplot"
 
 #: D:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:219
 msgid "Save Data"
-msgstr ""
+msgstr "Guardar datos"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:85
 msgid "Track"
-msgstr ""
+msgstr "Seguir"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:92
 msgid "&Hide Unselected"
-msgstr ""
+msgstr "&Ocultar no seleccionados"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 msgid "By &Name"
-msgstr ""
+msgstr "Por &Nombre"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 msgid "Locate item by name"
-msgstr ""
+msgstr "Localizar elemento por nombre"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:94
 msgid "&Select/deselect"
-msgstr ""
+msgstr "&Seleccionar/deseleccionar"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:94
 msgid "Select/deselect current object"
-msgstr ""
+msgstr "Seleccionar/deseleccionar objeto actual"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:95
 msgid "&Filter substring"
-msgstr ""
+msgstr "&Filtrar subcadena"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:96
 msgid "Select &all"
-msgstr ""
+msgstr "Seleccion&ar todo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:96
 msgid "Select all items in list"
-msgstr ""
+msgstr "Seleccionar todos los elementos de la lista"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:97
 msgid "&Deselect all"
-msgstr ""
+msgstr "&Deseleccionar todos"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:97
 msgid "Deselect all items in list"
-msgstr ""
+msgstr "Deseleccionar todos los elementos de la lista"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:98
 msgid "&Update"
-msgstr ""
+msgstr "Act&ualizar"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:98
 msgid "Reload all ids"
-msgstr ""
+msgstr "Actualizar todos los ids"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:102
 msgid "case-sensitive search"
-msgstr ""
+msgstr "la búsqueda distingue mayúsculas y minúsculas"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:104
 msgid "auto-center"
-msgstr ""
+msgstr "auto-centrar"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:329
 #, c-format
 msgid "% objects"
-msgstr ""
+msgstr "% objetos"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:65
 msgid "Load viewport from file"
-msgstr ""
+msgstr "Cargar punto de vista desde el archivo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:67
 msgid "Save viewport to file"
-msgstr ""
+msgstr "Guardar punto de vista en archivo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:210
 msgid "Load Viewport"
-msgstr ""
+msgstr "Cargar punto de vista"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:229
 msgid "Save Viewport"
-msgstr ""
+msgstr "Guardar punto de vista"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:87
 msgid "View Settings"
-msgstr ""
+msgstr "Configuración de la vista"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:989
 msgid "Enter a name"
-msgstr ""
+msgstr "Introducir nombre"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:991
 msgid "Please enter an alphanumeric name: "
-msgstr ""
+msgstr "Por favor introduce un nombre alfanumérico: "
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1070
 msgid "Export view settings"
-msgstr ""
+msgstr "Exportar configuración de la vista"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1121
 msgid "Import view settings"
-msgstr ""
+msgstr "Importar configuración de la vista"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1138
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1155
@@ -12337,7 +12337,7 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1248
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1313
 msgid "Remove"
-msgstr ""
+msgstr "Eliminar"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1571
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1616
@@ -12350,7 +12350,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1576
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1581
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1694
@@ -12363,12 +12363,12 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2156
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2219
 msgid "Color"
-msgstr ""
+msgstr "Color"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1583
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1689
 msgid "Background"
-msgstr ""
+msgstr "Fondo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1614
 msgid "Draw with constant size when zoomed out"
@@ -12412,15 +12412,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1678
 msgid "Decals"
-msgstr ""
+msgstr "Pegatinas"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1679
 msgid "Breakpoints"
-msgstr ""
+msgstr "Puntos de ruptura"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1698
 msgid "Decals:"
-msgstr ""
+msgstr "Pegatinas:"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1701
 msgid "&Load XML Decals"
@@ -12448,7 +12448,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1726
 msgid "Streets"
-msgstr ""
+msgstr "Calles"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1734
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1763
@@ -12479,7 +12479,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1761
 msgid "Scale width"
-msgstr ""
+msgstr "Escalar ancho"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1784
 msgid "Show bike markings"
@@ -12515,7 +12515,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1804
 msgid "Show rails"
-msgstr ""
+msgstr "Mostrar railes"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1806
 msgid "Spread bidirectional railways/roads"
@@ -12536,11 +12536,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1820
 msgid "Minimum size"
-msgstr ""
+msgstr "Tamaño mínimo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1826
 msgid "Show edge id"
-msgstr ""
+msgstr "Mostrar ID de la calle (edge)"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1827
 msgid "Show street name"
@@ -12558,18 +12558,18 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1923
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1963
 msgid "Show As"
-msgstr ""
+msgstr "Mostrar como"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1842
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1925
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1965
 msgid "'triangles'"
-msgstr ""
+msgstr "'triángulos'"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1843
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1966
 msgid "'boxes'"
-msgstr ""
+msgstr "'cajas'"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1844
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1927
@@ -12586,15 +12586,15 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1846
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1926
 msgid "'circles'"
-msgstr ""
+msgstr "'círculos'"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1868
 msgid "Scale size"
-msgstr ""
+msgstr "Escalar tamaño"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1877
 msgid "Show vehicle id"
-msgstr ""
+msgstr "Mostrar ID del vehículo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1878
 msgid "Show vehicle color value"
@@ -12642,7 +12642,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1946
 msgid "Show person id"
-msgstr ""
+msgstr "Mostrar ID de la pesona"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1947
 msgid "Show person color value"
@@ -12650,15 +12650,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1958
 msgid "Containers"
-msgstr ""
+msgstr "Contenedores"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1986
 msgid "Show container id"
-msgstr ""
+msgstr "Mostrar ID del contenedor"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1997
 msgid "Junctions"
-msgstr ""
+msgstr "Cruces (junctions)"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2014
 msgid "Draw junction shape"
@@ -12706,7 +12706,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2030
 msgid "Show junction name"
-msgstr ""
+msgstr "Mostrar nombre del cruce (junction)"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2036
 msgid "Additional"
@@ -12714,7 +12714,7 @@ msgstr "Elemento adicional"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2041
 msgid "Show object id"
-msgstr ""
+msgstr "Mostrar id del objeto"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2042
 msgid "Show full name"
@@ -12726,7 +12726,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2050
 msgid "body"
-msgstr ""
+msgstr "cuerpo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2051
 msgid "sign"
@@ -12734,11 +12734,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2074
 msgid "element"
-msgstr ""
+msgstr "elemento"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2075
 msgid "color"
-msgstr ""
+msgstr "color"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2076
 msgid "width"
@@ -12766,7 +12766,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2151
 msgid "Polygons"
-msgstr ""
+msgstr "Polígonos"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2166
 msgid "Show polygon id"
@@ -12802,7 +12802,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2257
 msgid "Legend"
-msgstr ""
+msgstr "Leyenda"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2262
 msgid "Show Size Legend"
@@ -12846,7 +12846,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2308
 msgid "3D view"
-msgstr ""
+msgstr "Vista 3D"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2313
 msgid "Show TLS link markers"
@@ -12870,11 +12870,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2339
 msgid "Sky color"
-msgstr ""
+msgstr "Color de cielo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:120
 msgid "Recenter View"
-msgstr ""
+msgstr "Recentrar vista"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:120
 msgid "Recenter view to the simulated area."
