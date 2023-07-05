@@ -1359,7 +1359,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
     }
     if (MSGlobals::gComputeLC && ego != nullptr && ego->getLane()->isNormal()) {
         const MSLink* junctionEntry = getLaneBefore()->getEntryLink();
-        if (junctionEntry->haveRed() && !ego->ignoreRed(junctionEntry, true)) {
+        if (junctionEntry->haveRed() && !ego->ignoreRed(junctionEntry, true)
+                // check oncoming on bidiLane during laneChanging
+                && (!MSGlobals::gComputeLC || junctionEntry->getLaneBefore()->getBidiLane() == nullptr)) {
             if (gDebugFlag1) {
                 std::cout << "   ignore linkLeaders beyond red light\n";
             }
