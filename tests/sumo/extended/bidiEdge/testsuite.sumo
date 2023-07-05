@@ -24,3 +24,6 @@ TWLT_side
 
 # multiple vehicles entering bidi lane from side road
 TWLT_side2
+
+# multiple vehicles entering bidi lane from side road
+TWLT_tls

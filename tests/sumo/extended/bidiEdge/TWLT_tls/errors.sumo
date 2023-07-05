@@ -1,0 +1,8 @@
+Warning: Teleporting vehicle 'main.0'; waited too long (wrong lane), lane='E0_0', time=346.00.
+Warning: Vehicle 'main.0' ends teleporting on edge 'E4', time=346.00.
+Warning: Teleporting vehicle 'main.1'; waited too long (wrong lane), lane='E0_0', time=349.00.
+Warning: Vehicle 'main.1' ends teleporting on edge 'E4', time=349.00.
+Warning: Teleporting vehicle 'side.2'; waited too long (jam), lane=':J2_0_0', time=651.00.
+Warning: Vehicle 'side.2' ends teleporting on edge '-E0', time=651.00.
+Warning: Teleporting vehicle 'main.2'; waited too long (wrong lane), lane='E0_0', time=652.00.
+Warning: Vehicle 'main.2' ends teleporting on edge 'E4', time=652.00.
