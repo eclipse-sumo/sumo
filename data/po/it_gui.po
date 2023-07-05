@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-07-01 12:52+0000\n"
+"PO-Revision-Date: 2023-07-05 13:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10460,6 +10460,8 @@ msgid ""
 "Could not build parking space in netedit; attribute width cannot be parse to "
 "float."
 msgstr ""
+"Non ho potuto creare il parcheggio in netedit poiché l'attributo width non "
+"può essere analizzato come numero."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:355
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:354
@@ -10467,6 +10469,8 @@ msgid ""
 "Could not build parking space in netedit; attribute length cannot be parse "
 "to float."
 msgstr ""
+"Non ho potuto creare il parcheggio in netedit poiché l'attributo length non "
+"può essere analizzato come numero."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:357
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:356
@@ -10474,16 +10478,18 @@ msgid ""
 "Could not build parking space in netedit; attribute angle cannot be parse to "
 "float."
 msgstr ""
+"Non ho potuto creare il parcheggio in netedit poiché l'attributo angle non "
+"può essere analizzato come numero."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:378
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:377
 msgid "add parking space in '"
-msgstr ""
+msgstr "aggiungi parcheggio a '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:422
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:421
 msgid "add induction loop '"
-msgstr ""
+msgstr "aggiungi circuito di induzione a '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:462
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:529
@@ -10492,13 +10498,15 @@ msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
 "light ID."
 msgstr ""
+"Non ho potuto creare il rivelatore multi-corsie con il codice identificativo "
+"'%' in netedit per causa del codice identificativo invalido del semaforo."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:487
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:548
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:486
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:547
 msgid "add lane area detector '"
-msgstr ""
+msgstr "aggiungi rivelatore multi-corsie '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:520
 #, c-format
@@ -10506,6 +10514,8 @@ msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr ""
+"Non ho potuto creare il rivelatore multi-corsie con il codice identificativo "
+"'%' in netedit perché le corsie non si seguono."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:593
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:592
@@ -16664,6 +16674,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:528
 msgid "Could not build lane area detector with ID '"
 msgstr ""
+"Non ho potuto creare il rivelatore multi-corsie con il codice identificativo "
+"'"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:461
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:528
