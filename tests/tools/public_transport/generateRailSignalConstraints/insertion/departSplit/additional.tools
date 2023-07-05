@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-05 16:31:37.175766 by generateRailSignalConstraints.py v1_18_0+0115-d2cda44
+<configuration>
+    <net-file value="net.net.xml"/>
+    <additional-file value="input_additional.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <output-file value="out.add.xml"/>
+    <comment.time value="True"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+</additional>
