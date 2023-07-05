@@ -419,28 +419,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
         device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
     }
-    // write specific routeFlow/flow attributes
-    if (myTagProperty.isFlow()) {
-        // write routeFlow values depending if it was set
-        if (isAttributeEnabled(SUMO_ATTR_END)) {
-            device.writeAttr(SUMO_ATTR_END, time2string(repetitionEnd));
-        }
-        if (isAttributeEnabled(SUMO_ATTR_NUMBER)) {
-            device.writeAttr(SUMO_ATTR_NUMBER, repetitionNumber);
-        }
-        if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
-            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
-        }
-        if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
-            device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
-        }
-        if (isAttributeEnabled(GNE_ATTR_POISSON)) {
-            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + toString(1.0 / STEPS2TIME(repetitionOffset)) + ")");
-        }
-        if (isAttributeEnabled(SUMO_ATTR_PROB)) {
-            device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
-        }
-    }
+    // write flow attributes
+    writeFlowAttributes(this, device);
     // write parameters
     writeParams(device);
     // write route elements associated to this vehicle (except for calibrator FLows)

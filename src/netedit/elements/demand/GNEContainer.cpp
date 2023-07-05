@@ -219,28 +219,8 @@ GNEContainer::writeDemandElement(OutputDevice& device) const {
         // write container attributes, including VType
         write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getTypeParent()->getID());
     }
-    // write specific flow attributes
-    if (myTagProperty.getTag() == SUMO_TAG_CONTAINERFLOW) {
-        // write routeFlow values depending if it was set
-        if (isAttributeEnabled(SUMO_ATTR_END)) {
-            device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
-        }
-        if (isAttributeEnabled(SUMO_ATTR_NUMBER)) {
-            device.writeAttr(SUMO_ATTR_NUMBER, repetitionNumber);
-        }
-        if (isAttributeEnabled(SUMO_ATTR_CONTAINERSPERHOUR)) {
-            device.writeAttr(SUMO_ATTR_CONTAINERSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
-        }
-        if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
-            device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
-        }
-        if (isAttributeEnabled(GNE_ATTR_POISSON)) {
-            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + time2string(repetitionOffset) + ")");
-        }
-        if (isAttributeEnabled(SUMO_ATTR_PROB)) {
-            device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
-        }
-    }
+    // write flow attributes
+    writeFlowAttributes(this, device);
     // write parameters
     writeParams(device);
     // write child demand elements associated to this container (Rides, Walks...)

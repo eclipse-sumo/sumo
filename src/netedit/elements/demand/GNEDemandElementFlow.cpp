@@ -77,6 +77,33 @@ GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotat
 }
 
 
+void
+GNEDemandElementFlow::writeFlowAttributes(const GNEDemandElement* flowElement, OutputDevice& device) const {
+    // first check that we're writting a flow
+    if (flowElement->getTagProperty().isFlow()) {
+        // write routeFlow values depending if it was set
+        if (isFlowAttributeEnabled(SUMO_ATTR_END)) {
+            device.writeAttr(SUMO_ATTR_END, getFlowAttribute(SUMO_ATTR_END));
+        }
+        if (isFlowAttributeEnabled(SUMO_ATTR_NUMBER)) {
+            device.writeAttr(SUMO_ATTR_NUMBER, getFlowAttribute(SUMO_ATTR_NUMBER));
+        }
+        if (isFlowAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
+            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, getFlowAttribute(SUMO_ATTR_VEHSPERHOUR));
+        }
+        if (isFlowAttributeEnabled(SUMO_ATTR_PERIOD)) {
+            device.writeAttr(SUMO_ATTR_PERIOD, getFlowAttribute(SUMO_ATTR_PERIOD));
+        }
+        if (isFlowAttributeEnabled(GNE_ATTR_POISSON)) {
+            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + getFlowAttribute(GNE_ATTR_POISSON) + ")");
+        }
+        if (isFlowAttributeEnabled(SUMO_ATTR_PROB)) {
+            device.writeAttr(SUMO_ATTR_PROB, getFlowAttribute(SUMO_ATTR_PROB));
+        }
+    }
+}
+
+
 std::string
 GNEDemandElementFlow::getFlowAttribute(SumoXMLAttr key) const {
     switch (key) {
