@@ -3280,9 +3280,12 @@ MSVehicle::adaptToOncomingLeader(const std::pair<const MSVehicle*, double> leade
         } else {
             egoExit = 0;
         }
+        // split any distance in excess of brakeGaps evenly
+        const double freeGap = MAX2(0.0, gap - gapSum);
+        const double splitGap = MIN2(gap, gapSum);
         // assume remaining distance is allocated in proportion to braking distance
         const double gapRatio = gapSum > 0 ? egoBrakeGap / gapSum : 0.5;
-        const double vsafeLeader = cfModel.stopSpeed(this, getSpeed(), gap * gapRatio + egoExit);
+        const double vsafeLeader = cfModel.stopSpeed(this, getSpeed(), splitGap * gapRatio + egoExit + 0.5 * freeGap);
         if (lastLink != nullptr) {
             const double futureVSafe = cfModel.stopSpeed(this, lastLink->accelV, leaderInfo.second, MSCFModel::CalcReason::FUTURE);
             lastLink->adaptLeaveSpeed(futureVSafe);
