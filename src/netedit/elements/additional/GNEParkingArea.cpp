@@ -530,7 +530,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LEFTHAND:
             myLefthand = parse<bool>(value);
-            updateGeometry();
+            if (!isTemplate()) {
+                updateGeometry();
+            }
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
