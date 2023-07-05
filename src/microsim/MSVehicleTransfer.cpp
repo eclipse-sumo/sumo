@@ -189,7 +189,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                         continue;
                     }
                     // let the vehicle move to the next edge
-                    desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
+                    desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION);
                     // active move reminders (i.e. rerouters)
                     desc.myVeh->enterLaneAtMove(desc.myVeh->succEdge(1)->getLanes()[0], true);
                     // use current travel time to determine when to move the vehicle forward

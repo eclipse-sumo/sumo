@@ -275,7 +275,9 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
         updateParkingStopTime();
     } else if (reason == MSMoveReminder::NOTIFICATION_PARKING) {
         myParkingStarted = MSNet::getInstance()->getCurrentTimeStep();
-    } else if (reason == NOTIFICATION_JUNCTION || reason == NOTIFICATION_TELEPORT) {
+    } else if (reason == NOTIFICATION_JUNCTION
+            || reason == NOTIFICATION_TELEPORT
+            || reason == NOTIFICATION_TELEPORT_CONTINUATION) {
         if (MSGlobals::gUseMesoSim) {
             myRouteLength += myHolder.getEdge()->getLength();
         } else {

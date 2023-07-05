@@ -101,6 +101,8 @@ public:
          * (onLeaveLane sets amOnNet=false if reason>=NOTIFICATION_TELEPORT) */
         /// @brief The vehicle is being teleported
         NOTIFICATION_TELEPORT,
+        /// @brief The vehicle continues being teleported past an edge
+        NOTIFICATION_TELEPORT_CONTINUATION,
         /// @brief The vehicle starts or ends parking
         NOTIFICATION_PARKING,
         /// @brief The vehicle needs another parking area
