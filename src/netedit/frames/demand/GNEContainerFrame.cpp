@@ -151,6 +151,12 @@ GNEContainerFrame::getTypeSelector() const {
     return myTypeSelector;
 }
 
+
+GNEAttributesCreator*
+GNEContainerFrame::getContainerAttributes() const {
+    return myContainerAttributes;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================

@@ -36,6 +36,9 @@
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/templates.h>
 #include <netimport/NIFrame.h>
 #include <netimport/NITypeLoader.h>
@@ -2131,6 +2134,14 @@ GNEApplicationWindow::onCmdToogleTimeFormat(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
         myViewNet->getTimeFormat().switchTimeFormat();
+        // refresh flow frames
+        myViewNet->getViewParent()->getVehicleFrame()->getVehicleAttributes()->refreshAttributesCreator();
+        myViewNet->getViewParent()->getPersonFrame()->getPersonAttributes()->refreshAttributesCreator();
+        myViewNet->getViewParent()->getContainerFrame()->getContainerAttributes()->refreshAttributesCreator();
+        // refresh inspector frame
+        if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
+            myViewNet->getViewParent()->getInspectorFrame()->inspectMultisection(myViewNet->getInspectedAttributeCarriers());
+        }
     }
     return 1;
 }

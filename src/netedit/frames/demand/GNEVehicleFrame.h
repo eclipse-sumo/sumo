@@ -26,6 +26,11 @@
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEPathLegendModule.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
 class MFXDynamicLabel;
 
 // ===========================================================================
@@ -98,6 +103,9 @@ public:
 
     /// @brief get GNEPathCreator module
     GNEPathCreator* getPathCreator() const;
+
+    /// @brief get attributes creator
+    GNEAttributesCreator* getVehicleAttributes() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector

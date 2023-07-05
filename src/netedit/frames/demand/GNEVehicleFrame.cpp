@@ -244,6 +244,12 @@ GNEVehicleFrame::getPathCreator() const {
     return myPathCreator;
 }
 
+
+GNEAttributesCreator*
+GNEVehicleFrame::getVehicleAttributes() const {
+    return myVehicleAttributes;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================

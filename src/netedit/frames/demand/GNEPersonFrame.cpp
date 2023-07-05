@@ -153,6 +153,12 @@ GNEPersonFrame::getTypeSelector() const {
     return myTypeSelector;
 }
 
+
+GNEAttributesCreator*
+GNEPersonFrame::getPersonAttributes() const {
+    return myPersonAttributes;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================

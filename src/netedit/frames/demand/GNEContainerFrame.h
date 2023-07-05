@@ -66,6 +66,9 @@ public:
     /// @brief get Type selectors
     DemandElementSelector* getTypeSelector() const;
 
+    /// @brief get attributes creator
+    GNEAttributesCreator* getContainerAttributes() const;
+
 protected:
     /// @brief Tag selected in GNETagSelector
     void tagSelected();
