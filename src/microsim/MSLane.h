@@ -859,6 +859,9 @@ public:
     /// @brief returns the last vehicle for which this lane is responsible or 0
     MSVehicle* getLastFullVehicle() const;
 
+    /// @brief returns the first vehicle for which this lane is responsible or 0
+    MSVehicle* getFirstFullVehicle() const;
+
     /// @brief returns the last vehicle that is fully or partially on this lane
     MSVehicle* getLastAnyVehicle() const;
 

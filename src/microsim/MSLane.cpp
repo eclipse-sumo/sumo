@@ -2480,6 +2480,15 @@ MSLane::getLastFullVehicle() const {
 
 
 MSVehicle*
+MSLane::getFirstFullVehicle() const {
+    if (myVehicles.size() == 0) {
+        return nullptr;
+    }
+    return myVehicles.back();
+}
+
+
+MSVehicle*
 MSLane::getLastAnyVehicle() const {
     // all vehicles in myVehicles should have positions smaller or equal to
     // those in myPartialVehicles

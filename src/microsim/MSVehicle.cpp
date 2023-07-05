@@ -5027,7 +5027,19 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
 #endif
             } else {
                 bool foundStopped2 = false;
-                const double spaceTillLastStanding = approachedLane->getSpaceTillLastStanding(this, foundStopped2);
+                double spaceTillLastStanding = approachedLane->getSpaceTillLastStanding(this, foundStopped2);
+                if (approachedLane->getBidiLane() != nullptr) {
+                    const MSVehicle* oncomingVeh = approachedLane->getBidiLane()->getFirstFullVehicle();
+                    if (oncomingVeh) {
+                        const double oncomingGap = approachedLane->getLength() - oncomingVeh->getPositionOnLane();
+                        spaceTillLastStanding = MIN2(spaceTillLastStanding, oncomingGap);
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                        if (DEBUG_COND) {
+                            std::cout << " oncomingVeh=" << oncomingVeh->getID() << " oncomingGap=" << oncomingGap;
+                        }
+#endif
+                    }
+                }
                 seenSpace += spaceTillLastStanding;
                 if (foundStopped2) {
                     foundStopped = true;
