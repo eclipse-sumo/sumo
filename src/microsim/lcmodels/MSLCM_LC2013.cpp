@@ -1513,18 +1513,28 @@ MSLCM_LC2013::_wantsChange(
                     informFollower(msgPass, blocked, myLca, neighFollow, remainingSeconds, plannedSpeed);
                 }
             }
+#ifdef DEBUG_WANTS_CHANGE
+            if (DEBUG_COND) {
+                std::cout << STEPS2TIME(currentTime)
+                    << " veh=" << myVehicle.getID()
+                    << " myLeftSpace=" << myLeftSpace
+                    << " remainingSeconds=" << remainingSeconds
+                    << " plannedSpeed=" << plannedSpeed
+                    << "\n";
+            }
+#endif
+        } else {
+#ifdef DEBUG_WANTS_CHANGE
+            if (DEBUG_COND) {
+                std::cout << STEPS2TIME(currentTime)
+                    << " veh=" << myVehicle.getID()
+                    << " myLeftSpace=" << myLeftSpace
+                    << " remainingSeconds=" << remainingSeconds
+                    << " hasBidiNeighLeader\n";
+            }
+#endif
         }
 
-#ifdef DEBUG_WANTS_CHANGE
-        if (DEBUG_COND) {
-            std::cout << STEPS2TIME(currentTime)
-                      << " veh=" << myVehicle.getID()
-                      << " myLeftSpace=" << myLeftSpace
-                      << " remainingSeconds=" << remainingSeconds
-                      << " plannedSpeed=" << plannedSpeed
-                      << "\n";
-        }
-#endif
 
         // remove TraCI flags because it should not be included in "state-without-traci"
         ret = getCanceledState(laneOffset);
