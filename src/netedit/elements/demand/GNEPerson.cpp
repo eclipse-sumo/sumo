@@ -163,7 +163,8 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSON, tag, GUIIconSubSys::getIcon(GUIIcon::PERSON),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+    GNEDemandElementFlow(myTagProperty) {
     // reset default values
     resetDefaultValues();
     // enable set and persons per hour as default flow values
@@ -176,7 +177,7 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const
     GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
                      (tag == SUMO_TAG_PERSONFLOW) ? GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW) : GUIIconSubSys::getIcon(GUIIcon::PERSON),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
-    GNEDemandElementFlow(this, personparameters) {
+    GNEDemandElementFlow(myTagProperty, personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
@@ -537,7 +538,7 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
-            return getFlowAttribute(this, key);
+            return getFlowAttribute(key);
     }
 }
 
@@ -552,7 +553,7 @@ GNEPerson::getAttributeDouble(SumoXMLAttr key) const {
                 return 0;
             }
         default:
-            return getFlowAttributeDouble(this, key);
+            return getFlowAttributeDouble(key);
     }
 }
 
@@ -646,7 +647,7 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
-            return isValidFlowAttribute(this, key, value);
+            return isValidFlowAttribute(key, value);
     }
 }
 
@@ -827,7 +828,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             setParametersStr(value);
             break;
         default:
-            setFlowAttribute(this, key, value);
+            setFlowAttribute(key, value);
             break;
     }
 }

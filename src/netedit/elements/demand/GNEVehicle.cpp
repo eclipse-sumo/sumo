@@ -261,7 +261,8 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_VEHICLE, tag, GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+    GNEDemandElementFlow(myTagProperty) {
     // reset default values
     resetDefaultValues();
     // set end and vehPerHours as default flow values
@@ -273,7 +274,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
                      (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType, route}, {}) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType, route}, {}),
+    GNEDemandElementFlow(myTagProperty) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -285,7 +287,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
                      (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType, route}, {}),
-    GNEDemandElementFlow(this, vehicleParameters) {
+    GNEDemandElementFlow(myTagProperty, vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
@@ -297,7 +299,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, tag,
                      (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType}, {}),
-    GNEDemandElementFlow(this, vehicleParameters) {
+    GNEDemandElementFlow(myTagProperty, vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // reset routeid
@@ -311,7 +313,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
                        GNEEdge* fromEdge, GNEEdge* toEdge) :
     GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == SUMO_TAG_FLOW) ? GUIIconSubSys::getIcon(GUIIcon::FLOW) : GUIIconSubSys::getIcon(GUIIcon::TRIP),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {vehicleType}, {}) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {vehicleType}, {}),
+    GNEDemandElementFlow(myTagProperty) {
 }
 
 
@@ -320,14 +323,15 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == SUMO_TAG_FLOW) ? GUIIconSubSys::getIcon(GUIIcon::FLOW) : GUIIconSubSys::getIcon(GUIIcon::TRIP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {vehicleType}, {}),
-    GNEDemandElementFlow(this, vehicleParameters) {
+    GNEDemandElementFlow(myTagProperty, vehicleParameters) {
 }
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction) :
     GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_JUNCTIONS),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {vehicleType}, {}) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {vehicleType}, {}),
+    GNEDemandElementFlow(myTagProperty) {
 }
 
 
@@ -335,7 +339,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_JUNCTIONS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {vehicleType}, {}),
-    GNEDemandElementFlow(this, vehicleParameters) {
+    GNEDemandElementFlow(myTagProperty, vehicleParameters) {
 }
 
 
@@ -343,7 +347,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_TAZS) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == GNE_TAG_FLOW_TAZS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_TAZS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_TAZS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {vehicleType}, {}),
-    GNEDemandElementFlow(this, vehicleParameters) {
+    GNEDemandElementFlow(myTagProperty, vehicleParameters) {
     // mark taz parameters as set
     parametersSet |= VEHPARS_FROM_TAZ_SET;
     parametersSet |= VEHPARS_TO_TAZ_SET;
@@ -1277,7 +1281,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_FLOWPARAMETERS:
             return toString(parametersSet);
         default:
-            return getFlowAttribute(this, key);
+            return getFlowAttribute(key);
     }
 }
 
@@ -1316,7 +1320,7 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_MINGAP:
             return getTypeParent()->getAttributeDouble(key);
         default:
-            return getFlowAttributeDouble(this, key);
+            return getFlowAttributeDouble(key);
     }
 }
 
@@ -1590,7 +1594,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
-            return isValidFlowAttribute(this, key, value);
+            return isValidFlowAttribute(key, value);
     }
 }
 
@@ -2078,7 +2082,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             setParametersStr(value);
             break;
         default:
-            setFlowAttribute(this, key, value);
+            setFlowAttribute(key, value);
             break;
     }
     // check if stack label has to be updated

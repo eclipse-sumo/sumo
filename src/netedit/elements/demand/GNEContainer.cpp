@@ -163,7 +163,8 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_CONTAINER, tag, GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+    GNEDemandElementFlow(myTagProperty) {
     // reset default values
     resetDefaultValues();
     // set end and container per hours as default flow values
@@ -176,7 +177,7 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType,
     GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
                      (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW) : GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
-    GNEDemandElementFlow(this, containerparameters) {
+    GNEDemandElementFlow(myTagProperty, containerparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
@@ -538,7 +539,7 @@ GNEContainer::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
-            return getFlowAttribute(this, key);
+            return getFlowAttribute(key);
     }
 }
 
@@ -549,7 +550,7 @@ GNEContainer::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_DEPARTPOS:
             return STEPS2TIME(depart);
         default:
-            return getFlowAttributeDouble(this, key);
+            return getFlowAttributeDouble(key);
     }
 }
 
@@ -635,7 +636,7 @@ GNEContainer::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
-            return isValidFlowAttribute(this, key, value);
+            return isValidFlowAttribute(key, value);
     }
 }
 
@@ -825,7 +826,7 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
             setParametersStr(value);
             break;
         default:
-            setFlowAttribute(this, key, value);
+            setFlowAttribute(key, value);
             break;
     }
 }

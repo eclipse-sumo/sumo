@@ -36,13 +36,16 @@
 // GNEDemandElement - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElementFlow::GNEDemandElementFlow() {}
+GNEDemandElementFlow::GNEDemandElementFlow(const GNETagProperties& tagProperty) {
+    // adjust default flow attributes
+    adjustDefaultFlowAttributes(tagProperty);
+}
 
 
-GNEDemandElementFlow::GNEDemandElementFlow(GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters) :
+GNEDemandElementFlow::GNEDemandElementFlow(const GNETagProperties& tagProperty, const SUMOVehicleParameter& vehicleParameters) :
     SUMOVehicleParameter(vehicleParameters) {
     // adjust default flow attributes
-    adjustDefaultFlowAttributes(flowElement);
+    adjustDefaultFlowAttributes(tagProperty);
 }
 
 
@@ -75,7 +78,7 @@ GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotat
 
 
 std::string
-GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key) const {
+GNEDemandElementFlow::getFlowAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
@@ -107,19 +110,19 @@ GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, Sumo
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
         default:
-            throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument("Flow doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
 double
-GNEDemandElementFlow::getFlowAttributeDouble(const GNEDemandElement* flowElement, SumoXMLAttr key) const {
+GNEDemandElementFlow::getFlowAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
             return STEPS2TIME(depart);
         default:
-            throw InvalidArgument(flowElement->getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            throw InvalidArgument("Flow doesn't have a double attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -146,7 +149,7 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
 
 
 bool
-GNEDemandElementFlow::isValidFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value) {
+GNEDemandElementFlow::isValidFlowAttribute(SumoXMLAttr key, const std::string& value) {
     // declare string error
     std::string error;
     switch (key) {
@@ -188,7 +191,7 @@ GNEDemandElementFlow::isValidFlowAttribute(GNEDemandElement* flowElement, SumoXM
                 return false;
             }
         default:
-            throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument("Flow doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -255,7 +258,7 @@ GNEDemandElementFlow::isFlowAttributeEnabled(SumoXMLAttr key) const {
 
 
 void
-GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value) {
+GNEDemandElementFlow::setFlowAttribute(SumoXMLAttr key, const std::string& value) {
     // declare string error
     std::string error;
     switch (key) {
@@ -285,7 +288,7 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
             repetitionNumber = GNEAttributeCarrier::parse<int>(value);
             break;
         default:
-            throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument("Flow doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -348,34 +351,32 @@ GNEDemandElementFlow::toggleFlowAttribute(const SumoXMLAttr attribute, const boo
 
 
 void
-GNEDemandElementFlow::adjustDefaultFlowAttributes(GNEDemandElement* flowElement) {
-    // get tag property
-    const auto &tagProperty = flowElement->getTagProperty();
+GNEDemandElementFlow::adjustDefaultFlowAttributes(const GNETagProperties& tagProperty) {
     // first check that this demand element is a flow
     if (tagProperty.isFlow()) {
         // end
         if ((parametersSet & VEHPARS_END_SET) == 0) {
-            setFlowAttribute(flowElement, SUMO_ATTR_END, tagProperty.getDefaultValue(SUMO_ATTR_END));
+            setFlowAttribute(SUMO_ATTR_END, tagProperty.getDefaultValue(SUMO_ATTR_END));
         }
         // number
         if ((parametersSet & VEHPARS_NUMBER_SET) == 0) {
-            setFlowAttribute(flowElement, SUMO_ATTR_NUMBER, tagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
+            setFlowAttribute(SUMO_ATTR_NUMBER, tagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
         }
         // vehicles/person/container per hour
         if (((parametersSet & VEHPARS_PERIOD_SET) == 0) &&
                 ((parametersSet & VEHPARS_POISSON_SET) == 0) &&
                 ((parametersSet & VEHPARS_VPH_SET) == 0)) {
-            setFlowAttribute(flowElement, SUMO_ATTR_PERIOD, tagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
+            setFlowAttribute(SUMO_ATTR_PERIOD, tagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
         }
         // probability
         if ((parametersSet & VEHPARS_PROB_SET) == 0) {
-            setFlowAttribute(flowElement, SUMO_ATTR_PROB, tagProperty.getDefaultValue(SUMO_ATTR_PROB));
+            setFlowAttribute(SUMO_ATTR_PROB, tagProperty.getDefaultValue(SUMO_ATTR_PROB));
         }
         // poisson
         if (repetitionOffset < 0) {
             toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
             toggleFlowAttribute(GNE_ATTR_POISSON, true);
-            setFlowAttribute(flowElement, GNE_ATTR_POISSON, time2string(repetitionOffset * -1));
+            setFlowAttribute(GNE_ATTR_POISSON, time2string(repetitionOffset * -1));
         }
     }
 }
