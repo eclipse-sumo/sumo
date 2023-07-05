@@ -1,4 +1,7 @@
 POIGEO.create.lonLat
+edge.create.bikelaneWidth
+edge.create.sidewalkWidth
+entryExit.create.parent
 fix.demandElements.routes.removeStops
 flowJunction.transform.flow
 flowJunction.transform.routeFlow
@@ -6,6 +9,7 @@ flowJunction.transform.routeFlowEmbedded
 flowJunction.transform.trip
 flowJunction.transform.vehicle
 flowJunction.transform.vehicleEmbedded
+flowTAZ.transform.trip
 junction.contextualMenu.addJoinedTLS
 junction.contextualMenu.addTLS
 junction.contextualMenu.clearConnections
@@ -21,12 +25,13 @@ lane.contextualMenu.resetCustomLaneShape
 lane.contextualMenu.resetOppositeLaneShape
 lane.contextualMenu.setCustomLaneShape
 selection.lockSelectionNetwork.TAZs
-tripFromToJunction.transform.flow
-tripFromToJunction.transform.routeFlow
-tripFromToJunction.transform.routeFlowEmbedded
-tripFromToJunction.transform.trip
-tripFromToJunction.transform.vehicle
-tripFromToJunction.transform.vehicleEmbedded
+tripJunction.transform.flow
+tripJunction.transform.routeFlow
+tripJunction.transform.routeFlowEmbedded
+tripJunction.transform.trip
+tripJunction.transform.vehicle
+tripJunction.transform.vehicleEmbedded
+tripTAZ.transform.flow
 type.editDialog.colorButton
 type.editDialog.imgFileButton
 type.editDialog.osgFileButton

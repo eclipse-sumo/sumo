@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -33,6 +33,14 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/demand/GNETypeFrame.h>
+#include <netedit/frames/demand/GNETypeDistributionFrame.h>
+#include <netedit/frames/demand/GNEStopFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
+#include <netedit/frames/demand/GNEContainerFrame.h>
+#include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/options/OptionsCont.h>
@@ -112,7 +120,7 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
             // decrease reference manually (because it was increased manually in GNERouteHandler)
             demandElement->decRef();
             // show extra information for tests
-            if (demandElement->getTagProperty().isVehicleType()) {
+            if (demandElement->getTagProperty().isType()) {
                 // special case for default VTypes
                 if (DEFAULT_VTYPES.count(demandElement->getID()) == 0) {
                     WRITE_DEBUG("Deleting unreferenced " + demandElement->getTagStr() + " in AttributeCarriers destructor");
@@ -1345,6 +1353,21 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(GNEAttributeCarrier* AC, 
 }
 
 
+GNEDemandElement*
+GNENetHelper::AttributeCarriers::retrieveFirstDemandElement(SumoXMLTag type) const {
+    if (myDemandElements.at(type).size() == 0) {
+        return nullptr;
+    } else {
+        // map with elements sorted by ID
+        std::map<std::string, GNEDemandElement* > map;
+        for (const auto& demandElement : myDemandElements.at(type)) {
+            map[demandElement->getID()] = demandElement;
+        }
+        return map.begin()->second;
+    }
+}
+
+
 std::vector<GNEDemandElement*>
 GNENetHelper::AttributeCarriers::getSelectedDemandElements() const {
     std::vector<GNEDemandElement*> result;
@@ -1397,7 +1420,9 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
         prefix = neteditOptions.getString("route-prefix");
     } else if (tag == SUMO_TAG_VTYPE) {
         prefix = neteditOptions.getString("vType-prefix");
-    } else if ((tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_TRIP_JUNCTIONS)) {
+    } else if (tag == SUMO_TAG_VTYPE_DISTRIBUTION) {
+        prefix = neteditOptions.getString("vTypeDistribution-prefix");
+    } else if ((tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_TRIP_JUNCTIONS) || (tag == GNE_TAG_TRIP_TAZS)) {
         prefix = neteditOptions.getString("trip-prefix");
     } else if (tagProperty.isVehicle() && !tagProperty.isFlow()) {
         prefix = neteditOptions.getString("vehicle-prefix");
@@ -1418,7 +1443,15 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     }
     // declare counter
     int counter = 0;
-    if (tagProperty.isPerson()) {
+    if (tagProperty.isType()) {
+        // special case for persons (person and personFlows share nameSpaces)
+        while ((retrieveDemandElement(SUMO_TAG_VTYPE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, prefix + "_" + toString(counter), false) != nullptr)) {
+            counter++;
+        }
+        // return new person ID
+        return (prefix + "_" + toString(counter));
+    } else if (tagProperty.isPerson()) {
         // special case for persons (person and personFlows share nameSpaces)
         while ((retrieveDemandElement(SUMO_TAG_PERSON, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveDemandElement(SUMO_TAG_PERSONFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
@@ -1440,10 +1473,12 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
                 (retrieveDemandElement(SUMO_TAG_TRIP, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveDemandElement(GNE_TAG_TRIP_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_TRIP_TAZS, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveDemandElement(SUMO_TAG_FLOW, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveDemandElement(GNE_TAG_FLOW_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_FLOW_TAZS, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new vehicle ID
@@ -2394,13 +2429,15 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
     if (myNet->isUpdateGeometryEnabled()) {
         demandElement->updateGeometry();
     }
+    // update demand elements frames
+    updateDemandElementFrames(demandElement->getTagProperty());
     // demandElements has to be saved
     myNet->getSavingStatus()->requireSaveDemandElements();
 }
 
 
 void
-GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement) {
+GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement, const bool updateFrames) {
     // find demanElement in demandElementTag
     auto itFind = myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement);
     // check if demandElement was previously inserted
@@ -2411,6 +2448,7 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     myNet->getViewNet()->removeFromAttributeCarrierInspected(demandElement);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
     myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPersonHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
+    myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getContainerHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
     // if is the last inserted route, remove it from GNEViewNet
     if (myNet->getViewNet()->getLastCreatedRoute() == demandElement) {
         myNet->getViewNet()->setLastCreatedRoute(nullptr);
@@ -2421,6 +2459,10 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     myNet->removeGLObjectFromGrid(demandElement);
     // delete path element
     myNet->getPathManager()->removePath(demandElement);
+    // check if update demand elements frames
+    if (updateFrames) {
+        updateDemandElementFrames(demandElement->getTagProperty());
+    }
     // demandElements has to be saved
     myNet->getSavingStatus()->requireSaveDemandElements();
 }
@@ -2526,6 +2568,57 @@ GNENetHelper::AttributeCarriers::deleteMeanData(GNEMeanData* meanData) {
     }
     // meanDatas has to be saved
     myNet->getSavingStatus()->requireSaveMeanDatas();
+}
+
+
+void
+GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagProperties& tagProperty) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        // continue depending of demand mode
+        switch (myNet->getViewNet()->getEditModes().demandEditMode) {
+            case DemandEditMode::DEMAND_VEHICLE:
+                if (tagProperty.isType()) {
+                    myNet->getViewNet()->getViewParent()->getVehicleFrame()->getTypeSelector()->refreshDemandElementSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_TYPE:
+                if (tagProperty.isType()) {
+                    myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_TYPEDISTRIBUTION:
+                if (tagProperty.isType()) {
+                    myNet->getViewNet()->getViewParent()->getTypeDistributionFrame()->getTypeDistributionSelector()->refreshTypeDistributionSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_STOP:
+                myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->refreshDemandElementSelector();
+                break;
+            case DemandEditMode::DEMAND_PERSON:
+                if (tagProperty.isType()) {
+                    myNet->getViewNet()->getViewParent()->getPersonFrame()->getTypeSelector()->refreshDemandElementSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_PERSONPLAN:
+                if (tagProperty.isPerson()) {
+                    myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPersonSelector()->refreshDemandElementSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_CONTAINER:
+                if (tagProperty.isType()) {
+                    myNet->getViewNet()->getViewParent()->getContainerFrame()->getTypeSelector()->refreshDemandElementSelector();
+                }
+                break;
+            case DemandEditMode::DEMAND_CONTAINERPLAN:
+                if (tagProperty.isContainer()) {
+                    myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getContainerSelector()->refreshDemandElementSelector();
+                }
+                break;
+            default:
+                // nothing to update
+                break;
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------

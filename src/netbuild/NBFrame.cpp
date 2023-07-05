@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -507,6 +507,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("tls.join-dist", new Option_Float(20));
     oc.addDescription("tls.join-dist", "TLS Building",
                       "Determines the maximal distance for joining traffic lights (defaults to 20)");
+
+    oc.doRegister("tls.join-exclude", new Option_StringVector());
+    oc.addDescription("tls.join-exclude", "TLS Building", TL("Interprets STR[] as list of tls ids to exclude from joining"));
 
     oc.doRegister("tls.uncontrolled-within", new Option_Bool(false));
     oc.addDescription("tls.uncontrolled-within", "TLS Building",

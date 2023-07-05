@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalPos, "", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.arrivalPos, "", False)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalPos, "dummyPos", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.arrivalPos, "dummyPos", False)
 
 # change departColor with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalPos, "500", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.arrivalPos, "500", False)
 
 # change arrivalPos with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalPos, "random", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.arrivalPos, "random", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

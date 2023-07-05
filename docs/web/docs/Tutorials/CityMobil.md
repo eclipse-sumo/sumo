@@ -63,7 +63,7 @@ This results in a header like this in our node file:
 <!-- generated on 2020-09-01 11:03:05.263997 by createNetTaxi.py v1_6_0+1864-1ecf301a37
   options: 
 -->
-<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+<nodes xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/nodes_file.xsd">
 ```
 This gives complete information on how and when this file has been generated as well
 as a schema reference which allows for validating the input. This makes it easier to find mistakes 

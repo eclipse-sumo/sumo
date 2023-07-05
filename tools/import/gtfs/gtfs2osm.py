@@ -1,4 +1,4 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -668,7 +668,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
 
     with sumolib.openz(options.route_output, mode='w') as output_file:
         sumolib.xml.writeHeader(output_file, root="routes")
-        numDays = options.end // 86401
+        numDays = int(options.end) // 86401
         start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
         shapes_written = set()
 

@@ -21,3 +21,21 @@ TWLT_end
 
 # vehicle entering bidi lane from side road
 TWLT_side
+
+# multiple vehicles entering bidi lane from side road
+TWLT_side2
+
+# multiple vehicles entering bidi lane from side road
+TWLT_tls
+
+# multiple vehicles entering bidi lane from side road
+TWLT_tls2
+
+# multiple vehicles entering bidi lane from side road, the side road targest the bidi lane as well as another lane
+TWLT_tls_2cons
+
+# multiple vehicles entering bidi lane from side road, the side road targest the bidi lane as well as another lane
+TWLT_tls_2cons2
+
+# simulated shared median lane for turning (Two-Way-Left-Turn-lane)
+TWLT_insertion

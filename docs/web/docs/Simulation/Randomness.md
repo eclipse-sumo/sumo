@@ -9,7 +9,7 @@ a simulation. They are described below.
 # Random number generation (RNG)
 
 Sumo implements the [Mersenne
-Twister](http://en.wikipedia.org/wiki/Mersenne_twister) algorithm for
+Twister](https://en.wikipedia.org/wiki/Mersenne_twister) algorithm for
 generating random numbers. This random number generator (RNG) is
 initialized with a seed value which defaults to the (arbitrary) value
 **23423**. This setup makes all applications deterministic by default as
@@ -29,6 +29,10 @@ simulation aspects
 
 The decoupling is done to ensure that loading vehicles does not affect
 simulation behavior of earlier vehicles. All RNGs use the same seed.
+
+## Running repeatedly with different Seeds
+
+The tool [runSeeds.py](../Tools/Misc.md#runseedspy) may be used to efficiently repeat simulations with multiple seeds. See the [FAQ](../FAQ.md#how_to_perform_repeated_simulations_with_different_results) for a guide on how this is done.
 
 # Route Distributions
 

@@ -17,7 +17,7 @@ nav:
   - Publications: Publications.md
   - Developer: Developer/index.md
   - ChangeLog: ChangeLog.md
-  - Contact: https://eclipse.org/sumo/contact/
+  - Contact: https://eclipse.dev/sumo/contact/
 
 theme:
   name: mkdocs
@@ -60,8 +60,8 @@ markdown_extensions:
   - codehilite
 
 extra:
-    Version: 1.17.0
-    ReleaseDate: 25.04.2023
+    Version: 1.18.0
+    ReleaseDate: 29.06.2023
 
     AdditionalFile: '[*additional-file*](/docs/sumo.html#format_of_additional_files)'
     AdditionalFiles: '[*additional-files*](/docs/sumo.html#format_of_additional_files)'
@@ -82,4 +82,4 @@ extra:
     Outdated: '<div style="background: #801010; padding: .5em; border: 1px dashed #ffcc44; margin-right:10px; margin-left:10px; color: #ffffff">This information is outdated.</div>'
     Source: 'https://github.com/eclipse/sumo/blob/main/'
     SUMO: '***&lt;SUMO_HOME&gt;***'
-    SUMOUSERConference: '[SUMO User Conference](https://eclipse.org/sumo/conference)'
+    SUMOUSERConference: '[SUMO User Conference](https://eclipse.dev/sumo/conference)'

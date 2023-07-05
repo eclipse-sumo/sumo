@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-04 14:29:22 by Eclipse SUMO sumo Version v1_12_0+1911-24791162c7c
+<!-- generated on 2023-06-28 08:42:52 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -19,7 +19,6 @@
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -88,94 +87,94 @@
         <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="37.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="38.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="39.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="40.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="41.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="42.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="43.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="44.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="45.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="46.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="47.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="48.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="49.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="50.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="51.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="52.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="53.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="54.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="55.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="56.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="57.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="58.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="59.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="60.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="61.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="62.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="63.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="64.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="65.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="66.00">
-        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="3.33" pos="0.00" edge="middle" slope="0.00"/>
+        <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="0.00" pos="0.00" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="67.00">
         <vehicle id="v0" x="0.00" y="-1.65" angle="90.00" type="t0" speed="13.89" pos="0.00" edge="middle" slope="0.00"/>

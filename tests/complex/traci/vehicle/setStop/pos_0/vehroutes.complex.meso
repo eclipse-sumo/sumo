@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-13 16:08:49 by Eclipse SUMO sumo Version v1_11_0+1063-8400cadde28
+<!-- generated on 2023-06-28 08:44:29 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -14,16 +14,12 @@
         <stop-output value="stopinfos.xml"/>
     </output>
 
-    <processing>
-        <pedestrian.model value="nonInteracting"/>
-    </processing>
-
     <report>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="61043"/>
+        <remote-port value="37612"/>
     </traci_server>
 
     <mesoscopic>
@@ -37,7 +33,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="ego" depart="0.00" arrival="20.00">
         <route edges="SC CN"/>
-        <stop lane="SC_0" startPos="39.90" endPos="40.00" duration="7.00"/>
+        <stop lane="CN_0" startPos="0.00" endPos="0.00" duration="7.00"/>
     </vehicle>
 
 </routes>

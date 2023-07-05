@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -275,7 +275,9 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
         updateParkingStopTime();
     } else if (reason == MSMoveReminder::NOTIFICATION_PARKING) {
         myParkingStarted = MSNet::getInstance()->getCurrentTimeStep();
-    } else if (reason == NOTIFICATION_JUNCTION || reason == NOTIFICATION_TELEPORT) {
+    } else if (reason == NOTIFICATION_JUNCTION
+            || reason == NOTIFICATION_TELEPORT
+            || reason == NOTIFICATION_TELEPORT_CONTINUATION) {
         if (MSGlobals::gUseMesoSim) {
             myRouteLength += myHolder.getEdge()->getLength();
         } else {

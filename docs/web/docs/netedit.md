@@ -20,7 +20,7 @@ For an overview of features see [Netedit Usage Documentation](Netedit/index.md).
 ## Options
 
 You may use a XML schema definition file for setting up a Netedit
-configuration: [sumoConfiguration.xsd](http://sumo.dlr.de/xsd/neteditConfiguration.xsd).
+configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfiguration.xsd).
 
 ### Configuration
 | Option | Description |
@@ -194,6 +194,7 @@ configuration: [sumoConfiguration.xsd](http://sumo.dlr.de/xsd/neteditConfigurati
 | **--tls.guess.joining** {{DT_BOOL}} | Includes node clusters into guess; *default:* **false** |
 | **--tls.join** {{DT_BOOL}} | Tries to cluster tls-controlled nodes; *default:* **false** |
 | **--tls.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining traffic lights (defaults to 20); *default:* **20** |
+| **--tls.join-exclude** {{DT_STR[]}} | Interprets STR[] as list of tls ids to exclude from joining |
 | **--tls.uncontrolled-within** {{DT_BOOL}} | Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used; *default:* **false** |
 | **--tls.ignore-internal-junction-jam** {{DT_BOOL}} | Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended; *default:* **false** |
 | **--tls.guess-signals** {{DT_BOOL}} | Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks; *default:* **false** |
@@ -292,6 +293,7 @@ configuration: [sumoConfiguration.xsd](http://sumo.dlr.de/xsd/neteditConfigurati
 | **--junctions.limit-turn-speed.warn.turn** {{DT_FLOAT}} | Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT; *default:* **22** |
 | **--junctions.small-radius** {{DT_FLOAT}} | Default radius for junctions that do not require wide vehicle turns; *default:* **1.5** |
 | **--junctions.higher-speed** {{DT_BOOL}} | Use maximum value of incoming and outgoing edge speed on junction instead of average; *default:* **false** |
+| **--junctions.minimal-shape** {{DT_BOOL}} | Build junctions with minimal shapes (igoring edge overlap); *default:* **false** |
 | **--internal-junctions.vehicle-width** {{DT_FLOAT}} | Assumed vehicle width for computing internal junction positions; *default:* **1.8** |
 | **--rectangular-lane-cut** {{DT_BOOL}} | Forces rectangular cuts between lanes and intersections; *default:* **false** |
 | **--check-lane-foes.roundabout** {{DT_BOOL}} | Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts); *default:* **true** |
@@ -400,6 +402,7 @@ configuration: [sumoConfiguration.xsd](http://sumo.dlr.de/xsd/neteditConfigurati
 | **--opendrive.internal-shapes** {{DT_BOOL}} | Import internal lane shapes; *default:* **false** |
 | **--opendrive.position-ids** {{DT_BOOL}} | Sets edge-id based on road-id and offset in m (legacy); *default:* **false** |
 | **--opendrive.lane-shapes** {{DT_BOOL}} | Use custom lane shapes to compensate discarded lane types; *default:* **false** |
+| **--opendrive.signal-groups** {{DT_BOOL}} | Use the OpenDRIVE controller information for the generated signal program; *default:* **false** |
 
 ### Netedit
 | Option | Description |
@@ -427,7 +430,8 @@ configuration: [sumoConfiguration.xsd](http://sumo.dlr.de/xsd/neteditConfigurati
 | **--polygon-prefix** {{DT_STR}} | Prefix for polygon naming; *default:* **po** |
 | **--poi-prefix** {{DT_STR}} | Prefix for poi naming; *default:* **poi** |
 | **--route-prefix** {{DT_STR}} | Prefix for route naming; *default:* **r** |
-| **--vType-prefix** {{DT_STR}} | Prefix for vType naming; *default:* **t** |
+| **--vType-prefix** {{DT_STR}} | Prefix for type naming; *default:* **t** |
+| **--vTypeDistribution-prefix** {{DT_STR}} | Prefix for type distribution naming; *default:* **td** |
 | **--vehicle-prefix** {{DT_STR}} | Prefix for vehicle naming; *default:* **v** |
 | **--trip-prefix** {{DT_STR}} | Prefix for trip naming; *default:* **t** |
 | **--flow-prefix** {{DT_STR}} | Prefix for flow naming; *default:* **f** |

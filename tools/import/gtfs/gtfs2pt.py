@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -45,61 +45,62 @@ import gtfs2osm  # noqa
 def get_options(args=None):
     ap = gtfs2fcd.add_options()
     # ----------------------- general options ---------------------------------
-    ap.add_argument("-n", "--network", fix_path=True, required=True,
+    ap.add_argument("-n", "--network", category="input", required=True, type=ap.net_file,
                     help="sumo network to use")
-    ap.add_argument("--route-output",
+    ap.add_argument("--route-output", category="output", type=ap.route_file,
                     help="file to write the generated public transport vehicles to")
-    ap.add_argument("--additional-output",
+    ap.add_argument("--additional-output", category="output", type=ap.additional_file,
                     help="file to write the generated public transport stops and routes to")
-    ap.add_argument("--duration", default=10,
+    ap.add_argument("--duration", default=10, category="input",
                     type=int, help="minimum time to wait on a stop")
-    ap.add_argument("--bus-stop-length", default=13, type=float,
+    ap.add_argument("--bus-stop-length", default=13, category="input", type=float,
                     help="length for a bus stop")
-    ap.add_argument("--train-stop-length", default=110, type=float,
+    ap.add_argument("--train-stop-length", default=110, category="input", type=float,
                     help="length for a train stop")
-    ap.add_argument("--tram-stop-length", default=60, type=float,
+    ap.add_argument("--tram-stop-length", default=60, category="input", type=float,
                     help="length for a tram stop")
-    ap.add_argument("--center-stops", action="store_true", default=False,
+    ap.add_argument("--center-stops", action="store_true", default=False, category="processing",
                     help="use stop position as center not as front")
-    ap.add_argument("--skip-access", action="store_true", default=False,
+    ap.add_argument("--skip-access", action="store_true", default=False, category="processing",
                     help="do not create access links")
-    ap.add_argument("--sort", action="store_true", default=False,
+    ap.add_argument("--sort", action="store_true", default=False, category="processing",
                     help="sorting the output-file")
-    ap.add_argument("--stops", help="file with predefined stop positions to use")
+    ap.add_argument("--stops", category="input", type=ap.file, help="file with predefined stop positions to use")
 
     # ----------------------- fcd options -------------------------------------
-    ap.add_argument("--network-split",
+    ap.add_argument("--network-split", category="input",
                     help="directory to write generated networks to")
-    ap.add_argument("--network-split-vclass", action="store_true", default=False,
+    ap.add_argument("--network-split-vclass", action="store_true", default=False, category="processing",
                     help="use the allowed vclass instead of the edge type to split the network")
-    ap.add_argument("--warn-unmapped", action="store_true", default=False,
+    ap.add_argument("--warn-unmapped", action="store_true", default=False, category="processing",
                     help="warn about unmapped routes")
-    ap.add_argument("--mapperlib", default="lib/fcd-process-chain-2.2.2.jar",
+    ap.add_argument("--mapperlib", default="lib/fcd-process-chain-2.2.2.jar", category="input",
                     help="mapping library to use")
-    ap.add_argument("--map-output",
+    ap.add_argument("--map-output", category="output",
                     help="directory to write the generated mapping files to")
-    ap.add_argument("--map-output-config", default="conf/output_configuration_template.xml",
-                    help="output configuration template for the mapper library")
-    ap.add_argument("--map-input-config", default="conf/input_configuration_template.xml",
-                    help="input configuration template for the mapper library")
-    ap.add_argument("--map-parameter", default="conf/parameters_template.xml",
+    ap.add_argument("--map-output-config", default="conf/output_configuration_template.xml", category="output",
+                    type=ap.file, help="output configuration template for the mapper library")
+    ap.add_argument("--map-input-config", default="conf/input_configuration_template.xml", category="input",
+                    type=ap.file, help="input configuration template for the mapper library")
+    ap.add_argument("--map-parameter", default="conf/parameters_template.xml", category="input", type=ap.file,
                     help="parameter template for the mapper library")
-    ap.add_argument("--poly-output", help="file to write the generated polygon files to")
-    ap.add_argument("--fill-gaps", default=5000, type=float,
+    ap.add_argument("--poly-output", category="output", type=ap.file,
+                    help="file to write the generated polygon files to")
+    ap.add_argument("--fill-gaps", default=5000, type=float, category="input",
                     help="maximum distance between stops")
-    ap.add_argument("--skip-fcd", action="store_true", default=False,
+    ap.add_argument("--skip-fcd", action="store_true", default=False, category="processing",
                     help="skip generating fcd data")
-    ap.add_argument("--skip-map", action="store_true", default=False,
+    ap.add_argument("--skip-map", action="store_true", default=False, category="processing",
                     help="skip network mapping")
 
     # ----------------------- osm options -------------------------------------
-    ap.add_argument("--osm-routes", help="osm routes file")
-    ap.add_argument("--warning-output",
+    ap.add_argument("--osm-routes", category="input", type=ap.route_file, help="osm routes file")
+    ap.add_argument("--warning-output", category="output", type=ap.file,
                     help="file to write the unmapped elements from gtfs")
-    ap.add_argument("--dua-repair-output",
+    ap.add_argument("--dua-repair-output", category="output", type=ap.file,
                     help="file to write the osm routes with errors")
-    ap.add_argument("--repair", help="repair osm routes", action='store_true')
-    ap.add_argument("--min-stops", default=1, type=int,
+    ap.add_argument("--repair", help="repair osm routes", action='store_true', category="processing")
+    ap.add_argument("--min-stops", default=1, type=int, category="input",
                     help="minimum number of stops a public transport line must have to be imported")
 
     options = ap.parse_args(args)
@@ -343,7 +344,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
 
 
 def filter_trips(options, routes, stops, outf, begin, end):
-    numDays = end // 86400
+    numDays = int(end) // 86400
     if end % 86400 != 0:
         numDays += 1
     if options.sort:

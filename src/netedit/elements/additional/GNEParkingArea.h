@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -53,7 +53,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
-                   const std::string& departPos, const std::string& name, const bool friendlyPosition, const int roadSideCapacity, 
+                   const std::string& departPos, const std::string& name, const bool friendlyPosition, const int roadSideCapacity,
                    const bool onRoad, const double width, const double length, const double angle, const bool lefthand,
                    const Parameterised::Map& parameters);
 

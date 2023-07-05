@@ -91,7 +91,7 @@ clustering of inserted vehicles.
 The algorithm for deciding when exactly to insert (and remove) vehicles
 is described in [Erdmann, Jakob (2012) Online-Kalibrierung einer
 Mikroskopischen Verkehrssimulation. ViMOS 2012, 29.11.2012, Dresden,
-Deutschland.](http://elib.dlr.de/79428/)
+Deutschland.](https://elib.dlr.de/79428/)
 
 ## Routes of generated Vehicles
 
@@ -140,7 +140,7 @@ The normal behavior is to replace the type of the passing vehicles with the type
     When calibrating types, the 'route' attribute can be omitted from the flow definition    
 
 !!! caution
-    The type modification happens when the vehicle enters the calibrator edge regardless of the configuration calibrator position.
+    The type modification happens when the vehicle enters the calibrator edge regardless of the configured calibrator position.
 
 ### Type-dependent mapping
 
@@ -150,8 +150,7 @@ If the traffic consists of multiple vehicle types (i.e. passenger cars and truck
 - perform a dependent mapping: carType -> carType2, truckType -> truckType2
 
 Both can be accomplished by using the `vTypes` attribute of the calibrator to make it apply to a subset of types only.
-For a dependent mapping, multiple calibrators (each with a different `vTypes` attribute) may be defined.
-However, if there are very many types this may be cumbersome to define. In this case it may be better to define a mapping between type distributions as described below.
+For a dependent mapping, multiple calibrators (each with a different `vTypes` attribute) may be defined as in the following example:
 
 ```xml
 <additional>
@@ -165,7 +164,11 @@ However, if there are very many types this may be cumbersome to define. In this 
 </additional>
 ```
 
+If there are many different vehicle types in the simulation, creating one calibrator per vType may be cumbersome to define.
+In this case it may be better to define a mapping between type distributions as described below.
+
 ### Mapping between vTypeDistributions
+
 A special behavior is activated if the following conditions are met:
 - the `type` in the flow element references a `vTypeDistribution`
 - the passing vehicle was defined with a type drawn from a `vTypeDistribution`

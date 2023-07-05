@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-05-11 12:12+0200\n"
-"PO-Revision-Date: 2023-05-16 14:49+0000\n"
+"POT-Creation-Date: 2023-05-26 14:09+0200\n"
+"PO-Revision-Date: 2023-06-15 08:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "python-tools/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 4.18\n"
 
 #: D:\Repos\sumo/tools/game\runner.py:63
 msgid "Interactive Traffic Light"
@@ -83,7 +83,7 @@ msgstr "Bedarfsbus für Fortgeschrittene (neu)"
 msgid "DRT - Demo"
 msgstr "Bedarfsbus - Demo"
 
-#: D:\Repos\sumo/tools/game\runner.py:79 D:\Repos\sumo/tools/game\runner.py:84
+#: D:\Repos\sumo/tools/game\runner.py:79 D:\Repos\sumo/tools/game\runner.py:89
 msgid "Highscore"
 msgstr "Bestenliste"
 
@@ -100,18 +100,38 @@ msgid "English"
 msgstr "Englisch"
 
 #: D:\Repos\sumo/tools/game\runner.py:83
+msgid "Italian"
+msgstr "Italienisch"
+
+#: D:\Repos\sumo/tools/game\runner.py:84
+msgid "Spanish"
+msgstr "Spanisch"
+
+#: D:\Repos\sumo/tools/game\runner.py:85
+msgid "French"
+msgstr "Französisch"
+
+#: D:\Repos\sumo/tools/game\runner.py:86
+msgid "Chinese (simplified)"
+msgstr "Chinesisch (vereinfacht)"
+
+#: D:\Repos\sumo/tools/game\runner.py:87
+msgid "Chinese (traditional)"
+msgstr "Chinesisch (traditionell)"
+
+#: D:\Repos\sumo/tools/game\runner.py:88
 msgid "Quit"
 msgstr "Beenden"
 
-#: D:\Repos\sumo/tools/game\runner.py:85
+#: D:\Repos\sumo/tools/game\runner.py:90
 msgid "Congratulations!"
 msgstr "Glückwunsch!"
 
-#: D:\Repos\sumo/tools/game\runner.py:86
+#: D:\Repos\sumo/tools/game\runner.py:91
 msgid "Your Score"
 msgstr "Deine Punkte"
 
-#: D:\Repos\sumo/tools/game\runner.py:87
+#: D:\Repos\sumo/tools/game\runner.py:92
 msgid "Continue"
 msgstr "Weiter"
 

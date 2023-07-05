@@ -1,4 +1,4 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -267,14 +267,16 @@ class ArgumentParser(argparse.ArgumentParser):
         group.add_argument = handleCatoryWrapper(group.add_argument)
         return group
 
-    def write_config_file(self, namespace, exit=True, toString=False):
+    def _write_config_file(self, namespace, toString=False):
         if namespace.save_configuration:
-            out_file = namespace.save_configuration
-            print_template = False
-        elif namespace.save_template:
-            out_file = namespace.save_template
-            print_template = True
-        elif toString:
+            with openz(namespace.save_configuration, "w") as out:
+                self.write_config_to_file(out, namespace, False)
+            sys.exit()
+        if namespace.save_template:
+            with openz(namespace.save_template, "w") as out:
+                self.write_config_to_file(out, namespace, True)
+            sys.exit()
+        if toString:
             out = io.StringIO()
             try:
                 self.write_config_to_file(out, namespace, False)
@@ -283,12 +285,6 @@ class ArgumentParser(argparse.ArgumentParser):
                 out = io.BytesIO()
                 self.write_config_to_file(out, namespace, False)
             return out.getvalue()
-        else:
-            return
-        with openz(out_file, "w") as out:
-            self.write_config_to_file(out, namespace, print_template)
-        if exit:
-            sys.exit()
 
     def write_config_to_file(self, out, namespace, print_template):
         out.write(u'<configuration>\n')
@@ -358,25 +354,16 @@ class ArgumentParser(argparse.ArgumentParser):
         out.write(u'</configuration>\n')
 
     def parse_args(self, args=None, namespace=None):
-        if args is not None:
-            # gracefully handle non-string args passed from another script
-            args = map(str, args)
-        args_namespace, unknown_args = self.parse_known_args(args, namespace)
-        if unknown_args:
-            if self._catch_all:
-                setattr(args_namespace, self._catch_all.dest,
-                        getattr(args_namespace, self._catch_all.dest) + unknown_args)
-            else:
-                self.error('unrecognized arguments: %s' % ' '.join(unknown_args))
-        return args_namespace
+        return self.parse_known_args(args, namespace, True)[0]
 
-    def parse_known_args(self, args=None, namespace=None):
+    def parse_known_args(self, args=None, namespace=None, check_unknown=False):
         if args is None:
             args = sys.argv[1:]
         elif isinstance(args, str):
             args = args.split()
         else:
-            args = list(args)
+            # gracefully handle non-string args passed from another script
+            args = list(map(str, args))
         idx = -1
         if '-c' in args:
             idx = args.index('-c') + 1
@@ -459,10 +446,16 @@ class ArgumentParser(argparse.ArgumentParser):
                 option[0] = program + '-' + option[0]
             namespace_as_dict.update(dict(prefixed_options))
 
-        extended_namespace = argparse.Namespace(**namespace_as_dict)
+        if check_unknown and remaining_args:
+            if self._catch_all:
+                setattr(namespace, self._catch_all.dest,
+                        getattr(namespace, self._catch_all.dest) + remaining_args)
+            else:
+                self.error('unrecognized arguments: %s' % ' '.join(remaining_args))
 
-        self.write_config_file(extended_namespace)
-        namespace.config_as_string = self.write_config_file(extended_namespace, toString=True)
+        extended_namespace = argparse.Namespace(**namespace_as_dict)
+        self._write_config_file(extended_namespace)
+        namespace.config_as_string = self._write_config_file(extended_namespace, toString=True)
         return namespace, remaining_args
 
 

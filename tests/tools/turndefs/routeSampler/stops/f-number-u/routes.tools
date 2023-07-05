@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-27 13:07:20.389633 by routeSampler.py v1_16_0+1675-c516b55
+<!-- generated on 2023-06-29 15:03:58.001410 by routeSampler.py v1_17_0+1318-85f891f765f
 <configuration>
-    <keep-stops value="True"/>
     <route-files value="input_routes.rou.xml"/>
     <turn-files value="input_turns.xml"/>
+    <keep-stops value="True"/>
     <write-flows value="number"/>
     <write-route-distribution value="routeDist"/>
 </configuration>
@@ -89,5 +89,5 @@
         <route id="96" edges="71.121.42 -3 -3.180.00 15 15.180.00" probability="1"/>
     </routeDistribution>
 
-    <flow id="routeDist" begin="0.00" end="99.00" number="87" route="routeDist"/>
+    <flow id="routeDist" begin="0.45" end="99.00" number="87" route="routeDist"/>
 </routes>

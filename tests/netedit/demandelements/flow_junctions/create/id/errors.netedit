@@ -1,0 +1,3 @@
+Error: Attribute 'id' in definition of a flowJunctions is empty.
+Error: Invalid flowJunctions id ''.
+Error: flowJunctions cannot be created

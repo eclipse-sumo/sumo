@@ -53,7 +53,7 @@ title: FAQ
 - Report bugs (crashes, surprising behavior) or invalid documentation
   at [sumo-user](https://accounts.eclipse.org/mailing-list/sumo-user)
   or at <https://github.com/eclipse/sumo/issues>
-- The main development team at the [DLR](http://sumo.dlr.de) is always
+- The main development team at the [DLR](https://sumo.dlr.de) is always
   looking for project partners. [Contact us](Contact.md) to
   discuss your proposals.
 - Make your SUMO simulation scenarios publicly available
@@ -64,7 +64,7 @@ title: FAQ
 - Contribute to this wiki ([contact us](Contact.md), so we can
   give you editing rights)
 - Create a video tutorial and tell us about it
-- Join us at the annual [SUMO User Conference](https://eclipse.org/sumo/conference/)
+- Join us at the annual [SUMO User Conference](https://eclipse.dev/sumo/conference/)
 
 ### How do code contributions work?
 
@@ -247,7 +247,7 @@ according to the above suggestions.
 
   Unfortunately, we do not have the resources to do other peoples
   projects for free.
-  [Contact](http://www.dlr.de/ts/en/desktopdefault.aspx/tabid-1231/mailcontact-30303/)
+  [Contact](https://www.dlr.de/ts/en/desktopdefault.aspx/tabid-1231/mailcontact-30303/)
   us for paid consultancy.
   We try to help out with bugs and give pointers to the relevant
   documentation but this free support is limited to what we can do in
@@ -394,7 +394,7 @@ and simply type `git pull`.
 ### Is there further documentation on Git and Subversion?
 
   There are the [Git book](https://git-scm.com/book/) and the
-  [Subversion book](http://svnbook.red-bean.com/) and the [GitHub help](https://help.github.com/) is also worth reading.
+  [Subversion book](https://svnbook.red-bean.com/) and the [GitHub help](https://help.github.com/) is also worth reading.
 
 ### How to get an older version of SUMO?
 
@@ -528,6 +528,10 @@ At line/column 10/46
   
 ### Windows 10 is blocking the execution of sumo-gui and netedit. How come?
   Executable files downloaded from the internet may trigger the windows 10 security warning. You can work around this by clicking on the 'More Info' Text and then selecting 'Run Anyway' in the subsequent dialog.
+
+### what about warning: pj_obj_create: Cannot find proj.db
+
+  This warning concerns the database of named projections (EPSG codes) and gridshifts for the [proj library](https://proj.org). Unless performing fancy coordinate transformations (i.e. with netconvert) or trying to import unusual nework files, the warning can be safely ignored. Otherwise, it should help to set the [PROJ_DATA](https://proj.org/en/9.2/usage/environmentvars.html#envvar-PROJ_DATA) environment variable.
 
 ## netconvert
 
@@ -757,7 +761,7 @@ see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
   For more complex cases (i.e. large temporal gaps or spatial errors)
   the problem is known as [Map Matching](https://en.wikipedia.org/wiki/Map_matching). Open source
   tools exist to facilitate this
-  ([MatchGPX2OSM](http://wiki.openstreetmap.org/wiki/Routing/Travel_Time_Analysis/MatchGPX2OSM)
+  ([MatchGPX2OSM](https://wiki.openstreetmap.org/wiki/Routing/Travel_Time_Analysis/MatchGPX2OSM)
   [graphhopper](https://github.com/graphhopper/map-matching)).
 
   To exactly reproduce high-resolution trajectories, it is possible to
@@ -1056,7 +1060,7 @@ Selecting the checkbox 'Satellite background' before generating the scenario is 
 
 There are several ways to build videos from your SUMO simulation. You
 can use screen capturing tools like VLC Player
-[\[1\]](http://www.videolan.org/vlc). The disadvantage of this approach is
+[\[1\]](https://www.videolan.org/vlc). The disadvantage of this approach is
 the requirement of a (very) fast CPU to capture the video in real time,
 it depends on the chosen resolution and screen size of the simulation.
 
@@ -1081,8 +1085,8 @@ command to get a new image for each new timestep.
 ```
 
 Next you have to glue the images together. This job can be done
-graphically with virtualdub [\[2\]](http://www.virtualdub.org) or via
-commandline with ffmpeg [\[3\]](http://www.ffmpeg.org). An example command
+graphically with virtualdub [\[2\]](https://www.virtualdub.org) or via
+commandline with ffmpeg [\[3\]](https://www.ffmpeg.org). An example command
 for ffmpeg is shown below.
 
 ```
@@ -1104,9 +1108,9 @@ mechanism
 
 ### Incompatibility with DisplayLink devices
 
-Drivers of [DisplayLink](http://www.DisplayLink.com) devices are
+Drivers of [DisplayLink](https://www.DisplayLink.com) devices are
 incompatibles with Fox Library. If sumo-gui or netedit presents graphics
-problem like [this](http://sumo.dlr.de/docs/images/DisplayLinkError.png)
+problem like [this](https://sumo.dlr.de/docs/images/DisplayLinkError.png)
 during the execution, DisplayLink drivers must be uninstalled.
 
 ### Distorted view with green lines all over the network
@@ -1220,11 +1224,11 @@ As a work-around you can [install a .deb package](https://askubuntu.com/question
 
 ### How do I use *.tcl* files with NS2?
 
-  Questions regarding NS2 should be put to [the NS2 mailing list](http://www.isi.edu/nsnam/ns/ns-lists.html).
+  Questions regarding NS2 should be put to [the NS2 mailing list](https://www.isi.edu/nsnam/ns/ns-lists.html).
 
 ### How do I combine SUMO with a network simulator?
 
-  Check out [veins](http://veins.car2x.org/).
+  Check out [veins](https://veins.car2x.org/).
   
 ### Can SUMO simulate V2V / V2X messages?
 

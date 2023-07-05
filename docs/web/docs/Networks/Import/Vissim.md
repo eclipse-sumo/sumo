@@ -24,7 +24,7 @@ maximum velocity to gain the velocity to use. The default value is 1.
 
 Furthermore, as we have to use geometrical heuristics for joining
 connections to nodes, a further factor steers the process of converting
-Vissim-networks: simply spoken, **--vissim.offset** {{DT_FLOAT}} holds the information how near two
+Vissim-networks: simply spoken, **--vissim.join-distance** {{DT_FLOAT}} holds the information how near two
 nodes must be (in meters) to be joined.
 
 During import, different actions must be done which may yield in some

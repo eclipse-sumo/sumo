@@ -4,7 +4,7 @@ title: Intersections
 
 The vehicle dynamics at intersection are governed by the intersection
 model described in
-[\[Road Intersection Model in SUMO, Krajzewicz et al\]](http://elib.dlr.de/93669/1/LNCS_SUMOIntersections.pdf). Of course, the model in
+[\[Road Intersection Model in SUMO, Krajzewicz et al\]](https://elib.dlr.de/93669/1/LNCS_SUMOIntersections.pdf). Of course, the model in
 the latest revision may deviate somewhat due to the ongoing evolution of
 the model. This page gives an overview over the configuration options
 governing the intersection model.

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -22,6 +22,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
+#include "GNEDemandElementFlow.h"
 
 // ===========================================================================
 // class definitions
@@ -29,7 +30,7 @@
 /**
  * @class GNEVehicle
  */
-class GNEVehicle : public GNEDemandElement, public SUMOVehicleParameter {
+class GNEVehicle : public GNEDemandElement, public GNEDemandElementFlow {
 
 public:
     /// @brief class used in GUIGLObjectPopupMenu for single vehicle transformations
@@ -168,6 +169,9 @@ public:
     /// @brief parameter constructor for trips and Flows over junctions
     GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction, const SUMOVehicleParameter& vehicleParameters);
 
+    /// @brief parameter constructor for trips and Flows over TAZs
+    GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEAdditional* fromTAZ, GNEAdditional* toTAZ, const SUMOVehicleParameter& vehicleParameters);
+
     /// @brief destructor
     ~GNEVehicle();
 
@@ -175,12 +179,6 @@ public:
      * @note returned GNEMoveOperation can be nullptr
      */
     GNEMoveOperation* getMoveOperation();
-
-    /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
-     * @throw invalid argument if demand element doesn't has a begin time
-     */
-    std::string getBegin() const;
 
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element

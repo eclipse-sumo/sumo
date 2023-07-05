@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.type, "bicycle", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.type, "bicycle", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.toJunction, "", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.toJunction, "", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.toJunction, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.toJunction, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.toJunction, "gneJ9", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.toJunction, "gneJ9", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

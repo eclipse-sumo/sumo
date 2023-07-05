@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -437,7 +437,7 @@ std::string
 NWWriter_SUMO::getInternalBidi(const NBEdge* e, const NBEdge::Connection& k) {
     const NBEdge* fromBidi = e->getTurnDestination(true);
     const NBEdge* toBidi = k.toEdge->getTurnDestination(true);
-    const std::vector<NBEdge::Connection> cons = toBidi->getConnectionsFromLane( -1, fromBidi, -1);
+    const std::vector<NBEdge::Connection> cons = toBidi->getConnectionsFromLane(-1, fromBidi, -1);
     if (cons.size() > 0) {
         if (e->getNumLanes() == 1 && k.toEdge->getNumLanes() == 1 && fromBidi->getNumLanes() == 1 && toBidi->getNumLanes() == 1) {
             return cons.back().id;

@@ -26,12 +26,12 @@ all pedestrian lights) were also verified. See also
 <tbody>
 <tr class="odd">
 <td><p>Author</p></td>
-<td><p><a href="http://sourceforge.net/users/w-bamberger">W. Bamberger</a></p></td>
+<td><p><a href="https://sourceforge.net/users/w-bamberger">W. Bamberger</a></p></td>
 </tr>
 <tr class="even">
 <td><p>Source</p></td>
 <td><p><a href="../../Tutorials/OSMActivityGen/eichstaett.osm.html" title="wikilink">Tutorials/OSMActivityGen/eichstaett.osm</a> by W. Bamberger.<br />
-Map data © <a href="http://www.openstreetmap.org/">OpenStreetMap contributors</a>, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a></p></td>
+Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap contributors</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a></p></td>
 </tr>
 <tr class="odd">
 <td><p>History</p></td>
@@ -40,7 +40,7 @@ Map data © <a href="http://www.openstreetmap.org/">OpenStreetMap contributors</
 <tr class="even">
 <td><p>License</p></td>
 <td><p style="border:1px solid #909090; padding:1px 4px 3px 4px"><img src="../../images/CC-BY-SA-small.png">
-This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. The authors are listed in the history.</p>
+This work is licensed under a <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. The authors are listed in the history.</p>
 </td>
 </tr>
 </tbody>

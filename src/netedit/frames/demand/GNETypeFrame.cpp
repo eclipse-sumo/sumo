@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -157,7 +157,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
     // set myCurrentType as inspected element
     myTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentType});
     // show modules
-    myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
+    myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false);
     myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
     myTypeFrameParent->myParametersEditor->refreshParametersEditor();
 }
@@ -185,7 +185,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // set myCurrentType as inspected element
             myTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentType});
             // show modules if selected item is valid
-            myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
+            myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false);
             myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
             myTypeFrameParent->myParametersEditor->refreshParametersEditor();
             // Write Warning in console if we're in testing mode
@@ -286,8 +286,6 @@ GNETypeFrame::TypeEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     myTypeFrameParent->myViewNet->getUndoList()->end();
     // set created vehicle type in selector
     myTypeFrameParent->myTypeSelector->setCurrentType(type);
-    // refresh Type Editor Module
-    myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     return 1;
 }
 
@@ -320,12 +318,8 @@ GNETypeFrame::TypeEditor::onCmdCopyType(FXObject*, FXSelector, void*) {
         myTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(typeCopy, true), true);
         // end undo list operation
         myTypeFrameParent->myViewNet->getUndoList()->end();
-        // refresh Type Selector (to show the new VType)
-        myTypeFrameParent->myTypeSelector->refreshTypeSelector();
         // set created vehicle type in selector
         myTypeFrameParent->myTypeSelector->setCurrentType(typeCopy);
-        // refresh Type Editor Module
-        myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     }
     return 1;
 }
@@ -442,7 +436,7 @@ GNETypeFrame::show() {
     // set myCurrentType as inspected element
     myTypeAttributesEditor->getFrameParent()->getViewNet()->setInspectedAttributeCarriers({myTypeSelector->getCurrentType()});
     // show modules
-    myTypeAttributesEditor->showAttributeEditorModule(false, true);
+    myTypeAttributesEditor->showAttributeEditorModule(false);
     myAttributesEditorExtended->showAttributesEditorExtendedModule();
     // show frame
     GNEFrame::show();
@@ -472,7 +466,7 @@ GNETypeFrame::attributesEditorExtendedDialogOpened() {
         // set myCurrentType as inspected element
         myTypeAttributesEditor->getFrameParent()->getViewNet()->setInspectedAttributeCarriers({myTypeSelector->getCurrentType()});
         // call "showAttributeEditorModule" to refresh attribute list
-        myTypeAttributesEditor->showAttributeEditorModule(false, true);
+        myTypeAttributesEditor->showAttributeEditorModule(false);
     }
 }
 

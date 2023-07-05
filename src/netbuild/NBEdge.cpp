@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -730,6 +730,7 @@ NBEdge::isBidiRail(bool ignoreSpread) const {
     return (isRailway(getPermissions())
             && (ignoreSpread || myLaneSpreadFunction == LaneSpreadFunction::CENTER)
             && myPossibleTurnDestination != nullptr
+            && myPossibleTurnDestination->myPossibleTurnDestination == this
             && (ignoreSpread || myPossibleTurnDestination->getLaneSpreadFunction() == LaneSpreadFunction::CENTER)
             && isRailway(myPossibleTurnDestination->getPermissions())
             && myPossibleTurnDestination->getGeometry().reverse() == getGeometry());
@@ -739,6 +740,7 @@ NBEdge::isBidiRail(bool ignoreSpread) const {
 bool
 NBEdge::isBidiEdge(bool checkPotential) const {
     return myPossibleTurnDestination != nullptr
+           && myPossibleTurnDestination->myPossibleTurnDestination == this
            && (myIsBidi || myPossibleTurnDestination->myIsBidi || checkPotential)
            && myPossibleTurnDestination->getToNode() == getFromNode()
            && myPossibleTurnDestination->getLaneSpreadFunction() == myLaneSpreadFunction
@@ -2690,9 +2692,13 @@ NBEdge::applyTurnSigns() {
             continue;
         }
         const NBEdge* to = dirMap[dir];
+        int candidates = to->getNumLanesThatAllow(SVC_PASSENGER);
+        if (candidates == 0) {
+            WRITE_WARNINGF(TL("Cannot apply turn sign information for edge '%' because the target edge '%' has no suitable lanes"), getID(), to->getID());
+            return false;
+        }
         std::vector<int>& knownTargets = toLaneMap[to];
         if ((int)knownTargets.size() < item.second) {
-            int candidates = to->getNumLanesThatAllow(SVC_PASSENGER);
             if (candidates < item.second) {
                 WRITE_WARNINGF(TL("Cannot apply turn sign information for edge '%' because there are % signed connections with directions '%' but target edge '%' has only % suitable lanes"),
                                getID(), item.second, toString(dir), to->getID(), candidates);
@@ -2751,23 +2757,25 @@ NBEdge::applyTurnSigns() {
                             // if the source permits passenger traffic, the target should too
                             fromP = SVC_PASSENGER;
                         }
-                        int toLane = 0;
+                        int toLane = toLaneMap[to][0];
                         while ((to->getPermissions(toLane) & fromP) == 0) {
                             toLane++;
+                            /*
                             if (toLane == to->getNumLanes()) {
                                 SOFT_ASSERT(false);
-#ifdef DEBUG_TURNSIGNS
+                            #ifdef DEBUG_TURNSIGNS
                                 std::cout << "  could not find passenger lane for target=" << to->getID() << "\n";
-#endif
+                            #endif
                                 return false;
                             }
+                            */
                         }
 #ifdef DEBUG_TURNSIGNS
                         std::cout << "  target=" << to->getID() << " initial toLane=" << toLane << "\n";
 #endif
                         toLaneIndex[to] = toLane;
                     }
-                    setConnection(i, to, toLaneMap[to][toLaneIndex[to]++], Lane2LaneInfoType::VALIDATED, true);
+                    setConnection(i, to, toLaneIndex[to]++, Lane2LaneInfoType::VALIDATED, true);
                 }
             }
         }

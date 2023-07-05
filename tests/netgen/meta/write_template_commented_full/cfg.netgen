@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-06 12:40:33 by Eclipse SUMO netgenerate Version v1_17_0+0735-ed7251a
+<!-- generated on 2023-06-22 21:06:45 by Eclipse SUMO netgenerate Version v1_17_0+1205-534747fc3a6
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -386,6 +386,9 @@
 
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
+
+        <!-- Interprets STR[] as list of tls ids to exclude from joining -->
+        <tls.join-exclude value="" type="STR[]"/>
 
         <!-- Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used -->
         <tls.uncontrolled-within value="false" type="BOOL"/>

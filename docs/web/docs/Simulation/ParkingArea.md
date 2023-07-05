@@ -118,6 +118,16 @@ wait on the road until a space becomes available or [reroute to a new
 parking
 area](../Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area).
 
+# Importing / Generating Parking Areas
+
+The following tools exist to obtain parking area definitions
+
+- [generateParkingAreas.py](../Tools/Misc.md#generateparkingareaspy): probabilistic generation for a whole network
+- [generateParkingLots.py](../Tools/Misc.md#generateparkinglotspy): generate space definitions to fill up a given shape
+- [netedit](../Netedit/elementsAdditional.md#parking_areas): define parking areas visually
+- [netconvert --parking-output](../netconvert.md#export_1): imports roadside parking areas from OSM
+- [SAGA generateParkingAreasFromOSM.py](https://github.com/lcodeca/SUMOActivityGen): imports all kinds of parking areas from OSM
+
 # TraCI
 
 Some information regarding parking areas can be accessed directly using

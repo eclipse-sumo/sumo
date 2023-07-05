@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -46,18 +46,18 @@ GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
                  double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE, GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myLines(lines) {
+myArrivalPosition(arrivalPosition),
+myLines(lines) {
 }
 
 
 GNERide::GNERide(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                  double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, isTrain? GNE_TAG_RIDE_TRAINSTOP : GNE_TAG_RIDE_BUSSTOP, 
-                     GUIIconSubSys::getIcon(isTrain? GUIIcon::RIDE_TRAINSTOP : GUIIcon::RIDE_BUSSTOP),
+    GNEDemandElement(personParent, net, GLO_RIDE, isTrain ? GNE_TAG_RIDE_TRAINSTOP : GNE_TAG_RIDE_BUSSTOP,
+                     GUIIconSubSys::getIcon(isTrain ? GUIIcon::RIDE_TRAINSTOP : GUIIcon::RIDE_BUSSTOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myLines(lines) {
+myArrivalPosition(arrivalPosition),
+myLines(lines) {
 }
 
 
@@ -128,7 +128,7 @@ GNERide::writeDemandElement(OutputDevice& device) const {
     }
     // avoid write arrival positions in ride to busStop
     if ((myTagProperty.getTag() != GNE_TAG_RIDE_BUSSTOP) && (myTagProperty.getTag() != GNE_TAG_RIDE_TRAINSTOP) &&
-        (myArrivalPosition > 0)) {
+            (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // write lines
@@ -513,12 +513,12 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             computePathElement();
             break;
         case GNE_ATTR_TO_BUSSTOP:
-            replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_BUS_STOP, value);
             // compute ride
             computePathElement();
             break;
         case GNE_ATTR_TO_TRAINSTOP:
-            replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_TRAIN_STOP, value);
             // compute ride
             computePathElement();
             break;

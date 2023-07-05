@@ -38,6 +38,9 @@ value is also shown in the table.
 | action step length (0x7d) | double              | Returns the action step length for the vehicle type in s.                                      | [getActionStepLength](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-getActionStepLength) |
 | person capacity (0x38)    | int                 | Returns the total number of persons that can ride in a vehicle of this type.                   | [getPersonCapacity](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-getPersonCapacity)            |
 | scale (0x8e)    | double                 | Returns the traffic scaling factor for vehicles of this type | [getScale](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-getScale)            |
+| boarding duration (0x2f)        | double   | Returns the boarding duration for passengers entering/leaving this vehicle.                                                                                                   | [setBoardingDuration](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-setBoardingDuration)        |
+| impatience (0x26)  | string      | Returns the current [base impatience](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#impatience) of this vehicle.                                                                                                              | [setImpatience](https://sumo.dlr.de/pydoc/traci._vehicletype.html#VehicleTypeDomain-setImpatience) |
+
 
 **Overview Retrievable Vehicle Type Variables**
 

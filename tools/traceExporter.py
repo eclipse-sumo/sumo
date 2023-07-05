@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -128,7 +128,7 @@ def runMethod(inputFile, outputFile, writer, options, further={}):
     further["orig-ids"] = options.orig_ids
     further["ignore-gaps"] = options.ignore_gaps
     if options.base >= 0:
-        further["base-date"] = datetime.datetime.utcfromtimestamp(options.base)
+        further["base-date"] = datetime.datetime.fromtimestamp(options.base, tz=datetime.timezone.utc)
     else:
         further["base-date"] = datetime.datetime.now().replace(hour=0,
                                                                minute=0, second=0, microsecond=0)

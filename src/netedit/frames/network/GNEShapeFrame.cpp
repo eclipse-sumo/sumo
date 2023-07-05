@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -69,10 +69,10 @@ GNEShapeFrame::GEOPOICreator::GEOPOICreator(GNEShapeFrame* polygonFrameParent) :
     myCreateGEOPOIButton = new FXButton(getCollapsableFrame(), TL("Create GEO POI (clipboard)"), nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // create information label
     myLabelCartesianPosition = new MFXDynamicLabel(getCollapsableFrame(),
-        (TL("Cartesian equivalence:") + std::string("\n") + 
-         TL("- X = give valid longitude") + std::string("\n") + 
-         TL("- Y = give valid latitude")).c_str(), 
-        0, GUIDesignLabelFrameInformation);
+            (TL("Cartesian equivalence:") + std::string("\n") +
+             TL("- X = give valid longitude") + std::string("\n") +
+             TL("- Y = give valid latitude")).c_str(),
+            0, GUIDesignLabelFrameInformation);
 }
 
 

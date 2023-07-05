@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -859,6 +859,9 @@ public:
     /// @brief returns the last vehicle for which this lane is responsible or 0
     MSVehicle* getLastFullVehicle() const;
 
+    /// @brief returns the first vehicle for which this lane is responsible or 0
+    MSVehicle* getFirstFullVehicle() const;
+
     /// @brief returns the last vehicle that is fully or partially on this lane
     MSVehicle* getLastAnyVehicle() const;
 
@@ -1321,7 +1324,7 @@ public:
     double getMaximumBrakeDist() const;
 
     static void initCollisionOptions(const OptionsCont& oc);
-    static void initCollisionAction(const OptionsCont& oc, const std::string& option, CollisionAction& myAction); 
+    static void initCollisionAction(const OptionsCont& oc, const std::string& option, CollisionAction& myAction);
 
     static CollisionAction getCollisionAction() {
         return myCollisionAction;
@@ -1371,9 +1374,9 @@ protected:
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
 
     void handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSTransportable* victim,
-                                double gap, const std::string& collisionType,
-                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
-                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
+                                          double gap, const std::string& collisionType,
+                                          std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
+                                          std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
 
     /* @brief determine depart speed and whether it may be patched
      * @param[in] veh The departing vehicle

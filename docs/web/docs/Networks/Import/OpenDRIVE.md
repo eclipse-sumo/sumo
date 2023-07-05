@@ -2,7 +2,7 @@
 title: OpenDRIVE
 ---
 
-For reading [OpenDRIVE networks](http://www.opendrive.org/), give
+For reading [OpenDRIVE networks](https://www.opendrive.org/), give
 [netconvert](../../netconvert.md) the option **--opendrive-files** {{DT_FILE}}\[,{{DT_FILE}}\]\* or **--opendrive** {{DT_FILE}}\[,{{DT_FILE}}\]\* for short.
 
 ```

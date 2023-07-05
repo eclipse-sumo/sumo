@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 80, 360)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.containerNumber, "", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.containerNumber, "", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.containerNumber, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.containerNumber, "dummyNumber", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.containerNumber, "-5", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.containerNumber, "-5", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.containerNumber, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.containerNumber, "2.5", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.containerNumber, "3", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.containerNumber, "3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

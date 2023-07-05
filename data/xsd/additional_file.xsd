@@ -116,7 +116,7 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="detectorIdType" use="required"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
-        <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="pos" type="floatType" use="required"/>
         <xsd:attribute name="length" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
@@ -149,17 +149,17 @@
         <xsd:attribute name="lane" type="xsd:string" use="optional"/>
         <xsd:attribute name="lanes" type="xsd:string" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
-        <xsd:attribute name="pos" type="xsd:float" use="optional"/>
-        <xsd:attribute name="endPos" type="xsd:float" use="optional"/>
-        <xsd:attribute name="length" type="xsd:float" use="optional"/>
+        <xsd:attribute name="pos" type="floatType" use="optional"/>
+        <xsd:attribute name="endPos" type="floatType" use="optional"/>
+        <xsd:attribute name="length" type="floatType" use="optional"/>
         <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
         <xsd:attribute name="to" type="xsd:string" use="optional"/>
         <xsd:attribute name="cont" type="boolType" use="optional"/>
-        <xsd:attribute name="timeThreshold" type="xsd:float" use="optional"/>
-        <xsd:attribute name="speedThreshold" type="xsd:float" use="optional"/>
-        <xsd:attribute name="jamThreshold" type="xsd:float" use="optional"/>
+        <xsd:attribute name="timeThreshold" type="floatType" use="optional"/>
+        <xsd:attribute name="speedThreshold" type="floatType" use="optional"/>
+        <xsd:attribute name="jamThreshold" type="floatType" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="nextEdges" type="xsd:string" use="optional"/>
         <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
@@ -181,12 +181,13 @@
         <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
-        <xsd:attribute name="timeThreshold" type="xsd:float" use="optional"/>
+        <xsd:attribute name="timeThreshold" type="floatType" use="optional"/>
         <xsd:attribute name="speedThreshold" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="nextEdges" type="xsd:string" use="optional"/>
         <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
         <xsd:attribute name="openEntry" type="boolType" use="optional"/>
+        <xsd:attribute name="expectArrival" type="boolType" use="optional"/>
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
@@ -196,7 +197,7 @@
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
-        <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="pos" type="floatType" use="required"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType">
         </xsd:attribute>
     </xsd:complexType>
@@ -285,7 +286,7 @@
             <xsd:element name="step" minOccurs="1" maxOccurs="unbounded">
                 <xsd:complexType>
                     <xsd:attribute name="time" type="nonNegativeFloatType" use="required"/>
-                    <xsd:attribute name="speed" type="xsd:float" use="optional"/>
+                    <xsd:attribute name="speed" type="floatType" use="optional"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:choice>
@@ -374,7 +375,7 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="detectorIdType" use="required"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
-        <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="pos" type="floatType" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
@@ -392,8 +393,8 @@
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="color" type="colorType" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
-        <xsd:attribute name="startPos" type="xsd:float"/>
-        <xsd:attribute name="endPos" type="xsd:float"/>
+        <xsd:attribute name="startPos" type="floatType"/>
+        <xsd:attribute name="endPos" type="floatType"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
         <xsd:attribute name="personCapacity" type="nonNegativeIntType" use="optional"/>
@@ -408,8 +409,8 @@
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="color" type="colorType" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
-        <xsd:attribute name="startPos" type="xsd:float"/>
-        <xsd:attribute name="endPos" type="xsd:float"/>
+        <xsd:attribute name="startPos" type="floatType"/>
+        <xsd:attribute name="endPos" type="floatType"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
         <xsd:attribute name="containerCapacity" type="nonNegativeIntType" use="optional"/>
@@ -423,14 +424,14 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
-        <xsd:attribute name="startPos" type="xsd:float"/>
-        <xsd:attribute name="endPos" type="xsd:float"/>
+        <xsd:attribute name="startPos" type="floatType"/>
+        <xsd:attribute name="endPos" type="floatType"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
-        <xsd:attribute name="power" type="xsd:float" use="optional"/>
-        <xsd:attribute name="efficiency" type="xsd:float" use="optional"/>
+        <xsd:attribute name="power" type="floatType" use="optional"/>
+        <xsd:attribute name="efficiency" type="floatType" use="optional"/>
         <xsd:attribute name="chargeInTransit" type="boolType" use="optional"/>
-        <xsd:attribute name="chargeDelay" type="xsd:float" use="optional"/>
+        <xsd:attribute name="chargeDelay" type="floatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="overheadWireSegmentType">
@@ -440,8 +441,8 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
         <xsd:attribute name="voltageSource" type="boolType" use="optional"/>
-        <xsd:attribute name="startPos" type="xsd:float" use="optional"/>
-        <xsd:attribute name="endPos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="startPos" type="floatType" use="optional"/>
+        <xsd:attribute name="endPos" type="floatType" use="optional"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
     </xsd:complexType>
 
@@ -450,8 +451,8 @@
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="idType" use="required"/>
-        <xsd:attribute name="voltage" type="xsd:float" use="optional"/>
-        <xsd:attribute name="currentLimit" type="xsd:float" use="optional"/>
+        <xsd:attribute name="voltage" type="floatType" use="optional"/>
+        <xsd:attribute name="currentLimit" type="floatType" use="optional"/>
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
@@ -476,7 +477,7 @@
     </xsd:complexType>
 
     <xsd:simpleType name="accessPosType">
-        <xsd:union memberTypes="xsd:float">
+        <xsd:union memberTypes="floatType">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="random"/>
@@ -504,15 +505,15 @@
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
         <xsd:attribute name="roadsideCapacity" type="nonNegativeIntType" use="optional"/>
         <xsd:attribute name="onRoad" type="boolType" use="optional"/>
-        <xsd:attribute name="startPos" type="xsd:float" use="optional"/>
-        <xsd:attribute name="endPos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="startPos" type="floatType" use="optional"/>
+        <xsd:attribute name="endPos" type="floatType" use="optional"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
-        <xsd:attribute name="angle" type="xsd:float" use="optional"/>
+        <xsd:attribute name="angle" type="floatType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
-        <xsd:attribute name="departPos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="departPos" type="floatType" use="optional"/>
         <xsd:attribute name="lefthand" type="boolType" use="optional"/>
     </xsd:complexType>
 
@@ -520,14 +521,14 @@
         <xsd:sequence>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
-        <xsd:attribute name="x" type="xsd:float" use="required"/>
-        <xsd:attribute name="y" type="xsd:float" use="required"/>
-        <xsd:attribute name="z" type="xsd:float" use="optional"/>
+        <xsd:attribute name="x" type="floatType" use="required"/>
+        <xsd:attribute name="y" type="floatType" use="required"/>
+        <xsd:attribute name="z" type="floatType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
-        <xsd:attribute name="angle" type="xsd:float" use="optional"/>
-        <xsd:attribute name="slope" type="xsd:float" use="optional"/>
+        <xsd:attribute name="angle" type="floatType" use="optional"/>
+        <xsd:attribute name="slope" type="floatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="calibratorType">
@@ -540,14 +541,14 @@
         <xsd:attribute name="id" type="detectorIdType" use="required"/>
         <xsd:attribute name="edge" type="xsd:string" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="optional"/>
-        <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="pos" type="floatType" use="required"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
         <xsd:attribute name="output" type="xsd:string" use="optional"/>
         <xsd:attribute name="routeProbe" type="xsd:string" use="optional"/>
-        <xsd:attribute name="jamThreshold" type="xsd:float" use="optional"/>
+        <xsd:attribute name="jamThreshold" type="floatType" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
@@ -593,10 +594,10 @@
         <xsd:attribute name="color" type="colorType" use="optional"/>
         <xsd:attribute name="fill" type="boolType" use="optional"/>
         <xsd:attribute name="geo" type="boolType" use="optional"/>
-        <xsd:attribute name="layer" type="xsd:float" use="optional"/>
+        <xsd:attribute name="layer" type="floatType" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="required"/>
-        <xsd:attribute name="angle" type="xsd:float" use="optional"/>
-        <xsd:attribute name="lineWidth" type="xsd:float" use="optional"/>
+        <xsd:attribute name="angle" type="floatType" use="optional"/>
+        <xsd:attribute name="lineWidth" type="floatType" use="optional"/>
         <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
@@ -608,19 +609,19 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="color" type="colorType" use="optional"/>
-        <xsd:attribute name="layer" type="xsd:float" use="optional"/>
-        <xsd:attribute name="x" type="xsd:float" use="optional"/>
-        <xsd:attribute name="y" type="xsd:float" use="optional"/>
-        <xsd:attribute name="lon" type="xsd:float" use="optional"/>
-        <xsd:attribute name="lat" type="xsd:float" use="optional"/>
+        <xsd:attribute name="layer" type="floatType" use="optional"/>
+        <xsd:attribute name="x" type="floatType" use="optional"/>
+        <xsd:attribute name="y" type="floatType" use="optional"/>
+        <xsd:attribute name="lon" type="floatType" use="optional"/>
+        <xsd:attribute name="lat" type="floatType" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="optional"/>
-        <xsd:attribute name="pos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="pos" type="floatType" use="optional"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
-        <xsd:attribute name="posLat" type="xsd:float" use="optional"/>
-        <xsd:attribute name="angle" type="xsd:float" use="optional"/>
+        <xsd:attribute name="posLat" type="floatType" use="optional"/>
+        <xsd:attribute name="angle" type="floatType" use="optional"/>
         <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
-        <xsd:attribute name="width" type="xsd:float" use="optional"/>
-        <xsd:attribute name="height" type="xsd:float" use="optional"/>
+        <xsd:attribute name="width" type="floatType" use="optional"/>
+        <xsd:attribute name="height" type="floatType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
@@ -636,7 +637,7 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
-        <xsd:attribute name="offset" type="xsd:float" use="optional"/>
+        <xsd:attribute name="offset" type="floatType" use="optional"/>
     </xsd:complexType>
 
 

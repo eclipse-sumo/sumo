@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -20,6 +20,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/common/StringTokenizer.h>
 
 #include "GNEVTypeDistribution.h"
 
@@ -30,7 +31,7 @@
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
     GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -38,7 +39,7 @@ GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& vTypeID, const int deterministic) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION,  GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
     myDeterministic(deterministic) {
 }
 
@@ -54,20 +55,28 @@ GNEVTypeDistribution::getMoveOperation() {
 
 void
 GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
-    device.openTag(getTagProperty().getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    // write vTypes sorted by ID
-    std::map<std::string, GNEDemandElement*> sortedElements;
+    // get vtypes that has this vType distribution
+    std::vector<std::string> vTypes;
+    std::vector<std::string> probabilities;
     for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        // only write if appear in this distribution
-        if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID()) {
-            sortedElements[vType->getID()] = vType;
+        // get type distributions and probabilities
+        const auto typeDistributionIDs = StringTokenizer(vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)).getVector();
+        const auto distributionProbabilities = StringTokenizer(vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY)).getVector();
+        for (int i = 0; i < (int)typeDistributionIDs.size(); i++) {
+            if (typeDistributionIDs.at(i) == getID()) {
+                vTypes.push_back(vType->getID());
+                probabilities.push_back(distributionProbabilities.at(i));
+            }
         }
     }
-    for (const auto& element : sortedElements) {
-        element.second->writeDemandElement(device);
+    // only save if there is vTypes to save
+    if (vTypes.size() > 0) {
+        device.openTag(getTagProperty().getTag());
+        device.writeAttr(SUMO_ATTR_ID, getID());
+        device.writeAttr(SUMO_ATTR_VTYPES, vTypes);
+        device.writeAttr(SUMO_ATTR_PROBS, probabilities);
+        device.closeTag();
     }
-    device.closeTag();
 }
 
 
@@ -190,19 +199,29 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEVTypeDistribution::getAttributeDouble(SumoXMLAttr key) const {
-    switch (key) {
-        case GNE_ATTR_ADDITIONALCHILDREN: {
-            double counter = 0;
-            for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-                // only write if appear in this distribution
-                if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID() && vType->getChildAdditionals().size() > 0) {
-                    counter++;
-                }
+    if (key == GNE_ATTR_ADDITIONALCHILDREN) {
+        double counter = 0;
+        for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+            // only write if appear in this distribution
+            if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID() && vType->getChildAdditionals().size() > 0) {
+                counter++;
             }
-            return counter;
         }
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+        return counter;
+    } else {
+        // obtain all types with the given typeDistribution sorted by ID
+        std::map<std::string, GNEDemandElement*> sortedTypes;
+        for (const auto &type : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+            if (type->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID()) {
+                sortedTypes[type->getID()] = type;
+            }
+        }
+        // return first type, or default vType
+        if (sortedTypes.size() > 0) {
+            return sortedTypes.begin()->second->getAttributeDouble(key);
+        } else {
+            return 0;
+        }
     }
 }
 
@@ -233,9 +252,10 @@ bool
 GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            // Vtypes and PTypes shares namespace
-            if (SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr)) {
+            if (value == getID()) {
                 return true;
+            } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
+                return (demandElementExist(value, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}) == false);
             } else {
                 return false;
             }

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -37,9 +37,9 @@ class GNEOptionsDialog;
  * @briefA Dialog for setting options (see OptionsCont)
  */
 class GNEOptionsDialogElements {
-    
+
 public:
-    
+
     /// @brief input option
     class InputOption : public FXHorizontalFrame {
         /// @brief FOX-declaration
@@ -54,7 +54,7 @@ public:
         void adjustNameSize();
 
         /// @brief get topic
-        const std::string &getTopic() const;
+        const std::string& getTopic() const;
 
         /// @brief get name (Lower)
         const std::string getNameLower() const;
@@ -107,7 +107,7 @@ public:
         MFXLabelTooltip* myNameLabel = nullptr;
 
         // @brief reset button
-        FXButton* myResetButton = nullptr; 
+        FXButton* myResetButton = nullptr;
     };
 
     /// @brief input string
@@ -191,7 +191,7 @@ public:
         std::string getValue() const;
 
         /// @brief menu check
-        FXCheckButton* myCheckButton = nullptr; 
+        FXCheckButton* myCheckButton = nullptr;
     };
 
     /// @brief input int
@@ -275,7 +275,7 @@ public:
         std::string getValue() const;
 
         /// @brief parse float xx to xx.00
-        std::string parseFloat(const std::string &value) const;
+        std::string parseFloat(const std::string& value) const;
 
         /// @brief text field
         FXTextField* myFloatTextField = nullptr;

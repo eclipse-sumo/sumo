@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -26,6 +26,11 @@
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEPathLegendModule.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
 class MFXDynamicLabel;
 
 // ===========================================================================
@@ -93,8 +98,14 @@ public:
     /// @brief get vehicle tag selector (needed for transform vehicles)
     GNETagSelector* getVehicleTagSelector() const;
 
+    /// @brief getVehicle Type selectors
+    DemandElementSelector* getTypeSelector() const;
+
     /// @brief get GNEPathCreator module
     GNEPathCreator* getPathCreator() const;
+
+    /// @brief get attributes creator
+    GNEAttributesCreator* getVehicleAttributes() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector

@@ -17,7 +17,7 @@ title: Changes from Version 0.14.0 to Version 0.15.0
     in front of the position. This effects the retrieval of a
     vehicle's position via TraCI, and also the measures collected by
     detectors - now, the collected vehicle lengths do not contain
-    the minimum distance anymore. see [blog entry](http://sourceforge.net/apps/wordpress/sumo/2012/02/14/request-for-comments-pulling-mingap-out-of-the-vehicle/)
+    the minimum distance anymore. see [blog entry](https://sourceforge.net/apps/wordpress/sumo/2012/02/14/request-for-comments-pulling-mingap-out-of-the-vehicle/)
   - consolidating right-of-way rules (again). **Networks must be
     rebuild**
   - fixed crash when using TraCI to set new TLS-programs with less

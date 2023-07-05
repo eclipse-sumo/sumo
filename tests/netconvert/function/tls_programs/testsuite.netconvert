@@ -10,6 +10,9 @@ single_incoming2arms
 # handle parallel bike paths in program generation
 bike_edges
 
+# programs for tls that span multiple junctions
+joined
+
 # warn about traffic light with a high cycle time
 high_cycle_time
 
@@ -28,14 +31,8 @@ allred.time_large
 # main direction (specified via edge priorities) takes a right turn at a 4-way intersection
 main_road_turns_right
 
-# an example for a joined tls from a real-world network (A391_AS_Weststadt)
-joined_rw
-
 # an example for a multimodal tls  from a real-world network 
 multimodal_rw
-
-# junction from acosta scenarion (#5393)
-joined_with_uncontrolled
 
 # minimum phase duration for tram phase
 multimodal_actuated_tram

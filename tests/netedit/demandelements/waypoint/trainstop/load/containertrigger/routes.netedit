@@ -13,6 +13,6 @@
     </route>
     <route id="route_4" edges="gneE0 gneE1" color="yellow"/>
     <route id="route_5" edges="gneE0 gneE1" color="yellow">
-        <stop trainStop="trainStop" triggered="container" speed="10.00"/>
+        <stop trainStop="trainStop" speed="10.00"/>
     </route>
 </routes>

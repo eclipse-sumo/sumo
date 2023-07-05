@@ -2,7 +2,7 @@
 
 This content is produced and maintained by the Eclipse Sumo project.
 
-* Project home: https://eclipse.org/sumo
+* Project home: https://eclipse.dev/sumo
 
 ## Trademarks
 

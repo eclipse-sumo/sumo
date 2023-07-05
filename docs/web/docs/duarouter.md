@@ -57,7 +57,7 @@ directly into [sumo](sumo.md).
 
 You may use a XML schema definition file for setting up a duarouter
 configuration:
-[duarouterConfiguration.xsd](http://sumo.dlr.de/xsd/duarouterConfiguration.xsd).
+[duarouterConfiguration.xsd](https://sumo.dlr.de/xsd/duarouterConfiguration.xsd).
 
 ### Configuration
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -303,7 +303,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     }
     myActiveRouteRefID = attrs.getOpt<std::string>(SUMO_ATTR_REFID, myActiveRouteID.c_str(), ok, "");
     if (myActiveRouteRefID != "" && MSRoute::dictionary(myActiveRouteRefID, &myParsingRNG) == nullptr) {
-        WRITE_ERRORF(TL("Invalid reference to route '%' in route %."), myActiveRouteRefID, rid);
+        throw ProcessError(TLF("Invalid reference to route '%' in route %.", myActiveRouteRefID, rid));
     }
     myActiveRouteProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : nullptr;
@@ -319,21 +319,24 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     if (myActiveRouteRepeat > 0) {
         if (MSGlobals::gCheckRoutes) {
             SUMOVehicleClass vClass = SVC_IGNORING;
+            std::string errSuffix = ".";
             if (myVehicleParameter != nullptr) {
                 MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
                 MSVehicleType* vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                 if (vtype != nullptr) {
                     vClass = vtype->getVehicleClass();
+                    errSuffix = TLF(" for vehicle '%' with vClass %.", myVehicleParameter->id, vClass);
                 }
             }
             if (myActiveRoute.size() > 0 && !myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
-                WRITE_ERRORF(TL("Disconnected route % when repeating."), rid);
+                throw ProcessError(TLF("Disconnected route % when repeating. Last edge '%' is not connected to first edge '%'%",
+                            rid, myActiveRoute.back()->getID(), myActiveRoute.front()->getID(), errSuffix));
             }
         }
     }
     myCurrentCosts = attrs.getOpt<double>(SUMO_ATTR_COST, myActiveRouteID.c_str(), ok, -1);
     if (ok && myCurrentCosts != -1 && myCurrentCosts < 0) {
-        WRITE_ERRORF(TL("Invalid cost for route '%'."), myActiveRouteID);
+        WRITE_WARNING(TLF("Invalid cost for route '%'.", myActiveRouteID));
     }
 }
 
@@ -426,7 +429,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
             }
         }
         MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
-                                     myVehicleParameter == nullptr || myVehicleParameter->repetitionNumber >= 1,
+                                     myVehicleParameter == nullptr,
                                      myActiveRouteColor, myActiveRouteStops,
                                      myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex);
         route->setPeriod(myActiveRoutePeriod);
@@ -468,6 +471,8 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
         // ok, a vehicle is wrapping the route,
         //  we may use this vehicle's id as default
         myCurrentRouteDistributionID = "!" + myVehicleParameter->id; // !!! document this
+        // we have to record this or we cannot remove the distribution later
+        myVehicleParameter->routeid = myCurrentRouteDistributionID;
     } else {
         bool ok = true;
         myCurrentRouteDistributionID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
@@ -805,8 +810,6 @@ MSRouteHandler::closeTransportableFlow() {
             deleteActivePlanAndVehicleParameter();
             return;
         }
-        // type existence has been checked on opening
-        MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
         // instantiate all persons/containers of this flow
         int i = 0;
         registerLastDepart();
@@ -817,6 +820,8 @@ MSRouteHandler::closeTransportableFlow() {
             } else {
                 for (SUMOTime t = myVehicleParameter->depart; t < myVehicleParameter->repetitionEnd; t += TIME2STEPS(1)) {
                     if (RandHelper::rand(&myParsingRNG) < myVehicleParameter->repetitionProbability) {
+                        // type existence has been checked on opening
+                        MSVehicleType* const type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                         addFlowTransportable(t, type, baseID, i++);
                     }
                 }
@@ -829,6 +834,8 @@ MSRouteHandler::closeTransportableFlow() {
                 myVehicleParameter->incrementFlow(1, &myParsingRNG);
             }
             for (; i < myVehicleParameter->repetitionNumber && (triggered || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
+                // type existence has been checked on opening
+                MSVehicleType* const type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                 addFlowTransportable(depart + myVehicleParameter->repetitionTotalOffset, type, baseID, i);
                 if (myVehicleParameter->departProcedure != DepartDefinition::TRIGGERED) {
                     myVehicleParameter->incrementFlow(1, &myParsingRNG);
@@ -1130,33 +1137,33 @@ MSRouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std:
         toStop = MSNet::getInstance()->getStoppingPlace(stop.busstop, SUMO_TAG_BUS_STOP);
         if (toStop == nullptr) {
             ok = false;
-            WRITE_ERRORF(TL("The busStop '%' is not known%."), stop.busstop, errorSuffix);
+            WRITE_ERROR(TLF("The busStop '%' is not known%.", stop.busstop, errorSuffix));
         }
     } else if (stop.containerstop != "") {
         toStop = MSNet::getInstance()->getStoppingPlace(stop.containerstop, SUMO_TAG_CONTAINER_STOP);
         if (toStop == nullptr) {
             ok = false;
-            WRITE_ERRORF(TL("The containerStop '%' is not known%."), stop.containerstop, errorSuffix);
+            WRITE_ERROR(TLF("The containerStop '%' is not known%.", stop.containerstop, errorSuffix));
         }
     } else if (stop.parkingarea != "") {
         toStop = MSNet::getInstance()->getStoppingPlace(stop.parkingarea, SUMO_TAG_PARKING_AREA);
         if (toStop == nullptr) {
             ok = false;
-            WRITE_ERRORF(TL("The parkingArea '%' is not known%."), stop.parkingarea, errorSuffix);
+            WRITE_ERROR(TLF("The parkingArea '%' is not known%.", stop.parkingarea, errorSuffix));
         }
     } else if (stop.chargingStation != "") {
         // ok, we have a charging station
         toStop = MSNet::getInstance()->getStoppingPlace(stop.chargingStation, SUMO_TAG_CHARGING_STATION);
         if (toStop == nullptr) {
             ok = false;
-            WRITE_ERRORF(TL("The chargingStation '%' is not known%."), stop.chargingStation, errorSuffix);
+            WRITE_ERROR(TLF("The chargingStation '%' is not known%.", stop.chargingStation, errorSuffix));
         }
     } else if (stop.overheadWireSegment != "") {
         // ok, we have an overhead wire segment
         toStop = MSNet::getInstance()->getStoppingPlace(stop.overheadWireSegment, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
         if (toStop == nullptr) {
             ok = false;
-            WRITE_ERRORF(TL("The overhead wire segment '%' is not known%."), stop.overheadWireSegment, errorSuffix);
+            WRITE_ERROR(TLF("The overhead wire segment '%' is not known%.", stop.overheadWireSegment, errorSuffix));
         }
     }
     if (!ok && MSGlobals::gCheckRoutes) {
@@ -1182,6 +1189,9 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         SUMOVehicleParameter::Stop stop;
         bool ok = parseStop(stop, attrs, errorSuffix, MsgHandler::getErrorInstance());
         if (!ok) {
+            if (MSGlobals::gCheckRoutes) {
+                throw ProcessError();
+            }
             return result;
         }
         const MSEdge* edge = nullptr;
@@ -1205,8 +1215,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             if (ok && stop.edge != "") { // edge is given directly
                 edge = MSEdge::dictionary(stop.edge);
                 if (edge == nullptr || (edge->isInternal() && !MSGlobals::gUsingInternalLanes)) {
-                    WRITE_ERROR("The edge '" + stop.edge + "' for a stop is not known" + errorSuffix);
-                    return result;
+                    throw ProcessError("The edge '" + stop.edge + "' for a stop is not known" + errorSuffix);
                 }
             } else if (ok && stop.lane != "") { // lane is given directly
                 MSLane* stopLane = MSLane::dictionary(stop.lane);
@@ -1220,8 +1229,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     edge = &stopLane->getEdge();
                 }
                 if (stopLane == nullptr || (stopLane->isInternal() && !MSGlobals::gUsingInternalLanes)) {
-                    WRITE_ERROR("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
-                    return result;
+                    throw ProcessError("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
                 }
             } else {
                 if (myActiveTransportablePlan && !myActiveTransportablePlan->empty()) { // use end of movement before
@@ -1238,8 +1246,13 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                         stop.startPos = MAX2(0., stop.endPos - MIN_STOP_LENGTH);
                     }
                 } else {
-                    WRITE_ERROR("A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea, an edge or a lane" + errorSuffix);
-                    return result;
+                    const std::string msg = TL("A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea, an edge or a lane") + errorSuffix;
+                    if (MSGlobals::gCheckRoutes) {
+                        throw ProcessError(msg);
+                    } else {
+                        WRITE_WARNING(msg);
+                        return result;
+                    }
                 }
             }
             stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, edge->getLength());
@@ -1249,13 +1262,13 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             }
             stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.endPos - MIN_STOP_LENGTH));
             if (!myAmLoadingState) {
-                const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, !attrs.hasAttribute(SUMO_ATTR_STARTPOS) && !attrs.hasAttribute(SUMO_ATTR_ENDPOS));
+                const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, !attrs.hasAttribute(SUMO_ATTR_STARTPOS) && !attrs.hasAttribute(SUMO_ATTR_ENDPOS))
+                    || !MSGlobals::gCheckRoutes;
                 if (!ok || (checkStopPos(stop.startPos, stop.endPos, edge->getLength(), 0, friendlyPos) != StopPos::STOPPOS_VALID)) {
-                    WRITE_ERROR("Invalid start or end position for stop on "
+                    throw ProcessError("Invalid start or end position for stop on "
                                 + (stop.lane != ""
                                    ? ("lane '" + stop.lane)
                                    : ("edge '" + stop.edge)) + "'" + errorSuffix);
-                    return result;
                 }
             }
         }

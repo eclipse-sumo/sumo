@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -682,7 +682,20 @@ MSLane::insertVehicle(MSVehicle& veh) {
         case DepartPosDefinition::BASE:
         case DepartPosDefinition::DEFAULT:
         default:
-            pos = veh.basePos(myEdge);
+            if (pars.departProcedure == DepartDefinition::SPLIT) {
+                pos = getLength();
+                // find the vehicle from which we are splitting off (should only be a single lane to check)
+                AnyVehicleIterator end = anyVehiclesEnd();
+                for (AnyVehicleIterator it = anyVehiclesBegin(); it != end; ++it) {
+                    const MSVehicle* cand = *it;
+                    if (cand->isStopped() && cand->getNextStopParameter()->split == veh.getID()) {
+                        pos = cand->getBackPositionOnLane() - veh.getVehicleType().getMinGap();
+                        break;
+                    }
+                }
+            } else {
+                pos = veh.basePos(myEdge);
+            }
             break;
     }
     // determine the lateral position for special cases
@@ -1300,7 +1313,11 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
     for (int i = 0; i < leaders.numSublanes(); ++i) {
         const MSVehicle* leader = leaders[i];
         if (leader != nullptr) {
-            const double gap = leader->getBackPositionOnLane(this) + seen - veh->getVehicleType().getMinGap();
+            double gap = leader->getBackPositionOnLane(this) + seen - veh->getVehicleType().getMinGap();
+            if (leader->getLane() == getBidiLane()) {
+                // use distance to front position and account for movement
+                gap -= (leader->getLength() + leader->getBrakeGap(true));
+            }
             if (gap < 0) {
                 if ((veh->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0) {
                     return INVALID_SPEED;
@@ -1312,7 +1329,7 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
                           veh->getCarFollowModel().insertionFollowSpeed(veh, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), leader));
 #ifdef DEBUG_INSERTION
             if (DEBUG_COND2(veh)) {
-                std::cout << "    leader=" << leader->getID() << " nspeed=" << nspeed << "\n";
+                std::cout << "    leader=" << leader->getID() << " bPos=" << leader->getBackPositionOnLane(this) << " gap=" << gap << " nspeed=" << nspeed << "\n";
             }
 #endif
         }
@@ -2050,9 +2067,9 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
 
 void
 MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSTransportable* victim,
-                               double gap, const std::string& collisionType,
-                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
-                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
+        double gap, const std::string& collisionType,
+        std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
+        std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
     if (collider->ignoreCollision()) {
         return;
     }
@@ -2108,10 +2125,10 @@ MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& s
     if (newCollision) {
         if (gap != 0) {
             WRITE_WARNING(prefix + TLF(" collision with person '%', lane='%', gap=%, time=%, stage=%.",
-                        victim->getID(), getID(), gap, time2string(timestep), stage));
+                                       victim->getID(), getID(), gap, time2string(timestep), stage));
         } else {
             WRITE_WARNING(prefix + TLF(" collision with person '%', lane='%', time=%, stage=%.",
-                        victim->getID(), getID(), time2string(timestep), stage));
+                                       victim->getID(), getID(), time2string(timestep), stage));
         }
         MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->getVehicleControl().registerCollision(myIntermodalCollisionAction == COLLISION_ACTION_TELEPORT);
@@ -2463,6 +2480,15 @@ MSLane::getLastFullVehicle() const {
         return nullptr;
     }
     return myVehicles.front();
+}
+
+
+MSVehicle*
+MSLane::getFirstFullVehicle() const {
+    if (myVehicles.size() == 0) {
+        return nullptr;
+    }
+    return myVehicles.back();
 }
 
 
@@ -4417,9 +4443,9 @@ MSLane::getBidiLane() const {
 bool
 MSLane::mustCheckJunctionCollisions() const {
     return myCheckJunctionCollisions && myEdge->isInternal() && (
-            myLinks.front()->getFoeLanes().size() > 0
-            || myLinks.front()->getWalkingAreaFoe() != nullptr
-            || myLinks.front()->getWalkingAreaFoeExit() != nullptr);
+               myLinks.front()->getFoeLanes().size() > 0
+               || myLinks.front()->getWalkingAreaFoe() != nullptr
+               || myLinks.front()->getWalkingAreaFoeExit() != nullptr);
 }
 
 

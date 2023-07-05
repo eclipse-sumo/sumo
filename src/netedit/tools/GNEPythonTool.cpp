@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -34,11 +34,11 @@
 // member method definitions
 // ===========================================================================
 
-GNEPythonTool::GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string& pythonPath,
+GNEPythonTool::GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string& toolPath,
                              const std::string& templateStr, FXMenuPane* menu) :
     myGNEApp(GNEApp),
-    myPythonPath(pythonPath),
-    myPythonToolName(FileHelpers::getFileFromPath(pythonPath, true)) {
+    myToolPath(toolPath),
+    myPythonToolName(FileHelpers::getFileFromPath(toolPath, true)) {
     // build menu command
     myMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(menu, myPythonToolName, "", TL("Execute python tool '") + myPythonToolName + "'.",
                     GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, MID_GNE_OPENPYTHONTOOLDIALOG);
@@ -100,9 +100,20 @@ GNEPythonTool::getCommand() const {
     const char* pythonEnv = getenv("PYTHON");
     const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
     const char* sumoHomeEnv = getenv("SUMO_HOME");
-    const std::string sumoHome = (sumoHomeEnv == nullptr) ? "" : sumoHomeEnv + std::string("/");
+    std::string sumoHome = "";
+    if (sumoHomeEnv != nullptr && sumoHomeEnv != std::string("")) {
+        sumoHome = std::string(sumoHomeEnv);
+        // quote string to handle spaces but prevent double quotes
+        if (sumoHome.front() != '"') {
+            sumoHome = "\"" + sumoHome;
+        }
+        if (sumoHome.back() != '"') {
+            sumoHome += "\"";
+        }
+        sumoHome += "/";
+    }
     // get command
-    std::string command = python + " " + sumoHome + myPythonPath;
+    std::string command = python + " " + sumoHome + myToolPath;
     // declare arguments
     std::string arguments;
     // add arguments
@@ -112,7 +123,7 @@ GNEPythonTool::getCommand() const {
             // for boolean values avoid use "true"
             if (option.second->isBool()) {
                 arguments += ("--" + option.first + " ");
-            } else { 
+            } else {
                 if (!option.second->isPositional()) {
                     arguments += ("--" + option.first + " ");
                 }
@@ -187,7 +198,7 @@ GNEPythonTool::saveConfiguration(const std::string& file) const {
     const char* sumoHomeEnv = getenv("SUMO_HOME");
     const std::string sumoHome = (sumoHomeEnv == nullptr) ? "" : sumoHomeEnv + std::string("/");
     // get command
-    std::string command = python + " " + sumoHome + myPythonPath + " -C " + file + " ";
+    std::string command = python + " " + sumoHome + myToolPath + " -C " + file + " ";
     // add arguments
     for (const auto& option : myPythonToolsOptions) {
         // only write modified values

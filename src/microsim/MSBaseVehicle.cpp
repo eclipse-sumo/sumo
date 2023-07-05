@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -141,16 +141,32 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
 
 MSBaseVehicle::~MSBaseVehicle() {
     delete myEdgeWeights;
-    if (myParameter->repetitionNumber == 0) {
+    if (myParameter->repetitionNumber == -1) {
+        // this is not a flow (flows call checkDist in MSInsertionControl::determineCandidates)
         MSRoute::checkDist(myParameter->routeid);
     }
     for (MSVehicleDevice* dev : myDevices) {
         delete dev;
     }
-    delete myParameter;
     delete myEnergyParams;
     delete myParkingMemory;
-    myRoute->checkRemoval();
+    checkRouteRemoval();
+    delete myParameter;
+}
+
+
+void
+MSBaseVehicle::checkRouteRemoval() {
+    if (myParameter->repetitionNumber == -1
+            || !MSNet::getInstance()->hasFlow(getFlowID())) {
+        myRoute->checkRemoval();
+    }
+}
+
+
+std::string
+MSBaseVehicle::getFlowID() const {
+    return getID().substr(0, getID().rfind('.'));
 }
 
 
@@ -484,7 +500,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
     }
     const bool stopsFromScratch = onInit && myRoute->getStops().empty();
     // assign new route
-    myRoute->checkRemoval();
+    checkRouteRemoval();
     myRoute = newRoute;
     // update arrival definition
     calculateArrivalParams(onInit);
@@ -902,8 +918,8 @@ MSBaseVehicle::setDepartAndArrivalEdge() {
 double
 MSBaseVehicle::getImpatience() const {
     return MAX2(0., MIN2(1., getVehicleType().getImpatience()
-                + (hasInfluencer() ? getBaseInfluencer()->getExtraImpatience() : 0)
-                + (MSGlobals::gTimeToImpatience > 0 ? (double)getWaitingTime() / (double)MSGlobals::gTimeToImpatience : 0.)));
+                         + (hasInfluencer() ? getBaseInfluencer()->getExtraImpatience() : 0)
+                         + (MSGlobals::gTimeToImpatience > 0 ? (double)getWaitingTime() / (double)MSGlobals::gTimeToImpatience : 0.)));
 }
 
 

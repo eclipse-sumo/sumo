@@ -144,11 +144,11 @@ keywords:
   - simulation
   - microscopic
   - traffic
-date-released: "2023-04-25"
-version: 1.17.0
+date-released: "2023-06-29"
+version: 1.18.0
 repository-code: "https://github.com/eclipse/sumo"
 type: software
-url: "https://www.eclipse.org/sumo/"
+url: "https://www.eclipse.dev/sumo/"
 identifiers:
   - description: "The GitHub tag"
     type: url

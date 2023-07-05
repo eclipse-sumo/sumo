@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -1513,18 +1513,28 @@ MSLCM_LC2013::_wantsChange(
                     informFollower(msgPass, blocked, myLca, neighFollow, remainingSeconds, plannedSpeed);
                 }
             }
+#ifdef DEBUG_WANTS_CHANGE
+            if (DEBUG_COND) {
+                std::cout << STEPS2TIME(currentTime)
+                    << " veh=" << myVehicle.getID()
+                    << " myLeftSpace=" << myLeftSpace
+                    << " remainingSeconds=" << remainingSeconds
+                    << " plannedSpeed=" << plannedSpeed
+                    << "\n";
+            }
+#endif
+        } else {
+#ifdef DEBUG_WANTS_CHANGE
+            if (DEBUG_COND) {
+                std::cout << STEPS2TIME(currentTime)
+                    << " veh=" << myVehicle.getID()
+                    << " myLeftSpace=" << myLeftSpace
+                    << " remainingSeconds=" << remainingSeconds
+                    << " hasBidiNeighLeader\n";
+            }
+#endif
         }
 
-#ifdef DEBUG_WANTS_CHANGE
-        if (DEBUG_COND) {
-            std::cout << STEPS2TIME(currentTime)
-                      << " veh=" << myVehicle.getID()
-                      << " myLeftSpace=" << myLeftSpace
-                      << " remainingSeconds=" << remainingSeconds
-                      << " plannedSpeed=" << plannedSpeed
-                      << "\n";
-        }
-#endif
 
         // remove TraCI flags because it should not be included in "state-without-traci"
         ret = getCanceledState(laneOffset);

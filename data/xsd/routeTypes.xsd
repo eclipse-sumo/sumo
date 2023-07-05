@@ -51,13 +51,13 @@
         <xsd:attribute name="boardingDuration" type="nonNegativeFloatType"/>
         <xsd:attribute name="loadingDuration" type="nonNegativeFloatType"/>
         <xsd:attribute name="scale" type="nonNegativeFloatType"/>
-        <xsd:attribute name="lcStrategic" type="xsd:float"/>
-        <xsd:attribute name="lcCooperative" type="xsd:float"/>
-        <xsd:attribute name="lcSpeedGain" type="xsd:float"/>
-        <xsd:attribute name="lcKeepRight" type="xsd:float"/>
-        <xsd:attribute name="lcSublane" type="xsd:float"/>
-        <xsd:attribute name="lcOpposite" type="xsd:float"/>
-        <xsd:attribute name="lcPushy" type="xsd:float"/>
+        <xsd:attribute name="lcStrategic" type="floatType"/>
+        <xsd:attribute name="lcCooperative" type="floatType"/>
+        <xsd:attribute name="lcSpeedGain" type="floatType"/>
+        <xsd:attribute name="lcKeepRight" type="floatType"/>
+        <xsd:attribute name="lcSublane" type="floatType"/>
+        <xsd:attribute name="lcOpposite" type="floatType"/>
+        <xsd:attribute name="lcPushy" type="floatType"/>
         <xsd:attribute name="lcPushyGap" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcAssertive" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcLookaheadLeft" type="nonNegativeFloatType"/>
@@ -70,13 +70,13 @@
         <xsd:attribute name="lcTimeToImpatience" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcAccelLat" type="positiveFloatType"/>
         <xsd:attribute name="lcMaxSpeedLatStanding" type="nonNegativeFloatType"/>
-        <xsd:attribute name="lcMaxSpeedLatFactor" type="xsd:float"/>
+        <xsd:attribute name="lcMaxSpeedLatFactor" type="floatType"/>
         <xsd:attribute name="lcMaxDistLatStanding" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcOvertakeRight" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcLaneDiscipline" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcSigma" type="nonNegativeFloatType"/>
-        <xsd:attribute name="lcKeepRightAcceptanceTime" type="xsd:float"/>
-        <xsd:attribute name="lcOvertakeDeltaSpeedFactor" type="xsd:float"/>
+        <xsd:attribute name="lcKeepRightAcceptanceTime" type="floatType"/>
+        <xsd:attribute name="lcOvertakeDeltaSpeedFactor" type="floatType"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
         <xsd:attribute name="latAlignment" type="latAlignmentType"/>
         <xsd:attribute name="actionStepLength" type="positiveFloatType"/>
@@ -121,32 +121,32 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
-        <xsd:attribute name="delta" type="xsd:float"/>
+        <xsd:attribute name="delta" type="floatType"/>
         <xsd:attribute name="stepping" type="positiveFloatType"/>
-        <xsd:attribute name="adaptTime" type="xsd:float"/>
-        <xsd:attribute name="adaptFactor" type="xsd:float"/>
-        <xsd:attribute name="tmp1" type="xsd:float"/>
-        <xsd:attribute name="tmp2" type="xsd:float"/>
-        <xsd:attribute name="tmp3" type="xsd:float"/>
-        <xsd:attribute name="tmp4" type="xsd:float"/>
-        <xsd:attribute name="tmp5" type="xsd:float"/>
-        <xsd:attribute name="tauLast" type="xsd:float"/>
-        <xsd:attribute name="apProb" type="xsd:float"/>
-        <xsd:attribute name="k" type="xsd:float"/>
-        <xsd:attribute name="phi" type="xsd:float"/>
-        <xsd:attribute name="security" type="xsd:float"/>
-        <xsd:attribute name="estimation" type="xsd:float"/>
-        <xsd:attribute name="speedControlGain" type="xsd:float"/>
-        <xsd:attribute name="speedControlMinGap" type="xsd:float"/>
-        <xsd:attribute name="gapClosingControlGainSpeed" type="xsd:float"/>
-        <xsd:attribute name="gapClosingControlGainSpace" type="xsd:float"/>
-        <xsd:attribute name="gapControlGainSpeed" type="xsd:float"/>
-        <xsd:attribute name="gapControlGainSpace" type="xsd:float"/>
-        <xsd:attribute name="collisionAvoidanceGainSpeed" type="xsd:float"/>
-        <xsd:attribute name="collisionAvoidanceGainSpace" type="xsd:float"/>
-        <xsd:attribute name="collisionAvoidanceOverride" type="xsd:float"/>
-        <xsd:attribute name="tauCACCToACC" type="xsd:float"/>
-        <xsd:attribute name="applyDriverState" type="xsd:float"/>
+        <xsd:attribute name="adaptTime" type="floatType"/>
+        <xsd:attribute name="adaptFactor" type="floatType"/>
+        <xsd:attribute name="tmp1" type="floatType"/>
+        <xsd:attribute name="tmp2" type="floatType"/>
+        <xsd:attribute name="tmp3" type="floatType"/>
+        <xsd:attribute name="tmp4" type="floatType"/>
+        <xsd:attribute name="tmp5" type="floatType"/>
+        <xsd:attribute name="tauLast" type="floatType"/>
+        <xsd:attribute name="apProb" type="floatType"/>
+        <xsd:attribute name="k" type="floatType"/>
+        <xsd:attribute name="phi" type="floatType"/>
+        <xsd:attribute name="security" type="floatType"/>
+        <xsd:attribute name="estimation" type="floatType"/>
+        <xsd:attribute name="speedControlGain" type="floatType"/>
+        <xsd:attribute name="speedControlMinGap" type="floatType"/>
+        <xsd:attribute name="gapClosingControlGainSpeed" type="floatType"/>
+        <xsd:attribute name="gapClosingControlGainSpace" type="floatType"/>
+        <xsd:attribute name="gapControlGainSpeed" type="floatType"/>
+        <xsd:attribute name="gapControlGainSpace" type="floatType"/>
+        <xsd:attribute name="collisionAvoidanceGainSpeed" type="floatType"/>
+        <xsd:attribute name="collisionAvoidanceGainSpace" type="floatType"/>
+        <xsd:attribute name="collisionAvoidanceOverride" type="floatType"/>
+        <xsd:attribute name="tauCACCToACC" type="floatType"/>
+        <xsd:attribute name="applyDriverState" type="floatType"/>
         <xsd:attribute name="carFollowModel" type="xsd:string"/>
         <xsd:attribute name="trainType">
             <xsd:simpleType>
@@ -175,41 +175,41 @@
         </xsd:attribute>
         <xsd:attribute name="imgFile" type="xsd:string"/>
         <xsd:attribute name="osgFile" type="xsd:string"/>
-        <xsd:attribute name="cc1" type="xsd:float"/>
-        <xsd:attribute name="cc2" type="xsd:float"/>
-        <xsd:attribute name="cc3" type="xsd:float"/>
-        <xsd:attribute name="cc4" type="xsd:float"/>
-        <xsd:attribute name="cc5" type="xsd:float"/>
-        <xsd:attribute name="cc6" type="xsd:float"/>
-        <xsd:attribute name="cc7" type="xsd:float"/>
-        <xsd:attribute name="cc8" type="xsd:float"/>
-        <xsd:attribute name="cc9" type="xsd:float"/>
-        <xsd:attribute name="c1" type="xsd:float"/>
-        <xsd:attribute name="ccDecel" type="xsd:float"/>
-        <xsd:attribute name="constSpacing" type="xsd:float"/>
-        <xsd:attribute name="kp" type="xsd:float"/>
-        <xsd:attribute name="lambda" type="xsd:float"/>
-        <xsd:attribute name="omegaN" type="xsd:float"/>
-        <xsd:attribute name="tauEngine" type="xsd:float"/>
-        <xsd:attribute name="xi" type="xsd:float"/>
-        <xsd:attribute name="lanesCount" type="xsd:float"/>
-        <xsd:attribute name="ccAccel" type="xsd:float"/>
-        <xsd:attribute name="ploegKp" type="xsd:float"/>
-        <xsd:attribute name="ploegKd" type="xsd:float"/>
-        <xsd:attribute name="ploegH" type="xsd:float"/>
-        <xsd:attribute name="flatbedKa" type="xsd:float"/>
-        <xsd:attribute name="flatbedKv" type="xsd:float"/>
-        <xsd:attribute name="flatbedKp" type="xsd:float"/>
-        <xsd:attribute name="flatbedD" type="xsd:float"/>
-        <xsd:attribute name="flatbedH" type="xsd:float"/>
-        <xsd:attribute name="collisionMinGapFactor" type="xsd:float"/>
-        <xsd:attribute name="speedControlGainCACC" type="xsd:float"/>
-        <xsd:attribute name="gapClosingControlGainGap" type="xsd:float"/>
-        <xsd:attribute name="gapClosingControlGainGapDot" type="xsd:float"/>
-        <xsd:attribute name="gapControlGainGap" type="xsd:float"/>
-        <xsd:attribute name="gapControlGainGapDot" type="xsd:float"/>
-        <xsd:attribute name="collisionAvoidanceGainGap" type="xsd:float"/>
-        <xsd:attribute name="collisionAvoidanceGainGapDot" type="xsd:float"/>
+        <xsd:attribute name="cc1" type="floatType"/>
+        <xsd:attribute name="cc2" type="floatType"/>
+        <xsd:attribute name="cc3" type="floatType"/>
+        <xsd:attribute name="cc4" type="floatType"/>
+        <xsd:attribute name="cc5" type="floatType"/>
+        <xsd:attribute name="cc6" type="floatType"/>
+        <xsd:attribute name="cc7" type="floatType"/>
+        <xsd:attribute name="cc8" type="floatType"/>
+        <xsd:attribute name="cc9" type="floatType"/>
+        <xsd:attribute name="c1" type="floatType"/>
+        <xsd:attribute name="ccDecel" type="floatType"/>
+        <xsd:attribute name="constSpacing" type="floatType"/>
+        <xsd:attribute name="kp" type="floatType"/>
+        <xsd:attribute name="lambda" type="floatType"/>
+        <xsd:attribute name="omegaN" type="floatType"/>
+        <xsd:attribute name="tauEngine" type="floatType"/>
+        <xsd:attribute name="xi" type="floatType"/>
+        <xsd:attribute name="lanesCount" type="floatType"/>
+        <xsd:attribute name="ccAccel" type="floatType"/>
+        <xsd:attribute name="ploegKp" type="floatType"/>
+        <xsd:attribute name="ploegKd" type="floatType"/>
+        <xsd:attribute name="ploegH" type="floatType"/>
+        <xsd:attribute name="flatbedKa" type="floatType"/>
+        <xsd:attribute name="flatbedKv" type="floatType"/>
+        <xsd:attribute name="flatbedKp" type="floatType"/>
+        <xsd:attribute name="flatbedD" type="floatType"/>
+        <xsd:attribute name="flatbedH" type="floatType"/>
+        <xsd:attribute name="collisionMinGapFactor" type="floatType"/>
+        <xsd:attribute name="speedControlGainCACC" type="floatType"/>
+        <xsd:attribute name="gapClosingControlGainGap" type="floatType"/>
+        <xsd:attribute name="gapClosingControlGainGapDot" type="floatType"/>
+        <xsd:attribute name="gapControlGainGap" type="floatType"/>
+        <xsd:attribute name="gapControlGainGapDot" type="floatType"/>
+        <xsd:attribute name="collisionAvoidanceGainGap" type="floatType"/>
+        <xsd:attribute name="collisionAvoidanceGainGapDot" type="floatType"/>
         <xsd:attribute name="tPersDrive" type="positiveFloatType"/>
         <xsd:attribute name="tpreview" type="positiveFloatType"/>
         <xsd:attribute name="treaction" type="nonNegativeFloatType"/>
@@ -233,16 +233,16 @@
         <xsd:attribute name="vehdynamics" type="boolType"/>
         <xsd:attribute name="maxvehpreview" type="positiveIntType"/>
         <xsd:attribute name="startupDelay" type="nonNegativeFloatType"/>
-        <xsd:attribute name="timeToTeleport" type="xsd:float"/>
-        <xsd:attribute name="timeToTeleportBidi" type="xsd:float"/>
-        <xsd:attribute name="speedFactorPremature" type="xsd:float"/>
+        <xsd:attribute name="timeToTeleport" type="floatType"/>
+        <xsd:attribute name="timeToTeleportBidi" type="floatType"/>
+        <xsd:attribute name="speedFactorPremature" type="floatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfIDMType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
-        <xsd:attribute name="delta" type="xsd:float"/>
+        <xsd:attribute name="delta" type="floatType"/>
         <xsd:attribute name="stepping" type="positiveFloatType"/>
     </xsd:complexType>
 
@@ -250,8 +250,8 @@
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
-        <xsd:attribute name="adaptTime" type="xsd:float"/>
-        <xsd:attribute name="adaptFactor" type="xsd:float"/>
+        <xsd:attribute name="adaptTime" type="floatType"/>
+        <xsd:attribute name="adaptFactor" type="floatType"/>
         <xsd:attribute name="stepping" type="positiveFloatType"/>
     </xsd:complexType>
 
@@ -259,7 +259,7 @@
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
         <xsd:attribute name="stepping" type="positiveFloatType"/>
-        <xsd:attribute name="delta" type="xsd:float"/>
+        <xsd:attribute name="delta" type="floatType"/>
         <xsd:attribute name="tau" type="positiveFloatType"/>
         <xsd:attribute name="tPersDrive" type="positiveFloatType"/>
         <xsd:attribute name="tpreview" type="positiveFloatType"/>
@@ -313,11 +313,11 @@
         </xsd:attribute>
         <xsd:attribute name="sigmaStep" type="positiveFloatType"/>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
-        <xsd:attribute name="tmp1" type="xsd:float"/>
-        <xsd:attribute name="tmp2" type="xsd:float"/>
-        <xsd:attribute name="tmp3" type="xsd:float"/>
-        <xsd:attribute name="tmp4" type="xsd:float"/>
-        <xsd:attribute name="tmp5" type="xsd:float"/>
+        <xsd:attribute name="tmp1" type="floatType"/>
+        <xsd:attribute name="tmp2" type="floatType"/>
+        <xsd:attribute name="tmp3" type="floatType"/>
+        <xsd:attribute name="tmp4" type="floatType"/>
+        <xsd:attribute name="tmp5" type="floatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfPWagType">
@@ -332,8 +332,8 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
-        <xsd:attribute name="tauLast" type="xsd:float"/>
-        <xsd:attribute name="apProb" type="xsd:float"/>
+        <xsd:attribute name="tauLast" type="floatType"/>
+        <xsd:attribute name="apProb" type="floatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfBKernerType">
@@ -348,85 +348,85 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
-        <xsd:attribute name="k" type="xsd:float"/>
-        <xsd:attribute name="phi" type="xsd:float"/>
+        <xsd:attribute name="k" type="floatType"/>
+        <xsd:attribute name="phi" type="floatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfWiedemannType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
-        <xsd:attribute name="security" type="xsd:float"/>
-        <xsd:attribute name="estimation" type="xsd:float"/>
+        <xsd:attribute name="security" type="floatType"/>
+        <xsd:attribute name="estimation" type="floatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfW99Type">
-        <xsd:attribute name="cc1" type="xsd:float"/>
-        <xsd:attribute name="cc2" type="xsd:float"/>
-        <xsd:attribute name="cc3" type="xsd:float"/>
-        <xsd:attribute name="cc4" type="xsd:float"/>
-        <xsd:attribute name="cc5" type="xsd:float"/>
-        <xsd:attribute name="cc6" type="xsd:float"/>
-        <xsd:attribute name="cc7" type="xsd:float"/>
-        <xsd:attribute name="cc8" type="xsd:float"/>
-        <xsd:attribute name="cc9" type="xsd:float"/>
+        <xsd:attribute name="cc1" type="floatType"/>
+        <xsd:attribute name="cc2" type="floatType"/>
+        <xsd:attribute name="cc3" type="floatType"/>
+        <xsd:attribute name="cc4" type="floatType"/>
+        <xsd:attribute name="cc5" type="floatType"/>
+        <xsd:attribute name="cc6" type="floatType"/>
+        <xsd:attribute name="cc7" type="floatType"/>
+        <xsd:attribute name="cc8" type="floatType"/>
+        <xsd:attribute name="cc9" type="floatType"/>
     </xsd:complexType>
     
     <xsd:complexType name="cfACCType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="speedControlGain" type="xsd:float"/>
-        <xsd:attribute name="gapClosingControlGainSpeed" type="xsd:float"/>
-        <xsd:attribute name="gapClosingControlGainSpace" type="xsd:float"/>
-        <xsd:attribute name="gapControlGainSpeed" type="xsd:float"/>
-        <xsd:attribute name="gapControlGainSpace" type="xsd:float"/>
-        <xsd:attribute name="collisionAvoidanceGainSpeed" type="xsd:float"/>
-        <xsd:attribute name="collisionAvoidanceGainSpace" type="xsd:float"/>
+        <xsd:attribute name="speedControlGain" type="floatType"/>
+        <xsd:attribute name="gapClosingControlGainSpeed" type="floatType"/>
+        <xsd:attribute name="gapClosingControlGainSpace" type="floatType"/>
+        <xsd:attribute name="gapControlGainSpeed" type="floatType"/>
+        <xsd:attribute name="gapControlGainSpace" type="floatType"/>
+        <xsd:attribute name="collisionAvoidanceGainSpeed" type="floatType"/>
+        <xsd:attribute name="collisionAvoidanceGainSpace" type="floatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfCACCType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="emergencyDecel" type="xsd:float"/>
-        <xsd:attribute name="collisionMinGapFactor" type="xsd:float"/>
+        <xsd:attribute name="emergencyDecel" type="floatType"/>
+        <xsd:attribute name="collisionMinGapFactor" type="floatType"/>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
-        <xsd:attribute name="speedControlGainCACC" type="xsd:float"/>
-        <xsd:attribute name="gapClosingControlGainGap" type="xsd:float"/>
-        <xsd:attribute name="gapClosingControlGainGapDot" type="xsd:float"/>
-        <xsd:attribute name="gapControlGainGap" type="xsd:float"/>
-        <xsd:attribute name="gapControlGainGapDot" type="xsd:float"/>
-        <xsd:attribute name="collisionAvoidanceGainGap" type="xsd:float"/>
-        <xsd:attribute name="collisionAvoidanceGainGapDot" type="xsd:float"/>
-        <xsd:attribute name="gapClosingControlGainSpeed" type="xsd:float"/>
-        <xsd:attribute name="gapClosingControlGainSpace" type="xsd:float"/>
-        <xsd:attribute name="gapControlGainSpeed" type="xsd:float"/>
-        <xsd:attribute name="gapControlGainSpace" type="xsd:float"/>
-        <xsd:attribute name="collisionAvoidanceGainSpeed" type="xsd:float"/>
-        <xsd:attribute name="collisionAvoidanceGainSpace" type="xsd:float"/>
+        <xsd:attribute name="speedControlGainCACC" type="floatType"/>
+        <xsd:attribute name="gapClosingControlGainGap" type="floatType"/>
+        <xsd:attribute name="gapClosingControlGainGapDot" type="floatType"/>
+        <xsd:attribute name="gapControlGainGap" type="floatType"/>
+        <xsd:attribute name="gapControlGainGapDot" type="floatType"/>
+        <xsd:attribute name="collisionAvoidanceGainGap" type="floatType"/>
+        <xsd:attribute name="collisionAvoidanceGainGapDot" type="floatType"/>
+        <xsd:attribute name="gapClosingControlGainSpeed" type="floatType"/>
+        <xsd:attribute name="gapClosingControlGainSpace" type="floatType"/>
+        <xsd:attribute name="gapControlGainSpeed" type="floatType"/>
+        <xsd:attribute name="gapControlGainSpace" type="floatType"/>
+        <xsd:attribute name="collisionAvoidanceGainSpeed" type="floatType"/>
+        <xsd:attribute name="collisionAvoidanceGainSpace" type="floatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfCCType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
-        <xsd:attribute name="c1" type="xsd:float"/>
-        <xsd:attribute name="ccDecel" type="xsd:float"/>
-        <xsd:attribute name="constSpacing" type="xsd:float"/>
-        <xsd:attribute name="kp" type="xsd:float"/>
-        <xsd:attribute name="lambda" type="xsd:float"/>
-        <xsd:attribute name="omegaN" type="xsd:float"/>
-        <xsd:attribute name="tauEngine" type="xsd:float"/>
-        <xsd:attribute name="xi" type="xsd:float"/>
-        <xsd:attribute name="lanesCount" type="xsd:float"/>
-        <xsd:attribute name="ccAccel" type="xsd:float"/>
-        <xsd:attribute name="ploegKp" type="xsd:float"/>
-        <xsd:attribute name="ploegKd" type="xsd:float"/>
-        <xsd:attribute name="ploegH" type="xsd:float"/>
-        <xsd:attribute name="flatbedKa" type="xsd:float"/>
-        <xsd:attribute name="flatbedKv" type="xsd:float"/>
-        <xsd:attribute name="flatbedKp" type="xsd:float"/>
-        <xsd:attribute name="flatbedD" type="xsd:float"/>
-        <xsd:attribute name="flatbedH" type="xsd:float"/>
+        <xsd:attribute name="c1" type="floatType"/>
+        <xsd:attribute name="ccDecel" type="floatType"/>
+        <xsd:attribute name="constSpacing" type="floatType"/>
+        <xsd:attribute name="kp" type="floatType"/>
+        <xsd:attribute name="lambda" type="floatType"/>
+        <xsd:attribute name="omegaN" type="floatType"/>
+        <xsd:attribute name="tauEngine" type="floatType"/>
+        <xsd:attribute name="xi" type="floatType"/>
+        <xsd:attribute name="lanesCount" type="floatType"/>
+        <xsd:attribute name="ccAccel" type="floatType"/>
+        <xsd:attribute name="ploegKp" type="floatType"/>
+        <xsd:attribute name="ploegKd" type="floatType"/>
+        <xsd:attribute name="ploegH" type="floatType"/>
+        <xsd:attribute name="flatbedKa" type="floatType"/>
+        <xsd:attribute name="flatbedKv" type="floatType"/>
+        <xsd:attribute name="flatbedKp" type="floatType"/>
+        <xsd:attribute name="flatbedD" type="floatType"/>
+        <xsd:attribute name="flatbedH" type="floatType"/>
     </xsd:complexType>
     
     <xsd:complexType name="vehicleType">
@@ -752,11 +752,11 @@
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="exitTimes" type="xsd:string"/>
-        <xsd:attribute name="cost" type="xsd:float"/>
-        <xsd:attribute name="savings" type="xsd:float"/>
+        <xsd:attribute name="cost" type="floatType"/>
+        <xsd:attribute name="savings" type="floatType"/>
         <xsd:attribute name="repeat" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="cycleTime" type="timeType"/>
-        <xsd:attribute name="probability" type="xsd:float" use="optional"/>
+        <xsd:attribute name="probability" type="floatType" use="optional"/>
         <xsd:attribute name="routeLength" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
 
@@ -767,9 +767,9 @@
         <xsd:attribute name="id" type="idType" use="optional"/>
         <xsd:attribute name="edges" type="xsd:string"/>
         <xsd:attribute name="color" type="colorType"/>
-        <xsd:attribute name="cost" type="xsd:float"/>
-        <xsd:attribute name="savings" type="xsd:float"/>
-        <xsd:attribute name="probability" type="xsd:float"/>
+        <xsd:attribute name="cost" type="floatType"/>
+        <xsd:attribute name="savings" type="floatType"/>
+        <xsd:attribute name="probability" type="floatType"/>
         <xsd:attribute name="exitTimes" type="xsd:string"/>
         <xsd:attribute name="refId" type="xsd:string"/>
         <xsd:attribute name="reason" type="xsd:string"/>
@@ -790,9 +790,9 @@
         <xsd:attribute name="containerStop" type="xsd:string"/>
         <xsd:attribute name="chargingStation" type="xsd:string"/>
         <xsd:attribute name="parkingArea" type="xsd:string"/>
-        <xsd:attribute name="startPos" type="xsd:float"/>
-        <xsd:attribute name="endPos" type="xsd:float"/>
-        <xsd:attribute name="posLat" type="xsd:float"/>
+        <xsd:attribute name="startPos" type="floatType"/>
+        <xsd:attribute name="endPos" type="floatType"/>
+        <xsd:attribute name="posLat" type="floatType"/>
         <xsd:attribute name="friendlyPos" type="boolType"/>
         <xsd:attribute name="arrival" type="timeType"/>
         <xsd:attribute name="duration" type="timeType"/>
@@ -822,7 +822,7 @@
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="speed" type="nonNegativeFloatType"/>
         <xsd:attribute name="priorEdges" type="xsd:string"/>
-        <xsd:attribute name="priorEdgesLength" type="xsd:float"/>
+        <xsd:attribute name="priorEdgesLength" type="floatType"/>
         <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
         <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
         <xsd:attribute name="onDemand" type="boolType"/>
@@ -924,11 +924,11 @@
                     <xsd:attribute name="containerStop" type="xsd:string"/>
                     <xsd:attribute name="chargingStation" type="xsd:string"/>
                     <xsd:attribute name="lines" type="xsd:string" use="optional"/>
-                    <xsd:attribute name="arrivalPos" type="xsd:float"/>
-                    <xsd:attribute name="cost" type="xsd:float"/>
+                    <xsd:attribute name="arrivalPos" type="floatType"/>
+                    <xsd:attribute name="cost" type="floatType"/>
                     <xsd:attribute name="intended" type="xsd:string" use="optional"/>
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
-                    <xsd:attribute name="routeLength" type="xsd:float"/>
+                    <xsd:attribute name="routeLength" type="floatType"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
                     <xsd:attribute name="vehicle" type="xsd:string" use="optional"/>
                     <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
@@ -957,8 +957,8 @@
                     <xsd:attribute name="departPosLat" type="departPosLatType"/>
                     <xsd:attribute name="departLane" type="xsd:nonNegativeInteger"/>
                     <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
-                    <xsd:attribute name="cost" type="xsd:float"/>
-                    <xsd:attribute name="routeLength" type="xsd:float"/>
+                    <xsd:attribute name="cost" type="floatType"/>
+                    <xsd:attribute name="routeLength" type="floatType"/>
                     <xsd:attribute name="exitTimes" type="xsd:string"/>
                     <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
                     <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
@@ -1012,11 +1012,11 @@
                     <xsd:attribute name="containerStop" type="xsd:string"/>
                     <xsd:attribute name="chargingStation" type="xsd:string"/>
                     <xsd:attribute name="lines" type="xsd:string" use="optional"/>
-                    <xsd:attribute name="arrivalPos" type="xsd:float"/>
-                    <xsd:attribute name="cost" type="xsd:float"/>
+                    <xsd:attribute name="arrivalPos" type="floatType"/>
+                    <xsd:attribute name="cost" type="floatType"/>
                     <xsd:attribute name="intended" type="xsd:string" use="optional"/>
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
-                    <xsd:attribute name="routeLength" type="xsd:float"/>
+                    <xsd:attribute name="routeLength" type="floatType"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
                     <xsd:attribute name="vehicle" type="xsd:string" use="optional"/>
                     <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
@@ -1035,8 +1035,8 @@
                     <xsd:attribute name="chargingStation" type="xsd:string"/>
                     <xsd:attribute name="speed" type="positiveFloatType"/>
                     <xsd:attribute name="duration" type="positiveFloatType"/>
-                    <xsd:attribute name="departPos" type="xsd:float"/>
-                    <xsd:attribute name="arrivalPos" type="xsd:float"/>
+                    <xsd:attribute name="departPos" type="floatType"/>
+                    <xsd:attribute name="arrivalPos" type="floatType"/>
                     <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
                     <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
                 </xsd:complexType>

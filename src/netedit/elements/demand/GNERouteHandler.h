@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -96,6 +96,10 @@ public:
     void buildTripJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                             const std::string& fromJunctionID, const std::string& toJunctionID);
 
+    /// @brief build trip over TAZs
+    void buildTripTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                            const std::string& fromTAZID, const std::string& toTAZID);
+
     /// @brief build flow
     void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                    const std::string& fromEdgeID, const std::string& toEdgeIDs);
@@ -103,6 +107,10 @@ public:
     /// @brief build flow over junctions
     void buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                             const std::string& fromJunctionID, const std::string& toJunctionID);
+
+    /// @brief build flow over junctions
+    void buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                            const std::string& fromTAZID, const std::string& toTAZID);
 
     /// @brief build person
     void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters);
@@ -204,6 +212,9 @@ public:
 protected:
     /// @brief parse junction
     GNEJunction* parseJunction(const SumoXMLTag tag, const std::string& junctionID);
+
+    /// @brief parse TAZ
+    GNEAdditional* parseTAZ(const SumoXMLTag tag, const std::string& TAZID);
 
     /// @brief parse edge
     GNEEdge* parseEdge(const SumoXMLTag tag, const std::string& edgeID);

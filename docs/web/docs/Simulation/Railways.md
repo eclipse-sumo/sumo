@@ -98,14 +98,27 @@ Visualization of bidirectional tracks has a distinct [style and dedicated settin
   here](../Netedit/neteditUsageExamples.md#creating_bidirectional_railway_tracks)
 
 ### Routing in bidirectional networks
-When computing train routes in a network with parallel tracks which are usable in both directions, it may be
-desirable that trains preferentially use one of the tracks (i.e. to always keep on
-the right side) and thereby preventing conflicts between oncoming trains.
+
+When train tracks can be used in both directions, there is considerable freedom for trains when search a path through the network. To reduce the number of conflicts (when two vehicles want to use the same track in opposite directions), the preferred direction for each track can be defined and factored into the routing decision.
 
 To express this preference, the edges in the preferred direction and on the
 preferred side may be assigned a higher priority value. This value will be taken
-into account when setting option **--weights.priority-factor** which applies to
+into account when setting option **--weights.priority-factor FLOAT** which applies to
 [sumo](../sumo.md) and [duarouter](../duarouter.md).
+
+At the default option value of 0. Edge priority is ignored when routing. When setting a positive value, the edges with the lowest priority receive a penalty factor to their estimated travel time of 1 + FLOAT (where FLOAT is the option argument) whereas the edges with the highest priority receive no penalty. Edges with medium priority will receive a penalty of 1 + x * FLOAT where 
+
+```
+  x = (edgePriority - minPriority) / (maxPriority - minPriority)
+```
+
+The priority values can either be assigned by the user or computed heuristically by [netconvert](../netconvert.md) by setting the option **--railway.topology.direction-priority**. This requires that some of the tracks in the network are uni-directional (to unambiguously define the main direction). The assigned priority values are:
+
+- 4: unidirectional track
+- 3: main direction of bidirectional track
+- 2: undetermined main direction (straight continuation from different directions of unidirectional track)
+- 1: undetermined main direction (no continuation from unidirectional track)
+- 0: reverse of main direction of bidirectional track
 
 ### Importing bidirectional tracks from OSM
 
@@ -198,24 +211,6 @@ The distances value can be written in [fcd-output](Output/FCDOutput.md#further_o
 !!! note
     Negative distance values are not currently supported (pending introduction of another attribute)
 
-# Routing on Bidirectional Tracks
-When train tracks can be used in both directions, there is considerable freedom for trains when search a path through the network. To reduce the number of conflicts (when two vehicles want to use the same track in opposite directions), the preferred direction for each track can be defined and factored into the routing decision.
-
-When routes are computed in the simulation, this is done by setting the option **--device.rerouting.priority-factor FLOAT**. This causes the priority values of edges to be factored into the routing decision with higher values being preferred. 
-At the default value of 0. Edge priority is ignored when routing. When setting a positive value, the edges with the lowest priority receive a penalty factor to their estimated travel time of 1 + FLOAT whereas the edges with the highest priority receive no penalty. Edges with medium priority will receive a penalty of 1 + x * FLOAT where 
-
-```
-  x = (edgePriority - minPriority) / (maxPriority - minPriority)
-```
-
-The priority values can either be assigned by the user or computed heuristically by [netconvert](../netconvert.md) by setting the option **--railway.topology.direction-priority**. This requires that some of the tracks in the network are uni-directional (to unambiguously define the main direction). The assigned priority values are:
-
-- 4: unidirectional track
-- 3: main direction of bidirectional track
-- 2: undetermined main direction (straight continuation from different directions of unidirectional track)
-- 1: undetermined main direction (no continuation from unidirectional track)
-- 0: reverse of main direction of bidirectional track
-
 # Modelling Trains
 
 There is a dedicated carFollowMode for trains which can be activated by
@@ -277,22 +272,36 @@ Trains can be split and joined (divided and coupled) at stops.
 ## Splitting a train
 To split a train, the following input definition can be used. The rear half of the train is defined as a new vehicle which depart value **split**. The train train that is being split must define the 'split' attribute in its stop definition referencing the id of the rear half.
 ```xml
-<vType id="train" vClass="rail"/>
+   <vType id="train" vClass="rail"/>
     <vType id="splitTrain" vClass="rail" length="50"/>
     <trip id="t0" type="train" depart="0.00" from="a" to="c">
         <stop busStop="B" duration="60.00" split="t1"/>
     </trip>
-    <trip id="t1" type="splitTrain" depart="split" departPos="last" from="b" to="e">
+    <trip id="t1" type="splitTrain" depart="split" from="b" to="e">
         <stop busStop="B" duration="60.00"/>
     </trip>
 ```
 When defined this way, The rear part of the train will be created as a new simulation vehicle once the first part has reached the stop. After stopping, The front half of the train will continue with reduced length.
 
 ## Joining two trains
-To join two trains, the following input definition can be used. The front half of the train must define a stop trigger with value **join**. The rear half of the other train must define the attribute 'join' referencing the id of the front half.
+To join two trains, they have to stop at in close proximity (i.e. at the same `<busStop>` or `<trainStop>`) and then one of them is removed (referred to as the **joining train**) and the other made longer (referred to as the **continuing train**.
+
+The continuing train requires a stop with attribute `triggered="join"`. By default this train will only continue it's route after another train has joined with it and wait indefinitely for this condition.
+However, by setting stop attribute [extension](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints), waiting for the trigger condition can be aborted (as for any other condition). 
+The joining train requires a stop with attribute `join="VEH_ID"` where `VEH_ID` denotes the id of the continuing train.
+
+The joining operating consists of having the joining train arrive and disappear from the simulation and the continuinig train to be made longer according to the length of the joining train.
+The following conditions must be met for the joining operationg to take place:
+
+- the continuing train has fulfilled its stopping duration (defined by attributes `duration` and `until`)
+- the trains are in close proximity in either of the two ways:
+  - the continuing train has it's back is on the same lane as the joining train and the gap between them is less than the minGap of the joining train +1m
+  - the joining train has it's back on the same lane as the continuing train and the gap between the trains is less the minGap of the continuing train +1m
+ 
+The following is an example definition for joining two trains:
 
 ```xml
-<vType id="train" vClass="rail"/>
+    <vType id="train" vClass="rail"/>
     <vType id="splitTrain" vClass="rail" length="50"/>
     <trip id="t0" type="splitTrain" depart="0.00" from="a" to="c">
         <stop busStop="B" duration="60.00" triggered="join"/>
@@ -301,12 +310,9 @@ To join two trains, the following input definition can be used. The front half o
         <stop busStop="B" duration="5.00" join="t0"/>
     </trip>
 ```
-The rear part of the train will be joined to the front part if the following conditions are met:
-- the rear part has fulfilled its stopping duration
-- the front part the train is present and it's back is on the same lane as the front of the rear part
-- the gap between the trains is less than 5 meters
-After being joined to the front part, the rear part will no longer be part of the simulation.
-The front half of the train will stop until the rear part is joined to it. Afterwards it will continue with increased length. 
+
+!!! caution
+    if the joined train is in the front and covers multiple edges, then these must all match the route of the continuing train. Also the joining train should have the join-stop on the last edge of it's route.
 
 # Rail Signal Behavior
 
@@ -321,7 +327,7 @@ Functionality **a)** corresponds to the "classic" safety behavior of rail signal
 
 To switch a single signal into moving-block-mode, the following additional file may be loaded:
 ```xml
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <tlLogic id="gneJ8" programID="0">
         <param key="moving-block" value="true"/>
     </tlLogic>

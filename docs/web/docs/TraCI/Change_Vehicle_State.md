@@ -72,6 +72,8 @@ won't be affected by further changes to the original type.
 | max lateral speed (0xba)  | double                                                         | Sets the maximum lateral speed in m/s for this vehicle.                                                                                                            | [setMaxSpeedLat](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setMaxSpeedLat)      |
 | lateral gap (0xbb)        | double                                                         | Sets the minimum lateral gap of the vehicle at 50km/h in m.                                                                                                        | [setMinGapLat](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setMinGapLat)        |
 | lateral alignment (0xb9)  | string                                                         | Sets the preferred lateral alignment for this vehicle.                                                                                                             | [setLateralAlignment](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setLateralAlignment) |
+| boarding duration (0x2f)        | double   | Sets the boarding duration for passengers entering/leaving this vehicle.                                                                                                   | [setBoardingDuration](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setBoardingDuration)        |
+| impatience (0x26)  | string      | sets the current [dynamic impatience](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#impatience) of this vehicle. This value gets reset when the vehicle starts driving.                                                                                                             | [setImpatience](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setImpatience) |
 | parameter (0x7e)          | string, string                                                 | [Sets the string value for the given string parameter](../TraCI/Change_Vehicle_State.md#setting_device_and_lanechangemodel_parameters_0x7e)                                                                                                               | [setParameter](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setParameter)        |
 | action step length (0x7d) | double (new action step length), boolean (reset action offset) | Sets the current action step length for the vehicle in s. If the boolean value resetActionOffset is true, an action step is scheduled immediately for the vehicle. | [setActionStepLength](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setActionStepLength) |
 | highlight (0x6c)          | highlight specification, see below                             | Adds a highlight to the vehicle                                                                                                                                    | [highlight](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-highlight)           |
@@ -96,7 +98,7 @@ The message contents are as following:
 
 |         byte          |       integer        |        byte         | string  |        byte         |    double    |       byte        |    byte    |        byte         |       double        |             byte             |           int           |              byte              |     double     |              byte              |      double      |
 | :-------------------: | :------------------: | :-----------------: | :-----: | :-----------------: | :----------: | :---------------: | :--------: | :-----------------: | :-----------------: | :--------------------------: | :---------------------: | :----------------------------: | :------------: | :----------------------------: | :--------------: |
-| value type *compound* | item number (4 to 7) | value type *string* | Edge ID | value type *double* | end position | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *byte* (optional) | stop flags: (see below) | value type *double* (optional) | start position | value type *double* (optional) | Until in seconds |
+| value type *compound* | item number (4 to 7) | value type *string* | Edge ID | value type *double* | end position | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *int* (optional) | stop flags: (see below) | value type *double* (optional) | start position | value type *double* (optional) | Until in seconds |
 
 The stop flags are a bitset with the following additive components
 
@@ -219,9 +221,9 @@ previous and the new position instead.
 
 ### replaceStop (0x17)
 
-| string | int           | string | double  | integer     | double                 | integer | double                 | double              | int        |
-| :----: | :-----------: | :----: | :-----: | :---------: | :--------------------: | :-----: | :--------------------: | :-----------------: | :--------: |
-| vehID  | nextStopIndex | edgeID | pos=1.0 | laneIndex=0 | duration=-1073741824.0 | flags=0 | startPos=-1073741824.0 | until=-1073741824.0 | teleport=0 |
+|         byte          |       integer        |        byte         | string  |        byte         |    double    |       byte        |    byte    |        byte         |       double        |             byte             |           int           |              byte              |     double     |              byte              |      double      | byte | int | byte | byte | 
+| :-------------------: | :------------------: | :-----------------: | :-----: | :-----------------: | :----------: | :---------------: | :--------: | :-----------------: | :-----------------: | :--------------------------: | :---------------------: | :----------------------------: | :------------: | :----------------------------: | :--------------: | :---: | :---: | :---: | :---: |
+| value type *compound* | item number (8 or 9) | value type *string* | Edge ID | value type *double* | end position | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *int* | stop flags (see [stop](#stop_0x12)) | value type *double* | start position | value type *double* | Until in seconds | value type *int* | nextStopIndex | value type *byte* (optional) | teleport |
 
 Replaces stop at the given index with a new stop. Automatically modifies the route if the replacement stop is at another location
 
@@ -235,9 +237,9 @@ Replaces stop at the given index with a new stop. Automatically modifies the rou
 
 ### insertStop (0x18)
 
-| string | int           | string | double  | integer     | double                 | integer | double                 | double              | int        |
-| :----: | :-----------: | :----: | :-----: | :---------: | :--------------------: | :-----: | :--------------------: | :-----------------: | :--------: |
-| vehID  | nextStopIndex | edgeID | pos=1.0 | laneIndex=0 | duration=-1073741824.0 | flags=0 | startPos=-1073741824.0 | until=-1073741824.0 | teleport=0 |
+|         byte          |       integer        |        byte         | string  |        byte         |    double    |       byte        |    byte    |        byte         |       double        |             byte             |           int           |              byte              |     double     |              byte              |      double      | byte | int | byte | byte | 
+| :-------------------: | :------------------: | :-----------------: | :-----: | :-----------------: | :----------: | :---------------: | :--------: | :-----------------: | :-----------------: | :--------------------------: | :---------------------: | :----------------------------: | :------------: | :----------------------------: | :--------------: | :---: | :---: | :---: | :---: |
+| value type *compound* | item number (8 or 9) | value type *string* | Edge ID | value type *double* | end position | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *int* | stop flags (see [stop](#stop_0x12)) | value type *double* | start position | value type *double* | Until in seconds | value type *int* | nextStopIndex | value type *byte* (optional) | teleport |
 
 Inserts stop at the given index. Automatically modifies the route to accomodate the new stop
 

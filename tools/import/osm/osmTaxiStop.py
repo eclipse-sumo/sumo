@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2020-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -22,7 +22,8 @@ import os
 import sys
 import random
 import argparse
-sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 import osmBuild  # noqa
 
@@ -31,19 +32,24 @@ VEHICLE_LENGTH = 7.5
 
 
 def parseArgs(args=None):
-    argParser = sumolib.options.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    argParser.add_argument("-s", "--osm-file", help="read OSM file from FILE (mandatory)", metavar="FILE")
-    argParser.add_argument("-n", "--net-file", help="read SUMO net from FILE", metavar="FILE")
-    argParser.add_argument("-o", "--output-file", help="write stopping places to the output FILE", metavar="FILE",
-                           default="stopping_places.add.xml")
-    argParser.add_argument("-f", "--fleet-file", help="write taxi fleet to the output FILE", metavar="FILE")
-    argParser.add_argument("--fleet-size", type=float, metavar="NUM",
-                           help="relative (0 < NUM < 1) or absolute number of vehicles (NUM >= 1) to generate")
-    argParser.add_argument("-t", "--type", help="stopping place type", default="chargingStation")
-    argParser.add_argument("-r", "--radius", type=float, help="radius for edge finding", default=20.)
-    argParser.add_argument("-l", "--length", type=float, help="(minimum) length of the stopping place", default=20.)
-    argParser.add_argument("--vclass", help="which vehicle class should be allowed", default="passenger")
-    return argParser.parse_args(args)
+    op = sumolib.options.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    op.add_argument("-s", "--osm-file", category="input", required=True, type=op.file,
+                    help="read OSM file from FILE (mandatory)", metavar="FILE")
+    op.add_argument("-n", "--net-file", category="input", type=op.net_file,
+                    help="read SUMO net from FILE", metavar="FILE")
+    op.add_argument("-o", "--output-file", category="output", required=True, type=op.file,
+                    help="write stopping places to the output FILE", metavar="FILE",
+                    default="stopping_places.add.xml")
+    op.add_argument("-f", "--fleet-file", category="output", type=op.file,
+                    help="write taxi fleet to the output FILE", metavar="FILE")
+    op.add_argument("--fleet-size", type=float, metavar="NUM", category="input",
+                    help="relative (0 < NUM < 1) or absolute number of vehicles (NUM >= 1) to generate")
+    op.add_argument("-t", "--type", category="input", help="stopping place type", default="chargingStation")
+    op.add_argument("-r", "--radius", category="input", type=float, help="radius for edge finding", default=20.)
+    op.add_argument("-l", "--length", category="input", type=float,
+                    help="(minimum) length of the stopping place", default=20.)
+    op.add_argument("--vclass", category="input", help="which vehicle class should be allowed", default="passenger")
+    return op.parse_args(args)
 
 
 def main(options):

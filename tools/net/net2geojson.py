@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -31,27 +31,38 @@ import sumolib  # noqa
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " -n <net> <options>"
-    argParser = sumolib.options.ArgumentParser(usage=USAGE)
-    argParser.add_argument("-n", "--net-file", dest="netFile", required=True,
-                           help="The .net.xml file to convert")
-    argParser.add_argument("-d", "--edgedata-file", dest="edgeData", help="Optional edgeData to include in the output")
-    argParser.add_argument("-p", "--ptline-file", dest="ptlines",
-                           help="Optional ptline information to include in the output")
-    argParser.add_argument("-o", "--output-file", dest="outFile", help="The geojson output file name")
-    argParser.add_argument("-l", "--lanes", action="store_true", default=False,
-                           help="Export lane geometries instead of edge geometries")
-    argParser.add_argument("--junctions", action="store_true", default=False,
-                           help="Export junction geometries")
-    argParser.add_argument("-i", "--internal", action="store_true", default=False,
-                           help="Export internal geometries")
-    argParser.add_argument("-j", "--junction-coordinates", dest="junctionCoords", action="store_true", default=False,
-                           help="Append junction coordinates to edge shapes")
-    argParser.add_argument("-b", "--boundary", dest="boundary", action="store_true", default=False,
-                           help="Export boundary shapes instead of center-lines")
-    argParser.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
-                           help="exports all time intervals (by default only the first is exported)")
-    return argParser.parse_args()
+    op = sumolib.options.ArgumentParser(description="net to geojson",
+                                        usage="Usage: " + sys.argv[0] + " -n <net> <options>")
+    # input
+    op.add_argument("-n", "--net-file", category="input", dest="netFile", required=True, type=op.net_file,
+                    help="The .net.xml file to convert")
+    op.add_argument("-d", "--edgedata-file", category="input", dest="edgeData", type=op.edgedata_file,
+                    help="Optional edgeData to include in the output")
+    op.add_argument("-p", "--ptline-file", category="input", dest="ptlines", type=op.file,
+                    help="Optional ptline information to include in the output")
+    # output
+    op.add_argument("-o", "--output-file", dest="outFile", category="output", required=True, type=op.file,
+                    help="The geojson output file name")
+    # processing
+    op.add_argument("-l", "--lanes", action="store_true", default=False,
+                    help="Export lane geometries instead of edge geometries")
+    op.add_argument("--junctions", action="store_true", default=False,
+                    help="Export junction geometries")
+    op.add_argument("-i", "--internal", action="store_true", default=False,
+                    help="Export internal geometries")
+    op.add_argument("-j", "--junction-coordinates", dest="junctionCoords", action="store_true", default=False,
+                    help="Append junction coordinates to edge shapes")
+    op.add_argument("-b", "--boundary", dest="boundary", action="store_true", default=False,
+                    help="Export boundary shapes instead of center-lines")
+    op.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
+                    help="exports all time intervals (by default only the first is exported)")
+
+    try:
+        options = op.parse_args()
+    except (NotImplementedError, ValueError) as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
+    return options
 
 
 def shape2json(net, geometry, isBoundary):

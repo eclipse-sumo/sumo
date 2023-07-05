@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -22,6 +22,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 
 #include "GNEVType.h"
@@ -34,7 +35,7 @@
 
 GNEVType::GNEVType(GNENet* net) :
     GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(""),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
@@ -47,14 +48,12 @@ GNEVType::GNEVType(GNENet* net) :
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeID),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
-    // mark parameter as set
-    parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }
@@ -62,7 +61,7 @@ GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleCla
 
 GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
     GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeParameter),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
@@ -73,7 +72,7 @@ GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, GNEVType* vTypeOriginal) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), GUIIconSubSys::getIcon(GUIIcon::VTYPE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(*vTypeOriginal),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
@@ -366,7 +365,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case SUMO_ATTR_VCLASS:
-            if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
+            if (myDefaultVehicleType || wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
                 return toString(vehicleClass);
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_VCLASS);
@@ -477,8 +476,28 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_CARRIAGE_GAP);
             }
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            return myDistribution;
+        case GNE_ATTR_VTYPE_DISTRIBUTION: {
+            std::string distributionIDs;
+            for (const auto &distribution : myDistributions) {
+                distributionIDs.append(distribution.first + " ");
+            }
+            // remove last space
+            if (distributionIDs.size() > 0) {
+                distributionIDs.pop_back();
+            }
+            return distributionIDs;
+        }
+        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY: {
+            std::string distributionProbabilities;
+            for (const auto &distribution : myDistributions) {
+                distributionProbabilities.append(toString(distribution.second) + " ");
+            }
+            // remove last space
+            if (distributionProbabilities.size() > 0) {
+                distributionProbabilities.pop_back();
+            }
+            return distributionProbabilities;
+        }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -666,6 +685,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_CARRIAGE_GAP:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_VTYPE_DISTRIBUTION:
+        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY:
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
@@ -674,7 +694,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
                 vTypeChangeAttributeForced->forceChange();
                 undoList->changeAttribute(vTypeChangeAttributeForced);
             }
-            vTypeChangeAttributeForced = new GNEChange_Attribute(this, key, value);
+            vTypeChangeAttributeForced = new GNEChange_Attribute(this, key, value); 
             // force change
             vTypeChangeAttributeForced->forceChange();
             undoList->changeAttribute(vTypeChangeAttributeForced);
@@ -699,11 +719,10 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            // Vtypes and PTypes shares namespace
             if (value == getID()) {
                 return true;
-            } else if (SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr)) {
-                return true;
+            } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
+                return (demandElementExist(value, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}) == false);
             } else {
                 return false;
             }
@@ -897,8 +916,37 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else {
-                return SUMOXMLDefinitions::isValidVehicleID(value);
+                auto typeDistributionIDs = StringTokenizer(value).getVector();
+                // check every id
+                for (const auto &typeDistributionID : typeDistributionIDs) {
+                    if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, typeDistributionID, false) == nullptr) {
+                        return false;
+                    }
+                }
+                // all ids OK
+                return true;
             }
+        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY: {
+            auto typeDistributionProbs = StringTokenizer(value).getVector();
+            // first check that we have the same number of distributions and probabilities
+            if (typeDistributionProbs.size() != myDistributions.size()) {
+                return false;
+            } else {
+                // check every probability
+                for (const auto &typeDistributionProb : typeDistributionProbs) {
+                    if (canParse<double>(typeDistributionProb)) {
+                        const auto prob = parse<double>(typeDistributionProb);
+                        if ((prob < 0) || (prob > 1)) {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+                // all probabilities ok
+                return true;
+            }
+        }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -950,6 +998,8 @@ GNEVType::isAttributeEnabled(SumoXMLAttr key) const {
             return wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET);
         case SUMO_ATTR_CARRIAGE_GAP:
             return wasSet(VTYPEPARS_CARRIAGE_GAP_SET);
+        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY:
+            return (myDistributions.size() > 0);
         default:
             return true;
     }
@@ -1215,7 +1265,10 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_EXPERIMENTAL1, "").empty()) {
         vType->setAttribute(SUMO_ATTR_LCA_EXPERIMENTAL1, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)), undoList);
     }
-    //
+    // vType parameters
+    if (newVTypeParameter.wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
+        vType->setAttribute(SUMO_ATTR_VCLASS, toString(newVTypeParameter.vehicleClass), undoList);
+    }
     if (newVTypeParameter.wasSet(VTYPEPARS_LENGTH_SET)) {
         vType->setAttribute(SUMO_ATTR_LENGTH, toString(newVTypeParameter.length), undoList);
     }
@@ -1298,7 +1351,6 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
         vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, newVTypeParameter.getParameter(toString(SUMO_ATTR_CARRIAGE_GAP), ""), undoList);
     }
-
     // parse parameters
     std::string parametersStr;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -1311,9 +1363,6 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     }
     if (parametersStr != vType->getAttribute(GNE_ATTR_PARAMETERS)) {
         vType->setAttribute(GNE_ATTR_PARAMETERS, parametersStr, undoList);
-    }
-    if (parametersStr != vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)) {
-        vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, parametersStr, undoList);
     }
     // close undo list
     undoList->end();
@@ -1824,9 +1873,34 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 SUMOVTypeParameter::unsetParameter(toString(key));
             }
             break;
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            myDistribution = value;
+        case GNE_ATTR_VTYPE_DISTRIBUTION: {
+            // make a copy of distributions
+            const auto copyDistributions = myDistributions;
+            // clear distributions
+            myDistributions.clear();
+            // obtain IDS
+            const auto typeDistributionIDs = StringTokenizer(value).getVector();
+            // iterate over IDs, add into map, and check if previously there is a probability defined
+            for (const auto &typeDistributionID : typeDistributionIDs) {
+                if (copyDistributions.count(typeDistributionID) > 0) {
+                    myDistributions[typeDistributionID] = copyDistributions.at(typeDistributionID);
+                } else {
+                    myDistributions[typeDistributionID] = 1.0;
+                }
+            }
             break;
+        }
+        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY: {
+            // obtain probabilities
+            const auto typeDistributionProbs = StringTokenizer(value).getVector();
+            int index = 0;
+            // add every probability to their distribution
+            for (auto &distribution : myDistributions) {
+                distribution.second = parse<double>(typeDistributionProbs.at(index));
+                index++;
+            }
+            break;
+        }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

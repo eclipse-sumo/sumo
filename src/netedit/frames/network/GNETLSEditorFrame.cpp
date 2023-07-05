@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -2046,7 +2046,7 @@ GNETLSEditorFrame::TLSPhases::changePhaseValue(const int col, const int row, con
     } else if (col == colState) {
         return setState(col, row, value);
     } else if (col == colNext) {
-        return setNext(col, row, value);
+        return setNext(row, value);
     } else if (col == colName) {
         return setName(row, value);
     } else if (col == colMinDur) {
@@ -2642,28 +2642,21 @@ GNETLSEditorFrame::TLSPhases::setState(const int col, const int row, const std::
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setNext(const int col, const int row, const std::string& value) {
-    // check value
-    if (value.empty()) {
-        // input empty, reset value
-        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).next));
+GNETLSEditorFrame::TLSPhases::setNext(const int row, const std::string &value) {
+    // check next
+    if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
+        const auto nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
+        for (const auto nextPhase : nextEdited) {
+            if ((nextPhase < 0) || (nextPhase >= myPhaseTable->getNumRows())) {
+                return false;
+            }
+        }
+        // set new next
+        myTLSEditorParent->myEditedDef->getLogic()->setPhaseNext(row, nextEdited);
+        myTLSEditorParent->myTLSDefinition->markAsModified();
         return true;
     } else {
-        // check next
-        if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
-            const auto nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
-            for (const auto nextPhase : nextEdited) {
-                if ((nextPhase < 0) || (nextPhase >= myPhaseTable->getNumRows())) {
-                    return false;
-                }
-            }
-            // set new next
-            myTLSEditorParent->myEditedDef->getLogic()->setPhaseNext(row, nextEdited);
-            myTLSEditorParent->myTLSDefinition->markAsModified();
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 }
 

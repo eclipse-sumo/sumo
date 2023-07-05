@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -35,8 +35,8 @@ public:
     };
 
     /// @brief Construct label with given text and icon
-    MFXDynamicLabel(FXComposite* p,const FXString& text,FXIcon* ic=0,FXuint opts=LABEL_NORMAL,FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD, std::string indent = "- ");
-    
+    MFXDynamicLabel(FXComposite* p, const FXString& text, FXIcon* ic = 0, FXuint opts = LABEL_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD, std::string indent = "- ");
+
     virtual ~MFXDynamicLabel() {};
 
     /// @brief overload text label updates to store the original string as backup for when width changes again
@@ -53,7 +53,7 @@ public:
 protected:
     /// @brief fox needs this
     MFXDynamicLabel();
-    
+
 private:
     void computeIndentation();
     void reformatLineBreaks(const int curWidth);

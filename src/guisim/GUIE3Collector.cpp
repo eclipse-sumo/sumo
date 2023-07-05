@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -77,6 +77,9 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     // add items
     // values
     ret->mkItem("name", false, myDetector.myName);
+    if (myDetector.isTyped()) {
+        ret->mkItem("vTypes", false, toString(myDetector.getVehicleTypes()));
+    }
     ret->mkItem("vehicles within [#]", true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getVehiclesWithin));
     ret->mkItem("mean speed [m/s]", true,
@@ -179,8 +182,8 @@ GUIE3Collector::GUIE3Collector(const std::string& id,
                                const std::string name, const std::string& vTypes,
                                const std::string& nextEdges,
                                int detectPersons,
-                               bool openEntry):
-    MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry)
+                               bool openEntry, bool expectArrival):
+    MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry, expectArrival)
 {}
 
 

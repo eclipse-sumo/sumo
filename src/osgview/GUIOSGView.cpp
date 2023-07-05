@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -196,6 +196,9 @@ GUIOSGView::GUIOSGView(
     recenterView();
     myViewer->home();
     getApp()->addChore(this, MID_CHORE);
+#ifdef DEBUG
+    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after first init steps");
+#endif
     myTextNode = new osg::Geode();
     myText = new osgText::Text;
     myText->setCharacterSizeMode(osgText::Text::SCREEN_COORDS);
@@ -210,6 +213,9 @@ GUIOSGView::GUIOSGView(
     myText->setDrawMode(osgText::TextBase::DrawModeMask::FILLEDBOUNDINGBOX | osgText::TextBase::DrawModeMask::TEXT);
     myText->setBoundingBoxColor(osg::Vec4(0.0f, 0.0f, 0.2f, 0.5f));
     myText->setBoundingBoxMargin(2.0f);
+#ifdef DEBUG
+    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after myText init");
+#endif
 
     myHUD = new osg::Camera;
     myHUD->setProjectionMatrixAsOrtho2D(0, 800, 0, 800); // default size will be overwritten
@@ -223,9 +229,15 @@ GUIOSGView::GUIOSGView(
     myHUD->setViewport(0, 0, w, h);
     myViewer->addSlave(myHUD, false);
     myCameraManipulator->updateHUDText();
+#ifdef DEBUG
+    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after HUD");
+#endif
 
     // adjust the main light
     adoptViewSettings();
+#ifdef DEBUG
+    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after adoptViewSettings");
+#endif
 
     osgUtil::Optimizer optimizer;
     optimizer.optimize(myRoot);
@@ -376,26 +388,14 @@ GUIOSGView::position(int x, int y, int w, int h) {
 void
 GUIOSGView::updateHUDPosition(int w, int h) {
     // keep the HUD text in the left top corner
-#ifdef DEBUG
-    std::cout << "GUIOSGView::updateHUDPosition() begin" << std::endl;
-#endif
     myHUD->setProjectionMatrixAsOrtho2D(0, w, 0, h);
     myText->setPosition(osg::Vec3d(0., static_cast<double>(height), 0.));
-#ifdef DEBUG
-    std::cout << "GUIOSGView::updateHUDPosition() end" << std::endl;
-#endif
 }
 
 
 void
 GUIOSGView::updateHUDText(const std::string text) {
-#ifdef DEBUG
-    std::cout << "GUIOSGView::updateHUDText(" << text << ") begin" << std::endl;
-#endif
     myText->setText(text, osgText::String::ENCODING_UTF8);
-#ifdef DEBUG
-    std::cout << "GUIOSGView::updateHUDText(" << text << ") end" << std::endl;
-#endif
 }
 
 
@@ -1104,6 +1104,10 @@ GUIOSGView::FXOSGAdapter::FXOSGAdapter(GUISUMOAbstractView* parent, FXCursor* cu
     if (valid()) {
         setState(new osg::State());
         getState()->setGraphicsContext(this);
+#ifdef DEBUG
+        getState()->setCheckForGLErrors(osg::State::ONCE_PER_ATTRIBUTE);
+        std::cout << "OSG getCheckForGLErrors " << getState()->getCheckForGLErrors() << std::endl;
+#endif
         if (_traits.valid() && _traits->sharedContext != 0) {
             getState()->setContextID(_traits->sharedContext->getState()->getContextID());
             incrementContextIDUsageCount(getState()->getContextID());

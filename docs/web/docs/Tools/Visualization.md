@@ -10,15 +10,15 @@ paper. Additional tools read plain .csv-files and were added to the
 suite as they offer a similar interface.
 
 All these tools are just wrappers around the wonderful
-[matplotlib](http://matplotlib.org/) library. If you are familiar with
+[matplotlib](https://matplotlib.org/) library. If you are familiar with
 Python, you must have a look.
 
 The tools share a set of [common options](#common_options) to
 fine-tune the appearance of the generated figures. These options' names
-where chosen similar to the [matplotlib](http://matplotlib.org/) calls.
+where chosen similar to the [matplotlib](https://matplotlib.org/) calls.
 
 The tools are implemented in Python and need
-[matplotlib](http://matplotlib.org/) to be installed. The tools can be
+[matplotlib](https://matplotlib.org/) to be installed. The tools can be
 found in {{SUMO}}/tools/visualization.
 
 # Current Tools
@@ -28,7 +28,7 @@ current outputs [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md)
 generate. To run them, you'll need:
 
 - to install Python
-- to install [matplotlib](http://matplotlib.org/)
+- to install [matplotlib](https://matplotlib.org/)
 - to set {{SUMO}}
 
 All scripts are executed from the command line and you have to give the
@@ -159,7 +159,7 @@ Call `python tools/visualization/plotXMLAttributes.py -i id -x depart -y departD
 
 The plot is created from the output file of a SUMO simulation for which a global [SSM device](https://sumo.dlr.de/docs/Simulation/Output/SSM_Device.html) has been added. For this example, starting from the [Bologna "acosta" scenario](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta), the SUMO configuration file had been modified in order to compute time to collision:
 ```xml
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 	
 	<device.ssm.deterministic value="true"/>
 	<device.ssm.file value="ssm.xml"/>

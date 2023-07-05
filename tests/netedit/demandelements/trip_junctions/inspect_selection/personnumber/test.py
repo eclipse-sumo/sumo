@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 170)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.personNumber, "", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.personNumber, "", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.personNumber, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.personNumber, "dummyNumber", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.personNumber, "-5", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.personNumber, "-5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.personNumber, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.personNumber, "2.5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.personNumber, "3", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.personNumber, "3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

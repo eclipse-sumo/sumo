@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-28 08:42:53 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <save-state.times value="6"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_17_0+1317-06f42fb" time="6.00" type="meso">
+    <route id="!vehicle_0" state="0" edges="gneE1 gneE2"/>
+    <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
+    <vType id="train" vClass="rail"/>
+    <vehicle id="vehicle_0" type="train" depart="0.00" departSpeed="max" route="!vehicle_0" distance="0 0" speedFactor="1.0000" reroute="1" state="262162 0 0 0 0 0 5374 0 9223372036854775807">
+        <device id="tripinfo_vehicle_0" state="19.9991 -0 0 0 0 0 -1"/>
+        <device id="routing_vehicle_0" state="0"/>
+    </vehicle>
+    <segment id="gneE1:0">
+        <vehicles time="-1" value="vehicle_0"/>
+    </segment>
+</snapshot>

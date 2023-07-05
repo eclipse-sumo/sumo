@@ -46,8 +46,8 @@
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="pos" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="speed" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="posLat" use="optional" type="xsd:float"/>
-            <xsd:attribute name="speedLat" use="optional" type="xsd:float"/>
+            <xsd:attribute name="posLat" use="optional" type="floatType"/>
+            <xsd:attribute name="speedLat" use="optional" type="floatType"/>
             <xsd:attribute name="personNumber" use="optional" type="xsd:nonNegativeInteger"/>
             <xsd:attribute name="containerNumber" use="optional" type="xsd:nonNegativeInteger"/>
         </xsd:complexType>
@@ -56,7 +56,7 @@
         <xsd:complexType>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="pos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="angle" use="required" type="xsd:float"/>
+            <xsd:attribute name="angle" use="required" type="floatType"/>
             <xsd:attribute name="stage" use="required" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
@@ -64,7 +64,7 @@
         <xsd:complexType>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="pos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="angle" use="required" type="xsd:float"/>
+            <xsd:attribute name="angle" use="required" type="floatType"/>
             <xsd:attribute name="stage" use="required" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>

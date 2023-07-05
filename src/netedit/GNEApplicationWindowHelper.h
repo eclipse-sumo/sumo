@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -82,6 +82,9 @@ struct GNEApplicationWindowHelper {
         /// @brief The application menu bar for save elements
         FXMenuBar* saveElements = nullptr;
 
+        /// @brief The application menu bar for time switch
+        FXMenuBar* timeSwitch = nullptr;
+
         /// @brief The application menu bar for navigation (zoom, coloring...)
         FXMenuBar* navigation = nullptr;
 
@@ -103,7 +106,10 @@ struct GNEApplicationWindowHelper {
 
         /// @brief menu bar drag for save elements
         FXToolBarShell* myPythonToolBarShellSaveElements = nullptr;
-
+        
+        /// @brief menu bar drag for time switch
+        FXToolBarShell* myPythonToolBarShellTimeFormat = nullptr;
+        
         /// @brief menu bar drag for navigation (Zoom, coloring...)
         FXToolBarShell* myPythonToolBarShellNavigation = nullptr;
 

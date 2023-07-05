@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -2602,7 +2602,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
                         && vehDist.first->getSpeed() < SUMO_const_haltingSpeed
                         && -vehDist.second < vehDist.first->getVehicleType().getMinGap()
                         && &(myVehicle.getLane()->getEdge()) != &(vehDist.first->getLane()->getEdge()))
-                                                                         )) {
+                                                                                           )) {
 #ifdef DEBUG_BLOCKING
                 if (gDebugFlag2) {
                     std::cout << "       ignoring cfrelated foe=" << vehDist.first->getID()  << "\n";

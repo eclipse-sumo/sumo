@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-31 10:26:14 by Eclipse SUMO sumo Version v1_12_0+1808-7caee96
+<!-- generated on 2023-06-28 08:42:52 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -15,10 +15,6 @@
     <time>
         <begin value="500"/>
     </time>
-
-    <processing>
-        <pedestrian.model value="nonInteracting"/>
-    </processing>
 
     <report>
         <duration-log.disable value="true"/>
@@ -50,10 +46,7 @@
     </vehicle>
 
     <vehicle id="veh280" type="default" depart="483.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="508.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="483.00" probability="0" edges="gneE0 gneE1 gneE2 gneE3"/>
-            <route edges="gneE0 gneE4 gneE5 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE4 gneE5 gneE3"/>
     </vehicle>
 
     <vehicle id="veh281" type="default" depart="484.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="509.00">
@@ -65,10 +58,7 @@
     </vehicle>
 
     <vehicle id="veh283" type="default" depart="488.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="513.00">
-        <routeDistribution>
-            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="488.00" probability="0" edges="gneE0 gneE1 gneE2 gneE3"/>
-            <route edges="gneE0 gneE4 gneE5 gneE3"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE4 gneE5 gneE3"/>
     </vehicle>
 
     <vehicle id="veh284" type="default" depart="490.00" departPos="0.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="514.00">

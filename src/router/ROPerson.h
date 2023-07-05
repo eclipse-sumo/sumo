@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -364,6 +364,38 @@ public:
         virtual bool needsRouting() const {
             return myTripItems.empty();
         }
+
+        double getCost() const {
+            double result = 0;
+            for (TripItem* const it : myTripItems) {
+                result += it->getCost();
+            }
+            return result;
+        }
+
+        void clearItems() {
+            for (TripItem* const it : myTripItems) {
+                delete it;
+            }
+            myTripItems.clear();
+        }
+
+        void copyItems(PersonTrip* trip, ROVehicle* veh) {
+            for (TripItem* const it : myTripItems) {
+                delete it;
+            }
+            myTripItems = trip->myTripItems;
+            for (auto it = myVehicles.begin(); it != myVehicles.end();) {
+                if (*it != veh) {
+                    delete (*it)->getRouteDefinition();
+                    delete (*it);
+                    it = myVehicles.erase(it);
+                } else {
+                    it++;
+                }
+            }
+        }
+
         void saveVehicles(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const;
         void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, OptionsCont& options) const;
 

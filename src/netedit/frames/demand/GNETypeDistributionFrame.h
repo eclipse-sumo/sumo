@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -32,19 +32,25 @@ class GNETypeDistributionFrame : public GNEFrame {
 
 public:
     // ===========================================================================
-    // class TypeEditor
+    // class declaration
     // ===========================================================================
 
-    class TypeEditor : public MFXGroupBoxModule {
+    class TypeAttributesEditor;
+
+    // ===========================================================================
+    // class TypeDistributionEditor
+    // ===========================================================================
+
+    class TypeDistributionEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNETypeDistributionFrame::TypeEditor)
+        FXDECLARE(GNETypeDistributionFrame::TypeDistributionEditor)
 
     public:
         /// @brief constructor
-        TypeEditor(GNETypeDistributionFrame* typeDistributionFrameParent);
+        TypeDistributionEditor(GNETypeDistributionFrame* typeDistributionFrameParent);
 
         /// @brief destructor
-        ~TypeEditor();
+        ~TypeDistributionEditor();
 
         /// @name FOX-callbacks
         /// @{
@@ -62,7 +68,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        FOX_CONSTRUCTOR(TypeEditor)
+        FOX_CONSTRUCTOR(TypeDistributionEditor)
 
     private:
         /// @brief pointer to type distribution frame parent
@@ -76,50 +82,146 @@ public:
     };
 
     // ===========================================================================
-    // class TypeSelector
+    // class TypeDistributionSelector
     // ===========================================================================
 
-    class TypeSelector : public MFXGroupBoxModule {
+    class TypeDistributionSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNETypeDistributionFrame::TypeSelector)
+        FXDECLARE(GNETypeDistributionFrame::TypeDistributionSelector)
 
     public:
         /// @brief constructor
-        TypeSelector(GNETypeDistributionFrame* typeFrameParent);
+        TypeDistributionSelector(GNETypeDistributionFrame* typeFrameParent);
 
         /// @brief destructor
-        ~TypeSelector();
+        ~TypeDistributionSelector();
 
-        /// @brief get current Vehicle Type
-        GNEDemandElement* getCurrentType() const;
+        /// @brief get current Vehicle Type distribution
+        GNEDemandElement* getCurrentTypeDistribution() const;
 
-        /// @brief set current Vehicle Type
-        void setCurrentType(GNEDemandElement* vType);
+        /// @brief set current vehicle type distribution
+        void setCurrentTypeDistribution(const GNEDemandElement* vTypeDistribution);
 
-        /// @brief refresh vehicle type selector
-        void refreshTypeSelector();
-
-        /// @brief refresh vehicle type selector (only IDs, without refreshing attributes)
-        void refreshTypeSelectorIDs();
+        /// @brief refresh modul
+        void refreshTypeDistributionSelector();
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user select another element in ComboBox
-        long onCmdSelectItem(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user select type distribution in ComboBox
+        long onCmdSelectTypeDistribution(FXObject*, FXSelector, void*);
+
+        /// @brief update type distribution comboBox
+        long onCmdUpdateTypeDistribution(FXObject* sender, FXSelector, void*);
+
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(TypeSelector)
+        FOX_CONSTRUCTOR(TypeDistributionSelector)
 
     private:
         /// @brief pointer to Frame Parent
         GNETypeDistributionFrame* myTypeDistributionFrameParent;
 
-        /// @brief pointer to current vehicle type
-        GNEDemandElement* myCurrentType = nullptr;
+        /// @brief comboBox with the list of type distributions
+        FXComboBox* myTypeComboBox = nullptr;
 
-        /// @brief comboBox with the list of vTypes
-        MFXComboBoxIcon* myTypeComboBox = nullptr;
+        /// @brief current type distribution
+        std::string myCurrentTypeDistribution;
+    };
+
+    // ===========================================================================
+    // class TypeAttributesEditorRow
+    // ===========================================================================
+
+    class TypeAttributesEditorRow : protected FXHorizontalFrame {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETypeDistributionFrame::TypeAttributesEditorRow)
+
+    public:
+        /// @brief constructor
+        TypeAttributesEditorRow(TypeAttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value);
+
+        /// @brief destroy GNEAttributesCreatorRow (but don't delete)
+        void destroy();
+
+        /// @brief refresh current row
+        void refreshTypeAttributesEditorRow(const std::string& value);
+
+        /// @brief check if current attribute of TextField/ComboBox is valid
+        bool isTypeAttributesEditorRowValid() const;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief try to set new attribute value
+        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief default constructor
+        TypeAttributesEditorRow();
+
+    private:
+        /// @brief pointer to TypeAttributesEditor parent
+        TypeAttributesEditor* myTypeAttributesEditorParent;
+
+        /// @brief current AC Attribute
+        const GNEAttributeProperties myACAttr;
+
+        /// @brief pointer to attribute label
+        MFXLabelTooltip* myAttributeLabel = nullptr;
+
+        /// @brief textField to modify the value of string attributes
+        MFXTextFieldTooltip* myValueTextField = nullptr;
+    };
+
+    // ===========================================================================
+    // class TypeAttributesEditor
+    // ===========================================================================
+
+    class TypeAttributesEditor : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETypeDistributionFrame::TypeAttributesEditor)
+
+    public:
+        /// @brief constructor
+        TypeAttributesEditor(GNETypeDistributionFrame* typeDistributionFrameParent);
+
+        /// @brief show attributes of multiple ACs
+        void showAttributeEditorModule();
+
+        /// @brief hide attribute editor
+        void hideTypeAttributesEditorModule();
+
+        /// @brief refresh attribute editor (only the valid values will be refresh)
+        void refreshAttributeEditor();
+
+        /// @brief pointer to GNEFrame parent
+        GNETypeDistributionFrame* getTypeDistributionFrameParent() const;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when user press the help button
+        long onCmdTypeAttributesEditorHelp(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief fox need this
+        FOX_CONSTRUCTOR(TypeAttributesEditor)
+
+    private:
+        /// @brief pointer to type distribution frame parent
+        GNETypeDistributionFrame* myTypeDistributionFrameParent;
+
+        /// @brief list of Attribute editor rows
+        std::vector<TypeAttributesEditorRow*> myTypeAttributesEditorRows;
+
+        /// @brief button for help
+        FXButton* myHelpButton = nullptr;
     };
 
     /**@brief Constructor
@@ -134,23 +236,20 @@ public:
     /// @brief show Frame
     void show();
 
+    /// @brief get type distribution selector
+    TypeDistributionSelector* getTypeDistributionSelector() const;
+
 protected:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     void attributeUpdated(SumoXMLAttr attribute);
 
 private:
     /// @brief type editor
-    TypeEditor* myTypeEditor = nullptr;
+    TypeDistributionEditor* myTypeDistributionEditor = nullptr;
 
-    /// @brief type selector
-    TypeSelector* myTypeSelector = nullptr;
+    /// @brief type distribution selector
+    TypeDistributionSelector* myTypeDistributionSelector = nullptr;
 
     /// @brief editor for vehicle type attributes
-    GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor = nullptr;
-
-    /// @brief modul for open extended attributes dialog
-    GNEFrameAttributeModules::AttributesEditorExtended* myAttributesEditorExtended = nullptr;
-
-    /// @brief Parameters editor inspector
-    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
+    TypeAttributesEditor* myTypeTypeAttributesEditor = nullptr;
 };

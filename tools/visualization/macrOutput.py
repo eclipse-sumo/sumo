@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2021-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -19,22 +19,29 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sys
-from collections import Counter
-
-import numpy as np
-import pandas as pd
-import pandas_read_xml as pdx
 import matplotlib.pyplot as plt
+import pandas_read_xml as pdx
+import pandas as pd
+import numpy as np
+from collections import Counter
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 
 def main(args):
+
+    ap = sumolib.options.ArgumentParser()
+    ap.add_argument("file", dest="file", category="input", type=ap.file, required=True, help="An XML input file")
+    options = ap.parse_args(args=args)
 
     if args is None or len(args) < 2:
         print("Error: An xml file must be given as input")
         sys.exit(1)
 
-    df = pdx.read_xml(sys.argv[1], ['meandata'])
+    df = pdx.read_xml(options.file, ['meandata'])
 
     df = pdx.flatten(df)
     df = df.pipe(pdx.flatten)
@@ -175,4 +182,4 @@ def main(args):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(main())

@@ -6,7 +6,7 @@ title: Projects
 
 ### Current Projects
 
-- [MAVEN](http://www.maven-its.eu/) Managing Automated Vehicles
+- [MAVEN](https://www.maven-its.eu/) Managing Automated Vehicles
   Enhances Network
 - [TransAID](https://ec.europa.eu/inea/en/horizon-2020/projects/H2020-Transport/Automated-Road-Transport/TransAID)
   new hierarchical traffic management procedures to allow the smooth
@@ -17,11 +17,11 @@ title: Projects
   large-scale traffic for disaster and public event management
 - [I.MoVe](https://verkehrsforschung.dlr.de/de/projekte/imove)
   developing additional car following models
-- [Urban Mobility](http://www.urmo.info/) Intermodal routing and
+- [Urban Mobility](https://www.urmo.info/) Intermodal routing and
   modeling of transfer between vehicles in SUMO
-- [Mobility Inside](http://www.mobilityinside.de/) Using SUMO's
+- [Mobility Inside](https://www.mobilityinside.de/) Using SUMO's
   intermodal routing engine
-- [HubChain (german)](http://komob.de/projekte/hub-chain/) simulating
+- [HubChain (german)](https://komob.de/projekte/hub-chain/) simulating
   autonomous public transport in rural areas
 
 ### Past Projects
@@ -30,27 +30,27 @@ title: Projects
   simulated the traffic of Berlin
 - [COLOMBO](https://verkehrsforschung.dlr.de/en/projects/colombo) Cooperative Self-Organizing
   System for low Carbon Mobility at low Penetration Rates
-- [AMITRAN](https://web.archive.org/web/20180815190303/http://www.amitran.eu/)
-- [MODUM](https://web.archive.org/web/20180831121624/http://modum-project.eu/)
-- [iTetris](http://www.ict-itetris.eu/) An Integrated Wireless and
+- [AMITRAN](https://web.archive.org/web/20180815190303/https://www.amitran.eu/)
+- [MODUM](https://web.archive.org/web/20180831121624/https://modum-project.eu/)
+- [iTetris](https://www.ict-itetris.eu/) An Integrated Wireless and
   Traffic Platform for Real-Time Road Traffic Management Solutions
 - [Delphi](https://www.dlr.de/sc/desktopdefault.aspx/tabid-1262/1765_read-9581): country-wide traffic analysis and prognosis for Germany
 - [ORINOKO](https://www.nuernberg.de/imperia/md/verkehrsplanung/dokumente/orinoko_final_internet.pdf): improvements on mobility in the
   city of Nürnberg
 - TrafficOnline: traffic flow estimation using cellular phones
-- [Soccer2006](https://web.archive.org/web/20150705081516/http://www.dlr.de/desktopdefault.aspx/tabid-1296):
+- [Soccer2006](https://web.archive.org/web/20150705081516/https://www.dlr.de/desktopdefault.aspx/tabid-1296):
   Traffic prognosis during the FIFA-WorldCup 2006
 - Weltjugendtag2005: Traffic prognosis during the world youth day 2005
 - [TrafficTower](https://www.dlr.de/fs/desktopdefault.aspx/tabid-1237/5441_read-12154/):
   A virtual traffic management centre
-- [INVENT](http://www.invent-online.de/): Evaluation of modern traffic
+- [INVENT](https://www.invent-online.de/): Evaluation of modern traffic
   management approaches
-- [OIS](https://web.archive.org/web/20040826034935/http://www.dlr.de/vf/forschung/projekte/ois): Verification of
+- [OIS](https://web.archive.org/web/20040826034935/https://www.dlr.de/vf/forschung/projekte/ois): Verification of
   using optical sensors for optimization of traffic lights
-- [CityMobil](https://web.archive.org/web/20191204150245/http://www.citymobil-project.eu:80/) Automatic urban
+- [CityMobil](https://web.archive.org/web/20191204150245/http://www.citymobil-project.eu/) Automatic urban
   transportation. A [simulation for a parking lot](../Tutorials/CityMobil.md) inspired by the Rome
   demonstrator is included with SUMO.
-- [DRIVE C2X](https://web.archive.org/web/20170311043037/http://www.drive-c2x.eu/project) Driving implementation
+- [DRIVE C2X](https://web.archive.org/web/20170311043037/https://www.drive-c2x.eu/project) Driving implementation
   and evaluation of C2X communication technology
 - [MENDEL](https://www.busundbahn.de/fileadmin/user_upload/Dossiers/Elektrobusse/DNV_2019_12_Naumann_FA_WA.pdf) modeling electric
   buses and optimizing charging with respect to grid load
@@ -61,27 +61,27 @@ title: Projects
 
 - [MultiAgent Control of Traffic
   Signals](https://github.com/k0emt/macts)
-- [VENTOS](http://maniam.github.io/VENTOS/) a VEhicular NeTwork Open
+- [VENTOS](https://maniam.github.io/VENTOS/) a VEhicular NeTwork Open
   Simulator
 - [Webots](https://www.cyberbotics.com/) a 3D physics robot simulator
   connected to SUMO
-- [eWorld](https://web.archive.org/web/20161205050209/http://eworld.sourceforge.net/) - an application that
+- [eWorld](https://web.archive.org/web/20161205050209/https://eworld.sourceforge.net/) - an application that
   allows to convert and enrich roads networks; interaction is done via
   the [TraCI](../TraCI.md)-protocol
-- [Environmental Monitoring in/of Metropolitan Areas](http://www.ibr.cs.tu-bs.de/projects/emma/index.xml?lang=en)
+- [Environmental Monitoring in/of Metropolitan Areas](https://www.ibr.cs.tu-bs.de/projects/emma/index.xml?lang=en)
   by Sven Lahde, Michael Doering, Wolf-Bastian Pöttner, Moritz Rosin,
   Gerrit Lammert and Lars Wolf from the University of Braunschweig,
   Germany
-- [AutoNomos - A Distributed and Self-Regulating Approach for Organizing a Large System of Mobile Objects.](https://web.archive.org/web/20180307071524/http://auto-nomos.de/) Axel Wegener, Horst Hellbrück
+- [AutoNomos - A Distributed and Self-Regulating Approach for Organizing a Large System of Mobile Objects.](https://web.archive.org/web/20180307071524/https://auto-nomos.de/) Axel Wegener, Horst Hellbrück
   and Stefan Fischer from the University of Luebeck, Germany in
   cooperation with Sándor Fekete from Braunschweig Technical
   University, Germany
 - [TraNS - Traffic and Network Simulation environment for design, implementation
   and realistic evaluation of VANET
-  applications](http://trans.epfl.ch)
+  applications](https://trans.epfl.ch)
   by Michal Piorkowski, Maxim Raya, Ada Lezama Lugo and Jean-Pierre
   Hubaux from [Laboratory for Computer Communications and Applications
-  (LCA)](http://lcawww.epfl.ch), [EPFL](http://www.epfl.ch),
+  (LCA)](https://lcawww.epfl.ch), [EPFL](https://www.epfl.ch),
   Switzerland
   TraNS is the first open-source project providing a full-blown
   application-centric evaluation framework for VANETs. It has a unique
@@ -99,7 +99,7 @@ title: Projects
   (2)](../Publications.md#sommeryaogermandressler2008_2)
 - "Assessment of traffic regulation policies for the minimization of
   pollutants emissions"
-  by Mauro Bianchi at [CEFRIEL](http://www.cefriel.it/), Italy.
+  by Mauro Bianchi at [CEFRIEL](https://www.cefriel.it/), Italy.
   This project uses SUMO in combination with EMEP/CORINAIR methodology
   for evaluating the impact of different traffic regulation strategies
   on pollutants emissions. Traffic simulations are performed offline
@@ -108,7 +108,7 @@ title: Projects
   hypothesize an online regulation system with a network of sensors
   that is used to recognize the current traffic situations and deploy
   the optimal traffic regulation policies.
-- [Fidens – Trust between Cooperative Systems in Application to VANETs](https://web.archive.org/web/20120313075112/http://www.ldv.ei.tum.de/en/research/fidens/)
+- [Fidens – Trust between Cooperative Systems in Application to VANETs](https://web.archive.org/web/20120313075112/https://www.ldv.ei.tum.de/en/research/fidens/)
   This project investigates trust in vehicular networks (VANETs).
   Besides the trust research, it features a simulation environment for
   large scale vehicular network applications. Our typical scenario
@@ -144,7 +144,7 @@ title: Projects
 - "Analyse und Simulation von Verkettbarkeitsmaßen in pseudonymer,
   mobiler
   Kommunikation" by Clemens Honomichl; Diploma thesis; 2008
-- [emil - Elektrobusse mit induktiver Ladetechnik (german only)](https://web.archive.org/web/20150722031908/http://www.verkehr-bs.de/unternehmen/forschungsprojekt-emil.html)
+- [emil - Elektrobusse mit induktiver Ladetechnik (german only)](https://web.archive.org/web/20150722031908/https://www.verkehr-bs.de/unternehmen/forschungsprojekt-emil.html)
 - [Metro Traffic Simulator](https://www.youtube.com/watch?v=P9rHo6yHRNc)
 
 ## Code repositories with SUMO related stuff

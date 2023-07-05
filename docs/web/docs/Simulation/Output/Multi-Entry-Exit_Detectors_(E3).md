@@ -58,6 +58,7 @@ The complete list of attributes is:
 | timeThreshold  | float       | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.    |
 | speedThreshold | float       | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.    |
 | openEntry      | bool        | If set to *true*, no error will be reported if vehicles leave the detector without first entering it. This can be useful when tracking vehicles for a particular combination of entry and exit lane at an intersection and other vehicles may also use the exit lane. *default: false*. |
+| expectArrival  | bool        | Whether no warning should be issued when a vehicle arrives within the detector area. *default: false*. |
 | vTypes         | string      | space separated list of vehicle type ids to consider, "" means all; default "".       |
 | detectPersons   | string            | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)       |
 

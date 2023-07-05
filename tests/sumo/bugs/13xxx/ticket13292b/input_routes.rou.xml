@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-19 16:14:51 by Eclipse SUMO netedit Version v1_17_0+1027-f5477a0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="type0" sigma="0" lcCooperative="0" emergencyDecel="6"/>
+    <vType id="type1" sigma="0" lcCooperative="0" emergencyDecel="6"/>
+    <trip id="blocker" depart="0.00" type="type0" departPos="stop" from="53cd" departLane="1" to="78[1][1]">
+        <stop lane="53cd_1" duration="20" endPos="-5"/>
+    </trip>
+
+    <trip id="t0" depart="0.00" type="type0" departSpeed="8" departPos="-16" from="56b" to="78[1][1]"/>
+    <trip id="t1" depart="0.00" type="type1" departSpeed="3" departPos="-13.8" from="59" to="78[1][1]">
+        <stop edge="53cd" duration="2" endPos="5"/>
+    </trip>
+</routes>

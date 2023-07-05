@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -36,6 +36,9 @@
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/templates.h>
 #include <netimport/NIFrame.h>
 #include <netimport/NITypeLoader.h>
@@ -428,6 +431,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,     GNEApplicationWindow::onCmdFocusFrame),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_MODESMENUTITLE,                     GNEApplicationWindow::onUpdRequireViewNet),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_RECOMPUTINGNEEDED,                  GNEApplicationWindow::onUpdRequireRecomputing),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onCmdToogleTimeFormat),
+    FXMAPFUNC(SEL_UPDATE,               MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onUpdToogleTimeFormat),
 };
 
 // Object implementation
@@ -1090,9 +1095,9 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
         const std::string recentFile = ((const char*)fileData);
         // check if we're loading a network o a config
         if ((recentFile.find(".neteditcfg") != std::string::npos) ||    // neteditcfg deprecated
-            (recentFile.find(".netecfg") != std::string::npos) ||
-            (recentFile.find(".sumocfg") != std::string::npos) ||
-            (recentFile.find(".netccfg") != std::string::npos)) {
+                (recentFile.find(".netecfg") != std::string::npos) ||
+                (recentFile.find(".sumocfg") != std::string::npos) ||
+                (recentFile.find(".netccfg") != std::string::npos)) {
             // load config
             loadConfiguration(recentFile);
         } else {
@@ -2123,6 +2128,33 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+long
+GNEApplicationWindow::onCmdToogleTimeFormat(FXObject*, FXSelector, void*) {
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->getTimeFormat().switchTimeFormat();
+        // refresh flow frames
+        myViewNet->getViewParent()->getVehicleFrame()->getVehicleAttributes()->refreshAttributesCreator();
+        myViewNet->getViewParent()->getPersonFrame()->getPersonAttributes()->refreshAttributesCreator();
+        myViewNet->getViewParent()->getContainerFrame()->getContainerAttributes()->refreshAttributesCreator();
+        // refresh inspector frame
+        if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
+            myViewNet->getViewParent()->getInspectorFrame()->inspectMultisection(myViewNet->getInspectedAttributeCarriers());
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onUpdToogleTimeFormat(FXObject*, FXSelector, void*) {
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->getTimeFormat().updateButtonLabel();
+    }
+    return 1;
+}
 
 long
 GNEApplicationWindow::onUpdRequireViewNet(FXObject* sender, FXSelector, void*) {

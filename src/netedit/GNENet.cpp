@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -2254,8 +2254,8 @@ GNENet::saveDemandElementsConfirmed() {
     device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
     // first  write all vTypeDistributions (and their vTypes)
     writeVTypeComment(device, false);
-    writeVTypeDistributions(device, false);
     writeVTypes(device, false);
+    writeVTypeDistributions(device, false);
     // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
     writeRouteComment(device, false);
     writeRoutes(device, false);
@@ -2264,10 +2264,7 @@ GNENet::saveDemandElementsConfirmed() {
     for (const auto& demandElementTag : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElementTag.second) {
             if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson() || demandElement->getTagProperty().isContainer()) {
-                // get depart
-                const auto depart = GNEAttributeCarrier::parse<double>(demandElement->getBegin());
-                // save it in myVehiclesSortedByDepart
-                vehiclesSortedByDepart[depart][std::make_pair(demandElement->getTagProperty().getTag(), demandElement->getID())] = demandElement;
+                vehiclesSortedByDepart[demandElement->getAttributeDouble(SUMO_ATTR_DEPART)][std::make_pair(demandElement->getTagProperty().getTag(), demandElement->getID())] = demandElement;
             }
         }
     }
@@ -2390,11 +2387,8 @@ GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         // get number of additional children
         const auto numChildren = vType->getChildAdditionals().size();
-        // only write if doesn't appear in a distribution,
-        if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION).size() == 0) {
-            if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
-                sortedElements[vType->getID()] = vType;
-            }
+        if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
+            sortedElements[vType->getID()] = vType;
         }
     }
     for (const auto& element : sortedElements) {

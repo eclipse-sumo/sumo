@@ -32,3 +32,6 @@ inactive
 
 # one train passes the stop and the other train is inserted there (first train was previously overtaken)
 writeInactive
+
+# one train passes the stop and the other train is inserted there
+departSplit

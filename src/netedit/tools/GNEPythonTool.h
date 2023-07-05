@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -37,7 +37,7 @@ class GNEPythonTool {
 
 public:
     /// @brief Constructor
-    GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string& pythonPath,
+    GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string& toolPath,
                   const std::string& templateStr, FXMenuPane* menu);
 
     /// @brief destructor
@@ -86,8 +86,8 @@ protected:
     /// @brief original tools options
     OptionsCont myPythonToolsOptionsOriginal;
 
-    /// @brief python path
-    const std::string myPythonPath;
+    /// @brief python tool path relative to SUMO_HOME
+    const std::string myToolPath;
 
     /// @brief tool name
     const std::string myPythonToolName;

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -66,36 +66,39 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     // build toolbar shells
     myPythonToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    myPythonToolBarShellTimeFormat = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     // build menu bars
     superModes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
+    saveElements = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
+    timeSwitch = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellTimeFormat, GUIDesignToolBarRaisedSame);
+    navigation = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellNavigation, GUIDesignToolBarRaisedSame);
     if (OptionsCont::getOptions().getBool("gui-testing")) {
-        saveElements = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
-        navigation = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellNavigation, GUIDesignToolBarRaisedSame);
         modes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellModes, GUIDesignToolBarRaisedNext);
     } else {
-        saveElements = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
-        navigation = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellNavigation, GUIDesignToolBarRaisedSame);
         modes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellModes, GUIDesignToolBarRaisedSame);
     }
     intervalBar = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellIntervalBar, GUIDesignToolBarRaisedNext);
     // build FXToolBarGrip
     new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     new FXToolBarGrip(saveElements, saveElements, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    new FXToolBarGrip(timeSwitch, timeSwitch, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     new FXToolBarGrip(intervalBar, intervalBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // create menu bars
     superModes->create();
     saveElements->create();
+    timeSwitch->create();
     navigation->create();
     modes->create();
     intervalBar->create();
     // create toolbar shells
     myPythonToolBarShellSuperModes->create();
     myPythonToolBarShellSaveElements->create();
+    myPythonToolBarShellTimeFormat->create();
     myPythonToolBarShellNavigation->create();
     myPythonToolBarShellModes->create();
     myPythonToolBarShellIntervalBar->create();
@@ -109,12 +112,14 @@ GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
     // delete Menu bars
     delete superModes;
     delete saveElements;
+    delete timeSwitch;
     delete navigation;
     delete modes;
     delete intervalBar;
     // also delete toolbar shells to avoid floating windows
     delete myPythonToolBarShellSuperModes;
     delete myPythonToolBarShellSaveElements;
+    delete myPythonToolBarShellTimeFormat;
     delete myPythonToolBarShellNavigation;
     delete myPythonToolBarShellModes;
     delete myPythonToolBarShellIntervalBar;
@@ -523,14 +528,14 @@ void
 GNEApplicationWindowHelper::ModesMenuCommands::SupermodeMenuCommands::buildSupermodeMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
     networkSupermode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                  TL("&Network"), "F2", TL("Supermode network."),
-                  GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F2_SUPERMODE_NETWORK);
+                       TL("&Network"), "F2", TL("Supermode network."),
+                       GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F2_SUPERMODE_NETWORK);
     demandSupermode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                 TL("&Demand"), "F3", TL("Sueprmode demand."),
-                 GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F3_SUPERMODE_DEMAND);
+                      TL("&Demand"), "F3", TL("Supermode demand."),
+                      GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F3_SUPERMODE_DEMAND);
     dataSupermode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                 TL("&Data"), "F4", TL("Supermode data."),
-                 GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F4_SUPERMODE_DATA);
+                    TL("&Data"), "F4", TL("Supermode data."),
+                    GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_F4_SUPERMODE_DATA);
 }
 
 // ---------------------------------------------------------------------------
@@ -2035,7 +2040,8 @@ GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
 void
 GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
         const std::map<std::string, FXMenuPane*>& menuPaneToolMaps) {
-    // build template tools
+    // build tools from template
+    // the templateTools vector is imported from templates.h (which only exists in the cmake-build folder)
     for (const auto& templateTool : templateTools) {
         if (templateTool.name == "netdiff") {
             myPythonTools.push_back(new GNENetDiffTool(myGNEApp, templateTool.pythonPath,
@@ -2774,7 +2780,7 @@ GNEApplicationWindowHelper::openNetconvertFileDialog(FXWindow* window) {
 
 std::string
 GNEApplicationWindowHelper::savePlainXMLFileDialog(FXWindow* window) {
-    return openFileDialog(window, TL("Save plain XML as"), GUIIcon::SAVE, 
+    return openFileDialog(window, TL("Save plain XML as"), GUIIcon::SAVE,
                           TL("XML files (*.xml)") + std::string("\n") +
                           TL("All files (*)"), true);
 }
@@ -2808,7 +2814,7 @@ std::string
 GNEApplicationWindowHelper::openNeteditConfigFileDialog(FXWindow* window, bool save) {
     if (save) {
         return openFileDialog(window, TL("Save netedit Config file as"), GUIIcon::SAVE_NETEDITCONFIG,
-                              TL("Netedit Config files (*.netecfg)") + std::string("\n") +   
+                              TL("Netedit Config files (*.netecfg)") + std::string("\n") +
                               TL("All files (*)"), save);
     } else {
         return openFileDialog(window, TL("Open netedit Config file"), GUIIcon::OPEN_NETEDITCONFIG,
@@ -2954,7 +2960,7 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
     if (save) {
         opendialog.setSelectMode(SELECTFILE_ANY);
     } else {
-        if (multi) { 
+        if (multi) {
             opendialog.setSelectMode(SELECTFILE_MULTIPLE);
         } else {
             opendialog.setSelectMode(SELECTFILE_EXISTING);
@@ -2979,7 +2985,7 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
                 gCurrentFolder = opendialog.getDirectory();
                 // assureExtension
                 return MFXUtils::assureExtension(opendialog.getFilename(),
-                        opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+                                                 opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
             } else {
                 // close additional dialog
                 WRITE_DEBUG("Abort overwritte file");
@@ -2997,7 +3003,7 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
                 std::string result;
                 bool first = true;
                 if (files != nullptr) {
-                    for(int i=0; !files[i].empty(); i++){
+                    for (int i = 0; !files[i].empty(); i++) {
                         if (first) {
                             first = false;
                         } else {
@@ -3007,7 +3013,7 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
                     }
                     delete [] files;
 
-                } 
+                }
                 return result;
             } else {
                 return opendialog.getFilename().text();

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -130,7 +130,7 @@ public:
         Argument& operator=(const Argument&) = delete;
     };
 
-    
+
     /// @brief edge vector argument
     class EdgeVectorArgument : public Argument {
         /// @brief FOX-declaration
@@ -139,7 +139,7 @@ public:
     public:
         /// @brief constructor
         EdgeVectorArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
-                      const std::string name, Option* option);
+                           const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -354,7 +354,7 @@ public:
     public:
         /// @brief constructor
         SumoConfigArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
-                      const std::string name, Option* option);
+                           const std::string name, Option* option);
 
         /// @brief Called when user press open filename button
         long onCmdOpenFilename(FXObject*, FXSelector, void*);

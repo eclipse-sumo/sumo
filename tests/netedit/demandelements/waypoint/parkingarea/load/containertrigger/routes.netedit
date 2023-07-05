@@ -23,6 +23,6 @@
     </vehicle>
     <vehicle id="vehicle_5" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingArea" triggered="container" parking="1" speed="10.00"/>
+        <stop parkingArea="parkingArea" parking="1" speed="10.00"/>
     </vehicle>
 </routes>

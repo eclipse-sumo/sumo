@@ -26,3 +26,6 @@ bidi_endOffset
 
 # prevent invalid endOffset
 bidi_endOffset_invalid
+
+# test link states for rail tracks with taxi permissions
+rail_taxi

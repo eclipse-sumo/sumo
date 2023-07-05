@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-26 14:08:37 by Eclipse SUMO netedit Version v1_17_0+1270-c50b556498b
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- TAZs -->
+    <taz id="taz_0" shape="-10.00,30.00 -10.00,10.00 10.00,10.00 10.00,30.00 -10.00,30.00" fill="1" color="blue">
+        <tazSource id="gneE5" weight="1.00"/>
+        <tazSink id="gneE5" weight="1.00"/>
+        <tazSource id="gneE6" weight="1.00"/>
+        <tazSink id="gneE6" weight="1.00"/>
+    </taz>
+    <taz id="taz_1" shape="40.00,10.00 40.00,30.00 50.00,30.00 50.00,10.00 40.00,10.00" fill="1" color="red">
+        <tazSource id="gneE2" weight="1.00"/>
+        <tazSink id="gneE2" weight="1.00"/>
+        <tazSource id="gneE7" weight="1.00"/>
+        <tazSink id="gneE7" weight="1.00"/>
+    </taz>
+    <taz id="taz_2" shape="10.00,50.00 50.00,50.00 50.00,40.00 10.00,40.00 10.00,50.00" fill="1" color="green">
+        <tazSource id="gneE5" weight="1.00"/>
+        <tazSink id="gneE5" weight="1.00"/>
+        <tazSource id="gneE6" weight="1.00"/>
+        <tazSink id="gneE6" weight="1.00"/>
+    </taz>
+    <taz id="taz_3" shape="10.00,-10.00 10.00,0.00 50.00,0.00 50.00,-10.00 10.00,-10.00" fill="1" color="orange">
+        <tazSource id="gneE2" weight="1.00"/>
+        <tazSink id="gneE2" weight="1.00"/>
+        <tazSource id="gneE7" weight="1.00"/>
+        <tazSink id="gneE7" weight="1.00"/>
+    </taz>
+</additional>

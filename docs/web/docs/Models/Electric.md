@@ -297,7 +297,7 @@ Energy Model and a Charging Infrastructure in SUMO. In: Behrisch,
 M., Krajzewicz, D., Weber, M. (eds.) Simulation of Urban Mobility.
 Lecture Notes in Computer Science, vol. 8594 , pp. 33--43. Springer,
 Heidelberg
-(2014)](http://elib.dlr.de/93885/1/Proceeding_SUMO2013_15-17May%202013_Berlin-Adlershof.pdf)
+(2014)](https://elib.dlr.de/93885/1/Proceeding_SUMO2013_15-17May%202013_Berlin-Adlershof.pdf)
 
 # Example Configurations
 

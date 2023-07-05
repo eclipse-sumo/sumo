@@ -12,7 +12,7 @@ Schools. That's why the work topics are listed in German.
 Die meisten der folgenden Themen lassen sich sowohl im Rahmen einer
 Master- oder Diplomarbeit als auch in reduziertem Umfang in einer
 Studien- oder Bachelorarbeit behandeln. Alle stehen mehr oder weniger
-direkt im Zusammenhang mit [SUMO](http://sumo.dlr.de/).
+direkt im Zusammenhang mit [SUMO](https://sumo.dlr.de/).
 
 Alle Themen sind ausdrücklich nur als Vorschläge gedacht. Falls jemand
 nach Kennenlernen der Software und der Anwendungsgebiete eigene

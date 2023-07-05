@@ -1,0 +1,3 @@
+<configuration>
+    <net-file value="None" type="net_file" help="Input file name" category="input" required="true"/>
+</configuration>

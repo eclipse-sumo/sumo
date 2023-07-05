@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -1253,6 +1253,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string nextEdges = attrs.getOpt<std::string>(SUMO_ATTR_NEXT_EDGES, id.c_str(), ok, "");
     const bool openEntry = attrs.getOpt<bool>(SUMO_ATTR_OPEN_ENTRY, id.c_str(), ok, false);
+    const bool expectArrival = attrs.getOpt<bool>(SUMO_ATTR_EXPECT_ARRIVAL, id.c_str(), ok, false);
     const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
     int detectPersons = 0;
     for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
@@ -1271,7 +1272,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     try {
         Parameterised* det = myDetectorBuilder.beginE3Detector(id,
                              FileHelpers::checkForRelativity(file, getFileName()),
-                             period, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry);
+                             period, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry, expectArrival);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         myCurrentIsBroken = true;

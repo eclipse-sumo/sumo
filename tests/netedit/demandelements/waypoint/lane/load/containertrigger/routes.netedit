@@ -15,6 +15,6 @@
     </flow>
     <flow id="routeFlow_4" begin="0.00" route="route_0" end="3600.00" number="18"/>
     <flow id="routeFlow_5" begin="0.00" route="route_0" end="3600.00" number="18">
-        <stop lane="gneE1_0" startPos="7.00" endPos="17.00" triggered="container" speed="10.00"/>
+        <stop lane="gneE1_0" startPos="7.00" endPos="17.00" speed="10.00"/>
     </flow>
 </routes>

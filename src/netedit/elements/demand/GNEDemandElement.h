@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -55,6 +55,7 @@ class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchi
 public:
     /// @brief friend declaration (needed for vTypes)
     friend class GNERouteHandler;
+    friend class GNEDemandElementFlow;
 
     /// @brief enum class for demandElement problems
     enum class Problem {
@@ -172,12 +173,6 @@ public:
      * @throw invalid argument if demand element doesn't have an demand element Dialog
      */
     virtual void openDemandElementDialog();
-
-    /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
-     * @throw invalid argument if demand element doesn't has a begin time
-     */
-    virtual std::string getBegin() const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -343,6 +338,12 @@ protected:
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
+    /// @brief get type parent (needed because first parent can be either type or typeDistribution)
+    GNEDemandElement* getTypeParent() const;
+
+    /// @brief get route parent (always the second parent demand element)
+    GNEDemandElement* getRouteParent() const;
+
     /// @name Only for person plans
     /// @{
     /// @brief check if person plan can be drawn
@@ -376,9 +377,6 @@ protected:
     /// @brief draw stack label
     void drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
 
-    /// @brief draw flow label
-    void drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
-
     /// @name replace parent elements
     /// @{
 
@@ -400,8 +398,11 @@ protected:
     /// @brief replace the last parent edge
     void replaceLastParentEdge(const std::string& value);
 
-    /// @brief replace additional parent
-    void replaceAdditionalParent(SumoXMLTag tag, const std::string& value);
+    /// @brief replace the first parent additional
+    void replaceFirstParentAdditional(SumoXMLTag tag, const std::string& value);
+
+    /// @brief replace the last parent additional
+    void replaceLastParentAdditional(SumoXMLTag tag, const std::string& value);
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
@@ -410,6 +411,9 @@ protected:
     void setVTypeDistributionParent(const std::string& value);
 
     /// @}
+
+    /// @brief check if the given demand element exist
+    bool demandElementExist(const std::string &id, const std::vector<SumoXMLTag> tags) const;
 
     /// @brief auxiliar struct used for calculate pathStopIndex
     struct EdgeStopIndex {
@@ -435,12 +439,6 @@ protected:
 
     /// @brief get edgeStopIndex
     std::vector<EdgeStopIndex> getEdgeStopIndex() const;
-
-    /// @brief set flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
-    void setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value);
-
-    /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
-    void adjustDefaultFlowAttributes(SUMOVehicleParameter* vehicleParameters);
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;

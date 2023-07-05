@@ -1,4 +1,4 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -27,6 +27,7 @@ import matplotlib
 if 'matplotlib.backends' not in sys.modules:
     if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
         matplotlib.use('Agg')
+from ..options import ArgumentParser
 from pylab import arange, close, cm, get_cmap, figure, legend, log, plt, savefig, show, title  # noqa
 from pylab import xlabel, xlim, xticks, ylabel, ylim, yticks  # noqa
 from matplotlib.ticker import FuncFormatter as ff  # noqa
@@ -53,77 +54,78 @@ def m2hm2(x, i):
     return '%(h)02d:%(m)02d:%(s)02d' % {'h': h, 'm': m, 's': s}
 
 
-def addPlotOptions(optParser):
-    optParser.add_option("--colors", dest="colors",
-                         default=None, help="Defines the colors to use")
-    optParser.add_option("--colormap", dest="colormap",
-                         default="nipy_spectral", help="Defines the colormap to use")
-    optParser.add_option("-l", "--labels", dest="labels",
-                         default=None, help="Defines the labels to use")
-    optParser.add_option("--xlim", dest="xlim",
-                         default=None, help="Defines x-limits of the figure XMIN,XMAX")
-    optParser.add_option("--ylim", dest="ylim",
-                         default=None, help="Defines y-limits of the figure YMIN,YMAX")
-    optParser.add_option("--xticks", dest="xticks",
-                         default=None, help="Set x-axis ticks XMIN,XMAX,XSTEP,XSIZE or XSIZE")
-    optParser.add_option("--yticks", dest="yticks",
-                         default=None, help="Set y-axis ticks YMIN,YMAX,YSTEP,YSIZE or YSIZE")
-    optParser.add_option("--xticks-file", dest="xticksFile",
-                         default=None, help="Load x-axis ticks from file (LABEL or FLOAT:LABEL per line)")
-    optParser.add_option("--yticks-file", dest="yticksFile",
-                         default=None, help="Load y-axis ticks from file (LABEL or FLOAT:LABEL per line)")
-    optParser.add_option("--xtime0", dest="xtime0", action="store_true",
-                         default=False, help="Use a time formatter for x-ticks (hh)")
-    optParser.add_option("--ytime0", dest="ytime0", action="store_true",
-                         default=False, help="Use a time formatter for y-ticks (hh)")
-    optParser.add_option("--xtime1", dest="xtime1", action="store_true",
-                         default=False, help="Use a time formatter for x-ticks (hh:mm)")
-    optParser.add_option("--ytime1", dest="ytime1", action="store_true",
-                         default=False, help="Use a time formatter for y-ticks (hh:mm)")
-    optParser.add_option("--xtime2", dest="xtime2", action="store_true",
-                         default=False, help="Use a time formatter for x-ticks (hh:mm:ss)")
-    optParser.add_option("--ytime2", dest="ytime2", action="store_true",
-                         default=False, help="Use a time formatter for y-ticks (hh:mm:ss)")
-    optParser.add_option("--xgrid", dest="xgrid", action="store_true",
-                         default=False, help="Enable grid on x-axis")
-    optParser.add_option("--ygrid", dest="ygrid", action="store_true",
-                         default=False, help="Enable grid on y-axis")
-    optParser.add_option("--xticksorientation", dest="xticksorientation",
-                         type=float, default=None, help="Set the orientation of the x-axis ticks")
-    optParser.add_option("--yticksorientation", dest="yticksorientation",
-                         type=float, default=None, help="Set the orientation of the x-axis ticks")
-    optParser.add_option("--xlabel", dest="xlabel",
-                         default=None, help="Set the x-axis label")
-    optParser.add_option("--ylabel", dest="ylabel",
-                         default=None, help="Set the y-axis label")
-    optParser.add_option("--xlabelsize", dest="xlabelsize",
-                         type=int, default=16, help="Set the size of the x-axis label")
-    optParser.add_option("--ylabelsize", dest="ylabelsize",
-                         type=int, default=16, help="Set the size of the x-axis label")
-    optParser.add_option("--marker", dest="marker", default=None,
-                         help="marker for single points (default o for scatter, None otherwise)")
-    optParser.add_option("--linestyle", dest="linestyle", default="-",
-                         help="plot line style (default -)")
-    optParser.add_option("--title", dest="title",
-                         default=None, help="Set the title")
-    optParser.add_option("--titlesize", dest="titlesize",
-                         type=int, default=16, help="Set the title size")
-    optParser.add_option("--adjust", dest="adjust",
-                         default=None, help="Adjust the subplots LEFT,BOTTOM or LEFT,BOTTOM,RIGHT,TOP")
-    optParser.add_option("-s", "--size", dest="size",
-                         default=False, help="Defines the figure size X,Y")
-    optParser.add_option("--no-legend", dest="nolegend", action="store_true",
-                         default=False, help="Disables the legend")
-    optParser.add_option("--legend-position", dest="legendposition",
-                         default=None, help="Sets the legend position")
-    optParser.add_option("--dpi", dest="dpi", type=float,
-                         default=None, help="Define dpi resolution for figures")
-    optParser.add_option("--alpha", type=float,
-                         default=1., help="Define background transparency of the figure in the range 0..1")
+def addPlotOptions(ap):
+    ap.add_argument("--colors", dest="colors", category="visualization",
+                    default=None, help="Defines the colors to use")
+    ap.add_argument("--colormap", dest="colormap", category="visualization",
+                    default="nipy_spectral", help="Defines the colormap to use")
+    ap.add_argument("-l", "--labels", dest="labels", category="visualization",
+                    default=None, help="Defines the labels to use")
+    ap.add_argument("--xlim", dest="xlim", category="visualization",
+                    default=None, help="Defines x-limits of the figure XMIN,XMAX")
+    ap.add_argument("--ylim", dest="ylim", category="visualization",
+                    default=None, help="Defines y-limits of the figure YMIN,YMAX")
+    ap.add_argument("--xticks", dest="xticks", category="visualization",
+                    default=None, help="Set x-axis ticks XMIN,XMAX,XSTEP,XSIZE or XSIZE")
+    ap.add_argument("--yticks", dest="yticks", category="visualization",
+                    default=None, help="Set y-axis ticks YMIN,YMAX,YSTEP,YSIZE or YSIZE")
+    ap.add_argument("--xticks-file", dest="xticksFile", category="input", type=ap.file,
+                    default=None, help="Load x-axis ticks from file (LABEL or FLOAT:LABEL per line)")
+    ap.add_argument("--yticks-file", dest="yticksFile", category="input", type=ap.file,
+                    default=None, help="Load y-axis ticks from file (LABEL or FLOAT:LABEL per line)")
+    ap.add_argument("--xtime0", dest="xtime0", action="store_true", category="time",
+                    default=False, help="Use a time formatter for x-ticks (hh)")
+    ap.add_argument("--ytime0", dest="ytime0", action="store_true", category="time",
+                    default=False, help="Use a time formatter for y-ticks (hh)")
+    ap.add_argument("--xtime1", dest="xtime1", action="store_true", category="time",
+                    default=False, help="Use a time formatter for x-ticks (hh:mm)")
+    ap.add_argument("--ytime1", dest="ytime1", action="store_true", category="time",
+                    default=False, help="Use a time formatter for y-ticks (hh:mm)")
+    ap.add_argument("--xtime2", dest="xtime2", action="store_true", category="time",
+                    default=False, help="Use a time formatter for x-ticks (hh:mm:ss)")
+    ap.add_argument("--ytime2", dest="ytime2", action="store_true", category="time",
+                    default=False, help="Use a time formatter for y-ticks (hh:mm:ss)")
+    ap.add_argument("--xgrid", dest="xgrid", action="store_true", category="visualization",
+                    default=False, help="Enable grid on x-axis")
+    ap.add_argument("--ygrid", dest="ygrid", action="store_true", category="visualization",
+                    default=False, help="Enable grid on y-axis")
+    ap.add_argument("--xticksorientation", dest="xticksorientation", category="visualization",
+                    type=float, default=None, help="Set the orientation of the x-axis ticks")
+    ap.add_argument("--yticksorientation", dest="yticksorientation", category="visualization",
+                    type=float, default=None, help="Set the orientation of the x-axis ticks")
+    ap.add_argument("--xlabel", dest="xlabel", category="visualization",
+                    default=None, help="Set the x-axis label")
+    ap.add_argument("--ylabel", dest="ylabel", category="visualization",
+                    default=None, help="Set the y-axis label")
+    ap.add_argument("--xlabelsize", dest="xlabelsize", category="visualization",
+                    type=int, default=16, help="Set the size of the x-axis label")
+    ap.add_argument("--ylabelsize", dest="ylabelsize", category="visualization",
+                    type=int, default=16, help="Set the size of the x-axis label")
+    ap.add_argument("--marker", dest="marker", default=None, category="visualization",
+                    help="marker for single points (default o for scatter, None otherwise)")
+    ap.add_argument("--linestyle", dest="linestyle", default="-", category="visualization",
+                    help="plot line style (default -)")
+    ap.add_argument("--title", dest="title", category="visualization",
+                    default=None, help="Set the title")
+    ap.add_argument("--titlesize", dest="titlesize", category="visualization",
+                    type=int, default=16, help="Set the title size")
+    ap.add_argument("--adjust", dest="adjust", category="visualization",
+                    default=None, help="Adjust the subplots LEFT,BOTTOM or LEFT,BOTTOM,RIGHT,TOP")
+    ap.add_argument("-s", "--size", dest="size", category="visualization",
+                    default=False, help="Defines the figure size X,Y")
+    ap.add_argument("--no-legend", dest="nolegend", action="store_true", category="visualization",
+                    default=False, help="Disables the legend")
+    ap.add_argument("--legend-position", dest="legendposition", category="visualization",
+                    default=None, help="Sets the legend position")
+    ap.add_argument("--dpi", dest="dpi", type=float, category="visualization",
+                    default=None, help="Define dpi resolution for figures")
+    ap.add_argument("--alpha", type=float,
+                    default=1., help="Define background transparency of the figure in the range 0..1")
 
 
 def addInteractionOptions(optParser):
-    optParser.add_option("-o", "--output", dest="output", metavar="FILE",
+    optParser.add_option("-o", "--output", category="output", dest="output", metavar="FILE",
+                         type=ArgumentParser.file_list,
                          default=None, help="Comma separated list of filename(s) the figure shall be written to")
     optParser.add_option("-b", "--blind", dest="blind", action="store_true",
                          default=False, help="If set, the figure will not be shown")

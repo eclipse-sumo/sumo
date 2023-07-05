@@ -1,1 +1,2 @@
-Error: Disconnected route 'route_3' when repeating.
+Error: Disconnected route 'route_3' when repeating. Last edge 'gneE5' is not connected to first edge 'gneE2'.
+Quitting (on error).

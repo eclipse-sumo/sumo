@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -230,20 +230,23 @@ def getOutStream(output):
 
 def get_options(arglist=None):
     optParser = sumolib.options.ArgumentParser(description="Convert a XML file to a CSV file")
-    optParser.add_argument("source", category="input", type=optParser.data_file,
+    # input
+    optParser.add_argument("source", category="input", type=optParser.file,
                            help="the input data (stream given by digits or file")
-    optParser.add_argument("-s", "--separator", category="processing", default=";",
+    # output
+    optParser.add_argument("-o", "--output", category="output", type=optParser.file,
+                           help="base name for output")
+    # processing
+    optParser.add_argument("-s", "--separator", default=";",
                            help="separating character for fields")
-    optParser.add_argument("-q", "--quotechar", category="processing", default='',
+    optParser.add_argument("-q", "--quotechar", default='',
                            help="quoting character for fields")
     optParser.add_argument("-x", "--xsd", category="processing",
                            help="xsd schema to use")
-    optParser.add_argument("-a", "--validation", category="processing", action="store_true", default=False,
+    optParser.add_argument("-a", "--validation", action="store_true", default=False,
                            help="enable schema validation")
-    optParser.add_argument("-p", "--split", category="processing", action="store_true", default=False,
+    optParser.add_argument("-p", "--split", action="store_true", default=False,
                            help="split in different files for the first hierarchy level")
-    optParser.add_argument("-o", "--output", category="output", type=optParser.data_file,
-                           help="base name for output")
     options = optParser.parse_args(arglist)
     if options.validation and not haveLxml:
         print("lxml not available, skipping validation", file=sys.stderr)

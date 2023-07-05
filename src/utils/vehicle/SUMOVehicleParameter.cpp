@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -306,9 +306,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     if (!actType.empty()) {
         dev.writeAttr(SUMO_ATTR_ACTTYPE, actType);
     }
-    // Write rest of parameters
-    writeParams(dev);
     if (close) {
+        // the user is closing the stop it is responsible for writing params
+        writeParams(dev);
         dev.closeTag();
     }
 }

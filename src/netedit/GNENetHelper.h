@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -423,6 +423,11 @@ struct GNENetHelper {
          */
         GNEDemandElement* retrieveDemandElement(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
+        /**@brief Returns the first demand element sorted by ID (or null if type is empty)
+         * @param[in] type tag with the type of demand element
+         */
+        GNEDemandElement* retrieveFirstDemandElement(SumoXMLTag type) const;
+
         /// @brief get selected demand elements
         std::vector<GNEDemandElement*> getSelectedDemandElements() const;
 
@@ -664,7 +669,7 @@ struct GNENetHelper {
         /**@brief delete demand element element of GNENet container
          * @throw processError if demand element wasn't previously inserted
          */
-        void deleteDemandElement(GNEDemandElement* demandElement);
+        void deleteDemandElement(GNEDemandElement* demandElement, const bool updateFrames);
 
         /// @}
 
@@ -703,6 +708,9 @@ struct GNENetHelper {
         void deleteMeanData(GNEMeanData* meanData);
 
         /// @}
+
+        /// @brief update demand element frames (called after insert/delete demand element)
+        void updateDemandElementFrames(const GNETagProperties& tagProperty);
 
     private:
         /// @brief pointer to net

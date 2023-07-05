@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -252,6 +252,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
     mySaveElements(this),
+    myTimeFormat(this),
     mySelectingArea(this),
     myEditNetworkElementShapes(this),
     myLockManager(this),
@@ -881,6 +882,12 @@ GNEViewNet::getSaveElements() {
 }
 
 
+GNEViewNetHelper::TimeFormat&
+GNEViewNet::getTimeFormat() {
+    return myTimeFormat;
+}
+
+
 GNEViewNet::GNEViewNet() :
     myEditModes(this),
     myTestingMode(this),
@@ -898,6 +905,7 @@ GNEViewNet::GNEViewNet() :
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
     mySaveElements(this),
+    myTimeFormat(this),
     mySelectingArea(this),
     myEditNetworkElementShapes(this),
     myLockManager(this) {
@@ -2023,7 +2031,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_U_MODE_TYPEDISTRIBUTION:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPEDISTRIBUTION);
-                break;  
+                break;
             case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_STOP);
                 break;
@@ -4405,8 +4413,11 @@ GNEViewNet::buildEditModeControls() {
     // build supermode buttons
     myEditModes.buildSuperModeButtons();
 
-    // build save buttons
+    // build save elements buttons
     mySaveElements.buildSaveElementsButtons();
+
+    // build time switch buttons
+    myTimeFormat.buildTimeFormatButtons();
 
     // build menu checks for Common checkable buttons
     myCommonCheckableButtons.buildCommonCheckableButtons();

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:09:32.948126 by routeSampler.py v1_13_0+1343-240e5d48340
+<!-- generated on 2023-06-29 15:04:02.141012 by routeSampler.py v1_17_0+1318-85f891f765f
 <configuration>
-    <edgedata-attribute value="count"/>
-    <edgedata-files value="input_edgedata.xml"/>
     <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <edgedata-attribute value="count"/>
     <write-flows value="number"/>
     <write-route-ids value="True"/>
 </configuration>
@@ -16,13 +16,15 @@
     <route id="0_1" edges="-3 -3.180.00 15"/> <!-- 1 (route_1) -->
     <route id="0_2" edges="-3 -3.180.00 5"/> <!-- 7 (route_0) -->
 
-    <flow id="0_2" begin="0.00" end="240.00" number="7" route="0_2"/>
-    <flow id="0_0" begin="60.00" end="180.00" number="2" route="0_0"/>
-    <flow id="0_1" begin="270.00" end="271.00" number="1" route="0_1"/>
+    <flow id="0_2" begin="18.51" end="300.00" number="7" route="0_2"/>
+    <flow id="0_0" begin="45.64" end="300.00" number="2" route="0_0"/>
+    <flow id="0_1" begin="157.43" end="300.00" number="1" route="0_1"/>
 <!-- begin="300.0" end="600.0" -->
-    <route id="300_0" edges="-3 -3.180.00 11"/> <!-- 6 (route_2) -->
+    <route id="300_0" edges="-3 -3.180.00 11"/> <!-- 5 (route_2) -->
+    <route id="300_1" edges="-3 -3.180.00 15"/> <!-- 1 (route_1) -->
     <route id="300_2" edges="-3 -3.180.00 5"/> <!-- 2 (route_0) -->
 
-    <flow id="300_0" begin="300.00" end="562.50" number="6" route="300_0"/>
-    <flow id="300_2" begin="375.00" end="487.50" number="2" route="300_2"/>
+    <flow id="300_1" begin="313.94" end="600.00" number="1" route="300_1"/>
+    <flow id="300_0" begin="335.54" end="600.00" number="5" route="300_0"/>
+    <flow id="300_2" begin="391.13" end="600.00" number="2" route="300_2"/>
 </routes>

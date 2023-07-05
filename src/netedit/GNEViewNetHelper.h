@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -23,6 +23,7 @@
 #include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/foxtools/MFXLCDLabel.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 
@@ -523,6 +524,35 @@ struct GNEViewNetHelper {
 
         /// @brief Invalidated assignment operator.
         SaveElements& operator=(const SaveElements&) = delete;
+    };
+
+    /// @brief struct used to group all variables related with time format
+    struct TimeFormat {
+
+        /// @brief default constructor
+        TimeFormat(GNEViewNet* viewNet);
+
+        /// @brief build time format buttons
+        void buildTimeFormatButtons();
+
+        /// @brief switch time format
+        void switchTimeFormat();
+
+        /// @brief update button label
+        void updateButtonLabel();
+
+    private:
+        /// @brief pointer to net
+        GNEViewNet* myViewNet;
+
+        /// @brief checkable button for switch between timeSteps and HH:MM:SS
+        MFXButtonTooltip* mySwitchButton = nullptr;
+
+        /// @brief Invalidated copy constructor.
+        TimeFormat(const TimeFormat&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        TimeFormat& operator=(const TimeFormat&) = delete;
     };
 
     /// @brief struct used to group all variables related with Supermodes

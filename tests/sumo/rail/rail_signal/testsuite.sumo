@@ -101,3 +101,9 @@ stopped_link_conflict2
 
 # approach to conflict link must be guaranteed within some limits (regardless of brakeGap or number of intermediate junctions)
 conflict_lookahead
+
+# expose crash from loading order of files via #13412
+route_as_additional
+
+# insertion checks do not prevent deadlock (related to case2 of #12085)
+deadlock_insertion

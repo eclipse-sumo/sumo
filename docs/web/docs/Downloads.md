@@ -59,17 +59,16 @@ try one of the build service repositories here too, e.g.
 At the moment there is no documentation included in the packages. The
 repositories include a nightly build as well (called ***sumo-git***).
 
-- [openSUSE Leap 15.2 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_15.2/)
-- [openSUSE Leap 15.3 repository](http://download.opensuse.org/repositories/science:/dlr/15.3/)
-- [openSUSE Leap 15.4 repository](http://download.opensuse.org/repositories/science:/dlr/15.4/)
-- [openSUSE Tumbleweed repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Tumbleweed/)
-- [Fedora 34 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_34/)
-- [Fedora 35 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_35/)
-- [Fedora 36 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_36/)
-- [Fedora 37 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_37/)
-- [Fedora Rawhide repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_Rawhide/)
-- [CentOS 7 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
-- [CentOS 8 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_8/)
+- [openSUSE Leap 15.2 repository](https://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_15.2/)
+- [openSUSE Leap 15.3 repository](https://download.opensuse.org/repositories/science:/dlr/15.3/)
+- [openSUSE Leap 15.4 repository](https://download.opensuse.org/repositories/science:/dlr/15.4/)
+- [openSUSE Tumbleweed repository](https://download.opensuse.org/repositories/science:/dlr/openSUSE_Tumbleweed/)
+- [Fedora 36 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_36/)
+- [Fedora 37 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_37/)
+- [Fedora 38 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_38/)
+- [Fedora Rawhide repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_Rawhide/)
+- [CentOS 7 repository](https://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
+- [CentOS 8 repository](https://download.opensuse.org/repositories/science:/dlr/CentOS_8/)
 
 ### Examples
 
@@ -81,7 +80,7 @@ yum install -y --nogpgcheck sumo-{{Version}}
 ```
 and like this, for zypper on openSUSE Leap 15.3:
 ```
-zypper ar http://download.opensuse.org/repositories/science:/dlr/15.3/ science:dlr
+zypper ar https://download.opensuse.org/repositories/science:/dlr/15.3/ science:dlr
 zypper in sumo={{Version}}
 ```
 I you leave out the version number it will install the latest nightly build.

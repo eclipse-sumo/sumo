@@ -31,7 +31,7 @@ buses, trams, bicycles, passenger cars, and feet. They should travel on
 different lanes side-by-side. Thus, we have to add lanes for each mode.
 To do so, right-click on the edge and hover over "add restricted lane"
 in the context menu. This will show you three choices for the creation
-of special purpose lanes: Sidewalk, Bikelane, and Buslane. Add one lane
+of special purpose lanes: Sidewalk, bike lane, and Bus lane. Add one lane
 for each type.
 
 <img src="../images/sumolympics_netedit_2.png" width="1000"/>

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -181,12 +181,6 @@ GNEStop::getMoveOperation() {
     } else {
         return nullptr;
     }
-}
-
-
-std::string
-GNEStop::getBegin() const {
-    return "";
 }
 
 
@@ -501,7 +495,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
     if (getTagProperty().isStopPerson() || getTagProperty().isStopContainer()) {
         // check if stop can be draw
         if ((getTagProperty().isStopPerson() && drawPersonPlan()) ||
-            (getTagProperty().isStopContainer() && drawContainerPlan())) {
+                (getTagProperty().isStopContainer() && drawContainerPlan())) {
             // check if draw stopPerson over busStop oder over lane
             if (getParentAdditionals().size() > 0) {
                 drawStopPersonOverStoppingPlace(s, exaggeration);
@@ -1623,23 +1617,23 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
-            replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_BUS_STOP, value);
             updateGeometry();
             break;
         case SUMO_ATTR_TRAIN_STOP:
-            replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_TRAIN_STOP, value);
             updateGeometry();
             break;
         case SUMO_ATTR_CONTAINER_STOP:
-            replaceAdditionalParent(SUMO_TAG_CONTAINER_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_CONTAINER_STOP, value);
             updateGeometry();
             break;
         case SUMO_ATTR_CHARGING_STATION:
-            replaceAdditionalParent(SUMO_TAG_CHARGING_STATION, value);
+            replaceFirstParentAdditional(SUMO_TAG_CHARGING_STATION, value);
             updateGeometry();
             break;
         case SUMO_ATTR_PARKING_AREA:
-            replaceAdditionalParent(SUMO_TAG_PARKING_AREA, value);
+            replaceFirstParentAdditional(SUMO_TAG_PARKING_AREA, value);
             updateGeometry();
             break;
         // specific of Stops over edges

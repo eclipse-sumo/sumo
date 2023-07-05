@@ -330,7 +330,7 @@ recv ./foreign/tcpip/libtcpip.a(socket.o) (symbol belongs to implicit depe
 ```
 
 Solution:
-<http://lists.danga.com/pipermail/memcached/2005-September/001611.html>
+<https://lists.danga.com/pipermail/memcached/2005-September/001611.html>
 
 ### ld cannot find an existing library (Fedora-23)
 
@@ -350,7 +350,7 @@ sudo yum install freetype-devel
 ```
 
 For details see
-[stackoverflow](http://stackoverflow.com/questions/335928/ld-cannot-find-an-existing-library)
+[stackoverflow](https://stackoverflow.com/questions/335928/ld-cannot-find-an-existing-library)
 discussion.
 
 ### Additional notes for Cygwin users

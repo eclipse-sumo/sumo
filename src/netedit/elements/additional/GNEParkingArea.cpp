@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -49,7 +49,7 @@ GNEParkingArea::GNEParkingArea(GNENet* net) :
 
 
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
-                               const std::string& departPos, const std::string& name, const bool friendlyPosition, const int roadSideCapacity, 
+                               const std::string& departPos, const std::string& name, const bool friendlyPosition, const int roadSideCapacity,
                                const bool onRoad, const double width, const double length, const double angle, const bool lefthand,
                                const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA),
@@ -60,8 +60,7 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net
     myWidth(width),
     myLength(length),
     myAngle(angle),
-    myLefthand(lefthand)
-{
+    myLefthand(lefthand) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -531,7 +530,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LEFTHAND:
             myLefthand = parse<bool>(value);
-            updateGeometry();
+            if (!isTemplate()) {
+                updateGeometry();
+            }
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

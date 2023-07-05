@@ -224,7 +224,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
   - [Right-turn-on-red](https://en.wikipedia.org/wiki/Right_turn_on_red)
     is now supported via the new [node type *traffic_light_right_on_red*](../Networks/PlainXML.md#node_types). #1287
   - Importing *.inpx* [VISSIM networks](../Networks/Import/Vissim.md) is now supported.
-    Thanks to the [AIT](http://www.ait.ac.at/) for their
+    Thanks to the [AIT](https://www.ait.ac.at/) for their
     contribution.
   - The positioning and presence of [internal junctions](../Networks/SUMO_Road_Networks.md#internal_junctions)
     can now be [customized with the new connection attribute `contPos`](../Networks/PlainXML.md#explicitly_setting_which_edge_lane_is_connected_to_which). #2016
@@ -300,8 +300,8 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
 
 - Documentation
   - Online documentation of
-    [TraCI4J](http://github.com/egueli/TraCI4J) can now be found at
-    [traci4j-javadoc](http://sumo.dlr.de/daily/javadoc/traci4j/)
+    [TraCI4J](https://github.com/egueli/TraCI4J) can now be found at
+    [traci4j-javadoc](https://sumo.dlr.de/daily/javadoc/traci4j/)
   - The section on [Additional netconvert outputs was completely rewritten](../Networks/Further_Outputs.md#further_outputs).
   - Added a [new page on XML Validation](../XMLValidation.md)
   - Added [documentation for the C++ TraCI API client](../TraCI/C++TraCIAPI.md)
@@ -588,7 +588,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
 
 - Scenarios
   - An updated version of the [TAPASCologne scenario](../Data/Scenarios/TAPASCologne.md) can be found
-    on [the sourceforge download page](http://sourceforge.net/projects/sumo/files/traffic_data/scenarios/TAPASCologne).
+    on [the sourceforge download page](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/TAPASCologne).
     This updates the network to the latest OSM data and
     [netconvert](../netconvert.md) version.
   - An updated version of the [Bologna scenarios](../Data/Scenarios.md#bologna) can be found on
@@ -843,7 +843,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     delay along with the current visualisation settings. #1625
 
 - netconvert
-  - read heightmaps from GeoTIFFs for instance [SRTM data](http://opendem.info/download_srtm.html) #1495
+  - read heightmaps from GeoTIFFs for instance [SRTM data](https://opendem.info/download_srtm.html) #1495
   - when adding sidewalks via
     [typemap](../SUMO_edge_type_file.md) or **--sidewalks.guess**, permissions on
     all other lanes are now automatically set to disallow

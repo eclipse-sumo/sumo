@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -1070,6 +1070,12 @@ private:
 
     /// @brief init model parameters from generic params
     void initTransientModelParams();
+
+    /// @brief reconstruct flow id from vehicle id
+    std::string getFlowID() const;
+
+    /// @brief remove route at the end of the simulation
+    void checkRouteRemoval();
 
 private:
     /// invalidated assignment operator

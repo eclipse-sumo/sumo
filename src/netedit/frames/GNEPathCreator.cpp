@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -23,7 +23,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -254,6 +254,12 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myCreationMode |= END_JUNCTION;
             myCreationMode |= ONLY_FROMTO;
             break;
+        case GNE_TAG_TRIP_TAZS:
+        case GNE_TAG_FLOW_TAZS:
+            myCreationMode |= START_TAZ;
+            myCreationMode |= END_TAZ;
+            myCreationMode |= ONLY_FROMTO;
+            break;
         // edges
         case GNE_TAG_WALK_EDGES:
         case GNE_TAG_TRANSHIP_EDGES:
@@ -421,6 +427,49 @@ GNEPathCreator::addJunction(GNEJunction* junction) {
 
 
 bool
+GNEPathCreator::addTAZ(GNETAZ* TAZ) {
+    // check if TAZs are allowed
+    if (((myCreationMode & START_TAZ) == 0) && ((myCreationMode & END_TAZ) == 0)) {
+        return false;
+    }
+    // continue depending of number of selected edge
+    if (mySelectedTAZs.size() > 0) {
+        // check double TAZs
+        if (mySelectedTAZs.back() == TAZ) {
+            // Write warning
+            WRITE_WARNING(TL("Double TAZs aren't allowed"));
+            // abort add TAZ
+            return false;
+        }
+    }
+    // check number of TAZs
+    if (mySelectedTAZs.size() == 2 && (myCreationMode & Mode::ONLY_FROMTO)) {
+        // Write warning
+        WRITE_WARNING(TL("Only two TAZs are allowed"));
+        // abort add TAZ
+        return false;
+    }
+    // All checks ok, then add it in selected elements
+    mySelectedTAZs.push_back(TAZ);
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
+    // enable or disable remove last TAZ button
+    if (mySelectedTAZs.size() > 1) {
+        myRemoveLastInsertedElement->enable();
+    } else {
+        myRemoveLastInsertedElement->disable();
+    }
+    // update info route label
+    updateInfoRouteLabel();
+    return true;
+}
+
+
+bool
 GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
     // check if edges are allowed
     if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0)) {
@@ -521,6 +570,12 @@ GNEPathCreator::getSelectedEdges() const {
 const std::vector<GNEJunction*>&
 GNEPathCreator::getSelectedJunctions() const {
     return mySelectedJunctions;
+}
+
+
+const std::vector<GNETAZ*>&
+GNEPathCreator::getSelectedTAZs() const {
+    return mySelectedTAZs;
 }
 
 
@@ -812,6 +867,19 @@ GNEPathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
             // draw line
             GLHelper::drawBoxLine(posA, rot, len, 0.25);
         }
+    } else if (mySelectedTAZs.size() > 0) {
+        // set color
+        GLHelper::setColor(RGBColor::ORANGE);
+        // draw line between TAZs
+        for (int i = 0; i < (int)mySelectedTAZs.size() - 1; i++) {
+            // get two points
+            const Position posA = mySelectedTAZs.at(i)->getPositionInView();
+            const Position posB = mySelectedTAZs.at(i + 1)->getPositionInView();
+            const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
+            const double len = posA.distanceTo2D(posB);
+            // draw line
+            GLHelper::drawBoxLine(posA, rot, len, 0.25);
+        }
     }
     // Pop last matrix
     GLHelper::popMatrix();
@@ -828,7 +896,7 @@ GNEPathCreator::createPath(const bool useLastRoute) {
 void
 GNEPathCreator::abortPathCreation() {
     // first check that there is elements
-    if ((mySelectedJunctions.size() > 0) || (mySelectedEdges.size() > 0) || myToStoppingPlace || myRoute) {
+    if ((mySelectedJunctions.size() > 0) || (mySelectedTAZs.size() > 0) || (mySelectedEdges.size() > 0) || myToStoppingPlace || myRoute) {
         // unblock undo/redo
         myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->enableUndoRedo();
         // clear edges
@@ -971,8 +1039,9 @@ GNEPathCreator::clearPath() {
     /// reset flags
     clearJunctionColors();
     clearEdgeColors();
-    // clear junction, edges, additionals and route
+    // clear junction, TAZs, edges, additionals and route
     mySelectedJunctions.clear();
+    mySelectedTAZs.clear();
     mySelectedEdges.clear();
     myToStoppingPlace = nullptr;
     myRoute = nullptr;

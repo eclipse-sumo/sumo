@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -37,7 +37,7 @@
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    myArrivalPosition(0) {
+myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -46,21 +46,21 @@ GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition) {
+myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(const bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toAdditional, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, isTrain? GNE_TAG_WALK_TRAINSTOP : GNE_TAG_WALK_BUSSTOP, GUIIconSubSys::getIcon(isTrain? GUIIcon::WALK_TRAINSTOP : GUIIcon::WALK_BUSSTOP),
+    GNEDemandElement(personParent, net, GLO_WALK, isTrain ? GNE_TAG_WALK_TRAINSTOP : GNE_TAG_WALK_BUSSTOP, GUIIconSubSys::getIcon(isTrain ? GUIIcon::WALK_TRAINSTOP : GUIIcon::WALK_BUSSTOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toAdditional}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition) {
+myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES, GUIIconSubSys::getIcon(GUIIcon::WALK_EDGES),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edges}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition) {
+myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -153,11 +153,11 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
         }
         // write to depending if personplan ends in a busStop, edge or junction
         if (getParentAdditionals().size() > 0) {
-        if (getParentAdditionals().back()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
-            device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
-        } else {
-            device.writeAttr(SUMO_ATTR_TRAIN_STOP, getParentAdditionals().back()->getID());
-        }
+            if (getParentAdditionals().back()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+                device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
+            } else {
+                device.writeAttr(SUMO_ATTR_TRAIN_STOP, getParentAdditionals().back()->getID());
+            }
         } else if (getParentEdges().size() > 0) {
             device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
         } else {
@@ -166,7 +166,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     }
     // avoid write arrival positions in walk to busStop
     if ((myTagProperty.getTag() != GNE_TAG_RIDE_BUSSTOP) && (myTagProperty.getTag() != GNE_TAG_RIDE_TRAINSTOP) &&
-        (myArrivalPosition > 0)) {
+            (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // close tag
@@ -683,12 +683,12 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             computePathElement();
             break;
         case GNE_ATTR_TO_BUSSTOP:
-            replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_BUS_STOP, value);
             // compute walk
             computePathElement();
             break;
         case GNE_ATTR_TO_TRAINSTOP:
-            replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_TRAIN_STOP, value);
             // compute walk
             computePathElement();
             break;

@@ -1,0 +1,6 @@
+Warning: Program '0' at tlLogic 'J0' is incompatible with logic at junction 'J0' (mutual conflict between link indices 3,7 tl indices 3,7 phase 0).
+  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
+  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
+Warning: Program '1' at tlLogic 'J0' is incompatible with logic at junction 'J0' (mutual conflict between link indices 3,7 tl indices 3,7 phase 0).
+  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
+  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.

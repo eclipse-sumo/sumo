@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -336,8 +336,10 @@
 #include "vehicle.xpm"
 #include "trip.xpm"
 #include "tripjunctions.xpm"
+#include "triptazs.xpm"
 #include "flow.xpm"
 #include "flowjunctions.xpm"
+#include "flowtazs.xpm"
 #include "routeflow.xpm"
 #include "stopelement.xpm"
 #include "waypoint.xpm"
@@ -808,8 +810,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
     myIcons[GUIIcon::TRIP] = new FXXPMIcon(a, trip_xpm);
     myIcons[GUIIcon::TRIP_JUNCTIONS] = new FXXPMIcon(a, tripjunctions_xpm);
+    myIcons[GUIIcon::TRIP_TAZS] = new FXXPMIcon(a, triptazs_xpm);
     myIcons[GUIIcon::FLOW] = new FXXPMIcon(a, flow_xpm);
     myIcons[GUIIcon::FLOW_JUNCTIONS] = new FXXPMIcon(a, flowjunctions_xpm);
+    myIcons[GUIIcon::FLOW_TAZS] = new FXXPMIcon(a, flowtazs_xpm);
     myIcons[GUIIcon::ROUTEFLOW] = new FXXPMIcon(a, routeflow_xpm);
     myIcons[GUIIcon::STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
     myIcons[GUIIcon::WAYPOINT] = new FXXPMIcon(a, waypoint_xpm);

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -561,6 +561,9 @@ public:
     /// @brief get variable used to save elements
     GNEViewNetHelper::SaveElements& getSaveElements();
 
+    /// @brief get variable used to swith between time formats
+    GNEViewNetHelper::TimeFormat& getTimeFormat();
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();
@@ -643,10 +646,13 @@ private:
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
     // @}
 
-    /// @brief variable used to save elements
+    /// @brief variable used for grouping all variables related with salve elements
     GNEViewNetHelper::SaveElements mySaveElements;
 
-    /// @brief variable used to save variables related with selecting areas
+    /// @brief variable used for grouping all variables related with switch time
+    GNEViewNetHelper::TimeFormat myTimeFormat;
+
+    /// @brief variable used for grouping all variables related with selecting areas
     GNEViewNetHelper::SelectingArea mySelectingArea;
 
     /// @brief struct for grouping all variables related with edit shapes

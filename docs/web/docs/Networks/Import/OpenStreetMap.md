@@ -2,9 +2,9 @@
 title: OpenStreetMap
 ---
 
-*"[OpenStreetMap](http://www.openstreetmap.org/) is a free editable map
+*"[OpenStreetMap](https://www.openstreetmap.org/) is a free editable map
 of the whole world. It is made by people like you."* (from
-[<http://www.openstreetmap.org>](https://www.openstreetmap.org/)). This
+[<https://www.openstreetmap.org>](https://www.openstreetmap.org/)). This
 page describes the conversion of files containing data from OpenStreetMap to
 SUMO network files.
 
@@ -256,19 +256,19 @@ report anything odd.
 ## SRTM
 
 When using option **--osm.elevation**, z-data is imported from [tags with `key="ele"`
-](http://wiki.openstreetmap.org/wiki/Key:ele) in OSM nodes. Since this
+](https://wiki.openstreetmap.org/wiki/Key:ele) in OSM nodes. Since this
 tag is not yet in wide use, tools exist to overlay OSM data with
 elevation data sources
-(http://wiki.openstreetmap.org/wiki/Srtm_to_Nodes). When using the
+(https://wiki.openstreetmap.org/wiki/Srtm_to_Nodes). When using the
 osmosis-srtm pluging the option **tagName=ele** must be used since only the ['ele'
-tag](http://wiki.openstreetmap.org/wiki/Key:ele) is evaluated and the
+tag](https://wiki.openstreetmap.org/wiki/Key:ele) is evaluated and the
 plugin would use the ['height'
-tag](http://wiki.openstreetmap.org/wiki/Key:height) by default.
+tag](https://wiki.openstreetmap.org/wiki/Key:height) by default.
 
 ## Layer Information
 
 When using option **--osm.layer-elevation**, z-data is imported from [tags with `key="layer"`
-](http://wiki.openstreetmap.org/wiki/Key:layer) in OSM ways. Since this
+](https://wiki.openstreetmap.org/wiki/Key:layer) in OSM ways. Since this
 data does not encode full elevation information, a heuristic is used to
 interpret the given information. Manual correction may be necessary.
 
@@ -407,11 +407,19 @@ not desirable for multi-modal scenarios.
 In the OSM database, shared space for tram and road vehicles is often modelled with distinct elements that occupy the same space. When imported directly, this would allow those modes of traffic to ignore each other due to running on different edges.
 To fix this, the option **--edges.join-tram-dist FLOAT** may be used. When this option is set (values between 1 and 2 are recommended), overlapping OSM elements will be converted to road lanes with shared permissions (indicated by a dark purple in [sumo-gui](../../sumo-gui.md#default_coloring)).
 
+
+## Further way/edge attributes
+
+When setting option **--output.street-names**, the 'name' attribute of every edge will be set to the street name defined in the OSM data.
+
+When setting option **--osm.all-attributes**, all OSM tags of a way are exported as [generic params](../../Simulation/GenericParameters.md) of the edge.
+If only a specific selection of tags should be imported, this can be set with option **--osm.extra-attributes**.
+
 # Editing OSM networks
 
 ## JOSM
 
-*From George Dita, on 01.07.2009* [JOSM](http://josm.openstreetmap.de/)
+*From George Dita, on 01.07.2009* [JOSM](https://josm.openstreetmap.de/)
 can be used to edit OSM-data (i.e. for trimming a rectangular map and
 deleting unwanted features). After you delete the part that does not
 interest you, you have to alter the file using xmlstarlet which actually
@@ -430,7 +438,7 @@ xmlstarlet ed -d "/osm/*[@action='delete']" < input.osm > output.osm
 
 *From Christian Klotz, on 01.07.2009, tip by Christoph Sommmer*
 
-The java tool osmosis (http://wiki.openstreetmap.org/index.php/Osmosis)
+The java tool osmosis (https://wiki.openstreetmap.org/index.php/Osmosis)
 can be used to filter out unwanted features from an OSM-file. The
 following command keeps motorways and motorway links while filtering out
 everything else:
@@ -629,7 +637,7 @@ Python Example (Get OSM River Data from OSM in BBox)
 ```
    def getData(lsouthern-most latitude, western-most longitude, northern-most latitude, eastern-most longitude):
      query = 'way["waterway"="river"]["ship"="yes"](bbox:%s, %s, %s, %s)' %(southern-most latitude, western-most longitude, northern-most latitude, eastern-most longitude)
-     overpass_url = "http://overpass-api.de/api/interpreter"
+     overpass_url = "https://overpass-api.de/api/interpreter"
      overpass_query = """
      [out:json][timeout:25];
      (

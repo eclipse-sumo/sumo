@@ -26,7 +26,7 @@ circles so we set up four nodes at the corners as follows
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+<nodes version="0.13" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/nodes_file.xsd">
     <node id="bottom-left" x="0" y="0"/>
     <node id="bottom-right" x="1250" y="0"/>
     <node id="top-right" x="1250" y="1250"/>
@@ -41,7 +41,7 @@ type in a separate file (`circular.typ.xml`):
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/types_file.xsd">
+<types xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/types_file.xsd">
     <type id="edgeType" numLanes="2" speed="36.1"/>
 </types>
 ```
@@ -51,7 +51,7 @@ Finally we define the edges connecting the nodes (`circular.edg.xml`):
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/edges_file.xsd">
     <edge from="bottom-left" id="bottom" to="bottom-right" type="edgeType"/>
     <edge from="bottom-right" id="right" to="top-right" type="edgeType"/>
     <edge from="top-right" id="top" to="top-left" type="edgeType"/>
@@ -73,8 +73,8 @@ netconvert configuration file is as follows (`circular.netccfg`):
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
    <input>
        <node-files value="circular.nod.xml"/>
@@ -115,8 +115,8 @@ Next, we define routes and traffic flows. Open a new file called `circular.rou.x
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+<routes xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" 
+  xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/routes_file.xsd">
     <vType accel="1.5" decel="4.5" id="car" length="5" maxSpeed="36.1"/>
     <vType accel="0.4" decel="4.5" id="truck" length="12" maxSpeed="22.2"/>
 </routes>
@@ -157,7 +157,7 @@ Thus, we create a file called `circular.add.xml` which defines a [rerouter](../S
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/additional_file.xsd">
+<additional xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/additional_file.xsd">
     <rerouter id="rerouterBottom" edges="bottom">
         <interval begin="0" end="100000">
             <routeProbReroute id="routeRight" />
@@ -178,7 +178,7 @@ With all input files (network, routes, rerouters) completed, we can create a SUM
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/sumoConfiguration.xsd">
     <input>
         <net-file value="circular.net.xml"/>
         <additional-files value="circular.rou.xml,circular.add.xml"/>

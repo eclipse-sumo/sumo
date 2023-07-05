@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 170)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.departSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departSpeed, "", False)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.departSpeed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departSpeed, "dummySpeed", False)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.departSpeed, "500", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departSpeed, "500", False)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.departSpeed, "-10", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departSpeed, "-10", False)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.departSpeed, "20", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departSpeed, "20", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

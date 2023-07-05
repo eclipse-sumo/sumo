@@ -329,8 +329,8 @@ example network (quickstart.sumocfg)**
 
 ```xml
 <?xml version="1.0" encoding="iso-8859-1"?>
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
     <input>
         <net-file value="quickstart.net.xml"/>
         <route-files value="quickstart.rou.xml"/>

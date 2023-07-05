@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -89,10 +89,12 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "routes",                         SUMO_TAG_ROUTES },
     { "trip",                           SUMO_TAG_TRIP },
     { "tripJunctions",                  GNE_TAG_TRIP_JUNCTIONS },
+    { "tripTAZs",                       GNE_TAG_TRIP_TAZS },
     { "vehicle",                        SUMO_TAG_VEHICLE },
     { "vehicleWithRoute",               GNE_TAG_VEHICLE_WITHROUTE },
     { "flow",                           SUMO_TAG_FLOW },
     { "flowJunctions",                  GNE_TAG_FLOW_JUNCTIONS },
+    { "flowTAZs",                       GNE_TAG_FLOW_TAZS },
     { "flowState",                      SUMO_TAG_FLOWSTATE },
     { "vType",                          SUMO_TAG_VTYPE },
     { "route",                          SUMO_TAG_ROUTE },
@@ -108,7 +110,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "condition",                      SUMO_TAG_CONDITION },
     { "assignment",                     SUMO_TAG_ASSIGNMENT },
     { "function",                       SUMO_TAG_FUNCTION },
-    { "tripTAZ",                        GNE_TAG_TRIP_TAZ },
     { "edgeControl",                    SUMO_TAG_EDGECONTROL },
 
     { "edgeRelation",                   SUMO_TAG_EDGEREL },
@@ -750,6 +751,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "show",                   SUMO_ATTR_SHOW_DETECTOR },
     // E3 detector
     { "openEntry",              SUMO_ATTR_OPEN_ENTRY },
+    { "expectArrival",          SUMO_ATTR_EXPECT_ARRIVAL },
 
     { "wautID",                 SUMO_ATTR_WAUT_ID },
     { "junctionID",             SUMO_ATTR_JUNCTION_ID },
@@ -975,7 +977,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "shiftLaneIndex",                     GNE_ATTR_SHIFTLANEINDEX },
     { "stopOffset",                         GNE_ATTR_STOPOFFSET },
     { "stopOException",                     GNE_ATTR_STOPOEXCEPTION },
-    { "VTypeDist.",                         GNE_ATTR_VTYPE_DISTRIBUTION },
+    { "typeDist.",                          GNE_ATTR_VTYPE_DISTRIBUTION },
+    { "typeDistProb.",                      GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY },
     { "poisson",                            GNE_ATTR_POISSON },
     { "stopIndex",                          GNE_ATTR_STOPINDEX },
     { "pathStopIndex",                      GNE_ATTR_PATHSTOPINDEX },

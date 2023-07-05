@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -387,7 +387,7 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
         if (myCurrentMeanData) {
             // set myCurrentMeanData as inspected element (needed for attribute editor)
             myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false, true);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false);
         } else {
             // set myCurrentMeanData as inspected element (needed for attribute editor)
             myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({});
@@ -421,7 +421,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
             // set myCurrentMeanData as inspected element
             myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
             // show modules if selected item is valid
-            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false, true);
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myMeanDataComboBox->getText() + "' in MeanDataSelector").text());
             // update viewNet

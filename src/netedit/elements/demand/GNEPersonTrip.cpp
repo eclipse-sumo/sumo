@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -38,7 +38,7 @@
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    myArrivalPosition(0) {
+myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -49,23 +49,23 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdg
                              const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myVTypes(types),
-    myModes(modes),
-    myLines(lines) {
+myArrivalPosition(arrivalPosition),
+myVTypes(types),
+myModes(modes),
+myLines(lines) {
 }
 
 
 GNEPersonTrip::GNEPersonTrip(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toStoppingPlace,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                              const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, isTrain? GNE_TAG_PERSONTRIP_TRAINSTOP : GNE_TAG_PERSONTRIP_BUSSTOP, 
-                     GUIIconSubSys::getIcon(isTrain? GUIIcon::PERSONTRIP_TRAINSTOP : GUIIcon::PERSONTRIP_BUSSTOP),
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, isTrain ? GNE_TAG_PERSONTRIP_TRAINSTOP : GNE_TAG_PERSONTRIP_BUSSTOP,
+                     GUIIconSubSys::getIcon(isTrain ? GUIIcon::PERSONTRIP_TRAINSTOP : GUIIcon::PERSONTRIP_BUSSTOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toStoppingPlace}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myVTypes(types),
-    myModes(modes),
-    myLines(lines) {
+myArrivalPosition(arrivalPosition),
+myVTypes(types),
+myModes(modes),
+myLines(lines) {
 }
 
 
@@ -157,7 +157,7 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     }
     // avoid write arrival positions in person trip to busStop
     if ((myTagProperty.getTag() != GNE_TAG_RIDE_BUSSTOP) && (myTagProperty.getTag() != GNE_TAG_RIDE_TRAINSTOP) &&
-        (myArrivalPosition > 0)) {
+            (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // write modes
@@ -596,12 +596,12 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
             computePathElement();
             break;
         case GNE_ATTR_TO_BUSSTOP:
-            replaceAdditionalParent(SUMO_TAG_BUS_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_BUS_STOP, value);
             // compute person trip
             computePathElement();
             break;
         case GNE_ATTR_TO_TRAINSTOP:
-            replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_TRAIN_STOP, value);
             // compute person trip
             computePathElement();
             break;

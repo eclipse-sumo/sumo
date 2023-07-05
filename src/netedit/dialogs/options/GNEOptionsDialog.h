@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -59,8 +59,8 @@ public:
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Options(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont &optionsContainer,
-                                        const OptionsCont &originalOptionsContainer, const char* titleName);
+    static std::pair<int, bool> Options(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
+                                        const OptionsCont& originalOptionsContainer, const char* titleName);
 
     /**@brief Constructor for run dialogs
      *
@@ -71,8 +71,8 @@ public:
      * @param[in] name The title to show
      * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
      */
-    static std::pair<int, bool> Run(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont &optionsContainer,
-                                    const OptionsCont&originalOptionsContainer, const char* titleName);
+    static std::pair<int, bool> Run(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
+                                    const OptionsCont& originalOptionsContainer, const char* titleName);
 
     /// @brief Destructor
     ~GNEOptionsDialog();
@@ -122,7 +122,7 @@ protected:
 
 private:
     /// @brief checkable button for show toolTips
-    MFXCheckableButton* myShowToolTipsMenu = nullptr; 
+    MFXCheckableButton* myShowToolTipsMenu = nullptr;
 
     /// @brief Topics elements tree
     FXTreeList* myTopicsTreeList = nullptr;
@@ -158,7 +158,7 @@ private:
     void updateVisibleEntriesBySearch(std::string searchText);
 
     /// @brief load configuration
-    bool loadConfiguration(const std::string &file);
+    bool loadConfiguration(const std::string& file);
 
     /**@brief Constructor
      *
@@ -169,8 +169,8 @@ private:
      * @param[in] icon windows icon
      * @param[in] runDialog check if this is a run dialog
      */
-    GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont &optionsContainer, 
-                    const OptionsCont &originalOptionsContainer, const char* titleName, const bool runDialog);
+    GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
+                     const OptionsCont& originalOptionsContainer, const char* titleName, const bool runDialog);
 
     /// @brief Invalidated copy constructor.
     GNEOptionsDialog(const GNEOptionsDialog&) = delete;

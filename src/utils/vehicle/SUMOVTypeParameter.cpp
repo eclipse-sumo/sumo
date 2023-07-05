@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -38,18 +38,18 @@
 // static value definitions
 // ===========================================================================
 std::set<SumoXMLAttr> SUMOVTypeParameter::AllowedJMAttrs({
-        SUMO_ATTR_JM_CROSSING_GAP,
-        SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME,
-        SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
-        SUMO_ATTR_JM_DRIVE_RED_SPEED,
-        SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME,
-        SUMO_ATTR_JM_IGNORE_FOE_SPEED,
-        SUMO_ATTR_JM_IGNORE_FOE_PROB,
-        SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB,
-        SUMO_ATTR_JM_SIGMA_MINOR,
-        SUMO_ATTR_JM_STOPLINE_GAP,
-        SUMO_ATTR_JM_TIMEGAP_MINOR,
-        });
+    SUMO_ATTR_JM_CROSSING_GAP,
+    SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME,
+    SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
+    SUMO_ATTR_JM_DRIVE_RED_SPEED,
+    SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME,
+    SUMO_ATTR_JM_IGNORE_FOE_SPEED,
+    SUMO_ATTR_JM_IGNORE_FOE_PROB,
+    SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB,
+    SUMO_ATTR_JM_SIGMA_MINOR,
+    SUMO_ATTR_JM_STOPLINE_GAP,
+    SUMO_ATTR_JM_TIMEGAP_MINOR,
+});
 
 
 // ===========================================================================

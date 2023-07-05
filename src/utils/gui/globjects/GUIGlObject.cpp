@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -24,6 +24,7 @@
 
 #include <string>
 #include <stack>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -272,7 +273,7 @@ GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, boo
 
 void
 GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    GUIDesigns::buildFXMenuCommand(ret, "Center", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), ret, MID_CENTER);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Center"), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), ret, MID_CENTER);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -281,8 +282,8 @@ GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator)
 
 void
 GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    GUIDesigns::buildFXMenuCommand(ret, "Copy name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy name to clipboard"), nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy typed name to clipboard"), nullptr, ret, MID_COPY_TYPED_NAME);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -292,9 +293,9 @@ GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparato
 void
 GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
     if (gSelected.isSelected(getType(), getGlID())) {
-        GUIDesigns::buildFXMenuCommand(ret, "Remove From Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_REMOVESELECT);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Remove From Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, "Add To Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Add To Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
     }
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -304,7 +305,7 @@ GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparat
 
 void
 GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    GUIDesigns::buildFXMenuCommand(ret, "Show Parameter", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPARS);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Show Parameter"), GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPARS);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -313,7 +314,7 @@ GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSepara
 
 void
 GUIGlObject::buildShowTypeParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    GUIDesigns::buildFXMenuCommand(ret, "Show Type Parameter", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWTYPEPARS);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Show Type Parameter"), GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWTYPEPARS);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -322,13 +323,13 @@ GUIGlObject::buildShowTypeParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSe
 
 void
 GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWindow& app) const {
-    GUIDesigns::buildFXMenuCommand(ret, "Copy cursor position to clipboard", nullptr, ret, MID_COPY_CURSOR_POSITION);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy cursor position to clipboard"), nullptr, ret, MID_COPY_CURSOR_POSITION);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Copy cursor geo-position to clipboard", nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Copy cursor geo-position to clipboard"), nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
         // create menu pane for edge operations
         FXMenuPane* showCursorGeoPositionPane = new FXMenuPane(ret);
         ret->insertMenuPaneChild(showCursorGeoPositionPane);
-        new FXMenuCascade(ret, "Show cursor geo-position in ", nullptr, showCursorGeoPositionPane);
+        new FXMenuCascade(ret, TL("Show cursor geo-position in "), nullptr, showCursorGeoPositionPane);
         for (const auto& mapper : app.getOnlineMaps()) {
             if (mapper.first == "GeoHack") {
                 GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, GUIIconSubSys::getIcon(GUIIcon::GEOHACK), ret, MID_SHOW_GEOPOSITION_ONLINE);
@@ -346,7 +347,7 @@ GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWind
 
 void
 GUIGlObject::buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    GUIDesigns::buildFXMenuCommand(ret, "Open Manipulator...", GUIIconSubSys::getIcon(GUIIcon::MANIP), ret, MID_MANIP);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Open Manipulator..."), GUIIconSubSys::getIcon(GUIIcon::MANIP), ret, MID_MANIP);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -385,7 +386,7 @@ GUIGlObject::buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* re
     buildPositionCopyEntry(ret, app);
     // only show type if isn't empty
     if (type != "") {
-        GUIDesigns::buildFXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
+        GUIDesigns::buildFXMenuCommand(ret, TLF("type: %", type).c_str(), nullptr, nullptr, 0);
         new FXMenuSeparator(ret);
     }
 }
@@ -408,7 +409,7 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
     buildPositionCopyEntry(ret, app);
     // only show type if isn't empty
     if (type != "") {
-        GUIDesigns::buildFXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
+        GUIDesigns::buildFXMenuCommand(ret, TLF("type: %", type).c_str(), nullptr, nullptr, 0);
         new FXMenuSeparator(ret);
     }
 }

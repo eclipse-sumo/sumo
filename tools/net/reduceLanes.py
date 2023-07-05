@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -34,21 +34,23 @@ from sumolib.geomhelper import polyLength  # noqa
 
 
 def parse_args():
-    argParser = sumolib.options.ArgumentParser()
-    argParser.add_argument("-n", "--network", required=True, help="sumo network to use")
-    argParser.add_argument("-o", "--output-file", default="reduced.edg.xml", help="The output edge patch file name")
-    argParser.add_argument("--too-short-output", help="The output for edges which were ignored because of length")
-    argParser.add_argument("--roundabout-output",
-                           help="The output for edges which were ignored because of roundabouts")
-    argParser.add_argument("--min-length", type=float, default=60.,
-                           help="the minimum edge length to process")
-    argParser.add_argument("--min-lane-number", type=int, default=1,
-                           help="the minimum number of lanes to process")
-    argParser.add_argument("--junction-distance", type=float, default=20.,
-                           help="where to perform the edge split near the junction")
-    argParser.add_argument("--max-priority", type=int, default=13,
-                           help="the maximum priority")
-    return argParser.parse_args()
+    ap = sumolib.options.ArgumentParser()
+    ap.add_argument("-n", "--network", category="input", type=ap.net_file, required=True, help="sumo network to use")
+    ap.add_argument("-o", "--output-file", category="output", type=ap.edgedata_file,
+                    default="reduced.edg.xml", help="The output edge patch file name")
+    ap.add_argument("--too-short-output", category="output", type=ap.edgedata_file,
+                    help="The output for edges which were ignored because of length")
+    ap.add_argument("--roundabout-output", category="output", type=ap.edgedata_file,
+                    help="The output for edges which were ignored because of roundabouts")
+    ap.add_argument("--min-length", type=float, default=60.,
+                    help="the minimum edge length to process")
+    ap.add_argument("--min-lane-number", type=int, default=1,
+                    help="the minimum number of lanes to process")
+    ap.add_argument("--junction-distance", type=float, default=20.,
+                    help="where to perform the edge split near the junction")
+    ap.add_argument("--max-priority", type=int, default=13,
+                    help="the maximum priority")
+    return ap.parse_args()
 
 
 if __name__ == "__main__":

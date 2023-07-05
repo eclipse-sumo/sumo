@@ -134,8 +134,7 @@ title: Changes from Version 0.21.0 to Version 0.22.0
         are now scrollable to allow work on smaller screens.
   - The attributes which can be used to customize lane colors can
         now also be used to scale their width. This is done in the view
-        customization dialog unter 'Streets' -\> 'Scale width'. See
-        [\[1\]](http://sumo-sim.org/blog/wp-content/uploads/2014/08/scaling_by_speed-300x281.png).
+        customization dialog unter 'Streets' -\> 'Scale width'.
   - Vehicle coloring *by time since lane change* now indicates the
         direction of the change by its color
   - Added new link state 'u' to encode red-yellow phase (shown as

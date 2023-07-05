@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -732,7 +732,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag8 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar8 = new FXToolBar(myTopDock, myToolBarDrag8, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar8, myToolBar8, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXLabel(myToolBar8, (TL("Scale Traffic:") + std::string("\t\t") + TL("Scale traffic from flows and vehicles that are loaded incrementally from route files.")).c_str(), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        new FXLabel(myToolBar8, (TL("Scale Traffic:") + std::string("\t\t") + TL("Scale traffic volume from running flows and from vehicles that are loaded incrementally from route files.")).c_str(), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myDemandScaleSpinner = new MFXRealSpinner(myToolBar8, 7, this, MID_DEMAND_SCALE, GUIDesignSpinDial);
         myDemandScaleSpinner->setIncrement(0.5);
         myDemandScaleSpinner->setRange(0, 1000);
@@ -2028,8 +2028,8 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
         // (this will never reach the GUI but we cannot use WRITE_MESSAGE here
         // to avoid a duplicate log entry)
         myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED,
-                TLF("Simulation ended at time: %. (%)",
-                    time2string(ec->getTimeStep()), MSNet::getStateMessage(ec->getReason())));
+                                   TLF("Simulation ended at time: %. (%)",
+                                       time2string(ec->getTimeStep()), MSNet::getStateMessage(ec->getReason())));
         // build the text
         const std::string text = "Simulation ended at time: " + time2string(ec->getTimeStep()) +
                                  ".\nReason: " + MSNet::getStateMessage(ec->getReason()) +

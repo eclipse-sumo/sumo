@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -130,8 +130,8 @@ GNELoadThread::run() {
     // init output options
     MsgHandler::initOutputOptions();
     // if there is an error checking options, stop
-    if (!(NIFrame::checkOptions(neteditOptions) && NBFrame::checkOptions(neteditOptions) && 
-          NWFrame::checkOptions(neteditOptions) && SystemFrame::checkOptions(neteditOptions))) {
+    if (!(NIFrame::checkOptions(neteditOptions) && NBFrame::checkOptions(neteditOptions) &&
+            NWFrame::checkOptions(neteditOptions) && SystemFrame::checkOptions(neteditOptions))) {
         // options are not valid
         WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
         submitEndAndCleanup(net, loadedFile);
@@ -387,7 +387,10 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("route-prefix", "Netedit", TL("Prefix for route naming"));
 
     neteditOptions.doRegister("vType-prefix", new Option_String("t"));
-    neteditOptions.addDescription("vType-prefix", "Netedit", TL("Prefix for vType naming"));
+    neteditOptions.addDescription("vType-prefix", "Netedit", TL("Prefix for type naming"));
+
+    neteditOptions.doRegister("vTypeDistribution-prefix", new Option_String("td"));
+    neteditOptions.addDescription("vTypeDistribution-prefix", "Netedit", TL("Prefix for type distribution naming"));
 
     neteditOptions.doRegister("vehicle-prefix", new Option_String("v"));
     neteditOptions.addDescription("vehicle-prefix", "Netedit", TL("Prefix for vehicle naming"));

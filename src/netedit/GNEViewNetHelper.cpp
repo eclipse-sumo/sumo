@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -1943,13 +1943,13 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     // create save sumo config button
     mySaveNeteditConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            std::string("\t") + TL("Save NETEDITConfig") + std::string("\t") + TL("Save NETEDITConfig. (Ctrl+Shift+E)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG),
+            std::string("\t") + TL("Save Netedit Config") + std::string("\t") + TL("Save Netedit Config. (Ctrl+Shift+E)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG),
             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, GUIDesignButtonToolbar);
     mySaveNeteditConfig->create();
     // create save sumo config button
     mySaveSumoConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
                                             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                            std::string("\t") + TL("Save SumoConfig") + std::string("\t") + TL("Save SumoConfig. (Ctrl+Shift+S)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
+                                            std::string("\t") + TL("Save Sumo Config") + std::string("\t") + TL("Save Sumo Config. (Ctrl+Shift+S)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
                                             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GUIDesignButtonToolbar);
     mySaveSumoConfig->create();
     // create save network button
@@ -2003,6 +2003,47 @@ GNEViewNetHelper::SaveElements::setSaveIndividualFiles(bool value) {
         mySaveIndividualFiles->enable();
     } else {
         mySaveIndividualFiles->disable();
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNetHelper::TimeFormat - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNetHelper::TimeFormat::TimeFormat(GNEViewNet* viewNet) :
+    myViewNet(viewNet) {
+}
+
+
+void
+GNEViewNetHelper::TimeFormat::buildTimeFormatButtons() {
+    // create save sumo config button
+    mySwitchButton = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().timeSwitch,
+            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+            gHumanReadableTime?"H":"S" + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS"), nullptr,
+            myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_TOGGLE_TIMEFORMAT, GUIDesignButtonToolbar);
+    mySwitchButton->create();
+}
+
+
+void
+GNEViewNetHelper::TimeFormat::switchTimeFormat() {
+    if (gHumanReadableTime) {
+        gHumanReadableTime = false;
+    } else {
+        gHumanReadableTime = true;
+    }
+    OptionsCont::getOptions().resetWritable();
+    OptionsCont::getOptions().set("human-readable-time", toString(gHumanReadableTime));
+}
+
+
+void
+GNEViewNetHelper::TimeFormat::updateButtonLabel() {
+    if (gHumanReadableTime) {
+        mySwitchButton->setText("H");
+    } else {
+        mySwitchButton->setText("S");
     }
 }
 
@@ -3701,9 +3742,9 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     typeButton->create();
     // type distribution mode
     typeDistributionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-                                                    myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                                    std::string("\t") + TL("Create type distribution mode") + std::string("\t") + TL("Mode for creating type distribution. (U)"),
-                                                    GUIIconSubSys::getIcon(GUIIcon::MODETYPEDISTRIBUTION), myViewNet, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
+            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+            std::string("\t") + TL("Create type distribution mode") + std::string("\t") + TL("Mode for creating type distribution. (U)"),
+            GUIIconSubSys::getIcon(GUIIcon::MODETYPEDISTRIBUTION), myViewNet, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
     typeDistributionButton->create();
     // stop mode
     stopButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,

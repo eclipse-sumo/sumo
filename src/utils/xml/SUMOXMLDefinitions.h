@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -145,6 +145,8 @@ enum SumoXMLTag {
     SUMO_TAG_TRIP,
     /// @brief a trip between junctions
     GNE_TAG_TRIP_JUNCTIONS,
+    /// @brief a single trip definition that uses TAZs
+    GNE_TAG_TRIP_TAZS,
     /// @brief description of a vehicle
     SUMO_TAG_VEHICLE,
     /// @brief description of a vehicle with an embedded route
@@ -153,6 +155,8 @@ enum SumoXMLTag {
     SUMO_TAG_FLOW,
     /// @brief a flow between junctions
     GNE_TAG_FLOW_JUNCTIONS,
+    /// @brief a flow between TAZs
+    GNE_TAG_FLOW_TAZS,
     /// @brief a flow state definition (used when saving and loading simulatino state)
     SUMO_TAG_FLOWSTATE,
     /// @brief description of a vehicle/person/container type
@@ -183,8 +187,6 @@ enum SumoXMLTag {
     SUMO_TAG_ASSIGNMENT,
     /// @brief a sequence of assignments evaluated in the context of passed arguments
     SUMO_TAG_FUNCTION,
-    /// @brief a single trip definition that uses TAZs
-    GNE_TAG_TRIP_TAZ,
     /// @brief the internal state for edge control
     SUMO_TAG_EDGECONTROL,
     /// @brief a relation between two edges
@@ -1114,6 +1116,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_JAM_DIST_THRESHOLD,
     SUMO_ATTR_SHOW_DETECTOR,
     SUMO_ATTR_OPEN_ENTRY,
+    SUMO_ATTR_EXPECT_ARRIVAL,
     /// @}
 
     SUMO_ATTR_WAUT_ID,
@@ -1421,6 +1424,8 @@ enum SumoXMLAttr {
     GNE_ATTR_STOPOEXCEPTION,
     /// @brief vehicle type distribution
     GNE_ATTR_VTYPE_DISTRIBUTION,
+    /// @brief vehicle type distribution
+    GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY,
     /// @brief poisson definition (used in flow)
     GNE_ATTR_POISSON,
     /// @brief stop index (position in the parent's children

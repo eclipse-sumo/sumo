@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -48,7 +48,7 @@ def get_options(cmd_args=None):
         prog='generateParkingAreaRerouters.py', usage='%(prog)s [options]',
         description='Generate parking area rerouters from the parking area definition.')
     parser.add_argument(
-        '-a', '--parking-areas', type=parser.additional_file, category="input", dest='parking_area_definition', required=True,
+        '-a', '--parking-areas', type=parser.additional_file, category="input", dest='paFiles', required=True,
         help='SUMO parkingArea definition.')
     parser.add_argument(
         '-n', '--sumo-net', type=parser.net_file, category="input", dest='sumo_net_definition', required=True,
@@ -140,7 +140,7 @@ class ReroutersGeneration(object):
 
         print('Loading SUMO network: {}'.format(options.sumo_net_definition))
         self._sumo_net = sumolib.net.readNet(options.sumo_net_definition, withInternal=True)
-        for pafile in options.parking_area_definition.split(','):
+        for pafile in options.paFiles.split(','):
             print('Loading parking file: {}'.format(pafile))
             self._load_parking_areas_from_file(pafile)
 

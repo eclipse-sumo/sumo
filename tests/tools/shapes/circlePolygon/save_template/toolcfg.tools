@@ -1,0 +1,11 @@
+<configuration>
+    <files value="None" type="file" help="List of XML files to plot" category="input" required="true" positional="true" listSeparator=" "/>
+    <radius value="100" type="float" help="default radius" category="processing"/>
+    <prefix value="poly" type="string" help="id prefix" category="processing"/>
+    <type value="unknown" type="string" help="type string" category="processing"/>
+    <color value="1,0,0" type="string" help="color string" category="processing"/>
+    <fill value="False" type="bool" help="fill the polygons" category="processing"/>
+    <layer value="-1" type="float" help="layer" category="processing"/>
+    <corners value="100" type="int" help="default number of corners" category="processing"/>
+    <output-file value="None" type="file" help="output file (default: standard output)" category="output"/>
+</configuration>

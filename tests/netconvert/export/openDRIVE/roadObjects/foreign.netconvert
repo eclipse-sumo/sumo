@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-08 12:21:24 by Eclipse SUMO netconvert Version v1_17_0+0156-3599970
+<!-- generated on 2023-06-27 17:53:18 by Eclipse SUMO netconvert Version v1_17_0+1311-68c84bc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon May  8 12:21:24 2023" north="2335.16" south="1844.07" east="2701.86" west="2090.59">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Jun 27 17:53:18 2023" north="2335.16" south="1844.07" east="2701.86" west="2090.59">
         <geoReference>
  <![CDATA[
  +proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -1174,7 +1174,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <line/>
             </geometry>
             <geometry s="0.20000000" x="2284.04686377" y="2159.72348798" hdg="-2.50783048" length="10.55188364">
-                <paramPoly3 aU="-0.00000000" bU="7.91371445" cU="7.90891901" dU="-5.27368107" aV="0.00000000" bV="-0.00000000" cV="0.48644538" dV="-0.24922679" pRange="normalized"/>
+                <paramPoly3 aU="-0.00000000" bU="7.91371445" cU="7.90891901" dU="-5.27368107" aV="0.00000000" bV="0.00000000" cV="0.48644538" dV="-0.24922679" pRange="normalized"/>
             </geometry>
             <geometry s="10.75188364" x="2275.68693795" y="2153.28545183" hdg="-2.47936839" length="11.06457149">
                 <paramPoly3 aU="-0.00000000" bU="8.29841850" cU="8.29795069" dU="-5.53199102" aV="0.00000000" bV="-0.00000000" cV="0.15475666" dV="-0.09167456" pRange="normalized"/>
@@ -5099,10 +5099,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <signals/>
         <userData code="sumoId" value="377634137#0"/>
     </road>
-    <road name="" length="12.57050737" id="1110" junction="-1">
+    <road name="" length="10.39622442" id="1110" junction="-1">
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="2345.99563634" y="1895.98611229" hdg="-0.81557273" length="12.57050737">
+            <geometry s="0.00000000" x="2347.48600183" y="1894.40297710" hdg="-0.81557273" length="10.39622442">
                 <line/>
             </geometry>
         </planView>
@@ -8292,7 +8292,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2555.99509436" y="2249.39596272" hdg="-2.26557841" length="7.72066050">
-                <paramPoly3 aU="-0.00000000" bU="9.47666824" cU="-4.79564639" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="-4.81269119" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="-0.00000000" bU="9.47666824" cU="-4.79564639" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="-4.81269119" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -8812,7 +8812,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2370.13355904" y="1923.99379598" hdg="-2.07967643" length="9.44945745">
-                <paramPoly3 aU="-0.00000000" bU="14.31083493" cU="-11.44866794" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="5.72433397" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="-0.00000000" bU="14.31083493" cU="-11.44866794" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="5.72433397" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -8900,7 +8900,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2371.42679673" y="1912.54495734" hdg="2.24230590" length="14.09897243">
-                <paramPoly3 aU="0.00000000" bU="21.14793695" cU="-21.15021662" dU="14.09955050" aV="-0.00000000" bV="0.00000000" cV="-0.31161463" dV="0.11623909" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="21.14793695" cU="-21.15021662" dU="14.09955050" aV="-0.00000000" bV="-0.00000000" cV="-0.31161463" dV="0.11623909" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -9434,7 +9434,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2282.42028441" y="2002.72946316" hdg="-0.86882357" length="5.00173607">
-                <paramPoly3 aU="0.00000000" bU="7.50260189" cU="-7.50260085" dU="5.00172963" aV="0.00000000" bV="-0.00000000" cV="-0.00494006" dV="-0.00133003" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="7.50260189" cU="-7.50260085" dU="5.00172963" aV="0.00000000" bV="0.00000000" cV="-0.00494006" dV="-0.00133003" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -9636,7 +9636,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2578.95433459" y="2178.45093028" hdg="0.64539587" length="6.67220502">
-                <paramPoly3 aU="0.00000000" bU="10.00797363" cU="-10.00640625" dU="6.67035885" aV="0.00000000" bV="0.00000000" cV="0.10425005" dV="-0.13163218" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="10.00797363" cU="-10.00640625" dU="6.67035885" aV="0.00000000" bV="-0.00000000" cV="0.10425005" dV="-0.13163218" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10380,7 +10380,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2241.97040528" y="2055.51709258" hdg="2.27276908" length="60.47286481">
-                <paramPoly3 aU="0.00000000" bU="91.92511611" cU="-47.21949678" dU="0.00000000" aV="-0.00000000" bV="-0.00000000" cV="-28.63377584" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="91.92511611" cU="-47.21949678" dU="0.00000000" aV="-0.00000000" bV="0.00000000" cV="-28.63377584" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10428,7 +10428,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2241.97040528" y="2055.51709258" hdg="2.27276908" length="88.61894672">
-                <paramPoly3 aU="0.00000000" bU="75.00000000" cU="38.24698591" dU="-25.51329743" aV="-0.00000000" bV="-0.00000000" cV="-32.89655387" dV="21.05633207" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="75.00000000" cU="38.24698591" dU="-25.51329743" aV="-0.00000000" bV="0.00000000" cV="-32.89655387" dV="21.05633207" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10545,7 +10545,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2239.52698187" y="2053.45077169" hdg="2.27276908" length="88.42605457">
-                <paramPoly3 aU="0.00000000" bU="75.00000000" cU="38.91875861" dU="-25.96114592" aV="-0.00000000" bV="-0.00000000" cV="-23.30830794" dV="14.66416756" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="75.00000000" cU="38.91875861" dU="-25.96114592" aV="-0.00000000" bV="0.00000000" cV="-23.30830794" dV="14.66416756" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10584,7 +10584,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2239.52698187" y="2053.45077169" hdg="2.27276908" length="71.19686031">
-                <paramPoly3 aU="0.00000000" bU="124.05996870" cU="-62.40607949" dU="0.00000000" aV="-0.00000000" bV="-0.00000000" cV="22.28996704" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="124.05996870" cU="-62.40607949" dU="0.00000000" aV="-0.00000000" bV="0.00000000" cV="22.28996704" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10663,7 +10663,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2196.01110353" y="2071.23260940" hdg="0.68534724" length="50.18481597">
-                <paramPoly3 aU="0.00000000" bU="37.09558481" cU="-17.86004940" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="-41.36290767" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="37.09558481" cU="-17.86004940" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="-41.36290767" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10711,7 +10711,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2196.01110353" y="2071.23260940" hdg="0.68534724" length="52.32637434">
-                <paramPoly3 aU="0.00000000" bU="43.49646942" cU="-21.06137625" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="-41.30970847" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="43.49646942" cU="-21.06137625" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="-41.30970847" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10750,7 +10750,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2191.96027544" y="2076.18748486" hdg="0.68534728" length="53.91205843">
-                <paramPoly3 aU="0.00000000" bU="75.00000000" cU="-63.88541040" dU="42.58099662" aV="0.00000000" bV="0.00000000" cV="13.79275678" dV="-9.87617253" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="75.00000000" cU="-63.88541040" dU="42.58099662" aV="0.00000000" bV="-0.00000000" cV="13.79275678" dV="-9.87617253" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -10855,7 +10855,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2187.90944736" y="2081.14236033" hdg="1.27075685" length="10.65801372">
-                <paramPoly3 aU="0.00000000" bU="16.14114628" cU="-12.91291702" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="6.45645851" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="16.14114628" cU="-12.91291702" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="6.45645851" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -11332,7 +11332,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2353.29764555" y="1908.65722422" hdg="-2.54402382" length="16.84108947">
-                <paramPoly3 aU="-0.00000000" bU="25.26149970" cU="-25.26092146" dU="16.84041824" aV="0.00000000" bV="0.00000000" cV="0.14063689" dV="-0.15122110" pRange="normalized"/>
+                <paramPoly3 aU="-0.00000000" bU="25.26149970" cU="-25.26092146" dU="16.84041824" aV="0.00000000" bV="-0.00000000" cV="0.14063689" dV="-0.15122110" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -11380,7 +11380,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2353.29764555" y="1908.65722422" hdg="-2.54402382" length="12.34531189">
-                <paramPoly3 aU="-0.00000000" bU="16.64494792" cU="-8.88008245" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="7.19034182" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="-0.00000000" bU="16.64494792" cU="-8.88008245" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="7.19034182" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -11419,7 +11419,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2353.29764555" y="1908.65722422" hdg="-2.54402382" length="7.32944369">
-                <paramPoly3 aU="-0.00000000" bU="3.80651635" cU="-2.42249261" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="6.69550978" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="-0.00000000" bU="3.80651635" cU="-2.42249261" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="6.69550978" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -11458,7 +11458,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2351.49721587" y="1911.30268315" hdg="-2.08037622" length="9.44945754">
-                <paramPoly3 aU="-0.00000000" bU="14.31083506" cU="-11.44866804" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="5.72433402" dV="0.00000000" pRange="normalized"/>
+                <paramPoly3 aU="-0.00000000" bU="14.31083506" cU="-11.44866804" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="5.72433402" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -11585,7 +11585,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="2339.36913872" y="1899.19065293" hdg="0.59074508" length="16.84108945">
-                <paramPoly3 aU="0.00000000" bU="25.26149970" cU="-25.26188112" dU="16.84105804" aV="0.00000000" bV="0.00000000" cV="0.14062300" dV="-0.03628972" pRange="normalized"/>
+                <paramPoly3 aU="0.00000000" bU="25.26149970" cU="-25.26188112" dU="16.84105804" aV="0.00000000" bV="-0.00000000" cV="0.14062300" dV="-0.03628972" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -145,6 +145,18 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
 GNEPathCreator*
 GNEPersonFrame::getPathCreator() const {
     return myPathCreator;
+}
+
+
+DemandElementSelector*
+GNEPersonFrame::getTypeSelector() const {
+    return myTypeSelector;
+}
+
+
+GNEAttributesCreator*
+GNEPersonFrame::getPersonAttributes() const {
+    return myPersonAttributes;
 }
 
 // ===========================================================================

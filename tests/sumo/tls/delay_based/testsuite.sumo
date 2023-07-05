@@ -27,3 +27,6 @@ short_turnlane
 
 # Specifying delay-based program in an additional file
 minDur0
+
+# test supplying additional parameters
+param_vTypes

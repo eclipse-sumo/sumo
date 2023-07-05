@@ -1,1 +1,3 @@
-Error: There is another flowWithRoute with the same ID='f_0'.
+Error: Attribute 'id' in definition of a flowWithRoute is empty.
+Error: Invalid flowWithRoute id ''.
+Error: flowWithRoute cannot be created
