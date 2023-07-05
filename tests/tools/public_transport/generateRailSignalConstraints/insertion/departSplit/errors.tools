@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/scr1/sumo/tests/../tools/generateRailSignalConstraints.py", line 1845, in <module>
+    main(get_options())
+  File "/scr1/sumo/tests/../tools/generateRailSignalConstraints.py", line 1809, in main
+    insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes, departTimes)
+  File "/scr1/sumo/tests/../tools/generateRailSignalConstraints.py", line 1211, in findInsertionConflicts
+    if not pIsDepart or departTimes[nStop.vehID] < departTimes[pStop.vehID]:
+TypeError: '<' not supported between instances of 'NoneType' and 'NoneType'
