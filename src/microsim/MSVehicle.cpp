@@ -1943,19 +1943,20 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
             if (myLane->isInternal()) {
                 routeIndex++;
             }
-            std::string warn = TL("Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%.");
             for (int i = (int)veh->myFurtherLanes.size() - 1; i >= 0; i--) {
                 MSEdge* edge = &veh->myFurtherLanes[i]->getEdge();
                 if (edge->isInternal()) {
                     continue;
                 }
                 if (!edge->isInternal() && edge != myRoute->getEdges()[routeIndex]) {
+                    std::string warn = TL("Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%.");
                     WRITE_WARNINGF(warn, veh->getID(), getID(), time2string(SIMSTEP));
                     return false;
                 }
                 routeIndex++;
             }
             if (veh->getCurrentEdge()->getNormalSuccessor() != myRoute->getEdges()[routeIndex]) {
+                std::string warn = TL("Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%.");
                 WRITE_WARNINGF(warn, veh->getID(), getID(), time2string(SIMSTEP));
                 return false;
             }
@@ -4503,7 +4504,7 @@ MSVehicle::executeMove() {
     // remember previous lane (myLane is updated in processLaneAdvances)
     const MSLane* oldLane = myLane;
     // Reason for a possible emergency stop
-    std::string emergencyReason = TL(" for unknown reasons");
+    std::string emergencyReason;
     processLaneAdvances(passedLanes, emergencyReason);
 
     updateTimeLoss(vNext);
@@ -4511,6 +4512,9 @@ MSVehicle::executeMove() {
 
     if (!hasArrivedInternal() && !myLane->getEdge().isVaporizing()) {
         if (myState.myPos > myLane->getLength()) {
+            if (emergencyReason == "") {
+                emergencyReason = TL(" for unknown reasons");
+            }
             WRITE_WARNINGF(TL("Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset=%), time=%."),
                            getID(), myLane->getID(), emergencyReason, myAcceleration - myState.mySpeed,
                            myState.myPos - myLane->getLength(), time2string(SIMSTEP));
@@ -4642,10 +4646,10 @@ MSVehicle::executeFractionalMove(double dist) {
     // minimum execute move:
     std::vector<MSLane*> passedLanes;
     // Reason for a possible emergency stop
-    std::string emergencyReason = " for unknown reasons";
     if (lanes.size() > 1) {
         myLane->removeVehicle(this, MSMoveReminder::NOTIFICATION_JUNCTION, false);
     }
+    std::string emergencyReason;
     processLaneAdvances(passedLanes, emergencyReason);
 #ifdef DEBUG_EXTRAPOLATE_DEPARTPOS
     if (DEBUG_COND) {
