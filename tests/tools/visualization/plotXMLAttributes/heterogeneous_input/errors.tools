@@ -1,10 +1,3 @@
-Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/visualization/plotXMLAttributes.py", line 713, in <module>
-    main(getOptions())
-  File "/scr1/sumo/tests/../tools/visualization/plotXMLAttributes.py", line 562, in main
-    for dataID, x, y in dataStream(datafile):
-  File "/scr1/sumo/tests/../tools/visualization/plotXMLAttributes.py", line 353, in datastream
-    for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
-  File "/scr1/sumo/tests/../tools/visualization/plotXMLAttributes.py", line 405, in combineValues
-    toYield.append(values[a])
-KeyError: 'vehsPerHour'
+Warning: found idattr 'id' in element 'vType' (level 2) and element 'flow' (level 2). Using 'vType'.
+Warning: Skipped element 'vType' without parent element 'flow'
+Warning: Skipped element 'vType' without parent element 'flow'

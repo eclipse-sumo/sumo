@@ -1,1 +1,2 @@
-Warning: found idattr 'id' in element 'vType' (level 2) and element 'flow' (level 2). Using 'vType'.
+Use options --xelem, --yelem, --idelem to resolve ambiguous elements
+Found 0 datapoints in input_data.xml and kept 0
