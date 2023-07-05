@@ -529,6 +529,10 @@ At line/column 10/46
 ### Windows 10 is blocking the execution of sumo-gui and netedit. How come?
   Executable files downloaded from the internet may trigger the windows 10 security warning. You can work around this by clicking on the 'More Info' Text and then selecting 'Run Anyway' in the subsequent dialog.
 
+### what about warning: pj_obj_create: Cannot find proj.db
+
+  This warning concerns the database of named projections (EPSG codes) and gridshifts for the [proj library](https://proj.org). Unless performing fancy coordinate transformations (i.e. with netconvert) or trying to import unusual nework files, the warning can be safely ignored. Otherwise, it should help to set the [PROJ_DATA](https://proj.org/en/9.2/usage/environmentvars.html#envvar-PROJ_DATA) environment variable.
+
 ## netconvert
 
 ### I made changes to the *.net.xml*-file but it did not work as expected. Why?
