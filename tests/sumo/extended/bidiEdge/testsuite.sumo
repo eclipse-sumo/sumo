@@ -30,3 +30,6 @@ TWLT_tls
 
 # multiple vehicles entering bidi lane from side road
 TWLT_tls2
+
+# multiple vehicles entering bidi lane from side road, the side road targest the bidi lane as well as another lane
+TWLT_tls_2cons
