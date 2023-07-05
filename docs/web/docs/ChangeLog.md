@@ -6,11 +6,25 @@ title: ChangeLog
 
 ### Bugfixes
 
+- Simulation
+  - Fixed faiulre to join a leading train on subsequent edge. #13539
+  - Fixed invalid route after trying to to join leading train on subsequent edge of diverging route. #13540
+  - Edgedata-output now only counts vehicles that start their teleport on an edge in the teleport count of that edge. #13559
+  - Fixed avoidable slowdown when approaching a bidi lane at low speed. #13558
+  - Fixed deadlock on junction when approaching occupied bidiEdge at traffic light. #13541
+  - Fixed lane choice when approaching an edge with a shared median lane. #13402
+
 - Netedit
   - Fixed problem saving person flow attributes #11022
   - Fixed problem saving containers sorted by begin attribute in Netedit #11022
 
-
+- Tools
+  - routeSampler.py: Fixed bias when distributing flow departures over the data interval. #13523
+  - plotXMLAttributes.py: now works if one of multiple data files contains no data. #13524
+  - plotXMLAttributes.py: now uses file name for legend if no id attribute is set. #13534
+  - plotXMLAttributes.py: fixed crash when parsing heterogeneous content. #13556
+  - traceExporter.py kepler-JSON now generates correct timestamps. #13522, #13550
+  
 ### Enhancements
 
 - Netedit
