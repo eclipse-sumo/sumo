@@ -1710,6 +1710,9 @@ public:
      */
     void replaceVehicleType(MSVehicleType* type);
 
+    /// @brief get distance for coming to a stop (used for rerouting checks)
+    double getBrakeGap(bool delayed = false) const;
+
     /// @name state io
     //@{
 
@@ -1822,9 +1825,6 @@ protected:
 
     /// updates LaneQ::nextOccupation and myCurrentLaneInBestLanes
     void updateOccupancyAndCurrentBestLane(const MSLane* startLane);
-
-    /// @brief get distance for coming to a stop (used for rerouting checks)
-    double getBrakeGap(bool delayed = false) const;
 
     /// @brief ensure that a vehicle-relative position is not invalid
     Position validatePosition(Position result, double offset = 0) const;

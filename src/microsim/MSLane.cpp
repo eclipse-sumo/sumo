@@ -1313,7 +1313,11 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
     for (int i = 0; i < leaders.numSublanes(); ++i) {
         const MSVehicle* leader = leaders[i];
         if (leader != nullptr) {
-            const double gap = leader->getBackPositionOnLane(this) + seen - veh->getVehicleType().getMinGap();
+            double gap = leader->getBackPositionOnLane(this) + seen - veh->getVehicleType().getMinGap();
+            if (leader->getLane() == getBidiLane()) {
+                // use distance to front position and account for movement
+                gap -= (leader->getLength() + leader->getBrakeGap(true));
+            }
             if (gap < 0) {
                 if ((veh->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0) {
                     return INVALID_SPEED;
@@ -1325,7 +1329,7 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
                           veh->getCarFollowModel().insertionFollowSpeed(veh, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), leader));
 #ifdef DEBUG_INSERTION
             if (DEBUG_COND2(veh)) {
-                std::cout << "    leader=" << leader->getID() << " nspeed=" << nspeed << "\n";
+                std::cout << "    leader=" << leader->getID() << " bPos=" << leader->getBackPositionOnLane(this) << " gap=" << gap << " nspeed=" << nspeed << "\n";
             }
 #endif
         }
