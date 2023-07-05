@@ -6,6 +6,15 @@ title: ChangeLog
 
 ### Bugfixes
 
+- Netedit
+  - Fixed problem saving person flow attributes #11022
+  - Fixed problem saving containers sorted by begin attribute in Netedit #11022
+
+
+### Enhancements
+
+- Netedit
+  - Now supports Human Readable Time (HH:MM:SS) #11022
 ## Version 1.18.0 (29.06.2023)
 
 ### Bugfixes
