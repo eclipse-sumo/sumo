@@ -5035,10 +5035,21 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                     const MSVehicle* oncomingVeh = approachedLane->getBidiLane()->getFirstFullVehicle();
                     if (oncomingVeh) {
                         const double oncomingGap = approachedLane->getLength() - oncomingVeh->getPositionOnLane();
-                        spaceTillLastStanding = MIN2(spaceTillLastStanding, oncomingGap);
+                        const double oncomingBGap = oncomingVeh->getBrakeGap(true);
+                        // oncoming movement until ego enters the junction
+                        const double oncomingMove = STEPS2TIME(item.myArrivalTime - SIMSTEP) * oncomingVeh->getSpeed();
+                        const double spaceTillOncoming = oncomingGap - oncomingBGap - oncomingMove;
+                        spaceTillLastStanding = MIN2(spaceTillLastStanding, spaceTillOncoming);
+                        if (spaceTillOncoming <= getVehicleType().getLengthWithGap()) {
+                            foundStopped = true;
+                        }
 #ifdef DEBUG_CHECKREWINDLINKLANES
                         if (DEBUG_COND) {
-                            std::cout << " oncomingVeh=" << oncomingVeh->getID() << " oncomingGap=" << oncomingGap;
+                            std::cout << " oVeh=" << oncomingVeh->getID()
+                                << " oGap=" << oncomingGap
+                                << " bGap=" << oncomingBGap
+                                << " mGap=" << oncomingMove
+                                << " sto=" << spaceTillOncoming;
                         }
 #endif
                     }
