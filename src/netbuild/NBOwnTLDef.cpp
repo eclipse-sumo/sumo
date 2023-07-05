@@ -885,6 +885,11 @@ NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime green
             logic->addStep(greenTime, state, minDur, maxDur, earliestEnd, latestEnd);
         }
     }
+#ifdef DEBUG_PHASES
+        if (DEBUGCOND) {
+            std::cout << " state after addPedestrianPhases " << state << "\n";
+        }
+#endif
     return state;
 }
 
@@ -1209,6 +1214,12 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                         state[i1] = 'g';
                         if (myControlledNodes.size() == 1) {
                             myNeedsContRelation.insert(StreamPair(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2]));
+#ifdef DEBUG_CONTRELATION
+                            if (DEBUGCOND) {
+                                std::cout << getID() << " p=" << getProgramID() << " contRel: " << fromEdges[i1]->getID() << "->" << toEdges[i1]->getID()
+                                    << " foe " << fromEdges[i2]->getID() << "->" << toEdges[i2]->getID() << "\n";
+                            }
+#endif
                         }
                         if (!isTurnaround[i1] && !hadGreenMajor[i1] && !rightTurnConflicts[i1]) {
                             haveForbiddenLeftMover = true;
