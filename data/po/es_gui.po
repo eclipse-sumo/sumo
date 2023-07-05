@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-05-17 15:37+0000\n"
+"PO-Revision-Date: 2023-07-05 13:25+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:292
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
@@ -8655,6 +8655,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:465
 msgid "Invalid % used in % '%'. % is greater than number of lanes"
 msgstr ""
+"% usado en % '%' no válido. % es mayor que el número de carriles (lanes)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:190
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:245
@@ -8664,44 +8665,46 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:423
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:467
 msgid "Invalid % used in % '%'. % is greater than vType %"
-msgstr ""
+msgstr "% usado en % '%' no válido. % es mayor que el vtype %"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:223
 msgid "netedit doesn't support route distributions"
-msgstr ""
+msgstr "netedit no soporta distribuciones de rutas"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:241
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:282
 msgid "Invalid route '%' used in % '%'."
-msgstr ""
+msgstr "La ruta '%' usada en % '%' no es válida."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:502
 msgid "Invalid person type '%' used in % '%'."
-msgstr ""
+msgstr "El tipo de persona '%' usada en % '%' no es válida."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:533
 msgid "Invalid personFlow type '%' used in % '%'."
-msgstr ""
+msgstr "El tipo de flujo de personas '%' usada en % '%' no es válida."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:879
 msgid "Invalid container type '%' used in % '%'."
-msgstr ""
+msgstr "El tipo de contenedor '%' usada en % '%' no es válida."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:910
 msgid "Invalid containerFlow type '%' used in % '%'."
-msgstr ""
+msgstr "El tipo de flujo de contenedores '%' usada en % '%' no es válida."
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1102
 msgid "Containers don't support stops at busStops or trainStops"
 msgstr ""
+"Los contenedores no soportan paradas sobre estaciones de autobús o "
+"estaciones de tren"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1110
 msgid "Persons don't support stops at containerStops"
-msgstr ""
+msgstr "Las personas no pueden parar en paradas para contenedores"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1118
 msgid "Persons don't support stops at chargingStations"
-msgstr ""
+msgstr "Las personas no pueden parar en estaciones de carga"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1121
 msgid "Containers don't support stops at chargingStations"
