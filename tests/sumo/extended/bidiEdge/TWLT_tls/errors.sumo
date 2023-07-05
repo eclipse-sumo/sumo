@@ -1,6 +1,0 @@
-Warning: Teleporting vehicle 'side.3'; waited too long (yield), lane='-E4_0', time=313.00.
-Warning: Vehicle 'side.3' ends teleporting on edge '-E0', time=313.00.
-Warning: Teleporting vehicle 'main.0'; waited too long (wrong lane), lane='E0_0', time=346.00.
-Warning: Vehicle 'main.0' ends teleporting on edge 'E4', time=346.00.
-Warning: Teleporting vehicle 'main.1'; waited too long (wrong lane), lane='E0_0', time=349.00.
-Warning: Vehicle 'main.1' ends teleporting on edge 'E4', time=349.00.
