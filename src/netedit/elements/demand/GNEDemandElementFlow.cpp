@@ -37,15 +37,15 @@
 // ---------------------------------------------------------------------------
 
 GNEDemandElementFlow::GNEDemandElementFlow(const GNETagProperties& tagProperty) {
-    // adjust default flow attributes
-    adjustDefaultFlowAttributes(tagProperty);
+    // set default flow attributes
+    setDefaultFlowAttributes(tagProperty);
 }
 
 
 GNEDemandElementFlow::GNEDemandElementFlow(const GNETagProperties& tagProperty, const SUMOVehicleParameter& vehicleParameters) :
     SUMOVehicleParameter(vehicleParameters) {
-    // adjust default flow attributes
-    adjustDefaultFlowAttributes(tagProperty);
+    // set default flow attributes
+    setDefaultFlowAttributes(tagProperty);
 }
 
 
@@ -100,13 +100,13 @@ GNEDemandElementFlow::getFlowAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_CONTAINERSPERHOUR:
-            return toString(3600 / STEPS2TIME(repetitionOffset));
+            return adjustDecimalValue(3600 / STEPS2TIME(repetitionOffset));
         case SUMO_ATTR_PERIOD:
             return time2string(repetitionOffset);
         case GNE_ATTR_POISSON:
-            return toString(1 / STEPS2TIME(repetitionOffset));
+            return adjustDecimalValue(1 / STEPS2TIME(repetitionOffset));
         case SUMO_ATTR_PROB:
-            return toString(repetitionProbability, 10);
+            return adjustDecimalValue(repetitionProbability);
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
         default:
@@ -172,8 +172,8 @@ GNEDemandElementFlow::isValidFlowAttribute(SumoXMLAttr key, const std::string& v
         case SUMO_ATTR_CONTAINERSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
-            if (GNEAttributeCarrier::canParse<SUMOTime>(value)) {
-                return (GNEAttributeCarrier::parse<SUMOTime>(value) > 0);
+            if (GNEAttributeCarrier::canParse<double>(value)) {
+                return (GNEAttributeCarrier::parse<double>(value) > 0);
             } else {
                 return false;
             }
@@ -351,34 +351,53 @@ GNEDemandElementFlow::toggleFlowAttribute(const SumoXMLAttr attribute, const boo
 
 
 void
-GNEDemandElementFlow::adjustDefaultFlowAttributes(const GNETagProperties& tagProperty) {
+GNEDemandElementFlow::setDefaultFlowAttributes(const GNETagProperties& tagProperty) {
     // first check that this demand element is a flow
     if (tagProperty.isFlow()) {
-        // end
+        // set default end
         if ((parametersSet & VEHPARS_END_SET) == 0) {
             setFlowAttribute(SUMO_ATTR_END, tagProperty.getDefaultValue(SUMO_ATTR_END));
         }
-        // number
+        // set number
         if ((parametersSet & VEHPARS_NUMBER_SET) == 0) {
             setFlowAttribute(SUMO_ATTR_NUMBER, tagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
         }
-        // vehicles/person/container per hour
-        if (((parametersSet & VEHPARS_PERIOD_SET) == 0) &&
-                ((parametersSet & VEHPARS_POISSON_SET) == 0) &&
-                ((parametersSet & VEHPARS_VPH_SET) == 0)) {
+        // now continue depending of repetition (negative repetitionOffset means poisson, positive means period)
+        if (repetitionOffset < 0) {
+            toggleFlowAttribute(SUMO_ATTR_VEHSPERHOUR, false);
+            toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
+            toggleFlowAttribute(SUMO_ATTR_PROB, false);
+            toggleFlowAttribute(GNE_ATTR_POISSON, true);
+            // change offset sign
+            setFlowAttribute(GNE_ATTR_POISSON, time2string(repetitionOffset * -1));
+        } else if (((parametersSet & VEHPARS_PERIOD_SET) == 0) &&
+            ((parametersSet & GNE_ATTR_POISSON) == 0) &&
+            ((parametersSet & VEHPARS_VPH_SET) == 0)) {
             setFlowAttribute(SUMO_ATTR_PERIOD, tagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
         }
         // probability
         if ((parametersSet & VEHPARS_PROB_SET) == 0) {
             setFlowAttribute(SUMO_ATTR_PROB, tagProperty.getDefaultValue(SUMO_ATTR_PROB));
         }
-        // poisson
-        if (repetitionOffset < 0) {
-            toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
-            toggleFlowAttribute(GNE_ATTR_POISSON, true);
-            setFlowAttribute(GNE_ATTR_POISSON, time2string(repetitionOffset * -1));
+    }
+}
+
+std::string
+GNEDemandElementFlow::adjustDecimalValue(const double value) const {
+    // obtain value in string format with 20 decimals precision
+    auto valueStr = toString(value, 20);
+    // now clear all zeros
+    while (valueStr.size() > 1) {
+        if (valueStr.back() == '0') {
+            valueStr.pop_back(); 
+        } else if (valueStr.back() == '.') {
+            valueStr.pop_back();
+            return valueStr;
+        } else {
+            return valueStr;
         }
     }
+    return valueStr;
 }
 
 /****************************************************************************/

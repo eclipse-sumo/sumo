@@ -105,8 +105,11 @@ protected:
     void toggleFlowAttribute(const SumoXMLAttr attribute, const bool value);
 
 private:
-    /// @brief adjust flow default attributes
-    void adjustDefaultFlowAttributes(const GNETagProperties& tagProperty);
+    /// @brief set flow default attributes
+    void setDefaultFlowAttributes(const GNETagProperties& tagProperty);
+
+    /// @brief adjust decimal value
+    std::string adjustDecimalValue(const double value) const;
 
     /// @brief Invalidated copy constructor.
     GNEDemandElementFlow(const GNEDemandElementFlow&) = delete;
