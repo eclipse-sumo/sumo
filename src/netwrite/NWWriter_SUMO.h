@@ -120,7 +120,7 @@ private:
 
 
     /// @brief retrieve bidi edge id for internal corresponding to the given connection
-    static std::string getInternalBidi(const NBEdge* e, const NBEdge::Connection& k);
+    static std::string getInternalBidi(const NBEdge* e, const NBEdge::Connection& k, double& length);
 
 
     /** @brief Writes an edge (<edge ...)

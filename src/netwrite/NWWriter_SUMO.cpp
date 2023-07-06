@@ -327,6 +327,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         if (elv.size() > 0) {
             bool haveVia = false;
             std::string edgeID = "";
+            double bidiLength = -1;
             // second pass: write non-via edges
             for (const NBEdge::Connection& k : elv) {
                 if (k.toEdge == nullptr) {
@@ -345,9 +346,10 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     if (k.edgeType != "") {
                         into.writeAttr(SUMO_ATTR_TYPE, k.edgeType);
                     }
+                    bidiLength = -1;
                     if (e->getBidiEdge() && k.toEdge->getBidiEdge() &&
                             e != k.toEdge->getTurnDestination(true)) {
-                        const std::string bidiEdge = getInternalBidi(e, k);
+                        const std::string bidiEdge = getInternalBidi(e, k, bidiLength);
                         if (bidiEdge != "") {
                             into.writeAttr(SUMO_ATTR_BIDI, bidiEdge);
                         }
@@ -362,12 +364,13 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 SVCPermissions changeLeft = k.changeLeft != SVC_UNSPECIFIED ? k.changeLeft : SVCAll;
                 SVCPermissions changeRight = k.changeRight != SVC_UNSPECIFIED ? k.changeRight : SVCAll;
                 const double width = e->getInternalLaneWidth(n, k, successor, false);
+                const double length = bidiLength > 0 ? bidiLength : k.length;
                 writeLane(into, k.getInternalLaneID(), k.vmax, k.friction,
                           permissions, successor.preferred,
                           changeLeft, changeRight,
                           NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                           StopOffset(), width, k.shape, &k,
-                          k.length, k.internalLaneIndex, oppositeLaneID[k.getInternalLaneID()], "");
+                          length, k.internalLaneIndex, oppositeLaneID[k.getInternalLaneID()], "");
                 haveVia = haveVia || k.haveVia;
             }
             ret = true;
@@ -434,7 +437,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
 
 
 std::string
-NWWriter_SUMO::getInternalBidi(const NBEdge* e, const NBEdge::Connection& k) {
+NWWriter_SUMO::getInternalBidi(const NBEdge* e, const NBEdge::Connection& k, double& length) {
     const NBEdge* fromBidi = e->getTurnDestination(true);
     const NBEdge* toBidi = k.toEdge->getTurnDestination(true);
     const std::vector<NBEdge::Connection> cons = toBidi->getConnectionsFromLane(-1, fromBidi, -1);
@@ -449,6 +452,7 @@ NWWriter_SUMO::getInternalBidi(const NBEdge* e, const NBEdge::Connection& k) {
                 PositionVector rShape = c.shape.reverse();
                 for (const NBEdge::Connection& k2 : cons) {
                     if (k2.shape.almostSame(rShape, POSITION_EPS)) {
+                        length = (c.length + k2.length) / 2;
                         return k2.id;
                     }
                 }
