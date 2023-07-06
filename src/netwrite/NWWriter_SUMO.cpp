@@ -503,7 +503,10 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     // write the lanes
     const std::vector<NBEdge::Lane>& lanes = e.getLanes();
 
-    const double length = e.getFinalLength();
+    double length = e.getFinalLength();
+    if (e.getBidiEdge() != nullptr) {
+        length = (length + e.getBidiEdge()->getFinalLength()) / 2;
+    }
     double startOffset = e.isBidiRail() ? e.getTurnDestination(true)->getEndOffset() : 0;
     for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
