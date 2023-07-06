@@ -83,6 +83,7 @@
 //#define DEBUG_NO_CONNECTION
 //#define DEBUG_SURROUNDING
 //#define DEBUG_EXTRAPOLATE_DEPARTPOS
+//#define DEBUG_ITERATOR
 
 //#define DEBUG_COND (false)
 //#define DEBUG_COND (true)
@@ -196,10 +197,16 @@ MSLane::AnyVehicleIterator::operator*() {
 
 bool
 MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
-    //if (DEBUG_COND2(myLane)) std::cout << SIMTIME << "          AnyVehicleIterator::nextIsMyVehicles lane=" << myLane->getID()
-    //        << " myI1=" << myI1
-    //        << " myI2=" << myI2
-    //        << "\n";
+#ifdef DEBUG_ITERATOR
+    if (DEBUG_COND2(myLane)) std::cout << SIMTIME << "          AnyVehicleIterator::nextIsMyVehicles lane=" << myLane->getID()
+            << " myI1=" << myI1
+            << " myI1End=" << myI1End
+            << " myI2=" << myI2
+            << " myI2End=" << myI2End
+            << " myI3=" << myI3
+            << " myI3End=" << myI3End
+            << "\n";
+#endif
     if (myI1 == myI1End && myI3 == myI3End) {
         if (myI2 != myI2End) {
             return false;
@@ -211,13 +218,15 @@ MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
             return true;
         } else {
             MSVehicle* cand = myI1 == myI1End ? myLane->myTmpVehicles[myI3] : myLane->myVehicles[myI1];
-            //if (DEBUG_COND2(myLane)) std::cout << "              "
-            //        << " veh1=" << candFull->getID()
-            //        << " isTmp=" << (myI1 == myI1End)
-            //        << " veh2=" << myLane->myPartialVehicles[myI2]->getID()
-            //        << " pos1=" << cand->getPositionOnLane(myLane)
-            //        << " pos2=" << myLane->myPartialVehicles[myI2]->getPositionOnLane(myLane)
-            //        << "\n";
+#ifdef DEBUG_ITERATOR
+            if (DEBUG_COND2(myLane)) std::cout << "              "
+                    << " veh1=" << cand->getID()
+                    << " isTmp=" << (myI1 == myI1End)
+                    << " veh2=" << myLane->myPartialVehicles[myI2]->getID()
+                    << " pos1=" << cand->getPositionOnLane(myLane)
+                    << " pos2=" << myLane->myPartialVehicles[myI2]->getPositionOnLane(myLane)
+                    << "\n";
+#endif
             if (cand->getPositionOnLane() < myLane->myPartialVehicles[myI2]->getPositionOnLane(myLane)) {
                 return myDownstream;
             } else {
@@ -1351,7 +1360,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double
         const MSVehicle* veh = *last;
         while (freeSublanes > 0 && veh != nullptr) {
 #ifdef DEBUG_PLAN_MOVE
-            if (DEBUG_COND2(ego)) {
+            if (DEBUG_COND2(ego) || DEBUG_COND) {
                 gDebugFlag1 = true;
                 std::cout << "      getLastVehicleInformation lane=" << getID() << " minPos=" << minPos << " veh=" << veh->getID() << " pos=" << veh->getPositionOnLane(this)  << "\n";
             }
@@ -1360,7 +1369,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double
                 const double vehLatOffset = veh->getLatOffset(this);
                 freeSublanes = leaderTmp.addLeader(veh, true, vehLatOffset);
 #ifdef DEBUG_PLAN_MOVE
-                if (DEBUG_COND2(ego)) {
+                if (DEBUG_COND2(ego) || DEBUG_COND) {
                     std::cout << "         latOffset=" << vehLatOffset << " newLeaders=" << leaderTmp.toString() << "\n";
                 }
 #endif
