@@ -1695,7 +1695,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             // bidirectional railway
             MSLane* bidiLane = getBidiLane();
             if (bidiLane->getVehicleNumberWithPartials() > 0) {
-                for (AnyVehicleIterator veh = anyVehiclesBegin(); veh != anyVehiclesEnd(); ++veh) {
+                for (auto veh = myVehicles.begin(); veh != myVehicles.end(); ++veh) {
                     double high = (*veh)->getPositionOnLane(this);
                     double low = (*veh)->getBackPositionOnLane(this);
                     if (stage == MSNet::STAGE_MOVEMENTS) {
