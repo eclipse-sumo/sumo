@@ -1209,8 +1209,8 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                 # usually, subsequent departures do not require constraints
                 # (unless depart, until and ended out of sync)
                 if not pIsDepart or (departTimes[nStop.vehID] is not None
-                        and departTimes[pStop.vehID] is not None
-                        and departTimes[nStop.vehID] < departTimes[pStop.vehID]):
+                                     and departTimes[pStop.vehID] is not None
+                                     and departTimes[nStop.vehID] < departTimes[pStop.vehID]):
                     # find edges after stop
                     if busStop == options.debugStop:
                         print(i,
