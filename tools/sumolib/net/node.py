@@ -37,6 +37,7 @@ class Node:
         self._shape = None
         self._fringe = None
         self._params = {}
+        self._selected = False
 
     def getID(self):
         return self._id
@@ -175,7 +176,13 @@ class Node:
                     outgoing = all_outgoing
                 conns.extend(outgoing)
         return conns
-
+    
+    def select(self, value=True):
+        self._selected = value
+    
+    def isSelected(self):
+        return self._selected
+    
     def setParam(self, key, value):
         self._params[key] = value
 

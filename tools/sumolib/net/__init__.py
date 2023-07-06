@@ -17,6 +17,7 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @author  Robert Hilbrich
+# @author  Mirko Barthauer
 # @date    2008-03-27
 
 """
@@ -26,11 +27,13 @@ It uses other classes from this module to represent the road network.
 
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 import sys
 import math
 import heapq
 import gzip
 import warnings
+import io
 from xml.sax import handler, parse
 from copy import copy
 from collections import defaultdict
@@ -182,7 +185,26 @@ class Net:
         self._location["convBoundary"] = convBoundary
         self._location["origBoundary"] = origBoundary
         self._location["projParameter"] = projParameter
-
+    
+    def loadSelection(self, selectionFile):
+        with io.open(selectionFile, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith("edge:"):
+                    edgeID = line[5:]
+                    if edgeID in self._id2edge:
+                        self.getEdge(edgeID).select()
+                elif line.startswith("junction:"):
+                    nodeID = line[9:]
+                    if nodeID in self._id2node:
+                        self.getNode(nodeID).select()
+        
+    def resetSelection(self):
+        for node in self._nodes:
+            node.select(value=False)
+        for edge in self._edges:
+            edge.select(value=False)
+    
     def addNode(self, id, type=None, coord=None, incLanes=None, intLanes=None):
         if id is None:
             return None
@@ -888,7 +910,7 @@ def readNet(filename, **others):
     """ load a .net.xml file
     The following named options are supported:
 
-        'net' : initialize data structurs with an existing net object (default Net())
+        'net' : initialize data structures with an existing net object (default Net())
         'withPrograms' : import all traffic light programs (default False)
         'withLatestPrograms' : import only the last program for each traffic light.
                                This is the program that would be active in sumo by default.
