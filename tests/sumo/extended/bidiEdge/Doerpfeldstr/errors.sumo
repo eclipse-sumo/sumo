@@ -4,4 +4,3 @@ Warning: Unequal lengths of bidi lane ':cluster1906421961_1906421962_0_1' and la
 Warning: Unequal lengths of bidi lane ':cluster_237253947_3909915214_10_1' and lane ':cluster_237253947_3909915214_1_1' (19.89 != 19.83).
 Warning: Unequal lengths of bidi lane ':cluster_237254713_3234767440_5641118083_5641118084_#1more_1_1' and lane ':cluster_237254713_3234767440_5641118083_5641118084_#1more_10_1' (27.69 != 27.65).
 Warning: Unequal lengths of bidi lane '-152839426_2' and lane '166142947#1_2' (67.21 != 67.01).
-Warning: Vehicle 'f_0.19'; frontal collision with vehicle 'f_4.99', lane='178028204#9_2', gap=-1.00, time=1795.00 stage=move.
