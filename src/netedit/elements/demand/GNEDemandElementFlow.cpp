@@ -79,6 +79,13 @@ GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotat
 
 void
 GNEDemandElementFlow::writeFlowAttributes(const GNEDemandElement* flowElement, OutputDevice& device) const {
+    // get xph attribute
+    SumoXMLAttr xph = SUMO_ATTR_VEHSPERHOUR;
+    if (flowElement->getTagProperty().isPerson()) {
+        xph = SUMO_ATTR_PERSONSPERHOUR;
+    } else if (flowElement->getTagProperty().isPerson()) {
+        xph = SUMO_ATTR_CONTAINERSPERHOUR;
+    }
     // first check that we're writting a flow
     if (flowElement->getTagProperty().isFlow()) {
         // write routeFlow values depending if it was set
@@ -88,8 +95,8 @@ GNEDemandElementFlow::writeFlowAttributes(const GNEDemandElement* flowElement, O
         if (isFlowAttributeEnabled(SUMO_ATTR_NUMBER)) {
             device.writeAttr(SUMO_ATTR_NUMBER, getFlowAttribute(SUMO_ATTR_NUMBER));
         }
-        if (isFlowAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
-            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, getFlowAttribute(SUMO_ATTR_VEHSPERHOUR));
+        if (isFlowAttributeEnabled(xph)) {
+            device.writeAttr(xph, getFlowAttribute(xph));
         }
         if (isFlowAttributeEnabled(SUMO_ATTR_PERIOD)) {
             device.writeAttr(SUMO_ATTR_PERIOD, getFlowAttribute(SUMO_ATTR_PERIOD));
