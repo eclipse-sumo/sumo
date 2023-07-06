@@ -362,8 +362,8 @@ GNEPersonFrame::buildPerson() {
             myPersonBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
         }
         // adjust poisson value
-        if (myPersonBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
-            myPersonBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myPersonBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
+        if (myPersonBaseObject->hasTimeAttribute(GNE_ATTR_POISSON)) {
+            myPersonBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + time2string(myPersonBaseObject->getTimeAttribute(GNE_ATTR_POISSON), false) + ")");
         }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myPersonBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(personTag));

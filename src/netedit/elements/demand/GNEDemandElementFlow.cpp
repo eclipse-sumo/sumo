@@ -410,7 +410,7 @@ GNEDemandElementFlow::setDefaultFlowAttributes(const GNETagProperties& tagProper
         if (repetitionOffset < 0) {
             toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
             toggleFlowAttribute(GNE_ATTR_POISSON, true);
-            setFlowAttribute(GNE_ATTR_POISSON, time2string(repetitionOffset * -1));
+            setFlowAttribute(GNE_ATTR_POISSON, time2string(repetitionOffset * -1, false));
         }
     }
 }
