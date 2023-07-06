@@ -83,7 +83,7 @@ GNEDemandElementFlow::writeFlowAttributes(const GNEDemandElement* flowElement, O
     SumoXMLAttr xph = SUMO_ATTR_VEHSPERHOUR;
     if (flowElement->getTagProperty().isPerson()) {
         xph = SUMO_ATTR_PERSONSPERHOUR;
-    } else if (flowElement->getTagProperty().isPerson()) {
+    } else if (flowElement->getTagProperty().isContainer()) {
         xph = SUMO_ATTR_CONTAINERSPERHOUR;
     }
     // first check that we're writting a flow
