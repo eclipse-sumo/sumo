@@ -4,6 +4,10 @@
 # bidi edge where not all lanes have a bidilane
 multilane
 
+# load curved edge with shared median lane
+# (test/netconvert/import/XML/bidi/curved)
+curved
+
 # simulated shared median lane for turning (Two-Way-Left-Turn-lane)
 TWLT
 
