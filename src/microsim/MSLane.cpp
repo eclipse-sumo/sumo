@@ -2655,6 +2655,9 @@ MSLane::swapAfterLaneChange(SUMOTime) {
     if (MSGlobals::gSublane && getOpposite() != nullptr) {
         getOpposite()->sortPartialVehicles();
     }
+    if (myBidiLane != nullptr) {
+        myBidiLane->sortPartialVehicles();
+    }
 }
 
 
