@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-04 16:02:03 by Eclipse SUMO netconvert Version v1_18_0+0064-44003d8
+<!-- generated on 2023-07-06 10:21:50 by Eclipse SUMO netconvert Version v1_18_0+0132-90cec37
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,8 +52,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":14_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="7.87" length="13.66" shape="91.46,197.63 87.36,195.78 83.97,195.27 81.29,196.09 79.32,198.25"/>
     </edge>
     <edge id=":14_1" function="internal" bidi=":14_10">
-        <lane id=":14_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="27.69" shape="91.46,197.63 67.22,184.20"/>
-        <lane id=":14_1_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="8.33" length="27.69" shape="93.04,194.85 68.83,181.44"/>
+        <lane id=":14_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="27.67" shape="91.46,197.63 67.22,184.20"/>
+        <lane id=":14_1_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="8.33" length="27.67" shape="93.04,194.85 68.83,181.44"/>
     </edge>
     <edge id=":14_3" function="internal">
         <lane id=":14_3_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="10.43" shape="93.04,194.85 85.12,189.93 84.28,189.21"/>
@@ -86,8 +86,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":14_9_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="6.99" length="9.63" shape="70.44,178.68 72.41,179.32 74.41,178.99 76.46,177.67 78.53,175.38"/>
     </edge>
     <edge id=":14_10" function="internal" bidi=":14_1">
-        <lane id=":14_10_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="27.65" shape="70.44,178.68 94.61,192.06"/>
-        <lane id=":14_10_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="8.33" length="27.65" shape="68.83,181.44 93.04,194.85"/>
+        <lane id=":14_10_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="27.67" shape="70.44,178.68 94.61,192.06"/>
+        <lane id=":14_10_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="8.33" length="27.67" shape="68.83,181.44 93.04,194.85"/>
     </edge>
     <edge id=":14_12" function="internal">
         <lane id=":14_12_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="7.24" shape="68.83,181.44 74.79,185.54"/>
