@@ -13,6 +13,7 @@
 
 # @file    generateParkingAreas.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2021-11-25
 
 
@@ -28,9 +29,11 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser(description="Generate trips between random locations")
+    optParser = sumolib.options.ArgumentParser(description="Generate parking areas along the edges")
     optParser.add_argument("-n", "--net-file", category="input", dest="netfile",
                            help="define the net file (mandatory)")
+    optParser.add_argument("--selection-file", category="input", dest="selectionfile",
+                           help="optionally restrict the parking area to the selected net part")
     optParser.add_argument("-o", "--output-file", category="output", dest="outfile",
                            default="parkingareas.add.xml", help="define the output filename")
     optParser.add_argument("-p", "--probability", category="processing", type=float, default=1,
@@ -84,13 +87,19 @@ def main(options):
         random.seed(options.seed)
 
     net = sumolib.net.readNet(options.netfile)
-
+    checkSelection = False
+    if options.selectionfile is not None:
+        net.loadSelection(options.selectionfile)
+        checkSelection = True
+    
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)  # noqa
         for edge in net.getEdges():
             if options.edgeTypeKeep and not edge.getType() in options.edgeTypeKeep:
                 continue
             if options.edgeTypeRemove and edge.getType() in options.edgeTypeRemove:
+                continue
+            if checkSelection and not edge.isSelected():
                 continue
             lanes = edge.getLanes()
             if options.lefthand:
