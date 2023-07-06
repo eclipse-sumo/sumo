@@ -208,7 +208,6 @@ NLEdgeControlBuilder::build(const MMVersion& networkVersion) {
         if (MSGlobals::gUseMesoSim && !edge->getLanes().empty()) {
             MSGlobals::gMesoNet->buildSegmentsFor(*edge, OptionsCont::getOptions());
         }
-        edge->buildLaneChanger();
     }
     // mark internal edges belonging to a roundabout (after all edges are build)
     if (MSGlobals::gUsingInternalLanes) {
@@ -238,6 +237,10 @@ NLEdgeControlBuilder::build(const MMVersion& networkVersion) {
         for (MSEdge* e : myEdges) {
             e->checkAndRegisterBiDirEdge();
         }
+    }
+    // take into account bidi lanes when deciding on whether an edge allows changing
+    for (MSEdge* const edge : myEdges) {
+        edge->buildLaneChanger();
     }
     return new MSEdgeControl(myEdges);
 }
