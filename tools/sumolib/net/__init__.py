@@ -187,6 +187,10 @@ class Net:
         self._location["projParameter"] = projParameter
     
     def loadSelection(self, selectionFile):
+        for edge in self._edges:
+            edge.select(value=False)
+        for node in self._nodes:
+            node.select(value=False)
         with io.open(selectionFile, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
