@@ -1841,7 +1841,6 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
 
     // remap edges which are incoming / outgoing
     for (NBEdge* e : allEdges) {
-        std::vector<NBEdge::Connection> conns = e->getConnections();
         const bool outgoing = cluster.count(e->getFromNode()) > 0;
         NBNode* from = outgoing ? newNode : e->getFromNode();
         NBNode* to   = outgoing ? e->getToNode() : newNode;
@@ -1863,7 +1862,12 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
         e->reinitNodes(from, to);
         // re-add connections which previously existed and may still valid.
         // connections to removed edges will be ignored
+        std::vector<NBEdge::Connection> conns = e->getConnections();
         for (std::vector<NBEdge::Connection>::iterator k = conns.begin(); k != conns.end(); ++k) {
+            if ((*k).toEdge == nullptr) {
+                // edge explicitly set to have no connections
+                continue;
+            }
             e->addLane2LaneConnection((*k).fromLane, (*k).toEdge, (*k).toLane, NBEdge::Lane2LaneInfoType::USER, false, (*k).mayDefinitelyPass);
             if ((*k).fromLane >= 0 && (*k).fromLane < e->getNumLanes() && e->getLaneStruct((*k).fromLane).connectionsDone) {
                 // @note (see NIImporter_DlrNavteq::ConnectedLanesHandler)
