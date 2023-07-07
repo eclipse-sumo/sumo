@@ -3455,7 +3455,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
             std::cout << "   computeSpeedLat b)\n";
         }
 #endif
-        return speedAccel;
+        return emergencySpeedLat(speedAccel);
     }
     // check if the remaining distance allows to accelerate laterally
     double minDistAccel = SPEED2DIST(speedAccel) + currentDirection * MSCFModel::brakeGapEuler(fabs(speedAccel), accelLat, 0); // most we can move in the target direction
@@ -3489,7 +3489,29 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
         std::cout << "   computeSpeedLat e)\n";
     }
 #endif
-    return speedDecel;
+    return emergencySpeedLat(speedDecel);
+}
+
+
+double
+MSLCM_SL2015::emergencySpeedLat(double speedLat) const {
+    // reduce lateral speed for safety purposes
+    if (speedLat < 0 && SPEED2DIST(-speedLat) > mySafeLatDistRight) {
+        speedLat = -DIST2SPEED(mySafeLatDistRight);
+#ifdef DEBUG_MANEUVER
+        if (debugVehicle()) {
+            std::cout << "   rightDanger speedLat=" << speedLat << "\n";
+        }
+#endif
+    } else if (speedLat > 0 && SPEED2DIST(speedLat) > mySafeLatDistLeft) {
+        speedLat = DIST2SPEED(mySafeLatDistLeft);
+#ifdef DEBUG_MANEUVER
+        if (debugVehicle()) {
+            std::cout << "   leftDanger speedLat=" << speedLat << "\n";
+        }
+#endif
+    }
+    return speedLat;
 }
 
 
