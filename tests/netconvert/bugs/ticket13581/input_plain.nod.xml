@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-07 09:09:30 by Eclipse SUMO netedit Version v1_18_0+0172-1b2313e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="nottinghill-1.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="1"/>
+    </processing>
+
+    <building_defaults>
+        <default.spreadtype value="roadCenter"/>
+    </building_defaults>
+
+    <tls_building>
+        <tls.ignore-internal-junction-jam value="1"/>
+    </tls_building>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-694502.26,-5710053.81" convBoundary="13.58,33.23,171.24,150.70" origBoundary="-0.200593,51.507755,-0.142249,51.515288" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="102091" x="129.51" y="141.38" type="priority"/>
+    <node id="10597779676" x="120.63" y="115.85" type="traffic_light" tl="10597779676">
+        <param key="highway" value="traffic_signals"/>
+        <param key="traffic_signals:direction" value="forward"/>
+    </node>
+    <node id="1937948454" x="13.58" y="92.78" type="dead_end" fringe="outer">
+        <param key="highway" value="traffic_signals"/>
+        <param key="traffic_signals:direction" value="forward"/>
+    </node>
+    <node id="2314766396" x="128.02" y="130.92" type="traffic_light" tl="GS_2314766396"/>
+    <node id="25579302" x="49.97" y="115.15" type="dead_end"/>
+    <node id="7123959642" x="171.24" y="150.70" type="dead_end"/>
+    <node id="7208284743" x="109.60" y="134.93" type="traffic_light" tl="7208284743">
+        <param key="highway" value="traffic_signals"/>
+        <param key="traffic_signals:direction" value="forward"/>
+    </node>
+    <node id="841514178" x="145.57" y="142.09" type="right_before_left"/>
+    <node id="841519716" x="128.69" y="101.35" type="priority"/>
+    <node id="841519718" x="118.22" y="137.48" type="traffic_light" tl="841519718">
+        <param key="button_operated" value="yes"/>
+        <param key="crossing" value="traffic_signals"/>
+        <param key="crossing_ref" value="pelican"/>
+        <param key="highway" value="crossing"/>
+        <param key="tactile_paving" value="yes"/>
+        <param key="traffic_signals:vibration" value="yes"/>
+    </node>
+    <node id="841519720" x="144.29" y="139.79" type="priority">
+        <param key="highway" value="traffic_signals"/>
+        <param key="traffic_signals:direction" value="forward"/>
+    </node>
+    <node id="841519722" x="121.30" y="128.20" type="priority">
+        <param key="crossing" value="traffic_signals"/>
+        <param key="crossing_ref" value="pelican"/>
+        <param key="highway" value="crossing"/>
+    </node>
+    <node id="841519723" x="112.79" y="124.82" type="traffic_light" tl="GS_841519723"/>
+    <node id="841519724" x="128.37" y="122.02" type="priority">
+        <param key="crossing" value="traffic_signals"/>
+        <param key="crossing_ref" value="pelican"/>
+        <param key="highway" value="crossing"/>
+    </node>
+    <node id="841519725" x="119.03" y="118.74" type="priority">
+        <param key="crossing" value="traffic_signals"/>
+        <param key="crossing_ref" value="pelican"/>
+        <param key="highway" value="crossing"/>
+    </node>
+    <node id="841529961" x="144.62" y="33.23" type="dead_end"/>
+</nodes>
