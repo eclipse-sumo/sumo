@@ -24,6 +24,7 @@ title: ChangeLog
 - netedit
   - Fixed problem saving person flow attributes #11022
   - Fixed problem saving containers sorted by begin attribute in Netedit #11022
+  - Fixed problem saving edgetypes. #12467
 
 - netconvert
   - Fixed unequal length of bidi edge #13569
