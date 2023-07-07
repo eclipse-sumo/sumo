@@ -40,6 +40,9 @@ title: ChangeLog
   
 ### Enhancements
 
+- sumo-gui
+  - Added tooltip in scale traffic label #13545   
+
 - netedit
   - Now supports Human Readable Time (HH:MM:SS) #11022
   - Added support for E3 attribute expectArrival #13477
