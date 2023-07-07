@@ -4,7 +4,7 @@ title: Opposite Direction Driving
 
 # Opposite-Direction-Driving
 
-This page describes simulations which are enabled for for overtaking
+This page describes simulations which are enabled for overtaking
 through the opposite-direction edge. To enable this feature, the network
 must contain additional information regarding the adjacency of
 opposite-direction edges.
