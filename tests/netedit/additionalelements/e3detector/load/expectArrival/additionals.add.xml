@@ -1,0 +1,25 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- valid expectArrival (missing) -->
+    <entryExitDetector id="entryExitDetector_0" period="100.00" file="fileA.txt"  pos="26,10">
+        <detEntry lane="center1_0" pos="32"/>
+        <detExit lane="center0_0" pos="32"/>
+    </entryExitDetector>
+
+    <!-- non valid expectArrival (dummy)  -->
+    <entryExitDetector id="entryExitDetector_1" period="100.00" file="fileA.txt" expectArrival="dummy" pos="28,10">
+        <detEntry lane="center1_0" pos="34"/>
+        <detExit lane="center0_0" pos="34"/>
+    </entryExitDetector>
+
+    <!-- valid expectArrival (true) -->
+    <entryExitDetector id="entryExitDetector_2" period="100.00" file="fileA.txt" expectArrival="true" pos="30,10">
+        <detEntry lane="center1_0" pos="36"/>
+        <detExit lane="center0_0" pos="36"/>
+    </entryExitDetector>
+
+    <!-- valid expectArrival (true) -->
+    <entryExitDetector id="entryExitDetector_3" period="100.00" file="fileA.txt" expectArrival="false" pos="32,10">
+        <detEntry lane="center1_0" pos="38"/>
+        <detExit lane="center0_0" pos="38"/>
+    </entryExitDetector>
+</additional>

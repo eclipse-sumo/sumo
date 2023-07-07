@@ -1018,6 +1018,7 @@ class E3:
         vTypes = 9
         timeThreshold = 10
         speedThreshold = 11
+        expectArrival = 12
 
     class inspect:
         id = 1
@@ -1028,7 +1029,8 @@ class E3:
         vTypes = 6
         timeThreshold = 7
         speedThreshold = 8
-        parameters = 11
+        expectArrival = 9
+        parameters = 12
 
     class inspectSelection:
         period = 1
@@ -1037,7 +1039,8 @@ class E3:
         vTypes = 4
         timeThreshold = 5
         speedThreshold = 6
-        parameters = 9
+        expectArrival = 7
+        parameters = 10
 
 # entryExit
 
