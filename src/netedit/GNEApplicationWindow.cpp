@@ -3487,7 +3487,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject* obj, FXSelector sel, void* pt
     auto& neteditOptions = OptionsCont::getOptions();
     // Check if edgeType file was already set at start of netedit or with a previous save
     if (neteditOptions.getString("edgetypes-file").empty()) {
-        return onCmdSaveTLSProgramsAs(obj, sel, ptr);
+        return onCmdSaveEdgeTypesAs(obj, sel, ptr);
     } else {
         // Start saving edgeTypes
         getApp()->beginWaitCursor();
