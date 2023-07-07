@@ -82,6 +82,12 @@ def get_options(args=None):
     return options
 
 
+def hasOppositeEdge(edge):
+    toNode = edge.getToNode()
+    fromNode = edge.getFromNode()
+    return fromNode in [e.getToNode() for e in toNode.getOutgoing()]
+
+
 def main(options):
     if not options.random:
         random.seed(options.seed)
@@ -105,6 +111,8 @@ def main(options):
             if options.lefthand:
                 lanes = reversed(lanes)
             for lane in lanes:
+                if options.lefthand and lane.getNeigh() is not None:
+                    break
                 if lane.allows(options.vclass):
                     if random.random() < options.probability:
                         capacity = lane.getLength() / options.length
@@ -119,7 +127,7 @@ def main(options):
                             outf.write('    <parkingArea id="%s%s" lane="%s" roadsideCapacity="%s"%s%s%s%s/>\n' % (
                                 options.prefix, edge.getID(), lane.getID(),
                                 capacity, length, width, angle, lefthand))
-                    break
+                break # only allow "offroad" parking for now (default onRoad=false)
         outf.write("</additional>\n")
 
 
