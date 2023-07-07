@@ -1804,6 +1804,10 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
         for (NBEdge* reached : seen) {
             // filter out inside edges from reached
             if (inside.count(reached) == 0) {
+                if (e->getStep() > NBEdge::EdgeBuildingStep::INIT && reached->getFromNode() == e->getToNode() && !e->isConnectedTo(reached)) {
+                    // also filter out edges that are outgoing of the to-node of edge but aren't currently connected
+                    continue;
+                }
                 reachable[e].insert(reached);
                 const SVCPermissions pDefault = e->getPermissions() & reached->getPermissions();
                 if (conPermissions[ {e, reached}] != pDefault) {
