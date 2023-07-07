@@ -568,8 +568,8 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
 
 void
 GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime period,
-                                      const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
-                                      const Parameterised::Map& parameters) {
+                                      const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold,
+                                      const double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
         writeInvalidID(SUMO_TAG_ENTRY_EXIT_DETECTOR, id);
@@ -587,7 +587,7 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // build E3
-        GNEAdditional* E3 = new GNEMultiEntryExitDetector(id, myNet, pos, period, filename, vehicleTypes, name, timeThreshold, speedThreshold, parameters);
+        GNEAdditional* E3 = new GNEMultiEntryExitDetector(id, myNet, pos, period, filename, vehicleTypes, name, timeThreshold, speedThreshold, expectedArrival, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::E3, TL("add entry-exit detector '") + id + "'");

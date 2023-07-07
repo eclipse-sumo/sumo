@@ -2204,6 +2204,13 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s"),
                                               "1.39");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_EXPECT_ARRIVAL,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Whether no warning should be issued when a vehicle arrives within the detector area."),
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
     }
     currentTag = SUMO_TAG_DET_ENTRY;
     {

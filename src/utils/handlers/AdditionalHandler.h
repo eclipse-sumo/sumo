@@ -242,11 +242,12 @@ public:
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+     * @param[in] expectedArrival Whether no warning should be issued when a vehicle arrives within the detector area
      * @param[in] parameters generic parameters
      */
     virtual void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime period,
                                  const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold,
-                                 const double speedThreshold, const Parameterised::Map& parameters) = 0;
+                                 const double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a entry detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build

@@ -391,6 +391,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                             obj->getStringAttribute(SUMO_ATTR_NAME),
                             obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
                             obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
+                            obj->getBoolAttribute(SUMO_ATTR_EXPECT_ARRIVAL),
                             obj->getParameters());
             break;
         case SUMO_TAG_DET_ENTRY:
@@ -1028,6 +1029,7 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
     const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, TIME2STEPS(1));
     const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, 1.39);
+    const bool expectedArrival = attrs.getOpt<bool>(SUMO_ATTR_EXPECT_ARRIVAL, id.c_str(), parsedOk, false);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1041,6 +1043,7 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_EXPECT_ARRIVAL, expectedArrival);
     }
 }
 
