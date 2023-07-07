@@ -5,11 +5,6 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 5
 25
 entryExitDetector
-dummyTimeTreshold
-TestFunctions: Clicked over position 680 - 251
--4
-TestFunctions: Clicked over position 680 - 251
-5
 TestFunctions: Clicked over position 680 - 251
 detExit
 TestFunctions: Clicked over position 680 - 251
