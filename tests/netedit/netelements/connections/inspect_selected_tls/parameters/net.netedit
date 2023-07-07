@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-06 12:08:48 by Eclipse SUMO netedit Version v1_18_0+0135-de86dee393d
+<!-- generated on 2023-07-07 12:56:48 by Eclipse SUMO netedit Version v1_18_0+0190-5fd27c2df92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/net.net.xml"/>
     </output>
 
     <processing>
@@ -34,16 +34,16 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/gui-settings.xml"/>
         <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_selected_tls/parameters/log.txt"/>
     </report>
 
 </configuration>
@@ -117,84 +117,84 @@
     <junction id="D" type="dead_end" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes="" shape="100.00,50.00 100.00,43.60 100.00,50.00"/>
 
     <connection from="5" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="8" dir="r" state="O">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="5" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="9" dir="s" state="O">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="5" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="10" dir="s" state="O">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="5" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="11" dir="l" state="o">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="6" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="0" dir="r" state="O">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="6" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="1" dir="s" state="O">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="6" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="2" dir="s" state="O">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="6" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="3" dir="l" state="o">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="7" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="r" state="o">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="7" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="13" dir="s" state="o">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="7" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="14" dir="s" state="o">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="7" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="15" dir="l" state="o">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="8" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="4" dir="r" state="o">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="8" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="5" dir="s" state="o">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="8" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="6" dir="s" state="o">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
     <connection from="8" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="7" dir="l" state="o">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </connection>
 
 </net>

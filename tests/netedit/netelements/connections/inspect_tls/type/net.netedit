@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-06 11:48:13 by Eclipse SUMO netedit Version v1_18_0+0135-de86dee393d
+<!-- generated on 2023-07-07 12:45:54 by Eclipse SUMO netedit Version v1_18_0+0190-5fd27c2df92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_tls/type/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_tls/type/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_tls/type/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_tls/type/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_tls/type/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/net.net.xml"/>
     </output>
 
     <processing>
@@ -34,16 +34,16 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_tls/type/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/gui-settings.xml"/>
         <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_tls/type/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.06Jul112909.2137/netedit.daily.net.connections/netelements/connections/inspect_tls/type/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/log.txt"/>
     </report>
 
 </configuration>
@@ -121,7 +121,7 @@
     <connection from="5" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="10" dir="s" state="O"/>
     <connection from="5" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="11" dir="l" state="o"/>
     <connection from="6" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="0" dir="r" state="O"/>
-    <connection from="6" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="1" dir="s" state="O"/>
+    <connection from="6" to="1" fromLane="0" toLane="0" type="customType" tl="Center" linkIndex="1" dir="s" state="O"/>
     <connection from="6" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="2" dir="s" state="O"/>
     <connection from="6" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="3" dir="l" state="o"/>
     <connection from="7" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="r" state="o"/>

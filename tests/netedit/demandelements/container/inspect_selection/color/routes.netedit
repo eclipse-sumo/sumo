@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-06 15:08:58 by Eclipse SUMO netedit Version v1_18_0+0156-485092721a9
+<!-- generated on 2023-07-07 13:42:39 by Eclipse SUMO netedit Version v1_18_0+0190-5fd27c2df92
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <container id="f_0" depart="10.00" color="cyan">
+    <container id="f_0" depart="10.00" color="12,13,14">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
         <tranship from="gneE2" to="gneE5"/>
     </container>
-    <container id="f_1" depart="12.00" color="cyan">
+    <container id="f_1" depart="12.00" color="12,13,14">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

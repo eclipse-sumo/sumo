@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-06 11:34:51 by Eclipse SUMO netedit Version v1_18_0+0135-de86dee393d
+<!-- generated on 2023-07-07 12:39:39 by Eclipse SUMO netedit Version v1_18_0+0190-5fd27c2df92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.07Jul123648.3279/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.07Jul123648.3279/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.07Jul123648.3279/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.07Jul123648.3279/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.07Jul123648.3279/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/net.net.xml"/>
     </output>
 
     <processing>
@@ -33,16 +33,16 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.07Jul123648.3279/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/gui-settings.xml"/>
         <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.07Jul123648.3279/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.07Jul123648.3279/netedit.daily.net.trafficlights/netelements/trafficlights/single/phases/static/state/log.txt"/>
     </report>
 
 </configuration>
@@ -164,7 +164,7 @@
 
     <tlLogic id="J0" type="static" programID="0" offset="0">
         <phase duration="42" state="GGGgrrrrGGGgrrrr"/>
-        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <phase duration="3"  state="rGrrGyGgGrGrGyGg"/>
         <phase duration="42" state="rrrrGGGgrrrrGGGg"/>
         <phase duration="3"  state="rrrryyyyrrrryyyy"/>
     </tlLogic>
@@ -180,7 +180,7 @@
         <request index="7"  response="0111110000001100" foes="0111110000001100" cont="1"/>
         <request index="8"  response="0000000000000000" foes="0100000000001000" cont="0"/>
         <request index="9"  response="0000000000000000" foes="0100000000001000" cont="0"/>
-        <request index="10" response="1000000010000000" foes="1100000011111000" cont="0"/>
+        <request index="10" response="0000000000000000" foes="1100000011111000" cont="0"/>
         <request index="11" response="1000000010000111" foes="1100000011000111" cont="1"/>
         <request index="12" response="0000000000000100" foes="0000000010000100" cont="0"/>
         <request index="13" response="0000000000000100" foes="0000000010000100" cont="0"/>
@@ -205,9 +205,9 @@
     </junction>
 
     <junction id=":J0_16_0" type="internal" x="29.11" y="36.14" incLanes=":J0_3_0 -E3_1 -E3_2" intLanes=":J0_6_0 :J0_7_0 :J0_8_0 :J0_8_1 :J0_10_0 :J0_14_0 :J0_15_0"/>
-    <junction id=":J0_17_0" type="internal" x="36.14" y="30.89" incLanes=":J0_7_0 -E0_1 -E0_2" intLanes=":J0_2_0 :J0_3_0 :J0_10_0 :J0_11_0 :J0_12_0 :J0_12_1 :J0_14_0"/>
+    <junction id=":J0_17_0" type="internal" x="36.14" y="30.89" incLanes=":J0_7_0 -E0_1 -E0_2 -E3_2" intLanes=":J0_2_0 :J0_3_0 :J0_10_0 :J0_11_0 :J0_12_0 :J0_12_1 :J0_14_0"/>
     <junction id=":J0_18_0" type="internal" x="30.89" y="23.86" incLanes=":J0_11_0 -E2_1 -E2_2" intLanes=":J0_0_0 :J0_0_1 :J0_2_0 :J0_6_0 :J0_7_0 :J0_14_0 :J0_15_0"/>
-    <junction id=":J0_19_0" type="internal" x="23.86" y="29.11" incLanes=":J0_15_0 -E1_1 -E1_2" intLanes=":J0_2_0 :J0_3_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_10_0 :J0_11_0"/>
+    <junction id=":J0_19_0" type="internal" x="23.86" y="29.11" incLanes=":J0_15_0 -E1_1 -E1_2 -E3_2" intLanes=":J0_2_0 :J0_3_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_10_0 :J0_11_0"/>
 
     <connection from="-E0" to="E3" fromLane="1" toLane="1" via=":J0_12_0" tl="J0" linkIndex="12" dir="r" state="o"/>
     <connection from="-E0" to="E3" fromLane="2" toLane="2" via=":J0_12_1" tl="J0" linkIndex="13" dir="r" state="o"/>
