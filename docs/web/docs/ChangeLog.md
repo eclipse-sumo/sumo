@@ -7,16 +7,29 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
-  - Fixed faiulre to join a leading train on subsequent edge. #13539
+  - Fixed major slowdown on windows due to translation. Issue #13561 (regression in 1.16.0)
+  - Fixed failure to join a leading train on subsequent edge. #13539
   - Fixed invalid route after trying to to join leading train on subsequent edge of diverging route. #13540
   - Edgedata-output now only counts vehicles that start their teleport on an edge in the teleport count of that edge. #13559
-  - Fixed avoidable slowdown when approaching a bidi lane at low speed. #13558
-  - Fixed deadlock on junction when approaching occupied bidiEdge at traffic light. #13541
-  - Fixed lane choice when approaching an edge with a shared median lane. #13402
+  - bidi edge
+    - Fixed avoidable slowdown when approaching a bidi lane at low speed. #13558
+    - Fixed deadlock on junction when approaching occupied bidiEdge at traffic light. #13541
+    - Fixed lane choice when approaching an edge with a shared median lane. #13402
+    - Fixed unsafe insertion on bidiLane. #13566
+    - Curved bidi lane now identified on loading #13571
+    - Fixed invalid bidi-leader identification during lane changing #13572, #13576
+    - Fixed invalid collision warning on bidi lane #13573
+    - Fixed failure to change lane on internal bidi lane #13575
 
-- Netedit
+- netedit
   - Fixed problem saving person flow attributes #11022
   - Fixed problem saving containers sorted by begin attribute in Netedit #11022
+
+- netconvert
+  - Fixed unequal length of bidi edge #13569
+  - OSM turn lanes for left hand networks are now in right order #13549
+  - Fixed crash joining junctions #13581
+  - Fixed superfluous connections after joining junction. #13553
 
 - Tools
   - routeSampler.py: Fixed bias when distributing flow departures over the data interval. #13523
@@ -27,8 +40,16 @@ title: ChangeLog
   
 ### Enhancements
 
-- Netedit
+- netedit
   - Now supports Human Readable Time (HH:MM:SS) #11022
+  - Added support for E3 attribute expectArrival #13477
+
+- netconvert
+  - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
+
+- Tools
+  - generateRailSignalConstraints.py: Now handles `depart="split"` for insertionOrderConstraints. #13565
+
 ## Version 1.18.0 (29.06.2023)
 
 ### Bugfixes
