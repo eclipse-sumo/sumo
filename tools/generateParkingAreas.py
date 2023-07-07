@@ -60,6 +60,10 @@ def get_options(args=None):
                            help="whether to place parkingareas on the left of the road")
     optParser.add_argument("-a", "--angle", category="processing", type=float,
                            help="parking area angle")
+    optParser.add_argument("--on-road", category="processing", action="store_true", default=False, dest="onRoad",
+                           help="whether to place parkingareas directly on the road")
+    optParser.add_argument("--on-road.lane-offset", category="processing", type=int, default=0, dest="onRoadLaneOffset",
+                           help="lane index to place on-road parking spaces on (use negative value to use all lanes)")
     optParser.add_argument("--prefix", category="processing", default="pa", help="prefix for the parkingArea ids")
     optParser.add_argument("-s", "--seed", category="processing", type=int, default=42, help="random seed")
     optParser.add_argument("--random", category="processing", action="store_true", default=False,
@@ -113,6 +117,12 @@ def main(options):
             for lane in lanes:
                 if options.lefthand and lane.getNeigh() is not None:
                     break
+                laneIndex = lane.getIndex()
+                if options.onRoad and options.onRoadLaneOffset > -1:
+                    if options.onRoadLaneOffset < laneIndex:
+                        continue
+                    elif options.onRoadLaneOffset > laneIndex:
+                        break
                 if lane.allows(options.vclass):
                     if random.random() < options.probability:
                         capacity = lane.getLength() / options.length
@@ -125,11 +135,13 @@ def main(options):
                             angle = '' if options.angle is None else ' angle="%s"' % options.angle
                             length = '' if options.spaceLength <= 0 else ' length="%s"' % options.spaceLength
                             width = '' if options.width is None else ' width="%s"' % options.width
+                            onRoad = '' if not options.onRoad else ' onRoad="true"'
                             lefthand = '' if not options.lefthand else ' lefthand="true"'
-                            outf.write('    <parkingArea id="%s%s" lane="%s" roadsideCapacity="%s"%s%s%s%s/>\n' % (
-                                options.prefix, edge.getID(), lane.getID(),
-                                capacity, length, width, angle, lefthand))
-                break # only allow "offroad" parking for now (default onRoad=false)
+                            outf.write('    <parkingArea id="%s%s%s" lane="%s" roadsideCapacity="%s"%s%s%s%s%s/>\n' % (
+                                options.prefix, edge.getID(), laneIndex, lane.getID(),
+                                capacity, length, width, angle, lefthand, onRoad))
+                if not options.onRoad:
+                    break
         outf.write("</additional>\n")
 
 
