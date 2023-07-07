@@ -99,6 +99,9 @@ Additional options:
 - **--min** minimum capacity for parkingAreas
 - **--max** maximum capacity for parkingAreas
 - **--angle** parking area angle
+- **--lefthand** create parking areas to the left of the edge (only where no neighbor lane is marked, see [opposite direction driving](../Simulation/OppositeDirectionDriving.md))
+- **--on-road** will force the parking area to be created on the road (vehicles will stop directly on the lane)
+- **--on-road.lane-offset** sets the lane(s) on-road parking areas will be created (either use a negative value for all lanes or enter a lane index)
 - **--prefix** prefix for the parkingArea ids
 - **--seed** random seed
 - **--random** use a random seed to initialize the random number generator
