@@ -1757,10 +1757,8 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             NBEdge* const cur = open.back();
             const SVCPermissions pCur = conPermissions.count({e, cur}) == 0 ? cur->getPermissions() : conPermissions[ {e, cur}];
 #ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
-            if (e->getID() == "625058945") {
-                std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " pCur=" << getVehicleClassNames(cur->getPermissions()) << " open=" << toString(open) << "\n";
-                std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " pCur=" << getVehicleClassNames(pCur) << " open=" << toString(open) << "\n";
-            }
+            std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " open=" << toString(open) << "\n";
+            std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " open=" << toString(open) << "\n";
 #endif
             seen.insert(cur);
             open.pop_back();
@@ -1779,9 +1777,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                                 open.push_back(out);
                                 conPermissions[ {e, out}] |= p;
 #ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
-                                if (e->getID() == "625058945") {
-                                    std::cout << "  e=" << e->getID() << " out=" << out->getID() << " pOut=" << getVehicleClassNames(out->getPermissions()) << "\n    p=" << getVehicleClassNames(p) << "\n    q=" << getVehicleClassNames(conPermissions[ {e, out}]) << "\n";
-                                }
+                                std::cout << "  e=" << e->getID() << " out=" << out->getID() << " pOut=" << getVehicleClassNames(out->getPermissions()) << "\n    p=" << getVehicleClassNames(p) << "\n    q=" << getVehicleClassNames(conPermissions[ {e, out}]) << "\n";
 #endif
                             }
                         }
@@ -1813,9 +1809,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                 if (conPermissions[ {e, reached}] != pDefault) {
                     specialPermissions.insert(e);
 #ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
-                    if (e->getID() == "625058945") {
-                        std::cout << "e=" << e->getID() << " out=" << reached->getID() << " special=" << getVehicleClassNames(conPermissions[ {e, reached}]) << "\n";
-                    }
+                    std::cout << "e=" << e->getID() << " out=" << reached->getID() << " special=" << getVehicleClassNames(conPermissions[ {e, reached}]) << "\n";
 #endif
                 }
             }
