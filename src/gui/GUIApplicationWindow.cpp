@@ -38,6 +38,7 @@
 #include <netload/NLHandler.h>
 #include <traci-server/TraCIServer.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXLCDLabel.h>
 #include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/foxtools/MFXRealSpinner.h>
@@ -732,7 +733,9 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag8 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar8 = new FXToolBar(myTopDock, myToolBarDrag8, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar8, myToolBar8, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXLabel(myToolBar8, (TL("Scale Traffic:") + std::string("\t\t") + TL("Scale traffic volume from running flows and from vehicles that are loaded incrementally from route files.")).c_str(), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        myScaleTrafficTooltip = new MFXLabelTooltip(myToolBar8, myStaticTooltipMenu, 
+            (TL("Scale Traffic:") + std::string("\t\t") + TL("Scale traffic volume from running flows and from vehicles that are loaded incrementally from route files.")).c_str(),
+            nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myDemandScaleSpinner = new MFXRealSpinner(myToolBar8, 7, this, MID_DEMAND_SCALE, GUIDesignSpinDial);
         myDemandScaleSpinner->setIncrement(0.5);
         myDemandScaleSpinner->setRange(0, 1000);
@@ -1481,11 +1484,13 @@ long
 GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* ptr) {
     bool disable = !myRunThread->simulationAvailable() || myAmLoading;
     sender->handle(this, disable ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
-    // mySelectLanesMenuCascade has to be disabled manually
+    // certain elements must be changed manually
     if (disable) {
         mySelectLanesMenuCascade->disable();
+        myScaleTrafficTooltip->setTipText("");
     } else {
         mySelectLanesMenuCascade->enable();
+        myScaleTrafficTooltip->setTipText(TL("Scale number of vehicles in simulation"));
     }
     return 1;
 }

@@ -43,6 +43,7 @@ class GUIParameterTracker;
 class GUIParameterTableWindow;
 class GUIDialog_Breakpoints;
 class MFXLCDLabel;
+class MFXLabelTooltip;
 
 
 // ===========================================================================
@@ -436,6 +437,9 @@ protected:
 
     /// @brief Simulation delay slider
     FXSlider* mySimDelaySlider = nullptr;
+
+    /// @brief the demand scale label
+    MFXLabelTooltip* myScaleTrafficTooltip = nullptr;
 
     /// @brief the demand scale
     FXRealSpinner* myDemandScaleSpinner = nullptr;
