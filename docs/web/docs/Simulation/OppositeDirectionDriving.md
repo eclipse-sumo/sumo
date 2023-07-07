@@ -11,7 +11,7 @@ opposite-direction edges.
 
 # Building a Network for opposite-direction-driving
 
-The enable overtaking through the opposite direction lane, the
+To enable overtaking through the opposite direction lane, the
 *.net.xml* file must contain `<neigh>` elements that specify adjacency. The
 options for including this information are described below.
 
