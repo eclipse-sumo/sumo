@@ -89,6 +89,7 @@ The required parameter is the network (-n or --net-file). More options can be ob
 
 Additional options:
 
+- **--selection-file** restrict the generation to the edges mentioned in this selection file
 - **--output-file** define the output filename
 - **--probability** probability for an edge to receive a parkingArea
 - **--length** length required per parking space
