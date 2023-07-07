@@ -424,8 +424,11 @@ class StartDialog(Tkinter.Frame):
         if _DEBUG:
             print("starting", cfg)
         self.gametime = parseEndTime(cfg)
+        binary = sumolib.checkBinary("sumo-gui", BASE)
+        if binary == "sumo-gui": # fallback in case SUMO_HOME env is not defined
+            binary = sumolib.checkBinary("sumo-gui", os.path.join(SUMO_HOME, "bin"))
         self.ret = subprocess.call(
-            [sumolib.checkBinary("sumo-gui", BASE), "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
+            [binary, "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
                 '--output-prefix', "%s." % self.category, '--language', self._langCode,
                 '--duration-log.statistics', '--statistic-output', 'stats.xml',
                 '--tripinfo-output.write-unfinished'], stderr=sys.stderr)
@@ -568,6 +571,7 @@ def main():
                          help=("Defines the stereo mode to use for 3D output; unique prefix of %s" % (
                                ", ".join(stereoModes))))
     optParser.add_option("add", nargs="*", help="additional flags: {debug|noupload}")
+
     addLanguageOption(optParser)
     options = optParser.parse_args()
     setLanguage(options.language)
