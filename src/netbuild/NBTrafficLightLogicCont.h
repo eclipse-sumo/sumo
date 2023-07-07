@@ -109,7 +109,7 @@ public:
     void extract(NBTrafficLightDefinition* definition);
 
     /// @brief check if exists a definition with the given ID
-    bool exist(const std::string& newID) const;
+    bool exist(const std::string& newID, bool requireComputed = true) const;
 
     /// @brief rename traffic light
     void rename(NBTrafficLightDefinition* tlDef, const std::string& newID);

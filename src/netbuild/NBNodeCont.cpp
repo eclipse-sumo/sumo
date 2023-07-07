@@ -2346,6 +2346,11 @@ NBNodeCont::computeKeepClear() {
 void
 NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
     const std::vector<std::string> excludeList = OptionsCont::getOptions().getStringVector("tls.join-exclude");
+    for (const std::string& tlsID : excludeList) {
+        if (!tlc.exist(tlsID, false)) {
+            WRITE_WARNINGF("Unknown tls ID '%' in option tls.join-exclude", tlsID);
+        }
+    }
     std::set<std::string> exclude(excludeList.begin(), excludeList.end());
     NodeClusters cands;
     generateNodeClusters(maxdist, cands);
