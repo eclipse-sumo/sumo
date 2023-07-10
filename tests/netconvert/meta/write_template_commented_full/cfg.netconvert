@@ -489,7 +489,7 @@
         <!-- Set INT as fixed time for intermediate vehext phase after every switch -->
         <tls.nema.vehExt value="2" type="INT"/>
 
-        <!-- Set INT as fixed time for intermediate NEMA yelow phase after every switch -->
+        <!-- Set INT as fixed time for intermediate NEMA yellow phase after every switch -->
         <tls.nema.yellow value="3" type="INT"/>
 
         <!-- Set INT as fixed time for intermediate NEMA red phase after every switch -->

@@ -4,22 +4,22 @@ title: netedit
 
 # From 30.000 feet
 
-**netedit** is the graphical editor for networks, additional infastructure,
+**netedit** is the graphical editor for networks, additional infrastructure,
 traffic objects and traffic data.
 
 - **Purpose:** Create and modify simulation scenarios
 - **System:** portable (Linux/Windows/Mac is tested); opens a window
 - **Input (optional):** a network and any files belonging to a scenario
-- **Output:** a netork and any files belonging to a scenario
+- **Output:** a network and any files belonging to a scenario
 - **Programming Language:** C++
 
 # Usage Description
 
-For an overview of features see [Netedit Usage Documentation](Netedit/index.md).
+For an overview of features see [netedit usage documentation](Netedit/index.md).
 
 ## Options
 
-You may use a XML schema definition file for setting up a Netedit
+You may use a XML schema definition file for setting up a netedit
 configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfiguration.xsd).
 
 ### Configuration
@@ -71,7 +71,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | The generated net will be written to FILE |
 | **-p** {{DT_FILE}}<br> **--plain-output-prefix** {{DT_FILE}} | Prefix of files to write plain xml nodes, edges and connections to |
 | **--plain-output.lanes** {{DT_BOOL}} | Write all lanes and their attributes even when they are not customized; *default:* **false** |
-| **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
+| **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins) |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction names |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
 | **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATsim format |
@@ -210,7 +210,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--tls.minor-left.max-speed** {{DT_FLOAT}} | Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles; *default:* **19.44** |
 | **--tls.left-green.time** {{DT_INT}} | Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases; *default:* **6** |
 | **--tls.nema.vehExt** {{DT_INT}} | Set INT as fixed time for intermediate vehext phase after every switch; *default:* **2** |
-| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yelow phase after every switch; *default:* **3** |
+| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yellow phase after every switch; *default:* **3** |
 | **--tls.nema.red** {{DT_INT}} | Set INT as fixed time for intermediate NEMA red phase after every switch; *default:* **2** |
 | **--tls.crossing-min.time** {{DT_INT}} | Use INT as minimum green duration for pedestrian crossings (s).; *default:* **4** |
 | **--tls.crossing-clearance.time** {{DT_INT}} | Use INT as clearance time for pedestrian crossings (s).; *default:* **5** |

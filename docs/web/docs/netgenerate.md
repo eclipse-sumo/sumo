@@ -219,7 +219,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--tls.minor-left.max-speed** {{DT_FLOAT}} | Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles; *default:* **19.44** |
 | **--tls.left-green.time** {{DT_INT}} | Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases; *default:* **6** |
 | **--tls.nema.vehExt** {{DT_INT}} | Set INT as fixed time for intermediate vehext phase after every switch; *default:* **2** |
-| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yelow phase after every switch; *default:* **3** |
+| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yellow phase after every switch; *default:* **3** |
 | **--tls.nema.red** {{DT_INT}} | Set INT as fixed time for intermediate NEMA red phase after every switch; *default:* **2** |
 | **--tls.crossing-min.time** {{DT_INT}} | Use INT as minimum green duration for pedestrian crossings (s).; *default:* **4** |
 | **--tls.crossing-clearance.time** {{DT_INT}} | Use INT as clearance time for pedestrian crossings (s).; *default:* **5** |
