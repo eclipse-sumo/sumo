@@ -898,9 +898,12 @@ MSLCM_SL2015::prepareStep() {
     myCFRelated.clear();
     myCFRelatedReady = false;
     const double halfWidth = getWidth() * 0.5;
-    double center = getVehicleCenter();
-    mySafeLatDistRight = center - halfWidth;
-    mySafeLatDistLeft = getLeftBorder() - center - halfWidth;
+    // only permit changing within lane bounds but open up the range depending on the checked duration in _wantsChangeSublane()
+    mySafeLatDistRight = myVehicle.getLane()->getWidth() * 0.5 + myVehicle.getLateralPositionOnLane() - halfWidth;
+    mySafeLatDistLeft = myVehicle.getLane()->getWidth() * 0.5 - myVehicle.getLateralPositionOnLane() - halfWidth;
+    if (isOpposite()) {
+        std::swap(mySafeLatDistLeft, mySafeLatDistRight);
+    }
     // truncate to work around numerical instability between different builds
     mySpeedGainProbabilityRight = ceil(mySpeedGainProbabilityRight * 100000.0) * 0.00001;
     mySpeedGainProbabilityLeft = ceil(mySpeedGainProbabilityLeft * 100000.0) * 0.00001;
@@ -1075,6 +1078,17 @@ MSLCM_SL2015::_wantsChangeSublane(
     MSVehicle** lastBlocked,
     MSVehicle** firstBlocked,
     double& latDist, double& maneuverDist, int& blocked) {
+
+    if (laneOffset != 0) {
+        // update mySafeLatDist w.r.t. the direction being checkd
+        const double halfWidth = getWidth() * 0.5;
+        double center = getVehicleCenter();
+        if (laneOffset < 0) {
+            mySafeLatDistRight = center - halfWidth;
+        } else  {
+            mySafeLatDistLeft = getLeftBorder() - center - halfWidth;
+        }
+    }
 
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     // compute bestLaneOffset
