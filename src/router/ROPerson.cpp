@@ -76,7 +76,7 @@ ROPerson::addTrip(std::vector<PlanItem*>& plan, const std::string& id,
     for (StringTokenizer st(vTypes); st.hasNext();) {
         pars.vtypeid = st.next();
         pars.parametersSet |= VEHPARS_VTYPE_SET;
-        SUMOVTypeParameter* type = net->getVehicleTypeSecure(pars.vtypeid);
+        const SUMOVTypeParameter* type = net->getVehicleTypeSecure(pars.vtypeid);
         if (type == nullptr) {
             delete trip;
             throw InvalidArgument("The vehicle type '" + pars.vtypeid + "' in a trip for person '" + id + "' is not known.");

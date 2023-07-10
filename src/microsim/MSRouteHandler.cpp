@@ -232,13 +232,23 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
             StringTokenizer st(vTypes);
             int probIndex = 0;
             while (st.hasNext()) {
-                std::string vtypeID = st.next();
-                MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID, &myParsingRNG);
-                if (type == nullptr) {
-                    throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
+                const std::string& vtypeID = st.next();
+                const RandomDistributor<MSVehicleType*>* const dist = MSNet::getInstance()->getVehicleControl().getVTypeDistribution(vtypeID);
+                if (dist != nullptr) {
+                    const double distProb = (int)probs.size() > probIndex ? probs[probIndex] : 1.;
+                    std::vector<double>::const_iterator probIt = dist->getProbs().begin();
+                    for (MSVehicleType* const type : dist->getVals()) {
+                        myCurrentVTypeDistribution->add(type, distProb * *probIt);
+                        probIt++;
+                    }
+                } else {
+                    MSVehicleType* const type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID, &myParsingRNG);
+                    if (type == nullptr) {
+                        throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
+                    }
+                    const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->getDefaultProbability());
+                    myCurrentVTypeDistribution->add(type, prob);
                 }
-                const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->getDefaultProbability());
-                myCurrentVTypeDistribution->add(type, prob);
                 probIndex++;
             }
             if (probs.size() > 0 && probIndex != (int)probs.size()) {

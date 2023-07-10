@@ -565,7 +565,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                     }
                     pars->repetitionsDone++;
                     // try to build the vehicle
-                    SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                    const SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
                     if (type == nullptr) {
                         type = getVehicleTypeSecure(DEFAULT_VTYPE_ID);
                     } else if (!myKeepVTypeDist) {
@@ -604,7 +604,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                 }
                 pars->incrementFlow(1);
                 // try to build the vehicle
-                SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                const SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
                 if (type == nullptr) {
                     type = getVehicleTypeSecure(DEFAULT_VTYPE_ID);
                 } else {

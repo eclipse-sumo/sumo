@@ -266,12 +266,22 @@ RORouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
             int probIndex = 0;
             while (st.hasNext()) {
                 const std::string typeID = st.next();
-                SUMOVTypeParameter* const type = myNet.getVehicleTypeSecure(typeID);
-                if (type == nullptr) {
-                    myErrorOutput->inform("Unknown vehicle type '" + typeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
+                const RandomDistributor<SUMOVTypeParameter*>* const dist = myNet.getVTypeDistribution(typeID);
+                if (dist != nullptr) {
+                    const double distProb = (int)probs.size() > probIndex ? probs[probIndex] : 1.;
+                    std::vector<double>::const_iterator probIt = dist->getProbs().begin();
+                    for (SUMOVTypeParameter* const type : dist->getVals()) {
+                        myCurrentVTypeDistribution->add(type, distProb * *probIt);
+                        probIt++;
+                    }
                 } else {
-                    const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->defaultProbability);
-                    myCurrentVTypeDistribution->add(type, prob);
+                    SUMOVTypeParameter* const type = myNet.getVehicleTypeSecure(typeID);
+                    if (type == nullptr) {
+                        myErrorOutput->inform("Unknown vehicle type '" + typeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
+                    } else {
+                        const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->defaultProbability);
+                        myCurrentVTypeDistribution->add(type, prob);
+                    }
                 }
                 probIndex++;
             }
