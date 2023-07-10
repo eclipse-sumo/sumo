@@ -130,7 +130,7 @@ python obsoleteTranslations.py --output obsolete.txt
 ```
 Adding the option **--clear** will remove the obsolete translations permanently from the `.po` files. 
 
-There is an option to link obsolete translations again if the updated message ID / the current source string is known called **--patch**.
+There is an option called **--patch** to link obsolete translations again if the updated message ID / the current source string is known .
 The script is provided with a sequence of arguments which form pairs of first the outdated message ID and then new updated one.
 ```
 python obsoleteTranslations.py --patch "Add Sidewalk" "Add sidewalk" "Overrids default shape of pedestrian sidewalk" "Overrides default shape of pedestrian sidewalk"
