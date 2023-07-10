@@ -6186,7 +6186,7 @@ const std::vector<const MSLane*>
 MSVehicle::getUpcomingLanesUntil(double distance) const {
     std::vector<const MSLane*> lanes;
 
-    if (distance <= 0.) {
+    if (distance <= 0. || hasArrived()) {
         // WRITE_WARNINGF(TL("MSVehicle::getUpcomingLanesUntil(): distance ('%') should be greater than 0."), distance);
         return lanes;
     }
