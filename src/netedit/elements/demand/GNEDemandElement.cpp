@@ -31,6 +31,7 @@
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEDemandElement.h"
+#include "GNERouteHandler.h"
 
 
 // ===========================================================================
@@ -1188,11 +1189,11 @@ GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
     std::vector<GNEEdge*> edges;
     if (myTagProperty.isRoute()) {
         edges = getParentEdges();
-    } else if ((getParentDemandElements().size() > 1) && getParentDemandElements().at(1)->getTagProperty().isRoute()) {
+    } else if (myTagProperty.overRoute()) {
         edges = getParentDemandElements().at(1)->getParentEdges();
-    } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
+    } else if (myTagProperty.overEmbeddedRoute()) {
         edges = getChildDemandElements().front()->getParentEdges();
-    } else if (getParentEdges().size() > 0) {
+    } else if (myTagProperty.overFromToEdges()) {
         edges = getParentEdges();
     }
     // calculate path
@@ -1206,7 +1207,20 @@ GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
         for (int i = 0; i < ((int)path.size() - 1); i++) {
             length += path.at(i)->getLanes().front()->getLane2laneConnections().getLane2laneGeometry(path.at(i + 1)->getLanes().front()).getShape().length();
         }
-        GUIDesigns::buildFXMenuCommand(ret, "Route length: " + toString(length), nullptr, ret, MID_COPY_NAME);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Route length: ") + toString(length), nullptr, ret, MID_COPY_NAME);
+    }
+}
+
+
+void
+GNEDemandElement::buildMenuAddReverse(GUIGLObjectPopupMenu* ret) const {
+    auto menuCommand = GUIDesigns::buildFXMenuCommand(ret, TL("Add reverse ") + myTagProperty.getTagStr(), nullptr, ret, MID_GNE_ADDREVERSE);
+    // check if reverse can be added
+    if (GNERouteHandler::canReverse(this)) {
+        menuCommand->enable();
+    } else {
+        menuCommand->disable();
+        menuCommand->setText(TLF("Reverse % cannot be added", myTagProperty.getTagStr()).c_str());
     }
 }
 

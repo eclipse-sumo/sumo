@@ -87,6 +87,8 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
     vehicle->buildMenuCommandRouteLength(this);
     // add transform functions only in demand mode
     if (myVehicle->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        // add reverse
+        vehicle->buildMenuAddReverse(this);
         // Get icons
         FXIcon* vehicleIcon = GUIIconSubSys::getIcon(GUIIcon::VEHICLE);
         FXIcon* tripIcon = GUIIconSubSys::getIcon(GUIIcon::TRIP);
@@ -178,6 +180,8 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
     vehicle->buildMenuCommandRouteLength(this);
     // add transform functions only in demand mode
     if (vehicle->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        // add reverse
+        vehicle->buildMenuAddReverse(this);
         // Get icons
         FXIcon* vehicleIcon = GUIIconSubSys::getIcon(GUIIcon::VEHICLE);
         FXIcon* tripIcon = GUIIconSubSys::getIcon(GUIIcon::TRIP);

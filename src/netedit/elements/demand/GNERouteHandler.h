@@ -213,10 +213,10 @@ public:
     /// @{
 
     /// @brief check if the given vehicle can be reversed
-    static bool canBeReversed(const GNEVehicle* vehicle);
+    static bool canReverse(const GNEDemandElement* element);
 
     /// @brief check if the given list of edges can be reversed
-    static bool canBeReversed(GNENet* net, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges);
+    static bool canReverse(GNENet* net, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges);
     
     /// @}
 

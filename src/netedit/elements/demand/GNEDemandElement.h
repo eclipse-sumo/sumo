@@ -442,6 +442,9 @@ protected:
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;
+    
+    /// @brief build menu command route length
+    void buildMenuAddReverse(GUIGLObjectPopupMenu* ret) const;
 
 private:
     /**@brief check restriction with the number of children

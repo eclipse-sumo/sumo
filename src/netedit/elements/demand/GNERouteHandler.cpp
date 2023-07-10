@@ -2196,18 +2196,20 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
 
 
 bool
-GNERouteHandler::canBeReversed(const GNEVehicle* vehicle) {
-    // continue depending of vehicle
-    if (vehicle->getTagProperty().overRoute()) {
-        return canBeReversed(vehicle->getNet(), vehicle->getVClass(), vehicle->getParentDemandElements().at(1)->getParentEdges());
-    } else if (vehicle->getTagProperty().overEmbeddedRoute()) {
-        return canBeReversed(vehicle->getNet(), vehicle->getVClass(), vehicle->getChildDemandElements().front()->getParentEdges());
-    } else if (vehicle->getTagProperty().overFromToEdges()) {
-        return canBeReversed(vehicle->getNet(), vehicle->getVClass(), vehicle->getParentEdges());
-    } else if (vehicle->getTagProperty().overFromToJunctions()) {
-        return (vehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(vehicle->getVClass(),
-            vehicle->getParentJunctions().back(), vehicle->getParentJunctions().front()).size() > 0);
-    } else if (vehicle->getTagProperty().overFromToTAZs()) {
+GNERouteHandler::canReverse(const GNEDemandElement* element) {
+    // continue depending of element
+    if (element->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+        return canReverse(element->getNet(), SVC_PEDESTRIAN, element->getParentEdges());
+    } else if (element->getTagProperty().overRoute()) {
+        return canReverse(element->getNet(), element->getVClass(), element->getParentDemandElements().at(1)->getParentEdges());
+    } else if (element->getTagProperty().overEmbeddedRoute()) {
+        return canReverse(element->getNet(), element->getVClass(), element->getChildDemandElements().front()->getParentEdges());
+    } else if (element->getTagProperty().overFromToEdges()) {
+        return canReverse(element->getNet(), element->getVClass(), element->getParentEdges());
+    } else if (element->getTagProperty().overFromToJunctions()) {
+        return (element->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(element->getVClass(),
+            element->getParentJunctions().back(), element->getParentJunctions().front()).size() > 0);
+    } else if (element->getTagProperty().overFromToTAZs()) {
         return true;
     } else {
         return false;
@@ -2216,7 +2218,7 @@ GNERouteHandler::canBeReversed(const GNEVehicle* vehicle) {
 
 
 bool
-GNERouteHandler::canBeReversed(GNENet* net, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) {
+GNERouteHandler::canReverse(GNENet* net, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) {
     if (edges.empty()) {
         return false;
     } else {
