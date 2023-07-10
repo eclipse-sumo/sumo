@@ -91,7 +91,7 @@ title: ChangeLog
     - Fixed collision and emergency braking. Issue #11642
 
 - netedit
-  - Fixed crash when importing OSM data direclty. Issue #13297 (regression in 1.16.0)
+  - Fixed crash when importing OSM data directly. Issue #13297 (regression in 1.16.0)
   - Fixed invalid undo operation after moving a set of network elements. Issue #13421 (regression in 1.16.0)
   - Fixed segfault when closing netedit and no net is loaded #13131 (regression in 1.17.0)
   - Fixed spacing for person mode path info subframe. Issue #13140 (regression in 1.17.0)
@@ -206,7 +206,7 @@ title: ChangeLog
   - After generating a network without warnings, the new network will open directly without manually closing the output dialog. Issue #13149
   - Implemented new dialog for setting netedit and sumo options. This dialog supports option help, file selection dialogs and permits dynamic filtering of listed options. Issue #12007
   - Simplified selection of .sumocfg files when calling runSeeds.py tool. Issue #13118
-  - Simplified seelction of edge is when calling python tools. Issue #12852
+  - Simplified selection of edge is when calling python tools. Issue #12852
   - The traffic light join mode now has  'OK / 'cancel' buttons. Issue #13028
   - Now netedit supports trip and flows over TAZs. Issue #13311
   - Improved error messages when loading additional objects. Issue #13507
@@ -258,7 +258,7 @@ title: ChangeLog
 
 ### Miscellaneous
 
-- splitRouteFiles.py, netcheck.py, ciclePolygon.py, plot_csv_bars.py, plot_net_trafficLights.py and plot_csv_timeline now use the **-c** shortcut for loading a configuration. All options that previously used this continue to work with the respective long option name (e.g. --columns). Issue #8409 and #12874
+- splitRouteFiles.py, netcheck.py, circlePolygon.py, plot_csv_bars.py, plot_net_trafficLights.py and plot_csv_timeline now use the **-c** shortcut for loading a configuration. All options that previously used this continue to work with the respective long option name (e.g. --columns). Issue #8409 and #12874
 - plotXMLAttributes.py and plot_trajectories.py no longer create output file 'plot.png' by default. Issue #13166
 - netconvert: road objects imported from OpenDRIVE are now placed on a higher layer to make them visible above the road. Issue #13197
 - netconvert: option **--osm.all-attributes** now defaults to exporting all attributes because the explicit list of attributes (**--osm.extra-attributes**) now defaults to value **all**. Issue #13218
@@ -476,7 +476,7 @@ title: ChangeLog
   - Added tool [stationDistricts.py](Tools/District.md#stationdistrictspy) for segmenting a public transport network based public transport stations. Issue #12662
   - Added tool [attributeCompare.py](Tools/Output.md#attributecomparepy) to compare matching attributes across multiple files. Issue #13026
   - attributeDiff.py: Can now optionally group attributes by one or more id-attributes before comparing. #12794
-  - attributeDiff.py: optionally write entries that could not be compared (via new options **-m** and **-M**. Issue #12798
+  - attributeDiff.py: optionally write entries that could not be compared (via new options **-m** and **-M**). Issue #12798
   - attributeStats.py: Now supports option **--human-readable-time** (**-H**) to make attributes with large time values more legible. Issue #12822
   - attributeStats.py: Now supports option **--abs** to include statistics on absolute values. Issue #12899
   - sumolib.miscutils functions `parseTime` and `humandReadableTime` now handle negative values. Issue #12821, #12823
