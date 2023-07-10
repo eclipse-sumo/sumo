@@ -209,6 +209,17 @@ public:
 
     /// @}
 
+    /// @brief reverse functions
+    /// @{
+
+    /// @brief check if the given vehicle can be reversed
+    static bool canBeReversed(const GNEVehicle* vehicle);
+
+    /// @brief check if the given list of edges can be reversed
+    static bool canBeReversed(const std::vector<GNEEdge*> &edges);
+    
+    /// @}
+
 protected:
     /// @brief parse junction
     GNEJunction* parseJunction(const SumoXMLTag tag, const std::string& junctionID);

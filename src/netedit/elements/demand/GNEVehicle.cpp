@@ -1041,7 +1041,7 @@ GNEVehicle::getFirstPathLane() const {
     // declare first edge
     GNEEdge* firstEdge = nullptr;
     // continue depending of tags
-    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
+    if (myTagProperty.overRoute()) {
         // check departEdge
         if ((departEdge > 0) && (departEdge < (int)getRouteParent()->getParentEdges().size())) {
             // use departEdge
@@ -1050,8 +1050,8 @@ GNEVehicle::getFirstPathLane() const {
             // use first route edge
             firstEdge = getRouteParent()->getParentEdges().front();
         }
-    } else if (myTagProperty.hasEmbeddedRoute()) {
-        // check if embedded route exist (due during loading embedded route doesn't exist
+    } else if (myTagProperty.overEmbeddedRoute()) {
+        // check if embedded route exist (due during loading embedded route doesn't exist)
         if (getChildDemandElements().empty()) {
             return nullptr;
         }
@@ -1087,7 +1087,7 @@ GNEVehicle::getLastPathLane() const {
     // declare last edge
     GNEEdge* lastEdge = nullptr;
     // continue depending of tags
-    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
+    if (myTagProperty.overRoute()) {
         // check arrivalEdge
         if ((arrivalEdge > 0) && (arrivalEdge < (int)getRouteParent()->getParentEdges().size())) {
             // use arrival edge
@@ -1096,7 +1096,7 @@ GNEVehicle::getLastPathLane() const {
             // use last route edge
             lastEdge = getRouteParent()->getParentEdges().back();
         }
-    } else if (myTagProperty.hasEmbeddedRoute()) {
+    } else if (myTagProperty.overEmbeddedRoute()) {
         // check if embedded route exist (due during loading embedded route doesn't exist)
         if (getChildDemandElements().empty()) {
             return nullptr;

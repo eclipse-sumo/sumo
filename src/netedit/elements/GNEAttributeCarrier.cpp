@@ -3617,7 +3617,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
-                                      0,
+                                      GNETagProperties::TagProperty::OVER_FROMTO_EDGES,
                                       GUIIcon::TRIP, currentTag, {}, FXRGBA(253, 255, 206, 255));
         myTagProperties[currentTag].setFieldString("trip (from-to edges)");
 
@@ -3662,7 +3662,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
-                                      0,
+                                      GNETagProperties::TagProperty::OVER_FROMTO_JUNCTIONS,
                                       GUIIcon::TRIP_JUNCTIONS, SUMO_TAG_TRIP, {}, FXRGBA(255, 213, 213, 255));
         myTagProperties[currentTag].setFieldString("trip (from-to junctions)");
 
@@ -3702,7 +3702,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
-                                      0,
+                                      GNETagProperties::TagProperty::OVER_FROMTO_TAZS,
                                       GUIIcon::TRIP_TAZS, SUMO_TAG_TRIP, {}, FXRGBA(240, 255, 205, 255));
         myTagProperties[currentTag].setFieldString("trip (from-to TAZs)");
 
@@ -3742,7 +3742,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
-                                      0,
+                                      GNETagProperties::TagProperty::OVER_ROUTE,
                                       GUIIcon::VEHICLE, currentTag, {}, FXRGBA(210, 233, 255, 255));
         myTagProperties[currentTag].setFieldString("vehicle (over route)");
 
@@ -3827,7 +3827,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
-                                      0,
+                                      GNETagProperties::TagProperty::OVER_FROMTO_EDGES,
                                       GUIIcon::FLOW, currentTag, {}, FXRGBA(253, 255, 206, 255));
         myTagProperties[currentTag].setFieldString("flow (from-to edges)");
 
@@ -3869,7 +3869,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
-                                      0,
+                                      GNETagProperties::TagProperty::OVER_FROMTO_JUNCTIONS,
                                       GUIIcon::FLOW_JUNCTIONS, SUMO_TAG_FLOW, {}, FXRGBA(255, 213, 213, 255));
         myTagProperties[currentTag].setFieldString("flow (from-to junctions)");
 
@@ -3906,7 +3906,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
-                                      0,
+                                      GNETagProperties::TagProperty::OVER_FROMTO_TAZS,
                                       GUIIcon::FLOW_TAZS, SUMO_TAG_FLOW, {}, FXRGBA(240, 255, 205, 255));
         myTagProperties[currentTag].setFieldString("flow (from-to TAZs)");
 
@@ -3943,7 +3943,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
-                                      0,
+                                      GNETagProperties::TagProperty::OVER_ROUTE,
                                       GUIIcon::ROUTEFLOW, SUMO_TAG_FLOW, {}, FXRGBA(210, 233, 255, 255));
         myTagProperties[currentTag].setFieldString("flow (over route)");
 
@@ -4017,16 +4017,6 @@ GNEAttributeCarrier::fillVehicleElements() {
         // add flow attributes
         fillCommonFlowAttributes(currentTag, SUMO_ATTR_VEHSPERHOUR);
     }
-    /* currently disabled. See #5259
-    currentTag = GNE_TAG_TRIP_TAZ;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-            GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
-            GNETagProperties::TagType::DRAWABLE,
-            GUIIcon::TRIP);
-    }
-    */
 }
 
 

@@ -523,12 +523,6 @@ GNETagProperties::canCenterCameraAfterCreation() const {
 
 
 bool
-GNETagProperties::hasEmbeddedRoute() const {
-    return (myTagProperty & EMBEDDED_ROUTE) != 0;
-}
-
-
-bool
 GNETagProperties::requireProj() const {
     return (myTagProperty & REQUIRE_PROJ) != 0;
 }
@@ -537,6 +531,36 @@ GNETagProperties::requireProj() const {
 bool
 GNETagProperties::vClassIcon() const {
     return (myTagProperty & VCLASS_ICON) != 0;
+}
+
+
+bool
+GNETagProperties::overRoute() const {
+    return (myTagProperty & OVER_ROUTE) != 0;
+}
+
+
+bool
+GNETagProperties::overEmbeddedRoute() const {
+    return (myTagProperty & OVER_EMBEDDED_ROUTE) != 0;
+}
+
+
+bool
+GNETagProperties::overFromToEdges() const {
+    return (myTagProperty & OVER_FROMTO_EDGES) != 0;
+}
+
+
+bool
+GNETagProperties::overFromToJunctions() const {
+    return (myTagProperty & OVER_FROMTO_JUNCTIONS) != 0;
+}
+
+
+bool
+GNETagProperties::overFromToTAZs() const {
+    return (myTagProperty & OVER_FROMTO_TAZS) != 0;
 }
 
 /****************************************************************************/

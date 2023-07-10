@@ -1691,8 +1691,6 @@ GNERouteHandler::isContainerIdDuplicated(const std::string& id) {
 
 void
 GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbeddedRoute) {
-    // get original vehicle tag
-    SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
     // check if transform after creation
@@ -1708,15 +1706,15 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     // declare edges
     std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
-    if ((tag == GNE_TAG_FLOW_ROUTE) || (tag == SUMO_TAG_VEHICLE)) {
+    if (originalVehicle->getTagProperty().overRoute()) {
         // get route edges
-        routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
+        routeEdges = originalVehicle->getParentDemandElements().at(1)->getParentEdges();
         // get original route color
         routeColor = originalVehicle->getParentDemandElements().back()->getColor();
-    } else if (originalVehicle->getTagProperty().hasEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
+    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
         // calculate path using from-via-to edges
         routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
@@ -1784,8 +1782,6 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
 
 void
 GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEmbeddedRoute) {
-    // get original vehicle tag
-    SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
     // check if transform after creation
@@ -1801,15 +1797,15 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     // declare edges
     std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
-    if ((tag == GNE_TAG_FLOW_ROUTE) || (tag == SUMO_TAG_VEHICLE)) {
+    if (originalVehicle->getTagProperty().overRoute()) {
         // get route edges
         routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
         // get original route color
         routeColor = originalVehicle->getParentDemandElements().back()->getColor();
-    } else if (originalVehicle->getTagProperty().hasEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
+    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
         // calculate path using from-via-to edges
         routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
@@ -1889,8 +1885,6 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
 
 void
 GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
-    // get original vehicle tag
-    SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
     // check if transform after creation
@@ -1904,15 +1898,15 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     // declare edges
     std::vector<GNEEdge*> edges;
     // obtain edges depending of tag
-    if ((tag == SUMO_TAG_VEHICLE) || (tag == GNE_TAG_FLOW_ROUTE)) {
+    if (originalVehicle->getTagProperty().overRoute()) {
         // set route
         route = originalVehicle->getParentDemandElements().back();
         // get route edges
         edges = route->getParentEdges();
-    } else if (originalVehicle->getTagProperty().hasEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
+    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
         // just take parent edges (from and to)
         edges = originalVehicle->getParentEdges();
     }
@@ -1956,8 +1950,6 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
 
 void
 GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
-    // get original vehicle tag
-    SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
     // check if transform after creation
@@ -1971,15 +1963,15 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
     // declare edges
     std::vector<GNEEdge*> edges;
     // obtain edges depending of tag
-    if ((tag == SUMO_TAG_VEHICLE) || (tag == GNE_TAG_FLOW_ROUTE)) {
+    if (originalVehicle->getTagProperty().overRoute()) {
         // set route
         route = originalVehicle->getParentDemandElements().back();
         // get route edges
         edges = route->getParentEdges();
-    } else if (originalVehicle->getTagProperty().hasEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
+    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
         // just take parent edges (from and to)
         edges = originalVehicle->getParentEdges();
     }
@@ -2200,6 +2192,22 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
         // inspect it
         net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedContainer);
     }
+}
+
+
+bool
+GNERouteHandler::canBeReversed(const GNEVehicle* vehicle) {
+    // continue depending of vehicle
+    if ((vehicle->getParentDemandElements().size() > 1) && vehicle->getParentDemandElements().at(1)->getTagProperty().isRoute()) {
+        return canBeReversed(vehicle->getParentDemandElements().at(1)->getParentEdges());
+    }
+    return false;
+}
+
+
+bool
+GNERouteHandler::canBeReversed(const std::vector<GNEEdge*> &edges) {
+    return false;
 }
 
 // ===========================================================================

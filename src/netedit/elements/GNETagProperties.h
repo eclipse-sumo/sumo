@@ -92,9 +92,14 @@ public:
         NOPARAMETERS =              1 << 8,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
         RTREE =                     1 << 9,     // Element is placed in RTREE
         CENTERAFTERCREATION =       1 << 10,    // Camera is moved after element creation
-        EMBEDDED_ROUTE =            1 << 11,    // Element has an embedded route
-        REQUIRE_PROJ =              1 << 12,    // Element require a geo-projection defined in network
-        VCLASS_ICON =               1 << 13,    // Element returns icon depending of their vClass
+        REQUIRE_PROJ =              1 << 11,    // Element require a geo-projection defined in network
+        VCLASS_ICON =               1 << 12,    // Element returns icon depending of their vClass
+        // exclusive of vehicles
+        OVER_ROUTE =                1 << 13,    // Vehicle Element is placed over route
+        OVER_EMBEDDED_ROUTE =       1 << 14,    // Vehicle Element has an embedded route
+        OVER_FROMTO_EDGES =         1 << 15,    // Vehicle Element is placed over a from-to edges
+        OVER_FROMTO_JUNCTIONS =     1 << 16,    // Vehicle Element is placed over a from-to junctions
+        OVER_FROMTO_TAZS =          1 << 17,    // Vehicle Element is placed over a from-to TAZs
     };
 
     /// @brief default constructor
@@ -290,14 +295,26 @@ public:
     /// @brief return true if tag correspond to an element that center camera after creation
     bool canCenterCameraAfterCreation() const;
 
-    /// @brief return true if tag correspond to an element that owns an embedded route
-    bool hasEmbeddedRoute() const;
-
     /// @brief return true if tag correspond to an element that requires a geo projection
     bool requireProj() const;
 
     /// @brief return true if tag correspond to an element that has vClass icons
     bool vClassIcon() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over a route
+    bool overRoute() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over an embedded route
+    bool overEmbeddedRoute() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over from-to edges
+    bool overFromToEdges() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over from-to junctions
+    bool overFromToJunctions() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over from-to TAZs
+    bool overFromToTAZs() const;
 
 private:
     /// @brief Sumo XML Tag vinculated wit this tag Property
