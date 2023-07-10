@@ -2198,16 +2198,44 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
 bool
 GNERouteHandler::canBeReversed(const GNEVehicle* vehicle) {
     // continue depending of vehicle
-    if ((vehicle->getParentDemandElements().size() > 1) && vehicle->getParentDemandElements().at(1)->getTagProperty().isRoute()) {
-        return canBeReversed(vehicle->getParentDemandElements().at(1)->getParentEdges());
+    if (vehicle->getTagProperty().overRoute()) {
+        return canBeReversed(vehicle->getNet(), vehicle->getVClass(), vehicle->getParentDemandElements().at(1)->getParentEdges());
+    } else if (vehicle->getTagProperty().overEmbeddedRoute()) {
+        return canBeReversed(vehicle->getNet(), vehicle->getVClass(), vehicle->getChildDemandElements().front()->getParentEdges());
+    } else if (vehicle->getTagProperty().overFromToEdges()) {
+        return canBeReversed(vehicle->getNet(), vehicle->getVClass(), vehicle->getParentEdges());
+    } else if (vehicle->getTagProperty().overFromToJunctions()) {
+        return (vehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(vehicle->getVClass(),
+            vehicle->getParentJunctions().back(), vehicle->getParentJunctions().front()).size() > 0);
+    } else if (vehicle->getTagProperty().overFromToTAZs()) {
+        return true;
+    } else {
+        return false;
     }
-    return false;
 }
 
 
 bool
-GNERouteHandler::canBeReversed(const std::vector<GNEEdge*> &edges) {
-    return false;
+GNERouteHandler::canBeReversed(GNENet* net, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) {
+    if (edges.empty()) {
+        return false;
+    } else {
+        // obtain opposite edges
+        std::vector<GNEEdge*> reverseEdges;
+        for (const auto &edge : edges) {
+            const auto oppositeEdges = edge->getOppositeEdges();
+            // stop if there isn't opposite edges for the current edge
+            if (oppositeEdges.empty()) {
+                return false;
+            } else {
+                reverseEdges.push_back(oppositeEdges.front());
+            }
+        }
+        // reverse edges
+        std::reverse(reverseEdges.begin(), reverseEdges.end());
+        // now check if exist a path 
+        return (net->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, edges).size() > 0);
+    }
 }
 
 // ===========================================================================

@@ -216,7 +216,7 @@ public:
     static bool canBeReversed(const GNEVehicle* vehicle);
 
     /// @brief check if the given list of edges can be reversed
-    static bool canBeReversed(const std::vector<GNEEdge*> &edges);
+    static bool canBeReversed(GNENet* net, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges);
     
     /// @}
 
