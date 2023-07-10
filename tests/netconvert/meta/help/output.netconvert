@@ -308,7 +308,7 @@ TLS Building Options:
   --tls.nema.vehExt INT                Set INT as fixed time for intermediate
                                         vehext phase after every switch
   --tls.nema.yellow INT                Set INT as fixed time for intermediate
-                                        NEMA yelow phase after every switch
+                                        NEMA yellow phase after every switch
   --tls.nema.red INT                   Set INT as fixed time for intermediate
                                         NEMA red phase after every switch
   --tls.crossing-min.time INT          Use INT as minimum green duration for
@@ -469,7 +469,7 @@ Junctions Options:
                                         outgoing edge speed on junction instead
                                         of average
   --junctions.minimal-shape            Build junctions with minimal shapes
-                                        (igoring edge overlap)
+                                        (ignoring edge overlap)
   --internal-junctions.vehicle-width FLOAT  Assumed vehicle width for computing
                                         internal junction positions
   --rectangular-lane-cut               Forces rectangular cuts between lanes

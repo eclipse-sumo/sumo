@@ -588,7 +588,7 @@
         <!-- Use maximum value of incoming and outgoing edge speed on junction instead of average -->
         <junctions.higher-speed value="false" type="BOOL"/>
 
-        <!-- Build junctions with minimal shapes (igoring edge overlap) -->
+        <!-- Build junctions with minimal shapes (ignoring edge overlap) -->
         <junctions.minimal-shape value="false" type="BOOL"/>
 
         <!-- Assumed vehicle width for computing internal junction positions -->
