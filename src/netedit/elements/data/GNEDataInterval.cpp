@@ -214,8 +214,22 @@ GNEDataInterval::getGenericDataChildren() const {
 
 
 bool
+GNEDataInterval::edgeRelExists(const GNEEdge* fromEdge, const GNEEdge* toEdge) const {
+    // interate over all edgeRels and check edge parents
+    for (const auto& genericData : myGenericDataChildren) {
+        if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) &&
+                (genericData->getParentEdges().front() == fromEdge) &&
+                (genericData->getParentEdges().back() == toEdge)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
 GNEDataInterval::TAZRelExists(const GNEAdditional* TAZ) const {
-    // interate over all generic datas and check TAZ parents
+    // interate over all TAZRels and check TAZ parents
     for (const auto& genericData : myGenericDataChildren) {
         if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
                 (genericData->getParentAdditionals().size() == 1) &&
@@ -229,7 +243,7 @@ GNEDataInterval::TAZRelExists(const GNEAdditional* TAZ) const {
 
 bool
 GNEDataInterval::TAZRelExists(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const {
-    // interate over all generic datas and check TAZ parents
+    // interate over all TAZRels and check TAZ parents
     for (const auto& genericData : myGenericDataChildren) {
         if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
                 (genericData->getParentAdditionals().size() == 2) &&
