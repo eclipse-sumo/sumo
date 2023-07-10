@@ -11,6 +11,8 @@ title: ChangeLog
   - Fixed failure to join a leading train on subsequent edge. #13539
   - Fixed invalid route after trying to to join leading train on subsequent edge of diverging route. #13540
   - Edgedata-output now only counts vehicles that start their teleport on an edge in the teleport count of that edge. #13559
+  - Fixed collision during sublane-change. #13582, #13585
+  - Fixed crash during emergency vehicle simulation. #13598
   - bidi edge
     - Fixed avoidable slowdown when approaching a bidi lane at low speed. #13558
     - Fixed deadlock on junction when approaching occupied bidiEdge at traffic light. #13541
@@ -25,6 +27,8 @@ title: ChangeLog
   - Fixed problem saving person flow attributes #11022
   - Fixed problem saving containers sorted by begin attribute in Netedit #11022
   - Fixed problem saving edgetypes. #12467
+  - Added proper error handling for duplicate edgeRelations #11329
+  
 
 - netconvert
   - Fixed unequal length of bidi edge #13569
@@ -48,12 +52,14 @@ title: ChangeLog
   - Now supports Human Readable Time (HH:MM:SS) #11022
   - Added support for E3 attribute expectArrival #13477
   - Now type parameters can be edited in main type frame #12378
+  
 
 - netconvert
   - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
 
 - Tools
   - generateRailSignalConstraints.py: Now handles `depart="split"` for insertionOrderConstraints. #13565
+  - Game from downloaded zip no longer requires SUMO_HOME. #13583
 
 ## Version 1.18.0 (29.06.2023)
 
