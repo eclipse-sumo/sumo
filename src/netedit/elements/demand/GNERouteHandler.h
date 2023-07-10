@@ -222,6 +222,9 @@ protected:
     /// @brief parse edges
     std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs);
 
+    /// @brief get type (Either type o typeDistribution)
+    GNEDemandElement* getType(const std::string &id) const;
+
     /// @brief get person parent
     GNEDemandElement* getPersonParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
