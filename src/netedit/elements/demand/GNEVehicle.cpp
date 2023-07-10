@@ -395,8 +395,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         // set VType parameter again
         parametersSet |= VEHPARS_VTYPE_SET;
     } else {
-        // write vehicle attributes, including VType
-        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getTypeParent()->getID());
+        // write vehicle attributes, including type/distribution
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().front()->getID());
     }
     // write specific attribute depending of tag property
     if (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) {
