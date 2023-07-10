@@ -2859,7 +2859,7 @@ std::string
 GNEApplicationWindowHelper::openEdgeTypeFileDialog(FXWindow* window, bool save) {
     if (save) {
         return openFileDialog(window, TL("Save EdgeType file as"), GUIIcon::SAVE_NETWORKELEMENTS,
-                              TL("EdgeType files (*.tll.xml)") + std::string("\n") +
+                              TL("EdgeType files (*.typ.xml)") + std::string("\n") +
                               TL("XML files (*.xml)") + std::string("\n") +
                               TL("All files (*)"), save);
     } else {
