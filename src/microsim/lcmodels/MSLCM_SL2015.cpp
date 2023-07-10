@@ -3219,6 +3219,11 @@ MSLCM_SL2015::keepLatGap(int state,
         // @note: the influence is reset in MSAbstractLaneChangeModel::setOwnState at the end of the lane-changing code for this vehicle
         latDist = myVehicle.getInfluencer().getLatDist();
         maneuverDist = myVehicle.getInfluencer().getLatDist();
+        if (latDist < 0) {
+            mySafeLatDistRight = MAX2(-latDist, mySafeLatDistRight);
+        } else {
+            mySafeLatDistLeft = MAX2(latDist, mySafeLatDistLeft);
+        }
         state |= LCA_TRACI;
 #ifdef DEBUG_KEEP_LATGAP
         if (gDebugFlag2) {
