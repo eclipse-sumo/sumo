@@ -119,9 +119,9 @@ def main(options):
                     break
                 laneIndex = lane.getIndex()
                 if options.onRoad and options.onRoadLaneOffset > -1:
-                    if options.onRoadLaneOffset < laneIndex:
+                    if options.onRoadLaneOffset > laneIndex:
                         continue
-                    elif options.onRoadLaneOffset > laneIndex:
+                    elif options.onRoadLaneOffset < laneIndex:
                         break
                 if lane.allows(options.vclass):
                     if random.random() < options.probability:
@@ -137,8 +137,9 @@ def main(options):
                             width = '' if options.width is None else ' width="%s"' % options.width
                             onRoad = '' if not options.onRoad else ' onRoad="true"'
                             lefthand = '' if not options.lefthand else ' lefthand="true"'
+                            idSuffix = '' if not options.onRoad else '_%s' % laneIndex
                             outf.write('    <parkingArea id="%s%s%s" lane="%s" roadsideCapacity="%s"%s%s%s%s%s/>\n' % (
-                                options.prefix, edge.getID(), laneIndex, lane.getID(),
+                                options.prefix, edge.getID(), idSuffix, lane.getID(),
                                 capacity, length, width, angle, lefthand, onRoad))
                 if not options.onRoad:
                     break
