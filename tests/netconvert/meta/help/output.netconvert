@@ -250,9 +250,9 @@ Building Defaults Options:
                                         'edgePriority')
 
 TLS Building Options:
-  --tls.discard-loaded                 Does not instatiate traffic lights
+  --tls.discard-loaded                 Does not instantiate traffic lights
                                         loaded from other formats than plain-XML
-  --tls.discard-simple                 Does not instatiate traffic lights at
+  --tls.discard-simple                 Does not instantiate traffic lights at
                                         geometry-like nodes loaded from other
                                         formats than plain-XML
   --tls.set STR[]                      Interprets STR[] as list of junctions to

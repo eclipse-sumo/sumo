@@ -279,7 +279,7 @@ TLS Building Options:
   --tls.nema.vehExt INT                Set INT as fixed time for intermediate
                                         vehext phase after every switch
   --tls.nema.yellow INT                Set INT as fixed time for intermediate
-                                        NEMA yelow phase after every switch
+                                        NEMA yellow phase after every switch
   --tls.nema.red INT                   Set INT as fixed time for intermediate
                                         NEMA red phase after every switch
   --tls.crossing-min.time INT          Use INT as minimum green duration for
@@ -313,7 +313,7 @@ TLS Building Options:
                                         every connection
   --tls.rebuild                        rebuild all traffic light plans in the
                                         network
-  --tls.discard-simple                 Does not instatiate traffic lights at
+  --tls.discard-simple                 Does not instantiate traffic lights at
                                         geometry-like nodes
 
 Edge Removal Options:

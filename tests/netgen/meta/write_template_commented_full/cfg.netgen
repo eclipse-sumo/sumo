@@ -471,7 +471,7 @@
         <!-- rebuild all traffic light plans in the network -->
         <tls.rebuild value="false" type="BOOL"/>
 
-        <!-- Does not instatiate traffic lights at geometry-like nodes -->
+        <!-- Does not instantiate traffic lights at geometry-like nodes -->
         <tls.discard-simple value="false" type="BOOL"/>
 
     </tls_building>

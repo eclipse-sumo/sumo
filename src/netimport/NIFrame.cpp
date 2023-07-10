@@ -369,10 +369,10 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));
-    oc.addDescription("tls.discard-loaded", "TLS Building", "Does not instatiate traffic lights loaded from other formats than plain-XML");
+    oc.addDescription("tls.discard-loaded", "TLS Building", "Does not instantiate traffic lights loaded from other formats than plain-XML");
 
     oc.doRegister("tls.discard-simple", new Option_Bool(false));
-    oc.addDescription("tls.discard-simple", "TLS Building", "Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML");
+    oc.addDescription("tls.discard-simple", "TLS Building", "Does not instantiate traffic lights at geometry-like nodes loaded from other formats than plain-XML");
 
     // register railway options
     oc.doRegister("railway.signals.discard", new Option_Bool(false));
