@@ -217,6 +217,9 @@ public:
 
     /// @brief check if the given list of edges can be reversed
     static bool canReverse(GNENet* net, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges);
+
+    /// @brief reverse given demand element
+    static void reverse(GNEDemandElement* element);
     
     /// @}
 
