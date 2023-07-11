@@ -2308,47 +2308,10 @@ GNERouteHandler::reverse(GNEDemandElement* element) {
 
 void
 GNERouteHandler::addReverse(GNEDemandElement* element) {
-    // get undo list
-    auto undoList = element->getNet()->getViewNet()->getUndoList();
-    // continue depending of element
-    if (element->getTagProperty().overRoute()) {
-        // reverse parent route
-        reverse(element->getParentDemandElements().at(1));
-    } else if (element->getTagProperty().overEmbeddedRoute()) {
-        // reverse embedded route
-        reverse(element->getChildDemandElements().front());
-    } else if (element->getTagProperty().overFromToJunctions()) {
-        // get from to junctions
-        const auto fromJunction = element->getAttribute(SUMO_ATTR_FROMJUNCTION);
-        const auto toJunction = element->getAttribute(SUMO_ATTR_TOJUNCTION);
-        // swap both attributes
-        element->setAttribute(SUMO_ATTR_FROMJUNCTION, toJunction, undoList);
-        element->setAttribute(SUMO_ATTR_TOJUNCTION, fromJunction, undoList);
-    } else if (element->getTagProperty().overFromToTAZs()) {
-        // get from to TAZs
-        const auto fromTAZ = element->getAttribute(SUMO_ATTR_FROM_TAZ);
-        const auto toTAZ = element->getAttribute(SUMO_ATTR_TO_TAZ);
-        // swap both attributes
-        element->setAttribute(SUMO_ATTR_FROM_TAZ, toTAZ, undoList);
-        element->setAttribute(SUMO_ATTR_TO_TAZ, fromTAZ, undoList);
-    } else {
-        // extract and reverse edges
-        auto edges = element->getParentEdges();
-        std::reverse(edges.begin(), edges.end());
-        if (element->isRoute()) {
-            element->setAttribute(SUMO_ATTR_EDGES, GNEAttributeCarrier::parseIDs(edges), undoList);
-        } else {
-            // set from and to
-            element->setAttribute(SUMO_ATTR_FROM, edges.front()->getID(), undoList);
-            element->setAttribute(SUMO_ATTR_TO, edges.back()->getID(), undoList);
-            // check if add via attribute
-            edges.erase(edges.begin());
-            edges.pop_back();
-            if (edges.size() > 0) {
-                element->setAttribute(SUMO_ATTR_VIA, GNEAttributeCarrier::parseIDs(edges), undoList);
-            }
-        }
-    }
+    // make a copy of the vehicle
+    const auto vehicleCopy = GNEVehicle::copyVehicle((GNEVehicle*)element);
+    // reverse
+    reverse(vehicleCopy);
 }
 
 // ===========================================================================
