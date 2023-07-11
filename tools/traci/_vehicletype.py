@@ -39,6 +39,7 @@ class VTypeDomain(Domain):
 
         Returns the length in m of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_LENGTH, typeID)
 
@@ -47,6 +48,7 @@ class VTypeDomain(Domain):
 
         Returns the maximum speed in m/s of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_MAXSPEED, typeID)
 
@@ -55,6 +57,7 @@ class VTypeDomain(Domain):
 
         Returns the action step length for this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_ACTIONSTEPLENGTH, typeID)
 
@@ -63,6 +66,7 @@ class VTypeDomain(Domain):
 
         Returns the speed factor of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_SPEED_FACTOR, typeID)
 
@@ -71,6 +75,7 @@ class VTypeDomain(Domain):
 
         Returns the maximum speed deviation of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_SPEED_DEVIATION, typeID)
 
@@ -79,6 +84,7 @@ class VTypeDomain(Domain):
 
         Returns the maximum acceleration in m/s^2 of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_ACCEL, typeID)
 
@@ -87,6 +93,7 @@ class VTypeDomain(Domain):
 
         Returns the maximal comfortable deceleration in m/s^2 of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_DECEL, typeID)
 
@@ -95,6 +102,7 @@ class VTypeDomain(Domain):
 
         Returns the maximal physically possible deceleration in m/s^2 of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_EMERGENCY_DECEL, typeID)
 
@@ -103,6 +111,7 @@ class VTypeDomain(Domain):
 
         Returns the apparent deceleration in m/s^2 of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_APPARENT_DECEL, typeID)
 
@@ -111,6 +120,7 @@ class VTypeDomain(Domain):
 
         Returns the driver's imperfection for this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_IMPERFECTION, typeID)
 
@@ -119,6 +129,7 @@ class VTypeDomain(Domain):
 
         Returns the driver's desired headway in s for this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_TAU, typeID)
 
@@ -127,6 +138,7 @@ class VTypeDomain(Domain):
 
         Returns the class of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_VEHICLECLASS, typeID)
 
@@ -135,6 +147,7 @@ class VTypeDomain(Domain):
 
         Returns the emission class of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_EMISSIONCLASS, typeID)
 
@@ -143,6 +156,7 @@ class VTypeDomain(Domain):
 
         Returns the shape class of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_SHAPECLASS, typeID)
 
@@ -151,6 +165,7 @@ class VTypeDomain(Domain):
 
         Returns the offset (gap to front vehicle if halting) of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_MINGAP, typeID)
 
@@ -159,6 +174,7 @@ class VTypeDomain(Domain):
 
         Returns the width in m of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_WIDTH, typeID)
 
@@ -167,6 +183,7 @@ class VTypeDomain(Domain):
 
         Returns the height in m of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_HEIGHT, typeID)
 
@@ -174,7 +191,8 @@ class VTypeDomain(Domain):
         """getColor(string) -> (integer, integer, integer, integer)
 
         Returns the color of this type.
-        If called in the context of a person or vehicle, it will return their specific color if it ha been set.
+        If called in the context of a person or vehicle, it will return their specific color if it has been set.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_COLOR, typeID)
 
@@ -183,6 +201,7 @@ class VTypeDomain(Domain):
 
         Returns The desired lateral gap of this type at 50km/h in m
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_MINGAP_LAT, typeID)
 
@@ -191,6 +210,7 @@ class VTypeDomain(Domain):
 
         Returns the maximum lateral speed in m/s of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_MAXSPEED_LAT, typeID)
 
@@ -199,6 +219,7 @@ class VTypeDomain(Domain):
 
         Returns The preferred lateral alignment of the type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_LATALIGNMENT, typeID)
 
@@ -207,6 +228,7 @@ class VTypeDomain(Domain):
 
         Returns the person capacity of this type.
         If called in the context of a person or vehicle, it will return the value for their current type.
+        Use the respective object ID as typeID value in said context.
         """
         return self._getUniversal(tc.VAR_PERSON_CAPACITY, typeID)
 
@@ -229,6 +251,7 @@ class VTypeDomain(Domain):
 
         Sets the impatience of the this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_IMPATIENCE, typeID, "d", impatience)
 
@@ -237,6 +260,7 @@ class VTypeDomain(Domain):
 
         Sets the boarding duration of the this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_BOARDING_DURATION, typeID, "d", boardingDuration)
 
@@ -245,6 +269,7 @@ class VTypeDomain(Domain):
 
         Sets the length in m of the this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_LENGTH, typeID, "d", length)
 
@@ -253,6 +278,7 @@ class VTypeDomain(Domain):
 
         Sets the maximum speed in m/s of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_MAXSPEED, typeID, "d", speed)
 
@@ -261,6 +287,7 @@ class VTypeDomain(Domain):
 
         Sets the class of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_VEHICLECLASS, typeID, "s", clazz)
 
@@ -269,6 +296,7 @@ class VTypeDomain(Domain):
 
         Sets the speed factor of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_SPEED_FACTOR, typeID, "d", factor)
 
@@ -277,6 +305,7 @@ class VTypeDomain(Domain):
 
         Sets the emission class of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_EMISSIONCLASS, typeID, "s", clazz)
 
@@ -285,6 +314,7 @@ class VTypeDomain(Domain):
 
         Sets the shape class of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_SHAPECLASS, typeID, "s", clazz)
 
@@ -293,6 +323,7 @@ class VTypeDomain(Domain):
 
         Sets the width in m of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_WIDTH, typeID, "d", width)
 
@@ -301,6 +332,7 @@ class VTypeDomain(Domain):
 
         Sets the height in m of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_HEIGHT, typeID, "d", height)
 
@@ -309,6 +341,7 @@ class VTypeDomain(Domain):
 
         Sets the offset (gap to front vehicle if halting) of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_MINGAP, typeID, "d", minGap)
 
@@ -317,6 +350,7 @@ class VTypeDomain(Domain):
 
         Sets the maximum acceleration in m/s^2 of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_ACCEL, typeID, "d", accel)
 
@@ -325,6 +359,7 @@ class VTypeDomain(Domain):
 
         Sets the maximal comfortable deceleration in m/s^2 of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_DECEL, typeID, "d", decel)
 
@@ -333,6 +368,7 @@ class VTypeDomain(Domain):
 
         Sets the maximal physically possible deceleration in m/s^2 of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_EMERGENCY_DECEL, typeID, "d", decel)
 
@@ -341,6 +377,7 @@ class VTypeDomain(Domain):
 
         Sets the apparent deceleration in m/s^2 of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_APPARENT_DECEL, typeID, "d", decel)
 
@@ -349,6 +386,7 @@ class VTypeDomain(Domain):
 
         Sets the driver imperfection of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_IMPERFECTION, typeID, "d", imperfection)
 
@@ -358,6 +396,7 @@ class VTypeDomain(Domain):
         Sets the driver's tau-parameter (reaction time or anticipation time depending on the car-following model) in s
         for this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_TAU, typeID, "d", tau)
 
@@ -366,6 +405,7 @@ class VTypeDomain(Domain):
 
         Sets the color of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_COLOR, typeID, "c", color)
 
@@ -374,6 +414,7 @@ class VTypeDomain(Domain):
 
         Sets the minimum lateral gap at 50km/h of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_MINGAP_LAT, typeID, "d", minGapLat)
 
@@ -382,6 +423,7 @@ class VTypeDomain(Domain):
 
         Sets the maximum lateral speed of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_MAXSPEED_LAT, typeID, "d", speed)
 
@@ -390,6 +432,7 @@ class VTypeDomain(Domain):
 
         Sets the preferred lateral alignment of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         self._setCmd(tc.VAR_LATALIGNMENT, typeID, "s", latAlignment)
 
@@ -402,6 +445,7 @@ class VTypeDomain(Domain):
         updated to match the given value for all vehicles of the type, or if the latter is smaller
         than the time since the last action point, the next action follows immediately.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
+        Use the respective object ID as typeID value in said context.
         """
         if actionStepLength < 0:
             raise exceptions.TraCIException("Invalid value for actionStepLength. Given value must be non-negative.")
