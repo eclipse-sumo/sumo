@@ -119,12 +119,9 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
             }
         }
         // now check probabilities
-        if (probabilities.size() > 0) {
-            if (probabilities.size() != vTypes.size()) {
-                writeError(TL("Invalid type distribution probabilities. Must have the same number of vTypes"));
-                checkVTypesOK = false;
-            } else {
-            }
+        if ((probabilities.size() > 0) && (probabilities.size() != vTypes.size())) {
+            writeError(TL("Invalid type distribution probabilities. Must have the same number of vTypes"));
+            checkVTypesOK = false;
         }
         // if all ok, then create vTypeDistribution
         if (checkVTypesOK) {
@@ -133,17 +130,23 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPEDISTRIBUTION, TL("add ") + vTypeDistribution->getTagStr() + " '" + id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
-                // iterate over all children and set attribute
-                for (const auto &vType : vTypes) {
-                    vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
+                // iterate over all children and set attributes
+                for (int i = 0; i < (int)vTypes.size(); i++) {
+                    vTypes.at(i)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
+                    if (probabilities.size() > 0) {
+                       vTypes.at(i)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY, toString(probabilities.at(i)), myNet->getViewNet()->getUndoList()); 
+                    }
                 }
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
                 vTypeDistribution->incRef("buildVType");
-                // iterate over all children and set attribute
-                for (const auto &vType : vTypes) {
-                    vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id);
+                // iterate over all children and set attributes
+                for (int i = 0; i < (int)vTypes.size(); i++) {
+                    vTypes.at(i)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id);
+                    if (probabilities.size() > 0) {
+                       vTypes.at(i)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY, toString(probabilities.at(i))); 
+                    }
                 }
             }
         }
