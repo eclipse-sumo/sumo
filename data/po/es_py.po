@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-05-26 14:09+0200\n"
-"PO-Revision-Date: 2023-06-15 09:26+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-07-11 07:33+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "python-tools/es/>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: D:\Repos\sumo/tools/game\runner.py:63
 msgid "Interactive Traffic Light"
@@ -105,7 +105,7 @@ msgstr "Italiano"
 
 #: D:\Repos\sumo/tools/game\runner.py:84
 msgid "Spanish"
-msgstr ""
+msgstr "Español"
 
 #: D:\Repos\sumo/tools/game\runner.py:85
 msgid "French"
