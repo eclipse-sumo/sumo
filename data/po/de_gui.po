@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-07-04 07:54+0000\n"
+"PO-Revision-Date: 2023-07-11 07:52+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -12176,7 +12176,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1931
 msgid "Group Sig."
-msgstr "Gruppenzeichen."
+msgstr "Gruppiere Sig."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1932
 msgid ""
@@ -12197,7 +12197,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1937
 msgid "Ungroup Sig."
-msgstr "Umgruppiertes Zeichen."
+msgstr "Löse Signalgruppen auf"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1938
 msgid "Let every connection use a distinct index (reverse state grouping)"
