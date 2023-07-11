@@ -1,9 +1,9 @@
 function getSearchTerm(){
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++)
+    let sPageURL = window.location.search.substring(1);
+    let sURLVariables = sPageURL.split('&');
+    for (let i = 0; i < sURLVariables.length; i++)
     {
-        var sParameterName = sURLVariables[i].split('=');
+        let sParameterName = sURLVariables[i].split('=');
         if (sParameterName[0] == 'q')
         {
             return sParameterName[1];
@@ -72,7 +72,7 @@ $(document).ready(function() {
 
     $('table').addClass('table table-striped table-hover');
 
-    // Improve the scrollspy behaviour when users click on a TOC item.
+    // Improve the scrollspy behavior when users click on a TOC item.
     $(".bs-sidenav a").on("click", function() {
         var clicked = this;
         setTimeout(function() {
@@ -97,7 +97,7 @@ $("li.disabled a").click(function() {
     event.preventDefault();
 });
 
-var keyCodes = {
+const keyCodes = {
   8: 'backspace',
   9: 'tab',
   13: 'enter',
