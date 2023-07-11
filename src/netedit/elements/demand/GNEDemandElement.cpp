@@ -1214,13 +1214,18 @@ GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
 
 void
 GNEDemandElement::buildMenuAddReverse(GUIGLObjectPopupMenu* ret) const {
-    auto menuCommand = GUIDesigns::buildFXMenuCommand(ret, TL("Add reverse ") + myTagProperty.getTagStr(), nullptr, ret, MID_GNE_ADDREVERSE);
+    // create menu pane for transform operations
+    FXMenuPane* transformOperation = new FXMenuPane(ret);
+    ret->insertMenuPaneChild(transformOperation);
+    auto reverseMenuCascade = new FXMenuCascade(ret, TL("reverse"), nullptr, transformOperation);
+    // build menu commands
+    GUIDesigns::buildFXMenuCommand(transformOperation, TLF("reverse current %", myTagProperty.getTagStr()), nullptr, myNet->getViewNet(), MID_GNE_REVERSE);
+    GUIDesigns::buildFXMenuCommand(transformOperation, TLF("Add reverse %", myTagProperty.getTagStr()), nullptr, myNet->getViewNet(), MID_GNE_ADDREVERSE);
     // check if reverse can be added
     if (GNERouteHandler::canReverse(this)) {
-        menuCommand->enable();
+        reverseMenuCascade->enable();
     } else {
-        menuCommand->disable();
-        menuCommand->setText(TLF("Reverse % cannot be added", myTagProperty.getTagStr()).c_str());
+        reverseMenuCascade->disable();
     }
 }
 

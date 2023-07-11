@@ -213,6 +213,9 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
     // POIs
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,   GNEViewNet::onCmdTransformPOI),
+    // Demand elements
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REVERSE,     GNEViewNet::onCmdReverse),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDREVERSE,  GNEViewNet::onCmdAddReverse),
     // Geometry Points
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CUSTOM_GEOMETRYPOINT,    GNEViewNet::onCmdSetCustomGeometryPoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_RESET_GEOMETRYPOINT,     GNEViewNet::onCmdResetEndPoints),
@@ -1891,6 +1894,20 @@ GNEViewNet::getAdditionalAtPopupPosition() {
 }
 
 
+GNEDemandElement*
+GNEViewNet::getDemandElementAtPopupPosition() {
+    if (makeCurrent()) {
+        int id = getObjectAtPosition(getPopupPosition());
+        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        if (pointed) {
+            return dynamic_cast<GNEDemandElement*>(pointed);
+        }
+    }
+    return nullptr;
+}
+
+
 GNEPoly*
 GNEViewNet::getPolygonAtPopupPosition() {
     if (makeCurrent()) {
@@ -2556,6 +2573,34 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
         }
         // update view after transform
         updateViewNet();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdReverse(FXObject*, FXSelector, void*) {
+    // obtain demand element at popup position
+    GNEDemandElement* demandElement = getDemandElementAtPopupPosition();
+    if (demandElement) {
+        // begin undo list
+        myUndoList->begin(demandElement->getTagProperty().getGUIIcon(), TLF("reverse % '%'", demandElement->getTagStr(), demandElement->getID()));
+        GNERouteHandler::reverse(demandElement);
+        myUndoList->end();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdAddReverse(FXObject*, FXSelector, void*) {
+    // obtain demand element at popup position
+    GNEDemandElement* demandElement = getDemandElementAtPopupPosition();
+    if (demandElement) {
+        // begin undo list
+        myUndoList->begin(demandElement->getTagProperty().getGUIIcon(), TLF("add reverse '%'", demandElement->getTagStr()));
+        GNERouteHandler::addReverse(demandElement);
+        myUndoList->end();
     }
     return 1;
 }

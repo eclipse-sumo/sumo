@@ -804,6 +804,13 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceDemandParentEdges(value);
             // compute route
             computePathElement();
+            // update all parent and child demand elements
+            for (const auto &element : getParentDemandElements()) {
+                element->updateGeometry();
+            }
+            for (const auto &element : getChildDemandElements()) {
+                element->updateGeometry();
+            }
             break;
         case SUMO_ATTR_COLOR:
             if (value.empty()) {

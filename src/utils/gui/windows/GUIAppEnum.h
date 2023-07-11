@@ -1332,6 +1332,8 @@ enum {
     MID_GNE_PERSON_TRANSFORM,
     /// @brief transform container to another container type (ej: container to containerflow)
     MID_GNE_CONTAINER_TRANSFORM,
+    /// @brief reverse current element
+    MID_GNE_REVERSE,
     /// @brief add reverse element
     MID_GNE_ADDREVERSE,
     /// @}

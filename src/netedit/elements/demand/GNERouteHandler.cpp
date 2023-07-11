@@ -2283,6 +2283,55 @@ GNERouteHandler::reverse(GNEDemandElement* element) {
         element->setAttribute(SUMO_ATTR_FROM_TAZ, toTAZ, undoList);
         element->setAttribute(SUMO_ATTR_TO_TAZ, fromTAZ, undoList);
     } else {
+        // extract and reverse opposite edges
+        std::vector<GNEEdge*> oppositeEdges;
+        for (const auto & edge : element->getParentEdges()) {
+            oppositeEdges.push_back(edge->getOppositeEdges().front());
+        }
+        std::reverse(oppositeEdges.begin(), oppositeEdges.end());
+        if (element->isRoute()) {
+            element->setAttribute(SUMO_ATTR_EDGES, GNEAttributeCarrier::parseIDs(oppositeEdges), undoList);
+        } else {
+            // set from and to
+            element->setAttribute(SUMO_ATTR_FROM, oppositeEdges.front()->getID(), undoList);
+            element->setAttribute(SUMO_ATTR_TO, oppositeEdges.back()->getID(), undoList);
+            // check if add via attribute
+            oppositeEdges.erase(oppositeEdges.begin());
+            oppositeEdges.pop_back();
+            if (oppositeEdges.size() > 0) {
+                element->setAttribute(SUMO_ATTR_VIA, GNEAttributeCarrier::parseIDs(oppositeEdges), undoList);
+            }
+        }
+    }
+}
+
+
+void
+GNERouteHandler::addReverse(GNEDemandElement* element) {
+    // get undo list
+    auto undoList = element->getNet()->getViewNet()->getUndoList();
+    // continue depending of element
+    if (element->getTagProperty().overRoute()) {
+        // reverse parent route
+        reverse(element->getParentDemandElements().at(1));
+    } else if (element->getTagProperty().overEmbeddedRoute()) {
+        // reverse embedded route
+        reverse(element->getChildDemandElements().front());
+    } else if (element->getTagProperty().overFromToJunctions()) {
+        // get from to junctions
+        const auto fromJunction = element->getAttribute(SUMO_ATTR_FROMJUNCTION);
+        const auto toJunction = element->getAttribute(SUMO_ATTR_TOJUNCTION);
+        // swap both attributes
+        element->setAttribute(SUMO_ATTR_FROMJUNCTION, toJunction, undoList);
+        element->setAttribute(SUMO_ATTR_TOJUNCTION, fromJunction, undoList);
+    } else if (element->getTagProperty().overFromToTAZs()) {
+        // get from to TAZs
+        const auto fromTAZ = element->getAttribute(SUMO_ATTR_FROM_TAZ);
+        const auto toTAZ = element->getAttribute(SUMO_ATTR_TO_TAZ);
+        // swap both attributes
+        element->setAttribute(SUMO_ATTR_FROM_TAZ, toTAZ, undoList);
+        element->setAttribute(SUMO_ATTR_TO_TAZ, fromTAZ, undoList);
+    } else {
         // extract and reverse edges
         auto edges = element->getParentEdges();
         std::reverse(edges.begin(), edges.end());

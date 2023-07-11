@@ -220,6 +220,9 @@ public:
 
     /// @brief reverse given demand element
     static void reverse(GNEDemandElement* element);
+
+    /// @brief add reverse for given demand element
+    static void addReverse(GNEDemandElement* element);
     
     /// @}
 
