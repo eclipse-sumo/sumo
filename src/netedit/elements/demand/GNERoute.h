@@ -70,8 +70,11 @@ public:
     /// @brief default constructor (used in calibrators)
     GNERoute(GNENet* net);
 
-    /// @brief default embedded constructor (used in copy vehicles)
-    GNERoute(GNENet* net, GNEVehicle* vehicleParent, const std::vector<GNEEdge*>& edges);
+    /// @brief default constructor (used in copy vehicles)
+    GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute);
+
+    /// @brief default  constructor (used in copy embedded vehicles)
+    GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute);
 
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Route is placed

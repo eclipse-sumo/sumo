@@ -105,15 +105,27 @@ GNERoute::GNERoute(GNENet* net) :
 }
 
 
-GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const std::vector<GNEEdge*>& edges) :
+GNERoute::GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute) :
+    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
+                     {}, originalRoute->getParentEdges(), {}, {}, {}, {}),
+    Parameterised(originalRoute->getACParametersMap()),
+    myColor(originalRoute->getColor()),
+    myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myVClass(originalRoute->getVClass()) {
+}
+
+
+GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-                     {}, edges, {}, {}, {vehicleParent}, {}),
-    Parameterised(),
-    myColor(RGBColor::YELLOW),
-    myRepeat(0),
-    myCycleTime(0),
-    myVClass(vehicleParent->getVClass()) {
+                     {}, originalRoute->getParentEdges(), {}, {}, {vehicleParent}, {}),
+    Parameterised(originalRoute->getACParametersMap()),
+    myColor(originalRoute->getColor()),
+    myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myVClass(originalRoute->getVClass()) {
 }
 
 
