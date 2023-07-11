@@ -88,20 +88,24 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
 
 
 void
-GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                                        const int deterministic, const std::vector<std::string>& vTypes) {
+GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+                                        const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) {
     // first check conditions
     if (!checkDuplicatedDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, id)) {
         writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VTYPE)));
-    } else if (vTypes.empty() && sumoBaseObject->getSumoBaseObjectChildren().empty()) {
+    } else if (vTypeIDs.empty() && sumoBaseObject->getSumoBaseObjectChildren().empty()) {
         writeError(TLF("% needs at least one %", toString(SUMO_TAG_VTYPE_DISTRIBUTION), toString(SUMO_TAG_VTYPE)));
     } else {
         bool checkVTypesOK = true;
+        std::vector<GNEDemandElement*> vTypes;
         // check vTypes
-        for (const auto& vType : vTypes) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vType, false) == nullptr) {
+        for (const auto& vTypeID : vTypeIDs) {
+            auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID, false);
+            if (vType == nullptr) {
                 writeError(TLF("% with id '%' doesn't exist in % '%'", toString(SUMO_TAG_VTYPE), vType, toString(SUMO_TAG_VTYPE_DISTRIBUTION), id));
                 checkVTypesOK = false;
+            } else {
+                vTypes.push_back(vType);
             }
         }
         // now check childrens
@@ -114,6 +118,14 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
                 checkVTypesOK = false;
             }
         }
+        // now check probabilities
+        if (probabilities.size() > 0) {
+            if (probabilities.size() != vTypes.size()) {
+                writeError(TL("Invalid type distribution probabilities. Must have the same number of vTypes"));
+                checkVTypesOK = false;
+            } else {
+            }
+        }
         // if all ok, then create vTypeDistribution
         if (checkVTypesOK) {
             GNEVTypeDistribution* vTypeDistribution = new GNEVTypeDistribution(myNet, id, deterministic);
@@ -122,16 +134,16 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
                 // iterate over all children and set attribute
-                for (const auto &typeID : vTypes) {
-                    myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, typeID)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
+                for (const auto &vType : vTypes) {
+                    vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
                 }
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
                 vTypeDistribution->incRef("buildVType");
                 // iterate over all children and set attribute
-                for (const auto &typeID : vTypes) {
-                    myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, typeID)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id);
+                for (const auto &vType : vTypes) {
+                    vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id);
                 }
             }
         }

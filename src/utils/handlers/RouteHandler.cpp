@@ -196,7 +196,8 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             buildVTypeDistribution(obj,
                                    obj->getStringAttribute(SUMO_ATTR_ID),
                                    obj->getIntAttribute(SUMO_ATTR_DETERMINISTIC),
-                                   obj->getStringListAttribute(SUMO_ATTR_VTYPES));
+                                   obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                   obj->getDoubleListAttribute(SUMO_ATTR_PROBS));
             break;
         // route
         case SUMO_TAG_ROUTE:
@@ -416,6 +417,7 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const int deterministic = attrs.getOpt<int>(SUMO_ATTR_DETERMINISTIC, id.c_str(), parsedOk, -1);
     const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk);
+    const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
     if (parsedOk) {
         if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
             writeErrorInvalidID(SUMO_TAG_ROUTE, id);
@@ -426,6 +428,7 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_DETERMINISTIC, deterministic);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleListAttribute(SUMO_ATTR_PROBS, probabilities);
         }
     }
 }

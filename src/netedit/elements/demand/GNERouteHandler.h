@@ -66,8 +66,8 @@ public:
     void buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter);
 
     /// @brief build vType distribution
-    void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                                const int deterministic, const std::vector<std::string>& vTypes);
+    void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+                                const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities);
 
     /// @brief build route
     void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
