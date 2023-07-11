@@ -292,7 +292,7 @@ font-size: 90%;
 }
 
 .headerlink {
-font-family: FontAwesome;
+font-family: 'FontAwesome', sans-serif;
 font-size: 14px;
 display: none;
 padding-left: .5em;
@@ -586,7 +586,6 @@ margin-top: 10px;
 pointer-events:none;
 border:10px;
 border-color: #aaa;
-border-radius:50%;
 margin-bottom: 10px;
 border-radius: 50%;
 -webkit-border-radius: 50%;
