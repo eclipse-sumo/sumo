@@ -342,9 +342,15 @@ public:
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
 
+    /// @brief create a copy of the given vehicle
+    static GNEDemandElement* copyVehicle(const GNEVehicle* originalVehicle);
+
 protected:
     /// @brief sets the color according to the currente settings
     RGBColor setColor(const GUIVisualizationSettings& s) const;
+    
+    /// @brier get sumo vehicle parameter
+    const SUMOVehicleParameter &getSUMOVehicleParameter() const;
 
 private:
     /// @brief vehicle arrival position radius

@@ -25,6 +25,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_EnableAttribute.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
 #include <utils/gui/div/GLHelper.h>
@@ -37,6 +38,7 @@
 
 #include "GNEVehicle.h"
 #include "GNERouteHandler.h"
+#include "GNERoute.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -1638,6 +1640,64 @@ GNEVehicle::getACParametersMap() const {
     return getParametersMap();
 }
 
+
+GNEDemandElement*
+GNEVehicle::copyVehicle(const GNEVehicle* originalVehicle) {
+    // get net and undoList
+    const auto net = originalVehicle->getNet();
+    auto undoList = net->getViewNet()->getUndoList();
+    // declare new route, vehicle and embedded route
+    GNERoute* newRoute = nullptr;
+    GNEVehicle* newVehicle = nullptr;
+    GNERoute* newEmbeddedRoute = nullptr;
+    // generate new vehicle ID
+    const std::string newRouteID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
+    const std::string newVehicleID = net->getAttributeCarriers()->generateDemandElementID(originalVehicle->getTagProperty().getTag());
+    // create vehicle using vehicleParameters
+    if (originalVehicle->getTagProperty().overRoute()) {
+        newRoute = new GNERoute(net, newRouteID, originalVehicle->getParentDemandElements().at(1));
+        newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
+            originalVehicle->getParentDemandElements().at(0), newRoute,                                               
+            originalVehicle->getSUMOVehicleParameter());
+    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
+        newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
+            originalVehicle->getParentDemandElements().at(0),
+            originalVehicle->getSUMOVehicleParameter());
+        newEmbeddedRoute = new GNERoute(net, newVehicle, originalVehicle->getChildDemandElements().front());
+    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
+        newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
+            originalVehicle->getParentDemandElements().at(0),
+            originalVehicle->getParentEdges().front(),
+            originalVehicle->getParentEdges().back(),
+            originalVehicle->getSUMOVehicleParameter());
+    } else if (originalVehicle->getTagProperty().overFromToJunctions()) {
+        newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
+            originalVehicle->getParentDemandElements().at(0),
+            originalVehicle->getParentJunctions().front(),
+            originalVehicle->getParentJunctions().back(),
+            originalVehicle->getSUMOVehicleParameter());
+    } else if (originalVehicle->getTagProperty().overFromToTAZs()) {
+        newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
+            originalVehicle->getParentDemandElements().at(0),
+            originalVehicle->getParentAdditionals().front(),
+            originalVehicle->getParentAdditionals().back(),
+            originalVehicle->getSUMOVehicleParameter());
+    }
+    // set new ID
+    newVehicle->setAttribute(SUMO_ATTR_ID, newVehicleID);
+    // add new vehicle
+    undoList->begin(originalVehicle->getTagProperty().getGUIIcon(), TLF("copy % '%'", newVehicle->getTagStr(), newVehicleID));
+    if (newRoute) {
+        net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(newRoute, true), true);
+    }
+    undoList->add(new GNEChange_DemandElement(newVehicle, true), true);
+    if (newEmbeddedRoute) {
+        net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(newEmbeddedRoute, true), true);
+    }
+    undoList->end();
+    return newVehicle;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================
@@ -1735,6 +1795,12 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             }
         }
     }
+}
+
+
+const SUMOVehicleParameter&
+GNEVehicle::getSUMOVehicleParameter() const {
+    return *this;
 }
 
 // ===========================================================================
