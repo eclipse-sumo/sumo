@@ -30,12 +30,12 @@ The de-facto standard for projecting background image layers on the internet is 
 # Checking Geo-Coordinates
 
 In [sumo-gui](sumo-gui.md) and [netedit](Netedit/index.md) when right-clicking anywhere in a
-geo-referenced network, the option *Show cursor geo-position in* permits to open a sub-menu for launching a webbrowser that shows the location directly in [maps.google.com](maps.google.com), [openstreetmap.org](www.openstreetmap.org) or [geohack](geohack.toolforge.org). 
+geo-referenced network, the option *Show cursor geo-position in* permits to open a sub-menu for launching a webbrowser that shows the location directly in [maps.google.com](https://www.google.com/maps), [openstreetmap.org](https://www.openstreetmap.org) or [geohack](https://geohack.toolforge.org/geohack.php?params=52.520580;13.400177_scale:1000). 
 
 Furthermore, the option *Copy cursor geo-position to
 clipboard* is available. The resulting *lat,lon* coordinates are
-suitable for pasting into any map engine such as [maps.google.com](maps.google.com) or
-[maps.bing.com](maps.bing.com). 
+suitable for pasting into any map engine such as [maps.google.com](http://www.google.com/maps) or
+[maps.bing.com](https://www.bing.com/maps). 
 
 Also, the network coordinates as well as the
 geo-coordinates at the cursor position are shown in the bottom
