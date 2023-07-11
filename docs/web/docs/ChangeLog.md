@@ -28,6 +28,7 @@ title: ChangeLog
   - Fixed problem saving containers sorted by begin attribute in Netedit #11022
   - Fixed problem saving edgetypes. #12467
   - Added proper error handling for duplicate edgeRelations #11329
+  - Can now load and modify `<vTypeDistribution>` elements. #12846
   
 
 - netconvert
