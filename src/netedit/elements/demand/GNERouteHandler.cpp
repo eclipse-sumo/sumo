@@ -129,9 +129,10 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
                 vTypeDistribution->incRef("buildVType");
-
-                /* FALTA */
-
+                // iterate over all children and set attribute
+                for (const auto &typeID : vTypes) {
+                    myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, typeID)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id);
+                }
             }
         }
     }

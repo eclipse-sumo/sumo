@@ -1885,7 +1885,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 if (copyDistributions.count(typeDistributionID) > 0) {
                     myDistributions[typeDistributionID] = copyDistributions.at(typeDistributionID);
                 } else {
-                    myDistributions[typeDistributionID] = 1.0;
+                    myDistributions[typeDistributionID] = defaultProbability;
                 }
             }
             break;
