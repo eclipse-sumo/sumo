@@ -259,6 +259,9 @@ public:
      */
     static std::string isRouteValid(const std::vector<GNEEdge*>& edges);
 
+    /// @brief create a copy of the given route
+    static GNEDemandElement* copyRoute(const GNERoute* originalRoute);
+
 protected:
     /// @brief route color
     RGBColor myColor;

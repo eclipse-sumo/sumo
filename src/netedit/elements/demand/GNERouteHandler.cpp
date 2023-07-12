@@ -2308,10 +2308,16 @@ GNERouteHandler::reverse(GNEDemandElement* element) {
 
 void
 GNERouteHandler::addReverse(GNEDemandElement* element) {
-    // make a copy of the vehicle
-    const auto vehicleCopy = GNEVehicle::copyVehicle((GNEVehicle*)element);
-    // reverse
-    reverse(vehicleCopy);
+    GNEDemandElement* elementCopy = nullptr;
+    if (element->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+        // make a copy of the route and reverse
+        elementCopy = GNERoute::copyRoute(dynamic_cast<GNERoute*>(element));
+    } else if (element->getTagProperty().isVehicle()) {
+        // make a copy of the vehicle
+        elementCopy = GNEVehicle::copyVehicle(dynamic_cast<GNEVehicle*>(element));
+    }
+    // reverse copied element
+    reverse(elementCopy);
 }
 
 // ===========================================================================

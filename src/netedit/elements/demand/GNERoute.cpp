@@ -24,6 +24,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -800,6 +801,23 @@ GNERoute::isRouteValid(const std::vector<GNEEdge*>& edges) {
         // all edges consecutives, then return an empty string
         return ("");
     }
+}
+
+GNEDemandElement*
+GNERoute::copyRoute(const GNERoute* originalRoute) {
+    // get net and undoList
+    const auto net = originalRoute->getNet();
+    auto undoList = net->getViewNet()->getUndoList();
+    // generate new route ID
+    const std::string newRouteID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
+    // create new route
+    GNERoute* newRoute = new GNERoute(net, newRouteID, originalRoute);
+    // add new route using undo-list
+    undoList->begin(originalRoute->getTagProperty().getGUIIcon(), TLF("copy % '%'", originalRoute->getTagStr(), newRouteID));
+    net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(newRoute, true), true);
+    undoList->end();
+    // return new route
+    return newRoute;
 }
 
 // ===========================================================================
