@@ -1784,7 +1784,10 @@ GNEViewNet::setLastCreatedRoute(GNEDemandElement* lastCreatedRoute) {
 GNEJunction*
 GNEViewNet::getJunctionAtPopupPosition() {
     if (makeCurrent()) {
-        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to junction element
         for (const auto &glObject : glObjects) {
             auto junction = dynamic_cast<GNEJunction*>(glObject);
@@ -1800,7 +1803,10 @@ GNEViewNet::getJunctionAtPopupPosition() {
 GNEConnection*
 GNEViewNet::getConnectionAtPopupPosition() {
     if (makeCurrent()) {
-        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to connection element
         for (const auto &glObject : glObjects) {
             auto connection = dynamic_cast<GNEConnection*>(glObject);
@@ -1816,7 +1822,10 @@ GNEViewNet::getConnectionAtPopupPosition() {
 GNECrossing*
 GNEViewNet::getCrossingAtPopupPosition() {
     if (makeCurrent()) {
-        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to crossing element
         for (const auto &glObject : glObjects) {
             auto crossing = dynamic_cast<GNECrossing*>(glObject);
@@ -1832,7 +1841,10 @@ GNEViewNet::getCrossingAtPopupPosition() {
 GNEWalkingArea*
 GNEViewNet::getWalkingAreaAtPopupPosition() {
     if (makeCurrent()) {
-        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to walking area element
         for (const auto &glObject : glObjects) {
             auto walkingArea = dynamic_cast<GNEWalkingArea*>(glObject);
@@ -1848,7 +1860,10 @@ GNEViewNet::getWalkingAreaAtPopupPosition() {
 GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
     if (makeCurrent()) {
-        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to edge element
         for (const auto &glObject : glObjects) {
             auto edge = dynamic_cast<GNEEdge*>(glObject);
@@ -1869,7 +1884,10 @@ GNEViewNet::getEdgeAtPopupPosition() {
 GNELane*
 GNEViewNet::getLaneAtPopupPosition() {
     if (makeCurrent()) {
-        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to lane element
         for (const auto &glObject : glObjects) {
             auto lane = dynamic_cast<GNELane*>(glObject);
@@ -1885,7 +1903,10 @@ GNEViewNet::getLaneAtPopupPosition() {
 GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
     if (makeCurrent()) {
-        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to additional element
         for (const auto &glObject : glObjects) {
             auto additionalElement = dynamic_cast<GNEAdditional*>(glObject);
@@ -1901,7 +1922,10 @@ GNEViewNet::getAdditionalAtPopupPosition() {
 GNEDemandElement*
 GNEViewNet::getDemandElementAtPopupPosition() {
     if (makeCurrent()) {
-        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to demand element
         for (const auto &glObject : glObjects) {
             auto demandElement = dynamic_cast<GNEDemandElement*>(glObject);
@@ -1917,7 +1941,10 @@ GNEViewNet::getDemandElementAtPopupPosition() {
 GNEPoly*
 GNEViewNet::getPolygonAtPopupPosition() {
     if (makeCurrent()) {
-        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to poly element
         for (const auto &glObject : glObjects) {
             auto poly = dynamic_cast<GNEPoly*>(glObject);
@@ -1933,7 +1960,10 @@ GNEViewNet::getPolygonAtPopupPosition() {
 GNEPOI*
 GNEViewNet::getPOIAtPopupPosition() {
     if (makeCurrent()) {
-        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to POI element
         for (const auto &glObject : glObjects) {
             auto POI = dynamic_cast<GNEPOI*>(glObject);
@@ -1949,7 +1979,10 @@ GNEViewNet::getPOIAtPopupPosition() {
 GNETAZ*
 GNEViewNet::getTAZAtPopupPosition() {
     if (makeCurrent()) {
-        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to TAZ element
         for (const auto &glObject : glObjects) {
             auto TAZ = dynamic_cast<GNETAZ*>(glObject);
