@@ -582,7 +582,20 @@ MSPModel_JuPedSim::initialize() {
     size_t nbrParameterProfiles = 0;
     for (const MSVehicleType* type : myNetwork->getVehicleControl().getPedestrianTypes()) {
         ++nbrParameterProfiles;
-        JPS_VelocityModelBuilder_AddParameterProfile(myJPSModelBuilder, nbrParameterProfiles, 1.0, 0.5, MIN2(type->getMaxSpeed(), type->getDesiredMaxSpeed()), 0.3);
+        double radius;
+        if ((!type->wasSet(VTYPEPARS_LENGTH_SET)) && (!type->wasSet(VTYPEPARS_WIDTH_SET))) {
+            radius = 0.3;
+        }
+        else if (!type->wasSet(VTYPEPARS_WIDTH_SET)) {
+            radius = 0.5 * type->getLength();
+        }
+        else if (!type->wasSet(VTYPEPARS_LENGTH_SET)) {
+            radius = 0.5 * type->getWidth();
+        }
+        else {
+            radius = 0.25 * (type->getLength() + type->getWidth());
+        }
+        JPS_VelocityModelBuilder_AddParameterProfile(myJPSModelBuilder, nbrParameterProfiles, 1.0, 0.5, MIN2(type->getMaxSpeed(), type->getDesiredMaxSpeed()), radius);
         myJPSParameterProfileIds[type->getID()] = nbrParameterProfiles;
     }
     
