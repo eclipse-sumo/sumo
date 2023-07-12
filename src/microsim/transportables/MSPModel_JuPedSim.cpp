@@ -95,7 +95,17 @@ MSPModel_JuPedSim::tryInsertion(PState* state) {
 	agent_parameters.journeyId = state->getJourneyId();
 	agent_parameters.position = {state->getPosition(*state->getStage(), 0).x(), state->getPosition(*state->getStage(), 0).y()};
     const double angle = state->getAngle(*state->getStage(), 0);
-    agent_parameters.orientation = (fabs(angle - M_PI / 2) < NUMERICAL_EPS) ? JPS_Point{0., 1.} : JPS_Point{1., tan(angle)};
+    JPS_Point orientation;
+    if (fabs(angle - M_PI / 2) < NUMERICAL_EPS) {
+        orientation = JPS_Point{0., 1.};
+    }
+    else if (fabs(angle - M_PI / 2) < NUMERICAL_EPS) {
+        orientation = JPS_Point{0., -1.};
+    }
+    else {
+        orientation = JPS_Point{1., tan(angle)};
+    }
+    agent_parameters.orientation =  orientation;
     std::string pedestrianTypeID = state->getPerson()->getVehicleType().getID();
     std::map<std::string, JPS_ModelParameterProfileId>::iterator it = myJPSParameterProfileIds.find(pedestrianTypeID);
     if (it != myJPSParameterProfileIds.end()) {
