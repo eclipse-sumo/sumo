@@ -53,7 +53,7 @@ title: ChangeLog
   - Now supports Human Readable Time (HH:MM:SS) #11022
   - Added support for E3 attribute expectArrival #13477
   - Now type parameters can be edited in main type frame #12378
-  
+  - Now vehicles and routes can be reversed #12967
 
 - netconvert
   - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
