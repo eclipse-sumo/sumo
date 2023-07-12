@@ -250,8 +250,8 @@ class edge:
         setGeometryPoint = 2
         restoreGeometryPoint = 3
         reverseEdge = 4
-        addReverseDirection = 5
-        addReverseDirectionDisconnected = 6
+        reverseElementDirection = 5
+        reverseElementDirectionDisconnected = 6
         resetLenght = 7
         straighteen = 8
         smooth = 9
@@ -1520,9 +1520,9 @@ class route:
 
     class reverse:
         current = 1
-        newElement = 2
+        add = 2
 
-    addReverse = 9
+    reverseElement = 11
 
 # trip (from-to edges)
 
@@ -1599,9 +1599,9 @@ class trip:
 
     class reverse:
         current = 1
-        newElement = 2
+        add = 2
 
-    addReverse = 9
+    reverseElement = 9
     transformTo = 10
 
 # trip (from-to junctions)
@@ -1679,10 +1679,10 @@ class tripJunction:
 
     class reverse:
         current = 1
-        newElement = 2
+        add = 2
 
-    addReverse = 9
-    transformTo = 10
+    reverseElement = 8
+    transformTo = 9
 
 # trip (from-to TAZs)
 
@@ -1754,10 +1754,10 @@ class tripTAZ:
 
     class reverse:
         current = 1
-        newElement = 2
+        add = 2
 
-    addReverse = 9
-    transformTo = 10
+    reverseElement = 8
+    transformTo = 9
 
 # vehicle (over route)
 
@@ -1834,9 +1834,9 @@ class vehicle:
 
     class reverse:
         current = 1
-        newElement = 2
+        add = 2
 
-    addReverse = 9
+    reverseElement = 9
     transformTo = 10
 
 # vehicle (embedded route)
@@ -1913,9 +1913,9 @@ class vehicleEmbedded:
 
     class reverse:
         current = 1
-        newElement = 2
+        add = 2
 
-    addReverse = 9
+    reverseElement = 9
     transformTo = 10
 
 # flow (from-to edges)
@@ -2008,9 +2008,9 @@ class flow:
 
     class reverse:
         current = 1
-        newElement = 2
+        add = 2
 
-    addReverse = 9
+    reverseElement = 9
     transformTo = 10
 
 # flow (from-to junctions)
@@ -2103,10 +2103,10 @@ class flowJunction:
     
     class reverse:
         current = 1
-        newElement = 2
+        add = 2
 
-    addReverse = 9
-    transformTo = 10
+    reverseElement = 8
+    transformTo = 9
 
 # flow (from-to TAZs)
 
@@ -2193,10 +2193,10 @@ class flowTAZ:
     
     class reverse:
         current = 1
-        newElement = 2
+        add = 2
 
-    addReverse = 9
-    transformTo = 10
+    reverseElement = 8
+    transformTo = 9
 
 # flow (over route)
 
@@ -2288,9 +2288,9 @@ class routeFlow:
 
     class reverse:
         current = 1
-        newElement = 2
+        add = 2
 
-    addReverse = 9
+    reverseElement = 9
     transformTo = 10
 
 # flow (embedded route)
@@ -2382,9 +2382,9 @@ class flowEmbedded:
 
     class reverse:
         current = 1
-        newElement = 2
+        add = 2
 
-    addReverse = 9
+    reverseElement = 9
     transformTo = 10
 
 # stop over bus stop
