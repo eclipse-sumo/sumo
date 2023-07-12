@@ -54,6 +54,7 @@ title: ChangeLog
   - Added support for E3 attribute expectArrival #13477
   - Now type parameters can be edited in main type frame #12378
   - Now vehicles and routes can be reversed #12967
+  - Improved locator dialog in netedit #12654
 
 - netconvert
   - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
