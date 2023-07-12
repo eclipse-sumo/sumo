@@ -1518,6 +1518,12 @@ class route:
         cycletime = 4
         parameters = 7
 
+    class reverse:
+        current = 1
+        newElement = 2
+
+    addReverse = 9
+
 # trip (from-to edges)
 
 
@@ -1591,7 +1597,12 @@ class trip:
         routeFlowEmbedded = 4
         flow = 5
 
-    transformTo = 9
+    class reverse:
+        current = 1
+        newElement = 2
+
+    addReverse = 9
+    transformTo = 10
 
 # trip (from-to junctions)
 
@@ -1666,7 +1677,12 @@ class tripJunction:
         trip = 5
         flow = 6
 
-    transformTo = 9
+    class reverse:
+        current = 1
+        newElement = 2
+
+    addReverse = 9
+    transformTo = 10
 
 # trip (from-to TAZs)
 
@@ -1736,7 +1752,12 @@ class tripTAZ:
     class transform:
         flow = 1
 
-    transformTo = 9
+    class reverse:
+        current = 1
+        newElement = 2
+
+    addReverse = 9
+    transformTo = 10
 
 # vehicle (over route)
 
@@ -1811,7 +1832,12 @@ class vehicle:
         trip = 4
         flow = 5
 
-    transformTo = 9
+    class reverse:
+        current = 1
+        newElement = 2
+
+    addReverse = 9
+    transformTo = 10
 
 # vehicle (embedded route)
 
@@ -1885,7 +1911,12 @@ class vehicleEmbedded:
         trip = 4
         flow = 5
 
-    transformTo = 9
+    class reverse:
+        current = 1
+        newElement = 2
+
+    addReverse = 9
+    transformTo = 10
 
 # flow (from-to edges)
 
@@ -1975,7 +2006,12 @@ class flow:
         routeFlowEmbedded = 4
         trip = 5
 
-    transformTo = 9
+    class reverse:
+        current = 1
+        newElement = 2
+
+    addReverse = 9
+    transformTo = 10
 
 # flow (from-to junctions)
 
@@ -2064,8 +2100,13 @@ class flowJunction:
         routeFlowEmbedded = 4
         trip = 5
         flow = 6
+    
+    class reverse:
+        current = 1
+        newElement = 2
 
-    transformTo = 9
+    addReverse = 9
+    transformTo = 10
 
 # flow (from-to TAZs)
 
@@ -2149,8 +2190,13 @@ class flowTAZ:
 
     class transform:
         trip = 1
+    
+    class reverse:
+        current = 1
+        newElement = 2
 
-    transformTo = 9
+    addReverse = 9
+    transformTo = 10
 
 # flow (over route)
 
@@ -2240,7 +2286,12 @@ class routeFlow:
         trip = 4
         flow = 5
 
-    transformTo = 9
+    class reverse:
+        current = 1
+        newElement = 2
+
+    addReverse = 9
+    transformTo = 10
 
 # flow (embedded route)
 
@@ -2329,7 +2380,12 @@ class flowEmbedded:
         trip = 4
         flow = 5
 
-    transformTo = 9
+    class reverse:
+        current = 1
+        newElement = 2
+
+    addReverse = 9
+    transformTo = 10
 
 # stop over bus stop
 
