@@ -1783,111 +1783,115 @@ GNEViewNet::setLastCreatedRoute(GNEDemandElement* lastCreatedRoute) {
 
 GNEJunction*
 GNEViewNet::getJunctionAtPopupPosition() {
-    GNEJunction* junction = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_JUNCTION)) {
-            junction = (GNEJunction*)pointed;
+        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get first object that can be parsed to junction element
+        for (const auto &glObject : glObjects) {
+            auto junction = dynamic_cast<GNEJunction*>(glObject);
+            if (junction) {
+                return junction;
+            }
         }
     }
-    return junction;
+    return nullptr;
 }
 
 
 GNEConnection*
 GNEViewNet::getConnectionAtPopupPosition() {
-    GNEConnection* connection = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_CONNECTION)) {
-            connection = (GNEConnection*)pointed;
+        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get first object that can be parsed to connection element
+        for (const auto &glObject : glObjects) {
+            auto connection = dynamic_cast<GNEConnection*>(glObject);
+            if (connection) {
+                return connection;
+            }
         }
     }
-    return connection;
+    return nullptr;
 }
 
 
 GNECrossing*
 GNEViewNet::getCrossingAtPopupPosition() {
-    GNECrossing* crossing = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_CROSSING)) {
-            crossing = (GNECrossing*)pointed;
+        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get first object that can be parsed to crossing element
+        for (const auto &glObject : glObjects) {
+            auto crossing = dynamic_cast<GNECrossing*>(glObject);
+            if (crossing) {
+                return crossing;
+            }
         }
     }
-    return crossing;
+    return nullptr;
 }
 
 
 GNEWalkingArea*
 GNEViewNet::getWalkingAreaAtPopupPosition() {
-    GNEWalkingArea* walkingArea = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_WALKINGAREA)) {
-            walkingArea = (GNEWalkingArea*)pointed;
+        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get first object that can be parsed to walking area element
+        for (const auto &glObject : glObjects) {
+            auto walkingArea = dynamic_cast<GNEWalkingArea*>(glObject);
+            if (walkingArea) {
+                return walkingArea;
+            }
         }
     }
-    return walkingArea;
+    return nullptr;
 }
 
 
 GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
-    GNEEdge* edge = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            switch (pointed->getType()) {
-                case GLO_EDGE:
-                    edge = (GNEEdge*)pointed;
-                    break;
-                case GLO_LANE:
-                    edge = (((GNELane*)pointed)->getParentEdge());
-                    break;
-                default:
-                    break;
+        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get first object that can be parsed to edge element
+        for (const auto &glObject : glObjects) {
+            auto edge = dynamic_cast<GNEEdge*>(glObject);
+            if (edge) {
+                return edge;
+            } else {
+                auto lane = dynamic_cast<GNELane*>(glObject);
+                if (lane) {
+                    return lane->getParentEdge();
+                }
             }
         }
     }
-    return edge;
+    return nullptr;
 }
 
 
 GNELane*
 GNEViewNet::getLaneAtPopupPosition() {
-    GNELane* lane = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_LANE)) {
-            lane = (GNELane*)pointed;
+        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get first object that can be parsed to lane element
+        for (const auto &glObject : glObjects) {
+            auto lane = dynamic_cast<GNELane*>(glObject);
+            if (lane) {
+                return lane;
+            }
         }
     }
-    return lane;
+    return nullptr;
 }
 
 
 GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            return dynamic_cast<GNEAdditional*>(pointed);
+        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get first object that can be parsed to additional element
+        for (const auto &glObject : glObjects) {
+            auto additionalElement = dynamic_cast<GNEAdditional*>(glObject);
+            if (additionalElement) {
+                return additionalElement;
+            }
         }
     }
     return nullptr;
@@ -1897,11 +1901,13 @@ GNEViewNet::getAdditionalAtPopupPosition() {
 GNEDemandElement*
 GNEViewNet::getDemandElementAtPopupPosition() {
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            return dynamic_cast<GNEDemandElement*>(pointed);
+        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get first object that can be parsed to demand element
+        for (const auto &glObject : glObjects) {
+            auto demandElement = dynamic_cast<GNEDemandElement*>(glObject);
+            if (demandElement) {
+                return demandElement;
+            }
         }
     }
     return nullptr;
@@ -1911,11 +1917,13 @@ GNEViewNet::getDemandElementAtPopupPosition() {
 GNEPoly*
 GNEViewNet::getPolygonAtPopupPosition() {
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            return dynamic_cast<GNEPoly*>(pointed);
+        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get first object that can be parsed to poly element
+        for (const auto &glObject : glObjects) {
+            auto poly = dynamic_cast<GNEPoly*>(glObject);
+            if (poly) {
+                return poly;
+            }
         }
     }
     return nullptr;
@@ -1925,11 +1933,13 @@ GNEViewNet::getPolygonAtPopupPosition() {
 GNEPOI*
 GNEViewNet::getPOIAtPopupPosition() {
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            return dynamic_cast<GNEPOI*>(pointed);
+        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get first object that can be parsed to POI element
+        for (const auto &glObject : glObjects) {
+            auto POI = dynamic_cast<GNEPOI*>(glObject);
+            if (POI) {
+                return POI;
+            }
         }
     }
     return nullptr;
@@ -1939,11 +1949,13 @@ GNEViewNet::getPOIAtPopupPosition() {
 GNETAZ*
 GNEViewNet::getTAZAtPopupPosition() {
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            return dynamic_cast<GNETAZ*>(pointed);
+        const auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // get first object that can be parsed to TAZ element
+        for (const auto &glObject : glObjects) {
+            auto TAZ = dynamic_cast<GNETAZ*>(glObject);
+            if (TAZ) {
+                return TAZ;
+            }
         }
     }
     return nullptr;
