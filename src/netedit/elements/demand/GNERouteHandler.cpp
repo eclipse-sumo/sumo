@@ -2043,25 +2043,195 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
 
 void
 GNERouteHandler::transformToTripJunctions(GNEVehicle* originalVehicle) {
-    
+    // only continue if number of junctions are valid
+    if (originalVehicle->getParentJunctions().empty()) {
+        // declare header
+        const std::string header = "Problem transforming to trip over junctions";
+        // declare message
+        const std::string message = "Vehicle cannot be transformed. Invalid number of junctions";
+        // write warning
+        WRITE_DEBUG("Opened FXMessageBox " + header);
+        // open message box
+        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox " + header);
+    } else {
+        // get pointer to net
+        GNENet* net = originalVehicle->getNet();
+        // check if transform after creation
+        const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
+        // declare route handler
+        GNERouteHandler routeHandler("", net, true, false);
+        // obtain vehicle parameters
+        SUMOVehicleParameter vehicleParameters = *originalVehicle;
+        // begin undo-redo operation
+        net->getViewNet()->getUndoList()->begin(originalVehicle->getTagProperty().getGUIIcon(), "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_TRIP_JUNCTIONS));
+        // first delete vehicle
+        net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
+        // change tag in vehicle parameters
+        vehicleParameters.tag = GNE_TAG_TRIP_JUNCTIONS;
+        // create trip
+        routeHandler.buildTripJunctions(nullptr, vehicleParameters, originalVehicle->getParentJunctions().front()->getID(), originalVehicle->getParentJunctions().back()->getID());
+        // end undo-redo operation
+        net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
+    }
 }
 
 
 void
 GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
-
+    // only continue if number of junctions are valid
+    if (originalVehicle->getParentJunctions().empty()) {
+        // declare header
+        const std::string header = "Problem transforming to flow over junctions";
+        // declare message
+        const std::string message = "Vehicle cannot be transformed. Invalid number of junctions";
+        // write warning
+        WRITE_DEBUG("Opened FXMessageBox " + header);
+        // open message box
+        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox " + header);
+    } else {
+        // get pointer to net
+        GNENet* net = originalVehicle->getNet();
+        // check if transform after creation
+        const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
+        // declare route handler
+        GNERouteHandler routeHandler("", net, true, false);
+        // obtain vehicle parameters
+        SUMOVehicleParameter vehicleParameters = *originalVehicle;
+        // begin undo-redo operation
+        net->getViewNet()->getUndoList()->begin(originalVehicle->getTagProperty().getGUIIcon(), "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_FLOW_JUNCTIONS));
+        // first delete vehicle
+        net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
+        // get template flow
+        const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_JUNCTIONS);
+        // set flow parameters
+        vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
+        vehicleParameters.repetitionNumber = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(SUMO_ATTR_NUMBER));
+        vehicleParameters.repetitionOffset = string2time(templateFlow->getAttribute(SUMO_ATTR_PERIOD));
+        vehicleParameters.repetitionProbability = GNEAttributeCarrier::parse<double>(templateFlow->getAttribute(SUMO_ATTR_PROB));
+        // by default, number and end enabled
+        vehicleParameters.parametersSet = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
+        // change tag in vehicle parameters
+        vehicleParameters.tag = GNE_TAG_FLOW_JUNCTIONS;
+        // create flow
+        routeHandler.buildFlowJunctions(nullptr, vehicleParameters, originalVehicle->getParentJunctions().front()->getID(), originalVehicle->getParentJunctions().back()->getID());
+        // end undo-redo operation
+        net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
+    }
 }
 
 
 void
 GNERouteHandler::transformToTripTAZs(GNEVehicle* originalVehicle) {
-
+    // only continue if number of junctions are valid
+    if (originalVehicle->getParentAdditionals().empty()) {
+        // declare header
+        const std::string header = "Problem transforming to trip over TAZs";
+        // declare message
+        const std::string message = "Vehicle cannot be transformed. Invalid number of TAZs";
+        // write warning
+        WRITE_DEBUG("Opened FXMessageBox " + header);
+        // open message box
+        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox " + header);
+    } else {
+        // get pointer to net
+        GNENet* net = originalVehicle->getNet();
+        // check if transform after creation
+        const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
+        // declare route handler
+        GNERouteHandler routeHandler("", net, true, false);
+        // obtain vehicle parameters
+        SUMOVehicleParameter vehicleParameters = *originalVehicle;
+        // begin undo-redo operation
+        net->getViewNet()->getUndoList()->begin(originalVehicle->getTagProperty().getGUIIcon(), "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_TRIP_TAZS));
+        // first delete vehicle
+        net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
+        // change tag in vehicle parameters
+        vehicleParameters.tag = GNE_TAG_TRIP_TAZS;
+        // create trip
+        routeHandler.buildTripTAZs(nullptr, vehicleParameters, originalVehicle->getParentAdditionals().front()->getID(), originalVehicle->getParentAdditionals().back()->getID());
+        // end undo-redo operation
+        net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
+    }
 }
 
 
 void
 GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
-
+    // only continue if number of junctions are valid
+    if (originalVehicle->getParentAdditionals().empty()) {
+        // declare header
+        const std::string header = "Problem transforming to flow over TAZs";
+        // declare message
+        const std::string message = "Vehicle cannot be transformed. Invalid number of TAZs";
+        // write warning
+        WRITE_DEBUG("Opened FXMessageBox " + header);
+        // open message box
+        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox " + header);
+    } else {
+        // get pointer to net
+        GNENet* net = originalVehicle->getNet();
+        // check if transform after creation
+        const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
+        // declare route handler
+        GNERouteHandler routeHandler("", net, true, false);
+        // obtain vehicle parameters
+        SUMOVehicleParameter vehicleParameters = *originalVehicle;
+        // begin undo-redo operation
+        net->getViewNet()->getUndoList()->begin(originalVehicle->getTagProperty().getGUIIcon(), "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_FLOW_TAZS));
+        // first delete vehicle
+        net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
+        // get template flow
+        const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_TAZS);
+        // set flow parameters
+        vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
+        vehicleParameters.repetitionNumber = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(SUMO_ATTR_NUMBER));
+        vehicleParameters.repetitionOffset = string2time(templateFlow->getAttribute(SUMO_ATTR_PERIOD));
+        vehicleParameters.repetitionProbability = GNEAttributeCarrier::parse<double>(templateFlow->getAttribute(SUMO_ATTR_PROB));
+        // by default, number and end enabled
+        vehicleParameters.parametersSet = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
+        // change tag in vehicle parameters
+        vehicleParameters.tag = GNE_TAG_FLOW_TAZS;
+        // create flow
+        routeHandler.buildFlowTAZs(nullptr, vehicleParameters, originalVehicle->getParentAdditionals().front()->getID(), originalVehicle->getParentAdditionals().back()->getID());
+        // end undo-redo operation
+        net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
+    }
 }
 
 

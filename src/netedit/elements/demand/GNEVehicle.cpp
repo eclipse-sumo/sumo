@@ -154,7 +154,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::~GNESingleVehiclePopupMenu() {}
 
 long
 GNEVehicle::GNESingleVehiclePopupMenu::onCmdTransform(FXObject*, FXSelector sel, void*) {
-    switch (sel) {
+    switch (FXSELID(sel)) {
         case MID_GNE_VEHICLE_TRANSFORM_TRIP:
             GNERouteHandler::transformToTrip(myVehicle);
             break;
@@ -317,95 +317,115 @@ long
 GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelector sel, void*) {
     // iterate over all selected vehicles
     for (const auto& vehicle : mySelectedVehicles) {
-        switch (sel) {
+        switch (FXSELID(sel)) {
             case MID_GNE_VEHICLE_TRANSFORM_TRIP:
-                if (myRestrictedMenuCommands.count(obj) > 0) {
-                    if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                    if (myRestrictedMenuCommands.count(obj) > 0) {
+                        if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                            GNERouteHandler::transformToTrip(vehicle);
+                        }
+                    } else {
                         GNERouteHandler::transformToTrip(vehicle);
                     }
-                } else {
-                    GNERouteHandler::transformToTrip(vehicle);
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_FLOW:
-                if (myRestrictedMenuCommands.count(obj) > 0) {
-                    if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                    if (myRestrictedMenuCommands.count(obj) > 0) {
+                        if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                            GNERouteHandler::transformToFlow(vehicle);
+                        }
+                    } else {
                         GNERouteHandler::transformToFlow(vehicle);
                     }
-                } else {
-                    GNERouteHandler::transformToFlow(vehicle);
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_VEHICLE:
-                if (myRestrictedMenuCommands.count(obj) > 0) {
-                    if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                    if (myRestrictedMenuCommands.count(obj) > 0) {
+                        if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                            GNERouteHandler::transformToVehicle(vehicle, false);
+                        }
+                    } else {
                         GNERouteHandler::transformToVehicle(vehicle, false);
                     }
-                } else {
-                    GNERouteHandler::transformToVehicle(vehicle, false);
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_ROUTEFLOW:
-                if (myRestrictedMenuCommands.count(obj) > 0) {
-                    if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                    if (myRestrictedMenuCommands.count(obj) > 0) {
+                        if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                            GNERouteHandler::transformToRouteFlow(vehicle, false);
+                        }
+                    } else {
                         GNERouteHandler::transformToRouteFlow(vehicle, false);
                     }
-                } else {
-                    GNERouteHandler::transformToRouteFlow(vehicle, false);
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_VEHICLE_EMBEDDED:
-                if (myRestrictedMenuCommands.count(obj) > 0) {
-                    if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                    if (myRestrictedMenuCommands.count(obj) > 0) {
+                        if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                            GNERouteHandler::transformToVehicle(vehicle, true);
+                        }
+                    } else {
                         GNERouteHandler::transformToVehicle(vehicle, true);
                     }
-                } else {
-                    GNERouteHandler::transformToVehicle(vehicle, true);
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_FLOW_EMBEDDED:
-                if (myRestrictedMenuCommands.count(obj) > 0) {
-                    if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                    if (myRestrictedMenuCommands.count(obj) > 0) {
+                        if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                            GNERouteHandler::transformToRouteFlow(vehicle, true);
+                        }
+                    } else {
                         GNERouteHandler::transformToRouteFlow(vehicle, true);
                     }
-                } else {
-                    GNERouteHandler::transformToRouteFlow(vehicle, true);
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_TRIP_JUNCTIONS:
-                if (myRestrictedMenuCommands.count(obj) > 0) {
-                    if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                if (vehicle->getTagProperty().overFromToJunctions()) {
+                    if (myRestrictedMenuCommands.count(obj) > 0) {
+                        if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                            GNERouteHandler::transformToTripJunctions(vehicle);
+                        }
+                    } else {
                         GNERouteHandler::transformToTripJunctions(vehicle);
                     }
-                } else {
-                    GNERouteHandler::transformToTripJunctions(vehicle);
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_FLOW_JUNCTIONS:
-                if (myRestrictedMenuCommands.count(obj) > 0) {
-                    if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
-                        GNERouteHandler::transformToFlowJunctions(vehicle);
+                if (vehicle->getTagProperty().overFromToJunctions()) {
+                    if (myRestrictedMenuCommands.count(obj) > 0) {
+                        if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                            GNERouteHandler::transformToFlowJunctions(vehicle);
+                        }
+                    } else {
+                            GNERouteHandler::transformToFlowJunctions(vehicle);
                     }
-                } else {
-                        GNERouteHandler::transformToFlowJunctions(vehicle);
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_TRIP_TAZS:
-                if (myRestrictedMenuCommands.count(obj) > 0) {
-                    if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
-                        GNERouteHandler::transformToTripTAZs(vehicle);
+                if (vehicle->getTagProperty().overFromToTAZs()) {
+                    if (myRestrictedMenuCommands.count(obj) > 0) {
+                        if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                            GNERouteHandler::transformToTripTAZs(vehicle);
+                        }
+                    } else {
+                            GNERouteHandler::transformToTripTAZs(vehicle);
                     }
-                } else {
-                        GNERouteHandler::transformToTripTAZs(vehicle);
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_FLOW_TAZS:
-                if (myRestrictedMenuCommands.count(obj) > 0) {
-                    if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                if (vehicle->getTagProperty().overFromToTAZs()) {
+                    if (myRestrictedMenuCommands.count(obj) > 0) {
+                        if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
+                            GNERouteHandler::transformToFlowTAZs(vehicle);
+                        }
+                    } else {
                         GNERouteHandler::transformToFlowTAZs(vehicle);
                     }
-                } else {
-                    GNERouteHandler::transformToFlowTAZs(vehicle);
                 }
                 break;
             default:
