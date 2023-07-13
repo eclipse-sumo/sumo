@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleA.x, netedit.positions.demandElements.vehicleA.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.inspectSingleVehicleEdge.x, netedit.positions.demandElements.inspectSingleVehicleEdge.y)
 
 # change departLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departLane, "", True)

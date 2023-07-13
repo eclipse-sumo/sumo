@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect flow over route
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.inspectMultipleVehicleEdge.x, netedit.positions.demandElements.inspectMultipleVehicleEdge.y)
 
 # change arrivalLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.arrivalLane, "", True)

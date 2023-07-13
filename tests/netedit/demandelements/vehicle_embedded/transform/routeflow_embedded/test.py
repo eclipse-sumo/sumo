@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x
 # press enter to create trip
 netedit.typeEnter()
 # transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.vehicleA.x, netedit.positions.demandElements.vehicleA.y,
+netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.inspectSingleVehicleEdge.x, netedit.positions.demandElements.inspectSingleVehicleEdge.y,
                                 netedit.attrs.vehicleEmbedded.transformTo,
                                 netedit.attrs.vehicleEmbedded.transform.routeFlowEmbedded)
 
