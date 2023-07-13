@@ -41,8 +41,8 @@ netedit.changeElement("vehicle (embedded route)")
 netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.type, "blue")
 
 # try to create trip
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -51,8 +51,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.type, "custom_vType")
 
 # create trip
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create trip
 netedit.typeEnter()

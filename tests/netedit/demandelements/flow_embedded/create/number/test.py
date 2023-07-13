@@ -41,8 +41,8 @@ netedit.changeElement("flow (embedded route)")
 netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.terminate, "dummyTerminate")
 
 # try to create flow with embedded route
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -51,8 +51,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.terminate, "number")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -61,8 +61,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.terminateOption, "dummy")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -71,8 +71,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.terminateOption, "-30")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -81,8 +81,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.terminateOption, "20.5")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()

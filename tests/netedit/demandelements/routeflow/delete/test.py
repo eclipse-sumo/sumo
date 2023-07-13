@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeRight0.x, netedit.positions.demandElements.edgeRight0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -49,7 +49,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # create vehicle
-netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
 
 # go to delete mode
 netedit.deleteMode()
@@ -77,7 +77,7 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete an edge with demand elements
-netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -86,7 +86,7 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their route
-netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)

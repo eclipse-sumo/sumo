@@ -41,8 +41,8 @@ netedit.changeElement("flow (embedded route)")
 netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.insertionChecks, "dummy")
 
 # try to create flow with embedded route
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -52,8 +52,8 @@ netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.insertionChecks,
                            "leaderGap junction speedLimit pedestrian")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()

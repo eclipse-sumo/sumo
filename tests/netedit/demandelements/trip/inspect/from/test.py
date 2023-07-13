@@ -38,8 +38,8 @@ netedit.vehicleMode()
 # netedit.changeElement("trip")
 
 # create trip using two edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -57,7 +57,7 @@ netedit.modifyAttribute(netedit.attrs.trip.inspect.fromEdge, "", False)
 netedit.modifyAttribute(netedit.attrs.trip.inspect.fromEdge, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.fromEdge, "gneE4", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.fromEdge, "Edge1", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

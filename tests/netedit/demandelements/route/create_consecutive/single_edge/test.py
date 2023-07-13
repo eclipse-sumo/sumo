@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using only one edge
-netedit.leftClick(referencePosition, 570, 250)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeRight0.x, netedit.positions.demandElements.edgeRight0.y)
 
 # press enter to create route
 netedit.typeEnter()

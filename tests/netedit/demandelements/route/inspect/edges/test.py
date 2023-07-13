@@ -35,8 +35,8 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 570, 250)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeRight0.x, netedit.positions.demandElements.edgeRight0.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -54,13 +54,13 @@ netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "", False)
 netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "dummyEdges", False)
 
 # Change parameter edges with a NON consecutive edges
-netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "gneE2 gneE5", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "Edge0 Edge2", False)
 
 # Change parameter edges with a consecutive NON connected edges
-netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "gneE7 gneE2", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "gneE7 Edge0", False)
 
 # Change parameter edges with valid a single edge
-netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "gneE2", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "Edge0", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

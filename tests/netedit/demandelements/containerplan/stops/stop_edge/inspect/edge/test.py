@@ -69,10 +69,10 @@ netedit.leftClick(referencePosition, 180, 45)
 netedit.modifyAttribute(netedit.attrs.containerStopEdge.inspect.edge, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.containerStopEdge.inspect.edge, "gneE4", False)
+netedit.modifyAttribute(netedit.attrs.containerStopEdge.inspect.edge, "Edge1", False)
 
 # change depart with an valid value
-netedit.modifyAttribute(netedit.attrs.containerStopEdge.inspect.edge, "gneE5", False)
+netedit.modifyAttribute(netedit.attrs.containerStopEdge.inspect.edge, "Edge2", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

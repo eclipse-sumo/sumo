@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeRight0.x, netedit.positions.demandElements.edgeRight0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -52,13 +52,13 @@ netedit.changeElement("vehicle (over route)")
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.insertionChecks, "%%%%%%")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
 
 # set valid Line
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
 
 # create vehicle
-netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
