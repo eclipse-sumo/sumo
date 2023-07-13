@@ -1,5 +1,16 @@
+Error: Could not build busStop 'busStop' in netedit; lane 'Edge2_1' doesn't exist.
+Error: Could not build trainStop 'trainStop' in netedit; lane 'Edge3_1' doesn't exist.
+Error: Could not build containerStop 'containerStop' in netedit; lane 'Edge2_1' doesn't exist.
+Error: Could not build chargingStation 'chargingStation' in netedit; lane 'Edge2_1' doesn't exist.
+Error: Could not build parkingArea 'parkingArea' in netedit; lane 'Edge3_1' doesn't exist.
+Error: Could not build space in netedit; parkingArea 'parkingArea' doesn't exist.
+Error: Could not build source in netedit; edge 'Edge3' doesn't exist.
+Error: Could not build sink in netedit; edge 'Edge3' doesn't exist.
+Error: Could not build source in netedit; edge 'Edge5' doesn't exist.
+Error: Could not build sink in netedit; edge 'Edge5' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.13Jul162457.17376/netedit.gui/demandelements/containerflow/load/begin/additionals.add.xml failed.
 Error: Attribute 'begin' in definition of containerFlow 'p_1' is empty.
 Error: Invalid begin time for containerFlow 'p_2';
  must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
 Error: Negative begin time in the definition of containerFlow 'p_3'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.22Apr110808.2828\netedit.gui\demandelements\containerflow\load\begin\routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.13Jul162457.17376/netedit.gui/demandelements/containerflow/load/begin/routes.rou.xml failed.

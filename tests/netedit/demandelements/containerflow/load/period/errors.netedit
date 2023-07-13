@@ -1,6 +1,17 @@
+Error: Could not build busStop 'busStop' in netedit; lane 'Edge2_1' doesn't exist.
+Error: Could not build trainStop 'trainStop' in netedit; lane 'Edge3_1' doesn't exist.
+Error: Could not build containerStop 'containerStop' in netedit; lane 'Edge2_1' doesn't exist.
+Error: Could not build chargingStation 'chargingStation' in netedit; lane 'Edge2_1' doesn't exist.
+Error: Could not build parkingArea 'parkingArea' in netedit; lane 'Edge3_1' doesn't exist.
+Error: Could not build space in netedit; parkingArea 'parkingArea' doesn't exist.
+Error: Could not build source in netedit; edge 'Edge3' doesn't exist.
+Error: Could not build sink in netedit; edge 'Edge3' doesn't exist.
+Error: Could not build source in netedit; edge 'Edge5' doesn't exist.
+Error: Could not build sink in netedit; edge 'Edge5' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.13Jul162457.17376/netedit.gui/demandelements/containerflow/load/period/additionals.add.xml failed.
 Error: Attribute 'period' in definition of containerFlow 'p_1' is not a valid time value.
 Error: Attribute 'period' in definition of containerFlow 'p_2' is empty.
 Error: Attribute 'period' in definition of containerFlow 'p_2' is empty.
 Error: Invalid repetition rate in the definition of containerFlow 'p_3'.
 Error: Invalid repetition rate in the definition of containerFlow 'p_4'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerflow.25Jan182728.9806/netedit.daily.demand.containerflow/demandelements/containerflow/load/period/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.13Jul162457.17376/netedit.gui/demandelements/containerflow/load/period/routes.rou.xml failed.
