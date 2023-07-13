@@ -27,6 +27,7 @@ import pyautogui
 import time
 import pyperclip
 import attributesEnum as attrs  # noqa
+import testPositions as positions  # noqa
 
 # define delay before every operation
 DELAY_KEY = 0.2
