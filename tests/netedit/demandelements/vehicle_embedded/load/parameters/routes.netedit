@@ -11,6 +11,6 @@
         <param key="key2" value=""/>
         <param key="key3" value="$$value with spaces%%"/>
         <param key="keyFinal" value="valueFinal"/>
-        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+        <route edges="Edge0 Edge1 Edge2" color="cyan"/>
     </vehicle>
 </routes>

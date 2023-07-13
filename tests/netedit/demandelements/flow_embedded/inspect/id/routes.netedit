@@ -7,6 +7,6 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <trip id="duplicatedVehicle" depart="0.00" from="gneE8" to="gneE9"/>
     <flow id="customID" begin="0.00" end="3600.00" vehsPerHour="1800.00">
-        <route edges="gneE2 gneE4 gneE5"/>
+        <route edges="Edge0 Edge1 Edge2"/>
     </flow>
 </routes>

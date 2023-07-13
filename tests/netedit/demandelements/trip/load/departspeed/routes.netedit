@@ -5,10 +5,10 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="trip_2" depart="20.00" departSpeed="0.00" from="gneE2" to="gneE5"/>
-    <trip id="trip_4" depart="20.00" departSpeed="1.00" from="gneE2" to="gneE5"/>
-    <trip id="trip_5" depart="20.00" departSpeed="random" from="gneE2" to="gneE5"/>
-    <trip id="trip_6" depart="20.00" departSpeed="max" from="gneE2" to="gneE5"/>
-    <trip id="trip_7" depart="20.00" departSpeed="desired" from="gneE2" to="gneE5"/>
-    <trip id="trip_8" depart="20.00" departSpeed="speedLimit" from="gneE2" to="gneE5"/>
+    <trip id="trip_2" depart="20.00" departSpeed="0.00" from="Edge0" to="Edge2"/>
+    <trip id="trip_4" depart="20.00" departSpeed="1.00" from="Edge0" to="Edge2"/>
+    <trip id="trip_5" depart="20.00" departSpeed="random" from="Edge0" to="Edge2"/>
+    <trip id="trip_6" depart="20.00" departSpeed="max" from="Edge0" to="Edge2"/>
+    <trip id="trip_7" depart="20.00" departSpeed="desired" from="Edge0" to="Edge2"/>
+    <trip id="trip_8" depart="20.00" departSpeed="speedLimit" from="Edge0" to="Edge2"/>
 </routes>

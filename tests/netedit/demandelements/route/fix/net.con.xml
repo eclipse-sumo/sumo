@@ -37,13 +37,13 @@
 
     <connection from="gneE11" to="gneE6" fromLane="0" toLane="0"/>
 
-    <connection from="gneE2"/>
+    <connection from="Edge0"/>
 
     <connection from="gneE3"/>
 
-    <connection from="gneE4"/>
+    <connection from="Edge1"/>
 
-    <connection from="gneE5"/>
+    <connection from="Edge2"/>
 
     <connection from="gneE6"/>
 

@@ -10,7 +10,7 @@
     <vType id="type2"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
-        <walk from="gneE2" to="gneE2"/>
+        <walk from="Edge0" to="Edge0"/>
         <personTrip toJunction="gneJ8" modes="car" lines="custom line" vTypes="type2"/>
         <personTrip toJunction="gneJ9" modes="public" lines="custom line" vTypes="type1"/>
     </person>

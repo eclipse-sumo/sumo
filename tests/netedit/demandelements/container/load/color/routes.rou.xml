@@ -6,18 +6,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, containers and containers (sorted by depart) -->
     <container id="p_0" depart="0.00">
-        <tranship from="gneE2" to="gneE5"/>
+        <tranship from="Edge0" to="Edge2"/>
     </container>
 
     <container id="p_1" color="" depart="1.00">
-        <tranship from="gneE2" to="gneE5"/>
+        <tranship from="Edge0" to="Edge2"/>
     </container>
 
     <container id="p_2" color="dummyColor" depart="2.00">
-        <tranship from="gneE2" to="gneE5"/>
+        <tranship from="Edge0" to="Edge2"/>
     </container>
 
     <container id="p_3" color="12,13,14" depart="3.00">
-        <tranship from="gneE2" to="gneE5"/>
+        <tranship from="Edge0" to="Edge2"/>
     </container>
 </routes>

@@ -5,7 +5,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="trip_0" depart="20.00" from="gneE2" to="gneE5">
+    <trip id="trip_0" depart="20.00" from="Edge0" to="Edge2">
         <param key="$$key with spaces%%" value="value4"/>
         <param key="key1" value="value5"/>
         <param key="key2" value=""/>

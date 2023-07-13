@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 430, 65)
 netedit.modifyAttribute(netedit.attrs.rideEdgeEdge.inspect.to, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.rideEdgeEdge.inspect.to, "gneE4", False)
+netedit.modifyAttribute(netedit.attrs.rideEdgeEdge.inspect.to, "Edge1", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

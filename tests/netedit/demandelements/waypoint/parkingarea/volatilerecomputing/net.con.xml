@@ -33,13 +33,13 @@
 -->
 
 <connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
-    <connection from="-E0" to="gneE4" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="-E0" to="Edge1" fromLane="0" toLane="0" keepClear="0"/>
 
-    <connection from="-E1" to="gneE2" fromLane="0" toLane="0" keepClear="0"/>
-    <connection from="-E1" to="gneE2" fromLane="0" toLane="1" keepClear="0"/>
-    <connection from="-E1" to="gneE2" fromLane="0" toLane="2" keepClear="0"/>
-    <connection from="-E1" to="gneE2" fromLane="0" toLane="3" keepClear="0"/>
-    <connection from="-E1" to="gneE2" fromLane="0" toLane="4" keepClear="0"/>
+    <connection from="-E1" to="Edge0" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="-E1" to="Edge0" fromLane="0" toLane="1" keepClear="0"/>
+    <connection from="-E1" to="Edge0" fromLane="0" toLane="2" keepClear="0"/>
+    <connection from="-E1" to="Edge0" fromLane="0" toLane="3" keepClear="0"/>
+    <connection from="-E1" to="Edge0" fromLane="0" toLane="4" keepClear="0"/>
 
     <connection from="E0" to="gneE0" fromLane="0" toLane="0"/>
 
@@ -51,10 +51,10 @@
     <connection from="gneE1" to="-E0" fromLane="0" toLane="0"/>
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0"/>
 
-    <connection from="gneE2" to="E0" fromLane="0" toLane="0"/>
-    <connection from="gneE2" to="gneE4" fromLane="4" toLane="0"/>
+    <connection from="Edge0" to="E0" fromLane="0" toLane="0"/>
+    <connection from="Edge0" to="Edge1" fromLane="4" toLane="0"/>
 
-    <connection from="gneE4" to="E1" fromLane="0" toLane="0" keepClear="0"/>
-    <connection from="gneE4" to="gneE2" fromLane="0" toLane="4"/>
+    <connection from="Edge1" to="E1" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="Edge1" to="Edge0" fromLane="0" toLane="4"/>
 
 </connections>

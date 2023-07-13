@@ -7,5 +7,5 @@
     <!-- VTypes -->
     <vType id="custom_vType" length="20.00" vClass="bus" width="5.00" height="12.00" color="12,13,14"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="t_0" type="custom_vType" depart="0.00" from="gneE2" to="gneE5"/>
+    <trip id="t_0" type="custom_vType" depart="0.00" from="Edge0" to="Edge2"/>
 </routes>

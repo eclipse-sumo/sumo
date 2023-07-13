@@ -40,15 +40,15 @@
     <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
         <lane id="gneE1_0" index="0" speed="13.89" length="50.00" shape="50.00,1.60 0.00,1.60"/>
     </edge>
-    <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1">
-        <lane id="gneE2_0" index="0" speed="13.89" length="50.00" shape="50.00,34.40 0.00,34.40"/>
-        <lane id="gneE2_1" index="1" speed="13.89" length="50.00" shape="50.00,31.20 0.00,31.20"/>
-        <lane id="gneE2_2" index="2" speed="13.89" length="50.00" shape="50.00,28.00 0.00,28.00"/>
-        <lane id="gneE2_3" index="3" speed="13.89" length="50.00" shape="50.00,24.80 0.00,24.80"/>
-        <lane id="gneE2_4" index="4" speed="13.89" length="50.00" shape="50.00,21.60 0.00,21.60"/>
+    <edge id="Edge0" from="gneJ2" to="gneJ3" priority="1">
+        <lane id="Edge0_0" index="0" speed="13.89" length="50.00" shape="50.00,34.40 0.00,34.40"/>
+        <lane id="Edge0_1" index="1" speed="13.89" length="50.00" shape="50.00,31.20 0.00,31.20"/>
+        <lane id="Edge0_2" index="2" speed="13.89" length="50.00" shape="50.00,28.00 0.00,28.00"/>
+        <lane id="Edge0_3" index="3" speed="13.89" length="50.00" shape="50.00,24.80 0.00,24.80"/>
+        <lane id="Edge0_4" index="4" speed="13.89" length="50.00" shape="50.00,21.60 0.00,21.60"/>
     </edge>
-    <edge id="gneE4" from="gneJ3" to="gneJ2" priority="1">
-        <lane id="gneE4_0" index="0" speed="60.00" length="50.00" shape="0.00,18.40 50.00,18.40"/>
+    <edge id="Edge1" from="gneJ3" to="gneJ2" priority="1">
+        <lane id="Edge1_0" index="0" speed="60.00" length="50.00" shape="0.00,18.40 50.00,18.40"/>
     </edge>
 
     <tlLogic id="gneJ0" type="static" programID="0" offset="0">
@@ -66,21 +66,21 @@
     <junction id="gneJ1" type="traffic_light" x="50.00" y="0.00" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="50.00,0.00 50.00,-3.20 50.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ2" type="priority" x="50.00" y="20.00" incLanes="gneE4_0" intLanes=":gneJ2_0_0" shape="50.00,20.00 50.00,16.80 50.00,20.00">
+    <junction id="gneJ2" type="priority" x="50.00" y="20.00" incLanes="Edge1_0" intLanes=":gneJ2_0_0" shape="50.00,20.00 50.00,16.80 50.00,20.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ3" type="priority" x="0.00" y="20.00" incLanes="gneE2_0 gneE2_1 gneE2_2 gneE2_3 gneE2_4" intLanes=":gneJ3_0_0" shape="0.00,20.00 0.00,36.00 0.00,20.00">
+    <junction id="gneJ3" type="priority" x="0.00" y="20.00" incLanes="Edge0_0 Edge0_1 Edge0_2 Edge0_3 Edge0_4" intLanes=":gneJ3_0_0" shape="0.00,20.00 0.00,36.00 0.00,20.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="t" state="O"/>
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" tl="gneJ0" linkIndex="0" dir="t" state="O"/>
-    <connection from="gneE2" to="gneE4" fromLane="4" toLane="0" via=":gneJ3_0_0" dir="t" state="M"/>
-    <connection from="gneE4" to="gneE2" fromLane="0" toLane="4" via=":gneJ2_0_0" dir="t" state="M"/>
+    <connection from="Edge0" to="Edge1" fromLane="4" toLane="0" via=":gneJ3_0_0" dir="t" state="M"/>
+    <connection from="Edge1" to="Edge0" fromLane="0" toLane="4" via=":gneJ2_0_0" dir="t" state="M"/>
 
     <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":gneJ2_0" to="gneE2" fromLane="0" toLane="4" dir="t" state="M"/>
-    <connection from=":gneJ3_0" to="gneE4" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":gneJ2_0" to="Edge0" fromLane="0" toLane="4" dir="t" state="M"/>
+    <connection from=":gneJ3_0" to="Edge1" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>

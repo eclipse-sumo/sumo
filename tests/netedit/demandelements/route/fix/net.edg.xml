@@ -35,10 +35,10 @@
 <edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="gneE10" from="gneJ7" to="gneJ8" priority="-1" numLanes="1" speed="13.89" width="2.00" allow="bicycle"/>
     <edge id="gneE11" from="gneJ8" to="gneJ7" priority="-1" numLanes="1" speed="13.89" width="2.00" allow="bicycle"/>
-    <edge id="gneE2" from="gneJ4" to="gneJ5" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="Edge0" from="gneJ4" to="gneJ5" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="gneE3" from="gneJ6" to="gneJ5" priority="-1" numLanes="2" speed="13.89"/>
-    <edge id="gneE4" from="gneJ5" to="gneJ6" priority="-1" numLanes="2" speed="13.89"/>
-    <edge id="gneE5" from="gneJ6" to="gneJ7" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="Edge1" from="gneJ5" to="gneJ6" priority="-1" numLanes="2" speed="13.89"/>
+    <edge id="Edge2" from="gneJ6" to="gneJ7" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="gneE6" from="gneJ7" to="gneJ6" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="gneE7" from="gneJ5" to="gneJ4" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="gneE8" from="gneJ8" to="gneJ9" priority="-1" numLanes="1" speed="13.89"/>

@@ -7,6 +7,6 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <trip id="duplicatedVehicle" depart="0.00" from="gneE8" to="gneE9"/>
     <vehicle id="customID" depart="0.00">
-        <route edges="gneE2 gneE4 gneE5"/>
+        <route edges="Edge0 Edge1 Edge2"/>
     </vehicle>
 </routes>

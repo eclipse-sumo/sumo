@@ -10,6 +10,6 @@
     <vTypeDistribution id="vt1" vTypes="v1 v2" probabilities="10.00 15.00"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="1" type="vt1" begin="0.00" number="10" period="2.00">
-        <route edges="gneE2 gneE4 gneE5"/>
+        <route edges="Edge0 Edge1 Edge2"/>
     </flow>
 </routes>

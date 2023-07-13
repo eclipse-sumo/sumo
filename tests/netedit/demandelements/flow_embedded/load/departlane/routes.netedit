@@ -6,21 +6,21 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="flow_2" begin="20.00" departLane="0" end="500.00" number="100">
-        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+        <route edges="Edge0 Edge1 Edge2" color="cyan"/>
     </flow>
     <flow id="flow_4" begin="20.00" departLane="random" end="500.00" number="100">
-        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+        <route edges="Edge0 Edge1 Edge2" color="cyan"/>
     </flow>
     <flow id="flow_5" begin="20.00" departLane="free" end="500.00" number="100">
-        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+        <route edges="Edge0 Edge1 Edge2" color="cyan"/>
     </flow>
     <flow id="flow_6" begin="20.00" departLane="allowed" end="500.00" number="100">
-        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+        <route edges="Edge0 Edge1 Edge2" color="cyan"/>
     </flow>
     <flow id="flow_7" begin="20.00" departLane="best" end="500.00" number="100">
-        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+        <route edges="Edge0 Edge1 Edge2" color="cyan"/>
     </flow>
     <flow id="flow_8" begin="20.00" departLane="first" end="500.00" number="100">
-        <route edges="gneE2 gneE4 gneE5" color="cyan"/>
+        <route edges="Edge0 Edge1 Edge2" color="cyan"/>
     </flow>
 </routes>

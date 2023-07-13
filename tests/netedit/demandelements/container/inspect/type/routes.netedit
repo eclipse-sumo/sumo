@@ -8,6 +8,6 @@
     <vType id="custom_vType" length="20.00" vClass="ignoring" width="5.00" height="12.00" color="cyan"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="c_0" type="custom_vType" depart="0.00">
-        <transport from="gneE2" to="gneE5" lines="ANY"/>
+        <transport from="Edge0" to="Edge2" lines="ANY"/>
     </container>
 </routes>

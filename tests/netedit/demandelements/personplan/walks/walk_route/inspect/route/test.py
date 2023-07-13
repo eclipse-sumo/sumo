@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 430, 65)
 netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.route, "dummy", True)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.route, "gneE4", True)
+netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.route, "Edge1", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

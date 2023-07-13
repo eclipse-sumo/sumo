@@ -6,12 +6,12 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <personFlow id="pf_0" begin="0.00" end="3600.00" personsPerHour="1800">
-        <walk from="gneE2" busStop="busStop"/>
+        <walk from="Edge0" busStop="busStop"/>
     </personFlow>
     <personFlow id="pf_1" begin="0.00" end="3600.00" personsPerHour="20.49997152781731912796">
-        <walk from="gneE2" busStop="busStop"/>
+        <walk from="Edge0" busStop="busStop"/>
     </personFlow>
     <personFlow id="pf_2" begin="0.00" end="3600.00" personsPerHour="22.00004888899753296982">
-        <walk from="gneE2" busStop="busStop"/>
+        <walk from="Edge0" busStop="busStop"/>
     </personFlow>
 </routes>

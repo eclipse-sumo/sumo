@@ -37,8 +37,8 @@
 
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0"/>
 
-    <connection from="gneE2" to="gneE4" fromLane="4" toLane="0"/>
+    <connection from="Edge0" to="Edge1" fromLane="4" toLane="0"/>
 
-    <connection from="gneE4" to="gneE2" fromLane="0" toLane="4"/>
+    <connection from="Edge1" to="Edge0" fromLane="0" toLane="4"/>
 
 </connections>

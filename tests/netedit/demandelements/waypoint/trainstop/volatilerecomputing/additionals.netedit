@@ -7,10 +7,10 @@
     <!-- StoppingPlaces -->
     <trainStop id="trainStopA" lane="gneE0_0" startPos="19.75" endPos="29.75"/>
     <trainStop id="trainStopB" lane="gneE1_0" startPos="28.41" endPos="38.41"/>
-    <trainStop id="trainStopC" lane="gneE2_0" startPos="16.48" endPos="26.48"/>
-    <trainStop id="trainStopD" lane="gneE2_1" startPos="21.73" endPos="31.73"/>
-    <trainStop id="trainStopE" lane="gneE2_2" startPos="23.79" endPos="33.79"/>
-    <trainStop id="trainStopF" lane="gneE2_3" startPos="27.13" endPos="37.13"/>
-    <trainStop id="trainStopG" lane="gneE2_4" startPos="31.03" endPos="41.03"/>
-    <trainStop id="trainStopH" lane="gneE4_0" startPos="17.90" endPos="27.90"/>
+    <trainStop id="trainStopC" lane="Edge0_0" startPos="16.48" endPos="26.48"/>
+    <trainStop id="trainStopD" lane="Edge0_1" startPos="21.73" endPos="31.73"/>
+    <trainStop id="trainStopE" lane="Edge0_2" startPos="23.79" endPos="33.79"/>
+    <trainStop id="trainStopF" lane="Edge0_3" startPos="27.13" endPos="37.13"/>
+    <trainStop id="trainStopG" lane="Edge0_4" startPos="31.03" endPos="41.03"/>
+    <trainStop id="trainStopH" lane="Edge1_0" startPos="17.90" endPos="27.90"/>
 </additional>
