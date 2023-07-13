@@ -1326,8 +1326,26 @@ enum {
 
     /// @brief apply distance
     MID_GNE_ROUTE_APPLY_DISTANCE,
-    /// @brief transform vehicle to another vehicle type (ej: flow to trip)
-    MID_GNE_VEHICLE_TRANSFORM,
+    /// @brief transform vehicle to trip
+    MID_GNE_VEHICLE_TRANSFORM_TRIP,
+    /// @brief transform vehicle to flow
+    MID_GNE_VEHICLE_TRANSFORM_FLOW,
+    /// @brief transform vehicle to vehicle over route
+    MID_GNE_VEHICLE_TRANSFORM_VEHICLE,
+    /// @brief transform vehicle to flow over route
+    MID_GNE_VEHICLE_TRANSFORM_ROUTEFLOW,
+    /// @brief transform vehicle to vehicle over junctions
+    MID_GNE_VEHICLE_TRANSFORM_VEHICLE_EMBEDDED,
+    /// @brief transform vehicle to flow over junctions
+    MID_GNE_VEHICLE_TRANSFORM_FLOW_EMBEDDED,
+    /// @brief transform vehicle to trip over junctions
+    MID_GNE_VEHICLE_TRANSFORM_TRIP_JUNCTIONS,
+    /// @brief transform vehicle to flow over jucntions
+    MID_GNE_VEHICLE_TRANSFORM_FLOW_JUNCTIONS,
+    /// @brief transform vehicle to trip over TAZs
+    MID_GNE_VEHICLE_TRANSFORM_TRIP_TAZS,
+    /// @brief transform vehicle to flow over TAZs
+    MID_GNE_VEHICLE_TRANSFORM_FLOW_TAZS,
     /// @brief transform person to another person type (ej: person to personflow)
     MID_GNE_PERSON_TRANSFORM,
     /// @brief transform container to another container type (ej: container to containerflow)
