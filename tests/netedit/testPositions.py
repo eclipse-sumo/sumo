@@ -46,6 +46,11 @@ class demandElements:
         y = 75
 
     # inspect single trips, flows, etc... over edges
-    class vehicleA:
+    class inspectSingleVehicleEdge:
         x = 160
         y = 435
+
+    # inspect single trips, flows, etc... over edges
+    class inspectMultipleVehicleEdge:
+        x = 186
+        y = 465
