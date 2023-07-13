@@ -5,7 +5,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="tripA" depart="0.00" departLane="0" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" color="red" line="line A" fromTaz="taz_0" toTaz="taz_1" personNumber="1" containerNumber="5" insertionChecks="speedLimit pedestrian all">
+    <trip id="tripA" depart="0.00" departLane="0" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" color="red" line="line A" fromTaz="taz_green" toTaz="taz_red" personNumber="1" containerNumber="5" insertionChecks="speedLimit pedestrian all">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>

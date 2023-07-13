@@ -53,16 +53,16 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <flow id="flow_0" begin="20.00" end="50.00" fromTaz="taz_0" toTaz="taz_1"/>
+    <flow id="flow_0" begin="20.00" end="50.00" fromTaz="taz_green" toTaz="taz_red"/>
 
-    <flow id="flow_1" begin="20.00" end="50.00" number="dummyNumber" fromTaz="taz_0" toTaz="taz_1"/>
+    <flow id="flow_1" begin="20.00" end="50.00" number="dummyNumber" fromTaz="taz_green" toTaz="taz_red"/>
 
-    <flow id="flow_2" begin="20.00" end="50.00" number="" fromTaz="taz_0" toTaz="taz_1"/>
+    <flow id="flow_2" begin="20.00" end="50.00" number="" fromTaz="taz_green" toTaz="taz_red"/>
 
-    <flow id="flow_3" begin="20.00" end="50.00" number="-30" fromTaz="taz_0" toTaz="taz_1"/>
+    <flow id="flow_3" begin="20.00" end="50.00" number="-30" fromTaz="taz_green" toTaz="taz_red"/>
 
-    <flow id="flow_4" begin="20.00" end="50.00" number="12.5" fromTaz="taz_0" toTaz="taz_1"/>
+    <flow id="flow_4" begin="20.00" end="50.00" number="12.5" fromTaz="taz_green" toTaz="taz_red"/>
 
-    <flow id="flow_5" begin="20.00" end="50.00" number="15" fromTaz="taz_0" toTaz="taz_1"/>
+    <flow id="flow_5" begin="20.00" end="50.00" number="15" fromTaz="taz_green" toTaz="taz_red"/>
 
 </routes>

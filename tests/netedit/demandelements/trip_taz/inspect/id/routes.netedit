@@ -5,6 +5,6 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="customID" depart="0.00" fromTaz="taz_0" toTaz="taz_1"/>
+    <trip id="customID" depart="0.00" fromTaz="taz_green" toTaz="taz_red"/>
     <trip id="duplicatedVehicle" depart="0.00" fromTaz="taz_2" toTaz="taz_3"/>
 </routes>
