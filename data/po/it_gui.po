@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-07-05 13:09+0000\n"
+"PO-Revision-Date: 2023-07-13 11:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10177,7 +10177,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5938
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5792
 msgid "If set, junction internal edges/lanes will be written as well"
-msgstr ""
+msgstr "Se impostato gli archi/ le corsie interne saranno inclusi in uscita"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5944
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5798
@@ -10185,22 +10185,28 @@ msgid ""
 "The maximum travel time in seconds to write if only very small movements "
 "occur"
 msgstr ""
+"Il tempo massimo di percorrenza in secondi da includere in uscita se ci sono "
+"soltanto piccoli movimenti"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5950
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5804
 msgid ""
 "Consider an edge/lane unused if it has at most this many sampled seconds"
 msgstr ""
+"Considera un'arco/una corsia come non utilizzato/a se ha accumulato al "
+"massimo questo numero di secondi"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5956
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5810
 msgid "The maximum speed to consider a vehicle halting;"
-msgstr ""
+msgstr "La velocità massima da considerare come stare fermi;"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5962
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5816
 msgid "space separated list of vehicle type ids to consider"
 msgstr ""
+"elenco di codici identificativi di tipi di veicoli da considerare (separati "
+"da spazi)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5967
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5821
@@ -10208,6 +10214,8 @@ msgid ""
 "whether aggregation should be performed over all vehicles that entered the "
 "edge/lane in the aggregation interval"
 msgstr ""
+"se ogni veicolo arrivato sull'arco/sulla corsia durante il periodo di "
+"aggregazione deve essere incluso nell'aggregazione"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5973
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5827
