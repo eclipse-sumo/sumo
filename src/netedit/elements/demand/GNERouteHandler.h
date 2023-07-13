@@ -185,6 +185,18 @@ public:
     /// @brief transform to flow
     static void transformToFlow(GNEVehicle* originalVehicle);
 
+    /// @brief transform to trip over junctions
+    static void transformToTripJunctions(GNEVehicle* originalVehicle);
+
+    /// @brief transform to flow over junctions
+    static void transformToFlowJunctions(GNEVehicle* originalVehicle);
+
+    /// @brief transform to trip over TAZs
+    static void transformToTripTAZs(GNEVehicle* originalVehicle);
+
+    /// @brief transform to flow over TAZs
+    static void transformToFlowTAZs(GNEVehicle* originalVehicle);
+
     /// @}
 
     /// @brief transform person functions

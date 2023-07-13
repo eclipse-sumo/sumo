@@ -703,7 +703,7 @@ public:
     static MFXMenuCheckIcon* buildFXMenuCheckboxIcon(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel);
 
     /// @brief build menu command
-    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
+    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel, const bool disable = false);
 
     /// @brief build menu command (for recent files)
     static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, FXObject* tgt, FXSelector sel);

@@ -2042,6 +2042,30 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
 
 
 void
+GNERouteHandler::transformToTripJunctions(GNEVehicle* originalVehicle) {
+    
+}
+
+
+void
+GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
+
+}
+
+
+void
+GNERouteHandler::transformToTripTAZs(GNEVehicle* originalVehicle) {
+
+}
+
+
+void
+GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
+
+}
+
+
+void
 GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
     // get pointer to net
     GNENet* net = originalPerson->getNet();
