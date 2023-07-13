@@ -7,5 +7,5 @@
     <!-- VTypes -->
     <vType id="bicycle" vClass="bicycle"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="t_0" type="bicycle" depart="0.00" fromJunction="gneJ4" toJunction="gneJ9"/>
+    <trip id="t_0" type="bicycle" depart="0.00" fromJunction="Junction0" toJunction="gneJ9"/>
 </routes>

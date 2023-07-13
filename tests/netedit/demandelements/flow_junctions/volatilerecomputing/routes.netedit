@@ -5,9 +5,9 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="f_0" begin="20.00" fromJunction="gneJ4" toJunction="gneJ5" end="50.00" number="100"/>
-    <flow id="f_1" begin="21.00" fromJunction="gneJ4" toJunction="gneJ6" end="50.00" number="100"/>
-    <flow id="f_2" begin="22.00" fromJunction="gneJ5" toJunction="gneJ7" end="50.00" number="100"/>
+    <flow id="f_0" begin="20.00" fromJunction="Junction0" toJunction="gneJ5" end="50.00" number="100"/>
+    <flow id="f_1" begin="21.00" fromJunction="Junction0" toJunction="gneJ6" end="50.00" number="100"/>
+    <flow id="f_2" begin="22.00" fromJunction="gneJ5" toJunction="Junction3" end="50.00" number="100"/>
     <flow id="f_3" begin="23.00" fromJunction="gneJ6" toJunction="gneJ9" end="50.00" number="100"/>
-    <flow id="f_4" begin="24.00" fromJunction="gneJ9" toJunction="gneJ4" end="50.00" number="100"/>
+    <flow id="f_4" begin="24.00" fromJunction="gneJ9" toJunction="Junction0" end="50.00" number="100"/>
 </routes>

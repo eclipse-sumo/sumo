@@ -53,7 +53,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <trip id="trip_0" toJunction="gneJ7" depart="20.00"/>
+    <trip id="trip_0" toJunction="Junction3" depart="20.00"/>
 
     <trip id="trip_1" fromJunction="" toJunction="taz_green" depart="20.00"/>
 
