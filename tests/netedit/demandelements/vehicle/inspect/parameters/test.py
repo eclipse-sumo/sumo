@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 91, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleA.x, netedit.positions.demandElements.vehicleA.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.vehicle.inspect.parameters, True)

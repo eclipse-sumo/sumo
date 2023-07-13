@@ -44,3 +44,7 @@ class demandElements:
     class edgeTop1:
         x = 280
         y = 75
+
+    class vehicleA:
+        x = 160
+        y = 435

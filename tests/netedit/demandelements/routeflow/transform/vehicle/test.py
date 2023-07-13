@@ -52,7 +52,7 @@ netedit.changeElement("flow (over route)")
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
 
 # transform
-netedit.contextualMenuOperation(referencePosition, 91, 392,
+netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.vehicleA.x, netedit.positions.demandElements.vehicleA.y,
                                 netedit.attrs.routeFlow.transformTo,
                                 netedit.attrs.routeFlow.transform.vehicle)
 

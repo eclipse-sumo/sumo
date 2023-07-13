@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x
 netedit.typeEnter()
 
 # transform
-netedit.contextualMenuOperation(referencePosition, 91, 392,
+netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.vehicleA.x, netedit.positions.demandElements.vehicleA.y,
                                 netedit.attrs.trip.transformTo,
                                 netedit.attrs.trip.transform.vehicleEmbedded)
 
