@@ -99,7 +99,7 @@ MSPModel_JuPedSim::tryInsertion(PState* state) {
     if (fabs(angle - M_PI / 2) < NUMERICAL_EPS) {
         orientation = JPS_Point{0., 1.};
     }
-    else if (fabs(angle - M_PI / 2) < NUMERICAL_EPS) {
+    else if (fabs(angle + M_PI / 2) < NUMERICAL_EPS) {
         orientation = JPS_Point{0., -1.};
     }
     else {
