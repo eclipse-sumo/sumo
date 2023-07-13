@@ -57,14 +57,14 @@ public:
 
     class Event : public Command {
     public:
-        explicit Event(MSPModel_JuPedSim* remoteModel)
-            : myRemoteModel(remoteModel) { }
+        explicit Event(MSPModel_JuPedSim* model)
+            : myJPSModel(model) { }
         SUMOTime execute(SUMOTime currentTime) override {
-            return myRemoteModel->execute(currentTime);
+            return myJPSModel->execute(currentTime);
         }
 
     private:
-        MSPModel_JuPedSim* myRemoteModel;
+        MSPModel_JuPedSim* myJPSModel;
     };
 
 private:
