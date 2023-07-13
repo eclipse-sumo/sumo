@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-06-15 09:59+0200\n"
-"PO-Revision-Date: 2023-07-13 11:45+0000\n"
+"PO-Revision-Date: 2023-07-13 11:52+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10223,6 +10223,8 @@ msgid ""
 "Whether pedestrians shall be recorded instead of vehicles. Allowed value is "
 "walk"
 msgstr ""
+"Se i pedoni devono essere protocollati al posto dei veicoli. Il valore "
+"permesso è walk"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5978
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5832
