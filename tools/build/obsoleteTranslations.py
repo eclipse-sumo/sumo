@@ -21,10 +21,8 @@ Collect information about lost translations due to changes in the original gette
 from __future__ import absolute_import
 from __future__ import print_function
 import os
-import sys
 import io
 import polib
-import subprocess
 import i18n
 from glob import glob
 from argparse import ArgumentParser
@@ -35,21 +33,16 @@ SUMO_LIBRARIES = os.environ.get("SUMO_LIBRARIES", os.path.join(os.path.dirname(S
 
 def getOptions(args=None):
     ap = ArgumentParser()
-    ap.add_argument("-l", "--lang", nargs='*', help="languages to process (using the gettext short codes like en, fr, de)")
+    ap.add_argument("-l", "--lang", nargs='*', help="languages to process (using the short codes like en, fr, de)")
     ap.add_argument("--sumo-home", default=SUMO_HOME, help="SUMO root directory to use")
     ap.add_argument("-o", "--output", type=str, help="path to output file (protocol of obsolete translations)")
-    ap.add_argument("--clear", default=False, action="store_true", help="remove obsolete entries from po translation files")
-    ap.add_argument("--patch", nargs="*", type=str, 
+    ap.add_argument("--clear", default=False, action="store_true", help="remove obsolete entries from .po files")
+    ap.add_argument("--patch", nargs="*", type=str,
                     help="restore obsolete (but still present) translations with sequence of the original (odd position) and then the new string (even position) from the source code (= gettext msgid)")
     return ap.parse_args(args)
 
 
 def main(args=None):
-    path = ""
-    if os.name == "nt":
-        paths = glob(os.path.join(SUMO_LIBRARIES, "gettext-*", "tools", "gettext", "bin"))
-        if paths:
-            path = paths[0] + os.path.sep
     options = getOptions(args)
     if options.lang is None:
         options.lang = [os.path.basename(p)[:-8] for p in glob(options.sumo_home + "/data/po/*_sumo.po")]
@@ -66,7 +59,7 @@ def main(args=None):
     potFiles = [pot_file, gui_pot_file, py_pot_file]
     if options.output is not None:
         if os.path.exists(options.output):
-            os.remove(options.output) # clear output file
+            os.remove(options.output)  # clear output file
     for potFile in potFiles:
         print("Check pot file '%s'..." % potFile)
         checkPotFile(potFile, options)
@@ -103,7 +96,6 @@ def checkPotFile(potFile, options):
                             print("Has already been translated again: '%s' > '%s'" % (options.patch[i+1], updatedEntry.msgstr))
             for entry in entriesToRemove:
                 po.remove(entry)
-            
         # optionally overwrite obsolete entries completely
         if options.clear:
             print("Removing obsolete entries from %s..." % poFilePath)
@@ -111,8 +103,7 @@ def checkPotFile(potFile, options):
                 po.remove(entry)
         if options.clear or patched:
             po.save(poFilePath)
-    
-    if options.output is not None: # write protocol
+    if options.output is not None:  # write protocol
         with io.open(options.output, "a", encoding="utf-8") as f:
             for msgid, langCodes in result.items():
                 f.write("msgid \"%s\" has obsolete translations: %s\n" % (msgid, ', '.join(langCodes)))
