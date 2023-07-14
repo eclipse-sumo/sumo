@@ -204,26 +204,26 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         // Updates the agent direction.
         state->setAngle(atan2(agent.orientation.y, agent.orientation.x));
 
+        // Find on which edge the pedestrian is, using route's forward-looking edges because of how moveToXY is written.
         Position newPosition(agent.position.x, agent.position.y);
-        const MSEdge* currentEdge = stage->getEdge();
-        const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
-        MSLane* lane = nullptr;
-        double lanePos = 0.0;
-        double bestDistance = std::numeric_limits<double>::max();
-        int routeOffset = 0;
-        const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
-        
-        // Here we need the forward-looking edges of the route because of how moveToXYMap_matchingRoutePosition is written.
         ConstMSEdgeVector route = stage->getEdges();
+        const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
         ConstMSEdgeVector forwardRoute = ConstMSEdgeVector(route.begin() + routeIndex, route.end());
+        double bestDistance = std::numeric_limits<double>::max();
+        MSLane* candidateLane = nullptr;
+        double candidateLaneLongitudinalPosition = 0.0;
+        int routeOffset = 0;
         const bool found = libsumo::Helper::moveToXYMap_matchingRoutePosition(newPosition, "",
-            forwardRoute, 0, person->getVClass(), true,
-            bestDistance, &lane, lanePos, routeOffset);
+            forwardRoute, 0, person->getVClass(), true, bestDistance, &candidateLane, candidateLaneLongitudinalPosition, routeOffset);
+        
         if (found) {
-            state->setLanePosition(lanePos);
+            state->setLanePosition(candidateLaneLongitudinalPosition);
         }
-        if (found && currentLane->isNormal() && lane->isNormal() && lane != currentLane) {
-            state->setLanePosition(lanePos);
+
+        const MSEdge* expectedEdge = stage->getEdge();
+        const MSLane* expectedLane = getSidewalk<MSEdge, MSLane>(expectedEdge);
+        if (found && expectedLane->isNormal() && candidateLane->isNormal() && candidateLane != expectedLane) {
+            state->setLanePosition(candidateLaneLongitudinalPosition);
             const bool result = stage->moveToNextEdge(person, time, 1, nullptr);
             UNUSED_PARAMETER(result);
             assert(result == false); // The person has not arrived yet.
