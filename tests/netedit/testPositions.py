@@ -95,7 +95,7 @@ class demandElements:
 
     # click over multiple trips, flows, etc... over edges
     class multipleVehiclesEdge:
-        x = 186
+        x = 190
         y = 465
 
     # click over single person / flow over edges
