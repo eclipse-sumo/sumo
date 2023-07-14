@@ -82,6 +82,11 @@ class demandElements:
         x = 186
         y = 465
 
+    # click over single person / flow over edges
+    class singlePersonEdge:
+        x = 500
+        y = 200
+
     # click over single trip or flow over junctions
     class singleVehicleJunction:
         x = 160
