@@ -1,20 +1,5 @@
-Error: Could not build busStop 'busStop' in netedit; lane 'Edge2_1' doesn't exist.
-Error: Could not build trainStop 'trainStop' in netedit; lane 'Edge3_1' doesn't exist.
-Error: Could not build containerStop 'containerStop' in netedit; lane 'Edge2_1' doesn't exist.
-Error: Could not build chargingStation 'chargingStation' in netedit; lane 'Edge2_1' doesn't exist.
-Error: Could not build parkingArea 'parkingArea' in netedit; lane 'Edge3_1' doesn't exist.
-Error: Could not build space in netedit; parkingArea 'parkingArea' doesn't exist.
-Error: Could not build source in netedit; edge 'Edge2' doesn't exist.
-Error: Could not build sink in netedit; edge 'Edge2' doesn't exist.
-Error: Could not build source in netedit; edge 'Edge3' doesn't exist.
-Error: Could not build sink in netedit; edge 'Edge3' doesn't exist.
-Error: Could not build source in netedit; edge 'Edge0' doesn't exist.
-Error: Could not build sink in netedit; edge 'Edge0' doesn't exist.
-Error: Could not build source in netedit; edge 'Edge5' doesn't exist.
-Error: Could not build sink in netedit; edge 'Edge5' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.13Jul162612.28484/netedit.gui/demandelements/waypoint/lane/load/duration/additionals.add.xml failed.
 Error: Attribute 'duration' in definition of a stop is not a valid time value.
 Error: Invalid duration or end time is given for a stop on lane 'Edge2_0'
 Error: Attribute 'duration' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop on lane 'Edge2_0'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.13Jul162612.28484/netedit.gui/demandelements/waypoint/lane/load/duration/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoints.14Jul182757.2658/netedit.daily.demand.waypoints/demandelements/waypoint/lane/load/duration/routes.rou.xml failed.
