@@ -38,13 +38,13 @@ netedit.selectMode()
 netedit.selectionInvert()
 
 # change zoom
-netedit.setZoom("0", "-6", "5")
+netedit.setZoom("0", "5", "5")
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.person.inspectSelection.parameters, False)

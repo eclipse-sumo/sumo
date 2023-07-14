@@ -35,8 +35,8 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 180, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()

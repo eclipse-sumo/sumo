@@ -68,6 +68,10 @@ class demandElements:
         x = 740
         y = 315
 
+    class busStop:
+        x = 375
+        y = 0
+
     # click over single trips, flows, etc... over edges
     class singleVehicleEdge:
         x = 160

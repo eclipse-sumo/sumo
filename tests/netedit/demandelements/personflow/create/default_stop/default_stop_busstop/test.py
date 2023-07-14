@@ -41,7 +41,7 @@ netedit.changeElement("personFlow")
 netedit.changePersonPlan("stopPerson: busStop", True)
 
 # create route clicking over busStop
-netedit.leftClick(referencePosition, 270, 43)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

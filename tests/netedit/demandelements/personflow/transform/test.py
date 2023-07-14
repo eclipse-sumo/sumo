@@ -38,17 +38,17 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # create person using three edges
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create person
 netedit.typeEnter()
 
 # change zoom
-netedit.setZoom("0", "-6", "5")
+netedit.setZoom("0", "5", "5")
 
 # transform
-netedit.contextualMenuOperation(referencePosition, 310, 140,
+netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y,
                                 netedit.attrs.person.transformTo, 1)
 
 # Check undo

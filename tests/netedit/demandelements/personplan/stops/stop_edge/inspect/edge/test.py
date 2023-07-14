@@ -38,7 +38,7 @@ netedit.personMode()
 netedit.changePersonPlan("walk: edge", False)
 
 # create route using two one
-netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 netedit.leftClick(referencePosition, 180, 65)
 
 # press enter to create route

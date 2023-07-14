@@ -35,8 +35,8 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # create person using three edges
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create person
 netedit.typeEnter()
@@ -45,10 +45,10 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # change zoom
-netedit.setZoom("0", "-6", "5")
+netedit.setZoom("0", "5", "5")
 
 # delete person
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)
