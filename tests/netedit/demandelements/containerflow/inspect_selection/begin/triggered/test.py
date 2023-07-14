@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspectSelection.begin, "dum
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspectSelection.begin, "triggered", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

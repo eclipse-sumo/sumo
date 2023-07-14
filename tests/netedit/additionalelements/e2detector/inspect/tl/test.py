@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.E2.inspect.tl, "%%%;:..&&%$%$", True)
 netedit.modifyAttribute(netedit.attrs.E2.inspect.tl, "gneJ0", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

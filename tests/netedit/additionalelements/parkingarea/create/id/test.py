@@ -62,8 +62,7 @@ netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "custom_id")
 netedit.leftClick(referencePosition, 345, 245)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "blue", 
 netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "125,60,200", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

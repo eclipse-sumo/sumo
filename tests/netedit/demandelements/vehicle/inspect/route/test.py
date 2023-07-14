@@ -70,8 +70,7 @@ netedit.modifyAttribute(netedit.attrs.vehicle.inspect.route, "dummyRoute", True)
 netedit.modifyAttribute(netedit.attrs.vehicle.inspect.route, "secondRoute", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

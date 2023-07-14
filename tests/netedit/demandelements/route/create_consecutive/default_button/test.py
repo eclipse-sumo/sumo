@@ -46,8 +46,7 @@ for _ in range(netedit.attrs.frames.route.create):
 netedit.typeSpace()
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

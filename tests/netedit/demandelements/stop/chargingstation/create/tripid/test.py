@@ -56,8 +56,7 @@ netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.tripID, "tri
 netedit.leftClick(referencePosition, 300, 195)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

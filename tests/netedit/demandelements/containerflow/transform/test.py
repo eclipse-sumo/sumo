@@ -52,8 +52,7 @@ netedit.contextualMenuOperation(referencePosition, 310, 140,
                                 netedit.attrs.container.transformTo, 1)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

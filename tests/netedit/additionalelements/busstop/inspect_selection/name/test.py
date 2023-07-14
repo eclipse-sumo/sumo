@@ -44,8 +44,7 @@ netedit.leftClick(referencePosition, 297, 270)
 netedit.modifyAttribute(netedit.attrs.busStop.inspectSelection.name, "common BusStop Name", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

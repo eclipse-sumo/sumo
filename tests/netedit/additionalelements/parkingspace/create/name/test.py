@@ -48,8 +48,7 @@ netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.name, "customName")
 netedit.leftClick(referencePosition, 292, 371)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

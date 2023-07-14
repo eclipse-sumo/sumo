@@ -60,8 +60,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.departPos, "dummyPos", Fal
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.departPos, "last", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

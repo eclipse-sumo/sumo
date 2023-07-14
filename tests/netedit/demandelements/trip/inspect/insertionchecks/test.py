@@ -57,8 +57,7 @@ netedit.modifyAttribute(netedit.attrs.trip.inspect.insertionChecks, "dummy", Fal
 netedit.modifyAttribute(netedit.attrs.trip.inspect.insertionChecks, "leaderGap junction speedLimit pedestrian", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

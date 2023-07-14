@@ -71,8 +71,7 @@ netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.route, "dummy", True)
 netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.route, "Edge1", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -70,8 +70,7 @@ netedit.modifyAttribute(netedit.attrs.vehicle.inspect.depart, "-3", True)
 netedit.modifyAttribute(netedit.attrs.vehicle.inspect.depart, "10.2", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

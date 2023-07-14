@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.type, "dummyTy
 netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.type, "typeC", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -41,8 +41,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.TAZ.create.fill)
 netedit.createSquaredTAZ(referencePosition, 567, 120, 200, True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save TAZs
 # save Netedit config

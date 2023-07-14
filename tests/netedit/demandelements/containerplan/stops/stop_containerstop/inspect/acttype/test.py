@@ -69,8 +69,7 @@ netedit.leftClick(referencePosition, 119, 14)
 netedit.modifyAttribute(netedit.attrs.containerStopContainerStop.inspect.actType, "singing", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

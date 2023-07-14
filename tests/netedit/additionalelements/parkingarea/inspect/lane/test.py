@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "center1_0", Tru
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "center1_1", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.Poly.inspect.imgFile, "paris.ico", False)
 netedit.modifyAttribute(netedit.attrs.Poly.inspect.imgFile, "berlin_icon.ico", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -64,8 +64,7 @@ netedit.leftClick(referencePosition, 250, 354)
 netedit.changeDefaultBoolValue(netedit.attrs.edge.template.copy)
 
 # Check undo and redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # rebuild network
 netedit.rebuildNetwork()

@@ -44,8 +44,7 @@ netedit.changeDefaultValue(netedit.attrs.POILane.create.type, "custom type")
 netedit.leftClick(referencePosition, 338, 210)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

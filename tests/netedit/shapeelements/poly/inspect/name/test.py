@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.Poly.inspect.name, "%%%$$$;;", False)
 netedit.modifyAttribute(netedit.attrs.Poly.inspect.name, "customName", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

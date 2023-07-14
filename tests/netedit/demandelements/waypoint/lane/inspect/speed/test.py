@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.speed, "-4", False)
 netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.speed, "6.3", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -60,8 +60,7 @@ netedit.modifyAttribute(netedit.attrs.trip.inspect.fromEdge, "dummyEdge", False)
 netedit.modifyAttribute(netedit.attrs.trip.inspect.fromEdge, "Edge1", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # press enter to create route
 netedit.typeEnter()

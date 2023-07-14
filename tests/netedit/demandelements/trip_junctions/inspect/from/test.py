@@ -60,8 +60,7 @@ netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.fromJunction, "dummyE
 netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.fromJunction, "Junction2", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # press enter to create route
 netedit.typeEnter()

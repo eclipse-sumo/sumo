@@ -62,8 +62,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminateOptio
 netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminateOption, "23", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

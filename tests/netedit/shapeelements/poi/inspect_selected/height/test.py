@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.height, "-3", False)
 netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.height, "5", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -56,8 +56,7 @@ netedit.changeDefaultValue(netedit.attrs.stopLane.create.permitted, "ID1 ID2 ID3
 netedit.leftClick(referencePosition, 380, 185)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

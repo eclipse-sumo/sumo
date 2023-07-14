@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.id, "Id with spaces", F
 netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.id, "correctID", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.departPos, "500", Fa
 netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.departPos, "20", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

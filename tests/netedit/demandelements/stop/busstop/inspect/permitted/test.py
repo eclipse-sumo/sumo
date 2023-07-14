@@ -50,8 +50,7 @@ netedit.leftClick(referencePosition, 290, 175)
 netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.permitted, "permitA permitB", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

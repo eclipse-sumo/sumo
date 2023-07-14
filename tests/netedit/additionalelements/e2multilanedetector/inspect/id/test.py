@@ -63,8 +63,7 @@ netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.id, "Id with spaces", 
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.id, "correctID", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

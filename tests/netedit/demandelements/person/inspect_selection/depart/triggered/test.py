@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.person.inspectSelection.depart, "dummyDepa
 netedit.modifyAttribute(netedit.attrs.person.inspectSelection.depart, "triggered", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

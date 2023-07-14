@@ -44,8 +44,7 @@ netedit.changePersonPlan("stopPerson: edge", True)
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

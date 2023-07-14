@@ -72,8 +72,7 @@ netedit.protectElements(referencePosition)
 netedit.leftClick(referencePosition, 85, 380)
 
 # Check undo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

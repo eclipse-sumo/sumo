@@ -60,8 +60,7 @@ netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.departSpeed, "dumm
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.departSpeed, "speedLimit", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

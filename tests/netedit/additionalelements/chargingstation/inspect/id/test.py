@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.id, "Id with space
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.id, "correctID", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

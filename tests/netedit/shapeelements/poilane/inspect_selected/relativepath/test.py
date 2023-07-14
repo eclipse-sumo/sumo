@@ -47,8 +47,7 @@ netedit.leftClick(referencePosition, 649, 290)
 netedit.modifyBoolAttribute(netedit.attrs.POILane.inspectSelection.relativePath, True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

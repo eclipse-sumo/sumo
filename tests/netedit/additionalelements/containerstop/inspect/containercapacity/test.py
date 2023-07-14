@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.containerStop.inspect.containerCapacity, "
 netedit.modifyAttribute(netedit.attrs.containerStop.inspect.containerCapacity, "10", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

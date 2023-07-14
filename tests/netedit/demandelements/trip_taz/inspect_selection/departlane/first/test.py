@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.departLane, "dumm
 netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.departLane, "first", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

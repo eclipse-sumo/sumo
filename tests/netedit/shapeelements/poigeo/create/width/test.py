@@ -53,8 +53,7 @@ netedit.changeDefaultValue(netedit.attrs.POIGEO.create.width, "2.5")
 netedit.leftClick(referencePosition, 383, 117)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -67,8 +67,7 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalPosLat, "dummyPos
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalPosLat, "right", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

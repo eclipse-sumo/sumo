@@ -53,8 +53,7 @@ netedit.leftClick(referencePosition, 80, 250)
 netedit.leftClick(referencePosition, 500, 250)
 
 # Check undo and redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # rebuild network
 netedit.rebuildNetwork()

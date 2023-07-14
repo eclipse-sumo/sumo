@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.begin, "-30", F
 netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.begin, "5", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

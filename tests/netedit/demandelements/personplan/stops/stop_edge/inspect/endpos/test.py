@@ -75,8 +75,7 @@ netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.endPos, "-40", Fals
 netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.endPos, "7.3", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

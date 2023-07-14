@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.arrivalSp
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.arrivalSpeed, "15.5", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

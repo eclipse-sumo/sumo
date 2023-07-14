@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.parking, "true", Fals
 netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.parking, "false", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

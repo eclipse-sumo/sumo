@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "co
 netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.expected, "containerA containerB", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

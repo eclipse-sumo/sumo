@@ -66,8 +66,7 @@ netedit.changeDefaultValue(netedit.attrs.transhipEdges.create.speed, "12.45")
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

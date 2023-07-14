@@ -73,8 +73,7 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalSpeed, "-10", Tru
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalSpeed, "15.5", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

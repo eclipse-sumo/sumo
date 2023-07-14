@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.calibrator.inspect.routeProbe, "nonExisten
 netedit.modifyAttribute(netedit.attrs.calibrator.inspect.routeProbe, "routeProbe_0", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

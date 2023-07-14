@@ -38,8 +38,7 @@ netedit.changeElement("poiLane")
 netedit.leftClick(referencePosition, 338, 210)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -62,8 +62,7 @@ netedit.changeDefaultValue(netedit.attrs.rideEdgeEdge.create.lines, "custom line
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

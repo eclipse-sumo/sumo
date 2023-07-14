@@ -56,8 +56,7 @@ netedit.changeDefaultValue(netedit.attrs.E2.create.id, "customID")
 netedit.leftClick(referencePosition, 381, 253)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

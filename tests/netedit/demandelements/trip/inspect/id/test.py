@@ -66,8 +66,7 @@ netedit.modifyAttribute(netedit.attrs.trip.inspect.id, "duplicatedVehicle", Fals
 netedit.modifyAttribute(netedit.attrs.trip.inspect.id, "customID", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

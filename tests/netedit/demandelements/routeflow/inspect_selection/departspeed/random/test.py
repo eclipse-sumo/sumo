@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "d
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "random", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

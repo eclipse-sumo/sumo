@@ -45,8 +45,7 @@ netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, 152, 95)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

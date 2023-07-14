@@ -47,8 +47,7 @@ netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.parking, "
 netedit.leftClick(referencePosition, 295, 155)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

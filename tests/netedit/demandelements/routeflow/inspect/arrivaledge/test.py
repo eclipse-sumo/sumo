@@ -73,8 +73,7 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalEdge, "-30", True
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalEdge, "1", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

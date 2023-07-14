@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.POILane.inspectSelection.color, "blue", Tr
 netedit.modifyAttribute(netedit.attrs.POILane.inspectSelection.color, "125,60,200", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

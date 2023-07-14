@@ -66,8 +66,7 @@ netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.width, "2.5")
 netedit.leftClick(referencePosition, 429, 371)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

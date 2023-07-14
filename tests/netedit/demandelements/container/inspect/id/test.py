@@ -73,8 +73,7 @@ netedit.modifyAttribute(netedit.attrs.container.inspect.id, "c_1", False)
 netedit.modifyAttribute(netedit.attrs.container.inspect.id, "customID", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

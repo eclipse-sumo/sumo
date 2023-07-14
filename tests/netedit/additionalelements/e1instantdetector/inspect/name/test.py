@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.name, "%%%;:..&&%$%$", T
 netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.name, "customName", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

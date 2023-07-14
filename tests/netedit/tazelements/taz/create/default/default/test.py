@@ -35,8 +35,7 @@ netedit.TAZMode()
 netedit.createSquaredTAZ(referencePosition, 407, 120, 200, True)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save TAZs
 # save Netedit config

@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.duration, 
 netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.duration, "20.15", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

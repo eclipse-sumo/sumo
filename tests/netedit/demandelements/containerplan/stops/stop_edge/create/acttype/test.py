@@ -69,8 +69,7 @@ netedit.changeDefaultValue(netedit.attrs.containerStopEdge.create.actType, "sing
 netedit.leftClick(referencePosition, 240, 65)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

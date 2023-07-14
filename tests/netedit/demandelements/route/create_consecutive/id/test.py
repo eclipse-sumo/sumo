@@ -69,8 +69,7 @@ netedit.changeDefaultValue(netedit.attrs.route.create.id, "customID")
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -50,8 +50,7 @@ netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference c
 netedit.leftClick(referencePosition, 544, 255)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

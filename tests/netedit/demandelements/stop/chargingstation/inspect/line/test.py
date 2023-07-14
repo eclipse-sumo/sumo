@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.line, "", Fals
 netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.line, "customLine", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

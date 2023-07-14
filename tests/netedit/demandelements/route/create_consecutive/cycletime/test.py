@@ -58,8 +58,7 @@ netedit.changeDefaultValue(netedit.attrs.route.create.cycletime, "5.7")
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

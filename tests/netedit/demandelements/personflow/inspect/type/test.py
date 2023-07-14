@@ -66,8 +66,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "dummyType", Fals
 netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "custom_vType", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -51,8 +51,7 @@ netedit.modifyAttribute(netedit.attrs.Poly.inspect.geoshape,
                         "-28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

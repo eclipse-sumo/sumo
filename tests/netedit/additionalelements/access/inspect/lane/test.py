@@ -64,8 +64,7 @@ netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "E1_0", True)
 netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "E4_0", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

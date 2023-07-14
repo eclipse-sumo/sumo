@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.containerNumber, "2.
 netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.containerNumber, "3", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

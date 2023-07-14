@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.angle, "500",
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.angle, "32.5", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

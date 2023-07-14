@@ -71,8 +71,7 @@ netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.extension, "22
 netedit.leftClick(referencePosition, 294, 175)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

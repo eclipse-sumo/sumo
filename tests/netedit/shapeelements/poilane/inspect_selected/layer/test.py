@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.POILane.inspectSelection.layer, "-2", True
 netedit.modifyAttribute(netedit.attrs.POILane.inspectSelection.layer, "2.5", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

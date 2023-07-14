@@ -67,8 +67,7 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.departLane, "dummyDepart
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.departLane, "allowed", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

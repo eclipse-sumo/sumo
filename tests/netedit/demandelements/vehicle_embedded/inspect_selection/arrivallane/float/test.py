@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.arrivalLa
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.arrivalLane, "0", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

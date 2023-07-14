@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.type, "dummy
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.type, "typeC", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -66,8 +66,7 @@ netedit.modifyAttribute(netedit.attrs.person.inspect.color, "cyan", False)
 netedit.modifyAttribute(netedit.attrs.person.inspect.color, "12,13,14", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

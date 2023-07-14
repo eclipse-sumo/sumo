@@ -60,8 +60,7 @@ netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.begin, "dummyDepart",
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.begin, "triggered", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

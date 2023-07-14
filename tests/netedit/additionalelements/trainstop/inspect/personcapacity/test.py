@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.trainStop.inspect.personCapacity, "2.5", T
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.personCapacity, "10", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

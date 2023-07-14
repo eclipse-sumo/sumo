@@ -44,8 +44,7 @@ netedit.leftClick(referencePosition, 451, 119)
 netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.type, "<<myOwnType>>", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

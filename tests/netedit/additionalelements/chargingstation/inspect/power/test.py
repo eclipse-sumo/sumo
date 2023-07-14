@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.power, "-300", Tru
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.power, "500.5", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

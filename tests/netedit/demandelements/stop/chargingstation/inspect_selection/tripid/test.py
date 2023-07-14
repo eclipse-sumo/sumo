@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.tripI
 netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.tripID, "customTripID", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

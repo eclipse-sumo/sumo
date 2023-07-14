@@ -66,8 +66,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspect.begin, "-3", False)
 netedit.modifyAttribute(netedit.attrs.personFlow.inspect.begin, "10.2", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

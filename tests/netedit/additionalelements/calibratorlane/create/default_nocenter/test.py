@@ -41,8 +41,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 netedit.leftClick(referencePosition, 312, 250)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

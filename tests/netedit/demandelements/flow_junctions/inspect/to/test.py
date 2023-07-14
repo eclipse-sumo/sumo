@@ -63,8 +63,7 @@ netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.toJunction, "dummyEdg
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.toJunction, "gneJ9", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

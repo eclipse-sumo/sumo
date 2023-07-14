@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.arrivalPos, "500"
 netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.arrivalPos, "random", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

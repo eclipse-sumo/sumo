@@ -1070,6 +1070,17 @@ def modifyAllowDisallowValue(numTabs, overlapped):
     typeSpace()
 
 
+def checkUndoRedo(referencePosition):
+    """
+    @brief Check undo-redo
+    """
+    # Check undo
+    undo(referencePosition, 9)
+    # Check redo
+    redo(referencePosition, 9)
+
+
+
 def checkParameters(referencePosition, attributeNumber, overlapped):
     """
     @brief Check generic parameters
@@ -1094,10 +1105,8 @@ def checkParameters(referencePosition, attributeNumber, overlapped):
     modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", overlapped)
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
-    # Check undo
-    undo(referencePosition, 8)
-    # Check redo
-    redo(referencePosition, 8)
+    # Check undoRedo
+    checkUndoRedo(referencePosition)
 
 
 def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0, posY=0):
@@ -1124,10 +1133,8 @@ def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0
     modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=2|key3=3", overlapped)
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=1|keyFinal2=2|keyFinal3=3", overlapped)
-    # Check undo (including load/creation)
-    undo(referencePosition, 8)
-    # Check redo
-    redo(referencePosition, 8)
+    # Check undoRedo
+    checkUndoRedo(referencePosition)
 
 #################################################
     # Move mode

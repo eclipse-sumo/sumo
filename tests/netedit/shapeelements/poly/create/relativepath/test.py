@@ -50,8 +50,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.Poly.create.reativePath)
 netedit.createSquaredTAZ(referencePosition, 210, 136, 200, True)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

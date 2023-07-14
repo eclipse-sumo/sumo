@@ -74,8 +74,7 @@ netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.slope, "12")
 netedit.leftClick(referencePosition, 472, 371)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

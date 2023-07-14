@@ -60,8 +60,7 @@ netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "-12.5", False)
 netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "13", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

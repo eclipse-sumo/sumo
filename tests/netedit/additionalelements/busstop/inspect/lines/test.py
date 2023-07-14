@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.busStop.inspect.lines, "line1, line2", Tru
 netedit.modifyAttribute(netedit.attrs.busStop.inspect.lines, "line1 line2", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

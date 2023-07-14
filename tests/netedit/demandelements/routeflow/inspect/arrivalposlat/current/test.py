@@ -67,8 +67,7 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalSpeed, "dummySpee
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalSpeed, "current", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -71,8 +71,7 @@ netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspect.to, "dum
 netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspect.to, "containerStopB", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

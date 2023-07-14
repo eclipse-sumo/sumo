@@ -71,8 +71,7 @@ netedit.modifyAttribute(netedit.attrs.transportEdgeEdge.inspect.to, "dummy", Fal
 netedit.modifyAttribute(netedit.attrs.transportEdgeEdge.inspect.to, "Edge1", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

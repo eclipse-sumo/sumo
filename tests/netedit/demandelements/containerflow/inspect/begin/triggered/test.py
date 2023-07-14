@@ -66,8 +66,7 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.begin, "dummyDepart"
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.begin, "triggered", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

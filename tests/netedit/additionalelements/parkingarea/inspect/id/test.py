@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.id, "Id with spaces", 
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.id, "correctID", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

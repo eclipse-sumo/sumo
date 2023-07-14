@@ -63,8 +63,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.type, "dummyVType", False)
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.type, "custom_vType", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

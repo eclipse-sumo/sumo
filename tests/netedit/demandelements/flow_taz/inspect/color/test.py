@@ -66,8 +66,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "cyan", False)
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "12,13,14", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

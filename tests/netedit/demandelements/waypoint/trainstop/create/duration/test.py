@@ -74,8 +74,7 @@ netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.duration, "22.
 netedit.leftClick(referencePosition, 295, 175)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

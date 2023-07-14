@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.calibrator.inspect.output, "///;;", True)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspect.output, "myOwnFilename", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

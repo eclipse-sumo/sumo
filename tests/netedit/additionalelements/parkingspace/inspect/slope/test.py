@@ -66,8 +66,7 @@ netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.slope, "500", False)
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.slope, "32.5", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

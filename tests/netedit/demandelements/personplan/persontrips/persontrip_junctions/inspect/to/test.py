@@ -71,8 +71,7 @@ netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspect.to, "dummy", F
 netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspect.to, "Junction3", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

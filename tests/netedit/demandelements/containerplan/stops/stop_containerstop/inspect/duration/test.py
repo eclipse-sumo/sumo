@@ -81,8 +81,7 @@ netedit.modifyAttribute(netedit.attrs.containerStopContainerStop.inspect.duratio
 netedit.modifyAttribute(netedit.attrs.containerStopContainerStop.inspect.duration, "6.7", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

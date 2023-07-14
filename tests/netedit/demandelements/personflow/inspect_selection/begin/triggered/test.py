@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.begin, "dummyD
 netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.begin, "triggered", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

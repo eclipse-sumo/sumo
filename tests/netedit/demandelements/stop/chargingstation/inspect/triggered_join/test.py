@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "du
 netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "join", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.tripID, "", Fals
 netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.tripID, "customType", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

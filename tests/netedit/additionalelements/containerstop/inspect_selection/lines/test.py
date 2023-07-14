@@ -44,8 +44,7 @@ netedit.leftClick(referencePosition, 297, 270)
 netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.lines, "commonLine1 commonLine2", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

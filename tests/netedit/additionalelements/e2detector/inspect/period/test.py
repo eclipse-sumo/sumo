@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.E2.inspect.period, "-100", True)
 netedit.modifyAttribute(netedit.attrs.E2.inspect.period, "120.5", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

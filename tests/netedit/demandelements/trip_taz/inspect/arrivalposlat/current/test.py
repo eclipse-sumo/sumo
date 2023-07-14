@@ -60,8 +60,7 @@ netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.arrivalSpeed, "dummySpeed"
 netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.arrivalSpeed, "current", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

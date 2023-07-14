@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.roadSideCapacity, "-5"
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.roadSideCapacity, "7", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -37,8 +37,7 @@ netedit.leftClick(referencePosition, 115, 240)
 netedit.leftClick(referencePosition, 536, 240)
 
 # Check undo and redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save network using hotkey
 netedit.typeTwoKeys('ctrl', 's')

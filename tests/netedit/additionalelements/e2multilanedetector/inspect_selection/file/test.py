@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.file, "", Tru
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.file, "myOwnOutput.txt", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 
 # save netedit config

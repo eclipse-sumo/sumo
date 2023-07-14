@@ -66,8 +66,7 @@ netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "1000", True)
 netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "2.1", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 6)
-netedit.redo(referencePosition, 6)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

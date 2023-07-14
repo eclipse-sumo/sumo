@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.E2.inspect.speedThreshold, "-12.1", True)
 netedit.modifyAttribute(netedit.attrs.E2.inspect.speedThreshold, "6.3", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

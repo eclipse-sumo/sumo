@@ -47,8 +47,7 @@ netedit.modifyAttribute(netedit.attrs.type.editDefault.length + 1, "-30", False)
 netedit.modifyAttribute(netedit.attrs.type.editDefault.length + 1, "20.5", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

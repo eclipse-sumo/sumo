@@ -70,8 +70,7 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacingOption, "26",
 
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

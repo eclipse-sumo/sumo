@@ -62,8 +62,7 @@ netedit.changeDefaultValue(netedit.attrs.waypointParking.create.speed, "32.5")
 netedit.leftClick(referencePosition, 310, 155)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

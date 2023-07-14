@@ -53,8 +53,7 @@ netedit.changeDefaultValue(netedit.attrs.containerStop.create.color, "red")
 netedit.leftClick(referencePosition, 544, 255)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

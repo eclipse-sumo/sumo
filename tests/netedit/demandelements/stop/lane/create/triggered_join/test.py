@@ -44,8 +44,7 @@ netedit.changeDefaultValue(netedit.attrs.stopLane.create.triggered, "join")
 netedit.leftClick(referencePosition, 400, 185)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

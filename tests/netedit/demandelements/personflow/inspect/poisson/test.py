@@ -69,8 +69,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacingOption, "12.5", 
 netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacingOption, "2.6", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

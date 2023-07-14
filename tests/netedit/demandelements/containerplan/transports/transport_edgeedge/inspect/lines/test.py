@@ -68,8 +68,7 @@ netedit.leftClick(referencePosition, 430, 58)
 netedit.modifyAttribute(netedit.attrs.transportEdgeEdge.inspect.lines, "custom Lines", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

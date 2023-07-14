@@ -72,8 +72,7 @@ netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.speed, "20", False)
 netedit.rebuildNetwork()
 
 # Check undo and redo
-netedit.undo(referencePosition, 9)
-netedit.redo(referencePosition, 9)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

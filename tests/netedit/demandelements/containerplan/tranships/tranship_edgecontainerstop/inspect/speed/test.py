@@ -71,8 +71,7 @@ netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspect.speed, "
 netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspect.speed, "12.5", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

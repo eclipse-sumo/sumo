@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.POILane.inspect.name, "%$$%%%%%", True)
 netedit.modifyAttribute(netedit.attrs.POILane.inspect.name, "customName", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.actType, 
 netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.actType, "singing", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

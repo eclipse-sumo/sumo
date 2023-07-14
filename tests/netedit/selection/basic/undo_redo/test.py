@@ -41,8 +41,7 @@ netedit.selectionRectangle(referencePosition, 250, 150, 400, 300)
 netedit.deleteSelectedItems()
 
 # check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # undo deletion again (all must be selected)
 netedit.undo(referencePosition, 1)

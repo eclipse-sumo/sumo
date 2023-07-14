@@ -76,8 +76,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspect.id, "pf_1", False)
 netedit.modifyAttribute(netedit.attrs.personFlow.inspect.id, "customID", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

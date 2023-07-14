@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.container.inspectSelection.depart, "-3", F
 netedit.modifyAttribute(netedit.attrs.container.inspectSelection.depart, "10.2", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -61,8 +61,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehi
 netedit.modifyAttribute(netedit.attrs.vehicle.inspect.line, "custom Line", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

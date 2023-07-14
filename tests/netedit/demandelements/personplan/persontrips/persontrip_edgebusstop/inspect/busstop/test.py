@@ -71,8 +71,7 @@ netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspect.to, "dummy",
 netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspect.to, "busStopB", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

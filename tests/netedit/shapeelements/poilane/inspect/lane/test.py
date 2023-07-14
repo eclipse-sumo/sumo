@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.POILane.inspect.lane, "", True)
 netedit.modifyAttribute(netedit.attrs.POILane.inspect.lane, "bot_0", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

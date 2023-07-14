@@ -69,15 +69,13 @@ netedit.changeDefaultValue(netedit.attrs.containerStopContainerStop.create.actTy
 netedit.leftClick(referencePosition, 174, 40)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # press enter to create route
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

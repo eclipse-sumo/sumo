@@ -62,8 +62,7 @@ netedit.changeDefaultValue(netedit.attrs.stopLane.create.posLat, "2.3")
 netedit.leftClick(referencePosition, 370, 185)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

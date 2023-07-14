@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.arrivalPosLa
 netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.arrivalPosLat, "4.2", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

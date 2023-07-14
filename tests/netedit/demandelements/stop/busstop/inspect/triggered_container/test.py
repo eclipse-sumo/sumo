@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "container"
 netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.expected, "containerA containerB", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

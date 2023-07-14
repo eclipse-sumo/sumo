@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.speed, "-12", Fa
 netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.speed, "7.1", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

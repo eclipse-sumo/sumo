@@ -59,8 +59,7 @@ netedit.changeDefaultValue(netedit.attrs.chargingStation.create.efficiency, "0.5
 netedit.leftClick(referencePosition, 346, 244)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

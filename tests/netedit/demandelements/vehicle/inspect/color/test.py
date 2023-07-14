@@ -73,8 +73,7 @@ netedit.modifyAttribute(netedit.attrs.vehicle.inspect.color, "cyan", True)
 netedit.modifyAttribute(netedit.attrs.vehicle.inspect.color, "12,13,14", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

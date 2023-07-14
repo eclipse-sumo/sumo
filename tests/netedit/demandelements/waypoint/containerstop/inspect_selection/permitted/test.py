@@ -47,8 +47,7 @@ netedit.leftClick(referencePosition, 290, 155)
 netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.permitted, "permitA permitB", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

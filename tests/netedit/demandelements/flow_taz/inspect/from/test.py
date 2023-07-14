@@ -60,8 +60,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.fromTAZ, "dummyEdge", Fals
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.fromTAZ, "taz_red", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # press enter to create route
 netedit.typeEnter()
