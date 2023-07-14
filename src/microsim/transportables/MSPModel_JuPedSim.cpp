@@ -149,6 +149,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, nullptr);
 
     PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, arrivalPosition);
+    state->setLanePosition(stage->getDepartPos());
     state->setPosition(departurePosition.x(), departurePosition.y());
     state->setAngle(departureLane->getShape().rotationAtOffset(stage->getDepartPos()));
     myPedestrianStates.push_back(state);
@@ -202,7 +203,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         const MSEdge* currentEdge = stage->getEdge();
         const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
         MSLane* lane = nullptr;
-        double lanePos;
+        double lanePos = 0.0;
         double bestDistance = std::numeric_limits<double>::max();
         int routeOffset = 0;
         const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
@@ -213,7 +214,11 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         const bool found = libsumo::Helper::moveToXYMap_matchingRoutePosition(newPosition, "",
             forwardRoute, 0, person->getVClass(), true,
             bestDistance, &lane, lanePos, routeOffset);
+        if (found) {
+            state->setLanePosition(lanePos);
+        }
         if (found && currentLane->isNormal() && lane->isNormal() && lane != currentLane) {
+            state->setLanePosition(lanePos);
             const bool result = stage->moveToNextEdge(person, time, 1, nullptr);
             UNUSED_PARAMETER(result);
             assert(result == false); // The person has not arrived yet.
@@ -680,8 +685,13 @@ MSPerson* MSPModel_JuPedSim::PState::getPerson() {
 }
 
 
+void MSPModel_JuPedSim::PState::setLanePosition(double lanePosition) {
+    myLanePosition = lanePosition;
+}
+
+
 double MSPModel_JuPedSim::PState::getEdgePos(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
-    return 0;
+    return myLanePosition;
 }
 
 
@@ -696,12 +706,12 @@ SUMOTime MSPModel_JuPedSim::PState::getWaitingTime(const MSStageMoving& /* stage
 
 
 double MSPModel_JuPedSim::PState::getSpeed(const MSStageMoving& /* stage */) const {
-    return 0;
+    return 0.0;
 }
 
 
-const MSEdge* MSPModel_JuPedSim::PState::getNextEdge(const MSStageMoving& /* stage */) const {
-    return nullptr;
+const MSEdge* MSPModel_JuPedSim::PState::getNextEdge(const MSStageMoving& stage) const {
+    return stage.getNextRouteEdge();
 }
 
 
