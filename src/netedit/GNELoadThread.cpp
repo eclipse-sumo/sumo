@@ -317,6 +317,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("attribute-help-output", new Option_FileName());
     neteditOptions.addDescription("attribute-help-output", "Netedit", TL("Write attribute help to file"));
 
+    neteditOptions.doRegister("ignore-supermode-question", new Option_Bool(false));
+    neteditOptions.addDescription("ignore-supermode-question", "Netedit", TL("Ignore question dialog during changing between supermodes in undo-redo"));
+
     // network prefixes
 
     neteditOptions.doRegister("node-prefix", new Option_String("J"));

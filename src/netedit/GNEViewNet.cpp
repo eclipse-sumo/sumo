@@ -837,6 +837,10 @@ GNEViewNet::mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJuncti
 
 bool
 GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedSupermode) {
+    // first check if ignore option is enabled
+    if (OptionsCont::getOptions().getBool("ignore-supermode-question")) {
+        return true;
+    }
     std::string body;
     if (expectedSupermode == Supermode::NETWORK) {
         body = (operation + TL(" requires switch to network mode. Continue?"));
