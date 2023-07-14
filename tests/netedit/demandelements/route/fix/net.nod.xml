@@ -36,8 +36,8 @@
     <location netOffset="-10.00,-20.00" convBoundary="0.00,0.00,60.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <node id="Junction0" x="0.00" y="0.00" type="dead_end"/>
-    <node id="gneJ5" x="60.00" y="0.00" type="dead_end"/>
-    <node id="gneJ6" x="60.00" y="40.00" type="dead_end"/>
+    <node id="Junction2" x="60.00" y="0.00" type="dead_end"/>
+    <node id="Junction3" x="60.00" y="40.00" type="dead_end"/>
     <node id="Junction3" x="0.00" y="40.00" type="priority"/>
     <node id="gneJ8" x="0.00" y="20.00" type="priority"/>
     <node id="gneJ9" x="30.00" y="20.00" type="dead_end"/>

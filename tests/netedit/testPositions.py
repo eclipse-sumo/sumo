@@ -46,11 +46,11 @@ class demandElements:
 
     class junction0:
         x = 135
-        y = 415
+        y = 390
 
     class junction1:
         x = 860
-        y = 415
+        y = 390
 
     class junction2:
         x = 860
@@ -69,3 +69,8 @@ class demandElements:
     class multipleVehiclesEdge:
         x = 186
         y = 465
+
+#    click over single trips, flows, etc... over junctions
+    class singleVehicleJunction:
+        x = 160
+        y = 435

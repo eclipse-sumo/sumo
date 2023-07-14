@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 171, 65)
 netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspect.to, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspect.to, "gneJ6", False)
+netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspect.to, "Junction3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
