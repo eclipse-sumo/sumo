@@ -86,6 +86,7 @@ private:
         MSStageMoving* getStage();
         MSPerson* getPerson();
 
+        void setLanePosition(double lanePosition);
         double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
         int getDirection(const MSStageMoving& stage, SUMOTime now) const;
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
@@ -93,13 +94,16 @@ private:
         const MSEdge* getNextEdge(const MSStageMoving& stage) const;
         Position getDestination() const;
         JPS_AgentId getAgentId() const;
+
         void setAgentId(JPS_AgentId id) {
             myAgentId = id;
             myWaitingToEnter = false;
         }
+
         JPS_JourneyId getJourneyId() const {
             return myJourneyId;
         }
+
         bool isWaitingToEnter() const {
             return myWaitingToEnter;
         }
@@ -115,6 +119,8 @@ private:
         JPS_AgentId myAgentId;
         Position myPosition;
         double myAngle;
+        double myLanePosition;
+        MSEdge* myCurrentEdge;
         /// @brief whether the pedestrian is waiting to start its walk
         bool myWaitingToEnter;
     };
