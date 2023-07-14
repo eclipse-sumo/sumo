@@ -80,6 +80,9 @@ private:
         Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
         void setPosition(double x, double y);
 
+        Position getPreviousPosition() const;
+        void setPreviousPosition(Position previousPosition);
+
         double getAngle(const MSStageMoving& stage, SUMOTime now) const;
         void setAngle(double angle);
 
@@ -118,6 +121,7 @@ private:
         Position myDestination;
         JPS_AgentId myAgentId;
         Position myPosition;
+        Position myPreviousPosition; // Will be initialized to zero automatically.
         double myAngle;
         double myLanePosition;
         MSEdge* myCurrentEdge;
