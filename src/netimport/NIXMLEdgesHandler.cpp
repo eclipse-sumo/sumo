@@ -653,6 +653,13 @@ NIXMLEdgesHandler::myEndElement(int element) {
     }
     if (element == SUMO_TAG_EDGE) {
         myLastParameterised.pop_back();
+        // reset lane widths if the respective users are not allowed
+        if ((myPermissions & SVC_PEDESTRIAN) == 0) {
+            mySidewalkWidth = NBEdge::UNSPECIFIED_WIDTH;
+        }
+        if ((myPermissions & SVC_BICYCLE) == 0) {
+            myBikeLaneWidth = NBEdge::UNSPECIFIED_WIDTH;
+        }
         // add bike lane, wait until lanes are loaded to avoid building if it already exists
         if (myBikeLaneWidth != NBEdge::UNSPECIFIED_WIDTH) {
             myCurrentEdge->addBikeLane(myBikeLaneWidth);
