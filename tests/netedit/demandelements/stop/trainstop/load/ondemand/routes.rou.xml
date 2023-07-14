@@ -39,11 +39,11 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <route edges="gneE0 gneE1" color="yellow" id="route_0">
-        <stop busStop="trainStop" onDemand="false"/>
+        <stop busStop="trainStopA" onDemand="false"/>
     </route>
 
     <route edges="gneE0 gneE1" color="yellow" id="route_1">
-        <stop busStop="trainStop" onDemand="true"/>
+        <stop busStop="trainStopA" onDemand="true"/>
     </route>
 
 </routes>

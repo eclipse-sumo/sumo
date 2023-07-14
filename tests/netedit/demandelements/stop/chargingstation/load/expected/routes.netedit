@@ -6,15 +6,15 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="flow_0" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
-        <stop chargingStation="chargingStation" triggered="person"/>
+        <stop chargingStation="chargingStationA" triggered="person"/>
     </flow>
     <flow id="flow_1" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
-        <stop chargingStation="chargingStation" triggered="person" expected=";;;;"/>
+        <stop chargingStation="chargingStationA" triggered="person" expected=";;;;"/>
     </flow>
     <flow id="flow_2" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
-        <stop chargingStation="chargingStation" triggered="person" expected="ID1"/>
+        <stop chargingStation="chargingStationA" triggered="person" expected="ID1"/>
     </flow>
     <flow id="flow_3" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
-        <stop chargingStation="chargingStation" triggered="person" expected="ID1 ID2"/>
+        <stop chargingStation="chargingStationA" triggered="person" expected="ID1 ID2"/>
     </flow>
 </routes>

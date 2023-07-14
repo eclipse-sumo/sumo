@@ -7,9 +7,9 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingArea" parking="1"/>
-        <stop parkingArea="parkingArea" duration="60.00" parking="1"/>
-        <stop parkingArea="parkingArea" duration="0.00" parking="1"/>
-        <stop parkingArea="parkingArea" duration="22.33" parking="1"/>
+        <stop parkingArea="parkingAreaA" parking="1"/>
+        <stop parkingArea="parkingAreaA" duration="60.00" parking="1"/>
+        <stop parkingArea="parkingAreaA" duration="0.00" parking="1"/>
+        <stop parkingArea="parkingAreaA" duration="22.33" parking="1"/>
     </vehicle>
 </routes>

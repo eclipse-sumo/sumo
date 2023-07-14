@@ -6,6 +6,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <containerFlow id="cf_0" begin="0.00" end="3600.00" containersPerHour="1800">
-        <stop containerStop="containerStop" duration="60.00"/>
+        <stop containerStop="containerStopA" duration="60.00"/>
     </containerFlow>
 </routes>

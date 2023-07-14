@@ -5,11 +5,11 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="busStop" lane="Edge2_1" startPos="29.80" endPos="39.80"/>
-    <trainStop id="trainStop" lane="Edge3_1" startPos="9.80" endPos="19.80"/>
-    <containerStop id="containerStop" lane="Edge2_1" startPos="9.80" endPos="19.80"/>
-    <chargingStation id="chargingStation" lane="Edge2_1" startPos="20.80" endPos="28.80"/>
-    <parkingArea id="parkingArea" lane="Edge3_1" startPos="29.80" endPos="39.80">
+    <busStop id="busStopA" lane="Edge2_1" startPos="29.80" endPos="39.80"/>
+    <trainStop id="trainStopA" lane="Edge3_1" startPos="9.80" endPos="19.80"/>
+    <containerStop id="containerStopA" lane="Edge2_1" startPos="9.80" endPos="19.80"/>
+    <chargingStation id="chargingStationA" lane="Edge2_1" startPos="20.80" endPos="28.80"/>
+    <parkingArea id="parkingAreaA" lane="Edge3_1" startPos="29.80" endPos="39.80">
         <space x="40.00" y="20.00"/>
     </parkingArea>
     <!-- TAZs -->

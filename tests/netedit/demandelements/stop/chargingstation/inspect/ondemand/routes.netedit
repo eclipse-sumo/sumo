@@ -6,6 +6,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="flow" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
-        <stop chargingStation="chargingStation" duration="60.00" onDemand="1"/>
+        <stop chargingStation="chargingStationA" duration="60.00" onDemand="1"/>
     </flow>
 </routes>

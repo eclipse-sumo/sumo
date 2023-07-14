@@ -6,8 +6,8 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <trip id="trip" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" until="0.00" speed="13.89"/>
-        <stop containerStop="containerStop" until="0.00" speed="13.89"/>
-        <stop containerStop="containerStop" until="22.33" speed="13.89"/>
+        <stop containerStop="containerStopA" until="0.00" speed="13.89"/>
+        <stop containerStop="containerStopA" until="0.00" speed="13.89"/>
+        <stop containerStop="containerStopA" until="22.33" speed="13.89"/>
     </trip>
 </routes>

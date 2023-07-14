@@ -7,6 +7,6 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingArea" extension="3.50" parking="1"/>
+        <stop parkingArea="parkingAreaA" extension="3.50" parking="1"/>
     </vehicle>
 </routes>

@@ -6,12 +6,12 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
     <route id="route_0" edges="gneE0 gneE1" color="yellow">
-        <stop trainStop="trainStop" speed="10.00"/>
+        <stop trainStop="trainStopA" speed="10.00"/>
     </route>
     <route id="route_1" edges="gneE0 gneE1" color="yellow">
-        <stop trainStop="trainStop" tripId=";;;;" speed="10.00"/>
+        <stop trainStop="trainStopA" tripId=";;;;" speed="10.00"/>
     </route>
     <route id="route_2" edges="gneE0 gneE1" color="yellow">
-        <stop trainStop="trainStop" tripId="customTripID" speed="10.00"/>
+        <stop trainStop="trainStopA" tripId="customTripID" speed="10.00"/>
     </route>
 </routes>

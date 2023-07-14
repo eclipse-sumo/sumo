@@ -6,9 +6,9 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
     <route id="route_0" edges="gneE0 gneE1" color="yellow">
-        <stop trainStop="trainStop"/>
+        <stop trainStop="trainStopA"/>
     </route>
     <route id="route_1" edges="gneE0 gneE1" color="yellow">
-        <stop trainStop="trainStop" onDemand="1"/>
+        <stop trainStop="trainStopA" onDemand="1"/>
     </route>
 </routes>

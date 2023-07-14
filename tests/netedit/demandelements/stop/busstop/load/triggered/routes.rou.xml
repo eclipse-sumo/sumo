@@ -39,27 +39,27 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <route edges="gneE0 gneE1" color="yellow" id="route_0">
-        <stop busStop="busStop" triggered="dummy"/>
+        <stop busStop="busStopA" triggered="dummy"/>
     </route>
 
     <route edges="gneE0 gneE1" color="yellow" id="route_1">
-        <stop busStop="busStop" triggered=""/>
+        <stop busStop="busStopA" triggered=""/>
     </route>
 
     <route edges="gneE0 gneE1" color="yellow" id="route_2">
-        <stop busStop="busStop" triggered="-4"/>
+        <stop busStop="busStopA" triggered="-4"/>
     </route>
 
     <route edges="gneE0 gneE1" color="yellow" id="route_3">
-        <stop busStop="busStop" triggered="0"/>
+        <stop busStop="busStopA" triggered="0"/>
     </route>
 
     <route edges="gneE0 gneE1" color="yellow" id="route_4">
-        <stop busStop="busStop" triggered="2.3"/>
+        <stop busStop="busStopA" triggered="2.3"/>
     </route>
 
     <route edges="gneE0 gneE1" color="yellow" id="route_5">
-        <stop busStop="busStop" triggered="true"/>
+        <stop busStop="busStopA" triggered="true"/>
     </route>
 
 </routes>

@@ -6,12 +6,12 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <trip id="trip_0" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop"/>
+        <stop containerStop="containerStopA"/>
     </trip>
     <trip id="trip_1" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" line=";;;;"/>
+        <stop containerStop="containerStopA" line=";;;;"/>
     </trip>
     <trip id="trip_2" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" line="customLine"/>
+        <stop containerStop="containerStopA" line="customLine"/>
     </trip>
 </routes>

@@ -9,9 +9,9 @@
     <trip id="trip_1" depart="0.00" from="gneE0" to="gneE1"/>
     <trip id="trip_2" depart="0.00" from="gneE0" to="gneE1"/>
     <trip id="trip_3" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" until="0.00"/>
+        <stop containerStop="containerStopA" until="0.00"/>
     </trip>
     <trip id="trip_4" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" until="2.30"/>
+        <stop containerStop="containerStopA" until="2.30"/>
     </trip>
 </routes>

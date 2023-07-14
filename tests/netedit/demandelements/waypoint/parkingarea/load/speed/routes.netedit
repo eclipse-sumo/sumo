@@ -16,6 +16,6 @@
     </vehicle>
     <vehicle id="vehicle_3" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingArea" parking="1" speed="8.50"/>
+        <stop parkingArea="parkingAreaA" parking="1" speed="8.50"/>
     </vehicle>
 </routes>

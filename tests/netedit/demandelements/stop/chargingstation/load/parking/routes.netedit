@@ -9,10 +9,10 @@
     <flow id="flow_1" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18"/>
     <flow id="flow_2" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18"/>
     <flow id="flow_3" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
-        <stop chargingStation="chargingStation" parking="1"/>
+        <stop chargingStation="chargingStationA" parking="1"/>
     </flow>
     <flow id="flow_4" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18"/>
     <flow id="flow_5" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
-        <stop chargingStation="chargingStation" parking="1"/>
+        <stop chargingStation="chargingStationA" parking="1"/>
     </flow>
 </routes>

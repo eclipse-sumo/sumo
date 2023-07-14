@@ -10,8 +10,8 @@
     <route id="route_0" edges="gneE0 gneE1" color="yellow"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" type="vTypeRail" depart="0.00" route="route_0">
-        <stop trainStop="trainStop" duration="60.00" triggered="container"/>
-        <stop trainStop="trainStop" duration="60.00" triggered="container"/>
-        <stop trainStop="trainStop" duration="60.00" triggered="container" expectedContainers="containerID1 containerID2 containerID3"/>
+        <stop trainStop="trainStopA" duration="60.00" triggered="container"/>
+        <stop trainStop="trainStopA" duration="60.00" triggered="container"/>
+        <stop trainStop="trainStopA" duration="60.00" triggered="container" expectedContainers="containerID1 containerID2 containerID3"/>
     </vehicle>
 </routes>

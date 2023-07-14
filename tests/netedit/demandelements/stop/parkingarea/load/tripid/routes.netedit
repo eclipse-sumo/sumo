@@ -7,14 +7,14 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingArea" parking="1"/>
+        <stop parkingArea="parkingAreaA" parking="1"/>
     </vehicle>
     <vehicle id="vehicle_1" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingArea" parking="1" tripId=";;;;"/>
+        <stop parkingArea="parkingAreaA" parking="1" tripId=";;;;"/>
     </vehicle>
     <vehicle id="vehicle_2" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingArea" parking="1" tripId="customTripID"/>
+        <stop parkingArea="parkingAreaA" parking="1" tripId="customTripID"/>
     </vehicle>
 </routes>
