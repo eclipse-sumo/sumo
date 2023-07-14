@@ -44,7 +44,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.waypointParking.create.durationEnab
 netedit.changeDefaultBoolValue(netedit.attrs.waypointParking.create.untilEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.until, "dummyValue")

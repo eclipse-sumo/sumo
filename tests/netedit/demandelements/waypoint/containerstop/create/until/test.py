@@ -44,7 +44,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.waypointContainerStop.create.durati
 netedit.changeDefaultBoolValue(netedit.attrs.waypointContainerStop.create.untilEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.until, "dummyValue")

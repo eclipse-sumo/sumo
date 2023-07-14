@@ -38,7 +38,7 @@ netedit.stopMode()
 netedit.changeStopType("waypointParkingArea")
 
 # try to create waypoint (don't click over busStop)
-netedit.leftClick(referencePosition, 327, 240)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

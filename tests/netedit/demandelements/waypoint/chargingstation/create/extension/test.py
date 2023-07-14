@@ -44,7 +44,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.waypointChargingStation.create.dura
 netedit.changeDefaultBoolValue(netedit.attrs.waypointChargingStation.create.extensionEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x, netedit.positions.demandElements.chargingStation.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.extension, "dummyValue")

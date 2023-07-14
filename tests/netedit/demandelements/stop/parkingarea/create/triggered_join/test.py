@@ -41,7 +41,7 @@ netedit.changeStopType("stopParkingArea")
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.triggered, "join")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

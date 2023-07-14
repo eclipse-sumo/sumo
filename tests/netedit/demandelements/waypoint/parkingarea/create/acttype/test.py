@@ -41,7 +41,7 @@ netedit.changeStopType("waypointParkingArea")
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.actType, ";;;;;;;;;;")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.actType, "")

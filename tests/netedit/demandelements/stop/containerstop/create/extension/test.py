@@ -44,7 +44,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.stopContainerStop.create.durationEn
 netedit.changeDefaultBoolValue(netedit.attrs.stopContainerStop.create.extensionEnable)
 
 # create stop
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.extension, "dummyValue")

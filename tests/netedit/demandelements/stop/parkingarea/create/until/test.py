@@ -44,7 +44,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.stopParking.create.durationEnable)
 netedit.changeDefaultBoolValue(netedit.attrs.stopParking.create.untilEnable)
 
 # create stop
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.until, "dummyValue")

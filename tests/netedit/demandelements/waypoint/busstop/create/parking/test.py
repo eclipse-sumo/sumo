@@ -38,7 +38,7 @@ netedit.stopMode()
 netedit.changeStopType("waypointBusStop")
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # change parking
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.parking, "true")

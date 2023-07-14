@@ -70,7 +70,23 @@ class demandElements:
 
     class busStop:
         x = 375
-        y = 0
+        y = 12
+
+    class trainStop:
+        x = 375
+        y = 90
+
+    class containerStop:
+        x = 615
+        y = 12
+
+    class chargingStation:
+        x = 500
+        y = 30
+
+    class parkingArea:
+        x = 615
+        y = 110
 
     # click over single trips, flows, etc... over edges
     class singleVehicleEdge:

@@ -41,7 +41,7 @@ netedit.changeStopType("stopParkingArea")
 netedit.changeDefaultBoolValue(netedit.attrs.stopParking.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.stopParking.create.durationEnable)
