@@ -57,7 +57,7 @@ netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "dummyEdges", False)
 netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "Edge0 Edge2", False)
 
 # Change parameter edges with a consecutive NON connected edges
-netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "gneE7 Edge0", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "Edge5 Edge0", False)
 
 # Change parameter edges with valid a single edge
 netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "Edge0", False)

@@ -36,11 +36,11 @@
     <edge id="gneE10" from="Junction3" to="gneJ8" priority="-1" numLanes="1" speed="13.89" width="2.00" allow="bicycle"/>
     <edge id="gneE11" from="gneJ8" to="Junction3" priority="-1" numLanes="1" speed="13.89" width="2.00" allow="bicycle"/>
     <edge id="Edge0" from="Junction0" to="Junction2" priority="-1" numLanes="1" speed="13.89"/>
-    <edge id="gneE3" from="Junction3" to="Junction2" priority="-1" numLanes="2" speed="13.89"/>
+    <edge id="Edge4" from="Junction3" to="Junction2" priority="-1" numLanes="2" speed="13.89"/>
     <edge id="Edge1" from="Junction2" to="Junction3" priority="-1" numLanes="2" speed="13.89"/>
     <edge id="Edge2" from="Junction3" to="Junction3" priority="-1" numLanes="1" speed="13.89"/>
-    <edge id="gneE6" from="Junction3" to="Junction3" priority="-1" numLanes="1" speed="13.89"/>
-    <edge id="gneE7" from="Junction2" to="Junction0" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="Edge3" from="Junction3" to="Junction3" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="Edge5" from="Junction2" to="Junction0" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="gneE8" from="gneJ8" to="gneJ9" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="gneE9" from="gneJ9" to="gneJ8" priority="-1" numLanes="1" speed="13.89"/>
 </edges>

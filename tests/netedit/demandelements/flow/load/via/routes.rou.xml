@@ -61,6 +61,6 @@
 
     <flow id="flow_3" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via="Edge2"/>
 
-    <flow id="flow_4" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via="gneE7"/>
+    <flow id="flow_4" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" via="Edge5"/>
 
 </routes>

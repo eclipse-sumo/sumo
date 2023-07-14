@@ -6,7 +6,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
     <route id="r_0" edges="Edge0 Edge1 Edge2"/>
-    <route id="secondRoute" edges="gneE6 gneE3" color="orange"/>
+    <route id="secondRoute" edges="Edge3 Edge4" color="orange"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="v_0" depart="0.00" route="secondRoute"/>
 </routes>

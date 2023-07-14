@@ -6,7 +6,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
     <route id="routeA" edges="Edge0 Edge1 Edge2" color="yellow"/>
-    <route id="routeB" edges="gneE6 gneE3 gneE7" color="yellow"/>
+    <route id="routeB" edges="Edge3 Edge4 Edge5" color="yellow"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="flowA" begin="0.00" departLane="0" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" color="red" line="line A" personNumber="1" containerNumber="5" insertionChecks="speedLimit pedestrian all" route="routeA" end="2600.00" number="13">
         <param key="KeyA1" value="valueA1"/>
