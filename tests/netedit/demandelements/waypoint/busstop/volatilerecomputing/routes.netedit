@@ -13,7 +13,7 @@
         <stop busStop="busStopG" duration="60.00" speed="10.00"/>
         <stop busStop="busStopH" duration="60.00" speed="10.00"/>
     </route>
-    <route id="route_1" edges="gneE0 gneE1" color="yellow">
+    <route id="route_1" edges="Edge0 Edge1 Edge2" color="yellow">
         <stop busStop="busStopA" duration="60.00" speed="10.00"/>
         <stop busStop="busStopB" duration="60.00" speed="10.00"/>
     </route>

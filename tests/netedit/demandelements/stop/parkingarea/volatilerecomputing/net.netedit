@@ -160,11 +160,11 @@
         <lane id="E1_1" index="1" disallow="pedestrian" speed="13.89" length="9.60" shape="48.40,14.80 48.40,5.20"/>
     </edge>
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE0_0" index="0" allow="pedestrian" speed="13.89" length="39.60" width="2.00" shape="5.20,-4.20 44.80,-4.20"/>
+        <lane id="Edge0_0" index="0" allow="pedestrian" speed="13.89" length="39.60" width="2.00" shape="5.20,-4.20 44.80,-4.20"/>
         <lane id="gneE0_1" index="1" disallow="pedestrian" speed="13.89" length="39.60" shape="5.20,-1.60 44.80,-1.60"/>
     </edge>
     <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
-        <lane id="gneE1_0" index="0" allow="pedestrian" speed="13.89" length="39.60" width="2.00" shape="44.80,4.20 5.20,4.20"/>
+        <lane id="Edge2_0" index="0" allow="pedestrian" speed="13.89" length="39.60" width="2.00" shape="44.80,4.20 5.20,4.20"/>
         <lane id="gneE1_1" index="1" disallow="pedestrian" speed="13.89" length="39.60" shape="44.80,1.60 5.20,1.60"/>
     </edge>
     <edge id="Edge0" from="gneJ2" to="gneJ3" priority="1">
@@ -196,13 +196,13 @@
         <phase duration="5"  state="rrrr"/>
     </tlLogic>
 
-    <junction id="gneJ0" type="traffic_light" x="0.00" y="0.00" incLanes="E0_0 E0_1 gneE1_0 gneE1_1 :gneJ0_w1_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_3_0 :gneJ0_c0_0" shape="-5.20,5.20 5.20,5.20 5.20,-5.20 2.02,-4.91 -0.58,-4.04 -2.60,-2.60 -4.04,-0.58 -4.91,2.02">
+    <junction id="gneJ0" type="traffic_light" x="0.00" y="0.00" incLanes="E0_0 E0_1 Edge2_0 gneE1_1 :gneJ0_w1_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_3_0 :gneJ0_c0_0" shape="-5.20,5.20 5.20,5.20 5.20,-5.20 2.02,-4.91 -0.58,-4.04 -2.60,-2.60 -4.04,-0.58 -4.91,2.02">
         <request index="0" response="1000" foes="1100" cont="0"/>
         <request index="1" response="1000" foes="1000" cont="0"/>
         <request index="2" response="0001" foes="0001" cont="1"/>
         <request index="3" response="0000" foes="0011" cont="0"/>
     </junction>
-    <junction id="gneJ1" type="traffic_light" x="50.00" y="0.00" incLanes="E1_0 E1_1 gneE0_0 gneE0_1 :gneJ1_w1_0" intLanes=":gneJ1_0_0 :gneJ1_3_0 :gneJ1_4_0 :gneJ1_c0_0" shape="44.80,5.20 55.20,5.20 54.91,2.02 54.04,-0.58 52.60,-2.60 50.58,-4.04 47.98,-4.91 44.80,-5.20">
+    <junction id="gneJ1" type="traffic_light" x="50.00" y="0.00" incLanes="E1_0 E1_1 Edge0_0 gneE0_1 :gneJ1_w1_0" intLanes=":gneJ1_0_0 :gneJ1_3_0 :gneJ1_4_0 :gneJ1_c0_0" shape="44.80,5.20 55.20,5.20 54.91,2.02 54.04,-0.58 52.60,-2.60 50.58,-4.04 47.98,-4.91 44.80,-5.20">
         <request index="0" response="1000" foes="1100" cont="0"/>
         <request index="1" response="1000" foes="1000" cont="1"/>
         <request index="2" response="0001" foes="0001" cont="1"/>

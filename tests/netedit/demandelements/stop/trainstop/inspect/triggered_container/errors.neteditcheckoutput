@@ -1,2 +1,2 @@
-Warning: busStop 'trainStopA' on lane 'gneE1_0' is too short for vehicle 'vehicle_0'.
-Warning: Vehicle 'vehicle_0' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: busStop 'trainStopA' on lane 'Edge2_0' is too short for vehicle 'vehicle_0'.
+Warning: Vehicle 'vehicle_0' ignores container triggered stop on lane 'Edge2_0' due to capacity constraints.

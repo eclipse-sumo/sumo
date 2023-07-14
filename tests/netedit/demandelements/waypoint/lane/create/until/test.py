@@ -44,7 +44,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.waypointLane.create.durationEnable)
 netedit.changeDefaultBoolValue(netedit.attrs.waypointLane.create.untilEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.until, "dummyValue")

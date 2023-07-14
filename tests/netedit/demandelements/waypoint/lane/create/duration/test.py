@@ -41,7 +41,7 @@ netedit.changeStopType("waypointLane")
 netedit.changeDefaultBoolValue(netedit.attrs.waypointLane.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.waypointLane.create.durationEnable)

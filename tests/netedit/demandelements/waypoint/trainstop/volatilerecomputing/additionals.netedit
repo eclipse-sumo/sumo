@@ -5,8 +5,8 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <trainStop id="trainStopA" lane="gneE0_0" startPos="19.75" endPos="29.75"/>
-    <trainStop id="trainStopB" lane="gneE1_0" startPos="28.41" endPos="38.41"/>
+    <trainStop id="trainStopA" lane="Edge0_0" startPos="19.75" endPos="29.75"/>
+    <trainStop id="trainStopB" lane="Edge2_0" startPos="28.41" endPos="38.41"/>
     <trainStop id="trainStopC" lane="Edge0_0" startPos="16.48" endPos="26.48"/>
     <trainStop id="trainStopD" lane="Edge0_1" startPos="21.73" endPos="31.73"/>
     <trainStop id="trainStopE" lane="Edge0_2" startPos="23.79" endPos="33.79"/>

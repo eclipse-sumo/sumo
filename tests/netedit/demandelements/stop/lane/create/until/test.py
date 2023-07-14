@@ -44,7 +44,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.durationEnable)
 netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.untilEnable)
 
 # create stop
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.until, "dummyValue")

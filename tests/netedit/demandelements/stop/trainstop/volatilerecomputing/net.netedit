@@ -77,11 +77,11 @@
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE0_0" index="0" allow="pedestrian" speed="13.89" length="50.00" width="2.00" shape="0.00,-4.20 50.00,-4.20"/>
+        <lane id="Edge0_0" index="0" allow="pedestrian" speed="13.89" length="50.00" width="2.00" shape="0.00,-4.20 50.00,-4.20"/>
         <lane id="gneE0_1" index="1" disallow="pedestrian" speed="13.89" length="50.00" shape="0.00,-1.60 50.00,-1.60"/>
     </edge>
     <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
-        <lane id="gneE1_0" index="0" allow="pedestrian" speed="13.89" length="50.00" width="2.00" shape="50.00,4.20 0.00,4.20"/>
+        <lane id="Edge2_0" index="0" allow="pedestrian" speed="13.89" length="50.00" width="2.00" shape="50.00,4.20 0.00,4.20"/>
         <lane id="gneE1_1" index="1" disallow="pedestrian" speed="13.89" length="50.00" shape="50.00,1.60 0.00,1.60"/>
     </edge>
     <edge id="Edge0" from="gneJ2" to="gneJ3" priority="1">
@@ -105,10 +105,10 @@
         <phase duration="3"  state="y"/>
     </tlLogic>
 
-    <junction id="gneJ0" type="traffic_light" x="0.00" y="0.00" incLanes="gneE1_0 gneE1_1" intLanes=":gneJ0_0_0" shape="0.00,0.00 0.00,5.20 0.00,0.00">
+    <junction id="gneJ0" type="traffic_light" x="0.00" y="0.00" incLanes="Edge2_0 gneE1_1" intLanes=":gneJ0_0_0" shape="0.00,0.00 0.00,5.20 0.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ1" type="traffic_light" x="50.00" y="0.00" incLanes="gneE0_0 gneE0_1" intLanes=":gneJ1_0_0" shape="50.00,0.00 50.00,-5.20 50.00,0.00">
+    <junction id="gneJ1" type="traffic_light" x="50.00" y="0.00" incLanes="Edge0_0 gneE0_1" intLanes=":gneJ1_0_0" shape="50.00,0.00 50.00,-5.20 50.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="gneJ2" type="priority" x="50.00" y="20.00" incLanes="Edge1_0" intLanes=":gneJ2_0_0" shape="50.00,20.00 50.00,16.80 50.00,20.00">
