@@ -45,7 +45,7 @@
     </trip>
 
     <!-- trip B -->
-    <trip id="tripB" fromTaz="taz_2" toTaz="taz_3" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" insertionChecks="leaderGap junction speedLimit pedestrian" personNumber="2" containerNumber="10" depart="10.00">
+    <trip id="tripB" fromTaz="taz_red" toTaz="taz_green" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" insertionChecks="leaderGap junction speedLimit pedestrian" personNumber="2" containerNumber="10" depart="10.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>

@@ -60,6 +60,14 @@ class demandElements:
         x = 135
         y = 50
 
+    class TAZGreen:
+        x = 200
+        y = 315
+
+    class TAZRed:
+        x = 740
+        y = 315
+
     # click over single trips, flows, etc... over edges
     class singleVehicleEdge:
         x = 160
@@ -70,7 +78,12 @@ class demandElements:
         x = 186
         y = 465
 
-#    click over single trips, flows, etc... over junctions
+    # click over single trip or flow over junctions
     class singleVehicleJunction:
         x = 160
         y = 435
+
+    # click over single trip or flow over TAZ
+    class singleVehicleTAZ:
+        x = 280
+        y = 315

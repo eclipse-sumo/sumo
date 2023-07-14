@@ -11,13 +11,13 @@
         <tazSource id="gneE7" weight="1.00"/>
         <tazSink id="gneE7" weight="1.00"/>
     </taz>
-    <taz id="taz_2" shape="10.00,50.00 50.00,50.00 50.00,40.00 10.00,40.00 10.00,50.00" fill="1" color="green">
+    <taz id="taz_red" shape="10.00,50.00 50.00,50.00 50.00,40.00 10.00,40.00 10.00,50.00" fill="1" color="green">
         <tazSource id="Edge2" weight="1.00"/>
         <tazSink id="Edge2" weight="1.00"/>
         <tazSource id="gneE6" weight="1.00"/>
         <tazSink id="gneE6" weight="1.00"/>
     </taz>
-    <taz id="taz_3" shape="10.00,-10.00 10.00,0.00 50.00,0.00 50.00,-10.00 10.00,-10.00" fill="1" color="orange">
+    <taz id="taz_green" shape="10.00,-10.00 10.00,0.00 50.00,0.00 50.00,-10.00 10.00,-10.00" fill="1" color="orange">
         <tazSource id="Edge0" weight="1.00"/>
         <tazSink id="Edge0" weight="1.00"/>
         <tazSource id="gneE7" weight="1.00"/>

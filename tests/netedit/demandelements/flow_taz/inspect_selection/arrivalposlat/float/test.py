@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 100, 225)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x, netedit.positions.demandElements.singleVehicleTAZ.y)
 
 # change arrivalSpeed with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.arrivalSpeed, "", False)
