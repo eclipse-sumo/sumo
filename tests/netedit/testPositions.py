@@ -21,36 +21,51 @@
 
 class demandElements:
 
-    class edgeBot0:
+    class edge0:
         x = 450
         y = 440
-
-    class edgeBot1:
-        x = 450
-        y = 390
-
-    class edgeRight0:
+    
+    class edge1:
         x = 885
         y = 225
-    
-    class edgeRight1:
-        x = 835
-        y = 225
-
-    class edgeTop0:
+    class edge2:
         x = 280
         y = 30
 
-    class edgeTop1:
+    class edge3:
         x = 280
         y = 75
 
-    # inspect single trips, flows, etc... over edges
-    class inspectSingleVehicleEdge:
+    class edge4:
+        x = 835
+        y = 225
+
+    class edge5:
+        x = 450
+        y = 390
+
+    class junction0:
+        x = 135
+        y = 415
+
+    class junction1:
+        x = 860
+        y = 415
+
+    class junction2:
+        x = 860
+        y = 50
+
+    class junction3:
+        x = 135
+        y = 50
+
+    # click over single trips, flows, etc... over edges
+    class singleVehicleEdge:
         x = 160
         y = 435
 
-    # inspect single trips, flows, etc... over edges
-    class inspectMultipleVehicleEdge:
+    # click over multiple trips, flows, etc... over edges
+    class multipleVehiclesEdge:
         x = 186
         y = 465

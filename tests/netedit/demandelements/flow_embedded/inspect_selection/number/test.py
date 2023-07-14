@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.inspectMultipleVehicleEdge.x, netedit.positions.demandElements.inspectMultipleVehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.terminate, "dummyTerminate", False)

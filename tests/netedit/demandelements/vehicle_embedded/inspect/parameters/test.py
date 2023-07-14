@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (embedded route)")
 
 # create trip using two edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.inspectSingleVehicleEdge.x, netedit.positions.demandElements.inspectSingleVehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x, netedit.positions.demandElements.singleVehicleEdge.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.vehicleEmbedded.inspect.parameters, False)

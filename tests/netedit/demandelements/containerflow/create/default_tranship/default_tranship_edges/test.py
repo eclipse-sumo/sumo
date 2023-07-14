@@ -42,7 +42,7 @@ netedit.changeContainerPlan("tranship: edges", True)
 
 # create route using three edges
 netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeRight0.x, netedit.positions.demandElements.edgeRight0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
 netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route

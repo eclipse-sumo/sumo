@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # create flow using two edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.inspectSingleVehicleEdge.x, netedit.positions.demandElements.inspectSingleVehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x, netedit.positions.demandElements.singleVehicleEdge.y)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.flow.inspect.spacing, "dummyTerminate", False)

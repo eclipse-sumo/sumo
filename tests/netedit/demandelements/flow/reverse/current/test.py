@@ -38,14 +38,14 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeBot0.x, netedit.positions.demandElements.edgeBot0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeTop0.x, netedit.positions.demandElements.edgeTop0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create trip
 netedit.typeEnter()
 
 # transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.inspectSingleVehicleEdge.x, netedit.positions.demandElements.inspectSingleVehicleEdge.y,
+netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x, netedit.positions.demandElements.singleVehicleEdge.y,
                                 netedit.attrs.flow.reverseElement,
                                 netedit.attrs.flow.reverse.current)
 

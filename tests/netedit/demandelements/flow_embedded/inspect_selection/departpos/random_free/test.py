@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.inspectMultipleVehicleEdge.x, netedit.positions.demandElements.inspectMultipleVehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change departLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departPos, "", False)
