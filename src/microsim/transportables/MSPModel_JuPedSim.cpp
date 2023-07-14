@@ -150,6 +150,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
 
     PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, arrivalPosition);
     state->setLanePosition(stage->getDepartPos());
+    state->setPreviousPosition(departurePosition);
     state->setPosition(departurePosition.x(), departurePosition.y());
     state->setAngle(departureLane->getShape().rotationAtOffset(stage->getDepartPos()));
     myPedestrianStates.push_back(state);
@@ -184,22 +185,26 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
     // If it is needed for model correctness (precise stopping / arrivals) we should rather reduce SUMO's step-length.
     for (auto stateIt = myPedestrianStates.begin(); stateIt != myPedestrianStates.end();) {
         PState* const state = *stateIt;
+        
         if (state->isWaitingToEnter()) {
             tryInsertion(state);
             ++stateIt;
             continue;
         }
+
+        MSPerson* person = state->getPerson();
+        MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
+
         // Updates the agent position.
         JPS_VelocityModelAgentParameters agent{};
         JPS_Simulation_ReadVelocityModelAgent(myJPSSimulation, state->getAgentId(), &agent, nullptr);
+        state->setPreviousPosition(state->getPosition(*stage, DELTA_T));
         state->setPosition(agent.position.x, agent.position.y);
 
         // Updates the agent direction.
         state->setAngle(atan2(agent.orientation.y, agent.orientation.x));
 
         Position newPosition(agent.position.x, agent.position.y);
-        MSPerson* person = state->getPerson();
-        MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
         const MSEdge* currentEdge = stage->getEdge();
         const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
         MSLane* lane = nullptr;
@@ -223,6 +228,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             UNUSED_PARAMETER(result);
             assert(result == false); // The person has not arrived yet.
         }
+        
         // If near the last waypoint, remove the agent.
         if (newPosition.distanceTo2D(state->getDestination()) < myExitTolerance) {
             JPS_Simulation_RemoveAgent(myJPSSimulation, state->getAgentId(), nullptr);
@@ -233,6 +239,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             ++stateIt;
         }
     }
+
     JPS_ErrorMessage_Free(message);
 
     return DELTA_T;
@@ -665,6 +672,16 @@ void MSPModel_JuPedSim::PState::setPosition(double x, double y) {
 }
 
 
+Position MSPModel_JuPedSim::PState::getPreviousPosition() const {
+    return myPreviousPosition;
+}
+
+
+void MSPModel_JuPedSim::PState::setPreviousPosition(Position previousPosition) {
+    myPreviousPosition = previousPosition;
+}
+
+
 double MSPModel_JuPedSim::PState::getAngle(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
     return myAngle;
 }
@@ -706,7 +723,8 @@ SUMOTime MSPModel_JuPedSim::PState::getWaitingTime(const MSStageMoving& /* stage
 
 
 double MSPModel_JuPedSim::PState::getSpeed(const MSStageMoving& /* stage */) const {
-    return 0.0;
+    Position velocity = (myPosition - myPreviousPosition) / STEPS2TIME(DELTA_T);
+    return velocity.length2D();
 }
 
 
