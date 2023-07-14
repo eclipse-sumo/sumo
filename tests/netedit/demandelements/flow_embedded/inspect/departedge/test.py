@@ -60,8 +60,8 @@ netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departEdge, "50", Fal
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departEdge, "1", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

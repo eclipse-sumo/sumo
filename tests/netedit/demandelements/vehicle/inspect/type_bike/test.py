@@ -61,8 +61,8 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehi
 netedit.modifyAttribute(netedit.attrs.vehicle.inspect.type, "DEFAULT_BIKETYPE", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

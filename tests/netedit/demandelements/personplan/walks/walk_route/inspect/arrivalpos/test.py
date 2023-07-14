@@ -77,8 +77,8 @@ netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.arrivalPos, "-6", True)
 netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.arrivalPos, "2.5", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

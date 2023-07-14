@@ -59,8 +59,8 @@ netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.color, "c
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.color, "12,13,14", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 6)
-netedit.redo(referencePosition, 6)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

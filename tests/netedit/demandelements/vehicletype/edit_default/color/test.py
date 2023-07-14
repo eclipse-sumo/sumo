@@ -50,8 +50,8 @@ netedit.modifyAttribute(netedit.attrs.type.editDefault.color + 1, "cyan", False)
 netedit.modifyAttribute(netedit.attrs.type.editDefault.color + 1, "12,13,14", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -70,8 +70,8 @@ netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departPos, "500", True)
 netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departPos, "random_free", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -59,8 +59,8 @@ netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.terminateOpt
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.terminateOption, "23", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

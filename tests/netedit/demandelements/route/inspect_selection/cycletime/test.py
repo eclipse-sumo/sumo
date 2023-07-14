@@ -73,8 +73,8 @@ netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "-12.4",
 netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "56.12", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

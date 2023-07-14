@@ -53,8 +53,8 @@ netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departLane, 
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departLane, "allowed", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

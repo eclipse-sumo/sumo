@@ -76,8 +76,8 @@ netedit.modifyAttribute(netedit.attrs.route.inspectSelection.color, "12,15,30", 
 netedit.modifyAttribute(netedit.attrs.route.inspectSelection.color, "red", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

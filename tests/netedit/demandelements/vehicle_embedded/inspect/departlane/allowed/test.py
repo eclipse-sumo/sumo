@@ -60,8 +60,8 @@ netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.departLane, "dummy
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.departLane, "allowed", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

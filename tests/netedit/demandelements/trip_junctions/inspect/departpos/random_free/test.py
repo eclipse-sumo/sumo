@@ -63,8 +63,8 @@ netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.departPos, "500", Fal
 netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.departPos, "random_free", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -65,8 +65,8 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.spacingOption, 
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.spacingOption, "0.3", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

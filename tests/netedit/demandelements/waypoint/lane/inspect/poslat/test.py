@@ -62,8 +62,8 @@ netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "6", False)
 netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "2.3", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

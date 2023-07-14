@@ -53,8 +53,8 @@ netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.par
 netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.parking, "opportunistic", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

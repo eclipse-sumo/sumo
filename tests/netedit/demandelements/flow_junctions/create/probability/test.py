@@ -91,8 +91,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacingOption, "0.6")
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

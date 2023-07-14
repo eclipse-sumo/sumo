@@ -66,8 +66,8 @@ netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "gneE9", False)
 netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "gneE8 gneE9", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

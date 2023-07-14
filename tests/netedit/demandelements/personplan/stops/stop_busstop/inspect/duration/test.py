@@ -81,8 +81,8 @@ netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspect.duration, "-7.3"
 netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspect.duration, "6.7", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

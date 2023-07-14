@@ -76,8 +76,8 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "cf_1", False)
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "customID", False)
 
 # Check undo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

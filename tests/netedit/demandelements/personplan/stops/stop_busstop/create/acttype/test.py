@@ -69,8 +69,8 @@ netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.actType, "sing
 netedit.leftClick(referencePosition, 180, 50)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # press enter to create route
 netedit.typeEnter()
