@@ -119,7 +119,7 @@ class demandElements:
     # click over single trips, flows, etc... over edges
     class singleVehicleEdge:
         x = 160
-        y = 435
+        y = 465
 
     # click over multiple trips, flows, etc... over edges
     class multipleVehiclesEdge:
