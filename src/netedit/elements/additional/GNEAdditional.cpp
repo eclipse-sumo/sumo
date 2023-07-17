@@ -296,6 +296,30 @@ GNEAdditional::isValidDetectorID(const std::string& newID) const {
 
 
 void
+GNEAdditional::setAdditionalID(const std::string& newID) {
+    // set microsim ID
+    setMicrosimID(newID);
+    // change IDs of certain children
+    for (const auto& additionalChild : getChildAdditionals()) {
+        // get tag
+        const auto tag = additionalChild->getTagProperty().getTag();
+        if ((tag == SUMO_TAG_ACCESS) || (tag == SUMO_TAG_PARKING_SPACE) ||
+            (tag == SUMO_TAG_DET_ENTRY) || (tag == SUMO_TAG_DET_EXIT)) {
+            additionalChild->setAdditionalID(getID());
+        }
+    }
+    // enable save demand elements if this additional has children
+    if (getChildDemandElements().size() > 0) {
+        myNet->getSavingStatus()->requireSaveDemandElements();
+    }
+    // enable save data elements if this additional has children
+    if (getChildGenericDatas().size() > 0) {
+        myNet->getSavingStatus()->requireSaveDataElements();
+    }
+}
+
+
+void
 GNEAdditional::drawAdditionalID(const GUIVisualizationSettings& s) const {
     if (s.addName.show(this) && (myAdditionalGeometry.getShape().size() > 0) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
         // calculate middle point

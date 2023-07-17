@@ -345,6 +345,9 @@ protected:
     /// @brief check if a new detector ID is valid
     bool isValidDetectorID(const std::string& newID) const;
 
+    /// @brief set additional ID
+    void setAdditionalID(const std::string& newID);
+
     /// @}
 
     /// @brief draw additional ID

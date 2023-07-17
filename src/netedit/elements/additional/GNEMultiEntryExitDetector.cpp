@@ -349,11 +349,7 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
-            // Change IDs of all Entry/Exits children
-            for (const auto& entryExit : getChildAdditionals()) {
-                entryExit->setMicrosimID(getID());
-            }
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);

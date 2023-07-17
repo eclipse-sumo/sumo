@@ -760,7 +760,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID: {
             // update microsimID
-            setMicrosimID(value);
+            setAdditionalID(value);
             // set named ID
             myID = value;
             break;
