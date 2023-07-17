@@ -275,6 +275,32 @@ def add_time_windows_constraint(data, routing, manager, verbose):
     #         time_dimension.CumulVar(routing.Start(i)))
     #     routing.AddVariableMinimizedByFinalizer(
     #         time_dimension.CumulVar(routing.End(i)))
+    return time_dimension
+
+
+def add_waiting_time_constraints(data, routing, manager, solver, time_dimension, verbose):
+    """Adds the constraints related to the maximum waiting times of the requests.
+    """
+    global_waiting_time = data["waiting_time"]
+    # -1 means no waiting time is used
+    if global_waiting_time == -1:
+        return
+    if verbose:
+        print(' Add waiting time constraints...')
+    # for now, only a global waiting time for the pick up is introduced
+    # TODO: add hard constraint for new reservations
+    # TODO: add special constraints for latests arrival and earliest depart
+    for request in data["pickups_deliveries"]:
+        reservation_time = request.reservationTime
+        maximum_pickup_time = solver.IntConst(round(reservation_time + global_waiting_time))
+        pickup_index = manager.NodeToIndex(request.from_node)
+        time_dimension.SetCumulVarSoftUpperBound(
+                pickup_index,
+                maximum_pickup_time,
+                30)  # cost = coefficient * (cumulVar - maximum_pickup_time)
+        if verbose:
+            print(f"reservation {request.id} has a maximum (soft) pickup time at {maximum_pickup_time}")
+
 
 
 def solve_from_initial_solution(routing, manager, search_parameters, data, verbose):
@@ -340,7 +366,7 @@ def set_first_solution_heuristic(time_limit_seconds, verbose):
     return search_parameters
 
 
-def main(data, time_limit_seconds=10, verbose=False):
+def main(data: dict, time_limit_seconds=10, verbose=False):
     """Entry point of the program."""
     # Create the routing index manager.
     manager = pywrapcp.RoutingIndexManager(
@@ -374,8 +400,11 @@ def main(data, time_limit_seconds=10, verbose=False):
     add_capacity_constraint(data, routing, manager, verbose)
 
     # Add time window constraints.
-    add_time_windows_constraint(data, routing, manager, verbose)
+    time_dimension = add_time_windows_constraint(data, routing, manager, verbose)
 
+    # Add waiting time constraints.
+    add_waiting_time_constraints(data, routing, manager, solver, time_dimension, verbose)
+    
     print('## Done')
     # Setting first solution heuristic.
     search_parameters = set_first_solution_heuristic(time_limit_seconds, verbose)
