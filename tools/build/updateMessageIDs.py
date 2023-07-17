@@ -38,19 +38,29 @@ def getOptions(args=None):
     ap = ArgumentParser()
     ap.add_argument("-l", "--lang", nargs='*', help="languages to process (using the gettext short codes like en, fr, de)")
     ap.add_argument("--replace", nargs='*', 
-                    help="search/replace commands to apply automatically, giving the search string on the uneven position and the replace string on the even position; cannot be used together with --numbered-placeholders")
+                    help="search/replace commands to apply automatically, giving the search string on the uneven \
+                    position and the replace string on the even position; cannot be used together with \
+                    --numbered-placeholders")
     ap.add_argument("--numbered-placeholders", dest="numberedPlaceholders", default=False, action="store_true", 
-                    help="add a running number to every placeholder in a msgid, starting with 0; cannot be used together with --replace")
+                    help="add a running number to every placeholder in a msgid, starting with 0; cannot be \
+                    used together with --replace")
     ap.add_argument("--placeholder", default='%', help="string used for unnumbered placeholders")
-    ap.add_argument("--search-prefix", dest="searchPrefix", default=' ', type=str, help="characters which can precede the actual search string in --replace (ignored with --strict)")
-    ap.add_argument("--search-suffix", dest="searchSuffix", default=' .?!', type=str, help="characters which can succeed the actual search string in --replace (ignored with --strict)")
-    ap.add_argument("--strict", default=False, action="store_true",  help="compare the entire msgid to the search string")
-    ap.add_argument("--start", default=False, action="store_true", help="create the English to English po file to edit manually")
-    ap.add_argument("--apply", default=False, action="store_true", help="apply changes to source files and to msgid values in po files of languages to process")
-    ap.add_argument("--remove-obsolete", dest="removeObsolete", default=False, action="store_true", help="remove obsolete msgid entries which have been superseded by replace strings")
-    ap.add_argument("--mark-fuzzy", dest="markFuzzy", default=False, action="store_true", help="mark kept translations of changed msgid as fuzzy")
+    ap.add_argument("--search-prefix", dest="searchPrefix", default=' ', type=str, 
+                    help="characters which can precede the actual search string in --replace (ignored with --strict)")
+    ap.add_argument("--search-suffix", dest="searchSuffix", default=' .?!', type=str, 
+                    help="characters which can succeed the actual search string in --replace (ignored with --strict)")
+    ap.add_argument("--strict", default=False, action="store_true", 
+                    help="compare the entire msgid to the search string")
+    ap.add_argument("--start", default=False, action="store_true", 
+                    help="create the English to English po file to edit manually")
+    ap.add_argument("--apply", default=False, action="store_true", 
+                    help="apply changes to source files and to msgid values in po files of languages to process")
+    ap.add_argument("--remove-obsolete", dest="removeObsolete", default=False, action="store_true", 
+                    help="remove obsolete msgid entries which have been superseded by replace strings")
+    ap.add_argument("--mark-fuzzy", dest="markFuzzy", default=False, action="store_true", 
+                    help="mark kept translations of changed msgid as fuzzy")
     ap.add_argument("--process-languages", dest="processLanguages", default=False, action="store_true", 
-                    help="process msgstr values of language po files with the same rules as the english original message")
+                    help="process msgstr values of language po files with the same rules as the original message")
     ap.add_argument("--sumo-home", default=SUMO_HOME, help="SUMO root directory to use")
     return ap.parse_args(args)
 
@@ -65,12 +75,14 @@ def main(args=None):
     if not options.start and not options.apply:
         sys.exit("At least one of the --start or --apply options has to be given to do something.")
     if options.numberedPlaceholders and options.replace is not None:
-        print("Cannot apply both placeholder numbers and replace commands together. Replace commands will be neglected.")
+        print("Cannot apply both placeholder numbers and replace commands together. 
+            Replace commands will be neglected.")
         options.replace.clear()
     replaceRules = []
     if options.replace is not None:
         if len(options.replace) % 2 != 0:
-            print("The replace string for the search string '%s' is missing. The named search string will be neglected." % options.replace[-1])
+            print("The replace string for the search string '%s' is missing. The named search string will be neglected."
+                % options.replace[-1])
             options.replace = options.replace[:-1]
         for i in range(0, len(options.replace), 2):
             if options.strict:
@@ -84,7 +96,8 @@ def main(args=None):
                     suffixes.append('')
                 for prefix in prefixes:
                     for suffix in suffixes:
-                        replaceRules.append((prefix + options.replace[i] + suffix, prefix + options.replace[i+1] + suffix, None))
+                        replaceRules.append((prefix + options.replace[i] + suffix, 
+                            prefix + options.replace[i+1] + suffix, None))
     if options.lang is None:
         options.lang = [os.path.basename(p)[:-8] for p in glob(options.sumo_home + "/data/po/*_sumo.po")]
     if options.start:
@@ -142,7 +155,8 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
 
         # change the msgid in other language files accordingly
         for langCode in options.lang:
-            translatedPoFile = os.path.join(os.path.dirname(potFile), "%s_" % langCode + os.path.basename(potFile)[:-4] + ".po")
+            translatedPoFile = os.path.join(os.path.dirname(potFile), "%s_" % langCode +\
+                os.path.basename(potFile)[:-4] + ".po")
             if not os.path.exists(translatedPoFile):
                 print("Missing po translation file %s to update" % translatedPoFile)
                 continue
@@ -150,11 +164,12 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
             
             # optionally process the translated messages as well
             if options.processLanguages:
-                processRules(translatedPoFile, replaceRules, options, translated=True, filterIDs=[entry.msgstr for entry in replaceIDs])
+                processRules(translatedPoFile, replaceRules, options, translated=True, 
+                             filterIDs=[entry.msgstr for entry in replaceIDs])
     if options.apply:
         os.remove(uniLangPoFile)
-    
-    
+
+
 def transferOccurrences(fromEntry, toEntry):
     toEntry.occurrences.extend(fromEntry.occurrences)
     fromEntry.occurrences.clear()
@@ -176,8 +191,10 @@ def processRules(poFilePath, replaceRules, options, markObsolete=False, filterID
             if placeholderIndex > -1:
                 replaced = entry.msgstr
             while placeholderIndex > -1:
-                replaced = replaced[:placeholderIndex + len(options.placeholder)] + str(i) + replaced[placeholderIndex  + len(options.placeholder):]
-                placeholderIndex = replaced.find(options.placeholder, placeholderIndex + len(options.placeholder) + len(str(i)))
+                replaced = replaced[:placeholderIndex + len(options.placeholder)] + str(i) +\
+                    replaced[placeholderIndex  + len(options.placeholder):]
+                placeholderIndex = replaced.find(options.placeholder, placeholderIndex +\
+                    len(options.placeholder) + len(str(i)))
                 i += 1
         for replaceRule in replaceRules:
             if options.strict and replaceRule[0] == entry.msgstr:
