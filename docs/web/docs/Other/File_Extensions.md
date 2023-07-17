@@ -20,6 +20,9 @@ corresponding executable with "cfg" appended)
   - **\*.sumocfg** (formerly .sumo.cfg): Configuration file for
     [sumo](../sumo.md) and [sumo-gui](../sumo-gui.md)
     ([xsd](https://sumo.dlr.de/xsd/sumoConfiguration.xsd))
+  - **\*.netecfg** (formerly .neteditcfg): Configuration file for
+    [netedit](../Netedit/index.md)
+    ([xsd](https://sumo.dlr.de/xsd/neteditConfiguration.xsd))
   - **\*.netccfg** (formerly .netc.cfg): Configuration file for
     [netconvert](../netconvert.md)
     ([xsd](https://sumo.dlr.de/xsd/netconvertConfiguration.xsd))
