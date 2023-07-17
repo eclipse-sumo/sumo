@@ -2063,10 +2063,10 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
 
 
 void
-GNEEdge::setMicrosimID(const std::string& newID) {
-    GUIGlObject::setMicrosimID(newID);
+GNEEdge::setEdgeID(const std::string& newID) {
+    setNetworkElementID(newID);
     for (const auto& lane : myLanes) {
-        lane->setMicrosimID(getNBEdge()->getLaneID(lane->getIndex()));
+        lane->setNetworkElementID(getNBEdge()->getLaneID(lane->getIndex()));
     }
 }
 

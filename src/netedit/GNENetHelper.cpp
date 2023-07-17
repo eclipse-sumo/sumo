@@ -158,12 +158,12 @@ GNENetHelper::AttributeCarriers::remapJunctionAndEdgeIds() {
     std::map<std::string, GNEJunction*> newJunctionMap;
     // fill newEdgeMap
     for (const auto& edge : myEdges) {
-        edge.second->setMicrosimID(edge.second->getNBEdge()->getID());
+        edge.second->setEdgeID(edge.second->getNBEdge()->getID());
         newEdgeMap[edge.second->getNBEdge()->getID()] = edge.second;
     }
     for (const auto& junction : myJunctions) {
         newJunctionMap[junction.second->getNBNode()->getID()] = junction.second;
-        junction.second->setMicrosimID(junction.second->getNBNode()->getID());
+        junction.second->setNetworkElementID(junction.second->getNBNode()->getID());
     }
     myEdges = newEdgeMap;
     myJunctions = newJunctionMap;
@@ -464,7 +464,7 @@ GNENetHelper::AttributeCarriers::addPrefixToJunctions(const std::string& prefix)
     // fill junctions again
     for (const auto& junction : junctionCopy) {
         // update microsim ID
-        junction.second->setMicrosimID(prefix + junction.first);
+        junction.second->setNetworkElementID(prefix + junction.first);
         // insert in myJunctions again
         myJunctions[prefix + junction.first] = junction.second;
     }
@@ -483,7 +483,7 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEJunction* junction, const s
         // rename in NetBuilder
         myNet->getNetBuilder()->getNodeCont().rename(junction->getNBNode(), newID);
         // update microsim ID
-        junction->setMicrosimID(newID);
+        junction->setNetworkElementID(newID);
         // add it into myJunctions again
         myJunctions[junction->getID()] = junction;
         // build crossings
@@ -688,7 +688,7 @@ GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEEdgeType* edgeType, const s
         // rename in typeCont
         myNet->getNetBuilder()->getTypeCont().updateEdgeTypeID(edgeType->getID(), newID);
         // update microsim ID
-        edgeType->setMicrosimID(newID);
+        edgeType->setNetworkElementID(newID);
         // add it into myEdgeTypes again
         myEdgeTypes[edgeType->getID()] = edgeType;
         // net has to be saved
@@ -791,7 +791,7 @@ GNENetHelper::AttributeCarriers::addPrefixToEdges(const std::string& prefix) {
     // fill edges again
     for (const auto& edge : edgeCopy) {
         // update microsim ID
-        edge.second->setMicrosimID(prefix + edge.first);
+        edge.second->setNetworkElementID(prefix + edge.first);
         // insert in myEdges again
         myEdges[prefix + edge.first] = edge.second;
     }
@@ -810,7 +810,7 @@ GNENetHelper::AttributeCarriers::updateEdgeID(GNEEdge* edge, const std::string& 
         // rename in NetBuilder
         myNet->getNetBuilder()->getEdgeCont().rename(edge->getNBEdge(), newID);
         // update microsim ID
-        edge->setMicrosimID(newID);
+        edge->setEdgeID(newID);
         // add it into myEdges again
         myEdges[edge->getID()] = edge;
         // rename all connections related to this edge

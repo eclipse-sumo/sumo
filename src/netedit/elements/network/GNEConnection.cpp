@@ -245,8 +245,8 @@ GNEConnection::getNBConnection() const {
 
 
 void
-GNEConnection::updateID() {
-    setMicrosimID(myFromLane->getID() + " -> " + myToLane->getID());
+GNEConnection::updateConnectionID() {
+    setNetworkElementID(myFromLane->getID() + " -> " + myToLane->getID());
 }
 
 
