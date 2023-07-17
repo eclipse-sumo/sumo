@@ -554,7 +554,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--ignore-errors** {{DT_BOOL}} | Continue on broken input; *default:* **false** |
 | **--ignore-errors.connections** {{DT_BOOL}} | Continue on invalid connections; *default:* **false** |
 | **--show-errors.connections-first-try** {{DT_BOOL}} | Show errors in connections at parsing; *default:* **false** |
-| **--ignore-errors.edge-type** {{DT_BOOL}} | Continue on unknown edge types; *default:* **false** |
+| **--ignore-errors.edge-type** {{DT_BOOL}} | Continue on unknown edge types; *default:* **false** (**true** when loading plain XML without type files) |
 
 ### Random Number
 
