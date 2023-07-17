@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-13 16:35:10 by Eclipse SUMO netedit Version v1_18_0+0288-17e2524abed
+<!-- generated on 2023-07-17 11:15:17 by Eclipse SUMO netedit Version v1_18_0+0332-272a1e44cea
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.13Jul162600.25668/netedit.gui/demandelements/vehicle/inspect/departspeed/speedlimit/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.13Jul162600.25668/netedit.gui/demandelements/vehicle/inspect/departspeed/speedlimit/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.13Jul162600.25668/netedit.gui/demandelements/vehicle/inspect/departspeed/speedlimit/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.13Jul162600.25668/netedit.gui/demandelements/vehicle/inspect/departspeed/speedlimit/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.routes.1_from_17Jul085406.148997/netedit.daily.demand.routes/demandelements/vehicle/inspect/departspeed/speedlimit/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.routes.1_from_17Jul085406.148997/netedit.daily.demand.routes/demandelements/vehicle/inspect/departspeed/speedlimit/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.routes.1_from_17Jul085406.148997/netedit.daily.demand.routes/demandelements/vehicle/inspect/departspeed/speedlimit/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.routes.1_from_17Jul085406.148997/netedit.daily.demand.routes/demandelements/vehicle/inspect/departspeed/speedlimit/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.13Jul162600.25668/netedit.gui/demandelements/vehicle/inspect/departspeed/speedlimit/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.routes.1_from_17Jul085406.148997/netedit.daily.demand.routes/demandelements/vehicle/inspect/departspeed/speedlimit/net.net.xml"/>
     </output>
 
     <processing>
@@ -32,17 +32,21 @@
         <walkingareas value="0"/>
     </pedestrian>
 
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.13Jul162600.25668/netedit.gui/demandelements/vehicle/inspect/departspeed/speedlimit/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.routes.1_from_17Jul085406.148997/netedit.daily.demand.routes/demandelements/vehicle/inspect/departspeed/speedlimit/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.13Jul162600.25668/netedit.gui/demandelements/vehicle/inspect/departspeed/speedlimit/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.routes.1_from_17Jul085406.148997/netedit.daily.demand.routes/demandelements/vehicle/inspect/departspeed/speedlimit/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.13Jul162600.25668/netedit.gui/demandelements/vehicle/inspect/departspeed/speedlimit/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.demand.routes.1_from_17Jul085406.148997/netedit.daily.demand.routes/demandelements/vehicle/inspect/departspeed/speedlimit/log.txt"/>
     </report>
 
 </configuration>
@@ -87,7 +91,7 @@
     </edge>
 
     <edge id="Edge0" from="Junction0" to="Junction1" priority="-1">
-        <lane id="Edge0_0" index="0" allow="pedestrian" speed="13.89" length="54.80" width="2.00" shape="0.00,5.80 54.80,5.80"/>
+        <lane id="Edge0_0" index="0" speed="13.89" length="54.80" width="2.00" shape="0.00,5.80 54.80,5.80"/>
         <lane id="Edge0_1" index="1" disallow="pedestrian" speed="13.89" length="54.80" shape="0.00,8.40 54.80,8.40"/>
     </edge>
     <edge id="Edge1" from="Junction1" to="Junction2" priority="-1">
@@ -125,12 +129,25 @@
         <lane id="EdgeCenter1_0" index="0" disallow="pedestrian" speed="13.89" length="23.30" shape="30.00,26.60 6.70,26.60"/>
     </edge>
 
+    <tlLogic id="Junction1" type="static" programID="0" offset="0">
+        <phase duration="42" state="GG"/>
+        <phase duration="3"  state="yy"/>
+        <phase duration="42" state="GG"/>
+        <phase duration="3"  state="yy"/>
+    </tlLogic>
+    <tlLogic id="Junction2" type="static" programID="0" offset="0">
+        <phase duration="42" state="GG"/>
+        <phase duration="3"  state="yy"/>
+        <phase duration="42" state="GG"/>
+        <phase duration="3"  state="yy"/>
+    </tlLogic>
+
     <junction id="Junction0" type="dead_end" x="0.00" y="10.00" incLanes="Edge5_0 Edge5_1" intLanes="" shape="0.00,10.00 0.00,15.20 0.00,10.00"/>
-    <junction id="Junction1" type="priority" x="60.00" y="10.00" incLanes="Edge4_0 Edge4_1 Edge0_0 Edge0_1" intLanes=":Junction1_0_0 :Junction1_1_0" shape="54.80,15.20 65.20,15.20 64.91,12.02 64.04,9.42 62.60,7.40 60.58,5.96 57.98,5.09 54.80,4.80">
+    <junction id="Junction1" type="traffic_light" x="60.00" y="10.00" incLanes="Edge4_0 Edge4_1 Edge0_0 Edge0_1" intLanes=":Junction1_0_0 :Junction1_1_0" shape="54.80,15.20 65.20,15.20 64.91,12.02 64.04,9.42 62.60,7.40 60.58,5.96 57.98,5.09 54.80,4.80">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="Junction2" type="priority" x="60.00" y="40.00" incLanes="Edge1_0 Edge1_1 Edge3_0 Edge3_1" intLanes=":Junction2_0_0 :Junction2_1_0" shape="65.20,34.80 54.80,34.80 54.80,45.20 57.98,44.91 60.58,44.04 62.60,42.60 64.04,40.58 64.91,37.98">
+    <junction id="Junction2" type="traffic_light" x="60.00" y="40.00" incLanes="Edge1_0 Edge1_1 Edge3_0 Edge3_1" intLanes=":Junction2_0_0 :Junction2_1_0" shape="65.20,34.80 54.80,34.80 54.80,45.20 57.98,44.91 60.58,44.04 62.60,42.60 64.04,40.58 64.91,37.98">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
@@ -149,12 +166,12 @@
 
     <junction id=":Junction3_3_0" type="internal" x="4.00" y="40.80" incLanes=":Junction3_1_0 EdgeBike1_1" intLanes=":Junction3_2_0"/>
 
-    <connection from="Edge0" to="Edge1" fromLane="1" toLane="1" via=":Junction1_1_0" dir="l" state="M"/>
-    <connection from="Edge1" to="Edge2" fromLane="1" toLane="1" via=":Junction2_0_0" dir="l" state="M"/>
+    <connection from="Edge0" to="Edge1" fromLane="1" toLane="1" via=":Junction1_1_0" tl="Junction1" linkIndex="1" dir="l" state="O"/>
+    <connection from="Edge1" to="Edge2" fromLane="1" toLane="1" via=":Junction2_0_0" tl="Junction2" linkIndex="0" dir="l" state="O"/>
     <connection from="Edge2" to="EdgeBike0" fromLane="1" toLane="1" via=":Junction3_0_0" dir="l" state="M"/>
     <connection from="Edge2" to="Edge3" fromLane="1" toLane="1" via=":Junction3_1_0" dir="t" state="m"/>
-    <connection from="Edge3" to="Edge4" fromLane="1" toLane="1" via=":Junction2_1_0" dir="r" state="M"/>
-    <connection from="Edge4" to="Edge5" fromLane="1" toLane="1" via=":Junction1_0_0" dir="r" state="M"/>
+    <connection from="Edge3" to="Edge4" fromLane="1" toLane="1" via=":Junction2_1_0" tl="Junction2" linkIndex="1" dir="r" state="O"/>
+    <connection from="Edge4" to="Edge5" fromLane="1" toLane="1" via=":Junction1_0_0" tl="Junction1" linkIndex="0" dir="r" state="O"/>
     <connection from="EdgeBike0" to="EdgeCenter0" fromLane="1" toLane="0" via=":Junction4_0_0" dir="l" state="M"/>
     <connection from="EdgeBike1" to="Edge3" fromLane="1" toLane="1" keepClear="0" via=":Junction3_2_0" dir="r" state="M"/>
     <connection from="EdgeCenter0" to="EdgeCenter1" fromLane="0" toLane="0" via=":JunctionCenter_0_0" dir="t" state="M"/>
