@@ -224,6 +224,8 @@ setting `carFollowModel="Rail" trainType="<TYPE>"` in the `<vType>` definition. 
 - REDosto7
 - NGT400
 - NGT400_16
+- MireoPlusB
+- MireoPlusH
 
 These types model traction and rolling resistance for particular trains.
 Alternatively, any other car following model may be used and configured
