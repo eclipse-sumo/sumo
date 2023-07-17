@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 410, 170)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.tripJunction.inspectSelection.colorButton, 5, False)
