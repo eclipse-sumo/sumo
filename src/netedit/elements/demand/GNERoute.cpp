@@ -829,7 +829,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setDemandElementID(value);
             break;
         case SUMO_ATTR_EDGES:
             replaceDemandParentEdges(value);

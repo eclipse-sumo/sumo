@@ -338,6 +338,9 @@ protected:
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
+    /// @brief set demand element id
+    void setDemandElementID(const std::string& newID);
+
     /// @brief get type parent (needed because first parent can be either type or typeDistribution)
     GNEDemandElement* getTypeParent() const;
 

@@ -301,7 +301,7 @@ void
 GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            setMicrosimID(value);
+            setDemandElementID(value);
             break;
         case SUMO_ATTR_DETERMINISTIC:
             if (value.empty()) {

@@ -394,6 +394,20 @@ GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
 }
 
 
+void
+GNEDemandElement::setDemandElementID(const std::string& newID) {
+    // set microsim ID
+    setMicrosimID(newID);
+    // check if update ids of child elements
+    if (myTagProperty.isPerson() || myTagProperty.isContainer()) {
+        // Change IDs of all person plans children (stops, embedded routes...)
+        for (const auto& childDemandElement : getChildDemandElements()) {
+            childDemandElement->setDemandElementID(getID());
+        }
+    }
+}
+
+
 GNEDemandElement*
 GNEDemandElement::getTypeParent() const {
     if (getParentDemandElements().size() < 1) {

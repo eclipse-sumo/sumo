@@ -1990,13 +1990,9 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setDemandElementID(value);
             // set manually vehicle ID (needed for saving)
             id = value;
-            // Change IDs of all person plans children (stops, embedded routes...)
-            for (const auto& childDemandElement : getChildDemandElements()) {
-                childDemandElement->setMicrosimID(getID());
-            }
             break;
         case SUMO_ATTR_TYPE:
             if (getID().size() > 0) {

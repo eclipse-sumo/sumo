@@ -1379,7 +1379,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setDemandElementID(value);
             // manually change VType parameters ID
             id = value;
             break;

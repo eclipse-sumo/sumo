@@ -753,13 +753,9 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setDemandElementID(value);
             // update id
             id = value;
-            // Change IDs of all container plans children
-            for (const auto& containerPlans : getChildDemandElements()) {
-                containerPlans->setMicrosimID(getID());
-            }
             break;
         case SUMO_ATTR_TYPE:
             if (getID().size() > 0) {

@@ -1874,11 +1874,11 @@ GNEStop::getPathStopIndex() const {
 void
 GNEStop::setStopMicrosimID() {
     if (getParentAdditionals().size() > 0) {
-        setMicrosimID(getMicrosimID() + " (" + getParentAdditionals().front()->getTagStr() + ")");
+        setDemandElementID(getMicrosimID() + " (" + getParentAdditionals().front()->getTagStr() + ")");
     } else if (getParentLanes().size() > 0) {
-        setMicrosimID(getMicrosimID() + " (" + getParentLanes().front()->getTagStr() + ")");
+        setDemandElementID(getMicrosimID() + " (" + getParentLanes().front()->getTagStr() + ")");
     } else if (getParentEdges().size() > 0) {
-        setMicrosimID(getMicrosimID() + " (" + getParentEdges().front()->getTagStr() + ")");
+        setDemandElementID(getMicrosimID() + " (" + getParentEdges().front()->getTagStr() + ")");
     }
 }
 
