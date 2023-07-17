@@ -29,8 +29,8 @@ title: ChangeLog
   - Fixed problem saving edgetypes. #12467
   - Added proper error handling for duplicate edgeRelations #11329
   - Can now load and modify `<vTypeDistribution>` elements. #12846
+  - Now if a network element ID is modified, flag for save children is enabled. #13619
   
-
 - netconvert
   - Fixed unequal length of bidi edge #13569
   - OSM turn lanes for left hand networks are now in right order #13549
