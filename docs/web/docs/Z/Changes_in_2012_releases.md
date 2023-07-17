@@ -1,8 +1,8 @@
 ---
-title: Changes from Version 0.15.0 to Version 0.16.0
+title: Changes in the 2012 releases (versions 0.14.0, 0.15.0 and 0.16.0)
 ---
 
-**Release date: 04.12.2012**
+## Version 0.16.0 (04.12.2012)
 
 ### Bugfixes
 
@@ -13,7 +13,7 @@ title: Changes from Version 0.15.0 to Version 0.16.0
     middle of a street using `departPos="free"` ([ticket732](https://sourceforge.net/apps/trac/sumo/ticket/732),
     thanks to Björn Hendriks for reporting it)
   - Fixed several bugs that were causing collisions
-  - Fixed bug in the default car-following model wich lead to
+  - Fixed bug in the default car-following model which lead to
     larger-that-necessary following distances. The maximum possible
     flow is now greatly increased.
   - Fixed bug where simulation would not terminate if vehicles with
@@ -105,7 +105,7 @@ title: Changes from Version 0.15.0 to Version 0.16.0
     all vehicles on the road will be written at the end of the
     simulation.
   - added the option **--device.rerouting.init-with-loaded-weights**. If this option is given, weights supplied
-    with the existing option **--weight-files** {{DT_FILE}} are used for initialiing the rerouting
+    with the existing option **--weight-files** {{DT_FILE}} are used for initializing the rerouting
     devices.
   - [Rerouter](../Simulation/Rerouter.md) definition
     **destProbReroute** now recognizes the special values
@@ -154,7 +154,7 @@ title: Changes from Version 0.15.0 to Version 0.16.0
     carriages when the visualization option *Show As* is set to
     *simple-shapes*. The overall length of the train and the number
     of carriages is determined from the vehicle length
-  - Vehicles can now be renderd with bitmaps using the new vType
+  - Vehicles can now be rendered with bitmaps using the new vType
     attribute *imgFile*. This should be a grayscale image with alpha
     channel to allow full recoloring functionality.
   - Persons can now be rendered with bitmaps when specifying a vType
@@ -204,3 +204,146 @@ title: Changes from Version 0.15.0 to Version 0.16.0
     is to keep given edge shapes and only extend them if this option
     is set. Extending edge shapes inadvertently can lead to invalid
     connections and priorities.
+
+
+## Version 0.15.0 (14.03.2012)
+
+### Bugfixes
+
+- Simulation
+  - Real time factor in simulation summary is now correct (was off
+    by factor 1000)
+  - Option **--route-steps** now reads the given number of seconds ahead (input
+    argument was interpreted as milliseconds, inadvertently)
+  - specifying invalid departPos no longer causes an infinite loop
+  - The minimum gap is now outside of the vehicle. This means, a
+    vehicle starts at its position, the minimum breaking distance is
+    in front of the position. This effects the retrieval of a
+    vehicle's position via TraCI, and also the measures collected by
+    detectors - now, the collected vehicle lengths do not contain
+    the minimum distance anymore. see [blog entry](https://sourceforge.net/apps/wordpress/sumo/2012/02/14/request-for-comments-pulling-mingap-out-of-the-vehicle/)
+  - consolidating right-of-way rules (again). **Networks must be
+    rebuild**
+  - fixed crash when using TraCI to set new TLS-programs with less
+    phases (ticket \#652)
+- netconvert
+  - looped ways are now correctly imported from OSM (before, these
+    were pruned from the network)
+  - fixed bug related to **--proj.plain-geo** (would sometimes crash or produce invalid
+    output)
+  - fixed bug in geometry computation when dealing with
+    3D-coordinates
+  - fixed bug when joining junctions (did not join as much as
+    requested)
+  - OSM import no longer discards edges with multiple types as long
+    as at least one type is known (this caused missing bridges etc.)
+  - debugged import of VISUM-turn descriptions ("ABBIEGER")
+  - fixed calculation of intersecting lines
+- GUI
+  - corrected the link numbering
+  - no longer crashes when reload is pressed during running
+    simulation
+- duarouter
+  - Option **--max-alternatives** is no longer ignored
+  - clogit probabilities are calculated correctly
+
+### Enhancements
+
+- Simulation
+  - Meandata output can now print default travel times / emissions
+    on empty edges (excludeEmpty="defaults")
+- duarouter
+  - added Option **--routing-algorithm**. It supports the values *dijkstra* (default) and
+    *astar* (new). The newly added *astar* algorithm uses the
+    *euclidean distance heuristic*. It routes 30% faster on the road
+    network of Cologne and 40% faster on the road network of Berlin.
+  - In verbose mode, some performance measures of the routing
+    algorithm are given
+  - better defaults for emission based routing
+- sumo-gui
+  - object chooser can now filter by selection
+- netconvert
+  - added Options **--speed.offset** and **--speed.factor**. These modify all edge speeds by first
+    multiplying with factor and then adding offset.
+  - added output Option **--junctions.join-output FILE**. This writes a protocol of joined junctions
+    to FILE. Loading FILE as additional nod.xml reproduces these
+    joins.
+- All
+  - Logging options are handled consistently
+  - step logging enabled by default, can be disabled for all
+    relevant applications (sumo, duarouter, jtrrouter, od2trips)
+
+### Other
+
+- Simulation
+  - traffic light offset is now interpreted as delay. An offset of x
+    delays all phases by x seconds. The old behavior was to let all
+    phases start x seconds earlier.
+
+
+## Version 0.14.0 (11.01.2012)
+
+### Bugfixes
+
+- Simulation
+  - removed invalid *collision* warnings
+  - removed various gui glitches when drawing vehicles
+  - fixed free speed calculation
+- sumo-gui
+  - tracking a vehicle no longer messes up start/stop controls
+- netconvert
+  - fixed minor bugs related to updating edge attributes with
+    additional *edg.xml* files
+  - builds without PROJ will no longer produce a bugged binary
+    (failing with "no option with the name proj.inverse exists")
+- duarouter
+  - use identical units for parsed data and calculated defaults
+- Tools
+  - netdiff now correctly handles repeating identical traffic light
+    phases
+
+### Enhancements
+
+- netconvert
+  - changed the way junctions are joined when using **--join.junctions**; see
+    [Networks/Building Networks from own XML-descriptions\#Joining Nodes](../Networks/PlainXML.md#joining_nodes)
+  - all output is now written using UTF-8 encoding instead of
+    Latin-1. This should allow the usage of international street
+    names (note that street ids may use only ascii)
+  - added option **--proj.plain-geo** which writes plain-xml files using geo-coordinates
+  - location information is now embedded in *nod.xml* files. This
+    makes conversion between *net.xml* and plain xml lossless.
+  - Importing large OSM Networks is much faster due to algorithmic
+    improvements
+  - added options **--keep-edges.by-type** and **--remove-edges.by-type** for restricting a network
+- sumo-gui
+  - sumo-gui now parses command line options
+- general options
+  - boolean options may be disabled from the command line
+    (--help=false)
+  - a single parameter (not starting with "-") is treated as a
+    configuration file
+- Tools
+  - added eco routing capabilities to duaIterate.py
+
+Reduced memory consumption of all applications. Also increased speed for
+some applications. For benchmark values see
+[\#634](https://sourceforge.net/apps/trac/sumo/ticket/634)
+
+### Other
+
+- Simulation
+  - default arrival position is now lane end instead of start
+- netconvert
+  - renamed XML-element **reset** to **delete** to better reflect
+    its purpose
+- sumo-gui
+  - Changed close-simulation hotkey from Ctrl-C to Ctrl-W to better
+    conform to interface standards
+- Tools
+  - python module sumolib.output now has a method *parse* which
+    supports all output files
+- first incarnation of a windows installer
+- **config file extensions renamed**, see [Other/File Extensions](../Other/File_Extensions.md)
+- TraCI
+  - emission related outputs are now in mg and ml
