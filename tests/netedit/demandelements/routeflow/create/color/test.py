@@ -64,13 +64,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, n
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.color, "cyan")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
 
 # set valid color
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.color, "12,13,14")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

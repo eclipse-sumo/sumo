@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, n
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
