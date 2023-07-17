@@ -54,7 +54,7 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
     myStepsValids(false) {
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create Button and Label for adding new Wors
+    // create Button and Label for adding new rows
     myAddStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, GUIDesignButtonIcon);
     new FXLabel(myAddStepFrame, ("Add new " + toString(SUMO_TAG_STEP)).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // create Button and Label for sort intervals
@@ -108,7 +108,7 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
             myStepsValids = false;
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else {
-            // we need filter attribute (to avoid problemes as 1 != 1.00)
+            // we need filter attribute (to avoid problems as 1 != 1.00)
             const double time = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 0)->getText().text());
             const std::string speed = myStepsTable->getItem(i, 1)->getText().text();
             // set new values in Closing  reroute

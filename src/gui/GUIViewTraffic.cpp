@@ -471,7 +471,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
                 nextDuration = minTll->getPhase(nextPhase).duration;
             } else {
                 // we are in transition to a green phase
-                // -> skip forward to the transtion into the next green phase
+                // -> skip forward to the transition into the next green phase
                 // but ensure that the total transition time is maintained
                 // taking into account how much time was already spent
                 SUMOTime spentTransition = minTll->getSpentDuration();

@@ -72,7 +72,7 @@ protected:
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      * @see MSLaneSpeedTrigger
-     * @exception ProcessError If the XML definition file is errornous
+     * @exception ProcessError If the XML definition file is erroneous
      */
     virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet& net,
             const std::string& id, const std::vector<MSLane*>& destLanes,
@@ -86,7 +86,7 @@ protected:
      * @param[in] net The net the rerouter belongs to
      * @param[in] id The id of the rerouter
      * @param[in] edges The edges the rerouter is placed at
-     * @param[in] prob The probability the rerouter reoutes vehicles with
+     * @param[in] prob The probability the rerouter reroutes vehicles with
      */
     virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
             const std::string& id, MSEdgeVector& edges,

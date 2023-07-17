@@ -89,7 +89,7 @@ public:
     /// @brief called when user select a topic in the list
     long onCmdSelectTopic(FXObject*, FXSelector, void*);
 
-    /// @brief called when user searchs
+    /// @brief called when user searches
     long onCmdSearch(FXObject*, FXSelector, void*);
 
     /// @brief enable/disable show toolTip
@@ -111,10 +111,10 @@ protected:
     /// @brief pointer to main window parent
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief refecente to edited Option container
+    /// @brief reference to edited Option container
     OptionsCont& myOptionsContainer;
 
-    /// @brief refecente to original Option container
+    /// @brief reference to original Option container
     const OptionsCont& myOriginalOptionsContainer;
 
     /// @brief flag for check if options was modified
@@ -130,7 +130,7 @@ private:
     /// @brief root item
     FXTreeItem* myRootItem = nullptr;
 
-    /// @brief vertical farme for entries
+    /// @brief vertical frame for entries
     FXVerticalFrame* myEntriesFrame = nullptr;
 
     /// @brief checkbox for enable/disable search by description
@@ -148,7 +148,7 @@ private:
     /// @brief ignores topics
     const std::set<std::string> myIgnoredTopics = {"Configuration"};
 
-    /// @brief ignores entrys
+    /// @brief ignores entries
     const std::set<std::string> myIgnoredEntries = {"geometry.remove", "edges.join", "geometry.split", "ramps.guess", "ramps.set"};
 
     /// @brief update visible entries by selected topic

@@ -30,7 +30,7 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 
 
-#define EXTRAMARGING 4
+#define EXTRAMARGIN 4
 
 #define MAXROWS 100
 
@@ -716,7 +716,7 @@ MFXDecalsTable::Column::adjustColumnWidth() {
         // adjust depending of label
         if ((myType == 's') || (myType == 'p') || (myType == 'c')) {
             // calculate top label width
-            columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
+            columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGIN);
         }
         // adjust width in all rows
         for (const auto& row : myTable->myRows) {

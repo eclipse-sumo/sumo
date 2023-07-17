@@ -123,7 +123,7 @@ protected:
         /// @brief set red background
         void setRedBackground();
 
-        /// @brief set blue blackground
+        /// @brief set blue background
         void setBlueBackground();
 
         /// @brief check row and set background green

@@ -147,7 +147,7 @@ public:
         /** @brief Constructor
          * @param[in] c The container for this panel
          * @param[in] app The main application window
-         * @param[in] parent This panel's logial parent
+         * @param[in] parent This panel's logical parent
          */
         GUITLLogicPhasesTrackerPanel(FXComposite* c,
                                      GUIMainWindow& app, GUITLLogicPhasesTrackerWindow& parent);

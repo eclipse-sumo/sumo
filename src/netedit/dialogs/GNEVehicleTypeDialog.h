@@ -188,10 +188,10 @@ public:
         /// @brief constructor
         VTypeAttributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
 
-        /// @brief build commmon attributes (A)
+        /// @brief build common attributes (A)
         void buildAttributesA(FXVerticalFrame* column);
 
-        /// @brief build commmon attributes (B)
+        /// @brief build common attributes (B)
         void buildAttributesB(FXVerticalFrame* column);
 
         /// @brief build JunctionModel attributes (A)

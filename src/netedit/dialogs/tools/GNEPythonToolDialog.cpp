@@ -27,7 +27,7 @@
 
 #include "GNEPythonToolDialog.h"
 
-#define MARGING 4
+#define MARGIN 4
 #define MAXNUMCOLUMNS 4
 #define NUMROWSBYCOLUMN 20
 
@@ -339,7 +339,7 @@ GNEPythonToolDialog::adjustParameterColumn() {
     // iterate over all arguments and find the maximum width
     for (const auto& argument : myArguments) {
         const auto label = argument->getParameterLabel();
-        const int columnWidth = label->getFont()->getTextWidth(label->getText().text(), label->getText().length() + MARGING);
+        const int columnWidth = label->getFont()->getTextWidth(label->getText().text(), label->getText().length() + MARGIN);
         if (columnWidth > maximumWidth) {
             maximumWidth = columnWidth;
         }

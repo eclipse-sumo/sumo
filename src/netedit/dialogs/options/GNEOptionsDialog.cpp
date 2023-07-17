@@ -227,7 +227,7 @@ GNEOptionsDialog::updateVisibleEntriesByTopic() {
 
 void
 GNEOptionsDialog::updateVisibleEntriesBySearch(std::string searchText) {
-    // first tolow search text
+    // first lower case search text
     searchText = StringUtils::to_lower_case(searchText);
     // iterate over entries
     for (const auto& entry : myInputOptionEntries) {
@@ -250,7 +250,7 @@ GNEOptionsDialog::updateVisibleEntriesBySearch(std::string searchText) {
 
 bool
 GNEOptionsDialog::loadConfiguration(const std::string& file) {
-    // make all options writables
+    // make all options writable
     myOptionsContainer.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;

@@ -115,7 +115,7 @@ public:
     /// @name Inter-thread event handling
     /// @{
 
-    /// @brief a certaint event ocurred
+    /// @brief a certain event ocurred
     virtual void eventOccurred();
 
     /// @brief called when event "simulation loaded" ocurred

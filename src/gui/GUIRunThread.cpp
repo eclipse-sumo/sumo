@@ -163,7 +163,7 @@ GUIRunThread::tryStep() {
             sleep(wait);
 #ifndef WIN32
         } else if (myLastEndMillis - myLastBreakMillis > 1000) {
-            // ensure redraw event is successfull at least once per second (#9028)
+            // ensure redraw event is successful at least once per second (#9028)
             sleep(100);
             myLastBreakMillis = myLastEndMillis;
 #endif
@@ -178,7 +178,7 @@ GUIRunThread::tryStep() {
 void
 GUIRunThread::makeStep() {
     GUIEvent* e = nullptr;
-    // simulation is being perfomed
+    // simulation is being performed
     mySimulationInProgress = true;
     // execute a single step
     try {
