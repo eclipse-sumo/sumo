@@ -38,7 +38,7 @@ netedit.containerMode()
 netedit.changeContainerPlan("tranship: edge", False)
 
 # create route using two one
-netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -46,15 +46,12 @@ netedit.typeEnter()
 # go to transhipEdgeEdge mode
 netedit.containerPlanMode()
 
-# select container
-netedit.leftClick(referencePosition, 80, 410)
-
 # go to transhipEdgeEdge mode
 netedit.changeContainerPlanMode("tranship: edges")
 
 # create transhipEdgeEdge
 netedit.leftClick(referencePosition, 560, 240)
-netedit.leftClick(referencePosition, 180, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -63,7 +60,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect transhipEdgeEdge
-netedit.leftClick(referencePosition, 430, 58)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x, netedit.positions.demandElements.containerPlanEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transhipEdges.inspect.edges, "dummy", False)

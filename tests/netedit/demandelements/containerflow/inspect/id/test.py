@@ -38,8 +38,8 @@ netedit.containerMode()
 netedit.changeElement("containerFlow")
 
 # create container using three edges
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create container
 netedit.typeEnter()
@@ -51,14 +51,11 @@ netedit.leftClick(referencePosition, 180, 57)
 # press enter to create container
 netedit.typeEnter()
 
-# change zoom
-netedit.setZoom("0", "-6", "5")
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x, netedit.positions.demandElements.container.y)
 
 # change ID with an invalid value
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "", False)

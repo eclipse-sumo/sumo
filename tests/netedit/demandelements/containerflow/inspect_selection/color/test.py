@@ -37,14 +37,11 @@ netedit.selectMode()
 # select all using invert
 netedit.selectionInvert()
 
-# change zoom
-netedit.setZoom("0", "-6", "5")
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x, netedit.positions.demandElements.container.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.containerFlow.inspectSelection.colorButton, 5, False)

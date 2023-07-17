@@ -88,6 +88,14 @@ class demandElements:
         x = 615
         y = 110
 
+    class container:
+        x = 135
+        y = 480
+
+    class containerPlanEdge:
+        x = 197
+        y = 37
+
     # click over single trips, flows, etc... over edges
     class singleVehicleEdge:
         x = 160

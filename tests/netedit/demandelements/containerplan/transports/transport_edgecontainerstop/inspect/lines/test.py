@@ -38,16 +38,13 @@ netedit.containerMode()
 netedit.changeContainerPlan("tranship: edge", False)
 
 # create route using two one
-netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # press enter to create route
 netedit.typeEnter()
 
 # go to container plan mode
 netedit.containerPlanMode()
-
-# select container
-netedit.leftClick(referencePosition, 80, 410)
 
 # go to container plan mode
 netedit.changeContainerPlanMode("transport: containerStop")
@@ -62,7 +59,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect transportEdgeContainerStop
-netedit.leftClick(referencePosition, 430, 58)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x, netedit.positions.demandElements.containerPlanEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transportEdgeContainerStop.inspect.lines, "custom line", False)

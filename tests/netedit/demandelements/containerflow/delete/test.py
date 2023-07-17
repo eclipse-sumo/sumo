@@ -38,8 +38,8 @@ netedit.containerMode()
 netedit.changeElement("containerFlow")
 
 # create container using three edges
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create container
 netedit.typeEnter()
@@ -47,11 +47,8 @@ netedit.typeEnter()
 # go to delete mode
 netedit.deleteMode()
 
-# change zoom
-netedit.setZoom("0", "-6", "5")
-
 # delete container
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x, netedit.positions.demandElements.container.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)
