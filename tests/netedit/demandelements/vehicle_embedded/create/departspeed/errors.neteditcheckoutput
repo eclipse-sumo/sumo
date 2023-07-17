@@ -1,1 +1,2 @@
 Warning: Choosing new speed factor 1.44 for vehicle 'v_1' to match departure speed 20.00 (max 13.04).
+Error: Vehicle 'v_1' will not be able to depart using the given velocity (junction 'Junction1' too close)!
