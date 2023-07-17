@@ -454,6 +454,7 @@
             <xsd:element name="containerflow-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="meanDataEdge-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="meanDataLane-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-supermode-question" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
