@@ -38,7 +38,8 @@ def getOptions(args=None):
     ap.add_argument("-o", "--output", type=str, help="path to output file (protocol of obsolete translations)")
     ap.add_argument("--clear", default=False, action="store_true", help="remove obsolete entries from .po files")
     ap.add_argument("--patch", nargs="*", type=str,
-                    help="restore obsolete (but still present) translations with sequence of the original (odd position) and then the new string (even position) from the source code (= gettext msgid)")
+                    help="restore obsolete (but still present) translations with sequence of the original \
+                    (odd position) and then the new string (even position) from the source code (= gettext msgid)")
     return ap.parse_args(args)
 
 
@@ -47,7 +48,8 @@ def main(args=None):
     if options.lang is None:
         options.lang = [os.path.basename(p)[:-8] for p in glob(options.sumo_home + "/data/po/*_sumo.po")]
     if options.patch is not None and len(options.patch) > 0 and len(options.patch) % 2 == 1:
-        print("The new string replacing the old msgid '%s' has not been given - the translation cannot be patched." % options.patch[-1])
+        print("The new string replacing the old msgid '%s' has not been given - the translation \
+        cannot be patched." % options.patch[-1])
     # run i18n.py to update the translation files
     args = ['--sumo-home', options.sumo_home, '--lang']
     args.extend(options.lang)
@@ -93,7 +95,8 @@ def checkPotFile(potFile, options):
                             entriesToRemove.append(translatedEntry)
                             print("Patched '%s' for %s" % (options.patch[i], langCode))
                         else:
-                            print("Has already been translated again: '%s' > '%s'" % (options.patch[i+1], updatedEntry.msgstr))
+                            print("Has already been translated again: '%s' > '%s'"\
+                            % (options.patch[i+1], updatedEntry.msgstr))
             for entry in entriesToRemove:
                 po.remove(entry)
         # optionally overwrite obsolete entries completely
