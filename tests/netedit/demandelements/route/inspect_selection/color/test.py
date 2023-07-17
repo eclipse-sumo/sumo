@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, n
 netedit.typeEnter()
 
 # create route using a single edge edges
-netedit.leftClick(referencePosition, 274, 368)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -51,14 +51,14 @@ netedit.typeEnter()
 netedit.selectMode()
 
 # select both routes
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, 274, 368)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect route
-netedit.leftClick(referencePosition, 280, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.route.inspectSelection.colorButton, 5, False)

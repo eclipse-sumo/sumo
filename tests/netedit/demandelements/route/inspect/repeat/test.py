@@ -45,7 +45,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect route
-netedit.leftClick(referencePosition, 280, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
 
 # Change parameter repeat with a non valid value (empty)
 netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "", False)

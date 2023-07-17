@@ -51,7 +51,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect route
-netedit.leftClick(referencePosition, 280, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
 
 # Change parameter id with a non valid value (empty)
 netedit.modifyAttribute(netedit.attrs.route.inspect.id, "", False)
@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.route.inspect.id, "<><><><>$%%%", False)
 netedit.modifyAttribute(netedit.attrs.route.inspect.id, "route with spaces", False)
 
 # Change parameter id with a non valid value (duplicated)
-netedit.modifyAttribute(netedit.attrs.route.inspect.id, "route_1", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.id, "r_1", False)
 
 # Change parameter id with valid value
 netedit.modifyAttribute(netedit.attrs.route.inspect.id, "custom_route", False)

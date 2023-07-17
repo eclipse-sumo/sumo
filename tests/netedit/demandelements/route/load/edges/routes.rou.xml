@@ -50,7 +50,7 @@
     <route edges="Edge0 Edge2" color="yellow" id="route_3"/>
 
     <!-- valid edges (check vClass) -->
-    <route edges="Edge0 Edge1 Edge2 gneE10 gneE8" color="yellow" id="route_4"/>
+    <route edges="Edge0 Edge1 Edge2 EdgeBike0 EdgeCenter0" color="yellow" id="route_4"/>
 
     <!-- valid edges (consecutive) -->
     <route edges="Edge0 Edge1" color="yellow" id="route_5"/>

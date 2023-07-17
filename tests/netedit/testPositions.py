@@ -44,6 +44,22 @@ class demandElements:
         x = 450
         y = 390
 
+    class edgeBike1:
+        x = 115
+        y = 150
+
+    class edgeBike2:
+        x = 150
+        y = 150
+
+    class edgeCenter1:
+        x = 330
+        y = 255
+
+    class edgeCenter2:
+        x = 330
+        y = 220
+
     class junction0:
         x = 135
         y = 390
@@ -87,6 +103,10 @@ class demandElements:
     class parkingArea:
         x = 615
         y = 110
+
+    class route:
+        x = 470
+        y = 465
 
     class container:
         x = 135
