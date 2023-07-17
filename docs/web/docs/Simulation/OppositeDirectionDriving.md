@@ -59,4 +59,4 @@ Vehicles may also stop on the opposite side by defining a `<stop>` with a lane i
   custom value (which may be different from the geometrical length).
   This can be automated by setting the option **--opposites.guess.fix-lengths**.
 - Opposite-direction-driving is not compatible with the [sublane
-  model](../Simulation/SublaneModel.md). before version 1.9.0
+  model](../Simulation/SublaneModel.md) before version 1.9.0.
