@@ -360,6 +360,7 @@ enum class GUIIcon {
     MODESHAPE,
     MODEPROHIBITION,
     MODEWIRE,
+    MODEDECAL,
     /// @}
 
     /// @name Netedit Demand modes icons

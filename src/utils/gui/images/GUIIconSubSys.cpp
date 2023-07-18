@@ -248,6 +248,7 @@
 #include "modeshape.xpm"
 #include "modeprohibition.xpm"
 #include "modewire.xpm"
+#include "modedecal.xpm"
 
 #include "modecontainer.xpm"
 #include "modecontainerplan.xpm"
@@ -728,6 +729,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::MODESHAPE] = new FXXPMIcon(a, modeshape_xpm);
     myIcons[GUIIcon::MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
     myIcons[GUIIcon::MODEWIRE] = new FXXPMIcon(a, modewire_xpm);
+    myIcons[GUIIcon::MODEDECAL] = new FXXPMIcon(a, modedecal_xpm);
 
     myIcons[GUIIcon::MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
     myIcons[GUIIcon::MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
