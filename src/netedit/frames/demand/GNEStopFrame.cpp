@@ -81,7 +81,7 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
             case GNE_TAG_WAYPOINT_CONTAINERSTOP:
                 information
                         << "- " << TL("Shift+Click to select parent") << "\n"
-                        << "- " << TL("Click over a container stop  to create a stop.");
+                        << "- " << TL("Click over a container stop to create a stop.");
                 break;
             case GNE_TAG_STOP_CHARGINGSTATION:
             case GNE_TAG_WAYPOINT_CHARGINGSTATION:

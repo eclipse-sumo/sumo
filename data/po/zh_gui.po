@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-18 15:49+0200\n"
+"POT-Creation-Date: 2023-07-18 15:54+0200\n"
 "PO-Revision-Date: 2023-06-06 13:40+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -10664,7 +10664,7 @@ msgid "Click over a train stop to create a stop."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:84
-msgid "Click over a container stop  to create a stop."
+msgid "Click over a container stop to create a stop."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:90
