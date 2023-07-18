@@ -245,13 +245,13 @@ struct GNEApplicationWindowHelper {
             void buildSupermodeMenuCommands(FXMenuPane* modesMenu);
 
             /// @brief menu command for network supermode
-            FXMenuCommand* networkSupermode;
+            FXMenuCommand* networkSupermode = nullptr;
 
             /// @brief menu command for demand supermode
-            FXMenuCommand* demandSupermode;
+            FXMenuCommand* demandSupermode = nullptr;
 
             /// @brief menu command for data supermode
-            FXMenuCommand* dataSupermode;
+            FXMenuCommand* dataSupermode = nullptr;
 
         private:
             /// @brief reference to ModesMenuCommands
@@ -274,13 +274,13 @@ struct GNEApplicationWindowHelper {
             void buildCommonMenuCommands(FXMenuPane* modesMenu);
 
             /// @brief menu command for delete mode
-            FXMenuCommand* deleteMode;
+            FXMenuCommand* deleteMode = nullptr;
 
             /// @brief menu command for inspect mode
-            FXMenuCommand* inspectMode;
+            FXMenuCommand* inspectMode = nullptr;
 
             /// @brief menu command for select mode
-            FXMenuCommand* selectMode;
+            FXMenuCommand* selectMode = nullptr;
 
         private:
             /// @brief reference to ModesMenuCommands
@@ -309,34 +309,37 @@ struct GNEApplicationWindowHelper {
             void hideNetworkMenuCommands();
 
             /// @brief menu command for create edge
-            FXMenuCommand* createEdgeMode;
+            FXMenuCommand* createEdgeMode = nullptr;
 
             /// @brief menu command for move mode (network)
-            FXMenuCommand* moveMode;
+            FXMenuCommand* moveMode = nullptr;
 
             /// @brief menu command for connect mode
-            FXMenuCommand* connectMode;
+            FXMenuCommand* connectMode = nullptr;
 
             /// @brief menu command for prohibition mode
-            FXMenuCommand* prohibitionMode;
+            FXMenuCommand* prohibitionMode = nullptr;
 
             /// @brief menu command for TLS Mode
-            FXMenuCommand* TLSMode;
+            FXMenuCommand* TLSMode = nullptr;
 
             /// @brief menu command for additional mode
-            FXMenuCommand* additionalMode;
+            FXMenuCommand* additionalMode = nullptr;
 
             /// @brief menu command for crossing mode
-            FXMenuCommand* crossingMode;
+            FXMenuCommand* crossingMode = nullptr;
 
             /// @brief menu command for TAZ mode
-            FXMenuCommand* TAZMode;
+            FXMenuCommand* TAZMode = nullptr;
 
             /// @brief menu command for shape mode
-            FXMenuCommand* shapeMode;
+            FXMenuCommand* shapeMode = nullptr;
 
             /// @brief menu command for wire mode
-            FXMenuCommand* wireMode;
+            FXMenuCommand* wireMode = nullptr;
+
+            /// @brief menu command for decal mode
+            FXMenuCommand* decalMode = nullptr;
 
         private:
             /// @brief reference to ModesMenuCommands
@@ -365,31 +368,31 @@ struct GNEApplicationWindowHelper {
             void hideDemandMenuCommands();
 
             /// @brief menu command for move mode (demand)
-            FXMenuCommand* moveMode;
+            FXMenuCommand* moveMode = nullptr;
 
             /// @brief menu command for route mode
-            FXMenuCommand* routeMode;
+            FXMenuCommand* routeMode = nullptr;
 
             /// @brief menu command for vehicle mode
-            FXMenuCommand* vehicleMode;
+            FXMenuCommand* vehicleMode = nullptr;
 
             /// @brief menu command for type mode
-            FXMenuCommand* typeMode;
+            FXMenuCommand* typeMode = nullptr;
 
             /// @brief menu command for stop mode
-            FXMenuCommand* stopMode;
+            FXMenuCommand* stopMode = nullptr;
 
             /// @brief menu command for person mode
-            FXMenuCommand* personMode;
+            FXMenuCommand* personMode = nullptr;
 
             /// @brief menu command for person plan mode
-            FXMenuCommand* personPlanMode;
+            FXMenuCommand* personPlanMode = nullptr;
 
             /// @brief menu command for container mode
-            FXMenuCommand* containerMode;
+            FXMenuCommand* containerMode = nullptr;
 
             /// @brief menu command for container plan mode
-            FXMenuCommand* containerPlanMode;
+            FXMenuCommand* containerPlanMode = nullptr;
 
         private:
             /// @brief reference to ModesMenuCommands
@@ -491,52 +494,52 @@ struct GNEApplicationWindowHelper {
             void updateShortcuts();
 
             /// @brief menu check to show grid button
-            MFXMenuCheckIcon* menuCheckToggleGrid;
+            MFXMenuCheckIcon* menuCheckToggleGrid = nullptr;
 
             /// @brief menu check to toggle draw junction shape
-            MFXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
+            MFXMenuCheckIcon* menuCheckToggleDrawJunctionShape = nullptr;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
-            MFXMenuCheckIcon* menuCheckDrawSpreadVehicles;
+            MFXMenuCheckIcon* menuCheckDrawSpreadVehicles = nullptr;
 
             /// @brief menu check to show Demand Elements
-            MFXMenuCheckIcon* menuCheckShowDemandElements;
+            MFXMenuCheckIcon* menuCheckShowDemandElements = nullptr;
 
             /// @brief menu check to select only edges
-            MFXMenuCheckIcon* menuCheckSelectEdges;
+            MFXMenuCheckIcon* menuCheckSelectEdges = nullptr;
 
             /// @brief menu check to show connections
-            MFXMenuCheckIcon* menuCheckShowConnections;
+            MFXMenuCheckIcon* menuCheckShowConnections = nullptr;
 
             /// @brief menu check to hide connections in connect mode
-            MFXMenuCheckIcon* menuCheckHideConnections;
+            MFXMenuCheckIcon* menuCheckHideConnections = nullptr;
 
             /// @brief menu check to show additional sub-elements
-            MFXMenuCheckIcon* menuCheckShowAdditionalSubElements;
+            MFXMenuCheckIcon* menuCheckShowAdditionalSubElements = nullptr;
 
             /// @brief menu check to show TAZ elements
-            MFXMenuCheckIcon* menuCheckShowTAZElements;
+            MFXMenuCheckIcon* menuCheckShowTAZElements = nullptr;
 
             /// @brief menu check to extend to edge nodes
-            MFXMenuCheckIcon* menuCheckExtendSelection;
+            MFXMenuCheckIcon* menuCheckExtendSelection = nullptr;
 
             /// @brief menu check to set change all phases
-            MFXMenuCheckIcon* menuCheckChangeAllPhases;
+            MFXMenuCheckIcon* menuCheckChangeAllPhases = nullptr;
 
             /// @brief menu check to we should warn about merging junctions
-            MFXMenuCheckIcon* menuCheckWarnAboutMerge;
+            MFXMenuCheckIcon* menuCheckWarnAboutMerge = nullptr;
 
             /// @brief menu check to show connection as bubble in "Move" mode.
-            MFXMenuCheckIcon* menuCheckShowJunctionBubble;
+            MFXMenuCheckIcon* menuCheckShowJunctionBubble = nullptr;
 
             /// @brief menu check to apply movement to elevation
-            MFXMenuCheckIcon* menuCheckMoveElevation;
+            MFXMenuCheckIcon* menuCheckMoveElevation = nullptr;
 
             /// @brief menu check to the endpoint for a created edge should be set as the new source
-            MFXMenuCheckIcon* menuCheckChainEdges;
+            MFXMenuCheckIcon* menuCheckChainEdges = nullptr;
 
             /// @brief check checkable to create auto create opposite edge
-            MFXMenuCheckIcon* menuCheckAutoOppositeEdge;
+            MFXMenuCheckIcon* menuCheckAutoOppositeEdge = nullptr;
 
             /// @brief separator
             FXMenuSeparator* separator;
@@ -568,37 +571,37 @@ struct GNEApplicationWindowHelper {
             void updateShortcuts();
 
             /// @brief menu check to show grid button
-            MFXMenuCheckIcon* menuCheckToggleGrid;
+            MFXMenuCheckIcon* menuCheckToggleGrid = nullptr;
 
             /// @brief menu check to toggle draw junction shape
-            MFXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
+            MFXMenuCheckIcon* menuCheckToggleDrawJunctionShape = nullptr;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
-            MFXMenuCheckIcon* menuCheckDrawSpreadVehicles;
+            MFXMenuCheckIcon* menuCheckDrawSpreadVehicles = nullptr;
 
             /// @brief menu check for hide shapes (Polygons and POIs)
-            MFXMenuCheckIcon* menuCheckHideShapes;
+            MFXMenuCheckIcon* menuCheckHideShapes = nullptr;
 
             /// @brief menu check for show all trips plans
-            MFXMenuCheckIcon* menuCheckShowAllTrips;
+            MFXMenuCheckIcon* menuCheckShowAllTrips = nullptr;
 
             /// @brief menu check for hide non inspected demand elements
-            MFXMenuCheckIcon* menuCheckHideNonInspectedDemandElements;
+            MFXMenuCheckIcon* menuCheckHideNonInspectedDemandElements = nullptr;
 
             /// @brief menu check for show overlapped routes
-            MFXMenuCheckIcon* menuCheckShowOverlappedRoutes;
+            MFXMenuCheckIcon* menuCheckShowOverlappedRoutes = nullptr;
 
             /// @brief menu check for show all person plans
-            MFXMenuCheckIcon* menuCheckShowAllPersonPlans;
+            MFXMenuCheckIcon* menuCheckShowAllPersonPlans = nullptr;
 
             /// @brief menu check for lock Person
-            MFXMenuCheckIcon* menuCheckLockPerson;
+            MFXMenuCheckIcon* menuCheckLockPerson = nullptr;
 
             /// @brief menu check for show all container plans
-            MFXMenuCheckIcon* menuCheckShowAllContainerPlans;
+            MFXMenuCheckIcon* menuCheckShowAllContainerPlans = nullptr;
 
             /// @brief menu check for lock Container
-            MFXMenuCheckIcon* menuCheckLockContainer;
+            MFXMenuCheckIcon* menuCheckLockContainer = nullptr;
 
             /// @brief separator
             FXMenuSeparator* separator;
@@ -630,31 +633,31 @@ struct GNEApplicationWindowHelper {
             void updateShortcuts();
 
             /// @brief menu check to toggle draw junction shape
-            MFXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
+            MFXMenuCheckIcon* menuCheckToggleDrawJunctionShape = nullptr;
 
             /// @brief menu check to show Additionals
-            MFXMenuCheckIcon* menuCheckShowAdditionals;
+            MFXMenuCheckIcon* menuCheckShowAdditionals = nullptr;
 
             /// @brief menu check to show Shapes
-            MFXMenuCheckIcon* menuCheckShowShapes;
+            MFXMenuCheckIcon* menuCheckShowShapes = nullptr;
 
             /// @brief menu check to show Demand Elements
-            MFXMenuCheckIcon* menuCheckShowDemandElements;
+            MFXMenuCheckIcon* menuCheckShowDemandElements = nullptr;
 
             /// @brief menu check to toggle TAZRel drawing mode
-            MFXMenuCheckIcon* menuCheckToggleTAZRelDrawing;
+            MFXMenuCheckIcon* menuCheckToggleTAZRelDrawing = nullptr;
 
             /// @brief menu check to toggle TAZ draw fill
-            MFXMenuCheckIcon* menuCheckToggleTAZDrawFill;
+            MFXMenuCheckIcon* menuCheckToggleTAZDrawFill = nullptr;
 
             /// @brief menu check to toggle TAZRel only from
-            MFXMenuCheckIcon* menuCheckToggleTAZRelOnlyFrom;
+            MFXMenuCheckIcon* menuCheckToggleTAZRelOnlyFrom = nullptr;
 
             /// @brief menu check to toggle TAZRel only to
-            MFXMenuCheckIcon* menuCheckToggleTAZRelOnlyTo;
+            MFXMenuCheckIcon* menuCheckToggleTAZRelOnlyTo = nullptr;
 
             /// @brief separator
-            FXMenuSeparator* separator;
+            FXMenuSeparator* separator = nullptr;
 
         private:
             /// @brief pointer to current GNEApplicationWindows
@@ -683,40 +686,40 @@ struct GNEApplicationWindowHelper {
         void buildOpenSUMOMenuCommands(FXMenuPane* editMenu);
 
         /// @brief FXMenuCommand for undo last change
-        FXMenuCommand* undoLastChange;
+        FXMenuCommand* undoLastChange = nullptr;
 
         /// @brief FXMenuCommand for redo last change
-        FXMenuCommand* redoLastChange;
+        FXMenuCommand* redoLastChange = nullptr;
 
         /// @brief FXMenuCommand for open undolist dialog
-        FXMenuCommand* openUndolistDialog;
+        FXMenuCommand* openUndolistDialog = nullptr;
 
         /// @brief network view options
-        NetworkViewOptions networkViewOptions;
+        NetworkViewOptions networkViewOptions = nullptr;
 
         /// @brief demand view options
-        DemandViewOptions demandViewOptions;
+        DemandViewOptions demandViewOptions = nullptr;
 
         /// @brief data view options
-        DataViewOptions dataViewOptions;
+        DataViewOptions dataViewOptions = nullptr;
 
         /// @brief FXMenuCommand for edit view scheme
-        FXMenuCommand* editViewScheme;
+        FXMenuCommand* editViewScheme = nullptr;
 
         /// @brief FXMenuCommand for edit view port
-        FXMenuCommand* editViewPort;
+        FXMenuCommand* editViewPort = nullptr;
 
         /// @brief FXMenuCommand for clear Front element
-        FXMenuCommand* clearFrontElement;
+        FXMenuCommand* clearFrontElement = nullptr;
 
         /// @brief menu check for load additionals in SUMO GUI
-        FXMenuCheck* loadAdditionalsInSUMOGUI;
+        FXMenuCheck* loadAdditionalsInSUMOGUI = nullptr;
 
         /// @brief menu check for load demand in SUMO GUI
-        FXMenuCheck* loadDemandInSUMOGUI;
+        FXMenuCheck* loadDemandInSUMOGUI = nullptr;
 
         /// @brief FXMenuCommand for open in SUMO GUI
-        FXMenuCommand* openInSUMOGUI;
+        FXMenuCommand* openInSUMOGUI = nullptr;
 
     private:
         /// @brief pointer to current GNEApplicationWindows
@@ -1097,13 +1100,13 @@ struct GNEApplicationWindowHelper {
         void hideSupermodeCommands();
 
         /// @brief FXMenuCommand for network supermode
-        FXMenuCommand* networkMode;
+        FXMenuCommand* networkMode = nullptr;
 
         /// @brief FXMenuCommand for demand supermode
-        FXMenuCommand* demandMode;
+        FXMenuCommand* demandMode = nullptr;
 
         /// @brief FXMenuCommand for data supermode
-        FXMenuCommand* dataMode;
+        FXMenuCommand* dataMode = nullptr;
 
     private:
         /// @brief pointer to current GNEApplicationWindows
