@@ -50,6 +50,7 @@ class GNECrossingFrame;
 class GNEShapeFrame;
 class GNEProhibitionFrame;
 class GNEWireFrame;
+class GNEDecalFrame;
 class GNETAZFrame;
 class GNETLSEditorFrame;
 // demand frames
@@ -152,6 +153,9 @@ public:
 
     /// @brief get frame for NETWORK_WIRE
     GNEWireFrame* getWireFrame() const;
+
+    /// @brief get frame for NETWORK_DECAL
+    GNEDecalFrame* getDecalFrame() const;
 
     /// @brief get frame for NETWORK_CREATEEDGE
     GNECreateEdgeFrame* getCreateEdgeFrame() const;
@@ -271,16 +275,16 @@ protected:
         GNEFrame* getCurrentShownFrame() const;
 
         /// @brief frame for inspect elements
-        GNEInspectorFrame* inspectorFrame;
+        GNEInspectorFrame* inspectorFrame = nullptr;
 
         /// @brief frame for delete elements
-        GNEDeleteFrame* deleteFrame;
+        GNEDeleteFrame* deleteFrame = nullptr;
 
         /// @brief frame for select elements
-        GNESelectorFrame* selectorFrame;
+        GNESelectorFrame* selectorFrame = nullptr;
 
         /// @brief frame for move elements
-        GNEMoveFrame* moveFrame;
+        GNEMoveFrame* moveFrame = nullptr;
     };
 
     /// @brief class for network frames
@@ -306,28 +310,31 @@ protected:
         GNEFrame* getCurrentShownFrame() const;
 
         /// @brief frame for NETWORK_CONNECT
-        GNEConnectorFrame* connectorFrame;
+        GNEConnectorFrame* connectorFrame = nullptr;
 
         /// @brief frame for NETWORK_TLS
-        GNETLSEditorFrame* TLSEditorFrame;
+        GNETLSEditorFrame* TLSEditorFrame = nullptr;
 
         /// @brief frame for NETWORK_ADDITIONAL
-        GNEAdditionalFrame* additionalFrame;
+        GNEAdditionalFrame* additionalFrame = nullptr;
 
         /// @brief frame for NETWORK_CROSSING
-        GNECrossingFrame* crossingFrame;
+        GNECrossingFrame* crossingFrame = nullptr;
 
         /// @brief frame for NETWORK_TAZ
-        GNETAZFrame* TAZFrame;
+        GNETAZFrame* TAZFrame = nullptr;
 
         /// @brief frame for NETWORK_SHAPE
-        GNEShapeFrame* polygonFrame;
+        GNEShapeFrame* polygonFrame = nullptr;
 
         /// @brief frame for NETWORK_PROHIBITION
-        GNEProhibitionFrame* prohibitionFrame;
+        GNEProhibitionFrame* prohibitionFrame = nullptr;
 
         /// @brief frame for NETWORK_WIRE
-        GNEWireFrame* wireFrame;
+        GNEWireFrame* wireFrame = nullptr;
+
+        /// @brief frame for NETWORK_DECAL
+        GNEDecalFrame* decalFrame = nullptr;
 
         /// @brief frame for NETWORK_CREATEDGE
         GNECreateEdgeFrame* createEdgeFrame;
@@ -429,43 +436,43 @@ protected:
         ~ACChoosers();
 
         /// @brief pointer to ACChooser dialog used for locate junctions
-        GNEDialogACChooser* ACChooserJunction;
+        GNEDialogACChooser* ACChooserJunction = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate edges
-        GNEDialogACChooser* ACChooserEdges;
+        GNEDialogACChooser* ACChooserEdges = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate walkingareas
-        GNEDialogACChooser* ACChooserWalkingAreas;
+        GNEDialogACChooser* ACChooserWalkingAreas = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate vehicles
-        GNEDialogACChooser* ACChooserVehicles;
+        GNEDialogACChooser* ACChooserVehicles = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate persons
-        GNEDialogACChooser* ACChooserPersons;
+        GNEDialogACChooser* ACChooserPersons = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate routes
-        GNEDialogACChooser* ACChooserRoutes;
+        GNEDialogACChooser* ACChooserRoutes = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate stops
-        GNEDialogACChooser* ACChooserStops;
+        GNEDialogACChooser* ACChooserStops = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate TLSs
-        GNEDialogACChooser* ACChooserTLS;
+        GNEDialogACChooser* ACChooserTLS = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate additional
-        GNEDialogACChooser* ACChooserAdditional;
+        GNEDialogACChooser* ACChooserAdditional = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate POIs
-        GNEDialogACChooser* ACChooserPOI;
+        GNEDialogACChooser* ACChooserPOI = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate Polygons
-        GNEDialogACChooser* ACChooserPolygon;
+        GNEDialogACChooser* ACChooserPolygon = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate Prohibitions
-        GNEDialogACChooser* ACChooserProhibition;
+        GNEDialogACChooser* ACChooserProhibition = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate Wires
-        GNEDialogACChooser* ACChooserWire;
+        GNEDialogACChooser* ACChooserWire = nullptr;
     };
 
 private:
