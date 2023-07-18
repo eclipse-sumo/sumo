@@ -44,7 +44,7 @@ due to limited space in the GUI. For this reason the `TLC` macro can be used, wh
 mentioned: It contains first the context and then the string as parameters like in `TLC("Simulation", "Stop")`. 
 Below is the list of context identifiers currently in use:
 - Simulation
-- Tooltips
+- Labels
 
 # Using translations
 
