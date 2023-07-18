@@ -51,6 +51,7 @@
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNECrossingFrame.h>
+#include <netedit/frames/network/GNEDecalFrame.h>
 #include <netedit/frames/network/GNEProhibitionFrame.h>
 #include <netedit/frames/network/GNEShapeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
@@ -99,7 +100,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,        GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,             GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE,                          GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION,                  GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION,            GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE,                           GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE,                              GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL,                        GNEViewNet::onCmdSetMode),
@@ -2062,6 +2063,9 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_W_MODE_WIRE:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_WIRE);
                 break;
+            case MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION:
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_DECAL);
+                break;
             default:
                 break;
         }
@@ -2095,7 +2099,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_T_MODE_TLS_TYPE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPE);
                 break;
-            case MID_HOTKEY_U_MODE_TYPEDISTRIBUTION:
+            case MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPEDISTRIBUTION);
                 break;
             case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP:
@@ -4720,6 +4724,12 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCurrentFrame = myViewParent->getWireFrame();
             myNetworkCheckableButtons.wireButton->setChecked(true);
             break;
+        case NetworkEditMode::NETWORK_DECAL:
+            myViewParent->getDecalFrame()->show();
+            myViewParent->getDecalFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getDecalFrame();
+            myNetworkCheckableButtons.decalButton->setChecked(true);
+            break;
         default:
             break;
     }
@@ -5765,6 +5775,11 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // update view to show the new wire
                 updateViewNet();
             }
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case NetworkEditMode::NETWORK_DECAL: {
             // process click
             processClick(eventData);
             break;
