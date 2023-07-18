@@ -799,6 +799,11 @@ public:
     */
     double getStateOfCharge() const;
 
+    /** @brief Returns actual relative state of charge of battery (-)
+    * @return The actual relative battery state of charge, normalised to the maximum battery capacity.
+    */
+    double getRelativeStateOfCharge() const;
+
     /** @brief Returns actual current (A) of ElecHybrid device
     * RICE_CHECK: Is this the current consumed from the overhead wire or the current driving the powertrain of the vehicle?
     * RICE_REV_JS: It is the current drawn from the overhead wire (value if the vehicle is not connected to overhead wire?)
