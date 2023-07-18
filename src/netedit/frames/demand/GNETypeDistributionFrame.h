@@ -35,7 +35,7 @@ public:
     // class declaration
     // ===========================================================================
 
-    class TypeAttributesEditor;
+    class TypeDistributionAttributesEditor;
 
     // ===========================================================================
     // class TypeDistributionEditor
@@ -131,25 +131,30 @@ public:
     };
 
     // ===========================================================================
-    // class TypeAttributesEditorRow
+    // class TypeDistributionAttributesEditorRow
     // ===========================================================================
 
-    class TypeAttributesEditorRow : protected FXHorizontalFrame {
+    class TypeDistributionAttributesEditorRow : protected FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNETypeDistributionFrame::TypeAttributesEditorRow)
+        FXDECLARE(GNETypeDistributionFrame::TypeDistributionAttributesEditorRow)
 
     public:
-        /// @brief constructor
-        TypeAttributesEditorRow(TypeAttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value);
+        /// @brief constructor for ID attribute
+        TypeDistributionAttributesEditorRow(TypeDistributionAttributesEditor* attributeEditorParent,
+            const GNEAttributeProperties& ACAttr, const std::string& id);
+
+        /// @brief constructor for type-probability attributes
+        TypeDistributionAttributesEditorRow(TypeDistributionAttributesEditor* attributeEditorParent,
+            const std::string& type, const std::string& probability);
 
         /// @brief destroy GNEAttributesCreatorRow (but don't delete)
         void destroy();
 
         /// @brief refresh current row
-        void refreshTypeAttributesEditorRow(const std::string& value);
+        void refreshTypeDistributionAttributesEditorRow(const std::string& value);
 
         /// @brief check if current attribute of TextField/ComboBox is valid
-        bool isTypeAttributesEditorRowValid() const;
+        bool isTypeDistributionAttributesEditorRowValid() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -161,39 +166,45 @@ public:
 
     protected:
         /// @brief default constructor
-        TypeAttributesEditorRow();
+        TypeDistributionAttributesEditorRow();
 
     private:
-        /// @brief pointer to TypeAttributesEditor parent
-        TypeAttributesEditor* myTypeAttributesEditorParent;
-
-        /// @brief current AC Attribute
-        const GNEAttributeProperties myACAttr;
+        /// @brief pointer to TypeDistributionAttributesEditor parent
+        TypeDistributionAttributesEditor* myTypeDistributionAttributesEditorParent;
 
         /// @brief pointer to attribute label
         MFXLabelTooltip* myAttributeLabel = nullptr;
 
+        /// @brief pointer to attribute label
+        FXLabel* myTypeLabel = nullptr;
+
+        /// @brief delete row button
+        MFXButtonTooltip* myDeleteRowButton = nullptr;
+
         /// @brief textField to modify the value of string attributes
         MFXTextFieldTooltip* myValueTextField = nullptr;
+
+        /// @brief textField to modify the probability attribute
+        MFXTextFieldTooltip* myProbabilityTextField = nullptr;
     };
 
     // ===========================================================================
-    // class TypeAttributesEditor
+    // class TypeDistributionAttributesEditor
     // ===========================================================================
 
-    class TypeAttributesEditor : public MFXGroupBoxModule {
+    class TypeDistributionAttributesEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNETypeDistributionFrame::TypeAttributesEditor)
+        FXDECLARE(GNETypeDistributionFrame::TypeDistributionAttributesEditor)
 
     public:
         /// @brief constructor
-        TypeAttributesEditor(GNETypeDistributionFrame* typeDistributionFrameParent);
+        TypeDistributionAttributesEditor(GNETypeDistributionFrame* typeDistributionFrameParent);
 
         /// @brief show attributes of multiple ACs
         void showAttributeEditorModule();
 
         /// @brief hide attribute editor
-        void hideTypeAttributesEditorModule();
+        void hideTypeDistributionAttributesEditorModule();
 
         /// @brief refresh attribute editor (only the valid values will be refresh)
         void refreshAttributeEditor();
@@ -205,20 +216,20 @@ public:
         /// @{
 
         /// @brief Called when user press the help button
-        long onCmdTypeAttributesEditorHelp(FXObject*, FXSelector, void*);
+        long onCmdTypeDistributionAttributesEditorHelp(FXObject*, FXSelector, void*);
 
         /// @}
 
     protected:
         /// @brief fox need this
-        FOX_CONSTRUCTOR(TypeAttributesEditor)
+        FOX_CONSTRUCTOR(TypeDistributionAttributesEditor)
 
     private:
         /// @brief pointer to type distribution frame parent
         GNETypeDistributionFrame* myTypeDistributionFrameParent;
 
         /// @brief list of Attribute editor rows
-        std::vector<TypeAttributesEditorRow*> myTypeAttributesEditorRows;
+        std::vector<TypeDistributionAttributesEditorRow*> myTypeDistributionAttributesEditorRows;
 
         /// @brief button for help
         FXButton* myHelpButton = nullptr;
@@ -251,5 +262,5 @@ private:
     TypeDistributionSelector* myTypeDistributionSelector = nullptr;
 
     /// @brief editor for vehicle type attributes
-    TypeAttributesEditor* myTypeTypeAttributesEditor = nullptr;
+    TypeDistributionAttributesEditor* myTypeDistributionAttributesEditor = nullptr;
 };

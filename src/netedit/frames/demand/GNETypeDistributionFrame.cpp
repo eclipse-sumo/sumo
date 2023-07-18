@@ -38,30 +38,30 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNETypeDistributionFrame::TypeDistributionEditor) typeEditorMap[] = {
+FXDEFMAP(GNETypeDistributionFrame::TypeDistributionEditor) typeDistributionEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,    GNETypeDistributionFrame::TypeDistributionEditor::onCmdCreateType),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_DELETE,    GNETypeDistributionFrame::TypeDistributionEditor::onCmdDeleteType),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_DELETE,    GNETypeDistributionFrame::TypeDistributionEditor::onUpdDeleteType),
 };
 
-FXDEFMAP(GNETypeDistributionFrame::TypeDistributionSelector) typeSelectorMap[] = {
+FXDEFMAP(GNETypeDistributionFrame::TypeDistributionSelector) typeDistributionSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeDistributionSelector::onCmdSelectTypeDistribution),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeDistributionSelector::onCmdUpdateTypeDistribution)
 };
 
-FXDEFMAP(GNETypeDistributionFrame::TypeAttributesEditorRow) TypeAttributesEditorRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNETypeDistributionFrame::TypeAttributesEditorRow::onCmdSetAttribute)
+FXDEFMAP(GNETypeDistributionFrame::TypeDistributionAttributesEditorRow) TypeDistributionAttributesEditorRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::onCmdSetAttribute)
 };
 
-FXDEFMAP(GNETypeDistributionFrame::TypeAttributesEditor) TypeAttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNETypeDistributionFrame::TypeAttributesEditor::onCmdTypeAttributesEditorHelp)
+FXDEFMAP(GNETypeDistributionFrame::TypeDistributionAttributesEditor) TypeDistributionAttributesEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNETypeDistributionFrame::TypeDistributionAttributesEditor::onCmdTypeDistributionAttributesEditorHelp)
 };
 
 // Object implementation
-FXIMPLEMENT(GNETypeDistributionFrame::TypeDistributionEditor,   MFXGroupBoxModule,  typeEditorMap,              ARRAYNUMBER(typeEditorMap))
-FXIMPLEMENT(GNETypeDistributionFrame::TypeDistributionSelector, MFXGroupBoxModule,  typeSelectorMap,            ARRAYNUMBER(typeSelectorMap))
-FXIMPLEMENT(GNETypeDistributionFrame::TypeAttributesEditorRow,  FXHorizontalFrame,  TypeAttributesEditorRowMap, ARRAYNUMBER(TypeAttributesEditorRowMap))
-FXIMPLEMENT(GNETypeDistributionFrame::TypeAttributesEditor,     MFXGroupBoxModule,  TypeAttributesEditorMap,    ARRAYNUMBER(TypeAttributesEditorMap))
+FXIMPLEMENT(GNETypeDistributionFrame::TypeDistributionEditor,               MFXGroupBoxModule,  typeDistributionEditorMap,              ARRAYNUMBER(typeDistributionEditorMap))
+FXIMPLEMENT(GNETypeDistributionFrame::TypeDistributionSelector,             MFXGroupBoxModule,  typeDistributionSelectorMap,            ARRAYNUMBER(typeDistributionSelectorMap))
+FXIMPLEMENT(GNETypeDistributionFrame::TypeDistributionAttributesEditorRow,  FXHorizontalFrame,  TypeDistributionAttributesEditorRowMap, ARRAYNUMBER(TypeDistributionAttributesEditorRowMap))
+FXIMPLEMENT(GNETypeDistributionFrame::TypeDistributionAttributesEditor,     MFXGroupBoxModule,  TypeDistributionAttributesEditorMap,    ARRAYNUMBER(TypeDistributionAttributesEditorMap))
 
 
 // ===========================================================================
@@ -206,13 +206,13 @@ GNETypeDistributionFrame::TypeDistributionSelector::refreshTypeDistributionSelec
         // set myCurrentType as inspected element
         myTypeDistributionFrameParent->getViewNet()->setInspectedAttributeCarriers({vTypeDistribution});
         // show modules
-        myTypeDistributionFrameParent->myTypeTypeAttributesEditor->showAttributeEditorModule();
+        myTypeDistributionFrameParent->myTypeDistributionAttributesEditor->showAttributeEditorModule();
     } else {
         myCurrentTypeDistribution.clear();
         // set myCurrentType as inspected element
         myTypeDistributionFrameParent->getViewNet()->setInspectedAttributeCarriers({});
         // hide modules
-        myTypeDistributionFrameParent->myTypeTypeAttributesEditor->hideTypeAttributesEditorModule();
+        myTypeDistributionFrameParent->myTypeDistributionAttributesEditor->hideTypeDistributionAttributesEditorModule();
     }
 }
 
@@ -231,7 +231,7 @@ GNETypeDistributionFrame::TypeDistributionSelector::onCmdSelectTypeDistribution(
             // set myCurrentType as inspected element
             viewNet->setInspectedAttributeCarriers({vTypeDistribution});
             // show modules if selected item is valid
-            myTypeDistributionFrameParent->myTypeTypeAttributesEditor->showAttributeEditorModule();
+            myTypeDistributionFrameParent->myTypeDistributionAttributesEditor->showAttributeEditorModule();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeDistributionSelector").text());
             // update viewNet
@@ -241,7 +241,7 @@ GNETypeDistributionFrame::TypeDistributionSelector::onCmdSelectTypeDistribution(
     }
     myCurrentTypeDistribution.clear();
     // hide all modules if selected item isn't valid
-    myTypeDistributionFrameParent->myTypeTypeAttributesEditor->hideTypeAttributesEditorModule();
+    myTypeDistributionFrameParent->myTypeDistributionAttributesEditor->hideTypeDistributionAttributesEditorModule();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -263,41 +263,77 @@ GNETypeDistributionFrame::TypeDistributionSelector::onCmdUpdateTypeDistribution(
 }
 
 // ---------------------------------------------------------------------------
-// GNETypeDistributionFrame::TypeAttributesEditorRow - methods
+// GNETypeDistributionFrame::TypeDistributionAttributesEditorRow - methods
 // ---------------------------------------------------------------------------
 
-GNETypeDistributionFrame::TypeAttributesEditorRow::TypeAttributesEditorRow(GNETypeDistributionFrame::TypeAttributesEditor* attributeEditorParent,
-        const GNEAttributeProperties& ACAttr, const std::string& value) :
+GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::TypeDistributionAttributesEditorRow(
+        GNETypeDistributionFrame::TypeDistributionAttributesEditor* attributeEditorParent,
+        const GNEAttributeProperties& ACAttr, const std::string& id) :
     FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
-    myTypeAttributesEditorParent(attributeEditorParent),
-    myACAttr(ACAttr) {
-    // Create and hide label
-    myAttributeLabel = new MFXLabelTooltip(this,
-        attributeEditorParent->getTypeDistributionFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+    myTypeDistributionAttributesEditorParent(attributeEditorParent) {
+    // get staticTooltip menu
+    auto staticTooltipMenu = attributeEditorParent->getTypeDistributionFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
+    // Create attribute label (usually used only for ID)
+    myAttributeLabel = new MFXLabelTooltip(this, staticTooltipMenu,
         "attributeLabel", nullptr, GUIDesignLabelThickedFixed(100));
     // Create and hide MFXTextFieldTooltip for string attributes
-    myValueTextField = new MFXTextFieldTooltip(this,
-        attributeEditorParent->getTypeDistributionFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+    myValueTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
         GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // only create if parent was created
     if (getParent()->id()) {
-        // create TypeAttributesEditorRow
+        // create TypeDistributionAttributesEditorRow
         FXHorizontalFrame::create();
-        // Show attribute Label
-        myAttributeLabel->setText(myACAttr.getAttrStr().c_str());
-        myAttributeLabel->setTipText(myACAttr.getDefinition().c_str());
+        // Show attribute ACAttr.getAttrStr().c_str());
+        myAttributeLabel->setTipText(ACAttr.getDefinition().c_str());
         // In any other case (String, list, etc.), show value as String
-        myValueTextField->setText(value.c_str());
+        myValueTextField->setText(id.c_str());
         myValueTextField->setTextColor(FXRGB(0, 0, 0));
         myValueTextField->killFocus();
-        // Show TypeAttributesEditorRow
+        // Show TypeDistributionAttributesEditorRow
+        show();
+    }
+}
+
+
+GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::TypeDistributionAttributesEditorRow(
+        TypeDistributionAttributesEditor* attributeEditorParent, const std::string& type, const std::string& probability) :
+    FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
+    myTypeDistributionAttributesEditorParent(attributeEditorParent) {
+    // get staticTooltip menu
+    auto staticTooltipMenu = attributeEditorParent->getTypeDistributionFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
+    // create and hide color editor
+    myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu,
+        "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonIcon);
+    // Create type label
+    myTypeLabel = new FXLabel(this, "typeLabel", nullptr, GUIDesignLabelThickedFixed(100 - GUIDesignHeight));
+    // Create and hide MFXTextFieldTooltip for string attributes
+    myValueTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
+        GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // Create and hide MFXTextFieldTooltip for string attributes
+    myProbabilityTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
+        GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
+    // only create if parent was created
+    if (getParent()->id()) {
+        // create TypeDistributionAttributesEditorRow
+        FXHorizontalFrame::create();
+        // Show attribute Label
+        myTypeLabel->setText(toString(SUMO_ATTR_TYPE).c_str());
+        // set type
+        myValueTextField->setText(type.c_str());
+        myValueTextField->setTextColor(FXRGB(0, 0, 0));
+        myValueTextField->killFocus();
+        // set probability
+        myProbabilityTextField->setText(probability.c_str());
+        myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+        myProbabilityTextField->killFocus();
+        // Show TypeDistributionAttributesEditorRow
         show();
     }
 }
 
 
 void
-GNETypeDistributionFrame::TypeAttributesEditorRow::destroy() {
+GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::destroy() {
     // only destroy if parent was created
     if (getParent()->id()) {
         FXHorizontalFrame::destroy();
@@ -306,7 +342,7 @@ GNETypeDistributionFrame::TypeAttributesEditorRow::destroy() {
 
 
 void
-GNETypeDistributionFrame::TypeAttributesEditorRow::refreshTypeAttributesEditorRow(const std::string& value) {
+GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::refreshTypeDistributionAttributesEditorRow(const std::string& value) {
     // set last valid value and restore color if onlyValid is disabled
     myValueTextField->setText(value.c_str());
     // set blue color if is an computed value
@@ -316,74 +352,68 @@ GNETypeDistributionFrame::TypeAttributesEditorRow::refreshTypeAttributesEditorRo
 
 
 bool
-GNETypeDistributionFrame::TypeAttributesEditorRow::isTypeAttributesEditorRowValid() const {
+GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::isTypeDistributionAttributesEditorRowValid() const {
     return (myValueTextField->getTextColor() == FXRGB(0, 0, 0));
 }
 
 
 long
-GNETypeDistributionFrame::TypeAttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
-    // Check if default value must be set
-    if (myValueTextField->getText().empty() && myACAttr.hasDefaultValue()) {
-        newVal = myACAttr.getDefaultValue();
-        myValueTextField->setText(newVal.c_str());
-    } else {
-        // obtain value of myValueTextField
-        newVal = myValueTextField->getText().text();
-    }
+    // obtain value of myValueTextField
+    newVal = myValueTextField->getText().text();
     // get current distribution
-    auto currentDistribution = myTypeAttributesEditorParent->getTypeDistributionFrameParent()->getTypeDistributionSelector()->getCurrentTypeDistribution();
+    auto currentDistribution = myTypeDistributionAttributesEditorParent->getTypeDistributionFrameParent()->getTypeDistributionSelector()->getCurrentTypeDistribution();
     // continue if we have a distribution to edit
     if (currentDistribution) {
         // Check if attribute must be changed
-        if (currentDistribution->isValid(myACAttr.getAttr(), newVal)) {
+        if (currentDistribution->isValid(SUMO_ATTR_ID, newVal)) {
             // set attribute
-            currentDistribution->setAttribute(myACAttr.getAttr(), myACAttr.getDefaultValue(), myTypeAttributesEditorParent->getTypeDistributionFrameParent()->getViewNet()->getUndoList());
+            currentDistribution->setAttribute(SUMO_ATTR_ID, newVal, myTypeDistributionAttributesEditorParent->getTypeDistributionFrameParent()->getViewNet()->getUndoList());
             // update text field
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->setBackColor(FXRGB(255, 255, 255));
             myValueTextField->killFocus();
             // in this case, we need to refresh the other values (For example, allow/Disallow objects)
-            myTypeAttributesEditorParent->refreshAttributeEditor();
+            myTypeDistributionAttributesEditorParent->refreshAttributeEditor();
             // update frame parent after attribute successfully set
-            myTypeAttributesEditorParent->getTypeDistributionFrameParent()->attributeUpdated(myACAttr.getAttr());
+            myTypeDistributionAttributesEditorParent->getTypeDistributionFrameParent()->attributeUpdated(SUMO_ATTR_ID);
         } else {
             myValueTextField->setTextColor(FXRGB(255, 0, 0));
             if (newVal.empty()) {
                 myValueTextField->setBackColor(FXRGBA(255, 213, 213, 255));
             }
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(TL("Value '") + newVal + TL("' for attribute ") + myACAttr.getAttrStr() + TL(" of ") + myACAttr.getTagPropertyParent().getTagStr() + TL(" isn't valid"));
+            WRITE_DEBUG(TL("Value '") + newVal + TL("' for attribute ID of Distribution isn't valid"));
         }
     }
     return 1;
 }
 
 
-GNETypeDistributionFrame::TypeAttributesEditorRow::TypeAttributesEditorRow() :
-    myTypeAttributesEditorParent(nullptr) {
+GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::TypeDistributionAttributesEditorRow() :
+    myTypeDistributionAttributesEditorParent(nullptr) {
 }
 
 // ---------------------------------------------------------------------------
-// GNETypeDistributionFrame::TypeAttributesEditor - methods
+// GNETypeDistributionFrame::TypeDistributionAttributesEditor - methods
 // ---------------------------------------------------------------------------
 
-GNETypeDistributionFrame::TypeAttributesEditor::TypeAttributesEditor(GNETypeDistributionFrame* typeDistributionFrameParent) :
+GNETypeDistributionFrame::TypeDistributionAttributesEditor::TypeDistributionAttributesEditor(GNETypeDistributionFrame* typeDistributionFrameParent) :
     MFXGroupBoxModule(typeDistributionFrameParent, TL("Internal attributes")),
     myTypeDistributionFrameParent(typeDistributionFrameParent) {
-    // resize myTypeAttributesEditorRows
-    myTypeAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
+    // resize myTypeDistributionAttributesEditorRows
+    myTypeDistributionAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // Create help button
     myHelpButton = new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
 void
-GNETypeDistributionFrame::TypeAttributesEditor::showAttributeEditorModule() {
+GNETypeDistributionFrame::TypeDistributionAttributesEditor::showAttributeEditorModule() {
     // first remove all rows
-    for (auto& row : myTypeAttributesEditorRows) {
+    for (auto& row : myTypeDistributionAttributesEditorRows) {
         // destroy and delete all rows
         if (row != nullptr) {
             row->destroy();
@@ -395,13 +425,25 @@ GNETypeDistributionFrame::TypeAttributesEditor::showAttributeEditorModule() {
     auto currentDistribution = myTypeDistributionFrameParent->getTypeDistributionSelector()->getCurrentTypeDistribution();
     // continue if we have a distribution to edit
     if (currentDistribution) {
-        // Iterate over attributes
-        for (const auto& attrProperty : currentDistribution->getTagProperty()) {
-            // create attribute editor row
-            myTypeAttributesEditorRows[attrProperty.getPositionListed()] = new TypeAttributesEditorRow(this,
-                attrProperty, currentDistribution->getAttribute(attrProperty.getAttr()));
+        // get ID
+        const auto distributionID = currentDistribution->getAttribute(SUMO_ATTR_ID);
+        // first add ID
+        myTypeDistributionAttributesEditorRows[0] = new TypeDistributionAttributesEditorRow(this,
+                currentDistribution->getTagProperty().getAttributeProperties(SUMO_ATTR_ID), distributionID);
+        // get all vTypes with the given current sorted by ID
+        std::map<std::string, GNEDemandElement*> vTypes;
+        for (const auto &vType : myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+            if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == distributionID) {
+                vTypes[vType->getID()] = vType;
+            }
         }
-        // show TypeAttributesEditor
+        int index = 1;
+        for (const auto &vType : vTypes) {
+            myTypeDistributionAttributesEditorRows[index] = new TypeDistributionAttributesEditorRow(this,
+                vType.first, vType.second->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY));
+            index++;
+        }
+        // show TypeDistributionAttributesEditor
         show();
     }
     // reparent help button (to place it at bottom)
@@ -410,14 +452,14 @@ GNETypeDistributionFrame::TypeAttributesEditor::showAttributeEditorModule() {
 
 
 void
-GNETypeDistributionFrame::TypeAttributesEditor::hideTypeAttributesEditorModule() {
-    // hide also TypeAttributesEditor
+GNETypeDistributionFrame::TypeDistributionAttributesEditor::hideTypeDistributionAttributesEditorModule() {
+    // hide also TypeDistributionAttributesEditor
     hide();
 }
 
 
 void
-GNETypeDistributionFrame::TypeAttributesEditor::refreshAttributeEditor() {
+GNETypeDistributionFrame::TypeDistributionAttributesEditor::refreshAttributeEditor() {
     // get current distribution
     auto currentDistribution = myTypeDistributionFrameParent->getTypeDistributionSelector()->getCurrentTypeDistribution();
     // continue if we have a distribution to edit
@@ -425,20 +467,20 @@ GNETypeDistributionFrame::TypeAttributesEditor::refreshAttributeEditor() {
         // Iterate over inspected attribute carriers
         for (const auto& attrProperty : currentDistribution->getTagProperty()) {
             // Refresh attributes
-            myTypeAttributesEditorRows[attrProperty.getPositionListed()]->refreshTypeAttributesEditorRow(currentDistribution->getAttribute(attrProperty.getAttr()));
+            myTypeDistributionAttributesEditorRows[attrProperty.getPositionListed()]->refreshTypeDistributionAttributesEditorRow(currentDistribution->getAttribute(attrProperty.getAttr()));
         }
     }
 }
 
 
 GNETypeDistributionFrame*
-GNETypeDistributionFrame::TypeAttributesEditor::getTypeDistributionFrameParent() const {
+GNETypeDistributionFrame::TypeDistributionAttributesEditor::getTypeDistributionFrameParent() const {
     return myTypeDistributionFrameParent;
 }
 
 
 long
-GNETypeDistributionFrame::TypeAttributesEditor::onCmdTypeAttributesEditorHelp(FXObject*, FXSelector, void*) {
+GNETypeDistributionFrame::TypeDistributionAttributesEditor::onCmdTypeDistributionAttributesEditorHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
     myTypeDistributionFrameParent->openHelpAttributesDialog(myTypeDistributionFrameParent->getTypeDistributionSelector()->getCurrentTypeDistribution());
     return 1;
@@ -457,8 +499,8 @@ GNETypeDistributionFrame::GNETypeDistributionFrame(GNEViewParent* viewParent, GN
     // create type selector
     myTypeDistributionSelector = new TypeDistributionSelector(this);
 
-    // Create vehicle type attributes editor
-    myTypeTypeAttributesEditor = new GNETypeDistributionFrame::TypeAttributesEditor(this);
+    // Create type distribution attributes editor
+    myTypeDistributionAttributesEditor = new GNETypeDistributionFrame::TypeDistributionAttributesEditor(this);
 }
 
 
