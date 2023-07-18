@@ -378,7 +378,10 @@ struct GNEApplicationWindowHelper {
 
             /// @brief menu command for type mode
             FXMenuCommand* typeMode = nullptr;
-
+            
+            /// @brief menu command for type distribution mode
+            FXMenuCommand* typeDistributionMode = nullptr;
+            
             /// @brief menu command for stop mode
             FXMenuCommand* stopMode = nullptr;
 
