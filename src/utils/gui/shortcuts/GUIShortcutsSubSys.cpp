@@ -68,8 +68,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_t), target, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE));
     accelTable->addAccel(parseKey(KEY_T), target, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE));
 
-    accelTable->addAccel(parseKey(KEY_u), target, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION));
-    accelTable->addAccel(parseKey(KEY_U), target, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION));
+    accelTable->addAccel(parseKey(KEY_u), target, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION));
+    accelTable->addAccel(parseKey(KEY_U), target, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION));
 
     accelTable->addAccel(parseKey(KEY_v), target, FXSEL(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE));
     accelTable->addAccel(parseKey(KEY_V), target, FXSEL(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE));
