@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-18 18:37+0200\n"
+"POT-Creation-Date: 2023-07-18 19:05+0200\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -181,8 +181,6 @@ msgstr ""
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:505
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1256
-#: D:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:124
-#: D:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1596
 msgid "Edit Viewport"
 msgstr ""
 
@@ -13584,6 +13582,12 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:120
 msgid "Recenter view to the simulated area."
+msgstr ""
+
+#: D:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:124
+#: D:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1596
+msgctxt "Labels"
+msgid "Edit Viewport"
 msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:124
