@@ -1224,6 +1224,9 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::updateShortcuts()
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::EditMenuCommands::EditMenuCommands(GNEApplicationWindow* GNEApp) :
+    networkViewOptions(GNEApp),
+    demandViewOptions(GNEApp),
+    dataViewOptions(GNEApp),
     myGNEApp(GNEApp) {
 }
 
