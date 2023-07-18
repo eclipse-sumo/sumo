@@ -698,13 +698,13 @@ struct GNEApplicationWindowHelper {
         FXMenuCommand* openUndolistDialog = nullptr;
 
         /// @brief network view options
-        NetworkViewOptions networkViewOptions = nullptr;
+        NetworkViewOptions networkViewOptions;
 
         /// @brief demand view options
-        DemandViewOptions demandViewOptions = nullptr;
+        DemandViewOptions demandViewOptions;
 
         /// @brief data view options
-        DataViewOptions dataViewOptions = nullptr;
+        DataViewOptions dataViewOptions;
 
         /// @brief FXMenuCommand for edit view scheme
         FXMenuCommand* editViewScheme = nullptr;
