@@ -37,6 +37,15 @@ should just review the changes to the translation files as well.
 The translations should not be applied to debug and developer messages. This includes everything
 in src/foreign, src/libsumo, src/libtraci, src/traci_testclient and unittest.
 
+## Context
+
+The same string may have different meanings in different contexts or may need a shorter version 
+due to limited space in the GUI. For this reason the `TLC` macro can be used, where the context can be 
+mentioned: It contains first the context and then the string as parameters like in `TLC("Simulation", "Stop")`. 
+Below is the list of context identifiers currently in use:
+- Simulation
+- Tooltips
+
 # Using translations
 
 Until we have a sufficient amount of translated strings the translations are disabled by default.
