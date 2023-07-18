@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingSt
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.parking, "true")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x + 1, netedit.positions.demandElements.chargingStation.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
