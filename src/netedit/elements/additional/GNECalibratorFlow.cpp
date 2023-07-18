@@ -91,7 +91,7 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         // close vehicle tag
         device.closeTag();
     } else {
-        WRITE_WARNING(TLF("calibratorFlow of  calibrator '%' cannot be written. Either type or vehsPerHour or speed must be enabled", getParentAdditionals().front()->getID()));
+        WRITE_WARNING(TLF("calibratorFlow of calibrator '%' cannot be written. Either type or vehsPerHour or speed must be enabled", getParentAdditionals().front()->getID()));
     }
 }
 

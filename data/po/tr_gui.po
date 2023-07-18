@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-18 15:54+0200\n"
+"POT-Creation-Date: 2023-07-18 18:37+0200\n"
 "PO-Revision-Date: 2023-03-15 09:30+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -8494,7 +8494,7 @@ msgstr "Hem Kesimlerim (myEdge) hem de Şeritlerim (myLane) tanımlanmamış"
 #: D:\Repos\sumo/src\netedit\elements\additional\GNECalibratorFlow.cpp:94
 #, c-format
 msgid ""
-"calibratorFlow of  calibrator '%' cannot be written. Either type or "
+"calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
 msgstr ""
 
@@ -11477,7 +11477,7 @@ msgstr ""
 "izin verilmez."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539
-msgid "Click over junction to  mark candidate edges."
+msgid "Click over junction to mark candidate edges."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539

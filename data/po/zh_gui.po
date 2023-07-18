@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-18 15:54+0200\n"
+"POT-Creation-Date: 2023-07-18 18:37+0200\n"
 "PO-Revision-Date: 2023-06-06 13:40+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -8275,7 +8275,7 @@ msgstr "myEdge和myLane都没有被定义"
 #: D:\Repos\sumo/src\netedit\elements\additional\GNECalibratorFlow.cpp:94
 #, c-format
 msgid ""
-"calibratorFlow of  calibrator '%' cannot be written. Either type or "
+"calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
 msgstr ""
 
@@ -11197,7 +11197,7 @@ msgid ""
 msgstr "在路口已经有另一个具有相同路段的交叉口；重复的交叉口是不允许的。"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539
-msgid "Click over junction to  mark candidate edges."
+msgid "Click over junction to mark candidate edges."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539

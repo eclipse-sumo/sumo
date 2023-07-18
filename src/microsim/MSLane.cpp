@@ -2120,7 +2120,7 @@ MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& s
                 bool removeCollider = true;
                 removeCollider = !(collider->hasInfluencer() && collider->getInfluencer()->isRemoteAffected(timestep));
                 if (!removeCollider) {
-                    prefix = TLF("Keeping remote-controlled  vehicle '%' after", collider->getID());
+                    prefix = TLF("Keeping remote-controlled vehicle '%' after", collider->getID());
                 } else {
                     toRemove.insert(collider);
                 }

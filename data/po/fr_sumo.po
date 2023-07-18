@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-10 15:11+0200\n"
+"POT-Creation-Date: 2023-07-18 18:42+0200\n"
 "PO-Revision-Date: 2022-10-09 17:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2485,7 +2485,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:2123
 #, c-format
-msgid "Keeping remote-controlled  vehicle '%' after"
+msgid "Keeping remote-controlled vehicle '%' after"
 msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:2136
@@ -2573,217 +2573,217 @@ msgstr ""
 msgid "Taz usage was requested but no taz present in % '%'!"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:262
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:272
 #, c-format
 msgid "Vehicle type distribution '%' is empty."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:266
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:917
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:276
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:927
 #, c-format
 msgid "Another vehicle type (or distribution) with the id '%' exists."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:287
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:316
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:297
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:326
 msgid "Ids of internal routes are ignored (vehicle '%')."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:306
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:316
 msgid "Invalid reference to route '%' in route %."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:317
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:327
 msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:328
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:338
 msgid " for vehicle '%' with vClass %."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:332
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:342
 msgid ""
 "Disconnected route % when repeating. Last edge '%' is not connected to first "
 "edge '%'%"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:339
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:349
 msgid "Invalid cost for route '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:396
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:406
 #, c-format
 msgid "Route '%' has no edges."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:414
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:446
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:424
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:456
 msgid ""
 "Cannot repeat stops with 'until' in route % because no cycleTime is defined."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:423
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:433
 msgid ""
 "Cannot repeat stops with 'arrival' in route % because no cycleTime is "
 "defined."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:446
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:456
 #, c-format
 msgid "A vehicle with id '%' already exists."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:449
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:525
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:459
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:535
 #, c-format
 msgid "Another route (or distribution) with the id '%' exists."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:529
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:539
 #, c-format
 msgid "Route distribution '%' is empty."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:569
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:559
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:579
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:569
 msgid ""
 "Vehicle type '%' with vClass=pedestrian should only be used for persons and "
 "not for vehicle '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:578
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:588
 msgid ""
 "Ignoring child element 'route' for vehicle '%' because attribute 'route' is "
 "set."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:587
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:597
 #, c-format
 msgid "Vehicle '%' has no route."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:729
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:739
 msgid ""
 "Could not merge vehicle stops for vehicle '%' into implicitly defined route "
 "'%'"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:760
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:770
 #: D:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:327
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:898
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:908
 msgid ""
 "There exists a person and a container with the same id '%'. Starting with "
 "SUMO 1.9.0 this is an error."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:993
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1003
 #, c-format
 msgid "Another flow with the id '%' exists."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1134
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1144
 msgid "The busStop '%' is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1140
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1150
 msgid "The containerStop '%' is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1146
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1156
 msgid "The parkingArea '%' is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1153
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1163
 msgid "The chargingStation '%' is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1160
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1170
 msgid "The overhead wire segment '%' is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1164
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1174
 msgid "Invalid stop definition%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1243
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1253
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1322
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1332
 msgid "Stop edge '%' missing in attribute 'via' for % '%'"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1342
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1203
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1321
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1352
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1213
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1331
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1368
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1378
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1374
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1224
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1384
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1234
 msgid "No destination edge for %."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1403
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1244
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1413
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1254
 msgid "Start edge not defined for person '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1413
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1478
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1255
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1312
-msgid "Non-positive walking duration for  '%'."
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1423
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1488
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1265
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1322
+msgid "Non-positive walking duration for '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1440
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1484
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1316
-msgid "Non-positive walking speed for  '%'."
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1450
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1494
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1326
+msgid "Non-positive walking speed for '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1509
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1519
 msgid "No edges to walk for person '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1546
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1556
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1618
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1628
 msgid "Could not read tranship speed for container '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1626
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1636
 msgid "Non-positive tranship speed for container '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1652
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1662
 #, c-format
 msgid "The start edge for container '%' is not known."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1671
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1681
 msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1677
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1687
 msgid "No edges to tranship container '%'."
 msgstr ""
 
@@ -2898,7 +2898,7 @@ msgstr ""
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSVehicleControl.cpp:500
+#: D:\Repos\sumo/src\microsim\MSVehicleControl.cpp:499
 msgid "Vehicle '%' aborted waiting %."
 msgstr ""
 
@@ -2949,11 +2949,11 @@ msgstr ""
 msgid "Rounding 'sigmaStep' to % for vType '%'"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:50
+#: D:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:54
 msgid "Unknown train type: %. Exiting!"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:252
+#: D:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:256
 msgid ""
 "Anything else than semi implicit euler update is not yet implemented. "
 "Exiting!"
@@ -6079,7 +6079,7 @@ msgid ""
 "simulation SUMO."
 msgstr "Un simulateur de trafic microscopique et multimodal."
 
-#: D:\Repos\sumo/src\netconvert_main.cpp:121
+#: D:\Repos\sumo/src\netconvert_main.cpp:124
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:273
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:93
 msgid "Could not build projection!"
@@ -8839,99 +8839,99 @@ msgstr ""
 msgid "'probability' must be positive (in definition of % '%')."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:80
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:81
 msgid "Missing origin '%' and destination '%' (% vehicles)."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:86
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:87
 msgid "Missing origin '%' (% vehicles)."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:91
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:92
 msgid "Missing destination '%' (% vehicles)."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:97
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:98
 #, c-format
 msgid "District '%' has no source."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:101
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:102
 #, c-format
 msgid "District '%' has no sink."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:193
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:194
 msgid ""
 "Cannot find different source and sink edge for origin '%' and destination "
 "'%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:364 D:\Repos\sumo/src\od\ODMatrix.cpp:384
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:410
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:369 D:\Repos\sumo/src\od\ODMatrix.cpp:389
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:415
 msgid ""
 "Flow density of % vehicles per second, cannot be represented with a simple "
 "probability. Falling back to even spacing."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:434
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:439
 msgid "End of file while reading %."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:461
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:466
 msgid "Broken period definition '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:475
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:480
 msgid "Broken factor: '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:509
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:514
 #, c-format
 msgid "Missing line with % district names."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:519
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:524
 msgid "Missing line for district %."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:533
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:538
 msgid "More entries than districts found."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:538 D:\Repos\sumo/src\od\ODMatrix.cpp:586
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:543 D:\Repos\sumo/src\od\ODMatrix.cpp:591
 msgid "Not numeric vehicle number in line '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:584
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:589
 msgid "Missing at least one information in line '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:647
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:652
 #: D:\Repos\sumo/src\utils\options\OptionsIO.cpp:154
 msgid "Could not open '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:658 D:\Repos\sumo/src\od\ODMatrix.cpp:664
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:663 D:\Repos\sumo/src\od\ODMatrix.cpp:669
 #, c-format
 msgid "'%' does not contain the needed information about the time described."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:674 D:\Repos\sumo/src\od\ODMatrix.cpp:687
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:679 D:\Repos\sumo/src\od\ODMatrix.cpp:692
 #, c-format
 msgid "Could not access matrix file '%' to load."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:714
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:719
 #, c-format
 msgid "Could not access route file '%' to load."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:731
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:736
 msgid "Assuming 24 entries for a day timeline, but got %."
 msgstr ""
 
-#: D:\Repos\sumo/src\od\ODMatrix.cpp:741
+#: D:\Repos\sumo/src\od\ODMatrix.cpp:746
 msgid "Broken time line definition: missing a value in '%'."
 msgstr ""
 
@@ -9538,40 +9538,40 @@ msgstr ""
 msgid "Found % outside container element"
 msgstr ""
 
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:338
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:348
 msgid "No probability for route %, using default."
 msgstr ""
 
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:493
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:503
 msgid "Ids of internal route distributions are ignored (vehicle '%')."
 msgstr ""
 
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:609
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:619
 msgid "Discarding person '%' because her plan is empty"
 msgstr ""
 
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:635
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:645
 msgid "Discarding personFlow '%' because their plan is empty"
 msgstr ""
 
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:643
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:653
 #, c-format
 msgid "probabilistic personFlow '%' must specify end time"
 msgstr ""
 
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:716
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:726
 msgid "Discarding container '%' because it's plan is empty"
 msgstr ""
 
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:733
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:743
 msgid "Discarding containerFlow '%' because it's plan is empty"
 msgstr ""
 
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1041
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1051
 msgid "Triggered departure for container '%' requires a unique lines value."
 msgstr ""
 
-#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1081
+#: D:\Repos\sumo/src\router\RORouteHandler.cpp:1091
 msgid "Cannot convert geo-positions because the network has no geo-reference"
 msgstr ""
 
@@ -10212,12 +10212,12 @@ msgid "Parameters must be defined within an object."
 msgstr ""
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1751
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:898
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:901
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr ""
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1753
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:900
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:903
 msgid "Parameters cannot be defined within another parameter."
 msgstr ""
 
@@ -10240,76 +10240,76 @@ msgstr ""
 msgid "MeanData elements cannot load attributes as params"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:390
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:391
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:440
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:443
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:457
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:460
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:502
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:582
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:505
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:585
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:504
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:584
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:507
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:587
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:548
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:551
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:896
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:899
 msgid "Parameters must be defined within an object"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:908
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:911
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:910
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:913
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:926
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:929
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:225
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:934
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:936
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:937
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:939
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:228
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:230
 msgid "Invalid parsing embedded VType"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1020
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1023
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1036
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1039
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1039
+#: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1042
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 
@@ -10800,19 +10800,19 @@ msgstr ""
 msgid "The shape '%' for % '%' is not known."
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:271
+#: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:286
 msgid "Undefined vehicleType parameter"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:281
+#: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:296
 msgid "Undefined vehicle parameter"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:291
+#: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:306
 msgid "Undefined stop parameter"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:513
+#: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:540
 msgid "Trying to get undefined % attribute '%' in SUMOBaseObject '%'"
 msgstr ""
 

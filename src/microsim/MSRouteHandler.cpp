@@ -1420,7 +1420,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
         const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, id, ok, -1);
         if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-            throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
+            throw ProcessError(TLF("Non-positive walking duration for '%'.", myVehicleParameter->id));
         }
 
         double departPos = 0;
@@ -1447,7 +1447,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         }
         const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, -1.);
         if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
-            throw ProcessError(TLF("Non-positive walking speed for  '%'.", myVehicleParameter->id));
+            throw ProcessError(TLF("Non-positive walking speed for '%'.", myVehicleParameter->id));
         }
         const double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
         const double departPosLat = interpretDepartPosLat(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, ""), -1, "personTrip");
@@ -1485,13 +1485,13 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             bool ok = true;
             const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
             if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-                throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
+                throw ProcessError(TLF("Non-positive walking duration for '%'.", myVehicleParameter->id));
             }
             double speed = -1; // default to vType speed
             if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
                 speed = attrs.get<double>(SUMO_ATTR_SPEED, nullptr, ok);
                 if (speed <= 0) {
-                    throw ProcessError(TLF("Non-positive walking speed for  '%'.", myVehicleParameter->id));
+                    throw ProcessError(TLF("Non-positive walking speed for '%'.", myVehicleParameter->id));
                 }
             }
             double departPos = 0;

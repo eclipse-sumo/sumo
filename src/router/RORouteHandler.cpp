@@ -1262,7 +1262,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
     const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, id, ok, -1);
     if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-        throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
+        throw ProcessError(TLF("Non-positive walking duration for '%'.", myVehicleParameter->id));
     }
 
     double departPos = 0;
@@ -1319,11 +1319,11 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         const char* const objId = myVehicleParameter->id.c_str();
         const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, objId, ok, -1);
         if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-            throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
+            throw ProcessError(TLF("Non-positive walking duration for '%'.", myVehicleParameter->id));
         }
         const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, objId, ok, -1.);
         if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
-            throw ProcessError(TLF("Non-positive walking speed for  '%'.", myVehicleParameter->id));
+            throw ProcessError(TLF("Non-positive walking speed for '%'.", myVehicleParameter->id));
         }
         double departPos = 0.;
         double arrivalPos = std::numeric_limits<double>::infinity();
