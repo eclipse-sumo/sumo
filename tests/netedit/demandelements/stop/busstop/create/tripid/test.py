@@ -47,13 +47,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.containerS
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.tripID, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 295, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.tripID, "customLine")
 
 # create stop
-netedit.leftClick(referencePosition, 300, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

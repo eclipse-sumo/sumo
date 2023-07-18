@@ -47,19 +47,19 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingSt
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.actType, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 295, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x, netedit.positions.demandElements.chargingStation.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.actType, "dummy Act")
 
 # create stop
-netedit.leftClick(referencePosition, 300, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x, netedit.positions.demandElements.chargingStation.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.actType, "singing")
 
 # create stop
-netedit.leftClick(referencePosition, 305, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

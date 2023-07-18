@@ -47,13 +47,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingAre
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.permitted, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 295, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.permitted, "ID1 ID2 ID3")
 
 # create stop
-netedit.leftClick(referencePosition, 300, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -50,25 +50,25 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingAre
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 291, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 292, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 293, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.extension, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 294, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
