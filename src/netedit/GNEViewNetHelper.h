@@ -71,7 +71,9 @@ enum class NetworkEditMode {
     ///@brief Mode for editing connection prohibitions
     NETWORK_PROHIBITION,
     ///@brief Mode for editing wires
-    NETWORK_WIRE
+    NETWORK_WIRE,
+    ///@brief Mode for editing decals
+    NETWORK_DECAL
 };
 
 /// @brie enum for demand edit modes
@@ -598,13 +600,13 @@ struct GNEViewNetHelper {
         DataEditMode dataEditMode;
 
         /// @brief checkable button for supermode Network
-        MFXCheckableButton* networkButton;
+        MFXCheckableButton* networkButton = nullptr;
 
         /// @brief checkable button for supermode Demand
-        MFXCheckableButton* demandButton;
+        MFXCheckableButton* demandButton = nullptr;
 
         /// @brief checkable button for supermode Data
-        MFXCheckableButton* dataButton;
+        MFXCheckableButton* dataButton = nullptr;
 
     private:
         /// @brief pointer to net
@@ -654,52 +656,52 @@ struct GNEViewNetHelper {
         bool editingElevation() const;
 
         /// @brief checkable button to show grid button
-        MFXCheckableButton* menuCheckToggleGrid;
+        MFXCheckableButton* menuCheckToggleGrid = nullptr;
 
         /// @brief checkable button to show junction shapes
-        MFXCheckableButton* menuCheckToggleDrawJunctionShape;
+        MFXCheckableButton* menuCheckToggleDrawJunctionShape = nullptr;
 
         /// @brief checkable button to draw vehicles in begin position or spread in lane
-        MFXCheckableButton* menuCheckDrawSpreadVehicles;
+        MFXCheckableButton* menuCheckDrawSpreadVehicles = nullptr;
 
         /// @brief checkable button to show Demand Elements
-        MFXCheckableButton* menuCheckShowDemandElements;
+        MFXCheckableButton* menuCheckShowDemandElements = nullptr;
 
         /// @brief checkable button to select only edges
-        MFXCheckableButton* menuCheckSelectEdges;
+        MFXCheckableButton* menuCheckSelectEdges = nullptr;
 
         /// @brief checkable button to show connections
-        MFXCheckableButton* menuCheckShowConnections;
+        MFXCheckableButton* menuCheckShowConnections = nullptr;
 
         /// @brief checkable button to hide connections in connect mode
-        MFXCheckableButton* menuCheckHideConnections;
+        MFXCheckableButton* menuCheckHideConnections = nullptr;
 
         /// @brief checkable button to show additional sub-elements
-        MFXCheckableButton* menuCheckShowAdditionalSubElements;
+        MFXCheckableButton* menuCheckShowAdditionalSubElements = nullptr;
 
         /// @brief checkable button to show TAZ elements
-        MFXCheckableButton* menuCheckShowTAZElements;
+        MFXCheckableButton* menuCheckShowTAZElements = nullptr;
 
         /// @brief checkable button to extend to edge nodes
-        MFXCheckableButton* menuCheckExtendSelection;
+        MFXCheckableButton* menuCheckExtendSelection = nullptr;
 
         /// @brief checkable button to set change all phases
-        MFXCheckableButton* menuCheckChangeAllPhases;
+        MFXCheckableButton* menuCheckChangeAllPhases = nullptr;
 
         /// @brief checkable button to we should warn about merging junctions
-        MFXCheckableButton* menuCheckWarnAboutMerge;
+        MFXCheckableButton* menuCheckWarnAboutMerge = nullptr;
 
         /// @brief checkable button to show connection as bubble in "Move" mode.
-        MFXCheckableButton* menuCheckShowJunctionBubble;
+        MFXCheckableButton* menuCheckShowJunctionBubble = nullptr;
 
         /// @brief checkable button to apply movement to elevation
-        MFXCheckableButton* menuCheckMoveElevation;
+        MFXCheckableButton* menuCheckMoveElevation = nullptr;
 
         /// @brief checkable button to the endpoint for a created edge should be set as the new source
-        MFXCheckableButton* menuCheckChainEdges;
+        MFXCheckableButton* menuCheckChainEdges = nullptr;
 
         /// @brief check checkable to create auto create opposite edge
-        MFXCheckableButton* menuCheckAutoOppositeEdge;
+        MFXCheckableButton* menuCheckAutoOppositeEdge = nullptr;
 
     private:
         /// @brief pointer to net
@@ -767,37 +769,37 @@ struct GNEViewNetHelper {
         const GNEDemandElement* getLockedContainer() const;
 
         /// @brief menu check to show grid button
-        MFXCheckableButton* menuCheckToggleGrid;
+        MFXCheckableButton* menuCheckToggleGrid = nullptr;
 
         /// @brief checkable button to show junction shapes
-        MFXCheckableButton* menuCheckToggleDrawJunctionShape;
+        MFXCheckableButton* menuCheckToggleDrawJunctionShape = nullptr;
 
         /// @brief menu check to draw vehicles in begin position or spread in lane
-        MFXCheckableButton* menuCheckDrawSpreadVehicles;
+        MFXCheckableButton* menuCheckDrawSpreadVehicles = nullptr;
 
         /// @brief Hide shapes (Polygons and POIs)
-        MFXCheckableButton* menuCheckHideShapes;
+        MFXCheckableButton* menuCheckHideShapes = nullptr;
 
         /// @brief show all trips
-        MFXCheckableButton* menuCheckShowAllTrips;
+        MFXCheckableButton* menuCheckShowAllTrips = nullptr;
 
         /// @brief show all person plans
-        MFXCheckableButton* menuCheckShowAllPersonPlans;
+        MFXCheckableButton* menuCheckShowAllPersonPlans = nullptr;
 
         /// @brief Lock Person
-        MFXCheckableButton* menuCheckLockPerson;
+        MFXCheckableButton* menuCheckLockPerson = nullptr;
 
         /// @brief show all container plans
-        MFXCheckableButton* menuCheckShowAllContainerPlans;
+        MFXCheckableButton* menuCheckShowAllContainerPlans = nullptr;
 
         /// @brief Lock Container
-        MFXCheckableButton* menuCheckLockContainer;
+        MFXCheckableButton* menuCheckLockContainer = nullptr;
 
         /// @brief Hide non inspected demand elements
-        MFXCheckableButton* menuCheckHideNonInspectedDemandElements;
+        MFXCheckableButton* menuCheckHideNonInspectedDemandElements = nullptr;
 
         /// @brief show overlapped routes
-        MFXCheckableButton* menuCheckShowOverlappedRoutes;
+        MFXCheckableButton* menuCheckShowOverlappedRoutes = nullptr;
 
     private:
         /// @brief pointer to net
@@ -853,28 +855,28 @@ struct GNEViewNetHelper {
         bool TAZRelOnlyTo() const;
 
         /// @brief checkable button to show junction shapes
-        MFXCheckableButton* menuCheckToggleDrawJunctionShape;
+        MFXCheckableButton* menuCheckToggleDrawJunctionShape = nullptr;
 
         /// @brief menu check to show Additionals
-        MFXCheckableButton* menuCheckShowAdditionals;
+        MFXCheckableButton* menuCheckShowAdditionals = nullptr;
 
         /// @brief menu check to show Shapes
-        MFXCheckableButton* menuCheckShowShapes;
+        MFXCheckableButton* menuCheckShowShapes = nullptr;
 
         /// @brief menu check to show Demand Elements
-        MFXCheckableButton* menuCheckShowDemandElements;
+        MFXCheckableButton* menuCheckShowDemandElements = nullptr;
 
         /// @brief menu check to toggle TAZ Rel drawing
-        MFXCheckableButton* menuCheckToggleTAZRelDrawing;
+        MFXCheckableButton* menuCheckToggleTAZRelDrawing = nullptr;
 
         /// @brief menu check to toggle TAZ draw fill
-        MFXCheckableButton* menuCheckToggleTAZDrawFill;
+        MFXCheckableButton* menuCheckToggleTAZDrawFill = nullptr;
 
         /// @brief menu check to toggle TAZRel only from
-        MFXCheckableButton* menuCheckToggleTAZRelOnlyFrom;
+        MFXCheckableButton* menuCheckToggleTAZRelOnlyFrom = nullptr;
 
         /// @brief menu check to toggle TAZRel only to
-        MFXCheckableButton* menuCheckToggleTAZRelOnlyTo;
+        MFXCheckableButton* menuCheckToggleTAZRelOnlyTo = nullptr;
 
     private:
         /// @brief pointer to net
@@ -964,25 +966,25 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
 
         /// @brief flag for update interval bar
-        bool myUpdateInterval;
+        bool myUpdateInterval = true;
 
         /// @brief combo box for generic data types
-        FXComboBox* myGenericDataTypesComboBox;
+        FXComboBox* myGenericDataTypesComboBox = nullptr;
 
         /// @brief combo box for data sets
-        FXComboBox* myDataSetsComboBox;
+        FXComboBox* myDataSetsComboBox = nullptr;
 
         /// @brief checkbox for limit data elements by interval
-        FXCheckButton* myIntervalCheckBox;
+        FXCheckButton* myIntervalCheckBox = nullptr;
 
         /// @brief text field for interval begin
-        FXTextField* myBeginTextField;
+        FXTextField* myBeginTextField = nullptr;
 
         /// @brief text field for interval end
-        FXTextField* myEndTextField;
+        FXTextField* myEndTextField = nullptr;
 
         /// @brief combo box for filtered parameters
-        FXComboBox* myParametersComboBox;
+        FXComboBox* myParametersComboBox = nullptr;
 
         /// @brief current dataSets
         std::vector<std::string> myDataSets;
@@ -1215,13 +1217,13 @@ struct GNEViewNetHelper {
         void updateCommonCheckableButtons();
 
         /// @brief checkable button for edit mode inspect
-        MFXCheckableButton* inspectButton;
+        MFXCheckableButton* inspectButton = nullptr;
 
         /// @brief checkable button for edit mode delete
-        MFXCheckableButton* deleteButton;
+        MFXCheckableButton* deleteButton = nullptr;
 
         /// @brief checkable button for edit mode select
-        MFXCheckableButton* selectButton;
+        MFXCheckableButton* selectButton = nullptr;
 
     private:
         /// @brief pointer to net
@@ -1250,34 +1252,37 @@ struct GNEViewNetHelper {
         void updateNetworkCheckableButtons();
 
         /// @brief checkable button for edit mode "move network elements"
-        MFXCheckableButton* moveNetworkElementsButton;
+        MFXCheckableButton* moveNetworkElementsButton = nullptr;
 
         /// @brief checkable button for edit mode create edge
-        MFXCheckableButton* createEdgeButton;
+        MFXCheckableButton* createEdgeButton = nullptr;
 
         /// @brief checkable button for edit mode connection
-        MFXCheckableButton* connectionButton;
+        MFXCheckableButton* connectionButton = nullptr;
 
         /// @brief checkable button for edit mode traffic light
-        MFXCheckableButton* trafficLightButton;
+        MFXCheckableButton* trafficLightButton = nullptr;
 
         /// @brief checkable button for edit mode additional
-        MFXCheckableButton* additionalButton;
+        MFXCheckableButton* additionalButton = nullptr;
 
         /// @brief checkable button for edit mode crossing
-        MFXCheckableButton* crossingButton;
+        MFXCheckableButton* crossingButton = nullptr;
 
         /// @brief checkable button for edit mode TAZ
-        MFXCheckableButton* TAZButton;
+        MFXCheckableButton* TAZButton = nullptr;
 
         /// @brief checkable button for edit mode shape
-        MFXCheckableButton* shapeButton;
+        MFXCheckableButton* shapeButton = nullptr;
 
         /// @brief checkable button for edit mode prohibition
-        MFXCheckableButton* prohibitionButton;
+        MFXCheckableButton* prohibitionButton = nullptr;
 
         /// @brief checkable button for edit mode wires
-        MFXCheckableButton* wireButton;
+        MFXCheckableButton* wireButton = nullptr;
+
+        /// @brief checkable button for edit mode decals
+        MFXCheckableButton* decalButton = nullptr;
 
     private:
         /// @brief pointer to net
@@ -1401,7 +1406,7 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
 
         /// @brief pointer to edited network element
-        GNENetworkElement* myEditedNetworkElement;
+        GNENetworkElement* myEditedNetworkElement = nullptr;
 
         /// @brief the previous edit mode before edit NetworkElement's shapes
         NetworkEditMode myPreviousNetworkEditMode;

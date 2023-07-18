@@ -2056,9 +2056,6 @@ GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet) :
     networkEditMode(NetworkEditMode::NETWORK_INSPECT),
     demandEditMode(DemandEditMode::DEMAND_INSPECT),
     dataEditMode(DataEditMode::DATA_INSPECT),
-    networkButton(nullptr),
-    demandButton(nullptr),
-    dataButton(nullptr),
     myViewNet(viewNet) {
     auto& neteditOptions = OptionsCont::getOptions();
     // if new option is enabled, start in create edge mode
@@ -2329,22 +2326,6 @@ GNEViewNetHelper::EditModes::isCurrentSupermodeData() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::NetworkViewOptions::NetworkViewOptions(GNEViewNet* viewNet) :
-    menuCheckToggleGrid(nullptr),
-    menuCheckToggleDrawJunctionShape(nullptr),
-    menuCheckDrawSpreadVehicles(nullptr),
-    menuCheckShowDemandElements(nullptr),
-    menuCheckSelectEdges(nullptr),
-    menuCheckShowConnections(nullptr),
-    menuCheckHideConnections(nullptr),
-    menuCheckShowAdditionalSubElements(nullptr),
-    menuCheckShowTAZElements(nullptr),
-    menuCheckExtendSelection(nullptr),
-    menuCheckChangeAllPhases(nullptr),
-    menuCheckWarnAboutMerge(nullptr),
-    menuCheckShowJunctionBubble(nullptr),
-    menuCheckMoveElevation(nullptr),
-    menuCheckChainEdges(nullptr),
-    menuCheckAutoOppositeEdge(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -2643,20 +2624,7 @@ GNEViewNetHelper::NetworkViewOptions::editingElevation() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
-    menuCheckToggleGrid(nullptr),
-    menuCheckToggleDrawJunctionShape(nullptr),
-    menuCheckDrawSpreadVehicles(nullptr),
-    menuCheckHideShapes(nullptr),
-    menuCheckShowAllTrips(nullptr),
-    menuCheckShowAllPersonPlans(nullptr),
-    menuCheckLockPerson(nullptr),
-    menuCheckShowAllContainerPlans(nullptr),
-    menuCheckLockContainer(nullptr),
-    menuCheckHideNonInspectedDemandElements(nullptr),
-    menuCheckShowOverlappedRoutes(nullptr),
-    myViewNet(viewNet),
-    myLockedPerson(nullptr),
-    myLockedContainer(nullptr) {
+    myViewNet(viewNet) {
 }
 
 
@@ -2943,14 +2911,6 @@ GNEViewNetHelper::DemandViewOptions::getLockedContainer() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::DataViewOptions::DataViewOptions(GNEViewNet* viewNet) :
-    menuCheckToggleDrawJunctionShape(nullptr),
-    menuCheckShowAdditionals(nullptr),
-    menuCheckShowShapes(nullptr),
-    menuCheckShowDemandElements(nullptr),
-    menuCheckToggleTAZRelDrawing(nullptr),
-    menuCheckToggleTAZDrawFill(nullptr),
-    menuCheckToggleTAZRelOnlyFrom(nullptr),
-    menuCheckToggleTAZRelOnlyTo(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -3135,14 +3095,7 @@ GNEViewNetHelper::DataViewOptions::TAZRelOnlyTo() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::IntervalBar::IntervalBar(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
-    myUpdateInterval(true),
-    myGenericDataTypesComboBox(nullptr),
-    myDataSetsComboBox(nullptr),
-    myIntervalCheckBox(nullptr),
-    myBeginTextField(nullptr),
-    myEndTextField(nullptr),
-    myParametersComboBox(nullptr) {
+    myViewNet(viewNet) {
 }
 
 
@@ -3497,9 +3450,6 @@ GNEViewNetHelper::IntervalBar::disableIntervalBar() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::CommonCheckableButtons::CommonCheckableButtons(GNEViewNet* viewNet) :
-    inspectButton(nullptr),
-    deleteButton(nullptr),
-    selectButton(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -3565,16 +3515,6 @@ GNEViewNetHelper::CommonCheckableButtons::updateCommonCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* viewNet) :
-    moveNetworkElementsButton(nullptr),
-    createEdgeButton(nullptr),
-    connectionButton(nullptr),
-    trafficLightButton(nullptr),
-    additionalButton(nullptr),
-    crossingButton(nullptr),
-    TAZButton(nullptr),
-    shapeButton(nullptr),
-    prohibitionButton(nullptr),
-    wireButton(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -3641,6 +3581,12 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
                                         std::string("\t") + TL("Set wire mode") + std::string("\t") + TL("Mode for editing wires. (W)"),
                                         GUIIconSubSys::getIcon(GUIIcon::MODEWIRE), myViewNet, MID_HOTKEY_W_MODE_WIRE, GUIDesignMFXCheckableButtonSquare);
     wireButton->create();
+    // decal mode
+    decalButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+                                        myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+                                        std::string("\t") + TL("Set decal mode") + std::string("\t") + TL("Mode for editing decals. (U)"),
+                                        GUIIconSubSys::getIcon(GUIIcon::MODEDECAL), myViewNet, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
+    decalButton->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -3658,6 +3604,7 @@ GNEViewNetHelper::NetworkCheckableButtons::showNetworkCheckableButtons() {
     shapeButton->show();
     prohibitionButton->show();
     wireButton->show();
+    decalButton->show();
 }
 
 
@@ -3673,6 +3620,7 @@ GNEViewNetHelper::NetworkCheckableButtons::hideNetworkCheckableButtons() {
     shapeButton->hide();
     prohibitionButton->hide();
     wireButton->hide();
+    decalButton->hide();
 }
 
 
@@ -3688,6 +3636,7 @@ GNEViewNetHelper::NetworkCheckableButtons::disableNetworkCheckableButtons() {
     shapeButton->setChecked(false);
     prohibitionButton->setChecked(false);
     wireButton->setChecked(false);
+    decalButton->setChecked(false);
 }
 
 
@@ -3703,6 +3652,7 @@ GNEViewNetHelper::NetworkCheckableButtons::updateNetworkCheckableButtons() {
     shapeButton->update();
     prohibitionButton->update();
     wireButton->update();
+    decalButton->update();
 }
 
 // ---------------------------------------------------------------------------
@@ -3744,7 +3694,7 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     typeDistributionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
             std::string("\t") + TL("Create type distribution mode") + std::string("\t") + TL("Mode for creating type distribution. (U)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODETYPEDISTRIBUTION), myViewNet, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
+            GUIIconSubSys::getIcon(GUIIcon::MODETYPEDISTRIBUTION), myViewNet, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
     typeDistributionButton->create();
     // stop mode
     stopButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -3921,7 +3871,6 @@ GNEViewNetHelper::DataCheckableButtons::updateDataCheckableButtons() {
 
 GNEViewNetHelper::EditNetworkElementShapes::EditNetworkElementShapes(GNEViewNet* viewNet) :
     myViewNet(viewNet),
-    myEditedNetworkElement(nullptr),
     myPreviousNetworkEditMode(NetworkEditMode::NETWORK_NONE) {
 }
 
