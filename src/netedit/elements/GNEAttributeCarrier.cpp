@@ -3351,6 +3351,17 @@ GNEAttributeCarrier::fillDemandElements() {
                                               TL("The edges the vehicle shall drive along, given as their ids, separated using spaces"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(GNE_ATTR_ROUTE_DISTRIBUTION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::VTYPE,
+                                              TL("Route distribution"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::PROBABILITY,
+                                              TL("Route distribution probability"),
+                                              "1.0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("This route's color"));
