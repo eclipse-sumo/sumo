@@ -43,6 +43,7 @@
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
+#include <netedit/frames/demand/GNERouteDistributionFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/frames/demand/GNETypeDistributionFrame.h>
@@ -102,7 +103,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE,                          GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION,            GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE,                           GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE,                              GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION,            GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL,                        GNEViewNet::onCmdSetMode),
     // Network view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,               GNEViewNet::onCmdToggleShowGrid),
@@ -2060,7 +2061,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_PROHIBITION);
                 break;
-            case MID_HOTKEY_W_MODE_WIRE:
+            case MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_WIRE);
                 break;
             case MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION:
@@ -2092,6 +2093,9 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_ROUTE);
+                break;
+            case MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_ROUTEDISTRIBUTION);
                 break;
             case MID_HOTKEY_V_MODE_VEHICLE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_VEHICLE);
@@ -4838,6 +4842,13 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getRouteFrame();
             // set checkable button
             myDemandCheckableButtons.routeButton->setChecked(true);
+            break;
+        case DemandEditMode::DEMAND_ROUTEDISTRIBUTION:
+            myViewParent->getRouteDistributionFrame()->show();
+            myViewParent->getRouteDistributionFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getRouteDistributionFrame();
+            // set checkable button
+            myDemandCheckableButtons.routeDistributionButton->setChecked(true);
             break;
         case DemandEditMode::DEMAND_VEHICLE:
             myViewParent->getVehicleFrame()->show();
