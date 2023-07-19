@@ -1958,7 +1958,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 double sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
                 return RGBColor::fromHSV(hue, sat, 1.);
             }
-            case 29: { // color randomly (by pointer hash)
+            case 35: { // color randomly (by pointer hash)
                 std::hash<const GNEVehicle*> ptr_hash;
                 const double hue = (double)(ptr_hash(this) % 360); // [0-360]
                 const double sat = (double)((ptr_hash(this) / 360) % 67) / 100. + 0.33; // [0.33-1]

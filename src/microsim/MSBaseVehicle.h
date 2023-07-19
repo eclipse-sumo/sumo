@@ -804,6 +804,11 @@ public:
     */
     double getRelativeStateOfCharge() const;
 
+    /** @brief Returns the energy charged to the battery in the current time step (Wh)
+    * @return The energy charged to the battery in the current time step.
+    */
+    double getChargedEnergy() const;
+
     /** @brief Returns actual current (A) of ElecHybrid device
     * RICE_CHECK: Is this the current consumed from the overhead wire or the current driving the powertrain of the vehicle?
     * RICE_REV_JS: It is the current drawn from the overhead wire (value if the vehicle is not connected to overhead wire?)
