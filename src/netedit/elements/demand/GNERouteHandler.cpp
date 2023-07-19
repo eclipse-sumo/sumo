@@ -31,6 +31,7 @@
 #include "GNEPersonTrip.h"
 #include "GNERide.h"
 #include "GNERoute.h"
+#include "GNERouteDistribution.h"
 #include "GNERouteHandler.h"
 #include "GNEStop.h"
 #include "GNETranship.h"
@@ -232,9 +233,69 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
 
 
 void
-GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& /*id*/) {
-    // unsupported
-    writeError(TL("netedit doesn't support route distributions"));
+GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+                                        const std::vector<std::string>& routeIDs, const std::vector<double>& probabilities) {
+    // first check conditions
+    if (!checkDuplicatedDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, id)) {
+        writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_ROUTE)));
+    } else if (routeIDs.empty() && sumoBaseObject->getSumoBaseObjectChildren().empty()) {
+        writeError(TLF("% needs at least one %", toString(SUMO_TAG_ROUTE_DISTRIBUTION), toString(SUMO_TAG_ROUTE)));
+    } else {
+        bool checkRoutesOK = true;
+        std::vector<GNEDemandElement*> routes;
+        // check routes
+        for (const auto& routeID : routeIDs) {
+            auto route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
+            if (route == nullptr) {
+                writeError(TLF("% with id '%' doesn't exist in % '%'", toString(SUMO_TAG_ROUTE), route, toString(SUMO_TAG_ROUTE_DISTRIBUTION), id));
+                checkRoutesOK = false;
+            } else {
+                routes.push_back(route);
+            }
+        }
+        // now check childrens
+        for (const auto& child : sumoBaseObject->getSumoBaseObjectChildren()) {
+            if (child->hasStringAttribute(SUMO_ATTR_ID) == false) {
+                writeError(TLF("Invalid definition for % in % '%'", toString(SUMO_TAG_ROUTE), toString(SUMO_TAG_ROUTE_DISTRIBUTION), id));
+                checkRoutesOK = false;
+            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, child->getStringAttribute(SUMO_ATTR_ID), false) != nullptr) {
+                writeError(TLF("% with id '%' cannot be created in % '%'", toString(SUMO_TAG_ROUTE), child->getStringAttribute(SUMO_ATTR_ID), toString(SUMO_TAG_ROUTE_DISTRIBUTION), id));
+                checkRoutesOK = false;
+            }
+        }
+        // now check probabilities
+        if ((probabilities.size() > 0) && (probabilities.size() != routes.size())) {
+            writeError(TL("Invalid type distribution probabilities. Must have the same number of routes"));
+            checkRoutesOK = false;
+        }
+        // if all ok, then create routeDistribution
+        if (checkRoutesOK) {
+            GNERouteDistribution* routeDistribution = new GNERouteDistribution(myNet, id, deterministic);
+            if (myAllowUndoRedo) {
+                myNet->getViewNet()->getUndoList()->begin(GUIIcon::ROUTEDISTRIBUTION, TL("add ") + routeDistribution->getTagStr() + " '" + id + "'");
+                overwriteDemandElement();
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(routeDistribution, true), true);
+                // iterate over all children and set attributes
+                for (int i = 0; i < (int)routes.size(); i++) {
+                    routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
+                    if (probabilities.size() > 0) {
+                       routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY, toString(probabilities.at(i)), myNet->getViewNet()->getUndoList()); 
+                    }
+                }
+                myNet->getViewNet()->getUndoList()->end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(routeDistribution);
+                routeDistribution->incRef("buildRoute");
+                // iterate over all children and set attributes
+                for (int i = 0; i < (int)routes.size(); i++) {
+                    routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION, id);
+                    if (probabilities.size() > 0) {
+                       routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY, toString(probabilities.at(i))); 
+                    }
+                }
+            }
+        }
+    }
 }
 
 
