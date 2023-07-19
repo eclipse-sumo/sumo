@@ -977,6 +977,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "shiftLaneIndex",                     GNE_ATTR_SHIFTLANEINDEX },
     { "stopOffset",                         GNE_ATTR_STOPOFFSET },
     { "stopOException",                     GNE_ATTR_STOPOEXCEPTION },
+    { "routeDist.",                         GNE_ATTR_ROUTE_DISTRIBUTION },
+    { "routeDistProb.",                     GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY },
     { "typeDist.",                          GNE_ATTR_VTYPE_DISTRIBUTION },
     { "typeDistProb.",                      GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY },
     { "poisson",                            GNE_ATTR_POISSON },
