@@ -10471,15 +10471,6 @@ msgid "Invalid % used in % '%'. % is greater than number of lanes"
 msgstr ""
 "Ungültige(r) % in % '%' benutzt. % ist größer als die Anzahl der Fahrstreifen"
 
-#: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:205
-#: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:316
-#: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:353
-#: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:395
-#: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:435
-#: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:475
-#: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:519
-#: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:559
-#: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:599
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:204
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:255
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:292
@@ -10490,7 +10481,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:498
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:538
 msgid "Invalid % used in % '%'. % is greater than type %"
-msgstr ""
+msgstr "Ungültiger % in % '%'benutzt. % is größer als Typ %"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:268
 msgid ""
@@ -10693,27 +10684,27 @@ msgstr "Ungültiger Elternteil"
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:107
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:121
 msgid "transform to"
-msgstr ""
+msgstr "umwandeln in"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:96
 msgid "Trip (over junctions)"
-msgstr ""
+msgstr "Fahrt (über Knoten)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:100
 msgid "Flow (over junctions)"
-msgstr ""
+msgstr "Fluss (über Knoten)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:110
 msgid "Trip (over TAZs)"
-msgstr ""
+msgstr "Fahrt (über Verkehrsumlegungszonen)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:114
 msgid "Flow (over TAZs)"
-msgstr ""
+msgstr "Fluss (über Verkehrsumlegungszonen)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:128
 msgid "Vehicle (embedded route)"
-msgstr ""
+msgstr "Fahrzeug (mit integrierter Route)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:132
 msgid "RouteFlow"
@@ -10850,11 +10841,11 @@ msgstr "Knotenpunkt-Shapes zurücksetzen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1116
 msgid "change junction position"
-msgstr ""
+msgstr "Knotenpunktposition ändern"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1137
 msgid "change keepClear for whole junction"
-msgstr ""
+msgstr "keepClear für den gesamten Knotenpunkt ändern"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:471
 msgid "Unexpected LinkState '%'"
@@ -13064,9 +13055,8 @@ msgid "Target lane"
 msgstr "Zielfahrstreifen"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:339
-#, fuzzy
 msgid "Target (pass)"
-msgstr "Ziel (pass)"
+msgstr "Ziel (ohne Konflikt)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:343
 msgid "Conflict"
@@ -14632,7 +14622,7 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:758
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1235
 msgid "by global travel time"
-msgstr ""
+msgstr "nach der Reisezeit"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:762
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1239
@@ -14651,67 +14641,67 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1324
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1548
 msgid "by angle"
-msgstr ""
+msgstr "nach der Ausrichtung"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:776
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1246
 msgid "by loaded weight"
-msgstr ""
+msgstr "nach der Zuladung"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:780
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1251
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1550
 msgid "by priority"
-msgstr ""
+msgstr "nach der Priorität"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:785
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1555
 msgid "by height at start"
-msgstr ""
+msgstr "nach der Höhe am Beginn"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:793
 msgid "by height at geometry-segment start"
-msgstr ""
+msgstr "nach der Höhe am Geometriesegmentbeginn"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:801
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1569
 msgid "by inclination"
-msgstr ""
+msgstr "nach der Neigung"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:808
 msgid "by geometry-segment inclination"
-msgstr ""
+msgstr "nach der Geometriesegmentneigung"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:815
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1256
 msgid "by average speed"
-msgstr ""
+msgstr "nach der mittleren Geschwindigkeit"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:822
 msgid "by average relative speed "
-msgstr ""
+msgstr "nach der mittleren relativen Geschwindigkeit "
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:829
 msgid "by routing device assumed speed "
-msgstr ""
+msgstr "nach der von der Route-Einrichtung angenommenen Geschwindigkeit "
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:836
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1032
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1264
 msgid "by electricity consumption"
-msgstr ""
+msgstr "nach dem Bedarf an elektrischer Energie"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:844
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1267
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1352
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1387
 msgid "by insertion-backlog (streetwise)"
-msgstr ""
+msgstr "nach dem Rückstau vor dem Netzeingang"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:849
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1357
 msgid "by TAZ (streetwise)"
-msgstr ""
+msgstr "nach Verkehrsumlegungszone"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:857
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:884
@@ -14721,45 +14711,45 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1598
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1664
 msgid "missing data"
-msgstr ""
+msgstr "fehlende Daten"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:860
 msgid "by distance (kilometrage)"
-msgstr ""
+msgstr "nach Entfernung (Kilometrierung)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:867
 msgid "by abs distance (kilometrage)"
-msgstr ""
+msgstr "nach absoluter Entfernung (Kilometrierung)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:871
 msgid "by reachability (traveltime)"
-msgstr ""
+msgstr "nach Erreichbarkeit (Reisezeit)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:875
 msgid "by thread index"
-msgstr ""
+msgstr "nach Thread-Index"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:878
 msgid "free parking spaces"
-msgstr ""
+msgstr "freie Parkstände"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:889
 msgid "given vehicle/type/route color"
-msgstr ""
+msgstr "gegebene Farbe des Fahrzeugs/-typs bzw. der Route"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:891
 msgid "given/assigned vehicle color"
-msgstr ""
+msgstr "gegebene/zugewiesene Fahrzeugfarbe"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:892
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1082
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1117
 msgid "given/assigned type color"
-msgstr ""
+msgstr "gegebene/zugewiesene Typfarbe"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:893
 msgid "given/assigned route color"
-msgstr ""
+msgstr "gegebene/zugewiesene Routenfarbe"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:894
 msgid "depart position as HSV"
