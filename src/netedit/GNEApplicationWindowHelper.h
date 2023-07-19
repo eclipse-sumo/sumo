@@ -372,7 +372,10 @@ struct GNEApplicationWindowHelper {
 
             /// @brief menu command for route mode
             FXMenuCommand* routeMode = nullptr;
-
+            
+            /// @brief menu command for route distribution mode
+            FXMenuCommand* routeDistributionMode = nullptr;
+            
             /// @brief menu command for vehicle mode
             FXMenuCommand* vehicleMode = nullptr;
 
