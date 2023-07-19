@@ -11,62 +11,62 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEVTypeDistribution.cpp
+/// @file    GNERouteDistribution.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2022
 ///
-// VehicleType distribution used in netedit
+// Route distribution used in netedit
 /****************************************************************************/
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/common/StringTokenizer.h>
 
-#include "GNEVTypeDistribution.h"
+#include "GNERouteDistribution.h"
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
-    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION),
+GNERouteDistribution::GNERouteDistribution(GNENet* net) :
+    GNEDemandElement("", net, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIconSubSys::getIcon(GUIIcon::ROUTEDISTRIBUTION),
         GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& vTypeID, const int deterministic) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION,  GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION),
+GNERouteDistribution::GNERouteDistribution(GNENet* net, const std::string& vTypeID, const int deterministic) :
+    GNEDemandElement(vTypeID, net, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION,  GUIIconSubSys::getIcon(GUIIcon::ROUTEDISTRIBUTION),
         GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
     myDeterministic(deterministic) {
 }
 
 
-GNEVTypeDistribution::~GNEVTypeDistribution() {}
+GNERouteDistribution::~GNERouteDistribution() {}
 
 
 GNEMoveOperation*
-GNEVTypeDistribution::getMoveOperation() {
+GNERouteDistribution::getMoveOperation() {
     return nullptr;
 }
 
 
 void
-GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
+GNERouteDistribution::writeDemandElement(OutputDevice& device) const {
     // get vtypes that has this vType distribution
     std::vector<std::string> vTypes;
     std::vector<std::string> probabilities;
     // first obtain vTypes sorted by ID
     std::map<std::string, GNEDemandElement*> vTypesSorted;
-    for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+    for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
         vTypesSorted[vType->getID()] = vType;
     }
     // nowe get type distributions and probabilities
     for (const auto& vType : vTypesSorted) {
-        const auto typeDistributionIDs = StringTokenizer(vType.second->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)).getVector();
-        const auto distributionProbabilities = StringTokenizer(vType.second->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY)).getVector();
+        const auto typeDistributionIDs = StringTokenizer(vType.second->getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION)).getVector();
+        const auto distributionProbabilities = StringTokenizer(vType.second->getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY)).getVector();
         for (int i = 0; i < (int)typeDistributionIDs.size(); i++) {
             if (typeDistributionIDs.at(i) == getID()) {
                 vTypes.push_back(vType.second->getID());
@@ -78,7 +78,7 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
     if (vTypes.size() > 0) {
         device.openTag(getTagProperty().getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
-        device.writeAttr(SUMO_ATTR_VTYPES, vTypes);
+        device.writeAttr(SUMO_ATTR_ROUTES, vTypes);
         device.writeAttr(SUMO_ATTR_PROBS, probabilities);
         device.closeTag();
     }
@@ -86,107 +86,107 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
 
 
 GNEDemandElement::Problem
-GNEVTypeDistribution::isDemandElementValid() const {
+GNERouteDistribution::isDemandElementValid() const {
     // currently vTypeDistributions don't have problems
     return GNEDemandElement::Problem::OK;
 }
 
 
 std::string
-GNEVTypeDistribution::getDemandElementProblem() const {
+GNERouteDistribution::getDemandElementProblem() const {
     return "";
 }
 
 
 void
-GNEVTypeDistribution::fixDemandElementProblem() {
+GNERouteDistribution::fixDemandElementProblem() {
     // nothing to fix
 }
 
 
 SUMOVehicleClass
-GNEVTypeDistribution::getVClass() const {
+GNERouteDistribution::getVClass() const {
     return SVC_IGNORING;
 }
 
 
 const RGBColor&
-GNEVTypeDistribution::getColor() const {
+GNERouteDistribution::getColor() const {
     return RGBColor::BLACK;
 }
 
 
 void
-GNEVTypeDistribution::updateGeometry() {
+GNERouteDistribution::updateGeometry() {
     // nothing to update
 }
 
 
 Position
-GNEVTypeDistribution::getPositionInView() const {
+GNERouteDistribution::getPositionInView() const {
     return Position();
 }
 
 
 std::string
-GNEVTypeDistribution::getParentName() const {
+GNERouteDistribution::getParentName() const {
     return myNet->getMicrosimID();
 }
 
 
 Boundary
-GNEVTypeDistribution::getCenteringBoundary() const {
-    // VehicleType distribution doesn't have boundaries
+GNERouteDistribution::getCenteringBoundary() const {
+    // Route distribution doesn't have boundaries
     return Boundary(-0.1, -0.1, 0.1, 0.1);
 }
 
 
 void
-GNEVTypeDistribution::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+GNERouteDistribution::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
 
 
 void
-GNEVTypeDistribution::drawGL(const GUIVisualizationSettings&) const {
+GNERouteDistribution::drawGL(const GUIVisualizationSettings&) const {
     // Vehicle Types aren't draw
 }
 
 
 void
-GNEVTypeDistribution::computePathElement() {
+GNERouteDistribution::computePathElement() {
     // nothing to compute
 }
 
 
 void
-GNEVTypeDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // vehicleType distributions don't use drawPartialGL
+GNERouteDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // route distributions don't use drawPartialGL
 }
 
 
 void
-GNEVTypeDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // vehicleType distributions don't use drawPartialGL
+GNERouteDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // route distributions don't use drawPartialGL
 }
 
 
 GNELane*
-GNEVTypeDistribution::getFirstPathLane() const {
+GNERouteDistribution::getFirstPathLane() const {
     // vehicle types don't use lanes
     return nullptr;
 }
 
 
 GNELane*
-GNEVTypeDistribution::getLastPathLane() const {
+GNERouteDistribution::getLastPathLane() const {
     // vehicle types don't use lanes
     return nullptr;
 }
 
 
 std::string
-GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
+GNERouteDistribution::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -203,12 +203,12 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEVTypeDistribution::getAttributeDouble(SumoXMLAttr key) const {
+GNERouteDistribution::getAttributeDouble(SumoXMLAttr key) const {
     if (key == GNE_ATTR_ADDITIONALCHILDREN) {
         double counter = 0;
-        for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
             // only write if appear in this distribution
-            if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID() && vType->getChildAdditionals().size() > 0) {
+            if (vType->getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION) == getID() && vType->getChildAdditionals().size() > 0) {
                 counter++;
             }
         }
@@ -216,8 +216,8 @@ GNEVTypeDistribution::getAttributeDouble(SumoXMLAttr key) const {
     } else {
         // obtain all types with the given typeDistribution sorted by ID
         std::map<std::string, GNEDemandElement*> sortedTypes;
-        for (const auto &type : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-            if (type->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == getID()) {
+        for (const auto &type : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
+            if (type->getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION) == getID()) {
                 sortedTypes[type->getID()] = type;
             }
         }
@@ -232,13 +232,13 @@ GNEVTypeDistribution::getAttributeDouble(SumoXMLAttr key) const {
 
 
 Position
-GNEVTypeDistribution::getAttributePosition(SumoXMLAttr key) const {
+GNERouteDistribution::getAttributePosition(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
 }
 
 
 void
-GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNERouteDistribution::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
@@ -254,13 +254,13 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value, GN
 
 
 bool
-GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
+GNERouteDistribution::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             if (value == getID()) {
                 return true;
             } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
-                return (demandElementExist(value, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}) == false);
+                return (demandElementExist(value, {SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}) == false);
             } else {
                 return false;
             }
@@ -277,19 +277,19 @@ GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 std::string
-GNEVTypeDistribution::getPopUpID() const {
+GNERouteDistribution::getPopUpID() const {
     return getTagStr();
 }
 
 
 std::string
-GNEVTypeDistribution::getHierarchyName() const {
+GNERouteDistribution::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
 }
 
 
 const Parameterised::Map&
-GNEVTypeDistribution::getACParametersMap() const {
+GNERouteDistribution::getACParametersMap() const {
     throw InvalidArgument(getTagStr() + " doesn't have parameters");
 }
 
@@ -298,7 +298,7 @@ GNEVTypeDistribution::getACParametersMap() const {
 // ===========================================================================
 
 void
-GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNERouteDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             setDemandElementID(value);
@@ -317,14 +317,14 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVTypeDistribution::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // vehicleType distributions cannot be moved
+GNERouteDistribution::setMoveShape(const GNEMoveResult& /*moveResult*/) {
+    // route distributions cannot be moved
 }
 
 
 void
-GNEVTypeDistribution::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // vehicleType distributions cannot be moved
+GNERouteDistribution::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
+    // route distributions cannot be moved
 }
 
 /****************************************************************************/

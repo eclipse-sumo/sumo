@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEVTypeDistribution.h
+/// @file    GNERouteDistribution.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2022
 ///
-// VehicleType distribution used in netedit
+// Route distribution used in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -27,17 +27,17 @@
 // class definitions
 // ===========================================================================
 
-class GNEVTypeDistribution : public GNEDemandElement {
+class GNERouteDistribution : public GNEDemandElement {
 
 public:
     /// @brief default constructor
-    GNEVTypeDistribution(GNENet* net);
+    GNERouteDistribution(GNENet* net);
 
     /// @brief parameter constructor
-    GNEVTypeDistribution(GNENet* net, const std::string& vTypeID, const int deterministic = -1);
+    GNERouteDistribution(GNENet* net, const std::string& vTypeID, const int deterministic = -1);
 
     /// @brief destructor
-    ~GNEVTypeDistribution();
+    ~GNERouteDistribution();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
@@ -190,8 +190,8 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
-    GNEVTypeDistribution(GNEVTypeDistribution*) = delete;
+    GNERouteDistribution(GNERouteDistribution*) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEVTypeDistribution* operator=(GNEVTypeDistribution*) = delete;
+    GNERouteDistribution* operator=(GNERouteDistribution*) = delete;
 };
