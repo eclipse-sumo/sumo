@@ -706,7 +706,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMe
         TL("Vehicle"), "V", TL("Create vehicles."),
         GUIIconSubSys::getIcon(GUIIcon::MODEVEHICLE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_V_MODE_VEHICLE);
     typeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-        TL("Type"), "T", TL("Create types (vehicles, person an containers)."),
+        TL("Type"), "T", TL("Create types (vehicles, person and containers)."),
         GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODE_TLS_TYPE);
     typeDistributionMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("TypeDistribution"), "U", TL("Create and edit type distributions."),

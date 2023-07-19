@@ -2020,7 +2020,7 @@ GNEViewNetHelper::TimeFormat::buildTimeFormatButtons() {
     // create save sumo config button
     mySwitchButton = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().timeSwitch,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            gHumanReadableTime?"H":"S" + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS") + std::string("\t") + TL("Switch between TimeSteps and HH:MM:SS"), nullptr,
+            gHumanReadableTime?"H":"S" + std::string("\t") + TL("Switch between seconds and HH:MM:SS") + std::string("\t") + TL("Switch between seconds and HH:MM:SS"), nullptr,
             myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_TOGGLE_TIMEFORMAT, GUIDesignButtonToolbar);
     mySwitchButton->create();
 }
