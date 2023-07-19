@@ -67,8 +67,8 @@ enum {
     MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION,
     /// @brief hotkey for mode create vehicles
     MID_HOTKEY_V_MODE_VEHICLE,
-    /// @brief hotkey for mode editing overhead wires
-    MID_HOTKEY_W_MODE_WIRE,
+    /// @brief hotkey for mode editing overhead wires AND route distributions
+    MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION,
     /// @brief hotkey for mode editing TAZ and TAZRel
     MID_HOTKEY_Z_MODE_TAZ_TAZREL,
 
