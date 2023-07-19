@@ -11748,11 +11748,11 @@ msgstr "Nutze letzte Route"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:157
 msgid "Finish route creation"
-msgstr "Beende Routenerstellung"
+msgstr "Schließe Routenerstellung ab"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:160
 msgid "Abort route creation"
-msgstr "Abbruch Routenerstellung"
+msgstr "Breche Routenerstellung ab"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:163
 msgid "Remove last edge"
