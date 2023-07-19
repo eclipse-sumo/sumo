@@ -90,6 +90,8 @@ enum class DemandEditMode {
     DEMAND_MOVE,
     ///@brief Mode for editing routes
     DEMAND_ROUTE,
+    ///@brief Mode for editing route distributions
+    DEMAND_ROUTEDISTRIBUTION,
     ///@brief Mode for editing vehicles
     DEMAND_VEHICLE,
     ///@brief Mode for editing types
@@ -1315,6 +1317,9 @@ struct GNEViewNetHelper {
 
         /// @brief checkable button for edit mode create routes
         MFXCheckableButton* routeButton = nullptr;
+
+        /// @brief checkable button for edit mode create route distributions
+        MFXCheckableButton* routeDistributionButton = nullptr;
 
         /// @brief checkable button for edit mode create vehicles
         MFXCheckableButton* vehicleButton = nullptr;
