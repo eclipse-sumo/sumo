@@ -366,6 +366,7 @@ enum class GUIIcon {
     /// @name Netedit Demand modes icons
     /// @{
     MODEROUTE,
+    MODEROUTEDISTRIBUTION,
     MODEVEHICLE,
     MODETYPE,
     MODETYPEDISTRIBUTION,
@@ -463,6 +464,7 @@ enum class GUIIcon {
     /// @name Netedit Demand elements icons
     /// @{
     ROUTE,
+    ROUTEDISTRIBUTION,
     VTYPE,
     VTYPEDISTRIBUTION,
     VEHICLE,

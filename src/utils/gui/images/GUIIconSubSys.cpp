@@ -255,6 +255,7 @@
 #include "modeperson.xpm"
 #include "modepersonplan.xpm"
 #include "moderoute.xpm"
+#include "moderoutedistribution.xpm"
 #include "modestop.xpm"
 #include "modevehicle.xpm"
 #include "modetype.xpm"
@@ -332,6 +333,7 @@
 #include "tazedge.xpm"
 
 #include "route.xpm"
+#include "routedistribution.xpm"
 #include "vtype.xpm"
 #include "vtypedistribution.xpm"
 #include "vehicle.xpm"
@@ -732,6 +734,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::MODEDECAL] = new FXXPMIcon(a, modedecal_xpm);
 
     myIcons[GUIIcon::MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
+    myIcons[GUIIcon::MODEROUTEDISTRIBUTION] = new FXXPMIcon(a, moderoutedistribution_xpm);
     myIcons[GUIIcon::MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
     myIcons[GUIIcon::MODETYPE] = new FXXPMIcon(a, modetype_xpm);
     myIcons[GUIIcon::MODETYPEDISTRIBUTION] = new FXXPMIcon(a, modetypedistribution_xpm);
@@ -807,6 +810,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
 
     myIcons[GUIIcon::ROUTE] = new FXXPMIcon(a, route_xpm);
+    myIcons[GUIIcon::ROUTEDISTRIBUTION] = new FXXPMIcon(a, routedistribution_xpm);
     myIcons[GUIIcon::VTYPE] = new FXXPMIcon(a, vtype_xpm);
     myIcons[GUIIcon::VTYPEDISTRIBUTION] = new FXXPMIcon(a, vtypedistribution_xpm);
     myIcons[GUIIcon::VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
