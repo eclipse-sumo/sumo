@@ -59,6 +59,7 @@ class GNEPersonPlanFrame;
 class GNEContainerFrame;
 class GNEContainerPlanFrame;
 class GNERouteFrame;
+class GNERouteDistributionFrame;
 class GNEStopFrame;
 class GNEVehicleFrame;
 class GNETypeFrame;
@@ -162,6 +163,9 @@ public:
 
     /// @brief get frame for DEMAND_ROUTE
     GNERouteFrame* getRouteFrame() const;
+
+    /// @brief get frame for DEMAND_ROUTEDISTRIBUTION
+    GNERouteDistributionFrame* getRouteDistributionFrame() const;
 
     /// @brief get frame for DEMAND_VEHICLE
     GNEVehicleFrame* getVehicleFrame() const;
@@ -364,6 +368,9 @@ protected:
 
         /// @brief frame for DEMAND_ROUTE
         GNERouteFrame* routeFrame = nullptr;
+
+        /// @brief frame for DEMAND_ROUTEDISTRIBUTION
+        GNERouteDistributionFrame* routeDistributionFrame = nullptr;
 
         /// @brief frame for DEMAND_VEHICLE
         GNEVehicleFrame* vehicleFrame = nullptr;

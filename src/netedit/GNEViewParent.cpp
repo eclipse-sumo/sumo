@@ -36,6 +36,7 @@
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
+#include <netedit/frames/demand/GNERouteDistributionFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
@@ -273,6 +274,12 @@ GNEViewParent::getDecalFrame() const {
 GNECreateEdgeFrame*
 GNEViewParent::getCreateEdgeFrame() const {
     return myNetworkFrames.createEdgeFrame;
+}
+
+
+GNERouteDistributionFrame*
+GNEViewParent::getRouteDistributionFrame() const {
+    return myDemandFrames.routeDistributionFrame;
 }
 
 
@@ -941,6 +948,7 @@ GNEViewParent::DemandFrames::DemandFrames() {
 void
 GNEViewParent::DemandFrames::buildDemandFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
     routeFrame = new GNERouteFrame(viewParent, viewNet);
+    routeDistributionFrame = new GNERouteDistributionFrame(viewParent, viewNet);
     vehicleFrame = new GNEVehicleFrame(viewParent, viewNet);
     typeFrame = new GNETypeFrame(viewParent, viewNet);
     typeDistributionFrame = new GNETypeDistributionFrame(viewParent, viewNet);
@@ -955,6 +963,7 @@ GNEViewParent::DemandFrames::buildDemandFrames(GNEViewParent* viewParent, GNEVie
 void
 GNEViewParent::DemandFrames::hideDemandFrames() {
     routeFrame->hide();
+    routeDistributionFrame->hide();
     vehicleFrame->hide();
     typeFrame->hide();
     typeDistributionFrame->hide();
@@ -970,6 +979,7 @@ void
 GNEViewParent::DemandFrames::setDemandFramesWidth(int frameWidth) {
     // set width in all frames
     routeFrame->setFrameWidth(frameWidth);
+    routeDistributionFrame->setFrameWidth(frameWidth);
     vehicleFrame->setFrameWidth(frameWidth);
     typeFrame->setFrameWidth(frameWidth);
     typeDistributionFrame->setFrameWidth(frameWidth);
@@ -985,6 +995,8 @@ bool
 GNEViewParent::DemandFrames::isDemandFrameShown() const {
     // check all frames
     if (routeFrame->shown()) {
+        return true;
+    } else if (routeDistributionFrame->shown()) {
         return true;
     } else if (vehicleFrame->shown()) {
         return true;
@@ -1013,6 +1025,8 @@ GNEViewParent::DemandFrames::getCurrentShownFrame() const {
     // check all frames
     if (routeFrame->shown()) {
         return routeFrame;
+    } else if (routeDistributionFrame->shown()) {
+        return routeDistributionFrame;
     } else if (vehicleFrame->shown()) {
         return vehicleFrame;
     } else if (typeFrame->shown()) {
