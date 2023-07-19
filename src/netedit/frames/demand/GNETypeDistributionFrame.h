@@ -162,6 +162,9 @@ public:
         /// @brief try to set new attribute value
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
+        /// @brief remove row
+        long onCmdRemoveRow(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -173,10 +176,7 @@ public:
         TypeDistributionAttributesEditor* myTypeDistributionAttributesEditorParent;
 
         /// @brief pointer to attribute label
-        MFXLabelTooltip* myAttributeLabel = nullptr;
-
-        /// @brief pointer to attribute label
-        FXLabel* myTypeLabel = nullptr;
+        MFXLabelTooltip* myIDLabel = nullptr;
 
         /// @brief delete row button
         MFXButtonTooltip* myDeleteRowButton = nullptr;
@@ -215,8 +215,8 @@ public:
         /// @name FOX-callbacks
         /// @{
 
-        /// @brief Called when user press the help button
-        long onCmdTypeDistributionAttributesEditorHelp(FXObject*, FXSelector, void*);
+        /// @brief Called when user press the add button
+        long onCmdAddRow(FXObject*, FXSelector, void*);
 
         /// @}
 
@@ -231,8 +231,8 @@ public:
         /// @brief list of Attribute editor rows
         std::vector<TypeDistributionAttributesEditorRow*> myTypeDistributionAttributesEditorRows;
 
-        /// @brief button for help
-        FXButton* myHelpButton = nullptr;
+        /// @brief button for add new row
+        FXButton* myAddButton = nullptr;
     };
 
     /**@brief Constructor

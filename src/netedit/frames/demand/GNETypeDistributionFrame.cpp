@@ -50,11 +50,12 @@ FXDEFMAP(GNETypeDistributionFrame::TypeDistributionSelector) typeDistributionSel
 };
 
 FXDEFMAP(GNETypeDistributionFrame::TypeDistributionAttributesEditorRow) TypeDistributionAttributesEditorRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::onCmdSetAttribute)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_REMOVE,  GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::onCmdRemoveRow)
 };
 
 FXDEFMAP(GNETypeDistributionFrame::TypeDistributionAttributesEditor) TypeDistributionAttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNETypeDistributionFrame::TypeDistributionAttributesEditor::onCmdTypeDistributionAttributesEditorHelp)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADD,   GNETypeDistributionFrame::TypeDistributionAttributesEditor::onCmdAddRow)
 };
 
 // Object implementation
@@ -274,8 +275,8 @@ GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::TypeDistributionA
     // get staticTooltip menu
     auto staticTooltipMenu = attributeEditorParent->getTypeDistributionFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // Create attribute label (usually used only for ID)
-    myAttributeLabel = new MFXLabelTooltip(this, staticTooltipMenu,
-        "attributeLabel", nullptr, GUIDesignLabelThickedFixed(100));
+    myIDLabel = new MFXLabelTooltip(this, staticTooltipMenu,
+        ACAttr.getAttrStr().c_str(), nullptr, GUIDesignLabelThickedFixed(GUIDesignHeight));
     // Create and hide MFXTextFieldTooltip for string attributes
     myValueTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
         GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -284,7 +285,7 @@ GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::TypeDistributionA
         // create TypeDistributionAttributesEditorRow
         FXHorizontalFrame::create();
         // Show attribute ACAttr.getAttrStr().c_str());
-        myAttributeLabel->setTipText(ACAttr.getDefinition().c_str());
+        myIDLabel->setTipText(ACAttr.getDefinition().c_str());
         // In any other case (String, list, etc.), show value as String
         myValueTextField->setText(id.c_str());
         myValueTextField->setTextColor(FXRGB(0, 0, 0));
@@ -303,9 +304,7 @@ GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::TypeDistributionA
     auto staticTooltipMenu = attributeEditorParent->getTypeDistributionFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // create and hide color editor
     myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu,
-        "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonIcon);
-    // Create type label
-    myTypeLabel = new FXLabel(this, "typeLabel", nullptr, GUIDesignLabelThickedFixed(100 - GUIDesignHeight));
+        "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_BUTTON_REMOVE, GUIDesignButtonIcon);
     // Create and hide MFXTextFieldTooltip for string attributes
     myValueTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
         GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -316,8 +315,6 @@ GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::TypeDistributionA
     if (getParent()->id()) {
         // create TypeDistributionAttributesEditorRow
         FXHorizontalFrame::create();
-        // Show attribute Label
-        myTypeLabel->setText(toString(SUMO_ATTR_TYPE).c_str());
         // set type
         myValueTextField->setText(type.c_str());
         myValueTextField->setTextColor(FXRGB(0, 0, 0));
@@ -392,6 +389,13 @@ GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::onCmdSetAttribute
 }
 
 
+long
+GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::onCmdRemoveRow(FXObject*, FXSelector, void*) {
+
+    return 1;
+}
+
+
 GNETypeDistributionFrame::TypeDistributionAttributesEditorRow::TypeDistributionAttributesEditorRow() :
     myTypeDistributionAttributesEditorParent(nullptr) {
 }
@@ -406,7 +410,7 @@ GNETypeDistributionFrame::TypeDistributionAttributesEditor::TypeDistributionAttr
     // resize myTypeDistributionAttributesEditorRows
     myTypeDistributionAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // Create help button
-    myHelpButton = new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myAddButton = new FXButton(getCollapsableFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_BUTTON_ADD, GUIDesignButtonIcon);
 }
 
 
@@ -447,7 +451,7 @@ GNETypeDistributionFrame::TypeDistributionAttributesEditor::showAttributeEditorM
         show();
     }
     // reparent help button (to place it at bottom)
-    myHelpButton->reparent(this);
+    myAddButton->reparent(this);
 }
 
 
@@ -480,9 +484,7 @@ GNETypeDistributionFrame::TypeDistributionAttributesEditor::getTypeDistributionF
 
 
 long
-GNETypeDistributionFrame::TypeDistributionAttributesEditor::onCmdTypeDistributionAttributesEditorHelp(FXObject*, FXSelector, void*) {
-    // open Help attributes dialog
-    myTypeDistributionFrameParent->openHelpAttributesDialog(myTypeDistributionFrameParent->getTypeDistributionSelector()->getCurrentTypeDistribution());
+GNETypeDistributionFrame::TypeDistributionAttributesEditor::onCmdAddRow(FXObject*, FXSelector, void*) {
     return 1;
 }
 
