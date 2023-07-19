@@ -3380,6 +3380,20 @@ GNEAttributeCarrier::fillDemandElements() {
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = SUMO_TAG_ROUTE_DISTRIBUTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::ROUTE,
+                                      GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GUIIcon::ROUTEDISTRIBUTION, currentTag);
+
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("The id of route distribution"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
     currentTag = GNE_TAG_ROUTE_EMBEDDED;
     {
         // set values of tag
