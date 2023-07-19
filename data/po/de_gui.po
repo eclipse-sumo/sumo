@@ -2176,7 +2176,7 @@ msgstr "&Nachfrage"
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:531
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:534
 msgid "Supermode demand."
-msgstr ""
+msgstr "Nachfragesupermodus."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:534
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2158
@@ -2314,11 +2314,11 @@ msgstr "Erstelle PoI und Polygone."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
 msgid "Deca&ls"
-msgstr ""
+msgstr "&Hintergrundbilder"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
 msgid "Create decals."
-msgstr ""
+msgstr "Erstelle Hintergrundbilder."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:699
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:697
@@ -2358,11 +2358,10 @@ msgstr "Typ"
 msgid "Create types (vehicles, person and containers)."
 msgstr "Erstelle Typen (Fahrzeuge, Personen und Container)."
 
-#: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:712
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:713
 msgid "TypeDistribution"
-msgstr ""
+msgstr "Typenverteilung"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:712
 msgid "Create and edit type distributions."
@@ -3832,11 +3831,11 @@ msgstr "Präfix für Routenbezeichnung"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:393
 msgid "Prefix for type naming"
-msgstr ""
+msgstr "Präfix für Typenbezeichnung"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:396
 msgid "Prefix for type distribution naming"
-msgstr ""
+msgstr "Präfix für Typenverteilungsbezeichnung"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:399
 msgid "Prefix for vehicle naming"
@@ -4518,17 +4517,15 @@ msgstr "PoI an Fahrstreifen anbinden"
 msgid "release POI from lane"
 msgstr "PoI von Fahrstreifen lösen"
 
-#: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2644
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2640
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2636
 msgid "reverse % '%'"
-msgstr ""
+msgstr "drehe % '%' um"
 
-#: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2658
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2654
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2650
 msgid "add reverse '%'"
-msgstr ""
+msgstr "füge Gegenrichtung '%' hinzu"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2687
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2683
@@ -4832,11 +4829,11 @@ msgstr "Ungültiges Fenstergrößenformat % für die Option 'window-size'"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1946
 msgid "Save Netedit Config. (Ctrl+Shift+E)"
-msgstr ""
+msgstr "Netedit-Konfiguration speichern. (Ctrl+Shift+E)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1952
 msgid "Save Sumo Config. (Ctrl+Shift+S)"
-msgstr ""
+msgstr "Sumo-Konfiguration speichern. (Ctrl+Shift+S)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1958
 msgid "Save network"
@@ -5328,11 +5325,11 @@ msgstr "Modus zum Erstellen von Polygonen und Pol. (P)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3587
 msgid "Set decal mode"
-msgstr ""
+msgstr "Hintergrundmodus einstellen"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3587
 msgid "Mode for editing decals. (U)"
-msgstr ""
+msgstr "Modus zur Bearbeitung der Hintergrundbilder. (U)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3678
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3728
@@ -7935,30 +7932,26 @@ msgstr ""
 msgid "The id of VehicleType distribution"
 msgstr "Die ID der Fahrzeugtyp-Verteilung"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3454
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3429
 msgid "type ID"
-msgstr ""
+msgstr "Die ID des Typs"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3459
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3434
 msgid "Type distribution"
-msgstr ""
+msgstr "Typenverteilung"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3464
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3439
 msgid "Type distribution probability"
-msgstr ""
+msgstr "Typenverteilungswahrscheinlichkeit"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3470
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3445
 msgid "An abstract vehicle class"
 msgstr "Eine abstrakte Fahrzeugklasse"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3477
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3452
 msgid "This type's color"
-msgstr ""
+msgstr "Die Farbe dieses Typs"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3482
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3457
