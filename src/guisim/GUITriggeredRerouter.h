@@ -115,7 +115,7 @@ public:
     GUIManipulator* openManipulator(GUIMainWindow& app,
                                     GUISUMOAbstractView& parent);
 
-    /// @brief shit route probabilities
+    /// @brief shift route probabilities
     void shiftProbs();
 
 public:
