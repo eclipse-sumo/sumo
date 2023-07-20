@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-19 14:47+0200\n"
-"PO-Revision-Date: 2023-07-05 14:11+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/es/>\n"
+"PO-Revision-Date: 2023-07-20 12:23+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -796,7 +797,7 @@ msgstr "'%' cargado."
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2036
 msgid "Simulation ended at time: %. (%)"
-msgstr ""
+msgstr "Simulación finalizó en el tiempo %. (%)"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2042
 msgid "Simulation ended"
@@ -811,7 +812,7 @@ msgstr "Cargando '%'."
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2296
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2297
 msgid "seconds"
-msgstr ""
+msgstr "segundos"
 
 #: D:\Repos\sumo/src\gui\GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
@@ -914,20 +915,20 @@ msgstr "Ha ocurrido un desbordamiento (Overflow) en tiempo de computación."
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:114
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:340
 msgid "Locate Junctions"
-msgstr ""
+msgstr "Localizar cruces"
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:114
 msgid "Locate a junction within the network."
-msgstr ""
+msgstr "Localiza un cruce dentro de la red."
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:119
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:344
 msgid "Locate Edges"
-msgstr ""
+msgstr "Localizar calles (edges)"
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:119
 msgid "Locate an edge within the network."
-msgstr ""
+msgstr "Localiza una calle (edge) dentro de la red."
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:124
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:352
@@ -936,7 +937,7 @@ msgstr "Localizar vehículos"
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:124
 msgid "Locate a vehicle within the network."
-msgstr ""
+msgstr "Localiza un vehículo dentro de la red."
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:129
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:356
@@ -945,51 +946,51 @@ msgstr "Localizar personas"
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:129
 msgid "Locate a person within the network."
-msgstr ""
+msgstr "Localiza una persona dentro de la red."
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:134
 msgid "Locate Container"
-msgstr ""
+msgstr "Localizar contenedor"
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:134
 msgid "Locate a container within the network."
-msgstr ""
+msgstr "Localiza un contenedor dentro de la red."
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:139
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:375
 msgid "Locate TLS"
-msgstr ""
+msgstr "Localizar semáforos"
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:139
 msgid "Locate a tls within the network."
-msgstr ""
+msgstr "Localiza un semáforo dentro de la red."
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:144
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:379
 msgid "Locate Additional"
-msgstr ""
+msgstr "Localizar un elemento adicional"
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:144
 msgid "Locate an additional structure within the network."
-msgstr ""
+msgstr "Localiza un estructura adicional dentro de la red."
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:149
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:383
 msgid "Locate PoI"
-msgstr ""
+msgstr "Localizar un punto de interés"
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:149
 msgid "Locate a PoI within the network."
-msgstr ""
+msgstr "Localiza un punto de interés (POI) dentro de la red."
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:154
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:387
 msgid "Locate Polygon"
-msgstr ""
+msgstr "Localizar polígono"
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:154
 msgid "Locate a Polygon within the network."
-msgstr ""
+msgstr "Localiza un polígono dentro de la red."
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:69
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:58
@@ -1098,7 +1099,7 @@ msgstr "Error de formato de tiempo"
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:46
 msgid "- General problem solving"
-msgstr ""
+msgstr "- Solución de problemas generales"
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:50
 msgid "- Sumo-user mailing list"
@@ -1124,6 +1125,8 @@ msgstr "GUI-triggered stop no implementada para meso"
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:663
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
 msgstr ""
+"El parámetro de vehículo '%' (clave '%') no es un número para el vehículo "
+"'%'."
 
 #: D:\Repos\sumo/src\guisim\GUINet.cpp:326
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
@@ -1247,39 +1250,39 @@ msgstr "&Herramientas"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1428
 msgid "Detectors"
-msgstr ""
+msgstr "Detectores"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1429
 msgid "Districts"
-msgstr ""
+msgstr "Distritos"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1430
 msgid "DRT"
-msgstr ""
+msgstr "Transporte a la demanda (DRT)"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1432
 msgid "CityBrain"
-msgstr ""
+msgstr "CityBrain"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1433
 msgid "GTFS"
-msgstr ""
+msgstr "GTFS"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1434
 msgid "Vissim"
-msgstr ""
+msgstr "Vissim"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1435
 msgid "Visum"
-msgstr ""
+msgstr "Visum"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1436
 msgid "Import"
-msgstr ""
+msgstr "Importar"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
 msgid "Net"
-msgstr ""
+msgstr "Red"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1438
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:699
@@ -1289,7 +1292,7 @@ msgstr "Ruta"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1439
 msgid "Output"
-msgstr ""
+msgstr "Salida"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1441
 msgid "TLS"
@@ -1297,15 +1300,15 @@ msgstr "Semáforo (TLS)"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1442
 msgid "Turn-defs"
-msgstr ""
+msgstr "Definiciones de giro (Turn-defs)"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1443
 msgid "Visualization"
-msgstr ""
+msgstr "Visualización"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1444
 msgid "XML"
-msgstr ""
+msgstr "XML"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1531
 msgid "Network computed"
@@ -1383,7 +1386,7 @@ msgstr "Cargando configuración de sumo '"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2357
 msgid "Netedit options"
-msgstr ""
+msgstr "Opciones de netedit"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2374
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1817
@@ -1392,7 +1395,7 @@ msgstr "Opciones de sumo"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2391
 msgid "Netgenerate options"
-msgstr ""
+msgstr "Opciones de netgenerate"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2408
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1244
@@ -1416,7 +1419,7 @@ msgstr "Red guardada en '"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3124
 msgid "Could not save network in '"
-msgstr ""
+msgstr "No se pudo guardar la red en '"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3180
 msgid "Plain XML saved with prefix '"
@@ -1494,7 +1497,7 @@ msgstr "Elementos adicionales guardados en '"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3699
 msgid "Saving additionals failed!"
-msgstr ""
+msgstr "¡El guardado de los elementos adicionales ha fallado!"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3769
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4707
@@ -1522,7 +1525,7 @@ msgstr "Elementos de demanda guardados en '"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3860
 msgid "Saving demand elements failed!"
-msgstr ""
+msgstr "¡El guardado de los elementos de demanda ha fallado!"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3932
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4776
@@ -1553,7 +1556,7 @@ msgstr "Elementos de datos guardaos en '"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4024
 msgid "Saving data elements failed!"
-msgstr ""
+msgstr "¡El guardado de los elementos de datos ha fallado!"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4096
 msgid "load meanDatas from '"
@@ -1580,7 +1583,7 @@ msgstr "MeanDatas guardados en '"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4181
 msgid "Saving meanData failed!"
-msgstr ""
+msgstr "¡El guardado de los elementos meanData ha fallado!"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4230
 msgid "Confirm close Network"
@@ -1672,11 +1675,11 @@ msgstr "Abrir una nueva ventana de netedit."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:209
 msgid "Generate Network"
-msgstr ""
+msgstr "Generar red"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:209
 msgid "Create network using netgenerate."
-msgstr ""
+msgstr "Genera una red usando netgenerate."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:216
 msgid "Load Netedit config..."
@@ -2049,7 +2052,7 @@ msgstr "&Red"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:528
 msgid "Supermode network."
-msgstr ""
+msgstr "Supermodo red."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:531
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2155
@@ -2058,7 +2061,7 @@ msgstr "&Demanda"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:531
 msgid "Supermode demand."
-msgstr ""
+msgstr "Supermodo demanda."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:534
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2158
@@ -2067,7 +2070,7 @@ msgstr "&Datos"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:534
 msgid "Supermode data."
-msgstr ""
+msgstr "Supermodo datos."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:551
 msgid "&Inspect"
@@ -2907,7 +2910,7 @@ msgstr "Guardar archivo de configuración de netedit como"
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2766
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2770
 msgid "Netedit Config files (*.netecfg)"
-msgstr ""
+msgstr "Archivos de configuración de netedit (*.netecfg)"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2769
 msgid "Open netedit Config file"
@@ -3010,11 +3013,11 @@ msgstr "Abrir archivo de meanDatas"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2890
 msgid "Save options file as"
-msgstr ""
+msgstr "Guardar opciones como"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2894
 msgid "Open options file"
-msgstr ""
+msgstr "Abrir archivo de opciones"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:100
 #, c-format
@@ -3060,7 +3063,7 @@ msgstr "Abrir una red de SUMO"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:259
 msgid "Open a configuration file (netedit or netconvert config)"
-msgstr ""
+msgstr "Abrir un archivo de configuración (netedit o netconvert)"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:260
 msgid "Open a SUMO config file"
@@ -3100,7 +3103,7 @@ msgstr "Iniciar netedit con una nueva red"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:318
 msgid "Write attribute help to file"
-msgstr ""
+msgstr "Escribir el texto ayuda del atributo en el archivo"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:321
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
@@ -3169,15 +3172,16 @@ msgstr "Prefijo para el nombre de los routeProbes"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:373
 msgid "Prefix for variable speed sign naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las señales de velocidad variable"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:376
 msgid "prefix for traction substation naming"
-msgstr ""
+msgstr "Prefijo para el nombre de subestaciones de tracción"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:379
 msgid "Prefix for overhead wire naming"
 msgstr ""
+"Prefijo para el nombre de las catenarias (cables aéreos de alimentación)"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:382
 msgid "Prefix for polygon naming"
@@ -3193,11 +3197,11 @@ msgstr "Prefijo para el nombre de las rutas"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:393
 msgid "Prefix for type naming"
-msgstr ""
+msgstr "Prefijo para nombrar tipos"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:396
 msgid "Prefix for type distribution naming"
-msgstr ""
+msgstr "Prefijo para nombrar distribuciones de tipos"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:399
 msgid "Prefix for vehicle naming"
@@ -3270,6 +3274,8 @@ msgstr "Habilitar mensajes de salida durante la prueba de GUI"
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:462
 msgid "Enable output messages during GUI-Testing specific of gl functions"
 msgstr ""
+"Activar mensajes de salida durante las pruebas de GUI específicas de "
+"funciones gl"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:465
 msgid "Save gui settings in the given settings-output file"
@@ -3301,6 +3307,9 @@ msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class"
 msgstr ""
+"Seleccione la desviación de velocidad predeterminada. Un valor negativo "
+"implica valores predeterminados específicos de vClass (0.1 para la clase de "
+"pasajero predeterminada"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:520
 msgid "Failed to reset options."
@@ -3341,7 +3350,7 @@ msgstr "eliminar "
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:644
 msgid "Trying to delete a default Vehicle Type"
-msgstr ""
+msgstr "Intentando eliminar un tipo de vehículo predeterminado"
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:737
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2800
@@ -3436,11 +3445,11 @@ msgstr "Limpiar pasos peatonales (crossings)"
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1586
 msgid "There are no invalid crossings to remove."
-msgstr ""
+msgstr "No hay cruces inválidos que eliminar."
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1596
 msgid "Crossings will be cleared. Continue?"
-msgstr ""
+msgstr "Los cruces serán removidos. ¿Continuar?"
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1607
 msgid "clear crossings"
@@ -3519,7 +3528,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNENetHelper.cpp:1503
 msgid "Default vType doesn't exist"
-msgstr ""
+msgstr "Tipo de vehículo (vType) por defecto no existe"
 
 #: D:\Repos\sumo/src\netedit\GNENetHelper.cpp:2528
 msgid "Invalid meanData pointer"
