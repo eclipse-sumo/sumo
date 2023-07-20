@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-19 14:47+0200\n"
-"PO-Revision-Date: 2023-07-11 07:52+0000\n"
+"PO-Revision-Date: 2023-07-20 12:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14513,7 +14513,7 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:653
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1508
 msgid "forbidden"
-msgstr ""
+msgstr "verboten"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:655
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1000
@@ -14532,7 +14532,7 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1645
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1659
 msgid "unselected"
-msgstr ""
+msgstr "nicht ausgewählt"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:656
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1001
@@ -14551,73 +14551,73 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1646
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1660
 msgid "selected"
-msgstr ""
+msgstr "ausgewählt"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:672
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1197
 msgid "by allowed speed (lanewise)"
-msgstr ""
+msgstr "nach der erlaubten Geschwindigkeit (fahrstreifenfein)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:679
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1200
 msgid "by current occupancy (lanewise, brutto)"
-msgstr ""
+msgstr "nach der aktuellen Belegung (fahrstreifenfein, brutto)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:685
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1203
 msgid "by current occupancy (lanewise, netto)"
-msgstr ""
+msgstr "nach der aktuellen Belegung (fahrstreifenfein, netto)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:691
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1206
 msgid "by first vehicle waiting time (lanewise)"
-msgstr ""
+msgstr "nach der Wartezeit des vordersten Fahrzeugs (fahrstreifenfein)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:697
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1209
 msgid "by lane number (streetwise)"
-msgstr ""
+msgstr "nach Fahrstreifenanzahl"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:701
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:940
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1213
 msgid "by CO2 emissions"
-msgstr ""
+msgstr "nach CO2-Emissionen"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:709
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:948
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1216
 msgid "by CO emissions"
-msgstr ""
+msgstr "nach CO-Emissionen"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:717
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:956
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1219
 msgid "by PMx emissions"
-msgstr ""
+msgstr "nach PMx-Emissionen"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:725
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:964
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1222
 msgid "by NOx emissions"
-msgstr ""
+msgstr "nach NOx-Emissionen"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:733
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:972
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1225
 msgid "by HC emissions"
-msgstr ""
+msgstr "nach HC-Emissionen"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:741
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:980
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1228
 msgid "by fuel consumption"
-msgstr ""
+msgstr "nach Kraftstoffverbrauch"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:749
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1231
 msgid "by noise emissions (Harmonoise)"
-msgstr ""
+msgstr "nach Lärmemissionen (Harmonoise)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:758
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1235
@@ -14632,7 +14632,7 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:767
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1243
 msgid "by given length/geometrical length"
-msgstr ""
+msgstr "nach der gegebenen Länge/geometrischen Länge"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:775
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1076
@@ -14701,7 +14701,7 @@ msgstr "nach dem Rückstau vor dem Netzeingang"
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:849
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1357
 msgid "by TAZ (streetwise)"
-msgstr "nach Verkehrsumlegungszone"
+msgstr "nach der Verkehrsumlegungszone"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:857
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:884
@@ -14715,11 +14715,11 @@ msgstr "fehlende Daten"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:860
 msgid "by distance (kilometrage)"
-msgstr "nach Entfernung (Kilometrierung)"
+msgstr "nach der Entfernung (Kilometrierung)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:867
 msgid "by abs distance (kilometrage)"
-msgstr "nach absoluter Entfernung (Kilometrierung)"
+msgstr "nach der absoluten Entfernung (Kilometrierung)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:871
 msgid "by reachability (traveltime)"
@@ -14791,31 +14791,31 @@ msgstr "Aktion ausgeführt"
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1130
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1414
 msgid "by waiting time"
-msgstr "nach Wartezeit"
+msgstr "nach der Wartezeit"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:917
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1420
 msgid "by accumulated waiting time"
-msgstr "nach kumulierter Wartezeit"
+msgstr "nach der kumulierten Wartezeit"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:923
 msgid "by time since lane change"
-msgstr "nach Zeit seit Fahrstreifenwechsel"
+msgstr "nach der Zeit seit dem Fahrstreifenwechsel"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:932
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1423
 msgid "by max speed"
-msgstr "nach Höchstgeschwindigkeit"
+msgstr "nach der Höchstgeschwindigkeit"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:996
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1430
 msgid "by reroute number"
-msgstr "nach Anzahl der Reroute-Vorgänge"
+msgstr "nach der Anzahl an Reroute-Vorgängen"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1003
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1434
 msgid "by offset from best lane"
-msgstr "nach Abstand zum besten Fahrstreifen"
+msgstr "nach dem Abstand zum besten Fahrstreifen"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1004
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1435
@@ -14825,22 +14825,22 @@ msgstr "Gegenrichtungsfahrstreifen"
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1011
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1442
 msgid "by acceleration"
-msgstr "nach Beschleunigung"
+msgstr "nach der Beschleunigung"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1020
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1451
 msgid "by time gap on lane"
-msgstr "nach Zeitlücke auf dem Fahrstreifen"
+msgstr "nach der Zeitlücke auf dem Fahrstreifen"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1026
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1457
 msgid "by depart delay"
-msgstr "nach Abfahrtsverzögerung"
+msgstr "nach der Abfahrtsverzögerung"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1040
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1463
 msgid "by time loss"
-msgstr "nach Verlustzeit"
+msgstr "nach der Verlustzeit"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1046
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1469
@@ -14906,15 +14906,15 @@ msgstr "auf Mitfahrt warten"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1104
 msgid "by jammed state"
-msgstr ""
+msgstr "nach Blockierung"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1114
 msgid "given container/type color"
-msgstr ""
+msgstr "gegebene Container-/Typfarbe"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1116
 msgid "given/assigned container color"
-msgstr ""
+msgstr "gegebene/zugewiesene Containerfarbe"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1125
 msgid "transport"
@@ -14931,152 +14931,152 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1165
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1627
 msgid "by height"
-msgstr ""
+msgstr "nach Höhe"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1175
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1637
 msgid "given POI color"
-msgstr ""
+msgstr "gegebene PoI-Farbe"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1182
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1644
 msgid "given polygon color"
-msgstr ""
+msgstr "gegebene Polygonfarbe"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1191
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1653
 msgid "default"
-msgstr ""
+msgstr "Standard"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1259
 msgid "by average relative speed"
-msgstr ""
+msgstr "nach mittlerer relativer Geschwindigkeit"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1286
 msgid "by purpose (streetwise)"
-msgstr ""
+msgstr "nach Funktion"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1286
 msgid "normal"
-msgstr ""
+msgstr "normal"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1288
 msgid "internal"
-msgstr ""
+msgstr "intern"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1290
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1372
 msgid "by allowed speed (streetwise)"
-msgstr ""
+msgstr "nach erlaubter Geschwindigkeit"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1297
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1375
 msgid "by current occupancy (streetwise, brutto)"
-msgstr ""
+msgstr "nach aktueller Belegung (straßenfein, brutto)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1300
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1378
 msgid "by current speed (streetwise)"
-msgstr ""
+msgstr "nach aktueller Geschwindigkeit"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1307
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1381
 msgid "by current flow (streetwise)"
-msgstr ""
+msgstr "nach aktuellem Fluss"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1310
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1384
 msgid "by relative speed (streetwise)"
-msgstr ""
+msgstr "nach relativer Geschwindigkeit"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1317
 msgid "by routing device assumed speed"
-msgstr ""
+msgstr "nach von Routen-Einrichtung angenommener Geschwindigkeit"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1325
 msgid "by segments (alternating)"
-msgstr ""
+msgstr "nach Segmenten (abwechselnd)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1325
 msgid "odd"
-msgstr ""
+msgstr "ungerade"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1326
 msgid "even"
-msgstr ""
+msgstr "gerade"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1328
 msgid "by jammed state (segmentwise)"
-msgstr ""
+msgstr "nach Blockierung (segmentfein)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1328
 msgid "free"
-msgstr ""
+msgstr "frei"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1329
 msgid "limitedControl"
-msgstr ""
+msgstr "eingeschränkt"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1330
 msgid "jammed"
-msgstr ""
+msgstr "blockiert"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1332
 msgid "by current occupancy (segmentwise, brutto)"
-msgstr ""
+msgstr "nach aktueller Belegung (segmentfein, brutto)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1335
 msgid "by current speed (segmentwise)"
-msgstr ""
+msgstr "nach aktueller Geschwindigkeit (segmentfein)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1342
 msgid "by current flow (segmentwise)"
-msgstr ""
+msgstr "nach aktuellem Fluss (segmentfein)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1345
 msgid "by relative speed (segmentwise)"
-msgstr ""
+msgstr "nach relativer Geschwindigkeit (segmentfein)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1357
 msgid "no TAZ"
-msgstr ""
+msgstr "keine Verkehrsumlegungszone"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1509
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1607
 msgid "data mode"
-msgstr ""
+msgstr "Datenmodus"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1562
 msgid "by height at segment start"
-msgstr ""
+msgstr "nach Höhe am Segmentbeginn"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1576
 msgid "by segment inclination"
-msgstr ""
+msgstr "nach Segmentneigung"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1603
 msgid "junction bubble"
-msgstr ""
+msgstr "Knotenpunktsymbol"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1604
 msgid "geometry points"
-msgstr ""
+msgstr "Geometriepunkte"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1605
 msgid "connections missing"
-msgstr ""
+msgstr "fehlende Verbindungen"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1606
 msgid "custom shape"
-msgstr ""
+msgstr "personalisierter Shape"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1662
 msgid "by origin taz"
-msgstr ""
+msgstr "nach Quellverkehrsumlegungszone"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1663
 msgid "by destination taz"
-msgstr ""
+msgstr "nach Zielverkehrsumlegungszone"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2349
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2348
