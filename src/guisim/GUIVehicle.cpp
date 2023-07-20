@@ -55,6 +55,7 @@
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
+#include <microsim/devices/MSDevice_Battery.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 
@@ -96,6 +97,7 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     const bool isElecHybrid = getDevice(typeid(MSDevice_ElecHybrid)) != nullptr ? true : false;
+    const bool hasBattery = getDevice(typeid(MSDevice_Battery)) != nullptr;
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLaneID));
@@ -185,9 +187,17 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         ret->mkItem("leftmost edge sublane [#]", true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getLeftSublaneOnEdge));
         ret->mkItem("lane change maneuver distance [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getManeuverDist));
     }
-    if (isElecHybrid) {
+    if (hasBattery || isElecHybrid) {
         ret->mkItem("actual state of charge [Wh]", true,
-                    new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getStateOfCharge));
+            new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getStateOfCharge));
+    }
+    if (hasBattery) {
+        ret->mkItem("relative state of charge (SoC) [-]", true,
+            new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getRelativeStateOfCharge));
+        ret->mkItem("currently charging [Wh]", true,
+            new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getChargedEnergy));
+    }
+    if (isElecHybrid) {
         ret->mkItem("actual electric current [A]", true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getElecHybridCurrent));
     }
