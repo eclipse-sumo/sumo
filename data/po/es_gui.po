@@ -1258,7 +1258,7 @@ msgstr "Distritos"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1430
 msgid "DRT"
-msgstr "Transporte a la demanda (DRT)"
+msgstr "Transporte a demanda (DRT)"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1432
 msgid "CityBrain"
