@@ -419,7 +419,7 @@ class StartDialog(Tkinter.Frame):
                 self.high.update(pickle.load(sf))
 
     def start_cfg(self, cfg):
-        # remember which which cfg was launched
+        # remember which cfg was launched
         self.category = self.category_name(cfg)
         if _DEBUG:
             print("starting", cfg)
@@ -473,7 +473,7 @@ class ScoreDialog:
         self.switch = switch
         self.score = score
         self.category = category
-        self.root.title(lang["Highscore"])
+        self.root.title("%s%s" % (lang["Highscore"], ": " + lang[self.category] if self.category in lang else ""))
         self.root.minsize(250, 50)
         self.high = high
 
