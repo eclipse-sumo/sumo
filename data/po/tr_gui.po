@@ -3157,7 +3157,7 @@ msgid "Prefix for variable speed sign naming"
 msgstr "Değişken hız işareti adlandırması için önek"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:376
-msgid "prefix for traction substation naming"
+msgid "Prefix for traction substation naming"
 msgstr "cer trafo merkezi adlandırması için önek"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:379

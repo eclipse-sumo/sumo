@@ -3463,7 +3463,7 @@ msgid "Prefix for variable speed sign naming"
 msgstr "Prefisso per la denominazione di limitazioni della velocità dinamiche"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:376
-msgid "prefix for traction substation naming"
+msgid "Prefix for traction substation naming"
 msgstr "Prefisso per la denominazione di sottostazioni elettriche"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:379

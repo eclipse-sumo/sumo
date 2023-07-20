@@ -3132,7 +3132,7 @@ msgid "Prefix for variable speed sign naming"
 msgstr "可變速度標誌的命名前綴"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:376
-msgid "prefix for traction substation naming"
+msgid "Prefix for traction substation naming"
 msgstr "牽引變電站的命名前綴"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:379

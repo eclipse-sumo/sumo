@@ -3810,7 +3810,7 @@ msgid "Prefix for variable speed sign naming"
 msgstr "Präfix für Bezeichner der dynamischen Geschwindigkeitsanzeigen"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:376
-msgid "prefix for traction substation naming"
+msgid "Prefix for traction substation naming"
 msgstr "Präfix für Unterwerkbezeichnung"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:379

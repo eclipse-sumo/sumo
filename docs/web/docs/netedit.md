@@ -425,7 +425,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--calibrator-prefix** {{DT_STR}} | Prefix for calibrator naming; *default:* **ca** |
 | **--routeProbe-prefix** {{DT_STR}} | Prefix for routeProbe naming; *default:* **rp** |
 | **--vss-prefix** {{DT_STR}} | Prefix for variable speed sign naming; *default:* **vs** |
-| **--tractionSubstation-prefix** {{DT_STR}} | prefix for traction substation naming; *default:* **tr** |
+| **--tractionSubstation-prefix** {{DT_STR}} | Prefix for traction substation naming; *default:* **tr** |
 | **--overheadWire-prefix** {{DT_STR}} | Prefix for overhead wire naming; *default:* **ow** |
 | **--polygon-prefix** {{DT_STR}} | Prefix for polygon naming; *default:* **po** |
 | **--poi-prefix** {{DT_STR}} | Prefix for poi naming; *default:* **poi** |

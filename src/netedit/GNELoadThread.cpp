@@ -373,7 +373,7 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("vss-prefix", "Netedit", TL("Prefix for variable speed sign naming"));
 
     neteditOptions.doRegister("tractionSubstation-prefix", new Option_String("tr"));
-    neteditOptions.addDescription("tractionSubstation-prefix", "Netedit", TL("prefix for traction substation naming"));
+    neteditOptions.addDescription("tractionSubstation-prefix", "Netedit", TL("Prefix for traction substation naming"));
 
     neteditOptions.doRegister("overheadWire-prefix", new Option_String("ow"));
     neteditOptions.addDescription("overheadWire-prefix", "Netedit", TL("Prefix for overhead wire naming"));
