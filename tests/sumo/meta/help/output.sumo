@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_17_0+0716-331573c
+Eclipse SUMO sumo Version v1_18_0+0436-f0eaeb5034c
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -307,7 +307,7 @@ Processing Options:
   --default.speeddev FLOAT             Select default speed deviation. A
                                         negative value implies vClass specific
                                         defaults (0.1 for the default passenger
-                                        class
+                                        class)
   --default.emergencydecel STR         Select default emergencyDecel value
                                         among ('decel', 'default', FLOAT) which
                                         sets the value either to the same as the

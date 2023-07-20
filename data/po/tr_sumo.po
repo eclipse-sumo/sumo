@@ -2044,7 +2044,7 @@ msgstr ""
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:492
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
-"defaults (0.1 for the default passenger class"
+"defaults (0.1 for the default passenger class)"
 msgstr ""
 "Varsayılan hız sapmasını seçin. Negatif bir değer Araç-Sınıfına özgü "
 "varsayılanlar anlamına gelir (varsayılan yolcu sınıfı için 0,1)"

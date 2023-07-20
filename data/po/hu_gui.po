@@ -3251,7 +3251,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:481
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
-"defaults (0.1 for the default passenger class"
+"defaults (0.1 for the default passenger class)"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:520

@@ -3256,8 +3256,8 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:481
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
-"defaults (0.1 for the default passenger class"
-msgstr "选择速度偏差的预设值。负值表示 vClass 特定预设值（ 0.1为小客车等级的预设值"
+"defaults (0.1 for the default passenger class)"
+msgstr "选择速度偏差的预设值。负值表示 vClass 特定预设值（ 0.1为小客车等级的预设值)"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:520
 msgid "Failed to reset options."

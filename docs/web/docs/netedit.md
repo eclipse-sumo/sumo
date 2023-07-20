@@ -108,7 +108,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | Option | Description |
 |--------|-------------|
 | **--default.action-step-length** {{DT_FLOAT}} | Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.; *default:* **0** |
-| **--default.speeddev** {{DT_FLOAT}} | Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class; *default:* **-1** |
+| **--default.speeddev** {{DT_FLOAT}} | Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class); *default:* **-1** |
 | **--speed-in-kmh** {{DT_BOOL}} | vmax is parsed as given in km/h; *default:* **false** |
 | **--construction-date** {{DT_STR}} | Use YYYY-MM-DD date to determine the readiness of features under construction |
 | **--flatten** {{DT_BOOL}} | Remove all z-data; *default:* **false** |

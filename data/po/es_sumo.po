@@ -2005,11 +2005,11 @@ msgstr ""
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:492
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
-"defaults (0.1 for the default passenger class"
+"defaults (0.1 for the default passenger class)"
 msgstr ""
 "Seleccione la desviación de velocidad predeterminada. Un valor negativo "
 "implica valores predeterminados específicos de vClass (0.1 para la clase de "
-"pasajero predeterminada"
+"pasajero predeterminada)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:495
 msgid ""

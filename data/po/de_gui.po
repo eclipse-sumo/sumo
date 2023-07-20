@@ -3941,11 +3941,11 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:481
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
-"defaults (0.1 for the default passenger class"
+"defaults (0.1 for the default passenger class)"
 msgstr ""
 "Standardgeschwindigkeitsabweichung auswählen. Ein negativer Wert impliziert "
 "Fahrzeugklassen-spezifische Standardwerte (0,1 für die Standard-"
-"Passagierklasse"
+"Passagierklasse)"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:520
 msgid "Failed to reset options."

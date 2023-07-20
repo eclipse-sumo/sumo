@@ -3593,7 +3593,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:481
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
-"defaults (0.1 for the default passenger class"
+"defaults (0.1 for the default passenger class)"
 msgstr ""
 "Scegli la varianza standard della velocità. Se un valore negativo viene dato "
 "vengono usati valori standard differenziati per ogni classe di veicoli (0.1 "

@@ -2010,9 +2010,9 @@ msgstr "选择默认的汽车以下跟车模型（Krauss, IDM, ..）"
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:492
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
-"defaults (0.1 for the default passenger class"
+"defaults (0.1 for the default passenger class)"
 msgstr ""
-"选择速度偏差的预设值。负值表示 vClass 特定预设值（ 0.1为小客车等级的预设值"
+"选择速度偏差的预设值。负值表示 vClass 特定预设值（ 0.1为小客车等级的预设值)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:495
 msgid ""
