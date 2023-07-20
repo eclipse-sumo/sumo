@@ -1237,7 +1237,9 @@ StringBijection<TrainType>::Entry SUMOXMLDefinitions::trainTypeValues[] = {
     { "ICE1",       TrainType::ICE1 },
     { "REDosto7",   TrainType::REDOSTO7 },
     { "Freight",    TrainType::FREIGHT },
-    { "ICE3",       TrainType::ICE3 }
+    { "ICE3",       TrainType::ICE3 },
+    { "MireoPlusB", TrainType::MIREOPLUSB },
+    { "MireoPlusH", TrainType::MIREOPLUSH }
 };
 
 
@@ -1293,7 +1295,7 @@ StringBijection<LaneChangeAction> SUMOXMLDefinitions::LaneChangeActions(
     SUMOXMLDefinitions::laneChangeActionValues, LCA_UNKNOWN);
 
 StringBijection<TrainType> SUMOXMLDefinitions::TrainTypes(
-    SUMOXMLDefinitions::trainTypeValues, TrainType::ICE3);
+    SUMOXMLDefinitions::trainTypeValues, TrainType::MIREOPLUSH);
 
 
 std::string

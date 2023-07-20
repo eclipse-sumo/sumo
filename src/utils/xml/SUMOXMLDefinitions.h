@@ -1807,6 +1807,8 @@ enum class TrainType {
     REDOSTO7,
     FREIGHT,
     ICE3,
+    MIREOPLUSB,
+    MIREOPLUSH,
     UNKNOWN
 };
 
