@@ -1,7 +1,0 @@
-Warning: Vehicle 'flow.1' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-6.63, offset=1.96), time=23.00.
-Warning: Vehicle 'flow.3' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-7.72, offset=1.87), time=30.00.
-Warning: Vehicle 'flow.5' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-8.06, offset=4.08), time=38.00.
-Warning: Vehicle 'flow.6' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-8.42, offset=4.77), time=42.00.
-Warning: Vehicle 'flow.9' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-7.34, offset=2.31), time=55.00.
-Warning: Vehicle 'flow.12' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-8.28, offset=1.69), time=65.00.
-Warning: Vehicle 'flow.17' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-8.59, offset=5.55), time=84.00.
