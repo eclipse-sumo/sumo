@@ -13973,7 +13973,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:340
 msgid "Langua&ge"
-msgstr ""
+msgstr "Idioma"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:342
 msgid "Change language to english. (en)"
