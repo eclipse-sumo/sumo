@@ -1887,7 +1887,7 @@ msgstr "Recargar programas semafóricos."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:399
 msgid "Load Edge Types..."
-msgstr "Cargando tipos de calles (edgeTypes)..."
+msgstr "Cargar tipos de calles (edgeTypes)..."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:399
 msgid "Load edge types in the current net."
