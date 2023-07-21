@@ -41,7 +41,7 @@ netedit.changeStopType("stopLane")
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.triggered, "join")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 110, netedit.positions.demandElements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
