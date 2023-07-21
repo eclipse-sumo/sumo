@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-21 10:34+0200\n"
-"PO-Revision-Date: 2023-07-20 12:23+0000\n"
+"PO-Revision-Date: 2023-07-21 13:13+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8977,27 +8978,27 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:107
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:121
 msgid "transform to"
-msgstr ""
+msgstr "transformar en"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:96
 msgid "Trip (over junctions)"
-msgstr ""
+msgstr "Viaje (sobre cruces)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:100
 msgid "Flow (over junctions)"
-msgstr ""
+msgstr "Flujo (sobre cruces)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:110
 msgid "Trip (over TAZs)"
-msgstr ""
+msgstr "Viaje (sobre zonas de análisis de tráfico)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:114
 msgid "Flow (over TAZs)"
-msgstr ""
+msgstr "Flujo (sobre zonas de análisis de tráfico)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:128
 msgid "Vehicle (embedded route)"
-msgstr ""
+msgstr "Vehículo (con ruta integrada)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:132
 msgid "RouteFlow"
@@ -9009,57 +9010,57 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:140
 msgid "Trip"
-msgstr ""
+msgstr "Viaje"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:144
 msgid "Flow"
-msgstr ""
+msgstr "Flujo"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:225
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:246
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:267
 msgid "transform selected to"
-msgstr ""
+msgstr "transformar selección en"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:228
 msgid "Trips (over junctions) (only %)"
-msgstr ""
+msgstr "Viajes (sobre cruces) (sólo %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:231
 msgid "Flows (over junctions) (only %)"
-msgstr ""
+msgstr "Flujos (sobre cruces) (sólo %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:237
 msgid "Trips (over junctions)"
-msgstr ""
+msgstr "Viajes (sobre cruces)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:240
 msgid "Flows (over junctions)"
-msgstr ""
+msgstr "Flujos (sobre cruces)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:249
 msgid "Trips (over TAZs) (only %)"
-msgstr ""
+msgstr "Viajes (sobre zonas de análisis de tráfico) (sólo %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:252
 msgid "Flows (over TAZs) (only %)"
-msgstr ""
+msgstr "Flujos (sobre zonas de análisis de tráfico) (sólo %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:258
 msgid "Trips (over TAZs)"
-msgstr ""
+msgstr "Viajes (sobre zonas de análisis de tráfico)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:261
 msgid "Flows (over TAZs)"
-msgstr ""
+msgstr "Flujos (sobre zonas de análisis de tráfico)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:270
 msgid "Vehicles (only %)"
-msgstr ""
+msgstr "Vehículos (sólo %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:273
 msgid "Vehicles (embedded route) (only %)"
-msgstr ""
+msgstr "Vehículos (con ruta integrada) (sólo %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:276
 msgid "RouteFlows (only %)"
@@ -9071,11 +9072,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:282
 msgid "Trips (only %)"
-msgstr ""
+msgstr "Viajes (sólo %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:285
 msgid "Flows (only %)"
-msgstr ""
+msgstr "Flujos (sólo %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:291
 #: D:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:167
@@ -9085,7 +9086,7 @@ msgstr "Vehículos"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:294
 msgid "Vehicles (embedded route)"
-msgstr ""
+msgstr "Vehículos (con ruta integrada)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:297
 msgid "RouteFlows"
@@ -9097,24 +9098,24 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:303
 msgid "Trips"
-msgstr ""
+msgstr "Viajes"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:306
 msgid "Flows"
-msgstr ""
+msgstr "Flujos"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:796
 msgid "Invalid vehicle tag"
-msgstr ""
+msgstr "Etiqueta de vehículo no válida"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEWalk.cpp:336
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEWalk.cpp:351
 msgid "This walk use junctions"
-msgstr ""
+msgstr "Esta caminata utiliza cruces"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEConnection.cpp:679
 msgid "Could not set attribute '%' (tls is broken)"
-msgstr ""
+msgstr "No se pudo establecer el atributo '%' (el semáforo no es válido)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2183
 msgid "Could not compute smooth shape for edge '%'"
@@ -9130,11 +9131,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:335
 msgid "Reset junction shapes"
-msgstr ""
+msgstr "Restablecer formas de los cruces"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1116
 msgid "change junction position"
-msgstr ""
+msgstr "cambiar la posición del cruce"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1137
 msgid "change keepClear for whole junction"
@@ -9150,11 +9151,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:681
 msgid "Remove Lane From Selected"
-msgstr ""
+msgstr "Remover carril de la selección"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:683
 msgid "Add Lane To Selected"
-msgstr ""
+msgstr "Agregar carril a la selección"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:687
 msgid "Remove Edge From Selected"
@@ -9174,7 +9175,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:743
 msgid "Additional options available in 'Inspect Mode'"
-msgstr ""
+msgstr "Opciones adicionales disponibles en el 'Modo Inspeccionar'"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:758
 msgid "Shape pos: "
@@ -9247,78 +9248,78 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1880
 msgid "Reverse %"
-msgstr ""
+msgstr "Invertir %"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1881
 msgid "Add reverse direction for %"
-msgstr ""
+msgstr "Agregar dirección opuesta para %"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1885
 msgid "Add reverse disconnected direction for %"
-msgstr ""
+msgstr "Agregar dirección opuesta desconectada para %"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1886
 msgid "Reset lengths for %"
-msgstr ""
+msgstr "Restablecer longitudes para %"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1887
 msgid "Straighten %"
-msgstr ""
+msgstr "Enderezar %"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1888
 msgid "Smooth %"
-msgstr ""
+msgstr "Alisar %"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1889
 msgid "Straighten elevation of %"
-msgstr ""
+msgstr "Enderezar elevación de %"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1890
 msgid "Smooth elevation of %"
-msgstr ""
+msgstr "Alisar elevación de %"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1937
 #, c-format
 msgid "Lane operations (% selected)"
-msgstr ""
+msgstr "Operaciones de carril (% seleccionado)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1939
 msgid "Lane operations"
-msgstr ""
+msgstr "Operaciones de carril"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1941
 msgid "Duplicate lane"
-msgstr ""
+msgstr "Duplicar carril"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1942
 msgid "Set custom lane shape"
-msgstr ""
+msgstr "Establecer forma de carril personalizada"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1943
 msgid "Reset custom shape"
-msgstr ""
+msgstr "Restablecer forma personalizada"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1947
 msgid "Reset opposite lane"
-msgstr ""
+msgstr "Restablecer carril opuesto"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1959
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1970
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1979
 msgid "Sidewalk"
-msgstr ""
+msgstr "Acera"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1960
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1972
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1980
 msgid "Bike lane"
-msgstr ""
+msgstr "Carril de bicicleta"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1961
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1974
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1981
 msgid "Bus lane"
-msgstr ""
+msgstr "Carril de bus"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1964
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1976
@@ -9336,15 +9337,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1984
 msgid "Add restricted %"
-msgstr ""
+msgstr "Agregar % restringido"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1985
 msgid "Remove restricted %"
-msgstr ""
+msgstr "Remover % restringido"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1986
 msgid "Transform to restricted %"
-msgstr ""
+msgstr "Transformar en % restringido"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2027
 #, c-format
@@ -9361,7 +9362,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
 msgid "Apply template"
-msgstr ""
+msgstr "Aplicar plantilla"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2048
 msgid "Select reachable"
@@ -9427,11 +9428,11 @@ msgstr "Mostrar carriles (lanes) candidatos"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:73
 msgid "-BACKSPACE: undo click"
-msgstr ""
+msgstr "-BACKSPACE: deshacer click"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:73
 msgid "-ESC: Abort path creation"
-msgstr ""
+msgstr "-ESC: Abortar creación de trayectoria"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:134
 msgid "Invalid lane"
@@ -9446,7 +9447,7 @@ msgstr "Un camino de carriles (lanes) necesita al menos dos carriles"
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:459
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:531
 msgid "route creation"
-msgstr ""
+msgstr "creación de ruta"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:406
 msgid "- Selected lanes: "
@@ -9543,7 +9544,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:62
 msgid "'Shift + Click' to remove the last inserted point."
-msgstr ""
+msgstr "'Shift + Click' para eliminar el último punto insertado."
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:134
 msgid "A new point cannot be added if drawing wasn't started"
@@ -10497,7 +10498,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:87
 msgid "speed"
-msgstr ""
+msgstr "velocidad"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:459
 msgid ""
@@ -10515,7 +10516,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:70
 msgid "Merge geometry points"
-msgstr ""
+msgstr "Combinar puntos geométricos"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:94
 msgid "Network move options"
@@ -10523,7 +10524,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:97
 msgid "Move whole polygons"
-msgstr ""
+msgstr "Mover polígonos enteros"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:133
 msgid "Demand move options"
@@ -10552,7 +10553,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:261
 msgid "Absolute value"
-msgstr ""
+msgstr "Valor absoluto"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:261
 msgid "Set Z value as absolute"
@@ -10935,7 +10936,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:102
 msgid "Click over a lane to create a stop."
-msgstr ""
+msgstr "Hacer click sobre el carril para crear una parada."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:106
 msgid "No stop parents in current network."
@@ -10977,7 +10978,7 @@ msgstr "Editor de tipos"
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:134
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:62
 msgid "Current Type"
-msgstr ""
+msgstr "Tipo actual"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:221
 msgid "Create Type"
@@ -10998,23 +10999,24 @@ msgstr "Resetear tipo"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72
 msgid "Click over a route to create a vehicle."
-msgstr ""
+msgstr "Hacer click sobre una ruta para crear un vehículo."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:76
 msgid "Select two edges to create a trip."
-msgstr ""
+msgstr "Seleccione dos calles (edges) para crear un viaje."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:80
 msgid "Select two edges to create a vehicle with embedded route."
 msgstr ""
+"Seleccione dos calles (edges) para crear un vehículo con ruta integrada."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:84
 msgid "Select two junctions to create a trip."
-msgstr ""
+msgstr "Seleccione dos cruces para crear un viaje."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:88
 msgid "Select two TAZS to create a trip."
-msgstr ""
+msgstr "Seleccione dos zonas de análisis de tráfico (TAZ) para crear un viaje."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:93
 msgid "Click over a route to create a routeFlow."
@@ -11022,35 +11024,36 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:97
 msgid "Select two edges to create a flow."
-msgstr ""
+msgstr "Seleccione dos calles (edges) para crear un flujo."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:101
 msgid "Select two edges to create a flow with embedded route."
-msgstr ""
+msgstr "Seleccione dos calles (edges) para crear un flujo con ruta integrada."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:105
 msgid "Select two junctions to create a flow."
-msgstr ""
+msgstr "Seleccione dos cruces para crear un flujo."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:109
 msgid "Select two TAZs to create a flow."
-msgstr ""
+msgstr "Seleccione dos zonas de análisis de tráfico (TAZ) para crear un flujo."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:191
 msgid "Current selected vehicle isn't valid."
-msgstr ""
+msgstr "El vehículo seleccionado actualmente no es válido."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:196
 msgid "Current selected vehicle type isn't valid."
-msgstr ""
+msgstr "El tipo de vehículo seleccionado actualmente no es válido."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:87
 msgid "Current selected additional isn't valid."
-msgstr ""
+msgstr "El elemento adicional seleccionado actualmente no es válido."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:156
 msgid "E2 multilane detectors need at least two consecutive lanes"
 msgstr ""
+"El detector multicarril E2 requiere al menos de dos carriles consecutivos"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:282
 msgid " must be selected before insertion of "
@@ -11495,15 +11498,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:94
 msgid "Selected"
-msgstr ""
+msgstr "Seleccionado"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:95
 msgid "Current selected connection"
-msgstr ""
+msgstr "Conexiones seleccionadas actualmente"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:101
 msgid "No conflict"
-msgstr ""
+msgstr "Sin conflicto"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:102
 msgid "No conflict with the selected connection"
@@ -11702,19 +11705,19 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:491
 msgid "Membership"
-msgstr ""
+msgstr "Membresía"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:492
 msgid "Toggle"
-msgstr ""
+msgstr "Alternar"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:497
 msgid "New source"
-msgstr ""
+msgstr "Nueva fuente"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:502
 msgid "New sink"
-msgstr ""
+msgstr "Nuevo sumidero"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:508
 msgid "Set zero fringe prob."
@@ -11723,7 +11726,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:512
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:646
 msgid "Toggle Membership:"
-msgstr ""
+msgstr "Alternar membresía:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:513
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:647
@@ -11769,11 +11772,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:639
 msgid "toggle"
-msgstr ""
+msgstr "alternar"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:668
 msgid "Keep Membership:"
-msgstr ""
+msgstr "Mantener membresía:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:668
 msgid "  Select Sources/Sinks."
@@ -11781,7 +11784,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:669
 msgid "Press ESC to clear the current selection."
-msgstr ""
+msgstr "Presione ESC para borrar la selección actual."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:846
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:849
@@ -11808,27 +11811,27 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:852
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:865
 msgid "Set zero fringe probabilities"
-msgstr ""
+msgstr "Establecer probabilidades de borde en cero"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:854
 msgid "set zero fringe probabilities"
-msgstr ""
+msgstr "establecer probabilidades de borde en cero"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:865
 msgid "No source/sinks to update."
-msgstr ""
+msgstr "No hay fuentes/sumideros que actualizar."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:875
 msgid "Selection Statistics"
-msgstr ""
+msgstr "Estadísticas de selección"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:879
 msgid "Source"
-msgstr ""
+msgstr "Fuente"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:884
 msgid "Sink"
-msgstr ""
+msgstr "Sumidero"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:916
 msgid "TAZEdgeColor already selected"
@@ -11992,7 +11995,7 @@ msgstr "Activar modo de unión"
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:912
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:913
 msgid "Join TLS and junctions in the current junction."
-msgstr ""
+msgstr "Combinar semáforos y cruces en el cruce actual."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:913
 msgid "Disable join mode"
@@ -12004,23 +12007,23 @@ msgstr "Separar"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:918
 msgid "Disjoin current TLS"
-msgstr ""
+msgstr "Dividir semáforo actual"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:918
 msgid "Disjoin current TLS."
-msgstr ""
+msgstr "Dividir semáforo actual."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:923
 msgid "Finish join."
-msgstr ""
+msgstr "Finalizar combinación."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:925
 msgid "Cancel Join."
-msgstr ""
+msgstr "Cancelar combinación."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:962
 msgid "no junction selected"
-msgstr ""
+msgstr "no hay cruces seleccionados"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:984
 msgid "Junction IDs"
@@ -12028,19 +12031,19 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1064
 msgid "rename TLS"
-msgstr ""
+msgstr "renombrar semáforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1143
 msgid "change TLS type"
-msgstr ""
+msgstr "cambiar tipo de semáforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1227
 msgid "join TLS"
-msgstr ""
+msgstr "combinar semáforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1289
 msgid "disjoin TLS"
-msgstr ""
+msgstr "separar semáforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1368
 msgid "Traffic Light Programs"
@@ -12048,7 +12051,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1381
 msgid "Create TLS"
-msgstr ""
+msgstr "Crear semáforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1381
 msgid "Create a new traffic light program."
@@ -14064,7 +14067,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:421
 msgid "Under development. You can help to improve the translation at:"
-msgstr ""
+msgstr "En desarrollo. Puedes ayudar a mejorar la traducción aquí:"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:254
 msgid " (No projection defined)"
