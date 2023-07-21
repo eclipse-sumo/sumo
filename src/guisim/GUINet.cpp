@@ -35,6 +35,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/RGBColor.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -477,78 +478,78 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                            GUISUMOAbstractView& parent) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("loaded vehicles [#]", true,
+    ret->mkItem(TL("loaded vehicles [#]"), true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
-    ret->mkItem("insertion-backlogged vehicles [#]", true,
+    ret->mkItem(TL("insertion-backlogged vehicles [#]"), true,
                 new FunctionBinding<MSInsertionControl, int>(&getInsertionControl(), &MSInsertionControl::getWaitingVehicleNo));
-    ret->mkItem("departed vehicles [#]", true,
+    ret->mkItem(TL("departed vehicles [#]"), true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getDepartedVehicleNo));
-    ret->mkItem("running vehicles [#]", true,
+    ret->mkItem(TL("running vehicles [#]"), true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getRunningVehicleNo));
-    ret->mkItem("arrived vehicles [#]", true,
+    ret->mkItem(TL("arrived vehicles [#]"), true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getArrivedVehicleNo));
-    ret->mkItem("discarded vehicles [#]", true,
+    ret->mkItem(TL("discarded vehicles [#]"), true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getDiscardedVehicleNo));
-    ret->mkItem("collisions [#]", true,
+    ret->mkItem(TL("collisions [#]"), true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getCollisionCount));
-    ret->mkItem("teleports [#]", true,
+    ret->mkItem(TL("teleports [#]"), true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getTeleportCount));
-    ret->mkItem("halting [#]", true,
+    ret->mkItem(TL("halting [#]"), true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getHaltingVehicleNo));
-    ret->mkItem("stopped [#]", true,
+    ret->mkItem(TL("stopped [#]"), true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getStoppedVehiclesCount));
-    ret->mkItem("avg. speed [m/s]", true,
+    ret->mkItem(TL("avg. speed [m/s]"), true,
                 new FunctionBinding<MSVehicleControl, double>(&getVehicleControl(), &MSVehicleControl::getVehicleMeanSpeed));
-    ret->mkItem("avg. relative speed", true,
+    ret->mkItem(TL("avg. relative speed"), true,
                 new FunctionBinding<MSVehicleControl, double>(&getVehicleControl(), &MSVehicleControl::getVehicleMeanSpeedRelative));
     if (myPersonControl != nullptr) {
-        ret->mkItem("loaded persons [#]", true,
+        ret->mkItem(TL("loaded persons [#]"), true,
                     new FunctionBinding<MSTransportableControl, int>(&getPersonControl(), &MSTransportableControl::getLoadedNumber));
-        ret->mkItem("running persons [#]", true,
+        ret->mkItem(TL("running persons [#]"), true,
                     new FunctionBinding<MSTransportableControl, int>(&getPersonControl(), &MSTransportableControl::getRunningNumber));
-        ret->mkItem("jammed persons [#]", true,
+        ret->mkItem(TL("jammed persons [#]"), true,
                     new FunctionBinding<MSTransportableControl, int>(&getPersonControl(), &MSTransportableControl::getJammedNumber));
     }
-    ret->mkItem("end time [s]", false, OptionsCont::getOptions().getString("end"));
-    ret->mkItem("begin time [s]", false, OptionsCont::getOptions().getString("begin"));
-//    ret->mkItem("time step [s]", true, new FunctionBinding<GUINet, SUMOTime>(this, &GUINet::getCurrentTimeStep));
+    ret->mkItem(TL("end time [s]"), false, OptionsCont::getOptions().getString("end"));
+    ret->mkItem(TL("begin time [s]"), false, OptionsCont::getOptions().getString("begin"));
+//    ret->mkItem(TL("time step [s]"), true, new FunctionBinding<GUINet, SUMOTime>(this, &GUINet::getCurrentTimeStep));
     if (logSimulationDuration()) {
-        ret->mkItem("step duration [ms]", true, new FunctionBinding<GUINet, int>(this, &GUINet::getWholeDuration));
-        ret->mkItem("FPS", true, new FunctionBinding<GUISUMOAbstractView, double>(&parent, &GUISUMOAbstractView::getFPS));
-        ret->mkItem("simulation duration [ms]", true, new FunctionBinding<GUINet, int>(this, &GUINet::getSimDuration));
+        ret->mkItem(TL("step duration [ms]"), true, new FunctionBinding<GUINet, int>(this, &GUINet::getWholeDuration));
+        ret->mkItem(TL("FPS"), true, new FunctionBinding<GUISUMOAbstractView, double>(&parent, &GUISUMOAbstractView::getFPS));
+        ret->mkItem(TL("simulation duration [ms]"), true, new FunctionBinding<GUINet, int>(this, &GUINet::getSimDuration));
         /*
-        ret->mkItem("visualisation duration [ms]", true,
+        ret->mkItem(TL("visualisation duration [ms]"), true,
             new CastingFunctionBinding<GUINet, double, int>(
                 &(getNet()), &GUINet::getVisDuration));
         */
-        ret->mkItem("idle duration [ms]", true, new FunctionBinding<GUINet, int>(this, &GUINet::getIdleDuration));
-        ret->mkItem("duration factor", true, new FunctionBinding<GUINet, double>(this, &GUINet::getRTFactor));
+        ret->mkItem(TL("idle duration [ms]"), true, new FunctionBinding<GUINet, int>(this, &GUINet::getIdleDuration));
+        ret->mkItem(TL("duration factor"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getRTFactor));
         /*
-        ret->mkItem("mean duration factor []", true,
+        ret->mkItem(TL("mean duration factor []"), true,
             new FuncBinding_IntParam<GUINet, double>(
                 &(getNet()), &GUINet::getMeanRTFactor), 1);
                 */
-        ret->mkItem("updates per second", true, new FunctionBinding<GUINet, double>(this, &GUINet::getUPS));
-        ret->mkItem("avg. updates per second", true, new FunctionBinding<GUINet, double>(this, &GUINet::getMeanUPS));
+        ret->mkItem(TL("updates per second"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getUPS));
+        ret->mkItem(TL("avg. updates per second"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getMeanUPS));
     }
     if (OptionsCont::getOptions().isSet("tripinfo-output") || OptionsCont::getOptions().getBool("duration-log.statistics")) {
-        ret->mkItem("avg. trip length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgRouteLength));
-        ret->mkItem("avg. trip duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDuration));
-        ret->mkItem("avg. trip waiting time [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWaitingTime));
-        ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTimeLoss));
-        ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDepartDelay));
-        ret->mkItem("avg. trip speed [m/s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTripSpeed));
+        ret->mkItem(TL("avg. trip length [m]"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgRouteLength));
+        ret->mkItem(TL("avg. trip duration [s]"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDuration));
+        ret->mkItem(TL("avg. trip waiting time [s]"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWaitingTime));
+        ret->mkItem(TL("avg. trip time loss [s]"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTimeLoss));
+        ret->mkItem(TL("avg. trip depart delay [s]"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDepartDelay));
+        ret->mkItem(TL("avg. trip speed [m/s]"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTripSpeed));
         if (myPersonControl != nullptr) {
-            ret->mkItem("avg. walk length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkRouteLength));
-            ret->mkItem("avg. walk duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkDuration));
-            ret->mkItem("avg. walk time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkTimeLoss));
+            ret->mkItem(TL("avg. walk length [m]"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkRouteLength));
+            ret->mkItem(TL("avg. walk duration [s]"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkDuration));
+            ret->mkItem(TL("avg. walk time loss [s]"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkTimeLoss));
         }
     }
-    ret->mkItem("nodes [#]", false, (int)getJunctionIDs(false).size());
-    ret->mkItem("edges [#]", false, (int)GUIEdge::getIDs(false).size());
-    ret->mkItem("total edge length [km]", false, GUIEdge::getTotalLength(false, false) / 1000);
-    ret->mkItem("total lane length [km]", false, GUIEdge::getTotalLength(false, true) / 1000);
-    ret->mkItem("network version ", false, toString(myVersion));
+    ret->mkItem(TL("nodes [#]"), false, (int)getJunctionIDs(false).size());
+    ret->mkItem(TL("edges [#]"), false, (int)GUIEdge::getIDs(false).size());
+    ret->mkItem(TL("total edge length [km]"), false, GUIEdge::getTotalLength(false, false) / 1000);
+    ret->mkItem(TL("total lane length [km]"), false, GUIEdge::getTotalLength(false, true) / 1000);
+    ret->mkItem(TL("network version "), false, toString(myVersion));
 
     // close building
     ret->closeBuilding();

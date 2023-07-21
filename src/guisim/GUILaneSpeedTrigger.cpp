@@ -303,7 +303,7 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app,
                                         GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("speed [m/s]", true,
+    ret->mkItem(TL("speed [m/s]"), true,
                 new FunctionBinding<GUILaneSpeedTrigger, double>(this, &GUILaneSpeedTrigger::getCurrentSpeed));
     // close building
     ret->closeBuilding();

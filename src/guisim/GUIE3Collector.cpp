@@ -23,6 +23,7 @@
 
 #include "GUIE3Collector.h"
 #include "GUIEdge.h"
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -76,23 +77,23 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
         new GUIParameterTableWindow(app, *this);
     // add items
     // values
-    ret->mkItem("name", false, myDetector.myName);
+    ret->mkItem(TL("name"), false, myDetector.myName);
     if (myDetector.isTyped()) {
-        ret->mkItem("vTypes", false, toString(myDetector.getVehicleTypes()));
+        ret->mkItem(TL("vTypes"), false, toString(myDetector.getVehicleTypes()));
     }
-    ret->mkItem("vehicles within [#]", true,
+    ret->mkItem(TL("vehicles within [#]"), true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getVehiclesWithin));
-    ret->mkItem("mean speed [m/s]", true,
+    ret->mkItem(TL("mean speed [m/s]"), true,
                 new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getCurrentMeanSpeed));
-    ret->mkItem("haltings [#]", true,
+    ret->mkItem(TL("haltings [#]"), true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getCurrentHaltingNumber));
-    ret->mkItem("last interval mean travel time [s]", true,
+    ret->mkItem(TL("last interval mean travel time [s]"), true,
                 new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanTravelTime));
-    ret->mkItem("last interval mean haltings [#]", true,
+    ret->mkItem(TL("last interval mean haltings [#]"), true,
                 new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanHaltsPerVehicle));
-    ret->mkItem("last interval mean time loss time [s]", true,
+    ret->mkItem(TL("last interval mean time loss time [s]"), true,
                 new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanTimeLoss));
-    ret->mkItem("last interval mean vehicle count [#]", true,
+    ret->mkItem(TL("last interval mean vehicle count [#]"), true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getLastIntervalVehicleSum));
 
     // close building

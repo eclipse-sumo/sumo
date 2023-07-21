@@ -104,9 +104,9 @@ GUIOverheadWire::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
 
     // add items
-    ret->mkItem("begin position [m]", false, myBegPos);
-    ret->mkItem("end position [m]", false, myEndPos);
-    //ret->mkItem("voltage [V]", false, myVoltage);
+    ret->mkItem(TL("begin position [m]"), false, myBegPos);
+    ret->mkItem(TL("end position [m]"), false, myEndPos);
+    //ret->mkItem(TL("voltage [V]"), false, myVoltage);
 
     // close building
     ret->closeBuilding();
@@ -318,9 +318,9 @@ GUIOverheadWireClamp::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
 
     // add items
-    //ret->mkItem("begin position [m]", false, NAN);
-    //ret->mkItem("end position [m]", false, NAN);
-    //ret->mkItem("voltage [V]", false, NAN);
+    //ret->mkItem(TL("begin position [m]"), false, NAN);
+    //ret->mkItem(TL("end position [m]"), false, NAN);
+    //ret->mkItem(TL("voltage [V]"), false, NAN);
 
     // close building
     ret->closeBuilding();
