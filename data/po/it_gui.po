@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-21 10:34+0200\n"
-"PO-Revision-Date: 2023-07-13 11:52+0000\n"
+"PO-Revision-Date: 2023-07-21 13:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10062,7 +10063,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNESelectorParent.cpp:36
 msgid "Parent selector"
-msgstr ""
+msgstr "Selezione di elementi principali"
 
 #: D:\Repos\sumo/src\netedit\frames\GNESelectorParent.cpp:39
 msgid "No element selected"
@@ -11304,11 +11305,11 @@ msgstr "Rimuovi tipo di arco"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:101
 msgid "Create from template"
-msgstr ""
+msgstr "Crea da modello"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:101
 msgid "Create edgeType from template"
-msgstr ""
+msgstr "Crea tipo di arco da modello"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:320
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:369
@@ -11325,59 +11326,59 @@ msgstr "modello: "
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:431
 msgid "LaneType selector"
-msgstr ""
+msgstr "Selezione di tipi di corsie"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:439
 msgid "Add lane type"
-msgstr ""
+msgstr "Aggiungi tipo di corsia"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:442
 msgid "Delete lane type"
-msgstr ""
+msgstr "Rimuovi tipo di corsia"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:539
 msgid "add laneType"
-msgstr ""
+msgstr "aggiungi tipo di corsia"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:576
 msgid "remove laneType"
-msgstr ""
+msgstr "rimuovi tipo di corsia"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
 msgid "ESC:"
-msgstr ""
+msgstr "ESC:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:626
 msgid "Deselect origin"
-msgstr ""
+msgstr "Deseleziona origine"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:627
 msgid "Control+Click:"
-msgstr ""
+msgstr "Control+Clic:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:628
 msgid "Move view"
-msgstr ""
+msgstr "Sposta veduta"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:629
 msgid "Shift+Click:"
-msgstr ""
+msgstr "Shift+Clic:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:630
 msgid "Splits edge in both directions"
-msgstr ""
+msgstr "Separa arco in emtrambe direzioni"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:631
 msgid "Alt+Shift+Click:"
-msgstr ""
+msgstr "Alt+Shift+Clic:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:632
 msgid "Splits edge in one direction"
-msgstr ""
+msgstr "Separa l'arco in emtrambe direzioni"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:645
 msgid "Create Edge"
-msgstr ""
+msgstr "Crea arco"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:669
 msgid "Select either default edgeType or a custom edgeType or template"
