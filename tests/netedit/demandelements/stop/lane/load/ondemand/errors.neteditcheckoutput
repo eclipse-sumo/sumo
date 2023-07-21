@@ -1,8 +1,53 @@
-Warning: Vehicle 'routeFlow_1.0' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-8.32, offset=5.25), time=14.00.
-Warning: Vehicle 'routeFlow_1.1' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-7.13, offset=8.58), time=217.00.
-Warning: Vehicle 'routeFlow_1.2' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-8.29, offset=6.62), time=415.00.
-Warning: Vehicle 'routeFlow_1.3' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-8.66, offset=6.49), time=614.00.
-Warning: Vehicle 'routeFlow_1.4' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-8.66, offset=7.73), time=816.00.
-Warning: Vehicle 'routeFlow_1.5' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-7.71, offset=6.16), time=1015.00.
-Warning: Vehicle 'routeFlow_1.6' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-6.18, offset=5.29), time=1218.00.
-Warning: Vehicle 'routeFlow_1.7' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-8.87, offset=8.92), time=1415.00.
+Warning: Vehicle 'routeFlow_1.0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.19, offset=8.77), time=22.00.
+Warning: Vehicle 'routeFlow_1.1' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-9.88, offset=2.62), time=225.00.
+Warning: Vehicle 'routeFlow_1.2' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-10.69, offset=8.48), time=423.00.
+Warning: Vehicle 'routeFlow_1.3' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.90, offset=2.45), time=622.00.
+Warning: Vehicle 'routeFlow_1.4' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.21, offset=3.29), time=823.00.
+Warning: Vehicle 'routeFlow_1.5' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.99, offset=12.66), time=1022.00.
+Warning: Vehicle 'routeFlow_1.6' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.41, offset=8.96), time=1225.00.
+Warning: Vehicle 'routeFlow_1.7' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-10.23, offset=4.75), time=1424.00.
+Warning: Vehicle 'routeFlow_1.8' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-10.98, offset=4.18), time=1624.00.
+Warning: Vehicle 'routeFlow_1.9' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-9.92, offset=2.27), time=1824.00.
+Warning: Vehicle 'routeFlow_1.10' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.61, offset=2.34), time=2022.00.
+Warning: Vehicle 'routeFlow_1.11' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.25, offset=9.32), time=2227.00.
+Warning: Vehicle 'routeFlow_1.12' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.04, offset=7.17), time=2426.00.
+Warning: Vehicle 'routeFlow_1.13' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.65, offset=11.69), time=2628.00.
+Warning: Vehicle 'routeFlow_1.14' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.12, offset=11.87), time=2824.00.
+Warning: Vehicle 'routeFlow_1.15' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-9.67, offset=2.62), time=3025.00.
+Warning: Vehicle 'routeFlow_1.16' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.28, offset=9.38), time=3222.00.
+Warning: Vehicle 'routeFlow_0.0' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.1' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.10' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.11' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.12' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.13' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.14' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.15' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.16' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.17' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.2' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.3' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.4' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.5' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.6' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.7' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.8' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_0.9' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.0' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.1' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.10' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.11' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.12' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.13' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.14' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.15' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.16' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.17' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.2' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.3' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.4' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.5' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.6' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.7' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.8' aborted waiting for a person that will never come.
+Warning: Vehicle 'routeFlow_1.9' aborted waiting for a person that will never come.

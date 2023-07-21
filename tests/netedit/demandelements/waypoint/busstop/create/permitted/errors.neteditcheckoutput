@@ -1,2 +1,2 @@
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-10.10, offset=11.55), time=10.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=0.00, offset=2.30), time=11.00.
+Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.47, offset=12.57), time=18.00.
+Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=2.30), time=19.00.
