@@ -75,7 +75,7 @@ def main(args=None):
     if not options.start and not options.apply:
         sys.exit("At least one of the --start or --apply options has to be given to do something.")
     if options.numberedPlaceholders and options.replace is not None:
-        print("Cannot apply both placeholder numbers and replace commands together. 
+        print("Cannot apply both placeholder numbers and replace commands together. \
             Replace commands will be neglected.")
         options.replace.clear()
     replaceRules = []
@@ -86,7 +86,7 @@ def main(args=None):
             options.replace = options.replace[:-1]
         for i in range(0, len(options.replace), 2):
             if options.strict:
-                replaceRules.append((options.replace[i], options.replace[i+1], re.compile(options.replace[i])))
+                replaceRules.append((options.replace[i], options.replace[i+1], re.compile(options.replace[i]), True, True))
             else:
                 prefixes = list(options.searchPrefix)
                 if len(prefixes) == 0:
@@ -97,7 +97,9 @@ def main(args=None):
                 for prefix in prefixes:
                     for suffix in suffixes:
                         replaceRules.append((prefix + options.replace[i] + suffix, 
-                            prefix + options.replace[i+1] + suffix, None))
+                            prefix + options.replace[i+1] + suffix, None, False, False))
+                    replaceRules.append((options.replace[i] + suffix, options.replace[i+1] + suffix, None, True, False))
+                    replaceRules.append((prefix + options.replace[i], prefix + options.replace[i+1], None, False, True))
     if options.lang is None:
         options.lang = [os.path.basename(p)[:-8] for p in glob(options.sumo_home + "/data/po/*_sumo.po")]
     if options.start:
@@ -199,10 +201,15 @@ def processRules(poFilePath, replaceRules, options, markObsolete=False, filterID
         for replaceRule in replaceRules:
             if options.strict and replaceRule[0] == entry.msgstr:
                 replaced = replaceRule[0]
+            elif replaceRule[3] and not replaceRule[4] and entry.msgstr.startswith(replaceRule[0]): # starts with ...
+                replaced = replaceRule[1] + entry.msgstr[len(replaceRule[0]):]
+            elif not replaceRule[3] and replaceRule[4] and entry.msgstr.endswith(replaceRule[0]): # ends with ...
+                replaced = entry.msgstr[:-len(replaceRule[0])] + replaceRule[1]
             elif replaceRule[0] in entry.msgstr:
                 replaced = entry.msgstr.replace(replaceRule[0], replaceRule[1])
         if replaced is not None:
             # check if it already exists >> then transfer occurrences and remember it
+            print("Replace '%s' by '%s'" % (entry.msgstr, replaced))
             match = poFile.find(replaced, msgctxt=entry.msgctxt)
             if markObsolete and match is not None:
                 print("Transfer duplicate entries for msgid '%s' (was '%s')." % (replaced, entry.msgstr))
