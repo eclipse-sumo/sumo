@@ -65,6 +65,9 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Now handles `depart="split"` for insertionOrderConstraints. #13565
   - Game from downloaded zip no longer requires SUMO_HOME. #13583
 
+- Other
+  - Now JuPedSim can be enabled in CMake GUI with a checkbox #13646 
+
 ## Version 1.18.0 (29.06.2023)
 
 ### Bugfixes
