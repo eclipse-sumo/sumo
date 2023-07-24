@@ -672,11 +672,6 @@ void MSPModel_JuPedSim::PState::setPosition(double x, double y) {
 }
 
 
-Position MSPModel_JuPedSim::PState::getPreviousPosition() const {
-    return myPreviousPosition;
-}
-
-
 void MSPModel_JuPedSim::PState::setPreviousPosition(Position previousPosition) {
     myPreviousPosition = previousPosition;
 }
@@ -723,8 +718,7 @@ SUMOTime MSPModel_JuPedSim::PState::getWaitingTime(const MSStageMoving& /* stage
 
 
 double MSPModel_JuPedSim::PState::getSpeed(const MSStageMoving& /* stage */) const {
-    Position velocity = (myPosition - myPreviousPosition) / STEPS2TIME(DELTA_T);
-    return velocity.length2D();
+    return myPosition.distanceTo2D(myPreviousPosition) / STEPS2TIME(DELTA_T);
 }
 
 
