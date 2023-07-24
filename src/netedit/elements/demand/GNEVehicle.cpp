@@ -631,10 +631,20 @@ GNEVehicle::isDemandElementValid() const {
     if ((myTagProperty.getTag() == GNE_TAG_TRIP_TAZS) || (myTagProperty.getTag() == GNE_TAG_FLOW_TAZS)) {
         // vehicles and flows over tazs are always valid
         return Problem::OK;
-    } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW) ||
-            (myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
+    } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check vehicles and flows paths
-        if (myNet->getPathManager()->isPathValid(this)) {
+        if (getParentEdges().front() == getParentEdges().back()) {
+            return Problem::OK;
+        } else if (myNet->getPathManager()->isPathValid(this)) {
+            return Problem::OK;
+        } else {
+            return Problem::INVALID_PATH;
+        }
+    } else if ((myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
+        // check vehicles and flows paths
+        if (getParentJunctions().front() == getParentJunctions().back()) {
+            return Problem::OK;
+        } else if (myNet->getPathManager()->isPathValid(this)) {
             return Problem::OK;
         } else {
             return Problem::INVALID_PATH;
