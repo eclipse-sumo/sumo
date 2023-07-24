@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.personNumber, "", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.personNumber, "", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.personNumber, "dummyNumber", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.personNumber, "dummyNumber", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.personNumber, "-5", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.personNumber, "-5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.personNumber, "2.5", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.personNumber, "2.5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.personNumber, "3", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.personNumber, "3", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
