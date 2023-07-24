@@ -8,7 +8,7 @@ simulation of variable speed signs. The syntax for such an object is given in th
 # Definition in a single file
 
 ```xml
-<additional>>
+<additional>
     <variableSpeedSign id="vss0" lanes="middle_0">
         <step time="0" speed="2.8"/>
         <step time="100" speed="47.22"/>
