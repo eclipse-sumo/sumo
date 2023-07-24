@@ -124,7 +124,6 @@ private:
         Position myPreviousPosition; // Will be initialized to zero automatically.
         double myAngle;
         double myLanePosition;
-        MSEdge* myCurrentEdge;
         /// @brief whether the pedestrian is waiting to start its walk
         bool myWaitingToEnter;
     };
