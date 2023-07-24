@@ -3471,7 +3471,7 @@ GNEViewNetHelper::CommonCheckableButtons::buildCommonCheckableButtons() {
     // select button
     selectButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
                                           myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                          std::string("\t") + ("Set select mode") + std::string("\t") + ("Mode for select elements. (S)"),
+                                          std::string("\t") + TL("Set select mode") + std::string("\t") + TL("Mode for select elements. (S)"),
                                           GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myViewNet, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT, GUIDesignMFXCheckableButtonSquare);
     selectButton->create();
     // always recalc menu bar after creating new elements
