@@ -13,7 +13,7 @@
         <stop trainStop="trainStopG" duration="60.00"/>
         <stop trainStop="trainStopH" duration="60.00"/>
     </route>
-    <route id="route_1" edges="Edge0 Edge1 Edge2" color="yellow">
+    <route id="route_1" edges="Edge3 Edge4 Edge5" color="yellow">
         <stop trainStop="trainStopA" duration="60.00"/>
         <stop trainStop="trainStopB" duration="60.00"/>
     </route>
