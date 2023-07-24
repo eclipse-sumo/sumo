@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-21 10:34+0200\n"
-"PO-Revision-Date: 2023-07-21 13:13+0000\n"
+"PO-Revision-Date: 2023-07-24 10:25+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2009,11 +2009,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:140
 msgid "impatience"
-msgstr ""
+msgstr "impaciencia"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:142
 msgid "last lane change [s]"
-msgstr ""
+msgstr "último cambio de carril [s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:145
 msgid "depart delay [s]"
@@ -2021,71 +2021,71 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:146
 msgid "odometer [m]"
-msgstr ""
+msgstr "odómetro [m]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:149
 msgid "remaining [#]"
-msgstr ""
+msgstr "restantes [#]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:152
 msgid "insertion period [s]"
-msgstr ""
+msgstr "período de inserción [s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:155
 msgid "insertion probability"
-msgstr ""
+msgstr "probabilidad de inserción"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:157
 msgid "stop info"
-msgstr ""
+msgstr "información de la parada"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:158
 msgid "line"
-msgstr ""
+msgstr "línea"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:159
 msgid "CO2 [mg/s]"
-msgstr ""
+msgstr "CO2 [mg/s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:161
 msgid "CO [mg/s]"
-msgstr ""
+msgstr "CO [mg/s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:163
 msgid "HC [mg/s]"
-msgstr ""
+msgstr "HC [mg/s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:165
 msgid "NOx [mg/s]"
-msgstr ""
+msgstr "NOx [mg/s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:167
 msgid "PMx [mg/s]"
-msgstr ""
+msgstr "PMx [mg/s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:169
 msgid "fuel [mg/s]"
-msgstr ""
+msgstr "combustible [mg/s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:171
 msgid "electricity [Wh/s]"
-msgstr ""
+msgstr "electricidad [Wh/s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:173
 msgid "noise (Harmonoise) [dB]"
-msgstr ""
+msgstr "ruido (Armónico) [dB]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:175
 msgid "devices"
-msgstr ""
+msgstr "dispositivos"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:176
 msgid "persons"
-msgstr ""
+msgstr "personas"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:178
 msgid "containers"
-msgstr ""
+msgstr "contenedores"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:180
 msgid "lcState right"
@@ -2117,11 +2117,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:189
 msgid "lane change maneuver distance [m]"
-msgstr ""
+msgstr "distancia de maniobra de cambio de carril [m]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:192
 msgid "present state of charge [Wh]"
-msgstr ""
+msgstr "estado de carga actual [Wh]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:196
 msgid "relative state of charge (SoC) [-]"
@@ -2129,11 +2129,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:198
 msgid "currently charging [Wh]"
-msgstr ""
+msgstr "cargando actualmente [Wh]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:202
 msgid "present electric current [A]"
-msgstr ""
+msgstr "corriente eléctrica presente [A]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:207
 msgid "speed mode"
@@ -2145,7 +2145,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:223
 msgid "height [m]"
-msgstr ""
+msgstr "altura [m]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:224
 msgid "minGap [m]"
@@ -2161,11 +2161,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:228
 msgid "car-following model"
-msgstr ""
+msgstr "modelo de seguimiento vehicular"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:229
 msgid "lane-change model"
-msgstr ""
+msgstr "modelo de cambio de carril"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:230
 msgid "guiShape"
@@ -2173,27 +2173,27 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:232
 msgid "desired maximum speed [m/s]"
-msgstr ""
+msgstr "velocidad máxima deseada [m/s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:233
 msgid "maximum acceleration [m/s^2]"
-msgstr ""
+msgstr "aceleración máxima [m/s^2]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:234
 msgid "maximum deceleration [m/s^2]"
-msgstr ""
+msgstr "desaceleración máxima [m/s^2]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:235
 msgid "emergency deceleration [m/s^2]"
-msgstr ""
+msgstr "desaceleración de emergencia [m/s^2]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:236
 msgid "apparent deceleration [m/s^2]"
-msgstr ""
+msgstr "desaceleración aparente [m/s^2]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:237
 msgid "imperfection (sigma)"
-msgstr ""
+msgstr "imperfección (sigma)"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:238
 msgid "desired headway (tau) [s]"
@@ -2209,19 +2209,19 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:243
 msgid "person capacity"
-msgstr ""
+msgstr "capacidad de pasajeros"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:244
 msgid "boarding time [s]"
-msgstr ""
+msgstr "tiempo de abordaje [s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:245
 msgid "container capacity"
-msgstr ""
+msgstr "capacidad del contenedor"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:246
 msgid "loading time [s]"
-msgstr ""
+msgstr "tiempo de carga [s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:248
 msgid "minGapLat [m]"
@@ -3270,11 +3270,11 @@ msgstr "Crear rutas."
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:702
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3356
 msgid "Route distribution"
-msgstr ""
+msgstr "Distribución de rutas"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:702
 msgid "Create and edit route distributions."
-msgstr ""
+msgstr "Crear y editar distribuciones de ruta."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:124
@@ -3295,11 +3295,11 @@ msgstr "Crear tipos de vehículos, personas y contenedores."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:712
 msgid "TypeDistribution"
-msgstr ""
+msgstr "Distribución de tipo"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:712
 msgid "Create and edit type distributions."
-msgstr ""
+msgstr "Crear y editar distribuciones de tipo."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:715
 msgid "Stop"
@@ -4803,7 +4803,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2330
 msgid "straighten elevation of selected edges"
-msgstr ""
+msgstr "enderezar elevación de las calles seleccionadas"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2337
 msgid "straighten edge elevation"
@@ -4888,19 +4888,19 @@ msgstr "duplicar carriles seleccionados"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2830
 msgid "reset custom lane shapes"
-msgstr ""
+msgstr "restablecer formas personalizadas de carril"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2837
 msgid "reset custom lane shape"
-msgstr ""
+msgstr "restablecer forma personalizada de carril"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2853
 msgid "reset opposite lanes"
-msgstr ""
+msgstr "restablecer carriles opuestos"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2860
 msgid "reset opposite lane"
-msgstr ""
+msgstr "restablecer carril opuesto"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2914
 msgid "select lane reachability"
@@ -5026,11 +5026,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:5705
 msgid "Shift + click to create two additionals in the same position"
-msgstr ""
+msgstr "Shift + click para crear dos elementos adicionales en la misma posición"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:5959
 msgid "Control + click to create two stop in the same position"
-msgstr ""
+msgstr "Control + click para crear dos paradas en la misma posición"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1467
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1488
@@ -5039,7 +5039,7 @@ msgstr "mover selección"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1668
 msgid "Selection width:"
-msgstr ""
+msgstr "Ancho de la selección:"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1669
 msgid " height:"
@@ -5060,11 +5060,11 @@ msgstr "Formato de tamaño de ventana inválido: % para opción 'window-size'"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1946
 msgid "Save Netedit Config. (Ctrl+Shift+E)"
-msgstr ""
+msgstr "Guardar configuración de netedit. (Ctrl+Shift+E)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1952
 msgid "Save Sumo Config. (Ctrl+Shift+S)"
-msgstr ""
+msgstr "Guardar configuración de sumo. (Ctrl+Shift+S)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1958
 msgid "Save network"
@@ -5116,7 +5116,7 @@ msgstr "Guardar elementos meanData. (Ctrl+Shift+M)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2023
 msgid "Switch between seconds and HH:MM:SS"
-msgstr ""
+msgstr "Cambiar entre segundos y HH:MM:SS"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2076
 msgid "Network"
@@ -5374,7 +5374,7 @@ msgstr "Alternar entre mostrar o no solamente los TAZRel de destino"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3462
 msgid "Set inspect mode"
-msgstr "Ir a modo de inspección"
+msgstr "Ir al modo de inspección"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3462
 msgid "Mode for inspect elements and change their attributes. (I)"
@@ -5382,7 +5382,7 @@ msgstr "Modo para inspeccionar elementos y cambiar sus atributos. (I)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
 msgid "Set delete mode"
-msgstr "Ir a modo de borrado"
+msgstr "Ir al modo de borrado"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
 msgid "Mode for delete elements. (D)"
@@ -5391,7 +5391,7 @@ msgstr "Modo para borrar elementos. (D)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3527
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3672
 msgid "Set move mode"
-msgstr "Ir a modo de movimiento"
+msgstr "Ir al modo de movimiento"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3527
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3672
@@ -5400,7 +5400,7 @@ msgstr "Modo para mover elementos. (M)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3533
 msgid "Set create edge mode"
-msgstr "Ir a modo para crear calles (edges)"
+msgstr "Ir al modo para crear calles (edges)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3533
 msgid "Mode for creating junction and edges. (E)"
@@ -5408,7 +5408,7 @@ msgstr "Modo para crear cruces (junctions) y calles (edges). (E)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3539
 msgid "Set traffic light mode"
-msgstr "Ir a modo de semáforos (TLS)"
+msgstr "Ir al modo de semáforos (TLS)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3539
 msgid "Mode for edit traffic lights over junctions. (T)"
@@ -5416,7 +5416,7 @@ msgstr "Modo para editar semáforos (TLS) sobre cruces (junctions). (T)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3545
 msgid "Set connection mode"
-msgstr "Ir a modo de conexiones"
+msgstr "Ir al modo de conexiones"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3545
 msgid "Mode for edit connections between lanes. (C)"
@@ -5424,7 +5424,7 @@ msgstr "Modo para editar conexiones entre carriles (lanes). (C)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3551
 msgid "Set prohibition mode"
-msgstr "Ir a modo de prohibiciones"
+msgstr "Ir al modo de prohibiciones"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3551
 msgid "Mode for editing connection prohibitions. (H)"
@@ -5432,7 +5432,7 @@ msgstr "Modo para editar conexiones prohibidas. (H)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3557
 msgid "Set crossing mode"
-msgstr "Ir a modo de cruces peatonales (crossings)"
+msgstr "Ir al modo de cruces peatonales (crossings)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3557
 msgid "Mode for creating crossings between edges. (R)"
@@ -5441,7 +5441,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3563
 msgid "Set additional mode"
-msgstr "Ir a modo de elementos adicionales"
+msgstr "Ir al modo de elementos adicionales"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3563
 msgid "Mode for adding additional elements. (A)"
@@ -5489,11 +5489,11 @@ msgstr "Modo para crear rutas. (R)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3684
 msgid "Set route distribution mode"
-msgstr ""
+msgstr "Ir al modo de distribución de rutas"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3684
 msgid "Mode for creating and editing rout distributions. (W)"
-msgstr ""
+msgstr "Modo para crear y editar distribuciones de rutas. (W)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3690
 msgid "Create vehicle mode"
@@ -5513,11 +5513,11 @@ msgstr "Modo para crear tipos de vehículos/personas/contendores. (T)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3702
 msgid "Create type distribution mode"
-msgstr ""
+msgstr "Ir al modo para crear distribuciones de tipo"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3702
 msgid "Mode for creating and editing type distribution. (U)"
-msgstr ""
+msgstr "Modo para crear y editar distribuciones de tipo. (U)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3708
 msgid "Create stop mode"
@@ -5541,7 +5541,7 @@ msgstr "Ir al modo para crear planes para personas"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3720
 msgid "Mode for creating person plans. (L)"
-msgstr ""
+msgstr "Modo para crear planes de personas. (L)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3726
 msgid "Create container mode"
@@ -5549,7 +5549,7 @@ msgstr "Ir al modo para crear contenedores"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3726
 msgid "Mode for creating containers. (C)"
-msgstr ""
+msgstr "Modo para crear contenedores. (C)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3732
 msgid "Create container plan mode"
@@ -7486,7 +7486,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2565
 msgid "Number of vehicles per hour, equally spaced"
-msgstr ""
+msgstr "Número de vehículos por hora, espaciados por igual"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2571
 msgid "Vehicle's speed"
@@ -7565,7 +7565,7 @@ msgstr "Probabilidad SUMO"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2734
 msgid "ParkingArea ID"
-msgstr ""
+msgstr "ID de la zona de estacionamiento"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2746
 msgid "Enable or disable visibility for parking area reroutes"
@@ -7834,7 +7834,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3361
 msgid "Route distribution probability"
-msgstr ""
+msgstr "Probabilidad de distribución de la ruta"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3367
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3413
@@ -7863,7 +7863,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3394
 msgid "The id of route distribution"
-msgstr ""
+msgstr "El ID de la distribución de ruta"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3440
 msgid "The id of VehicleType distribution"
@@ -7871,15 +7871,15 @@ msgstr "La ID de la distribución de tipos de vehículos"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3454
 msgid "type ID"
-msgstr ""
+msgstr "el ID del tipo"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3459
 msgid "Type distribution"
-msgstr ""
+msgstr "Distribución de tipo"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3464
 msgid "Type distribution probability"
-msgstr ""
+msgstr "Probabilidad de distribución de tipo"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3470
 msgid "An abstract vehicle class"
@@ -7887,7 +7887,7 @@ msgstr "Clase de vehículo abstracta"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3477
 msgid "This type's color"
-msgstr ""
+msgstr "El color de este tipo"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3482
 msgid "The vehicle's netto-length (length) [m]"
@@ -7910,10 +7910,13 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3502
 msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
 msgstr ""
+"La velocidad máxima deseada para el vehículo (interactúa con speedFactor)."
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3503
 msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr ""
+"A aplicar cuando no haya límite de velocidad (bicicletas, algunas autopistas)"
+" [m/s]"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3508
 msgid "An abstract emission class"
@@ -7945,7 +7948,7 @@ msgstr "El modelo utilizado para cambio de carril"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3544
 msgid "The model used for car-following"
-msgstr ""
+msgstr "El modelo de seguimiento vehicular"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3551
 msgid ""
@@ -7992,6 +7995,8 @@ msgid ""
 "The probability when being added to a distribution without an explicit "
 "probability"
 msgstr ""
+"La probabilidad cuando se agrega a una distribución sin una probabilidad "
+"explícita"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3604
 msgid "3D model file for this class"
@@ -8007,7 +8012,7 @@ msgstr "Longitudes de locomotora"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3619
 msgid "Gap between carriages"
-msgstr ""
+msgstr "Espacio entre vagones"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3652
 msgid "The ID of trip"
@@ -8017,7 +8022,7 @@ msgstr "La ID del viaje"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3702
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3742
 msgid "The id of the vehicle type to use for this trip"
-msgstr ""
+msgstr "El ID del tipo de vehículo a usar para este viaje"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3663
 msgid "The ID of the edge the trip starts at"
@@ -8046,7 +8051,7 @@ msgstr "La id del viaje"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3708
 msgid "The name of the junction the trip starts at"
-msgstr ""
+msgstr "El nombre del cruce en el cual el viaje inicia"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3713
 msgid "The name of the junction the trip ends at"
@@ -8055,10 +8060,13 @@ msgstr "El nombre del cruce (junction) en el que el viaje (trip) termina"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3748
 msgid "The name of the TAZ the trip starts at"
 msgstr ""
+"El nombre de la zona de análisis de tráfico (TAZ) en la cual el viaje inicia"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3753
 msgid "The name of the TAZ the trip ends at"
 msgstr ""
+"El nombre de la zona de análisis de tráfico (TAZ) en la cual el viaje "
+"finaliza"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3777
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3822
@@ -8131,14 +8139,17 @@ msgstr "La ID del cruce (junction) en el que el flujo (flow) debe terminar"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3952
 msgid "The name of the TAZ the flow starts at"
 msgstr ""
+"El nombre de la zona de análisis de tráfico (TAZ) en la cual el flujo inicia"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3957
 msgid "The name of the TAZ the flow ends at"
 msgstr ""
+"El nombre de la zona de análisis de tráfico (TAZ) en la cual el flujo "
+"finaliza"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3989
 msgid "The id of the route the flow shall drive along"
-msgstr ""
+msgstr "El ID de la ruta en la cual debe conducir el flujo"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3994
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4031
@@ -8152,11 +8163,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4020
 msgid "The name of the flow"
-msgstr ""
+msgstr "El nombre del flujo"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4063
 msgid "The name of the lane the stop shall be located at"
-msgstr ""
+msgstr "El nombre del carril en el cual la parada deberá ser ubicada"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4086
 msgid "The lateral offset on the named lane at which the vehicle must stop"
@@ -8165,29 +8176,29 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4102
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5056
 msgid "BusStop associated with this stop"
-msgstr ""
+msgstr "Parada de bus (busStop) asociada a esta parada"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4118
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5088
 msgid "TrainStop associated with this stop"
-msgstr ""
+msgstr "Parada de trenes (trainStop) asociada a esta parada"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4134
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4610
 msgid "ContainerStop associated with this stop"
-msgstr ""
+msgstr "Parada de contenedores (containerStop) asociada a esta parada"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4150
 msgid "ChargingStation associated with this stop"
-msgstr ""
+msgstr "Estación de carga asociada a esta parada"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4166
 msgid "ParkingArea associated with this stop"
-msgstr ""
+msgstr "Zona de estacionamiento asociada a esta parada"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4190
 msgid "The name of the lane the waypoint shall be located at"
-msgstr ""
+msgstr "El nombre del carril donde el punto de referencia deberá ubicarse"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4213
 msgid "The lateral offset on the named lane at which the vehicle must waypoint"
@@ -8207,19 +8218,19 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4277
 msgid "ChargingStation associated with this waypoint"
-msgstr ""
+msgstr "Estación de carga asociada a este punto de referencia"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4293
 msgid "ParkingArea associated with this waypoint"
-msgstr ""
+msgstr "Zona de estacionamiento asociada a este punto de referencia"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4321
 msgid "The time step at which the person shall enter the network"
-msgstr ""
+msgstr "El instante de tiempo en el cual la persona deberá ingresar a la red"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4361
 msgid "The time step at which the container shall enter the network"
-msgstr ""
+msgstr "El instante de tiempo en el cual el contenedor deberá ingresar a la red"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4397
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4427
@@ -8241,11 +8252,11 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4413
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4437
 msgid "list of vehicle alternatives to take for the transport"
-msgstr ""
+msgstr "lista de vehículos alternativos a tomar para el transporte"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4432
 msgid "ID of the destination container stop"
-msgstr ""
+msgstr "ID de la parada de contenedor destino"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4459
 msgid "The ID of the edge the tranship starts at"
@@ -8260,12 +8271,13 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4530
 msgid "The position at which the tranship shall enter the net"
 msgstr ""
+"La posición en la cual el transbordo (tranship) deberá ingresar a la red"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4481
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4511
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4542
 msgid "speed of the container for this tranship in m/s"
-msgstr ""
+msgstr "velocidad del contenedor para este transbordo (en m/s)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4495
 msgid "The name of the edge the tranship starts at"
@@ -8273,7 +8285,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4500
 msgid "Id of the destination container stop"
-msgstr ""
+msgstr "ID de la parada de contenedor destino"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4525
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4859
@@ -15036,23 +15048,23 @@ msgstr "Idioma"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:342
 msgid "Change language to english. (en)"
-msgstr ""
+msgstr "Cambiar el idioma a inglés. (en)"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:344
 msgid "Change language to german. (de)"
-msgstr ""
+msgstr "Cambiar el idioma a alemán. (de)"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:346
 msgid "Change language to spanish. (es)"
-msgstr ""
+msgstr "Cambiar el idioma a español. (es)"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:348
 msgid "Change language to french. (fr)"
-msgstr ""
+msgstr "Cambiar el idioma a francés. (fr)"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:350
 msgid "Change language to italian. (it)"
-msgstr ""
+msgstr "Cambiar el idioma a italiano. (it)"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:352
 msgid "简体中文 (zh)"
@@ -15064,11 +15076,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:356
 msgid "Change language to turkish. (tr)"
-msgstr ""
+msgstr "Cambiar el idioma a turco. (tr)"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:358
 msgid "Change language to hungarian. (hu)"
-msgstr ""
+msgstr "Cambiar el idioma a húngaro. (hu)"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:372
 msgid "german"
@@ -15108,7 +15120,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:412
 msgid "Language changed to "
-msgstr ""
+msgstr "Idioma cambiado a "
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:414
 msgid "Restart needed"
