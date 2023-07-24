@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-24 13:20+0200\n"
+"POT-Creation-Date: 2023-07-24 13:56+0200\n"
 "PO-Revision-Date: 2023-07-21 13:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -3199,6 +3199,10 @@ msgid "Create junction and edges."
 msgstr "Crea nodi e archi."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
+msgid "&Traffic light"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
 msgid "Modes traffic lights over junctions."
 msgstr "Modo dei semafori."
 
@@ -3245,6 +3249,10 @@ msgstr "Zona di assegnazione del traffico"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:638
 msgid "Create Traffic Assignment Zones."
 msgstr "Crea zone di assegnazione del traffico."
+
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:642
+msgid "&POI-Poly"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:642
 msgid "Create Points-Of-Interest and polygons."

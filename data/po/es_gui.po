@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-24 13:20+0200\n"
+"POT-Creation-Date: 2023-07-24 13:56+0200\n"
 "PO-Revision-Date: 2023-07-24 10:25+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -3204,6 +3204,10 @@ msgid "Create junction and edges."
 msgstr "Crear cruces (junctions) y calles (edges)."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
+msgid "&Traffic light"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
 msgid "Modes traffic lights over junctions."
 msgstr "Modo para crear semáforos (TLS) sobre cruces (junctions)."
 
@@ -3250,6 +3254,10 @@ msgstr "&Zona de análisis de tráfico (TAZ)"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:638
 msgid "Create Traffic Assignment Zones."
 msgstr "Crear zona de análisis de tráfico (TAZ)."
+
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:642
+msgid "&POI-Poly"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:642
 msgid "Create Points-Of-Interest and polygons."
