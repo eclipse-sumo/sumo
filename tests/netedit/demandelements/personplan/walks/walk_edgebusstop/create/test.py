@@ -47,7 +47,7 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, 92, 412)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # go to person plan mode
 netedit.changePersonPlanMode("walk: busStop")

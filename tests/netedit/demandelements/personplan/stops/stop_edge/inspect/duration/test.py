@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, 92, 412)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # go to personStopEdge mode
 netedit.changePersonPlanMode("stopPerson: edge")

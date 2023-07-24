@@ -47,7 +47,7 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, 92, 412)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # go to person plan mode
 netedit.changePersonPlanMode("ride: busStop")
@@ -62,7 +62,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect rideEdgeBusStop
-netedit.leftClick(referencePosition, 430, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.rideEdgeBusStop.inspect.to, "dummy", False)

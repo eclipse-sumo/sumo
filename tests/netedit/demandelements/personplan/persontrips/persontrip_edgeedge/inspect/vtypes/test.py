@@ -47,7 +47,7 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, 92, 412)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # go to personTripEdgeEdge mode
 netedit.changePersonPlanMode("personTrip: edge")
@@ -62,7 +62,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect personTripEdgeEdge
-netedit.leftClick(referencePosition, 430, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personTripEdgeEdge.inspect.vTypes, "customType", False)

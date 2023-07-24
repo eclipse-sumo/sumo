@@ -44,7 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect rideEdgeEdge
-netedit.leftClick(referencePosition, 430, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.rideEdgeEdge.inspectSelection.arrivalPos, "dummy", False)
