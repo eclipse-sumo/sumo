@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-24 13:56+0200\n"
+"POT-Creation-Date: 2023-07-24 14:29+0200\n"
 "PO-Revision-Date: 2023-04-26 09:39+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -1623,6 +1623,51 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1028
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:241
 msgid "type"
+msgstr ""
+
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:964
+msgid "Copy edge name to clipboard"
+msgstr ""
+
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:972
+msgid "pos: "
+msgstr ""
+
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:972
+msgid "height: "
+msgstr ""
+
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:981
+msgid "Reopen lane"
+msgstr ""
+
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:982
+msgid "Reopen edge"
+msgstr ""
+
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:984
+msgid "Reopen lane (override rerouter)"
+msgstr ""
+
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:985
+msgid "Reopen edge (override rerouter)"
+msgstr ""
+
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:988
+msgid "Close lane"
+msgstr ""
+
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:989
+msgid "Close edge"
+msgstr ""
+
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:991
+msgid "Add rerouter"
+msgstr ""
+
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:996
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2048
+msgid "Select reachable"
 msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1009
@@ -10298,10 +10343,6 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
 msgid "Apply template"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2048
-msgid "Select reachable"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2053
