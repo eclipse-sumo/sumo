@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-14 15:36:55 by Eclipse SUMO netedit Version v1_18_0+0322-0fb8cf93328
+<!-- generated on 2023-07-24 09:24:49 by Eclipse SUMO netedit Version v1_18_0+0457-a12353752e9
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
@@ -29,25 +29,33 @@
 -->
 
 <connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="Edge0" to="Edge1" fromLane="0" toLane="0"/>
     <connection from="Edge0" to="Edge1" fromLane="1" toLane="1"/>
 
+    <connection from="Edge1" to="Edge2" fromLane="0" toLane="0"/>
     <connection from="Edge1" to="Edge2" fromLane="1" toLane="1"/>
 
+    <connection from="Edge2" to="EdgeBike0" fromLane="0" toLane="0"/>
     <connection from="Edge2" to="EdgeBike0" fromLane="1" toLane="1"/>
-    <connection from="Edge2" to="Edge3" fromLane="1" toLane="1"/>
 
+    <connection from="Edge3" to="Edge4" fromLane="0" toLane="0"/>
     <connection from="Edge3" to="Edge4" fromLane="1" toLane="1"/>
 
+    <connection from="Edge4" to="Edge5" fromLane="0" toLane="0"/>
     <connection from="Edge4" to="Edge5" fromLane="1" toLane="1"/>
 
     <connection from="Edge5"/>
 
-    <connection from="EdgeBike0" to="EdgeCenter0" fromLane="1" toLane="0"/>
+    <connection from="EdgeBike0" to="EdgeCenter0" fromLane="0" toLane="0"/>
+    <connection from="EdgeBike0" to="EdgeCenter0" fromLane="1" toLane="1"/>
 
+    <connection from="EdgeBike1" to="Edge3" fromLane="0" toLane="0"/>
     <connection from="EdgeBike1" to="Edge3" fromLane="1" toLane="1" keepClear="0"/>
 
     <connection from="EdgeCenter0" to="EdgeCenter1" fromLane="0" toLane="0"/>
+    <connection from="EdgeCenter0" to="EdgeCenter1" fromLane="1" toLane="1"/>
 
-    <connection from="EdgeCenter1" to="EdgeBike1" fromLane="0" toLane="1"/>
+    <connection from="EdgeCenter1" to="EdgeBike1" fromLane="0" toLane="0"/>
+    <connection from="EdgeCenter1" to="EdgeBike1" fromLane="1" toLane="1"/>
 
 </connections>

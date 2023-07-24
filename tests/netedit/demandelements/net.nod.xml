@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-14 15:36:55 by Eclipse SUMO netedit Version v1_18_0+0322-0fb8cf93328
+<!-- generated on 2023-07-24 09:24:49 by Eclipse SUMO netedit Version v1_18_0+0457-a12353752e9
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
@@ -34,7 +34,7 @@
     <node id="Junction0" x="0.00" y="10.00" type="dead_end"/>
     <node id="Junction1" x="60.00" y="10.00" type="traffic_light" tl="Junction1"/>
     <node id="Junction2" x="60.00" y="40.00" type="traffic_light" tl="Junction2"/>
-    <node id="Junction3" x="0.00" y="40.00" type="priority"/>
-    <node id="Junction4" x="0.00" y="25.00" type="priority"/>
+    <node id="Junction3" x="0.00" y="40.00" type="traffic_light" tl="Junction3"/>
+    <node id="Junction4" x="0.00" y="25.00" type="traffic_light" tl="Junction4"/>
     <node id="JunctionCenter" x="30.00" y="25.00" type="priority"/>
 </nodes>
