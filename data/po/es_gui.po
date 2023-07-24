@@ -1220,7 +1220,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:326
 msgid "removed vehicles"
-msgstr ""
+msgstr "vehículos eliminados"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:327
 msgid "cleared in jam"
@@ -4740,7 +4740,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:461
 msgid "Remove from Selected"
-msgstr ""
+msgstr "Remover de selección"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:463
 msgid "Add to Selected"
@@ -5043,7 +5043,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3160
 msgid " will be removed. Continue?"
-msgstr ""
+msgstr " será eliminado. ¿Continuar?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3329
 msgid "reset edge endpoints"
@@ -6116,11 +6116,11 @@ msgstr "Seleccionar rutas en conflicto"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:249
 msgid "Remove stops out of route"
-msgstr "Retirar paradas (stops) fuera de ruta"
+msgstr "Remover paradas (stops) fuera de ruta"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:351
 msgid "Remove invalid vehicles"
-msgstr "Retirar vehículos inválidos"
+msgstr "Remover vehículos inválidos"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:354
 msgid "Save invalid vehicles"
@@ -6164,7 +6164,7 @@ msgstr "El guardado de la lista de elementos en conflicto falló"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:227
 msgid "Remove invalid edges"
-msgstr "Eliminar calles (edges) inválidos"
+msgstr "Eliminar calles (edges) inválidas"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:230
 msgid "Save invalid edges"
@@ -9695,11 +9695,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:234
 msgid "Remove geometry point"
-msgstr ""
+msgstr "Eliminar punto geométrico"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:234
 msgid "Remove geometry point under mouse"
-msgstr ""
+msgstr "Eliminar punto geométrico debajo del cursor"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:235
 msgid "Set first geometry point"
@@ -12777,12 +12777,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:346
 msgid "TAZ Statistics"
-msgstr ""
+msgstr "Estadísticas de zona de análisis de tráfico (TAZ)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:349
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:888
 msgid "Statistics"
-msgstr ""
+msgstr "Estadísticas"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:376
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1129
@@ -12825,11 +12825,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:399
 msgid "Confirm changes"
-msgstr ""
+msgstr "Confirmar cambios"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:402
 msgid "Cancel changes"
-msgstr ""
+msgstr "Cancelar cambios"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:432
 msgid "TAZ changes"
