@@ -57,13 +57,10 @@ netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "", False)
 netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "gneE8", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "Edge5", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "gneE9", False)
-
-# change from with an valid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "gneE8 gneE9", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "Edge1", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
