@@ -298,11 +298,11 @@ def get_conn_verb_rel(conn_tab, from_to_tab):
 # MAIN
 if __name__ == '__main__':
     op = sumolib.options.ArgumentParser(description='detector conversion utility (VISSIM.inpx to SUMO)')
-    op.add_argument('--vissim-input', '-V', type=str, category="input", required=True, type=op.file,
+    op.add_argument('--vissim-input', '-V', category="input", required=True, type=op.file,
                     help='VISSIM inpx file path')
-    op.add_argument('--output-file', '-o', type=str, category="output", required=True, type=op.file,
+    op.add_argument('--output-file', '-o', category="output", required=True, type=op.file,
                     help='output file name')
-    op.add_argument('--SUMO-net', '-S', type=str, category="input", required=True, type=op.net_file,
+    op.add_argument('--SUMO-net', '-S', category="input", required=True, type=op.net_file,
                     help='SUMO net file path')
     args = op.parse_args()
     print("\n", args, "\n")
