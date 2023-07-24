@@ -1587,7 +1587,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
     }
     // now move all selected edges
     const auto selectedEdges = myViewNet->getNet()->getAttributeCarriers()->getSelectedEdges();
-    // iterate over edges betwen 0 and 180 degrees
+    // iterate over edges between 0 and 180 degrees
     for (const auto& edge : selectedEdges) {
         GNEMoveOperation* moveOperation = edge->getMoveOperation();
         // continue if move operation is valid

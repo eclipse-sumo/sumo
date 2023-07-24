@@ -7828,7 +7828,7 @@ class HcPrtService(SimobjMixin, DemandobjMixin, cm.BaseObjman):
         t_start = virtualpop.get_time_depart_first()
 
         #t_start = 0.0
-        # time betwenn insertion of consecutive vehicles at same stop
+        # time between insertion of consecutive vehicles at same stop
         t_delta = 10  # s
 
         n_veh = len(self.prtvehicles)
