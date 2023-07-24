@@ -3250,7 +3250,7 @@ msgstr "Crear cruces (junctions) y calles (edges)."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
 msgid "&Traffic light"
-msgstr ""
+msgstr "Semáforo"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
 msgid "Modes traffic lights over junctions."
@@ -3302,7 +3302,7 @@ msgstr "Crear zona de análisis de tráfico (TAZ)."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:642
 msgid "&POI-Poly"
-msgstr ""
+msgstr "Puntos de interés y polígonos"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:642
 msgid "Create Points-Of-Interest and polygons."
@@ -5444,11 +5444,11 @@ msgstr "Modo para borrar elementos. (D)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3474
 msgid "Set select mode"
-msgstr ""
+msgstr "Ir al modo de selección"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3474
 msgid "Mode for select elements. (S)"
-msgstr ""
+msgstr "Modo para seleccionar elementos. (S)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3527
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3672
@@ -5829,7 +5829,7 @@ msgstr "Rehacer eliminación de edgeType '"
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:113
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:115
 msgid "Undo enable % attribute in '%'"
-msgstr ""
+msgstr "Deshacer activación del atributo % en '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:123
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:125
@@ -12722,7 +12722,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:137
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:141
 msgid "Cartesian equivalence:"
-msgstr ""
+msgstr "Equivalente cartesiano:"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:73
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:142
@@ -12744,7 +12744,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:228
 msgid "Shapes"
-msgstr ""
+msgstr "Formas"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:331
 msgid "POILane can be only placed over lanes"
@@ -13419,19 +13419,19 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:158
 msgid "Load shapes for elements"
-msgstr ""
+msgstr "Cargar formas para los elementos"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:161
 msgid "Load shapes for added"
-msgstr ""
+msgstr "Cargar formas para los elementos añadidos"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:164
 msgid "Load shapes for deleted elements"
-msgstr ""
+msgstr "Cargar formas para los elementos eliminados"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:177
 msgid "load shapes from '"
-msgstr ""
+msgstr "cargar formas desde '"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:181
 msgid "Loading of shape file failed: "
@@ -14732,7 +14732,7 @@ msgstr "'cajas'"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1927
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1967
 msgid "'simple shapes'"
-msgstr ""
+msgstr "'formas simples'"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1845
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1928
