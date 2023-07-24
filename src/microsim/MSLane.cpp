@@ -275,7 +275,8 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
 #ifdef HAVE_FOX
     mySimulationTask(*this, 0),
 #endif
-    myStopWatch(3) {
+    myStopWatch(3),
+    myControlledByVSS(false) {
     // initialized in MSEdge::initialize
     initRestrictions();// may be reloaded again from initialized in MSEdge::closeBuilding
     assert(myRNGs.size() > 0);
@@ -294,7 +295,6 @@ void
 MSLane::initRestrictions() {
     // simplify unit testing without MSNet instance
     myRestrictions = MSGlobals::gUnitTests ? nullptr : MSNet::getInstance()->getRestrictions(myEdge->getEdgeType());
-
 }
 
 
@@ -2624,8 +2624,9 @@ MSLane::getEntryLink() const {
 
 
 void
-MSLane::setMaxSpeed(double val) {
+MSLane::setMaxSpeed(double val, bool byVSS) {
     myMaxSpeed = val;
+    myControlledByVSS = byVSS;
     myEdge->recalcCache();
 }
 
