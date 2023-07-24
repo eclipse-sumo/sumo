@@ -1,3 +1,3 @@
-Warning: Vehicle 'tripB' ignores container triggered stop on lane 'EdgeCenter1_0' due to capacity constraints.
+Warning: Vehicle 'tripB' ignores container triggered stop on lane 'EdgeCenter1_1' due to capacity constraints.
 Warning: Vehicle 'tripA' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
 Warning: Vehicle 'tripB' aborted waiting for a person that will never come.
