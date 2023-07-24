@@ -244,6 +244,7 @@ opened. The following types are available:
 - [Edge](Networks/PlainXML.md#edge_descriptions)
 - [Vehicle](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
 - [Person](Specification/Persons.md)
+- [Container](Specification/Containers.md)
 - [Traffic light](Simulation/Traffic_Lights.md)
 - Additional infrastructure for [detecting](Simulation/Output/index.md#simulated_detectors) or for [influencing traffic](index.md#traffic_management_and_other_structures).
 - [Point of Interest (PoI)](Simulation/Shapes.md#poi_point_of_interest_definitions)
