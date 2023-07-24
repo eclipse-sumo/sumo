@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-24 14:29+0200\n"
-"PO-Revision-Date: 2023-07-24 10:25+0000\n"
+"PO-Revision-Date: 2023-07-24 12:46+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -15045,7 +15045,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:128
 msgid "Toggle Zooming Style"
-msgstr ""
+msgstr "Alternar estilo de zoom"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:128
 msgid ""
@@ -15055,43 +15055,44 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:135
 msgid "Locate Structures"
-msgstr ""
+msgstr "Localizar estructuras"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:135
 msgid "Locate structures within the network."
-msgstr ""
+msgstr "Localizar estructuras en la red."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:139
 msgid "Toggle View Tooltips"
-msgstr ""
+msgstr "Activar/desactivar descripciones emergentes"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:139
 msgid "Toggles whether tooltips in the view shall be shown."
-msgstr ""
+msgstr "Alterna si se deben ver o no las descripciones emergentes (tooltips)."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
 msgid "Toggle Menu Tooltips"
-msgstr ""
+msgstr "Activar/desactivar descripciones emergentes para los menús"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
 msgid "Toggles whether tooltips in the menu shall be shown."
 msgstr ""
+"Alternar si se deben ver o no las descripciones emergentes en los menús."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:161
 msgid "Edit Coloring Schemes"
-msgstr ""
+msgstr "Editar esquemas de color"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:161
 msgid "Opens a menu which lets you edit the coloring schemes. (F9)"
-msgstr ""
+msgstr "Abrir una ventana para editar esquemas de color. (F9)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:172
 msgid "Make Snapshot"
-msgstr ""
+msgstr "Tomar una instantánea"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:172
 msgid "Makes a snapshot of the view."
-msgstr ""
+msgstr "Tomar una instantánea de la vista."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:294
 msgid "option window-size requires INT,INT"
