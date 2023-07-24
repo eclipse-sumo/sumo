@@ -961,7 +961,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //
-    GUIDesigns::buildFXMenuCommand(ret, "Copy edge name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy edge name to clipboard"), nullptr, ret, MID_COPY_EDGE_NAME);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //
@@ -969,7 +969,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     const PositionVector& baseShape = getShape(parent.getVisualisationSettings().secondaryShape);
     const double pos = interpolateGeometryPosToLanePos(baseShape.nearest_offset_to_point25D(parent.getPositionInformation()));
     const double height = baseShape.positionAtOffset(pos).z();
-    GUIDesigns::buildFXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), nullptr, nullptr, 0);
+    GUIDesigns::buildFXMenuCommand(ret, (TL("pos: ") + toString(pos) + " " + TL("height: ") + toString(height)).c_str(), nullptr, nullptr, 0);
     if (getEdge().hasDistance()) {
         GUIDesigns::buildFXMenuCommand(ret, ("distance: " + toString(getEdge().getDistanceAt(pos))).c_str(), nullptr, nullptr, 0);
     }
@@ -978,22 +978,22 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     new FXMenuSeparator(ret);
     if (myAmClosed) {
         if (myPermissionChanges.empty()) {
-            GUIDesigns::buildFXMenuCommand(ret, "Reopen lane", nullptr, &parent, MID_CLOSE_LANE);
-            GUIDesigns::buildFXMenuCommand(ret, "Reopen edge", nullptr, &parent, MID_CLOSE_EDGE);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Reopen lane"), nullptr, &parent, MID_CLOSE_LANE);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Reopen edge"), nullptr, &parent, MID_CLOSE_EDGE);
         } else {
-            GUIDesigns::buildFXMenuCommand(ret, "Reopen lane (override rerouter)", nullptr, &parent, MID_CLOSE_LANE);
-            GUIDesigns::buildFXMenuCommand(ret, "Reopen edge (override rerouter)", nullptr, &parent, MID_CLOSE_EDGE);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Reopen lane (override rerouter)"), nullptr, &parent, MID_CLOSE_LANE);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Reopen edge (override rerouter)"), nullptr, &parent, MID_CLOSE_EDGE);
         }
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, "Close lane", nullptr, &parent, MID_CLOSE_LANE);
-        GUIDesigns::buildFXMenuCommand(ret, "Close edge", nullptr, &parent, MID_CLOSE_EDGE);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Close lane"), nullptr, &parent, MID_CLOSE_LANE);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Close edge"), nullptr, &parent, MID_CLOSE_EDGE);
     }
-    GUIDesigns::buildFXMenuCommand(ret, "Add rerouter", nullptr, &parent, MID_ADD_REROUTER);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Add rerouter"), nullptr, &parent, MID_ADD_REROUTER);
     new FXMenuSeparator(ret);
     // reachability menu
     FXMenuPane* reachableByClass = new FXMenuPane(ret);
     ret->insertMenuPaneChild(reachableByClass);
-    new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
+    new FXMenuCascade(ret, TL("Select reachable"), GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
     for (auto i : SumoVehicleClassStrings.getStrings()) {
         GUIDesigns::buildFXMenuCommand(reachableByClass, i.c_str(), VClassIcons::getVClassIcon(SumoVehicleClassStrings.get(i)), &parent, MID_REACHABILITY);
     }
