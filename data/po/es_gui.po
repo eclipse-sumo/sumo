@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-24 14:29+0200\n"
-"PO-Revision-Date: 2023-07-24 12:46+0000\n"
+"PO-Revision-Date: 2023-07-24 14:14+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -222,7 +222,7 @@ msgstr "Modo de juego\tCtrl+G\tAlternar modo de juego."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:524
 msgid "Full Screen Mode"
-msgstr "Modo a pantalla completa"
+msgstr "Modo pantalla completa"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:524
 msgid "Toggle full screen mode on/off."
@@ -606,6 +606,8 @@ msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
 msgstr ""
+"Retardo (ms)\tRetardo por segundo simulado\tRetardo por segundo simulado. "
+"Hacer click para alternar entre los dos últimos valores."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:737
 msgid "Scale Traffic:"
@@ -825,7 +827,7 @@ msgstr "Saliendo (debido a un error)."
 
 #: C:\Repos\sumo/src\gui\GUIRunThread.cpp:265
 msgid "Simulation started with time: %."
-msgstr "Simulación iniciada con tiempo:%."
+msgstr "Simulación iniciada con tiempo: %."
 
 #: C:\Repos\sumo/src\gui\GUISUMOViewParent.cpp:142
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:469
@@ -12415,7 +12417,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:84
 msgid "Add sidewalk"
-msgstr ""
+msgstr "Añadir acera"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:87
 msgid "Use edgeType/template"
@@ -15144,39 +15146,39 @@ msgstr "Cambiar el idioma a húngaro. (hu)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:372
 msgid "german"
-msgstr ""
+msgstr "alemán"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:376
 msgid "spanish"
-msgstr ""
+msgstr "español"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:380
 msgid "french"
-msgstr ""
+msgstr "francés"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:384
 msgid "italian"
-msgstr ""
+msgstr "italiano"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:388
 msgid "chinese"
-msgstr ""
+msgstr "chino"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:392
 msgid "chinese simplified"
-msgstr ""
+msgstr "chino simplificado"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:396
 msgid "turkish"
-msgstr ""
+msgstr "turco"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:400
 msgid "hungarian"
-msgstr ""
+msgstr "húngaro"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:404
 msgid "english"
-msgstr ""
+msgstr "inglés"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:412
 msgid "Language changed to "
@@ -15184,11 +15186,13 @@ msgstr "Idioma cambiado a "
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:414
 msgid "Restart needed"
-msgstr ""
+msgstr "Se requiere reiniciar"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:415
 msgid "Changing display language needs restart to take effect."
 msgstr ""
+"Al cambiar el idioma de visualización se requiere reiniciar el programa para "
+"que surta efecto."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:418
 msgid ""
