@@ -7,6 +7,5 @@
     <trip id="t_0" depart="0.00" fromJunction="Junction0" toJunction="Junction2"/>
     <trip id="t_1" depart="1.00" fromJunction="Junction0" toJunction="Junction3"/>
     <trip id="t_2" depart="2.00" fromJunction="Junction2" toJunction="Junction3"/>
-    <trip id="t_3" depart="3.00" fromJunction="Junction3" toJunction="gneJ9"/>
-    <trip id="t_4" depart="4.00" fromJunction="gneJ9" toJunction="Junction0"/>
+    <trip id="t_3" depart="3.00" fromJunction="Junction3" toJunction="Junction4"/>
 </routes>

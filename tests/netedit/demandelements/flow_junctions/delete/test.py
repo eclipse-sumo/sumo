@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete vehicle
-netedit.leftClick(referencePosition, 85, 360)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -60,7 +60,7 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete junction with demand elements
-netedit.leftClick(referencePosition, 85, 380)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -69,7 +69,7 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their route
-netedit.leftClick(referencePosition, 85, 380)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y)
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)
