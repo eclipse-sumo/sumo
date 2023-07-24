@@ -12740,7 +12740,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:172
 msgid "Using clipboard"
-msgstr ""
+msgstr "Usando el portapapeles"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:228
 msgid "Shapes"
