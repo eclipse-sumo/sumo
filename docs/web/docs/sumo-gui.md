@@ -572,7 +572,7 @@ value/range
 - Show parking info: When activating *show route* in the vehicle context menu, the vehicle is annotated with the number of failed parking attempts and each parking area is annotated with the last target selection score
 - Show minimum gap
 - Show [Bluetooth range](Simulation/Bluetooth.md)
-- Scale length with gemeotry (see [length-geometry-mismatch](Simulation/Distances.md#vehicle_lengths_in_sumo-gui)
+- Scale length with geometry (see [length-geometry-mismatch](Simulation/Distances.md#vehicle_lengths_in_sumo-gui))
 
 ### Scaling
 
@@ -782,10 +782,10 @@ you save a configuration file with default settings by calling `sumo --save-temp
 The options in the *GUI* category are specific to sumo-gui
 
 -  **--gui-settings-file** (shortcut **-g**) allows to load a previously saved gui-settings file (see below)
--  **-S, --start**: starts the simulation upon opening the gui (without the need to click the *start* button
+-  **-S, --start**: starts the simulation upon opening the gui (without the need to click the *start* button)
 -  **-Q, --quit-on-end**: closes the gui upon simulation end
 -  **-d, --delay**: sets an initial simulation delay to prevent the simulation from running to quickly
-- **--window-size WIDTH,HEIGHT**: sets the iniial window size (by default the previous size is restored)
+- **--window-size WIDTH,HEIGHT**: sets the initial window size (by default the previous size is restored)
 - **--window-pos X,Y**: sets the initial window position (by default the previous position is restored)
 
 A sumo configuration that loads gui settings is shown below:
@@ -823,7 +823,7 @@ decals if the corresponding check-boxes are activated before saving.
 
 ```xml
     <viewsettings>
-        <scheme name="..."
+        <scheme name="...">
            ...
         </scheme>
 
@@ -925,14 +925,14 @@ viewport dialog. The following table summarizes which mouse actions and keys can
 | Mouse movement| Rotate view in `ego` mode (with eye position as pivot point)                                                                     |
 
 Open the viewport editor using the ![Open_viewport_editor.gif](images/Open_viewport_editor.gif
-"Open viewport editor") button. The camera position itself is listed in the left column wheras right "LookAt" coordinates define the 
+"Open viewport editor") button. The camera position itself is listed in the left column whereas right "LookAt" coordinates define the 
 target to look at. "LookAt" coordinates are normalized to length 1 by OSG automatically.
 
 Interacting with network elements and vehicles works like in the 2D view: Context-dependent options are available by RMB click on the object 
 to inspect.
 
 ## Rendering statistics
-OSG draws some rendering statistics (e.g. frames per seconds) on top of the 3D view by pressing the `I` key. Pressing the key multiple times will unveal different statistics and finally hide them again.
+OSG draws some rendering statistics (e.g. frames per seconds) on top of the 3D view by pressing the `I` key. Pressing the key multiple times will unveil different statistics and finally hide them again.
 
 ## Automatically generated 3D environment
 Only some of the regular network components have been ported to the 3D view (yet). Currently the following are displayed:
@@ -1020,7 +1020,7 @@ settings
 Instead of loading data from a file you can visualize the aggregated data that is currently being collected by the simulation.
 For this you need to color 'by live edgeData' and select the id of the configure `edgeData` (or `laneData`) element.
 This will always show the current aggregation interval (so the collected data is reset to 0 at the start of a new interval).
-By using the option **--edgedata-output FILE** or **--lanedata-output FILE** you can quickly configure a data colletion that aggregates over the whole simulation.
+By using the option **--edgedata-output FILE** or **--lanedata-output FILE** you can quickly configure a data collection that aggregates over the whole simulation.
 
 ## Coloring by Data
 
