@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-24 10:12:18 by Eclipse SUMO netedit Version v1_18_0+0458-be70fa69b0d
+<!-- generated on 2023-07-24 14:15:57 by Eclipse SUMO netedit Version v1_18_0+0474-d01571e5a07
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.24Jul094214.7568/netedit.gui/demandelements/trip_junctions/load/to/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.24Jul094214.7568/netedit.gui/demandelements/trip_junctions/load/to/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.24Jul094214.7568/netedit.gui/demandelements/trip_junctions/load/to/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.24Jul094214.7568/netedit.gui/demandelements/trip_junctions/load/to/net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Jul141339.25944\netedit.gui\demandelements\trip_junctions\load\to\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Jul141339.25944\netedit.gui\demandelements\trip_junctions\load\to\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Jul141339.25944\netedit.gui\demandelements\trip_junctions\load\to\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Jul141339.25944\netedit.gui\demandelements\trip_junctions\load\to\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.24Jul094214.7568/netedit.gui/demandelements/trip_junctions/load/to/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Jul141339.25944\netedit.gui\demandelements\trip_junctions\load\to\net.net.xml"/>
     </output>
 
     <processing>
@@ -37,16 +37,16 @@
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.24Jul094214.7568/netedit.gui/demandelements/trip_junctions/load/to/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Jul141339.25944\netedit.gui\demandelements\trip_junctions\load\to\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.24Jul094214.7568/netedit.gui/demandelements/trip_junctions/load/to/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Jul141339.25944\netedit.gui\demandelements\trip_junctions\load\to\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.24Jul094214.7568/netedit.gui/demandelements/trip_junctions/load/to/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Jul141339.25944\netedit.gui\demandelements\trip_junctions\load\to\log.txt"/>
     </report>
 
 </configuration>
