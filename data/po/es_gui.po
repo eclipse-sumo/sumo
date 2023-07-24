@@ -10561,7 +10561,7 @@ msgstr "Abortar creación de trayectoria"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:67
 msgid "Remove last lane"
-msgstr "Eliminar el último carril (lane)"
+msgstr "Eliminar el último carril"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:70
 msgid "Show candidate lanes"
@@ -11758,11 +11758,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:155
 msgid "remove"
-msgstr ""
+msgstr "remover"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:155
 msgid "Selected objects are removed from the previous selection"
-msgstr ""
+msgstr "Los elementos seleccionados serán eliminados de la selección previa"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:157
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:661
@@ -12475,7 +12475,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:576
 msgid "remove laneType"
-msgstr ""
+msgstr "remover tipo de carril"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
 msgid "ESC:"
@@ -12892,7 +12892,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:601
 msgid "Remove "
-msgstr ""
+msgstr "Remover "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:601
 msgid " edges from to selection"
@@ -13593,7 +13593,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:296
 msgid "Remove From Selected"
-msgstr ""
+msgstr "Remover de la selección"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:298
 msgid "Add To Selected"
@@ -14549,7 +14549,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1670
 msgid "Remove the setting from registry"
-msgstr ""
+msgstr "Eliminar el ajuste del registro"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1671
 msgid "Export setting to file"
