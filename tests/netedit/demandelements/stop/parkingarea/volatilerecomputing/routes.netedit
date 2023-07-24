@@ -17,7 +17,7 @@
         <stop parkingArea="parkingAreaH" duration="60.00" parking="1"/>
     </vehicle>
     <vehicle id="vehicle_1" type="id" depart="0.00">
-        <route edges="Edge0 Edge1 Edge2" color="yellow"/>
+        <route edges="Edge3 Edge4 Edge5" color="yellow"/>
         <stop parkingArea="parkingAreaA" duration="60.00" parking="1"/>
         <stop parkingArea="parkingAreaB" duration="60.00" parking="1"/>
     </vehicle>
