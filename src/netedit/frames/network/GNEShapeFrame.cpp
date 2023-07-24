@@ -454,7 +454,7 @@ GNEShapeFrame::shapeDrawed() {
 void
 GNEShapeFrame::tagSelected() {
     if (myShapeTagSelector->getCurrentTemplateAC()) {
-        // if there are parmeters, show and Recalc groupBox
+        // if there are parameters, show and Recalc groupBox
         myShapeAttributes->showAttributesCreatorModule(myShapeTagSelector->getCurrentTemplateAC(), {});
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModule(myShapeTagSelector->getCurrentTemplateAC());
