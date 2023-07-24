@@ -152,7 +152,7 @@ GNERerouterInterval::getParentName() const {
 void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
     // draw rerouter interval as listed attribute
-    drawListedAddtional(s, getParentAdditionals().front()->getPositionInView(),
+    drawListedAdditional(s, getParentAdditionals().front()->getPositionInView(),
                         0, 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_INTERVAL,
                         getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END));
     // iterate over additionals and check if drawn

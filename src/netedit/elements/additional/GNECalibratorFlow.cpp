@@ -168,7 +168,7 @@ GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
     // rotate
     glRotated((-1 * getParentAdditionals().front()->getAdditionalGeometry().getShapeRotations().front()) + 180, 0, 0, 1);
     // draw rerouter interval as listed attribute
-    drawListedAddtional(s, Position(0, 0), 0.05, 1, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
+    drawListedAdditional(s, Position(0, 0), 0.05, 1, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
     // pop rotation matrix
     GLHelper::popMatrix();
 }

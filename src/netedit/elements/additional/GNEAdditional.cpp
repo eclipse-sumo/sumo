@@ -501,7 +501,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
 
 
 void
-GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
+GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
                                    const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
@@ -529,7 +529,7 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
         }
-        // Start drawing adding an gl identificator
+        // Start drawing adding an gl identifier
         GLHelper::pushName(getGlID());
         // calculate colors
         const RGBColor baseColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor : baseCol;
@@ -812,12 +812,12 @@ GNEAdditional::areLaneConsecutives(const std::vector<GNELane*>& lanes) {
     int laneIt = 0;
     // iterate over all lanes
     while (laneIt < ((int)lanes.size() - 1)) {
-        // we assume that lanes aren't consecutives
+        // we assume that lanes aren't consecutive
         bool consecutiveFound = false;
         // get lanes
         const auto lane = lanes.at(laneIt);
         const auto nextLane = lanes.at(laneIt + 1);
-        // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
+        // if there is a connection between "from" lane and "to" lane of connection, change connectionFound to true
         for (const auto& outgoingEdge : lane->getParentEdge()->getToJunction()->getGNEOutgoingEdges()) {
             for (const auto& outgoingLane : outgoingEdge->getLanes()) {
                 if (outgoingLane == nextLane) {
@@ -852,7 +852,7 @@ GNEAdditional::areLaneConnected(const std::vector<GNELane*>& lanes) {
         if ((lane->getAttribute(SUMO_ATTR_ALLOW) == "pedestrian") && (nextLane->getAttribute(SUMO_ATTR_ALLOW) == "pedestrian")) {
             connectionFound = true;
         }
-        // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
+        // if there is a connection between "from" lane and "to" lane of connection, change connectionFound to true
         for (const auto& connection : lane->getParentEdge()->getNBEdge()->getConnections()) {
             if ((connection.toEdge == nextLane->getParentEdge()->getNBEdge()) &&
                     (connection.fromLane == lane->getIndex()) &&
