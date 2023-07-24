@@ -57,13 +57,10 @@ netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "", False)
 netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "gneE8", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "EdgeCenter0", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "gneE9", False)
-
-# change from with an valid value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "gneE8 gneE9", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "Edge2", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
