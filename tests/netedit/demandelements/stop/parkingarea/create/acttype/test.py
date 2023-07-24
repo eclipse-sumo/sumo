@@ -47,19 +47,19 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingAre
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.actType, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x + 1, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.actType, "dummy Act")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x + 2, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.actType, "singing")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x + 3, netedit.positions.demandElements.parkingArea.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
