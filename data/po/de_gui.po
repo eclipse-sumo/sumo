@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-21 15:11+0200\n"
-"PO-Revision-Date: 2023-07-20 12:23+0000\n"
+"PO-Revision-Date: 2023-07-24 10:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -11992,11 +11992,11 @@ msgstr "Alle Objekte abwählen (Hotkey: ESC)"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:254
 msgid "Invert"
-msgstr "Umstellen"
+msgstr "Invertieren"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:254
 msgid "Invert selection status of all objects"
-msgstr "Auswahlstatus von allen Objekten umstellen"
+msgstr "Auswahlstatus von allen Objekten invertieren"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:256
 msgid "Save ids of currently selected objects to a file."
