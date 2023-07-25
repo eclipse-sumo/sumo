@@ -37,9 +37,9 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="typeA" length="20.00"width="5.00" height="12.00" color="cyan"/>
-    <vType id="typeB" length="20.00"width="5.00" height="12.00" color="cyan"/>
-    <vType id="typeC" length="20.00"width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeA" length="20.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeB" length="20.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeC" length="20.00" width="5.00" height="12.00" color="cyan"/>
 
     <route edges="Edge0 Edge1 Edge2" color="yellow" id="routeA"/>
     <route edges="Edge3 Edge4 Edge5" color="yellow" id="routeB"/>
