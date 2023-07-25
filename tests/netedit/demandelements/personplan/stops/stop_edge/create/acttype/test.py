@@ -39,7 +39,7 @@ netedit.changePersonPlan("walk: edge", False)
 
 # create route using two one
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, 180, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -47,14 +47,14 @@ netedit.typeEnter()
 # go to personStopEdge mode
 netedit.personPlanMode()
 
-# select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
+# go to personStopEdge mode
+netedit.selectPerson("p_0")
 
 # go to personStopEdge mode
 netedit.changePersonPlanMode("stopPerson: edge")
 
 # create personStopEdge
-netedit.leftClick(referencePosition, 180, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.actType, "dummy")

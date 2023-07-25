@@ -1675,6 +1675,20 @@ def changePersonPlanMode(personPlan):
     # type enter to save change
     typeEnter()
 
+def selectPerson(person):
+    """
+    @brief select person in containerPlan
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to person plan
+    for _ in range(2):
+        typeTab()
+    # paste the new containerPlan
+    pasteIntoTextField(person)
+    # type enter to save change
+    typeEnter()
+
 #################################################
     # containerPlan elements
 #################################################

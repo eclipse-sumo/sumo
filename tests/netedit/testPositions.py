@@ -131,6 +131,11 @@ class demandElements:
         x = 500
         y = 210
 
+    # click over person stop
+    class stopPerson:
+        x = 280
+        y = 0
+
     # click over single trip or flow over junctions
     class singleVehicleJunction:
         x = 160
