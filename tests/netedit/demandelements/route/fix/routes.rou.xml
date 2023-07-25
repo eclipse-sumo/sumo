@@ -39,5 +39,5 @@
     <route edges="Edge0 Edge1" color="yellow" id="route_0"/>
     <route edges="Edge1 Edge2" color="orange" id="route_1"/>
     <route edges="Edge0 Edge1 Edge2" color="magenta" id="route_2"/>
-    <route edges="Edge2 gneE8" color="white" id="route_3"/>
+    <route edges="Edge2 EdgeCenter0" color="white" id="route_3"/>
 </routes>
