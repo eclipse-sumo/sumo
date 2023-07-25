@@ -38,13 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 110, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 10, netedit.positions.demandElements.edge2.y)
 
 # change parking
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.parking, "true")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 100, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 8, netedit.positions.demandElements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

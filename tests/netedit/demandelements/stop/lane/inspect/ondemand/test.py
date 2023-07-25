@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 265, 188)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
 netedit.modifyBoolAttribute(netedit.attrs.stopLane.inspect.onDemand, False)
