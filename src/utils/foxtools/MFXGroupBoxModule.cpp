@@ -76,6 +76,8 @@ MFXGroupBoxModule::MFXGroupBoxModule(GNEFrame* frame, const std::string& text, c
         myLoadButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonMFXGroupBoxModule);
     }
     myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelMFXGroupBoxModule);
+    FXFont* captionfont = frame->getFrameHeader2Font();
+    myLabel->setFont(captionfont);
     // build collapsable frame
     myCollapsableFrame = new FXVerticalFrame(this, GUIDesignCollapsableFrame);
 }

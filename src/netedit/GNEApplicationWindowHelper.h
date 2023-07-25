@@ -66,18 +66,21 @@ struct GNEApplicationWindowHelper {
 
         /// @brief build menu toolbar grips
         void buildMenuToolbarsGrip();
+        void buildMenuToolbarsGrip2();
 
         /// @brief build toolbars grips
         void buildViewParentToolbarsGrips();
+        void buildViewParentToolbarsGrips2();
 
         /// @brief build toolbars grips
         void destroyParentToolbarsGrips();
 
         /// @brief The application menu bar (for file, edit, processing...)
         FXMenuBar* menu = nullptr;
+        FXMenuBar* menu2 = nullptr;
 
         /// @brief The application menu bar for supermodes (network, demand and data)
-        FXMenuBar* superModes = nullptr;
+        //FXMenuBar* superModes = nullptr;
 
         /// @brief The application menu bar for save elements
         FXMenuBar* saveElements = nullptr;
@@ -97,6 +100,8 @@ struct GNEApplicationWindowHelper {
     private:
         /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
+
+        FXToolBarShell* leftToolBarShellMenu;
 
         /// @brief menu bar drag (for file, edit, processing...)
         FXToolBarShell* myPythonToolBarShellMenu = nullptr;
@@ -960,6 +965,7 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCommand for open option menus
         FXMenuCommand* optionMenus = nullptr;
 
+
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;
@@ -995,6 +1001,26 @@ struct GNEApplicationWindowHelper {
 
         /// @brief Invalidated assignment operator.
         LocateMenuCommands& operator=(const LocateMenuCommands&) = delete;
+    };
+
+    /// @brief struct for locate menu commands
+    struct ReportsMenuCommands {
+
+        /// @brief constructor
+        ReportsMenuCommands(GNEApplicationWindow* GNEApp);
+
+        /// @brief build menu commands
+        void buildReportsMenuCommands(FXMenuPane* locateMenu);
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp;
+
+        /// @brief Invalidated copy constructor.
+        ReportsMenuCommands(const ReportsMenuCommands&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ReportsMenuCommands& operator=(const ReportsMenuCommands&) = delete;
     };
 
     /// @brief struct for locate menu commands

@@ -66,6 +66,7 @@ public:
 
     /// @brief get top dock
     FXDockSite* getTopDock();
+    FXDockSite* getLeftDock();
 
     /// @brief get view IDs
     std::vector<std::string> getViewIDs() const;

@@ -70,6 +70,7 @@ public:
 
     /// @brief get font of the header's frame
     FXFont* getFrameHeaderFont() const;
+    FXFont* getFrameHeader2Font() const;
 
     /// @brief get scrollBar width (zero if is hidden)
     int getScrollBarWidth() const;
@@ -140,6 +141,7 @@ private:
 
     /// @brief static Font for the Header (it's common for all headers, then create only one time)
     static FXFont* myFrameHeaderFont;
+    static FXFont* myFrameHeader2Font;
 
     /// @brief the label for the frame's header
     FXLabel* myFrameHeaderLabel = nullptr;

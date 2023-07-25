@@ -120,6 +120,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
 
 #endif
     // Time
+    FXMAPFUNC(SEL_COMMAND, MID_APP3D, GUIApplicationWindow::onCmdOpen3d),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,           GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,          GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,                    GUIApplicationWindow::onCmdStop),
@@ -147,6 +148,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,                                   GUIApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_QUICK_RELOAD,                               GUIApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                                             GUIApplicationWindow::onUpdOpenRecent),
+    FXMAPFUNC(SEL_UPDATE, MID_APP3D, GUIApplicationWindow::onUpd3D),
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,                                          GUIApplicationWindow::onUpdAddView),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,          GUIApplicationWindow::onUpdStart),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,               GUIApplicationWindow::onUpdStop),
@@ -684,6 +686,8 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar2 = new FXToolBar(myTopDock, myToolBarDrag2, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build simulation tools
+        new MFXButtonTooltip(myToolBar2, myStaticTooltipMenu, TL("\t3B simulasyon\t 3B simulasyon uygulamasini acar."),
+            GUIIconSubSys::getIcon(GUIIcon::APP3D), this, MID_APP3D, GUIDesignButtonToolbar);
         new MFXButtonTooltip(myToolBar2, myStaticTooltipMenu, TL("\tRun\tStart/Resume the loaded simulation."),
                              GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS, GUIDesignButtonToolbar);
         new MFXButtonTooltip(myToolBar2, myStaticTooltipMenu, TL("\tStop\tHalt the running simulation."),
@@ -1135,6 +1139,47 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+long
+GUIApplicationWindow::onCmdOpen3d(FXObject* d, FXSelector, void*) {
+    std::string currentConfig = myRecentConfigs.getFile(1).text();
+    std::string sumoUnity = "Sumo-UnityPython.exe";
+    const char* sumoPath = getenv("SUMO_HOME");
+
+    if (sumoPath != nullptr) {
+
+        std::string newPath = std::string(sumoPath) + "/bin/Sumo-UnityPython";
+
+        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+            sumoUnity = "\"" + newPath + ".exe" + "\"";
+        }
+    }
+    std::string cmd = sumoUnity;
+    // start in background
+
+    cmd = cmd + " -n " + currentConfig;
+    //std::vector<GUISUMOAbstractView::Decal> myDecals = GUISettingsHandler::getDecals();
+
+
+
+    //GUISettingsHandler::getDecals()
+    //    3:31 PM
+
+
+    //    Behrisch, Michael
+
+
+
+    //    GUISUMOAbstractView::drawDecals()
+
+    //// GUISettingsHandler::getDecals();
+
+    // traci.simulation.getOption
+
+    WRITE_MESSAGE(TL("Running ") + cmd);
+    // yay! fun with dangerous commands... Never use this over the internet
+    SysUtils::runHiddenCommand(cmd);
+    return 0;
+}
 
 long
 GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
@@ -1320,6 +1365,15 @@ GUIApplicationWindow::onCmdStep(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+long
+GUIApplicationWindow::onUpd3D(FXObject* sender, FXSelector, void* ptr) {
+    sender->handle(this,
+        !myRunThread->simulationIsStartable() || myAmLoading
+        ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
+        ptr);
+
+    return 1;
+}
 
 long
 GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {

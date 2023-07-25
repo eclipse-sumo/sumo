@@ -179,6 +179,9 @@ public:
     /// @brief called when user run a tool
     long onCmdRunPythonTool(FXObject* obj, FXSelector, void*);
 
+    /// @brief called when the command/FXCall run Reports is executed
+    long onCmdReportsApp(FXObject*, FXSelector, void*);
+
     /// @brief post processing after run tool
     long onCmdPostProcessingPythonTool(FXObject* obj, FXSelector, void*);
 
@@ -543,6 +546,7 @@ public:
 
     /// @brief get ToolbarsGrip
     GNEApplicationWindowHelper::ToolbarsGrip& getToolbarsGrip();
+    GNEApplicationWindowHelper::ToolbarsGrip& getToolbarsGrip2();
 
     /// @brief update recomputing label
     void updateRecomputingLabel();
@@ -620,6 +624,7 @@ protected:
                              *myProcessingMenu = nullptr,
                               *myLocatorMenu = nullptr,
                                *myToolsMenu = nullptr,
+                                * myReportsMenu = nullptr,
                                 *myToolsDetectorMenu = nullptr,
                                  *myToolsDistrictMenu = nullptr,
                                   *myToolsDRTMenu = nullptr,
@@ -703,6 +708,10 @@ protected:
 private:
     /// @brief Toolbars Grip
     GNEApplicationWindowHelper::ToolbarsGrip myToolbarsGrip;
+    GNEApplicationWindowHelper::ToolbarsGrip leftToolbarsGrip;
+
+    /// @brief Reports Menu Commands
+    GNEApplicationWindowHelper::ReportsMenuCommands myReportsMenuCommands;
 
     /// @brief MenuBarFile
     GNEApplicationWindowHelper::MenuBarFile myMenuBarFile;

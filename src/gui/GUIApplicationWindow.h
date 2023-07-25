@@ -147,6 +147,9 @@ public:
     /// @brief Called on menu File->Load Shapes
     long onCmdOpenShapes(FXObject*, FXSelector, void*);
 
+    /// @brief Called on 3d button pressed
+    long onCmdOpen3d(FXObject* sender, FXSelector, void*);
+
     /// @brief Called on menu File->Load EdgeData
     long onCmdOpenEdgeData(FXObject*, FXSelector, void*);
 
@@ -277,6 +280,9 @@ public:
 
     /// @brief Determines whether reloading is enabled
     long onUpdReload(FXObject*, FXSelector, void*);
+
+    /// @brief Determines whether "3d" is enabled
+    long onUpd3D(FXObject* sender, FXSelector, void* ptr);
 
     /// @brief Determines whether opening a recent file is enabled
     long onUpdOpenRecent(FXObject*, FXSelector, void*);

@@ -60,9 +60,17 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildMenuToolbarsGrip() {
     new FXToolBarGrip(menu, menu, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
 }
 
+void
+GNEApplicationWindowHelper::ToolbarsGrip::buildMenuToolbarsGrip2() {
+    // build menu bar (for File, edit, processing...) using specify design
+    //leftToolBarShellMenu = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+
+}
 
 void
-GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
+GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips2() {
+
+
     // build toolbar shells
     myPythonToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
@@ -70,31 +78,22 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     myPythonToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    // build menu bars
-    superModes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
-    saveElements = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
-    timeSwitch = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellTimeFormat, GUIDesignToolBarRaisedSame);
-    navigation = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellNavigation, GUIDesignToolBarRaisedSame);
+
+    // create modes depending of option "gui-testing" (note: Used for NETEDIT test)
     if (OptionsCont::getOptions().getBool("gui-testing")) {
-        modes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellModes, GUIDesignToolBarRaisedNext);
-    } else {
-        modes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellModes, GUIDesignToolBarRaisedSame);
+        modes = new FXMenuBar(myGNEApp->getLeftDock(), myPythonToolBarShellModes, GUIDesignToolBarRaisedNext);
     }
-    intervalBar = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellIntervalBar, GUIDesignToolBarRaisedNext);
-    // build FXToolBarGrip
-    new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    new FXToolBarGrip(saveElements, saveElements, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    new FXToolBarGrip(timeSwitch, timeSwitch, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    else {
+        modes = new FXMenuBar(myGNEApp->getLeftDock(), myPythonToolBarShellModes, GUIDesignToolBarRaisedSame);
+    }
+    modes->setDockingSide(FXMenuBar::ID_DOCK_FLIP);
+    // declare toolbar grip for menu bar modes
     new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    new FXToolBarGrip(intervalBar, intervalBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+
+
+
     // create menu bars
-    superModes->create();
-    saveElements->create();
-    timeSwitch->create();
-    navigation->create();
     modes->create();
-    intervalBar->create();
     // create toolbar shells
     myPythonToolBarShellSuperModes->create();
     myPythonToolBarShellSaveElements->create();
@@ -102,15 +101,59 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     myPythonToolBarShellNavigation->create();
     myPythonToolBarShellModes->create();
     myPythonToolBarShellIntervalBar->create();
+
+   
+
+    myGNEApp->getLeftDock()->recalc();
+    myGNEApp->getTopDock()->recalc();
+
+}
+
+void
+GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
+    //// build toolbar shells
+    //myPythonToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    //myPythonToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    //myPythonToolBarShellTimeFormat = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    //myPythonToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    //myPythonToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    //myPythonToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    // build menu bars
+    //superModes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
+    saveElements = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSaveElements, GUIDesignToolBarRaisedSame);
+    timeSwitch = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellTimeFormat, GUIDesignToolBarRaisedSame);
+    navigation = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellNavigation, GUIDesignToolBarRaisedSame);
+    /*if (OptionsCont::getOptions().getBool("gui-testing")) {
+        modes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellModes, GUIDesignToolBarRaisedNext);
+    } else {
+        modes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellModes, GUIDesignToolBarRaisedSame);
+    }*/
+    intervalBar = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellIntervalBar, GUIDesignToolBarRaisedSame);
+    // build FXToolBarGrip
+    //new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    new FXToolBarGrip(saveElements, saveElements, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    new FXToolBarGrip(timeSwitch, timeSwitch, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    //new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    new FXToolBarGrip(intervalBar, intervalBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // create menu bars
+    //superModes->create();
+    saveElements->create();
+    timeSwitch->create();
+    navigation->create();
+    /*modes->create();*/
+    intervalBar->create();
+    
     // recalc top dop after creating elements
     myGNEApp->getTopDock()->recalc();
+    myGNEApp->getLeftDock()->recalc();
 }
 
 
 void
 GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
     // delete Menu bars
-    delete superModes;
+    //delete superModes;
     delete saveElements;
     delete timeSwitch;
     delete navigation;
@@ -125,6 +168,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
     delete myPythonToolBarShellIntervalBar;
     // recalc top dop after deleting elements
     myGNEApp->getTopDock()->recalc();
+    myGNEApp->getLeftDock()->recalc();
 }
 
 // ===========================================================================
@@ -2013,6 +2057,22 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
     myRunNetgenerateDialog = new GNERunNetgenerateDialog(myGNEApp);
 }
 
+// ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::ToolsMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::ReportsMenuCommands::ReportsMenuCommands(GNEApplicationWindow* GNEApp) :
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindowHelper::ReportsMenuCommands::buildReportsMenuCommands(FXMenuPane* locateMenu) {
+    // build locate menu commands
+    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
+        TL("&Reports App"), "", "Opens an app for quick reports.",
+        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), myGNEApp, MID_GNE_REPORTS_NETDIFF);
+}
 
 long
 GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) const {

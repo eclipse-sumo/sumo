@@ -360,6 +360,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_OPENPYTHONTOOLDIALOG,        GNEApplicationWindow::onUpdPythonTool),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL,               GNEApplicationWindow::onCmdRunPythonTool),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL,    GNEApplicationWindow::onCmdPostProcessingPythonTool),
+    // report Tools
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REPORTS_NETDIFF, GNEApplicationWindow::onCmdReportsApp),
     // toolbar windows
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
     // toolbar help
@@ -448,6 +450,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myUndoList(new GNEUndoList(this)),
     myConfigPattern(configPattern),
     myToolbarsGrip(this),
+    leftToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
     myModesMenuCommands(this),
@@ -459,6 +462,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
     mySupermodeCommands(this),
+    myReportsMenuCommands(this),
     myTitlePrefix("netedit " VERSION_STRING) {
     // init icons
     GUIIconSubSys::initIcons(a);
@@ -472,7 +476,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     a->setTooltipPause(1000000000);
     // set SUMO Options descriptions
     mySumoOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
-    mySumoOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
+    mySumoOptions.setApplicationName("sumo-Anka", "Eclipse SUMO sumo-Anka Version " VERSION_STRING);
     // set default netedit options
     GNELoadThread::fillOptions(myOriginalNeteditOptions);
     GNELoadThread::setDefaultOptions(myOriginalNeteditOptions);
@@ -504,6 +508,7 @@ GNEApplicationWindow::dependentBuild() {
     setSelector(MID_WINDOW);
     // build toolbar menu
     getToolbarsGrip().buildMenuToolbarsGrip();
+    getToolbarsGrip2().buildMenuToolbarsGrip2();
     // build the thread - io
     myLoadThreadEvent.setTarget(this);
     myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -524,6 +529,9 @@ GNEApplicationWindow::dependentBuild() {
     myTestCoordinate = new FXLabel(myTestFrame, (TL("N/A") + std::string("\t\t") + TL("Test coordinate")).c_str(), nullptr, GUIDesignLabelStatusBar);
     myTestCoordinate->setTextColor(FXRGB(255, 0, 0));
     myTestFrame->hide();
+    // setting base color as white 
+    getApp()->reg().writeStringEntry("SETTINGS", "basecolor", "white"); 
+
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
     myMDIClient = new FXMDIClient(myMainSplitter, GUIDesignSplitterMDI);
@@ -595,6 +603,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myFileMenuAdditionals;
     delete myFileMenuDemandElements;
     delete myFileMenuMeanDataElements;
+    delete myReportsMenu;
     delete myFileMenuDataElements;
     delete myFileMenuRecentNetworks;
     delete myFileMenuRecentConfigs;
@@ -1009,6 +1018,34 @@ GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+long
+GNEApplicationWindow::onCmdReportsApp(FXObject* sender, FXSelector sel, void* e) {
+    onCmdSaveSumoConfig(sender, sel, e);
+    auto& neteditOptions = OptionsCont::getOptions();
+    std::string configPath = neteditOptions.getString("sumocfg-file");
+
+    std::string sumoReport = "Sumo_ReportPython.exe";
+    const char* sumoPath = getenv("SUMO_HOME");
+
+    if (sumoPath != nullptr) {
+
+        std::string newPath = std::string(sumoPath) + "/bin/Sumo_ReportPython";
+
+        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+            sumoReport = "\"" + newPath + ".exe" + "\"";
+        }
+    }
+    std::string cmd = sumoReport;
+    // start in background
+
+    cmd = cmd + " -c " + configPath;
+
+    WRITE_MESSAGE(TL("Running ") + cmd);
+    // yay! fun with dangerous commands... Never use this over the internet
+    SysUtils::runHiddenCommand(cmd);
+
+    return 1;
+}
 
 long
 GNEApplicationWindow::onUpdSmartReload(FXObject* sender, FXSelector, void*) {
@@ -1271,6 +1308,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setWindowSizeAndPos();
         // build viewparent toolbar grips before creating view parent
         getToolbarsGrip().buildViewParentToolbarsGrips();
+        getToolbarsGrip2().buildViewParentToolbarsGrips2();
         // initialise netedit View
         GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "netedit VIEW", this, nullptr, myNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
         // create it maximized
@@ -1465,6 +1503,10 @@ GNEApplicationWindow::fillMenuBar() {
     myMenuPaneToolMaps["xml"] = myToolsXML;
     // build tools
     myToolsMenuCommands.buildTools(myToolsMenu, myMenuPaneToolMaps);
+    // build sim reports menu
+    myReportsMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Reports"), nullptr, myReportsMenu);
+    myReportsMenuCommands.buildReportsMenuCommands(myReportsMenu);
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
@@ -1519,6 +1561,10 @@ GNEApplicationWindow::getToolbarsGrip() {
     return myToolbarsGrip;
 }
 
+GNEApplicationWindowHelper::ToolbarsGrip&
+GNEApplicationWindow::getToolbarsGrip2() {
+    return leftToolbarsGrip;
+}
 
 void
 GNEApplicationWindow::updateRecomputingLabel() {
@@ -4802,6 +4848,7 @@ GNEApplicationWindow::loadDataElements() {
 
 GNEApplicationWindow::GNEApplicationWindow() :
     myToolbarsGrip(this),
+    leftToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
     myModesMenuCommands(this),
@@ -4810,6 +4857,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
     myToolsMenuCommands(this),
+    myReportsMenuCommands(this),
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
     mySupermodeCommands(this) {
