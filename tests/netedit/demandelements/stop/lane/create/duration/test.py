@@ -71,7 +71,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, 350, 185)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

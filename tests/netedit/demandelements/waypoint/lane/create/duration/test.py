@@ -71,7 +71,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.duration, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 350, 185)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
