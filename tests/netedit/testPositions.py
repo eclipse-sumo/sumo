@@ -44,21 +44,21 @@ class demandElements:
         x = 450
         y = 390
 
-    class edgeBike1:
+    class edgeBus1:
         x = 115
         y = 150
 
-    class edgeBike2:
+    class edgeBus2:
         x = 150
         y = 150
 
     class edgeCenter1:
-        x = 330
-        y = 255
+        x = 350
+        y = 250
 
     class edgeCenter2:
-        x = 330
-        y = 220
+        x = 350
+        y = 205
 
     class junction0:
         x = 135

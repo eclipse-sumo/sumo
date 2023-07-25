@@ -82,9 +82,9 @@ class modes:
 
 class frames:
     class route:
-        create = 15
-        abort = 16
-        removeLastInsertedEdge = 17
+        create = 16
+        abort = 17
+        removeLastInsertedEdge = 18
 
 
 class fix:
@@ -1497,26 +1497,29 @@ class type:
 class route:
     class create:
         id = 7
-        colorButton = 8
-        color = 9
-        repeat = 10
-        cycletime = 11
+        routeDistribution = 8
+        colorButton = 9
+        color = 10
+        repeat = 11
+        cycletime = 12
 
     class inspect:
         id = 1
-        edges = 2
-        colorButton = 3
-        color = 4
-        repeat = 5
-        cycletime = 6
-        parameters = 9
+        routeDistribution = 2
+        edges = 3
+        colorButton = 4
+        color = 5
+        repeat = 6
+        cycletime = 7
+        parameters = 10
 
     class inspectSelection:
-        colorButton = 1
-        color = 2
-        repeat = 3
-        cycletime = 4
-        parameters = 7
+        routeDistribution = 1
+        colorButton = 2
+        color = 3
+        repeat = 4
+        cycletime = 5
+        parameters = 8
 
     class reverse:
         current = 1
