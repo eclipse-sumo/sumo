@@ -47,13 +47,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.tripID, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x, netedit.positions.demandElements.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x + 2, netedit.positions.demandElements.trainStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.tripID, "customLine")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x, netedit.positions.demandElements.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x + 4, netedit.positions.demandElements.trainStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
