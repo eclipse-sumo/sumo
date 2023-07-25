@@ -51,7 +51,7 @@ netedit.deleteMode()
 netedit.setZoom("0", "5", "5")
 
 # delete person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)

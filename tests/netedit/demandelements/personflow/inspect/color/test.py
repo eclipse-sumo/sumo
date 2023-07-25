@@ -51,7 +51,7 @@ netedit.setZoom("0", "5", "5")
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.personFlow.inspect.colorButton, 5, False)

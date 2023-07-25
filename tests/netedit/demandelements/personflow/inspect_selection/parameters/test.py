@@ -44,7 +44,7 @@ netedit.setZoom("0", "5", "5")
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.personFlow.inspectSelection.parameters, False)

@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.setZoom("0", "5", "5")
 
 # transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y,
+netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y,
                                 netedit.attrs.person.transformTo, 1)
 
 # Check undo
