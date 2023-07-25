@@ -41,10 +41,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 265, 188)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.permitted, "permitA permitB", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.permitted, "permitA permitB", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.triggered, "dummy", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.triggered, "container", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.triggered, "container", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.expected, "containerA containerB", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.expected, "containerA containerB", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

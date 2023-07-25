@@ -41,16 +41,16 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 265, 188)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.tripID, ";;;;;", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.tripID, ";;;;;", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.tripID, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.tripID, "", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.tripID, "customTripID", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.tripID, "customTripID", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

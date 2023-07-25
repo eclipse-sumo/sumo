@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.actType, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.actType, "dummy", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.actType, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.actType, "", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.actType, "singing", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.actType, "singing", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

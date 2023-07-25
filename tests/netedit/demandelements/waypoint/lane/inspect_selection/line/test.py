@@ -41,16 +41,16 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 265, 188)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.line, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.line, "dummy", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.line, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.line, "", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.line, "customLine", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.line, "customLine", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

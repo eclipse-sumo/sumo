@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.permitted, "permitA permitB", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.permitted, "permitA permitB", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
