@@ -2,5 +2,4 @@ Warning: Choosing new speed factor 1.44 for vehicle 'tripA' to match departure s
 Warning: Choosing new speed factor 1.44 for vehicle 'tripB' to match departure speed 20.00 (max 13.04).
 Warning: Vehicle 'tripA' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'tripA' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'tripA' will not be able to depart using the given velocity (junction 'Junction1' too close)!
 Error: Vehicle 'tripB' will not be able to depart using the given velocity (slow lane ahead)!
