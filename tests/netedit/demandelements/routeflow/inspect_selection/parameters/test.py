@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.routeFlow.inspectSelection.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.routeFlow.inspectSelection.parameters, True)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

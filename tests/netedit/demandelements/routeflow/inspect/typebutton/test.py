@@ -64,7 +64,7 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.type, "custom_vType", Tr
 netedit.modifyBoolAttribute(netedit.attrs.routeFlow.inspect.typeButton, True)
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.type.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.type.color, "12,13,14", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

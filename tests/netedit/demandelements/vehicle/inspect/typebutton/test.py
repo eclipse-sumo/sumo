@@ -64,7 +64,7 @@ netedit.modifyAttribute(netedit.attrs.vehicle.inspect.type, "custom_vType", True
 netedit.modifyBoolAttribute(netedit.attrs.vehicle.inspect.typeButton, True)
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.type.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.type.color, "12,13,14", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

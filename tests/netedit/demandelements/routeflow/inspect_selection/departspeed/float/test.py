@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "", True)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "dummySpeed", True)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "500", False)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "500", True)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "-10", False)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "-10", True)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "20", False)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "20", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
