@@ -29,7 +29,7 @@ class demandElements:
         x = 885
         y = 225
     class edge2:
-        x = 280
+        x = 375
         y = 30
 
     class edge3:
@@ -135,6 +135,11 @@ class demandElements:
     class stopPerson:
         x = 280
         y = 0
+
+    # click over stop edge
+    class stopEdge:
+        x = 260
+        y = 35
 
     # click over single trip or flow over junctions
     class singleVehicleJunction:
