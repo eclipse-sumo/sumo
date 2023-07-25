@@ -34,12 +34,12 @@ if it has the proper [extension](Other/File_Extensions.md)
 file](Basics/Using_the_Command_Line_Applications.md#configuration_files)
 is erroneous, the errors are reported, otherwise your network referenced
 within the configuration file should be shown. Now you can start to
-simulate by pressing the "play" button (![Play.gif](images/Play.gif "Play")). The simulation works as if being started on the
+simulate by pressing the "play" button (![icon_play.png](images/icon_play.png "Play")). The simulation works as if being started on the
 command line. The simulation can be halted using the "stop" button
-(![Stop.gif](images/Stop.gif "Stop")) and continued by pressing
+(![icon_stop.png](images/icon_stop.png "Stop")) and continued by pressing
 the "play" button again. When stopped, also single steps may be
 performed by pressing the "single step" button
-(![Step.gif](images/Step.gif "Step")).
+(![icon_step.png](images/icon_step.png "Step")).
 
 If the simulation is running, the current simulation second is shown in
 the "digital digits" field, right to "Time:"
@@ -62,7 +62,7 @@ using the "open network"-icon (![Open_net.png](images/Open_net.png "Open net")).
 accepts other extensions.
 
 Both, the loaded simulation or the loaded network may be reloaded using
-the "reload" button (![Reload.gif](images/Reload.gif "Reload"))
+the "reload" button (![icon_reload.png](images/icon_reload.png "Reload"))
 or the menu entry "File-\>Reload".
 
 If a network or a simulation are loaded, the navigation through the
@@ -87,7 +87,7 @@ It is also possible to change the zoom by using the mouse wheel (holding
 *<SHIFT\>* increases the zooming speed and holding *<CTRL\>* lowers it).
 Zooming is either focused on the center of the screen or on the cursor
 position. The zoom style can be selected with the
-![Zoomstyle.png](images/Zoomstyle.png "Zoomstyle") button.
+![icon_zoomstyle.png](images/icon_zoomstyle.png "Zoomstyle") button.
 
 You can also control which part of the network is visible by directly
 setting the network coordinates which shall be at the center of the
@@ -104,7 +104,7 @@ viewport editor).
 The viewport is defined as following:
 `<viewport zoom="<ZOOM>" x="<X>" y="<Y>"/>`. It can be in a gui-settings file.
 
-Pressing the center-button (![Center.gif](images/Center.gif
+Pressing the center-button (![images/icon_recenter_view.png](images/icon_recenter_view.png
 "Center")) from the menu bar at the top of the view, will
 reset the viewport so that the complete network is shown.
 
@@ -471,7 +471,7 @@ The following coloring options are useful in this regard:
 
 The View Settings menu allows to change and customize the simulations'
 appearance and visualization. To open the visualization settings use
-![Colorwheel.gif](images/Colorwheel.gif "Colorwheel") in the
+![icon_colorwheel.png](images/icon_colorwheel.png "Colorwheel") in the
 menu bar at the top of the view.
 
 For customizing the simulation one can make changes e.g. to the
@@ -694,7 +694,7 @@ well](#changing_the_appearancevisualisation_of_the_simulation).
 In addition to changing the appearance of simulated structures, one may
 also load additional background images ("decals") into
 **sumo-gui**. For this, open the visualization
-settings using ![Colorwheel.gif](images/Colorwheel.gif "Colorwheel") and - if you are not yet here - choose the
+settings using ![icon_colorwheel.png](images/icon_colorwheel.png "Colorwheel") and - if you are not yet here - choose the
 "Background" panel (see Figure below). You will see a table with the following
 columns: **file**, **centerX**, **centerY**, **width**,
 **height**, **rotation**, **layer** and **relative**.

@@ -139,7 +139,7 @@ background images](../sumo-gui.md#showing_background_images). It is also possibl
 
 ### Background Grid
 
-When activating the background grid via the visualization settings dialog ![](../images/Colorwheel.gif) or via the *show grid* option in [Create Edge Mode](editModesNetwork.md#create_edges), all clicks that create or move objects will snap to the nearest grid point. The resolution of the grid can be
+When activating the background grid via the visualization settings dialog ![](../images/icon_colorwheel.png) or via the *show grid* option in [Create Edge Mode](editModesNetwork.md#create_edges), all clicks that create or move objects will snap to the nearest grid point. The resolution of the grid can be
 customized in the *Background*-Tab of the visualization settings dialog. By using hotkey **Ctrl-PageUp** the grid spacing is doubled and with **Ctrl-PageDown** the grid size is reduce by a factor of 2.
 
 ## Terminology

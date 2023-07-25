@@ -36,7 +36,7 @@ Make sure that **Network** is selected.
 ![](../images/neteditNetworkMode.png)
 
 Enter **Edge Mode** by selecting *Edit-\>Edge mode*, using the shortcut `E` or by clicking on the ![](../images/ModeCreateEdge.gif) button.
-In Edge Mode, make sure that ***Chain*** is selected (in newer versions, *Chain* is the following icon: ![](../images/checkbox_chain.png)). This will facilitate creating multiple nodes and their connecting edges with fewer clicks.
+In Edge Mode, make sure that ***Chain*** is selected (in newer versions, *Chain* is the following icon: ![](../images/icon_checkbox_chain.png)). This will facilitate creating multiple nodes and their connecting edges with fewer clicks.
 
 ![](../images/neteditChainSelected.png)
 
@@ -124,7 +124,7 @@ Now you can close netedit if you wish.
 
 Before starting the simulation, make sure that the Delay (![](../images/Delay.png)) is set to at least 80 ms, as otherwise the simulation would happen very quickly and we would not be able to see our only vehicle in our tiny network.
 
-Click on Run ![](../images/Play.gif) (Ctrl + A) to start the simulation.
+Click on Run ![](../images/icon_play.png) (Ctrl + A) to start the simulation.
 
 ![](../images/HelloWorld_5.gif)
 
