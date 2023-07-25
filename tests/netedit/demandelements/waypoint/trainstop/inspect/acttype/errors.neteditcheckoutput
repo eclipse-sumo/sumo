@@ -1,2 +1,0 @@
-Warning: busStop 'trainStopA' on lane 'Edge2_0' is too short for vehicle 'vehicle_0'.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_0' for unknown reasons (decel=-3.50, offset=0.33), time=15.00.
