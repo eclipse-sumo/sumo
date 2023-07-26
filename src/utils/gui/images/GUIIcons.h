@@ -446,12 +446,15 @@ enum class GUIIcon {
     OVERHEADWIRE_CLAMP,
     /// @}
 
-    /// @name poly elements icons
+    /// @name shape elements icons
     /// @{
     POLY,
     POI,
     POILANE,
     POIGEO,
+    WALKABLEAREA,
+    OBSTACLE,
+    POIWAYPOINT,
     /// @}
 
     /// @name TAZ elements icons

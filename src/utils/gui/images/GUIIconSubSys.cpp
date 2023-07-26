@@ -325,9 +325,12 @@
 #include "overheadwire_clamp.xpm"
 
 #include "poly.xpm"
+#include "walkablearea.xpm"
+#include "obstacle.xpm"
 #include "poi.xpm"
 #include "poilane.xpm"
 #include "poigeo.xpm"
+#include "poiwaypoint.xpm"
 
 #include "taz.xpm"
 #include "tazedge.xpm"
@@ -805,6 +808,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::POI] = new FXXPMIcon(a, poi_xpm);
     myIcons[GUIIcon::POILANE] = new FXXPMIcon(a, poilane_xpm);
     myIcons[GUIIcon::POIGEO] = new FXXPMIcon(a, poigeo_xpm);
+    myIcons[GUIIcon::WALKABLEAREA] = new FXXPMIcon(a, walkablearea_xpm);
+    myIcons[GUIIcon::OBSTACLE] = new FXXPMIcon(a, obstacle_xpm);
+    myIcons[GUIIcon::POIWAYPOINT] = new FXXPMIcon(a, poiwaypoint_xpm);
 
     myIcons[GUIIcon::TAZ] = new FXXPMIcon(a, taz_xpm);
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
