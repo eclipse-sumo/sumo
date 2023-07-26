@@ -31,6 +31,10 @@
 // FOX callback mapping
 // ===========================================================================
 
+FXDEFMAP(GNEMoveFrame::NetworkModeOptions) NetworkModeOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEMoveFrame::NetworkModeOptions::onCmdChangeOption)
+};
+
 FXDEFMAP(GNEMoveFrame::ChangeZInSelection) ChangeZInSelectionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEMoveFrame::ChangeZInSelection::onCmdChangeZValue),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEMoveFrame::ChangeZInSelection::onCmdChangeZMode),
@@ -49,6 +53,7 @@ FXDEFMAP(GNEMoveFrame::ShiftShapeGeometry) ShiftShapeGeometryMap[] = {
 
 
 // Object implementation
+FXIMPLEMENT(GNEMoveFrame::NetworkModeOptions,           MFXGroupBoxModule, NetworkModeOptionsMap,  ARRAYNUMBER(NetworkModeOptionsMap))
 FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,           MFXGroupBoxModule, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
 FXIMPLEMENT(GNEMoveFrame::ShiftEdgeSelectedGeometry,    MFXGroupBoxModule, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
 FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           MFXGroupBoxModule, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
@@ -96,6 +101,9 @@ GNEMoveFrame::NetworkModeOptions::NetworkModeOptions(GNEMoveFrame* moveFramePare
     // Create checkbox for enable/disable move whole polygons
     myMoveWholePolygons = new FXCheckButton(getCollapsableFrame(), TL("Move whole polygons"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myMoveWholePolygons->setCheck(FALSE);
+    // Create checkbox for force draw end geometry points
+    myForceDrawGeometryPoints = new FXCheckButton(getCollapsableFrame(), TL("Force draw geom. points"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myForceDrawGeometryPoints->setCheck(FALSE);
 }
 
 
@@ -123,6 +131,25 @@ GNEMoveFrame::NetworkModeOptions::getMoveWholePolygons() const {
     } else {
         return false;
     }
+}
+
+
+bool
+GNEMoveFrame::NetworkModeOptions::getForceDrawGeometryPoints() const {
+    if (myMoveFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+            (myMoveFrameParent->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+        return (myForceDrawGeometryPoints->getCheck() == TRUE);
+    } else {
+        return false;
+    }
+}
+
+
+long
+GNEMoveFrame::NetworkModeOptions::onCmdChangeOption(FXObject*, FXSelector, void*) {
+    // just update viewNet
+    myMoveFrameParent->getViewNet()->update();
+    return 1;
 }
 
 // ---------------------------------------------------------------------------
