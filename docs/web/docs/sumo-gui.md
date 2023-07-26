@@ -102,7 +102,7 @@ possible to save the current settings (![icon_save.png](images/icon_save.png
 viewport editor).
 
 The viewport is defined as following:
-`<viewport zoom="<ZOOM>" x="<X>" y="<Y>"/>`. It can be in a gui-settings file.
+`<viewport zoom="<ZOOM>" x="<X>" y="<Y>" angle="<ANGLE>"/>`. It can be in a gui-settings file.
 
 Pressing the center-button (![images/icon_recenter_view.png](images/icon_recenter_view.png
 "Center")) from the menu bar at the top of the view, will
