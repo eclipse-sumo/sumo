@@ -59,6 +59,36 @@ public:
         void hideE2MultilaneLegend();
     };
 
+    // ===========================================================================
+    // class HelpCreationModule
+    // ===========================================================================
+
+    class HelpCreationModule : public MFXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        HelpCreationModule(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~HelpCreationModule();
+
+        /// @brief show Legend modul
+        void showHelpCreationModule(SumoXMLTag tag);
+
+        /// @brief hide Legend modul
+        void hideHelpCreationModule();
+
+    private:
+        /// @brief add translated string
+        std::string addTLString(const std::string &str);
+
+        /// @brief help label
+        FXLabel* myHelpLabel = nullptr;
+
+        /// @brief map with tags and their associated help
+        std::map<SumoXMLTag, std::string> myHelpMap;
+    };
+
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -133,6 +163,9 @@ private:
     /// @brief Module for select consecutive lanes
     GNEConsecutiveSelector* myConsecutiveLaneSelector = nullptr;
 
+    /// @brief Module for show additional help legend
+    HelpCreationModule* myHelpCreationModule = nullptr;
+
     /// @brief Module for show E2 Detector legend
-    E2MultilaneLegendModule* myE2DetectorLegendModule = nullptr;
+    E2MultilaneLegendModule* myE2MultilaneLegendModule = nullptr;
 };

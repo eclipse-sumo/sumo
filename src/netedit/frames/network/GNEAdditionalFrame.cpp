@@ -38,7 +38,7 @@
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::E2MultilaneLegendModule::E2MultilaneLegendModule(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, TL("Information")) {
+    MFXGroupBoxModule(frameParent, TL("Legend")) {
     // declare label
     FXLabel* legendLabel = nullptr;
     // edge candidate
@@ -72,6 +72,63 @@ GNEAdditionalFrame::E2MultilaneLegendModule::hideE2MultilaneLegend() {
 }
 
 // ---------------------------------------------------------------------------
+// GNEAdditionalFrame::HelpCreationModule - methods
+// ---------------------------------------------------------------------------
+
+#define TLSX(string) std::string(gettext((string)))
+
+
+
+GNEAdditionalFrame::HelpCreationModule::HelpCreationModule(GNEFrame* frameParent) :
+    MFXGroupBoxModule(frameParent, TL("Help")) {
+    // edge candidate
+    myHelpLabel = new FXLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
+    // fill map
+    //addTLString(TL("-Requiere EntryExitDetector\n")) + 
+    // E1
+    myHelpMap[SUMO_TAG_INDUCTION_LOOP] = addTLString(TL("-Click over lane to create it"));
+    // E1 Instant
+    myHelpMap[SUMO_TAG_INSTANT_INDUCTION_LOOP] = addTLString(TL("-Click over lane to create it"));
+    // E2
+    myHelpMap[SUMO_TAG_LANE_AREA_DETECTOR] = addTLString(TL("-Click over lane to create it"));
+    // E3
+    myHelpMap[SUMO_TAG_ENTRY_EXIT_DETECTOR] = addTLString(TL("-Click over view to create it")) +
+                                              addTLString(TL("-Requiere at least one Entry\n and one Exit"));
+    // E3 Entry
+    myHelpMap[SUMO_TAG_DET_ENTRY] = addTLString(TL("-Requiere EntryExitDetector\n parent\n")) +
+                                    addTLString(TL("-Select EntryExitDetector\n before creating either\n cliking over one in view\n oder selecting in list"));
+    // E3 Exit
+    myHelpMap[SUMO_TAG_DET_EXIT] = addTLString(TL("-Requiere EntryExitDetector\n parent\n")) +
+                                    addTLString(TL("-Select EntryExitDetector\n before creating either\n cliking over one in view\n oder selecting in list"));
+}
+
+
+GNEAdditionalFrame::HelpCreationModule::~HelpCreationModule() {}
+
+
+void
+GNEAdditionalFrame::HelpCreationModule::showHelpCreationModule(SumoXMLTag tag) {
+    if (myHelpMap.count(tag) > 0) {
+        myHelpLabel->setText(myHelpMap.at(tag).c_str());
+        show();
+    } else {
+        hide();
+    }
+}
+
+
+void
+GNEAdditionalFrame::HelpCreationModule::hideHelpCreationModule() {
+    hide();
+}
+
+
+std::string
+GNEAdditionalFrame::HelpCreationModule::addTLString(const std::string &str) {
+    return std::string(str.c_str());
+}
+
+// ---------------------------------------------------------------------------
 // GNEAdditionalFrame: - methods
 // ---------------------------------------------------------------------------
 
@@ -99,8 +156,11 @@ GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* vi
     // Create list for E2Multilane lane selector
     myConsecutiveLaneSelector = new GNEConsecutiveSelector(this, false);
 
+    // create help creation module
+    myHelpCreationModule = new HelpCreationModule(this);
+
     // Create legend for E2 detector
-    myE2DetectorLegendModule = new E2MultilaneLegendModule(this);
+    myE2MultilaneLegendModule = new E2MultilaneLegendModule(this);
 }
 
 
@@ -258,20 +318,22 @@ GNEAdditionalFrame::tagSelected() {
         } else {
             myEdgesSelector->hideNetworkElementsSelector();
         }
+        // show help creation modul
+        myHelpCreationModule->showHelpCreationModule(templateAC->getTagProperty().getTag());
         // check if we must show consecutive lane selector
         if (templateAC->getTagProperty().getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
-            myE2DetectorLegendModule->showE2MultilaneLegend();
+            myE2MultilaneLegendModule->showE2MultilaneLegend();
             myLanesSelector->hideNetworkElementsSelector();
             // recompute network
             myViewNet->getNet()->computeNetwork(myViewNet->getViewParent()->getGNEAppWindows());
         } else if (templateAC->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
-            myE2DetectorLegendModule->hideE2MultilaneLegend();
+            myE2MultilaneLegendModule->hideE2MultilaneLegend();
             myLanesSelector->showNetworkElementsSelector();
         } else {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
-            myE2DetectorLegendModule->hideE2MultilaneLegend();
+            myE2MultilaneLegendModule->hideE2MultilaneLegend();
             myLanesSelector->hideNetworkElementsSelector();
         }
         // reset last position
@@ -284,7 +346,8 @@ GNEAdditionalFrame::tagSelected() {
         myEdgesSelector->hideNetworkElementsSelector();
         myLanesSelector->hideNetworkElementsSelector();
         myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
-        myE2DetectorLegendModule->hideE2MultilaneLegend();
+        myHelpCreationModule->hideHelpCreationModule();
+        myE2MultilaneLegendModule->hideE2MultilaneLegend();
     }
 }
 
