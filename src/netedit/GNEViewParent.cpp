@@ -693,11 +693,14 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POI)) {
                     ACsToLocate.push_back(POI);
                 }
-                for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POILANE)) {
-                    ACsToLocate.push_back(POI);
+                for (const auto& POILane : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POILANE)) {
+                    ACsToLocate.push_back(POILane);
                 }
-                for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIGEO)) {
-                    ACsToLocate.push_back(POI);
+                for (const auto& POIGeo : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIGEO)) {
+                    ACsToLocate.push_back(POIGeo);
+                }
+                for (const auto& POIWayPoint : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIWAYPOINT)) {
+                    ACsToLocate.push_back(POIWayPoint);
                 }
                 break;
             case MID_HOTKEY_SHIFT_L_LOCATEPOLY:
@@ -709,6 +712,12 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 }
                 for (const auto& taz : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
                     ACsToLocate.push_back(taz);
+                }
+                for (const auto& walkableArea : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_WALKABLEAREA)) {
+                    ACsToLocate.push_back(walkableArea);
+                }
+                for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_OBSTACLE)) {
+                    ACsToLocate.push_back(obstacle);
                 }
                 break;
             default:
