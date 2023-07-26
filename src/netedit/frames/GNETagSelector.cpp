@@ -292,7 +292,7 @@ GNETagSelector::ACTemplate::getAC() const {
 
 GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagProperty) :
     myAC(nullptr) {
-    // create attribute carrier depending of
+    // create attribute carrier depending of tag
     switch (tagProperty.getTag()) {
         // additional elements
         case SUMO_TAG_BUS_STOP:
@@ -397,6 +397,16 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
             myAC = nullptr; // TMP
+            break;
+        // JuPedSim elements
+        case GNE_TAG_WALKABLEAREA:
+            myAC = new GNEPoly(net);
+            break;
+        case GNE_TAG_OBSTACLE:
+            myAC = new GNEPoly(net);
+            break;
+        case GNE_TAG_POIWAYPOINT:
+            myAC = new GNEPOI(tagProperty.getTag(), net);
             break;
         // Demand elements
         case SUMO_TAG_ROUTE:
