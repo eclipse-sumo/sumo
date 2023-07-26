@@ -2232,6 +2232,9 @@ GNENet::saveAdditionalsConfirmed() {
     writeShapesComment(device);
     writeAdditionalByType(device, {SUMO_TAG_POLY});
     writeAdditionalByType(device, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
+    // juPedSim elements
+    writeJuPedSimComment(device);
+    writeAdditionalByType(device, {GNE_TAG_WALKABLEAREA, GNE_TAG_OBSTACLE, GNE_TAG_POIWAYPOINT});
     // TAZs
     writeTAZComment(device);
     writeAdditionalByType(device, {SUMO_TAG_TAZ});
@@ -2517,6 +2520,18 @@ GNENet::writeShapesComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
         if (GNEAttributeCarrier::getTagProperty(additionals.first).isShapeElement() && (additionals.second.size() > 0)) {
             device << ("    <!-- Shapes -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeJuPedSimComment(OutputDevice& device) const {
+    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isJuPedSimElement() && (additionals.second.size() > 0)) {
+            device << ("    <!-- JuPedSim elements -->\n");
             return true;
         }
     }

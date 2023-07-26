@@ -577,6 +577,9 @@ private:
     /// @brief write shape comment
     bool writeShapesComment(OutputDevice& device) const;
 
+    /// @brief write JuPedSim comment
+    bool writeJuPedSimComment(OutputDevice& device) const;
+
     /// @brief write TAZ comment
     bool writeTAZComment(OutputDevice& device) const;
 
