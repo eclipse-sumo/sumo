@@ -7,7 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
-  - Fixed major slowdown on windows due to translation. Issue #13561 (regression in 1.16.0)
+  - Fixed major slowdown on windows due to translation. #13561 (regression in 1.16.0)
   - Fixed failure to join a leading train on subsequent edge. #13539
   - Fixed invalid route after trying to to join leading train on subsequent edge of diverging route. #13540
   - Edgedata-output now only counts vehicles that start their teleport on an edge in the teleport count of that edge. #13559
@@ -18,24 +18,24 @@ title: ChangeLog
     - Fixed deadlock on junction when approaching occupied bidiEdge at traffic light. #13541
     - Fixed lane choice when approaching an edge with a shared median lane. #13402
     - Fixed unsafe insertion on bidiLane. #13566
-    - Curved bidi lane now identified on loading #13571
-    - Fixed invalid bidi-leader identification during lane changing #13572, #13576
-    - Fixed invalid collision warning on bidi lane #13573
-    - Fixed failure to change lane on internal bidi lane #13575
+    - Curved bidi lane now identified on loading. #13571
+    - Fixed invalid bidi-leader identification during lane changing. #13572, #13576
+    - Fixed invalid collision warning on bidi lane. #13573
+    - Fixed failure to change lane on internal bidi lane. #13575
 
 - netedit
-  - Fixed problem saving person flow attributes #11022
-  - Fixed problem saving containers sorted by begin attribute in Netedit #11022
-  - Fixed problem saving edgetypes #12467
-  - Added proper error handling for duplicate edgeRelations #11329
-  - Can now load and modify `<vTypeDistribution>` elements #12846
-  - Now if a network element ID is modified, flag for save children is enabled #13619
-  - Avoid mixing edges and lanes in overlapping modul when inspecting edges or lanes #13093 
+  - Fixed problem saving person flow attributes. #11022
+  - Fixed problem saving containers sorted by begin attribute in netedit. #11022
+  - Fixed problem saving edgetypes. #12467
+  - Added proper error handling for duplicate edgeRelations. #11329
+  - Can now load and modify `<vTypeDistribution>` elements. #12846
+  - Now if a network element ID is modified, flag for save children is enabled. #13619
+  - Avoid mixing edges and lanes in overlapping module when inspecting edges or lanes. #13093 
   
 - netconvert
-  - Fixed unequal length of bidi edge #13569
-  - OSM turn lanes for left hand networks are now in right order #13549
-  - Fixed crash joining junctions #13581
+  - Fixed unequal length of bidi edge. #13569
+  - OSM turn lanes for left hand networks are now in right order. #13549
+  - Fixed crash joining junctions. #13581
   - Fixed superfluous connections after joining junction. #13553
 
 - Tools
@@ -48,18 +48,18 @@ title: ChangeLog
 ### Enhancements
 
 - sumo-gui
-  - Added tooltip in scale traffic label #13545   
+  - Added tooltip in scale traffic label. #13545   
 
 - netedit
-  - Now supports Human Readable Time (HH:MM:SS) #11022
-  - Added support for E3 attribute expectArrival #13477
-  - Now type parameters can be edited in main type frame #12378
-  - Now vehicles and routes can be reversed #12967
-  - Improved locator dialog in netedit #12654
-  - Now trips over TAZs or Junctions can be transformed to flows (and vice versa) #13608
-  - Added option "ignore-supermode-question" for disabling question dialog during undo-redo #13620
-  - Add checkbox in Move Frame for forcing draw edge start/end geometry points #13426
-  - Add tooltip in GroupBox expand button #12236
+  - Now supports Human Readable Time (HH:MM:SS). #11022
+  - Added support for E3 attribute expectArrival. #13477
+  - Now type parameters can be edited in main type frame. #12378
+  - Now vehicles and routes can be reversed. #12967
+  - Improved locator dialog in netedit. #12654
+  - Now trips over TAZs or Junctions can be transformed to flows (and vice versa). #13608
+  - Added option "ignore-supermode-question" for disabling question dialog during undo-redo. #13620
+  - Add checkbox in Move Frame for forcing draw edge start/end geometry points. #13426
+  - Add tooltip in GroupBox expand button. #12236
 
 - netconvert
   - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
@@ -69,7 +69,7 @@ title: ChangeLog
   - Game from downloaded zip no longer requires SUMO_HOME. #13583
 
 - Other
-  - Now JuPedSim can be enabled in CMake GUI with a checkbox #13646 
+  - Now JuPedSim can be enabled in CMake GUI with a checkbox. #13646 
 
 ## Version 1.18.0 (29.06.2023)
 
