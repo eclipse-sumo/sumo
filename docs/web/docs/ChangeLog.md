@@ -76,7 +76,7 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
-  - Setting param `vyTpes` for actuated and delay_based tls detectors is working again. Issue #13448 (regression in 1.15.0)
+  - Setting param `vTypes` for actuated and delay_based tls detectors is now working again. Issue #13448 (regression in 1.15.0)
   - Fixed invalid emission and consumption outputs for the HBEFA4 emission classes (model was calibrated on km/h instead of m/s). Issue #13250
   - Collisions on shared walkingareas without vehicular road intersection are now detected. Issue #13132
   - A warning is now given if save-state.times are not reached due to a mismatch with step-length and begin time. Issue #13162
