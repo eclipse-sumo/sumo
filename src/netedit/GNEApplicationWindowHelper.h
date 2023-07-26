@@ -812,6 +812,15 @@ struct GNEApplicationWindowHelper {
         /// @brief menu check to lock POIs
         MFXMenuCheckIcon* menuCheckLockPOIs = nullptr;
 
+        /// @brief menu check to lock walkableareas
+        MFXMenuCheckIcon* menuCheckLockWalkableAreas = nullptr;
+
+        /// @brief menu check to lock obstacles
+        MFXMenuCheckIcon* menuCheckLockObstacles = nullptr;
+
+        /// @brief menu check to lock POI Waypoints
+        MFXMenuCheckIcon* menuCheckLockPOIWaypoints = nullptr;
+
         /// @}
 
         /// @name Processing FXMenuCommands for Demand mode
