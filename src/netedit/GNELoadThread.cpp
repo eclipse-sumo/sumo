@@ -384,6 +384,15 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("poi-prefix", new Option_String("poi"));
     neteditOptions.addDescription("poi-prefix", "Netedit", TL("Prefix for poi naming"));
 
+    neteditOptions.doRegister("walkableArea-prefix", new Option_String("wa"));
+    neteditOptions.addDescription("walkableArea-prefix", "Netedit", TL("Prefix for poi naming"));
+
+    neteditOptions.doRegister("obstacle-prefix", new Option_String("o"));
+    neteditOptions.addDescription("obstacle-prefix", "Netedit", TL("Prefix for poi naming"));
+
+    neteditOptions.doRegister("poiWaypoint-prefix", new Option_String("pw"));
+    neteditOptions.addDescription("poiWaypoint-prefix", "Netedit", TL("Prefix for poi naming"));
+
     // demand prefixes
 
     neteditOptions.doRegister("route-prefix", new Option_String("r"));

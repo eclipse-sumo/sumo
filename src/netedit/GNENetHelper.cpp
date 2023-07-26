@@ -1177,6 +1177,12 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = neteditOptions.getString("poi-prefix");
     } else if (tag == SUMO_TAG_TAZ) {
         prefix = toString(SUMO_TAG_TAZ);
+    } else if (tag == GNE_TAG_WALKABLEAREA) {
+        prefix = neteditOptions.getString("walkableArea-prefix");
+    } else if (tag == GNE_TAG_OBSTACLE) {
+        prefix = neteditOptions.getString("obstacle-prefix");
+    } else if (tag == GNE_TAG_POIWAYPOINT) {
+        prefix = neteditOptions.getString("poiWaypoint-prefix");
     }
     int counter = 0;
     // check special cases
@@ -1192,16 +1198,19 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
                 (retrieveAdditional(GNE_TAG_CALIBRATOR_LANE, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_POLY) || (tag == SUMO_TAG_TAZ)) {
+    } else if ((tag == SUMO_TAG_POLY) || (tag == SUMO_TAG_TAZ) || (tag == GNE_TAG_WALKABLEAREA) || (tag == GNE_TAG_OBSTACLE)) {
         // Polys and TAZs share namespace
         while ((retrieveAdditional(SUMO_TAG_POLY, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveAdditional(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(GNE_TAG_WALKABLEAREA, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(GNE_TAG_OBSTACLE, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_POI) || (tag == GNE_TAG_POILANE) || (tag == GNE_TAG_POIGEO)) {
+    } else if ((tag == SUMO_TAG_POI) || (tag == GNE_TAG_POILANE) || (tag == GNE_TAG_POIGEO) || (tag == GNE_TAG_POIWAYPOINT)) {
         while ((retrieveAdditional(SUMO_TAG_POI, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(GNE_TAG_POIWAYPOINT, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
     } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_MULTI_LANE_AREA_DETECTOR)) {
@@ -1234,9 +1243,10 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
 
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPureAdditionals() const {
-    return getNumberOfSelectedAdditionals() - getNumberOfSelectedPolygons() -
-           getNumberOfSelectedPOIs() - getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() -
-           getNumberOfSelectedTAZSinks() - getNumberOfSelectedWires();
+    return getNumberOfSelectedAdditionals() - getNumberOfSelectedPolygons() - getNumberOfSelectedWalkableArea() -
+           getNumberOfSelectedObstacles() - getNumberOfSelectedPOIWaypoints() - getNumberOfSelectedPOIs() -
+           getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - getNumberOfSelectedTAZSinks() -
+           getNumberOfSelectedWires();
 }
 
 
@@ -1251,6 +1261,41 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPolygons() const {
     return counter;
 }
 
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedWalkableArea() const {
+    int counter = 0;
+    for (const auto& walkableArea : myAdditionals.at(GNE_TAG_WALKABLEAREA)) {
+        if (walkableArea->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedObstacles() const {
+    int counter = 0;
+    for (const auto& obstacle : myAdditionals.at(GNE_TAG_OBSTACLE)) {
+        if (obstacle->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIWaypoints() const {
+    int counter = 0;
+    for (const auto& obstacle : myAdditionals.at(GNE_TAG_POIWAYPOINT)) {
+        if (obstacle->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
 
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIs() const {
