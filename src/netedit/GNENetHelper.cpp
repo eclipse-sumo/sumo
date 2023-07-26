@@ -1243,7 +1243,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
 
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPureAdditionals() const {
-    return getNumberOfSelectedAdditionals() - getNumberOfSelectedPolygons() - getNumberOfSelectedWalkableArea() -
+    return getNumberOfSelectedAdditionals() - getNumberOfSelectedPolygons() - getNumberOfSelectedWalkableAreas() -
            getNumberOfSelectedObstacles() - getNumberOfSelectedPOIWaypoints() - getNumberOfSelectedPOIs() -
            getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - getNumberOfSelectedTAZSinks() -
            getNumberOfSelectedWires();
@@ -1263,7 +1263,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPolygons() const {
 
 
 int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedWalkableArea() const {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedWalkableAreas() const {
     int counter = 0;
     for (const auto& walkableArea : myAdditionals.at(GNE_TAG_WALKABLEAREA)) {
         if (walkableArea->isAttributeCarrierSelected()) {

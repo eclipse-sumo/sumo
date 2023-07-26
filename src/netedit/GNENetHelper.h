@@ -392,7 +392,7 @@ struct GNENetHelper {
         int getNumberOfSelectedPolygons() const;
 
         /// @brief get number of selected walkable areas
-        int getNumberOfSelectedWalkableArea() const;
+        int getNumberOfSelectedWalkableAreas() const;
 
         /// @brief get number of selected obstacles 
         int getNumberOfSelectedObstacles() const;
