@@ -22,7 +22,6 @@
 
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
-#include <netedit/frames/GNEE2DetectorLegendModule.h>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNENeteditAttributes.h>
 #include <netedit/frames/GNENetworkSelector.h>
@@ -40,6 +39,26 @@
 class GNEAdditionalFrame : public GNEFrame {
 
 public:
+    // ===========================================================================
+    // class EdgeTypeSelector
+    // ===========================================================================
+
+    class E2MultilaneLegendModule : public MFXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        E2MultilaneLegendModule(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~E2MultilaneLegendModule();
+
+        /// @brief show Legend modul
+        void showE2MultilaneLegend();
+
+        /// @brief hide Legend modul
+        void hideE2MultilaneLegend();
+    };
+
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -115,5 +134,5 @@ private:
     GNEConsecutiveSelector* myConsecutiveLaneSelector = nullptr;
 
     /// @brief Module for show E2 Detector legend
-    GNEE2DetectorLegendModule* myE2DetectorLegendModule = nullptr;
+    E2MultilaneLegendModule* myE2DetectorLegendModule = nullptr;
 };

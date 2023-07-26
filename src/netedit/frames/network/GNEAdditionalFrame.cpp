@@ -24,6 +24,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEAdditionalFrame.h"
 
@@ -31,6 +32,48 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNEAdditionalFrame::E2MultilaneLegendModule - methods
+// ---------------------------------------------------------------------------
+
+GNEAdditionalFrame::E2MultilaneLegendModule::E2MultilaneLegendModule(GNEFrame* frameParent) :
+    MFXGroupBoxModule(frameParent, TL("Information")) {
+    // declare label
+    FXLabel* legendLabel = nullptr;
+    // edge candidate
+    legendLabel = new FXLabel(getCollapsableFrame(), TL(" edge candidate"), 0, GUIDesignLabel(JUSTIFY_LEFT));
+    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
+    legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
+    // last edge selected
+    legendLabel = new FXLabel(getCollapsableFrame(), TL(" last edge selected"), 0, GUIDesignLabel(JUSTIFY_LEFT));
+    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
+    // edge selected
+    legendLabel = new FXLabel(getCollapsableFrame(), TL(" edge selected"), 0, GUIDesignLabel(JUSTIFY_LEFT));
+    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
+    // edge disconnected
+    legendLabel = new FXLabel(getCollapsableFrame(), TL(" edge disconnected"), 0, GUIDesignLabel(JUSTIFY_LEFT));
+    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.conflict));
+}
+
+
+GNEAdditionalFrame::E2MultilaneLegendModule::~E2MultilaneLegendModule() {}
+
+
+void
+GNEAdditionalFrame::E2MultilaneLegendModule::showE2MultilaneLegend() {
+    show();
+}
+
+
+void
+GNEAdditionalFrame::E2MultilaneLegendModule::hideE2MultilaneLegend() {
+    hide();
+}
+
+// ---------------------------------------------------------------------------
+// GNEAdditionalFrame: - methods
+// ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Additionals") {
@@ -57,7 +100,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* vi
     myConsecutiveLaneSelector = new GNEConsecutiveSelector(this, false);
 
     // Create legend for E2 detector
-    myE2DetectorLegendModule = new GNEE2DetectorLegendModule(this);
+    myE2DetectorLegendModule = new E2MultilaneLegendModule(this);
 }
 
 
@@ -218,17 +261,17 @@ GNEAdditionalFrame::tagSelected() {
         // check if we must show consecutive lane selector
         if (templateAC->getTagProperty().getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
-            myE2DetectorLegendModule->showE2DetectorLegend();
+            myE2DetectorLegendModule->showE2MultilaneLegend();
             myLanesSelector->hideNetworkElementsSelector();
             // recompute network
             myViewNet->getNet()->computeNetwork(myViewNet->getViewParent()->getGNEAppWindows());
         } else if (templateAC->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
-            myE2DetectorLegendModule->hideE2DetectorLegend();
+            myE2DetectorLegendModule->hideE2MultilaneLegend();
             myLanesSelector->showNetworkElementsSelector();
         } else {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
-            myE2DetectorLegendModule->hideE2DetectorLegend();
+            myE2DetectorLegendModule->hideE2MultilaneLegend();
             myLanesSelector->hideNetworkElementsSelector();
         }
         // reset last position
@@ -241,7 +284,7 @@ GNEAdditionalFrame::tagSelected() {
         myEdgesSelector->hideNetworkElementsSelector();
         myLanesSelector->hideNetworkElementsSelector();
         myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
-        myE2DetectorLegendModule->hideE2DetectorLegend();
+        myE2DetectorLegendModule->hideE2MultilaneLegend();
     }
 }
 
