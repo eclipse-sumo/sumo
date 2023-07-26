@@ -58,7 +58,8 @@ title: ChangeLog
   - Improved locator dialog in netedit #12654
   - Now trips over TAZs or Junctions can be transformed to flows (and vice versa) #13608
   - Added option "ignore-supermode-question" for disabling question dialog during undo-redo #13620
-  - Add checkbox in Move Frame for forcing draw edge start/end geometry points #13426 
+  - Add checkbox in Move Frame for forcing draw edge start/end geometry points #13426
+  - Add tooltip in GroupBox expand button #12236
 
 - netconvert
   - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
