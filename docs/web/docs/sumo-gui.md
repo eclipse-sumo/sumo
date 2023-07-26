@@ -828,7 +828,7 @@ decals if the corresponding check-boxes are activated before saving.
            ...
         </scheme>
 
-        <viewport zoom="200" x="100" y="-100"/>
+        <viewport zoom="200" x="100" y="-100" angle="0.00"/>
         <delay value="42"/>
         <decal file="background.gif" centerX="550.00" centerY="1530.00" width="64.00" height="64.00" rotation="0.00"/>
         <breakpoint value="42"/>
