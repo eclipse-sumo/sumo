@@ -329,6 +329,12 @@ GNETagProperties::isWireElement() const {
 
 
 bool
+GNETagProperties::isJuPedSimElement() const {
+    return (myTagType & JUPEDSIM) != 0;
+}
+
+
+bool
 GNETagProperties::isType() const {
     return (myTagType & VTYPE) != 0;
 }
