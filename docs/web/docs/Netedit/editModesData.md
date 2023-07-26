@@ -36,7 +36,7 @@ EdgeRelDatas are created over two edges
 
 ![](../images/DataMode9.png)Press enter to create edge rel data
 
-## TAZ relation mode ![](../images/modetazreldata.png)
+## TAZ relation mode ![](../images/icon_modetazreldata.png)
 
 This mode helps to visualize the existing relation and the traffic demand amount between any two TAZ (Traffic Analysis Zone) after loading the respective xml file containing the information about start TAZ, end TAZ, interval, vehicle type and demand count. So, with this mode, users can have a better overview about the distribution of traffic demand between Tazs. The first steps are:
  1. load the network file.

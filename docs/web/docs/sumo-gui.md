@@ -25,7 +25,7 @@ click. After this, an empty window should show up, similar to the one
 shown in the image.
 
 Using either the "File-\>Open Simulation..." menu entry or by using the
-"open"-icon (![Open_sim.gif](images/Open_sim.png "Open sim")),
+"open"-icon (![icon_open.png](images/icon_open.png "Open sim")),
 you should be able to load an existing [sumo](sumo.md)
 [configuration
 file](Basics/Using_the_Command_Line_Applications.md#configuration_files),
@@ -56,7 +56,7 @@ between simulation steps.
 
 Besides loading simulation configurations, it is also possible to load
 networks by using either the "File-\>Open Network..." menu entry or by
-using the "open network"-icon (![Open_net.png](images/Open_net.png "Open net")). Please note, that normally
+using the "open network"-icon (![icon_opennet.png](images/icon_opennet.png "Open net")). Please note, that normally
 **sumo-gui** assumes networks have the
 [extension](Other/File_Extensions.md) *".net.xml"*, but also
 accepts other extensions.
@@ -94,11 +94,11 @@ setting the network coordinates which shall be at the center of the
 screen along with the zoom (given a value of 100 the whole network will
 fit onto the screen). These settings can be changed by opening the
 viewport editor using the
-![Open_viewport_editor.gif](images/Open_viewport_editor.gif
+![icon_magnify.png](images/icon_magnify.png
 "Open viewport editor") button. From this editor, it is
-possible to save the current settings (![Save.gif](images/Save.gif
+possible to save the current settings (![icon_save.png](images/icon_save.png
 "Save")) or load previously saved ones
-(![Open_sim.png](images/Open_sim.png "Open sim") within the
+(![icon_open.png](images/icon_open.png "Open sim") within the
 viewport editor).
 
 The viewport is defined as following:
@@ -167,7 +167,7 @@ The following objects can be accessed by right-click:
 - Polygons
 - Simulation (by clicking the background where there is no other
   object). Also accessible by clicking the
-  ![SimulationParameters.png](images/SimulationParameters.png
+  ![button_simulation_parameters.png](images/button_simulation_parameters.png
   "Simulation parameters") button.
 
   !!! note
@@ -236,7 +236,7 @@ as a group in [netedit](Netedit/index.md).
 ## Locating Objects
 
 All simulation objects can be located based on their ID by using the
-locate dialog ![Locate.png](images/Locate.png "Locate"). By
+locate dialog ![button_locate.png](images/button_locate.png "Locate"). By
 clicking this button a sub-menu for selecting the object type is
 opened. The following types are available:
 
@@ -477,11 +477,11 @@ menu bar at the top of the view.
 For customizing the simulation one can make changes e.g. to the
 background coloring, streets and vehicle appearance as well as the
 visualization of POIs. Furthermore one can save
-(![Save_to_registry.gif](images/Save_to_registry.gif "Save to registry")) and delete
-(![Delete_from_registry.gif](images/Delete_from_registry.gif "Delete from registry")‎) settings to the registry or export
-(![Save.gif](images/Save.gif "Save")) custom made settings
+(![icon_save_database.png](images/icon_save_database.png "Save to registry")) and delete
+(![icon_removedb.png](images/icon_removedb.png "Delete from registry")) settings to the registry or export
+(![icon_save.png](images/icon_save.png "Save")) custom made settings
 files and load previews settings again
-![Open_sim.png](images/Open_sim.png "Open sim"). So one can
+![icon_open.png](images/icon_open.png "Open sim"). So one can
 use different favorite settings files for any simulation.
 
 The current settings file is shown in a drop down menu in the top bar of
@@ -811,9 +811,9 @@ configuration:
 
 All the settings configured in the *View Settings* dialog can be saved to a file and re-used for a new simulation. We refer to such files as gui-settings files. Such a file can also include information about breakpoints, screenshots, simulation delay and background images.
 The easiest way to obtain a gui-settings file is via the *View Settings*-Dialog
-![Open_viewsettings_editor.gif](images/Open_viewsettings_editor.gif
+![icon_colorwheel.png](images/icon_colorwheel.png
 "Open viewsettings editor"). Simply modify the settings and
-save ![Save.gif](images/Save.gif "Save").
+save ![icon_save.png](images/icon_save.png "Save").
 
 Note, that the gui-settings-file obtained this way only contain
 information about the viewport (zoom and offset), delay, breakpoints and
@@ -891,7 +891,7 @@ elements to the configuration:
 
 # Multiple Views
 
-Using the (![NewView.gif](images/NewView.gif
+Using the (![icon_new_window.png](images/icon_new_window.png
 "New view"))-button, multiple viewing windows can be opened onto the same
 simulation. The visualization settings can be set
 independently for each view. The viewing windows can be managed using
@@ -904,7 +904,7 @@ viewing window is opened for each file at the start of the simulation.
 
 When sumo-gui was compiled with [OpenSceneGraph 
 (OSG)](https://www.openscenegraph.org/) support an additional
-(![NewView3D.gif](images/NewView3D.gif "New 3D view"))-button is
+(![icon_new_window_3d.png](images/icon_new_window_3d.png "New 3D view"))-button is
 present to open a new 3D view. A pre-compiled Windows version for testing is available
 [here](https://sumo.dlr.de/daily/sumo-win64extra-git.zip). Optionally sumo-gui will open a 3D view already from the start by 
 supplying the command line option **--osg-view true**.
@@ -925,7 +925,7 @@ viewport dialog. The following table summarizes which mouse actions and keys can
 | RMB drag      | Zoom view in `terrain` mode                                                                                                      |
 | Mouse movement| Rotate view in `ego` mode (with eye position as pivot point)                                                                     |
 
-Open the viewport editor using the ![Open_viewport_editor.gif](images/Open_viewport_editor.gif
+Open the viewport editor using the ![icon_magnify.png](images/icon_magnify.png
 "Open viewport editor") button. The camera position itself is listed in the left column whereas right "LookAt" coordinates define the 
 target to look at. "LookAt" coordinates are normalized to length 1 by OSG automatically.
 
