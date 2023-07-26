@@ -208,15 +208,15 @@ const double GUIVisualizationDetailSettings::personExaggeration(4);
 // scheme names
 // -------------------------------------------------------------------------
 
-const std::string GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL(TL("by param (numerical, streetwise)"));
-const std::string GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL(TL("by param (numerical, lanewise)"));
-const std::string GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL(TL("by param (numerical)"));
-const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL(TL("by edgeData (numerical, streetwise)"));
-const std::string GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL(TL("by attribute (numerical)"));
-const std::string GUIVisualizationSettings::SCHEME_NAME_SELECTION(TL("by selection"));
-const std::string GUIVisualizationSettings::SCHEME_NAME_TYPE(TL("by type"));
-const std::string GUIVisualizationSettings::SCHEME_NAME_PERMISSION_CODE(TL("by permission code"));
-const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_LIVE(TL("by live edgeData"));
+const std::string GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL("by param (numerical, streetwise)");
+const std::string GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL("by param (numerical, lanewise)");
+const std::string GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL("by param (numerical)");
+const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL("by edgeData (numerical, streetwise)");
+const std::string GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL("by attribute (numerical)");
+const std::string GUIVisualizationSettings::SCHEME_NAME_SELECTION("by selection");
+const std::string GUIVisualizationSettings::SCHEME_NAME_TYPE("by type");
+const std::string GUIVisualizationSettings::SCHEME_NAME_PERMISSION_CODE("by permission code");
+const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_LIVE("by live edgeData");
 
 const double GUIVisualizationSettings::MISSING_DATA(std::numeric_limits<double>::max());
 RGBColor GUIVisualizationSettings::COL_MISSING_DATA(225, 225, 225);
@@ -640,7 +640,7 @@ GUIVisualizationSettings::copy(const GUIVisualizationSettings& s) {
 void
 GUIVisualizationSettings::initSumoGuiDefaults() {
     /// add lane coloring schemes
-    GUIColorScheme scheme = GUIColorScheme(TL("uniform"), RGBColor::BLACK, TL("road"), true, 0);
+    GUIColorScheme scheme = GUIColorScheme("uniform", TL("uniform"), RGBColor::BLACK, TL("road"), true, 0);
     scheme.addColor(RGBColor::GREY, 1, TL("sidewalk"));
     scheme.addColor(RGBColor(192, 66, 44), 2, TL("bike lane"));
     scheme.addColor(RGBColor(0, 0, 0, 0), 3, TL("green verge"));
@@ -669,36 +669,36 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::GREEN, (double)SVCAll, "all");
     laneColorer.addScheme(scheme);
     // ... traffic states ...
-    scheme = GUIColorScheme(TL("by allowed speed (lanewise)"), RGBColor::RED);
+    scheme = GUIColorScheme("by allowed speed (lanewise)", TL("by allowed speed (lanewise)"), RGBColor::RED);
     scheme.addColor(RGBColor::YELLOW, 30. / 3.6);
     scheme.addColor(RGBColor::GREEN, 55. / 3.6);
     scheme.addColor(RGBColor::CYAN, 80. / 3.6);
     scheme.addColor(RGBColor::BLUE, 120. / 3.6);
     scheme.addColor(RGBColor::MAGENTA, 150. / 3.6);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by current occupancy (lanewise, brutto)"), RGBColor(235, 235, 235), "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by current occupancy (lanewise, brutto)", TL("by current occupancy (lanewise, brutto)"), RGBColor(235, 235, 235), "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::GREEN, 0.25);
     scheme.addColor(RGBColor::YELLOW, 0.5);
     scheme.addColor(RGBColor::ORANGE, 0.75);
     scheme.addColor(RGBColor::RED, 1.0);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by current occupancy (lanewise, netto)"), RGBColor(235, 235, 235), "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by current occupancy (lanewise, netto)", TL("by current occupancy (lanewise, netto)"), RGBColor(235, 235, 235), "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::GREEN, 0.25);
     scheme.addColor(RGBColor::YELLOW, 0.5);
     scheme.addColor(RGBColor::ORANGE, 0.75);
     scheme.addColor(RGBColor::RED, 1.0);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by first vehicle waiting time (lanewise)"), RGBColor(235, 235, 235), "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by first vehicle waiting time (lanewise)", TL("by first vehicle waiting time (lanewise)"), RGBColor(235, 235, 235), "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::CYAN, 30.);
     scheme.addColor(RGBColor::GREEN, 100.);
     scheme.addColor(RGBColor::YELLOW, 200.);
     scheme.addColor(RGBColor::RED, 300.);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by lane number (streetwise)"), RGBColor::RED);
+    scheme = GUIColorScheme("by lane number (streetwise)", TL("by lane number (streetwise)"), RGBColor::RED);
     scheme.addColor(RGBColor::BLUE, 5.);
     laneColorer.addScheme(scheme);
     // ... emissions ...
-    scheme = GUIColorScheme(TL("by CO2 emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by CO2 emissions", TL("by CO2 emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 450);
     scheme.addColor(RGBColor::GREEN, 900);
     scheme.addColor(RGBColor::YELLOW, 1350);
@@ -706,7 +706,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 2250);
     scheme.addColor(RGBColor::MAGENTA, 3000);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by CO emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by CO emissions", TL("by CO emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 30);
     scheme.addColor(RGBColor::GREEN, 60);
     scheme.addColor(RGBColor::YELLOW, 90);
@@ -714,7 +714,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 150);
     scheme.addColor(RGBColor::MAGENTA, 200);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by PMx emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by PMx emissions", TL("by PMx emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 0.3);
     scheme.addColor(RGBColor::GREEN, 0.5);
     scheme.addColor(RGBColor::YELLOW, 0.8);
@@ -722,7 +722,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 1.3);
     scheme.addColor(RGBColor::MAGENTA, 1.6);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by NOx emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by NOx emissions", TL("by NOx emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 6);
     scheme.addColor(RGBColor::GREEN, 12);
     scheme.addColor(RGBColor::YELLOW, 18);
@@ -730,7 +730,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 30);
     scheme.addColor(RGBColor::MAGENTA, 40);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by HC emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by HC emissions", TL("by HC emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 8);
     scheme.addColor(RGBColor::GREEN, 16);
     scheme.addColor(RGBColor::YELLOW, 24);
@@ -738,7 +738,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 40);
     scheme.addColor(RGBColor::MAGENTA, 50);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by fuel consumption"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by fuel consumption", TL("by fuel consumption"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 0.2);
     scheme.addColor(RGBColor::GREEN, 0.4);
     scheme.addColor(RGBColor::YELLOW, 0.6);
@@ -746,7 +746,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 1);
     scheme.addColor(RGBColor::MAGENTA, 1.3);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by noise emissions (Harmonoise)"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by noise emissions (Harmonoise)", TL("by noise emissions (Harmonoise)"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 1.3);
     scheme.addColor(RGBColor::GREEN, 1.4);
     scheme.addColor(RGBColor::YELLOW, 1.6);
@@ -755,16 +755,16 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::MAGENTA, 2.4);
     laneColorer.addScheme(scheme);
     // ... weights (experimental) ...
-    scheme = GUIColorScheme(TL("by global travel time"), RGBColor::GREEN);
+    scheme = GUIColorScheme("by global travel time", TL("by global travel time"), RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, 100.);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by global speed percentage"), RGBColor::RED);
+    scheme = GUIColorScheme("by global speed percentage", TL("by global speed percentage"), RGBColor::RED);
     scheme.addColor(RGBColor::YELLOW, 50.);
     scheme.addColor(RGBColor::GREEN, 100.);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by given length/geometrical length"), RGBColor::RED);
+    scheme = GUIColorScheme("by given length/geometrical length", TL("by given length/geometrical length"), RGBColor::RED);
     scheme.addColor(RGBColor::ORANGE, 0.25);
     scheme.addColor(RGBColor::YELLOW, 0.5);
     scheme.addColor(RGBColor(179, 179, 179, 255), 1.);
@@ -772,17 +772,17 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::CYAN, 4.);
     scheme.addColor(RGBColor::BLUE, 100.);
     laneColorer.addScheme(scheme);
-    laneColorer.addScheme(GUIColorScheme(TL("by angle"), RGBColor::YELLOW, "", true));
-    scheme = GUIColorScheme(TL("by loaded weight"), RGBColor::GREEN);
+    laneColorer.addScheme(GUIColorScheme("by angle", TL("by angle"), RGBColor::YELLOW, "", true));
+    scheme = GUIColorScheme("by loaded weight", TL("by loaded weight"), RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, 100.);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by priority"), RGBColor::YELLOW);
+    scheme = GUIColorScheme("by priority", TL("by priority"), RGBColor::YELLOW);
     scheme.addColor(RGBColor::RED, -20.);
     scheme.addColor(RGBColor::GREEN, 20.);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by height at start"), RGBColor::GREY);
+    scheme = GUIColorScheme("by height at start", TL("by height at start"), RGBColor::GREY);
     scheme.addColor(RGBColor::BLUE, -10.);
     scheme.addColor(RGBColor::RED, 10.);
     scheme.addColor(RGBColor::YELLOW, 50.);
@@ -790,7 +790,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::MAGENTA, 200.);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by height at geometry-segment start"), RGBColor::GREY);
+    scheme = GUIColorScheme("by height at geometry-segment start", TL("by height at geometry-segment start"), RGBColor::GREY);
     scheme.addColor(RGBColor::BLUE, -10.);
     scheme.addColor(RGBColor::RED, 10.);
     scheme.addColor(RGBColor::YELLOW, 50.);
@@ -798,42 +798,42 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::MAGENTA, 200.);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by inclination"), RGBColor::GREY);
+    scheme = GUIColorScheme("by inclination", TL("by inclination"), RGBColor::GREY);
     scheme.addColor(RGBColor::YELLOW, 0.1);
     scheme.addColor(RGBColor::RED, 0.3);
     scheme.addColor(RGBColor::GREEN, -0.1);
     scheme.addColor(RGBColor::BLUE, -0.3);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by geometry-segment inclination"), RGBColor::GREY);
+    scheme = GUIColorScheme("by geometry-segment inclination", TL("by geometry-segment inclination"), RGBColor::GREY);
     scheme.addColor(RGBColor::YELLOW, 0.1);
     scheme.addColor(RGBColor::RED, 0.3);
     scheme.addColor(RGBColor::GREEN, -0.1);
     scheme.addColor(RGBColor::BLUE, -0.3);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by average speed"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by average speed", TL("by average speed"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 30. / 3.6);
     scheme.addColor(RGBColor::GREEN, 55. / 3.6);
     scheme.addColor(RGBColor::CYAN, 80. / 3.6);
     scheme.addColor(RGBColor::BLUE, 120. / 3.6);
     scheme.addColor(RGBColor::MAGENTA, 150. / 3.6);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by average relative speed "), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by average relative speed ", TL("by average relative speed "), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 0.25);
     scheme.addColor(RGBColor::GREEN, 0.5);
     scheme.addColor(RGBColor::CYAN, 0.75);
     scheme.addColor(RGBColor::BLUE, 1.);
     scheme.addColor(RGBColor::MAGENTA, 1.25);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by routing device assumed speed "), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by routing device assumed speed ", TL("by routing device assumed speed "), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 30. / 3.6);
     scheme.addColor(RGBColor::GREEN, 55. / 3.6);
     scheme.addColor(RGBColor::CYAN, 80. / 3.6);
     scheme.addColor(RGBColor::BLUE, 120. / 3.6);
     scheme.addColor(RGBColor::MAGENTA, 150. / 3.6);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by electricity consumption"), RGBColor::GREEN, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by electricity consumption", TL("by electricity consumption"), RGBColor::GREEN, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 0.2);
     scheme.addColor(RGBColor::GREEN, 0.4);
     scheme.addColor(RGBColor::YELLOW, 0.6);
@@ -841,12 +841,12 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 1.0);
     scheme.addColor(RGBColor::MAGENTA, 2.0);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by insertion-backlog (streetwise)"), RGBColor(204, 204, 204), "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by insertion-backlog (streetwise)", TL("by insertion-backlog (streetwise)"), RGBColor(204, 204, 204), "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::GREEN, 1.);
     scheme.addColor(RGBColor::YELLOW, 10.);
     scheme.addColor(RGBColor::RED, 100.);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by TAZ (streetwise)"), RGBColor(204, 204, 204), "no TAZ", true);
+    scheme = GUIColorScheme("by TAZ (streetwise)", TL("by TAZ (streetwise)"), RGBColor(204, 204, 204), "no TAZ", true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
@@ -857,25 +857,25 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by distance (kilometrage)"), RGBColor(204, 204, 204));
+    scheme = GUIColorScheme("by distance (kilometrage)", TL("by distance (kilometrage)"), RGBColor(204, 204, 204));
     scheme.addColor(RGBColor(255, 204, 204), 1.);
     scheme.addColor(RGBColor::RED, 10000.);
     scheme.addColor(RGBColor(204, 204, 255), -1.);
     scheme.addColor(RGBColor::BLUE, -10000.);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by abs distance (kilometrage)"), RGBColor(204, 204, 204));
+    scheme = GUIColorScheme("by abs distance (kilometrage)", TL("by abs distance (kilometrage)"), RGBColor(204, 204, 204));
     scheme.addColor(RGBColor::RED, 1.);
     scheme.setAllowsNegativeValues(false);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by reachability (traveltime)"), RGBColor::RED);
+    scheme = GUIColorScheme("by reachability (traveltime)", TL("by reachability (traveltime)"), RGBColor::RED);
     scheme.addColor(RGBColor::GREY, INVALID_DOUBLE, "unreachable");
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by thread index"), RGBColor(204, 204, 204));
+    scheme = GUIColorScheme("by thread index", TL("by thread index"), RGBColor(204, 204, 204));
     scheme.addColor(RGBColor::RED, 1.);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("free parking spaces"), RGBColor(204, 204, 204), "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("free parking spaces", TL("free parking spaces"), RGBColor(204, 204, 204), "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::RED, 1.);
     scheme.addColor(RGBColor::YELLOW, 10.);
     scheme.addColor(RGBColor::GREEN, 100.);
@@ -886,15 +886,15 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     laneColorer.addScheme(scheme);
 
     /// add vehicle coloring schemes
-    vehicleColorer.addScheme(GUIColorScheme(TL("given vehicle/type/route color"), RGBColor::YELLOW, "", true));
-    vehicleColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor::YELLOW, "", true));
-    vehicleColorer.addScheme(GUIColorScheme(TL("given/assigned vehicle color"), RGBColor::YELLOW, "", true));
-    vehicleColorer.addScheme(GUIColorScheme(TL("given/assigned type color"), RGBColor::YELLOW, "", true));
-    vehicleColorer.addScheme(GUIColorScheme(TL("given/assigned route color"), RGBColor::YELLOW, "", true));
-    vehicleColorer.addScheme(GUIColorScheme(TL("depart position as HSV"), RGBColor::YELLOW, "", true));
-    vehicleColorer.addScheme(GUIColorScheme(TL("arrival position as HSV"), RGBColor::YELLOW, "", true));
-    vehicleColorer.addScheme(GUIColorScheme(TL("direction/distance as HSV"), RGBColor::YELLOW, "", true));
-    scheme = GUIColorScheme(TL("by speed"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    vehicleColorer.addScheme(GUIColorScheme("given vehicle/type/route color", TL("given vehicle/type/route color"), RGBColor::YELLOW, "", true));
+    vehicleColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::YELLOW, "", true));
+    vehicleColorer.addScheme(GUIColorScheme("given/assigned vehicle color", TL("given/assigned vehicle color"), RGBColor::YELLOW, "", true));
+    vehicleColorer.addScheme(GUIColorScheme("given/assigned type color", TL("given/assigned type color"), RGBColor::YELLOW, "", true));
+    vehicleColorer.addScheme(GUIColorScheme("given/assigned route color", TL("given/assigned route color"), RGBColor::YELLOW, "", true));
+    vehicleColorer.addScheme(GUIColorScheme("depart position as HSV", TL("depart position as HSV"), RGBColor::YELLOW, "", true));
+    vehicleColorer.addScheme(GUIColorScheme("arrival position as HSV", TL("arrival position as HSV"), RGBColor::YELLOW, "", true));
+    vehicleColorer.addScheme(GUIColorScheme("direction/distance as HSV", TL("direction/distance as HSV"), RGBColor::YELLOW, "", true));
+    scheme = GUIColorScheme("by speed", TL("by speed"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 30. / 3.6);
     scheme.addColor(RGBColor::GREEN, 55. / 3.6);
     scheme.addColor(RGBColor::CYAN, 80. / 3.6);
@@ -904,23 +904,23 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, -1); // stopped on road
     scheme.addColor(RGBColor::GREY, -2); // stopped off-road (parking)
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by action step"), RGBColor::GREY, TL("no action"), true, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by action step", TL("by action step"), RGBColor::GREY, TL("no action"), true, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor(0, 255, 0, 255), 1., TL("action in next step"));
     scheme.addColor(RGBColor(80, 160, 80, 255), 2., TL("had action step"));
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by waiting time"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by waiting time", TL("by waiting time"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::CYAN, 30.);
     scheme.addColor(RGBColor::GREEN, 100.);
     scheme.addColor(RGBColor::YELLOW, 200.);
     scheme.addColor(RGBColor::RED, 300.);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by accumulated waiting time"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by accumulated waiting time", TL("by accumulated waiting time"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::CYAN, 25.);
     scheme.addColor(RGBColor::GREEN, 50.);
     scheme.addColor(RGBColor::YELLOW, 75.);
     scheme.addColor(RGBColor::RED, 100.);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by time since lane change"), RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by time since lane change", TL("by time since lane change"), RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor(189, 189, 179, 255), -180);
     scheme.addColor(RGBColor(255, 255, 0, 255), -20);
     scheme.addColor(RGBColor(255,   0, 0, 255), -0.01);
@@ -929,7 +929,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(179, 189, 189, 255),  180);
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by max speed"), RGBColor::RED);
+    scheme = GUIColorScheme("by max speed", TL("by max speed"), RGBColor::RED);
     scheme.addColor(RGBColor::YELLOW, 30. / 3.6);
     scheme.addColor(RGBColor::GREEN, 55. / 3.6);
     scheme.addColor(RGBColor::CYAN, 80. / 3.6);
@@ -937,7 +937,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::MAGENTA, 150. / 3.6);
     vehicleColorer.addScheme(scheme);
     // ... emissions ...
-    scheme = GUIColorScheme(TL("by CO2 emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by CO2 emissions", TL("by CO2 emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 23000);
     scheme.addColor(RGBColor::GREEN, 46000);
     scheme.addColor(RGBColor::YELLOW, 69000);
@@ -945,7 +945,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 115000);
     scheme.addColor(RGBColor::MAGENTA, 150000);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by CO emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by CO emissions", TL("by CO emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 1500);
     scheme.addColor(RGBColor::GREEN, 3000);
     scheme.addColor(RGBColor::YELLOW, 4500);
@@ -953,7 +953,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 7500);
     scheme.addColor(RGBColor::MAGENTA, 10000);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by PMx emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by PMx emissions", TL("by PMx emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 12);
     scheme.addColor(RGBColor::GREEN, 24);
     scheme.addColor(RGBColor::YELLOW, 36);
@@ -961,7 +961,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 60);
     scheme.addColor(RGBColor::MAGENTA, 80);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by NOx emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by NOx emissions", TL("by NOx emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 300);
     scheme.addColor(RGBColor::GREEN, 600);
     scheme.addColor(RGBColor::YELLOW, 900);
@@ -969,7 +969,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 1500);
     scheme.addColor(RGBColor::MAGENTA, 2000);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by HC emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by HC emissions", TL("by HC emissions"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 400);
     scheme.addColor(RGBColor::GREEN, 800);
     scheme.addColor(RGBColor::YELLOW, 1200);
@@ -977,7 +977,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 2000);
     scheme.addColor(RGBColor::MAGENTA, 2500);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by fuel consumption"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by fuel consumption", TL("by fuel consumption"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 10);
     scheme.addColor(RGBColor::GREEN, 20);
     scheme.addColor(RGBColor::YELLOW, 30);
@@ -993,14 +993,14 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 100);
     scheme.addColor(RGBColor::MAGENTA, 120);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by reroute number"), RGBColor::GREY, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by reroute number", TL("by reroute number"), RGBColor::GREY, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 1.);
     scheme.addColor(RGBColor::RED, 10.);
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, TL("selected"));
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by offset from best lane"), RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by offset from best lane", TL("by offset from best lane"), RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor(255, 0, 255, 255), -100, TL("opposite lane"));
     scheme.addColor(RGBColor(255,   0, 0, 255), -3, "-3");
     scheme.addColor(RGBColor(255, 255, 0, 255), -1, "-1");
@@ -1008,7 +1008,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(0,   0, 255, 255),  3,  "3");
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by acceleration"), RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by acceleration", TL("by acceleration"), RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor(64,    0, 0, 255), -9.0);
     scheme.addColor(RGBColor(255,   0, 0, 255), -4.5 /* -SUMOVTypeParameter::getDefaultDecel() */);
     scheme.addColor(RGBColor(255, 255, 0, 255), -0.1);
@@ -1017,19 +1017,19 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(255, 0, 255, 255),  5.2);
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by time gap on lane"), RGBColor(255, 255, 0, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by time gap on lane", TL("by time gap on lane"), RGBColor(255, 255, 0, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor(179, 179, 179, 255), -1);
     scheme.addColor(RGBColor(0, 255, 255, 255), 1);
     scheme.addColor(RGBColor(0,   0, 255, 255), 2);
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by depart delay"), RGBColor::BLUE);
+    scheme = GUIColorScheme("by depart delay", TL("by depart delay"), RGBColor::BLUE);
     scheme.addColor(RGBColor::CYAN, 30.);
     scheme.addColor(RGBColor::GREEN, 100.);
     scheme.addColor(RGBColor::YELLOW, 200.);
     scheme.addColor(RGBColor::RED, 300.);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by electricity consumption"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by electricity consumption", TL("by electricity consumption"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.addColor(RGBColor::CYAN, 10);
     scheme.addColor(RGBColor::GREEN, 20);
     scheme.addColor(RGBColor::YELLOW, 30);
@@ -1037,7 +1037,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 60);
     scheme.addColor(RGBColor::MAGENTA, 100);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by relative battery charge"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by relative battery charge", TL("by relative battery charge"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.setAllowsNegativeValues(true);
     scheme.addColor(RGBColor::MAGENTA, 0.1);
     scheme.addColor(RGBColor::RED, 0.2);
@@ -1046,7 +1046,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::GREEN, 0.6);
     scheme.addColor(RGBColor::CYAN, 1.);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by charged energy"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
+    scheme = GUIColorScheme("by charged energy", TL("by charged energy"), RGBColor::GREY, "", false, 0, COL_SCHEME_EMISSION);
     scheme.setAllowsNegativeValues(true);
     scheme.addColor(RGBColor::MAGENTA, 10);
     scheme.addColor(RGBColor::RED, 20);
@@ -1055,13 +1055,13 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::GREEN, 200);
     scheme.addColor(RGBColor::CYAN, 500);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by time loss"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by time loss", TL("by time loss"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::CYAN, 10.);
     scheme.addColor(RGBColor::GREEN, 60.);
     scheme.addColor(RGBColor::YELLOW, 180.);
     scheme.addColor(RGBColor::RED, 900.);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by stop delay"), RGBColor::GREY, "", false, -1, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by stop delay", TL("by stop delay"), RGBColor::GREY, "", false, -1, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::BLUE, 0.);
     scheme.addColor(RGBColor::CYAN, 10.);
     scheme.addColor(RGBColor::GREEN, 60.);
@@ -1070,7 +1070,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 900.);
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by stop arrival delay"), RGBColor::GREY, "", false, INVALID_DOUBLE, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by stop arrival delay", TL("by stop arrival delay"), RGBColor::GREY, "", false, INVALID_DOUBLE, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::MAGENTA, -10.);
     scheme.addColor(RGBColor::BLUE, 0.);
     scheme.addColor(RGBColor::CYAN, 10.);
@@ -1080,7 +1080,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 900.);
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by lateral speed"), RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by lateral speed", TL("by lateral speed"), RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor(255,   0, 0, 255), -3, "-1.5");
     scheme.addColor(RGBColor(255, 255, 0, 255), -1, "-0.5");
     scheme.addColor(RGBColor(0, 255, 255, 255),  1,  "0.5");
@@ -1090,15 +1090,15 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_PARAM_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
-    vehicleColorer.addScheme(GUIColorScheme(TL("random"), RGBColor::YELLOW, "", true));
-    vehicleColorer.addScheme(GUIColorScheme(TL("by angle"), RGBColor::YELLOW, "", true));
+    vehicleColorer.addScheme(GUIColorScheme("random", TL("random"), RGBColor::YELLOW, "", true));
+    vehicleColorer.addScheme(GUIColorScheme("by angle", TL("by angle"), RGBColor::YELLOW, "", true));
 
     /// add person coloring schemes
-    personColorer.addScheme(GUIColorScheme(TL("given person/type color"), RGBColor::BLUE, "", true));
-    personColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor::BLUE, "", true));
-    personColorer.addScheme(GUIColorScheme(TL("given/assigned person color"), RGBColor::BLUE, "", true));
-    personColorer.addScheme(GUIColorScheme(TL("given/assigned type color"), RGBColor::BLUE, "", true));
-    scheme = GUIColorScheme(TL("by speed"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    personColorer.addScheme(GUIColorScheme("given person/type color", TL("given person/type color"), RGBColor::BLUE, "", true));
+    personColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::BLUE, "", true));
+    personColorer.addScheme(GUIColorScheme("given/assigned person color", TL("given/assigned person color"), RGBColor::BLUE, "", true));
+    personColorer.addScheme(GUIColorScheme("given/assigned type color", TL("given/assigned type color"), RGBColor::BLUE, "", true));
+    scheme = GUIColorScheme("by speed", TL("by speed"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 2.5 / 3.6);
     scheme.addColor(RGBColor::GREEN, 5. / 3.6);
     scheme.addColor(RGBColor::BLUE, 10. / 3.6);
@@ -1106,46 +1106,46 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::GREY, -1.); // stop stage
     scheme.addColor(RGBColor::GREY, -2.); // stop stage (departure)
     personColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by mode"), RGBColor::GREY, TL("waiting for insertion"), true, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by mode", TL("by mode"), RGBColor::GREY, TL("waiting for insertion"), true, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::RED, 1., TL("stopped"));
     scheme.addColor(RGBColor::GREEN, 2., TL("walking"));
     scheme.addColor(RGBColor::BLUE, 3., TL("riding"));
     scheme.addColor(RGBColor::CYAN, 4., TL("accessing trainStop"));
     scheme.addColor(RGBColor::YELLOW, 5., TL("waiting for ride"));
     personColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by waiting time"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by waiting time", TL("by waiting time"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::CYAN, 30.);
     scheme.addColor(RGBColor::GREEN, 100.);
     scheme.addColor(RGBColor::YELLOW, 200.);
     scheme.addColor(RGBColor::RED, 300.);
     personColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by jammed state"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by jammed state", TL("by jammed state"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::RED, 1.);
     personColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, TL("selected"));
     personColorer.addScheme(scheme);
-    personColorer.addScheme(GUIColorScheme(TL("by angle"), RGBColor::YELLOW, "", true));
-    personColorer.addScheme(GUIColorScheme(TL("random"), RGBColor::YELLOW, "", true));
+    personColorer.addScheme(GUIColorScheme("by angle", TL("by angle"), RGBColor::YELLOW, "", true));
+    personColorer.addScheme(GUIColorScheme("random", TL("random"), RGBColor::YELLOW, "", true));
 
     /// add container coloring schemes
-    containerColorer.addScheme(GUIColorScheme(TL("given container/type color"), RGBColor::YELLOW, "", true));
-    containerColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor::YELLOW, "", true));
-    containerColorer.addScheme(GUIColorScheme(TL("given/assigned container color"), RGBColor::YELLOW, "", true));
-    containerColorer.addScheme(GUIColorScheme(TL("given/assigned type color"), RGBColor::YELLOW, "", true));
-    scheme = GUIColorScheme(TL("by speed"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    containerColorer.addScheme(GUIColorScheme("given container/type color", TL("given container/type color"), RGBColor::YELLOW, "", true));
+    containerColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::YELLOW, "", true));
+    containerColorer.addScheme(GUIColorScheme("given/assigned container color", TL("given/assigned container color"), RGBColor::YELLOW, "", true));
+    containerColorer.addScheme(GUIColorScheme("given/assigned type color", TL("given/assigned type color"), RGBColor::YELLOW, "", true));
+    scheme = GUIColorScheme("by speed", TL("by speed"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 2.5 / 3.6);
     scheme.addColor(RGBColor::GREEN, 5. / 3.6);
     scheme.addColor(RGBColor::BLUE, 10. / 3.6);
     containerColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by mode"), RGBColor::GREY, TL("waiting for insertion"), true, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by mode", TL("by mode"), RGBColor::GREY, TL("waiting for insertion"), true, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::RED, 1., TL("stopped"));
     scheme.addColor(RGBColor::BLUE, 3., TL("transport"));
     scheme.addColor(RGBColor::CYAN, 4., TL("accessing trainStop"));
     scheme.addColor(RGBColor::YELLOW, 5., TL("waiting for transport"));
     scheme.addColor(RGBColor::GREEN, 6., TL("tranship")); // (moving without vehicle)
     containerColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by waiting time"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by waiting time", TL("by waiting time"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::CYAN, 30.);
     scheme.addColor(RGBColor::GREEN, 100.);
     scheme.addColor(RGBColor::YELLOW, 200.);
@@ -1154,11 +1154,11 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, TL("selected"));
     containerColorer.addScheme(scheme);
-    containerColorer.addScheme(GUIColorScheme(TL("by angle"), RGBColor::YELLOW, "", true));
-    containerColorer.addScheme(GUIColorScheme(TL("random"), RGBColor::YELLOW, "", true));
+    containerColorer.addScheme(GUIColorScheme("by angle", TL("by angle"), RGBColor::YELLOW, "", true));
+    containerColorer.addScheme(GUIColorScheme("random", TL("random"), RGBColor::YELLOW, "", true));
 
     /// add junction coloring schemes
-    scheme = GUIColorScheme(TL("uniform"), RGBColor::BLACK, "", true);
+    scheme = GUIColorScheme("uniform", TL("uniform"), RGBColor::BLACK, "", true);
     scheme.addColor(RGBColor(150, 200, 200), 1, TL("waterway"));
     scheme.addColor(RGBColor(0, 0, 0, 0), 2, TL("railway"));
     junctionColorer.addScheme(scheme);
@@ -1180,7 +1180,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
     scheme.addColor(RGBColor(0, 0, 128), 13, "left_before_right"); // dark blue
     junctionColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by height"), RGBColor::GREY);
+    scheme = GUIColorScheme("by height", TL("by height"), RGBColor::GREY);
     scheme.addColor(RGBColor::BLUE, -10.);
     scheme.addColor(RGBColor::RED, 10.);
     scheme.addColor(RGBColor::YELLOW, 50.);
@@ -1190,19 +1190,19 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     junctionColorer.addScheme(scheme);
 
     /// add POI coloring schemes
-    poiColorer.addScheme(GUIColorScheme(TL("given POI color"), RGBColor::RED, "", true));
+    poiColorer.addScheme(GUIColorScheme("given POI color", TL("given POI color"), RGBColor::RED, "", true));
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, TL("selected"));
     poiColorer.addScheme(scheme);
-    poiColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor::RED, "", true));
+    poiColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::RED, "", true));
 
     /// add polygon coloring schemes
-    polyColorer.addScheme(GUIColorScheme(TL("given polygon color"), RGBColor::ORANGE, "", true));
+    polyColorer.addScheme(GUIColorScheme("given polygon color", TL("given polygon color"), RGBColor::ORANGE, "", true));
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, TL("selected"));
     polyColorer.addScheme(scheme);
-    polyColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor::ORANGE, "", true));
-    polyColorer.addScheme(GUIColorScheme(TL("random"), RGBColor::YELLOW, "", true));
+    polyColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::ORANGE, "", true));
+    polyColorer.addScheme(GUIColorScheme("random", TL("random"), RGBColor::YELLOW, "", true));
 
     /// add lane scaling schemes
     {
@@ -1297,82 +1297,82 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     }
 
     /// add edge coloring schemes
-    edgeColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor(0, 0, 0, 0), "", true));
+    edgeColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor(0, 0, 0, 0), "", true));
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1., TL("selected"));
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by purpose (streetwise)"), RGBColor(), TL("normal"), true);
+    scheme = GUIColorScheme("by purpose (streetwise)", TL("by purpose (streetwise)"), RGBColor(), TL("normal"), true);
     scheme.addColor(RGBColor(128, 0, 128, 255), 1., TL("connector")); // see MSEdge::EdgeBasicFunction::EDGEFUNCTION_CONNECTOR
     scheme.addColor(RGBColor::BLUE, 2., TL("internal")); // see MSEdge::EdgeBasicFunction::EDGEFUNCTION_INTERNAL
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by allowed speed (streetwise)"), RGBColor::RED);
+    scheme = GUIColorScheme("by allowed speed (streetwise)", TL("by allowed speed (streetwise)"), RGBColor::RED);
     scheme.addColor(RGBColor::YELLOW, 30. / 3.6);
     scheme.addColor(RGBColor::GREEN, 55. / 3.6);
     scheme.addColor(RGBColor::CYAN, 80. / 3.6);
     scheme.addColor(RGBColor::BLUE, 120. / 3.6);
     scheme.addColor(RGBColor::MAGENTA, 150. / 3.6);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by current occupancy (streetwise, brutto)"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by current occupancy (streetwise, brutto)", TL("by current occupancy (streetwise, brutto)"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::RED, 0.95);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by current speed (streetwise)"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by current speed (streetwise)", TL("by current speed (streetwise)"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 30. / 3.6);
     scheme.addColor(RGBColor::GREEN, 55. / 3.6);
     scheme.addColor(RGBColor::CYAN, 80. / 3.6);
     scheme.addColor(RGBColor::BLUE, 120. / 3.6);
     scheme.addColor(RGBColor::MAGENTA, 150. / 3.6);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by current flow (streetwise)"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by current flow (streetwise)", TL("by current flow (streetwise)"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::RED, 5000.);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by relative speed (streetwise)"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by relative speed (streetwise)", TL("by relative speed (streetwise)"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 0.25);
     scheme.addColor(RGBColor::GREEN, 0.5);
     scheme.addColor(RGBColor::CYAN, 0.75);
     scheme.addColor(RGBColor::BLUE, 1.);
     scheme.addColor(RGBColor::MAGENTA, 1.25);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by routing device assumed speed"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by routing device assumed speed", TL("by routing device assumed speed"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 30. / 3.6);
     scheme.addColor(RGBColor::GREEN, 55. / 3.6);
     scheme.addColor(RGBColor::CYAN, 80. / 3.6);
     scheme.addColor(RGBColor::BLUE, 120. / 3.6);
     scheme.addColor(RGBColor::MAGENTA, 150. / 3.6);
     edgeColorer.addScheme(scheme);
-    edgeColorer.addScheme(GUIColorScheme(TL("by angle"), RGBColor::YELLOW, "", true));
-    scheme = GUIColorScheme(TL("by segments (alternating)"), RGBColor::BLUE, TL("odd"), true);
+    edgeColorer.addScheme(GUIColorScheme("by angle", TL("by angle"), RGBColor::YELLOW, "", true));
+    scheme = GUIColorScheme("by segments (alternating)", TL("by segments (alternating)"), RGBColor::BLUE, TL("odd"), true);
     scheme.addColor(RGBColor::RED, 1., TL("even"));
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by jammed state (segmentwise)"), RGBColor::GREEN, TL("free"), true, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by jammed state (segmentwise)", TL("by jammed state (segmentwise)"), RGBColor::GREEN, TL("free"), true, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 1., TL("limitedControl"));
     scheme.addColor(RGBColor::RED, 2., TL("jammed"));
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by current occupancy (segmentwise, brutto)"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by current occupancy (segmentwise, brutto)", TL("by current occupancy (segmentwise, brutto)"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::RED, 0.95);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by current speed (segmentwise)"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by current speed (segmentwise)", TL("by current speed (segmentwise)"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 30. / 3.6);
     scheme.addColor(RGBColor::GREEN, 55. / 3.6);
     scheme.addColor(RGBColor::CYAN, 80. / 3.6);
     scheme.addColor(RGBColor::BLUE, 120 / 3.6);
     scheme.addColor(RGBColor::MAGENTA, 150. / 3.6);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by current flow (segmentwise)"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by current flow (segmentwise)", TL("by current flow (segmentwise)"), RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::RED, 5000.);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by relative speed (segmentwise)"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by relative speed (segmentwise)", TL("by relative speed (segmentwise)"), RGBColor::RED, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::YELLOW, 0.25);
     scheme.addColor(RGBColor::GREEN, 0.5);
     scheme.addColor(RGBColor::CYAN, 0.75);
     scheme.addColor(RGBColor::BLUE, 1.);
     scheme.addColor(RGBColor::MAGENTA, 1.25);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by insertion-backlog (streetwise)"), RGBColor::GREY, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by insertion-backlog (streetwise)", TL("by insertion-backlog (streetwise)"), RGBColor::GREY, "", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::GREEN, 1.);
     scheme.addColor(RGBColor::YELLOW, 10.);
     scheme.addColor(RGBColor::RED, 100.);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by TAZ (streetwise)"), RGBColor(204, 204, 204), TL("no TAZ"), true);
+    scheme = GUIColorScheme("by TAZ (streetwise)", TL("by TAZ (streetwise)"), RGBColor(204, 204, 204), TL("no TAZ"), true);
     edgeColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
@@ -1513,7 +1513,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
 void
 GUIVisualizationSettings::initNeteditDefaults() {
     // init color schemes
-    GUIColorScheme scheme = GUIColorScheme(TL("uniform"), RGBColor::BLACK, TL("road"), true);
+    GUIColorScheme scheme = GUIColorScheme("uniform", TL("uniform"), RGBColor::BLACK, TL("road"), true);
     scheme.addColor(RGBColor::GREY, 1, TL("sidewalk"));
     scheme.addColor(RGBColor(192, 66, 44), 2, TL("bike lane"));
     scheme.addColor(RGBColor(200, 255, 200), 3, TL("green verge"));
@@ -1529,7 +1529,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1., TL("selected"));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by permission code"), RGBColor(240, 240, 240), "nobody");
+    scheme = GUIColorScheme("by permission code", TL("by permission code"), RGBColor(240, 240, 240), "nobody");
     scheme.addColor(RGBColor(10, 10, 10), (double)SVC_PASSENGER, "passenger");
     scheme.addColor(RGBColor(128, 128, 128), (double)SVC_PEDESTRIAN, "pedestrian");
     scheme.addColor(RGBColor(80, 80, 80), (double)(SVC_PEDESTRIAN | SVC_DELIVERY), "pedestrian_delivery");
@@ -1563,35 +1563,35 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor::CYAN, 4.);
     scheme.addColor(RGBColor::BLUE, 100.);
     laneColorer.addScheme(scheme);
-    laneColorer.addScheme(GUIColorScheme(TL("by angle"), RGBColor::YELLOW, "", true));
+    laneColorer.addScheme(GUIColorScheme("by angle", TL("by angle"), RGBColor::YELLOW, "", true));
 
-    scheme = GUIColorScheme(TL("by priority"), RGBColor::YELLOW);
+    scheme = GUIColorScheme("by priority", TL("by priority"), RGBColor::YELLOW);
     scheme.addColor(RGBColor::RED, -20.);
     scheme.addColor(RGBColor::GREEN, 20.);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by height at start"), RGBColor::RED);
+    scheme = GUIColorScheme("by height at start", TL("by height at start"), RGBColor::RED);
     scheme.addColor(RGBColor::BLUE, -10.);
     scheme.addColor(RGBColor::YELLOW, 50.);
     scheme.addColor(RGBColor::GREEN, 100.);
     scheme.addColor(RGBColor::MAGENTA, 200.);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by height at segment start"), RGBColor::RED);
+    scheme = GUIColorScheme("by height at segment start", TL("by height at segment start"), RGBColor::RED);
     scheme.addColor(RGBColor::BLUE, -10.);
     scheme.addColor(RGBColor::YELLOW, 50.);
     scheme.addColor(RGBColor::GREEN, 100.);
     scheme.addColor(RGBColor::MAGENTA, 200.);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by inclination"), RGBColor::GREY);
+    scheme = GUIColorScheme("by inclination", TL("by inclination"), RGBColor::GREY);
     scheme.addColor(RGBColor::YELLOW, 0.1);
     scheme.addColor(RGBColor::RED, 0.3);
     scheme.addColor(RGBColor::GREEN, -0.1);
     scheme.addColor(RGBColor::BLUE, -0.3);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by segment inclination"), RGBColor::GREY);
+    scheme = GUIColorScheme("by segment inclination", TL("by segment inclination"), RGBColor::GREY);
     scheme.addColor(RGBColor::YELLOW, 0.1);
     scheme.addColor(RGBColor::RED, 0.3);
     scheme.addColor(RGBColor::GREEN, -0.1);
@@ -1617,7 +1617,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
-    scheme = GUIColorScheme(TL("uniform"), RGBColor(102, 0, 0), "", true);
+    scheme = GUIColorScheme("uniform", TL("uniform"), RGBColor(102, 0, 0), "", true);
     scheme.addColor(RGBColor(204, 0, 0), 1, TL("junction bubble"));
     scheme.addColor(RGBColor(230, 100, 115), 2, TL("geometry points"));
     scheme.addColor(GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW, 3, TL("connections missing"));
@@ -1642,7 +1642,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
     scheme.addColor(RGBColor(0, 0, 128), 13, "left_before_right"); // dark blue
     junctionColorer.addScheme(scheme);
-    scheme = GUIColorScheme(TL("by height"), RGBColor::GREY);
+    scheme = GUIColorScheme("by height", TL("by height"), RGBColor::GREY);
     scheme.addColor(RGBColor::BLUE, -10.);
     scheme.addColor(RGBColor::RED, 10.);
     scheme.addColor(RGBColor::YELLOW, 50.);
@@ -1652,19 +1652,19 @@ GUIVisualizationSettings::initNeteditDefaults() {
     junctionColorer.addScheme(scheme);
 
     /// add POI coloring schemes
-    poiColorer.addScheme(GUIColorScheme(TL("given POI color"), RGBColor::RED, "", true));
+    poiColorer.addScheme(GUIColorScheme("given POI color", TL("given POI color"), RGBColor::RED, "", true));
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, TL("selected"));
     poiColorer.addScheme(scheme);
-    poiColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor::RED, "", true));
+    poiColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::RED, "", true));
 
     /// add polygon coloring schemes
-    polyColorer.addScheme(GUIColorScheme(TL("given polygon color"), RGBColor::ORANGE, "", true));
+    polyColorer.addScheme(GUIColorScheme("given polygon color", TL("given polygon color"), RGBColor::ORANGE, "", true));
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, TL("selected"));
     polyColorer.addScheme(scheme);
-    polyColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor::ORANGE, "", true));
-    polyColorer.addScheme(GUIColorScheme(TL("random"), RGBColor::YELLOW, "", true));
+    polyColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::ORANGE, "", true));
+    polyColorer.addScheme(GUIColorScheme("random", TL("random"), RGBColor::YELLOW, "", true));
 
     /// add edge scaling schemes
     {
@@ -1673,20 +1673,20 @@ GUIVisualizationSettings::initNeteditDefaults() {
     }
 
     /// add data coloring schemes
-    dataColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor::ORANGE, "", true));
+    dataColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::ORANGE, "", true));
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, TL("selected"));
     dataColorer.addScheme(scheme);
-    dataColorer.addScheme(GUIColorScheme(TL("by origin taz"), RGBColor::ORANGE, "", true));
-    dataColorer.addScheme(GUIColorScheme(TL("by destination taz"), RGBColor::ORANGE, "", true));
+    dataColorer.addScheme(GUIColorScheme("by origin taz", TL("by origin taz"), RGBColor::ORANGE, "", true));
+    dataColorer.addScheme(GUIColorScheme("by destination taz", TL("by destination taz"), RGBColor::ORANGE, "", true));
     scheme = GUIColorScheme(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL, COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     dataColorer.addScheme(scheme);
 
     // dummy schemes
-    vehicleColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor::YELLOW, "", true));
-    personColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor::YELLOW, "", true));
-    containerColorer.addScheme(GUIColorScheme(TL("uniform"), RGBColor::YELLOW, "", true));
+    vehicleColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::YELLOW, "", true));
+    personColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::YELLOW, "", true));
+    containerColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::YELLOW, "", true));
     vehicleScaler.addScheme(GUIScaleScheme(TL("uniform"), 1, "", true));
 }
 
