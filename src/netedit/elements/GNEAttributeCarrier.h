@@ -326,6 +326,9 @@ private:
     /// @brief fill Wire elements
     static void fillWireElements();
 
+    /// @brief fill JuPedSim elements
+    static void fillJuPedSimElements();
+
     /// @brief fill demand elements
     static void fillDemandElements();
 
