@@ -26,10 +26,11 @@ title: ChangeLog
 - netedit
   - Fixed problem saving person flow attributes #11022
   - Fixed problem saving containers sorted by begin attribute in Netedit #11022
-  - Fixed problem saving edgetypes. #12467
+  - Fixed problem saving edgetypes #12467
   - Added proper error handling for duplicate edgeRelations #11329
-  - Can now load and modify `<vTypeDistribution>` elements. #12846
-  - Now if a network element ID is modified, flag for save children is enabled. #13619
+  - Can now load and modify `<vTypeDistribution>` elements #12846
+  - Now if a network element ID is modified, flag for save children is enabled #13619
+  - Avoid mixing edges and lanes in overlapping modul when inspecting edges or lanes #13093 
   
 - netconvert
   - Fixed unequal length of bidi edge #13569
