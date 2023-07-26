@@ -419,6 +419,12 @@ enum SumoXMLTag {
     GNE_TAG_POILANE,
     /// @brief Point of interest over view with GEO attributes
     GNE_TAG_POIGEO,
+    /// @brief polygon used for draw walkable areas (used in JuPedSim)
+    GNE_TAG_WALKABLEAREA,
+    /// @brief polygon used for draw obstacles (used in JuPedSim)
+    GNE_TAG_OBSTACLE,
+    /// @brief POI used in walkable areas (used in JuPedSim)
+    GNE_TAG_POIWAYPOINT,
     /// @brief Rerouter Symbol
     GNE_TAG_REROUTER_SYMBOL,
     /// @brief VSS Symbol
