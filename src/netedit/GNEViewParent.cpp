@@ -675,14 +675,12 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserAdditional;
                 locateTitle = TL("Additional Chooser");
                 for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
-                    if (additionalTag.first == SUMO_TAG_POI
-                            || additionalTag.first == GNE_TAG_POILANE
-                            || additionalTag.first == GNE_TAG_POIGEO
-                            || additionalTag.first == SUMO_TAG_POLY) {
-                        continue;
-                    }
-                    for (const auto& additional : additionalTag.second) {
-                        ACsToLocate.push_back(additional);
+                    // avoid shapes and TAZs
+                    if (!GNEAttributeCarrier::getTagProperty(additionalTag.first).isShapeElement() &&
+                        !GNEAttributeCarrier::getTagProperty(additionalTag.first).isTAZElement()) {
+                        for (const auto& additional : additionalTag.second) {
+                            ACsToLocate.push_back(additional);
+                        }
                     }
                 }
                 break;
@@ -706,7 +704,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_SHIFT_L_LOCATEPOLY:
                 chooserLoc = &myACChoosers.ACChooserPolygon;
                 locateTitle = TL("Poly Chooser");
-                // fill ACsToLocate with polys and TAZs (because share namespae)
+                // fill ACsToLocate with polys, TAZs, walkableAreas and obstacles (because share namespae)
                 for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POLY)) {
                     ACsToLocate.push_back(polygon);
                 }
