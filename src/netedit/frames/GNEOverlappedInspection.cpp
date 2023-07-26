@@ -75,10 +75,24 @@ void
 GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
     // first clear myOverlappedACs
     myOverlappedACs.clear();
+    // get cliked ACs
+    auto clickedACs = objectsUnderCursor.getClickedAttributeCarriers();
+    // check if filter edges
+    if ((clickedACs.size() > 0) && (clickedACs.front()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+        // iterate over clickedAcs and remove edges
+        auto it = clickedACs.begin();
+        while (it != clickedACs.end()) {
+            if ((*it)->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                it = clickedACs.erase(it);
+            } else {
+                it++;
+            }
+        }
+    }
     // reserve
-    myOverlappedACs.reserve(objectsUnderCursor.getClickedAttributeCarriers().size());
+    myOverlappedACs.reserve(clickedACs.size());
     // iterate over objects under cursor
-    for (const auto& AC : objectsUnderCursor.getClickedAttributeCarriers()) {
+    for (const auto& AC : clickedACs) {
         bool insert = true;
         // check supermode demand
         if (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
