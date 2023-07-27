@@ -385,13 +385,13 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("poi-prefix", "Netedit", TL("Prefix for poi naming"));
 
     neteditOptions.doRegister("walkableArea-prefix", new Option_String("jps.wa"));
-    neteditOptions.addDescription("walkableArea-prefix", "Netedit", TL("Prefix for poi naming"));
+    neteditOptions.addDescription("walkableArea-prefix", "Netedit", TL("Prefix for walkable area naming"));
 
     neteditOptions.doRegister("obstacle-prefix", new Option_String("jps.o"));
-    neteditOptions.addDescription("obstacle-prefix", "Netedit", TL("Prefix for poi naming"));
+    neteditOptions.addDescription("obstacle-prefix", "Netedit", TL("Prefix for obstacle naming"));
 
     neteditOptions.doRegister("poiWaypoint-prefix", new Option_String("jps.w"));
-    neteditOptions.addDescription("poiWaypoint-prefix", "Netedit", TL("Prefix for poi naming"));
+    neteditOptions.addDescription("poiWaypoint-prefix", "Netedit", TL("Prefix for poi waypoints naming"));
 
     // demand prefixes
 
