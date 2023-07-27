@@ -82,6 +82,17 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 }
 
 
+GNEPOI::GNEPOI(GNENet* net, const std::string& id, const Position pos, const std::string& name,
+               const Parameterised::Map& parameters) :
+    PointOfInterest(id, "jupedsim.waypoint", RGBColor::BLUE, pos, false, "", 0, false, 0, 2, 0, "", false, 0, 0, name, parameters),
+    GNEAdditional(id, net, GLO_POI, GNE_TAG_POIWAYPOINT, GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
+                  "", {}, {}, {}, {}, {}, {}) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
+}
+
+
+
 GNEPOI::~GNEPOI() {}
 
 
