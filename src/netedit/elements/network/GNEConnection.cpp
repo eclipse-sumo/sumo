@@ -158,7 +158,8 @@ GNEConnection::getMoveOperation() {
         // calculate move shape operation
         return calculateMoveShapeOperation(connection.customShape.size() > 0 ? connection.customShape : myConnectionGeometry.getShape(),
                                            myNet->getViewNet()->getPositionInformation(),
-                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius, true);
+                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius,
+                                           true, false);
     } else {
         return nullptr;
     }
