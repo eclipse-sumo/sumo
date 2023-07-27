@@ -107,9 +107,9 @@ GNEAdditionalFrame::HelpCreationModule::~HelpCreationModule() {}
 
 
 void
-GNEAdditionalFrame::HelpCreationModule::showHelpCreationModule(SumoXMLTag tag) {
-    if (myHelpMap.count(tag) > 0) {
-        myHelpLabel->setText(myHelpMap.at(tag).c_str());
+GNEAdditionalFrame::HelpCreationModule::showHelpCreationModule(SumoXMLTag XMLTag) {
+    if (myHelpMap.count(XMLTag) > 0) {
+        myHelpLabel->setText(myHelpMap.at(XMLTag).c_str());
         show();
     } else {
         hide();

@@ -73,7 +73,7 @@ public:
         ~HelpCreationModule();
 
         /// @brief show Legend modul
-        void showHelpCreationModule(SumoXMLTag tag);
+        void showHelpCreationModule(SumoXMLTag XMLTag);
 
         /// @brief hide Legend modul
         void hideHelpCreationModule();
