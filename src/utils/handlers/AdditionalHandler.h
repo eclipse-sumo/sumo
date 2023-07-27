@@ -572,6 +572,38 @@ public:
                              const RGBColor& color, const double lon, const double lat, const double layer, const double angle, const std::string& imgFile,
                              bool relativePath, const double width, const double height, const std::string& name,
                              const Parameterised::Map& parameters) = 0;
+    
+    /**@brief Builds a walkable area using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] name polygon name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                                   const std::string& name, const Parameterised::Map& parameters) = 0;
+
+    /**@brief Builds a obstacle using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] name polygon name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                               const std::string& name, const Parameterised::Map& parameters) = 0;
+
+    /**@brief Builds a POIWaypoint using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the POI
+     * @param[in] x POI's x position
+     * @param[in] y POI's y position
+     * @param[in] name POIWaypoint name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildPOIWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
+                                  const std::string& name, const Parameterised::Map& parameters) = 0;
+
     /// @}
 
     /// @brief get flag for check if a element wasn't created
@@ -691,6 +723,15 @@ private:
 
     /// @brief parse POI attributes
     void parsePOIAttributes(const SUMOSAXAttributes& attrs);
+
+    // @brief parse walkable area attributes
+    void parseWalkableAreaAttributes(const SUMOSAXAttributes& attrs);
+
+    // @brief parse poly attributes
+    void parseObstacleAttributes(const SUMOSAXAttributes& attrs);
+
+    // @brief parse poly attributes
+    void parsePOIWaypointAttributes(const SUMOSAXAttributes& attrs);
 
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);
