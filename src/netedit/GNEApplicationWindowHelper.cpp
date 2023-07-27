@@ -432,7 +432,11 @@ GNEApplicationWindowHelper::FileMenuCommands::buildAdditionalSection(FXMenuPane*
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
                                            TL("Save Additionals As..."), "", TL("Save additional elements to another file."),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
-
+    
+    GUIDesigns::buildFXMenuCommandShortcut(menuPane,
+                                           TL("Save JuPedSim Elements As..."), "", TL("Save JuPedSim elements in a separated file."),
+                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_JUPEDSIMELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS);
+    
     new FXMenuSeparator(menuPane);
 
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
