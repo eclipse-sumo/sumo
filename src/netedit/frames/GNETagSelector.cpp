@@ -373,7 +373,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         // shapes
         case SUMO_TAG_POLY:
-            myAC = new GNEPoly(net);
+            myAC = new GNEPoly(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_POI:
         case GNE_TAG_POILANE:
@@ -400,10 +400,10 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         // JuPedSim elements
         case GNE_TAG_WALKABLEAREA:
-            myAC = new GNEPoly(net);
+            myAC = new GNEPoly(tagProperty.getTag(), net);
             break;
         case GNE_TAG_OBSTACLE:
-            myAC = new GNEPoly(net);
+            myAC = new GNEPoly(tagProperty.getTag(), net);
             break;
         case GNE_TAG_POIWAYPOINT:
             myAC = new GNEPOI(tagProperty.getTag(), net);
