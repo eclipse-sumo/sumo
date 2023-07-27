@@ -2098,6 +2098,21 @@ GNENet::saveAdditionals() {
 
 
 void
+GNENet::saveJuPedSimElements(const std::string &file) {
+    OutputDevice& device = OutputDevice::getDevice(file);
+    // open header
+    device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
+    // juPedSim elements
+    writeJuPedSimComment(device);
+    writeAdditionalByType(device, {GNE_TAG_WALKABLEAREA});
+    writeAdditionalByType(device, {GNE_TAG_OBSTACLE});
+    writeAdditionalByType(device, {GNE_TAG_POIWAYPOINT});
+    // close device
+    device.close();
+}
+
+
+void
 GNENet::saveDemandElements() {
     // first recompute demand elements
     computeDemandElements(myViewNet->getViewParent()->getGNEAppWindows());
@@ -2232,11 +2247,6 @@ GNENet::saveAdditionalsConfirmed() {
     writeShapesComment(device);
     writeAdditionalByType(device, {SUMO_TAG_POLY});
     writeAdditionalByType(device, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
-    // juPedSim elements
-    writeJuPedSimComment(device);
-    writeAdditionalByType(device, {GNE_TAG_WALKABLEAREA});
-    writeAdditionalByType(device, {GNE_TAG_OBSTACLE});
-    writeAdditionalByType(device, {GNE_TAG_POIWAYPOINT});
     // TAZs
     writeTAZComment(device);
     writeAdditionalByType(device, {SUMO_TAG_TAZ});
@@ -2245,6 +2255,11 @@ GNENet::saveAdditionalsConfirmed() {
     writeAdditionalByType(device, {SUMO_TAG_TRACTION_SUBSTATION});
     writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
     writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
+    // juPedSim elements
+    writeJuPedSimComment(device);
+    writeAdditionalByType(device, {GNE_TAG_WALKABLEAREA});
+    writeAdditionalByType(device, {GNE_TAG_OBSTACLE});
+    writeAdditionalByType(device, {GNE_TAG_POIWAYPOINT});
     // close device
     device.close();
     // mark additionals as saved
