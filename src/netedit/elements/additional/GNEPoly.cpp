@@ -40,10 +40,10 @@
 // method definitions
 // ===========================================================================
 
-GNEPoly::GNEPoly(GNENet* net) :
+GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", Parameterised::Map()),
-                  GNEAdditional("", net, GLO_POLYGON, SUMO_TAG_POLY, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
-mySimplifiedShape(false) {
+    GNEAdditional("", net, GLO_POLYGON, tag, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
+    mySimplifiedShape(false) {
     // reset default values
     resetDefaultValues();
 }
@@ -54,7 +54,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const Parameterised::Map& parameters) :
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
     GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
-mySimplifiedShape(false) {
+    mySimplifiedShape(false) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setShapeImgFile("");
@@ -70,6 +70,25 @@ mySimplifiedShape(false) {
             GeoConvHelper::getFinal().cartesian2geo(myGeoShape[i]);
         }
     }
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
+    // update geometry
+    updateGeometry();
+}
+
+
+GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, const std::string& name,
+                 const Parameterised::Map& parameters) :
+    TesselatedPolygon(id, 
+                      (tag == GNE_TAG_WALKABLEAREA)? "jupedsim.walkable_area" : "jupedsim.obstacle", 
+                      (tag == GNE_TAG_WALKABLEAREA)? RGBColor(179,217,255) : RGBColor(255,204,204), 
+                      shape, false, true, 1, 
+                      (tag == GNE_TAG_WALKABLEAREA)? 1 : 0,
+                      0, "", false, name, parameters),
+    GNEAdditional(id, net, GLO_POLYGON, tag,
+        (tag == GNE_TAG_WALKABLEAREA)? GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA) : GUIIconSubSys::getIcon(GUIIcon::OBSTACLE), 
+        "", {}, {}, {}, {}, {}, {}),
+    mySimplifiedShape(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // update geometry

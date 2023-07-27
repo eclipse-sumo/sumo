@@ -47,9 +47,9 @@ public:
     using GNEAdditional::getID;
 
     /// @brief default Constructor
-    GNEPoly(GNENet* net);
+    GNEPoly(SumoXMLTag tag, GNENet* net);
 
-    /** @brief Constructor
+    /** @brief Constructor for polygons
      * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the polygon
      * @param[in] type The (abstract) type of the polygon
@@ -68,6 +68,16 @@ public:
     GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill,
             double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath,
             const std::string& name, const Parameterised::Map& parameters);
+    
+    /** @brief Constructor for JuPedSim elements
+     * @param[in] net net in which this polygon is placed
+     * @param[in] id The name of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] name Poly's name
+     * @param[in] parameters generic parameters
+     */
+    GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, const std::string& name,
+            const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPoly();
