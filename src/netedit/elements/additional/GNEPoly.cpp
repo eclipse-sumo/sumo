@@ -83,7 +83,7 @@ GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const Posit
                       (tag == GNE_TAG_WALKABLEAREA)? "jupedsim.walkable_area" : "jupedsim.obstacle", 
                       (tag == GNE_TAG_WALKABLEAREA)? RGBColor(179,217,255) : RGBColor(255,204,204), 
                       shape, false, true, 1, 
-                      (tag == GNE_TAG_WALKABLEAREA)? 1 : 0,
+                      (tag == GNE_TAG_WALKABLEAREA)? 1 : 2,
                       0, "", false, name, parameters),
     GNEAdditional(id, net, GLO_POLYGON, tag,
         (tag == GNE_TAG_WALKABLEAREA)? GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA) : GUIIconSubSys::getIcon(GUIIcon::OBSTACLE), 
