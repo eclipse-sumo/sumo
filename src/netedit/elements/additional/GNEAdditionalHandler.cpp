@@ -1585,7 +1585,11 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
                                    const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill,
                                    double lineWidth, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
+    if (type == "jupedsim.walkable_area") {
+        buildWalkableArea(sumoBaseObject, id, shape, name, parameters);
+    } else if (type == "jupedsim.obstacle") { 
+        buildObstacle(sumoBaseObject, id, shape, name, parameters);
+    } else if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
     } else if (!checkDuplicatedID({SUMO_TAG_POLY, SUMO_TAG_TAZ, GNE_TAG_WALKABLEAREA, GNE_TAG_OBSTACLE}, id)) {
         writeErrorDuplicated(SUMO_TAG_POLY, id);
@@ -1616,7 +1620,9 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
                                const RGBColor& color, const double x, const double y, double layer, double angle, const std::string& imgFile, bool relativePath,
                                double width, double height, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
+    if (type == "jupedsim.waypoint") { 
+        buildPOIWaypoint(sumoBaseObject, id, x, y, name, parameters);
+    } else if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POI, id);
     } else if (width < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH);
