@@ -65,6 +65,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
         GeoConvHelper::getFinal().x2cartesian_const(cartesian);
         set(cartesian.x(), cartesian.y());
     }
+    // update geometry (needed for adjust myShapeWidth and myShapeHeight)
+    updateGeometry();
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -75,22 +77,22 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const double height, const std::string& name, const Parameterised::Map& parameters) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, GNE_TAG_POILANE, GUIIconSubSys::getIcon(GUIIcon::POILANE), "", {}, {}, {lane}, {}, {}, {}) {
-    // update geometry (needed for POILanes)
+    // update geometry (needed for adjust myShapeWidth and myShapeHeight)
     updateGeometry();
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
-GNEPOI::GNEPOI(GNENet* net, const std::string& id, const Position pos, const std::string& name,
-               const Parameterised::Map& parameters) :
-    PointOfInterest(id, "jupedsim.waypoint", RGBColor::CYAN, pos, false, "", 0, false, 0, 2, 0, "", false, 0, 0, name, parameters),
+GNEPOI::GNEPOI(GNENet* net, const std::string& id, double x, const double y, const std::string& name, const Parameterised::Map& parameters) :
+    PointOfInterest(id, "jupedsim.waypoint", RGBColor::CYAN, Position(x, y), false, "", 0, false, 0, 2, 0, "", false, 0, 0, name, parameters),
     GNEAdditional(id, net, GLO_POI, GNE_TAG_POIWAYPOINT, GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
                   "", {}, {}, {}, {}, {}, {}) {
+    // update geometry (needed for adjust myShapeWidth and myShapeHeight)
+    updateGeometry();
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
-
 
 
 GNEPOI::~GNEPOI() {}
@@ -369,10 +371,14 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popMatrix();
             }
             // draw geometry points
-            GNEAdditional::drawUpGeometryPoint(myNet->getViewNet(), myShapeHeight.front(), 180, RGBColor::ORANGE);
-            GNEAdditional::drawDownGeometryPoint(myNet->getViewNet(), myShapeHeight.back(), 180, RGBColor::ORANGE);
-            GNEAdditional::drawLeftGeometryPoint(myNet->getViewNet(), myShapeWidth.back(), -90, RGBColor::ORANGE);
-            GNEAdditional::drawRightGeometryPoint(myNet->getViewNet(), myShapeWidth.front(), -90, RGBColor::ORANGE);
+            if (myShapeHeight.size() > 0) {
+                GNEAdditional::drawUpGeometryPoint(myNet->getViewNet(), myShapeHeight.front(), 180, RGBColor::ORANGE);
+                GNEAdditional::drawDownGeometryPoint(myNet->getViewNet(), myShapeHeight.back(), 180, RGBColor::ORANGE);
+            }
+            if (myShapeWidth.size() > 0) {
+                GNEAdditional::drawLeftGeometryPoint(myNet->getViewNet(), myShapeWidth.back(), -90, RGBColor::ORANGE);
+                GNEAdditional::drawRightGeometryPoint(myNet->getViewNet(), myShapeWidth.front(), -90, RGBColor::ORANGE);
+            }
             // pop name
             GLHelper::popName();
             // draw lock icon

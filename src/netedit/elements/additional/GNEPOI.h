@@ -96,11 +96,12 @@ public:
     /**@brief Constructor for POIWaypoints
      * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the POI
-     * @param[in] pos The position in view
+     * @param[in] x The x position in view
+     * @param[in] y The y position in view
      * @param[in] name POI's name
      * @param[in] parameters generic parameters
      */
-    GNEPOI(GNENet* net, const std::string& id, const Position pos, const std::string& name,
+    GNEPOI(GNENet* net, const std::string& id, double x, const double y, const std::string& name,
            const Parameterised::Map& parameters);
 
     /// @brief Destructor
