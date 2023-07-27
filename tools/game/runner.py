@@ -141,7 +141,7 @@ def computeScoreFromTimeLoss(gamename):
     completed = False
 
     for line in open(gamename + ".log"):
-        if "Simulation ended at time" in line:
+        if "Reason: The final simulation step has been reached." in line:
             completed = True
         m = re.search('Inserted: ([0-9]*)', line)
         if m:
