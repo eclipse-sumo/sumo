@@ -672,6 +672,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                             obj->getStringAttribute(SUMO_ATTR_NAME),
                             obj->getParameters());
             }
+            break;
         // WalkableArea
         case GNE_TAG_WALKABLEAREA:
             buildWalkableArea(obj,
