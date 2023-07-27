@@ -279,7 +279,7 @@ Some further messages require additional parameters.
 <td><p>get collisions (0x23)</p></td>
 <td><p>-</p></td>
 <td><p>compound, see below</p></td>
-<td><p>Retrieves details on all collision events in the last time step.</p></td>
+<td><p>Retrieves details on all collision events in the last time step. Collision detection is disabled by default (**--collision.action none**).</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._simulation.html#SimulationDomain-getCollisions">getCollisions</a></p></td>
 </tr>
 </tbody>
