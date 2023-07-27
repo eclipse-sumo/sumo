@@ -701,6 +701,8 @@ enum {
     MID_GNE_TOOLBARFILE_SAVENETWORK_AS,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
+    /// @brief save JuPedSim as
+    MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS,
     /// @brief reload additionals
     MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,
     /// @brief save TLS Programs as
