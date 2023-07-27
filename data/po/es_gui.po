@@ -1629,52 +1629,52 @@ msgstr "esperando a:"
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:316
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:316
 msgid "interval start"
-msgstr ""
+msgstr "inicio del intervalo"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:317
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:317
 msgid "interval end"
-msgstr ""
+msgstr "fin del intervalo"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:318
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:318
 msgid "aspired flow [veh/h]"
-msgstr ""
+msgstr "flujo deseado [veh/h]"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:319
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:319
 msgid "aspired speed"
-msgstr ""
+msgstr "velocidad deseada"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:320
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:320
 msgid "current flow [veh/h]"
-msgstr ""
+msgstr "flujo actual [veh/h]"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:321
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:321
 msgid "current speed"
-msgstr ""
+msgstr "velocidad actual"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:322
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:322
 msgid "default speed"
-msgstr ""
+msgstr "velocidad predeterminada"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:323
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:323
 msgid "required vehicles"
-msgstr ""
+msgstr "vehículos necesarios"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:324
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:324
 msgid "passed vehicles"
-msgstr ""
+msgstr "vehículos pasados"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:325
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:325
 msgid "inserted vehicles"
-msgstr ""
+msgstr "vehículos insertados"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:326
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:326
@@ -1684,26 +1684,26 @@ msgstr "vehículos eliminados"
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:327
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:327
 msgid "cleared in jam"
-msgstr ""
+msgstr "despejados del atasco"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:334
 #: D:\Repos\sumo/src\guisim\GUICalibrator.cpp:334
 msgid "inactive until"
-msgstr ""
+msgstr "inactivo hasta"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:98
 #: D:\Repos\sumo/src\guisim\GUIChargingStation.cpp:98
 msgid "charging power [W]"
-msgstr ""
+msgstr "potencia de carga [W]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:99
 msgid "charging efficiency [#]"
-msgstr ""
+msgstr "eficiencia de carga [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:100
 #: D:\Repos\sumo/src\guisim\GUIChargingStation.cpp:100
 msgid "charge in transit [true/false]"
-msgstr ""
+msgstr "cargar en movimiento [true/false]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:101
 #: D:\Repos\sumo/src\guisim\GUIChargingStation.cpp:101
