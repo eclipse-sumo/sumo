@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-27 13:18+0200\n"
+"POT-Creation-Date: 2023-07-27 14:22+0200\n"
 "PO-Revision-Date: 2023-03-15 09:30+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -24,32 +24,32 @@ msgstr ""
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2223
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2224
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2226
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:518
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:521
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:524
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1572
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1573
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:520
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:523
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:526
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1574
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1575
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1576
 msgid "N/A"
 msgstr "Yok"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:518
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:520
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr "Orijinal koordinat (netconvert'te koordinat dönüşümünden önce)"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:521
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:523
 msgid "Network coordinate"
 msgstr "Ağ Koordinatı"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:324
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:539
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:541
 msgid "Ready."
 msgstr "Hazır."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:445
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1334
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1336
 msgid "&File"
 msgstr "Dosya"
 
@@ -95,7 +95,7 @@ msgid "Load edge related data for visualization."
 msgstr "Görselleştirme için Kesim İlişkili Veri Yükle."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:463
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1020
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1022
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:261
 msgid "&Reload"
 msgstr "Tekrar Yükle"
@@ -133,17 +133,17 @@ msgid "Close the simulation."
 msgstr "Simülasyonu Kapat."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:481
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1355
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1357
 msgid "&Quit"
 msgstr "Çık"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:481
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1355
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1357
 msgid "Quit the Application."
 msgstr "Uygulamadan Çık."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:490
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1369
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1371
 msgid "&Edit"
 msgstr "Düzenle"
 
@@ -172,22 +172,22 @@ msgid "Opens a dialog for editing breakpoints."
 msgstr "Kesme Noktalarını Düzenlemek İçin Bir İletişim Kutusu Açar."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:502
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1259
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1263
 msgid "Edit Visualisation"
 msgstr "Görselleştirmeyi Düzenle"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:502
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1259
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1263
 msgid "Opens a dialog for editing visualization settings."
 msgstr "Görselleştirme Ayarlarının Düzenlenmesi İçin Bir İletişim Kutusu Açar."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:505
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1262
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1266
 msgid "Edit Viewport"
 msgstr "Görüntü Alanını Düzenle"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:505
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1262
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1266
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr ""
 "Görüntü Alanını, Yakınlaştırmayı ve Döndürmeyi Düzenlemek İçin Bir İletişim "
@@ -227,13 +227,13 @@ msgid "Toggle full screen mode on/off."
 msgstr "Tam Ekran Modunu Aç/Kapat."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:528
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1405
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1407
 msgid "&Locate"
 msgstr "Bul"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:530
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1305
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1984
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1309
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1988
 msgid "&Junctions"
 msgstr "Kavşaklar"
 
@@ -242,8 +242,8 @@ msgid "Open a Dialog for Locating a Junction."
 msgstr "Bir Kavşak Bulmak İçin İletişim Kutusu Aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:533
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1310
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1987
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1314
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1991
 msgid "&Edges"
 msgstr "Kesimler"
 
@@ -252,8 +252,8 @@ msgid "Open a Dialog for Locating an Edge."
 msgstr "Bir Kesim Bulmak İçin İletişim Penceresi Aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:536
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1381
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1993
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1385
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1997
 msgid "&Vehicles"
 msgstr "Araçlar"
 
@@ -262,8 +262,8 @@ msgid "Open a Dialog for Locating a Vehicle."
 msgstr "Bir Araç Bulmak İçin İletişim Penceresi Aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:539
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1386
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1996
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1390
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2000
 msgid "&Persons"
 msgstr "Yolcular"
 
@@ -280,7 +280,7 @@ msgid "Open a Dialog for Locating a Container."
 msgstr "Bir Konteyner Belirlemek İçin İletişim Penceresi Aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:545
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2005
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2009
 msgid "&TLS"
 msgstr "TIS"
 
@@ -289,8 +289,8 @@ msgid "Open a Dialog for Locating a Traffic Light."
 msgstr "Bir Trafik Işığı Bulmak İçin İletişim Penceresi Aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:548
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:630
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2008
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:634
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2012
 msgid "&Additional"
 msgstr "Ek"
 
@@ -299,7 +299,7 @@ msgid "Open a Dialog for Locating an Additional Structure."
 msgstr "Bir Ek Yapı Bulmak İçin İletişim Penceresi Aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:551
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2011
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2015
 msgid "P&oI"
 msgstr "EN"
 
@@ -308,7 +308,7 @@ msgid "Open a Dialog for Locating a Point of Interest."
 msgstr "Bir Etki Noktası Bulmak İçin İletişim Penceresi Aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:554
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2014
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2018
 msgid "Po&lygon"
 msgstr "Çokgen"
 
@@ -422,7 +422,7 @@ msgid "Load simulation state for the current network from file."
 msgstr "Mevcut Ağ İçin Simülasyon Durumunu Dosyadan Yükle."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:593
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1470
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1472
 msgid "&Window"
 msgstr "Pencere"
 
@@ -459,7 +459,7 @@ msgid "&Others..."
 msgstr "&Diğerleri..."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:623
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2132
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2136
 msgid "Show Status Line"
 msgstr "Durum Satırını Göster"
 
@@ -468,12 +468,12 @@ msgid "Toggle the Status Bar on/off."
 msgstr "Durum Çubuğunu Aç/Kapat."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:626
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2135
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2139
 msgid "Show Message Window"
 msgstr "Mesaj Penceresini Göster"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:626
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2135
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2139
 msgid "Toggle the Message Window on/off."
 msgstr "Mesaj Penceresini Aç/Kapat."
 
@@ -494,7 +494,7 @@ msgid "Toggle the Simulation Delay Entry on/off."
 msgstr "Simülasyon Gecikme Girişini Aç/Kapat."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:638
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2139
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2143
 msgid "Clear Message Window"
 msgstr "Mesaj Penceresini Temizle"
 
@@ -503,52 +503,52 @@ msgid "Clear the message window."
 msgstr "Mesaj Penceresini Temizle."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:645
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1475
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1477
 msgid "&Help"
 msgstr "Yardım"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:647
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2155
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2159
 msgid "&Online Documentation"
 msgstr "Çevrimiçi Belgeler"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:647
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2155
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2159
 msgid "Open Online documentation."
 msgstr "Çevrimiçi Belgeleri Aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:650
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2158
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2162
 msgid "&Changelog"
 msgstr "Değişiklik Günlüğü"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:650
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2158
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2162
 msgid "Open Changelog."
 msgstr "Değişiklik Günlüğünü Aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:652
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2160
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2164
 msgid "&Hotkeys"
 msgstr "Kısayollar"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:652
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2160
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2164
 msgid "Open Hotkeys."
 msgstr "Kısayolları Aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:654
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2162
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2166
 msgid "&Tutorial"
 msgstr "Öğretici"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:654
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2162
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2166
 msgid "Open Tutorial."
 msgstr "Öğreticiyi Aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:656
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2164
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2168
 msgid "&Feedback"
 msgstr "Geri Bildirim"
 
@@ -557,7 +557,7 @@ msgid "Open feedback dialog."
 msgstr "Geri bildirim iletişim kutusunu aç."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:659
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2167
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2171
 msgid "&About"
 msgstr "Hakkında"
 
@@ -707,10 +707,10 @@ msgstr "Şekilleri Aç"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1125
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1153
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4682
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4717
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4752
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4784
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4780
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4815
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4850
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4882
 #, c-format
 msgid "Loading of % failed."
 msgstr "% Yüklemesi Başarısız."
@@ -736,7 +736,7 @@ msgid "Quick-Reloading."
 msgstr "Hızlı Yeniden Yükleme."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1200
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1092
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1094
 msgid "Already loading!"
 msgstr "Zaten Yükleniyor!"
 
@@ -2285,204 +2285,204 @@ msgstr "Mikro Ölçekli, Çok Modlu Trafik Simülasyonu SUMO'nun GKA Versiyonu."
 msgid "This system has no OpenGL support. Exiting."
 msgstr "Bu sistemin OpenGL desteği yoktur. Çıkılıyor."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:474
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:476
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "Mikro Ölçekli, Çok Modlu Trafik Simülasyonu."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:515
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:517
 msgid "Recomputing"
 msgstr "Yeniden Hesaplama"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:515
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:517
 msgid "Recomputing is needed"
 msgstr "Yeniden hesaplama gerekli"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:524
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:526
 msgid "Test coordinate"
 msgstr "Test koordinatı"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:838
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:861
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:840
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:863
 msgid "loading TLS Programs from '"
 msgstr "' Dosyasından TIS Programları Yükleniyor"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:903
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:905
 msgid "Loaded edge types from '"
 msgstr "' dosyasından yüklenen kesim tipleri"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:905
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:938
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:907
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:940
 msgid "load edgeTypes"
 msgstr "Kesim Tiplerini (edgeTypes) Yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:936
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:938
 msgid "Reloaded edge types from '"
 msgstr "' dosyasından yeniden yüklenen kesim tipleri"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:993
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:995
 msgid "Reloading netedit config file '"
 msgstr "Netedit yapılandırma dosyası yeniden yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:997
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:999
 msgid "Reloading sumo config file '"
 msgstr "Sumo yapılandırma dosyası yeniden yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1001
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1062
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1003
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1064
 msgid "Reloading network file '"
 msgstr "Ağ dosyası yeniden yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1017
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1019
 msgid "&Reload Netedit config"
 msgstr "Netedit yapılandırmasını yeniden yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1018
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1020
 msgid "&Reload Sumo config"
 msgstr "Sumo yapılandırmasını yeniden yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1019
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1021
 msgid "&Reload Network"
 msgstr "Ağı Yeniden Yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1265
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1267
 msgid "Loading of '"
 msgstr "' Yüklemesi"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1270
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1272
 msgid "'"
 msgstr "'"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1270
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1272
 msgid "' loaded."
 msgstr "' yüklendi."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1359
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1361
 msgid "&Modes"
 msgstr "Türler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1394
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1396
 msgid "L&ock"
 msgstr "Kilitle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1401
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1403
 msgid "&Processing"
 msgstr "İşleme"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1426
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1428
 msgid "&Tools"
 msgstr "Araçlar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1428
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1430
 msgid "Detectors"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1429
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1431
 msgid "Districts"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1430
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1432
 msgid "DRT"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1432
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1434
 msgid "CityBrain"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1433
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1435
 msgid "GTFS"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1434
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1436
 msgid "Vissim"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1435
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
 msgid "Visum"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1436
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1438
 msgid "Import"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1439
 msgid "Net"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1438
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:699
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1440
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:703
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2761
 msgid "Route"
 msgstr "Rota"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1439
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1441
 msgid "Output"
 msgstr "Çıktı"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1441
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1443
 msgid "TLS"
 msgstr "TIS"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1442
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1444
 msgid "Turn-defs"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1443
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1445
 msgid "Visualization"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1444
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1446
 msgid "XML"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1531
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1533
 msgid "Network computed"
 msgstr "Ağ hesaplandı"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1535
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1537
 msgid "Press F5"
 msgstr "F5'e Bas"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1536
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1538
 msgid "Network requires recomputing"
 msgstr "Ağ yeniden hesaplama gerektirir"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1605
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1607
 msgid "Loading console arguments"
 msgstr "Konsol bağımsız değişkenleri yükleniyor"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1633
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1635
 msgid "Creating new network."
 msgstr "Yeni ağ oluşturuluyor."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1644
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1646
 msgid "Trying to load an empty network"
 msgstr "Boş bir ağ yüklenmeye çalışılıyor"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1660
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1662
 msgid "Loading network file '"
 msgstr "' ağ dosyası yükleniyor"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1672
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1674
 msgid "Trying to load an empty configuration"
 msgstr "Boş bir yapılandırma yüklenmeye çalışılıyor"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1688
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1690
 msgid "Loading configuration file '"
 msgstr "' yapılandırma dosyası yükleniyor"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1718
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1720
 msgid "Select Import Options"
 msgstr "İçeri Aktarma Seçeneklerini Seç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1724
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1726
 msgid "Loading OSM file '"
 msgstr "' OSM dosyası yükleniyor"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1744
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1746
 msgid "Recompute with volatile options"
 msgstr "Hassas Seçeneklerle Yeniden Hesapla"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1745
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1747
 msgid ""
 "Changes produced in the net due a recomputing with volatile options cannot "
 "be undone. Continue?"
@@ -2490,290 +2490,298 @@ msgstr ""
 "Hassas seçeneklerle yeniden hesaplama nedeniyle ağda üretilen değişiklikler "
 "geri alınamaz. Devam et?"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1985
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2045
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1987
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2047
 msgid "Running "
 msgstr "Çalışıyor "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2008
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2010
 msgid "Loading network '"
 msgstr "' ağ yükleniyor"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2008
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2017
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2010
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2019
 msgid "' in SUMO-GUI"
 msgstr "' SUMO-GUI'de"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2017
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2019
 msgid "Loading sumo config '"
 msgstr "' sumo yapılandırması yükleniyor"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2357
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2359
 msgid "Netedit options"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2374
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1865
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2376
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1869
 msgid "Sumo options"
 msgstr "Sumo seçenekleri"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2391
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2393
 msgid "Netgenerate options"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2408
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1244
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2410
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1248
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:105
 msgid "Undo"
 msgstr "Geri Al"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2440
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1247
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2442
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1251
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:108
 msgid "Redo"
 msgstr "İleri Al"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3112
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3178
 msgid "Saving Network failed!"
 msgstr "Ağ Kaydı Başarısız!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3118
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3184
 msgid "Network saved in '"
 msgstr "Ağ ' dosyasına kaydedildi"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3124
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3190
 msgid "Could not save network in '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3180
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3246
 msgid "Plain XML saved with prefix '"
 msgstr "' önekiyle kaydedilmiş yalın XML"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3185
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3251
 msgid "Saving plain xml failed!"
 msgstr "Yalın XML Kaydı Başarısız!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3209
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3275
 msgid "Joined junctions saved to '"
 msgstr "' dosyasına kaydedilen birleştirilmiş kavşaklar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3214
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3280
 msgid "Saving joined junctions failed!"
 msgstr "Birleştirilmiş Kavşakların Kaydı Başarısız!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3277
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3343
 msgid "Netedit configuration saved in '"
 msgstr "Netedit yapılandırması dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3283
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3349
 msgid "Could not save netedit configuration in '"
 msgstr "netedit yapılandırması dosyaya kaydedilemedi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3387
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3453
 msgid "SUMO configuration saved in '"
 msgstr "SUMO yapılandırması dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3395
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3461
 msgid "Could not save SUMO configuration in '"
 msgstr "SUMO yapılandırması dosyaya kaydedilemedi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3449
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3515
 msgid "TLS Programs saved in '"
 msgstr "TIS Programları dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3454
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3520
 msgid "Saving TLS Programs failed!"
 msgstr "TIS Programlarının Kaydı Başarısız!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3497
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3563
 msgid "EdgeType saved in '"
 msgstr "Kesim Tipi (EdgeType) dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3502
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3568
 msgid "Saving edgeTypes failed!"
 msgstr "Kesim Tipleri (edgeTypes) Dosyası Kaydı Başarısız!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3606
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3672
 msgid "load additionals from '"
 msgstr "' dosyasından ekleri yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3610
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3676
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1307
 msgid "Loading of additional file failed: "
 msgstr "Ek dosyası yüklenemedi: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3616
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3682
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1309
 msgid "Loading of additional file sucessfully: "
 msgstr "Ek dosyası başarıyla yüklendi: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3642
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3708
 msgid "reloading additionals from '"
 msgstr "ekler dosyadan yeniden yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3647
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3713
 msgid "Reloading of additional file failed: "
 msgstr "Ek dosyasının yeniden yüklenmesi başarısız oldu: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3690
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3756
 msgid "Additionals saved in '"
 msgstr "Ekler dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3699
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3765
 msgid "Saving additionals failed!"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3769
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4707
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4710
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3819
+msgid "JuPedSim elements saved in '"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3828
+msgid "Saving JuPedSim elements failed!"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3867
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4805
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4808
 msgid "loading demand elements from '"
 msgstr "Talep elemanları dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3773
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3871
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1318
 msgid "Loading of route file failed: "
 msgstr "Rota dosyası yüklenemedi: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3779
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3877
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1320
 msgid "Loading of route file sucessfully: "
 msgstr "Rota dosyası başarıyla yüklendi: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3810
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3908
 msgid "Reloading of route file failed: "
 msgstr "Rota dosyasının yeniden yüklenmesi başarısız oldu: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3851
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3949
 msgid "Demand elements saved in '"
 msgstr "Talep Elemanları dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3860
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3958
 msgid "Saving demand elements failed!"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3932
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4776
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4030
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4874
 msgid "loading data elements from '"
 msgstr "Veri Elemanları dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3936
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4034
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1329
 msgid "Loading of data file failed: "
 msgstr "Veri dosyasının yüklenmesi başarısız oldu: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3942
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4040
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1331
 msgid "Loading of data file sucessfully: "
 msgstr "Veri dosyası başarıyla yükleniyor: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3972
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4070
 msgid "reloading data elements from '"
 msgstr "Veri Elemanları dosyadan yeniden yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3977
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4075
 msgid "Reloading of data file failed: "
 msgstr "Veri dosyasının yeniden yüklenmesi başarısız oldu: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4019
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4117
 msgid "Data elements saved in '"
 msgstr "Veri elemanları dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4024
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4122
 msgid "Saving data elements failed!"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4096
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4194
 msgid "load meanDatas from '"
 msgstr "Ortalama Verileri (meanDatas) dosyadan yükle '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4100
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4198
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1340
 msgid "Loading of meandata file failed: "
 msgstr "Ortalama Veri (meandata) dosyasının yüklenmesi başarısız: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4106
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4137
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4204
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4235
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1342
 msgid "Loading of meandata file sucessfully: "
 msgstr "Ortalama Veri (meandata) dosyası başarıyla yükleniyor: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4132
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4230
 msgid "reloading meanDatas from '"
 msgstr "Ortalama Veriler (meanDatas) dosyadan yeniden yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4176
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4274
 msgid "MeanDatas saved in '"
 msgstr "Ortalama Veriler (MeanDatas) dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4181
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4279
 msgid "Saving meanData failed!"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4230
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4328
 msgid "Confirm close Network"
 msgstr "Ağı kapatmayı onayla"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4231
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4329
 msgid "You have unsaved changes in the network."
 msgstr "Ağda kaydedilmemiş değişiklikleriniz var."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4232
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4298
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4342
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4386
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4430
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4330
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4396
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4440
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4484
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4528
 msgid "Do you wish to close and discard all changes?"
 msgstr "Tüm değişiklikleri kapatmak ve silmek istiyor musunuz?"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4296
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4394
 msgid "Save additional elements before close"
 msgstr "Kapatmadan önce ek elemanları kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4297
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4395
 msgid "You have unsaved additional elements."
 msgstr "Kaydedilmemiş ek elemanlarınız var."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4340
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4438
 msgid "Save demand elements before close"
 msgstr "Kapatmadan önce talep elemanlarını kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4341
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4439
 msgid "You have unsaved demand elements."
 msgstr "Kaydedilmemiş talep elemanlarınız var."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4384
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4482
 msgid "Save data elements before close"
 msgstr "Kapatmadan önce veri elemanlarını kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4385
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4483
 msgid "You have unsaved data elements."
 msgstr "Kaydedilmemiş veri elemanlarınız var."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4428
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4526
 msgid "Save meanData elements before close"
 msgstr "Kapatmadan önce Ortalama Veri (meanData) elemanlarını kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4429
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4527
 msgid "You have unsaved meanData elements."
 msgstr "Kaydedilmemiş Ortalama Veri (meanData) elemanlarınız var."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4672
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4770
 msgid "loading additional elements from '"
 msgstr "Ek elemanlar dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4675
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4773
 msgid "loading additionals from '"
 msgstr "Ekler dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4742
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4840
 msgid "loading meanDatas from '"
 msgstr "Ortalama Veriler (meanDatas) dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4745
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4843
 msgid "loading meandatas from '"
 msgstr "Ortalama Veriler (meandatas) dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4779
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4877
 msgid "Loading data elements from '"
 msgstr "Veri Elemanları dosyadan yükleniyor '"
 
@@ -3062,932 +3070,940 @@ msgstr "Ekleri Farklı Kaydet..."
 msgid "Save additional elements to another file."
 msgstr "Ek elemanları başka bir dosyaya kaydet."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:439
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:437
+msgid "Save JuPedSim Elements As..."
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:437
+msgid "Save JuPedSim elements in a separated file."
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:443
 msgid "Reload Additionals"
 msgstr "Ekleri Yeniden Yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:439
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:443
 msgid "Reload additionals."
 msgstr "Ekleri Yeniden Yükle."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:447
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:451
 msgid "Load Demand Elements..."
 msgstr "Talep Elemanlarını Yükle..."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:447
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:451
 msgid "Load demand elements."
 msgstr "Talep elemanlarını yükle."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:453
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:457
 msgid "Save Demand Elements"
 msgstr "Talep Elemanlarını Kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:453
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:457
 msgid "Save demand elements."
 msgstr "Talep Elemanlarını Kaydet."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:457
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:461
 msgid "Save Demand Elements As..."
 msgstr "Talep Elemanlarını Farklı Kaydet..."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:457
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:461
 msgid "Save demand elements to another file."
 msgstr "Talep elemanlarını başka bir dosyaya kaydet."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:463
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:467
 msgid "Reload Demand Elements"
 msgstr "Talep Elemanlarını Yeniden Yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:463
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:467
 msgid "Reload demand elements."
 msgstr "Talep Elemanlarını Yeniden Yükle."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:471
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:475
 msgid "Load Data Elements..."
 msgstr "Veri Elemanlarını Yükle..."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:471
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:475
 msgid "Load data elements."
 msgstr "Veri Elemanlarını Yükle."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:477
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:481
 msgid "Save Data Elements"
 msgstr "Veri Elemanları Kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:477
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:481
 msgid "Save data elements."
 msgstr "Veri Elemanlarını Kaydet."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:481
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:485
 msgid "Save Data Elements As..."
 msgstr "Veri Elemanlarını Farklı Kaydet..."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:481
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:485
 msgid "Save data elements to another file."
 msgstr "Veri elemanlarını başka bir dosyaya kaydet."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:487
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:491
 msgid "Reload Data Elements"
 msgstr "Veri Elemanlarını Yeniden Yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:487
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:491
 msgid "Reload data elements."
 msgstr "Veri Elemanlarını Yeniden Yükle."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:495
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:499
 msgid "Load MeanDatas..."
 msgstr "MeanData verilerini yükle..."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:495
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:499
 msgid "Load meanDatas and shapes."
 msgstr "MeanData ve Şekilleri yükle."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:501
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:505
 msgid "Save MeanDatas"
 msgstr "MeanData dosyasını kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:501
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:505
 msgid "Save meanDatas and shapes."
 msgstr "MeanData ve Şekilleri kaydet."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:505
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:509
 msgid "Save MeanDatas As..."
 msgstr "MeanData verilerini farklı kaydet..."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:505
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:509
 msgid "Save meanData elements to another file."
 msgstr "meanData elemanlarını başka bir dosyaya kaydet."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:511
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:515
 msgid "Reload MeanDatas"
 msgstr "MeanData verilerini yeniden yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:511
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:515
 msgid "Reload meanDatas."
 msgstr "meanData verilerini yeniden yükle."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:528
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2200
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:532
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2204
 msgid "&Network"
 msgstr "Ağ"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:528
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:532
 msgid "Supermode network."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:531
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2203
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:535
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2207
 msgid "&Demand"
 msgstr "Talep"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:531
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:535
 msgid "Supermode demand."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:534
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2206
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:538
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2210
 msgid "&Data"
 msgstr "Veri"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:534
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:538
 msgid "Supermode data."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:551
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:555
 msgid "&Inspect"
 msgstr "İncele"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:551
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:555
 msgid "Inspect elements and change their attributes."
 msgstr "Elemanları incele ve niteliklerini değiştir."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:554
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:558
 msgid "&Delete"
 msgstr "Sil"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:554
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:558
 msgid "Delete elements."
 msgstr "Elemanları sil."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:557
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:561
 msgid "&Select"
 msgstr "Seç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:557
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:561
 msgid "Select elements."
 msgstr "Elemanları seç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:606
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:696
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:700
 msgid "&Move"
 msgstr "Taşı"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:606
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:696
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:700
 msgid "Move elements."
 msgstr "Elemanları taşı."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
 msgid "&Edge"
 msgstr "Kesim"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
 msgid "Create junction and edges."
 msgstr "Kesim ve kavşak oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
 msgid "&Traffic light"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
 msgid "Modes traffic lights over junctions."
 msgstr "Kavşaklardaki trafik ışıklarını ayarlar."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:622
 msgid "&Connection"
 msgstr "Bağlantı"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:622
 msgid "Modes connections between lanes."
 msgstr "Şeritler arasındaki bağlantıları ayarlar."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:622
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:626
 msgid "Pro&hibition"
 msgstr "Geçiş Kuralı"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:622
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:626
 msgid "Modes connection prohibitions."
 msgstr "Bağlantı yasaklarını ayarlar."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:626
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:630
 msgid "C&rossing"
 msgstr "Geçit"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:626
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:630
 msgid "Create crossings between edges."
 msgstr "Kesimler arasında geçitler oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:630
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:634
 msgid "Create additional elements."
 msgstr "Ek elemanlar oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:634
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:638
 msgid "&Wire"
 msgstr "Enerji Hattı"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:634
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:638
 msgid "Create wires."
 msgstr "Kablo oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:638
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:642
 msgid "TA&Z"
 msgstr "TAB"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:638
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:642
 msgid "Create Traffic Assignment Zones."
 msgstr "Trafik Atama Bölgeleri Oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:642
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
 msgid "&POI-Poly"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:642
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
 msgid "Create Points-Of-Interest and polygons."
 msgstr "Etki Noktaları ve çokgenler oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:650
 msgid "Deca&ls"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:650
 msgid "Create decals."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:699
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:703
 msgid "Create Routes."
 msgstr "Rota oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:702
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3436
 msgid "Route distribution"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:702
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
 msgid "Create and edit route distributions."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:710
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:124
 msgid "Vehicle"
 msgstr "Araç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:710
 msgid "Create vehicles."
 msgstr "Araç oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:709
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:713
 msgid "Type"
 msgstr "Tip"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:709
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:713
 msgid "Create types (vehicles, person and containers)."
 msgstr "Tip oluştur (araçlar, kişiler ve konteynerler)."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:712
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:716
 msgid "TypeDistribution"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:712
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:716
 msgid "Create and edit type distributions."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:715
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:719
 msgid "Stop"
 msgstr "Dur"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:715
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:719
 msgid "Create stops."
 msgstr "Durak oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:718
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:722
 msgid "Person"
 msgstr "Yolcu"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:718
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:722
 msgid "Create persons."
 msgstr "Yolcu oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:721
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:725
 msgid "Person plan"
 msgstr "Yolcu planı"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:721
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:725
 msgid "Create person plans."
 msgstr "Yolcu planları oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:724
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:728
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:179
 msgid "Container"
 msgstr "Konteyner"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:724
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:728
 msgid "Create containers."
 msgstr "Konteyner oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:727
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:731
 msgid "Container plan"
 msgstr "Konteyner planı"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:727
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:731
 msgid "Create container plans."
 msgstr "Konteyner planı oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:766
 msgid "&EdgeData"
 msgstr "&EdgeData"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:766
 msgid "Create edgeData elements."
 msgstr "Kesim verisi elemanları oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:769
 msgid "Edge&Relation"
 msgstr "Kesim&İlişki"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:769
 msgid "Create edgeRelation elements."
 msgstr "Kesim ilişkili elemanlar oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:768
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:772
 msgid "TA&ZRelation"
 msgstr "TAB İlişkili"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:768
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:772
 msgid "Create TAZRelation elements."
 msgstr "TAB ilişkili elemanlar oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:771
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:775
 msgid "&MeanData"
 msgstr "Ortalama Veri"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:771
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:775
 msgid "Create MeanData edge/lanes."
 msgstr "MeanData kesim/şeritleri oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:821
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1006
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:825
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1010
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2338
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2636
 msgid "Show grid"
 msgstr "Izgarayı göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:826
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1011
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1137
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:830
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1015
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1141
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2346
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2644
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2923
 msgid "Hide junction shape"
 msgstr "Kavşak şeklini gizle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:831
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:835
 msgid "Draw vehicles spread in lane or in depart position"
 msgstr "Yolda ya da ayrılma pozisyonunda yayılmış araçları çizin"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:836
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1152
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:840
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1156
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2362
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2945
 msgid "Show demand elements"
 msgstr "Talep elemanlarını göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:841
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:845
 msgid "Clicking should target lanes"
 msgstr "Tıklama şeritleri hedeflemelidir"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:846
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:850
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2377
 msgid "Show connections over junctions"
 msgstr "Kavşaklar üzerindeki bağlantıları göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:851
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:855
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2385
 msgid "Hide connections"
 msgstr "Bağlantıları gizle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:856
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:860
 msgid "Show sub-additional elements"
 msgstr "Alt ek öğeleri göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:861
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:865
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2401
 msgid "Show TAZ elements"
 msgstr "TAB öğelerini göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:866
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:870
 msgid "Selecting multiple edges automatically select their junctions"
 msgstr "Çoklu kesim seçmek otomatik olarak onların kavşaklarını seçer"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:871
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:875
 msgid "Clicking should apply state changes to all phases of TLS plan"
 msgstr ""
 "Tıklandığında devre değişiklikleri TLS planının tüm aşamalarına "
 "uygulanmalıdır"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:876
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:880
 msgid "Ask for confirmation before merging junction"
 msgstr "Kavşağı birleştirmeden önce onay iste"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:881
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:885
 msgid "Show bubbles over junctions shapes"
 msgstr "Kavşak şekilleri üzerinde baloncukları göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:886
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:890
 msgid "Apply mouse movement to elevation"
 msgstr "Yükseltme için fare hareketini uygula"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:891
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:895
 msgid "Create consecutive edges"
 msgstr "Ardışık kesimler oluştur"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:896
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:900
 msgid "Create an edge in the opposite direction"
 msgstr "Ters yönde bir kesim oluştur"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1016
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1020
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2652
 msgid "Draw vehicles spread/depart position"
 msgstr "Araçların yayılma/ayrılma pozisyonunu çiz"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1021
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1147
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1025
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1151
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2660
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2938
 msgid "Show shapes"
 msgstr "Şekilleri göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1026
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1030
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2668
 msgid "Show all trips"
 msgstr "Tüm seyahatleri göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1031
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1035
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2676
 msgid "Show all person plans"
 msgstr "Tüm yolcu planlarını göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1036
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1040
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2684
 msgid "Lock selected person"
 msgstr "Seçili yolcuyu kilitle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1041
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1045
 msgid "Show all container plans"
 msgstr "Tüm konteyner planlarını göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1046
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1050
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2700
 msgid "Lock selected container"
 msgstr "Seçili konteyneri kilitle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1051
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1055
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2708
 msgid "Show non-inspected demand elements"
 msgstr "Denetlenmeyen talep unsurlarını göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1056
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1060
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2716
 msgid "Show number of overlapped routes"
 msgstr "Çakışan rota sayısını göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1142
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1146
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2931
 msgid "Show additionals"
 msgstr "Ekleri göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1157
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1161
 msgid "Draw TAZRel from center"
 msgstr "Merkezden TABİlişkili çiz"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1162
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1166
 msgid "Draw TAZ fill"
 msgstr "TAB dolgusu çiz"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1167
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1171
 msgid "Only draw TAZRel from"
 msgstr "Sadece dosyadan TABİlişkili çiz"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1172
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1176
 msgid "Only draw TAZRel to"
 msgstr "Sadece dosyaya TABİlişkili çiz"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1244
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1248
 msgid "Undo the last change."
 msgstr "Son değişikliği geri al."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1247
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1251
 msgid "Redo the last change."
 msgstr "Son değişikliği yinele."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1250
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1254
 msgid "Show undo/redo history"
 msgstr "Geri alma/yineleme geçmişini göster"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1250
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1254
 msgid "Open undo/redo history dialog."
 msgstr "Geri al/yinele geçmişi iletişim kutusunu aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1271
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1275
 msgid "Clear front element"
 msgstr "Ön elemanı temizle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1271
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1275
 msgid "Clear current front element"
 msgstr "Geçerli ön elemanı temizle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1280
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1284
 msgid "Load additionals in sumo-gui"
 msgstr "Ekleri sumo-gui'de yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1280
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1284
 msgid "Load additionals in sumo-gui."
 msgstr "Ekleri sumo-gui'de yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1284
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1288
 msgid "Load demand in sumo-gui"
 msgstr "Talebi sumo-gui'de yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1284
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1288
 msgid "Load demand in sumo-gui."
 msgstr "Talebi sumo-gui'de yükle."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1288
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1292
 msgid "Open in sumo-gui"
 msgstr "Sumo-gui'de aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1288
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1292
 msgid "Opens the sumo-gui application with the current network."
 msgstr "Geçerli ağ ile sumo-gui uygulamasını açar."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1315
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1319
 msgid "&Lanes"
 msgstr "Şeritler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1320
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1324
 msgid "&Connections"
 msgstr "Bağlantılar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1325
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1329
 msgid "C&rossings"
 msgstr "Geçitler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1330
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1334
 msgid "Walkin&gAreas"
 msgstr "Yürüme Alanları"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1335
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1339
 msgid "&Additionals"
 msgstr "Ekler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1340
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1344
 msgid "&TAZs"
 msgstr "TABlar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1345
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1349
 msgid "&Wires"
 msgstr "Enerji Hatları"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1350
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1354
 msgid "&Polygons"
 msgstr "Çokgenler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1355
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1359
 msgid "P&OIs"
 msgstr "ENler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1360
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1364
 msgid "WalkableAreas"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1365
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1369
 msgid "Obstacles"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1370
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1374
 msgid "POIWaypoints"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1376
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1380
 msgid "&Routes"
 msgstr "Rotalar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1391
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1395
 msgid "Person&Trips"
 msgstr "Yolcu&Seyahatler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1396
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1400
 msgid "&Walks"
 msgstr "Yürümeler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1401
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1405
 msgid "Ri&des"
 msgstr "Binişler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1406
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1410
 msgid "&Containers"
 msgstr "Konteynerler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1411
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1415
 msgid "Tra&nsports"
 msgstr "Aktarımlar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1416
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1420
 msgid "Trans&hips"
 msgstr "Nakliyeler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1421
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1425
 msgid "Stop&s"
 msgstr "Duraklar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1426
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1430
 msgid "&EdgeDatas"
 msgstr "Kesit Verileri"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1431
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1435
 msgid "E&dgeRelDatas"
 msgstr "Kesit İlişkili Veriler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1436
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1440
 msgid "Edge&TAZRel"
 msgstr "Kesit&TAB İlişkili"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1444
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1448
 msgid "Lock selected elements"
 msgstr "Seçilen elemanları kilitle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1444
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1448
 msgid "selected elements"
 msgstr "seçilen elemanlar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1451
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1455
 msgid "Lock all elements"
 msgstr "Tüm elemanları kilitle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1451
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1455
 msgid "all elements"
 msgstr "tüm elemanlar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1455
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1459
 msgid "Unlock all elements"
 msgstr "Tüm elemanların kilidini aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1823
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1827
 msgid "Compute Junctions"
 msgstr "Kavşakları Hesapla"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1823
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1827
 msgid "Compute junction shape and logic."
 msgstr "Kavşak şeklini ve mantığını hesapla."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1826
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1830
 msgid "Compute Junctions with volatile options"
 msgstr "Kavşakları hassas seçeneklerle hesapla"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1826
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1830
 msgid "Compute junction shape and logic using volatile junctions."
 msgstr "Kavşak şekil ve mantığını hassas seçenekler kullanarak hesapla."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1829
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1833
 msgid "Clean Junctions"
 msgstr "Kavşakları temizle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1829
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1833
 msgid "Remove solitary junctions."
 msgstr "Münferit kavşakları kaldır."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1832
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1836
 msgid "Join Selected Junctions"
 msgstr "Seçili kavşakları bağla"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1832
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1836
 msgid "Join selected junctions into a single junction."
 msgstr "Seçili kavşakları tek bir kavşakta birleştir."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1835
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1839
 msgid "Clean invalid crossings"
 msgstr "Geçersiz geçitleri temizle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1835
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1839
 msgid "Clear invalid crossings."
 msgstr "Geçersiz geçitleri temizle."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1841
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1845
 msgid "Recompute Network in Data Mode"
 msgstr "Veri Modunda Ağı Yeniden Hesapla"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1847
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1851
 msgid "Compute demand"
 msgstr "Talebi hesapla"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1847
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1851
 msgid "Computes demand elements."
 msgstr "Talep elemanlarını hesaplar."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1850
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1854
 msgid "Clean routes"
 msgstr "Rotaları temizle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1850
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1854
 msgid "Removes routes without vehicles."
 msgstr "Araç içermeyen rotaları kaldırır."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1853
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1857
 msgid "Join routes"
 msgstr "Rotaları birleştir"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1853
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1857
 msgid "Joins routes with the same edges."
 msgstr "Aynı kesimlere sahip rotaları birleştirir."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1856
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1860
 msgid "Adjust person plans"
 msgstr "Yolcu planlarını ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1856
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1860
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
 msgstr ""
 "Yolcu planlarını ayarla (başlangıç/bitiş pozisyonları, varış pozisyonları, "
 "vb.)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1859
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1863
 msgid "Clean invalid route elements"
 msgstr "Geçersiz rota elemanlarını temizle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1859
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1863
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
 msgstr ""
 "Geçersiz bir yola sahip öğeleri temizle (rotalar, seyahatler, akımlar...)."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1865
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1869
 msgid "Configure sumo Options."
 msgstr "Sumo Seçeneklerini Yapılandır."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1871
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1875
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:311
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:61
 msgid "Options"
 msgstr "Seçenekler"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1871
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1875
 msgid "Configure netedit Options."
 msgstr "netedit Seçeneklerini Yapılandır."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1984
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1988
 msgid "Open a dialog for locating a Junction."
 msgstr "Bir Kavşak Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1987
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1991
 msgid "Open a dialog for locating an Edge."
 msgstr "Bir Kesim Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1990
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1994
 msgid "&WalkingAreas"
 msgstr "Yürüme Alanları"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1990
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1994
 msgid "Open a dialog for locating a Walking Area."
 msgstr "Bir Yürüme Alanı Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1993
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1997
 msgid "Open a dialog for locating a Vehicle."
 msgstr "Bir Araç Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1996
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2000
 msgid "Open a dialog for locating a Person."
 msgstr "Bir Yolcu Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1999
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2003
 msgid "&Route"
 msgstr "Rota"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1999
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2003
 msgid "Open a dialog for locating a Route."
 msgstr "Bir Rota Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2002
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2006
 msgid "&Stops"
 msgstr "Duraklar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2002
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2006
 msgid "Open a dialog for locating a Stop."
 msgstr "Bir Durak Belirlemek İçin İletişim Kutusu Aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2005
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2009
 msgid "Open a dialog for locating a Traffic Light."
 msgstr "Bir Trafik Işığı Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2008
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2012
 msgid "Open a dialog for locating an Additional Structure."
 msgstr "Bir Ek Yapı Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2011
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2015
 msgid "Open a dialog for locating a Point of Interest."
 msgstr "Bir Etki Noktası Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2014
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2018
 msgid "Open a dialog for locating a Polygon."
 msgstr "Bir Çokgen Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2132
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2136
 msgid "Toggle this Status Bar on/off."
 msgstr "Durum Çubuğunu Aç/Kapa."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2139
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2143
 msgid "Clear the Message Window."
 msgstr "Mesaj Penceresini Temizle."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2164
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2168
 msgid "Open feedback channels."
 msgstr "Geri bildirim kanallarını aç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2167
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2171
 msgid "About netedit."
 msgstr "Netedit Hakkında."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2200
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2204
 msgid "Select network mode."
 msgstr "Ağ modunu seç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2203
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2207
 msgid "Select demand mode."
 msgstr "Talep modunu seç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2206
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2210
 msgid "Select data mode."
 msgstr "Veri modunu seç."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2241
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2245
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2249
 msgid "Could not load SUMO configuration '"
 msgstr "SUMO yapılandırması yüklenemedi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2292
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2296
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2300
 msgid "Could not load netedit configuration '"
 msgstr "netedit yapılandırması yüklenemedi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2742
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2746
 msgid "Save file as"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2743
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2747
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2763
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2773
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2781
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2790
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2844
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2849
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2860
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2865
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2876
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2881
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2892
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2897
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2908
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2913
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2924
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2929
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2939
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2751
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2767
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2777
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2785
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2794
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2848
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2853
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2864
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2869
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2880
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2885
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2896
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2901
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2912
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2917
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2928
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2933
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2943
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2947
 msgid "XML files (*.xml)"
 msgstr "XML dosyaları (*.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2744
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2748
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2764
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2774
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2782
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2791
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2799
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2815
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2820
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2830
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2752
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2768
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2778
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2786
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2795
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2803
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2819
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2824
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2834
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2845
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2850
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2861
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2866
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2877
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2882
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2893
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2898
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2909
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2914
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2925
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2930
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2940
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2838
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2849
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2854
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2865
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2870
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2881
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2886
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2897
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2902
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2913
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2918
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2929
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2934
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2944
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2948
 msgid "All files (*)"
 msgstr "Tüm dosyalar (*)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2746
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2750
 msgid "Open file"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2756
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2760
 msgid "Save Network file as"
 msgstr "Ağı Farklı Kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2757
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2761
 msgid "SUMO Network files (*.net.xml)"
 msgstr "SUMO Ağ dosyaları (*.net.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2758
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2762
 msgid "SUMO Network files zipped (*.net.xml.gz)"
 msgstr "Sıkıştırılmış SUMO Ağ dosyaları (*.net.xml.gz)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2759
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2763
 msgid ""
 "XML files (*.xml)\n"
 "All files (*)"
@@ -3995,163 +4011,163 @@ msgstr ""
 "XML dosyaları (*.xml)\n"
 "Tüm dosyalar (*)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2761
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2765
 msgid "Open Network file"
 msgstr "Ağ dosyası aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2762
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2766
 msgid "SUMO Network files (*.net.xml,*.net.xml.gz)"
 msgstr "SUMO Ağ dosyaları (*.net.xml,*.net.xml.gz)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2771
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2775
 msgid "Open NetConvert file"
 msgstr "NetConvert dosyası aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2772
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2776
 msgid "Netconvert files (*.netccfg)"
 msgstr "Netconvert dosyaları (*.netccfg)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2780
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2784
 msgid "Save plain XML as"
 msgstr "Yalın XML'i farklı kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2788
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2792
 msgid "Save joined Junctions as"
 msgstr "Birleştirilmiş Kavşakları farklı kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2789
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2793
 msgid "Junction files (*.nod.xml)"
 msgstr "Kavşak dosyaları (*.nod.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2797
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2801
 msgid "Save tool log"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2798
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2802
 msgid "Text file (*.txt)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2805
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2809
 msgid "Open OSM file"
 msgstr "OSM Dosyası Aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2806
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2810
 msgid "OSM net (*.osm.xml,*.osm)"
 msgstr "OSM ağı (*.osm.xml,*.osm)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2813
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2817
 msgid "Save netedit Config file as"
 msgstr "netedit Yapılandırma dosyasını farklı kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2814
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2818
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2822
 msgid "Netedit Config files (*.netecfg)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2817
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2821
 msgid "Open netedit Config file"
 msgstr "netedit Yapılandırma dosyasını aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2819
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2823
 msgid "Netedit Config files (*.neteditcfg)"
 msgstr "Netedit Yapılandırma dosyaları (*.neteditcfg)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2828
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2832
 msgid "Save SUMO Config file as"
 msgstr "SUMO Yapılandırma Dosyasını Farklı Kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2829
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2833
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2837
 msgid "SUMO Config files (*.sumocfg)"
 msgstr "SUMO Yapılandırma dosyaları (*.sumocfg)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2832
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2836
 msgid "Open SUMO Config file"
 msgstr "SUMO Yapılandırma Dosyası Aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2842
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2846
 msgid "Save TLS file as"
 msgstr "TIS dosyasını farklı kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2843
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2848
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2847
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2852
 msgid "TLS files (*.tll.xml)"
 msgstr "TIS dosyaları (*.tll.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2847
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2851
 msgid "Open TLS file"
 msgstr "TIS Dosyası Aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2858
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2862
 msgid "Save EdgeType file as"
 msgstr "Kesim Tipi Dosyasını Farklı Kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2859
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2864
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2863
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2868
 msgid "EdgeType files (*.typ.xml)"
 msgstr "Kesim Tipi dosyaları (*.typ.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2863
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2867
 msgid "Open EdgeType file"
 msgstr "Kesim Tipi dosyası aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2874
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2878
 msgid "Save Additionals file as"
 msgstr "Ekler Dosyasını Farklı Kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2875
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2880
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2879
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2884
 msgid "Additional files (*.add.xml)"
 msgstr "Ek dosyalar (*.add.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2879
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2883
 msgid "Open Additionals file"
 msgstr "Ekler Dosyası Yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2890
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2894
 msgid "Save Route file as"
 msgstr "Rota dosyasını farklı kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2891
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2896
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2895
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2900
 msgid "Route files (*.rou.xml)"
 msgstr "Rota dosyaları (*.rou.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2895
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2899
 msgid "Open Route file"
 msgstr "Rota dosyasını aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2906
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2910
 msgid "Save Data file as"
 msgstr "Veri dosyasını farklı kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2907
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2912
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2911
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2916
 msgid "Data files (*.dat.xml)"
 msgstr "Veri dosyaları (*.dat.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2911
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2915
 msgid "Open Data file"
 msgstr "Veri dosyası aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2922
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2926
 msgid "Save MeanData file as"
 msgstr "MeanData dosyasını farklı kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2923
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2928
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2927
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2932
 msgid "Meandata files (*.add.xml)"
 msgstr "Meandata dosyaları (*.add.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2927
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2931
 msgid "Open MeanData file"
 msgstr "MeanData dosyası aç"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2938
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2942
 msgid "Save options file as"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2942
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2946
 msgid "Open options file"
 msgstr ""
 
@@ -4659,12 +4675,12 @@ msgstr "Veri elemanlarını temizle"
 msgid "clear meanData elements"
 msgstr "meanData elemanlarını temizle"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2333
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2412
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2348
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2427
 msgid "Duplicated ID"
 msgstr "Yinelenmiş ID"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2702
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2717
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr ""
 "Ağ boyutu 1 Işıkyılı'nı aşıyor. Lütfen girdilerinizi tekrar gözden geçirin."
@@ -13821,7 +13837,7 @@ msgstr "EN '%' değiştiriliyor"
 msgid "Replacing polygon '%'"
 msgstr "'%' çokgeni değiştiriliyor"
 
-#: C:\Repos\sumo/src\utils\gui\images\GUIIconSubSys.cpp:1005
+#: C:\Repos\sumo/src\utils\gui\images\GUIIconSubSys.cpp:1007
 msgid "Instance was previously created"
 msgstr "Örnek daha önce oluşturuldu"
 
