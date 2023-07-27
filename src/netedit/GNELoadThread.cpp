@@ -145,7 +145,7 @@ GNELoadThread::run() {
     MsgHandler::getMessageInstance()->clear();
     // init global random seed
     RandHelper::initRandGlobal();
-    // check if geo projection can be inited
+    // check if geo projection can be initialized
     if (!GeoConvHelper::init(neteditOptions)) {
         WRITE_ERROR(TL("Could not build projection!"));
         submitEndAndCleanup(net, loadedFile);
@@ -190,7 +190,7 @@ GNELoadThread::run() {
             } else {
                 // now create net with al information loaded in net builder
                 net = new GNENet(netBuilder);
-                // chek if change traffic direction
+                // check if change traffic direction
                 if (neteditOptions.getBool("lefthand")) {
                     // force initial geometry computation without volatile options because the net will look strange otherwise
                     net->computeAndUpdate(neteditOptions, false);
