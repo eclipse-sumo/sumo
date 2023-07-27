@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-27 11:52+0200\n"
+"POT-Creation-Date: 2023-07-27 13:18+0200\n"
 "PO-Revision-Date: 2023-07-24 10:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
@@ -1234,7 +1234,7 @@ msgid "charging power [W]"
 msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:99
-msgid "charging myEfficiency []"
+msgid "charging efficiency [#]"
 msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:100
@@ -1679,7 +1679,7 @@ msgid "Add rerouter"
 msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:996
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2048
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2049
 msgid "Select reachable"
 msgstr "Erreichbare Fahrstreifen auswählen"
 
@@ -9907,73 +9907,73 @@ msgstr "Freigabe vom Fahrstreifen"
 msgid "Attach to nearest lane"
 msgstr "Zum nächsten Fahrstreifen zuteilen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:233
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:236
 msgid "Simplify Shape"
 msgstr "Shape vereinfachen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:233
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:236
 msgid "Replace current shape with a rectangle"
 msgstr "Aktuelle Shape durch ein Rechteck ersetzen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:239
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:242
 msgid "Open shape"
 msgstr "Shape öffnen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:239
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:242
 msgid "Open polygon's shape"
 msgstr "Polygon-Shape öffnen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:241
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:244
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:66
 msgid "Close shape"
 msgstr "Shape schließen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:241
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:244
 msgid "Close polygon's shape"
 msgstr "Polygon-Shape schließen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:243
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
 msgid "Select elements within polygon"
 msgstr "Elemente in einem Polygon auswählen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:243
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
 msgid "Select elements within polygon boundary"
 msgstr "Elemente innerhalb einer Polygongrenze auswählen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:253
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:256
 msgid "Remove geometry point"
 msgstr "Geometriepunkt entfernen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:253
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:256
 msgid "Remove geometry point under mouse"
 msgstr "Geometriepunkt unter der Maus entfernen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:254
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:257
 msgid "Set first geometry point"
 msgstr "Ersten Geometriepunkt setzen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:466
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:469
 msgid "Number of remaining points insufficient"
 msgstr "Anzahl der verbleibenden Punkte unzureichend"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:493
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:496
 msgid "Polygon already opened"
 msgstr "Polygon bereits geöffnet"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:514
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:517
 msgid "Polygon already closed"
 msgstr "Polygon bereits geschlossen"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:525
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:528
 msgid "Selected point must be different of the first point"
 msgstr "Der ausgewählte Punkt muss sich vom ersten Punkt unterscheiden"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:590
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:593
 msgid "Polygon already simplified"
 msgstr "Polygon bereits vereinfacht"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNETAZ.cpp:283
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:715
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:716
 msgid "Set custom Geometry Point"
 msgstr "Benutzerdefinierten Geometriepunkt setzen"
 
@@ -10527,7 +10527,7 @@ msgstr "Ungültiger Fahrzeug-Tag"
 msgid "This walk use junctions"
 msgstr "Dieser Fußweg benutzt Knotenpunkte"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEConnection.cpp:679
+#: C:\Repos\sumo/src\netedit\elements\network\GNEConnection.cpp:680
 msgid "Could not set attribute '%' (tls is broken)"
 msgstr "Konnte Attribut '%' nicht anwenden (LSA ist ungültig)"
 
@@ -10543,244 +10543,244 @@ msgstr "Konnte glatte Erhöhung für Kante '%' nicht berechnen"
 msgid "invalid link state='%'"
 msgstr "ungültiger Linkstand='%'"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:335
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:336
 msgid "Reset junction shapes"
 msgstr "Knotenpunkt-Shapes zurücksetzen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1116
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1117
 msgid "change junction position"
 msgstr "Knotenpunktposition ändern"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1137
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1138
 msgid "change keepClear for whole junction"
 msgstr "keepClear für den gesamten Knotenpunkt ändern"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:471
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:472
 msgid "Unexpected LinkState '%'"
 msgstr "Unerwarteter Linkstand '%'"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:672
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:673
 msgid "Copy parent edge name to clipboard"
 msgstr "Namen der zugehörigen Kante in Zwischenablage"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:681
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:682
 msgid "Remove Lane From Selected"
 msgstr "Fahrstreifen aus Auswahl entfernen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:683
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:684
 msgid "Add Lane To Selected"
 msgstr "Fahrstreifen zu Auswahl hinzufügen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:687
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:688
 msgid "Remove Edge From Selected"
 msgstr "Kante aus Auswahl entfernen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:689
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:690
 msgid "Add Edge To Selected"
 msgstr "Kante zu Auswahl hinzufügen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:706
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:707
 msgid "Reset edge end points"
 msgstr "Kantenendpunkte zurücksetzen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:733
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:734
 msgid "Select state for all links from this edge:"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:743
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:744
 msgid "Additional options available in 'Inspect Mode'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:758
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:759
 msgid "Shape pos: "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:759
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:760
 msgid "Length pos: "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:761
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:762
 msgid "Distance: "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:763
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:764
 msgid "Height: "
 msgstr "Höhe: "
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:764
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:765
 msgid "Angle: "
 msgstr "Winkel: "
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:812
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:813
 msgid "Lane Parametric Length cannot be never 0"
 msgstr "Fahrstreifenparameter Länge kann niemals 0 sein"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:974
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:975
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
 msgstr ""
 "Gegenüberliegender Fahrstreifen '%' verbindet nicht die selben Knoten wie "
 "Kante '%'!"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1847
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1848
 #, c-format
 msgid "Edge operations (% selected)"
 msgstr "Kantenoperationen (% ausgewählt)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1849
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1850
 msgid "Edge operations"
 msgstr "Kantenoperationen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1852
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1853
 msgid "Split edge here"
 msgstr "Kante hier auftrennen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1853
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1854
 msgid "Split edge in both directions here (no simmetric opposite edge)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1858
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1859
 msgid "Split edge in both directions here (no opposite edge)"
 msgstr "Kante in beiden Richtungen hier auftrennen (keine Gegenrichtungskante)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1865
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1866
 msgid "Split edge in both directions here"
 msgstr "Kante in beiden Richtungen hier auftrennen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1869
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1870
 msgid "Set geometry endpoint here (shift-click)"
 msgstr "Geometrischen Endpunkt hier setzen (Shift-Klick)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1873
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1874
 msgid "Restore both geometry endpoints"
 msgstr "Beide geometrischen Endpunkte zurücksetzen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1875
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1876
 msgid "Restore geometry endpoints of all selected edges"
 msgstr "Geometrische Endpunkte aller ausgewählten Kanten zurücksetzen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1878
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1879
 msgid "Restore geometry endpoint (shift-click)"
 msgstr "Geometrischen Endpunkt zurücksetzen (Shift-Klick)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1880
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1881
 msgid "Reverse %"
 msgstr "% umdrehen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1881
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1882
 msgid "Add reverse direction for %"
 msgstr "Gegenrichtung von % hinzufügen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1885
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1886
 msgid "Add reverse disconnected direction for %"
 msgstr "Isolierte Gegenrichtung von % hinzufügen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1886
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1887
 msgid "Reset lengths for %"
 msgstr "Längen von % zurücksetzen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1887
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1888
 msgid "Straighten %"
 msgstr "% begradigen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1888
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1889
 msgid "Smooth %"
 msgstr "% glätten"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1889
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1890
 msgid "Straighten elevation of %"
 msgstr "Höhe von % begradigen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1890
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1891
 msgid "Smooth elevation of %"
 msgstr "Höhe von % glätten"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1937
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1938
 #, c-format
 msgid "Lane operations (% selected)"
 msgstr "Fahrstreifenoperationen (% ausgewählt)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1939
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1940
 msgid "Lane operations"
 msgstr "Fahrstreifenoperationen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1941
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1942
 msgid "Duplicate lane"
 msgstr "Fahrstreifen duplizieren"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1942
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1943
 msgid "Set custom lane shape"
 msgstr "Benutzerdefinierten Fahrstreifen-Shape setzen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1943
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1944
 msgid "Reset custom shape"
 msgstr "Benutzerdefinierten Shape zurücksetzen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1947
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1948
 msgid "Reset opposite lane"
 msgstr "Gegenrichtungsfahrstreifen zurücksetzen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1959
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1970
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1979
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1960
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1971
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1980
 msgid "Sidewalk"
 msgstr "Fußweg"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1960
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1972
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1980
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1961
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1973
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1981
 msgid "Bike lane"
 msgstr "Radfahrstreifen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1961
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1974
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1981
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1962
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1975
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1982
 msgid "Bus lane"
 msgstr "Busfahrstreifen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1964
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1976
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1982
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1965
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1977
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1983
 msgid "Green verge"
 msgstr "Grünstreifen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1966
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1967
 msgid "Green verge (front)"
 msgstr "Grünstreifen (links)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1967
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1968
 msgid "Green verge (back)"
 msgstr "Grünstreifen (rechts)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1984
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1985
 msgid "Add restricted %"
 msgstr "Beschränkten % hinzufügen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1985
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1986
 msgid "Remove restricted %"
 msgstr "Beschränkten % entfernen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1986
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1987
 msgid "Transform to restricted %"
 msgstr "In beschränkten % umwandeln"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2027
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2028
 #, c-format
 msgid "Template operations (% selected)"
 msgstr "Vorlagenoperationen (% ausgewählt)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2029
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2030
 msgid "Template operations"
 msgstr "Vorlagenoperationen"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2032
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
 msgid "Use edge as template"
 msgstr "Kante als Vorlage verwenden"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2034
 msgid "Apply template"
 msgstr "Vorlage anwenden"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2053
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2054
 msgid "Select reachable (compute junctions)"
 msgstr "Erreichbare Fahrstreifen auswählen (berechne Knotenpunkte)"
 

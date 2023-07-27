@@ -96,7 +96,7 @@ GUIChargingStation::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&)
     ret->mkItem(TL("stopped vehicles [#]"), true, new FunctionBinding<GUIChargingStation, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
     ret->mkItem(TL("last free pos [m]"), true, new FunctionBinding<GUIChargingStation, double>(this, &MSStoppingPlace::getLastFreePos));
     ret->mkItem(TL("charging power [W]"), false, myChargingPower);
-    ret->mkItem(TL("charging myEfficiency []"), false, myEfficiency);
+    ret->mkItem(TL("charging efficiency [#]"), false, myEfficiency);
     ret->mkItem(TL("charge in transit [true/false]"), false, myChargeInTransit);
     ret->mkItem(TL("charge delay [s]"), false, myChargeDelay);
 
