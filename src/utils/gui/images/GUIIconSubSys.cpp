@@ -63,6 +63,7 @@
 #include "save_multiple.xpm"
 #include "save_networkelements.xpm"
 #include "save_aditionalelements.xpm"
+#include "save_jupedsimelements.xpm"
 #include "save_demandelements.xpm"
 #include "save_dataelements.xpm"
 #include "save_meandataelements.xpm"
@@ -555,6 +556,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SAVE_MULTIPLE] = new FXXPMIcon(a, save_multiple_xpm);
     myIcons[GUIIcon::SAVE_NETWORKELEMENTS] = new FXXPMIcon(a, save_networkelements_xpm);
     myIcons[GUIIcon::SAVE_ADDITIONALELEMENTS] = new FXXPMIcon(a, save_additionalelements_xpm);
+    myIcons[GUIIcon::SAVE_JUPEDSIMELEMENTS] = new FXXPMIcon(a, save_jupedsimelements_xpm);
     myIcons[GUIIcon::SAVE_DEMANDELEMENTS] = new FXXPMIcon(a, save_demandelements_xpm);
     myIcons[GUIIcon::SAVE_DATAELEMENTS] = new FXXPMIcon(a, save_dataelements_xpm);
     myIcons[GUIIcon::SAVE_MEANDATAELEMENTS] = new FXXPMIcon(a, save_meandataelements_xpm);
