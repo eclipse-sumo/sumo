@@ -572,6 +572,37 @@ public:
     void buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
                      const RGBColor& color, const double lon, const double lat, const double layer, const double angle, const std::string& imgFile,
                      bool relativePath, const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
+
+    /**@brief Builds a walkable area using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] name polygon name
+     * @param[in] parameters generic parameters
+     */
+    void buildWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                           const std::string& name, const Parameterised::Map& parameters);
+
+    /**@brief Builds a obstacle using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] name polygon name
+     * @param[in] parameters generic parameters
+     */
+    void buildObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                      const std::string& name, const Parameterised::Map& parameters);
+
+    /**@brief Builds a POIWaypoint using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the POI
+     * @param[in] x POI's x position
+     * @param[in] y POI's y position
+     * @param[in] name POIWaypoint name
+     * @param[in] parameters generic parameters
+     */
+    void buildPOIWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
+                          const std::string& name, const Parameterised::Map& parameters);
     /// @}
 
     /// @brief check if a GNEAccess can be created in a certain Edge

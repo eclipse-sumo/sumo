@@ -1732,6 +1732,27 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
 }
 
 
+void
+GNEAdditionalHandler::buildWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                                        const std::string& name, const Parameterised::Map& parameters) {
+    //
+}
+
+
+void
+GNEAdditionalHandler::buildObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                    const std::string& name, const Parameterised::Map& parameters) {
+    //
+}
+
+
+void
+GNEAdditionalHandler::buildPOIWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
+                        const std::string& name, const Parameterised::Map& parameters) {
+    //
+}
+
+
 bool
 GNEAdditionalHandler::accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge* edge) {
     // check if exist another access for the same busStop in the given edge
