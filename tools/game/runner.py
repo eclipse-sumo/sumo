@@ -235,6 +235,7 @@ def computeScoreSquare(gamename):
 _SCORING_FUNCTION = defaultdict(lambda: computeScoreFromWaitingTime)
 _SCORING_FUNCTION.update({
     'A10KW': computeScoreFromTimeLoss,
+    'highway': computeScoreFromTimeLoss,
     'DRT': computeScoreDRT,
     'DRT2': computeScoreDRT,
     'DRT_demo': computeScoreDRT,

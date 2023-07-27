@@ -1,5 +1,5 @@
 <viewsettings>
-    <delay value="100"/>
+    <delay value="150"/>
     <viewport zoom="800" x="1290.00" y="800.00"/>
     <decal file="highway_bremen.gif" centerX="1290.00" centerY="800.00" centerZ="0.00" width="385.00" height="217.00" altitude="0.00" rotation="0.00" tilt="0.00" roll="0.00" layer="0.00"/>
     <scheme name="game_highway">
