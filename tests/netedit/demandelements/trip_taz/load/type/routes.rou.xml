@@ -55,14 +55,14 @@
 
     <vType id="custom_vType"/>
 
-    <trip id="trip_0" fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
+    <trip id="trip_0" fromTaz="taz_green" toTaz="taz_red" depart="20.00"/>
 
-    <trip id="trip_1" type="dummy_Type" fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
+    <trip id="trip_1" type="dummy_Type" fromTaz="taz_green" toTaz="taz_red" depart="20.00"/>
 
-    <trip id="trip_2" type="" fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
+    <trip id="trip_2" type="" fromTaz="taz_green" toTaz="taz_red" depart="20.00"/>
 
-    <trip id="trip_3" type="id with invalid characters" fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
+    <trip id="trip_3" type="id with invalid characters" fromTaz="taz_green" toTaz="taz_red" depart="20.00"/>
 
-    <trip id="trip_4" type="custom_vType" fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
+    <trip id="trip_4" type="custom_vType" fromTaz="taz_green" toTaz="taz_red" depart="20.00"/>
 
 </routes>

@@ -41,8 +41,7 @@ netedit.changeDefaultValue(netedit.attrs.trainStop.create.name, "custom train st
 netedit.leftClick(referencePosition, 430, 256)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

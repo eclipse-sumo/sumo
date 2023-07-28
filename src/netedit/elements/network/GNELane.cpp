@@ -243,7 +243,8 @@ GNELane::getMoveOperation() {
     if (isShapeEdited()) {
         // calculate move shape operation
         return calculateMoveShapeOperation(getLaneShape(), myNet->getViewNet()->getPositionInformation(),
-                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.laneGeometryPointRadius, true);
+                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.laneGeometryPointRadius,
+                                           true, false);
     } else {
         return nullptr;
     }
@@ -789,10 +790,11 @@ GNELane::getIndex() const {
     return myIndex;
 }
 
+
 void
 GNELane::setIndex(int index) {
     myIndex = index;
-    setMicrosimID(myParentEdge->getNBEdge()->getLaneID(index));
+    setNetworkElementID(myParentEdge->getNBEdge()->getLaneID(index));
 }
 
 
@@ -1809,13 +1811,13 @@ void
 GNELane::updateConnectionIDs() {
     // update incoming connections of lane
     std::vector<GNEConnection*> incomingConnections = getGNEIncomingConnections();
-    for (auto i : incomingConnections) {
-        i->updateID();
+    for (const auto &incomingConnection : incomingConnections) {
+        incomingConnection->updateConnectionID();
     }
     // update outcoming connections of lane
     std::vector<GNEConnection*> outcomingConnections = getGNEOutcomingConnections();
-    for (auto i : outcomingConnections) {
-        i->updateID();
+    for (const auto &outcomingConnection : outcomingConnections) {
+        outcomingConnection->updateConnectionID();
     }
 }
 

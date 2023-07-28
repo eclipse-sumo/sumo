@@ -31,6 +31,7 @@
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEDemandElement.h"
+#include "GNERouteHandler.h"
 
 
 // ===========================================================================
@@ -389,6 +390,20 @@ GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
         return true;
     } else {
         return false;
+    }
+}
+
+
+void
+GNEDemandElement::setDemandElementID(const std::string& newID) {
+    // set microsim ID
+    setMicrosimID(newID);
+    // check if update ids of child elements
+    if (myTagProperty.isPerson() || myTagProperty.isContainer()) {
+        // Change IDs of all person plans children (stops, embedded routes...)
+        for (const auto& childDemandElement : getChildDemandElements()) {
+            childDemandElement->setDemandElementID(getID());
+        }
     }
 }
 
@@ -1096,12 +1111,12 @@ GNEDemandElement::getEdgeStopIndex() const {
         // continue depending of parent
         if (parent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
             pathEdges = parent->getParentEdges();
-        } else if (parent->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
+        } else if (parent->getTagProperty().overRoute()) {
             // get route edges
             if (parent->getParentDemandElements().size() > 1) {
                 pathEdges = parent->getParentDemandElements().at(1)->getParentEdges();
             }
-        } else if (parent->getTagProperty().hasEmbeddedRoute()) {
+        } else if (parent->getTagProperty().overEmbeddedRoute()) {
             // get embedded route edges
             pathEdges = parent->getChildDemandElements().front()->getParentEdges();
         } else {
@@ -1188,11 +1203,11 @@ GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
     std::vector<GNEEdge*> edges;
     if (myTagProperty.isRoute()) {
         edges = getParentEdges();
-    } else if ((getParentDemandElements().size() > 1) && getParentDemandElements().at(1)->getTagProperty().isRoute()) {
+    } else if (myTagProperty.overRoute()) {
         edges = getParentDemandElements().at(1)->getParentEdges();
-    } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
+    } else if (myTagProperty.overEmbeddedRoute()) {
         edges = getChildDemandElements().front()->getParentEdges();
-    } else if (getParentEdges().size() > 0) {
+    } else if (myTagProperty.overFromToEdges()) {
         edges = getParentEdges();
     }
     // calculate path
@@ -1206,7 +1221,25 @@ GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
         for (int i = 0; i < ((int)path.size() - 1); i++) {
             length += path.at(i)->getLanes().front()->getLane2laneConnections().getLane2laneGeometry(path.at(i + 1)->getLanes().front()).getShape().length();
         }
-        GUIDesigns::buildFXMenuCommand(ret, "Route length: " + toString(length), nullptr, ret, MID_COPY_NAME);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Route length: ") + toString(length), nullptr, ret, MID_COPY_NAME);
+    }
+}
+
+
+void
+GNEDemandElement::buildMenuAddReverse(GUIGLObjectPopupMenu* ret) const {
+    // create menu pane for transform operations
+    FXMenuPane* transformOperation = new FXMenuPane(ret);
+    ret->insertMenuPaneChild(transformOperation);
+    auto reverseMenuCascade = new FXMenuCascade(ret, TL("reverse"), nullptr, transformOperation);
+    // build menu commands
+    GUIDesigns::buildFXMenuCommand(transformOperation, TLF("reverse current %", myTagProperty.getTagStr()), nullptr, myNet->getViewNet(), MID_GNE_REVERSE);
+    GUIDesigns::buildFXMenuCommand(transformOperation, TLF("Add reverse %", myTagProperty.getTagStr()), nullptr, myNet->getViewNet(), MID_GNE_ADDREVERSE);
+    // check if reverse can be added
+    if (GNERouteHandler::canReverse(this)) {
+        reverseMenuCascade->enable();
+    } else {
+        reverseMenuCascade->disable();
     }
 }
 

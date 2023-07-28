@@ -244,11 +244,12 @@ public:
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+     * @param[in] expectedArrival Whether no warning should be issued when a vehicle arrives within the detector area
      * @param[in] parameters generic parameters
      */
     void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime period,
                          const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold,
-                         const double speedThreshold, const Parameterised::Map& parameters);
+                         const double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters);
 
     /**@brief Builds a entry detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -571,6 +572,37 @@ public:
     void buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
                      const RGBColor& color, const double lon, const double lat, const double layer, const double angle, const std::string& imgFile,
                      bool relativePath, const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
+
+    /**@brief Builds a walkable area using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] name polygon name
+     * @param[in] parameters generic parameters
+     */
+    void buildWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                           const std::string& name, const Parameterised::Map& parameters);
+
+    /**@brief Builds a obstacle using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] name polygon name
+     * @param[in] parameters generic parameters
+     */
+    void buildObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                      const std::string& name, const Parameterised::Map& parameters);
+
+    /**@brief Builds a POIWaypoint using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the POI
+     * @param[in] x POI's x position
+     * @param[in] y POI's y position
+     * @param[in] name POIWaypoint name
+     * @param[in] parameters generic parameters
+     */
+    void buildPOIWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
+                          const std::string& name, const Parameterised::Map& parameters);
     /// @}
 
     /// @brief check if a GNEAccess can be created in a certain Edge
@@ -668,8 +700,8 @@ protected:
     /// @brief parse lanes
     std::vector<GNELane*> parseLanes(const SumoXMLTag tag, const std::vector<std::string>& laneIDs);
 
-    /// @brief check if given ID correspond to a duplicated additional
-    bool checkDuplicatedAdditional(const SumoXMLTag tag, const std::string& id);
+    /// @brief check if given ID correspond to a duplicated additionals
+    bool checkDuplicatedID(const std::vector<SumoXMLTag> tags, const std::string& id);
 
     /// @brief remove overwrited additional
     void overwriteAdditional();

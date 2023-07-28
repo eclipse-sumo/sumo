@@ -50,8 +50,7 @@ netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "referen
 netedit.leftClick(referencePosition, 495, 256)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

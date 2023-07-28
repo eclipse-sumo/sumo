@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -52,29 +52,28 @@ netedit.changeElement("flow (over route)")
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.begin, "dummyBegin")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # set invalid arrival pos
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.begin, "-12")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.begin, "50")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.begin, "12.5")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

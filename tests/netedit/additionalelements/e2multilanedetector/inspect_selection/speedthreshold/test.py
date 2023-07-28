@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.speedThreshol
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.speedThreshold, "6.3", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 
 # save netedit config

@@ -38,38 +38,37 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # create stop
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 265, 188)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopLane.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopLane.inspect.durationEnable, True)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopLane.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopLane.inspect.durationEnable, True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.duration, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.duration, "dummyValue", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.duration, "", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.duration, "", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.duration, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.duration, "-5", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.duration, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.duration, "0", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.duration, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.duration, "3.5", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

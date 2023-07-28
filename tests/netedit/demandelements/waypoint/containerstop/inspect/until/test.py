@@ -38,13 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("waypointContainerStop")
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # change value
 netedit.modifyBoolAttribute(netedit.attrs.waypointContainerStop.inspect.durationEnable, False)
@@ -68,8 +68,7 @@ netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "0", 
 netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "3.5", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

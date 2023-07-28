@@ -57,7 +57,7 @@ public:
     /// @brief Fills the given combobox with the names of available colorings
     void fill(MFXComboBoxIcon& cb) {
         for (const auto& scheme : mySchemes) {
-            cb.appendIconItem(scheme.getName().c_str(),
+            cb.appendIconItem(scheme.getTranslatedName().c_str(),
                               scheme.getIcon() == GUIIcon::EMPTY ? nullptr : GUIIconSubSys::getIcon(scheme.getIcon()),
                               MFXUtils::getFXColor(scheme.getBackgroundColor()));
         }

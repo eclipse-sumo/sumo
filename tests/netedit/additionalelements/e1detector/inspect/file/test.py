@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.E1.inspect.file, "%%%;:..&&%$%$", True)
 netedit.modifyAttribute(netedit.attrs.E1.inspect.file, "myOwnOutput.txt", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

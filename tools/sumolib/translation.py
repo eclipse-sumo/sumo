@@ -50,3 +50,9 @@ def TLF(msgid, *args):
     for val in args[:varCount]:
         msg = msg.replace('%', str(val), 1)
     return msg
+
+
+def TLC(context, msgid):
+    if CURRENT_LANG is None:
+        return msgid
+    return CURRENT_LANG.pgettext(context, msgid)

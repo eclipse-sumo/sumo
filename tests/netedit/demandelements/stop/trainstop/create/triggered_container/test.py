@@ -41,29 +41,28 @@ netedit.changeStopType("stopTrainStop")
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.triggered, "container")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x, netedit.positions.demandElements.trainStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.expected, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, 295, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x + 2, netedit.positions.demandElements.trainStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.expected, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 300, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x + 4, netedit.positions.demandElements.trainStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.expected, "containerID1 containerID2 containerID3")
 
 # create stop
-netedit.leftClick(referencePosition, 305, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x + 6, netedit.positions.demandElements.trainStop.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

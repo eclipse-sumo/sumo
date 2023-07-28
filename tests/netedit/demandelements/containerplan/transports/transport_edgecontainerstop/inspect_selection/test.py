@@ -44,14 +44,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect transportEdgeContainerStop
-netedit.leftClick(referencePosition, 430, 58)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x, netedit.positions.demandElements.containerPlanEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transportEdgeContainerStop.inspectSelection.lines, "custom line", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -50,8 +50,7 @@ netedit.leftClick(referencePosition, 415, 65)
 netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspectSelection.lines, "custom line", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

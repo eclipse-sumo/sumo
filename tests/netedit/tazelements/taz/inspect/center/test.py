@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "", False)
 netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "12.00,8.00", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save TAZs
 # save Netedit config

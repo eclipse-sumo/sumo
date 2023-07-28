@@ -59,8 +59,7 @@ netedit.changeDefaultValue(netedit.attrs.calibrator.create.id, "customID")
 netedit.leftClick(referencePosition, 342, 250)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

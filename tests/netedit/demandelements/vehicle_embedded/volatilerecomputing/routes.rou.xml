@@ -37,8 +37,8 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="trip_0" depart="0.00" from="gneE2" to="gneE5" via="gneE4"/>
-    <trip id="trip_1" depart="1.00" from="gneE4" to="gneE5"/>
-    <trip id="trip_2" depart="2.00" from="gneE8" to="gneE9"/>
-    <trip id="trip_3" depart="3.00" from="gneE6" to="gneE7" via="gneE3"/>
+    <trip id="trip_0" depart="0.00" from="Edge0" to="Edge2" via="Edge1"/>
+    <trip id="trip_1" depart="1.00" from="Edge1" to="Edge2"/>
+    <trip id="trip_2" depart="2.00" from="Edge3" to="Edge5"/>
+    <trip id="trip_3" depart="3.00" from="Edge3" to="Edge5" via="Edge4"/>
 </routes>

@@ -44,8 +44,7 @@ netedit.leftClick(referencePosition, 405, 144)
 netedit.modifyBoolAttribute(netedit.attrs.TAZ.inspect.fill, False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save TAZs
 # save Netedit config

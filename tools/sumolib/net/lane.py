@@ -105,6 +105,7 @@ class Lane:
         self._params = {}
         self._allowed = get_allowed(allow, disallow)
         self._neigh = None
+        self._selected = False
         edge.addLane(self)
 
     def getSpeed(self):

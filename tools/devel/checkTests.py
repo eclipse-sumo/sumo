@@ -18,7 +18,7 @@
 """
 apply runSeeds to a list of tests and compute statistics
 use case: tweaking the lane change model and then seeing the result of a
-gazilliion tests with reduced noise
+gazillion tests with reduced noise
 """
 
 import os

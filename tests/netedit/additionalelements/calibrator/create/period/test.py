@@ -56,8 +56,7 @@ netedit.changeDefaultValue(netedit.attrs.calibrator.create.frequency, "250.5")
 netedit.leftClick(referencePosition, 332, 250)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

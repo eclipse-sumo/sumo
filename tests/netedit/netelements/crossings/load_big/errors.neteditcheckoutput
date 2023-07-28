@@ -1,13 +1,1 @@
 Warning: Missing yellow phase in tlLogic '310069196', program '0' for tl-index 0 when switching to phase 1.
-Warning: Program '0' at tlLogic 'cluster_1828018094_1828018095_1840326399_262469034_29123671_29123672_967017877' is incompatible with logic at junction 'cluster_1828018094_1828018095_1840326399_262469034_29123671_29123672_967017877' (mutual conflict between link indices 2,23 tl indices 2,23 phase 0).
-  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
-  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
-Warning: Program '0' at tlLogic 'joinedS_1' is incompatible with logic at junction 'cluster_262469634_29219441_961875301_961875308_961875311_961984606' (mutual conflict between link indices 10,19 tl indices 30,39 phase 0).
-  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
-  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
-Warning: Program '0' at tlLogic 'joinedS_11' is incompatible with logic at junction 'cluster_21432799_21432802_29221583_29221586_2951795004_3155751072_3155751073_3163433362_3163433363_392182854_52151282_961807409_961807418' (mutual conflict between link indices 1,34 tl indices 8,39 phase 5).
-  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
-  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
-Warning: Program '0' at tlLogic 'joinedS_6' is incompatible with logic at junction '27411228' (mutual conflict between link indices 1,11 tl indices 2,12 phase 0).
-  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
-  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.

@@ -55,8 +55,8 @@ public:
     virtual void buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter) = 0;
 
     /// @brief build vType distribution
-    virtual void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                                        const int deterministic, const std::vector<std::string>& vTypes) = 0;
+    virtual void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+                                        const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) = 0;
 
     /// @brief build route
     virtual void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
@@ -69,7 +69,8 @@ public:
                                     const Parameterised::Map& routeParameters) = 0;
 
     /// @brief build route distribution
-    virtual void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id) = 0;
+    virtual void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+                                        const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) = 0;
 
     /// @brief build a vehicle over an existent route
     virtual void buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) = 0;

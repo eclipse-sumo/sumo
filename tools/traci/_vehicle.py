@@ -1221,7 +1221,7 @@ class VehicleDomain(VTypeDomain):
         self._setCmd(tc.VAR_ROUTE, vehID, "l", edgeList)
 
     def setLateralLanePosition(self, vehID, posLat):
-        """setSpeed(string, double) -> None
+        """setLateralLanePosition(string, double) -> None
 
         Sets the lateral vehicle position relative to the center line of the
         lane in m (negative values are to the right in right-hand networks).

@@ -46,8 +46,7 @@ netedit.leftClick(referencePosition, 116, 139)
 netedit.modifyAttribute(netedit.attrs.Poly.inspect.type, "<<myOwnType>>", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

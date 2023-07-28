@@ -44,7 +44,7 @@ netedit.changeContainerPlan("tranship: containerStop", True)
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminate, "dummyTerminate")
 
 # create route using edge and containerStop
-netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 netedit.leftClick(referencePosition, 270, 43)
 
 # press enter to create route
@@ -57,7 +57,7 @@ netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminate, "end")
 netedit.typeEnter()
 
 # create route using edge and containerStop
-netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 netedit.leftClick(referencePosition, 270, 43)
 
 # set valid arrival pos
@@ -79,7 +79,7 @@ netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminateOption, "
 netedit.typeEnter()
 
 # create route using edge and containerStop
-netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 netedit.leftClick(referencePosition, 270, 43)
 
 # set valid arrival pos
@@ -89,8 +89,7 @@ netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminateOption, "
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

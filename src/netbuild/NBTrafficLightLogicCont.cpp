@@ -145,10 +145,10 @@ NBTrafficLightLogicCont::extract(NBTrafficLightDefinition* definition) {
 
 
 bool
-NBTrafficLightLogicCont::exist(const std::string& newID) const {
+NBTrafficLightLogicCont::exist(const std::string& newID, bool requireComputed) const {
     const auto itD = myDefinitions.find(newID);
     const auto itC = myComputed.find(newID);
-    if ((itD != myDefinitions.end()) && (itC != myComputed.end())) {
+    if ((itD != myDefinitions.end()) && (itC != myComputed.end() || !requireComputed)) {
         return true;
     } else {
         return false;

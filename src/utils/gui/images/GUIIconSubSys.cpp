@@ -63,6 +63,7 @@
 #include "save_multiple.xpm"
 #include "save_networkelements.xpm"
 #include "save_aditionalelements.xpm"
+#include "save_jupedsimelements.xpm"
 #include "save_demandelements.xpm"
 #include "save_dataelements.xpm"
 #include "save_meandataelements.xpm"
@@ -248,12 +249,14 @@
 #include "modeshape.xpm"
 #include "modeprohibition.xpm"
 #include "modewire.xpm"
+#include "modedecal.xpm"
 
 #include "modecontainer.xpm"
 #include "modecontainerplan.xpm"
 #include "modeperson.xpm"
 #include "modepersonplan.xpm"
 #include "moderoute.xpm"
+#include "moderoutedistribution.xpm"
 #include "modestop.xpm"
 #include "modevehicle.xpm"
 #include "modetype.xpm"
@@ -323,14 +326,18 @@
 #include "overheadwire_clamp.xpm"
 
 #include "poly.xpm"
+#include "walkablearea.xpm"
+#include "obstacle.xpm"
 #include "poi.xpm"
 #include "poilane.xpm"
 #include "poigeo.xpm"
+#include "poiwaypoint.xpm"
 
 #include "taz.xpm"
 #include "tazedge.xpm"
 
 #include "route.xpm"
+#include "routedistribution.xpm"
 #include "vtype.xpm"
 #include "vtypedistribution.xpm"
 #include "vehicle.xpm"
@@ -549,6 +556,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SAVE_MULTIPLE] = new FXXPMIcon(a, save_multiple_xpm);
     myIcons[GUIIcon::SAVE_NETWORKELEMENTS] = new FXXPMIcon(a, save_networkelements_xpm);
     myIcons[GUIIcon::SAVE_ADDITIONALELEMENTS] = new FXXPMIcon(a, save_additionalelements_xpm);
+    myIcons[GUIIcon::SAVE_JUPEDSIMELEMENTS] = new FXXPMIcon(a, save_jupedsimelements_xpm);
     myIcons[GUIIcon::SAVE_DEMANDELEMENTS] = new FXXPMIcon(a, save_demandelements_xpm);
     myIcons[GUIIcon::SAVE_DATAELEMENTS] = new FXXPMIcon(a, save_dataelements_xpm);
     myIcons[GUIIcon::SAVE_MEANDATAELEMENTS] = new FXXPMIcon(a, save_meandataelements_xpm);
@@ -728,8 +736,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::MODESHAPE] = new FXXPMIcon(a, modeshape_xpm);
     myIcons[GUIIcon::MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
     myIcons[GUIIcon::MODEWIRE] = new FXXPMIcon(a, modewire_xpm);
+    myIcons[GUIIcon::MODEDECAL] = new FXXPMIcon(a, modedecal_xpm);
 
     myIcons[GUIIcon::MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
+    myIcons[GUIIcon::MODEROUTEDISTRIBUTION] = new FXXPMIcon(a, moderoutedistribution_xpm);
     myIcons[GUIIcon::MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
     myIcons[GUIIcon::MODETYPE] = new FXXPMIcon(a, modetype_xpm);
     myIcons[GUIIcon::MODETYPEDISTRIBUTION] = new FXXPMIcon(a, modetypedistribution_xpm);
@@ -800,11 +810,15 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::POI] = new FXXPMIcon(a, poi_xpm);
     myIcons[GUIIcon::POILANE] = new FXXPMIcon(a, poilane_xpm);
     myIcons[GUIIcon::POIGEO] = new FXXPMIcon(a, poigeo_xpm);
+    myIcons[GUIIcon::WALKABLEAREA] = new FXXPMIcon(a, walkablearea_xpm);
+    myIcons[GUIIcon::OBSTACLE] = new FXXPMIcon(a, obstacle_xpm);
+    myIcons[GUIIcon::POIWAYPOINT] = new FXXPMIcon(a, poiwaypoint_xpm);
 
     myIcons[GUIIcon::TAZ] = new FXXPMIcon(a, taz_xpm);
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
 
     myIcons[GUIIcon::ROUTE] = new FXXPMIcon(a, route_xpm);
+    myIcons[GUIIcon::ROUTEDISTRIBUTION] = new FXXPMIcon(a, routedistribution_xpm);
     myIcons[GUIIcon::VTYPE] = new FXXPMIcon(a, vtype_xpm);
     myIcons[GUIIcon::VTYPEDISTRIBUTION] = new FXXPMIcon(a, vtypedistribution_xpm);
     myIcons[GUIIcon::VEHICLE] = new FXXPMIcon(a, vehicle_xpm);

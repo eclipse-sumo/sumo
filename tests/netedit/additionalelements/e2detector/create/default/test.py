@@ -38,8 +38,7 @@ netedit.changeElement("laneAreaDetector")
 netedit.leftClick(referencePosition, 427, 253)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

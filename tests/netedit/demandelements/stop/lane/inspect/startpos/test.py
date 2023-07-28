@@ -38,32 +38,31 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # create stop
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 265, 188)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "dummy", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "500", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "500", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "-600", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "-600", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "16", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "16", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

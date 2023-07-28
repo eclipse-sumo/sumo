@@ -59,8 +59,7 @@ netedit.typeSpace()
 netedit.modifyAttribute(netedit.attrs.type.edit.vTypeDist, "dist1", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

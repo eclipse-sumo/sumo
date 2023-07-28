@@ -41,23 +41,22 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 265, 188)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.posLat, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.posLat, "dummy", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.posLat, "", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.posLat, "", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.posLat, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.posLat, "3.5", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.posLat, "12", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.posLat, "12", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

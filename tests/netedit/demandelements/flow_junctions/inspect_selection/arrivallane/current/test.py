@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 410, 170)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y)
 
 # change arrivalLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.arrivalLane, "", False)
@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.arrivalLane,
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.arrivalLane, "current", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

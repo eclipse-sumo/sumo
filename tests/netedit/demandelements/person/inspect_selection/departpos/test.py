@@ -38,13 +38,13 @@ netedit.selectMode()
 netedit.selectionInvert()
 
 # change zoom
-netedit.setZoom("0", "-6", "5")
+netedit.setZoom("0", "5", "5")
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 
 # change departLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.person.inspectSelection.departPos, "", False)
@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.person.inspectSelection.departPos, "500", 
 netedit.modifyAttribute(netedit.attrs.person.inspectSelection.departPos, "20", False)
 
 # Check undo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

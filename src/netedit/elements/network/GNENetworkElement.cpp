@@ -167,4 +167,23 @@ GNENetworkElement::getHierarchyName() const {
     }
 }
 
+
+void
+GNENetworkElement::setNetworkElementID(const std::string &newID) {
+    // set microsim ID
+    setMicrosimID(newID);
+    // enable save add elements if this network element has children
+    if (getChildAdditionals().size() > 0) {
+        myNet->getSavingStatus()->requireSaveAdditionals();
+    }
+    // enable save demand elements if this network element has children
+    if (getChildDemandElements().size() > 0) {
+        myNet->getSavingStatus()->requireSaveDemandElements();
+    }
+    // enable save data elements if this network element has children
+    if (getChildGenericDatas().size() > 0) {
+        myNet->getSavingStatus()->requireSaveDataElements();
+    }
+}
+
 /****************************************************************************/

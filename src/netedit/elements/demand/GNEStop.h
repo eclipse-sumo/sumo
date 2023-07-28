@@ -263,6 +263,9 @@ private:
     /// @brief get pathStopIndex
     int getPathStopIndex() const;
 
+    /// @brief set stop microsim ID
+    void setStopMicrosimID();
+
     /// @brief Invalidated copy constructor.
     GNEStop(const GNEStop&) = delete;
 

@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.terminate, "end", True)
@@ -62,8 +62,7 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.spacingOption, 
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.spacingOption, "2.6", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

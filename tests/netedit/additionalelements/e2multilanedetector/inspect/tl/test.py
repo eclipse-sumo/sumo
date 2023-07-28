@@ -55,8 +55,7 @@ netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.tl, ";;;;;;", True)
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.tl, "gneJ1", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

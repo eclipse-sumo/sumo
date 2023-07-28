@@ -124,7 +124,7 @@ public:
 
     long onDoubleClicked(FXObject*, FXSelector, void*);
 
-    /** @brief Adds a frame to a video snapshot which will be initialized if neccessary
+    /** @brief Adds a frame to a video snapshot which will be initialized if necessary
      */
     void saveFrame(const std::string& destFile, FXColor* buf);
 

@@ -597,6 +597,9 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
         double speed = vehicle->getSpeed();
         double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
+        if (target->lane->getBidiLane() != nullptr) {
+            dist += target->lane->getBidiLane()->getMaximumBrakeDist();
+        }
         // always check for link leaders while on an internal lane
         if (seen > dist && !myCandi->lane->isInternal()) {
 #ifdef DEBUG_SURROUNDING_VEHICLES

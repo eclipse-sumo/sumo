@@ -54,8 +54,7 @@ netedit.modifyAttribute(netedit.attrs.type.edit.id, "t_1", False)
 netedit.modifyAttribute(netedit.attrs.type.edit.id, "customID", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

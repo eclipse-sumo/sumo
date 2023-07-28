@@ -1379,7 +1379,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setDemandElementID(value);
             // manually change VType parameters ID
             id = value;
             break;
@@ -1885,7 +1885,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 if (copyDistributions.count(typeDistributionID) > 0) {
                     myDistributions[typeDistributionID] = copyDistributions.at(typeDistributionID);
                 } else {
-                    myDistributions[typeDistributionID] = 1.0;
+                    myDistributions[typeDistributionID] = defaultProbability;
                 }
             }
             break;

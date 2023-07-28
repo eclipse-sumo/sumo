@@ -426,6 +426,7 @@ INVALID_RETURN(FringeType);
 INVALID_RETURN(ParkingType);
 INVALID_RETURN(std::vector<std::string>);
 INVALID_RETURN(std::vector<int>);
+INVALID_RETURN(std::vector<double>);
 
 
 template <typename T>

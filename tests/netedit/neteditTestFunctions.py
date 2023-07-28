@@ -27,6 +27,7 @@ import pyautogui
 import time
 import pyperclip
 import attributesEnum as attrs  # noqa
+import testPositions as positions  # noqa
 
 # define delay before every operation
 DELAY_KEY = 0.2
@@ -1069,6 +1070,17 @@ def modifyAllowDisallowValue(numTabs, overlapped):
     typeSpace()
 
 
+def checkUndoRedo(referencePosition):
+    """
+    @brief Check undo-redo
+    """
+    # Check undo
+    undo(referencePosition, 9)
+    # Check redo
+    redo(referencePosition, 9)
+
+
+
 def checkParameters(referencePosition, attributeNumber, overlapped):
     """
     @brief Check generic parameters
@@ -1093,10 +1105,8 @@ def checkParameters(referencePosition, attributeNumber, overlapped):
     modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", overlapped)
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
-    # Check undo
-    undo(referencePosition, 8)
-    # Check redo
-    redo(referencePosition, 8)
+    # Check undoRedo
+    checkUndoRedo(referencePosition)
 
 
 def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0, posY=0):
@@ -1123,10 +1133,8 @@ def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0
     modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=2|key3=3", overlapped)
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=1|keyFinal2=2|keyFinal3=3", overlapped)
-    # Check undo (including load/creation)
-    undo(referencePosition, 8)
-    # Check redo
-    redo(referencePosition, 8)
+    # Check undoRedo
+    checkUndoRedo(referencePosition)
 
 #################################################
     # Move mode
@@ -1664,6 +1672,20 @@ def changePersonPlanMode(personPlan):
         typeTab()
     # paste the new containerPlan
     pasteIntoTextField(personPlan)
+    # type enter to save change
+    typeEnter()
+
+def selectPerson(person):
+    """
+    @brief select person in containerPlan
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to person plan
+    for _ in range(2):
+        typeTab()
+    # paste the new containerPlan
+    pasteIntoTextField(person)
     # type enter to save change
     typeEnter()
 

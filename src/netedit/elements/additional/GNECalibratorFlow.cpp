@@ -91,7 +91,7 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         // close vehicle tag
         device.closeTag();
     } else {
-        WRITE_WARNING(TLF("calibratorFlow of  calibrator '%' cannot be written. Either type or vehsPerHour or speed must be enabled", getParentAdditionals().front()->getID()));
+        WRITE_WARNING(TLF("calibratorFlow of calibrator '%' cannot be written. Either type or vehsPerHour or speed must be enabled", getParentAdditionals().front()->getID()));
     }
 }
 
@@ -168,7 +168,7 @@ GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
     // rotate
     glRotated((-1 * getParentAdditionals().front()->getAdditionalGeometry().getShapeRotations().front()) + 180, 0, 0, 1);
     // draw rerouter interval as listed attribute
-    drawListedAddtional(s, Position(0, 0), 0.05, 1, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
+    drawListedAdditional(s, Position(0, 0), 0.05, 1, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
     // pop rotation matrix
     GLHelper::popMatrix();
 }
@@ -513,7 +513,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_TYPE:
             if (!isTemplate()) {

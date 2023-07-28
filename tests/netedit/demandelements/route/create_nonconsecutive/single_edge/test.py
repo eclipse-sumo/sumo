@@ -38,14 +38,13 @@ netedit.routeMode()
 netedit.changeRouteMode("non consecutive edges")
 
 # create route using only one edge
-netedit.leftClick(referencePosition, 570, 250)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
 
 # press enter to create route
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

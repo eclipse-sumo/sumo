@@ -41,29 +41,28 @@ netedit.changeStopType("stopParkingArea")
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.triggered, "person")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, 295, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x + 1, netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 300, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x + 2, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, "personID1 personID2 personID3")
 
 # create stop
-netedit.leftClick(referencePosition, 305, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x + 3, netedit.positions.demandElements.parkingArea.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -1853,6 +1853,41 @@ MSBaseVehicle::getStateOfCharge() const {
     return -1;
 }
 
+
+double
+MSBaseVehicle::getRelativeStateOfCharge() const {
+    if (static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery))) != 0) {
+        MSDevice_Battery* batteryOfVehicle = dynamic_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
+        return batteryOfVehicle->getActualBatteryCapacity() / batteryOfVehicle->getMaximumBatteryCapacity();
+    }
+    else {
+        if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
+            MSDevice_ElecHybrid* batteryOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
+            return batteryOfVehicle->getActualBatteryCapacity() / batteryOfVehicle->getMaximumBatteryCapacity();
+        }
+    }
+
+    return -1;
+}
+
+
+double
+MSBaseVehicle::getChargedEnergy() const {
+    if (static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery))) != 0) {
+        MSDevice_Battery* batteryOfVehicle = dynamic_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
+        return batteryOfVehicle->getEnergyCharged();
+    }
+    else {
+        if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
+            MSDevice_ElecHybrid* batteryOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
+            return batteryOfVehicle->getEnergyCharged();
+        }
+    }
+
+    return -1;
+}
+
+
 double
 MSBaseVehicle::getElecHybridCurrent() const {
     if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {

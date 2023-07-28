@@ -37,14 +37,11 @@ netedit.selectMode()
 # select all using invert
 netedit.selectionInvert()
 
-# change zoom
-netedit.setZoom("0", "-6", "5")
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x, netedit.positions.demandElements.container.y)
 
 # change ID with an invalid value
 netedit.modifyAttribute(netedit.attrs.container.inspectSelection.type, ";;;;;", False)
@@ -59,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.container.inspectSelection.type, "dummyTyp
 netedit.modifyAttribute(netedit.attrs.container.inspectSelection.type, "typeC", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

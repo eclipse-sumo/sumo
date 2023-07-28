@@ -41,41 +41,40 @@ netedit.changeStopType("waypointChargingStation")
 netedit.changeDefaultBoolValue(netedit.attrs.waypointChargingStation.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x, netedit.positions.demandElements.chargingStation.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.waypointChargingStation.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 291, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x + 1, netedit.positions.demandElements.chargingStation.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.duration, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 292, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x + 2, netedit.positions.demandElements.chargingStation.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.duration, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 293, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x + 3, netedit.positions.demandElements.chargingStation.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.duration, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 294, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x + 4, netedit.positions.demandElements.chargingStation.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.duration, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 295, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x + 5, netedit.positions.demandElements.chargingStation.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

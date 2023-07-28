@@ -8,9 +8,9 @@
     <vType id="customType" length="20.00" width="5.00" height="12.00" color="cyan"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="p_0" depart="0.00">
-        <tranship from="gneE2" to="gneE5"/>
+        <tranship from="Edge0" to="Edge2"/>
     </container>
     <container id="p_3" type="customType" depart="3.00">
-        <tranship from="gneE2" to="gneE5"/>
+        <tranship from="Edge0" to="Edge2"/>
     </container>
 </routes>

@@ -38,13 +38,13 @@ netedit.selectMode()
 netedit.selectionInvert()
 
 # change zoom
-netedit.setZoom("0", "-6", "5")
+netedit.setZoom("0", "5", "5")
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.begin, "", False)
@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.begin, "-3", F
 netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.begin, "10.2", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

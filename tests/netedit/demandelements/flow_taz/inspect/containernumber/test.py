@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to TAZs)")
 
 # create trip using two TAZs
-netedit.leftClick(referencePosition, 100, 225)
-netedit.leftClick(referencePosition, 430, 250)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x, netedit.positions.demandElements.singleVehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x, netedit.positions.demandElements.TAZRed.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 100, 225)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x, netedit.positions.demandElements.singleVehicleTAZ.y)
 
 # change containerNumber with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.containerNumber, "", False)
@@ -66,8 +66,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.containerNumber, "2.5", Fa
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.containerNumber, "3", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

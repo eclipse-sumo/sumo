@@ -38,28 +38,28 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
-        <stop busStop="trainStop" containerTriggered="dummy"/>
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_0">
+        <stop busStop="trainStopA" containerTriggered="dummy"/>
     </route>
 
-    <route edges="gneE0 gneE1" color="yellow" id="route_1">
-        <stop busStop="trainStop" containerTriggered=""/>
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_1">
+        <stop busStop="trainStopA" containerTriggered=""/>
     </route>
 
-    <route edges="gneE0 gneE1" color="yellow" id="route_2">
-        <stop busStop="trainStop" containerTriggered="-4"/>
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_2">
+        <stop busStop="trainStopA" containerTriggered="-4"/>
     </route>
 
-    <route edges="gneE0 gneE1" color="yellow" id="route_3">
-        <stop busStop="trainStop" containerTriggered="0"/>
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_3">
+        <stop busStop="trainStopA" containerTriggered="0"/>
     </route>
 
-    <route edges="gneE0 gneE1" color="yellow" id="route_4">
-        <stop busStop="trainStop" containerTriggered="2.3"/>
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_4">
+        <stop busStop="trainStopA" containerTriggered="2.3"/>
     </route>
 
-    <route edges="gneE0 gneE1" color="yellow" id="route_5">
-        <stop busStop="trainStop" containerTriggered="true"/>
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_5">
+        <stop busStop="trainStopA" containerTriggered="true"/>
     </route>
 
 </routes>

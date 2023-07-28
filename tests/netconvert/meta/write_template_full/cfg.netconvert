@@ -153,8 +153,8 @@
     </building_defaults>
 
     <tls_building>
-        <tls.discard-loaded value="false" type="BOOL" help="Does not instatiate traffic lights loaded from other formats than plain-XML"/>
-        <tls.discard-simple value="false" type="BOOL" help="Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML"/>
+        <tls.discard-loaded value="false" type="BOOL" help="Does not instantiate traffic lights loaded from other formats than plain-XML"/>
+        <tls.discard-simple value="false" type="BOOL" help="Does not instantiate traffic lights at geometry-like nodes loaded from other formats than plain-XML"/>
         <tls.set value="" synonymes="explicite-tls" type="STR[]" help="Interprets STR[] as list of junctions to be controlled by TLS"/>
         <tls.unset value="" synonymes="explicite-no-tls" type="STR[]" help="Interprets STR[] as list of junctions to be not controlled by TLS"/>
         <tls.guess value="false" synonymes="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
@@ -179,7 +179,7 @@
         <tls.minor-left.max-speed value="19.44" type="FLOAT" help="Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles"/>
         <tls.left-green.time value="6" type="INT" help="Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases"/>
         <tls.nema.vehExt value="2" type="INT" help="Set INT as fixed time for intermediate vehext phase after every switch"/>
-        <tls.nema.yellow value="3" type="INT" help="Set INT as fixed time for intermediate NEMA yelow phase after every switch"/>
+        <tls.nema.yellow value="3" type="INT" help="Set INT as fixed time for intermediate NEMA yellow phase after every switch"/>
         <tls.nema.red value="2" type="INT" help="Set INT as fixed time for intermediate NEMA red phase after every switch"/>
         <tls.crossing-min.time value="4" type="INT" help="Use INT as minimum green duration for pedestrian crossings (s)."/>
         <tls.crossing-clearance.time value="5" type="INT" help="Use INT as clearance time for pedestrian crossings (s)."/>
@@ -258,7 +258,7 @@
         <junctions.limit-turn-speed.warn.turn value="22" type="FLOAT" help="Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT"/>
         <junctions.small-radius value="1.5" type="FLOAT" help="Default radius for junctions that do not require wide vehicle turns"/>
         <junctions.higher-speed value="false" type="BOOL" help="Use maximum value of incoming and outgoing edge speed on junction instead of average"/>
-        <junctions.minimal-shape value="false" type="BOOL" help="Build junctions with minimal shapes (igoring edge overlap)"/>
+        <junctions.minimal-shape value="false" type="BOOL" help="Build junctions with minimal shapes (ignoring edge overlap)"/>
         <internal-junctions.vehicle-width value="1.8" type="FLOAT" help="Assumed vehicle width for computing internal junction positions"/>
         <rectangular-lane-cut value="false" type="BOOL" help="Forces rectangular cuts between lanes and intersections"/>
         <check-lane-foes.roundabout value="true" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"/>

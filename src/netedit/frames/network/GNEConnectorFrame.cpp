@@ -128,7 +128,7 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
                 if (i->isDemandElementValid() != GNEDemandElement::Problem::OK) {
                     FXMessageBox::warning(getApp(), MBOX_OK,
                                           TL("Error saving connection operations"), "%s",
-                                          (TL("Connection edition  cannot be saved because route '") + i->getID() + TL("' is broken.")).c_str());
+                                          (TLF("Connection edition cannot be saved because route '%' is broken.", i->getID()).c_str()));
                     return 1;
                 }
             }

@@ -44,7 +44,7 @@ public:
     enum class Result {
         ACCEPT,     // load elements
         CANCEL,     // cancel load
-        OVERWRITE   // load elements, overwritting elements with the same ID
+        OVERWRITE   // load elements, overwriting elements with the same ID
     };
 
     /// @brief Constructor
@@ -76,7 +76,7 @@ protected:
     /// @brief button for cancel
     FXButton* myCancelButton = nullptr;
 
-    /// @brief button for overwritte
+    /// @brief button for overwrite
     FXButton* myOverwriteButton = nullptr;
 
     /// @brief result (by default cancel)

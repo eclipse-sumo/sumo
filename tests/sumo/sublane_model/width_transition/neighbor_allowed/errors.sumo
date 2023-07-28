@@ -21,4 +21,3 @@ Warning: Vehicle 'f_0.138'; collision with vehicle 'f_0.136', lane='CE_0', gap=-
 Warning: Vehicle 'f_0.177'; collision with vehicle 'f_0.180', lane='CE_0', gap=-1.68', latGap=-0.50, time=438.00 stage=move.
 Warning: Vehicle 'f_0.218'; junction collision with vehicle 'f_0.215', lane=':C_3_1', gap=-1.10', latGap=-0.65, time=508.00 stage=move.
 Warning: Vehicle 'f_0.218'; junction collision with vehicle 'f_0.219', lane=':C_3_1', gap=-1.79', latGap=-0.65, time=510.00 stage=move.
-Warning: Vehicle 'f_0.223'; collision with vehicle 'f_0.214', lane='CE_1', gap=-0.69', latGap=-0.65, time=528.00 stage=move.

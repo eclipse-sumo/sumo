@@ -38,20 +38,20 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # create person using three edges
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create person
 netedit.typeEnter()
 
 # change zoom
-netedit.setZoom("0", "-6", "5")
+netedit.setZoom("0", "5", "5")
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 
 # change departLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.personFlow.inspect.departPos, "", False)
@@ -66,8 +66,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspect.departPos, "500", False
 netedit.modifyAttribute(netedit.attrs.personFlow.inspect.departPos, "20", False)
 
 # Check undo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

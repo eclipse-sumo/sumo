@@ -13,7 +13,7 @@
         el = prev + el; prev = el + '/'; return el;
         });
 
-        for (i = 0; i < splitUrl.length; i++) {
+        for (let i = 0; i < splitUrl.length; i++) {
             document.write("<li class=\"breadcrumb-item\"><a class=\"no-arrow-link\" href=\"{{ '" + dirLink[i] + "'|url }}\">" + splitUrl[i] + "</a></li>");
         }
     </script>

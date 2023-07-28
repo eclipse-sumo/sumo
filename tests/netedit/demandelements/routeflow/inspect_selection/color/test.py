@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect flow over route
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.routeFlow.inspectSelection.colorButton, 5, True)
@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.color, "cyan", 
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.color, "12,13,14", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.triggered, "dummy", False)
@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.triggered, "p
 netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.expected, "personA personB", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

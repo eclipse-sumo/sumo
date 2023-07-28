@@ -2,7 +2,7 @@
 title: Edit Data Modes
 ---
 
-# Data specific modes ![](../images/supermodedata.png)
+# Data specific modes ![](../images/icon_supermodedata.png)
 
 EdgeData are elements associated with one or several edges, used for multiple purposes (especially Demand). They have their own mode, selectable through the top button or by pressing F4.
 
@@ -18,7 +18,7 @@ Edge datas are defined within a general set (DataSet), and within a certain time
 
 ![](../images/DataMode4.png)Defining parameters 
 
-## Edge data mode ![](../images/edgedata.png)
+## Edge data mode ![](../images/icon_modeedgedata.png)
 
 EdgeData are created over a single edge.
 
@@ -26,7 +26,7 @@ EdgeData are created over a single edge.
 
 ![](../images/DataMode6.png)Inspecting an edge data
 
-## Edge relation mode ![](../images/edgereldata.png)
+## Edge relation mode ![](../images/icon_modeedgereldata.png)
 
 EdgeRelDatas are created over two edges
 
@@ -36,7 +36,7 @@ EdgeRelDatas are created over two edges
 
 ![](../images/DataMode9.png)Press enter to create edge rel data
 
-## TAZ relation mode ![](../images/modetazreldata.png)
+## TAZ relation mode ![](../images/icon_modetazreldata.png)
 
 This mode helps to visualize the existing relation and the traffic demand amount between any two TAZ (Traffic Analysis Zone) after loading the respective xml file containing the information about start TAZ, end TAZ, interval, vehicle type and demand count. So, with this mode, users can have a better overview about the distribution of traffic demand between Tazs. The first steps are:
  1. load the network file.

@@ -25,7 +25,7 @@ click. After this, an empty window should show up, similar to the one
 shown in the image.
 
 Using either the "File-\>Open Simulation..." menu entry or by using the
-"open"-icon (![Open_sim.gif](images/Open_sim.png "Open sim")),
+"open"-icon (![icon_open.png](images/icon_open.png "Open sim")),
 you should be able to load an existing [sumo](sumo.md)
 [configuration
 file](Basics/Using_the_Command_Line_Applications.md#configuration_files),
@@ -34,12 +34,12 @@ if it has the proper [extension](Other/File_Extensions.md)
 file](Basics/Using_the_Command_Line_Applications.md#configuration_files)
 is erroneous, the errors are reported, otherwise your network referenced
 within the configuration file should be shown. Now you can start to
-simulate by pressing the "play" button (![Play.gif](images/Play.gif "Play")). The simulation works as if being started on the
+simulate by pressing the "play" button (![icon_play.png](images/icon_play.png "Play")). The simulation works as if being started on the
 command line. The simulation can be halted using the "stop" button
-(![Stop.gif](images/Stop.gif "Stop")) and continued by pressing
+(![icon_stop.png](images/icon_stop.png "Stop")) and continued by pressing
 the "play" button again. When stopped, also single steps may be
 performed by pressing the "single step" button
-(![Step.gif](images/Step.gif "Step")).
+(![icon_step.png](images/icon_step.png "Step")).
 
 If the simulation is running, the current simulation second is shown in
 the "digital digits" field, right to "Time:"
@@ -56,13 +56,13 @@ between simulation steps.
 
 Besides loading simulation configurations, it is also possible to load
 networks by using either the "File-\>Open Network..." menu entry or by
-using the "open network"-icon (![Open_net.png](images/Open_net.png "Open net")). Please note, that normally
+using the "open network"-icon (![icon_opennet.png](images/icon_opennet.png "Open net")). Please note, that normally
 **sumo-gui** assumes networks have the
 [extension](Other/File_Extensions.md) *".net.xml"*, but also
 accepts other extensions.
 
 Both, the loaded simulation or the loaded network may be reloaded using
-the "reload" button (![Reload.gif](images/Reload.gif "Reload"))
+the "reload" button (![icon_reload.png](images/icon_reload.png "Reload"))
 or the menu entry "File-\>Reload".
 
 If a network or a simulation are loaded, the navigation through the
@@ -87,24 +87,24 @@ It is also possible to change the zoom by using the mouse wheel (holding
 *<SHIFT\>* increases the zooming speed and holding *<CTRL\>* lowers it).
 Zooming is either focused on the center of the screen or on the cursor
 position. The zoom style can be selected with the
-![Zoomstyle.png](images/Zoomstyle.png "Zoomstyle") button.
+![icon_zoomstyle.png](images/icon_zoomstyle.png "Zoomstyle") button.
 
 You can also control which part of the network is visible by directly
 setting the network coordinates which shall be at the center of the
 screen along with the zoom (given a value of 100 the whole network will
 fit onto the screen). These settings can be changed by opening the
 viewport editor using the
-![Open_viewport_editor.gif](images/Open_viewport_editor.gif
+![icon_magnify.png](images/icon_magnify.png
 "Open viewport editor") button. From this editor, it is
-possible to save the current settings (![Save.gif](images/Save.gif
+possible to save the current settings (![icon_save.png](images/icon_save.png
 "Save")) or load previously saved ones
-(![Open_sim.png](images/Open_sim.png "Open sim") within the
+(![icon_open.png](images/icon_open.png "Open sim") within the
 viewport editor).
 
 The viewport is defined as following:
-`<viewport zoom="<ZOOM>" x="<X>" y="<Y>"/>`. It can be in a gui-settings file.
+`<viewport zoom="<ZOOM>" x="<X>" y="<Y>" angle="<ANGLE>"/>`. It can be in a gui-settings file.
 
-Pressing the center-button (![Center.gif](images/Center.gif
+Pressing the center-button (![images/icon_recenter_view.png](images/icon_recenter_view.png
 "Center")) from the menu bar at the top of the view, will
 reset the viewport so that the complete network is shown.
 
@@ -167,7 +167,7 @@ The following objects can be accessed by right-click:
 - Polygons
 - Simulation (by clicking the background where there is no other
   object). Also accessible by clicking the
-  ![SimulationParameters.png](images/SimulationParameters.png
+  ![button_simulation_parameters.png](images/button_simulation_parameters.png
   "Simulation parameters") button.
 
   !!! note
@@ -236,7 +236,7 @@ as a group in [netedit](Netedit/index.md).
 ## Locating Objects
 
 All simulation objects can be located based on their ID by using the
-locate dialog ![Locate.png](images/Locate.png "Locate"). By
+locate dialog ![button_locate.png](images/button_locate.png "Locate"). By
 clicking this button a sub-menu for selecting the object type is
 opened. The following types are available:
 
@@ -244,6 +244,7 @@ opened. The following types are available:
 - [Edge](Networks/PlainXML.md#edge_descriptions)
 - [Vehicle](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
 - [Person](Specification/Persons.md)
+- [Container](Specification/Containers.md)
 - [Traffic light](Simulation/Traffic_Lights.md)
 - Additional infrastructure for [detecting](Simulation/Output/index.md#simulated_detectors) or for [influencing traffic](index.md#traffic_management_and_other_structures).
 - [Point of Interest (PoI)](Simulation/Shapes.md#poi_point_of_interest_definitions)
@@ -470,17 +471,17 @@ The following coloring options are useful in this regard:
 
 The View Settings menu allows to change and customize the simulations'
 appearance and visualization. To open the visualization settings use
-![Colorwheel.gif](images/Colorwheel.gif "Colorwheel") in the
+![icon_colorwheel.png](images/icon_colorwheel.png "Colorwheel") in the
 menu bar at the top of the view.
 
 For customizing the simulation one can make changes e.g. to the
 background coloring, streets and vehicle appearance as well as the
 visualization of POIs. Furthermore one can save
-(![Save_to_registry.gif](images/Save_to_registry.gif "Save to registry")) and delete
-(![Delete_from_registry.gif](images/Delete_from_registry.gif "Delete from registry")‎) settings to the registry or export
-(![Save.gif](images/Save.gif "Save")) custom made settings
+(![icon_save_database.png](images/icon_save_database.png "Save to registry")) and delete
+(![icon_removedb.png](images/icon_removedb.png "Delete from registry")) settings to the registry or export
+(![icon_save.png](images/icon_save.png "Save")) custom made settings
 files and load previews settings again
-![Open_sim.png](images/Open_sim.png "Open sim"). So one can
+![icon_open.png](images/icon_open.png "Open sim"). So one can
 use different favorite settings files for any simulation.
 
 The current settings file is shown in a drop down menu in the top bar of
@@ -572,7 +573,7 @@ value/range
 - Show parking info: When activating *show route* in the vehicle context menu, the vehicle is annotated with the number of failed parking attempts and each parking area is annotated with the last target selection score
 - Show minimum gap
 - Show [Bluetooth range](Simulation/Bluetooth.md)
-- Scale length with gemeotry (see [length-geometry-mismatch](Simulation/Distances.md#vehicle_lengths_in_sumo-gui)
+- Scale length with geometry (see [length-geometry-mismatch](Simulation/Distances.md#vehicle_lengths_in_sumo-gui))
 
 ### Scaling
 
@@ -693,7 +694,7 @@ well](#changing_the_appearancevisualisation_of_the_simulation).
 In addition to changing the appearance of simulated structures, one may
 also load additional background images ("decals") into
 **sumo-gui**. For this, open the visualization
-settings using ![Colorwheel.gif](images/Colorwheel.gif "Colorwheel") and - if you are not yet here - choose the
+settings using ![icon_colorwheel.png](images/icon_colorwheel.png "Colorwheel") and - if you are not yet here - choose the
 "Background" panel (see Figure below). You will see a table with the following
 columns: **file**, **centerX**, **centerY**, **width**,
 **height**, **rotation**, **layer** and **relative**.
@@ -782,10 +783,10 @@ you save a configuration file with default settings by calling `sumo --save-temp
 The options in the *GUI* category are specific to sumo-gui
 
 -  **--gui-settings-file** (shortcut **-g**) allows to load a previously saved gui-settings file (see below)
--  **-S, --start**: starts the simulation upon opening the gui (without the need to click the *start* button
+-  **-S, --start**: starts the simulation upon opening the gui (without the need to click the *start* button)
 -  **-Q, --quit-on-end**: closes the gui upon simulation end
 -  **-d, --delay**: sets an initial simulation delay to prevent the simulation from running to quickly
-- **--window-size WIDTH,HEIGHT**: sets the iniial window size (by default the previous size is restored)
+- **--window-size WIDTH,HEIGHT**: sets the initial window size (by default the previous size is restored)
 - **--window-pos X,Y**: sets the initial window position (by default the previous position is restored)
 
 A sumo configuration that loads gui settings is shown below:
@@ -810,9 +811,9 @@ configuration:
 
 All the settings configured in the *View Settings* dialog can be saved to a file and re-used for a new simulation. We refer to such files as gui-settings files. Such a file can also include information about breakpoints, screenshots, simulation delay and background images.
 The easiest way to obtain a gui-settings file is via the *View Settings*-Dialog
-![Open_viewsettings_editor.gif](images/Open_viewsettings_editor.gif
+![icon_colorwheel.png](images/icon_colorwheel.png
 "Open viewsettings editor"). Simply modify the settings and
-save ![Save.gif](images/Save.gif "Save").
+save ![icon_save.png](images/icon_save.png "Save").
 
 Note, that the gui-settings-file obtained this way only contain
 information about the viewport (zoom and offset), delay, breakpoints and
@@ -823,11 +824,11 @@ decals if the corresponding check-boxes are activated before saving.
 
 ```xml
     <viewsettings>
-        <scheme name="..."
+        <scheme name="...">
            ...
         </scheme>
 
-        <viewport zoom="200" x="100" y="-100"/>
+        <viewport zoom="200" x="100" y="-100" angle="0.00"/>
         <delay value="42"/>
         <decal file="background.gif" centerX="550.00" centerY="1530.00" width="64.00" height="64.00" rotation="0.00"/>
         <breakpoint value="42"/>
@@ -890,7 +891,7 @@ elements to the configuration:
 
 # Multiple Views
 
-Using the (![NewView.gif](images/NewView.gif
+Using the (![icon_new_window.png](images/icon_new_window.png
 "New view"))-button, multiple viewing windows can be opened onto the same
 simulation. The visualization settings can be set
 independently for each view. The viewing windows can be managed using
@@ -903,7 +904,7 @@ viewing window is opened for each file at the start of the simulation.
 
 When sumo-gui was compiled with [OpenSceneGraph 
 (OSG)](https://www.openscenegraph.org/) support an additional
-(![NewView3D.gif](images/NewView3D.gif "New 3D view"))-button is
+(![icon_new_window_3d.png](images/icon_new_window_3d.png "New 3D view"))-button is
 present to open a new 3D view. A pre-compiled Windows version for testing is available
 [here](https://sumo.dlr.de/daily/sumo-win64extra-git.zip). Optionally sumo-gui will open a 3D view already from the start by 
 supplying the command line option **--osg-view true**.
@@ -924,15 +925,15 @@ viewport dialog. The following table summarizes which mouse actions and keys can
 | RMB drag      | Zoom view in `terrain` mode                                                                                                      |
 | Mouse movement| Rotate view in `ego` mode (with eye position as pivot point)                                                                     |
 
-Open the viewport editor using the ![Open_viewport_editor.gif](images/Open_viewport_editor.gif
-"Open viewport editor") button. The camera position itself is listed in the left column wheras right "LookAt" coordinates define the 
+Open the viewport editor using the ![icon_magnify.png](images/icon_magnify.png
+"Open viewport editor") button. The camera position itself is listed in the left column whereas right "LookAt" coordinates define the 
 target to look at. "LookAt" coordinates are normalized to length 1 by OSG automatically.
 
 Interacting with network elements and vehicles works like in the 2D view: Context-dependent options are available by RMB click on the object 
 to inspect.
 
 ## Rendering statistics
-OSG draws some rendering statistics (e.g. frames per seconds) on top of the 3D view by pressing the `I` key. Pressing the key multiple times will unveal different statistics and finally hide them again.
+OSG draws some rendering statistics (e.g. frames per seconds) on top of the 3D view by pressing the `I` key. Pressing the key multiple times will unveil different statistics and finally hide them again.
 
 ## Automatically generated 3D environment
 Only some of the regular network components have been ported to the 3D view (yet). Currently the following are displayed:
@@ -1020,7 +1021,7 @@ settings
 Instead of loading data from a file you can visualize the aggregated data that is currently being collected by the simulation.
 For this you need to color 'by live edgeData' and select the id of the configure `edgeData` (or `laneData`) element.
 This will always show the current aggregation interval (so the collected data is reset to 0 at the start of a new interval).
-By using the option **--edgedata-output FILE** or **--lanedata-output FILE** you can quickly configure a data colletion that aggregates over the whole simulation.
+By using the option **--edgedata-output FILE** or **--lanedata-output FILE** you can quickly configure a data collection that aggregates over the whole simulation.
 
 ## Coloring by Data
 

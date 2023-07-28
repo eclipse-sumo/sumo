@@ -88,9 +88,21 @@ public:
      * @param[in] name POI's name
      * @param[in] parameters generic parameters
      */
-    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane, const bool friendlyPos,
-           const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
-           const double height, const std::string& name, const Parameterised::Map& parameters);
+    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane,
+           const double posOverLane, const bool friendlyPos, const double posLat, const double layer, const double angle,
+           const std::string& imgFile, const bool relativePath, const double width, const double height,
+           const std::string& name, const Parameterised::Map& parameters);
+
+    /**@brief Constructor for POIWaypoints
+     * @param[in] net net in which this polygon is placed
+     * @param[in] id The name of the POI
+     * @param[in] x The x position in view
+     * @param[in] y The y position in view
+     * @param[in] name POI's name
+     * @param[in] parameters generic parameters
+     */
+    GNEPOI(GNENet* net, const std::string& id, double x, const double y, const std::string& name,
+           const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPOI();

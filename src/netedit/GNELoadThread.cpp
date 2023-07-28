@@ -145,7 +145,7 @@ GNELoadThread::run() {
     MsgHandler::getMessageInstance()->clear();
     // init global random seed
     RandHelper::initRandGlobal();
-    // check if geo projection can be inited
+    // check if geo projection can be initialized
     if (!GeoConvHelper::init(neteditOptions)) {
         WRITE_ERROR(TL("Could not build projection!"));
         submitEndAndCleanup(net, loadedFile);
@@ -190,7 +190,7 @@ GNELoadThread::run() {
             } else {
                 // now create net with al information loaded in net builder
                 net = new GNENet(netBuilder);
-                // chek if change traffic direction
+                // check if change traffic direction
                 if (neteditOptions.getBool("lefthand")) {
                     // force initial geometry computation without volatile options because the net will look strange otherwise
                     net->computeAndUpdate(neteditOptions, false);
@@ -317,6 +317,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("attribute-help-output", new Option_FileName());
     neteditOptions.addDescription("attribute-help-output", "Netedit", TL("Write attribute help to file"));
 
+    neteditOptions.doRegister("ignore-supermode-question", new Option_Bool(false));
+    neteditOptions.addDescription("ignore-supermode-question", "Netedit", TL("Ignore question dialog during changing between supermodes in undo-redo"));
+
     // network prefixes
 
     neteditOptions.doRegister("node-prefix", new Option_String("J"));
@@ -370,7 +373,7 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("vss-prefix", "Netedit", TL("Prefix for variable speed sign naming"));
 
     neteditOptions.doRegister("tractionSubstation-prefix", new Option_String("tr"));
-    neteditOptions.addDescription("tractionSubstation-prefix", "Netedit", TL("prefix for traction substation naming"));
+    neteditOptions.addDescription("tractionSubstation-prefix", "Netedit", TL("Prefix for traction substation naming"));
 
     neteditOptions.doRegister("overheadWire-prefix", new Option_String("ow"));
     neteditOptions.addDescription("overheadWire-prefix", "Netedit", TL("Prefix for overhead wire naming"));
@@ -380,6 +383,15 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
 
     neteditOptions.doRegister("poi-prefix", new Option_String("poi"));
     neteditOptions.addDescription("poi-prefix", "Netedit", TL("Prefix for poi naming"));
+
+    neteditOptions.doRegister("walkableArea-prefix", new Option_String("jps.wa"));
+    neteditOptions.addDescription("walkableArea-prefix", "Netedit", TL("Prefix for walkable area naming"));
+
+    neteditOptions.doRegister("obstacle-prefix", new Option_String("jps.o"));
+    neteditOptions.addDescription("obstacle-prefix", "Netedit", TL("Prefix for obstacle naming"));
+
+    neteditOptions.doRegister("poiWaypoint-prefix", new Option_String("jps.w"));
+    neteditOptions.addDescription("poiWaypoint-prefix", "Netedit", TL("Prefix for poi waypoints naming"));
 
     // demand prefixes
 
@@ -475,7 +487,7 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("default.action-step-length", "Processing", TL("Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length."));
 
     neteditOptions.doRegister("default.speeddev", new Option_Float(-1));
-    neteditOptions.addDescription("default.speeddev", "Processing", TL("Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class"));
+    neteditOptions.addDescription("default.speeddev", "Processing", TL("Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class)"));
 
     // fill rest of options
 

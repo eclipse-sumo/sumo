@@ -41,8 +41,7 @@ netedit.changeDefaultValue(netedit.attrs.containerStop.create.lines, "lineA line
 netedit.leftClick(referencePosition, 430, 256)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

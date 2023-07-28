@@ -248,6 +248,12 @@ public:
     /// @brief transform POI to POILane, and vice versa
     long onCmdTransformPOI(FXObject*, FXSelector, void*);
 
+    /// @brief reverse current demand element
+    long onCmdReverse(FXObject*, FXSelector, void*);
+
+    /// @brief add a reverse demand element
+    long onCmdAddReverse(FXObject*, FXSelector, void*);
+
     /// @brief set custom geometry point
     long onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*);
 
@@ -735,6 +741,9 @@ private:
 
     /// @brief try to retrieve a additional at popup position
     GNEAdditional* getAdditionalAtPopupPosition();
+
+    /// @brief try to retrieve a demand element at popup position
+    GNEDemandElement* getDemandElementAtPopupPosition();
 
     /// @brief try to retrieve a polygon at popup position
     GNEPoly* getPolygonAtPopupPosition();

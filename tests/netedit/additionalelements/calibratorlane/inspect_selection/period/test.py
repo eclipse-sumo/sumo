@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.frequency, "-1
 netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.frequency, "12.5", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

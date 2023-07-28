@@ -43,6 +43,7 @@
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
+#include <netedit/frames/demand/GNERouteDistributionFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/frames/demand/GNETypeDistributionFrame.h>
@@ -51,6 +52,7 @@
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNECrossingFrame.h>
+#include <netedit/frames/network/GNEDecalFrame.h>
 #include <netedit/frames/network/GNEProhibitionFrame.h>
 #include <netedit/frames/network/GNEShapeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
@@ -99,9 +101,9 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,        GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,             GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE,                          GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION,                  GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION,            GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE,                           GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE,                              GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION,            GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL,                        GNEViewNet::onCmdSetMode),
     // Network view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,               GNEViewNet::onCmdToggleShowGrid),
@@ -213,6 +215,9 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
     // POIs
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,   GNEViewNet::onCmdTransformPOI),
+    // Demand elements
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REVERSE,     GNEViewNet::onCmdReverse),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDREVERSE,  GNEViewNet::onCmdAddReverse),
     // Geometry Points
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CUSTOM_GEOMETRYPOINT,    GNEViewNet::onCmdSetCustomGeometryPoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_RESET_GEOMETRYPOINT,     GNEViewNet::onCmdResetEndPoints),
@@ -834,6 +839,10 @@ GNEViewNet::mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJuncti
 
 bool
 GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedSupermode) {
+    // first check if ignore option is enabled
+    if (OptionsCont::getOptions().getBool("ignore-supermode-question")) {
+        return true;
+    }
     std::string body;
     if (expectedSupermode == Supermode::NETWORK) {
         body = (operation + TL(" requires switch to network mode. Continue?"));
@@ -1780,111 +1789,155 @@ GNEViewNet::setLastCreatedRoute(GNEDemandElement* lastCreatedRoute) {
 
 GNEJunction*
 GNEViewNet::getJunctionAtPopupPosition() {
-    GNEJunction* junction = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_JUNCTION)) {
-            junction = (GNEJunction*)pointed;
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
+        // get first object that can be parsed to junction element
+        for (const auto &glObject : glObjects) {
+            auto junction = dynamic_cast<GNEJunction*>(glObject);
+            if (junction) {
+                return junction;
+            }
         }
     }
-    return junction;
+    return nullptr;
 }
 
 
 GNEConnection*
 GNEViewNet::getConnectionAtPopupPosition() {
-    GNEConnection* connection = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_CONNECTION)) {
-            connection = (GNEConnection*)pointed;
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
+        // get first object that can be parsed to connection element
+        for (const auto &glObject : glObjects) {
+            auto connection = dynamic_cast<GNEConnection*>(glObject);
+            if (connection) {
+                return connection;
+            }
         }
     }
-    return connection;
+    return nullptr;
 }
 
 
 GNECrossing*
 GNEViewNet::getCrossingAtPopupPosition() {
-    GNECrossing* crossing = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_CROSSING)) {
-            crossing = (GNECrossing*)pointed;
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
+        // get first object that can be parsed to crossing element
+        for (const auto &glObject : glObjects) {
+            auto crossing = dynamic_cast<GNECrossing*>(glObject);
+            if (crossing) {
+                return crossing;
+            }
         }
     }
-    return crossing;
+    return nullptr;
 }
 
 
 GNEWalkingArea*
 GNEViewNet::getWalkingAreaAtPopupPosition() {
-    GNEWalkingArea* walkingArea = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_WALKINGAREA)) {
-            walkingArea = (GNEWalkingArea*)pointed;
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
+        // get first object that can be parsed to walking area element
+        for (const auto &glObject : glObjects) {
+            auto walkingArea = dynamic_cast<GNEWalkingArea*>(glObject);
+            if (walkingArea) {
+                return walkingArea;
+            }
         }
     }
-    return walkingArea;
+    return nullptr;
 }
 
 
 GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
-    GNEEdge* edge = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            switch (pointed->getType()) {
-                case GLO_EDGE:
-                    edge = (GNEEdge*)pointed;
-                    break;
-                case GLO_LANE:
-                    edge = (((GNELane*)pointed)->getParentEdge());
-                    break;
-                default:
-                    break;
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
+        // get first object that can be parsed to edge element
+        for (const auto &glObject : glObjects) {
+            auto edge = dynamic_cast<GNEEdge*>(glObject);
+            if (edge) {
+                return edge;
+            } else {
+                auto lane = dynamic_cast<GNELane*>(glObject);
+                if (lane) {
+                    return lane->getParentEdge();
+                }
             }
         }
     }
-    return edge;
+    return nullptr;
 }
 
 
 GNELane*
 GNEViewNet::getLaneAtPopupPosition() {
-    GNELane* lane = nullptr;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_LANE)) {
-            lane = (GNELane*)pointed;
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
+        // get first object that can be parsed to lane element
+        for (const auto &glObject : glObjects) {
+            auto lane = dynamic_cast<GNELane*>(glObject);
+            if (lane) {
+                return lane;
+            }
         }
     }
-    return lane;
+    return nullptr;
 }
 
 
 GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            return dynamic_cast<GNEAdditional*>(pointed);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
+        // get first object that can be parsed to additional element
+        for (const auto &glObject : glObjects) {
+            auto additionalElement = dynamic_cast<GNEAdditional*>(glObject);
+            if (additionalElement) {
+                return additionalElement;
+            }
+        }
+    }
+    return nullptr;
+}
+
+
+GNEDemandElement*
+GNEViewNet::getDemandElementAtPopupPosition() {
+    if (makeCurrent()) {
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
+        // get first object that can be parsed to demand element
+        for (const auto &glObject : glObjects) {
+            auto demandElement = dynamic_cast<GNEDemandElement*>(glObject);
+            if (demandElement) {
+                return demandElement;
+            }
         }
     }
     return nullptr;
@@ -1894,11 +1947,16 @@ GNEViewNet::getAdditionalAtPopupPosition() {
 GNEPoly*
 GNEViewNet::getPolygonAtPopupPosition() {
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            return dynamic_cast<GNEPoly*>(pointed);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
+        // get first object that can be parsed to poly element
+        for (const auto &glObject : glObjects) {
+            auto poly = dynamic_cast<GNEPoly*>(glObject);
+            if (poly) {
+                return poly;
+            }
         }
     }
     return nullptr;
@@ -1908,11 +1966,16 @@ GNEViewNet::getPolygonAtPopupPosition() {
 GNEPOI*
 GNEViewNet::getPOIAtPopupPosition() {
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            return dynamic_cast<GNEPOI*>(pointed);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
+        // get first object that can be parsed to POI element
+        for (const auto &glObject : glObjects) {
+            auto POI = dynamic_cast<GNEPOI*>(glObject);
+            if (POI) {
+                return POI;
+            }
         }
     }
     return nullptr;
@@ -1922,11 +1985,16 @@ GNEViewNet::getPOIAtPopupPosition() {
 GNETAZ*
 GNEViewNet::getTAZAtPopupPosition() {
     if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            return dynamic_cast<GNETAZ*>(pointed);
+        // get all gl objects in position
+        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
+        // swap objects
+        std::reverse(glObjects.begin(), glObjects.end());
+        // get first object that can be parsed to TAZ element
+        for (const auto &glObject : glObjects) {
+            auto TAZ = dynamic_cast<GNETAZ*>(glObject);
+            if (TAZ) {
+                return TAZ;
+            }
         }
     }
     return nullptr;
@@ -1993,8 +2061,11 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_PROHIBITION);
                 break;
-            case MID_HOTKEY_W_MODE_WIRE:
+            case MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_WIRE);
+                break;
+            case MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION:
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_DECAL);
                 break;
             default:
                 break;
@@ -2023,13 +2094,16 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_ROUTE);
                 break;
+            case MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_ROUTEDISTRIBUTION);
+                break;
             case MID_HOTKEY_V_MODE_VEHICLE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_VEHICLE);
                 break;
             case MID_HOTKEY_T_MODE_TLS_TYPE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPE);
                 break;
-            case MID_HOTKEY_U_MODE_TYPEDISTRIBUTION:
+            case MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPEDISTRIBUTION);
                 break;
             case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP:
@@ -2351,7 +2425,9 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
-                if (selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) {
+                if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_WALKABLEAREA) ||
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_OBSTACLE)) {
                     // simplify shape
                     dynamic_cast<GNEPoly*>(selectedShape)->simplifyShape();
                 }
@@ -2393,7 +2469,9 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
-                if (selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) {
+                if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_WALKABLEAREA) ||
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_OBSTACLE)) {
                     // close polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->closePolygon();
                 }
@@ -2424,7 +2502,9 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
-                if (selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) {
+                if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_WALKABLEAREA) ||
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_OBSTACLE)) {
                     // open polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->openPolygon();
                 }
@@ -2556,6 +2636,34 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
         }
         // update view after transform
         updateViewNet();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdReverse(FXObject*, FXSelector, void*) {
+    // obtain demand element at popup position
+    GNEDemandElement* demandElement = getDemandElementAtPopupPosition();
+    if (demandElement) {
+        // begin undo list
+        myUndoList->begin(demandElement->getTagProperty().getGUIIcon(), TLF("reverse % '%'", demandElement->getTagStr(), demandElement->getID()));
+        GNERouteHandler::reverse(demandElement);
+        myUndoList->end();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdAddReverse(FXObject*, FXSelector, void*) {
+    // obtain demand element at popup position
+    GNEDemandElement* demandElement = getDemandElementAtPopupPosition();
+    if (demandElement) {
+        // begin undo list
+        myUndoList->begin(demandElement->getTagProperty().getGUIIcon(), TLF("add reverse '%'", demandElement->getTagStr()));
+        GNERouteHandler::addReverse(demandElement);
+        myUndoList->end();
     }
     return 1;
 }
@@ -4626,6 +4734,12 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCurrentFrame = myViewParent->getWireFrame();
             myNetworkCheckableButtons.wireButton->setChecked(true);
             break;
+        case NetworkEditMode::NETWORK_DECAL:
+            myViewParent->getDecalFrame()->show();
+            myViewParent->getDecalFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getDecalFrame();
+            myNetworkCheckableButtons.decalButton->setChecked(true);
+            break;
         default:
             break;
     }
@@ -4734,6 +4848,13 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getRouteFrame();
             // set checkable button
             myDemandCheckableButtons.routeButton->setChecked(true);
+            break;
+        case DemandEditMode::DEMAND_ROUTEDISTRIBUTION:
+            myViewParent->getRouteDistributionFrame()->show();
+            myViewParent->getRouteDistributionFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getRouteDistributionFrame();
+            // set checkable button
+            myDemandCheckableButtons.routeDistributionButton->setChecked(true);
             break;
         case DemandEditMode::DEMAND_VEHICLE:
             myViewParent->getVehicleFrame()->show();
@@ -5671,6 +5792,11 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // update view to show the new wire
                 updateViewNet();
             }
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case NetworkEditMode::NETWORK_DECAL: {
             // process click
             processClick(eventData);
             break;

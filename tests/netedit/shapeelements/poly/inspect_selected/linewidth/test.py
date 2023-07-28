@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.lineWidth, "-2", Fal
 netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.lineWidth, "2.5", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

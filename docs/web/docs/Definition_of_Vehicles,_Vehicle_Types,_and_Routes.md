@@ -891,7 +891,7 @@ Example:
 ```
 
 !!! note
-    These parameters take no effect in [meso] (Simulation/Meso.md)
+    These parameters take no effect in [meso](Simulation/Meso.md)
     
 See also [transient junctionModel parameters](#transient_parameters).
 

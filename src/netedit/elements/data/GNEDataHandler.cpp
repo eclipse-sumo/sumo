@@ -159,22 +159,29 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
                                             sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
         if (dataInterval != nullptr) {
             // get data
-            GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
-            GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
-            if (fromEdge && toEdge) {
-                GNEGenericData* edgeData = new GNEEdgeRelData(dataInterval, fromEdge, toEdge, parameters);
-                if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(GUIIcon::EDGERELDATA, TL("add edge rel"));
-                    myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
-                    myNet->getViewNet()->getUndoList()->end();
-                } else {
-                    dataInterval->addGenericDataChild(edgeData);
-                    fromEdge->addChildElement(edgeData);
-                    toEdge->addChildElement(edgeData);
-                    edgeData->incRef("buildEdgeRelationData");
-                }
+            GNEEdge* const fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
+            GNEEdge* const toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
+            if (fromEdge == nullptr) {
+                writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, fromEdgeID);
+            } else if (toEdge == nullptr) {
+                writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, toEdgeID);
             } else {
-                writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE);
+                // avoid duplicated edgeRel in the same interval
+                if (dataInterval->edgeRelExists(fromEdge, toEdge)) {
+                    writeError(TLF("There is already a edgeRel defined between '%' and '%'.", fromEdgeID, toEdgeID));
+                } else {
+                    GNEGenericData* edgeData = new GNEEdgeRelData(dataInterval, fromEdge, toEdge, parameters);
+                    if (myAllowUndoRedo) {
+                        myNet->getViewNet()->getUndoList()->begin(GUIIcon::EDGERELDATA, TL("add edge rel"));
+                        myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
+                        myNet->getViewNet()->getUndoList()->end();
+                    } else {
+                        dataInterval->addGenericDataChild(edgeData);
+                        fromEdge->addChildElement(edgeData);
+                        toEdge->addChildElement(edgeData);
+                        edgeData->incRef("buildEdgeRelationData");
+                    }
+                }
             }
         } else {
             writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_DATAINTERVAL);
@@ -242,19 +249,19 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
 
 void
 GNEDataHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
-    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), id) + std::string("; ") + TL("Declared twice."));
+    writeError(TLF("Could not build % with ID '%'", toString(tag), id) + std::string("; ") + TL("declared twice."));
 }
 
 
 void
 GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) {
-    writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(parent)));
+    writeError(TLF("Could not build %", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(parent)));
 }
 
 
 void
-GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& ID) {
-    writeError(TLF("Could not build % with ID '%' in netedit", toString(tag), ID) + std::string("; ") + TLF("% doesn't exist.", toString(parent)));
+GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& id) {
+    writeError(TLF("Could not build %", toString(tag)) + std::string("; ") + TLF("% '%' doesn't exist.", toString(parent), id));
 }
 
 /****************************************************************************/

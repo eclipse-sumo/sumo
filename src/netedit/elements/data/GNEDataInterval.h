@@ -109,6 +109,9 @@ public:
     /// @brief get generic data children
     const std::vector<GNEGenericData*>& getGenericDataChildren() const;
 
+    /// @brief check if there is already a edgeRel defined between two edges
+    bool edgeRelExists(const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
+
     /// @brief check if there is already a TAZRel defined in one TAZ
     bool TAZRelExists(const GNEAdditional* TAZ) const;
 

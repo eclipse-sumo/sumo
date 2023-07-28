@@ -47,8 +47,7 @@ netedit.changeDefaultValue(netedit.attrs.E2.create.file, "myOwnFilename.txt")
 netedit.leftClick(referencePosition, 381, 253)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

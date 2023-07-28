@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # change value
 netedit.modifyBoolAttribute(netedit.attrs.waypointContainerStop.inspectSelection.untilEnable, False)
@@ -65,8 +65,7 @@ netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.unt
 netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.until, "3.5", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

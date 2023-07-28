@@ -36,6 +36,7 @@
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
+#include <netedit/frames/demand/GNERouteDistributionFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
@@ -47,6 +48,7 @@
 #include <netedit/frames/network/GNEShapeFrame.h>
 #include <netedit/frames/network/GNEProhibitionFrame.h>
 #include <netedit/frames/network/GNEWireFrame.h>
+#include <netedit/frames/network/GNEDecalFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
@@ -263,9 +265,21 @@ GNEViewParent::getWireFrame() const {
 }
 
 
+GNEDecalFrame*
+GNEViewParent::getDecalFrame() const {
+    return myNetworkFrames.decalFrame;
+}
+
+
 GNECreateEdgeFrame*
 GNEViewParent::getCreateEdgeFrame() const {
     return myNetworkFrames.createEdgeFrame;
+}
+
+
+GNERouteDistributionFrame*
+GNEViewParent::getRouteDistributionFrame() const {
+    return myDemandFrames.routeDistributionFrame;
 }
 
 
@@ -661,14 +675,12 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserAdditional;
                 locateTitle = TL("Additional Chooser");
                 for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
-                    if (additionalTag.first == SUMO_TAG_POI
-                            || additionalTag.first == GNE_TAG_POILANE
-                            || additionalTag.first == GNE_TAG_POIGEO
-                            || additionalTag.first == SUMO_TAG_POLY) {
-                        continue;
-                    }
-                    for (const auto& additional : additionalTag.second) {
-                        ACsToLocate.push_back(additional);
+                    // avoid shapes and TAZs
+                    if (!GNEAttributeCarrier::getTagProperty(additionalTag.first).isShapeElement() &&
+                        !GNEAttributeCarrier::getTagProperty(additionalTag.first).isTAZElement()) {
+                        for (const auto& additional : additionalTag.second) {
+                            ACsToLocate.push_back(additional);
+                        }
                     }
                 }
                 break;
@@ -679,22 +691,31 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POI)) {
                     ACsToLocate.push_back(POI);
                 }
-                for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POILANE)) {
-                    ACsToLocate.push_back(POI);
+                for (const auto& POILane : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POILANE)) {
+                    ACsToLocate.push_back(POILane);
                 }
-                for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIGEO)) {
-                    ACsToLocate.push_back(POI);
+                for (const auto& POIGeo : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIGEO)) {
+                    ACsToLocate.push_back(POIGeo);
+                }
+                for (const auto& POIWayPoint : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIWAYPOINT)) {
+                    ACsToLocate.push_back(POIWayPoint);
                 }
                 break;
             case MID_HOTKEY_SHIFT_L_LOCATEPOLY:
                 chooserLoc = &myACChoosers.ACChooserPolygon;
                 locateTitle = TL("Poly Chooser");
-                // fill ACsToLocate with polys and TAZs (because share namespae)
+                // fill ACsToLocate with polys, TAZs, walkableAreas and obstacles (because share namespae)
                 for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POLY)) {
                     ACsToLocate.push_back(polygon);
                 }
                 for (const auto& taz : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
                     ACsToLocate.push_back(taz);
+                }
+                for (const auto& walkableArea : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_WALKABLEAREA)) {
+                    ACsToLocate.push_back(walkableArea);
+                }
+                for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_OBSTACLE)) {
+                    ACsToLocate.push_back(obstacle);
                 }
                 break;
             default:
@@ -748,11 +769,7 @@ GNEViewParent::onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*) {
 // GNEViewParent::CommonFrames - methods
 // ---------------------------------------------------------------------------
 
-GNEViewParent::CommonFrames::CommonFrames() :
-    inspectorFrame(nullptr),
-    deleteFrame(nullptr),
-    selectorFrame(nullptr),
-    moveFrame(nullptr) {
+GNEViewParent::CommonFrames::CommonFrames() {
 }
 
 
@@ -821,29 +838,20 @@ GNEViewParent::CommonFrames::getCurrentShownFrame() const {
 // GNEViewParent::NetworkFrames - methods
 // ---------------------------------------------------------------------------
 
-GNEViewParent::NetworkFrames::NetworkFrames() :
-    connectorFrame(nullptr),
-    TLSEditorFrame(nullptr),
-    additionalFrame(nullptr),
-    crossingFrame(nullptr),
-    TAZFrame(nullptr),
-    polygonFrame(nullptr),
-    prohibitionFrame(nullptr),
-    wireFrame(nullptr),
-    createEdgeFrame(nullptr) {
-}
+GNEViewParent::NetworkFrames::NetworkFrames() {}
 
 
 void
 GNEViewParent::NetworkFrames::buildNetworkFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
     connectorFrame = new GNEConnectorFrame(viewParent, viewNet);
-    prohibitionFrame = new GNEProhibitionFrame(viewParent, viewNet);
-    wireFrame = new GNEWireFrame(viewParent, viewNet);
     TLSEditorFrame = new GNETLSEditorFrame(viewParent, viewNet);
     additionalFrame = new GNEAdditionalFrame(viewParent, viewNet);
     crossingFrame = new GNECrossingFrame(viewParent, viewNet);
     TAZFrame = new GNETAZFrame(viewParent, viewNet);
     polygonFrame = new GNEShapeFrame(viewParent, viewNet);
+    prohibitionFrame = new GNEProhibitionFrame(viewParent, viewNet);
+    wireFrame = new GNEWireFrame(viewParent, viewNet);
+    decalFrame = new GNEDecalFrame(viewParent, viewNet);
     createEdgeFrame = new GNECreateEdgeFrame(viewParent, viewNet);
 }
 
@@ -858,6 +866,7 @@ GNEViewParent::NetworkFrames::hideNetworkFrames() {
     polygonFrame->hide();
     prohibitionFrame->hide();
     wireFrame->hide();
+    decalFrame->hide();
     createEdgeFrame->hide();
 }
 
@@ -873,6 +882,7 @@ GNEViewParent::NetworkFrames::setNetworkFramesWidth(int frameWidth) {
     polygonFrame->setFrameWidth(frameWidth);
     prohibitionFrame->setFrameWidth(frameWidth);
     wireFrame->setFrameWidth(frameWidth);
+    decalFrame->setFrameWidth(frameWidth);
     createEdgeFrame->setFrameWidth(frameWidth);
 }
 
@@ -895,6 +905,8 @@ GNEViewParent::NetworkFrames::isNetworkFrameShown() const {
     } else if (prohibitionFrame->shown()) {
         return true;
     } else if (wireFrame->shown()) {
+        return true;
+    } else if (decalFrame->shown()) {
         return true;
     } else if (createEdgeFrame->shown()) {
         return true;
@@ -923,6 +935,8 @@ GNEViewParent::NetworkFrames::getCurrentShownFrame() const {
         return prohibitionFrame;
     } else if (wireFrame->shown()) {
         return wireFrame;
+    } else if (decalFrame->shown()) {
+        return decalFrame;
     } else if (createEdgeFrame->shown()) {
         return createEdgeFrame;
     } else {
@@ -941,6 +955,7 @@ GNEViewParent::DemandFrames::DemandFrames() {
 void
 GNEViewParent::DemandFrames::buildDemandFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
     routeFrame = new GNERouteFrame(viewParent, viewNet);
+    routeDistributionFrame = new GNERouteDistributionFrame(viewParent, viewNet);
     vehicleFrame = new GNEVehicleFrame(viewParent, viewNet);
     typeFrame = new GNETypeFrame(viewParent, viewNet);
     typeDistributionFrame = new GNETypeDistributionFrame(viewParent, viewNet);
@@ -955,6 +970,7 @@ GNEViewParent::DemandFrames::buildDemandFrames(GNEViewParent* viewParent, GNEVie
 void
 GNEViewParent::DemandFrames::hideDemandFrames() {
     routeFrame->hide();
+    routeDistributionFrame->hide();
     vehicleFrame->hide();
     typeFrame->hide();
     typeDistributionFrame->hide();
@@ -970,6 +986,7 @@ void
 GNEViewParent::DemandFrames::setDemandFramesWidth(int frameWidth) {
     // set width in all frames
     routeFrame->setFrameWidth(frameWidth);
+    routeDistributionFrame->setFrameWidth(frameWidth);
     vehicleFrame->setFrameWidth(frameWidth);
     typeFrame->setFrameWidth(frameWidth);
     typeDistributionFrame->setFrameWidth(frameWidth);
@@ -985,6 +1002,8 @@ bool
 GNEViewParent::DemandFrames::isDemandFrameShown() const {
     // check all frames
     if (routeFrame->shown()) {
+        return true;
+    } else if (routeDistributionFrame->shown()) {
         return true;
     } else if (vehicleFrame->shown()) {
         return true;
@@ -1013,6 +1032,8 @@ GNEViewParent::DemandFrames::getCurrentShownFrame() const {
     // check all frames
     if (routeFrame->shown()) {
         return routeFrame;
+    } else if (routeDistributionFrame->shown()) {
+        return routeDistributionFrame;
     } else if (vehicleFrame->shown()) {
         return vehicleFrame;
     } else if (typeFrame->shown()) {
@@ -1107,20 +1128,7 @@ GNEViewParent::DataFrames::getCurrentShownFrame() const {
 // GNEViewParent::ACChoosers - methods
 // ---------------------------------------------------------------------------
 
-GNEViewParent::ACChoosers::ACChoosers() :
-    ACChooserJunction(nullptr),
-    ACChooserEdges(nullptr),
-    ACChooserWalkingAreas(nullptr),
-    ACChooserVehicles(nullptr),
-    ACChooserPersons(nullptr),
-    ACChooserRoutes(nullptr),
-    ACChooserStops(nullptr),
-    ACChooserTLS(nullptr),
-    ACChooserAdditional(nullptr),
-    ACChooserPOI(nullptr),
-    ACChooserPolygon(nullptr),
-    ACChooserProhibition(nullptr),
-    ACChooserWire(nullptr) {
+GNEViewParent::ACChoosers::ACChoosers() {
 }
 
 

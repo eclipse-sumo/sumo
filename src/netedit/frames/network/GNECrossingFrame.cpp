@@ -536,7 +536,7 @@ GNECrossingFrame::Information::Information(GNECrossingFrame* crossingFrameParent
     MFXGroupBoxModule(crossingFrameParent, TL("Information")) {
 
     // create label
-    new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + TL("Click over junction to  mark candidate edges.") + std::string("\n- ") + TL("Click over candidate edges for selecting.")).c_str(), 0, GUIDesignLabelFrameInformation);
+    new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + TL("Click over junction to mark candidate edges.") + std::string("\n- ") + TL("Click over candidate edges for selecting.")).c_str(), 0, GUIDesignLabelFrameInformation);
     // candidate
     FXLabel* colorCandidateLabel = new FXLabel(getCollapsableFrame(), TL(" Candidate"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     colorCandidateLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));

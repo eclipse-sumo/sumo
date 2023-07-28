@@ -91,7 +91,7 @@ fillOptions() {
     RandHelper::insertRandOptions(oc);
 
     oc.doRegister("tls.discard-simple", new Option_Bool(false));
-    oc.addDescription("tls.discard-simple", "TLS Building", "Does not instatiate traffic lights at geometry-like nodes");
+    oc.addDescription("tls.discard-simple", "TLS Building", "Does not instantiate traffic lights at geometry-like nodes");
 }
 
 

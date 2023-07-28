@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.type.edit.sigma, "20.5", False)
 netedit.modifyAttribute(netedit.attrs.type.edit.sigma, "0.52", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

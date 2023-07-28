@@ -56,8 +56,7 @@ netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.height, "8.5")
 netedit.closeVTypeDialog()
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

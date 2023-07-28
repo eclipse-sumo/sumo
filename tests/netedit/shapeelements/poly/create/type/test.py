@@ -47,8 +47,7 @@ netedit.changeDefaultValue(netedit.attrs.Poly.create.type, "poly_test")
 netedit.createSquaredPoly(referencePosition, 401, 136, 200, True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

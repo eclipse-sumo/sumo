@@ -59,8 +59,7 @@ netedit.changeDefaultValue(netedit.attrs.Poly.create.imgFile, "berlin_icon.ico")
 netedit.createSquaredPoly(referencePosition, 592, 136, 200, True)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

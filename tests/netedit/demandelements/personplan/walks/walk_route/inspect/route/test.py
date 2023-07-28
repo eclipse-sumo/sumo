@@ -38,7 +38,7 @@ netedit.personMode()
 netedit.changePersonPlan("walk: edge", False)
 
 # create route using two one
-netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -47,7 +47,7 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, 92, 412)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # go to walkEdgeEdge mode
 netedit.changePersonPlanMode("walk: route")
@@ -62,17 +62,16 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect walkEdgeEdge
-netedit.leftClick(referencePosition, 430, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.route, "dummy", True)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.route, "gneE4", True)
+netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.route, "Edge1", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

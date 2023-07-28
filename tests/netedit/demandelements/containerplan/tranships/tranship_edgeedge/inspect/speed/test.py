@@ -38,7 +38,7 @@ netedit.containerMode()
 netedit.changeContainerPlan("tranship: edge", False)
 
 # create route using two one
-netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -46,14 +46,11 @@ netedit.typeEnter()
 # go to transhipEdgeEdge mode
 netedit.containerPlanMode()
 
-# select container
-netedit.leftClick(referencePosition, 80, 410)
-
 # go to transhipEdgeEdge mode
 netedit.changeContainerPlanMode("tranship: edge")
 
 # create transhipEdgeEdge
-netedit.leftClick(referencePosition, 180, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -62,7 +59,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect transhipEdgeEdge
-netedit.leftClick(referencePosition, 430, 58)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x, netedit.positions.demandElements.containerPlanEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transhipEdgeEdge.inspect.speed, "dummySpeed", False)
@@ -74,8 +71,7 @@ netedit.modifyAttribute(netedit.attrs.transhipEdgeEdge.inspect.speed, "-7", Fals
 netedit.modifyAttribute(netedit.attrs.transhipEdgeEdge.inspect.speed, "12.34", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

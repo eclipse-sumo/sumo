@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.lat, "dummyLat", False)
 netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.lat, "7.50", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

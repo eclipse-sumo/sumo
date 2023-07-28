@@ -1,8 +1,13 @@
 POIGEO.create.lonLat
+edge.contextualMenu.addReverseDirection
+edge.contextualMenu.addReverseDirectionDisconnected
+edge.contextualMenu.reverseElementDirection
+edge.contextualMenu.reverseElementDirectionDisconnected
 edge.create.bikelaneWidth
 edge.create.sidewalkWidth
 entryExit.create.parent
 fix.demandElements.routes.removeStops
+flowEmbedded.reverse.current
 flowJunction.transform.flow
 flowJunction.transform.routeFlow
 flowJunction.transform.routeFlowEmbedded
@@ -24,7 +29,9 @@ junction.contextualMenu.splitJunctionAndReconnect
 lane.contextualMenu.resetCustomLaneShape
 lane.contextualMenu.resetOppositeLaneShape
 lane.contextualMenu.setCustomLaneShape
+routeFlow.reverse.current
 selection.lockSelectionNetwork.TAZs
+trip.reverse.current
 tripJunction.transform.flow
 tripJunction.transform.routeFlow
 tripJunction.transform.routeFlowEmbedded
@@ -36,3 +43,5 @@ type.editDialog.colorButton
 type.editDialog.imgFileButton
 type.editDialog.osgFileButton
 type.editDialog.parametersButton
+vehicle.reverse.current
+vehicleEmbedded.reverse.current

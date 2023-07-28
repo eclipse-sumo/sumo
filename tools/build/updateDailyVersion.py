@@ -23,7 +23,7 @@ import sys
 import zipfile
 import shutil
 
-# first check platform (currently only avaliable in Windows)
+# first check platform (currently only available in Windows)
 if sys.platform != "win32":
     print("This script only works in Windows")
     sys.exit()

@@ -88,7 +88,7 @@ public:
     /// @brief return undoName
     virtual std::string undoName() const = 0;
 
-    /// @brief return rendoName
+    /// @brief return redoName
     virtual std::string redoName() const = 0;
 
     /// @brief Return the size of the command group

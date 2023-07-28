@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.chargeDel
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.chargeDelay, "6.3", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

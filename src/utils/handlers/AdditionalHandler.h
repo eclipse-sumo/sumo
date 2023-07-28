@@ -242,11 +242,12 @@ public:
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+     * @param[in] expectedArrival Whether no warning should be issued when a vehicle arrives within the detector area
      * @param[in] parameters generic parameters
      */
     virtual void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime period,
                                  const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold,
-                                 const double speedThreshold, const Parameterised::Map& parameters) = 0;
+                                 const double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a entry detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -571,6 +572,38 @@ public:
                              const RGBColor& color, const double lon, const double lat, const double layer, const double angle, const std::string& imgFile,
                              bool relativePath, const double width, const double height, const std::string& name,
                              const Parameterised::Map& parameters) = 0;
+    
+    /**@brief Builds a walkable area using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] name polygon name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                                   const std::string& name, const Parameterised::Map& parameters) = 0;
+
+    /**@brief Builds a obstacle using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] name polygon name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                               const std::string& name, const Parameterised::Map& parameters) = 0;
+
+    /**@brief Builds a POIWaypoint using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the POI
+     * @param[in] x POI's x position
+     * @param[in] y POI's y position
+     * @param[in] name POIWaypoint name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildPOIWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
+                                  const std::string& name, const Parameterised::Map& parameters) = 0;
+
     /// @}
 
     /// @brief get flag for check if a element wasn't created
@@ -690,6 +723,15 @@ private:
 
     /// @brief parse POI attributes
     void parsePOIAttributes(const SUMOSAXAttributes& attrs);
+
+    // @brief parse walkable area attributes
+    void parseWalkableAreaAttributes(const SUMOSAXAttributes& attrs);
+
+    // @brief parse poly attributes
+    void parseObstacleAttributes(const SUMOSAXAttributes& attrs);
+
+    // @brief parse poly attributes
+    void parsePOIWaypointAttributes(const SUMOSAXAttributes& attrs);
 
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);

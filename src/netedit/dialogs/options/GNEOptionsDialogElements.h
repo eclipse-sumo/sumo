@@ -93,7 +93,7 @@ public:
         /// @brief description
         const std::string myDescription;
 
-        /// @brief defaul value
+        /// @brief default value
         const std::string myDefaultValue;
 
         /// @brief content frame

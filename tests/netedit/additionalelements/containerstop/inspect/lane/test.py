@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.containerStop.inspect.lane, "center1_1", T
 netedit.modifyAttribute(netedit.attrs.containerStop.inspect.lane, "center1_0", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

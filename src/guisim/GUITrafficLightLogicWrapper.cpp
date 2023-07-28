@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <cassert>
+#include <utils/common/MsgHandler.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
@@ -236,25 +237,25 @@ GUIParameterTableWindow*
 GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
         GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    ret->mkItem("tlLogic [id]", false, myTLLogic.getID());
-    ret->mkItem("type", false, toString(myTLLogic.getLogicType()));
-    ret->mkItem("program", false, myTLLogic.getProgramID());
-    ret->mkItem("phase", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentPhase));
-    ret->mkItem("phase name", true, new FunctionBindingString<GUITrafficLightLogicWrapper>(this, &GUITrafficLightLogicWrapper::getCurrentPhaseName));
-    ret->mkItem("duration", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentDurationSeconds));
-    ret->mkItem("minDur", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentMinDurSeconds));
-    ret->mkItem("maxDur", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentMaxDurSeconds));
-    ret->mkItem("running duration", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getRunningDurationSeconds));
-    ret->mkItem("earliestEnd", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentEarliestEndSeconds));
-    ret->mkItem("latestEnd", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentLatestEndSeconds));
-    ret->mkItem("time in cycle", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentTimeInCycleSeconds));
-    ret->mkItem("cycle time", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getDefaultCycleTimeSeconds));
+    ret->mkItem(TL("tlLogic [id]"), false, myTLLogic.getID());
+    ret->mkItem(TL("type"), false, toString(myTLLogic.getLogicType()));
+    ret->mkItem(TL("program"), false, myTLLogic.getProgramID());
+    ret->mkItem(TL("phase"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentPhase));
+    ret->mkItem(TL("phase name"), true, new FunctionBindingString<GUITrafficLightLogicWrapper>(this, &GUITrafficLightLogicWrapper::getCurrentPhaseName));
+    ret->mkItem(TL("duration"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentDurationSeconds));
+    ret->mkItem(TL("minDur"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentMinDurSeconds));
+    ret->mkItem(TL("maxDur"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentMaxDurSeconds));
+    ret->mkItem(TL("running duration"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getRunningDurationSeconds));
+    ret->mkItem(TL("earliestEnd"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentEarliestEndSeconds));
+    ret->mkItem(TL("latestEnd"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentLatestEndSeconds));
+    ret->mkItem(TL("time in cycle"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentTimeInCycleSeconds));
+    ret->mkItem(TL("cycle time"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getDefaultCycleTimeSeconds));
     MSRailSignal* rs = dynamic_cast<MSRailSignal*>(&myTLLogic);
     if (rs != nullptr) {
-        ret->mkItem("blocking", true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getBlockingVehicleIDs));
-        ret->mkItem("rival", true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getRivalVehicleIDs));
-        ret->mkItem("priority", true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getPriorityVehicleIDs));
-        ret->mkItem("constraint", true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getConstraintInfo));
+        ret->mkItem(TL("blocking"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getBlockingVehicleIDs));
+        ret->mkItem(TL("rival"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getRivalVehicleIDs));
+        ret->mkItem(TL("priority"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getPriorityVehicleIDs));
+        ret->mkItem(TL("constraint"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getConstraintInfo));
     }
     // close building
     ret->closeBuilding(&myTLLogic);

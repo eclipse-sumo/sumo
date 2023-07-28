@@ -59,8 +59,7 @@ netedit.changeDefaultValue(netedit.attrs.POI.create.angle, "45")
 netedit.leftClick(referencePosition, 428, 117)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

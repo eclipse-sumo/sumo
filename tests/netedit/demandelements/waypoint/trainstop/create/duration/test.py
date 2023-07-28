@@ -41,41 +41,40 @@ netedit.changeStopType("waypointTrainStop")
 netedit.changeDefaultBoolValue(netedit.attrs.waypointTrainStop.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x, netedit.positions.demandElements.trainStop.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.waypointTrainStop.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 291, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x + 2, netedit.positions.demandElements.trainStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.duration, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 292, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x + 4, netedit.positions.demandElements.trainStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.duration, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 293, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x + 6, netedit.positions.demandElements.trainStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.duration, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 294, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x + 8, netedit.positions.demandElements.trainStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.duration, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 295, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x + 10, netedit.positions.demandElements.trainStop.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

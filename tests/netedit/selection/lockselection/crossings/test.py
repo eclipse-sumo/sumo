@@ -59,8 +59,7 @@ netedit.typeTwoKeys('alt', 'o')
 netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.crossings)
 
 # check undo and redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -53,14 +53,14 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <trip fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
+    <trip fromTaz="taz_green" toTaz="taz_red" depart="20.00"/>
 
-    <trip id="" fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
+    <trip id="" fromTaz="taz_green" toTaz="taz_red" depart="20.00"/>
 
-    <trip id="id with spaces" fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
+    <trip id="id with spaces" fromTaz="taz_green" toTaz="taz_red" depart="20.00"/>
 
-    <trip id="trip_valid" fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
+    <trip id="trip_valid" fromTaz="taz_green" toTaz="taz_red" depart="20.00"/>
 
-    <trip id="trip_valid" fromTaz="taz_0" toTaz="taz_1" depart="20.00"/>
+    <trip id="trip_valid" fromTaz="taz_green" toTaz="taz_red" depart="20.00"/>
 
 </routes>

@@ -38,13 +38,13 @@ netedit.selectMode()
 netedit.selectionInvert()
 
 # change zoom
-netedit.setZoom("0", "-6", "5")
+netedit.setZoom("0", "5", "5")
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.personFlow.inspectSelection.colorButton, 5, False)
@@ -62,8 +62,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.color, "cyan",
 netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.color, "12,13,14", False)
 
 # Check undo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -455,12 +455,11 @@ MSVehicleControl::getVTypeDistributionMembership(const std::string& id) const {
 
 const RandomDistributor<MSVehicleType*>*
 MSVehicleControl::getVTypeDistribution(const std::string& typeDistID) const {
-    auto it = myVTypeDistDict.find(typeDistID);
+    const auto it = myVTypeDistDict.find(typeDistID);
     if (it != myVTypeDistDict.end()) {
         return it->second;
-    } else {
-        return nullptr;
     }
+    return nullptr;
 }
 
 

@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.calibrator.inspect.edgeLane, "dummyEdge", 
 netedit.modifyAttribute(netedit.attrs.calibrator.inspect.edgeLane, "top", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

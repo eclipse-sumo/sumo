@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change personNumber with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.insertionChecks, "dummy", False)
@@ -51,8 +51,7 @@ netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.insertionChe
                         "leaderGap junction speedLimit pedestrian", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to TAZs)")
 
 # create trip using two TAZs
-netedit.leftClick(referencePosition, 50, 250)
-netedit.leftClick(referencePosition, 430, 250)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZGreen.x, netedit.positions.demandElements.TAZGreen.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x, netedit.positions.demandElements.TAZRed.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,14 +48,13 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 100, 225)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x, netedit.positions.demandElements.singleVehicleTAZ.y)
 
 # change personNumber with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.line, "custom Line", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

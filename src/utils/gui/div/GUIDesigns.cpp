@@ -39,11 +39,15 @@ GUIDesigns::buildFXMenuTitle(FXComposite* p, const std::string& text, FXIcon* ic
 
 
 FXMenuCommand*
-GUIDesigns::buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel) {
+GUIDesigns::buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel, const bool disable) {
     // build menu command
     FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), icon, tgt, sel, LAYOUT_FIX_HEIGHT);
     // set width and height (to avoid problems between Windows und Linux)
     menuCommand->setHeight(GUIDesignHeight);
+    // check if disable after creation (used in certain parts of netedit)
+    if (disable) {
+        menuCommand->disable();
+    }
     // return menuCommand
     return menuCommand;
 }

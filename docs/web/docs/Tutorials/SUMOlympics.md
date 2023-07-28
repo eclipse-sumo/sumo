@@ -142,7 +142,7 @@ simulation](../Simulation/Bicycles.md)). Start the simulation by
 double-clicking on the configuration file `sumolympics.sumocfg`
 (Windows), opening SUMO GUI, or running `sumo-gui -c sumolympics.sumocfg` from a terminal.
 Adjust the step delay to 100 ms and press the run button
-(![Image:play.gif](../images/Play.gif "Image:play.gif")).
+(![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")).
 
 <img src="../images/sumolympics_sumogui_1.png" width="1000"/>
 

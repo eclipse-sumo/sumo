@@ -261,7 +261,7 @@ MSEdge::allowsLaneChanging() const {
             const MSLink* const link = lane->getLogicalPredecessorLane()->getLinkTo(lane);
             assert(link != nullptr);
             const LinkState state = link->getState();
-            if (state == LINKSTATE_MINOR
+            if ((state == LINKSTATE_MINOR && lane->getBidiLane() == nullptr)
                     || state == LINKSTATE_EQUAL
                     || state == LINKSTATE_STOP
                     || state == LINKSTATE_ALLWAY_STOP
@@ -1297,7 +1297,7 @@ MSEdge::setBidiLanes() {
         int numBidiLanes = 0;
         for (MSLane* l1 : *myLanes) {
             for (MSLane* l2 : *myBidiEdge->myLanes) {
-                if (l1->getShape().reverse().almostSame(l2->getShape(), POSITION_EPS)) {
+                if (l1->getShape().reverse().almostSame(l2->getShape(), POSITION_EPS * 2)) {
                     l1->setBidiLane(l2);
                     numBidiLanes++;
                 }

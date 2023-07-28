@@ -2549,11 +2549,10 @@ NIImporter_OpenStreetMap::applyTurnSigns(NBEdge* e, const std::vector<int>& turn
     if (myImportTurnSigns && turnSigns.size() > 0) {
         // no sidewalks and bike lanes have been added yet
         if ((int)turnSigns.size() == e->getNumLanes()) {
-            const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
             //std::cout << "apply turnSigns for " << e->getID() << " turnSigns=" << toString(turnSigns) << "\n";
             for (int i = 0; i < (int)turnSigns.size(); i++) {
                 // laneUse stores from left to right
-                const int laneIndex = lefthand ? i : e->getNumLanes() - 1 - i;
+                const int laneIndex = e->getNumLanes() - 1 - i;
                 NBEdge::Lane& lane = e->getLaneStruct(laneIndex);
                 lane.turnSigns = turnSigns[i];
             }

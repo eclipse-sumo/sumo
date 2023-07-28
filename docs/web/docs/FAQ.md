@@ -531,7 +531,7 @@ At line/column 10/46
 
 ### what about warning: pj_obj_create: Cannot find proj.db
 
-  This warning concerns the database of named projections (EPSG codes) and gridshifts for the [proj library](https://proj.org). Unless performing fancy coordinate transformations (i.e. with netconvert) or trying to import unusual nework files, the warning can be safely ignored. Otherwise, it should help to set the [PROJ_DATA](https://proj.org/en/9.2/usage/environmentvars.html#envvar-PROJ_DATA) environment variable.
+  This warning concerns the database of named projections (EPSG codes) and gridshifts for the [proj library](https://proj.org). Unless performing fancy coordinate transformations (i.e. with netconvert) or trying to import unusual network files, the warning can be safely ignored. Otherwise, it should help to set the [PROJ_DATA](https://proj.org/en/9.2/usage/environmentvars.html#envvar-PROJ_DATA) environment variable.
 
 ## netconvert
 
@@ -809,7 +809,7 @@ registered
 
   There may be several reasons why you do not see the cars.
 
-- The simulation is not yet running (click the "play" button (![Play.gif](images/Play.gif "Play")), see [sumo-gui#Usage_Description](sumo-gui.md#usage_description))
+- The simulation is not yet running (click the "play" button (![icon_play.png](images/icon_play.png "Play")), see [sumo-gui#Usage_Description](sumo-gui.md#usage_description))
 - If your simulation area is too big, cars will not be displayed
   unless you zoom into the net. Cars are simply to small when looking
   from far away. To change this you may also set the option *Draw with
@@ -1123,10 +1123,10 @@ To fix it install the latest nvidia drivers, open the nvidia system control pane
 and select nvidia as your preferred graphics processor. If this does not fix it, try
 to set the integrated graphics as preferred. (Thanks @palvarezlopez for finding out.)
 
-### SUMO-GUI and NETEDIT flickering
+### sumo-gui and netedit flickering
 
 There is a know problem in Windows 10 with scaling and flickering in certain applications. 
-If scaling is greater than 100%, a flickering may appear in SUMO-GUI and NETEDIT during mouse movement.
+If scaling is greater than 100%, a flickering may appear in sumo-gui and netedit during mouse movement.
 The only known solution is leaving Scaling at 100%. Another cause is the use of a modern graphics card. 
 If your computer supports it, run SUMO using the integrated graphics card (Control panel->NVidia Control Panel->Select integrated graphic card->apply)
 

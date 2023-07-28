@@ -111,8 +111,8 @@ GUIParameterTableWindow*
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("type", false, toString(myJunction.getType()));
-    ret->mkItem("name", false, myJunction.getName());
+    ret->mkItem(TL("type"), false, toString(myJunction.getType()));
+    ret->mkItem(TL("name"), false, myJunction.getName());
     // close building
     ret->closeBuilding(&myJunction);
     return ret;

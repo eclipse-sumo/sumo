@@ -69,8 +69,7 @@ netedit.modifyAttribute(netedit.attrs.entryExit.inspect.pos, "", True)
 netedit.modifyAttribute(netedit.attrs.entryExit.inspect.pos, "25", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -141,6 +141,18 @@ protected:
     /// @brief add shape (using base shape)
     void addShape();
 
+    /// @brief process click for Polygons
+    bool processClickPolygons(const Position& clickedPosition, bool& updateTemporalShape);
+
+    /// @brief process click for POIs over view
+    bool processClickPOI(SumoXMLTag POITag, const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+
+    /// @brief process click for POIGeo
+    bool processClickPOIGeo(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+
+    /// @brief process click for POILanes
+    bool processClickPOILanes(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+
 private:
     /// @brief shape tag selector
     GNETagSelector* myShapeTagSelector;

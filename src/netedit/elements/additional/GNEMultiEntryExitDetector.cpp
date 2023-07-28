@@ -33,27 +33,24 @@
 // ===========================================================================
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
-    GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E3ENTRY), "", {}, {}, {}, {}, {}, {}),
-              myPeriod(0),
-              myFilename(""),
-              myTimeThreshold(0),
-mySpeedThreshold(0) {
+    GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E3ENTRY), "", {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
-        const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
-        const Parameterised::Map& parameters) :
+GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq,
+        const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
+        double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E3EXIT), name, {}, {}, {}, {}, {}, {}),
-Parameterised(parameters),
-myPosition(pos),
-myPeriod(freq),
-myFilename(filename),
-myVehicleTypes(vehicleTypes),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold) {
+    Parameterised(parameters),
+    myPosition(pos),
+    myPeriod(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold),
+    myExpectedArrival(expectedArrival) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -103,6 +100,9 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         }
         if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
             device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
+        }
+        if (getAttribute(SUMO_ATTR_EXPECT_ARRIVAL) != myTagProperty.getDefaultValue(SUMO_ATTR_EXPECT_ARRIVAL)) {
+            device.writeAttr(SUMO_ATTR_EXPECT_ARRIVAL, myExpectedArrival);
         }
         // write all entry/exits
         for (const auto& access : getChildAdditionals()) {
@@ -218,6 +218,8 @@ GNEMultiEntryExitDetector::getAttribute(SumoXMLAttr key) const {
             return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return toString(mySpeedThreshold);
+        case SUMO_ATTR_EXPECT_ARRIVAL:
+            return toString(myExpectedArrival);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -254,6 +256,7 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+        case SUMO_ATTR_EXPECT_ARRIVAL:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
@@ -290,6 +293,8 @@ GNEMultiEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_EXPECT_ARRIVAL:
+            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -344,11 +349,7 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
-            // Change IDs of all Entry/Exits children
-            for (const auto& entryExit : getChildAdditionals()) {
-                entryExit->setMicrosimID(getID());
-            }
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);
@@ -378,6 +379,9 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             mySpeedThreshold = parse<double>(value);
+            break;
+        case SUMO_ATTR_EXPECT_ARRIVAL:
+            myExpectedArrival = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

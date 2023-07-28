@@ -226,7 +226,7 @@ GNELaneAreaDetector::fixAdditionalProblem() {
             while (i < ((int)getParentLanes().size() - 1)) {
                 // change foundConnection to false
                 foundConnection = false;
-                // if a connection betwen "from" lane and "to" lane of connection is found, change myE2valid to true again
+                // if a connection between "from" lane and "to" lane of connection is found, change myE2valid to true again
                 for (const auto& connection : getParentLanes().at(i)->getParentEdge()->getGNEConnections()) {
                     if ((connection->getLaneFrom() == getParentLanes().at(i)) && (connection->getLaneTo() == getParentLanes().at(i + 1))) {
                         foundConnection = true;
@@ -720,7 +720,7 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_LANES:

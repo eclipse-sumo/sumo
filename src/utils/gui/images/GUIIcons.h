@@ -87,6 +87,7 @@ enum class GUIIcon {
     SAVE_MULTIPLE,
     SAVE_NETWORKELEMENTS,
     SAVE_ADDITIONALELEMENTS,
+    SAVE_JUPEDSIMELEMENTS,
     SAVE_DEMANDELEMENTS,
     SAVE_DATAELEMENTS,
     SAVE_MEANDATAELEMENTS,
@@ -360,11 +361,13 @@ enum class GUIIcon {
     MODESHAPE,
     MODEPROHIBITION,
     MODEWIRE,
+    MODEDECAL,
     /// @}
 
     /// @name Netedit Demand modes icons
     /// @{
     MODEROUTE,
+    MODEROUTEDISTRIBUTION,
     MODEVEHICLE,
     MODETYPE,
     MODETYPEDISTRIBUTION,
@@ -444,12 +447,15 @@ enum class GUIIcon {
     OVERHEADWIRE_CLAMP,
     /// @}
 
-    /// @name poly elements icons
+    /// @name shape elements icons
     /// @{
     POLY,
     POI,
     POILANE,
     POIGEO,
+    WALKABLEAREA,
+    OBSTACLE,
+    POIWAYPOINT,
     /// @}
 
     /// @name TAZ elements icons
@@ -462,6 +468,7 @@ enum class GUIIcon {
     /// @name Netedit Demand elements icons
     /// @{
     ROUTE,
+    ROUTEDISTRIBUTION,
     VTYPE,
     VTYPEDISTRIBUTION,
     VEHICLE,

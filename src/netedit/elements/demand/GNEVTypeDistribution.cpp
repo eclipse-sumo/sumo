@@ -58,13 +58,18 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
     // get vtypes that has this vType distribution
     std::vector<std::string> vTypes;
     std::vector<std::string> probabilities;
+    // first obtain vTypes sorted by ID
+    std::map<std::string, GNEDemandElement*> vTypesSorted;
     for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        // get type distributions and probabilities
-        const auto typeDistributionIDs = StringTokenizer(vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)).getVector();
-        const auto distributionProbabilities = StringTokenizer(vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY)).getVector();
+        vTypesSorted[vType->getID()] = vType;
+    }
+    // nowe get type distributions and probabilities
+    for (const auto& vType : vTypesSorted) {
+        const auto typeDistributionIDs = StringTokenizer(vType.second->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)).getVector();
+        const auto distributionProbabilities = StringTokenizer(vType.second->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY)).getVector();
         for (int i = 0; i < (int)typeDistributionIDs.size(); i++) {
             if (typeDistributionIDs.at(i) == getID()) {
-                vTypes.push_back(vType->getID());
+                vTypes.push_back(vType.second->getID());
                 probabilities.push_back(distributionProbabilities.at(i));
             }
         }
@@ -296,7 +301,7 @@ void
 GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            setMicrosimID(value);
+            setDemandElementID(value);
             break;
         case SUMO_ATTR_DETERMINISTIC:
             if (value.empty()) {

@@ -70,6 +70,12 @@ public:
     /// @brief default constructor (used in calibrators)
     GNERoute(GNENet* net);
 
+    /// @brief default constructor (used in copy vehicles)
+    GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute);
+
+    /// @brief default  constructor (used in copy embedded vehicles)
+    GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute);
+
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Route is placed
      * @param[in] id route ID
@@ -94,9 +100,6 @@ public:
      */
     GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
              const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
-
-    /// @brief copy constructor (used to create a route based on the parameters of other GNERoute)
-    GNERoute(GNEDemandElement* route);
 
     /// @brief destructor
     ~GNERoute();
@@ -240,6 +243,11 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool isAttributeEnabled(SumoXMLAttr key) const;
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
@@ -256,6 +264,9 @@ public:
      */
     static std::string isRouteValid(const std::vector<GNEEdge*>& edges);
 
+    /// @brief create a copy of the given route
+    static GNEDemandElement* copyRoute(const GNERoute* originalRoute);
+
 protected:
     /// @brief route color
     RGBColor myColor;
@@ -268,6 +279,9 @@ protected:
 
     /// @brief SUMOVehicleClass (Only used for drawing)
     SUMOVehicleClass myVClass;
+
+    /// @brief route distributions
+    std::map <std::string, double> myDistributions;
 
 private:
     /// @brief method for setting the attribute and nothing else

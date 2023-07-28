@@ -96,7 +96,7 @@ GNETAZ::getMoveOperation() {
         return new GNEMoveOperation(this, myShape);
     } else {
         // calculate move shape operation
-        return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), snap_radius, true);
+        return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), snap_radius, true, true);
     }
 }
 
@@ -723,7 +723,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_SHAPE: {
             const bool updateCenter = (myTAZCenter == myShape.getCentroid());

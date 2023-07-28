@@ -53,8 +53,7 @@ netedit.changeDefaultValue(netedit.attrs.E1.create.period, "150")
 netedit.leftClick(referencePosition, 405, 257)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

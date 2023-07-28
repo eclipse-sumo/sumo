@@ -5,5 +5,5 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_5" begin="20.00" fromTaz="taz_0" toTaz="taz_1" end="50.00" number="15"/>
+    <flow id="flow_5" begin="20.00" fromTaz="taz_green" toTaz="taz_red" end="50.00" number="15"/>
 </routes>

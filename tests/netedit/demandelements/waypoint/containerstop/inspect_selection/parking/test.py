@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.parking, "true", False)
@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.par
 netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.parking, "opportunistic", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

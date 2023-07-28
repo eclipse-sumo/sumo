@@ -38,8 +38,8 @@ netedit.routeMode()
 netedit.changeRouteMode("non consecutive edges")
 
 # create route using two edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press button to create route
 netedit.focusOnFrame()
@@ -48,8 +48,7 @@ for _ in range(netedit.attrs.frames.route.create):
 netedit.typeSpace()
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

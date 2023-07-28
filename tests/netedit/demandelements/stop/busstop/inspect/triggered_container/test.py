@@ -38,13 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("stopBusStop")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "dummy", False)
@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "container"
 netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.expected, "containerA containerB", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

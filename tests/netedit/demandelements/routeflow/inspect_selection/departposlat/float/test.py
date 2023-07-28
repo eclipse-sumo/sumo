@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect flow over route
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change departPosLat with an invalid value
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departPosLat, "", True)
@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departPosLat, "
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departPosLat, "5.6", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

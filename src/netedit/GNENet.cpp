@@ -2098,6 +2098,21 @@ GNENet::saveAdditionals() {
 
 
 void
+GNENet::saveJuPedSimElements(const std::string &file) {
+    OutputDevice& device = OutputDevice::getDevice(file);
+    // open header
+    device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
+    // juPedSim elements
+    writeJuPedSimComment(device);
+    writeAdditionalByType(device, {GNE_TAG_WALKABLEAREA});
+    writeAdditionalByType(device, {GNE_TAG_OBSTACLE});
+    writeAdditionalByType(device, {GNE_TAG_POIWAYPOINT});
+    // close device
+    device.close();
+}
+
+
+void
 GNENet::saveDemandElements() {
     // first recompute demand elements
     computeDemandElements(myViewNet->getViewParent()->getGNEAppWindows());
@@ -2240,6 +2255,11 @@ GNENet::saveAdditionalsConfirmed() {
     writeAdditionalByType(device, {SUMO_TAG_TRACTION_SUBSTATION});
     writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
     writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
+    // juPedSim elements
+    writeJuPedSimComment(device);
+    writeAdditionalByType(device, {GNE_TAG_WALKABLEAREA});
+    writeAdditionalByType(device, {GNE_TAG_OBSTACLE});
+    writeAdditionalByType(device, {GNE_TAG_POIWAYPOINT});
     // close device
     device.close();
     // mark additionals as saved
@@ -2515,8 +2535,22 @@ GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
 bool
 GNENet::writeShapesComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperty(additionals.first).isShapeElement() && (additionals.second.size() > 0)) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isShapeElement() && 
+            !GNEAttributeCarrier::getTagProperty(additionals.first).isJuPedSimElement() &&
+            (additionals.second.size() > 0)) {
             device << ("    <!-- Shapes -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeJuPedSimComment(OutputDevice& device) const {
+    for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isJuPedSimElement() && (additionals.second.size() > 0)) {
+            device << ("    <!-- JuPedSim elements -->\n");
             return true;
         }
     }

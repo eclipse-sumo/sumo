@@ -6831,18 +6831,12 @@
         <phase duration="4"  state="rrrrrrrryyyyryrrr"/>
         <phase duration="2"  state="rrrrrrrrrrrrrrrrr"/>
         <phase duration="10000" state="rrrrGGrrrrrrrGGGr"/>
-    </tlLogic>
-    <tlLogic id="GS_cluster_1643085231_21432440_32500280_32500282" type="static" programID="1" offset="0">
         <phase duration="4"  state="rrrryyrrrrrrryyyr"/>
         <phase duration="2"  state="rrrrrrrrrrrrrrrrr"/>
         <phase duration="10000" state="rrrrrrGrrrrrrrrrG"/>
-    </tlLogic>
-    <tlLogic id="GS_cluster_1643085231_21432440_32500280_32500282" type="static" programID="2" offset="0">
         <phase duration="4"  state="rrrrrryrrrrrrrrry"/>
         <phase duration="2"  state="rrrrrrrrrrrrrrrrr"/>
         <phase duration="10000" state="GGGGGrrrrrrrrrrrr"/>
-    </tlLogic>
-    <tlLogic id="GS_cluster_1643085231_21432440_32500280_32500282" type="static" programID="3" offset="0">
         <phase duration="4"  state="yyyyyrrrrrrrrrrrr"/>
         <phase duration="2"  state="rrrrrrrrrrrrrrrrr"/>
         <phase duration="10000" state="rrrrrrrrGGGGrGrrr"/>
@@ -6852,13 +6846,9 @@
         <phase duration="4"  state="yrrrrryyy"/>
         <phase duration="2"  state="rrrrrrrrr"/>
         <phase duration="10000" state="GGGGGrrrr"/>
-    </tlLogic>
-    <tlLogic id="GS_cluster_21432412_32500298" type="static" programID="1" offset="0">
         <phase duration="4"  state="yyyyyrrrr"/>
         <phase duration="2"  state="rrrrrrrrr"/>
         <phase duration="10000"  state="rrrrrGrrr"/>
-    </tlLogic>
-    <tlLogic id="GS_cluster_21432412_32500298" type="static" programID="2" offset="0">
         <phase duration="4"  state="rrrrryrrr"/>
         <phase duration="2"  state="rrrrrrrrr"/>
         <phase duration="10000" state="GrrrrrGGG"/>

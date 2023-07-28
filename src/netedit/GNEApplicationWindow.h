@@ -251,6 +251,9 @@ public:
     /// @brief called when the command/FXCall save additionals as is executed
     long onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save JuPedSim elements as is executed
+    long onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall open demand is executed
     long onCmdOpenDemandElements(FXObject*, FXSelector, void*);
 
@@ -313,6 +316,9 @@ public:
 
     /// @brief called when the update/FXCall save additionals as is executed
     long onUpdSaveAdditionalsAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save juPedSim as is executed
+    long onUpdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall save demand elements is executed
     long onUpdSaveDemandElements(FXObject*, FXSelector, void*);

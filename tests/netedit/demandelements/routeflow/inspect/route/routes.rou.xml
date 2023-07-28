@@ -53,5 +53,5 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE6 gneE3" color="orange" id="secondRoute"/>
+    <route edges="Edge3 Edge4" color="orange" id="secondRoute"/>
 </routes>

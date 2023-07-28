@@ -41,11 +41,10 @@ netedit.changeStopType("stopContainerStop")
 netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.triggered, "join")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

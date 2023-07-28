@@ -38,26 +38,25 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # create stop
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 265, 188)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.parking, "true", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.parking, "true", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.parking, "false", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.parking, "false", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.parking, "opportunistic", False)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.parking, "opportunistic", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

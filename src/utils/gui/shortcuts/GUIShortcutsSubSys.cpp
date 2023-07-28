@@ -68,14 +68,14 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_t), target, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE));
     accelTable->addAccel(parseKey(KEY_T), target, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE));
 
-    accelTable->addAccel(parseKey(KEY_u), target, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION));
-    accelTable->addAccel(parseKey(KEY_U), target, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_TYPEDISTRIBUTION));
+    accelTable->addAccel(parseKey(KEY_u), target, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION));
+    accelTable->addAccel(parseKey(KEY_U), target, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION));
 
     accelTable->addAccel(parseKey(KEY_v), target, FXSEL(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE));
     accelTable->addAccel(parseKey(KEY_V), target, FXSEL(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE));
 
-    accelTable->addAccel(parseKey(KEY_w), target, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE));
-    accelTable->addAccel(parseKey(KEY_W), target, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE));
+    accelTable->addAccel(parseKey(KEY_w), target, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION));
+    accelTable->addAccel(parseKey(KEY_W), target, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION));
 
     accelTable->addAccel(parseKey(KEY_z), target, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL));
     accelTable->addAccel(parseKey(KEY_Z), target, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL));

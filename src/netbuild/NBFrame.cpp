@@ -401,7 +401,7 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
     oc.doRegister("junctions.minimal-shape", new Option_Bool(false));
     oc.addDescription("junctions.minimal-shape", "Junctions",
-                      "Build junctions with minimal shapes (igoring edge overlap)");
+                      "Build junctions with minimal shapes (ignoring edge overlap)");
 
     oc.doRegister("internal-junctions.vehicle-width", new Option_Float(1.8));
     oc.addDescription("internal-junctions.vehicle-width", "Junctions",
@@ -567,7 +567,7 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addDescription("tls.nema.vehExt", "TLS Building", "Set INT as fixed time for intermediate vehext phase after every switch");
 
     oc.doRegister("tls.nema.yellow", new Option_Integer(3));
-    oc.addDescription("tls.nema.yellow", "TLS Building", "Set INT as fixed time for intermediate NEMA yelow phase after every switch");
+    oc.addDescription("tls.nema.yellow", "TLS Building", "Set INT as fixed time for intermediate NEMA yellow phase after every switch");
 
     oc.doRegister("tls.nema.red", new Option_Integer(2));
     oc.addDescription("tls.nema.red", "TLS Building", "Set INT as fixed time for intermediate NEMA red phase after every switch");

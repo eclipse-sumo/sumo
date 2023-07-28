@@ -65,6 +65,8 @@ public:
     // ===========================================================================
 
     class NetworkModeOptions : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEMoveFrame::NetworkModeOptions)
 
     public:
         /// @brief constructor
@@ -82,12 +84,29 @@ public:
         /// @brief move whole polygons
         bool getMoveWholePolygons() const;
 
+        /// @brief force draw geometry points
+        bool getForceDrawGeometryPoints() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called after change option
+        long onCmdChangeOption(FXObject*, FXSelector, void*);
+
+        /// @}
+    
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(NetworkModeOptions)
+
     private:
         /// @brief pointer to move frame parent
         GNEMoveFrame* myMoveFrameParent;
 
         /// @brief checkbox for enable/disable move whole polygons
-        FXCheckButton* myMoveWholePolygons;
+        FXCheckButton* myMoveWholePolygons = nullptr;
+
+        /// @brief checkbox for force darwi geometry points
+        FXCheckButton* myForceDrawGeometryPoints = nullptr;
     };
 
     // ===========================================================================
@@ -114,10 +133,10 @@ public:
 
     private:
         /// @brief pointer to move frame parent
-        GNEMoveFrame* myMoveFrameParent;
+        GNEMoveFrame* myMoveFrameParent = nullptr;
 
         /// @brief checkbox for enable/disable leave stopPersons connected
-        FXCheckButton* myLeaveStopPersonsConnected;
+        FXCheckButton* myLeaveStopPersonsConnected = nullptr;
     };
 
     // ===========================================================================

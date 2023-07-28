@@ -60,8 +60,7 @@ netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.period, "120")
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

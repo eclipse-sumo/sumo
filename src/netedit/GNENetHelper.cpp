@@ -158,12 +158,12 @@ GNENetHelper::AttributeCarriers::remapJunctionAndEdgeIds() {
     std::map<std::string, GNEJunction*> newJunctionMap;
     // fill newEdgeMap
     for (const auto& edge : myEdges) {
-        edge.second->setMicrosimID(edge.second->getNBEdge()->getID());
+        edge.second->setEdgeID(edge.second->getNBEdge()->getID());
         newEdgeMap[edge.second->getNBEdge()->getID()] = edge.second;
     }
     for (const auto& junction : myJunctions) {
         newJunctionMap[junction.second->getNBNode()->getID()] = junction.second;
-        junction.second->setMicrosimID(junction.second->getNBNode()->getID());
+        junction.second->setNetworkElementID(junction.second->getNBNode()->getID());
     }
     myEdges = newEdgeMap;
     myJunctions = newJunctionMap;
@@ -464,7 +464,7 @@ GNENetHelper::AttributeCarriers::addPrefixToJunctions(const std::string& prefix)
     // fill junctions again
     for (const auto& junction : junctionCopy) {
         // update microsim ID
-        junction.second->setMicrosimID(prefix + junction.first);
+        junction.second->setNetworkElementID(prefix + junction.first);
         // insert in myJunctions again
         myJunctions[prefix + junction.first] = junction.second;
     }
@@ -483,7 +483,7 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEJunction* junction, const s
         // rename in NetBuilder
         myNet->getNetBuilder()->getNodeCont().rename(junction->getNBNode(), newID);
         // update microsim ID
-        junction->setMicrosimID(newID);
+        junction->setNetworkElementID(newID);
         // add it into myJunctions again
         myJunctions[junction->getID()] = junction;
         // build crossings
@@ -688,7 +688,7 @@ GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEEdgeType* edgeType, const s
         // rename in typeCont
         myNet->getNetBuilder()->getTypeCont().updateEdgeTypeID(edgeType->getID(), newID);
         // update microsim ID
-        edgeType->setMicrosimID(newID);
+        edgeType->setNetworkElementID(newID);
         // add it into myEdgeTypes again
         myEdgeTypes[edgeType->getID()] = edgeType;
         // net has to be saved
@@ -791,7 +791,7 @@ GNENetHelper::AttributeCarriers::addPrefixToEdges(const std::string& prefix) {
     // fill edges again
     for (const auto& edge : edgeCopy) {
         // update microsim ID
-        edge.second->setMicrosimID(prefix + edge.first);
+        edge.second->setNetworkElementID(prefix + edge.first);
         // insert in myEdges again
         myEdges[prefix + edge.first] = edge.second;
     }
@@ -810,7 +810,7 @@ GNENetHelper::AttributeCarriers::updateEdgeID(GNEEdge* edge, const std::string& 
         // rename in NetBuilder
         myNet->getNetBuilder()->getEdgeCont().rename(edge->getNBEdge(), newID);
         // update microsim ID
-        edge->setMicrosimID(newID);
+        edge->setEdgeID(newID);
         // add it into myEdges again
         myEdges[edge->getID()] = edge;
         // rename all connections related to this edge
@@ -1177,6 +1177,12 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = neteditOptions.getString("poi-prefix");
     } else if (tag == SUMO_TAG_TAZ) {
         prefix = toString(SUMO_TAG_TAZ);
+    } else if (tag == GNE_TAG_WALKABLEAREA) {
+        prefix = neteditOptions.getString("walkableArea-prefix");
+    } else if (tag == GNE_TAG_OBSTACLE) {
+        prefix = neteditOptions.getString("obstacle-prefix");
+    } else if (tag == GNE_TAG_POIWAYPOINT) {
+        prefix = neteditOptions.getString("poiWaypoint-prefix");
     }
     int counter = 0;
     // check special cases
@@ -1192,16 +1198,19 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
                 (retrieveAdditional(GNE_TAG_CALIBRATOR_LANE, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_POLY) || (tag == SUMO_TAG_TAZ)) {
+    } else if ((tag == SUMO_TAG_POLY) || (tag == SUMO_TAG_TAZ) || (tag == GNE_TAG_WALKABLEAREA) || (tag == GNE_TAG_OBSTACLE)) {
         // Polys and TAZs share namespace
         while ((retrieveAdditional(SUMO_TAG_POLY, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveAdditional(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(GNE_TAG_WALKABLEAREA, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(GNE_TAG_OBSTACLE, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_POI) || (tag == GNE_TAG_POILANE) || (tag == GNE_TAG_POIGEO)) {
+    } else if ((tag == SUMO_TAG_POI) || (tag == GNE_TAG_POILANE) || (tag == GNE_TAG_POIGEO) || (tag == GNE_TAG_POIWAYPOINT)) {
         while ((retrieveAdditional(SUMO_TAG_POI, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(GNE_TAG_POIWAYPOINT, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
     } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_MULTI_LANE_AREA_DETECTOR)) {
@@ -1234,9 +1243,10 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
 
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPureAdditionals() const {
-    return getNumberOfSelectedAdditionals() - getNumberOfSelectedPolygons() -
-           getNumberOfSelectedPOIs() - getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() -
-           getNumberOfSelectedTAZSinks() - getNumberOfSelectedWires();
+    return getNumberOfSelectedAdditionals() - getNumberOfSelectedPolygons() - getNumberOfSelectedWalkableAreas() -
+           getNumberOfSelectedObstacles() - getNumberOfSelectedPOIWaypoints() - getNumberOfSelectedPOIs() -
+           getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - getNumberOfSelectedTAZSinks() -
+           getNumberOfSelectedWires();
 }
 
 
@@ -1251,6 +1261,41 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPolygons() const {
     return counter;
 }
 
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedWalkableAreas() const {
+    int counter = 0;
+    for (const auto& walkableArea : myAdditionals.at(GNE_TAG_WALKABLEAREA)) {
+        if (walkableArea->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedObstacles() const {
+    int counter = 0;
+    for (const auto& obstacle : myAdditionals.at(GNE_TAG_OBSTACLE)) {
+        if (obstacle->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIWaypoints() const {
+    int counter = 0;
+    for (const auto& obstacle : myAdditionals.at(GNE_TAG_POIWAYPOINT)) {
+        if (obstacle->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
 
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIs() const {

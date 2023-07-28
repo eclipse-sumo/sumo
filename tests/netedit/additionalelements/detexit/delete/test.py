@@ -70,8 +70,7 @@ netedit.deleteMode()
 netedit.leftClick(referencePosition, 497, 84)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

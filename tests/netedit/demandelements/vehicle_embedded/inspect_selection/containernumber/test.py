@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change containerNumber with an invalid value
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.containerNumber, "", False)
@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.container
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.containerNumber, "3", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

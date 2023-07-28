@@ -27,6 +27,7 @@
 
 /// @brief class declaration
 class GNEFrame;
+class MFXButtonTooltip;
 
 /// @brief MFXGroupBoxModule (based on FXGroupBox)
 class MFXGroupBoxModule : protected FXVerticalFrame {
@@ -108,7 +109,7 @@ private:
     FXButton* myCollapseButton = nullptr;
 
     /// @brief button for extend elements
-    FXButton* myExtendButton = nullptr;
+    MFXButtonTooltip* myExtendButton = nullptr;
 
     /// @brief button for reset frame width
     FXButton* myResetWidthButton = nullptr;

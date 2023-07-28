@@ -232,13 +232,23 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
             StringTokenizer st(vTypes);
             int probIndex = 0;
             while (st.hasNext()) {
-                std::string vtypeID = st.next();
-                MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID, &myParsingRNG);
-                if (type == nullptr) {
-                    throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
+                const std::string& vtypeID = st.next();
+                const RandomDistributor<MSVehicleType*>* const dist = MSNet::getInstance()->getVehicleControl().getVTypeDistribution(vtypeID);
+                if (dist != nullptr) {
+                    const double distProb = (int)probs.size() > probIndex ? probs[probIndex] : 1.;
+                    std::vector<double>::const_iterator probIt = dist->getProbs().begin();
+                    for (MSVehicleType* const type : dist->getVals()) {
+                        myCurrentVTypeDistribution->add(type, distProb * *probIt);
+                        probIt++;
+                    }
+                } else {
+                    MSVehicleType* const type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID, &myParsingRNG);
+                    if (type == nullptr) {
+                        throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
+                    }
+                    const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->getDefaultProbability());
+                    myCurrentVTypeDistribution->add(type, prob);
                 }
-                const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->getDefaultProbability());
-                myCurrentVTypeDistribution->add(type, prob);
                 probIndex++;
             }
             if (probs.size() > 0 && probIndex != (int)probs.size()) {
@@ -1416,7 +1426,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
         const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, id, ok, -1);
         if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-            throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
+            throw ProcessError(TLF("Non-positive walking duration for '%'.", myVehicleParameter->id));
         }
 
         double departPos = 0;
@@ -1443,7 +1453,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         }
         const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, -1.);
         if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
-            throw ProcessError(TLF("Non-positive walking speed for  '%'.", myVehicleParameter->id));
+            throw ProcessError(TLF("Non-positive walking speed for '%'.", myVehicleParameter->id));
         }
         const double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
         const double departPosLat = interpretDepartPosLat(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, ""), -1, "personTrip");
@@ -1481,13 +1491,13 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             bool ok = true;
             const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
             if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-                throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
+                throw ProcessError(TLF("Non-positive walking duration for '%'.", myVehicleParameter->id));
             }
             double speed = -1; // default to vType speed
             if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
                 speed = attrs.get<double>(SUMO_ATTR_SPEED, nullptr, ok);
                 if (speed <= 0) {
-                    throw ProcessError(TLF("Non-positive walking speed for  '%'.", myVehicleParameter->id));
+                    throw ProcessError(TLF("Non-positive walking speed for '%'.", myVehicleParameter->id));
                 }
             }
             double departPos = 0;

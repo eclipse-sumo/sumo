@@ -961,7 +961,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //
-    GUIDesigns::buildFXMenuCommand(ret, "Copy edge name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy edge name to clipboard"), nullptr, ret, MID_COPY_EDGE_NAME);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //
@@ -969,7 +969,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     const PositionVector& baseShape = getShape(parent.getVisualisationSettings().secondaryShape);
     const double pos = interpolateGeometryPosToLanePos(baseShape.nearest_offset_to_point25D(parent.getPositionInformation()));
     const double height = baseShape.positionAtOffset(pos).z();
-    GUIDesigns::buildFXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), nullptr, nullptr, 0);
+    GUIDesigns::buildFXMenuCommand(ret, (TL("pos: ") + toString(pos) + " " + TL("height: ") + toString(height)).c_str(), nullptr, nullptr, 0);
     if (getEdge().hasDistance()) {
         GUIDesigns::buildFXMenuCommand(ret, ("distance: " + toString(getEdge().getDistanceAt(pos))).c_str(), nullptr, nullptr, 0);
     }
@@ -978,22 +978,22 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     new FXMenuSeparator(ret);
     if (myAmClosed) {
         if (myPermissionChanges.empty()) {
-            GUIDesigns::buildFXMenuCommand(ret, "Reopen lane", nullptr, &parent, MID_CLOSE_LANE);
-            GUIDesigns::buildFXMenuCommand(ret, "Reopen edge", nullptr, &parent, MID_CLOSE_EDGE);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Reopen lane"), nullptr, &parent, MID_CLOSE_LANE);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Reopen edge"), nullptr, &parent, MID_CLOSE_EDGE);
         } else {
-            GUIDesigns::buildFXMenuCommand(ret, "Reopen lane (override rerouter)", nullptr, &parent, MID_CLOSE_LANE);
-            GUIDesigns::buildFXMenuCommand(ret, "Reopen edge (override rerouter)", nullptr, &parent, MID_CLOSE_EDGE);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Reopen lane (override rerouter)"), nullptr, &parent, MID_CLOSE_LANE);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Reopen edge (override rerouter)"), nullptr, &parent, MID_CLOSE_EDGE);
         }
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, "Close lane", nullptr, &parent, MID_CLOSE_LANE);
-        GUIDesigns::buildFXMenuCommand(ret, "Close edge", nullptr, &parent, MID_CLOSE_EDGE);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Close lane"), nullptr, &parent, MID_CLOSE_LANE);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Close edge"), nullptr, &parent, MID_CLOSE_EDGE);
     }
-    GUIDesigns::buildFXMenuCommand(ret, "Add rerouter", nullptr, &parent, MID_ADD_REROUTER);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Add rerouter"), nullptr, &parent, MID_ADD_REROUTER);
     new FXMenuSeparator(ret);
     // reachability menu
     FXMenuPane* reachableByClass = new FXMenuPane(ret);
     ret->insertMenuPaneChild(reachableByClass);
-    new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
+    new FXMenuCascade(ret, TL("Select reachable"), GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
     for (auto i : SumoVehicleClassStrings.getStrings()) {
         GUIDesigns::buildFXMenuCommand(reachableByClass, i.c_str(), VClassIcons::getVClassIcon(SumoVehicleClassStrings.get(i)), &parent, MID_REACHABILITY);
     }
@@ -1006,34 +1006,34 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     myCachedGUISettings = view.editVisualisationSettings();
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("allowed speed [m/s]", false, getSpeedLimit());
+    ret->mkItem(TL("allowed speed [m/s]"), false, getSpeedLimit());
     const std::map<SUMOVehicleClass, double>* restrictions = MSNet::getInstance()->getRestrictions(myEdge->getEdgeType());
     if (restrictions != nullptr) {
         for (const auto& elem : *restrictions) {
             ret->mkItem(("  allowed speed [m/s]: " + toString(elem.first)).c_str(), false, elem.second);
         }
     }
-    ret->mkItem("length [m]", false, myLength);
-    ret->mkItem("width [m]", false, myWidth);
-    ret->mkItem("street name", false, myEdge->getStreetName());
-    ret->mkItem("stored traveltime [s]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getStoredEdgeTravelTime));
-    ret->mkItem("loaded weight", true, new FunctionBinding<GUILane, double>(this, &GUILane::getLoadedEdgeWeight));
-    ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, double>(myEdge, &MSEdge::getRoutingSpeed));
-    ret->mkItem("lane friction coefficient [%]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getFrictionCoefficient));
-    ret->mkItem("time penalty [s]", true, new FunctionBinding<MSEdge, double>(myEdge, &MSEdge::getTimePenalty));
-    ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getBruttoOccupancy, 100.));
-    ret->mkItem("netto occupancy [%]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getNettoOccupancy, 100.));
-    ret->mkItem("pending insertions [#]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getPendingEmits));
-    ret->mkItem("edge type", false, myEdge->getEdgeType());
-    ret->mkItem("type", false, myLaneType);
-    ret->mkItem("priority", false, myEdge->getPriority());
-    ret->mkItem("distance [km]", false, myEdge->getDistance() / 1000);
-    ret->mkItem("allowed vehicle class", false, getVehicleClassNames(myPermissions));
-    ret->mkItem("disallowed vehicle class", false, getVehicleClassNames(~myPermissions));
-    ret->mkItem("permission code", false, myPermissions);
-    ret->mkItem("color value", true, new FunctionBinding<GUILane, double>(this, &GUILane::getColorValueForTracker));
+    ret->mkItem(TL("length [m]"), false, myLength);
+    ret->mkItem(TL("width [m]"), false, myWidth);
+    ret->mkItem(TL("street name"), false, myEdge->getStreetName());
+    ret->mkItem(TL("stored travel time [s]"), true, new FunctionBinding<GUILane, double>(this, &GUILane::getStoredEdgeTravelTime));
+    ret->mkItem(TL("loaded weight"), true, new FunctionBinding<GUILane, double>(this, &GUILane::getLoadedEdgeWeight));
+    ret->mkItem(TL("routing speed [m/s]"), true, new FunctionBinding<MSEdge, double>(myEdge, &MSEdge::getRoutingSpeed));
+    ret->mkItem(TL("lane friction coefficient [%]"), true, new FunctionBinding<GUILane, double>(this, &GUILane::getFrictionCoefficient));
+    ret->mkItem(TL("time penalty [s]"), true, new FunctionBinding<MSEdge, double>(myEdge, &MSEdge::getTimePenalty));
+    ret->mkItem(TL("brutto occupancy [%]"), true, new FunctionBinding<GUILane, double>(this, &GUILane::getBruttoOccupancy, 100.));
+    ret->mkItem(TL("netto occupancy [%]"), true, new FunctionBinding<GUILane, double>(this, &GUILane::getNettoOccupancy, 100.));
+    ret->mkItem(TL("pending insertions [#]"), true, new FunctionBinding<GUILane, double>(this, &GUILane::getPendingEmits));
+    ret->mkItem(TL("edge type"), false, myEdge->getEdgeType());
+    ret->mkItem(TL("type"), false, myLaneType);
+    ret->mkItem(TL("priority"), false, myEdge->getPriority());
+    ret->mkItem(TL("distance [km]"), false, myEdge->getDistance() / 1000);
+    ret->mkItem(TL("allowed vehicle class"), false, getVehicleClassNames(myPermissions));
+    ret->mkItem(TL("disallowed vehicle class"), false, getVehicleClassNames(~myPermissions));
+    ret->mkItem(TL("permission code"), false, myPermissions);
+    ret->mkItem(TL("color value"), true, new FunctionBinding<GUILane, double>(this, &GUILane::getColorValueForTracker));
     if (myBidiLane != nullptr) {
-        ret->mkItem("bidi-lane", false, myBidiLane->getID());
+        ret->mkItem(TL("bidi-lane"), false, myBidiLane->getID());
     }
     for (const auto& kv : myEdge->getParametersMap()) {
         ret->mkItem(("edgeParam:" + kv.first).c_str(), false, kv.second);

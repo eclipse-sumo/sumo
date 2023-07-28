@@ -168,8 +168,8 @@ edge.contextualMenu.splitEdgeBothDirection
 edge.contextualMenu.setGeometryPoint 
 edge.contextualMenu.restoreGeometryPoint 
 edge.contextualMenu.reverseEdge 
-edge.contextualMenu.addReverseDirection 
-edge.contextualMenu.addReverseDirectionDisconnected 
+edge.contextualMenu.reverseElementDirection 
+edge.contextualMenu.reverseElementDirectionDisconnected 
 edge.contextualMenu.resetLenght 
 edge.contextualMenu.straighteen 
 edge.contextualMenu.smooth 
@@ -747,6 +747,7 @@ E3.create.file
 E3.create.vTypes 
 E3.create.timeThreshold 
 E3.create.speedThreshold 
+E3.create.expectArrival 
 E3.inspect.id 
 E3.inspect.pos 
 E3.inspect.period 
@@ -755,6 +756,7 @@ E3.inspect.file
 E3.inspect.vTypes 
 E3.inspect.timeThreshold 
 E3.inspect.speedThreshold 
+E3.inspect.expectArrival 
 E3.inspect.parameters 
 E3.inspectSelection.period 
 E3.inspectSelection.name 
@@ -762,6 +764,7 @@ E3.inspectSelection.file
 E3.inspectSelection.vTypes 
 E3.inspectSelection.timeThreshold 
 E3.inspectSelection.speedThreshold 
+E3.inspectSelection.expectArrival 
 E3.inspectSelection.parameters 
 entryExit.create.friendlyPos 
 entryExit.create.parent 
@@ -1103,6 +1106,9 @@ route.inspectSelection.color
 route.inspectSelection.repeat 
 route.inspectSelection.cycletime 
 route.inspectSelection.parameters 
+route.reverse.current 
+route.reverse.add 
+route.reverseElement 
 trip.create.type 
 trip.create.id 
 trip.create.colorButton 
@@ -1164,6 +1170,9 @@ trip.transform.vehicleEmbedded
 trip.transform.routeFlow 
 trip.transform.routeFlowEmbedded 
 trip.transform.flow 
+trip.reverse.current 
+trip.reverse.add 
+trip.reverseElement 
 trip.transformTo 
 tripJunction.create.type 
 tripJunction.create.id 
@@ -1226,6 +1235,9 @@ tripJunction.transform.routeFlow
 tripJunction.transform.routeFlowEmbedded 
 tripJunction.transform.trip 
 tripJunction.transform.flow 
+tripJunction.reverse.current 
+tripJunction.reverse.add 
+tripJunction.reverseElement 
 tripJunction.transformTo 
 tripTAZ.create.type 
 tripTAZ.create.id 
@@ -1283,6 +1295,9 @@ tripTAZ.inspectSelection.insertionChecks
 tripTAZ.inspectSelection.depart 
 tripTAZ.inspectSelection.parameters 
 tripTAZ.transform.flow 
+tripTAZ.reverse.current 
+tripTAZ.reverse.add 
+tripTAZ.reverseElement 
 tripTAZ.transformTo 
 vehicle.create.type 
 vehicle.create.id 
@@ -1345,6 +1360,9 @@ vehicle.transform.routeFlow
 vehicle.transform.routeFlowEmbedded 
 vehicle.transform.trip 
 vehicle.transform.flow 
+vehicle.reverse.current 
+vehicle.reverse.add 
+vehicle.reverseElement 
 vehicle.transformTo 
 vehicleEmbedded.create.type 
 vehicleEmbedded.create.id 
@@ -1406,6 +1424,9 @@ vehicleEmbedded.transform.routeFlow
 vehicleEmbedded.transform.routeFlowEmbedded 
 vehicleEmbedded.transform.trip 
 vehicleEmbedded.transform.flow 
+vehicleEmbedded.reverse.current 
+vehicleEmbedded.reverse.add 
+vehicleEmbedded.reverseElement 
 vehicleEmbedded.transformTo 
 flow.create.type 
 flow.create.id 
@@ -1483,6 +1504,9 @@ flow.transform.vehicleEmbedded
 flow.transform.routeFlow 
 flow.transform.routeFlowEmbedded 
 flow.transform.trip 
+flow.reverse.current 
+flow.reverse.add 
+flow.reverseElement 
 flow.transformTo 
 flowJunction.create.type 
 flowJunction.create.id 
@@ -1560,6 +1584,9 @@ flowJunction.transform.routeFlow
 flowJunction.transform.routeFlowEmbedded 
 flowJunction.transform.trip 
 flowJunction.transform.flow 
+flowJunction.reverse.current 
+flowJunction.reverse.add 
+flowJunction.reverseElement 
 flowJunction.transformTo 
 flowTAZ.create.type 
 flowTAZ.create.id 
@@ -1632,6 +1659,9 @@ flowTAZ.inspectSelection.terminateOption
 flowTAZ.inspectSelection.spacingOption 
 flowTAZ.inspectSelection.parameters 
 flowTAZ.transform.trip 
+flowTAZ.reverse.current 
+flowTAZ.reverse.add 
+flowTAZ.reverseElement 
 flowTAZ.transformTo 
 routeFlow.create.type 
 routeFlow.create.id 
@@ -1709,6 +1739,9 @@ routeFlow.transform.vehicleEmbedded
 routeFlow.transform.routeFlowEmbedded 
 routeFlow.transform.trip 
 routeFlow.transform.flow 
+routeFlow.reverse.current 
+routeFlow.reverse.add 
+routeFlow.reverseElement 
 routeFlow.transformTo 
 flowEmbedded.create.type 
 flowEmbedded.create.id 
@@ -1785,6 +1818,9 @@ flowEmbedded.transform.vehicleEmbedded
 flowEmbedded.transform.routeFlow 
 flowEmbedded.transform.trip 
 flowEmbedded.transform.flow 
+flowEmbedded.reverse.current 
+flowEmbedded.reverse.add 
+flowEmbedded.reverseElement 
 flowEmbedded.transformTo 
 stopBusStop.create.durationEnable 
 stopBusStop.create.duration 

@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.TAZ.inspect.color, "blue", False)
 netedit.modifyAttribute(netedit.attrs.TAZ.inspect.color, "125,60,200", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save TAZs
 # save Netedit config

@@ -11,6 +11,6 @@
         <param key="key2" value=""/>
         <param key="key3" value="$$value with spaces%%"/>
         <param key="keyFinal" value="valueFinal"/>
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </person>
 </routes>

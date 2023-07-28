@@ -41,29 +41,28 @@ netedit.changeStopType("stopBusStop")
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.triggered, "person")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.expected, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, 295, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x + 1, netedit.positions.demandElements.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.expected, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 300, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x + 2, netedit.positions.demandElements.busStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.expected, "personID1 personID2 personID3")
 
 # create stop
-netedit.leftClick(referencePosition, 305, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x + 3, netedit.positions.demandElements.busStop.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

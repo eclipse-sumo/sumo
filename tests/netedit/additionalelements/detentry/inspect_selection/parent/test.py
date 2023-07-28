@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.entryExit.inspectSelection.parent, "invali
 netedit.modifyAttribute(netedit.attrs.entryExit.inspectSelection.parent, "E3_1", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

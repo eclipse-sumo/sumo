@@ -44,7 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect personTripEdgeBusStop
-netedit.leftClick(referencePosition, 430, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspectSelection.modes, "dummy", False)
@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspectSelection.mod
 netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspectSelection.modes, "car", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

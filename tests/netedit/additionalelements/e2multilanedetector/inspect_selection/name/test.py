@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.name, "%%%;:.
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.name, "customName", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 
 # save netedit config

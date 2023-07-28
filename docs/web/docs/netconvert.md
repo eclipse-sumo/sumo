@@ -307,8 +307,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
 | Option | Description |
 |--------|-------------|
-| **--tls.discard-loaded** {{DT_BOOL}} | Does not instatiate traffic lights loaded from other formats than plain-XML; *default:* **false** |
-| **--tls.discard-simple** {{DT_BOOL}} | Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML; *default:* **false** |
+| **--tls.discard-loaded** {{DT_BOOL}} | Does not instantiate traffic lights loaded from other formats than plain-XML; *default:* **false** |
+| **--tls.discard-simple** {{DT_BOOL}} | Does not instantiate traffic lights at geometry-like nodes loaded from other formats than plain-XML; *default:* **false** |
 | **--tls.set** {{DT_STR[]}} | Interprets STR[] as list of junctions to be controlled by TLS |
 | **--tls.unset** {{DT_STR[]}} | Interprets STR[] as list of junctions to be not controlled by TLS |
 | **--tls.guess** {{DT_BOOL}} | Turns on TLS guessing; *default:* **false** |
@@ -333,7 +333,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--tls.minor-left.max-speed** {{DT_FLOAT}} | Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles; *default:* **19.44** |
 | **--tls.left-green.time** {{DT_INT}} | Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases; *default:* **6** |
 | **--tls.nema.vehExt** {{DT_INT}} | Set INT as fixed time for intermediate vehext phase after every switch; *default:* **2** |
-| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yelow phase after every switch; *default:* **3** |
+| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yellow phase after every switch; *default:* **3** |
 | **--tls.nema.red** {{DT_INT}} | Set INT as fixed time for intermediate NEMA red phase after every switch; *default:* **2** |
 | **--tls.crossing-min.time** {{DT_INT}} | Use INT as minimum green duration for pedestrian crossings (s).; *default:* **4** |
 | **--tls.crossing-clearance.time** {{DT_INT}} | Use INT as clearance time for pedestrian crossings (s).; *default:* **5** |
@@ -420,7 +420,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--junctions.limit-turn-speed.warn.turn** {{DT_FLOAT}} | Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT; *default:* **22** |
 | **--junctions.small-radius** {{DT_FLOAT}} | Default radius for junctions that do not require wide vehicle turns; *default:* **1.5** |
 | **--junctions.higher-speed** {{DT_BOOL}} | Use maximum value of incoming and outgoing edge speed on junction instead of average; *default:* **false** |
-| **--junctions.minimal-shape** {{DT_BOOL}} | Build junctions with minimal shapes (igoring edge overlap); *default:* **false** |
+| **--junctions.minimal-shape** {{DT_BOOL}} | Build junctions with minimal shapes (ignoring edge overlap); *default:* **false** |
 | **--internal-junctions.vehicle-width** {{DT_FLOAT}} | Assumed vehicle width for computing internal junction positions; *default:* **1.8** |
 | **--rectangular-lane-cut** {{DT_BOOL}} | Forces rectangular cuts between lanes and intersections; *default:* **false** |
 | **--check-lane-foes.roundabout** {{DT_BOOL}} | Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts); *default:* **true** |
@@ -554,7 +554,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--ignore-errors** {{DT_BOOL}} | Continue on broken input; *default:* **false** |
 | **--ignore-errors.connections** {{DT_BOOL}} | Continue on invalid connections; *default:* **false** |
 | **--show-errors.connections-first-try** {{DT_BOOL}} | Show errors in connections at parsing; *default:* **false** |
-| **--ignore-errors.edge-type** {{DT_BOOL}} | Continue on unknown edge types; *default:* **false** |
+| **--ignore-errors.edge-type** {{DT_BOOL}} | Continue on unknown edge types; *default:* **false** (**true** when loading plain XML without type files) |
 
 ### Random Number
 

@@ -168,6 +168,9 @@ public:
     /// @brief Increase myVehicleStopped
     void increaseVehicleStoppedTimer();
 
+    /// @brief Read device parameters from input
+    static double readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, double defaultVal);
+
 protected:
     /// @brief Parameter, The actual vehicles's Battery Capacity in Wh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
     double myActualBatteryCapacity;

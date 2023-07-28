@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.POILane.inspect.angle, "500", True)
 netedit.modifyAttribute(netedit.attrs.POILane.inspect.angle, "30", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

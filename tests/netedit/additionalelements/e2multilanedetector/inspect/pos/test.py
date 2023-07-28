@@ -61,8 +61,7 @@ netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.pos, "400", True)
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.pos, "20", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

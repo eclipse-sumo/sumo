@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.POI.inspect.pos, "dummyPosition", False)
 netedit.modifyAttribute(netedit.attrs.POI.inspect.pos, "20.40,7.50", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

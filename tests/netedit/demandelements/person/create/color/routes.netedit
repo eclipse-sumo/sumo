@@ -6,9 +6,9 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00" color="139,131,120">
-        <walk from="gneE2" busStop="busStop"/>
+        <walk from="Edge0" busStop="busStopA"/>
     </person>
     <person id="p_1" depart="0.00" color="red">
-        <walk from="gneE2" busStop="busStop"/>
+        <walk from="Edge0" busStop="busStopA"/>
     </person>
 </routes>

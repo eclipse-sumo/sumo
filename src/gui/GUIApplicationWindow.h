@@ -43,6 +43,7 @@ class GUIParameterTracker;
 class GUIParameterTableWindow;
 class GUIDialog_Breakpoints;
 class MFXLCDLabel;
+class MFXLabelTooltip;
 
 
 // ===========================================================================
@@ -114,7 +115,7 @@ public:
     /// @name Inter-thread event handling
     /// @{
 
-    /// @brief a certaint event ocurred
+    /// @brief a certain event ocurred
     virtual void eventOccurred();
 
     /// @brief called when event "simulation loaded" ocurred
@@ -436,6 +437,9 @@ protected:
 
     /// @brief Simulation delay slider
     FXSlider* mySimDelaySlider = nullptr;
+
+    /// @brief the demand scale label
+    MFXLabelTooltip* myScaleTrafficTooltip = nullptr;
 
     /// @brief the demand scale
     FXRealSpinner* myDemandScaleSpinner = nullptr;

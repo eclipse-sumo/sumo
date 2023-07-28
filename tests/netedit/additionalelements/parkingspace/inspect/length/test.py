@@ -63,8 +63,7 @@ netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.length, "0", False)
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.length, "3.4", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

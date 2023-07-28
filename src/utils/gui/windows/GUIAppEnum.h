@@ -63,12 +63,12 @@ enum {
     MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,
     /// @brief hotkey for mode editing TLS AND Vehicle Types
     MID_HOTKEY_T_MODE_TLS_TYPE,
-    /// @brief hotkey for mode type distribution
-    MID_HOTKEY_U_MODE_TYPEDISTRIBUTION,
+    /// @brief hotkey for mode decal AND type distribution
+    MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION,
     /// @brief hotkey for mode create vehicles
     MID_HOTKEY_V_MODE_VEHICLE,
-    /// @brief hotkey for mode editing overhead wires
-    MID_HOTKEY_W_MODE_WIRE,
+    /// @brief hotkey for mode editing overhead wires AND route distributions
+    MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION,
     /// @brief hotkey for mode editing TAZ and TAZRel
     MID_HOTKEY_Z_MODE_TAZ_TAZREL,
 
@@ -701,6 +701,8 @@ enum {
     MID_GNE_TOOLBARFILE_SAVENETWORK_AS,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
+    /// @brief save JuPedSim as
+    MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS,
     /// @brief reload additionals
     MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,
     /// @brief save TLS Programs as
@@ -1326,12 +1328,34 @@ enum {
 
     /// @brief apply distance
     MID_GNE_ROUTE_APPLY_DISTANCE,
-    /// @brief transform vehicle to another vehicle type (ej: flow to trip)
-    MID_GNE_VEHICLE_TRANSFORM,
+    /// @brief transform vehicle to trip
+    MID_GNE_VEHICLE_TRANSFORM_TRIP,
+    /// @brief transform vehicle to flow
+    MID_GNE_VEHICLE_TRANSFORM_FLOW,
+    /// @brief transform vehicle to vehicle over route
+    MID_GNE_VEHICLE_TRANSFORM_VEHICLE,
+    /// @brief transform vehicle to flow over route
+    MID_GNE_VEHICLE_TRANSFORM_ROUTEFLOW,
+    /// @brief transform vehicle to vehicle over junctions
+    MID_GNE_VEHICLE_TRANSFORM_VEHICLE_EMBEDDED,
+    /// @brief transform vehicle to flow over junctions
+    MID_GNE_VEHICLE_TRANSFORM_FLOW_EMBEDDED,
+    /// @brief transform vehicle to trip over junctions
+    MID_GNE_VEHICLE_TRANSFORM_TRIP_JUNCTIONS,
+    /// @brief transform vehicle to flow over jucntions
+    MID_GNE_VEHICLE_TRANSFORM_FLOW_JUNCTIONS,
+    /// @brief transform vehicle to trip over TAZs
+    MID_GNE_VEHICLE_TRANSFORM_TRIP_TAZS,
+    /// @brief transform vehicle to flow over TAZs
+    MID_GNE_VEHICLE_TRANSFORM_FLOW_TAZS,
     /// @brief transform person to another person type (ej: person to personflow)
     MID_GNE_PERSON_TRANSFORM,
     /// @brief transform container to another container type (ej: container to containerflow)
     MID_GNE_CONTAINER_TRANSFORM,
+    /// @brief reverse current element
+    MID_GNE_REVERSE,
+    /// @brief add reverse element
+    MID_GNE_ADDREVERSE,
     /// @}
 
     /// @name Netedit Dialogs
@@ -1365,6 +1389,10 @@ enum {
     MID_GNE_BUTTON_BACK,
     /// @brief default button
     MID_GNE_BUTTON_DEFAULT,
+    /// @brief add button
+    MID_GNE_BUTTON_ADD,
+    /// @brief remove button
+    MID_GNE_BUTTON_REMOVE,
 
     /// @}
 

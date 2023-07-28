@@ -57,6 +57,8 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
+    // set locator sufix
+    setStopMicrosimID();
 }
 
 
@@ -81,6 +83,8 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
+    // set locator sufix
+    setStopMicrosimID();
 }
 
 
@@ -101,6 +105,8 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
+    // set locator sufix
+    setStopMicrosimID();
 }
 
 
@@ -128,6 +134,8 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
+    // set locator sufix
+    setStopMicrosimID();
 }
 
 
@@ -1860,6 +1868,18 @@ GNEStop::getPathStopIndex() const {
     }
     // not found, then return -1
     return -1;
+}
+
+
+void
+GNEStop::setStopMicrosimID() {
+    if (getParentAdditionals().size() > 0) {
+        setDemandElementID(getMicrosimID() + " (" + getParentAdditionals().front()->getTagStr() + ")");
+    } else if (getParentLanes().size() > 0) {
+        setDemandElementID(getMicrosimID() + " (" + getParentLanes().front()->getTagStr() + ")");
+    } else if (getParentEdges().size() > 0) {
+        setDemandElementID(getMicrosimID() + " (" + getParentEdges().front()->getTagStr() + ")");
+    }
 }
 
 /****************************************************************************/

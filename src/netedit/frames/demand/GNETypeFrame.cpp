@@ -467,6 +467,7 @@ GNETypeFrame::attributesEditorExtendedDialogOpened() {
         myTypeAttributesEditor->getFrameParent()->getViewNet()->setInspectedAttributeCarriers({myTypeSelector->getCurrentType()});
         // call "showAttributeEditorModule" to refresh attribute list
         myTypeAttributesEditor->showAttributeEditorModule(false);
+        myParametersEditor->refreshParametersEditor();
     }
 }
 

@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 100, 225)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x, netedit.positions.demandElements.singleVehicleTAZ.y)
 
 # change begin with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.begin, "", False)
@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.begin, "-3", Fals
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.begin, "10.2", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

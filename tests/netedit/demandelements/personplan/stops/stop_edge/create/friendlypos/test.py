@@ -38,8 +38,8 @@ netedit.personMode()
 netedit.changePersonPlan("walk: edge", False)
 
 # create route using two one
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 180, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -47,14 +47,14 @@ netedit.typeEnter()
 # go to personStopEdge mode
 netedit.personPlanMode()
 
-# select person
-netedit.leftClick(referencePosition, 92, 412)
+# go to personStopEdge mode
+netedit.selectPerson("p_0")
 
 # go to personStopEdge mode
 netedit.changePersonPlanMode("stopPerson: edge")
 
 # create personStopEdge
-netedit.leftClick(referencePosition, 180, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid person number
 netedit.changeDefaultBoolValue(netedit.attrs.personStopEdge.create.friendlyPos)
@@ -63,8 +63,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.personStopEdge.create.friendlyPos)
 netedit.leftClick(referencePosition, 200, 65)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

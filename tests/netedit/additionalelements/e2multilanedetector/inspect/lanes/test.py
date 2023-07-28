@@ -64,8 +64,7 @@ netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "center1_1 bot_
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "center0_1 center1_1", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

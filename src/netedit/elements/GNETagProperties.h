@@ -52,32 +52,33 @@ public:
         SHAPE =             1 << 7,  // Shapes (Polygons and POIs)
         TAZELEMENT =        1 << 8,  // Traffic Assignment Zones
         WIRE =              1 << 9,  // Wire elements
+        JUPEDSIM =          1 << 10, // JuPedSim elements
         // sub demand elements
-        VTYPE =             1 << 10, // Vehicle types (vType and vTypeDistribution)
-        VEHICLE =           1 << 11, // Vehicles (Vehicles, trips, flows...)
-        ROUTE =             1 << 12, // Routes and embedded routes
-        STOP =              1 << 13, // Stops
-        WAYPOINT =          1 << 14, // Waypoints (note: All waypoints are also Stops)
-        FLOW =              1 << 15, // Flows
+        VTYPE =             1 << 11, // Vehicle types (vType and vTypeDistribution)
+        VEHICLE =           1 << 12, // Vehicles (Vehicles, trips, flows...)
+        ROUTE =             1 << 13, // Routes and embedded routes
+        STOP =              1 << 14, // Stops
+        WAYPOINT =          1 << 15, // Waypoints (note: All waypoints are also Stops)
+        FLOW =              1 << 16, // Flows
         // persons
-        PERSON =            1 << 16, // Persons (Persons and personFlows)
-        PERSONPLAN =        1 << 17, // Person plans (Walks, rides, personTrips and stopPersons)
-        PERSONTRIP =        1 << 18, // Person Trips
-        WALK =              1 << 19, // Walks
-        RIDE =              1 << 20, // Rides
-        STOPPERSON =        1 << 21, // Person stops
+        PERSON =            1 << 17, // Persons (Persons and personFlows)
+        PERSONPLAN =        1 << 18, // Person plans (Walks, rides, personTrips and stopPersons)
+        PERSONTRIP =        1 << 19, // Person Trips
+        WALK =              1 << 20, // Walks
+        RIDE =              1 << 21, // Rides
+        STOPPERSON =        1 << 22, // Person stops
         // containers
-        CONTAINER =         1 << 22, // Containers (Containers and personFlows)
-        CONTAINERPLAN =     1 << 23, // Container plans (tranship and transport)
-        TRANSPORT =         1 << 24, // Transport
-        TRANSHIP =          1 << 25, // Tranship
-        STOPCONTAINER =     1 << 26, // Container stops
+        CONTAINER =         1 << 23, // Containers (Containers and personFlows)
+        CONTAINERPLAN =     1 << 24, // Container plans (tranship and transport)
+        TRANSPORT =         1 << 25, // Transport
+        TRANSHIP =          1 << 26, // Tranship
+        STOPCONTAINER =     1 << 27, // Container stops
         // sub data elements
-        GENERICDATA =       1 << 27, // Generic data (GNEEdgeData, GNELaneData...)
-        MEANDATA =          1 << 28, // Mean datas
+        GENERICDATA =       1 << 28, // Generic data (GNEEdgeData, GNELaneData...)
+        MEANDATA =          1 << 29, // Mean datas
         // other
-        SYMBOL =            1 << 29, // Symbol elements (VSSSymbols, RerouterSymbols...)
-        INTERNALLANE =      1 << 30, // Internal Lane
+        SYMBOL =            1 << 30, // Symbol elements (VSSSymbols, RerouterSymbols...)
+        INTERNALLANE =      1 << 31, // Internal Lane
     };
 
     enum TagProperty {
@@ -92,9 +93,14 @@ public:
         NOPARAMETERS =              1 << 8,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
         RTREE =                     1 << 9,     // Element is placed in RTREE
         CENTERAFTERCREATION =       1 << 10,    // Camera is moved after element creation
-        EMBEDDED_ROUTE =            1 << 11,    // Element has an embedded route
-        REQUIRE_PROJ =              1 << 12,    // Element require a geo-projection defined in network
-        VCLASS_ICON =               1 << 13,    // Element returns icon depending of their vClass
+        REQUIRE_PROJ =              1 << 11,    // Element require a geo-projection defined in network
+        VCLASS_ICON =               1 << 12,    // Element returns icon depending of their vClass
+        // exclusive of vehicles
+        OVER_ROUTE =                1 << 13,    // Vehicle Element is placed over route
+        OVER_EMBEDDED_ROUTE =       1 << 14,    // Vehicle Element has an embedded route
+        OVER_FROMTO_EDGES =         1 << 15,    // Vehicle Element is placed over a from-to edges
+        OVER_FROMTO_JUNCTIONS =     1 << 16,    // Vehicle Element is placed over a from-to junctions
+        OVER_FROMTO_TAZS =          1 << 17,    // Vehicle Element is placed over a from-to TAZs
     };
 
     /// @brief default constructor
@@ -194,6 +200,9 @@ public:
     /// @brief return true if tag correspond to a Wire element
     bool isWireElement() const;
 
+    /// @brief return true if tag correspond to a JuPedSim element
+    bool isJuPedSimElement() const;
+
     /// @brief return true if tag correspond to a vehicle/person/container type element
     bool isType() const;
 
@@ -290,14 +299,26 @@ public:
     /// @brief return true if tag correspond to an element that center camera after creation
     bool canCenterCameraAfterCreation() const;
 
-    /// @brief return true if tag correspond to an element that owns an embedded route
-    bool hasEmbeddedRoute() const;
-
     /// @brief return true if tag correspond to an element that requires a geo projection
     bool requireProj() const;
 
     /// @brief return true if tag correspond to an element that has vClass icons
     bool vClassIcon() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over a route
+    bool overRoute() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over an embedded route
+    bool overEmbeddedRoute() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over from-to edges
+    bool overFromToEdges() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over from-to junctions
+    bool overFromToJunctions() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over from-to TAZs
+    bool overFromToTAZs() const;
 
 private:
     /// @brief Sumo XML Tag vinculated wit this tag Property

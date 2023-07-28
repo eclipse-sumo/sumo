@@ -338,6 +338,9 @@ protected:
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
+    /// @brief set demand element id
+    void setDemandElementID(const std::string& newID);
+
     /// @brief get type parent (needed because first parent can be either type or typeDistribution)
     GNEDemandElement* getTypeParent() const;
 
@@ -442,6 +445,9 @@ protected:
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;
+    
+    /// @brief build menu command route length
+    void buildMenuAddReverse(GUIGLObjectPopupMenu* ret) const;
 
 private:
     /**@brief check restriction with the number of children

@@ -50,8 +50,7 @@ netedit.leftClick(referencePosition, 430, 280)
 netedit.modifyAttribute(netedit.attrs.containerStop.inspect.name, "Container Stop Name", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

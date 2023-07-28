@@ -66,8 +66,8 @@ public:
     void buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter);
 
     /// @brief build vType distribution
-    void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                                const int deterministic, const std::vector<std::string>& vTypes);
+    void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+                                const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities);
 
     /// @brief build route
     void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
@@ -80,7 +80,8 @@ public:
                             const Parameterised::Map& routeParameters);
 
     /// @brief build route distribution
-    void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id);
+    void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+                                const std::vector<std::string>& routeIDs, const std::vector<double>& probabilities);
 
     /// @brief build a vehicle over an existent route
     void buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
@@ -185,6 +186,18 @@ public:
     /// @brief transform to flow
     static void transformToFlow(GNEVehicle* originalVehicle);
 
+    /// @brief transform to trip over junctions
+    static void transformToTripJunctions(GNEVehicle* originalVehicle);
+
+    /// @brief transform to flow over junctions
+    static void transformToFlowJunctions(GNEVehicle* originalVehicle);
+
+    /// @brief transform to trip over TAZs
+    static void transformToTripTAZs(GNEVehicle* originalVehicle);
+
+    /// @brief transform to flow over TAZs
+    static void transformToFlowTAZs(GNEVehicle* originalVehicle);
+
     /// @}
 
     /// @brief transform person functions
@@ -209,6 +222,23 @@ public:
 
     /// @}
 
+    /// @brief reverse functions
+    /// @{
+
+    /// @brief check if the given vehicle can be reversed
+    static bool canReverse(const GNEDemandElement* element);
+
+    /// @brief check if the given list of edges can be reversed
+    static bool canReverse(GNENet* net, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges);
+
+    /// @brief reverse given demand element
+    static void reverse(GNEDemandElement* element);
+
+    /// @brief add reverse for given demand element
+    static void addReverse(GNEDemandElement* element);
+    
+    /// @}
+
 protected:
     /// @brief parse junction
     GNEJunction* parseJunction(const SumoXMLTag tag, const std::string& junctionID);
@@ -221,6 +251,9 @@ protected:
 
     /// @brief parse edges
     std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs);
+
+    /// @brief get type (Either type o typeDistribution)
+    GNEDemandElement* getType(const std::string &id) const;
 
     /// @brief get person parent
     GNEDemandElement* getPersonParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;

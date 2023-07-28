@@ -38,12 +38,12 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_0">
-        <stop chargingStation="chargingStation" onDemand="false"/>
+    <flow begin="0.00" end="36.00" number="18" from="Edge0" to="Edge2" id="flow_0">
+        <stop chargingStation="chargingStationA" onDemand="false"/>
     </flow>
 
-    <flow begin="0.00" end="36.00" number="18" from="gneE0" to="gneE1" id="flow_1">
-        <stop chargingStation="chargingStation" onDemand="true"/>
+    <flow begin="0.00" end="36.00" number="18" from="Edge0" to="Edge2" id="flow_1">
+        <stop chargingStation="chargingStationA" onDemand="true"/>
     </flow>
 
 </routes>

@@ -4,22 +4,22 @@ title: netedit
 
 # From 30.000 feet
 
-**netedit** is the graphical editor for networks, additional infastructure,
+**netedit** is the graphical editor for networks, additional infrastructure,
 traffic objects and traffic data.
 
 - **Purpose:** Create and modify simulation scenarios
 - **System:** portable (Linux/Windows/Mac is tested); opens a window
 - **Input (optional):** a network and any files belonging to a scenario
-- **Output:** a netork and any files belonging to a scenario
+- **Output:** a network and any files belonging to a scenario
 - **Programming Language:** C++
 
 # Usage Description
 
-For an overview of features see [Netedit Usage Documentation](Netedit/index.md).
+For an overview of features see [netedit usage documentation](Netedit/index.md).
 
 ## Options
 
-You may use a XML schema definition file for setting up a Netedit
+You may use a XML schema definition file for setting up a netedit
 configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfiguration.xsd).
 
 ### Configuration
@@ -71,7 +71,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | The generated net will be written to FILE |
 | **-p** {{DT_FILE}}<br> **--plain-output-prefix** {{DT_FILE}} | Prefix of files to write plain xml nodes, edges and connections to |
 | **--plain-output.lanes** {{DT_BOOL}} | Write all lanes and their attributes even when they are not customized; *default:* **false** |
-| **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
+| **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins) |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction names |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
 | **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATsim format |
@@ -108,7 +108,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | Option | Description |
 |--------|-------------|
 | **--default.action-step-length** {{DT_FLOAT}} | Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.; *default:* **0** |
-| **--default.speeddev** {{DT_FLOAT}} | Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class; *default:* **-1** |
+| **--default.speeddev** {{DT_FLOAT}} | Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class); *default:* **-1** |
 | **--speed-in-kmh** {{DT_BOOL}} | vmax is parsed as given in km/h; *default:* **false** |
 | **--construction-date** {{DT_STR}} | Use YYYY-MM-DD date to determine the readiness of features under construction |
 | **--flatten** {{DT_BOOL}} | Remove all z-data; *default:* **false** |
@@ -184,8 +184,8 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 ### Tls Building
 | Option | Description |
 |--------|-------------|
-| **--tls.discard-loaded** {{DT_BOOL}} | Does not instatiate traffic lights loaded from other formats than plain-XML; *default:* **false** |
-| **--tls.discard-simple** {{DT_BOOL}} | Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML; *default:* **false** |
+| **--tls.discard-loaded** {{DT_BOOL}} | Does not instantiate traffic lights loaded from other formats than plain-XML; *default:* **false** |
+| **--tls.discard-simple** {{DT_BOOL}} | Does not instantiate traffic lights at geometry-like nodes loaded from other formats than plain-XML; *default:* **false** |
 | **--tls.set** {{DT_STR[]}} | Interprets STR[] as list of junctions to be controlled by TLS |
 | **--tls.unset** {{DT_STR[]}} | Interprets STR[] as list of junctions to be not controlled by TLS |
 | **--tls.guess** {{DT_BOOL}} | Turns on TLS guessing; *default:* **false** |
@@ -210,7 +210,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--tls.minor-left.max-speed** {{DT_FLOAT}} | Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles; *default:* **19.44** |
 | **--tls.left-green.time** {{DT_INT}} | Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases; *default:* **6** |
 | **--tls.nema.vehExt** {{DT_INT}} | Set INT as fixed time for intermediate vehext phase after every switch; *default:* **2** |
-| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yelow phase after every switch; *default:* **3** |
+| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yellow phase after every switch; *default:* **3** |
 | **--tls.nema.red** {{DT_INT}} | Set INT as fixed time for intermediate NEMA red phase after every switch; *default:* **2** |
 | **--tls.crossing-min.time** {{DT_INT}} | Use INT as minimum green duration for pedestrian crossings (s).; *default:* **4** |
 | **--tls.crossing-clearance.time** {{DT_INT}} | Use INT as clearance time for pedestrian crossings (s).; *default:* **5** |
@@ -293,7 +293,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--junctions.limit-turn-speed.warn.turn** {{DT_FLOAT}} | Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT; *default:* **22** |
 | **--junctions.small-radius** {{DT_FLOAT}} | Default radius for junctions that do not require wide vehicle turns; *default:* **1.5** |
 | **--junctions.higher-speed** {{DT_BOOL}} | Use maximum value of incoming and outgoing edge speed on junction instead of average; *default:* **false** |
-| **--junctions.minimal-shape** {{DT_BOOL}} | Build junctions with minimal shapes (igoring edge overlap); *default:* **false** |
+| **--junctions.minimal-shape** {{DT_BOOL}} | Build junctions with minimal shapes (ignoring edge overlap); *default:* **false** |
 | **--internal-junctions.vehicle-width** {{DT_FLOAT}} | Assumed vehicle width for computing internal junction positions; *default:* **1.8** |
 | **--rectangular-lane-cut** {{DT_BOOL}} | Forces rectangular cuts between lanes and intersections; *default:* **false** |
 | **--check-lane-foes.roundabout** {{DT_BOOL}} | Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts); *default:* **true** |
@@ -425,7 +425,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--calibrator-prefix** {{DT_STR}} | Prefix for calibrator naming; *default:* **ca** |
 | **--routeProbe-prefix** {{DT_STR}} | Prefix for routeProbe naming; *default:* **rp** |
 | **--vss-prefix** {{DT_STR}} | Prefix for variable speed sign naming; *default:* **vs** |
-| **--tractionSubstation-prefix** {{DT_STR}} | prefix for traction substation naming; *default:* **tr** |
+| **--tractionSubstation-prefix** {{DT_STR}} | Prefix for traction substation naming; *default:* **tr** |
 | **--overheadWire-prefix** {{DT_STR}} | Prefix for overhead wire naming; *default:* **ow** |
 | **--polygon-prefix** {{DT_STR}} | Prefix for polygon naming; *default:* **po** |
 | **--poi-prefix** {{DT_STR}} | Prefix for poi naming; *default:* **poi** |

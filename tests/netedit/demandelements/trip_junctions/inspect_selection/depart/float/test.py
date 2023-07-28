@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 410, 170)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.depart, "", False)
@@ -56,8 +56,7 @@ netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.depart, "-3"
 netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.depart, "10.2", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -64,8 +64,7 @@ netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "gneE15", Fa
 netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "-gneE14", False)
 
 # Check undo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save data elements
 netedit.saveDatas(referencePosition, True, 0, 30)

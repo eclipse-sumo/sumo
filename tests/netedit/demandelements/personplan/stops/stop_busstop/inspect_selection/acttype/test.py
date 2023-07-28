@@ -50,8 +50,7 @@ netedit.leftClick(referencePosition, 147, 40)
 netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspectSelection.actType, "singing", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

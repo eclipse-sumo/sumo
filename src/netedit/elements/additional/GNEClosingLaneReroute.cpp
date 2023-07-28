@@ -134,7 +134,7 @@ GNEClosingLaneReroute::getParentName() const {
 void
 GNEClosingLaneReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw closing lane reroute as listed attribute
-    drawListedAddtional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
+    drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
                         1, getParentAdditionals().front()->getDrawPositionIndex(),
                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGLANEREROUTE,
                         getAttribute(SUMO_ATTR_LANE));
@@ -231,7 +231,7 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
             myClosedLane = myNet->getAttributeCarriers()->retrieveLane(value);

@@ -162,6 +162,16 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
             case SUMO_TAG_POI:
                 parsePOIAttributes(attrs);
                 break;
+            // JuPedSim
+            case GNE_TAG_WALKABLEAREA:
+                parseWalkableAreaAttributes(attrs);
+                break;
+            case GNE_TAG_OBSTACLE:
+                parseObstacleAttributes(attrs);
+                break;
+            case GNE_TAG_POIWAYPOINT:
+                parsePOIWaypointAttributes(attrs);
+                break;
             // parameters
             case SUMO_TAG_PARAM:
                 parseParameters(attrs);
@@ -220,6 +230,10 @@ AdditionalHandler::endParseAttributes() {
         // Shapes
         case SUMO_TAG_POLY:
         case SUMO_TAG_POI:
+        // JuPedSim
+        case GNE_TAG_WALKABLEAREA:
+        case GNE_TAG_OBSTACLE:
+        case GNE_TAG_POIWAYPOINT:
             // parse object and all their childrens
             parseSumoBaseObject(obj);
             // delete object (and all of their childrens)
@@ -391,6 +405,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                             obj->getStringAttribute(SUMO_ATTR_NAME),
                             obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
                             obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
+                            obj->getBoolAttribute(SUMO_ATTR_EXPECT_ARRIVAL),
                             obj->getParameters());
             break;
         case SUMO_TAG_DET_ENTRY:
@@ -607,7 +622,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
         case SUMO_TAG_POI:
             // check if we want to create a POI, POILane or POIGEO
             if (obj->hasDoubleAttribute(SUMO_ATTR_X)) {
-                // build PO
+                // build POI over view
                 buildPOI(obj,
                          obj->getStringAttribute(SUMO_ATTR_ID),
                          obj->getStringAttribute(SUMO_ATTR_TYPE),
@@ -641,7 +656,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                              obj->getStringAttribute(SUMO_ATTR_NAME),
                              obj->getParameters());
             } else {
-                // build POIGEO
+                // build POIGEO over view
                 buildPOIGeo(obj,
                             obj->getStringAttribute(SUMO_ATTR_ID),
                             obj->getStringAttribute(SUMO_ATTR_TYPE),
@@ -657,6 +672,32 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                             obj->getStringAttribute(SUMO_ATTR_NAME),
                             obj->getParameters());
             }
+            break;
+        // WalkableArea
+        case GNE_TAG_WALKABLEAREA:
+            buildWalkableArea(obj,
+                              obj->getStringAttribute(SUMO_ATTR_ID),
+                              obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                              obj->getStringAttribute(SUMO_ATTR_NAME),
+                              obj->getParameters());
+            break;
+        // Obstacle
+        case GNE_TAG_OBSTACLE:
+            buildObstacle(obj,
+                          obj->getStringAttribute(SUMO_ATTR_ID),
+                          obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                          obj->getStringAttribute(SUMO_ATTR_NAME),
+                          obj->getParameters());
+            break;
+        // POI waypoint
+        case GNE_TAG_POIWAYPOINT:
+            // build POI Waypoint over view
+            buildPOIWaypoint(obj,
+                             obj->getStringAttribute(SUMO_ATTR_ID),
+                             obj->getDoubleAttribute(SUMO_ATTR_X),
+                             obj->getDoubleAttribute(SUMO_ATTR_Y),
+                             obj->getStringAttribute(SUMO_ATTR_NAME),
+                             obj->getParameters());
             break;
         default:
             break;
@@ -1028,6 +1069,7 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
     const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, TIME2STEPS(1));
     const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, 1.39);
+    const bool expectedArrival = attrs.getOpt<bool>(SUMO_ATTR_EXPECT_ARRIVAL, id.c_str(), parsedOk, false);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1041,6 +1083,7 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD, haltingTimeThreshold);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, haltingSpeedThreshold);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_EXPECT_ARRIVAL, expectedArrival);
     }
 }
 
@@ -1729,6 +1772,72 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, relativePath);
+    }
+}
+
+
+void
+AdditionalHandler::parseWalkableAreaAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk);
+    // optional attributes
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_WALKABLEAREA);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    }
+}
+
+
+void
+AdditionalHandler::parseObstacleAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk);
+    // optional attributes
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_OBSTACLE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    }
+}
+
+
+void
+AdditionalHandler::parsePOIWaypointAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    // special attributes
+    const double x = attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), parsedOk, 0);
+    const double y = attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), parsedOk, 0);
+    // optional attributes
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_POIWAYPOINT);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_X, x);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_Y, y);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
     }
 }
 

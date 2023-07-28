@@ -71,8 +71,7 @@ netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.angle, "120")
 # create area
 netedit.leftClick(referencePosition, 472, 371)
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

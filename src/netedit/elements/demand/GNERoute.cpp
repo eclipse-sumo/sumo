@@ -24,6 +24,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -34,6 +36,7 @@
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNERoute.h"
+#include "GNEVehicle.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -78,12 +81,12 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_ROUTE, tag, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-{}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(RGBColor::YELLOW),
-myRepeat(0),
-myCycleTime(0),
-myVClass(SVC_PASSENGER) {
+                     {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myColor(RGBColor::YELLOW),
+    myRepeat(0),
+    myCycleTime(0),
+    myVClass(SVC_PASSENGER) {
     // reset default values
     resetDefaultValues();
 }
@@ -93,14 +96,38 @@ GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
                      GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-{}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(RGBColor::YELLOW),
-myRepeat(0),
-myCycleTime(0),
-myVClass(SVC_PASSENGER) {
+                     {}, {}, {}, {}, {}, {}),
+    Parameterised(),
+    myColor(RGBColor::YELLOW),
+    myRepeat(0),
+    myCycleTime(0),
+    myVClass(SVC_PASSENGER) {
     // reset default values
     resetDefaultValues();
+}
+
+
+GNERoute::GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute) :
+    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
+                     {}, originalRoute->getParentEdges(), {}, {}, {}, {}),
+    Parameterised(originalRoute->getACParametersMap()),
+    myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myVClass(originalRoute->getVClass()) {
+    setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
+}
+
+
+GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
+    GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
+                     {}, originalRoute->getParentEdges(), {}, {}, {vehicleParent}, {}),
+    Parameterised(originalRoute->getACParametersMap()),
+    myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myVClass(originalRoute->getVClass()) {
+    setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
 
@@ -108,12 +135,12 @@ GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, 
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
     GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-{}, edges, {}, {}, {}, {}),
-Parameterised(parameters),
-myColor(color),
-myRepeat(repeat),
-myCycleTime(cycleTime),
-myVClass(vClass) {
+                     {}, edges, {}, {}, {}, {}),
+    Parameterised(parameters),
+    myColor(color),
+    myRepeat(repeat),
+    myCycleTime(cycleTime),
+    myVClass(vClass) {
 }
 
 
@@ -121,24 +148,12 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vect
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-{}, edges, {}, {}, {vehicleParent}, {}),
-Parameterised(parameters),
-myColor(color),
-myRepeat(repeat),
-myCycleTime(cycleTime),
-myVClass(vehicleParent->getVClass()) {
-}
-
-
-GNERoute::GNERoute(GNEDemandElement* route) :
-    GNEDemandElement(route, route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-{}, route->getParentEdges(), {}, {}, {}, {}),
-Parameterised(),
-myColor(route->getColor()),
-myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),
-myCycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
-myVClass(route->getVClass()) {
+                     {}, edges, {}, {}, {vehicleParent}, {}),
+    Parameterised(parameters),
+    myColor(color),
+    myRepeat(repeat),
+    myCycleTime(cycleTime),
+    myVClass(vehicleParent->getVClass()) {
 }
 
 
@@ -176,6 +191,10 @@ GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIDesigns::buildFXMenuCommand(ret, "Apply distance along route", nullptr, ret, MID_GNE_ROUTE_APPLY_DISTANCE);
     // route length
     buildMenuCommandRouteLength(ret);
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        // add reverse
+        buildMenuAddReverse(ret);   
+    }
     return ret;
 }
 
@@ -614,6 +633,28 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return toString(myRepeat);
         case SUMO_ATTR_CYCLETIME:
             return time2string(myCycleTime);
+        case GNE_ATTR_ROUTE_DISTRIBUTION: {
+            std::string distributionIDs;
+            for (const auto &distribution : myDistributions) {
+                distributionIDs.append(distribution.first + " ");
+            }
+            // remove last space
+            if (distributionIDs.size() > 0) {
+                distributionIDs.pop_back();
+            }
+            return distributionIDs;
+        }
+        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY: {
+            std::string distributionProbabilities;
+            for (const auto &distribution : myDistributions) {
+                distributionProbabilities.append(toString(distribution.second) + " ");
+            }
+            // remove last space
+            if (distributionProbabilities.size() > 0) {
+                distributionProbabilities.pop_back();
+            }
+            return distributionProbabilities;
+        }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -660,6 +701,8 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_REPEAT:
         case SUMO_ATTR_CYCLETIME:
+        case GNE_ATTR_ROUTE_DISTRIBUTION:
+        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
@@ -726,12 +769,58 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case GNE_ATTR_ROUTE_DISTRIBUTION:
+            if (value.empty()) {
+                return true;
+            } else {
+                auto typeDistributionIDs = StringTokenizer(value).getVector();
+                // check every id
+                for (const auto &typeDistributionID : typeDistributionIDs) {
+                    if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, typeDistributionID, false) == nullptr) {
+                        return false;
+                    }
+                }
+                // all ids OK
+                return true;
+            }
+        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY: {
+            auto typeDistributionProbs = StringTokenizer(value).getVector();
+            // first check that we have the same number of distributions and probabilities
+            if (typeDistributionProbs.size() != myDistributions.size()) {
+                return false;
+            } else {
+                // check every probability
+                for (const auto &typeDistributionProb : typeDistributionProbs) {
+                    if (canParse<double>(typeDistributionProb)) {
+                        const auto prob = parse<double>(typeDistributionProb);
+                        if ((prob < 0) || (prob > 1)) {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+                // all probabilities ok
+                return true;
+            }
+        }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool
+GNERoute::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY:
+            return (myDistributions.size() > 0);
+        default:
+            return true;
     }
 }
 
@@ -785,6 +874,23 @@ GNERoute::isRouteValid(const std::vector<GNEEdge*>& edges) {
     }
 }
 
+GNEDemandElement*
+GNERoute::copyRoute(const GNERoute* originalRoute) {
+    // get net and undoList
+    const auto net = originalRoute->getNet();
+    auto undoList = net->getViewNet()->getUndoList();
+    // generate new route ID
+    const std::string newRouteID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
+    // create new route
+    GNERoute* newRoute = new GNERoute(net, newRouteID, originalRoute);
+    // add new route using undo-list
+    undoList->begin(originalRoute->getTagProperty().getGUIIcon(), TLF("copy % '%'", originalRoute->getTagStr(), newRouteID));
+    net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(newRoute, true), true);
+    undoList->end();
+    // return new route
+    return newRoute;
+}
+
 // ===========================================================================
 // private
 // ===========================================================================
@@ -794,12 +900,19 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setDemandElementID(value);
             break;
         case SUMO_ATTR_EDGES:
             replaceDemandParentEdges(value);
             // compute route
             computePathElement();
+            // update all parent and child demand elements
+            for (const auto &element : getParentDemandElements()) {
+                element->updateGeometry();
+            }
+            for (const auto &element : getChildDemandElements()) {
+                element->updateGeometry();
+            }
             break;
         case SUMO_ATTR_COLOR:
             if (value.empty()) {
@@ -814,6 +927,34 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CYCLETIME:
             myCycleTime = string2time(value);
             break;
+        case GNE_ATTR_ROUTE_DISTRIBUTION: {
+            // make a copy of distributions
+            const auto copyDistributions = myDistributions;
+            // clear distributions
+            myDistributions.clear();
+            // obtain IDS
+            const auto typeDistributionIDs = StringTokenizer(value).getVector();
+            // iterate over IDs, add into map, and check if previously there is a probability defined
+            for (const auto &typeDistributionID : typeDistributionIDs) {
+                if (copyDistributions.count(typeDistributionID) > 0) {
+                    myDistributions[typeDistributionID] = copyDistributions.at(typeDistributionID);
+                } else {
+                    myDistributions[typeDistributionID] = 1.0;
+                }
+            }
+            break;
+        }
+        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY: {
+            // obtain probabilities
+            const auto typeDistributionProbs = StringTokenizer(value).getVector();
+            int index = 0;
+            // add every probability to their distribution
+            for (auto &distribution : myDistributions) {
+                distribution.second = parse<double>(typeDistributionProbs.at(index));
+                index++;
+            }
+            break;
+        }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

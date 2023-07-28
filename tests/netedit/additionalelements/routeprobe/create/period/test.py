@@ -47,8 +47,7 @@ netedit.changeDefaultValue(netedit.attrs.routeProbe.create.frequency, "120")
 netedit.leftClick(referencePosition, 325, 253)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

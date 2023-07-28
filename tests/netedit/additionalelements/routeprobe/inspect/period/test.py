@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "-50", False
 netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "150", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

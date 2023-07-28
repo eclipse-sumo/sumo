@@ -107,6 +107,9 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
+        if (oc.isSet("edge-files") && !oc.isSet("type-files") && oc.isDefault("ignore-errors.edge-type")) {
+            oc.setDefault("ignore-errors.edge-type", "true");
+        }
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
         if (oc.isDefault("aggregate-warnings")) {
             oc.setDefault("aggregate-warnings", "5");

@@ -8,9 +8,9 @@
     <vType id="customType" length="20.00" width="5.00" height="12.00" color="cyan"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </person>
     <person id="p_3" type="customType" depart="3.00">
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </person>
 </routes>

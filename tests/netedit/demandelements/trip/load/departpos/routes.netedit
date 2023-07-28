@@ -5,13 +5,13 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="trip_1" depart="20.00" departPos="-12.00" from="gneE2" to="gneE5"/>
-    <trip id="trip_2" depart="20.00" departPos="0.00" from="gneE2" to="gneE5"/>
-    <trip id="trip_3" depart="20.00" departPos="500.00" from="gneE2" to="gneE5"/>
-    <trip id="trip_4" depart="20.00" departPos="1.00" from="gneE2" to="gneE5"/>
-    <trip id="trip_5" depart="20.00" departPos="random" from="gneE2" to="gneE5"/>
-    <trip id="trip_6" depart="20.00" departPos="free" from="gneE2" to="gneE5"/>
-    <trip id="trip_7" depart="20.00" departPos="random_free" from="gneE2" to="gneE5"/>
-    <trip id="trip_8" depart="20.00" departPos="base" from="gneE2" to="gneE5"/>
-    <trip id="trip_9" depart="20.00" departPos="last" from="gneE2" to="gneE5"/>
+    <trip id="trip_1" depart="20.00" departPos="-12.00" from="Edge0" to="Edge2"/>
+    <trip id="trip_2" depart="20.00" departPos="0.00" from="Edge0" to="Edge2"/>
+    <trip id="trip_3" depart="20.00" departPos="500.00" from="Edge0" to="Edge2"/>
+    <trip id="trip_4" depart="20.00" departPos="1.00" from="Edge0" to="Edge2"/>
+    <trip id="trip_5" depart="20.00" departPos="random" from="Edge0" to="Edge2"/>
+    <trip id="trip_6" depart="20.00" departPos="free" from="Edge0" to="Edge2"/>
+    <trip id="trip_7" depart="20.00" departPos="random_free" from="Edge0" to="Edge2"/>
+    <trip id="trip_8" depart="20.00" departPos="base" from="Edge0" to="Edge2"/>
+    <trip id="trip_9" depart="20.00" departPos="last" from="Edge0" to="Edge2"/>
 </routes>

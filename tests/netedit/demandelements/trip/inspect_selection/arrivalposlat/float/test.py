@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change arrivalSpeed with an invalid value
 netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.arrivalSpeed, "", False)
@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.arrivalSpeed, "-10",
 netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.arrivalSpeed, "15.5", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -456,17 +456,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
-            // Change IDs of all parking Spaces
-            for (const auto& parkingSpace : getChildAdditionals()) {
-                parkingSpace->setMicrosimID(getID());
-            }
-            // enable save demand elements if there are stops
-            for (const auto& stop : getChildDemandElements()) {
-                if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
-                    myNet->getSavingStatus()->requireSaveDemandElements();
-                }
-            }
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
             replaceAdditionalParentLanes(value);

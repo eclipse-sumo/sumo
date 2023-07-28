@@ -18,6 +18,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
+/// @author  Mirko Barthauer
 /// @date    2004-11-23
 ///
 // An unextended detector measuring at a fixed position on a fixed lane.
@@ -163,7 +164,7 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
                 const double leaveTime = SIMTIME + MSCFModel::passingTime(oldBackPos, myEndPosition, newBackPos, oldSpeed, newSpeed);
                 myVehiclesOnDet.erase(it);
                 assert(entryTime <= leaveTime);
-                myVehicleDataCont.push_back(VehicleData(veh, entryTime, leaveTime, false));
+                myVehicleDataCont.push_back(VehicleData(veh, entryTime, leaveTime, false, myEndPosition - myPosition));
                 myLastLeaveTime = leaveTime;
 #ifdef DEBUG_E1_NOTIFY_MOVE
                 if (DEBUG_COND) {
@@ -485,9 +486,9 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool includeEarly, bool leaveTi
 
 
 MSInductLoop::VehicleData::VehicleData(const SUMOTrafficObject& v, double entryTimestep,
-                                       double leaveTimestep, const bool leftEarly)
+                                       double leaveTimestep, const bool leftEarly, const double detLength)
     : idM(v.getID()), lengthM(v.getVehicleType().getLength()), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
-      speedM(v.getVehicleType().getLength() / MAX2(leaveTimestep - entryTimestep, NUMERICAL_EPS)), typeIDM(v.getVehicleType().getID()),
+      speedM((v.getVehicleType().getLength() + detLength) / MAX2(leaveTimestep - entryTimestep, NUMERICAL_EPS)), typeIDM(v.getVehicleType().getID()),
       leftEarlyM(leftEarly) {}
 
 

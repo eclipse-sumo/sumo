@@ -4,7 +4,9 @@
 
     <input>
         <net-file value="net.netedit"/>
-        <route-files value="routes.netedit"/>
+        <additional-files value="additionals.netedit"/>
+		<route-files value="routes.netedit"/>
+		<junction-taz value="true"/>
     </input>
 
 </configuration>

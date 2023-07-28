@@ -97,7 +97,7 @@ public:
     void markConnectionGeometryDeprecated();
 
     /// @brief update internal ID of Connection
-    void updateID();
+    void updateConnectionID();
 
     /// @brief recompute cached myLinkState
     void updateLinkState();

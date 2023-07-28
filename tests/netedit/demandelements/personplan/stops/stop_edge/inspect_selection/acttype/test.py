@@ -44,14 +44,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect personStopEdge
-netedit.leftClick(referencePosition, 180, 45)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopPerson.x, netedit.positions.demandElements.stopPerson.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.actType, "singing", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -54,6 +54,7 @@ class Edge:
         self._type = edgeType
         self._params = {}
         self._bidi = None
+        self._selected = False
 
     def getName(self):
         return self._name
@@ -184,7 +185,13 @@ class Edge:
 
     def getLanes(self):
         return self._lanes
-
+    
+    def select(self, value=True):
+        self._selected = value
+    
+    def isSelected(self):
+        return self._selected
+    
     def rebuildShape(self):
         numLanes = len(self._lanes)
         if numLanes % 2 == 1:

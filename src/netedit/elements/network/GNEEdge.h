@@ -261,8 +261,8 @@ public:
      * straight unless the user clicked near a geometry point */
     Position getSplitPos(const Position& clickPos);
 
-    /// @brief override to also set lane ids
-    void setMicrosimID(const std::string& newID);
+    /// @brief set edge ID
+    void setEdgeID(const std::string& newID);
 
     /// @brief check if edge has a restricted lane
     bool hasRestrictedLane(SUMOVehicleClass vclass) const;

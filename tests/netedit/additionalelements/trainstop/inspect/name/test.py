@@ -50,8 +50,7 @@ netedit.leftClick(referencePosition, 427, 275)
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.name, "Train Stop Name", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

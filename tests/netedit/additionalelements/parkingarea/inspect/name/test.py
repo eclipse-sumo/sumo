@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.name, "%%%$$$$%$", Tru
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.name, "new Parking Area Name", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

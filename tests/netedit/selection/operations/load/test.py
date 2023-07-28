@@ -35,8 +35,7 @@ netedit.selectMode()
 netedit.loadSelection()
 
 # check undo-redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

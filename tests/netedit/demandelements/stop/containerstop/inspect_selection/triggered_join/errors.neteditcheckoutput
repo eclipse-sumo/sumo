@@ -1,2 +1,3 @@
-Warning: Vehicle 'trip' aborts joining after extension of 10.00s at time 22.00.
-Warning: Vehicle 'trip' aborts joining after extension of 20.00s at time 112.00.
+Warning: Vehicle 'tripA' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-14.59, offset=11.35), time=18.00.
+Warning: Vehicle 'tripA' aborts joining after extension of 10.00s at time 26.00.
+Warning: Vehicle 'tripB' aborts joining after extension of 20.00s at time 92.00.

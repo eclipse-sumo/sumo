@@ -755,13 +755,9 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setDemandElementID(value);
             // update id
             id = value;
-            // Change IDs of all person plans children
-            for (const auto& personPlans : getChildDemandElements()) {
-                personPlans->setMicrosimID(getID());
-            }
             break;
         case SUMO_ATTR_TYPE:
             if (getID().size() > 0) {

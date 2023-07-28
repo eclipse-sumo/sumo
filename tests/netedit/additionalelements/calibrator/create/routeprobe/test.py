@@ -53,8 +53,7 @@ netedit.leftClick(referencePosition, 322, 250)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.routeProbe, "routeProbe_0")
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -395,4 +395,18 @@ std::vector<int> SUMOSAXAttributes::fromString(const std::string& value) const {
 }
 
 
+const std::vector<double> invalid_return<std::vector<double> >::value = std::vector<double>();
+template<>
+std::vector<double> SUMOSAXAttributes::fromString(const std::string& value) const {
+    const std::vector<std::string>& tmp = StringTokenizer(value).getVector();
+    if (tmp.empty()) {
+        throw EmptyData();
+    }
+    std::vector<double> ret;
+    for (const std::string& s : tmp) {
+        ret.push_back(StringUtils::toDouble(s));
+    }
+    return ret;
+}
+
 /****************************************************************************/

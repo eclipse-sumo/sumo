@@ -71,8 +71,7 @@ netedit.selectionInvert()
 netedit.selectionRectangle(referencePosition, 250, 150, 400, 300)
 
 # check undo and redo
-netedit.undo(referencePosition, 8)
-netedit.redo(referencePosition, 8)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

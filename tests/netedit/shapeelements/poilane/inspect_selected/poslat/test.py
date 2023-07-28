@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.POILane.inspectSelection.posLat, "-20", Tr
 netedit.modifyAttribute(netedit.attrs.POILane.inspectSelection.posLat, "15", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

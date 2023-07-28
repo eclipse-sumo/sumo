@@ -898,9 +898,12 @@ MSLCM_SL2015::prepareStep() {
     myCFRelated.clear();
     myCFRelatedReady = false;
     const double halfWidth = getWidth() * 0.5;
-    double center = getVehicleCenter();
-    mySafeLatDistRight = center - halfWidth;
-    mySafeLatDistLeft = getLeftBorder() - center - halfWidth;
+    // only permit changing within lane bounds but open up the range depending on the checked duration in _wantsChangeSublane()
+    mySafeLatDistRight = myVehicle.getLane()->getWidth() * 0.5 + myVehicle.getLateralPositionOnLane() - halfWidth;
+    mySafeLatDistLeft = myVehicle.getLane()->getWidth() * 0.5 - myVehicle.getLateralPositionOnLane() - halfWidth;
+    if (isOpposite()) {
+        std::swap(mySafeLatDistLeft, mySafeLatDistRight);
+    }
     // truncate to work around numerical instability between different builds
     mySpeedGainProbabilityRight = ceil(mySpeedGainProbabilityRight * 100000.0) * 0.00001;
     mySpeedGainProbabilityLeft = ceil(mySpeedGainProbabilityLeft * 100000.0) * 0.00001;
@@ -1075,6 +1078,17 @@ MSLCM_SL2015::_wantsChangeSublane(
     MSVehicle** lastBlocked,
     MSVehicle** firstBlocked,
     double& latDist, double& maneuverDist, int& blocked) {
+
+    if (laneOffset != 0) {
+        // update mySafeLatDist w.r.t. the direction being checkd
+        const double halfWidth = getWidth() * 0.5;
+        double center = getVehicleCenter();
+        if (laneOffset < 0) {
+            mySafeLatDistRight = center - halfWidth;
+        } else  {
+            mySafeLatDistLeft = getLeftBorder() - center - halfWidth;
+        }
+    }
 
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     // compute bestLaneOffset
@@ -3205,6 +3219,11 @@ MSLCM_SL2015::keepLatGap(int state,
         // @note: the influence is reset in MSAbstractLaneChangeModel::setOwnState at the end of the lane-changing code for this vehicle
         latDist = myVehicle.getInfluencer().getLatDist();
         maneuverDist = myVehicle.getInfluencer().getLatDist();
+        if (latDist < 0) {
+            mySafeLatDistRight = MAX2(-latDist, mySafeLatDistRight);
+        } else {
+            mySafeLatDistLeft = MAX2(latDist, mySafeLatDistLeft);
+        }
         state |= LCA_TRACI;
 #ifdef DEBUG_KEEP_LATGAP
         if (gDebugFlag2) {
@@ -3455,7 +3474,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
             std::cout << "   computeSpeedLat b)\n";
         }
 #endif
-        return speedAccel;
+        return emergencySpeedLat(speedAccel);
     }
     // check if the remaining distance allows to accelerate laterally
     double minDistAccel = SPEED2DIST(speedAccel) + currentDirection * MSCFModel::brakeGapEuler(fabs(speedAccel), accelLat, 0); // most we can move in the target direction
@@ -3489,7 +3508,29 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
         std::cout << "   computeSpeedLat e)\n";
     }
 #endif
-    return speedDecel;
+    return emergencySpeedLat(speedDecel);
+}
+
+
+double
+MSLCM_SL2015::emergencySpeedLat(double speedLat) const {
+    // reduce lateral speed for safety purposes
+    if (speedLat < 0 && SPEED2DIST(-speedLat) > mySafeLatDistRight) {
+        speedLat = -DIST2SPEED(mySafeLatDistRight);
+#ifdef DEBUG_MANEUVER
+        if (debugVehicle()) {
+            std::cout << "   rightDanger speedLat=" << speedLat << "\n";
+        }
+#endif
+    } else if (speedLat > 0 && SPEED2DIST(speedLat) > mySafeLatDistLeft) {
+        speedLat = DIST2SPEED(mySafeLatDistLeft);
+#ifdef DEBUG_MANEUVER
+        if (debugVehicle()) {
+            std::cout << "   leftDanger speedLat=" << speedLat << "\n";
+        }
+#endif
+    }
+    return speedLat;
 }
 
 

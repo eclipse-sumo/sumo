@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to junctions)")
 
 # create trip using two junctions
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x, netedit.positions.demandElements.junction3.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 80, 360)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.depart, "", False)
@@ -63,8 +63,7 @@ netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.depart, "-3", False)
 netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.depart, "10.2", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

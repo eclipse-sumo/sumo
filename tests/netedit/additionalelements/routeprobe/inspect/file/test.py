@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.file, "$$$$$$$$", False
 netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.file, "fileA.txt", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

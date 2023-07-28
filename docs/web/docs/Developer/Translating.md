@@ -37,6 +37,15 @@ should just review the changes to the translation files as well.
 The translations should not be applied to debug and developer messages. This includes everything
 in src/foreign, src/libsumo, src/libtraci, src/traci_testclient and unittest.
 
+## Context
+
+The same string may have different meanings in different contexts or may need a shorter version 
+due to limited space in the GUI. For this reason the `TLC` macro can be used, where the context can be 
+mentioned: It contains first the context and then the string as parameters like in `TLC("Simulation", "Stop")`. 
+Below is the list of context identifiers currently in use:
+- Simulation
+- Labels
+
 # Using translations
 
 Until we have a sufficient amount of translated strings the translations are disabled by default.
@@ -77,3 +86,12 @@ git fetch weblate  # get new commits
 git merge weblate/main
 ```
 Then you should review the changes and `git push` afterwards.
+
+## Change original strings
+
+Changing the translatable string directly in the source code will invalidate the translation because the original string is used 
+as a key in the `.po` translation files. By default, the obsolete translations will remain in the `.po` file but won't appear in 
+the [Weblate](https://hosted.weblate.org/projects/eclipse-sumo/) anymore. If the original string does not change its meaning, it 
+is preferable to use the python script `tools/build/updateMessageIDs.py` instead (see [updateMessageIDs.py help](../Tools/Build.md#updateMessageIDs.py). 
+The script `tools/build/obsoleteTranslations.py` (see [obsoleteTranslations.py help](../Tools/Build.md#obsoleteTranslations.py)) can be used to 
+print the obsolete translations and optionally remove them completely from the `.po` files.

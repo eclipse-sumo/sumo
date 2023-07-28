@@ -47,8 +47,7 @@ netedit.changeDefaultValue(netedit.attrs.vaporizer.create.begin, "10")
 netedit.leftClick(referencePosition, 338, 252)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

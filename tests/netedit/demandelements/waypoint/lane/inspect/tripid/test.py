@@ -38,26 +38,25 @@ netedit.stopMode()
 netedit.changeStopType("waypointLane")
 
 # create waypoint
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect waypoint
-netedit.leftClick(referencePosition, 265, 188)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.tripID, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.tripID, ";;;;", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.tripID, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.tripID, "", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.tripID, "customID", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.tripID, "customID", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

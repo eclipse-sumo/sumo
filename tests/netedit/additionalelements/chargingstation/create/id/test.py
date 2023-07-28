@@ -56,12 +56,10 @@ netedit.changeDefaultValue(netedit.attrs.chargingStation.create.id, "custom_ID")
 netedit.leftClick(referencePosition, 346, 244)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

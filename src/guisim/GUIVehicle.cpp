@@ -25,6 +25,7 @@
 #include <vector>
 #include <string>
 #include <bitset>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
@@ -55,6 +56,7 @@
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
+#include <microsim/devices/MSDevice_Battery.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 
@@ -96,107 +98,116 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     const bool isElecHybrid = getDevice(typeid(MSDevice_ElecHybrid)) != nullptr ? true : false;
+    const bool hasBattery = getDevice(typeid(MSDevice_Battery)) != nullptr;
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLaneID));
+    ret->mkItem(TL("lane [id]"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLaneID));
     if (MSGlobals::gSublane) {
-        ret->mkItem("shadow lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getShadowLaneID));
+        ret->mkItem(TL("shadow lane [id]"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getShadowLaneID));
     }
     if (MSGlobals::gLateralResolution > 0) {
-        ret->mkItem("target lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getTargetLaneID));
+        ret->mkItem(TL("target lane [id]"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getTargetLaneID));
     }
     if (isSelected()) {
-        ret->mkItem("back lanes [id,..]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getBackLaneIDs));
+        ret->mkItem(TL("back lanes [id,..]"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getBackLaneIDs));
     }
-    ret->mkItem("position [m]", true,
+    ret->mkItem(TL("position [m]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getPositionOnLane));
-    ret->mkItem("lateral offset [m]", true,
+    ret->mkItem(TL("lateral offset [m]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getLateralPositionOnLane));
-    ret->mkItem("speed [m/s]", true,
+    ret->mkItem(TL("speed [m/s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getSpeed));
-    ret->mkItem("lateral speed [m/s]", true,
+    ret->mkItem(TL("lateral speed [m/s]"), true,
                 new FunctionBinding<MSAbstractLaneChangeModel, double>(&getLaneChangeModel(), &MSAbstractLaneChangeModel::getSpeedLat));
-    ret->mkItem("acceleration [m/s^2]", true,
+    ret->mkItem(TL("acceleration [m/s^2]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getAcceleration));
-    ret->mkItem("angle [degree]", true,
+    ret->mkItem(TL("angle [degree]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &GUIBaseVehicle::getNaviDegree));
-    ret->mkItem("slope [degree]", true,
+    ret->mkItem(TL("slope [degree]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getSlope));
-    ret->mkItem("speed factor", true,
+    ret->mkItem(TL("speed factor"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getChosenSpeedFactor));
-    ret->mkItem("time gap on lane [s]", true,
+    ret->mkItem(TL("time gap on lane [s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getTimeGapOnLane));
-    ret->mkItem("waiting time [s]", true,
+    ret->mkItem(TL("waiting time [s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getWaitingSeconds));
     ret->mkItem(("waiting time (accumulated, " + time2string(MSGlobals::gWaitingTimeMemory) + "s) [s]").c_str(), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getAccumulatedWaitingSeconds));
-    ret->mkItem("time since startup [s]", true,
+    ret->mkItem(TL("time since startup [s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getTimeSinceStartupSeconds));
-    ret->mkItem("time loss [s]", true,
+    ret->mkItem(TL("time loss [s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getTimeLossSeconds));
-    ret->mkItem("impatience", true,
+    ret->mkItem(TL("impatience"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getImpatience));
-    ret->mkItem("last lane change [s]", true,
+    ret->mkItem(TL("last lane change [s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getLastLaneChangeOffset));
-    ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
-    ret->mkItem("depart delay [s]", false, time2string(getDepartDelay()));
-    ret->mkItem("odometer [m]", true,
+    ret->mkItem(TL("desired depart [s]"), false, time2string(getParameter().depart));
+    ret->mkItem(TL("depart delay [s]"), false, time2string(getDepartDelay()));
+    ret->mkItem(TL("odometer [m]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSBaseVehicle::getOdometer));
     if (getParameter().repetitionNumber < std::numeric_limits<int>::max()) {
-        ret->mkItem("remaining [#]", false, (int) getParameter().repetitionNumber - getParameter().repetitionsDone);
+        ret->mkItem(TL("remaining [#]"), false, (int) getParameter().repetitionNumber - getParameter().repetitionsDone);
     }
     if (getParameter().repetitionOffset > 0) {
-        ret->mkItem("insertion period [s]", false, time2string(getParameter().repetitionOffset));
+        ret->mkItem(TL("insertion period [s]"), false, time2string(getParameter().repetitionOffset));
     }
     if (getParameter().repetitionProbability > 0) {
-        ret->mkItem("insertion probability", false, getParameter().repetitionProbability);
+        ret->mkItem(TL("insertion probability"), false, getParameter().repetitionProbability);
     }
-    ret->mkItem("stop info", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getStopInfo));
-    ret->mkItem("line", false, myParameter->line);
-    ret->mkItem("CO2 [mg/s]", true,
+    ret->mkItem(TL("stop info"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getStopInfo));
+    ret->mkItem(TL("line"), false, myParameter->line);
+    ret->mkItem(TL("CO2 [mg/s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::CO2>));
-    ret->mkItem("CO [mg/s]", true,
+    ret->mkItem(TL("CO [mg/s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::CO>));
-    ret->mkItem("HC [mg/s]", true,
+    ret->mkItem(TL("HC [mg/s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::HC>));
-    ret->mkItem("NOx [mg/s]", true,
+    ret->mkItem(TL("NOx [mg/s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::NO_X>));
-    ret->mkItem("PMx [mg/s]", true,
+    ret->mkItem(TL("PMx [mg/s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::PM_X>));
-    ret->mkItem("fuel [mg/s]", true,
+    ret->mkItem(TL("fuel [mg/s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::FUEL>));
-    ret->mkItem("electricity [Wh/s]", true,
+    ret->mkItem(TL("electricity [Wh/s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::ELEC>));
-    ret->mkItem("noise (Harmonoise) [dB]", true,
+    ret->mkItem(TL("noise (Harmonoise) [dB]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getHarmonoise_NoiseEmissions));
-    ret->mkItem("devices", false, getDeviceDescription());
-    ret->mkItem("persons", true,
+    ret->mkItem(TL("devices"), false, getDeviceDescription());
+    ret->mkItem(TL("persons"), true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getPersonNumber));
-    ret->mkItem("containers", true,
+    ret->mkItem(TL("containers"), true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
-    ret->mkItem("lcState right", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateRight));
-    ret->mkItem("lcState left", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateLeft));
+    ret->mkItem(TL("lcState right"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateRight));
+    ret->mkItem(TL("lcState left"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateLeft));
     // close building
     if (MSGlobals::gLateralResolution > 0) {
-        ret->mkItem("lcState center", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateCenter));
-        ret->mkItem("right side on edge [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getRightSideOnEdge2));
-        ret->mkItem("left side on edge [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getLeftSideOnEdge));
-        ret->mkItem("rightmost edge sublane [#]", true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getRightSublaneOnEdge));
-        ret->mkItem("leftmost edge sublane [#]", true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getLeftSublaneOnEdge));
-        ret->mkItem("lane change maneuver distance [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getManeuverDist));
+        ret->mkItem(TL("lcState center"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateCenter));
+        ret->mkItem(TL("right side on edge [m]"), true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getRightSideOnEdge2));
+        ret->mkItem(TL("left side on edge [m]"), true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getLeftSideOnEdge));
+        ret->mkItem(TL("rightmost edge sublane [#]"), true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getRightSublaneOnEdge));
+        ret->mkItem(TL("leftmost edge sublane [#]"), true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getLeftSublaneOnEdge));
+        ret->mkItem(TL("lane change maneuver distance [m]"), true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getManeuverDist));
+    }
+    if (hasBattery || isElecHybrid) {
+        ret->mkItem(TL("present state of charge [Wh]"), true,
+            new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getStateOfCharge));
+    }
+    if (hasBattery) {
+        ret->mkItem(TL("relative state of charge (SoC) [-]"), true,
+            new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getRelativeStateOfCharge));
+        ret->mkItem(TL("currently charging [Wh]"), true,
+            new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getChargedEnergy));
     }
     if (isElecHybrid) {
-        ret->mkItem("actual state of charge [Wh]", true,
-                    new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getStateOfCharge));
-        ret->mkItem("actual electric current [A]", true,
+        ret->mkItem(TL("present electric current [A]"), true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getElecHybridCurrent));
     }
     if (hasInfluencer()) {
         if (getInfluencer().getSpeedMode() != SPEEDMODE_DEFAULT) {
-            ret->mkItem("speed mode", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getSpeedMode));
+            ret->mkItem(TL("speed mode"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getSpeedMode));
         }
         if (getInfluencer().getLaneChangeMode() != LANECHANGEMODE_DEFAULT) {
-            ret->mkItem("lane change mode", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLaneChangeMode));
+            ret->mkItem(TL("lane change mode"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLaneChangeMode));
         }
     }
     ret->closeBuilding(&getParameter());
@@ -207,38 +218,38 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, "vType:" + myType->getID());
-    ret->mkItem("length [m]", false, myType->getLength());
-    ret->mkItem("width [m]", false, myType->getWidth());
-    ret->mkItem("height [m]", false, myType->getHeight());
-    ret->mkItem("minGap [m]", false, myType->getMinGap());
-    ret->mkItem("vehicle class", false, SumoVehicleClassStrings.getString(myType->getVehicleClass()));
-    ret->mkItem("emission class", false, PollutantsInterface::getName(myType->getEmissionClass()));
-    ret->mkItem("mass [kg]", false, myType->getMass());
-    ret->mkItem("carFollowModel", false, SUMOXMLDefinitions::CarFollowModels.getString((SumoXMLTag)getCarFollowModel().getModelID()));
-    ret->mkItem("laneChangeModel", false, SUMOXMLDefinitions::LaneChangeModels.getString(getLaneChangeModel().getModelID()));
-    ret->mkItem("guiShape", false, getVehicleShapeName(myType->getGuiShape()));
-    ret->mkItem("maximum speed [m/s]", false, getVehicleType().getMaxSpeed());
-    ret->mkItem("desired maximum speed [m/s]", false, getVehicleType().getDesiredMaxSpeed());
-    ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
-    ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
-    ret->mkItem("emergency deceleration [m/s^2]", false, getCarFollowModel().getEmergencyDecel());
-    ret->mkItem("apparent deceleration [m/s^2]", false, getCarFollowModel().getApparentDecel());
-    ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
-    ret->mkItem("desired headway (tau) [s]", false, getCarFollowModel().getHeadwayTime());
-    ret->mkItem("speedFactor", false, myType->getParameter().speedFactor.toStr(gPrecision));
+    ret->mkItem(TL("length [m]"), false, myType->getLength());
+    ret->mkItem(TL("width [m]"), false, myType->getWidth());
+    ret->mkItem(TL("height [m]"), false, myType->getHeight());
+    ret->mkItem(TL("minGap [m]"), false, myType->getMinGap());
+    ret->mkItem(TL("vehicle class"), false, SumoVehicleClassStrings.getString(myType->getVehicleClass()));
+    ret->mkItem(TL("emission class"), false, PollutantsInterface::getName(myType->getEmissionClass()));
+    ret->mkItem(TL("mass [kg]"), false, myType->getMass());
+    ret->mkItem(TL("car-following model"), false, SUMOXMLDefinitions::CarFollowModels.getString((SumoXMLTag)getCarFollowModel().getModelID()));
+    ret->mkItem(TL("lane-change model"), false, SUMOXMLDefinitions::LaneChangeModels.getString(getLaneChangeModel().getModelID()));
+    ret->mkItem(TL("guiShape"), false, getVehicleShapeName(myType->getGuiShape()));
+    ret->mkItem(TL("maximum speed [m/s]"), false, getVehicleType().getMaxSpeed());
+    ret->mkItem(TL("desired maximum speed [m/s]"), false, getVehicleType().getDesiredMaxSpeed());
+    ret->mkItem(TL("maximum acceleration [m/s^2]"), false, getCarFollowModel().getMaxAccel());
+    ret->mkItem(TL("maximum deceleration [m/s^2]"), false, getCarFollowModel().getMaxDecel());
+    ret->mkItem(TL("emergency deceleration [m/s^2]"), false, getCarFollowModel().getEmergencyDecel());
+    ret->mkItem(TL("apparent deceleration [m/s^2]"), false, getCarFollowModel().getApparentDecel());
+    ret->mkItem(TL("imperfection (sigma)"), false, getCarFollowModel().getImperfection());
+    ret->mkItem(TL("desired headway (tau) [s]"), false, getCarFollowModel().getHeadwayTime());
+    ret->mkItem(TL("speedfactor"), false, myType->getParameter().speedFactor.toStr(gPrecision));
     if (myType->getParameter().wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
-        ret->mkItem("action step length [s]", false, myType->getActionStepLengthSecs());
+        ret->mkItem(TL("action step length [s]"), false, myType->getActionStepLengthSecs());
     }
-    ret->mkItem("person capacity", false, myType->getPersonCapacity());
-    ret->mkItem("boarding time [s]", false, STEPS2TIME(myType->getLoadingDuration(true)));
-    ret->mkItem("container capacity", false, myType->getContainerCapacity());
-    ret->mkItem("loading time [s]", false, STEPS2TIME(myType->getLoadingDuration(false)));
+    ret->mkItem(TL("person capacity"), false, myType->getPersonCapacity());
+    ret->mkItem(TL("boarding time [s]"), false, STEPS2TIME(myType->getLoadingDuration(true)));
+    ret->mkItem(TL("container capacity"), false, myType->getContainerCapacity());
+    ret->mkItem(TL("loading time [s]"), false, STEPS2TIME(myType->getLoadingDuration(false)));
     if (MSGlobals::gLateralResolution > 0) {
-        ret->mkItem("minGapLat [m]", false, myType->getMinGapLat());
-        ret->mkItem("maxSpeedLat [m/s]", false, myType->getMaxSpeedLat());
-        ret->mkItem("latAlignment", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getDynamicAlignment));
+        ret->mkItem(TL("minGapLat [m]"), false, myType->getMinGapLat());
+        ret->mkItem(TL("maxSpeedLat [m/s]"), false, myType->getMaxSpeedLat());
+        ret->mkItem(TL("latAlignment"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getDynamicAlignment));
     } else if (MSGlobals::gLaneChangeDuration > 0) {
-        ret->mkItem("maxSpeedLat [m/s]", false, myType->getMaxSpeedLat());
+        ret->mkItem(TL("maxSpeedLat [m/s]"), false, myType->getMaxSpeedLat());
     }
     for (auto item : myType->getParameter().lcParameter) {
         ret->mkItem(toString(item.first).c_str(), false, toString(item.second));
@@ -247,7 +258,7 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
         ret->mkItem(toString(item.first).c_str(), false, toString(item.second));
     }
     if (MSGlobals::gModelParkingManoeuver) {
-        ret->mkItem("manoeuver Angle vs Times", false, myType->getParameter().getManoeuverAngleTimesS());
+        ret->mkItem(TL("manoeuver Angle vs Times"), false, myType->getParameter().getManoeuverAngleTimesS());
     }
     ret->closeBuilding(&(myType->getParameter()));
     return ret;
@@ -640,14 +651,18 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
         case 27:
             return getEmissions<PollutantsInterface::ELEC>();
         case 28:
-            return getTimeLossSeconds();
+            return getRelativeStateOfCharge();
         case 29:
-            return getStopDelay();
+            return getChargedEnergy();
         case 30:
-            return getStopArrivalDelay();
+            return getTimeLossSeconds();
         case 31:
+            return getStopDelay();
+        case 32:
+            return getStopArrivalDelay();
+        case 33:
             return getLaneChangeModel().getSpeedLat();
-        case 32: // by numerical param value
+        case 34: // by numerical param value
             std::string error;
             std::string val = getPrefixedParameter(s.vehicleParam, error);
             try {

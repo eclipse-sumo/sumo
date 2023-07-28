@@ -79,6 +79,13 @@ GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotat
 
 void
 GNEDemandElementFlow::writeFlowAttributes(const GNEDemandElement* flowElement, OutputDevice& device) const {
+    // get xph attribute
+    SumoXMLAttr xph = SUMO_ATTR_VEHSPERHOUR;
+    if (flowElement->getTagProperty().isPerson()) {
+        xph = SUMO_ATTR_PERSONSPERHOUR;
+    } else if (flowElement->getTagProperty().isContainer()) {
+        xph = SUMO_ATTR_CONTAINERSPERHOUR;
+    }
     // first check that we're writting a flow
     if (flowElement->getTagProperty().isFlow()) {
         // write routeFlow values depending if it was set
@@ -88,8 +95,8 @@ GNEDemandElementFlow::writeFlowAttributes(const GNEDemandElement* flowElement, O
         if (isFlowAttributeEnabled(SUMO_ATTR_NUMBER)) {
             device.writeAttr(SUMO_ATTR_NUMBER, getFlowAttribute(SUMO_ATTR_NUMBER));
         }
-        if (isFlowAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
-            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, getFlowAttribute(SUMO_ATTR_VEHSPERHOUR));
+        if (isFlowAttributeEnabled(xph)) {
+            device.writeAttr(xph, getFlowAttribute(xph));
         }
         if (isFlowAttributeEnabled(SUMO_ATTR_PERIOD)) {
             device.writeAttr(SUMO_ATTR_PERIOD, getFlowAttribute(SUMO_ATTR_PERIOD));
@@ -381,30 +388,29 @@ void
 GNEDemandElementFlow::setDefaultFlowAttributes(const GNETagProperties& tagProperty) {
     // first check that this demand element is a flow
     if (tagProperty.isFlow()) {
-        // set default end
+        // end
         if ((parametersSet & VEHPARS_END_SET) == 0) {
             setFlowAttribute(SUMO_ATTR_END, tagProperty.getDefaultValue(SUMO_ATTR_END));
         }
-        // set number
+        // number
         if ((parametersSet & VEHPARS_NUMBER_SET) == 0) {
             setFlowAttribute(SUMO_ATTR_NUMBER, tagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
         }
-        // now continue depending of repetition (negative repetitionOffset means poisson, positive means period)
-        if (repetitionOffset < 0) {
-            toggleFlowAttribute(SUMO_ATTR_VEHSPERHOUR, false);
-            toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
-            toggleFlowAttribute(SUMO_ATTR_PROB, false);
-            toggleFlowAttribute(GNE_ATTR_POISSON, true);
-            // change offset sign
-            setFlowAttribute(GNE_ATTR_POISSON, time2string(repetitionOffset * -1));
-        } else if (((parametersSet & VEHPARS_PERIOD_SET) == 0) &&
-            ((parametersSet & GNE_ATTR_POISSON) == 0) &&
-            ((parametersSet & VEHPARS_VPH_SET) == 0)) {
+        // vehicles/person/container per hour
+        if (((parametersSet & VEHPARS_PERIOD_SET) == 0) &&
+                ((parametersSet & VEHPARS_POISSON_SET) == 0) &&
+                ((parametersSet & VEHPARS_VPH_SET) == 0)) {
             setFlowAttribute(SUMO_ATTR_PERIOD, tagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
         }
         // probability
         if ((parametersSet & VEHPARS_PROB_SET) == 0) {
             setFlowAttribute(SUMO_ATTR_PROB, tagProperty.getDefaultValue(SUMO_ATTR_PROB));
+        }
+        // poisson
+        if (repetitionOffset < 0) {
+            toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
+            toggleFlowAttribute(GNE_ATTR_POISSON, true);
+            setFlowAttribute(GNE_ATTR_POISSON, time2string(repetitionOffset * -1, false));
         }
     }
 }

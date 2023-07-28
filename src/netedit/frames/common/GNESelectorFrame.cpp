@@ -106,6 +106,9 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel("TAZSinks", ACs->getNumberOfSelectedTAZSinks());
         updateInformationLabel("Polygon", ACs->getNumberOfSelectedPolygons());
         updateInformationLabel("POIs", ACs->getNumberOfSelectedPOIs());
+        updateInformationLabel("WalkableArea", ACs->getNumberOfSelectedWalkableAreas());
+        updateInformationLabel("Obstacle", ACs->getNumberOfSelectedObstacles());
+        updateInformationLabel("POIWaypoints", ACs->getNumberOfSelectedPOIWaypoints());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         updateInformationLabel("Routes", ACs->getNumberOfSelectedRoutes());
         updateInformationLabel("Vehicles", ACs->getNumberOfSelectedVehicles());

@@ -47,8 +47,7 @@ netedit.leftClick(referencePosition, 359, 120)
 netedit.leftClick(referencePosition, 496, 117)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

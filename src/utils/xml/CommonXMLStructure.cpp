@@ -75,6 +75,7 @@ CommonXMLStructure::SumoBaseObject::clear() {
     myTimeAttributes.clear();
     myColorAttributes.clear();
     myStringListAttributes.clear();
+    myDoubleListAttributes.clear();
     myPositionVectorAttributes.clear();
     myParameters.clear();
     mySumoBaseObjectChildren.clear();
@@ -132,6 +133,9 @@ CommonXMLStructure::SumoBaseObject::getAllAttributes() const {
         result[toString(attr.first)] = toString(attr.second);
     }
     for (const auto& attr : myStringListAttributes) {
+        result[toString(attr.first)] = toString(attr.second);
+    }
+    for (const auto& attr : myDoubleListAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
     for (const auto& attr : myPositionVectorAttributes) {
@@ -246,6 +250,17 @@ CommonXMLStructure::SumoBaseObject::getStringListAttribute(const SumoXMLAttr att
 }
 
 
+const std::vector<double>&
+CommonXMLStructure::SumoBaseObject::getDoubleListAttribute(const SumoXMLAttr attr) const {
+    if (hasDoubleListAttribute(attr)) {
+        return myDoubleListAttributes.at(attr);
+    } else {
+        handleAttributeError(attr, "double list");
+        throw ProcessError();
+    }
+}
+
+
 const PositionVector&
 CommonXMLStructure::SumoBaseObject::getPositionVectorAttribute(const SumoXMLAttr attr) const {
     if (hasPositionVectorAttribute(attr)) {
@@ -355,6 +370,12 @@ CommonXMLStructure::SumoBaseObject::hasStringListAttribute(const SumoXMLAttr att
 
 
 bool
+CommonXMLStructure::SumoBaseObject::hasDoubleListAttribute(const SumoXMLAttr attr) const {
+    return myDoubleListAttributes.count(attr) > 0;
+}
+
+
+bool
 CommonXMLStructure::SumoBaseObject::hasPositionVectorAttribute(const SumoXMLAttr attr) const {
     return myPositionVectorAttributes.count(attr) > 0;
 }
@@ -405,6 +426,12 @@ CommonXMLStructure::SumoBaseObject::addColorAttribute(const SumoXMLAttr attr, co
 void
 CommonXMLStructure::SumoBaseObject::addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string>& value) {
     myStringListAttributes[attr] = value;
+}
+
+
+void
+CommonXMLStructure::SumoBaseObject::addDoubleListAttribute(const SumoXMLAttr attr, const std::vector<double>& value) {
+    myDoubleListAttributes[attr] = value;
 }
 
 

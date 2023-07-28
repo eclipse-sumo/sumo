@@ -53,8 +53,7 @@ netedit.changeDefaultValue(netedit.attrs.POI.create.layer, "6.5")
 netedit.leftClick(referencePosition, 383, 117)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

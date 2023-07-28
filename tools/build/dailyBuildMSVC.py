@@ -112,7 +112,7 @@ def generateCMake(generator, platform, checkOptionalLibs, python):
             shutil.rmtree(buildDir)
         os.makedirs(buildDir)
     except Exception as e:
-        status.printLog("Error occured on build dir cleanup: %s." % e)
+        status.printLog("Error occurred on build dir cleanup: %s." % e)
     status.printLog("Creating solution for %s." % generator)
     status.log_subprocess(["cmake", "../..", "-G", generator, "-A", platform] + cmakeOpt, cwd=buildDir)
     return buildDir

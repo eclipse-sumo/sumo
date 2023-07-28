@@ -419,6 +419,12 @@ enum SumoXMLTag {
     GNE_TAG_POILANE,
     /// @brief Point of interest over view with GEO attributes
     GNE_TAG_POIGEO,
+    /// @brief polygon used for draw walkable areas (used in JuPedSim)
+    GNE_TAG_WALKABLEAREA,
+    /// @brief polygon used for draw obstacles (used in JuPedSim)
+    GNE_TAG_OBSTACLE,
+    /// @brief POI used in walkable areas (used in JuPedSim)
+    GNE_TAG_POIWAYPOINT,
     /// @brief Rerouter Symbol
     GNE_TAG_REROUTER_SYMBOL,
     /// @brief VSS Symbol
@@ -1422,9 +1428,13 @@ enum SumoXMLAttr {
     GNE_ATTR_STOPOFFSET,
     /// @brief stop exceptions (virtual, used by edge and lanes)
     GNE_ATTR_STOPOEXCEPTION,
+    /// @brief route distribution
+    GNE_ATTR_ROUTE_DISTRIBUTION,
+    /// @brief route distribution probability
+    GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY,
     /// @brief vehicle type distribution
     GNE_ATTR_VTYPE_DISTRIBUTION,
-    /// @brief vehicle type distribution
+    /// @brief vehicle type distribution probability
     GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY,
     /// @brief poisson definition (used in flow)
     GNE_ATTR_POISSON,
@@ -1803,6 +1813,8 @@ enum class TrainType {
     REDOSTO7,
     FREIGHT,
     ICE3,
+    MIREOPLUSB,
+    MIREOPLUSH,
     UNKNOWN
 };
 

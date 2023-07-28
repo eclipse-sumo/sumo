@@ -30,10 +30,20 @@ theme:
 plugins:
   - git-revision-date:
       as_datetime: true
+  - unused_files:
+      dir: images
+      excluded_files:
+        - apple-touch-icon.png
+        - favicon.ico
+        - image-facebook.jpg
+        - mkdocs-grid.png
+        - sumo-logo.png
+        - sumo-logo.svg
   - macros
-  #- redirects:
-      #redirect_maps:
-          #"Z/index.md" : "ChangeLog.md"
+  - redirects:
+      redirect_maps:
+          "ChangeLog/index.md" : "ChangeLog.md"
+          "Contact.md" : "https://eclipse.dev/sumo/contact/"
 
 markdown_extensions:
   - attr_list

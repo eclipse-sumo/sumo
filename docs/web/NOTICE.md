@@ -36,6 +36,12 @@ This Documentation leverages the following third party content:
 * Project: https://pypi.org/project/mkdocs-redirects/
 * Source: https://github.com/mkdocs/mkdocs-redirects
 
+### mkdocs-unused-files
+* Author: Lars Wilhelmer
+* License: MIT License
+* Project: https://pypi.org/project/mkdocs-unused-files/
+* Source: https://github.com/wilhelmer/mkdocs-unused-files
+
 ### mdx_truly_sane_lists
 * Author: @radude
 * License: MIT License

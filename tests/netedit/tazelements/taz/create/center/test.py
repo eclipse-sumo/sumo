@@ -44,8 +44,7 @@ netedit.changeDefaultValue(netedit.attrs.TAZ.create.center, "20,30")
 netedit.createSquaredTAZ(referencePosition, 567, 120, 200, True)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save TAZs
 # save Netedit config

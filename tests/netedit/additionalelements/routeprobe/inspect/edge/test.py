@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.edge, "dummyEdge", Fals
 netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.edge, "bot", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

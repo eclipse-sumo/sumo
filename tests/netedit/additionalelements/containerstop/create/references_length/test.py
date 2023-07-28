@@ -65,8 +65,7 @@ netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "refer
 netedit.leftClick(referencePosition, 496, 257)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

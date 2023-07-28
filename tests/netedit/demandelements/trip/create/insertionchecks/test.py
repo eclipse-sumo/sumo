@@ -41,8 +41,8 @@ netedit.vehicleMode()
 netedit.changeDefaultValue(netedit.attrs.trip.create.insertionChecks, "dummy")
 
 # try to create trip
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -51,15 +51,14 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.trip.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
 
 # create trip
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create trip
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

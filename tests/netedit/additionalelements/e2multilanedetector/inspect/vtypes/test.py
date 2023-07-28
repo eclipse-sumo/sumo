@@ -55,8 +55,7 @@ netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.vTypes, "Type%%%%%1 T;
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.vTypes, "Type1 Type2 Type3", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

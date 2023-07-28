@@ -44,8 +44,7 @@ netedit.changeElement("access")
 netedit.leftClick(referencePosition, 152, 95)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

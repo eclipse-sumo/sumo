@@ -1757,10 +1757,8 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             NBEdge* const cur = open.back();
             const SVCPermissions pCur = conPermissions.count({e, cur}) == 0 ? cur->getPermissions() : conPermissions[ {e, cur}];
 #ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
-            if (e->getID() == "625058945") {
-                std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " pCur=" << getVehicleClassNames(cur->getPermissions()) << " open=" << toString(open) << "\n";
-                std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " pCur=" << getVehicleClassNames(pCur) << " open=" << toString(open) << "\n";
-            }
+            std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " open=" << toString(open) << "\n";
+            std::cout << "e=" << e->getID() << " cur=" << cur->getID() << " open=" << toString(open) << "\n";
 #endif
             seen.insert(cur);
             open.pop_back();
@@ -1779,9 +1777,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                                 open.push_back(out);
                                 conPermissions[ {e, out}] |= p;
 #ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
-                                if (e->getID() == "625058945") {
-                                    std::cout << "  e=" << e->getID() << " out=" << out->getID() << " pOut=" << getVehicleClassNames(out->getPermissions()) << "\n    p=" << getVehicleClassNames(p) << "\n    q=" << getVehicleClassNames(conPermissions[ {e, out}]) << "\n";
-                                }
+                                std::cout << "  e=" << e->getID() << " out=" << out->getID() << " pOut=" << getVehicleClassNames(out->getPermissions()) << "\n    p=" << getVehicleClassNames(p) << "\n    q=" << getVehicleClassNames(conPermissions[ {e, out}]) << "\n";
 #endif
                             }
                         }
@@ -1808,14 +1804,16 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
         for (NBEdge* reached : seen) {
             // filter out inside edges from reached
             if (inside.count(reached) == 0) {
+                if (e->getStep() > NBEdge::EdgeBuildingStep::INIT && reached->getFromNode() == e->getToNode() && !e->isConnectedTo(reached)) {
+                    // also filter out edges that are outgoing of the to-node of edge but aren't currently connected
+                    continue;
+                }
                 reachable[e].insert(reached);
                 const SVCPermissions pDefault = e->getPermissions() & reached->getPermissions();
                 if (conPermissions[ {e, reached}] != pDefault) {
                     specialPermissions.insert(e);
 #ifdef DEBUG_JOINJUNCTIONS_CONNECTIONS
-                    if (e->getID() == "625058945") {
-                        std::cout << "e=" << e->getID() << " out=" << reached->getID() << " special=" << getVehicleClassNames(conPermissions[ {e, reached}]) << "\n";
-                    }
+                    std::cout << "e=" << e->getID() << " out=" << reached->getID() << " special=" << getVehicleClassNames(conPermissions[ {e, reached}]) << "\n";
 #endif
                 }
             }
@@ -1841,7 +1839,6 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
 
     // remap edges which are incoming / outgoing
     for (NBEdge* e : allEdges) {
-        std::vector<NBEdge::Connection> conns = e->getConnections();
         const bool outgoing = cluster.count(e->getFromNode()) > 0;
         NBNode* from = outgoing ? newNode : e->getFromNode();
         NBNode* to   = outgoing ? e->getToNode() : newNode;
@@ -1863,7 +1860,12 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
         e->reinitNodes(from, to);
         // re-add connections which previously existed and may still valid.
         // connections to removed edges will be ignored
+        std::vector<NBEdge::Connection> conns = e->getConnections();
         for (std::vector<NBEdge::Connection>::iterator k = conns.begin(); k != conns.end(); ++k) {
+            if ((*k).toEdge == nullptr) {
+                // edge explicitly set to have no connections
+                continue;
+            }
             e->addLane2LaneConnection((*k).fromLane, (*k).toEdge, (*k).toLane, NBEdge::Lane2LaneInfoType::USER, false, (*k).mayDefinitelyPass);
             if ((*k).fromLane >= 0 && (*k).fromLane < e->getNumLanes() && e->getLaneStruct((*k).fromLane).connectionsDone) {
                 // @note (see NIImporter_DlrNavteq::ConnectedLanesHandler)
@@ -2346,6 +2348,11 @@ NBNodeCont::computeKeepClear() {
 void
 NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
     const std::vector<std::string> excludeList = OptionsCont::getOptions().getStringVector("tls.join-exclude");
+    for (const std::string& tlsID : excludeList) {
+        if (!tlc.exist(tlsID, false)) {
+            WRITE_WARNINGF("Unknown tls ID '%' in option tls.join-exclude", tlsID);
+        }
+    }
     std::set<std::string> exclude(excludeList.begin(), excludeList.end());
     NodeClusters cands;
     generateNodeClusters(maxdist, cands);

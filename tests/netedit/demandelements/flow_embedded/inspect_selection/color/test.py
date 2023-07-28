@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x, netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.flowEmbedded.inspectSelection.colorButton, 5, False)
@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.color, "cyan
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.color, "12,13,14", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

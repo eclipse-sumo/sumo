@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.angle, "500", Fals
 netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.angle, "30", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

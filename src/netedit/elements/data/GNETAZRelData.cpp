@@ -173,7 +173,7 @@ GNETAZRelData::updateGeometry() {
         ringCenter.add(TAZA->getAttributePosition(SUMO_ATTR_CENTER));
         myTAZRelGeometryCenter.updateGeometry(ringCenter);
     } else {
-        // calculate line betwen to TAZ centers
+        // calculate line between to TAZ centers
         PositionVector line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER), TAZB->getAttributePosition(SUMO_ATTR_CENTER)};
         // check line
         if (line.length() < 1) {

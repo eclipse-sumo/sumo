@@ -527,7 +527,7 @@ if __name__ == '__main__':
     op = sumolib.options.ArgumentParser(
         description='TLS conversion utility (VISSIM.inpx to SUMO)')
     op.add_argument('--vissim-input', '-V',
-                    type=str, category="input", required=True, type=op.file,
+                    category="input", required=True, type=op.file,
                     help='VISSIM inpx file path')
     op.add_argument('--SUMO-net', '-S',
                     category="input", required=True, type=op.net_file,

@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.imgFile, "paris.ic
 netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.imgFile, "berlin_icon.ico", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -58,20 +58,11 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
     // Check if vehicle should get a battery
     if (sf != nullptr || equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "battery", v, false)) {
         const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
-        // obtain maximumBatteryCapacity
-        const double maximumBatteryCapacity = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY), DEFAULT_MAX_CAPACITY);
-
-        // obtain actualBatteryCapacity
-        double actualBatteryCapacity = 0;
-        if (v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "-") == "-") {
-            actualBatteryCapacity = typeParams.getDouble(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY),
-                                    maximumBatteryCapacity * DEFAULT_CHARGE_RATIO);
-        } else {
-            actualBatteryCapacity = StringUtils::toDouble(v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "0"));
-        }
-
-        const double powerMax = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMPOWER), 150000.);
-        const double stoppingThreshold = typeParams.getDouble(toString(SUMO_ATTR_STOPPINGTHRESHOLD), 0.1);
+        // obtain parameter values
+        const double maximumBatteryCapacity = readParameterValue(v, SUMO_ATTR_MAXIMUMBATTERYCAPACITY, DEFAULT_MAX_CAPACITY);
+        const double actualBatteryCapacity = readParameterValue(v, SUMO_ATTR_ACTUALBATTERYCAPACITY, maximumBatteryCapacity * DEFAULT_CHARGE_RATIO);
+        const double powerMax = readParameterValue(v, SUMO_ATTR_MAXIMUMPOWER, 150000.);
+        const double stoppingThreshold = readParameterValue(v, SUMO_ATTR_STOPPINGTHRESHOLD, 0.1);
 
         // battery constructor
         MSDevice_Battery* device = new MSDevice_Battery(v, "battery_" + v.getID(),
@@ -83,6 +74,17 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         if (sf != nullptr) {
             sf->setBattery(device);
         }
+    }
+}
+
+
+double
+MSDevice_Battery::readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, double defaultVal) {
+    const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
+    if (v.getParameter().getParameter(toString(attr), "-") == "-") {
+        return typeParams.getDouble(toString(attr), defaultVal);
+    } else {
+        return StringUtils::toDouble(v.getParameter().getParameter(toString(attr), "0"));
     }
 }
 

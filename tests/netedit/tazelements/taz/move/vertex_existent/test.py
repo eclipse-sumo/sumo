@@ -44,8 +44,7 @@ netedit.moveElement(referencePosition, 404, 325, 404, 462)
 netedit.moveElement(referencePosition, 613, 118, 727, 118)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save TAZs
 # save Netedit config

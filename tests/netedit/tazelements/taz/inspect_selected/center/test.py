@@ -50,8 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "dummyColor",
 netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "23,24", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save TAZs
 # save Netedit config

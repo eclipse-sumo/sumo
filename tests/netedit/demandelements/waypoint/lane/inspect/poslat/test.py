@@ -38,32 +38,31 @@ netedit.stopMode()
 netedit.changeStopType("waypointLane")
 
 # create waypoint
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect waypoint
-netedit.leftClick(referencePosition, 265, 188)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "dummy", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "-30", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "-30", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "6", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "6", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "2.3", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.posLat, "2.3", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
