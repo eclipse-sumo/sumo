@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-26 16:01+0200\n"
-"PO-Revision-Date: 2023-07-20 12:23+0000\n"
+"PO-Revision-Date: 2023-07-28 08:54+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9023,7 +9023,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:992
 msgid " (No projection defined)"
-msgstr ""
+msgstr " (Sin proyección definida)"
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:996
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:997
