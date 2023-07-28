@@ -933,8 +933,10 @@ GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer&
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
+    // get gltype
+    auto type = AC->getGUIGlObject()->getType();
     // cast specific shape
-    if (AC->getGUIGlObject()->getType() == GLO_POI) {
+    if ((type == GLO_POI) || (type == GLO_POIWAYPOINT)) {
         // cast POI
         GNEPOI* POI = dynamic_cast<GNEPOI*>(AC);
         if (POI) {
@@ -947,7 +949,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
                 container.POIs.push_back(POI);
             }
         }
-    } else if (AC->getGUIGlObject()->getType() == GLO_POLYGON) {
+    } else if ((type == GLO_POLYGON) || (type == GLO_WALKABLEAREA) || (type == GLO_OBSTACLE)) {
         // cast poly
         GNEPoly* poly = dynamic_cast<GNEPoly*>(AC);
         if (poly) {
@@ -961,8 +963,6 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
             }
         }
     }
-
-    XX;
 }
 
 
