@@ -60,7 +60,7 @@ main(int argc, char** argv) {
         GNELoadThread::fillOptions(neteditOptions);
         // set default options
         GNELoadThread::setDefaultOptions(neteditOptions);
-        // set argumentos called throught console
+        // set arguments called through console
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions(true);
         if (neteditOptions.processMetaOptions(false)) {
