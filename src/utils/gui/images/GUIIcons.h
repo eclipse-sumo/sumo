@@ -648,7 +648,7 @@ enum class GUIIcon {
     /// @brief icons for geo tools
     /// @{
     GEOHACK,
-    GOOGLESAT,
+    GOOGLEMAPS,
     OSM,
     /// @}
 
