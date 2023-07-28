@@ -85,7 +85,9 @@ GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const Posit
                       shape, false, true, 1, 
                       (tag == GNE_TAG_WALKABLEAREA)? 1 : 2,
                       0, "", false, name, parameters),
-    GNEAdditional(id, net, GLO_POLYGON, tag,
+    GNEAdditional(id, net,
+        (tag == GNE_TAG_WALKABLEAREA)? GLO_WALKABLEAREA : GLO_OBSTACLE,
+        tag,
         (tag == GNE_TAG_WALKABLEAREA)? GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA) : GUIIconSubSys::getIcon(GUIIcon::OBSTACLE), 
         "", {}, {}, {}, {}, {}, {}),
     mySimplifiedShape(false) {
@@ -348,7 +350,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                                                 s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), polyExaggeration,
                                                 myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                 // draw moving hint points
-                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON, isAttributeCarrierSelected()) && moveMode) {
+                if (!myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected()) && moveMode) {
                     GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), invertedColor,
                                                 s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 }

@@ -86,7 +86,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, double x, const double y, const std::string& name, const Parameterised::Map& parameters) :
     PointOfInterest(id, "jupedsim.waypoint", RGBColor::CYAN, Position(x, y), false, "", 0, false, 0, 2, 0, "", false, 0, 0, name, parameters),
-    GNEAdditional(id, net, GLO_POI, GNE_TAG_POIWAYPOINT, GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
+    GNEAdditional(id, net, GLO_POIWAYPOINT, GNE_TAG_POIWAYPOINT, GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
                   "", {}, {}, {}, {}, {}, {}) {
     // update geometry (needed for adjust myShapeWidth and myShapeHeight)
     updateGeometry();
