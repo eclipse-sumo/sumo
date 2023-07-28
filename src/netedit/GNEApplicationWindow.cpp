@@ -3679,7 +3679,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
             neteditOptions.resetWritable();
             neteditOptions.set("additional-files", additionalFile);
             // write info
-            WRITE_MESSAGE(TL("Loading of additional file sucessfully: ") + additionalFile);
+            WRITE_MESSAGE(TL("Loading of additional file successfully: ") + additionalFile);
             // enable save if there is errors loading additionals
             if (previouslySaved && !generalHandler.isErrorCreatingElement()) {
                 myNet->getSavingStatus()->additionalsSaved();
@@ -3874,7 +3874,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
             neteditOptions.resetWritable();
             neteditOptions.set("route-files", routeFile);
             // show info
-            WRITE_MESSAGE(TL("Loading of route file sucessfully: ") + routeFile);
+            WRITE_MESSAGE(TL("Loading of route file successfully: ") + routeFile);
             // enable demand elements if there is an error creating element
             if (previouslySaved && !handler.isErrorCreatingElement()) {
                 myNet->getSavingStatus()->demandElementsSaved();
@@ -4037,7 +4037,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
             neteditOptions.resetWritable();
             neteditOptions.set("data-files", dataFile);
             // show info
-            WRITE_MESSAGE(TL("Loading of data file sucessfully: ") + dataFile);
+            WRITE_MESSAGE(TL("Loading of data file successfully: ") + dataFile);
             // enable demand elements if there is an error creating element
             if (previouslySaved && !dataHandler.isErrorCreatingElement()) {
                 myNet->getSavingStatus()->dataElementsSaved();
@@ -4201,7 +4201,7 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
             neteditOptions.resetWritable();
             neteditOptions.set("meandata-files", meanDataFile);
             // show info
-            WRITE_MESSAGE(TL("Loading of meandata file sucessfully: ") + meanDataFile);
+            WRITE_MESSAGE(TL("Loading of meandata file successfully: ") + meanDataFile);
             // enable demand elements if there is an error creating element
             if (previouslySaved && !generalHandler.isErrorCreatingElement()) {
                 myNet->getSavingStatus()->meanDatasSaved();
@@ -4232,7 +4232,7 @@ GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
     myNet->clearMeanDataElements(myUndoList);
     // Run parser
     if (!generalHandler.parse()) {
-        WRITE_MESSAGE(TL("Loading of meandata file sucessfully: ") + meanDataFile);
+        WRITE_MESSAGE(TL("Loading of meandata file successfully: ") + meanDataFile);
     }
     // end undoList operation and update view
     myUndoList->end();

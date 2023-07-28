@@ -2604,7 +2604,7 @@ msgstr "Ek dosyası yüklenemedi: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3682
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1309
-msgid "Loading of additional file sucessfully: "
+msgid "Loading of additional file successfully: "
 msgstr "Ek dosyası başarıyla yüklendi: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3708
@@ -2644,7 +2644,7 @@ msgstr "Rota dosyası yüklenemedi: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3877
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1320
-msgid "Loading of route file sucessfully: "
+msgid "Loading of route file successfully: "
 msgstr "Rota dosyası başarıyla yüklendi: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3908
@@ -2671,7 +2671,7 @@ msgstr "Veri dosyasının yüklenmesi başarısız oldu: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4040
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1331
-msgid "Loading of data file sucessfully: "
+msgid "Loading of data file successfully: "
 msgstr "Veri dosyası başarıyla yükleniyor: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4070
@@ -2702,7 +2702,7 @@ msgstr "Ortalama Veri (meandata) dosyasının yüklenmesi başarısız: "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4204
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4235
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1342
-msgid "Loading of meandata file sucessfully: "
+msgid "Loading of meandata file successfully: "
 msgstr "Ortalama Veri (meandata) dosyası başarıyla yükleniyor: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4230
@@ -13627,7 +13627,7 @@ msgid "Loading of shape file failed: "
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
-msgid "Loading of shape file sucessfully: "
+msgid "Loading of shape file successfully: "
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:43

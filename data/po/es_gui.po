@@ -3558,7 +3558,7 @@ msgstr "La carga de elementos adicionales falló: "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3616
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3616
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1309
-msgid "Loading of additional file sucessfully: "
+msgid "Loading of additional file successfully: "
 msgstr "Elementos adicionales cargados con éxito: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3708
@@ -3618,7 +3618,7 @@ msgstr "Fallo en la carga de archivo de rutas: "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3779
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3779
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1320
-msgid "Loading of route file sucessfully: "
+msgid "Loading of route file successfully: "
 msgstr "Elementos de ruta cargados con éxito: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3908
@@ -3661,7 +3661,7 @@ msgstr "La carga de elementos de datos falló: "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3942
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3942
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1331
-msgid "Loading of data file sucessfully: "
+msgid "Loading of data file successfully: "
 msgstr "Elementos de datos cargados con éxito: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4070
@@ -3710,7 +3710,7 @@ msgstr "La carga de meanDatas falló: "
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4106
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4137
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1342
-msgid "Loading of meandata file sucessfully: "
+msgid "Loading of meandata file successfully: "
 msgstr "MeanDatas cargados con éxito: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4230
@@ -18118,7 +18118,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
-msgid "Loading of shape file sucessfully: "
+msgid "Loading of shape file successfully: "
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:43

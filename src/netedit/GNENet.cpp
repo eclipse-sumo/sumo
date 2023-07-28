@@ -1306,7 +1306,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         if (!generalHandler.parse()) {
             WRITE_ERROR(TL("Loading of additional file failed: ") + OptionsCont::getOptions().getString("additional-files"));
         } else {
-            WRITE_MESSAGE(TL("Loading of additional file sucessfully: ") + OptionsCont::getOptions().getString("additional-files"));
+            WRITE_MESSAGE(TL("Loading of additional file successfully: ") + OptionsCont::getOptions().getString("additional-files"));
         }
     }
     // load demand elements if was recomputed with volatile options
@@ -1317,7 +1317,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         if (!generalHandler.parse()) {
             WRITE_ERROR(TL("Loading of route file failed: ") + OptionsCont::getOptions().getString("route-files"));
         } else {
-            WRITE_MESSAGE(TL("Loading of route file sucessfully: ") + OptionsCont::getOptions().getString("route-files"));
+            WRITE_MESSAGE(TL("Loading of route file successfully: ") + OptionsCont::getOptions().getString("route-files"));
         }
     }
     // load datas if was recomputed with volatile options
@@ -1328,7 +1328,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         if (!dataHandler.parse()) {
             WRITE_ERROR(TL("Loading of data file failed: ") + OptionsCont::getOptions().getString("data-files"));
         } else {
-            WRITE_MESSAGE(TL("Loading of data file sucessfully: ") + OptionsCont::getOptions().getString("data-files"));
+            WRITE_MESSAGE(TL("Loading of data file successfully: ") + OptionsCont::getOptions().getString("data-files"));
         }
     }
     // load meanDatas if was recomputed with volatile options
@@ -1339,7 +1339,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         if (!generalHandler.parse()) {
             WRITE_ERROR(TL("Loading of meandata file failed: ") + OptionsCont::getOptions().getString("meandata-files"));
         } else {
-            WRITE_MESSAGE(TL("Loading of meandata file sucessfully: ") + OptionsCont::getOptions().getString("meandata-files"));
+            WRITE_MESSAGE(TL("Loading of meandata file successfully: ") + OptionsCont::getOptions().getString("meandata-files"));
         }
     }
     // clear myEdgesAndNumberOfLanes after reload additionals

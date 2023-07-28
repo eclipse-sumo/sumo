@@ -1479,8 +1479,8 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             oncomingSpeed = MAX2(oncomingSpeed, oncomingSpeed2);
             if (!isOpposite && surplusGap >= 0 && oncoming.first != nullptr && oncoming.first->isStopped()
                     && oncomingOpposite.second > oncoming.second) {
-                // even if ego can change back and forth sucessfully, we have to
-                // make sure that the oncoming vehicle can also finsih it's lane
+                // even if ego can change back and forth successfully, we have to
+                // make sure that the oncoming vehicle can also finish it's lane
                 // change in time
                 const double oSpeed = MAX2(oncomingOpposite.first->getSpeed(), NUMERICAL_EPS);
                 // conservative estimate

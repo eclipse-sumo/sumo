@@ -3575,7 +3575,7 @@ msgstr "Caricamento del file di elementi addizionali fallito: "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3616
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3616
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1309
-msgid "Loading of additional file sucessfully: "
+msgid "Loading of additional file successfully: "
 msgstr "File di elementi caricato con successo: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3708
@@ -3635,7 +3635,7 @@ msgstr "Caricamento del file di itinerari fallito: "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3779
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3779
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1320
-msgid "Loading of route file sucessfully: "
+msgid "Loading of route file successfully: "
 msgstr "File di itinerari caricato con successo: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3908
@@ -3678,7 +3678,7 @@ msgstr "Caricamento del file di dati fallito: "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3942
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3942
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1331
-msgid "Loading of data file sucessfully: "
+msgid "Loading of data file successfully: "
 msgstr "File di dati caricato con successo: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4070
@@ -3727,7 +3727,7 @@ msgstr "Caricamento del file meanData fallito: "
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4106
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4137
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1342
-msgid "Loading of meandata file sucessfully: "
+msgid "Loading of meandata file successfully: "
 msgstr "File meanData caricato con successo: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4230
@@ -19250,7 +19250,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
-msgid "Loading of shape file sucessfully: "
+msgid "Loading of shape file successfully: "
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:43

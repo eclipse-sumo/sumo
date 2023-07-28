@@ -3563,7 +3563,7 @@ msgstr "Laden weiterer Daten aus der folgenden Datei fehlgeschlagen: "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3616
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3616
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1309
-msgid "Loading of additional file sucessfully: "
+msgid "Loading of additional file successfully: "
 msgstr "Weitere Daten erfolgreich aus der folgenden Datei geladen: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3708
@@ -3624,7 +3624,7 @@ msgstr "Laden der folgenden Route-Datei fehlgeschlagen: "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3779
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3779
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1320
-msgid "Loading of route file sucessfully: "
+msgid "Loading of route file successfully: "
 msgstr "Folgende Route-Datei wurde erfolgreich geladen: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3908
@@ -3667,7 +3667,7 @@ msgstr "Laden der Datendatei ist fehlgeschlagen: "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3942
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3942
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1331
-msgid "Loading of data file sucessfully: "
+msgid "Loading of data file successfully: "
 msgstr "Laden der Datendatei war erfolgreich: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4070
@@ -3716,7 +3716,7 @@ msgstr "Laden der folgenden meanData-Datei fehlgeschlagen: "
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4106
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4137
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1342
-msgid "Loading of meandata file sucessfully: "
+msgid "Loading of meandata file successfully: "
 msgstr "Nachfolgende MeanData-Datei wurde erfolgreich geladen: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4230
@@ -18439,7 +18439,7 @@ msgstr "Laden der Shape-Datei fehlgeschlagen: "
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
 #: D:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
-msgid "Loading of shape file sucessfully: "
+msgid "Loading of shape file successfully: "
 msgstr "Shape-Datei erfolgreich geladen: "
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:43

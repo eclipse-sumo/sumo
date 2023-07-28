@@ -117,8 +117,8 @@ The stop flags are a bitset with the following additive components
 | value type *compound* | item number (2 or 3) | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *byte* (optional) | bool for relative lane change |
 
 Please note: 
-The duration for the lane change is the time the vehicle tries to perfom the lane change(s). If the duration is too small to perform all lane changes then the vehicle stops changing lanes after the duration. 
-After the vehicle has sucessfully performed the lane change(s) it will remain on that lane for the remainder of the duration.
+The duration for the lane change is the time the vehicle tries to perform the lane change(s). If the duration is too small to perform all lane changes then the vehicle stops changing lanes after the duration. 
+After the vehicle has successfully performed the lane change(s) it will remain on that lane for the remainder of the duration.
 
 ### slow down (0x14)
 
@@ -174,7 +174,7 @@ position that best matches the given x,y network coordinates.
 
 The arguments edgeID and lane are optional and can be set to "" and -1 respectively if not known.
 Their use is to resolve ambiguities when there are multiple roads on top of each other (i.e. at bridges) or to provide additional guidance on intersections (where internal edges overlap). 
-If the edgeID and lane are given, they are compared against the 'origID'-attribute of the road lanes (which may be set to providate a mapping to some other network such as OpenDRIVE) and if the attribute isn't set against the actual lane id.
+If the edgeID and lane are given, they are compared against the 'origID'-attribute of the road lanes (which may be set to provide a mapping to some other network such as OpenDRIVE) and if the attribute isn't set against the actual lane id.
 
 The optional keepRoute flag is a bitset that influences
 mapping as follows:
@@ -241,7 +241,7 @@ Replaces stop at the given index with a new stop. Automatically modifies the rou
 | :-------------------: | :------------------: | :-----------------: | :-----: | :-----------------: | :----------: | :---------------: | :--------: | :-----------------: | :-----------------: | :--------------------------: | :---------------------: | :----------------------------: | :------------: | :----------------------------: | :--------------: | :---: | :---: | :---: | :---: |
 | value type *compound* | item number (8 or 9) | value type *string* | Edge ID | value type *double* | end position | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *int* | stop flags (see [stop](#stop_0x12)) | value type *double* | start position | value type *double* | Until in seconds | value type *int* | nextStopIndex | value type *byte* (optional) | teleport |
 
-Inserts stop at the given index. Automatically modifies the route to accomodate the new stop
+Inserts stop at the given index. Automatically modifies the route to accommodate the new stop
 
 - For edgeID a stopping place id may be given if the flag marks this stop as stopping on busStop, parkingArea, containerStop etc.
 - if nextStopIndex is equal to the number of upcoming stops, the new stop will be added after all other stops
@@ -479,7 +479,7 @@ will be used:
 - \-6: "first"
 
 If an empty routeID is given, the vehicle will be placed on an route
-that consists of a single arbitrary edge (with suitalbe vClass
+that consists of a single arbitrary edge (with suitable vClass
 permissions). This can be used to simply the initialization of remote
 controlled vehicle (moveToXY).
 

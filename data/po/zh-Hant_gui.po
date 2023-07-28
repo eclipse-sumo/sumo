@@ -2592,7 +2592,7 @@ msgstr "載入附加檔案失敗： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3682
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1309
-msgid "Loading of additional file sucessfully: "
+msgid "Loading of additional file successfully: "
 msgstr "成功載入附加檔案： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3708
@@ -2632,7 +2632,7 @@ msgstr "載入路徑檔案失敗： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3877
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1320
-msgid "Loading of route file sucessfully: "
+msgid "Loading of route file successfully: "
 msgstr "成功載入路徑檔案： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3908
@@ -2659,7 +2659,7 @@ msgstr "載入資料檔案失敗： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4040
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1331
-msgid "Loading of data file sucessfully: "
+msgid "Loading of data file successfully: "
 msgstr "成功載入資料檔案： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4070
@@ -2690,7 +2690,7 @@ msgstr "載入meandata檔案失敗： "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4204
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4235
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1342
-msgid "Loading of meandata file sucessfully: "
+msgid "Loading of meandata file successfully: "
 msgstr "成功載入meandata檔案： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4230
@@ -13357,7 +13357,7 @@ msgid "Loading of shape file failed: "
 msgstr "載入形狀檔案失敗: "
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
-msgid "Loading of shape file sucessfully: "
+msgid "Loading of shape file successfully: "
 msgstr "成功地載入形狀檔案: "
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:43

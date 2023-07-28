@@ -181,7 +181,7 @@ GNENetDiffTool::loadShapes(const std::string& file) {
         WRITE_ERROR(TL("Loading of shape file failed: ") + file);
     } else {
         // write info
-        WRITE_MESSAGE(TL("Loading of shape file sucessfully: ") + file);
+        WRITE_MESSAGE(TL("Loading of shape file successfully: ") + file);
     }
     // end undoList operation
     undoList->end();
