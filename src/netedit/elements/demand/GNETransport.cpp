@@ -172,7 +172,7 @@ GNETransport::getColor() const {
 
 void
 GNETransport::updateGeometry() {
-    // update child demand elementss
+    // update child demand elements
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
     }

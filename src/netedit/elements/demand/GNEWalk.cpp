@@ -206,7 +206,7 @@ GNEWalk::getColor() const {
 
 void
 GNEWalk::updateGeometry() {
-    // update child demand elementss
+    // update child demand elements
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
     }

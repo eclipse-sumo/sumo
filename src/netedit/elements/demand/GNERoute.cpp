@@ -309,7 +309,7 @@ void
 GNERoute::updateGeometry() {
     // compute geometry
     computePathElement();
-    // update child demand elementss
+    // update child demand elements
     for (const auto& demandElement : getChildDemandElements()) {
         if (!demandElement->getTagProperty().isStopPerson() && !demandElement->getTagProperty().isStop()) {
             demandElement->updateGeometry();

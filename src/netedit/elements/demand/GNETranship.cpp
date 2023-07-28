@@ -196,7 +196,7 @@ GNETranship::getColor() const {
 
 void
 GNETranship::updateGeometry() {
-    // update child demand elementss
+    // update child demand elements
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
     }
