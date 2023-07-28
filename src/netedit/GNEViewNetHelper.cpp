@@ -136,9 +136,9 @@ GNEViewNetHelper::LockManager::updateFlags() {
     myLockedElements[GLO_TAZ].lock = lockMenuCommands.menuCheckLockTAZs->getCheck() == TRUE;
     myLockedElements[GLO_POLYGON].lock = lockMenuCommands.menuCheckLockPolygons->getCheck() == TRUE;
     myLockedElements[GLO_POI].lock = lockMenuCommands.menuCheckLockPOIs->getCheck() == TRUE;
-    myLockedElements[GLO_WALKABLEAREA].lock = lockMenuCommands.menuCheckLockPolygons->getCheck() == TRUE;
-    myLockedElements[GLO_OBSTACLE].lock = lockMenuCommands.menuCheckLockPOIs->getCheck() == TRUE;
-    myLockedElements[GLO_POIWAYPOINT].lock = lockMenuCommands.menuCheckLockPOIs->getCheck() == TRUE;
+    myLockedElements[GLO_WALKABLEAREA].lock = lockMenuCommands.menuCheckLockWalkableAreas->getCheck() == TRUE;
+    myLockedElements[GLO_OBSTACLE].lock = lockMenuCommands.menuCheckLockObstacles->getCheck() == TRUE;
+    myLockedElements[GLO_POIWAYPOINT].lock = lockMenuCommands.menuCheckLockPOIWaypoints->getCheck() == TRUE;
     // demand
     myLockedElements[GLO_ROUTE].lock = lockMenuCommands.menuCheckLockRoutes->getCheck() == TRUE;
     myLockedElements[GLO_VEHICLE].lock = lockMenuCommands.menuCheckLockVehicles->getCheck() == TRUE;
