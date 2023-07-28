@@ -319,7 +319,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                     }
                 } else {
                     // draw inner polygon
-                    GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), drawUsingSelectColor());
+                    GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), myTagProperty.isJuPedSimElement()? false : drawUsingSelectColor());
                 }
             } else {
                 // push matrix
