@@ -141,10 +141,16 @@ enum GUIGlObjectType {
 
     /// @brief reserved GLO type to pack shapes
     GLO_SHAPE = 200,
-    /// @brief a polygon
+    /// @brief polygon
     GLO_POLYGON = 201,
-    /// @brief a poi
+    /// @brief poi (over view, geo and lane)
     GLO_POI = 202,
+    /// @brief walkable area
+    GLO_WALKABLEAREA = 203,
+    /// @brief obstacles
+    GLO_OBSTACLE = 204,
+    /// @brief poi waypoints
+    GLO_POIWAYPOINT = 205,
 
     /// @}
 
