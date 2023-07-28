@@ -60,6 +60,7 @@ title: ChangeLog
   - Added option "ignore-supermode-question" for disabling question dialog during undo-redo. #13620
   - Add checkbox in Move Frame for forcing draw edge start/end geometry points. #13426
   - Add tooltip in GroupBox expand button. #12236
+  - Added JuPedSim elements #13667
 
 - netconvert
   - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
