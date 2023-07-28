@@ -610,21 +610,6 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         ignoreLocking = askContinueIfLock();
         return true;
     }
-    // invert polygons
-    if (ignoreLocking || !locks.isObjectLocked(GLO_POLYGON, false)) {
-        for (const auto& polygon : ACs->getAdditionals().at(SUMO_TAG_POLY)) {
-            if (onlyCount) {
-                return true;
-            } else if (onlyUnselect || polygon->isAttributeCarrierSelected()) {
-                polygon->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-            } else {
-                polygon->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-            }
-        }
-    } else if (onlyCount) {
-        ignoreLocking = askContinueIfLock();
-        return true;
-    }
     // invert TAZs
     if (ignoreLocking || !locks.isObjectLocked(GLO_TAZ, false)) {
         for (const auto& TAZ : ACs->getAdditionals().at(SUMO_TAG_TAZ)) {
@@ -658,6 +643,21 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         ignoreLocking = askContinueIfLock();
         return true;
     }
+    // invert polygons
+    if (ignoreLocking || !locks.isObjectLocked(GLO_POLYGON, false)) {
+        for (const auto& polygon : ACs->getAdditionals().at(SUMO_TAG_POLY)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || polygon->isAttributeCarrierSelected()) {
+                polygon->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                polygon->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
+    }
     // invert POIs and POILanes
     if (ignoreLocking || !locks.isObjectLocked(GLO_POI, false)) {
         for (const auto& POI : ACs->getAdditionals().at(SUMO_TAG_POI)) {
@@ -685,6 +685,49 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 POIGeo->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
                 POIGeo->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
+    }
+    // inver JuPedSim elements
+    if (ignoreLocking || !locks.isObjectLocked(GLO_WALKABLEAREA, false)) {
+        for (const auto& walkableArea : ACs->getAdditionals().at(GNE_TAG_WALKABLEAREA)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || walkableArea->isAttributeCarrierSelected()) {
+                walkableArea->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                walkableArea->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
+    }
+    if (ignoreLocking || !locks.isObjectLocked(GLO_OBSTACLE, false)) {
+        for (const auto& obstacle : ACs->getAdditionals().at(GNE_TAG_OBSTACLE)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || obstacle->isAttributeCarrierSelected()) {
+                obstacle->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                obstacle->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
+    }
+    if (ignoreLocking || !locks.isObjectLocked(GLO_POIWAYPOINT, false)) {
+        for (const auto& poiWaypoint : ACs->getAdditionals().at(GNE_TAG_POIWAYPOINT)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || poiWaypoint->isAttributeCarrierSelected()) {
+                poiWaypoint->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                poiWaypoint->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
     } else if (onlyCount) {
