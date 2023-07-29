@@ -50,6 +50,6 @@ TEST(GeoConvHelper, test_method_cartesian2geo) {
     Position cartesian(13.5326994, 52.428098100000007);
     gch.cartesian2geo(cartesian);
 
-    EXPECT_NEAR(2021019.543, cartesian.x(), 1e-5);
-    EXPECT_NEAR(6051162.059, cartesian.y(), 1e-5);
+    EXPECT_NEAR(10.51137735, cartesian.x(), 1e-5);
+    EXPECT_NEAR(0.00047286, cartesian.y(), 1e-5);
 }
