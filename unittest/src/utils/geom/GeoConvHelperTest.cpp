@@ -16,7 +16,7 @@
 /// @author  Laura Bieker
 /// @date    2011-09-23
 ///
-// Tests the class RandHelper
+// Tests the class GeoConvHelper
 /****************************************************************************/
 #include <config.h>
 
@@ -28,7 +28,7 @@ Tests the class GeoConvHelper
 */
 
 
-/* Test the method 'move2side' */
+/* Test the method 'x2cartesian' */
 TEST(GeoConvHelper, test_method_x2cartesian) {
     GeoConvHelper gch(
         "+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
@@ -39,4 +39,17 @@ TEST(GeoConvHelper, test_method_x2cartesian) {
 
     EXPECT_NEAR(400235.50494557252, pos.x(), 1e-5);
     EXPECT_NEAR(5809666.826070101, pos.y(), 1e-5);
+}
+
+/* Test the method 'cartesian2geo' */
+TEST(GeoConvHelper, test_method_cartesian2geo) {
+    GeoConvHelper gch(
+        "+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
+        Position(), Boundary(), Boundary(), 1, false);
+
+    Position cartesian(13.5326994, 52.428098100000007);
+    gch.x2cartesian(cartesian);
+
+    EXPECT_NEAR(2021019.543, cartesian.x(), 1e-5);
+    EXPECT_NEAR(6051162.059, cartesian.y(), 1e-5);
 }
