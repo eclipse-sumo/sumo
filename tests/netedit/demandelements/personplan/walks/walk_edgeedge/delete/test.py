@@ -62,7 +62,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete walkEdgeEdge
-netedit.leftClick(referencePosition, 158, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planEdge.x, netedit.positions.demandElements.planEdge.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

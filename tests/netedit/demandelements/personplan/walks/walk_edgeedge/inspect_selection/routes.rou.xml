@@ -7,7 +7,7 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge0"/>
-        <walk to="Edge2" arrivalPos="7.00"/>
-        <walk to="gneE8" arrivalPos="7.00"/>
+        <walk to="Edge1" arrivalPos="7.00"/>
+        <walk to="Edge2"/>
     </person>
 </routes>

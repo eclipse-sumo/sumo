@@ -62,7 +62,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete walkEdgeBusStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planBusStop.x, netedit.positions.demandElements.planBusStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -151,7 +151,17 @@ class demandElements:
         x = 280
         y = 315
 
-     # click over single trip or flow over TAZ
+     # click over plan that ends in junction
     class planJunction:
         x = 134
         y = 52
+
+    # click over plan in busStop
+    class planBusStop:
+        x = 377
+        y = 14
+
+    # click over plan in edge
+    class planEdge:
+        x = 197
+        y = 36
