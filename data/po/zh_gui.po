@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-27 14:22+0200\n"
+"POT-Creation-Date: 2023-07-31 12:11+0200\n"
 "PO-Revision-Date: 2023-06-06 13:40+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -2920,7 +2920,7 @@ msgid "Close the network."
 msgstr "关闭路网。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:339
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1946
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1957
 msgid "Save Netedit Config"
 msgstr "存储Netedit设定档"
 
@@ -2945,7 +2945,7 @@ msgid "Reload netedit configuration."
 msgstr "重新载入 netedit 的设定档。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:357
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1952
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1963
 msgid "Save Sumo Config"
 msgstr "存储Sumo设定档"
 
@@ -3419,17 +3419,17 @@ msgstr "建立MeanData路段车道。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:825
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1010
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2338
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2636
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2349
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2647
 msgid "Show grid"
 msgstr "显示网格"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:830
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1015
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1141
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2346
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2644
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2923
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2357
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2655
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2934
 msgid "Hide junction shape"
 msgstr "隐藏路口形状"
 
@@ -3439,8 +3439,8 @@ msgstr "绘制在车道上或是在出发位置上的车辆"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:840
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1156
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2362
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2945
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2373
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2956
 msgid "Show demand elements"
 msgstr "显示需求要素"
 
@@ -3449,12 +3449,12 @@ msgid "Clicking should target lanes"
 msgstr "点选目标车道"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:850
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2377
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2388
 msgid "Show connections over junctions"
 msgstr "显示路口内的连接线(connection)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:855
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2385
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2396
 msgid "Hide connections"
 msgstr "隐藏連接线(connection)"
 
@@ -3463,7 +3463,7 @@ msgid "Show sub-additional elements"
 msgstr "显示次要附加要素"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:865
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2401
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2412
 msgid "Show TAZ elements"
 msgstr "显示TAZ要素"
 
@@ -3496,29 +3496,29 @@ msgid "Create an edge in the opposite direction"
 msgstr "在相反方向建立一个路段"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1020
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2652
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2663
 msgid "Draw vehicles spread/depart position"
 msgstr "绘制车辆散布/出发位置"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1025
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1151
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2660
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2938
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2671
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2949
 msgid "Show shapes"
 msgstr "显示图形物件"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1030
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2668
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2679
 msgid "Show all trips"
 msgstr "显示所有行程"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1035
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2676
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2687
 msgid "Show all person plans"
 msgstr "显示有旅行者计划"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1040
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2684
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2695
 msgid "Lock selected person"
 msgstr "锁定选取的人"
 
@@ -3527,22 +3527,22 @@ msgid "Show all container plans"
 msgstr "显示所有容器(container)运送计划"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1050
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2700
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2711
 msgid "Lock selected container"
 msgstr "锁定选定的容器"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1055
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2708
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2719
 msgid "Show non-inspected demand elements"
 msgstr "显示非检查的需求要素"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1060
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2716
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2727
 msgid "Show number of overlapped routes"
 msgstr "显示重叠路段的数量"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1146
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2931
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2942
 msgid "Show additionals"
 msgstr "显示附加物"
 
@@ -5078,221 +5078,221 @@ msgstr ""
 msgid "Control + click to create two stop in the same position"
 msgstr "控制鍵 (Control)+ 点选(click)將在同一位置上新增兩个停靠站"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1467
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1488
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1478
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1499
 msgid "moving selection"
 msgstr "移动选择"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1668
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1679
 msgid "Selection width:"
 msgstr "选择宽度："
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1669
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1680
 msgid " height:"
 msgstr " 高度："
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1670
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1681
 msgid " diagonal:"
 msgstr " 对角线："
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1834
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1845
 msgid "selection using rectangle"
 msgstr "使用矩形进行选择"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1868
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1879
 #, c-format
 msgid "Invalid windows size-format: %for option 'window-size'"
 msgstr "无效的视窗尺寸格式：% 选项视窗尺寸'"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1946
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1957
 msgid "Save Netedit Config. (Ctrl+Shift+E)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1952
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1963
 msgid "Save Sumo Config. (Ctrl+Shift+S)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1958
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1969
 msgid "Save network"
 msgstr "存储路网"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1958
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1969
 msgid "Save network. (Ctrl+S)"
 msgstr "存储路网。(Ctrl+S)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1966
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1977
 msgid "Save individual files"
 msgstr "存储个别档案"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1966
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1977
 msgid "Save individual files."
 msgstr "存储个别档案。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1972
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1983
 msgid "Save additional elements"
 msgstr "存储附加的要素"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1972
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1983
 msgid "Save additional elements. (Ctrl+Shift+A)"
 msgstr "存储附加的要素。(Ctrl+Shift+A)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1978
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1989
 msgid "Save demand elements"
 msgstr "存储需求要素"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1978
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1989
 msgid "Save demand elements. (Ctrl+Shift+D)"
 msgstr "存储·需求要素。(Ctrl+Shift+D)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1984
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1995
 msgid "Save data elements"
 msgstr "儲存数据要素"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1984
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1995
 msgid "Save data elements. (Ctrl+Shift+B)"
 msgstr "存储数据要素。(Ctrl+Shift+D)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1990
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2001
 msgid "Save mean data elements"
 msgstr "存储meanData要素"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1990
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2001
 msgid "Save mean data elements. (Ctrl+Shift+M)"
 msgstr "存储meanData要素。(Ctrl+Shift+M)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2023
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2034
 msgid "Switch between seconds and HH:MM:SS"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2076
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2087
 msgid "Network"
 msgstr "路网"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2076
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2087
 msgid "Edit network elements"
 msgstr "编辑路网要素"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2076
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2087
 msgid "Set mode for edit network elements. (F2)"
 msgstr "设定编辑路网要素的模式。(F2)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2083
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2094
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2069
 msgid "Demand"
 msgstr "需求"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2083
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2094
 msgid "Edit traffic demand elements"
 msgstr "编辑交通需求要素"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2083
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2094
 msgid "Set mode for edit traffic demand. (F3)"
 msgstr "设定编辑交通需求的模式。（F3）"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2090
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2101
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2213
 msgid "Data"
 msgstr "数据"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2090
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2101
 msgid "Edit data elements"
 msgstr "编辑数据要素"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2090
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2101
 msgid "Set mode for edit data demand. (F4)"
 msgstr "设定编辑数据需求的模式。(F4)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2103
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2114
 msgid "Mode already selected"
 msgstr "已经选定模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2188
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2199
 msgid "Network mode already selected"
 msgstr "已选择路网模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2193
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2204
 msgid "Save modifications in TLS before change mode"
 msgstr "在改变模式前將修改的交通信号(TLS)进行存储"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2238
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2249
 msgid "Demand mode already selected"
 msgstr "已选择需求模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2273
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2284
 msgid "Data mode already selected"
 msgstr "已选择数据模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2338
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2636
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2349
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2647
 msgid ""
 "Show grid and restrict movement to the grid - define grid size in "
 "visualization options. (Ctrl+G)"
 msgstr "显示网格及限制到网格的移动 - 在视觉化选项中定义网格尺寸。（按 Ctrl+G）"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2346
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2644
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2923
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2357
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2655
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2934
 msgid "Toggle hiding junction shape. (Ctrl+J)"
 msgstr "切换隐藏路口形狀。（按 Ctrl+J）"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2354
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2365
 msgid "Draw vehicles spread in lane or depart position"
 msgstr "绘制在车道上或是在出发位置上的车辆"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2354
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2652
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2365
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2663
 msgid "Draw vehicles spread in lane or in depart position."
 msgstr "绘制在车道上或是在出发位置上的车辆。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2362
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2945
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2373
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2956
 msgid "Toggle show demand elements."
 msgstr "切换显示需求要素。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2370
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2381
 msgid "Clicks target lanes"
 msgstr "点击目标 车道"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2370
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2381
 msgid ""
 "Toggle whether clicking should inspect/select/delete lanes instead of edges."
 msgstr "切换是否应检查/选择/刪除车道, 而不是路段。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2377
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2388
 msgid "Toggle show connections over junctions."
 msgstr "切换显示路口內的连接线(connection)。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2385
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2396
 msgid "Toggle hide connections."
 msgstr "切换隐藏连接线(connections)。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2393
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2404
 msgid "Show additional sub-elements"
 msgstr "显示附加子要素"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2393
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2404
 msgid "Toggle show additional sub-elements."
 msgstr "切换显示附加子要素。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2401
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2412
 msgid "Toggle show TAZ elements."
 msgstr "切换显示分区(TAZ)要素。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2409
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2420
 msgid "Automatic select junctions"
 msgstr "自动选择路口"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2409
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2420
 msgid ""
 "Toggle whether selecting multiple edges should automatically select their "
 "junctions."
 msgstr "切换选择多条路段时, 是否应自动选择它们的交汇路口。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2417
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2428
 msgid "Apply state to all phases"
 msgstr "將状态应用于所有相位(phases)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2417
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2428
 msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
@@ -5300,330 +5300,330 @@ msgstr ""
 "切换是否点击时应将更改的状态(state)应用于现有交通信号(TLS) 方案的所有相位"
 "(phase)。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2425
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2436
 msgid "Automatic merging junction"
 msgstr "自动合并路口"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2425
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2436
 msgid "Toggle ask for confirmation before merging junction."
 msgstr "切换合并路口前要求确认。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2432
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2443
 msgid "Show bubbles"
 msgstr "显示气泡(bubbles)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2432
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2443
 msgid "Toggle show bubbles over junctions shapes."
 msgstr "切换在路口形狀上显示气泡(bubble)。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2440
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2451
 msgid "Move elevation"
 msgstr "移动高程"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2440
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2451
 msgid "Apply mouse movement to elevation instead of x,y position."
 msgstr "將鼠标移动功能用于高程而不是 x，y 位置。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2448
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2459
 msgid "Edge chain mode"
 msgstr "路段链(chain)模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2448
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2459
 msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr "单击一下即可建立连续的路段（按 ESC 取消链(chain))。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2456
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2467
 msgid "Edge opposite direction"
 msgstr "路段相反方向"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2456
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2467
 msgid "Automatically create an edge in the opposite direction."
 msgstr "自动建立相反方向的路段。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2660
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2938
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2671
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2949
 msgid "Toggle show shapes (Polygons and POIs)."
 msgstr "切换显示形狀（多边形和兴趣点）。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2668
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2679
 msgid "Toggle show all trips (requires updated demand - F5)."
 msgstr "切换显示所有行程(trips)（需要更新需求 - F5）。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2676
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2687
 msgid "Toggle show all person plans."
 msgstr "切换显示所有人员的旅行计划。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2684
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2695
 msgid "Toggle lock selected person."
 msgstr "切换锁定选择的人员(person)。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2692
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2703
 msgid "Show all containers plans"
 msgstr "显示所有容器(container)运送计划"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2692
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2703
 msgid "Toggle show all container plans."
 msgstr "切换显示所有容器(container)运送计划。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2700
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2711
 msgid "Toggle lock selected container."
 msgstr "切换锁定选择的容器(container)。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2708
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2719
 msgid "Toggle show non-inspected demand elements."
 msgstr "切换显示未检查的需求要素。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2716
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2727
 msgid "Toggle show number of overlapped routes."
 msgstr "切换显示重叠路线的数量。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2931
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2942
 msgid "Toggle show additionals."
 msgstr "切换显示附加项(additionals)。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2952
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2963
 msgid "Draw TAZREL drawing mode"
 msgstr "绘制交通分区关系线(TAZREL)绘图模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2952
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2963
 msgid "Toggle draw TAZREL drawing mode."
 msgstr "切换绘制交通分区关系线(TAZREL)绘图模式。"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2959
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2970
 msgid "Toggle draw TAZ fill"
 msgstr "切换绘制交通分区(TAZ)填充"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2966
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2977
 msgid "Toggle draw TAZRel only from"
 msgstr "切换绘制仅来自...分区的交通分区关系线(TAZRel)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2973
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2984
 msgid "Toggle draw TAZRel only to"
 msgstr "切换绘制仅到达...分区的交通分区关系线(TAZRel)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3462
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 msgid "Set inspect mode"
 msgstr "设定检查模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3462
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 msgid "Mode for inspect elements and change their attributes. (I)"
 msgstr "检查要素及更改其属性的模式。(I)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3479
 msgid "Set delete mode"
 msgstr "设定刪除模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3479
 msgid "Mode for delete elements. (D)"
 msgstr "刪除元素的模式。(D)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3474
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3485
 msgid "Set select mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3474
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3485
 msgid "Mode for select elements. (S)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3527
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3672
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3538
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3683
 msgid "Set move mode"
 msgstr "设定移动模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3527
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3672
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3538
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3683
 msgid "Mode for move elements. (M)"
 msgstr "移动要素的模式。(M)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3533
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3544
 msgid "Set create edge mode"
 msgstr "设定建立路段模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3533
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3544
 msgid "Mode for creating junction and edges. (E)"
 msgstr "建立路口及路段的模式。(E)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3539
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3550
 msgid "Set traffic light mode"
 msgstr "设定交通信号的模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3539
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3550
 msgid "Mode for edit traffic lights over junctions. (T)"
 msgstr "编辑路口信号的模式。(T)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3545
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3556
 msgid "Set connection mode"
 msgstr "设定连接线(connection)模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3545
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3556
 msgid "Mode for edit connections between lanes. (C)"
 msgstr "编辑车道间连接线(connections)的模式。(C)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3551
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3562
 msgid "Set prohibition mode"
 msgstr "设定禁止模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3551
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3562
 msgid "Mode for editing connection prohibitions. (H)"
 msgstr "编辑禁止的连接线(connection)的模式。(H)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3557
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3568
 msgid "Set crossing mode"
 msgstr "设定人行道的模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3557
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3568
 msgid "Mode for creating crossings between edges. (R)"
 msgstr "建立路段间人行道的模式。(R)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3563
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3574
 msgid "Set additional mode"
 msgstr "设定附加(additional)的模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3563
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3574
 msgid "Mode for adding additional elements. (A)"
 msgstr "新增附加元素的模式。(A)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3569
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3580
 msgid "Set wire mode"
 msgstr "设定通讯线(wires)的模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3569
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3580
 msgid "Mode for editing wires. (W)"
 msgstr "编辑通讯线(wires)的模式。(W)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3575
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3586
 msgid "Set TAZ mode"
 msgstr "设定交通分区(TAZ)的模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3575
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3586
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
 msgstr "建立交通指派分区的模式。(Z)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3581
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3592
 msgid "Set polygon mode"
 msgstr "设定多边形物件的模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3581
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3592
 msgid "Mode for creating polygons and POIs. (P)"
 msgstr "建立多边形物件及兴趣点的模式。(P)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3587
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3598
 msgid "Set decal mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3587
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3598
 msgid "Mode for editing decals. (U)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3678
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3689
 msgid "Create route mode"
 msgstr "建立路径的模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3678
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3689
 msgid "Mode for creating routes. (R)"
 msgstr "建立路径的模式。 (R)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3684
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3695
 msgid "Set route distribution mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3684
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3695
 msgid "Mode for creating and editing rout distributions. (W)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3690
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3701
 msgid "Create vehicle mode"
 msgstr "建立车辆模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3690
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3701
 msgid "Mode for creating vehicles. (V)"
 msgstr "建立车辆模式。(V)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3696
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3707
 msgid "Create type mode"
 msgstr "建立类型模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3696
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3707
 msgid "Mode for creating types (vehicles, person and containers). (T)"
 msgstr "建立类型模式(车辆, 人员(person)及容器(containers))。(T)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3702
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3713
 msgid "Create type distribution mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3702
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3713
 msgid "Mode for creating and editing type distribution. (U)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3708
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3719
 msgid "Create stop mode"
 msgstr "建立停靠点模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3708
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3719
 msgid "Mode for creating stops. (A)"
 msgstr "建立停靠点模式。(A)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3714
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3725
 msgid "Create person mode"
 msgstr "建立人员(person)模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3714
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3725
 msgid "Mode for creating persons. (P)"
 msgstr "建立人员(person)模式。(P)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3720
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3731
 msgid "Create person plan mode"
 msgstr "建立人员旅行计划的模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3720
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3731
 msgid "Mode for creating person plans. (L)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3726
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3737
 msgid "Create container mode"
 msgstr "建立容器（container）模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3726
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3737
 msgid "Mode for creating containers. (C)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3732
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3743
 msgid "Create container plan mode"
 msgstr "创建集装箱运送计划模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3732
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3743
 msgid "Mode for creating container plans. (H)"
 msgstr "创建集装箱运送计划的模式。(H)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3817
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3828
 msgid "Create edge data mode"
 msgstr "创建路段数据模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3817
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3828
 msgid "Mode for creating edge datas. (E)"
 msgstr "创建路段数据的模式。(E)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3823
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3834
 msgid "Create edge relation data mode"
 msgstr "创建路段关系数据模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3823
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3834
 msgid "Mode for creating edge relation datas. (R)"
 msgstr "创建路段关系数据的模式。(R)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3829
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3840
 msgid "Create TAZ relation data mode"
 msgstr "创建交通分区关系数据模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3829
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3840
 msgid "Mode for creating TAZ relation datas. (Z)"
 msgstr "创建交通分区关系数据的模式。(Z)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3835
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3846
 msgid "MeanData mode"
 msgstr "MeanData 模式"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3835
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3846
 msgid "Mode for MeanData elements. (M)"
 msgstr "平均数据(MeanData)元素的模式。(M)"
 
@@ -9539,76 +9539,76 @@ msgstr "一个出入境检测器至少需要一个入境检测器"
 msgid "An entry-exit detector needs at least one exit detector"
 msgstr "一个入口-出口探测器至少需要一个出口探测器"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:332
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:334
 msgid "Release from lane"
 msgstr "从车道放行"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:336
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:338
 msgid "Attach to nearest lane"
 msgstr "连接到最近的车道"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:236
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:238
 msgid "Simplify Shape"
 msgstr "简化形状"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:236
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:238
 msgid "Replace current shape with a rectangle"
 msgstr "用矩形取代当前形状"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:242
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
 msgid "Open shape"
 msgstr "开放式形状"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:242
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
 msgid "Open polygon's shape"
 msgstr "打开多边形的外形"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:244
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:248
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:66
 msgid "Close shape"
 msgstr "关闭的形状"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:244
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:248
 msgid "Close polygon's shape"
 msgstr "关闭多边形的形状"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:251
 msgid "Select elements within polygon"
 msgstr "选择多边形内的元素"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:251
 msgid "Select elements within polygon boundary"
 msgstr "选择多边形边界内的元素"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:256
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:261
 msgid "Remove geometry point"
 msgstr "删除几何点"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:256
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:261
 msgid "Remove geometry point under mouse"
 msgstr "删除鼠标下的几何点"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:257
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:262
 msgid "Set first geometry point"
 msgstr "设置第一个几何点"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:469
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:474
 msgid "Number of remaining points insufficient"
 msgstr "剩余点数不足"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:496
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:501
 msgid "Polygon already opened"
 msgstr "多边形已经打开"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:517
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:522
 msgid "Polygon already closed"
 msgstr "多边形已经关闭"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:528
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:533
 msgid "Selected point must be different of the first point"
 msgstr "选定的点必须与第一个点不同"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:593
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:598
 msgid "Polygon already simplified"
 msgstr "多边形已经简化了"
 
@@ -10582,7 +10582,7 @@ msgid "Default Vehicle Type '%' cannot be removed"
 msgstr "默认的车辆类型'%'不能被删除"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:316
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:276
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:279
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:84
 msgid "Center"
 msgstr "中心"
@@ -11013,7 +11013,7 @@ msgstr "- 平均速度: "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:34
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:641
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1427
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1470
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:101
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:323
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:621
@@ -11700,17 +11700,17 @@ msgstr "打开所选项目的清单"
 msgid "Save List of selected Items"
 msgstr "保存所选项目的清单"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1145
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1188
 msgid "Hierarchy operations"
 msgstr "层次结构操作"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1156
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1166
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1199
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1209
 msgid "Select"
 msgstr "选择"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1158
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1168
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1201
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1211
 msgid "Unselect"
 msgstr "未选择"
 
@@ -13482,48 +13482,48 @@ msgstr "编码时出错!"
 msgid "Object must be a lane"
 msgstr "对象必须是一个车道"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:285
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:288
 msgid "Copy name to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:286
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:289
 msgid "Copy typed name to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:296
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:299
 msgid "Remove From Selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:298
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:301
 msgid "Add To Selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:308
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:311
 msgid "Show Parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:317
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:320
 msgid "Show Type Parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:326
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:329
 msgid "Copy cursor position to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:328
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:331
 msgid "Copy cursor geo-position to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:332
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:335
 msgid "Show cursor geo-position in "
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:350
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:353
 msgid "Open Manipulator..."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:389
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:412
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:392
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:415
 msgid "type: %"
 msgstr ""
 
