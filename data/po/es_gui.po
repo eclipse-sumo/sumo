@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-31 12:42+0200\n"
-"PO-Revision-Date: 2023-07-31 10:40+0000\n"
+"PO-Revision-Date: 2023-07-31 13:23+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1645,7 +1645,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:964
 msgid "Copy edge name to clipboard"
-msgstr ""
+msgstr "Copiar el nombre de la calle (edge) al portapapeles"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:972
 msgid "pos: "
@@ -9327,12 +9327,12 @@ msgstr " > largo del carril (lane)"
 #: C:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:129
 #, c-format
 msgid "Copy % name to clipboard"
-msgstr ""
+msgstr "Copiar el nombre de % al portapapeles"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:148
 #: C:\Repos\sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:147
 msgid "Copy % typed name to clipboard"
-msgstr ""
+msgstr "Copiar el tipo y nombre de % al portapapeles"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:156
 msgid "Open "
@@ -13721,11 +13721,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:288
 msgid "Copy name to clipboard"
-msgstr ""
+msgstr "Copiar el nombre al portapapeles"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:289
 msgid "Copy typed name to clipboard"
-msgstr ""
+msgstr "Copiar el nombre y tipo al portapapeles"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:299
 msgid "Remove From Selected"
