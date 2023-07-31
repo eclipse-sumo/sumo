@@ -211,7 +211,7 @@ GNEFixAdditionalElements::AdditionalList::AdditionalList(GNEFixAdditionalElement
     // iterate over single lane additionals
     for (auto i : myInvalidSingleLaneAdditionals) {
         // Set icon
-        item = new FXTableItem("", i->getACIcon());
+        item = new FXTableItem("", i->getFXIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
         myTable->setItem(indexRow, 0, item);
         // Set ID
@@ -228,7 +228,7 @@ GNEFixAdditionalElements::AdditionalList::AdditionalList(GNEFixAdditionalElement
     // iterate over multi lane additionals
     for (auto i : myInvalidMultiLaneAdditionals) {
         // Set icon
-        item = new FXTableItem("", i->getACIcon());
+        item = new FXTableItem("", i->getFXIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
         myTable->setItem(indexRow, 0, item);
         // Set ID

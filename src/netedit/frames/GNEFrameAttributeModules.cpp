@@ -110,7 +110,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     // create and hide color editor
     myAttributeVTypeButton = new MFXButtonTooltip(this,
             attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-            "attributeVTypeButton", myACParent ? myACParent->getACIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
+            "attributeVTypeButton", myACParent ? myACParent->getFXIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
     myAttributeVTypeButton->hide();
     // Create and hide MFXTextFieldTooltip for string attributes
     myValueTextField = new MFXTextFieldTooltip(this,
@@ -305,10 +305,10 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             // fill comboBox with vTypes and vType distributions
             myValueChoicesComboBox->clearItems();
             for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon());
             }
             for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon());
             }
             // show only 10 vtypes
             myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
@@ -393,10 +393,10 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
         // fill comboBox with vTypes
         myValueChoicesComboBox->clearItems();
         for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon());
         }
         for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon());
         }
         // show only 10 vtypes
         myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);

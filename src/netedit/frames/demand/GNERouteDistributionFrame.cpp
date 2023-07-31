@@ -135,7 +135,7 @@ GNERouteDistributionFrame::RouteDistributionSelector::RouteDistributionSelector(
     myRouteComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Routes (always first)
     for (const auto& route : myRouteDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE_DISTRIBUTION)) {
-        myRouteComboBox->appendItem(route->getID().c_str(), route->getACIcon());
+        myRouteComboBox->appendItem(route->getID().c_str(), route->getFXIcon());
     }
     // Set visible items
     if (myRouteComboBox->getNumItems() <= 20) {
@@ -176,7 +176,7 @@ GNERouteDistributionFrame::RouteDistributionSelector::refreshRouteDistributionSe
         typeDistributions[routeDistribution->getID()] = routeDistribution;
     }
     for (const auto& routeDistribution : typeDistributions) {
-        myRouteComboBox->appendItem(routeDistribution.first.c_str(), routeDistribution.second->getACIcon());
+        myRouteComboBox->appendItem(routeDistribution.first.c_str(), routeDistribution.second->getFXIcon());
     }
     // Set visible items
     if (myRouteComboBox->getNumItems() <= 20) {

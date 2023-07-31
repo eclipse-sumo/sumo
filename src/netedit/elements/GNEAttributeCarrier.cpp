@@ -594,7 +594,7 @@ GNEAttributeCarrier::getTagStr() const {
 
 
 FXIcon*
-GNEAttributeCarrier::getACIcon() const {
+GNEAttributeCarrier::getFXIcon() const {
     // define on first access
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();

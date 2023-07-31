@@ -67,13 +67,13 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
     // add default Types (always first)
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType->getID()) != 0) {
-            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon(), FXRGB(255, 255, 200));
+            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon(), FXRGB(255, 255, 200));
         }
     }
     // fill myTypeMatchBox with list of VTypes IDs
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
-            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon());
         }
     }
     // set DEFAULT_VEHTYPE as default VType
@@ -113,7 +113,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
     // add default Vehicle an Bike types in the first and second positions
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType->getID()) != 0) {
-            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon(), FXRGB(255, 255, 200));
+            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon(), FXRGB(255, 255, 200));
         }
     }
     // fill myTypeMatchBox with list of VTypes IDs sorted by ID
@@ -124,7 +124,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
         }
     }
     for (const auto& vType : types) {
-        myTypeComboBox->appendIconItem(vType.first.c_str(), vType.second->getACIcon());
+        myTypeComboBox->appendIconItem(vType.first.c_str(), vType.second->getFXIcon());
     }
     // Set visible items
     if (myTypeComboBox->getNumItems() <= 20) {
@@ -166,7 +166,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
 void
 GNETypeFrame::TypeSelector::refreshTypeSelectorIDs() {
     if (myCurrentType) {
-        myTypeComboBox->setIconItem(myTypeComboBox->getCurrentItem(), myCurrentType->getID().c_str(), myCurrentType->getACIcon());
+        myTypeComboBox->setIconItem(myTypeComboBox->getCurrentItem(), myCurrentType->getID().c_str(), myCurrentType->getFXIcon());
     }
 }
 
