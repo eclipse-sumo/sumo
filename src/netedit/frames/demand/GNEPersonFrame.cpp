@@ -289,7 +289,7 @@ GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // begin undo-redo operation
-        myViewNet->getUndoList()->begin(myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getGUIIcon(), "create " +
+        myViewNet->getUndoList()->begin(myPersonTagSelector->getCurrentTemplateAC(), "create " +
                                         myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
                                         myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
         // create person

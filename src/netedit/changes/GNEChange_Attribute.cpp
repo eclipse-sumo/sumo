@@ -42,7 +42,7 @@ GNEChange_Attribute::changeAttribute(GNEAttributeCarrier* AC, SumoXMLAttr key, c
     change->myForceChange = force;
     // check if process change
     if (change->trueChange()) {
-        undoList->begin(AC->getTagProperty().getGUIIcon(), TLF("change '%' attribute in % '%'", toString(key), AC->getTagStr(), AC->getID()));
+        undoList->begin(AC, TLF("change '%' attribute in % '%'", toString(key), AC->getTagStr(), AC->getID()));
         undoList->add(change, true);
         undoList->end();
     } else {
@@ -59,7 +59,7 @@ GNEChange_Attribute::changeAttribute(GNEAttributeCarrier* AC, SumoXMLAttr key, c
     change->myForceChange = force;
     // check if process change
     if (change->trueChange()) {
-        undoList->begin(AC->getTagProperty().getGUIIcon(), TLF("change '%' attribute in % '%'", toString(key), AC->getTagStr(), AC->getID()));
+        undoList->begin(AC, TLF("change '%' attribute in % '%'", toString(key), AC->getTagStr(), AC->getID()));
         undoList->add(change, true);
         undoList->end();
     } else {

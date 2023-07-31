@@ -789,15 +789,15 @@ void
 GNEPOI::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // check what are being updated
     if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
-        undoList->begin(myTagProperty.getGUIIcon(), "height of " + getTagStr());
+        undoList->begin(this, "height of " + getTagStr());
         setAttribute(SUMO_ATTR_HEIGHT, toString(moveResult.shapeToUpdate.length2D()), undoList);
         undoList->end();
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
-        undoList->begin(myTagProperty.getGUIIcon(), "width of " + getTagStr());
+        undoList->begin(this, "width of " + getTagStr());
         setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
         undoList->end();
     } else {
-        undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
+        undoList->begin(this, "position of " + getTagStr());
         if (getTagProperty().getTag() == GNE_TAG_POILANE) {
             GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
         } else {

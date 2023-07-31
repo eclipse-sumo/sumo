@@ -828,7 +828,7 @@ void GNEPerson::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEPerson::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(myTagProperty.getGUIIcon(), "departPos of " + getTagStr());
+    undoList->begin(this, "departPos of " + getTagStr());
     // now set departPos
     setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();

@@ -143,7 +143,7 @@ GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLis
                 shape.erase(shape.begin() + index);
             }
             // commit new shape
-            undoList->begin(myTagProperty.getGUIIcon(), "remove geometry point of " + getTagStr());
+            undoList->begin(this, "remove geometry point of " + getTagStr());
             GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(shape), undoList);
             undoList->end();
         }
@@ -821,7 +821,7 @@ void
 GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
         // commit center
-        undoList->begin(myTagProperty.getGUIIcon(), "moving " + toString(SUMO_ATTR_CENTER) + " of " + getTagStr());
+        undoList->begin(this, "moving " + toString(SUMO_ATTR_CENTER) + " of " + getTagStr());
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CENTER, toString(moveResult.shapeToUpdate.front()), undoList);
         undoList->end();
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::ENTIRE_SHAPE) {
@@ -829,7 +829,7 @@ GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) 
         Position newCenter = myTAZCenter;
         newCenter.add(moveResult.shapeToUpdate.getCentroid() - myShape.getCentroid());
         // commit new shape and center
-        undoList->begin(myTagProperty.getGUIIcon(), "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        undoList->begin(this, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CENTER, toString(newCenter), undoList);
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
         undoList->end();
@@ -845,7 +845,7 @@ GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) 
             closedShape[0] = moveResult.shapeToUpdate[lastIndex];
         }
         // commit new shape
-        undoList->begin(myTagProperty.getGUIIcon(), "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        undoList->begin(this, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(closedShape), undoList);
         undoList->end();
     }

@@ -1017,7 +1017,7 @@ GNEVType::getACParametersMap() const {
 void
 GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList) {
     // open undo list and overwrite all values of default VType
-    undoList->begin(vType->getTagProperty().getGUIIcon(), "update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
+    undoList->begin(vType, "update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
     // CFM values
     if (!newVTypeParameter.getCFParamString(SUMO_ATTR_ACCEL, "").empty()) {
         vType->setAttribute(SUMO_ATTR_ACCEL, toString(newVTypeParameter.getCFParam(SUMO_ATTR_ACCEL, 0)), undoList);

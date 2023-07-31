@@ -94,7 +94,7 @@ GNERouteDistributionFrame::RouteDistributionEditor::onCmdCreateRoute(FXObject*, 
     // create new route
     GNEDemandElement* routeDistribution = new GNERouteDistribution(viewNet->getNet(), routeDistributionID);
     // add it using undoList (to allow undo-redo)
-    viewNet->getUndoList()->begin(routeDistribution->getTagProperty().getGUIIcon(), "create route distribution");
+    viewNet->getUndoList()->begin(routeDistribution, "create route distribution");
     viewNet->getUndoList()->add(new GNEChange_DemandElement(routeDistribution, true), true);
     viewNet->getUndoList()->end();
     return 1;
@@ -106,7 +106,7 @@ GNERouteDistributionFrame::RouteDistributionEditor::onCmdDeleteRoute(FXObject*, 
     auto viewNet = myRouteDistributionFrameParent->myViewNet;
     auto currentRouteDistribution = myRouteDistributionFrameParent->myRouteDistributionSelector->getCurrentRouteDistribution();
     // begin undo list operation
-    viewNet->getUndoList()->begin(currentRouteDistribution->getTagProperty().getGUIIcon(), "delete route distribution");
+    viewNet->getUndoList()->begin(currentRouteDistribution, "delete route distribution");
     // remove route (and all of their children)
     viewNet->getNet()->deleteDemandElement(currentRouteDistribution, viewNet->getUndoList());
     // end undo list operation

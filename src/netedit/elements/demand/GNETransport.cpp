@@ -344,7 +344,7 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
             GNEDemandElement* nextContainerPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextContainerPlan
             if (nextContainerPlan) {
-                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next containerPlan");
+                undoList->begin(this, "Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
                 GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
@@ -361,7 +361,7 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
                 // obtain containerStop
                 const GNEAdditional* containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
                 // change from attribute using edge ID
-                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next containerPlan");
+                undoList->begin(this, "Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, containerStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
                 GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
@@ -522,7 +522,7 @@ GNETransport::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNETransport::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(myTagProperty.getGUIIcon(), "arrivalPos of " + getTagStr());
+    undoList->begin(this, "arrivalPos of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();

@@ -315,7 +315,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                     myEditedFlows.front()->setAttribute(terminateAttribute, myTerminateTextField->getText().text(), myViewNet->getUndoList());
                 } else {
                     // change all flows using undoList
-                    myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "change multiple flow attributes");
+                    myViewNet->getUndoList()->begin(myEditedFlows.front(), "change multiple flow attributes");
                     for (const auto& flow : myEditedFlows) {
                         flow->setAttribute(terminateAttribute, myTerminateTextField->getText().text(), myViewNet->getUndoList());
                     }
@@ -341,7 +341,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                     myEditedFlows.front()->setAttribute(spacingAttribute, mySpacingTextField->getText().text(), myViewNet->getUndoList());
                 } else {
                     // change all flows using undoList
-                    myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), TL("change multiple flow attributes"));
+                    myViewNet->getUndoList()->begin(myEditedFlows.front(), TL("change multiple flow attributes"));
                     for (const auto& flow : myEditedFlows) {
                         flow->setAttribute(spacingAttribute, mySpacingTextField->getText().text(), myViewNet->getUndoList());
                     }
@@ -367,7 +367,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                 myEditedFlows.front()->enableAttribute(attr, myViewNet->getUndoList());
             } else {
                 // enable in all flow using undoList
-                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), TL("enable multiple flow attributes"));
+                myViewNet->getUndoList()->begin(myEditedFlows.front(), TL("enable multiple flow attributes"));
                 for (const auto& flow : myEditedFlows) {
                     flow->enableAttribute(attr, myViewNet->getUndoList());
                 }
@@ -383,7 +383,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                 myEditedFlows.front()->disableAttribute(attr, myViewNet->getUndoList());
             } else {
                 // disable in all flow using undoList
-                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), TL("disable multiple flow attributes"));
+                myViewNet->getUndoList()->begin(myEditedFlows.front(), TL("disable multiple flow attributes"));
                 for (const auto& flow : myEditedFlows) {
                     flow->disableAttribute(attr, myViewNet->getUndoList());
                 }

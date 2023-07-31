@@ -215,6 +215,12 @@ GNEUndoList::begin(GUIIcon icon, const std::string& description) {
 
 
 void
+GNEUndoList::begin(const GNEAttributeCarrier *AC, const std::string& description) {
+    begin(AC->getTagProperty().getGUIIcon(), description);
+}
+
+
+void
 GNEUndoList::begin(Supermode supermode, GUIIcon icon, const std::string& description) {
     myChangeGroups.push(new GNEChangeGroup(supermode, icon, description));
     // get this reference

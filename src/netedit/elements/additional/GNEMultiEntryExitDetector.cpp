@@ -410,7 +410,7 @@ GNEMultiEntryExitDetector::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEMultiEntryExitDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
+    undoList->begin(this, "position of " + getTagStr());
     GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
     undoList->end();
 }

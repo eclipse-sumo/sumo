@@ -64,7 +64,7 @@ long
 GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
     GNERoute* route = static_cast<GNERoute*>(myObject);
     GNEUndoList* undoList = route->myNet->getViewNet()->getUndoList();
-    undoList->begin(route->getTagProperty().getGUIIcon(), "apply distance along route");
+    undoList->begin(route, "apply distance along route");
     double dist = (route->getParentEdges().size() > 0) ? route->getParentEdges().front()->getNBEdge()->getDistance() : 0;
     for (GNEEdge* edge : route->getParentEdges()) {
         GNEChange_Attribute::changeAttribute(edge, SUMO_ATTR_DISTANCE, toString(dist), edge->getAttribute(SUMO_ATTR_DISTANCE), undoList);
@@ -718,7 +718,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
             }
             // check vehicles
             if (vehicles.size() > 0) {
-                undoList->begin(myTagProperty.getGUIIcon(), "reset start and end edges");
+                undoList->begin(this, "reset start and end edges");
                 for (const auto& vehicle : vehicles) {
                     GNEChange_Attribute::changeAttribute(vehicle, SUMO_ATTR_DEPARTEDGE, "", undoList);
                     GNEChange_Attribute::changeAttribute(vehicle, SUMO_ATTR_ARRIVALEDGE, "", undoList);
@@ -726,7 +726,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
                 GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
             } else if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-                undoList->begin(myTagProperty.getGUIIcon(), "reset start and end edges");
+                undoList->begin(this, "reset start and end edges");
                 GNEChange_Attribute::changeAttribute(getParentDemandElements().front(), SUMO_ATTR_DEPARTEDGE, "", undoList);
                 GNEChange_Attribute::changeAttribute(getParentDemandElements().front(), SUMO_ATTR_ARRIVALEDGE, "", undoList);
                 undoList->end();
@@ -883,7 +883,7 @@ GNERoute::copyRoute(const GNERoute* originalRoute) {
     // create new route
     GNERoute* newRoute = new GNERoute(net, newRouteID, originalRoute);
     // add new route using undo-list
-    undoList->begin(originalRoute->getTagProperty().getGUIIcon(), TLF("copy % '%'", originalRoute->getTagStr(), newRouteID));
+    undoList->begin(originalRoute, TLF("copy % '%'", originalRoute->getTagStr(), newRouteID));
     net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(newRoute, true), true);
     undoList->end();
     // return new route

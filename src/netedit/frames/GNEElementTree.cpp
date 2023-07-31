@@ -259,7 +259,7 @@ long
 GNEElementTree::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
     if (myClickedDemandElement) {
-        myFrameParent->getViewNet()->getUndoList()->begin(myClickedDemandElement->getTagProperty().getGUIIcon(), ("moving up " + myClickedDemandElement->getTagStr()).c_str());
+        myFrameParent->getViewNet()->getUndoList()->begin(myClickedDemandElement, ("moving up " + myClickedDemandElement->getTagStr()).c_str());
         // move element one position back
         myFrameParent->getViewNet()->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getParentDemandElements().at(0), myClickedDemandElement,
                 GNEChange_Children::Operation::MOVE_BACK), true);
@@ -275,7 +275,7 @@ long
 GNEElementTree::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
     if (myClickedDemandElement) {
-        myFrameParent->getViewNet()->getUndoList()->begin(myClickedDemandElement->getTagProperty().getGUIIcon(), ("moving down " + myClickedDemandElement->getTagStr()).c_str());
+        myFrameParent->getViewNet()->getUndoList()->begin(myClickedDemandElement, ("moving down " + myClickedDemandElement->getTagStr()).c_str());
         // move element one position front
         myFrameParent->getViewNet()->getUndoList()->add(new GNEChange_Children(myClickedDemandElement->getParentDemandElements().at(0), myClickedDemandElement,
                 GNEChange_Children::Operation::MOVE_FRONT), true);

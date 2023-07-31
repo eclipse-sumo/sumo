@@ -215,7 +215,7 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCreateMeanData(FXObject*, FXSelector, voi
     GNEMeanData* meanData = new GNEMeanData(myMeanDataFrameParent->myViewNet->getNet(),
                                             myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), typeID);
     // add it using undoList (to allow undo-redo)
-    myMeanDataFrameParent->myViewNet->getUndoList()->begin(meanData->getTagProperty().getGUIIcon(), "create meanData");
+    myMeanDataFrameParent->myViewNet->getUndoList()->begin(meanData, "create meanData");
     myMeanDataFrameParent->myViewNet->getUndoList()->add(new GNEChange_MeanData(meanData, true), true);
     myMeanDataFrameParent->myViewNet->getUndoList()->end();
     // set created meanData in selector
@@ -253,7 +253,7 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCopyMeanData(FXObject*, FXSelector, void*
         GNEMeanData* meanDataCopy = new GNEMeanData(myMeanDataFrameParent->myViewNet->getNet(),
                                                 myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), typeID);
         // begin undo list operation
-        myMeanDataFrameParent->myViewNet->getUndoList()->begin(meanDataCopy->getTagProperty().getGUIIcon(), "copy meanData");
+        myMeanDataFrameParent->myViewNet->getUndoList()->begin(meanDataCopy, "copy meanData");
         // add it using undoList (to allow undo-redo)
         myMeanDataFrameParent->myViewNet->getUndoList()->add(new GNEChange_MeanData(meanDataCopy, true), true);
         // end undo list operation
