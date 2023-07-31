@@ -155,9 +155,6 @@ public:
      */
     void add(GNEChange* command, bool doit = false, bool merge = true);
 
-    /// @brief special method for change attributes, avoid empty changes, always execute
-    void changeAttribute(GNEChange_Attribute* change);
-
     /* @brief clears the undo list (implies abort)
      * All undo and redo information will be destroyed.
      */

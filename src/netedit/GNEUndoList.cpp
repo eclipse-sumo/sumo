@@ -359,16 +359,6 @@ GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
 }
 
 
-void
-GNEUndoList::changeAttribute(GNEChange_Attribute* change) {
-    if (change->trueChange()) {
-        add(change, true);
-    } else {
-        delete change;
-    }
-}
-
-
 int
 GNEUndoList::currentCommandGroupSize() const {
     if (myChangeGroups.size() > 0) {
