@@ -403,7 +403,7 @@ GNERerouter::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNERerouter::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::REROUTER, "position of " + getTagStr());
+    undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
     GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
     undoList->end();
 }
@@ -411,7 +411,7 @@ GNERerouter::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
 
 void
 GNERerouter::rebuildRerouterSymbols(const std::string& value, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::REROUTER, ("change " + getTagStr() + " attribute").c_str());
+    undoList->begin(myTagProperty.getGUIIcon(), ("change " + getTagStr() + " attribute").c_str());
     // drop all additional children
     while (getChildAdditionals().size() > 0) {
         undoList->add(new GNEChange_Additional(getChildAdditionals().front(), false), true);

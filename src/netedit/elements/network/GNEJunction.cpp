@@ -172,7 +172,7 @@ GNEJunction::removeGeometryPoint(const Position clickedPosition, GNEUndoList* un
                 // remove geometry point
                 shape.erase(shape.begin() + index);
                 // commit new shape
-                undoList->begin(GUIIcon::JUNCTION, "remove geometry point of " + getTagStr());
+                undoList->begin(myTagProperty.getGUIIcon(), "remove geometry point of " + getTagStr());
                 GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(shape), undoList);
                 undoList->end();
             }
@@ -938,7 +938,7 @@ GNEJunction::markConnectionsDeprecated(bool includingNeighbours) {
 
 void
 GNEJunction::setJunctionType(const std::string& value, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::JUNCTION, "change " + getTagStr() + " type");
+    undoList->begin(myTagProperty.getGUIIcon(), "change " + getTagStr() + " type");
     if (NBNode::isTrafficLight(SUMOXMLDefinitions::NodeTypes.get(value))) {
         if (getNBNode()->isTLControlled() &&
                 // if switching changing from or to traffic_light_right_on_red we need to remove the old plan
@@ -1114,7 +1114,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         case SUMO_ATTR_POSITION: {
             // change Keep Clear attribute in all connections
-            undoList->begin(GUIIcon::JUNCTION, TL("change junction position"));
+            undoList->begin(myTagProperty.getGUIIcon(), TL("change junction position"));
             // obtain NBNode position
             const Position orig = myNBNode->getPosition();
             // change junction position
@@ -1135,7 +1135,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         }
         case SUMO_ATTR_KEEP_CLEAR:
             // change Keep Clear attribute in all connections
-            undoList->begin(GUIIcon::JUNCTION, TL("change keepClear for whole junction"));
+            undoList->begin(myTagProperty.getGUIIcon(), TL("change keepClear for whole junction"));
             for (const auto& incomingEdge : myGNEIncomingEdges) {
                 for (const auto& junction : incomingEdge->getGNEConnections()) {
                     GNEChange_Attribute::changeAttribute(junction, key, value, undoList);
@@ -1149,7 +1149,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         }
         case SUMO_ATTR_TLTYPE: {
-            undoList->begin(GUIIcon::JUNCTION, "change " + getTagStr() + " tl-type");
+            undoList->begin(myTagProperty.getGUIIcon(), "change " + getTagStr() + " tl-type");
             // make a copy because we will modify the original
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
             for (const auto& TLS : copyOfTls) {
@@ -1170,7 +1170,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         }
         case SUMO_ATTR_TLLAYOUT: {
-            undoList->begin(GUIIcon::JUNCTION, "change " + getTagStr() + " tlLayout");
+            undoList->begin(myTagProperty.getGUIIcon(), "change " + getTagStr() + " tlLayout");
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
             for (const auto& oldTLS : copyOfTls) {
                 std::vector<NBNode*> copyOfNodes = oldTLS->getNodes();
@@ -1190,7 +1190,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         }
         case SUMO_ATTR_TLID: {
-            undoList->begin(GUIIcon::JUNCTION, "change " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " id");
+            undoList->begin(myTagProperty.getGUIIcon(), "change " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " id");
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
             assert(copyOfTls.size() > 0);
             NBTrafficLightDefinition* currentTLS = *copyOfTls.begin();
@@ -1774,7 +1774,7 @@ GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
         // check if we're editing a shape
         if (isShapeEdited()) {
             // commit new shape
-            undoList->begin(GUIIcon::JUNCTION, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+            undoList->begin(myTagProperty.getGUIIcon(), "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
             setAttribute(SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
             undoList->end();
         } else if (!myNet->getViewNet()->mergeJunctions(this, secondJunction)) {

@@ -67,7 +67,7 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATAEDGE, TL("add meanDataEdge"));
+            myNet->getViewNet()->getUndoList()->begin(edgeMeanData->getTagProperty().getGUIIcon(), TL("add meanDataEdge"));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -96,7 +96,7 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATALANE, TL("add meanDataLane"));
+            myNet->getViewNet()->getUndoList()->begin(edgeMeanData->getTagProperty().getGUIIcon(), TL("add meanDataLane"));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {

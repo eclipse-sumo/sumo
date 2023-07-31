@@ -258,12 +258,12 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
         // check if we're removing first geometry proint
         if (index == 0) {
             // commit new geometry start
-            undoList->begin(GUIIcon::EDGE, "remove first geometry point of " + getTagStr());
+            undoList->begin(myTagProperty.getGUIIcon(), "remove first geometry point of " + getTagStr());
             GNEChange_Attribute::changeAttribute(this, GNE_ATTR_SHAPE_START, "", undoList);
             undoList->end();
         } else if (index == lastIndex) {
             // commit new geometry end
-            undoList->begin(GUIIcon::EDGE, "remove last geometry point of " + getTagStr());
+            undoList->begin(myTagProperty.getGUIIcon(), "remove last geometry point of " + getTagStr());
             GNEChange_Attribute::changeAttribute(this, GNE_ATTR_SHAPE_END, "", undoList);
             undoList->end();
         } else {
@@ -275,7 +275,7 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
             // remove double points
             shape.removeDoublePoints(getSnapRadius(false));
             // commit new shape
-            undoList->begin(GUIIcon::EDGE, "remove geometry point of " + getTagStr());
+            undoList->begin(myTagProperty.getGUIIcon(), "remove geometry point of " + getTagStr());
             GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(shape), undoList);
             undoList->end();
         }
@@ -500,12 +500,12 @@ void
 GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
     if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
             (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < getSnapRadius(true))) {
-        undoList->begin(GUIIcon::EDGE, "remove endpoint");
+        undoList->begin(myTagProperty.getGUIIcon(), "remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
         undoList->end();
     } else if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
                (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < getSnapRadius(true))) {
-        undoList->begin(GUIIcon::EDGE, "remove endpoint");
+        undoList->begin(myTagProperty.getGUIIcon(), "remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
         undoList->end();
     } else {
@@ -517,7 +517,7 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             Position newPos = geom.positionAtOffset2D(offset);
             // snap new position to grid
             newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
-            undoList->begin(GUIIcon::EDGE, "set endpoint");
+            undoList->begin(myTagProperty.getGUIIcon(), "set endpoint");
             const int index = geom.indexOfClosest(pos, true);
             const Position destPos = getToJunction()->getNBNode()->getPosition();
             const Position sourcePos = getFromJunction()->getNBNode()->getPosition();
@@ -967,7 +967,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_FRICTION:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW: {
-            undoList->begin(GUIIcon::EDGE, "change " + getTagStr() + " attribute");
+            undoList->begin(myTagProperty.getGUIIcon(), "change " + getTagStr() + " attribute");
             const std::string origValue = myLanes.at(0)->getAttribute(key); // will have intermediate value of "lane specific"
             // lane specific attributes need to be changed via lanes to allow undo
             for (auto it : myLanes) {
@@ -980,7 +980,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         }
         case SUMO_ATTR_FROM: {
             if (value != getAttribute(key)) {
-                undoList->begin(GUIIcon::EDGE, "change  " + getTagStr() + "  attribute");
+                undoList->begin(myTagProperty.getGUIIcon(), "change  " + getTagStr() + "  attribute");
                 // Remove edge from crossings of junction source
                 removeEdgeFromCrossings(getFromJunction(), undoList);
                 // continue changing from junction
@@ -1001,7 +1001,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         }
         case SUMO_ATTR_TO: {
             if (value != getAttribute(key)) {
-                undoList->begin(GUIIcon::EDGE, "change  " + getTagStr() + "  attribute");
+                undoList->begin(myTagProperty.getGUIIcon(), "change  " + getTagStr() + "  attribute");
                 // Remove edge from crossings of junction destiny
                 removeEdgeFromCrossings(getToJunction(), undoList);
                 // continue changing destiny junction
@@ -1052,7 +1052,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             }
             break;
         case GNE_ATTR_BIDIR:
-            undoList->begin(GUIIcon::EDGE, "change  " + getTagStr() + "  attribute");
+            undoList->begin(myTagProperty.getGUIIcon(), "change  " + getTagStr() + "  attribute");
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             if (myNBEdge->getTurnDestination(true) != nullptr) {
                 GNEEdge* bidi = myNet->getAttributeCarriers()->retrieveEdge(myNBEdge->getTurnDestination(true)->getID());
@@ -1795,7 +1795,7 @@ GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
         innenShapeToUpdate.pop_front();
         innenShapeToUpdate.pop_back();
         // commit new shape
-        undoList->begin(GUIIcon::EDGE, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        undoList->begin(myTagProperty.getGUIIcon(), "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
         // update start position
         if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), 0) != moveResult.geometryPointsToMove.end()) {
             GNEChange_Attribute::changeAttribute(this, GNE_ATTR_SHAPE_START, toString(moveResult.shapeToUpdate.front()), undoList);
@@ -1816,7 +1816,7 @@ GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 void
 GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     // begin undo list
-    undoList->begin(GUIIcon::EDGE, "change number of " + toString(SUMO_TAG_LANE) +  "s");
+    undoList->begin(myTagProperty.getGUIIcon(), "change number of " + toString(SUMO_TAG_LANE) +  "s");
     // invalidate logic of source/destiny edges
     getFromJunction()->setLogicValid(false, undoList);
     getToJunction()->setLogicValid(false, undoList);

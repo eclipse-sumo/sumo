@@ -304,7 +304,7 @@ GNETractionSubstation::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNETractionSubstation::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::TRACTION_SUBSTATION, "position of " + getTagStr());
+    undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
     GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
     undoList->end();
 }

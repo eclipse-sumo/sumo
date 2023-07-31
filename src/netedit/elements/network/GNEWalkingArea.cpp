@@ -374,7 +374,7 @@ GNEWalkingArea::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEWalkingArea::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
-    undoList->begin(GUIIcon::WALKINGAREA, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+    undoList->begin(myTagProperty.getGUIIcon(), "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
     GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
     undoList->end();
 }

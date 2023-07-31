@@ -566,7 +566,6 @@ GNEVType::getAttributePosition(SumoXMLAttr key) const {
 
 void
 GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    GNEChange_Attribute* vTypeChangeAttributeForced = nullptr;
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }

@@ -185,7 +185,7 @@ GNEConnection::removeGeometryPoint(const Position clickedPosition, GNEUndoList* 
                 // remove geometry point
                 shape.erase(shape.begin() + index);
                 // commit new shape
-                undoList->begin(GUIIcon::CONNECTION, "remove geometry point of " + getTagStr());
+                undoList->begin(myTagProperty.getGUIIcon(), "remove geometry point of " + getTagStr());
                 GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape), undoList);
                 undoList->end();
             }
@@ -622,7 +622,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             }
             break;
         case SUMO_ATTR_INDIRECT:
-            undoList->begin(GUIIcon::CONNECTION, "change attribute indirect for connection");
+            undoList->begin(myTagProperty.getGUIIcon(), "change attribute indirect for connection");
             if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX) && (value != getAttribute(key))) {
                 GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 int linkIndex2 = -1;
@@ -659,7 +659,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 void
 GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndoList* undoList) {
     // trigger GNEChange_TLS
-    undoList->begin(GUIIcon::CONNECTION, "change tls linkIndex for connection");
+    undoList->begin(myTagProperty.getGUIIcon(), "change tls linkIndex for connection");
     // make a copy
     std::set<NBTrafficLightDefinition*> defs = getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS();
     for (const auto& tlDef : defs) {
@@ -921,7 +921,7 @@ GNEConnection::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEConnection::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
-    undoList->begin(GUIIcon::CONNECTION, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
+    undoList->begin(myTagProperty.getGUIIcon(), "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate), undoList);
     undoList->end();
 }
