@@ -30,7 +30,8 @@ title: ChangeLog
   - Added proper error handling for duplicate edgeRelations. #11329
   - Can now load and modify `<vTypeDistribution>` elements. #12846
   - Now if a network element ID is modified, flag for save children is enabled. #13619
-  - Avoid mixing edges and lanes in overlapping module when inspecting edges or lanes. #13093 
+  - Avoid mixing edges and lanes in overlapping module when inspecting edges or lanes. #13093
+  - Fixed crash opening undo-redo dialog after setting a simple attribute. #13673
   
 - netconvert
   - Fixed unequal length of bidi edge. #13569
