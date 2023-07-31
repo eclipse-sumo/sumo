@@ -186,7 +186,7 @@ GNEConnection::removeGeometryPoint(const Position clickedPosition, GNEUndoList* 
                 shape.erase(shape.begin() + index);
                 // commit new shape
                 undoList->begin(GUIIcon::CONNECTION, "remove geometry point of " + getTagStr());
-                undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape)));
+                GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape), undoList);
                 undoList->end();
             }
         }
@@ -609,7 +609,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             // no special handling
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         case SUMO_ATTR_TLLINKINDEX:
             if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX) && (value != getAttribute(key))) {
@@ -624,7 +624,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_INDIRECT:
             undoList->begin(GUIIcon::CONNECTION, "change attribute indirect for connection");
             if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX) && (value != getAttribute(key))) {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 int linkIndex2 = -1;
                 if (parse<bool>(value)) {
                     // find straight connection with the same toEdge
@@ -922,7 +922,7 @@ void
 GNEConnection::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
     undoList->begin(GUIIcon::CONNECTION, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
-    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
+    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate), undoList);
     undoList->end();
 }
 
