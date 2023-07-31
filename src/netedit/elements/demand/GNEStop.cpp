@@ -796,7 +796,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
         case GNE_ATTR_PARAMETERS:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         // special case for person plans
         case SUMO_ATTR_EDGE: {
@@ -806,10 +806,10 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             if (nextPersonPlan) {
                 undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
             } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             }
             break;
         }
@@ -824,13 +824,13 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                     // change from attribute using edge ID
                     undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                     nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                     undoList->end();
                 } else {
-                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 }
             } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             }
             break;
         case SUMO_ATTR_TRAIN_STOP:
@@ -844,13 +844,13 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                     // change from attribute using edge ID
                     undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                     nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                     undoList->end();
                 } else {
-                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 }
             } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             }
             break;
         case SUMO_ATTR_CONTAINER_STOP:
@@ -864,13 +864,13 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                     // change from attribute using edge ID
                     undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                     nextPersonPlan->setAttribute(SUMO_ATTR_FROM, containerStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                     undoList->end();
                 } else {
-                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 }
             } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             }
             break;
         case SUMO_ATTR_ENDPOS:
@@ -883,13 +883,13 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                     // change from attribute using edge ID
                     undoList->begin(myTagProperty.getGUIIcon(), "Change arrivalPos attribute of previous personPlan");
                     previousPersonPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
-                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                     undoList->end();
                 } else {
-                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 }
             } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             }
             break;
         default:
@@ -1795,14 +1795,14 @@ GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
         // set attributes depending of operation type
         if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
             // set only start position
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
+            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
         } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
             // set only end position
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos)));
+            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
         } else {
             // set both
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
+            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
+            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
             // check if lane has to be changed
             if (moveResult.newFirstLane) {
                 // set new lane
