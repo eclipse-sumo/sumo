@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-27 14:22+0200\n"
-"PO-Revision-Date: 2023-07-27 12:33+0000\n"
+"PO-Revision-Date: 2023-07-31 09:39+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -6735,37 +6735,37 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1442
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1442
 msgid "Cannot delete in this mode"
-msgstr ""
+msgstr "No se puede eliminar en este modo"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1445
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1445
 msgid "delete network inspected elements"
-msgstr ""
+msgstr "eliminar elementos de red inspeccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1453
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1453
 msgid "delete network selection"
-msgstr ""
+msgstr "eliminar selección de red"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1461
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1461
 msgid "delete demand inspected elements"
-msgstr ""
+msgstr "eliminar elementos de demanda inspeccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1469
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1469
 msgid "delete demand selection"
-msgstr ""
+msgstr "eliminar demanda seleccionada"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1477
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1477
 msgid "delete data inspected elements"
-msgstr ""
+msgstr "eliminar datos inspeccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1485
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1485
 msgid "delete data selection"
-msgstr ""
+msgstr "eliminar datos seleccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2188
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2188
@@ -16801,12 +16801,12 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:79
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:79
 msgid "Create default edge"
-msgstr ""
+msgstr "Crear calle (edge) por defecto"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:82
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:82
 msgid "Disallow for pedestrians"
-msgstr ""
+msgstr "No permitir peatones"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:84
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:84
@@ -17861,12 +17861,12 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1546
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1565
 msgid "TLS cannot be created"
-msgstr ""
+msgstr "El semáforo no puede ser creado"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1534
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1534
 msgid "Traffic Light cannot be created because junction must have"
-msgstr ""
+msgstr "El semáforo no puede ser creado porque el cruce debe tener"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1535
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1535
@@ -17878,17 +17878,17 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1547
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1566
 msgid "Traffic Light cannot be created because junction"
-msgstr ""
+msgstr "El semáforo no puede ser creado porque el cruce"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1548
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1548
 msgid "must have at least one connection."
-msgstr ""
+msgstr "debe tener por lo menos una conexión."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1567
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1567
 msgid "must have at least one controlled connection."
-msgstr ""
+msgstr "debe tener por lo menos una conexión controlada."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1610
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1610
