@@ -566,13 +566,12 @@ GNEVType::getAttributePosition(SumoXMLAttr key) const {
 
 void
 GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    GNEChange_Attribute* vTypeChangeAttributeForced = nullptr;
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
@@ -689,21 +688,12 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
-                vTypeChangeAttributeForced = new GNEChange_Attribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
-                // force change
-                vTypeChangeAttributeForced->forceChange();
-                undoList->changeAttribute(vTypeChangeAttributeForced);
+                GNEChange_Attribute::changeAttribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true", undoList, true);
             }
-            vTypeChangeAttributeForced = new GNEChange_Attribute(this, key, value); 
-            // force change
-            vTypeChangeAttributeForced->forceChange();
-            undoList->changeAttribute(vTypeChangeAttributeForced);
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList, true);
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
-            vTypeChangeAttributeForced = new GNEChange_Attribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
-            // force change
-            vTypeChangeAttributeForced->forceChange();
-            undoList->changeAttribute(vTypeChangeAttributeForced);
+            GNEChange_Attribute::changeAttribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true", undoList, true);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1027,7 +1017,7 @@ GNEVType::getACParametersMap() const {
 void
 GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList) {
     // open undo list and overwrite all values of default VType
-    undoList->begin(vType->getTagProperty().getGUIIcon(), "update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
+    undoList->begin(vType, "update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
     // CFM values
     if (!newVTypeParameter.getCFParamString(SUMO_ATTR_ACCEL, "").empty()) {
         vType->setAttribute(SUMO_ATTR_ACCEL, toString(newVTypeParameter.getCFParam(SUMO_ATTR_ACCEL, 0)), undoList);

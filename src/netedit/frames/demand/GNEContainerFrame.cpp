@@ -281,7 +281,7 @@ GNEContainerFrame::createPath(const bool /* useLastRoute */) {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // begin undo-redo operation
-        myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getGUIIcon(), "create " +
+        myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC(), "create " +
                                         myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
                                         myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
         // create person

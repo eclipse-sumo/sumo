@@ -160,7 +160,7 @@ GNEFixNetworkElements::FixOptions::setInvalidElements(const std::vector<GNENetwo
     // iterate over invalid edges
     for (int i = 0; i < (int)myInvalidElements.size(); i++) {
         // Set icon
-        item = new FXTableItem("", myInvalidElements.at(i)->getACIcon());
+        item = new FXTableItem("", myInvalidElements.at(i)->getFXIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
         myTable->setItem(i, 0, item);
         // Set ID
@@ -260,7 +260,7 @@ GNEFixNetworkElements::FixEdgeOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
         if (removeInvalidEdges->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid edges");
+            myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("delete invalid edges"));
             // iterate over invalid edges to delete it
             for (const auto& invalidEdge : myInvalidElements) {
                 myViewNet->getNet()->deleteEdge(myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(invalidEdge->getID()), myViewNet->getUndoList(), false);
@@ -269,7 +269,7 @@ GNEFixNetworkElements::FixEdgeOptions::fixElements(bool& abortSaving) {
             myViewNet->getUndoList()->end();
         } else if (selectInvalidEdgesAndCancel->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid edges");
+            myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("select invalid edges"));
             // iterate over invalid single lane elements to select all elements
             for (const auto& invalidEdge : myInvalidElements) {
                 invalidEdge->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
@@ -341,7 +341,7 @@ GNEFixNetworkElements::FixCrossingOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
         if (removeInvalidCrossings->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid crossings");
+            myViewNet->getUndoList()->begin(GUIIcon::CROSSING, TL("delete invalid crossings"));
             // iterate over invalid crossings to delete it
             for (const auto& invalidCrossing : myInvalidElements) {
                 myViewNet->getNet()->deleteCrossing(myViewNet->getNet()->getAttributeCarriers()->retrieveCrossing(invalidCrossing), myViewNet->getUndoList());
@@ -350,7 +350,7 @@ GNEFixNetworkElements::FixCrossingOptions::fixElements(bool& abortSaving) {
             myViewNet->getUndoList()->end();
         } else if (selectInvalidCrossingsAndCancel->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid edges");
+            myViewNet->getUndoList()->begin(GUIIcon::CROSSING, TL("select invalid crossings"));
             // iterate over invalid single lane elements to select all elements
             for (const auto& invalidCrossing : myInvalidElements) {
                 invalidCrossing->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());

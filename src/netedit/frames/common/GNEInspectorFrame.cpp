@@ -264,7 +264,7 @@ GNEInspectorFrame::NeteditAttributesEditor::setNewParent(GNEAttributeCarrier* cl
             if (parentTag == clickedAC->getTagProperty().getTag()) {
                 // check if we're changing multiple attributes
                 if (ACs.size() > 1) {
-                    myInspectorFrameParent->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+                    myInspectorFrameParent->myViewNet->getUndoList()->begin(ACs.front(), "Change multiple attributes");
                 }
                 // replace the parent of all inspected elements
                 for (const auto& AC : ACs) {
@@ -299,7 +299,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
     if (ACs.size() > 0) {
         // check if we're changing multiple attributes
         if (ACs.size() > 1) {
-            myInspectorFrameParent->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+            myInspectorFrameParent->myViewNet->getUndoList()->begin(ACs.front(), "Change multiple attributes");
         }
         if (obj == mySetNewParentButton) {
             if (mySetNewParentButton->amChecked()) {
@@ -683,7 +683,7 @@ GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void
     // first check
     if (myEdgeTemplate) {
         // begin copy template
-        myInspectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::EDGE, "copy edge template");
+        myInspectorFrameParent->myViewNet->getUndoList()->begin(myEdgeTemplate, "copy edge template");
         // iterate over inspected ACs
         for (const auto& inspectedAC : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             // avoid copy template in the same edge

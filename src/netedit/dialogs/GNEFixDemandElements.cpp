@@ -174,7 +174,7 @@ GNEFixDemandElements::FixOptions::setInvalidElements(const std::vector<GNEDemand
     // iterate over invalid routes
     for (int i = 0; i < (int)myInvalidElements.size(); i++) {
         // Set icon
-        item = new FXTableItem("", myInvalidElements.at(i)->getACIcon());
+        item = new FXTableItem("", myInvalidElements.at(i)->getFXIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
         myTable->setItem(i, 0, item);
         // Set ID
@@ -312,7 +312,7 @@ GNEFixDemandElements::FixRouteOptions::fixElements(bool& abortSaving) {
                 stopsToRemove.insert(stopsToRemove.end(), invaldstops.begin(), invaldstops.end());
             }
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid stops");
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "delete invalid stops");
             // remove all
             for (const auto& stopToRemove : stopsToRemove) {
                 myViewNet->getNet()->deleteDemandElement(stopToRemove, myViewNet->getUndoList());
@@ -389,7 +389,7 @@ GNEFixDemandElements::FixVehicleOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
         if (removeInvalidVehicles->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid vehicles");
+            myViewNet->getUndoList()->begin(GUIIcon::VEHICLE, "delete invalid vehicles");
             // iterate over invalid vehicles to delete it
             for (const auto& invalidVehicle : myInvalidElements) {
                 myViewNet->getNet()->deleteDemandElement(invalidVehicle, myViewNet->getUndoList());
@@ -418,7 +418,7 @@ GNEFixDemandElements::FixVehicleOptions::fixElements(bool& abortSaving) {
                 stopsToRemove.insert(stopsToRemove.end(), invaldstops.begin(), invaldstops.end());
             }
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid stops");
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "delete invalid stops");
             // remove all
             for (const auto& stopToRemove : stopsToRemove) {
                 myViewNet->getNet()->deleteDemandElement(stopToRemove, myViewNet->getUndoList());

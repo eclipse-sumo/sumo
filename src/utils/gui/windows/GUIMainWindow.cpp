@@ -385,11 +385,11 @@ GUIMainWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
             break;
         case MID_LANGUAGE_ZH:
             langID = "zh";
-            lang = TL("chinese");
+            lang = TL("simplified chinese");
             break;
         case MID_LANGUAGE_ZHT:
             langID = "zh-Hant";
-            lang = TL("chinese simplified");
+            lang = TL("traditional chinese");
             break;
         case MID_LANGUAGE_TR:
             langID = "tr";

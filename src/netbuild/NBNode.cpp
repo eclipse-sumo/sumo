@@ -2978,7 +2978,7 @@ NBNode::buildCrossings() {
         }
         c->id = ":" + getID() + "_c" + toString(index++);
         c->width = (c->customWidth == NBEdge::UNSPECIFIED_WIDTH) ? defaultWidth : c->customWidth;
-        // reset fields, so repeated computation (Netedit) will sucessfully perform the checks
+        // reset fields, so repeated computation (Netedit) will successfully perform the checks
         // in buildWalkingAreas (split crossings) and buildInnerEdges (sanity check)
         c->nextWalkingArea = "";
         c->prevWalkingArea = "";

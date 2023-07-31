@@ -86,7 +86,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, double x, const double y, const std::string& name, const Parameterised::Map& parameters) :
     PointOfInterest(id, "jupedsim.waypoint", RGBColor::CYAN, Position(x, y), false, "", 0, false, 0, 2, 0, "", false, 0, 0, name, parameters),
-    GNEAdditional(id, net, GLO_POI, GNE_TAG_POIWAYPOINT, GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
+    GNEAdditional(id, net, GLO_POIWAYPOINT, GNE_TAG_POIWAYPOINT, GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
                   "", {}, {}, {}, {}, {}, {}) {
     // update geometry (needed for adjust myShapeWidth and myShapeHeight)
     updateGeometry();
@@ -326,14 +326,17 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
-    // continue depending of lane number
-    if (getParentLanes().size() > 0) {
-        // add option for convert to GNEPOI
-        GUIDesigns::buildFXMenuCommand(ret, TL("Release from lane"), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
-        return ret;
-    } else {
-        // add option for convert to GNEPOI
-        GUIDesigns::buildFXMenuCommand(ret, TL("Attach to nearest lane"), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
+    // specific of  non juPedSim polygons
+    if (!myTagProperty.isJuPedSimElement()) {
+        // continue depending of lane number
+        if (getParentLanes().size() > 0) {
+            // add option for convert to GNEPOI
+            GUIDesigns::buildFXMenuCommand(ret, TL("Release from lane"), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
+            return ret;
+        } else {
+            // add option for convert to GNEPOI
+            GUIDesigns::buildFXMenuCommand(ret, TL("Attach to nearest lane"), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
+        }
     }
     return ret;
 }
@@ -525,7 +528,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -786,19 +789,19 @@ void
 GNEPOI::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // check what are being updated
     if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
-        undoList->begin(myTagProperty.getGUIIcon(), "height of " + getTagStr());
+        undoList->begin(this, "height of " + getTagStr());
         setAttribute(SUMO_ATTR_HEIGHT, toString(moveResult.shapeToUpdate.length2D()), undoList);
         undoList->end();
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
-        undoList->begin(myTagProperty.getGUIIcon(), "width of " + getTagStr());
+        undoList->begin(this, "width of " + getTagStr());
         setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
         undoList->end();
     } else {
-        undoList->begin(GUIIcon::POI, "position of " + getTagStr());
+        undoList->begin(this, "position of " + getTagStr());
         if (getTagProperty().getTag() == GNE_TAG_POILANE) {
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.newFirstPos)));
+            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
         } else {
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
         }
         undoList->end();
     }

@@ -68,6 +68,9 @@ GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
     myLockedElements[GLO_WIRE] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_POLYGON] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_POI] = OperationLocked(Supermode::NETWORK);
+    myLockedElements[GLO_WALKABLEAREA] = OperationLocked(Supermode::NETWORK);
+    myLockedElements[GLO_OBSTACLE] = OperationLocked(Supermode::NETWORK);
+    myLockedElements[GLO_POIWAYPOINT] = OperationLocked(Supermode::NETWORK);
     // fill myLockedElements objects
     myLockedElements[GLO_ROUTE] = OperationLocked(Supermode::DEMAND);
     myLockedElements[GLO_VEHICLE] = OperationLocked(Supermode::DEMAND);
@@ -133,6 +136,9 @@ GNEViewNetHelper::LockManager::updateFlags() {
     myLockedElements[GLO_TAZ].lock = lockMenuCommands.menuCheckLockTAZs->getCheck() == TRUE;
     myLockedElements[GLO_POLYGON].lock = lockMenuCommands.menuCheckLockPolygons->getCheck() == TRUE;
     myLockedElements[GLO_POI].lock = lockMenuCommands.menuCheckLockPOIs->getCheck() == TRUE;
+    myLockedElements[GLO_WALKABLEAREA].lock = lockMenuCommands.menuCheckLockWalkableAreas->getCheck() == TRUE;
+    myLockedElements[GLO_OBSTACLE].lock = lockMenuCommands.menuCheckLockObstacles->getCheck() == TRUE;
+    myLockedElements[GLO_POIWAYPOINT].lock = lockMenuCommands.menuCheckLockPOIWaypoints->getCheck() == TRUE;
     // demand
     myLockedElements[GLO_ROUTE].lock = lockMenuCommands.menuCheckLockRoutes->getCheck() == TRUE;
     myLockedElements[GLO_VEHICLE].lock = lockMenuCommands.menuCheckLockVehicles->getCheck() == TRUE;
@@ -167,6 +173,9 @@ GNEViewNetHelper::LockManager::updateLockMenuBar() {
     lockMenuCommands.menuCheckLockTAZs->setCheck(myLockedElements[GLO_TAZ].lock);
     lockMenuCommands.menuCheckLockPolygons->setCheck(myLockedElements[GLO_POLYGON].lock);
     lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedElements[GLO_POI].lock);
+    lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedElements[GLO_WALKABLEAREA].lock);
+    lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedElements[GLO_OBSTACLE].lock);
+    lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedElements[GLO_POIWAYPOINT].lock);
     // demand
     lockMenuCommands.menuCheckLockRoutes->setCheck(myLockedElements[GLO_ROUTE].lock);
     lockMenuCommands.menuCheckLockVehicles->setCheck(myLockedElements[GLO_VEHICLE].lock);
@@ -924,8 +933,10 @@ GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer&
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
+    // get gltype
+    auto type = AC->getGUIGlObject()->getType();
     // cast specific shape
-    if (AC->getGUIGlObject()->getType() == GLO_POI) {
+    if ((type == GLO_POI) || (type == GLO_POIWAYPOINT)) {
         // cast POI
         GNEPOI* POI = dynamic_cast<GNEPOI*>(AC);
         if (POI) {
@@ -938,7 +949,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
                 container.POIs.push_back(POI);
             }
         }
-    } else if (AC->getGUIGlObject()->getType() == GLO_POLYGON) {
+    } else if ((type == GLO_POLYGON) || (type == GLO_WALKABLEAREA) || (type == GLO_OBSTACLE)) {
         // cast poly
         GNEPoly* poly = dynamic_cast<GNEPoly*>(AC);
         if (poly) {

@@ -1,0 +1,4 @@
+Error: Attribute 'id' is missing in definition of a poly.
+Error: Could not build poly with ID '%%%%;;$$$%' in netedit; ID contains invalid characters.
+Error: Could not build taz with ID 'poly_0' in netedit; Declared twice.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.22May115309.2092/netedit.daily.shape/shapeelements/poly/load/id/additionals.add.xml failed.

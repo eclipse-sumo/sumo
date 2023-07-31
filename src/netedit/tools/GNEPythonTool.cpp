@@ -164,7 +164,7 @@ GNEPythonTool::getDefaultValue(const std::string& name) const {
 
 bool
 GNEPythonTool::loadConfiguration(const std::string& file) {
-    // make all options writables
+    // make all options writable
     myPythonToolsOptions.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;

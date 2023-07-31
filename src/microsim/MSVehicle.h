@@ -811,7 +811,7 @@ public:
 
     /** @brief set tentative lane and position during insertion to ensure that
      * all cfmodels work (some of them require veh->getLane() to return a valid lane)
-     * Once the vehicle is sucessfully inserted the lane is set again (see enterLaneAtInsertion)
+     * Once the vehicle is successfully inserted the lane is set again (see enterLaneAtInsertion)
      */
     void setTentativeLaneAndPosition(MSLane* lane, double pos, double posLat = 0);
 

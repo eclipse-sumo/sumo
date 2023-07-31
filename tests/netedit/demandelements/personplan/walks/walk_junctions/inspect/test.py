@@ -37,7 +37,7 @@ netedit.personMode()
 # change person plan
 netedit.changePersonPlan("walk: edge", False)
 
-# create route using two one
+# create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # press enter to create route
@@ -47,13 +47,13 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 
 # go to personTripJunctions mode
 netedit.changePersonPlanMode("personTrip: junctions")
 
-# create personTripJunctions
-netedit.leftClick(referencePosition, 95, 223)
+# create walkJunctions
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x, netedit.positions.demandElements.junction3.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -62,13 +62,13 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect personTripJunctions
-netedit.leftClick(referencePosition, 171, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planJunction.x, netedit.positions.demandElements.planJunction.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.walkJunctions.inspect.to, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walkJunctions.inspect.to, "Junction3", False)
+netedit.modifyAttribute(netedit.attrs.walkJunctions.inspect.to, "Junction2", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

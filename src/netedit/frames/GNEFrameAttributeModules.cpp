@@ -110,7 +110,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     // create and hide color editor
     myAttributeVTypeButton = new MFXButtonTooltip(this,
             attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-            "attributeVTypeButton", myACParent ? myACParent->getACIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
+            "attributeVTypeButton", myACParent ? myACParent->getFXIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
     myAttributeVTypeButton->hide();
     // Create and hide MFXTextFieldTooltip for string attributes
     myValueTextField = new MFXTextFieldTooltip(this,
@@ -305,10 +305,10 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             // fill comboBox with vTypes and vType distributions
             myValueChoicesComboBox->clearItems();
             for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon());
             }
             for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon());
             }
             // show only 10 vtypes
             myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
@@ -393,10 +393,10 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
         // fill comboBox with vTypes
         myValueChoicesComboBox->clearItems();
         for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon());
         }
         for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon());
         }
         // show only 10 vtypes
         myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
@@ -483,7 +483,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
             if (viewNet->getInspectedAttributeCarriers().front()->isValid(myACAttr.getAttr(), newValue)) {
                 // if its valid for the first AC than its valid for all (of the same type)
                 if (ACs.size() > 1) {
-                    viewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("change multiple attributes"));
+                    viewNet->getUndoList()->begin(ACs.front(), TL("change multiple attributes"));
                 }
                 // Set new value of attribute in all selected ACs
                 for (const auto& inspectedAC : viewNet->getInspectedAttributeCarriers()) {
@@ -502,7 +502,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
     } else if (obj == myAttributeAllowButton) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (ACs.size() > 1) {
-            viewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("change multiple attributes"));
+            viewNet->getUndoList()->begin(ACs.front(), TL("change multiple attributes"));
         }
         // declare accept changes
         bool acceptChanges = false;
@@ -618,10 +618,10 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         if (!mergeJunction(myACAttr.getAttr(), inspectedACs, newVal)) {
             // if its valid for the first AC than its valid for all (of the same type)
             if (inspectedACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), TL("change multiple attributes"));
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front(), TL("change multiple attributes"));
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
                 // IDs attribute has to be encapsulated
-                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), TL("change ") + myACAttr.getTagPropertyParent().getTagStr() + TL(" attribute"));
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front(), TL("change ") + myACAttr.getTagPropertyParent().getTagStr() + TL(" attribute"));
             }
             // Set new value of attribute in all selected ACs
             for (const auto& inspectedAC : inspectedACs) {
@@ -692,7 +692,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
         myValueCheckButton->enable();
         myValueTextField->enable();
         // enable attribute
-        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("enable attribute '") + myACAttr.getAttrStr() + "'");
+        undoList->begin(ACs.front(), TL("enable attribute '") + myACAttr.getAttrStr() + "'");
         ACs.front()->enableAttribute(myACAttr.getAttr(), undoList);
         undoList->end();
     } else {
@@ -700,7 +700,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
         myValueCheckButton->disable();
         myValueTextField->disable();
         // disable attribute
-        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("disable attribute '") + myACAttr.getAttrStr() + "'");
+        undoList->begin(ACs.front(), TL("disable attribute '") + myACAttr.getAttrStr() + "'");
         ACs.front()->disableAttribute(myACAttr.getAttr(), undoList);
         undoList->end();
     }
@@ -1382,14 +1382,14 @@ GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
                 // check inspected parameters
                 if (inspectedACs.size() == 1) {
                     // begin undo list
-                    myInspectorFrameParent->getViewNet()->getUndoList()->begin(frontAC->getTagProperty().getGUIIcon(), "change parameters");
+                    myInspectorFrameParent->getViewNet()->getUndoList()->begin(frontAC, "change parameters");
                     // set parameters
                     frontAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
                     // end undo list
                     myInspectorFrameParent->getViewNet()->getUndoList()->end();
                 } else if (inspectedACs.size() > 0) {
                     // begin undo list
-                    myInspectorFrameParent->getViewNet()->getUndoList()->begin(frontAC->getTagProperty().getGUIIcon(), "change multiple parameters");
+                    myInspectorFrameParent->getViewNet()->getUndoList()->begin(frontAC, "change multiple parameters");
                     // set parameters in all ACs
                     for (const auto& inspectedAC : inspectedACs) {
                         inspectedAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
@@ -1414,7 +1414,7 @@ GNEFrameAttributeModules::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
                 myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
                 myTextFieldParameters->killFocus();
                 // begin undo list
-                myTypeFrameParent->getViewNet()->getUndoList()->begin(type->getTagProperty().getGUIIcon(), "change parameters");
+                myTypeFrameParent->getViewNet()->getUndoList()->begin(type, "change parameters");
                 // set parameters
                 type->setACParameters(myTextFieldParameters->getText().text(), myTypeFrameParent->getViewNet()->getUndoList());
                 // end undo list

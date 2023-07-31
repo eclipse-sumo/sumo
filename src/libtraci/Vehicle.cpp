@@ -408,7 +408,6 @@ Vehicle::getNextLinks(const std::string& vehID) {
     ret.readInt(); // components
     // number of items
     ret.readUnsignedByte();
-    ret.readInt();
 
     const int linkNo = ret.readInt();
     for (int i = 0; i < linkNo; ++i) {

@@ -808,10 +808,10 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
 
         /// @brief pointer to locked person
-        const GNEDemandElement* myLockedPerson;
+        const GNEDemandElement* myLockedPerson = nullptr;
 
         /// @brief pointer to locked container
-        const GNEDemandElement* myLockedContainer;
+        const GNEDemandElement* myLockedContainer = nullptr;
 
         /// @brief Invalidated copy constructor.
         DemandViewOptions(const DemandViewOptions&) = delete;

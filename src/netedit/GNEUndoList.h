@@ -130,6 +130,14 @@ public:
      */
     void begin(GUIIcon icon, const std::string& description);
 
+    /**@brief Begin undo command sub-group with current supermode. (used for ACs
+     * This begins a new group of commands that
+     * are treated as a single command.  Must eventually be followed by a
+     * matching end() after recording the sub-commands. The new sub-group
+     * will be appended to its parent group's undo list when end() is called.
+     */
+    void begin(const GNEAttributeCarrier *AC, const std::string& description);
+
     /**@brief Begin undo command sub-group specifying supermode.
      * This begins a new group of commands that
      * are treated as a single command.  Must eventually be followed by a
@@ -154,9 +162,6 @@ public:
      * from this point.
      */
     void add(GNEChange* command, bool doit = false, bool merge = true);
-
-    /// @brief special method for change attributes, avoid empty changes, always execute
-    void changeAttribute(GNEChange_Attribute* change);
 
     /* @brief clears the undo list (implies abort)
      * All undo and redo information will be destroyed.

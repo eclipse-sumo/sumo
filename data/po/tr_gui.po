@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-27 14:22+0200\n"
+"POT-Creation-Date: 2023-07-31 12:42+0200\n"
 "PO-Revision-Date: 2023-03-15 09:30+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -2604,7 +2604,7 @@ msgstr "Ek dosyası yüklenemedi: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3682
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1309
-msgid "Loading of additional file sucessfully: "
+msgid "Loading of additional file successfully: "
 msgstr "Ek dosyası başarıyla yüklendi: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3708
@@ -2644,7 +2644,7 @@ msgstr "Rota dosyası yüklenemedi: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3877
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1320
-msgid "Loading of route file sucessfully: "
+msgid "Loading of route file successfully: "
 msgstr "Rota dosyası başarıyla yüklendi: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3908
@@ -2671,7 +2671,7 @@ msgstr "Veri dosyasının yüklenmesi başarısız oldu: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4040
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1331
-msgid "Loading of data file sucessfully: "
+msgid "Loading of data file successfully: "
 msgstr "Veri dosyası başarıyla yükleniyor: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4070
@@ -2702,7 +2702,7 @@ msgstr "Ortalama Veri (meandata) dosyasının yüklenmesi başarısız: "
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4204
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4235
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1342
-msgid "Loading of meandata file sucessfully: "
+msgid "Loading of meandata file successfully: "
 msgstr "Ortalama Veri (meandata) dosyası başarıyla yükleniyor: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4230
@@ -2933,7 +2933,7 @@ msgid "Close the network."
 msgstr "Ağı kapat."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:339
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1946
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1957
 msgid "Save Netedit Config"
 msgstr "Netedit Yapılandırmasını Kaydet"
 
@@ -2958,7 +2958,7 @@ msgid "Reload netedit configuration."
 msgstr "Netedit yapılandırmasını yeniden yükle."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:357
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1952
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1963
 msgid "Save Sumo Config"
 msgstr "Sumo Yapılandırmasını Kaydet"
 
@@ -3432,17 +3432,17 @@ msgstr "MeanData kesim/şeritleri oluştur."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:825
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1010
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2338
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2636
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2349
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2647
 msgid "Show grid"
 msgstr "Izgarayı göster"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:830
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1015
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1141
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2346
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2644
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2923
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2357
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2655
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2934
 msgid "Hide junction shape"
 msgstr "Kavşak şeklini gizle"
 
@@ -3452,8 +3452,8 @@ msgstr "Yolda ya da ayrılma pozisyonunda yayılmış araçları çizin"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:840
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1156
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2362
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2945
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2373
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2956
 msgid "Show demand elements"
 msgstr "Talep elemanlarını göster"
 
@@ -3462,12 +3462,12 @@ msgid "Clicking should target lanes"
 msgstr "Tıklama şeritleri hedeflemelidir"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:850
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2377
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2388
 msgid "Show connections over junctions"
 msgstr "Kavşaklar üzerindeki bağlantıları göster"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:855
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2385
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2396
 msgid "Hide connections"
 msgstr "Bağlantıları gizle"
 
@@ -3476,7 +3476,7 @@ msgid "Show sub-additional elements"
 msgstr "Alt ek öğeleri göster"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:865
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2401
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2412
 msgid "Show TAZ elements"
 msgstr "TAB öğelerini göster"
 
@@ -3511,29 +3511,29 @@ msgid "Create an edge in the opposite direction"
 msgstr "Ters yönde bir kesim oluştur"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1020
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2652
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2663
 msgid "Draw vehicles spread/depart position"
 msgstr "Araçların yayılma/ayrılma pozisyonunu çiz"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1025
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1151
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2660
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2938
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2671
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2949
 msgid "Show shapes"
 msgstr "Şekilleri göster"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1030
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2668
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2679
 msgid "Show all trips"
 msgstr "Tüm seyahatleri göster"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1035
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2676
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2687
 msgid "Show all person plans"
 msgstr "Tüm yolcu planlarını göster"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1040
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2684
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2695
 msgid "Lock selected person"
 msgstr "Seçili yolcuyu kilitle"
 
@@ -3542,22 +3542,22 @@ msgid "Show all container plans"
 msgstr "Tüm konteyner planlarını göster"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1050
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2700
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2711
 msgid "Lock selected container"
 msgstr "Seçili konteyneri kilitle"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1055
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2708
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2719
 msgid "Show non-inspected demand elements"
 msgstr "Denetlenmeyen talep unsurlarını göster"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1060
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2716
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2727
 msgid "Show number of overlapped routes"
 msgstr "Çakışan rota sayısını göster"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1146
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2931
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2942
 msgid "Show additionals"
 msgstr "Ekleri göster"
 
@@ -5106,152 +5106,152 @@ msgstr "Aynı konumda iki ek oluşturmak için Shift + tıklayın"
 msgid "Control + click to create two stop in the same position"
 msgstr "Aynı konumda iki durak oluşturmak için Control + tıklayın"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1467
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1488
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1478
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1499
 msgid "moving selection"
 msgstr "Seçim kaydırılıyor"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1668
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1679
 msgid "Selection width:"
 msgstr "Seçim genişliği:"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1669
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1680
 msgid " height:"
 msgstr " yükseklik:"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1670
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1681
 msgid " diagonal:"
 msgstr " köşegen:"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1834
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1845
 msgid "selection using rectangle"
 msgstr "dikdörtgen kullanarak seçim"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1868
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1879
 #, c-format
 msgid "Invalid windows size-format: %for option 'window-size'"
 msgstr "Geçersiz pencere boyutu biçimi: 'pencere boyutu' seçeneği için %"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1946
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1957
 msgid "Save Netedit Config. (Ctrl+Shift+E)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1952
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1963
 msgid "Save Sumo Config. (Ctrl+Shift+S)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1958
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1969
 msgid "Save network"
 msgstr "Ağı kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1958
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1969
 msgid "Save network. (Ctrl+S)"
 msgstr "Ağı kaydet. (Ctrl+S)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1966
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1977
 msgid "Save individual files"
 msgstr "Dosyaları ayrık kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1966
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1977
 msgid "Save individual files."
 msgstr "Dosyaları ayrık kaydet."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1972
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1983
 msgid "Save additional elements"
 msgstr "Ek elemanları kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1972
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1983
 msgid "Save additional elements. (Ctrl+Shift+A)"
 msgstr "Ek elemanları kaydet. (Ctrl+Shift+A)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1978
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1989
 msgid "Save demand elements"
 msgstr "Talep elemanlarını kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1978
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1989
 msgid "Save demand elements. (Ctrl+Shift+D)"
 msgstr "Talep elemanlarını kaydet. (Ctrl+Shift+D)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1984
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1995
 msgid "Save data elements"
 msgstr "Veri elemanlarını kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1984
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1995
 msgid "Save data elements. (Ctrl+Shift+B)"
 msgstr "Veri elemanlarını kaydet. (Ctrl+Shift+B)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1990
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2001
 msgid "Save mean data elements"
 msgstr "meandata elemanlarını kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1990
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2001
 msgid "Save mean data elements. (Ctrl+Shift+M)"
 msgstr "meandata elemanlarını kaydet. (Ctrl+Shift+M)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2023
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2034
 msgid "Switch between seconds and HH:MM:SS"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2076
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2087
 msgid "Network"
 msgstr "Ağ"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2076
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2087
 msgid "Edit network elements"
 msgstr "Ağ elemanlarını düzenle"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2076
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2087
 msgid "Set mode for edit network elements. (F2)"
 msgstr "Ağ elemanlarını düzenlemek için mod ayarla. (F2)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2083
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2094
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2069
 msgid "Demand"
 msgstr "Talep"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2083
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2094
 msgid "Edit traffic demand elements"
 msgstr "Trafik talep elemanlarını düzenle"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2083
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2094
 msgid "Set mode for edit traffic demand. (F3)"
 msgstr "Trafik talebini düzenlemek için mod ayarla. (F3)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2090
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2101
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2213
 msgid "Data"
 msgstr "Veri"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2090
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2101
 msgid "Edit data elements"
 msgstr "Veri elemanlarını düzenle"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2090
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2101
 msgid "Set mode for edit data demand. (F4)"
 msgstr "Veri talebini düzenlemek için mod ayarla. (F4)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2103
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2114
 msgid "Mode already selected"
 msgstr "Mod zaten seçili"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2188
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2199
 msgid "Network mode already selected"
 msgstr "Ağ modu zaten seçili"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2193
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2204
 msgid "Save modifications in TLS before change mode"
 msgstr "Mod değiştirmeden önce değişiklikleri TIS'a kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2238
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2249
 msgid "Demand mode already selected"
 msgstr "Talep modu zaten seçili"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2273
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2284
 msgid "Data mode already selected"
 msgstr "Veri modu zaten seçili"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2338
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2636
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2349
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2647
 msgid ""
 "Show grid and restrict movement to the grid - define grid size in "
 "visualization options. (Ctrl+G)"
@@ -5259,62 +5259,62 @@ msgstr ""
 "Izgarayı göster ve ızgaraya hareketi kısıtla - görselleştirme seçeneklerinde "
 "ızgara boyutunu tanımla. (Ctrl+G)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2346
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2644
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2923
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2357
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2655
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2934
 msgid "Toggle hiding junction shape. (Ctrl+J)"
 msgstr "Kavşak şeklini gizlemeyi aç / kapat. (Ctrl+J)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2354
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2365
 msgid "Draw vehicles spread in lane or depart position"
 msgstr "Yolda ya da başlangıç pozisyonunda yayılmış araçları çiz"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2354
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2652
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2365
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2663
 msgid "Draw vehicles spread in lane or in depart position."
 msgstr "Yolda ya da başlangıç pozisyonunda yayılmış araçları çiz."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2362
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2945
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2373
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2956
 msgid "Toggle show demand elements."
 msgstr "Talep öğelerini göstermeyi aç/kapa."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2370
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2381
 msgid "Clicks target lanes"
 msgstr "Hedef şeritleri tıklar"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2370
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2381
 msgid ""
 "Toggle whether clicking should inspect/select/delete lanes instead of edges."
 msgstr ""
 "Tıklamanın kenarlar yerine incele / seçme / silme işlemlerini şeritler için "
 "yapmasını aç/kapa."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2377
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2388
 msgid "Toggle show connections over junctions."
 msgstr "Kavşaklar üzerindeki bağlantıların gösterimini aç/kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2385
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2396
 msgid "Toggle hide connections."
 msgstr "Bağlantıları gizlemeyi aç/kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2393
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2404
 msgid "Show additional sub-elements"
 msgstr "Ek alt elemanları göster"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2393
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2404
 msgid "Toggle show additional sub-elements."
 msgstr "Ek alt öğeleri göstermeyi aç/kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2401
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2412
 msgid "Toggle show TAZ elements."
 msgstr "TAB elemanlarını göstermeyi aç/kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2409
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2420
 msgid "Automatic select junctions"
 msgstr "Kavşakları otomatik seç"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2409
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2420
 msgid ""
 "Toggle whether selecting multiple edges should automatically select their "
 "junctions."
@@ -5322,11 +5322,11 @@ msgstr ""
 "Birden fazla kesim seçildiğinde bunların birleşme noktalarının otomatik "
 "olarak seçilip seçilmeyeceğini değiştir."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2417
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2428
 msgid "Apply state to all phases"
 msgstr "Evreyi tüm fazlara uygula"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2417
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2428
 msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
@@ -5334,333 +5334,333 @@ msgstr ""
 "Tıklandığında evre değişikliklerinin geçerli TIS planının tüm fazlarına "
 "uygulanıp uygulanmayacağını değiştir."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2425
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2436
 msgid "Automatic merging junction"
 msgstr "Kavşakların otomatik birleştirilmesi"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2425
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2436
 msgid "Toggle ask for confirmation before merging junction."
 msgstr "Kavşağı birleştirmeden önce onay istemeyi değiştir."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2432
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2443
 msgid "Show bubbles"
 msgstr "Baloncukları göster"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2432
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2443
 msgid "Toggle show bubbles over junctions shapes."
 msgstr "Kavşak şekilleri üzerinde baloncukları göstermeyi değiştir."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2440
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2451
 msgid "Move elevation"
 msgstr "Yüksekliği taşı"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2440
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2451
 msgid "Apply mouse movement to elevation instead of x,y position."
 msgstr "x,y pozisyonu vermek yerine yükseltmek için fare hareketini uygula."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2448
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2459
 msgid "Edge chain mode"
 msgstr "Kesim zinciri modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2448
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2459
 msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
 "Tek bir tıklamayla ardışık kesimler oluştur (zinciri iptal etmek için ESC'ye "
 "basın)."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2456
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2467
 msgid "Edge opposite direction"
 msgstr "Kesim ters yön"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2456
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2467
 msgid "Automatically create an edge in the opposite direction."
 msgstr "Otomatik olarak ters yönde bir kesim oluştur."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2660
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2938
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2671
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2949
 msgid "Toggle show shapes (Polygons and POIs)."
 msgstr "Şekilleri (Çokgen ve EN'ler) göstermeyi aç/kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2668
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2679
 msgid "Toggle show all trips (requires updated demand - F5)."
 msgstr ""
 "Tüm seyahatleri göstermeyi aç/kapat (güncellenmiş talep gerektirir-F5)."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2676
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2687
 msgid "Toggle show all person plans."
 msgstr "Tüm yolcu planlarını göstermeyi aç/kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2684
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2695
 msgid "Toggle lock selected person."
 msgstr "Seçili kişiyi kilitlemeyi aç / kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2692
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2703
 msgid "Show all containers plans"
 msgstr "Tüm konteyner planlarını göster"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2692
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2703
 msgid "Toggle show all container plans."
 msgstr "Tüm konteyner planlarını göstermeyi aç/kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2700
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2711
 msgid "Toggle lock selected container."
 msgstr "Seçili konteyneri kilitlemeyi aç / kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2708
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2719
 msgid "Toggle show non-inspected demand elements."
 msgstr "İncelenmeyen talep elemanlarını göstermeyi aç/kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2716
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2727
 msgid "Toggle show number of overlapped routes."
 msgstr "Çakışan rotaların sayısını göstermeyi aç/kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2931
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2942
 msgid "Toggle show additionals."
 msgstr "Ekleri göstermeyi aç / kapat."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2952
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2963
 msgid "Draw TAZREL drawing mode"
 msgstr "TABİlişkili çizim modunu çizin (TAZREL)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2952
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2963
 msgid "Toggle draw TAZREL drawing mode."
 msgstr "TABİlişkili çizim modunu çizmeyi aç/kapat (TAZREL)."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2959
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2970
 msgid "Toggle draw TAZ fill"
 msgstr "TAZ dolgusu çizmeyi aç / kapat"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2966
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2977
 msgid "Toggle draw TAZRel only from"
 msgstr "TABİlişkili yalnızca şuradan çizmeyi aç/kapat"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2973
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2984
 msgid "Toggle draw TAZRel only to"
 msgstr "TABİlişkili yalnızca şuraya çizmeyi aç/kapat"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3462
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 msgid "Set inspect mode"
 msgstr "İnceleme modunu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3462
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 msgid "Mode for inspect elements and change their attributes. (I)"
 msgstr "Elemanları incelemek ve niteliklerini değiştirmek için mod. (I)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3479
 msgid "Set delete mode"
 msgstr "Silme modunu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3479
 msgid "Mode for delete elements. (D)"
 msgstr "Elemanları silmek için mod. (D)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3474
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3485
 msgid "Set select mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3474
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3485
 msgid "Mode for select elements. (S)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3527
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3672
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3538
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3683
 msgid "Set move mode"
 msgstr "Taşıma modunu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3527
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3672
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3538
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3683
 msgid "Mode for move elements. (M)"
 msgstr "Elemanları taşımak için mod. (M)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3533
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3544
 msgid "Set create edge mode"
 msgstr "Kesim oluşturma modunu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3533
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3544
 msgid "Mode for creating junction and edges. (E)"
 msgstr "Kavşak ve kesim oluşturmak için mod. (E)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3539
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3550
 msgid "Set traffic light mode"
 msgstr "Trafik ışığı modunu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3539
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3550
 msgid "Mode for edit traffic lights over junctions. (T)"
 msgstr "Kavşaklar üzerindeki trafik ışıklarını düzenleme modu. (T)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3545
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3556
 msgid "Set connection mode"
 msgstr "Bağlantı modunu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3545
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3556
 msgid "Mode for edit connections between lanes. (C)"
 msgstr "Şeritler arasındaki bağlantıları düzenlemek için mod. (C)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3551
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3562
 msgid "Set prohibition mode"
 msgstr "Yasaklama modunu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3551
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3562
 msgid "Mode for editing connection prohibitions. (H)"
 msgstr "Bağlantı yasaklarını düzenleme modu. (H)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3557
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3568
 msgid "Set crossing mode"
 msgstr "Geçit modunu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3557
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3568
 msgid "Mode for creating crossings between edges. (R)"
 msgstr "Kesimler arasında geçitler oluşturmak için mod. (R)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3563
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3574
 msgid "Set additional mode"
 msgstr "Ek modu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3563
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3574
 msgid "Mode for adding additional elements. (A)"
 msgstr "Ek elamanlar eklemek için mod. (A)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3569
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3580
 msgid "Set wire mode"
 msgstr "Kablo modunu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3569
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3580
 msgid "Mode for editing wires. (W)"
 msgstr "Kabloları düzenlemek için mod. (W)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3575
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3586
 msgid "Set TAZ mode"
 msgstr "TAB modunu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3575
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3586
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
 msgstr "Trafik Atama Bölgeleri oluşturma modu. (Z)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3581
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3592
 msgid "Set polygon mode"
 msgstr "Çokgen modunu ayarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3581
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3592
 msgid "Mode for creating polygons and POIs. (P)"
 msgstr "Çokgen ve EN'ler oluşturmak için mod. (P)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3587
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3598
 msgid "Set decal mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3587
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3598
 msgid "Mode for editing decals. (U)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3678
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3689
 msgid "Create route mode"
 msgstr "Rota oluşturma modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3678
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3689
 msgid "Mode for creating routes. (R)"
 msgstr "Rota oluşturmak için mod. (R)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3684
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3695
 msgid "Set route distribution mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3684
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3695
 msgid "Mode for creating and editing rout distributions. (W)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3690
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3701
 msgid "Create vehicle mode"
 msgstr "Araç oluşturma modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3690
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3701
 msgid "Mode for creating vehicles. (V)"
 msgstr "Araçlar oluşturmak için mod. (V)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3696
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3707
 msgid "Create type mode"
 msgstr "Tip oluşturma modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3696
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3707
 msgid "Mode for creating types (vehicles, person and containers). (T)"
 msgstr "Tip oluşturmak için mod (araç, yolcu ve konteynerler). (T)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3702
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3713
 msgid "Create type distribution mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3702
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3713
 msgid "Mode for creating and editing type distribution. (U)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3708
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3719
 msgid "Create stop mode"
 msgstr "Durak oluşturma modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3708
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3719
 msgid "Mode for creating stops. (A)"
 msgstr "Durak oluşturmak için mod. (A)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3714
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3725
 msgid "Create person mode"
 msgstr "Yaya oluşturma modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3714
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3725
 msgid "Mode for creating persons. (P)"
 msgstr "Yolcuları oluşturmak için mod. (P)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3720
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3731
 msgid "Create person plan mode"
 msgstr "Yolcu planı oluşturma modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3720
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3731
 msgid "Mode for creating person plans. (L)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3726
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3737
 msgid "Create container mode"
 msgstr "Konteyner modu oluştur"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3726
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3737
 msgid "Mode for creating containers. (C)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3732
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3743
 msgid "Create container plan mode"
 msgstr "Konteyner planı oluşturma modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3732
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3743
 msgid "Mode for creating container plans. (H)"
 msgstr "Konteyner planları oluşturmak için mod. (H)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3817
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3828
 msgid "Create edge data mode"
 msgstr "Kesim veri oluşturma modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3817
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3828
 msgid "Mode for creating edge datas. (E)"
 msgstr "Kesim verileri oluşturmak için mod. (E)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3823
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3834
 msgid "Create edge relation data mode"
 msgstr "Kesim ilişkili veri oluşturma modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3823
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3834
 msgid "Mode for creating edge relation datas. (R)"
 msgstr "Kesim ilişkili veri oluşturmak için mod. (R)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3829
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3840
 msgid "Create TAZ relation data mode"
 msgstr "TAB ilişkili veri oluşturma modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3829
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3840
 msgid "Mode for creating TAZ relation datas. (Z)"
 msgstr "TAB ilişkili veri oluşturmak için mod. (Z)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3835
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3846
 msgid "MeanData mode"
 msgstr "MeanData modu"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3835
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3846
 msgid "Mode for MeanData elements. (M)"
 msgstr "MeanData elemanları için mod. (M)"
 
@@ -5742,11 +5742,16 @@ msgstr "Oluşturmayı yinele "
 msgid "Redo delete "
 msgstr "Silmeyi yinele "
 
-#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:158
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:45
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:62
+msgid "change '%' attribute in % '%' to '%'"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:154
 msgid "Undo change "
 msgstr "Değişikliği geri al "
 
-#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:164
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:160
 msgid "Redo change "
 msgstr "Değişikliği yinele "
 
@@ -6179,6 +6184,14 @@ msgstr "Geçersiz Kesimleri Kaydet"
 msgid "Select conflicted edges"
 msgstr "Çakışan Kesimleri Seç"
 
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:263
+msgid "delete invalid edges"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:272
+msgid "select invalid edges"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:308
 msgid "Remove invalid crossings"
 msgstr "Geçersiz Geçitleri Kaldır"
@@ -6190,6 +6203,14 @@ msgstr "Geçersiz Geçitleri Kaydet"
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:314
 msgid "Select conflicted crossing"
 msgstr "Çakışan Geçitleri Seç"
+
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:344
+msgid "delete invalid crossings"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:353
+msgid "select invalid crossings"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:286
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:283
@@ -9758,76 +9779,76 @@ msgstr "Bir giriş-çıkış dedektörü en az bir giriş dedektörüne ihtiyaç
 msgid "An entry-exit detector needs at least one exit detector"
 msgstr "Bir giriş-çıkış dedektörü en az bir çıkış dedektörüne ihtiyaç duyar"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:332
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:334
 msgid "Release from lane"
 msgstr "Şeritten ayrılma"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:336
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:338
 msgid "Attach to nearest lane"
 msgstr "En yakın şeride ekle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:236
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:238
 msgid "Simplify Shape"
 msgstr "Şekli Basitleştir"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:236
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:238
 msgid "Replace current shape with a rectangle"
 msgstr "Geçerli şekli bir dikdörtgenle değiştir"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:242
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
 msgid "Open shape"
 msgstr "Şekli aç"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:242
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
 msgid "Open polygon's shape"
 msgstr "Çokgenin şeklini aç"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:244
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:248
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:66
 msgid "Close shape"
 msgstr "şekli kapat"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:244
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:248
 msgid "Close polygon's shape"
 msgstr "Çokgenin şeklini kapat"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:251
 msgid "Select elements within polygon"
 msgstr "Çokgen içindeki elemanları seç"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:251
 msgid "Select elements within polygon boundary"
 msgstr "Çokgen sınırı içindeki elemanları seç"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:256
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:261
 msgid "Remove geometry point"
 msgstr "Geometri noktasını kaldır"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:256
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:261
 msgid "Remove geometry point under mouse"
 msgstr "Farenin altındaki geometri noktasını kaldır"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:257
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:262
 msgid "Set first geometry point"
 msgstr "İlk geometri noktasını ayarla"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:469
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:474
 msgid "Number of remaining points insufficient"
 msgstr "Kalan nokta sayısı yetersiz"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:496
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:501
 msgid "Polygon already opened"
 msgstr "Çokgen zaten açıldı"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:517
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:522
 msgid "Polygon already closed"
 msgstr "Çokgen zaten kapandı"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:528
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:533
 msgid "Selected point must be different of the first point"
 msgstr "Seçilen nokta ilk noktadan farklı olmalıdır"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:593
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:598
 msgid "Polygon already simplified"
 msgstr "Poligon zaten basitleştirilmiş"
 
@@ -9961,7 +9982,7 @@ msgstr ""
 msgid "This personTrip use junctions"
 msgstr "Bu Yolcu Seyahati (personTrip) kavşakları kullanır"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:887
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:886
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1873
 msgid "copy % '%'"
 msgstr ""
@@ -10383,11 +10404,11 @@ msgstr "Bu yürüyüş kavşakları kullanır"
 msgid "Could not set attribute '%' (tls is broken)"
 msgstr "'%' özniteliği ayarlanamadı (tıs bozuk)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2183
+#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2181
 msgid "Could not compute smooth shape for edge '%'"
 msgstr "'%' kesimi için pürüzsüz şekil hesaplanamadı"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2201
+#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2199
 msgid "Could not compute smooth elevation for edge '%'"
 msgstr "'%' kesimi için pürüzsüz yükseklik hesaplanamadı"
 
@@ -10636,7 +10657,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:752
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:406
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:407
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:408
 msgid "Internal attributes"
 msgstr "Dahili Öznitelikler"
@@ -10817,7 +10838,7 @@ msgid "Default Vehicle Type '%' cannot be removed"
 msgstr "Varsayılan Araç Türü '%' kaldırılamaz"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:316
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:276
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:279
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:84
 msgid "Center"
 msgstr "Merkez"
@@ -11000,7 +11021,7 @@ msgid " attribute"
 msgstr " öznitelik"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:678
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:383
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:384
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:385
 msgid "Value '"
 msgstr "Değer '"
@@ -11258,7 +11279,7 @@ msgstr "- Ortalama Hız: "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:34
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:641
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1427
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1470
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:101
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:323
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:621
@@ -11965,17 +11986,17 @@ msgstr "Seçili Öğelerin Listesini Aç"
 msgid "Save List of selected Items"
 msgstr "Seçilen Öğelerin Listesini Kaydet"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1145
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1188
 msgid "Hierarchy operations"
 msgstr "Hiyerarşi işlemleri"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1156
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1166
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1199
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1209
 msgid "Select"
 msgstr "Seç"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1158
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1168
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1201
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1211
 msgid "Unselect"
 msgstr "Seçimi Kaldır"
 
@@ -12158,11 +12179,11 @@ msgstr ""
 msgid "Delete type distribution"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:132
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:133
 msgid "Current Route"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:383
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:384
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:385
 msgid "' for attribute ID of Distribution isn't valid"
 msgstr ""
@@ -12263,6 +12284,18 @@ msgstr "Türü Kopyala"
 msgid "Reset Type"
 msgstr "Türü Sıfırla"
 
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:284
+msgid "create vehicle type"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:316
+msgid "copy vehicle type"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:331
+msgid "reset default vehicle type values"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72
 msgid "Click over a route to create a vehicle."
 msgstr ""
@@ -12328,14 +12361,14 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:96
 msgid ""
-"-Requiere at least one Entry\n"
+"-Requires at least one Entry\n"
 " and one Exit"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:98
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:101
 msgid ""
-"-Requiere EntryExitDetector\n"
+"-Requires EntryExitDetector\n"
 " parent\n"
 msgstr ""
 
@@ -12344,7 +12377,7 @@ msgstr ""
 msgid ""
 "-Select EntryExitDetector\n"
 " before creating either\n"
-" cliking over one in view\n"
+" clicking over one in view\n"
 " oder selecting in list"
 msgstr ""
 
@@ -13627,7 +13660,7 @@ msgid "Loading of shape file failed: "
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
-msgid "Loading of shape file sucessfully: "
+msgid "Loading of shape file successfully: "
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:43
@@ -13772,48 +13805,48 @@ msgstr "Kodlama sırasında hata oluştu!"
 msgid "Object must be a lane"
 msgstr "Nesne bir şerit olmalıdır"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:285
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:288
 msgid "Copy name to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:286
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:289
 msgid "Copy typed name to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:296
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:299
 msgid "Remove From Selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:298
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:301
 msgid "Add To Selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:308
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:311
 msgid "Show Parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:317
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:320
 msgid "Show Type Parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:326
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:329
 msgid "Copy cursor position to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:328
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:331
 msgid "Copy cursor geo-position to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:332
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:335
 msgid "Show cursor geo-position in "
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:350
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:353
 msgid "Open Manipulator..."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:389
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:412
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:392
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:415
 msgid "type: %"
 msgstr ""
 
@@ -15314,12 +15347,12 @@ msgid "italian"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:388
-msgid "chinese"
-msgstr "Çince"
+msgid "simplified chinese"
+msgstr "Basitleştirilmiş Çince"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:392
-msgid "chinese simplified"
-msgstr "Basitleştirilmiş Çince"
+msgid "traditional chinese"
+msgstr "Geleneksel Çince"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:396
 msgid "turkish"

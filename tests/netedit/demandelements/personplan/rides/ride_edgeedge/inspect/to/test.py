@@ -37,7 +37,7 @@ netedit.personMode()
 # change person plan
 netedit.changePersonPlan("walk: edge", False)
 
-# create route using two one
+# create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # press enter to create route
@@ -47,7 +47,7 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 
 # go to rideEdgeEdge mode
 netedit.changePersonPlanMode("ride: edge")
@@ -62,7 +62,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect rideEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singlePersonEdge.x, netedit.positions.demandElements.singlePersonEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.rideEdgeEdge.inspect.to, "dummy", False)

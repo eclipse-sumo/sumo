@@ -1575,7 +1575,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         // other
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             setFlowAttribute(this, key, value, undoList);
@@ -1870,7 +1870,7 @@ GNEVehicle::copyVehicle(const GNEVehicle* originalVehicle) {
     // set new ID
     newVehicle->setAttribute(SUMO_ATTR_ID, newVehicleID);
     // add new vehicle
-    undoList->begin(originalVehicle->getTagProperty().getGUIIcon(), TLF("copy % '%'", newVehicle->getTagStr(), newVehicleID));
+    undoList->begin(originalVehicle, TLF("copy % '%'", newVehicle->getTagStr(), newVehicleID));
     if (newRoute) {
         net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(newRoute, true), true);
     }
@@ -2366,7 +2366,7 @@ GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLi
     // check departPos
     if (moveResult.newFirstPos != INVALID_DOUBLE) {
         // begin change attribute
-        undoList->begin(myTagProperty.getGUIIcon(), "departPos of " + getTagStr());
+        undoList->begin(this, "departPos of " + getTagStr());
         // now set departPos
         setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
         // check if depart lane has to be changed
@@ -2378,7 +2378,7 @@ GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLi
     // check arrivalPos
     if (moveResult.newSecondPos != INVALID_DOUBLE) {
         // begin change attribute
-        undoList->begin(myTagProperty.getGUIIcon(), "arrivalPos of " + getTagStr());
+        undoList->begin(this, "arrivalPos of " + getTagStr());
         // now set arrivalPos
         setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newSecondPos), undoList);
         // check if arrival lane has to be changed

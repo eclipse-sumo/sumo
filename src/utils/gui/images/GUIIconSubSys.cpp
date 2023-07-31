@@ -484,7 +484,7 @@
 #include "grid3.xpm"
 
 #include "geohack.xpm"
-#include "googlesat.xpm"
+#include "googlemaps.xpm"
 #include "osm.xpm"
 
 #include "languages/de.xpm"
@@ -973,7 +973,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::GRID3] = new FXXPMIcon(a, grid3_xpm);
 
     myIcons[GUIIcon::GEOHACK] = new FXXPMIcon(a, geohack_xpm);
-    myIcons[GUIIcon::GOOGLESAT] = new FXXPMIcon(a, googlesat_xpm);
+    myIcons[GUIIcon::GOOGLEMAPS] = new FXXPMIcon(a, googlemaps_xpm);
     myIcons[GUIIcon::OSM] = new FXXPMIcon(a, osm_xpm);
 
     myIcons[GUIIcon::LANGUAGE_EN] = new FXXPMIcon(a, language_en_xpm);

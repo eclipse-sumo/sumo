@@ -101,6 +101,9 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"shape",                   GLO_SHAPE},
     {"polygon",                 GLO_POLYGON},
     {"poi",                     GLO_POI},
+    {"walkableArea",            GLO_WALKABLEAREA},
+    {"obstacle",                GLO_OBSTACLE},
+    {"poiWaypoint",             GLO_POIWAYPOINT},
     //
     {"routeElement",            GLO_ROUTEELEMENT},
     {"vType",                   GLO_VTYPE},
@@ -333,8 +336,8 @@ GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWind
         for (const auto& mapper : app.getOnlineMaps()) {
             if (mapper.first == "GeoHack") {
                 GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, GUIIconSubSys::getIcon(GUIIcon::GEOHACK), ret, MID_SHOW_GEOPOSITION_ONLINE);
-            } else if (mapper.first == "GoogleSat") {
-                GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, GUIIconSubSys::getIcon(GUIIcon::GOOGLESAT), ret, MID_SHOW_GEOPOSITION_ONLINE);
+            } else if (mapper.first == "Google Maps") {
+                GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, GUIIconSubSys::getIcon(GUIIcon::GOOGLEMAPS), ret, MID_SHOW_GEOPOSITION_ONLINE);
             } else if (mapper.first == "OSM") {
                 GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, GUIIconSubSys::getIcon(GUIIcon::OSM), ret, MID_SHOW_GEOPOSITION_ONLINE);
             } else {

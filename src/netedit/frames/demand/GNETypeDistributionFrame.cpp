@@ -137,7 +137,7 @@ GNETypeDistributionFrame::TypeDistributionSelector::TypeDistributionSelector(GNE
     myTypeComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Types (always first)
     for (const auto& vType : myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-        myTypeComboBox->appendItem(vType->getID().c_str(), vType->getACIcon());
+        myTypeComboBox->appendItem(vType->getID().c_str(), vType->getFXIcon());
     }
     // Set visible items
     if (myTypeComboBox->getNumItems() <= 20) {
@@ -178,7 +178,7 @@ GNETypeDistributionFrame::TypeDistributionSelector::refreshTypeDistributionSelec
         typeDistributions[vTypeDistribution->getID()] = vTypeDistribution;
     }
     for (const auto& vTypeDistribution : typeDistributions) {
-        myTypeComboBox->appendItem(vTypeDistribution.first.c_str(), vTypeDistribution.second->getACIcon());
+        myTypeComboBox->appendItem(vTypeDistribution.first.c_str(), vTypeDistribution.second->getFXIcon());
     }
     // Set visible items
     if (myTypeComboBox->getNumItems() <= 20) {

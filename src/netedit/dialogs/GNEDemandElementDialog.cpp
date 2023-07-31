@@ -48,7 +48,7 @@ FXIMPLEMENT_ABSTRACT(GNEDemandElementDialog, FXTopWindow, GNEDemandElementDialog
 // ===========================================================================
 
 GNEDemandElementDialog::GNEDemandElementDialog(GNEDemandElement* editedDemandElement, bool updatingElement, int width, int height) :
-    FXTopWindow(editedDemandElement->getNet()->getViewNet(), ("Edit '" + editedDemandElement->getID() + "' data").c_str(), editedDemandElement->getACIcon(), editedDemandElement->getACIcon(), GUIDesignDialogBoxExplicit(width, height)),
+    FXTopWindow(editedDemandElement->getNet()->getViewNet(), ("Edit '" + editedDemandElement->getID() + "' data").c_str(), editedDemandElement->getFXIcon(), editedDemandElement->getFXIcon(), GUIDesignDialogBoxExplicit(width, height)),
     myEditedDemandElement(editedDemandElement),
     myUpdatingElement(updatingElement),
     myChangesDescription("Change " + editedDemandElement->getTagStr() + " values"),
@@ -123,7 +123,7 @@ GNEDemandElementDialog::changeDemandElementDialogHeader(const std::string& newHe
 void
 GNEDemandElementDialog::initChanges() {
     // init commandGroup
-    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement->getTagProperty().getGUIIcon(), myChangesDescription);
+    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement, myChangesDescription);
     // save number of command group changes
     myNumberOfChanges = myEditedDemandElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
 }
@@ -150,7 +150,7 @@ void
 GNEDemandElementDialog::resetChanges() {
     // abort last command group an start editing again
     myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
-    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement->getTagProperty().getGUIIcon(), myChangesDescription);
+    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement, myChangesDescription);
 }
 
 
