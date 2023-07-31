@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-31 12:11+0200\n"
-"PO-Revision-Date: 2023-07-31 09:39+0000\n"
+"PO-Revision-Date: 2023-07-31 10:40+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -12482,7 +12482,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:355
 msgid "Edit Connections"
-msgstr ""
+msgstr "Editar conexiones"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:421
 msgid "modify connections"
