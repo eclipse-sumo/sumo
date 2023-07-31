@@ -128,8 +128,8 @@ class demandElements:
 
     # click over single person / flow over edges
     class person:
-        x = 500
-        y = 210
+        x = 136
+        y = 472
 
     # click over person stop
     class stopPerson:
@@ -150,3 +150,8 @@ class demandElements:
     class singleVehicleTAZ:
         x = 280
         y = 315
+
+     # click over single trip or flow over TAZ
+    class planJunction:
+        x = 134
+        y = 52

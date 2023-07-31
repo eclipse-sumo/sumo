@@ -37,7 +37,7 @@ netedit.containerMode()
 # change container plan
 netedit.changeContainerPlan("tranship: edge", False)
 
-# create route using two one
+# create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
