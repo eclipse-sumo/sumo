@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-31 12:42+0200\n"
-"PO-Revision-Date: 2023-07-31 10:33+0000\n"
+"PO-Revision-Date: 2023-07-31 12:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1205,76 +1205,76 @@ msgstr "derzeitige Geschwindigkeit"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:322
 msgid "default speed"
-msgstr ""
+msgstr "Standardgeschwindigkeit"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:323
 msgid "required vehicles"
-msgstr ""
+msgstr "benötigte Fahrzeuge"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:324
 msgid "passed vehicles"
-msgstr ""
+msgstr "passierte Fahrzeuge"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:325
 msgid "inserted vehicles"
-msgstr ""
+msgstr "eingesetzte Fahrzeuge"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:326
 msgid "removed vehicles"
-msgstr ""
+msgstr "entfernte Fahrzeuge"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:327
 msgid "cleared in jam"
-msgstr ""
+msgstr "aus Stau entfernt"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:334
 msgid "inactive until"
-msgstr ""
+msgstr "inaktiv bis"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:98
 msgid "charging power [W]"
-msgstr ""
+msgstr "Ladeleistung [W]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:99
 msgid "charging efficiency [#]"
-msgstr ""
+msgstr "Ladeeffizienz [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:100
 msgid "charge in transit [true/false]"
-msgstr ""
+msgstr "Laden im Vorbeifahren [true/false]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:101
 msgid "charge delay [s]"
-msgstr ""
+msgstr "Ladeverzögerung [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:164
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:228
 msgid "stage"
-msgstr ""
+msgstr "Abschnitt"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:166
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:230
 msgid "stage index"
-msgstr ""
+msgstr "Abschnittsindex"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:167
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:231
 msgid "start edge [id]"
-msgstr ""
+msgstr "Abfahrtskante [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:168
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:232
 msgid "dest edge [id]"
-msgstr ""
+msgstr "Zielkante [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:169
 msgid "arrivalPos [m]"
-msgstr ""
+msgstr "Ankunftsposition [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:170
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:235
 msgid "edge [id]"
-msgstr ""
+msgstr "Kante [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:171
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:131
@@ -1283,7 +1283,7 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:236
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:114
 msgid "position [m]"
-msgstr ""
+msgstr "Position [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:172
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:152
@@ -1291,36 +1291,36 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:237
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:118
 msgid "speed [m/s]"
-msgstr ""
+msgstr "Geschwindigkeit [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:173
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:238
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:128
 msgid "speed factor"
-msgstr ""
+msgstr "Geschwindigkeitsfaktor"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:174
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:239
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:124
 msgid "angle [degree]"
-msgstr ""
+msgstr "Winkel [Grad]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:175
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:240
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:132
 msgid "waiting time [s]"
-msgstr ""
+msgstr "Wartezeit [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:176
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:243
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:144
 msgid "desired depart [s]"
-msgstr ""
+msgstr "gewünschte Abfahrtszeit [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:186
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:253
 msgid "length"
-msgstr ""
+msgstr "Länge"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:187
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:254
@@ -1336,78 +1336,78 @@ msgstr "Höhe"
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:189
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:256
 msgid "minGap"
-msgstr ""
+msgstr "Mindestabstand (minGap)"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:190
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:257
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:227
 msgid "mass [kg]"
-msgstr ""
+msgstr "Masse [kg]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:191
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:259
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:231
 msgid "maximum speed [m/s]"
-msgstr ""
+msgstr "Höchstgeschwindigkeit [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:130
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:185
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1016
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:221
 msgid "length [m]"
-msgstr ""
+msgstr "Länge [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:132
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:145
 #: C:\Repos\sumo/src\guisim\GUIInstantInductLoop.cpp:98
 msgid "lane"
-msgstr ""
+msgstr "Fahrstreifen"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:134
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:82
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:147
 #: C:\Repos\sumo/src\guisim\GUIInstantInductLoop.cpp:100
 msgid "vTypes"
-msgstr ""
+msgstr "Fahrzeugtypen (vTypes)"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:137
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:194
 msgid "vehicles [#]"
-msgstr ""
+msgstr "Fahrzeuge [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:139
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:154
 msgid "occupancy [%]"
-msgstr ""
+msgstr "Belegungsgrad [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:141
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:86
 msgid "mean speed [m/s]"
-msgstr ""
+msgstr "mittlere Geschwindigkeit [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:143
 msgid "mean vehicle length [m]"
-msgstr ""
+msgstr "mittlere Fahrzeuglänge [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:145
 msgid "jam number [#]"
-msgstr ""
+msgstr "Anzahl an Rückstaus [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:147
 msgid "max jam length [veh]"
-msgstr ""
+msgstr "maximale Rückstaulänge [veh]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:149
 msgid "max jam length [m]"
-msgstr ""
+msgstr "maximale Rückstaulänge [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:151
 msgid "jam length sum [veh]"
-msgstr ""
+msgstr "kumulierte Rückstaulänge [veh]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:153
 msgid "jam length sum [m]"
-msgstr ""
+msgstr "kumulierte Rückstaulänge [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:155
 msgid "started halts [#]"
