@@ -683,7 +683,7 @@ GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void
     // first check
     if (myEdgeTemplate) {
         // begin copy template
-        myInspectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::EDGE, "copy edge template");
+        myInspectorFrameParent->myViewNet->getUndoList()->begin(myEdgeTemplate->getTagProperty().getGUIIcon(), "copy edge template");
         // iterate over inspected ACs
         for (const auto& inspectedAC : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             // avoid copy template in the same edge

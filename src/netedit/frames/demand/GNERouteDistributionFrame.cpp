@@ -90,12 +90,12 @@ long
 GNERouteDistributionFrame::RouteDistributionEditor::onCmdCreateRoute(FXObject*, FXSelector, void*) {
     auto viewNet = myRouteDistributionFrameParent->myViewNet;
     // obtain a new valid Route ID
-    const std::string typeDistributionID = viewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE_DISTRIBUTION);
+    const std::string routeDistributionID = viewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE_DISTRIBUTION);
     // create new route
-    GNEDemandElement* type = new GNERouteDistribution(viewNet->getNet(), typeDistributionID);
+    GNEDemandElement* routeDistribution = new GNERouteDistribution(viewNet->getNet(), routeDistributionID);
     // add it using undoList (to allow undo-redo)
-    viewNet->getUndoList()->begin(GUIIcon::ROUTEDISTRIBUTION, "create route distribution");
-    viewNet->getUndoList()->add(new GNEChange_DemandElement(type, true), true);
+    viewNet->getUndoList()->begin(routeDistribution->getTagProperty().getGUIIcon(), "create route distribution");
+    viewNet->getUndoList()->add(new GNEChange_DemandElement(routeDistribution, true), true);
     viewNet->getUndoList()->end();
     return 1;
 }
@@ -104,10 +104,11 @@ GNERouteDistributionFrame::RouteDistributionEditor::onCmdCreateRoute(FXObject*, 
 long
 GNERouteDistributionFrame::RouteDistributionEditor::onCmdDeleteRoute(FXObject*, FXSelector, void*) {
     auto viewNet = myRouteDistributionFrameParent->myViewNet;
+    auto currentRouteDistribution = myRouteDistributionFrameParent->myRouteDistributionSelector->getCurrentRouteDistribution();
     // begin undo list operation
-    viewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete route distribution");
+    viewNet->getUndoList()->begin(currentRouteDistribution->getTagProperty().getGUIIcon(), "delete route distribution");
     // remove route (and all of their children)
-    viewNet->getNet()->deleteDemandElement(myRouteDistributionFrameParent->myRouteDistributionSelector->getCurrentRouteDistribution(), viewNet->getUndoList());
+    viewNet->getNet()->deleteDemandElement(currentRouteDistribution, viewNet->getUndoList());
     // end undo list operation
     viewNet->getUndoList()->end();
     return 1;
