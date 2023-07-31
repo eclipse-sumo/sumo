@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-31 12:11+0200\n"
-"PO-Revision-Date: 2023-07-24 10:25+0000\n"
+"PO-Revision-Date: 2023-07-31 10:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -617,6 +617,8 @@ msgid ""
 "Scale traffic volume from running flows and from vehicles that are loaded "
 "incrementally from route files."
 msgstr ""
+"Skaliere das Verkehrsaufkommen aus bereits aktiven Flüssen und "
+"Einzelfahrzeugen, die inkrementell aus Route-Dateien geladen werden."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:750
 msgid "Open a new microscopic view."
@@ -784,7 +786,7 @@ msgstr "Laden des Stands aus '%' fehlgeschlagen (%)."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1493
 msgid "Scale number of vehicles in simulation"
-msgstr ""
+msgstr "Skaliere die Anzahl an Fahrzeugen in der Simulation"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1822
 #, c-format
@@ -1145,7 +1147,7 @@ msgstr "Name"
 #: C:\Repos\sumo/src\guisim\GUIOverheadWire.cpp:107
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:108
 msgid "begin position [m]"
-msgstr ""
+msgstr "Anfangsposition [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:136
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:95
@@ -1153,53 +1155,53 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIOverheadWire.cpp:108
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:109
 msgid "end position [m]"
-msgstr ""
+msgstr "Endposition [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:137
 msgid "lines"
-msgstr ""
+msgstr "Linien"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:138
 msgid "parking length [m]"
-msgstr ""
+msgstr "Halteflächenlänge [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:142
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:96
 msgid "stopped vehicles [#]"
-msgstr ""
+msgstr "haltende Fahrzeuge [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:143
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:97
 msgid "last free pos [m]"
-msgstr ""
+msgstr "letzte freie Position [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:157
 msgid "waiting for:"
-msgstr ""
+msgstr "wartet auf:"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:316
 msgid "interval start"
-msgstr ""
+msgstr "Intervallbeginn"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:317
 msgid "interval end"
-msgstr ""
+msgstr "Intervallende"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:318
 msgid "aspired flow [veh/h]"
-msgstr ""
+msgstr "gewünschter Fluss [veh/h]"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:319
 msgid "aspired speed"
-msgstr ""
+msgstr "gewünschte Geschwindigkeit"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:320
 msgid "current flow [veh/h]"
-msgstr ""
+msgstr "derzeitiger Fluss [veh/h]"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:321
 msgid "current speed"
-msgstr ""
+msgstr "derzeitige Geschwindigkeit"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:322
 msgid "default speed"
