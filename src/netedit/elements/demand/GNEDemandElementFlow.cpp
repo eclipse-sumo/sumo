@@ -174,7 +174,7 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
         case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
-            undoList->changeAttribute(new GNEChange_Attribute(flowElement, key, value));
+            GNEChange_Attribute::changeAttribute(flowElement, key, value, undoList);
             break;
         default:
             throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
