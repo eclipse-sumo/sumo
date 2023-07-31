@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-31 12:11+0200\n"
+"POT-Creation-Date: 2023-07-31 12:42+0200\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -5690,11 +5690,16 @@ msgstr ""
 msgid "Redo delete "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:158
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:45
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:62
+msgid "change '%' attribute in % '%' to '%'"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:154
 msgid "Undo change "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:164
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:160
 msgid "Redo change "
 msgstr ""
 
@@ -6120,6 +6125,14 @@ msgstr ""
 msgid "Select conflicted edges"
 msgstr ""
 
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:263
+msgid "delete invalid edges"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:272
+msgid "select invalid edges"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:308
 msgid "Remove invalid crossings"
 msgstr ""
@@ -6130,6 +6143,14 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:314
 msgid "Select conflicted crossing"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:344
+msgid "delete invalid crossings"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:353
+msgid "select invalid crossings"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:286
@@ -9703,7 +9724,7 @@ msgstr ""
 msgid "This personTrip use junctions"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:887
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:886
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1873
 msgid "copy % '%'"
 msgstr ""
@@ -10109,11 +10130,11 @@ msgstr ""
 msgid "Could not set attribute '%' (tls is broken)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2183
+#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2181
 msgid "Could not compute smooth shape for edge '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2201
+#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2199
 msgid "Could not compute smooth elevation for edge '%'"
 msgstr ""
 
@@ -10362,7 +10383,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:752
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:406
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:407
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:408
 msgid "Internal attributes"
 msgstr ""
@@ -10725,7 +10746,7 @@ msgid " attribute"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:678
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:383
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:384
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:385
 msgid "Value '"
 msgstr ""
@@ -11841,11 +11862,11 @@ msgstr ""
 msgid "Delete type distribution"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:132
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:133
 msgid "Current Route"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:383
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:384
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:385
 msgid "' for attribute ID of Distribution isn't valid"
 msgstr ""
@@ -11946,6 +11967,18 @@ msgstr ""
 msgid "Reset Type"
 msgstr ""
 
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:284
+msgid "create vehicle type"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:316
+msgid "copy vehicle type"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:331
+msgid "reset default vehicle type values"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72
 msgid "Click over a route to create a vehicle."
 msgstr ""
@@ -12011,14 +12044,14 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:96
 msgid ""
-"-Requiere at least one Entry\n"
+"-Requires at least one Entry\n"
 " and one Exit"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:98
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:101
 msgid ""
-"-Requiere EntryExitDetector\n"
+"-Requires EntryExitDetector\n"
 " parent\n"
 msgstr ""
 
@@ -12027,7 +12060,7 @@ msgstr ""
 msgid ""
 "-Select EntryExitDetector\n"
 " before creating either\n"
-" cliking over one in view\n"
+" clicking over one in view\n"
 " oder selecting in list"
 msgstr ""
 
