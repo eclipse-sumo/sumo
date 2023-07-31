@@ -21493,13 +21493,13 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:388
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:388
-msgid "chinese"
-msgstr "cinese"
+msgid "simplified chinese"
+msgstr "cinese semplificato"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:392
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:392
-msgid "chinese simplified"
-msgstr "cinese semplificato"
+msgid "traditional chinese"
+msgstr "cinese tradizionale"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:396
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:396

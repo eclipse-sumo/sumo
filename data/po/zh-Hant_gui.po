@@ -15038,12 +15038,12 @@ msgid "italian"
 msgstr "義大利語"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:388
-msgid "chinese"
-msgstr "中文"
+msgid "simplified chinese"
+msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:392
-msgid "chinese simplified"
-msgstr "簡體中文"
+msgid "traditional chinese"
+msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:396
 msgid "turkish"

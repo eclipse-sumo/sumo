@@ -20685,13 +20685,13 @@ msgstr "Italienisch"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:388
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:388
-msgid "chinese"
-msgstr "Chinesisch"
+msgid "simplified chinese"
+msgstr "Chinesisch (vereinfacht)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:392
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:392
-msgid "chinese simplified"
-msgstr "Chinesisch (vereinfacht)"
+msgid "traditional chinese"
+msgstr "Chinesisch (traditionell)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:396
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:396
@@ -21757,7 +21757,7 @@ msgstr ""
 #~ msgid "Change language to french."
 #~ msgstr "Wechsle Sprache zu Französisch."
 
-#~ msgid "Chinese"
+#~ msgid "simplified chinese"
 #~ msgstr "Chinesisch"
 
 #~ msgid "Change language to chinese."

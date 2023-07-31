@@ -15002,12 +15002,12 @@ msgid "italian"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:388
-msgid "chinese"
-msgstr ""
+msgid "simplified chinese"
+msgstr "Chinois (simplifié)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:392
-msgid "chinese simplified"
-msgstr ""
+msgid "traditional chinese"
+msgstr "Chinois (traditionel)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:396
 msgid "turkish"
