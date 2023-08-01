@@ -988,7 +988,7 @@ GUIApplicationWindow::onCmdOpenInNetedit(FXObject*, FXSelector, void*) {
     std::string cmd = netedit + " --registry-viewport ";
     // continue depending if we're loading only a network or the entire sumo config
     if (myLoadAdditionalsInNetedit->shown()) {
-        cmd += "-sumocfg-file \"" + OptionsCont::getOptions().getString("configuration-file") + "\"";
+        cmd += "--sumocfg-file \"" + OptionsCont::getOptions().getString("configuration-file") + "\"";
     } else {
         cmd += "-s \"" + OptionsCont::getOptions().getString("net-file") + "\"";
     }
