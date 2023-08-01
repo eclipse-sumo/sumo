@@ -192,11 +192,8 @@ public:
     /// @brief called if the user selects help->Tutorial
     long onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief Called on menu Edit->Netedit (network)
-    long onCmdNeteditNetwork(FXObject*, FXSelector, void*);
-
-    /// @brief Called on menu Edit->Netedit (SUMOCfg)
-    long onCmdNeteditSUMOConfig(FXObject*, FXSelector, void*);
+    /// @brief Called on menu Edit->open in Netedit
+    long onCmdOpenInNetedit(FXObject*, FXSelector, void*);
 
     /// @brief Enable or disable open SUMOConfig in netedit
     long onUpdNeteditSUMOConfig(FXObject*, FXSelector, void*);
@@ -407,6 +404,12 @@ protected:
 
     /// @brief the menu cascades
     FXMenuCascade* mySelectLanesMenuCascade = nullptr;
+
+    /// @brief menuCheck for enable/disable load additionals in netedit
+    FXMenuCheck* myLoadAdditionalsInNetedit = nullptr;
+
+    /// @brief menuCheck for enable/disable load demand elements in netedit
+    FXMenuCheck* myLoadDemandInNetedit = nullptr;
 
     /// @brief Buttons showing and running values and triggering statistic windows
     std::vector<FXButton*> myStatButtons;
