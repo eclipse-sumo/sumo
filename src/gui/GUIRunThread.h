@@ -81,8 +81,8 @@ public:
     /// @brief halts the simulation execution
     void stop();
 
-    /// @brief returns the information whether a simulation has been loaded
-    bool simulationAvailable() const;
+    /// @brief returns the information whether a network has been loaded
+    bool networkAvailable() const;
 
     /// @brief check if simulation is startable
     virtual bool simulationIsStartable() const;

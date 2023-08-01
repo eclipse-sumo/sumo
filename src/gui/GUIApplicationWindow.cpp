@@ -879,7 +879,7 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
         chooser->create();
         chooser->show();
     } else {
-        if (!myAmLoading && myRunThread->simulationAvailable()) {
+        if (!myAmLoading && myRunThread->networkAvailable()) {
             const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
             for (MSEdgeVector::const_iterator i = MSEdge::getAllEdges().begin(); i != MSEdge::getAllEdges().end(); ++i) {
                 const std::vector<MSLane*>& lanes = (*i)->getLanes();
@@ -1008,7 +1008,7 @@ GUIApplicationWindow::onCmdOpenInNetedit(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onUpdNeteditSUMOConfig(FXObject* sender, FXSelector, void* ptr) {
-    if (!myRunThread->simulationAvailable() || myAmLoading) {
+    if (!myRunThread->networkAvailable() || myAmLoading) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
     } else {
         return sender->handle(this, OptionsCont::getOptions().isSet("configuration-file") ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
@@ -1248,7 +1248,7 @@ GUIApplicationWindow::onUpdOpenRecent(FXObject* sender, FXSelector, void* ptr) {
 long
 GUIApplicationWindow::onUpdAddView(FXObject* sender, FXSelector, void* ptr) {
     sender->handle(this,
-                   myAmLoading || !myRunThread->simulationAvailable()
+                   myAmLoading || !myRunThread->networkAvailable()
                    ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
                    ptr);
     return 1;
@@ -1258,7 +1258,7 @@ GUIApplicationWindow::onUpdAddView(FXObject* sender, FXSelector, void* ptr) {
 long
 GUIApplicationWindow::onCmdStart(FXObject*, FXSelector, void*) {
     // check whether a net was loaded successfully
-    if (!myRunThread->simulationAvailable()) {
+    if (!myRunThread->networkAvailable()) {
         myStatusbar->getStatusLine()->setText(TL("No simulation loaded!"));
         return 1;
     }
@@ -1284,7 +1284,7 @@ GUIApplicationWindow::onCmdStop(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdStep(FXObject*, FXSelector, void*) {
     // check whether a net was loaded successfully
-    if (!myRunThread->simulationAvailable()) {
+    if (!myRunThread->networkAvailable()) {
         myStatusbar->getStatusLine()->setText(TL("No simulation loaded!"));
         return 1;
     }
@@ -1349,7 +1349,7 @@ GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
     // toogle show time as HMS
     myShowTimeAsHMS = !myShowTimeAsHMS;
     updateTimeLCDTooltip();
-    if (myRunThread->simulationAvailable()) {
+    if (myRunThread->networkAvailable()) {
         updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     }
     return 1;
@@ -1405,7 +1405,7 @@ GUIApplicationWindow::onCmdDelayToggle(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdDemandScale(FXObject*, FXSelector, void*) {
-    if (myRunThread->simulationAvailable()) {
+    if (myRunThread->networkAvailable()) {
         myRunThread->getNet().getVehicleControl().setScale(myDemandScaleSpinner->getValue());
     }
     return 1;
@@ -1459,7 +1459,7 @@ GUIApplicationWindow::onUpdStep(FXObject* sender, FXSelector, void* ptr) {
 
 long
 GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* ptr) {
-    bool disable = !myRunThread->simulationAvailable() || myAmLoading;
+    bool disable = !myRunThread->networkAvailable() || myAmLoading;
     sender->handle(this, disable ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
     // certain elements must be changed manually
     if (disable) {
@@ -1746,7 +1746,7 @@ GUIApplicationWindow::eventOccurred() {
                 setFocus();
                 break;
             case GUIEventType::SIMULATION_STEP:
-                if (myRunThread->simulationAvailable()) { // avoid race-condition related crash if reload was pressed
+                if (myRunThread->networkAvailable()) { // avoid race-condition related crash if reload was pressed
                     handleEvent_SimulationStep(e);
                 }
                 break;
@@ -2122,7 +2122,7 @@ GUIApplicationWindow::loadConfigOrNet(const std::string& file) {
 
 GUISUMOAbstractView*
 GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt, std::string caption) {
-    if (!myRunThread->simulationAvailable()) {
+    if (!myRunThread->networkAvailable()) {
         myStatusbar->getStatusLine()->setText(TL("No simulation loaded!"));
         return nullptr;
     }

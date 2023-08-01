@@ -283,7 +283,7 @@ GUIRunThread::stop() {
 
 
 bool
-GUIRunThread::simulationAvailable() const {
+GUIRunThread::networkAvailable() const {
     return myNet != nullptr;
 }
 
