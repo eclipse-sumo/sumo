@@ -49,7 +49,8 @@ title: ChangeLog
 ### Enhancements
 
 - sumo-gui
-  - Added tooltip in scale traffic label. #13545   
+  - Added tooltip in scale traffic label. #13545
+  - Now current sumoconfig can be loaded directly in netedit (edit / open sumo config in netedit) #13588
 
 - netedit
   - Now supports Human Readable Time (HH:MM:SS). #11022
