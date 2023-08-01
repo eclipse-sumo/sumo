@@ -46,7 +46,7 @@ public:
     /** @brief Constructor
      * @param[in] parent The parent window
      */
-    GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock, SUMOTime simBegin);
+    GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock, const SUMOTime simBegin);
 
     /// @brief Destructor
     ~GUIDialog_Breakpoints();
@@ -82,6 +82,7 @@ public:
     void rebuildList();
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GUIDialog_Breakpoints)
 
 private:
@@ -103,5 +104,6 @@ private:
     /// @brief Lock for modifying the list of breakpoints
     FXMutex* myBreakpointLock;
 
+    /// @brief simulation begin
     SUMOTime mySimBegin;
 };
