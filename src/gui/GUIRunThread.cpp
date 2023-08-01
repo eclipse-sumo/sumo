@@ -48,13 +48,21 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
-                           double& simDelay, MFXSynchQue<GUIEvent*>& eq,
-                           FXEX::MFXThreadEvent& ev) :
+GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent, double& simDelay,
+        MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
     MFXSingleEventThread(app, parent),
-    myNet(nullptr), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
-    mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev),
-    myLastEndMillis(-1), myLastBreakMillis(0), myAmLibsumo(false) {
+    myNet(nullptr),
+    myHalting(true),
+    myQuit(false),
+    mySimulationInProgress(false),
+    myOk(true),
+    myHaveSignaledEnd(false),
+    mySimDelay(simDelay),
+    myEventQue(eq),
+    myEventThrow(ev),
+    myLastEndMillis(-1),
+    myLastBreakMillis(0),
+    myAmLibsumo(false) {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_WARNING);
