@@ -320,6 +320,12 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("ignore-supermode-question", new Option_Bool(false));
     neteditOptions.addDescription("ignore-supermode-question", "Netedit", TL("Ignore question dialog during changing between supermodes in undo-redo"));
 
+    neteditOptions.doRegister("ignore.additionalelements", new Option_Bool(false));
+    neteditOptions.addDescription("ignore.additionalelements", "Netedit", TL("Ignore additional elements during loading of sumo-configs"));
+    
+    neteditOptions.doRegister("ignore.routeelements", new Option_Bool(false));
+    neteditOptions.addDescription("ignore.routeelements", "Netedit", TL("Ignore route elements during loading of sumo-configs"));
+
     // network prefixes
 
     neteditOptions.doRegister("node-prefix", new Option_String("J"));

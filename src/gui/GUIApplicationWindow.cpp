@@ -985,12 +985,19 @@ GUIApplicationWindow::onCmdOpenInNetedit(FXObject*, FXSelector, void*) {
         }
     }
     // declare command for calling netedit using the viewport saved in registry
-    std::string cmd = netedit + " --registry-viewport ";
+    std::string cmd = netedit + " --registry-viewport";
     // continue depending if we're loading only a network or the entire sumo config
     if (myLoadAdditionalsInNetedit->shown()) {
-        cmd += "--sumocfg-file \"" + OptionsCont::getOptions().getString("configuration-file") + "\"";
+        cmd += " --sumocfg-file \"" + OptionsCont::getOptions().getString("configuration-file") + "\"";
+        // check if ignore additional or demand elements
+        if (myLoadAdditionalsInNetedit->getCheck() == FALSE) {
+            cmd += " --ignore.additionalelements";
+        }
+        if (myLoadDemandInNetedit->getCheck() == FALSE) {
+            cmd += " --ignore.routeelements";
+        }
     } else {
-        cmd += "-s \"" + OptionsCont::getOptions().getString("net-file") + "\"";
+        cmd += " -s \"" + OptionsCont::getOptions().getString("net-file") + "\"";
     }
     // start in background
 #ifndef WIN32
