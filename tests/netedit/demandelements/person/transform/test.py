@@ -41,9 +41,6 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 # press enter to create person
 netedit.typeEnter()
 
-# change zoom
-netedit.setZoom("0", "5", "5")
-
 # transform
 netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y,
                                 netedit.attrs.person.transformTo, 1)

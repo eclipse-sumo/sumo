@@ -37,9 +37,6 @@ netedit.selectMode()
 # select all using invert
 netedit.selectionInvert()
 
-# change zoom
-netedit.setZoom("0", "5", "5")
-
 # go to inspect mode
 netedit.inspectMode()
 
