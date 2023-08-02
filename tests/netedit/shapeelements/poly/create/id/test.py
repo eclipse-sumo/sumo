@@ -38,19 +38,19 @@ netedit.changeElement("poly")
 netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.Poly.create.id, ";;;;;;")
+netedit.changeDefaultValue(netedit.attrs.poly.create.id, ";;;;;;")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.Poly.create.id, "po_0")
+netedit.changeDefaultValue(netedit.attrs.poly.create.id, "po_0")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.Poly.create.id, "custom_ID")
+netedit.changeDefaultValue(netedit.attrs.poly.create.id, "custom_ID")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, 592, 136, 200, True)

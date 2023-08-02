@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # change type with invalid XML characters (but the are allowed)
-netedit.changeDefaultValue(netedit.attrs.Poly.create.type, "<<poly_test>>")
+netedit.changeDefaultValue(netedit.attrs.poly.create.type, "<<poly_test>>")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # change type
-netedit.changeDefaultValue(netedit.attrs.Poly.create.type, "poly_test")
+netedit.changeDefaultValue(netedit.attrs.poly.create.type, "poly_test")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, 401, 136, 200, True)

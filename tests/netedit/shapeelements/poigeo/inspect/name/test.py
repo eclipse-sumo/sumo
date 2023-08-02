@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 360, 99)
 
 # Change parameter 6 with a non valid value
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.name, "customName", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.name, "customName", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

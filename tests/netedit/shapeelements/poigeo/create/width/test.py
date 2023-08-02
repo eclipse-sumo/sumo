@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # change width (invalid, dummy)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.width, "dummyWidth")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.width, "dummyWidth")
 
 # try to create poi
 netedit.leftClick(referencePosition, 292, 117)
 
 # change width (invalid, negative)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.width, "-2")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.width, "-2")
 
 # try to create poi
 netedit.leftClick(referencePosition, 337, 117)
 
 # change width (valid)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.width, "2.5")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.width, "2.5")
 
 # create poi
 netedit.leftClick(referencePosition, 383, 117)

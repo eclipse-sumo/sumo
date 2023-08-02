@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # change angle (invalid)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.name, "%%%%;;;%%%")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.name, "%%%%;;;%%%")
 
 # try to create POI
 netedit.leftClick(referencePosition, 292, 117)
 
 # change angle (valid, but > 360)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.name, "customName")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.name, "customName")
 
 # create POI
 netedit.leftClick(referencePosition, 337, 117)

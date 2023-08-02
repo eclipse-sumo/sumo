@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 649, 290)
 
 # Change boolean parameter relative path
-netedit.modifyBoolAttribute(netedit.attrs.POILane.inspectSelection.relativePath, True)
+netedit.modifyBoolAttribute(netedit.attrs.poiLane.inspectSelection.relativePath, True)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

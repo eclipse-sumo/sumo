@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 116, 139)
 
 # Change parameter 6 with a non valid value
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.name, "%%%$$$;;", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.name, "%%%$$$;;", False)
 
 # Change parameter 6 with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.name, "customName", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.name, "customName", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
