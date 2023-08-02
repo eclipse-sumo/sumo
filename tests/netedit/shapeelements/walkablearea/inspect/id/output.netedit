@@ -1,7 +1,7 @@
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
-poly
+walkableArea
 TestFunctions: Clicked over position 420 - 307
 TestFunctions: Clicked over position 420 - 207.0
 TestFunctions: Clicked over position 320.0 - 207.0
@@ -13,7 +13,7 @@ TestFunctions: Clicked over position 605.0 - 204.0
 TestFunctions: Clicked over position 605.0 - 304
 TestFunctions: Clicked over position 705 - 304
 TestFunctions: Clicked over position 420 - 307
-poly_1
+jps.walkable_area_0
 
 ID with spaces
 newID

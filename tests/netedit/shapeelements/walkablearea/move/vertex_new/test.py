@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to additional mode
-netedit.changeElement("poly")
+netedit.changeElement("walkableArea")
 
 # create Shape
 netedit.createSquaredPoly(referencePosition, 500, 331, 600, True)

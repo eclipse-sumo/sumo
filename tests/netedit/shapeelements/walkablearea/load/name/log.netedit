@@ -1,2 +1,2 @@
-Error: Attribute 'layer' in definition of poly 'poly_1' Invalid Number Format (double) dummyLayer.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.26Jan095536.11321/netedit.daily.shape.poly/shapeelements/poly/load/layer/additionals.add.xml failed.
+Error: Attribute 'name' in definition of poly 'jps.walkable_area_1' is empty.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Aug092045.12220\netedit.gui\shapeelements\walkablearea\load\name\additionals.add.xml failed.

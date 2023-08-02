@@ -32,10 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("poly")
+netedit.changeElement("walkableArea")
 
 # create close line polygon (area 0)
-netedit.createLinePoly(referencePosition, 210, 136, 200, 200, True)
+netedit.createLinewalkableArea(referencePosition, 210, 136, 200, 200, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -1,4 +1,4 @@
 Error: Attribute 'id' is missing in definition of a poly.
-Error: Could not build poly with ID '%%%%;;$$$%' in netedit; ID contains invalid characters.
-Error: Could not build taz with ID 'poly_0' in netedit; Declared twice.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.22May115309.2092/netedit.daily.shape/shapeelements/poly/load/id/additionals.add.xml failed.
+Error: Could not build walkableArea with ID '%%%%;;$$$%' in netedit; ID contains invalid characters.
+Error: Could not build walkableArea with ID 'jps.walkable_area_0' in netedit; Declared twice.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Aug092045.12220\netedit.gui\shapeelements\walkablearea\load\id\additionals.add.xml failed.

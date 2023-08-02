@@ -32,25 +32,25 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("poly")
+netedit.changeElement("walkableArea")
 
 # create polygon
 netedit.createSquaredTAZ(referencePosition, 210, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.Poly.create.id, ";;;;;;")
+netedit.changeDefaultValue(netedit.attrs.walkableArea.create.id, ";;;;;;")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 592, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.Poly.create.id, "po_0")
+netedit.changeDefaultValue(netedit.attrs.walkableArea.create.id, "jps.walkable_area_0")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 592, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.Poly.create.id, "custom_ID")
+netedit.changeDefaultValue(netedit.attrs.walkableArea.create.id, "custom_ID")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 592, 136, 200, True)

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to poly mode and select poly
-netedit.changeElement("poly")
+netedit.changeElement("walkableArea")
 
 # create first polygon
 netedit.createSquaredTAZ(referencePosition, 116, 139, 200, True)
@@ -43,7 +43,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 116, 139)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.Poly.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.walkableArea.inspect.parameters, False)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
