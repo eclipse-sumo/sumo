@@ -132,7 +132,7 @@ the offsets given).
 
 | Option | Description |
 |--------|-------------|
-| **--turn-lanes** {{DT_INT}} | Generate INT left-turn lanes; *default:* **0** |
+| **--turn-lanes** {{DT_INT}} | Generate INT left-turn lanes; *default:* **0**. 0: No separate turning only lanes; 1: Add left-turn & turn-around only lane as the new left-most lane; 2: Add left-turn & turn-around only lane as the new left-most lane & right-turn only lane as the new right-most lane; 3: Add turn-around only lane as the new left-most lane, left-turn only lane as the new left-most-but-one lane, right-turn only lane as the new right-most lane; 4: Add turn-around only lane as the new left-most lane, left-turn only lane as the new left-most-but-one lane, left-turn only lane as the new left-most-but-two lane, right-turn only lane as the new right-most lane; 5: Add turn-around only lane as the new left-most lane, left-turn only lane as the new left-most-but-one lane, left-turn only lane as the new left-most-but-two lane, left-turn only lane as the new left-most-but-three lane, right-turn only lane as the new right-most lane. |
 | **--turn-lanes.length** {{DT_FLOAT}} | Set the length of generated turning lanes to FLOAT; *default:* **20** |
 | **--perturb-x** {{DT_STR}} | Apply random spatial perturbation in x direction according the the given distribution; *default:* **0** |
 | **--perturb-y** {{DT_STR}} | Apply random spatial perturbation in y direction according the the given distribution; *default:* **0** |
