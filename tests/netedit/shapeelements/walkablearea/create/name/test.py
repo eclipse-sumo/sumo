@@ -38,13 +38,13 @@ netedit.changeElement("walkableArea")
 netedit.changeDefaultValue(netedit.attrs.walkableArea.create.name, "%%%%%%$$$$")
 
 # try to create polygon
-netedit.createSquaredTAZ(referencePosition, 210, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # change layer (valid, negative)
 netedit.changeDefaultValue(netedit.attrs.walkableArea.create.name, "customName")
 
 # create polygon
-netedit.createSquaredPoly(referencePosition, 592, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

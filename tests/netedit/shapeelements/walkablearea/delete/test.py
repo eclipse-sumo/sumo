@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("walkableArea")
 
 # create polygon with default values
-netedit.createSquaredTAZ(referencePosition, 210, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # go to delete mode
 netedit.deleteMode()

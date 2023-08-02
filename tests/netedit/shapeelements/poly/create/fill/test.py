@@ -38,7 +38,7 @@ netedit.changeElement("poly")
 netedit.changeDefaultBoolValue(netedit.attrs.Poly.create.fill)
 
 # create polygon with default values
-netedit.createSquaredTAZ(referencePosition, 210, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

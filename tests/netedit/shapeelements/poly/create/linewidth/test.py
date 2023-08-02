@@ -38,19 +38,19 @@ netedit.changeElement("poly")
 netedit.changeDefaultValue(netedit.attrs.Poly.create.lineWidth, "dummyLineWidth")
 
 # try to create polygon
-netedit.createSquaredTAZ(referencePosition, 210, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # change line width (invalid, negative)
 netedit.changeDefaultValue(netedit.attrs.Poly.create.lineWidth, "-2.5")
 
 # create polygon
-netedit.createSquaredPoly(referencePosition, 401, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 401, 136, 200, True)
 
 # change line width (valid)
 netedit.changeDefaultValue(netedit.attrs.Poly.create.lineWidth, "3.2")
 
 # create polygon
-netedit.createSquaredPoly(referencePosition, 592, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

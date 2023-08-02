@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("obstacle")
 
 # create open polygon
-netedit.createSquaredPoly(referencePosition, 210, 136, 200, False)
+netedit.createSquaredShape(referencePosition, 210, 136, 200, False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

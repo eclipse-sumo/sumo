@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeDefaultBoolValue(netedit.attrs.Poly.create.closeShape)
 
 # create open polygon that will be automatically closed
-netedit.createSquaredPoly(referencePosition, 210, 136, 200, False)
+netedit.createSquaredShape(referencePosition, 210, 136, 200, False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

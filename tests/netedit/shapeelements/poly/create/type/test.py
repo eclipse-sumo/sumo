@@ -38,13 +38,13 @@ netedit.changeElement("poly")
 netedit.changeDefaultValue(netedit.attrs.Poly.create.type, "<<poly_test>>")
 
 # create polygon
-netedit.createSquaredTAZ(referencePosition, 210, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # change type
 netedit.changeDefaultValue(netedit.attrs.Poly.create.type, "poly_test")
 
 # create polygon
-netedit.createSquaredPoly(referencePosition, 401, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 401, 136, 200, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -35,10 +35,10 @@ netedit.shapeMode()
 netedit.changeElement("obstacle")
 
 # create first polygon
-netedit.createSquaredTAZ(referencePosition, 116, 139, 200, True)
+netedit.createSquaredShape(referencePosition, 116, 139, 200, True)
 
 # create second polygon
-netedit.createSquaredTAZ(referencePosition, 401, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 401, 136, 200, True)
 
 # go to inspect mode
 netedit.inspectMode()
