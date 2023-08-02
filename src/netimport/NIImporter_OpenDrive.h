@@ -111,7 +111,8 @@ protected:
         OPENDRIVE_TAG_GEOREFERENCE,
         OPENDRIVE_TAG_OFFSET,
         OPENDRIVE_TAG_OBJECT,
-        OPENDRIVE_TAG_REPEAT
+        OPENDRIVE_TAG_REPEAT,
+        OPENDRIVE_TAG_INCLUDE
     };
 
 
@@ -174,7 +175,8 @@ protected:
         OPENDRIVE_ATTR_RESTRICTION,
         OPENDRIVE_ATTR_NAME,
         OPENDRIVE_ATTR_UNIT,    // xodr v1.4
-        OPENDRIVE_ATTR_SIGNALID
+        OPENDRIVE_ATTR_SIGNALID,
+        OPENDRIVE_ATTR_FILE
     };
 
 
@@ -687,6 +689,7 @@ private:
     std::map<std::string, OpenDriveController> myControllers;
     std::map<std::string, std::vector<std::string>> myJunctions2Controllers;
     Position myOffset;
+    bool myUseCurrentNode;
 
     static bool myImportAllTypes;
     static bool myImportWidths;
