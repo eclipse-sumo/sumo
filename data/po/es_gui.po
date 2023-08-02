@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 16:04+0200\n"
-"PO-Revision-Date: 2023-08-02 13:56+0000\n"
+"PO-Revision-Date: 2023-08-02 14:56+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -4307,6 +4307,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:324
 msgid "Ignore additional elements during loading of sumo-configs"
 msgstr ""
+"Ignorar elementos adicionales durante la carga de configuraciones de sumo"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:327
 msgid "Ignore route elements during loading of sumo-configs"
@@ -4800,7 +4801,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:379
 msgid "Locate an additional structure within the network. (Shift+A)"
-msgstr ""
+msgstr "Localizar una estructura adicional dentro de la red. (Shift+A)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:383
 msgid "Locate a PoI within the network. (Shift+O)"
@@ -4816,7 +4817,7 @@ msgstr "Remover de selección"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:463
 msgid "Add to Selected"
-msgstr ""
+msgstr "Agregar a la selección"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:620
 msgid "GUI-Settings cannot be saved in "
@@ -4836,7 +4837,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:816
 msgid "' will be eliminated and its roads added to '"
-msgstr ""
+msgstr "' será eliminado(a) y sus calles agregadas a '"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:848
 msgid " requires switch to network mode. Continue?"
@@ -4985,7 +4986,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2664
 msgid "add reverse '%'"
-msgstr ""
+msgstr "agregar '%' opuesto"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:2693
 msgid "change edge Geometry Point position"
@@ -5076,7 +5077,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:3060
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:3068
 msgid "Add vclass for "
-msgstr ""
+msgstr "Agregar vClass para "
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:3070
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:3165
@@ -5085,15 +5086,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:3071
 msgid " will be added. Continue?"
-msgstr ""
+msgstr " será agregado. ¿Continuar?"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:3088
 msgid "add restrictions for "
-msgstr ""
+msgstr "añadir restricciones para "
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:3098
 msgid "add vclass for "
-msgstr ""
+msgstr "agregar vClass para "
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:3155
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:3163
@@ -5147,7 +5148,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:3573
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:3600
 msgid "add TLS in multiple junctions"
-msgstr ""
+msgstr "añadir semáforo (TLS) en múltiples cruces"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:5711
 msgid "Shift + click to create two additionals in the same position"
@@ -6582,7 +6583,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:71
 msgid "Save toolcfg"
-msgstr ""
+msgstr "Guardar toolcfg"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:73
 msgid "Save file with tool configuration"
@@ -6590,7 +6591,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:74
 msgid "Load toolcfg"
-msgstr ""
+msgstr "Cargar toolcfg"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:76
 msgid "Load file with tool configuration"
@@ -6598,11 +6599,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:77
 msgid "Sorted by name"
-msgstr ""
+msgstr "Ordenar por nombre"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:78
 msgid "Grouped by categories"
-msgstr ""
+msgstr "Agrupar por categorías"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:90
 msgid "Blue options are mandatory"
@@ -6640,7 +6641,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:392
 msgid "additional"
-msgstr ""
+msgstr "adicional"
 
 #: D:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:435
 msgid "route"
@@ -6818,11 +6819,12 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1044
 msgid "The width of the sidewalk that should be added as an additional lane"
-msgstr ""
+msgstr "El ancho de la acera que será agregada como carril adicional"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1049
 msgid "The width of the bike lane that should be added as an additional lane"
 msgstr ""
+"El ancho del carril de bicicleta que será agregado como carril adicional"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1062
 msgid "The maximum speed allowed on the lane in m/s"
@@ -9457,11 +9459,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:378
 msgid "add parking space in '"
-msgstr ""
+msgstr "agregar espacio de estacionamiento en '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:422
 msgid "add induction loop '"
-msgstr ""
+msgstr "agregar bucle de inducción '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:462
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:529
@@ -9485,35 +9487,35 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:593
 msgid "add entry-exit detector '"
-msgstr ""
+msgstr "agregar detector de entrada/salida '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:628
 msgid "add entry detector in '"
-msgstr ""
+msgstr "agregar detector de entrada en '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:663
 msgid "add exit detector in '"
-msgstr ""
+msgstr "agregar detector de salida en '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:700
 msgid "add instant induction loop '"
-msgstr ""
+msgstr "agregar bucle de inducción instantáneo '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:750
 msgid "add lane calibrator '"
-msgstr ""
+msgstr "agregar calibrador de carril '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:804
 msgid "add calibrator '"
-msgstr ""
+msgstr "agregar calibrador '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:845
 msgid "add calibrator flow in '"
-msgstr ""
+msgstr "agregar flujo de calibrador en '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:901
 msgid "add rerouter '"
-msgstr ""
+msgstr "agregar rerouter '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:940
 #, c-format
@@ -9523,7 +9525,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:948
 msgid "add rerouter interval in '"
-msgstr ""
+msgstr "agregar intervalo de rerouter en '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:957
 #, c-format
@@ -9533,11 +9535,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:979
 msgid "add closing lane reroute in '"
-msgstr ""
+msgstr "agregar reroute de carril cerrado en '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1007
 msgid "add closing reroute in '"
-msgstr ""
+msgstr "agregar reroute de cerrado en '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1034
 msgid "add dest prob reroute in '"
