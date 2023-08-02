@@ -32,34 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("poi")
+netedit.changeElement("poiWaypoint")
 
 # create poi
 netedit.leftClick(referencePosition, 336, 136)
-
-# change color to white (To see icon)
-netedit.changeDefaultValue(netedit.attrs.poi.create.color, "white")
-
-# Change parameter width with a valid value (To see icon)
-netedit.changeDefaultValue(netedit.attrs.poi.create.width, "10")
-
-# Change parameter height with a valid value (To see icon)
-netedit.changeDefaultValue(netedit.attrs.poi.create.height, "10")
-
-# change imgfile (valid)
-netedit.changeDefaultValue(netedit.attrs.poi.create.imgFile, "berlin_icon.ico")
-
-# create poi
-netedit.leftClick(referencePosition, 336, 345)
 
 # go to move mode
 netedit.moveMode()
 
 # move first POI to left down
 netedit.moveElement(referencePosition, 336, 136, 634, 188)
-
-# move second POI to left up
-netedit.moveElement(referencePosition, 336, 345, 634, 277)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

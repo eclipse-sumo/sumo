@@ -32,16 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("poi")
+netedit.changeElement("poiWaypoint")
 
 # change angle (invalid)
-netedit.changeDefaultValue(netedit.attrs.poi.create.name, "%%%%;;;%%%")
+netedit.changeDefaultValue(netedit.attrs.poiWaypoint.create.name, "%%%%;;;%%%")
 
 # try to create POI
 netedit.leftClick(referencePosition, 292, 117)
 
 # change angle (valid, but > 360)
-netedit.changeDefaultValue(netedit.attrs.poi.create.name, "customName")
+netedit.changeDefaultValue(netedit.attrs.poiWaypoint.create.name, "customName")
 
 # create POI
 netedit.leftClick(referencePosition, 337, 117)

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # select POI in list of shapes
-netedit.changeElement("poi")
+netedit.changeElement("poiWaypoint")
 
 # create first POI
 netedit.leftClick(referencePosition, 292, 117)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 292, 117)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.poi.inspect.id, "poi_1", False)
+netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspect.id, "jps.waypoint_1", False)
 
 # Change parameter 0 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.poi.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspect.id, "", False)
 
 # Change parameter 0 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.poi.inspect.id, "ID with spaces", False)
+netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspect.id, "ID with spaces", False)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.poi.inspect.id, "newID", False)
+netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspect.id, "newID", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

@@ -32,25 +32,19 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("poi")
+netedit.changeElement("poiWaypoint")
 
 # create poi
 netedit.leftClick(referencePosition, 292, 117)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.poi.create.id, ";;;;;;")
+netedit.changeDefaultValue(netedit.attrs.poiWaypoint.create.id, ";;;;;;")
 
 # try to create poi
 netedit.leftClick(referencePosition, 337, 117)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.poi.create.id, "poi_0")
-
-# try to create poi
-netedit.leftClick(referencePosition, 383, 117)
-
-# set invalid ID
-netedit.changeDefaultValue(netedit.attrs.poi.create.id, "customID")
+netedit.changeDefaultValue(netedit.attrs.poiWaypoint.create.id, "customID")
 
 # create POI
 netedit.leftClick(referencePosition, 428, 117)

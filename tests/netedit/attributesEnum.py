@@ -1236,7 +1236,7 @@ class Poly:
 # POI
 
 
-class POI:
+class poi:
     class create:
         id = 5
         colorButton = 6
@@ -1281,7 +1281,7 @@ class POI:
 # POIGEO
 
 
-class POIGEO:
+class poiGeo:
     class create:
         id = 5
         colorButton = 6
@@ -1328,7 +1328,7 @@ class POIGEO:
 # POILane
 
 
-class POILane:
+class poiLane:
     class create:
         id = 5
         friendlyPos = 6
@@ -1413,6 +1413,23 @@ class obstacle:
         name = 1
         parameters = 4
 
+# POI
+
+
+class poiWaypoint:
+    class create:
+        id = 5
+        name = 6
+
+    class inspect:
+        id = 1
+        pos = 2
+        name = 3
+        parameters = 6
+
+    class inspectSelection:
+        name = 1
+        parameters = 4
 # --------------------------------
 # TAZ ELEMENTS
 # --------------------------------
