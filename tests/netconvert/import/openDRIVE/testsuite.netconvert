@@ -7,6 +7,9 @@ simple1_remove
 simple1_noturnarounds
 simple1_left_nt
 simple1_right_nt
+
+# read OpenDRIVE from second file referenced in the main file
+simple1_include
 simple2_noturnarounds
 simple2_left_nt
 simple2_right_nt
