@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-01 18:28+0200\n"
-"PO-Revision-Date: 2023-07-31 12:23+0000\n"
+"PO-Revision-Date: 2023-08-02 13:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -197,27 +197,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit"
-msgstr ""
+msgstr "Weitere Daten in netedit laden"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit."
-msgstr ""
+msgstr "Lade weitere Daten in netedit."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit"
-msgstr ""
+msgstr "Nachfrage in netedit laden"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit."
-msgstr ""
+msgstr "Lade Nachfrage in netedit."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Open in netedit"
-msgstr ""
+msgstr "In netedit öffnen"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Opens current simulation in NETEDIT."
-msgstr ""
+msgstr "Öffnet die aktuelle Simulation in netedit."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:522
 msgid "&Settings"
@@ -805,7 +805,7 @@ msgstr "Skaliere die Anzahl an Fahrzeugen in der Simulation"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1481
 msgid "Open sumo config in netedit"
-msgstr ""
+msgstr "Sumo-Konfiguration in netedit öffnen"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1485
 msgid "Open network in netedit"
@@ -1434,59 +1434,59 @@ msgstr "kumulierte Rückstaulänge [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:155
 msgid "started halts [#]"
-msgstr ""
+msgstr "zum Stillstand gekommene Fahrzeuge [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:157
 msgid "interval seen vehicles [#]"
-msgstr ""
+msgstr "Fahrzeuge im laufenden Intervall [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:159
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:164
 msgid "interval speed [m/s]"
-msgstr ""
+msgstr "Geschwindigkeit im laufenden Intervall [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:161
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:166
 msgid "interval occupancy [%]"
-msgstr ""
+msgstr "Belegungsgrad im laufenden Intervall [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:163
 msgid "interval max jam length [m]"
-msgstr ""
+msgstr "max. Rückstaulänge im laufenden Intervall [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:165
 msgid "last interval seen vehicles [#]"
-msgstr ""
+msgstr "Fahrzeuge im vorherigen Intervall [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:167
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:170
 msgid "last interval speed [m/s]"
-msgstr ""
+msgstr "Geschwindigkeit im vorherigen Intervall [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:169
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:172
 msgid "last interval occupancy [%]"
-msgstr ""
+msgstr "Belegungsgrad im vorherigen Intervall [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:171
 msgid "last interval max jam length [m]"
-msgstr ""
+msgstr "max. Rückstaulänge im vorherigen Intervall [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:84
 msgid "vehicles within [#]"
-msgstr ""
+msgstr "Fahrzeuge innerhalb [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:88
 msgid "haltings [#]"
-msgstr ""
+msgstr "Anhaltevorgänge [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:90
 msgid "last interval mean travel time [s]"
-msgstr ""
+msgstr "mittlere Reisezeit im vorherigen Intervall [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:92
 msgid "last interval mean haltings [#]"
-msgstr ""
+msgstr "mittlere Anzahl an Anhaltevorgängen im vorherigen Intervall [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:94
 msgid "last interval mean time loss time [s]"
@@ -1494,16 +1494,16 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:96
 msgid "last interval mean vehicle count [#]"
-msgstr ""
+msgstr "mittlere Fahrzeuganzahl im vorherigen Intervall [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:184
 msgid "max speed [m/s]"
-msgstr ""
+msgstr "max. Geschwindigkeit [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:186
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1018
 msgid "street name"
-msgstr ""
+msgstr "Straßenname"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:187
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1026
