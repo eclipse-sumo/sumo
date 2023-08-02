@@ -91,7 +91,7 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanTravelTime));
     ret->mkItem(TL("last interval mean haltings [#]"), true,
                 new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanHaltsPerVehicle));
-    ret->mkItem(TL("last interval mean time loss time [s]"), true,
+    ret->mkItem(TL("last interval mean time loss [s]"), true,
                 new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanTimeLoss));
     ret->mkItem(TL("last interval mean vehicle count [#]"), true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getLastIntervalVehicleSum));
