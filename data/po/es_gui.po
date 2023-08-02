@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-01 18:28+0200\n"
-"PO-Revision-Date: 2023-07-31 13:23+0000\n"
+"PO-Revision-Date: 2023-08-02 10:25+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -94,7 +94,7 @@ msgstr "Abrir EdgeDatas. "
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:460
 msgid "Load edge related data for visualization."
-msgstr "Abrir datos relacionados a la calle (edge), para visualización."
+msgstr "Cargar datos relacionados a la arista, para visualización."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:463
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1022
@@ -263,11 +263,11 @@ msgstr "Abrir una ventana para localizar cruces (junctions)."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1314
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1991
 msgid "&Edges"
-msgstr "&Calles"
+msgstr "&Aristas"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:539
 msgid "Open a Dialog for Locating an Edge."
-msgstr "Abrir una ventana para localizar calles."
+msgstr "Abrir una ventana para localizar aristas."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:542
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1385
@@ -739,7 +739,7 @@ msgstr "La carga de % falló."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1116
 msgid "Open EdgeData"
-msgstr "Abrir datos para calles"
+msgstr "Abrir EdgeData"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1151
 msgid "Auto-Reloading."
@@ -843,7 +843,7 @@ msgstr "segundos"
 
 #: C:\Repos\sumo/src\gui\GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
-msgstr "No se puede cargar el archivo de datos de calles (edgeDatas) '%'"
+msgstr "No se puede cargar el archivo edgeData '%'"
 
 #: C:\Repos\sumo/src\gui\GUIRunThread.cpp:108
 #: C:\Repos\sumo/src\gui\GUIRunThread.cpp:114
@@ -889,7 +889,7 @@ msgstr "Selección de cruce"
 #: C:\Repos\sumo/src\gui\GUISUMOViewParent.cpp:237
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:534
 msgid "Edge Chooser"
-msgstr "Selección de calle (edge)"
+msgstr "Selección de arista"
 
 #: C:\Repos\sumo/src\gui\GUISUMOViewParent.cpp:241
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:550
@@ -951,11 +951,11 @@ msgstr "Localiza un cruce dentro de la red."
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:119
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:344
 msgid "Locate Edges"
-msgstr "Localizar calles (edges)"
+msgstr "Localizar aristas"
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:119
 msgid "Locate an edge within the network."
-msgstr "Localiza una calle (edge) dentro de la red."
+msgstr "Localiza una arista dentro de la red."
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:124
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:352
@@ -1286,12 +1286,12 @@ msgstr "índice de fase"
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:167
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:231
 msgid "start edge [id]"
-msgstr "calle (edge) inicial [id]"
+msgstr "arista inicial [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:168
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:232
 msgid "dest edge [id]"
-msgstr "calle (edge) destino [id]"
+msgstr "arista destino [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:169
 msgid "arrivalPos [m]"
@@ -1300,7 +1300,7 @@ msgstr "posición de llegada [m]"
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:170
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:235
 msgid "edge [id]"
-msgstr "calle (edge) [id]"
+msgstr "arista [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:171
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:131
@@ -1668,7 +1668,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:964
 msgid "Copy edge name to clipboard"
-msgstr "Copiar el nombre de la calle (edge) al portapapeles"
+msgstr "Copiar el nombre de la arista al portapapeles"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:972
 msgid "pos: "
@@ -1929,14 +1929,14 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:667
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr "Intentando establecer datos para el edge desconocido '%'."
+msgstr "Intentando establecer datos para la arista desconocida '%'."
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:691
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
 msgstr ""
-"Intentando establecer un valor de dato para la relación desconocida desde "
-"calle (edge) '%' hasta calle (edge) '%'."
+"Intentando establecer un valor de dato para la relación desconocida de la "
+"arista '%' y la arista '%'."
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:709
 msgid "No data defined after simulation begin time."
@@ -2625,11 +2625,11 @@ msgstr "¡El guardado de los programas de los semáforos falló!"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3563
 msgid "EdgeType saved in '"
-msgstr "Tipos de calle guardado en '"
+msgstr "EdgeType guardado en '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3568
 msgid "Saving edgeTypes failed!"
-msgstr "¡El guardado de los tipos de calles falló!"
+msgstr "¡El guardado de los edgeTypes falló!"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3672
 msgid "load additionals from '"
@@ -2948,7 +2948,7 @@ msgstr "Semáforos (TLS)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:284
 msgid "Edge Types"
-msgstr "Tipos de edge"
+msgstr "Tipos de arista"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:288
 msgid "Additionals and Shapes"
@@ -3056,35 +3056,35 @@ msgstr "Recargar programas semafóricos."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:399
 msgid "Load Edge Types..."
-msgstr "Cargar tipos de calles (edgeTypes)..."
+msgstr "Cargar tipos de arista (edgeTypes)..."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:399
 msgid "Load edge types in the current net."
-msgstr "Cargar tipos de calle (EdgeTypes) en la red actual."
+msgstr "Cargar tipos de arista (EdgeTypes) en la red actual."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:405
 msgid "Save Edge Types"
-msgstr "Salvar tipos de calle (edgeTypes)"
+msgstr "Salvar tipos de arista (edgeTypes)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:405
 msgid "Save edge types of the current net."
-msgstr "Guardar los tipos de calle (edgeTypes) de la red actual."
+msgstr "Guardar los tipos de arista (edgeTypes) de la red actual."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:409
 msgid "Save Edge Types As..."
-msgstr "Guardar tipos de calles (edgeTypes) como..."
+msgstr "Guardar tipos de arista (edgeTypes) como..."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:409
 msgid "Save edge types of the current net to another file."
-msgstr "Guardar tipos de calles (edgeTypes) de la red actual en otro archivo."
+msgstr "Guardar tipos de arista (edgeTypes) de la red actual en otro archivo."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:415
 msgid "Reload edge types"
-msgstr "Recargar tipos de calles (edgeTypes)"
+msgstr "Recargar tipos de arista (edgeTypes)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:415
 msgid "Reload edge types."
-msgstr "Recargar tipos de calles (edgeTypes)."
+msgstr "Recargar tipos de arista (edgeTypes)."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:423
 msgid "Load Additionals..."
@@ -3285,11 +3285,11 @@ msgstr "Mover elementos."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
 msgid "&Edge"
-msgstr "&Calle (Edge)"
+msgstr "&Arista"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
 msgid "Create junction and edges."
-msgstr "Crear cruces (junctions) y calles (edges)."
+msgstr "Crear cruces y aristas."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
 msgid "&Traffic light"
@@ -3321,7 +3321,7 @@ msgstr "C&ruce"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:630
 msgid "Create crossings between edges."
-msgstr "Crear cruces entre edges."
+msgstr "Crear pasos peatonales entre aristas."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:634
 msgid "Create additional elements."
@@ -3440,7 +3440,7 @@ msgstr "Crear planes de contenedores."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:766
 msgid "&EdgeData"
-msgstr "&Dato de calle (edge)"
+msgstr "&EdgeData"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:766
 msgid "Create edgeData elements."
@@ -3448,7 +3448,7 @@ msgstr "Crear elementos edgeData."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:769
 msgid "Edge&Relation"
-msgstr "Relación entre calles (edges)"
+msgstr "Relación entre aristas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:769
 msgid "Create edgeRelation elements."
@@ -3468,7 +3468,7 @@ msgstr "&Medidas de tráfico"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:775
 msgid "Create MeanData edge/lanes."
-msgstr "Crear MeanData para calles (edges) o carriles (lanes)."
+msgstr "Crear MeanData para aristas o carriles."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:825
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1010
@@ -3523,9 +3523,7 @@ msgstr "Mostrar elementos de zona de análisis de tráfico (TAZ)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:870
 msgid "Selecting multiple edges automatically select their junctions"
-msgstr ""
-"Seleccionar múltiples calles (edges) automáticamente selecciona su cruce "
-"(junction)"
+msgstr "Seleccionar múltiples aristas automáticamente selecciona su cruce"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:875
 msgid "Clicking should apply state changes to all phases of TLS plan"
@@ -3547,11 +3545,11 @@ msgstr "Aplicar movimiento del cursor a la elevación"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:895
 msgid "Create consecutive edges"
-msgstr "Crear calles (edges) sucesivas"
+msgstr "Crear aristas consecutivas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:900
 msgid "Create an edge in the opposite direction"
-msgstr "Crear una calle (edge) en la dirección opuesta"
+msgstr "Crear una arista en la dirección opuesta"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1020
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2663
@@ -3750,7 +3748,7 @@ msgstr "&Paradas (stops)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1430
 msgid "&EdgeDatas"
-msgstr "&Datos sobre calles (edgeDatas)"
+msgstr "&Datos sobre aristas (edgeDatas)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1435
 msgid "E&dgeRelDatas"
@@ -3758,7 +3756,7 @@ msgstr "&Datos de relaciones de edges"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1440
 msgid "Edge&TAZRel"
-msgstr "&Relación TAZ"
+msgstr "&Relación Arista-TAZ"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1448
 msgid "Lock selected elements"
@@ -3847,7 +3845,7 @@ msgstr "Unir rutas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1857
 msgid "Joins routes with the same edges."
-msgstr "Unir rutas con las mismas calles (edges)."
+msgstr "Combinar rutas con las mismas aristas."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1860
 msgid "Adjust person plans"
@@ -3889,7 +3887,7 @@ msgstr "Abrir ventana para localizar cruces (junctions)."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1991
 msgid "Open a dialog for locating an Edge."
-msgstr "Abrir una ventana para localizar una calle (edge)."
+msgstr "Abrir una ventana para localizar una arista."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1994
 msgid "&WalkingAreas"
@@ -4320,12 +4318,11 @@ msgstr "Prefijo para el nombre de los cruces (junctions)"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:335
 msgid "Prefix for edge naming"
-msgstr "Prefijo para el nombre de las calles (edges)"
+msgstr "Prefijo para el nombre de las aristas"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:338
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
-msgstr ""
-"Activar infijo para calles calle (edge) (<fromNodeID><infix><toNodeID>)"
+msgstr "Activar infijo para aristas (<fromNodeID><infijo><toNodeID>)"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:343
 msgid "Prefix for busStop naming"
@@ -4450,7 +4447,7 @@ msgstr "Prefijo para el nombre de los flujos de contenedores"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:439
 msgid "Prefix for meanDataEdge naming"
-msgstr "Prefijo para el nombre de los meanDatas sobre calles (edges)"
+msgstr "Prefijo para el nombre de los meanDataEdge"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:442
 msgid "Prefix for meanDataLane naming"
@@ -4538,11 +4535,11 @@ msgstr "eliminar cruce (junction)"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:412
 msgid "delete edge"
-msgstr "eliminar calle (edge)"
+msgstr "eliminar arista"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:491
 msgid "replace edge"
-msgstr "reemplazar calle (edge)"
+msgstr "reemplazar arista"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:553
 msgid "delete lane"
@@ -4576,19 +4573,19 @@ msgstr "duplicar carril (lane)"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:856
 msgid "split edge"
-msgstr "dividir calle (edge)"
+msgstr "dividir arista"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:973
 msgid "split edges"
-msgstr "dividir calles (edges)"
+msgstr "dividir aristas"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:995
 msgid "reverse edge"
-msgstr "invertir calle (edge)"
+msgstr "invertir arista"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1012
 msgid "add reversed edge"
-msgstr "añadir calle (edge) invertida"
+msgstr "añadir arista inversa"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1046
 msgid "merge junctions"
@@ -4763,7 +4760,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:344
 msgid "Locate an edge within the network. (Shift+E)"
-msgstr "Localizar una calle (edge) dentro de la red. (Shift+E)"
+msgstr "Localizar una arista dentro de la red. (Shift+E)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:348
 msgid "Locate WalkingAreas"
@@ -4931,7 +4928,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2330
 msgid "straighten elevation of selected edges"
-msgstr "enderezar elevación de las calles seleccionadas"
+msgstr "enderezar elevación de las aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2337
 msgid "straighten edge elevation"
@@ -4947,11 +4944,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2372
 msgid "reset edge lengths"
-msgstr "reiniciar largos de la calles (edge)"
+msgstr "reiniciar longitudes de arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2401
 msgid "copy edge template"
-msgstr "copiar plantilla de calle (edge)"
+msgstr "copiar plantilla de arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2422
 msgid "simplify shapes"
@@ -4992,7 +4989,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2693
 msgid "change edge Geometry Point position"
-msgstr "cambiar posición del punto geométrico de la calle (edge)"
+msgstr "cambiar posición del punto geométrico de la arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2725
 msgid "change polygon Geometry Point position"
@@ -5344,8 +5341,8 @@ msgstr "Clicks seleccionan carriles (lanes)"
 msgid ""
 "Toggle whether clicking should inspect/select/delete lanes instead of edges."
 msgstr ""
-"Alternar si clickar debe inspeccionar/seleccionar/eliminar carriles (lanes) "
-"en lugar de calles (edges)."
+"Alternar si cliquear debe inspeccionar/seleccionar/eliminar carriles en "
+"lugar de aristas."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2388
 msgid "Toggle show connections over junctions."
@@ -5376,8 +5373,8 @@ msgid ""
 "Toggle whether selecting multiple edges should automatically select their "
 "junctions."
 msgstr ""
-"Alternar si seleccionar multiples calles (edges) debe seleccionar o no "
-"también sus cruces (junctions)."
+"Alternar si al seleccionar multiples aristas también se deban seleccionar o "
+"no sus cruces."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2428
 msgid "Apply state to all phases"
@@ -5421,21 +5418,21 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2459
 msgid "Edge chain mode"
-msgstr "Modo cadenas de calles (edges)"
+msgstr "Modo cadenas de arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2459
 msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
-"Crear calles (edges) consecutivos con un solo clic (Pulsar ESC para cancelar "
-"la cadena)."
+"Crear aristas consecutivas con un solo clic (pulse ESC para cancelar la "
+"cadena)."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2467
 msgid "Edge opposite direction"
-msgstr "Calle (edge) en dirección contraria"
+msgstr "Arista en dirección opuesta"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2467
 msgid "Automatically create an edge in the opposite direction."
-msgstr "Crear calle (edge) en la dirección opuesta automáticamente."
+msgstr "Crear una arista en la dirección opuesta automáticamente."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2671
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2949
@@ -5537,11 +5534,11 @@ msgstr "Modo para mover elementos. (M)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3544
 msgid "Set create edge mode"
-msgstr "Ir al modo de crear calles (edges)"
+msgstr "Ir al modo de crear aristas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3544
 msgid "Mode for creating junction and edges. (E)"
-msgstr "Modo para crear cruces (junctions) y calles (edges). (E)"
+msgstr "Modo para crear cruces y aristas. (E)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3550
 msgid "Set traffic light mode"
@@ -5573,8 +5570,7 @@ msgstr "Ir al modo de cruces peatonales (crossings)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3568
 msgid "Mode for creating crossings between edges. (R)"
-msgstr ""
-"Modo para crear cruces peatonales (crossings) entre calles (edges). (R)"
+msgstr "Modo para crear pasos peatonales entre aristas. (R)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3574
 msgid "Set additional mode"
@@ -5698,19 +5694,19 @@ msgstr "Modo para crear planes para contenedores. (H)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3828
 msgid "Create edge data mode"
-msgstr "Ir al modo de crear datos sobre calles (edgeDatas)"
+msgstr "Ir al modo de crear datos sobre aristas (edgeData)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3828
 msgid "Mode for creating edge datas. (E)"
-msgstr "Modo para crear datos para calles (edgeDatas). (E)"
+msgstr "Modo para crear datos de aristas (edgeDatas). (E)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3834
 msgid "Create edge relation data mode"
-msgstr "Ir al modo de crear datos de relación entre calles (edgeRelDatas)"
+msgstr "Ir al modo de crear datos de relación entre aristas (edgeRelDatas)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3834
 msgid "Mode for creating edge relation datas. (R)"
-msgstr "Modo para crear datos de relación entre calles (edgeRelDatas). (R)"
+msgstr "Modo para crear datos de relación entre aristas (edgeRelDatas). (R)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3840
 msgid "Create TAZ relation data mode"
@@ -5876,23 +5872,23 @@ msgstr "Rehacer crear paso peatonal (crossing)"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Edge.cpp:136
 msgid "Undo create edge '"
-msgstr "Deshacer crear calle (edge) '"
+msgstr "Deshacer crear arista '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Edge.cpp:138
 msgid "Undo delete edge '"
-msgstr "Deshacer eliminar calle (edge) '"
+msgstr "Deshacer eliminar arista '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Edge.cpp:146
 msgid "Redo create edge '"
-msgstr "Rehacer crear calle (edge) '"
+msgstr "Rehacer crear arista '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Edge.cpp:148
 msgid "Redo delete edge '"
-msgstr "Rehaer eliminar calle (edge) '"
+msgstr "Rehacer eliminar arista '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_EdgeType.cpp:111
 msgid "Undo create edgeType '"
-msgstr "Deshacer crear calle (edge) '"
+msgstr "Deshacer crear edgeType '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_EdgeType.cpp:113
 msgid "Undo delete edgeType '"
@@ -6244,15 +6240,15 @@ msgstr "El guardado de la lista de elementos en conflicto falló"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:227
 msgid "Remove invalid edges"
-msgstr "Eliminar calles (edges) inválidas"
+msgstr "Eliminar aristas inválidas"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:230
 msgid "Save invalid edges"
-msgstr "Guardar edges inválidos"
+msgstr "Guardar aristas inválidas"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:233
 msgid "Select conflicted edges"
-msgstr "Seleccionar calles (edges) en conflicto"
+msgstr "Seleccionar aristas en conflicto"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:263
 msgid "delete invalid edges"
@@ -6427,7 +6423,7 @@ msgstr "sobrescribir elementos"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:182
 msgid "Rerouter has more than one edge"
-msgstr "Rerouter tiene mas de una calle (edge)"
+msgstr "Rerouter tiene mas de una arista"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:321
 msgid "There are no lanes in the network"
@@ -6863,7 +6859,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1147
 msgid "The length of the edge in meter"
-msgstr "El largo de la calle (edge) en metros"
+msgstr "La longitud de la arista en metros"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1159
 msgid "street name (does not need to be unique, used for visualization)"
@@ -6888,7 +6884,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1186
 msgid "Show if edge is bidirectional"
-msgstr "Muestr si la calle (edge) es bidireccional"
+msgstr "Mostrar si la arista es bidireccional"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1192
 msgid "Distance"
@@ -7732,7 +7728,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2781
 msgid "Edge in which vaporizer is placed"
-msgstr "Calle (Edge) en la que colocar el vaporizador"
+msgstr "Arista en la cual colocar el vaporizador"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2786
 msgid "Start Time"
@@ -7914,11 +7910,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3182
 msgid "Depart weight associated to this Edge"
-msgstr "Peso de salida asociado con esta calle (edge)"
+msgstr "Peso de salida asociado con esta arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3202
 msgid "Arrival weight associated to this Edget"
-msgstr "Peso de llegada asociada con esta calle (edge)"
+msgstr "Peso de llegada asociado con esta arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3225
 msgid "Traction substation ID"
@@ -7997,8 +7993,8 @@ msgid ""
 "The edges the vehicle shall drive along, given as their ids, separated using "
 "spaces"
 msgstr ""
-"La lista de IDs de calles (edges) por las que el vehículo debe circular, "
-"separadas por espacios"
+"Lista de IDs de las aristas por las que el vehículo debe circular, separadas "
+"por espacios"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3441
 msgid "Route distribution probability"
@@ -8012,7 +8008,7 @@ msgstr "Color de la ruta"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3452
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3498
 msgid "The number of times that the edges of this route shall be repeated"
-msgstr "El número de veces que se debe repetir la ruta"
+msgstr "El número de veces que se deban repetir las aristas de esta ruta"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3458
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3504
@@ -8250,15 +8246,13 @@ msgstr "La ID del tipo de vehículo a usar para este vehículo"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3913
 msgid "The index of the edge within route the vehicle starts at"
 msgstr ""
-"El índice de la calle (edge) dentro de la ruta en la que el vehículo debe "
-"empezar"
+"El índice de la arista dentro de la ruta en la que el vehículo deba comenzar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3878
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3918
 msgid "The index of the edge within route the vehicle ends at"
 msgstr ""
-"El índice de la calle (edge) dentro de la ruta en la que el vehículo debe "
-"terminar"
+"El índice de la arista dentro de la ruta en la que el vehículo deba terminar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3886
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3926
@@ -8287,8 +8281,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3963
 msgid "List of intermediate edge ids which shall be part of the flow"
-msgstr ""
-"Lista de calles (edges) intermedios que deben ser parte del flujo (flow)"
+msgstr "Lista de IDs de aristas intermedias que deben ser parte del flujo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3984
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4021
@@ -8465,7 +8458,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4944
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4963
 msgid "Arrival position on the destination edge"
-msgstr "Posición de llegada en la calle (edge) destino"
+msgstr "Posición de llegada en la arista destino"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4645
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5091
@@ -9384,7 +9377,7 @@ msgstr "Posición del cursor sobre el carril (lane): "
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:178
 msgid "Mouse position over edge: "
-msgstr "Posición del cursor sobre la calle (edge): "
+msgstr "Posición del cursor sobre la arista: "
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:181
 #: C:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:139
@@ -9393,7 +9386,7 @@ msgstr "Posición del cursor en la vista: "
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:422
 msgid "Invalid number of edges"
-msgstr "Número de calles (edges) inválido"
+msgstr "Número de aristas inválido"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:104
 msgid "add bus stop '"
@@ -9408,8 +9401,8 @@ msgid ""
 "Could not build access in netedit; busStop parent already owns an access in "
 "the edge '"
 msgstr ""
-"No se puede crear el acceso en Netedit; La parada de bus ya posee un acceso "
-"en la calle (edge) '"
+"No se puede crear el acceso en netedit; la parada de bus ya posee un acceso "
+"en la arista '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:188
 #, c-format
@@ -10128,18 +10121,16 @@ msgstr "Los contenedores no pueden parar en areas de parqueo"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1258
 msgid "vehicles don't support stops at edges"
-msgstr "Los vehículos no pueden parar en calles (edges)"
+msgstr "Los vehículos no admiten paradas en aristas"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1271
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
 msgstr ""
-"Una parada debe ser definida sobre un lugar de parada, una calle (edge), o "
-"un carril (lane)"
+"Una parada debe ser definida sobre un lugar de parada, una arista o un carril"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1273
 msgid "A stop requires only a stoppingPlace, edge or lane"
-msgstr ""
-"Una parada necesita solo un lugar de parada, calle (edge) o carril (lane)"
+msgstr "Una parada necesita solo un lugar de parada, arista o carril"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1398
 msgid "A person trip from edge to edge needs two edges edge"
@@ -10148,8 +10139,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1408
 msgid "A person trip from edge to busStop needs one edge and one busStop"
 msgstr ""
-"Un person trip desde una calle (edge) hasta una parada de autobus nesita una "
-"calle y una parada de autobus"
+"Un person trip desde una arista hasta una parada de autobús necesita una "
+"arista y una parada de autobús"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1418
 msgid "A person trip from edge to trainStop needs one edge and one trainStop"
@@ -10864,7 +10855,7 @@ msgstr " elementos de demanda..."
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:660
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:738
 msgid " edges..."
-msgstr " calles (edges)..."
+msgstr " aristas..."
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:548
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:611
@@ -10894,7 +10885,7 @@ msgstr "Salientes"
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:65
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1322
 msgid "Edges"
-msgstr "Calles (edges)"
+msgstr "Aristas"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:890
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:71
@@ -11133,7 +11124,7 @@ msgstr "Usar el seleccionado"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:63
 msgid "-Click over an edge to select"
-msgstr "-Click sobre una calle (edge) para seleccionarla"
+msgstr "-Cliquear sobre una arista para seleccionarla"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:69
 msgid "-Click over an lane to select"
@@ -11184,7 +11175,7 @@ msgstr "Creador de rutas"
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:1032
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1153
 msgid "No edges selected"
-msgstr "No hay calles (edges) seleccionadas"
+msgstr "No hay aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:154
 msgid "Use last route"
@@ -11200,11 +11191,11 @@ msgstr "Abortar creación de ruta"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:163
 msgid "Remove last edge"
-msgstr "Remover última calle (edge)"
+msgstr "Remover la última arista"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:166
 msgid "Show candidate edges"
-msgstr "Mostrar calles (edges) candidatas"
+msgstr "Mostrar aristas candidatas"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:393
 msgid "Double junctions aren't allowed"
@@ -11224,39 +11215,39 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:483
 msgid "Double edges aren't allowed"
-msgstr "Calles (edges) dobles no están permitidas"
+msgstr "Aristas dobles no están permitidas"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:493
 msgid "Only consecutives edges are allowed"
-msgstr "Sólo calles (edges) consecutivas están permitidas"
+msgstr "Sólo aristas consecutivas están permitidas"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:502
 msgid "Only two edges are allowed"
-msgstr "Sólo dos calles (edges) están permitidas"
+msgstr "Sólo dos aristas están permitidas"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:511
 msgid "Invalid edge (SHIFT + click to add an invalid vClass edge)"
 msgstr ""
-"Calle (edge) inválida (Shift + click para añadir una calle (edge) no "
-"compatible con el vClass seleccionado)"
+"Arista inválida (Shift + clic para añadir una arista no compatible con la "
+"clase de vehículo vClass seleccionado)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:518
 msgid "Invalid edge (CONTROL + click to add a disconnected edge)"
 msgstr ""
-"Calle (edge) inválida (Control + click para añadir una calle (edge) "
-"desconectada del resto)"
+"Arista inválida (Control + clic para añadir una arista desconectada del "
+"resto)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:602
 msgid "first select an edge"
-msgstr "primero seleccione una calle (edge)"
+msgstr "primero seleccione una arista"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:1025
 msgid "- Selected edges: "
-msgstr "- Calles seleccionadas: "
+msgstr "- Aristas seleccionadas: "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:1026
 msgid "- Path edges: "
-msgstr "- Camino de calles: "
+msgstr "- Camino de aristas: "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:1028
 msgid "- Average speed: "
@@ -11276,26 +11267,26 @@ msgstr "Información"
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:38
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:45
 msgid " edge candidate"
-msgstr " Calle candidata"
+msgstr " Arista candidata"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:42
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:49
 msgid " last edge selected"
-msgstr " última calle seleccionada"
+msgstr " última arista seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:45
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:52
 msgid " edge selected"
-msgstr " Calle seleccionada"
+msgstr " Arista seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:48
 msgid " edge conflict (vClass)"
-msgstr " calle (edge) conflictiva (vClass)"
+msgstr " arista conflictiva (vClass)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:51
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:55
 msgid " edge disconnected"
-msgstr " calle desconectada"
+msgstr " arista desconectada"
 
 #: C:\Repos\sumo/src\netedit\frames\GNESelectorParent.cpp:36
 msgid "Parent selector"
@@ -11546,7 +11537,7 @@ msgid ""
 "- Block shape: Disable moving of shape's vertices and edges. Entire shape "
 "can be moved'.\n"
 msgstr ""
-"- Bloquear forma: Desactiva el movimiento de los vertices y aristas de la "
+"- Bloquear forma: Desactiva el movimiento de los vértices y aristas de la "
 "forma. La forma no se puede mover.\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:371
@@ -11554,8 +11545,8 @@ msgid ""
 "- Close shape: Add or remove the last vertex with the same position of first "
 "edge'."
 msgstr ""
-"- Cerrar forma: Añadir o eliminar el último vertice con la misma posición "
-"que el primer vértice."
+"- Cerrar forma: Añadir o eliminar el último vértice con la misma posición "
+"que la primera arista."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:402
 msgid "GEO Attributes"
@@ -11608,15 +11599,15 @@ msgstr "Usar como plantilla"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:574
 msgid "clear Edge Template"
-msgstr "Limpiar plantilla de calle (edge)"
+msgstr "Limpiar plantilla de arista"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:669
 msgid "Only one edge must be inspected"
-msgstr "Solo una calle (edge) se puede inspeccionar"
+msgstr "Solo una arista debe ser inspeccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:733
 msgid "No edge Template Set"
-msgstr "No se ha establecido una plantilla de calle (edge)"
+msgstr "No se ha establecido una plantilla de arista"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:745
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:748
@@ -11969,7 +11960,7 @@ msgstr "Deseleccionar"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
 msgid "There is already a % in edge '%'"
-msgstr "Ya hay un % en la calle (edge) '%'"
+msgstr "Ya hay un % en la arista '%'"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:69
 msgid "DataSet"
@@ -12269,12 +12260,11 @@ msgstr "Hacer click sobre una ruta para crear un vehículo."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:76
 msgid "Select two edges to create a trip."
-msgstr "Seleccione dos calles (edges) para crear un viaje."
+msgstr "Seleccione dos aristas para crear un viaje."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:80
 msgid "Select two edges to create a vehicle with embedded route."
-msgstr ""
-"Seleccione dos calles (edges) para crear un vehículo con ruta integrada."
+msgstr "Seleccione dos aristas para crear un vehículo con ruta integrada."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:84
 msgid "Select two junctions to create a trip."
@@ -12290,11 +12280,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:97
 msgid "Select two edges to create a flow."
-msgstr "Seleccione dos calles (edges) para crear un flujo."
+msgstr "Seleccione dos aristas para crear un flujo."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:101
 msgid "Select two edges to create a flow with embedded route."
-msgstr "Seleccione dos calles (edges) para crear un flujo con ruta integrada."
+msgstr "Seleccione dos aristas para crear un flujo con ruta integrada."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:105
 msgid "Select two junctions to create a flow."
@@ -12574,7 +12564,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:79
 msgid "Create default edge"
-msgstr "Crear calle (edge) por defecto"
+msgstr "Crear arista predeterminada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:82
 msgid "Disallow for pedestrians"
@@ -12678,7 +12668,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:645
 msgid "Create Edge"
-msgstr "Crear calle (edge)"
+msgstr "Crear arista"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:669
 msgid "Select either default edgeType or a custom edgeType or template"
@@ -12686,7 +12676,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:671
 msgid "Invalid edge attributes"
-msgstr "Atributos de la calle inválidos"
+msgstr "Atributos de arista inválidos"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:673
 msgid "Invalid lane attributes"
@@ -12695,7 +12685,7 @@ msgstr "Atributos del carril (lane) inválidos"
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:684
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:749
 msgid "create new edge"
-msgstr "crear nueva calle (edge)"
+msgstr "crear arista nueva"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:754
 msgid "An edge with the same geometry already exists!"
@@ -13142,15 +13132,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:948
 msgid "edge wasn't found"
-msgstr "calle (edge) no encontrada"
+msgstr "arista no encontrada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:950
 msgid "Invalid edge"
-msgstr "calle (edge) inválida"
+msgstr "arista inválida"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1127
 msgid "- Edge ID: "
-msgstr "- calle (edge) ID: "
+msgstr "- ID de la arista: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1162
 msgid "TAZ parameters"
@@ -13158,7 +13148,7 @@ msgstr "Parámetros de zona de análisis de tráfico (TAZ)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1187
 msgid "Edges within"
-msgstr "calles (edges) interiores"
+msgstr "aristas en el interior"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1188
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1295
@@ -13171,11 +13161,11 @@ msgstr "no usar"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1327
 msgid "Non TAZ Edge"
-msgstr "Sin calle (edge) en zona de análisis de tráfico (TAZ)"
+msgstr "Sin arista de zona de análisis de tráfico (TAZ)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1331
 msgid "Selected TAZ Edge"
-msgstr "calle (edge) de zona de análisis de tráfico (TAZ) seleccionada"
+msgstr "arista de zona de análisis de tráfico (TAZ) seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1336
 msgid "Color by Source"
@@ -13776,11 +13766,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:329
 msgid "Copy cursor position to clipboard"
-msgstr ""
+msgstr "Copiar posición del cursor al portapapeles"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:331
 msgid "Copy cursor geo-position to clipboard"
-msgstr ""
+msgstr "Copiar posición geográfica del cursor al portapapeles"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:335
 msgid "Show cursor geo-position in "
@@ -14831,7 +14821,7 @@ msgstr "Tamaño mínimo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1826
 msgid "Show edge id"
-msgstr "Mostrar ID de la calle (edge)"
+msgstr "Mostrar ID de la arista"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1827
 msgid "Show street name"
@@ -15258,11 +15248,11 @@ msgstr "Cambiar el idioma a italiano. (it)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:352
 msgid "简体中文 (zh)"
-msgstr ""
+msgstr "Cambiar el idioma a chino simplificado. (zh)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:354
 msgid "繁體中文 (zh-Hant)"
-msgstr ""
+msgstr "Cambiar el idioma a chino tradicional. (zh-Hant)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:356
 msgid "Change language to turkish. (tr)"
@@ -15333,7 +15323,7 @@ msgstr "En desarrollo. Puedes ayudar a mejorar la traducción aquí:"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:254
 msgid " (No projection defined)"
-msgstr ""
+msgstr " (Sin proyección definida)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1747
 msgid "Could not convert coordinates in %."
