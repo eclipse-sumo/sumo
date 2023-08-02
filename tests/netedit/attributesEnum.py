@@ -1185,7 +1185,7 @@ class vaporizer:
 # Poly
 
 
-class Poly:
+class poly:
     class create:
         id = 5
         colorButton = 6
