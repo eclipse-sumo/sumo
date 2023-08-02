@@ -8023,7 +8023,7 @@ msgid "Depart weight associated to this Edge"
 msgstr "Abfahrgewicht, das dieser Kante zugeordnet ist"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3202
-msgid "Arrival weight associated to this Edget"
+msgid "Arrival weight associated to this Edge"
 msgstr "Ankunftsgewicht, das dieser Kante zugeordnet ist"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3225

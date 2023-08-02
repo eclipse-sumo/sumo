@@ -3199,7 +3199,7 @@ GNEAttributeCarrier::fillTAZElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_WEIGHT,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Arrival weight associated to this Edget"),
+                                              TL("Arrival weight associated to this Edge"),
                                               "1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }

@@ -7816,7 +7816,7 @@ msgid "Depart weight associated to this Edge"
 msgstr "与此路段相关的出发权重(depart weight)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3202
-msgid "Arrival weight associated to this Edget"
+msgid "Arrival weight associated to this Edge"
 msgstr "与此路段相关的抵达权重 (arrival weight)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3225

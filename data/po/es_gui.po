@@ -7913,7 +7913,7 @@ msgid "Depart weight associated to this Edge"
 msgstr "Peso de salida asociado con esta arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3202
-msgid "Arrival weight associated to this Edget"
+msgid "Arrival weight associated to this Edge"
 msgstr "Peso de llegada asociado con esta arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3225
