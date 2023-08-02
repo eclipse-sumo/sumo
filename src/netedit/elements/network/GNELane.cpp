@@ -1851,7 +1851,7 @@ GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     }
     // create menu commands for all edge operations
     GUIDesigns::buildFXMenuCommand(edgeOperations, TL("Split edge here"), nullptr, &parent, MID_GNE_EDGE_SPLIT);
-    auto splitBothDirections = GUIDesigns::buildFXMenuCommand(edgeOperations, TL("Split edge in both directions here (no simmetric opposite edge)"), nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
+    auto splitBothDirections = GUIDesigns::buildFXMenuCommand(edgeOperations, TL("Split edge in both directions here (no symmetric opposite edge)"), nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
     // check if allow split edge in both directions
     splitBothDirections->disable();
     const auto oppositeEdges = myParentEdge->getOppositeEdges();

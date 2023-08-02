@@ -10302,7 +10302,7 @@ msgid "Split edge here"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1854
-msgid "Split edge in both directions here (no simmetric opposite edge)"
+msgid "Split edge in both directions here (no symmetric opposite edge)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1859
