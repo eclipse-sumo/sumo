@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-02 16:57+0200\n"
+"POT-Creation-Date: 2023-08-02 17:04+0200\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -6478,6 +6478,16 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:94
 msgid "Close dialog"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
+msgid "Toggle Menu Tooltips"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
+msgid "Toggles whether tooltips in the menu shall be shown."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:71
@@ -14934,14 +14944,6 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:139
 msgid "Toggles whether tooltips in the view shall be shown."
-msgstr ""
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
-msgid "Toggle Menu Tooltips"
-msgstr ""
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
-msgid "Toggles whether tooltips in the menu shall be shown."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:161

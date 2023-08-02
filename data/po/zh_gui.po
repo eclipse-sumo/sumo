@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-02 16:57+0200\n"
+"POT-Creation-Date: 2023-08-02 17:04+0200\n"
 "PO-Revision-Date: 2023-06-06 13:40+0000\n"
 "Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -6496,6 +6496,16 @@ msgstr "开启高级的的 netgenerate 对话窗"
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:94
 msgid "Close dialog"
 msgstr "关闭对话窗"
+
+#: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
+msgid "Toggle Menu Tooltips"
+msgstr "切换选单工具提示"
+
+#: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
+msgid "Toggles whether tooltips in the menu shall be shown."
+msgstr "切换是否显示选单中的工具提示。"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:71
 msgid "Save toolcfg"
@@ -14992,14 +15002,6 @@ msgstr "切换查看工具提示"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:139
 msgid "Toggles whether tooltips in the view shall be shown."
 msgstr "切换是否应显示视图中的工具提示。"
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
-msgid "Toggle Menu Tooltips"
-msgstr "切换选单工具提示"
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
-msgid "Toggles whether tooltips in the menu shall be shown."
-msgstr "切换是否显示选单中的工具提示。"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:161
 msgid "Edit Coloring Schemes"

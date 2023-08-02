@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-02 16:57+0200\n"
+"POT-Creation-Date: 2023-08-02 17:04+0200\n"
 "PO-Revision-Date: 2023-08-02 14:56+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -6580,6 +6580,17 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:94
 msgid "Close dialog"
 msgstr ""
+
+#: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
+msgid "Toggle Menu Tooltips"
+msgstr "Activar/desactivar descripciones emergentes para los menús"
+
+#: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
+msgid "Toggles whether tooltips in the menu shall be shown."
+msgstr ""
+"Alternar si se deben ver o no las descripciones emergentes en los menús."
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:71
 msgid "Save toolcfg"
@@ -15190,15 +15201,6 @@ msgstr "Activar/desactivar descripciones emergentes"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:139
 msgid "Toggles whether tooltips in the view shall be shown."
 msgstr "Alterna si se deben ver o no las descripciones emergentes (tooltips)."
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
-msgid "Toggle Menu Tooltips"
-msgstr "Activar/desactivar descripciones emergentes para los menús"
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
-msgid "Toggles whether tooltips in the menu shall be shown."
-msgstr ""
-"Alternar si se deben ver o no las descripciones emergentes en los menús."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:161
 msgid "Edit Coloring Schemes"

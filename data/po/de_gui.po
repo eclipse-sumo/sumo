@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-02 16:57+0200\n"
+"POT-Creation-Date: 2023-08-02 17:04+0200\n"
 "PO-Revision-Date: 2023-08-02 14:56+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
@@ -6573,6 +6573,16 @@ msgstr "fortgeschrittenen netgenerate-Dialog öffnen"
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:94
 msgid "Close dialog"
 msgstr "Dialog schließen"
+
+#: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
+msgid "Toggle Menu Tooltips"
+msgstr "Hinweistexte über dem Menü an-/abschalten"
+
+#: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
+msgid "Toggles whether tooltips in the menu shall be shown."
+msgstr "Schaltet die Darstellung von Hinweistexten über dem Menü an/ab."
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:71
 msgid "Save toolcfg"
@@ -15514,14 +15524,6 @@ msgstr "Hinweistexte über der Ansicht an-/abschalten"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:139
 msgid "Toggles whether tooltips in the view shall be shown."
 msgstr "Schaltet die Darstellung von Hinweistexten über der Ansicht an/ab."
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
-msgid "Toggle Menu Tooltips"
-msgstr "Hinweistexte über dem Menü an-/abschalten"
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
-msgid "Toggles whether tooltips in the menu shall be shown."
-msgstr "Schaltet die Darstellung von Hinweistexten über dem Menü an/ab."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:161
 msgid "Edit Coloring Schemes"
