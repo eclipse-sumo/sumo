@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-01 18:28+0200\n"
-"PO-Revision-Date: 2023-08-02 10:25+0000\n"
+"PO-Revision-Date: 2023-08-02 13:56+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -197,27 +197,27 @@ msgstr "Abrir ventana para editar area, zoom y rotación."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit"
-msgstr ""
+msgstr "Cargar elementos adicionales en netedit"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit."
-msgstr ""
+msgstr "Cargar elementos adicionales en netedit."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit"
-msgstr ""
+msgstr "Cargar demanda en netedit"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit."
-msgstr ""
+msgstr "Cargar demanda en netedit."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Open in netedit"
-msgstr ""
+msgstr "Abrir en netedit"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Opens current simulation in NETEDIT."
-msgstr ""
+msgstr "Abre la simulación actual en netedit."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:522
 msgid "&Settings"
@@ -806,7 +806,7 @@ msgstr "Escalar el número de vehículos en la simulación"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1481
 msgid "Open sumo config in netedit"
-msgstr ""
+msgstr "Abrir configuración de sumo en netedit"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1485
 msgid "Open network in netedit"
@@ -1684,7 +1684,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:982
 msgid "Reopen edge"
-msgstr ""
+msgstr "Reabrir arista"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:984
 msgid "Reopen lane (override rerouter)"
@@ -1692,7 +1692,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:985
 msgid "Reopen edge (override rerouter)"
-msgstr ""
+msgstr "Reabrir arista (anular rerouter)"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:988
 msgid "Close lane"
@@ -1700,7 +1700,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:989
 msgid "Close edge"
-msgstr ""
+msgstr "Cerrar arista"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:991
 msgid "Add rerouter"
@@ -1738,7 +1738,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1027
 msgid "edge type"
-msgstr ""
+msgstr "tipo de arista"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1029
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:257
@@ -1913,11 +1913,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:549
 msgid "edges [#]"
-msgstr ""
+msgstr "aristas [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:550
 msgid "total edge length [km]"
-msgstr ""
+msgstr "longitud total de arista [km]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:551
 msgid "total lane length [km]"
@@ -4884,27 +4884,27 @@ msgstr "eliminar datos seleccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2188
 msgid "Reverse selected edges"
-msgstr ""
+msgstr "Invertir aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2195
 msgid "Reverse edge"
-msgstr ""
+msgstr "Invertir arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2209
 msgid "Add Reverse edge for selected edges"
-msgstr ""
+msgstr "Agregar arista contraria a las aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2216
 msgid "Add reverse edge"
-msgstr ""
+msgstr "Agregar arista contraria"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2230
 msgid "Add Reverse disconnected edge for selected edges"
-msgstr ""
+msgstr "Agregar arista inversa desconectada para las aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2237
 msgid "Add reverse disconnected edge"
-msgstr ""
+msgstr "Agregar arista inversa desconectada"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2266
 msgid "reset geometry points"
@@ -4912,19 +4912,19 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2287
 msgid "straighten selected edges"
-msgstr ""
+msgstr "enderezar aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2295
 msgid "straighten edge"
-msgstr ""
+msgstr "enderezar arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2309
 msgid "smooth selected edges"
-msgstr ""
+msgstr "suavizar aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2316
 msgid "smooth edge"
-msgstr ""
+msgstr "suavizar arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2330
 msgid "straighten elevation of selected edges"
@@ -4932,15 +4932,15 @@ msgstr "enderezar elevación de las aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2337
 msgid "straighten edge elevation"
-msgstr ""
+msgstr "enderezar elevación de arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2351
 msgid "smooth elevation of selected edges"
-msgstr ""
+msgstr "suavizar elevación de las aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2358
 msgid "smooth edge elevation"
-msgstr ""
+msgstr "suavizar elevación de arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2372
 msgid "reset edge lengths"
@@ -5001,11 +5001,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2769
 msgid "reset end points of selected edges"
-msgstr ""
+msgstr "restablecer puntos finales de las aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2780
 msgid "reset end points of edge '"
-msgstr ""
+msgstr "restablecer puntos finales de la arista '"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2799
 msgid "duplicate selected lanes"
@@ -6667,7 +6667,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:82
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:83
 msgid "Abort"
-msgstr ""
+msgstr "Cancelar"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:82
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:83
@@ -7484,17 +7484,17 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2167
 msgid "The id of E3"
-msgstr ""
+msgstr "El ID del E3"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2172
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2371
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3230
 msgid "X-Y position of detector in editor (Only used in netedit)"
-msgstr ""
+msgstr "Posición X-Y del detector en el editor (usado únicamente en netedit)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2184
 msgid "Name of Entry Exit detector"
-msgstr ""
+msgstr "Nombre del detector de Entrada/Salida"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2199
 msgid ""
@@ -8713,7 +8713,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5354
 msgid "The maximal physically possible deceleration for the vehicle [m/s^2]"
-msgstr ""
+msgstr "La desaceleración máxima físicamente posible para el vehículo [m/s^2]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5360
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5367
@@ -10472,7 +10472,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1853
 msgid "Split edge here"
-msgstr ""
+msgstr "Dividir arista aquí"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1854
 msgid "Split edge in both directions here (no simmetric opposite edge)"
@@ -13787,15 +13787,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:87
 msgid "&Save changes"
-msgstr ""
+msgstr "&Guardar cambios"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:88
 msgid "&Don't save"
-msgstr ""
+msgstr "&No guardar"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:89
 msgid "&Abort"
-msgstr ""
+msgstr "&Cancelar"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIShapeContainer.cpp:56
 msgid "Replacing POI '%'"
