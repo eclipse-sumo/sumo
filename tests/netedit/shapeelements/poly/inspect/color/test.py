@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredTAZ(referencePosition, 116, 139, 200, True)
+netedit.createSquaredShape(referencePosition, 116, 139, 200, True)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 116, 139)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.Poly.inspect.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.poly.inspect.colorButton, 5, False)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.color, "dummyColor", False)
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.color, "255,255,500", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.color, "255,255,500", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.color, "blue", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.color, "blue", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.color, "125,60,200", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.color, "125,60,200", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

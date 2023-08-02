@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 649, 290)
 
 # Change parameter file with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.POILane.inspectSelection.name, "%$$%%%%%", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.name, "%$$%%%%%", True)
 
 # Change parameter file with a non valid value (no exist)
-netedit.modifyAttribute(netedit.attrs.POILane.inspectSelection.name, "customName", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.name, "customName", True)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

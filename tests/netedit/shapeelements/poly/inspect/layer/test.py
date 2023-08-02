@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredTAZ(referencePosition, 116, 139, 200, True)
+netedit.createSquaredShape(referencePosition, 116, 139, 200, True)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 116, 139)
 
 # Change parameter 6 with a non valid value
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.layer, "dummyLayer", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.layer, "dummyLayer", False)
 
 # Change parameter 6 with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.layer, "-2", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.layer, "-2", False)
 
 # Change parameter 6 with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.layer, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.layer, "2.5", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

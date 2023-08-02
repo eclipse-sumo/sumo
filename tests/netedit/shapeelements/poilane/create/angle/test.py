@@ -35,25 +35,25 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # change angle (invalid)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.angle, "dummyAngle")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "dummyAngle")
 
 # try to create POI
 netedit.leftClick(referencePosition, 338, 210)
 
 # change angle (valid, but > 360)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.angle, "500")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "500")
 
 # create POI
 netedit.leftClick(referencePosition, 405, 210)
 
 # change angle (valid, < 0)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.angle, "-27")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "-27")
 
 # create POI
 netedit.leftClick(referencePosition, 473, 210)
 
 # change angle (valid)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.angle, "45")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "45")
 
 # create POI
 netedit.leftClick(referencePosition, 542, 210)

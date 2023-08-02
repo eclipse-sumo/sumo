@@ -666,6 +666,16 @@ enum {
 
     /// @}
 
+    /// @name toolbar edot
+    /// @{
+
+    /// @brief load additionals in sumo-gui/netedit after press ctrl+T
+    MID_TOOLBAREDIT_LOADADDITIONALS,
+    /// @brief load demand in sumo-gui/netedit after press ctrl+T
+    MID_TOOLBAREDIT_LOADDEMAND,
+
+    /// @}
+
     /// @name groupBoxModule messages
     /// @{
     /// @brief collapse groupBoxModule
@@ -761,10 +771,6 @@ enum {
     /// @name Toolbar windows messages
     /// @{
 
-    /// @brief load additionals in SUMO-GUI after press ctrl+T
-    MID_GNE_TOOLBAREDIT_LOADADDITIONALS,
-    /// @brief load demand in SUMO-GUI after press ctrl+T
-    MID_GNE_TOOLBAREDIT_LOADDEMAND,
     /// @brief compute path manager
     MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,
     /// @brief enable/disable computing after switchin between supermodes

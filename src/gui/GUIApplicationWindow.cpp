@@ -101,8 +101,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,  GUIApplicationWindow::onCmdEditBreakpoints),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,                      GUIApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_I_EDITVIEWPORT,                     GUIApplicationWindow::onCmdEditViewport),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,             GUIApplicationWindow::onCmdNeteditNetwork),
-    //FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT_SUMOCFG,                                GUIApplicationWindow::onCmdNeteditSUMOConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,             GUIApplicationWindow::onCmdOpenInNetedit),
     // gaming
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_H_APPSETTINGS_OPENEDGETYPES,    GUIApplicationWindow::onCmdAppSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,        GUIApplicationWindow::onCmdGaming),
@@ -142,8 +141,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     // since those events are invoked through pseudo key events (?), the same key shortcuts as in cmd must be supplied as well
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK,               GUIApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,                   GUIApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P_OPENSHAPES,                               GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_U_OPENEDGEDATA,                             GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P_OPENSHAPES,                               GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_U_OPENEDGEDATA,                             GUIApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,                                   GUIApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_QUICK_RELOAD,                               GUIApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                                             GUIApplicationWindow::onUpdOpenRecent),
@@ -151,17 +150,18 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,          GUIApplicationWindow::onUpdStart),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,               GUIApplicationWindow::onUpdStop),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,  GUIApplicationWindow::onUpdStep),
-    FXMAPFUNC(SEL_UPDATE,   MID_SIMSAVE,                                                GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_SIMLOAD,                                                GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG,          GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,          GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                              GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_I_EDITVIEWPORT,                             GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,                     GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_DEMAND_SCALE,                                           GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,                    GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_F_FULSCREENMODE,                            GUIApplicationWindow::onUpdNeedsSimulation),
-    //FXMAPFUNC(SEL_UPDATE, MID_NETEDIT_SUMOCFG,                                        GUIApplicationWindow::onUpdNeteditSUMOConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_SIMSAVE,                                                GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_SIMLOAD,                                                GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG,          GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,          GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                              GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_I_EDITVIEWPORT,                             GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,                     GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_TOOLBAREDIT_LOADADDITIONALS,                            GUIApplicationWindow::onUpdNeedsSumoConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_TOOLBAREDIT_LOADDEMAND,                                 GUIApplicationWindow::onUpdNeedsSumoConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_DEMAND_SCALE,                                           GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,                    GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_F_FULSCREENMODE,                            GUIApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_TRACI_STATUS,                                           GUIApplicationWindow::onUpdTraCIStatus),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,                          GUIApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                                              GUIApplicationWindow::onCmdChangelog),
@@ -180,15 +180,15 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,    GUIApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_O_LOCATEPOI,           GUIApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GUIApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,      GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_E_LOCATEEDGE,          GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,       GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_P_LOCATEPERSON,        GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_C_LOCATECONTAINER,     GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_T_LOCATETLS,           GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,    GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_O_LOCATEPOI,           GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,      GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_E_LOCATEEDGE,          GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,       GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_P_LOCATEPERSON,        GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_C_LOCATECONTAINER,     GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_T_LOCATETLS,           GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,    GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_O_LOCATEPOI,           GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GUIApplicationWindow::onUpdNeedsNetwork),
     // languages
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_EN,    GUIApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_EN,    GUIApplicationWindow::onUpdChangeLanguage),
@@ -492,8 +492,8 @@ GUIApplicationWindow::fillMenuBar() {
                                            TL("Edit Selected..."), "Ctrl+E", TL("Opens a dialog for editing the list of selected items."),
                                            GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG);
     mySelectLanesMenuCascade = new FXMenuCascade(myEditMenu,
-            (TL("Select lanes which allow...") + std::string("\t\t") + TL("Opens a menu for selecting a vehicle class by which to selected lanes.")).c_str(),
-            GUIIconSubSys::getIcon(GUIIcon::FLAG), mySelectByPermissions);
+                                                 (TL("Select lanes which allow...") + std::string("\t\t") + TL("Opens a menu for selecting a vehicle class by which to selected lanes.")).c_str(),
+                                                 GUIIconSubSys::getIcon(GUIIcon::FLAG), mySelectByPermissions);
     new FXMenuSeparator(myEditMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            TL("Edit Breakpoints"), "Ctrl+B", TL("Opens a dialog for editing breakpoints."),
@@ -505,12 +505,18 @@ GUIApplicationWindow::fillMenuBar() {
                                            TL("Edit Viewport"), "Ctrl+I", TL("Opens a dialog for editing viewing area, zoom and rotation."),
                                            GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     new FXMenuSeparator(myEditMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
-                                           TL("Open network in netedit"), "Ctrl+T", TL("Opens current network in NETEDIT."),
-                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
-    //GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
-    //                                       TL("Open config in netedit"), "", TL("Opens current sumo config in NETEDIT."),
-    //                                       GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_NETEDIT_SUMOCFG);
+    // add open in sumo options
+    myLoadAdditionalsInNetedit = new FXMenuCheck(myEditMenu,
+                                                 (TL("Load additionals in netedit") + std::string("\t\t") + TL("Load additionals in netedit.")).c_str(),
+                                                 this, MID_TOOLBAREDIT_LOADADDITIONALS);
+    myLoadAdditionalsInNetedit->setCheck(TRUE);
+    myLoadDemandInNetedit = new FXMenuCheck(myEditMenu,
+                                            (TL("Load demand in netedit") + std::string("\t\t") + TL("Load demand in netedit.")).c_str(),
+                                            this, MID_TOOLBAREDIT_LOADDEMAND);
+    myLoadDemandInNetedit->setCheck(FALSE);
+    myOpenInNetedit = GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+                                                             TL("Open in netedit"), "Ctrl+T", TL("Opens current simulation in NETEDIT."),
+                                                             GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
     // build settings menu
     mySettingsMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Settings"), nullptr, mySettingsMenu);
@@ -558,8 +564,8 @@ GUIApplicationWindow::fillMenuBar() {
                     (TL("Show Internal Structures") + std::string("\t\t") + TL("Show internal junctions and streets in locator dialog.")).c_str(),
                     this, MID_LISTINTERNAL);
     FXMenuCheck* listParking = new FXMenuCheck(myLocatorMenu,
-            (TL("Show Parking Vehicles") + std::string("\t\t") + TL("Show parking vehicles in locator dialog.")).c_str(),
-            this, MID_LISTPARKING);
+                                               (TL("Show Parking Vehicles") + std::string("\t\t") + TL("Show parking vehicles in locator dialog.")).c_str(),
+                                               this, MID_LISTPARKING);
     listParking->setCheck(myListParking);
     new FXMenuCheck(myLocatorMenu,
                     (TL("Show vehicles outside the road network") + std::string("\t\t") + TL("Show vehicles that are teleporting or driving remote-controlled outside the road network in locator dialog.")).c_str(),
@@ -872,7 +878,7 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
         chooser->create();
         chooser->show();
     } else {
-        if (!myAmLoading && myRunThread->simulationAvailable()) {
+        if (!myAmLoading && myRunThread->networkAvailable()) {
             const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
             for (MSEdgeVector::const_iterator i = MSEdge::getAllEdges().begin(); i != MSEdge::getAllEdges().end(); ++i) {
                 const std::vector<MSLane*>& lanes = (*i)->getLanes();
@@ -959,7 +965,7 @@ GUIApplicationWindow::onCmdTutorial(FXObject*, FXSelector, void*) {
 
 
 long
-GUIApplicationWindow::onCmdNeteditNetwork(FXObject*, FXSelector, void*) {
+GUIApplicationWindow::onCmdOpenInNetedit(FXObject*, FXSelector, void*) {
     if (myGLWindows.empty()) {
         return 1;
     }
@@ -978,64 +984,32 @@ GUIApplicationWindow::onCmdNeteditNetwork(FXObject*, FXSelector, void*) {
             netedit = "\"" + newPath + "\"";
         }
     }
-    std::string cmd = netedit + " --registry-viewport -s " + "\"" + OptionsCont::getOptions().getString("net-file") + "\"";
-    // start in background
-#ifndef WIN32
-    cmd = cmd + " &";
-#else
-    // see "help start" for the parameters
-    cmd = "start /B \"\" " + cmd;
-#endif
-    WRITE_MESSAGEF(TL("Running %."), cmd);
-    // yay! fun with dangerous commands... Never use this over the internet
-    SysUtils::runHiddenCommand(cmd);
-    return 1;
-}
-
-
-long
-GUIApplicationWindow::onCmdNeteditSUMOConfig(FXObject*, FXSelector, void*) {
-    if (myGLWindows.empty()) {
-        return 1;
-    }
-    FXRegistry reg("SUMO netedit", "netedit");
-    reg.read();
-    const GUISUMOAbstractView* const v = myGLWindows[0]->getView();
-    reg.writeRealEntry("viewport", "x", v->getChanger().getXPos());
-    reg.writeRealEntry("viewport", "y", v->getChanger().getYPos());
-    reg.writeRealEntry("viewport", "z", v->getChanger().getZPos());
-    reg.write();
-    std::string netedit = "netedit";
-    const char* sumoPath = getenv("SUMO_HOME");
-    if (sumoPath != nullptr) {
-        std::string newPath = std::string(sumoPath) + "/bin/netedit";
-        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
-            netedit = "\"" + newPath + "\"";
+    // declare command for calling netedit using the viewport saved in registry
+    std::string cmd = netedit + " --registry-viewport";
+    // continue depending if we're loading only a network or the entire sumo config
+    if (myLoadAdditionalsInNetedit->shown()) {
+        cmd += " --sumocfg-file \"" + OptionsCont::getOptions().getString("configuration-file") + "\"";
+        // check if ignore additional or demand elements
+        if (myLoadAdditionalsInNetedit->getCheck() == FALSE) {
+            cmd += " --ignore.additionalelements";
         }
-    }
-    std::string cmd = netedit + " --registry-viewport --sumocfg " + "\"" + OptionsCont::getOptions().getString("configuration-file") + "\"";
-    // start in background
-#ifndef WIN32
-    cmd = cmd + " &";
-#else
-    // see "help start" for the parameters
-    cmd = "start /B \"\" " + cmd;
-#endif
-    WRITE_MESSAGEF(TL("Running %."), cmd);
-    // yay! fun with dangerous commands... Never use this over the internet
-    SysUtils::runHiddenCommand(cmd);
-    return 1;
-}
-
-
-
-long
-GUIApplicationWindow::onUpdNeteditSUMOConfig(FXObject* sender, FXSelector, void* ptr) {
-    if (!myRunThread->simulationAvailable() || myAmLoading) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+        if (myLoadDemandInNetedit->getCheck() == FALSE) {
+            cmd += " --ignore.routeelements";
+        }
     } else {
-        return sender->handle(this, OptionsCont::getOptions().isSet("configuration-file") ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+        cmd += " -s \"" + OptionsCont::getOptions().getString("net-file") + "\"";
     }
+    // start in background
+#ifndef WIN32
+    cmd = cmd + " &";
+#else
+    // see "help start" for the parameters
+    cmd = "start /B \"\" " + cmd;
+#endif
+    WRITE_MESSAGEF(TL("Running %."), cmd);
+    // yay! fun with dangerous commands... Never use this over the internet
+    SysUtils::runHiddenCommand(cmd);
+    return 1;
 }
 
 
@@ -1271,7 +1245,7 @@ GUIApplicationWindow::onUpdOpenRecent(FXObject* sender, FXSelector, void* ptr) {
 long
 GUIApplicationWindow::onUpdAddView(FXObject* sender, FXSelector, void* ptr) {
     sender->handle(this,
-                   myAmLoading || !myRunThread->simulationAvailable()
+                   myAmLoading || !myRunThread->networkAvailable()
                    ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
                    ptr);
     return 1;
@@ -1281,7 +1255,7 @@ GUIApplicationWindow::onUpdAddView(FXObject* sender, FXSelector, void* ptr) {
 long
 GUIApplicationWindow::onCmdStart(FXObject*, FXSelector, void*) {
     // check whether a net was loaded successfully
-    if (!myRunThread->simulationAvailable()) {
+    if (!myRunThread->networkAvailable()) {
         myStatusbar->getStatusLine()->setText(TL("No simulation loaded!"));
         return 1;
     }
@@ -1307,7 +1281,7 @@ GUIApplicationWindow::onCmdStop(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdStep(FXObject*, FXSelector, void*) {
     // check whether a net was loaded successfully
-    if (!myRunThread->simulationAvailable()) {
+    if (!myRunThread->networkAvailable()) {
         myStatusbar->getStatusLine()->setText(TL("No simulation loaded!"));
         return 1;
     }
@@ -1372,7 +1346,7 @@ GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
     // toogle show time as HMS
     myShowTimeAsHMS = !myShowTimeAsHMS;
     updateTimeLCDTooltip();
-    if (myRunThread->simulationAvailable()) {
+    if (myRunThread->networkAvailable()) {
         updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     }
     return 1;
@@ -1428,7 +1402,7 @@ GUIApplicationWindow::onCmdDelayToggle(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdDemandScale(FXObject*, FXSelector, void*) {
-    if (myRunThread->simulationAvailable()) {
+    if (myRunThread->networkAvailable()) {
         myRunThread->getNet().getVehicleControl().setScale(myDemandScaleSpinner->getValue());
     }
     return 1;
@@ -1481,16 +1455,34 @@ GUIApplicationWindow::onUpdStep(FXObject* sender, FXSelector, void* ptr) {
 
 
 long
-GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* ptr) {
-    bool disable = !myRunThread->simulationAvailable() || myAmLoading;
-    sender->handle(this, disable ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
-    // certain elements must be changed manually
-    if (disable) {
-        mySelectLanesMenuCascade->disable();
-        myScaleTrafficTooltip->setTipText("");
-    } else {
+GUIApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void* ptr) {
+    // check if there is a loaded network and gui isn't loading
+    if (myRunThread->networkAvailable() && !myAmLoading) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
+        // enable certain elements manually
         mySelectLanesMenuCascade->enable();
         myScaleTrafficTooltip->setTipText(TL("Scale number of vehicles in simulation"));
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+        // disable certain elements manually
+        mySelectLanesMenuCascade->disable();
+        myScaleTrafficTooltip->setTipText("");
+    }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onUpdNeedsSumoConfig(FXObject* sender, FXSelector, void* ptr) {
+    // check if there is a loaded network and gui isn't loading
+    if (myRunThread->networkAvailable() && !myAmLoading && OptionsCont::getOptions().isSet("configuration-file")) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_SHOW), ptr);
+        myOpenInNetedit->setText(TL("Open sumo config in netedit"));
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_HIDE), ptr);
+        myOpenInNetedit->setText(TL("Open network in netedit"));
     }
     return 1;
 }
@@ -1769,7 +1761,7 @@ GUIApplicationWindow::eventOccurred() {
                 setFocus();
                 break;
             case GUIEventType::SIMULATION_STEP:
-                if (myRunThread->simulationAvailable()) { // avoid race-condition related crash if reload was pressed
+                if (myRunThread->networkAvailable()) { // avoid race-condition related crash if reload was pressed
                     handleEvent_SimulationStep(e);
                 }
                 break;
@@ -2145,7 +2137,7 @@ GUIApplicationWindow::loadConfigOrNet(const std::string& file) {
 
 GUISUMOAbstractView*
 GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt, std::string caption) {
-    if (!myRunThread->simulationAvailable()) {
+    if (!myRunThread->networkAvailable()) {
         myStatusbar->getStatusLine()->setText(TL("No simulation loaded!"));
         return nullptr;
     }

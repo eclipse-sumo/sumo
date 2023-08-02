@@ -32,10 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("poly")
+netedit.changeElement("walkableArea")
 
 # create one-point polygon (area 0)
-netedit.createRectangledPoly(referencePosition, 210, 136, 0, 0, True)
+netedit.createRectangledShape(referencePosition, 210, 136, 0, 0, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

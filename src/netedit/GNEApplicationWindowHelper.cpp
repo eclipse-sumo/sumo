@@ -1281,16 +1281,16 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::buildOpenSUMOMenuCommands(FXMenuPane* editMenu) {
     // add open in sumo options
     loadAdditionalsInSUMOGUI = new FXMenuCheck(editMenu,
-            (TL("Load additionals in sumo-gui") + std::string("\t\t") + TL("Load additionals in sumo-gui.")).c_str(),
-            myGNEApp, MID_GNE_TOOLBAREDIT_LOADADDITIONALS);
+        (TL("Load additionals in sumo-gui") + std::string("\t\t") + TL("Load additionals in sumo-gui.")).c_str(),
+        myGNEApp, MID_TOOLBAREDIT_LOADADDITIONALS);
     loadAdditionalsInSUMOGUI->setCheck(TRUE);
     loadDemandInSUMOGUI = new FXMenuCheck(editMenu,
-                                          (TL("Load demand in sumo-gui") + std::string("\t\t") + TL("Load demand in sumo-gui.")).c_str(),
-                                          myGNEApp, MID_GNE_TOOLBAREDIT_LOADDEMAND);
+        (TL("Load demand in sumo-gui") + std::string("\t\t") + TL("Load demand in sumo-gui.")).c_str(),
+        myGNEApp, MID_TOOLBAREDIT_LOADDEMAND);
     loadDemandInSUMOGUI->setCheck(TRUE);
     openInSUMOGUI = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                    TL("Open in sumo-gui"), "Ctrl+T", TL("Opens the sumo-gui application with the current network."),
-                    GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
+        TL("Open in sumo-gui"), "Ctrl+T", TL("Opens the sumo-gui application with the current network."),
+        GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
 }
 
 // ---------------------------------------------------------------------------

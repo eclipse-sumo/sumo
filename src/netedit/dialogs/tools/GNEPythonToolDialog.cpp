@@ -66,7 +66,7 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     auto horizontalOptionsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrameNoPadding);
     // build options
     myShowToolTipsMenu = new MFXCheckableButton(false, horizontalOptionsFrame,
-            GNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
+            GNEApp->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
             GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
     auto saveFile = new MFXButtonTooltip(horizontalOptionsFrame, GNEApp->getStaticTooltipMenu(), TL("Save toolcfg"),
                                          GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);

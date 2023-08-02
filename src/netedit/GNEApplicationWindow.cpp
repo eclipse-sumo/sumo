@@ -300,10 +300,10 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_J_TOGGLEDRAWJUNCTIONSHAPE,  GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F11_FRONTELEMENT,                GNEApplicationWindow::onCmdSetFrontElement),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F11_FRONTELEMENT,                GNEApplicationWindow::onUpdNeedsFrontElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADADDITIONALS,        GNEApplicationWindow::onCmdLoadAdditionalsInSUMOGUI),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADADDITIONALS,        GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADDEMAND,             GNEApplicationWindow::onCmdLoadDemandInSUMOGUI),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADDEMAND,             GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onCmdLoadAdditionalsInSUMOGUI),
+    FXMAPFUNC(SEL_UPDATE,   MID_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onCmdLoadDemandInSUMOGUI),
+    FXMAPFUNC(SEL_UPDATE,   MID_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,     GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,     GNEApplicationWindow::onUpdNeedsNetworkElement),
     /* Prepared for #6042
@@ -4761,8 +4761,14 @@ GNEApplicationWindow::loadAdditionalElements() {
     auto& neteditOptions = OptionsCont::getOptions();
     // get additional files
     const auto additionalFiles = neteditOptions.getStringVector("additional-files");
-    // continue depending of network and additional files
-    if (myNet && (additionalFiles.size() > 0)) {
+    // check if ignore loading of additional files
+    const auto ignoreLoadAdditionalFiles = neteditOptions.getBool("ignore.additionalelements");
+    // check conditions
+    if (ignoreLoadAdditionalFiles) {
+        // reset flag
+        neteditOptions.resetWritable();
+        neteditOptions.set("ignore.additionalelements", "false");
+    } else if (myNet && (additionalFiles.size() > 0)) {
         // use first file as output
         neteditOptions.resetWritable();
         neteditOptions.set("additional-files", additionalFiles.front());
@@ -4796,8 +4802,14 @@ GNEApplicationWindow::loadDemandElements() {
     auto& neteditOptions = OptionsCont::getOptions();
     // get demand files
     const auto demandFiles = neteditOptions.getStringVector("route-files");
-    // continue depending of network and additional files
-    if (myNet && (demandFiles.size() > 0)) {
+    // check if ignore loading of additional files
+    const auto ignoreLoadDemandFiles = neteditOptions.getBool("ignore.routeelements");
+    // check conditions
+    if (ignoreLoadDemandFiles) {
+        // reset flag
+        neteditOptions.resetWritable();
+        neteditOptions.set("ignore.routeelements", "false");
+    } else if (myNet && (demandFiles.size() > 0)) {
         // use first file as output
         neteditOptions.resetWritable();
         neteditOptions.set("route-files", demandFiles.front());

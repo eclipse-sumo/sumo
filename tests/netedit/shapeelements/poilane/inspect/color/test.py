@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 336, 210)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.POILane.inspect.colorButton, 5, True)
+netedit.modifyColorAttribute(netedit.attrs.poiLane.inspect.colorButton, 5, True)
 
 # Change parameter color with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.color, "dummyColor", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspect.color, "dummyColor", True)
 
 # Change parameter color with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.color, "255,255,500", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspect.color, "255,255,500", True)
 
 # Change parameter color with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.color, "blue", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspect.color, "blue", True)
 
 # Change parameter color with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.color, "125,60,200", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspect.color, "125,60,200", True)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

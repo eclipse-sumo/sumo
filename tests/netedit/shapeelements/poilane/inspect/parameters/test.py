@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 336, 210)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.POILane.inspect.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.poiLane.inspect.parameters, True)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

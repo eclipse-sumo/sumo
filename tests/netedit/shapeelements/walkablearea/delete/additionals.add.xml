@@ -5,6 +5,6 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Shapes -->
-    <poly id="poly_1" color="red" fill="0" layer="0.00" shape="10.000000,10.000000 10.000000,20.000000 0.000000,20.000000 0.000000,10.000000 10.000000,10.000000"/>
-    <poly id="poly_2" color="red" fill="1" layer="0.00" shape="40.000000,10.000000 40.000000,20.000000 20.000000,20.000000 20.000000,10.000000"/>
+    <poly id="walkableArea_1" type="jupedsim.walkable_area" shape="10.000000,10.000000 10.000000,20.000000 0.000000,20.000000 0.000000,10.000000 10.000000,10.000000"/>
+    <poly id="walkableArea_2" type="jupedsim.walkable_area" shape="40.000000,10.000000 40.000000,20.000000 20.000000,20.000000 20.000000,10.000000"/>
 </additional>

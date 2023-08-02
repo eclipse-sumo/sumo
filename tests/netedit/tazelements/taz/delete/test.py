@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.TAZMode()
 
 # create TAZ
-netedit.createSquaredTAZ(referencePosition, 407, 142, 200, True)
+netedit.createSquaredShape(referencePosition, 407, 142, 200, True)
 
 # go to delete mode
 netedit.deleteMode()

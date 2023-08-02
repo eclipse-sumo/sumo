@@ -32,10 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to poly mode and select poly
-netedit.changeElement("poly")
+netedit.changeElement("walkableArea")
 
 # create first polygon
-netedit.createSquaredTAZ(referencePosition, 116, 139, 200, True)
+netedit.createSquaredShape(referencePosition, 116, 139, 200, True)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 116, 139)
 
 # Change parameter 6 with a non valid value
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.name, "%%%$$$;;", False)
+netedit.modifyAttribute(netedit.attrs.walkableArea.inspect.name, "%%%$$$;;", False)
 
 # Change parameter 6 with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.name, "customName", False)
+netedit.modifyAttribute(netedit.attrs.walkableArea.inspect.name, "customName", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

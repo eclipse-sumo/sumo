@@ -192,14 +192,8 @@ public:
     /// @brief called if the user selects help->Tutorial
     long onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief Called on menu Edit->Netedit (network)
-    long onCmdNeteditNetwork(FXObject*, FXSelector, void*);
-
-    /// @brief Called on menu Edit->Netedit (SUMOCfg)
-    long onCmdNeteditSUMOConfig(FXObject*, FXSelector, void*);
-
-    /// @brief Enable or disable open SUMOConfig in netedit
-    long onUpdNeteditSUMOConfig(FXObject*, FXSelector, void*);
+    /// @brief Called on menu Edit->open in Netedit
+    long onCmdOpenInNetedit(FXObject*, FXSelector, void*);
 
     /// @brief Opens the application settings menu (Settings->Application Settings...)
     long onCmdAppSettings(FXObject*, FXSelector, void*);
@@ -293,8 +287,11 @@ public:
     /// @brief Determines whether "step" is enabled
     long onUpdStep(FXObject*, FXSelector, void*);
 
-    /// @brief Determines whether some buttons which require an active simulation may be shown
-    long onUpdNeedsSimulation(FXObject*, FXSelector, void*);
+    /// @brief Determines whether some buttons which require an active network may be shown
+    long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief Determines whether some buttons which require an sumoConfig may be shown
+    long onUpdNeedsSumoConfig(FXObject*, FXSelector, void*);
 
     /// @brief Determines whether traci is active
     long onUpdTraCIStatus(FXObject*, FXSelector, void*);
@@ -407,6 +404,15 @@ protected:
 
     /// @brief the menu cascades
     FXMenuCascade* mySelectLanesMenuCascade = nullptr;
+
+    /// @brief menuCheck for enable/disable load additionals in netedit
+    FXMenuCheck* myLoadAdditionalsInNetedit = nullptr;
+
+    /// @brief menuCheck for enable/disable load demand elements in netedit
+    FXMenuCheck* myLoadDemandInNetedit = nullptr;
+
+    /// @brief menuCommand for open simulation/network in netedit
+    FXMenuCommand* myOpenInNetedit = nullptr;
 
     /// @brief Buttons showing and running values and triggering statistic windows
     std::vector<FXButton*> myStatButtons;

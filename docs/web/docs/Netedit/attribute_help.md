@@ -677,7 +677,7 @@ child element of [taz](#taz)
 | Attribute | Type | Description |
 |-----------|------|-------------|
 |edge|unique string|The id of edge in the simulation network|
-|weight|non-negative float|Arrival weight associated to this Edget *default:* **1**|
+|weight|non-negative float|Arrival weight associated to this Edge *default:* **1**|
 
 ## edgeRelation
 | Attribute | Type | Description |

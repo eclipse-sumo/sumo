@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # change save relative path
-netedit.changeDefaultBoolValue(netedit.attrs.POI.create.relativePath)
+netedit.changeDefaultBoolValue(netedit.attrs.poi.create.relativePath)
 
 # create poi
 netedit.leftClick(referencePosition, 292, 117)
