@@ -1377,6 +1377,42 @@ class POILane:
         angle = 12
         parameters = 15
 
+# walkableArea
+
+
+class walkableArea:
+    class create:
+        id = 5
+        name = 6
+
+    class inspect:
+        id = 1
+        shape = 2
+        name = 3
+        parameters = 6
+
+    class inspectSelection:
+        name = 1
+        parameters = 4
+
+# obstacle
+
+
+class obstacle:
+    class create:
+        id = 5
+        name = 6
+
+    class inspect:
+        id = 1
+        shape = 2
+        name = 3
+        parameters = 6
+
+    class inspectSelection:
+        name = 1
+        parameters = 4
+
 # --------------------------------
 # TAZ ELEMENTS
 # --------------------------------

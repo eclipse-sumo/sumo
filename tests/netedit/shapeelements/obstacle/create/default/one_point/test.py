@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("obstacle")
 
 # create one-point polygon (area 0)
-netedit.createRectangledobstacle(referencePosition, 210, 136, 0, 0, True)
+netedit.createRectangledPoly(referencePosition, 210, 136, 0, 0, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
