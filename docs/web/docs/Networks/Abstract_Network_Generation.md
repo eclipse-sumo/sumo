@@ -121,7 +121,13 @@ All abstract network types share some command line options.
 
 - **--default-junction-type-option** (or **-j** for short): set the default [type of junctions](PlainXML.md#node_types). (i.e. 'priority', 'traffic_light' ,,,)
 - **--turn-lanes**: set number of turn lanes to generate at each junction
-- **--turn-lanes.length**: set length of generated turn lanes
+- **--turn-lanes.length**: set length of generated turn lanes. More specifically: 
+  - 0: No separate turning only lanes;
+  - 1: Add a left-turn & turn-around-only lane as the new left-most lane;
+  - 2: Add a left-turn & turn-around-only lane as the new left-most lane, and a right-turn-only lane as the new right-most lane;
+  - 3: Add a turn-around-only lane as the new left-most lane, a left-turn-only lane as the new left-most-but-one lane, and a right-turn-only lane as the new right-most lane;
+  - 4: Add a turn-around-only lane as the new left-most lane, a left-turn-only lane as the new left-most-but-one lane, a left-turn-only lane as the new left-most-but-two lane, and a right-turn-only lane as the new right-most lane;
+  - 5: Add a turn-around-only lane as the new left-most lane, a left-turn-only lane as the new left-most-but-one lane, a left-turn-only lane as the new left-most-but-two lane, a left-turn only lane as the new left-most-but-three lane, and a right-turn-only lane as the new right-most lane.
 - **--perturb.x**: disturb node positions in x direction by a random amount between 0 and FLOAT
 - **--perturb.y**: disturb node positions in y direction by a random amount between 0 and FLOAT
 - **--perturb.z**: disturb node positions in z direction by a random amount between 0 and FLOAT
