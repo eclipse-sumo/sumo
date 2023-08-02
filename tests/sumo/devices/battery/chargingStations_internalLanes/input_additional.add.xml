@@ -4,5 +4,5 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <chargingStation id="cs" chargeInTransit="true" lane=":Center_0_0"/>
+    <chargingStation id="cs" chargeInTransit="true" power="10000" lane=":Center_0_0"/>
 </additional>
