@@ -146,13 +146,17 @@ enum GUIGlObjectType {
     /// @brief poi (over view, geo and lane)
     GLO_POI = 202,
     /// @brief walkable area
-    GLO_WALKABLEAREA = 203,
+    GLO_JPS_WALKABLEAREA = 203,
     /// @brief obstacles
-    GLO_OBSTACLE = 204,
+    GLO_JPS_OBSTACLE = 204,
     /// @brief waiting areas
-    GLO_WAITINGAREA = 205,
+    GLO_JPS_WAITINGAREA = 205,
+    /// @brief waiting areas
+    GLO_JPS_SOURCE = 206,
+    /// @brief waiting areas
+    GLO_JPS_SINK = 207,
     /// @brief poi waypoints
-    GLO_POIWAYPOINT = 206,
+    GLO_JPS_WAYPOINT = 208,
 
     /// @}
 
