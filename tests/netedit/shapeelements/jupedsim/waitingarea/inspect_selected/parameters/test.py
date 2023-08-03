@@ -43,7 +43,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 404, 140)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.waitingArea.inspectSelection.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.jpsWaitingArea.inspectSelection.parameters, False)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

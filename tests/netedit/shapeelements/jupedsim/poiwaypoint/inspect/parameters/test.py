@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 292, 117)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.poiWaypoint.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.jpsWaypoint.inspect.parameters, False)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

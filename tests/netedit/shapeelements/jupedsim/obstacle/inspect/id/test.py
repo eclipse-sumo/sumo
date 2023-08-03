@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 116, 139)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.obstacle.inspect.id, "jps.obstacle_0", False)
+netedit.modifyAttribute(netedit.attrs.jpsObstacle.inspect.id, "jps.obstacle_0", False)
 
 # Change parameter 0 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.obstacle.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.jpsObstacle.inspect.id, "", False)
 
 # Change parameter 0 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.obstacle.inspect.id, "ID with spaces", False)
+netedit.modifyAttribute(netedit.attrs.jpsObstacle.inspect.id, "ID with spaces", False)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.obstacle.inspect.id, "newID", False)
+netedit.modifyAttribute(netedit.attrs.jpsObstacle.inspect.id, "newID", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

@@ -38,19 +38,19 @@ netedit.changeElement("jps.waitingArea")
 netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.waitingArea.create.id, ";;;;;;")
+netedit.changeDefaultValue(netedit.attrs.jpsWaitingArea.create.id, ";;;;;;")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.waitingArea.create.id, "jps.walkable_area_0")
+netedit.changeDefaultValue(netedit.attrs.jpsWaitingArea.create.id, "jps.walkable_area_0")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.waitingArea.create.id, "custom_ID")
+netedit.changeDefaultValue(netedit.attrs.jpsWaitingArea.create.id, "custom_ID")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, 592, 136, 200, True)

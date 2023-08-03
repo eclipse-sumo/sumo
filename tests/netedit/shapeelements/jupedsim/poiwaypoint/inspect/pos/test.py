@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 292, 117)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspect.pos, "dummyPosition", False)
+netedit.modifyAttribute(netedit.attrs.jpsWaypoint.inspect.pos, "dummyPosition", False)
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspect.pos, "20.40,7.50", False)
+netedit.modifyAttribute(netedit.attrs.jpsWaypoint.inspect.pos, "20.40,7.50", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

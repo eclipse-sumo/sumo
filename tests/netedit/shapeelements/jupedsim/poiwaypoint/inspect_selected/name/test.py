@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 451, 119)
 
 # Change parameter 8 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspectSelection.name, "%$$%%%%%", False)
+netedit.modifyAttribute(netedit.attrs.jpsWaypoint.inspectSelection.name, "%$$%%%%%", False)
 
 # Change parameter 8 with a non valid value (no exist)
-netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspectSelection.name, "customName", False)
+netedit.modifyAttribute(netedit.attrs.jpsWaypoint.inspectSelection.name, "customName", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

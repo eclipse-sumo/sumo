@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("jps.waypoint")
 
 # change angle (invalid)
-netedit.changeDefaultValue(netedit.attrs.poiWaypoint.create.name, "%%%%;;;%%%")
+netedit.changeDefaultValue(netedit.attrs.jpsWaypoint.create.name, "%%%%;;;%%%")
 
 # try to create POI
 netedit.leftClick(referencePosition, 292, 117)
 
 # change angle (valid, but > 360)
-netedit.changeDefaultValue(netedit.attrs.poiWaypoint.create.name, "customName")
+netedit.changeDefaultValue(netedit.attrs.jpsWaypoint.create.name, "customName")
 
 # create POI
 netedit.leftClick(referencePosition, 337, 117)

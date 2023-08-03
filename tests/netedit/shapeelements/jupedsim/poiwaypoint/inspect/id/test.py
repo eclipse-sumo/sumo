@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 292, 117)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspect.id, "jps.waypoint_1", False)
+netedit.modifyAttribute(netedit.attrs.jpsWaypoint.inspect.id, "jps.waypoint_1", False)
 
 # Change parameter 0 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.jpsWaypoint.inspect.id, "", False)
 
 # Change parameter 0 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspect.id, "ID with spaces", False)
+netedit.modifyAttribute(netedit.attrs.jpsWaypoint.inspect.id, "ID with spaces", False)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.poiWaypoint.inspect.id, "newID", False)
+netedit.modifyAttribute(netedit.attrs.jpsWaypoint.inspect.id, "newID", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

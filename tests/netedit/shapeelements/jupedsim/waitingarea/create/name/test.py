@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("jps.waitingArea")
 
 # change layer (invalid)
-netedit.changeDefaultValue(netedit.attrs.waitingArea.create.name, "%%%%%%$$$$")
+netedit.changeDefaultValue(netedit.attrs.jpsWaitingArea.create.name, "%%%%%%$$$$")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # change layer (valid, negative)
-netedit.changeDefaultValue(netedit.attrs.waitingArea.create.name, "customName")
+netedit.changeDefaultValue(netedit.attrs.jpsWaitingArea.create.name, "customName")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, 592, 136, 200, True)

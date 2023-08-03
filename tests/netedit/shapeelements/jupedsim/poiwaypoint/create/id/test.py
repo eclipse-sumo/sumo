@@ -38,13 +38,13 @@ netedit.changeElement("jps.waypoint")
 netedit.leftClick(referencePosition, 292, 117)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.poiWaypoint.create.id, ";;;;;;")
+netedit.changeDefaultValue(netedit.attrs.jpsWaypoint.create.id, ";;;;;;")
 
 # try to create poi
 netedit.leftClick(referencePosition, 337, 117)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.poiWaypoint.create.id, "customID")
+netedit.changeDefaultValue(netedit.attrs.jpsWaypoint.create.id, "customID")
 
 # create POI
 netedit.leftClick(referencePosition, 428, 117)

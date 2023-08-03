@@ -38,19 +38,19 @@ netedit.changeElement("jps.obstacle")
 netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.obstacle.create.id, ";;;;;;")
+netedit.changeDefaultValue(netedit.attrs.jpsObstacle.create.id, ";;;;;;")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.obstacle.create.id, "jps.obstacle_0")
+netedit.changeDefaultValue(netedit.attrs.jpsObstacle.create.id, "jps.obstacle_0")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.obstacle.create.id, "custom_ID")
+netedit.changeDefaultValue(netedit.attrs.jpsObstacle.create.id, "custom_ID")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
