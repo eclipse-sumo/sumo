@@ -1589,6 +1589,8 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
         buildJpsWalkableArea(sumoBaseObject, id, shape, name, parameters);
     } else if (type == "jupedsim.obstacle") { 
         buildJpsObstacle(sumoBaseObject, id, shape, name, parameters);
+    } else if (type == "jupedsim.waiting_area") { 
+        buildJpsWaitingArea(sumoBaseObject, id, shape, name, parameters);
     } else if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
     } else if (!checkDuplicatedID({SUMO_TAG_POLY, SUMO_TAG_TAZ, GNE_TAG_JPS_WALKABLEAREA, GNE_TAG_JPS_OBSTACLE, GNE_TAG_JPS_WAITINGAREA}, id)) {
