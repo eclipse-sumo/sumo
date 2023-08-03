@@ -104,11 +104,12 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel("TAZs", ACs->getNumberOfSelectedTAZs());
         updateInformationLabel("TAZSources", ACs->getNumberOfSelectedTAZSources());
         updateInformationLabel("TAZSinks", ACs->getNumberOfSelectedTAZSinks());
-        updateInformationLabel("Polygon", ACs->getNumberOfSelectedPolygons());
+        updateInformationLabel("Polygons", ACs->getNumberOfSelectedPolygons());
         updateInformationLabel("POIs", ACs->getNumberOfSelectedPOIs());
-        updateInformationLabel("WalkableArea", ACs->getNumberOfSelectedWalkableAreas());
-        updateInformationLabel("Obstacle", ACs->getNumberOfSelectedObstacles());
-        updateInformationLabel("POIWaypoints", ACs->getNumberOfSelectedPOIWaypoints());
+        updateInformationLabel("JuPedSims", ACs->getNumberOfSelectedWalkableAreas() + 
+            ACs->getNumberOfSelectedObstacles() +
+            ACs->getNumberOfSelectedWaitingAreas() +
+            ACs->getNumberOfSelectedPOIWaypoints());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         updateInformationLabel("Routes", ACs->getNumberOfSelectedRoutes());
         updateInformationLabel("Vehicles", ACs->getNumberOfSelectedVehicles());
@@ -714,6 +715,20 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 obstacle->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
                 obstacle->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
+    }
+    if (ignoreLocking || !locks.isObjectLocked(GLO_WAITINGAREA, false)) {
+        for (const auto& waitingArea : ACs->getAdditionals().at(GNE_TAG_WAITINGAREA)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || waitingArea->isAttributeCarrierSelected()) {
+                waitingArea->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                waitingArea->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
     } else if (onlyCount) {
