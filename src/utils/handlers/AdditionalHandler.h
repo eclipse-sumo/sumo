@@ -573,7 +573,7 @@ public:
                              bool relativePath, const double width, const double height, const std::string& name,
                              const Parameterised::Map& parameters) = 0;
     
-    /**@brief Builds a walkable area using the given values
+    /**@brief Builds a JuPedSim walkable area using the given values
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The name of the polygon
      * @param[in] shape The shape of the polygon
@@ -583,7 +583,7 @@ public:
     virtual void buildWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                                    const std::string& name, const Parameterised::Map& parameters) = 0;
 
-    /**@brief Builds a obstacle using the given values
+    /**@brief Builds a JuPedSim obstacle using the given values
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The name of the polygon
      * @param[in] shape The shape of the polygon
@@ -593,7 +593,17 @@ public:
     virtual void buildObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                                const std::string& name, const Parameterised::Map& parameters) = 0;
 
-    /**@brief Builds a POIWaypoint using the given values
+    /**@brief Builds a JuPedSim waiting area using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] name polygon name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                                  const std::string& name, const Parameterised::Map& parameters) = 0;
+
+    /**@brief Builds a JuPedSim POIWaypoint using the given values
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The name of the POI
      * @param[in] x POI's x position
@@ -724,13 +734,16 @@ private:
     /// @brief parse POI attributes
     void parsePOIAttributes(const SUMOSAXAttributes& attrs);
 
-    // @brief parse walkable area attributes
+    // @brief parse walkable area attributes (JuPedSim)
     void parseWalkableAreaAttributes(const SUMOSAXAttributes& attrs);
 
-    // @brief parse poly attributes
+    // @brief parse obstacle attributes (JuPedSim)
     void parseObstacleAttributes(const SUMOSAXAttributes& attrs);
 
-    // @brief parse poly attributes
+    // @brief parse waiting area attributes (JuPedSim)
+    void parseWaitingAreaAttributes(const SUMOSAXAttributes& attrs);
+
+    // @brief parse poi waypoints attributes (JuPedSim)
     void parsePOIWaypointAttributes(const SUMOSAXAttributes& attrs);
 
     /// @brief parse generic parameters

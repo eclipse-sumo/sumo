@@ -169,6 +169,9 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
             case GNE_TAG_OBSTACLE:
                 parseObstacleAttributes(attrs);
                 break;
+            case GNE_TAG_WAITINGAREA:
+                parseWaitingAreaAttributes(attrs);
+                break;
             case GNE_TAG_POIWAYPOINT:
                 parsePOIWaypointAttributes(attrs);
                 break;
@@ -233,6 +236,7 @@ AdditionalHandler::endParseAttributes() {
         // JuPedSim
         case GNE_TAG_WALKABLEAREA:
         case GNE_TAG_OBSTACLE:
+        case GNE_TAG_WAITINGAREA:
         case GNE_TAG_POIWAYPOINT:
             // parse object and all their childrens
             parseSumoBaseObject(obj);
@@ -684,6 +688,14 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
         // Obstacle
         case GNE_TAG_OBSTACLE:
             buildObstacle(obj,
+                          obj->getStringAttribute(SUMO_ATTR_ID),
+                          obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                          obj->getStringAttribute(SUMO_ATTR_NAME),
+                          obj->getParameters());
+            break;
+        // waiting area
+        case GNE_TAG_WAITINGAREA:
+            buildWaitingArea(obj,
                           obj->getStringAttribute(SUMO_ATTR_ID),
                           obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
                           obj->getStringAttribute(SUMO_ATTR_NAME),
@@ -1810,6 +1822,27 @@ AdditionalHandler::parseObstacleAttributes(const SUMOSAXAttributes& attrs) {
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_OBSTACLE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    }
+}
+
+
+void
+AdditionalHandler::parseWaitingAreaAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk);
+    // optional attributes
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_WAITINGAREA);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
