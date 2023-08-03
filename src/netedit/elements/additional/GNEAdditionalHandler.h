@@ -580,7 +580,7 @@ public:
      * @param[in] name walkable area name
      * @param[in] parameters generic parameters
      */
-    void buildWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+    void buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                            const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Builds a obstacle using the given values
@@ -590,7 +590,7 @@ public:
      * @param[in] name obstacle name
      * @param[in] parameters generic parameters
      */
-    void buildObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+    void buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                       const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Builds a waitingArea using the given values
@@ -600,7 +600,7 @@ public:
      * @param[in] name waitingArea name
      * @param[in] parameters generic parameters
      */
-    void buildWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+    void buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                           const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Builds a POIWaypoint using the given values
@@ -611,7 +611,7 @@ public:
      * @param[in] name POIWaypoint name
      * @param[in] parameters generic parameters
      */
-    void buildPOIWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
+    void buildJpsWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
                           const std::string& name, const Parameterised::Map& parameters);
     /// @}
 

@@ -697,7 +697,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 for (const auto& POIGeo : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIGEO)) {
                     ACsToLocate.push_back(POIGeo);
                 }
-                for (const auto& POIWayPoint : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIWAYPOINT)) {
+                for (const auto& POIWayPoint : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAYPOINT)) {
                     ACsToLocate.push_back(POIWayPoint);
                 }
                 break;
@@ -711,13 +711,13 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 for (const auto& taz : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
                     ACsToLocate.push_back(taz);
                 }
-                for (const auto& walkableArea : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_WALKABLEAREA)) {
+                for (const auto& walkableArea : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WALKABLEAREA)) {
                     ACsToLocate.push_back(walkableArea);
                 }
-                for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_OBSTACLE)) {
+                for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_OBSTACLE)) {
                     ACsToLocate.push_back(obstacle);
                 }
-                for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_WAITINGAREA)) {
+                for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAITINGAREA)) {
                     ACsToLocate.push_back(obstacle);
                 }
                 break;

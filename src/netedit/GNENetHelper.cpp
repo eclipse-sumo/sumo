@@ -1177,13 +1177,13 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = neteditOptions.getString("poi-prefix");
     } else if (tag == SUMO_TAG_TAZ) {
         prefix = toString(SUMO_TAG_TAZ);
-    } else if (tag == GNE_TAG_WALKABLEAREA) {
+    } else if (tag == GNE_TAG_JPS_WALKABLEAREA) {
         prefix = neteditOptions.getString("walkableArea-prefix");
-    } else if (tag == GNE_TAG_OBSTACLE) {
+    } else if (tag == GNE_TAG_JPS_OBSTACLE) {
         prefix = neteditOptions.getString("obstacle-prefix");
-    } else if (tag == GNE_TAG_WAITINGAREA) {
+    } else if (tag == GNE_TAG_JPS_WAITINGAREA) {
         prefix = neteditOptions.getString("waitingArea-prefix");
-    } else if (tag == GNE_TAG_POIWAYPOINT) {
+    } else if (tag == GNE_TAG_JPS_WAYPOINT) {
         prefix = neteditOptions.getString("poiWaypoint-prefix");
     }
     int counter = 0;
@@ -1200,21 +1200,21 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
                 (retrieveAdditional(GNE_TAG_CALIBRATOR_LANE, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_POLY) || (tag == SUMO_TAG_TAZ) || (tag == GNE_TAG_WALKABLEAREA) ||
-               (tag == GNE_TAG_OBSTACLE) || (tag == GNE_TAG_WAITINGAREA)) {
+    } else if ((tag == SUMO_TAG_POLY) || (tag == SUMO_TAG_TAZ) || (tag == GNE_TAG_JPS_WALKABLEAREA) ||
+               (tag == GNE_TAG_JPS_OBSTACLE) || (tag == GNE_TAG_JPS_WAITINGAREA)) {
         // Polys and TAZs share namespace
         while ((retrieveAdditional(SUMO_TAG_POLY, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_WALKABLEAREA, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_OBSTACLE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_WAITINGAREA, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveAdditional(GNE_TAG_JPS_WALKABLEAREA, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(GNE_TAG_JPS_OBSTACLE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(GNE_TAG_JPS_WAITINGAREA, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_POI) || (tag == GNE_TAG_POILANE) || (tag == GNE_TAG_POIGEO) || (tag == GNE_TAG_POIWAYPOINT)) {
+    } else if ((tag == SUMO_TAG_POI) || (tag == GNE_TAG_POILANE) || (tag == GNE_TAG_POIGEO) || (tag == GNE_TAG_JPS_WAYPOINT)) {
         while ((retrieveAdditional(SUMO_TAG_POI, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_POIWAYPOINT, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveAdditional(GNE_TAG_JPS_WAYPOINT, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
     } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_MULTI_LANE_AREA_DETECTOR)) {
@@ -1275,7 +1275,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPolygons() const {
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedWalkableAreas() const {
     int counter = 0;
-    for (const auto& walkableArea : myAdditionals.at(GNE_TAG_WALKABLEAREA)) {
+    for (const auto& walkableArea : myAdditionals.at(GNE_TAG_JPS_WALKABLEAREA)) {
         if (walkableArea->isAttributeCarrierSelected()) {
             counter++;
         }
@@ -1287,7 +1287,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedWalkableAreas() const {
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedObstacles() const {
     int counter = 0;
-    for (const auto& obstacle : myAdditionals.at(GNE_TAG_OBSTACLE)) {
+    for (const auto& obstacle : myAdditionals.at(GNE_TAG_JPS_OBSTACLE)) {
         if (obstacle->isAttributeCarrierSelected()) {
             counter++;
         }
@@ -1299,7 +1299,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedObstacles() const {
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedWaitingAreas() const {
     int counter = 0;
-    for (const auto& waitingArea : myAdditionals.at(GNE_TAG_WAITINGAREA)) {
+    for (const auto& waitingArea : myAdditionals.at(GNE_TAG_JPS_WAITINGAREA)) {
         if (waitingArea->isAttributeCarrierSelected()) {
             counter++;
         }
@@ -1311,7 +1311,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedWaitingAreas() const {
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIWaypoints() const {
     int counter = 0;
-    for (const auto& obstacle : myAdditionals.at(GNE_TAG_POIWAYPOINT)) {
+    for (const auto& obstacle : myAdditionals.at(GNE_TAG_JPS_WAYPOINT)) {
         if (obstacle->isAttributeCarrierSelected()) {
             counter++;
         }

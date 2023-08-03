@@ -2104,10 +2104,10 @@ GNENet::saveJuPedSimElements(const std::string &file) {
     device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
     // juPedSim elements
     writeJuPedSimComment(device);
-    writeAdditionalByType(device, {GNE_TAG_WALKABLEAREA});
-    writeAdditionalByType(device, {GNE_TAG_OBSTACLE});
-    writeAdditionalByType(device, {GNE_TAG_WAITINGAREA});
-    writeAdditionalByType(device, {GNE_TAG_POIWAYPOINT});
+    writeAdditionalByType(device, {GNE_TAG_JPS_WALKABLEAREA});
+    writeAdditionalByType(device, {GNE_TAG_JPS_OBSTACLE});
+    writeAdditionalByType(device, {GNE_TAG_JPS_WAITINGAREA});
+    writeAdditionalByType(device, {GNE_TAG_JPS_WAYPOINT});
     // close device
     device.close();
 }
@@ -2258,10 +2258,10 @@ GNENet::saveAdditionalsConfirmed() {
     writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
     // juPedSim elements
     writeJuPedSimComment(device);
-    writeAdditionalByType(device, {GNE_TAG_WALKABLEAREA});
-    writeAdditionalByType(device, {GNE_TAG_OBSTACLE});
-    writeAdditionalByType(device, {GNE_TAG_WAITINGAREA});
-    writeAdditionalByType(device, {GNE_TAG_POIWAYPOINT});
+    writeAdditionalByType(device, {GNE_TAG_JPS_WALKABLEAREA});
+    writeAdditionalByType(device, {GNE_TAG_JPS_OBSTACLE});
+    writeAdditionalByType(device, {GNE_TAG_JPS_WAITINGAREA});
+    writeAdditionalByType(device, {GNE_TAG_JPS_WAYPOINT});
     // close device
     device.close();
     // mark additionals as saved

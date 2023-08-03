@@ -1774,13 +1774,13 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockWires->setCheck(value);
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
         menuCheckLockPolygons->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == GNE_TAG_WALKABLEAREA) {
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) {
         menuCheckLockWalkableAreas->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == GNE_TAG_WAITINGAREA) {
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_WAITINGAREA) {
         menuCheckLockWaitingAreas->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == GNE_TAG_OBSTACLE) {
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) {
         menuCheckLockObstacles->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == GNE_TAG_POIWAYPOINT) {
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_WAYPOINT) {
         menuCheckLockPOIWaypoints->setCheck(value);
     } else if ((AC->getTagProperty().getTag() != SUMO_TAG_POI) ||
                (AC->getTagProperty().getTag() != GNE_TAG_POILANE) ||

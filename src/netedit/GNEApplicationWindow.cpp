@@ -2631,13 +2631,13 @@ long
 GNEApplicationWindow::onUpdSaveJuPedSimElementsAs(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_WALKABLEAREA).size() > 0) {
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WALKABLEAREA).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_OBSTACLE).size() > 0) {
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_OBSTACLE).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_WAITINGAREA).size() > 0) {
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAITINGAREA).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIWAYPOINT).size() > 0) {
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAYPOINT).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);

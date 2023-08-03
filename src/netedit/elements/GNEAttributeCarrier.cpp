@@ -3332,7 +3332,7 @@ GNEAttributeCarrier::fillJuPedSimElements() {
 // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
     // fill shape ACs
-    SumoXMLTag currentTag = GNE_TAG_WALKABLEAREA;
+    SumoXMLTag currentTag = GNE_TAG_JPS_WALKABLEAREA;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -3356,7 +3356,7 @@ GNEAttributeCarrier::fillJuPedSimElements() {
                                               TL("Walkable area's name"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_OBSTACLE;
+    currentTag = GNE_TAG_JPS_OBSTACLE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -3380,7 +3380,7 @@ GNEAttributeCarrier::fillJuPedSimElements() {
                                               TL("Obstacle's name"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_WAITINGAREA;
+    currentTag = GNE_TAG_JPS_WAITINGAREA;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -3404,7 +3404,7 @@ GNEAttributeCarrier::fillJuPedSimElements() {
                                               TL("waiting area's name"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_POIWAYPOINT;
+    currentTag = GNE_TAG_JPS_WAYPOINT;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,

@@ -694,7 +694,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     }
     // inver JuPedSim elements
     if (ignoreLocking || !locks.isObjectLocked(GLO_WALKABLEAREA, false)) {
-        for (const auto& walkableArea : ACs->getAdditionals().at(GNE_TAG_WALKABLEAREA)) {
+        for (const auto& walkableArea : ACs->getAdditionals().at(GNE_TAG_JPS_WALKABLEAREA)) {
             if (onlyCount) {
                 return true;
             } else if (onlyUnselect || walkableArea->isAttributeCarrierSelected()) {
@@ -708,7 +708,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         return true;
     }
     if (ignoreLocking || !locks.isObjectLocked(GLO_OBSTACLE, false)) {
-        for (const auto& obstacle : ACs->getAdditionals().at(GNE_TAG_OBSTACLE)) {
+        for (const auto& obstacle : ACs->getAdditionals().at(GNE_TAG_JPS_OBSTACLE)) {
             if (onlyCount) {
                 return true;
             } else if (onlyUnselect || obstacle->isAttributeCarrierSelected()) {
@@ -722,7 +722,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         return true;
     }
     if (ignoreLocking || !locks.isObjectLocked(GLO_WAITINGAREA, false)) {
-        for (const auto& waitingArea : ACs->getAdditionals().at(GNE_TAG_WAITINGAREA)) {
+        for (const auto& waitingArea : ACs->getAdditionals().at(GNE_TAG_JPS_WAITINGAREA)) {
             if (onlyCount) {
                 return true;
             } else if (onlyUnselect || waitingArea->isAttributeCarrierSelected()) {
@@ -736,7 +736,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         return true;
     }
     if (ignoreLocking || !locks.isObjectLocked(GLO_POIWAYPOINT, false)) {
-        for (const auto& poiWaypoint : ACs->getAdditionals().at(GNE_TAG_POIWAYPOINT)) {
+        for (const auto& poiWaypoint : ACs->getAdditionals().at(GNE_TAG_JPS_WAYPOINT)) {
             if (onlyCount) {
                 return true;
             } else if (onlyUnselect || poiWaypoint->isAttributeCarrierSelected()) {

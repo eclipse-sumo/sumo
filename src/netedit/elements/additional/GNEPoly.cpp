@@ -101,9 +101,9 @@ GNEPoly::getMoveOperation() {
         return new GNEMoveOperation(this, myShape);
     } else {
         // check if maintain shape closed
-        const bool maintainShapeClosed = (getTagProperty().getTag() == GNE_TAG_WALKABLEAREA) ||
-            (getTagProperty().getTag() == GNE_TAG_OBSTACLE) ||
-            (getTagProperty().getTag() == GNE_TAG_WAITINGAREA);
+        const bool maintainShapeClosed = (getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
+            (getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) ||
+            (getTagProperty().getTag() == GNE_TAG_JPS_WAITINGAREA);
         // calculate move shape operation
         return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(),
                                            myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius,
