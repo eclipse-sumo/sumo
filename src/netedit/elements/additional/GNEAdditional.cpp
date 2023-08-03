@@ -671,6 +671,8 @@ GNEAdditional::getJuPedSimType(SumoXMLTag tag) {
             return "jupedsim.walkable_area";
         case GNE_TAG_OBSTACLE:
             return "jupedsim.obstacle";
+        case GNE_TAG_WAITINGAREA:
+            return "jupedsim.waiting_area";
         case GNE_TAG_POIWAYPOINT:
             return "jupedsim.waypoint";
         default:
@@ -687,8 +689,10 @@ GNEAdditional::getJuPedSimColor(SumoXMLTag tag) {
             return RGBColor(179,217,255);
         case GNE_TAG_OBSTACLE:
             return RGBColor(255,204,204);
+        case GNE_TAG_WAITINGAREA:
+            return RGBColor(0, 255, 0);
         case GNE_TAG_POIWAYPOINT:
-            return RGBColor::CYAN;
+            return RGBColor(0, 255, 255);
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }
@@ -703,8 +707,10 @@ GNEAdditional::getJuPedSimLayer(SumoXMLTag tag) {
             return 1;
         case GNE_TAG_OBSTACLE:
             return 2;
-        case GNE_TAG_POIWAYPOINT:
+        case GNE_TAG_WAITINGAREA:
             return 3;
+        case GNE_TAG_POIWAYPOINT:
+            return 4;
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }
@@ -719,6 +725,8 @@ GNEAdditional::getJuPedSimGLO(SumoXMLTag tag) {
             return GLO_WALKABLEAREA;
         case GNE_TAG_OBSTACLE:
             return GLO_OBSTACLE;
+        case GNE_TAG_WAITINGAREA:
+            return GLO_WAITINGAREA;
         case GNE_TAG_POIWAYPOINT:
             return GLO_POIWAYPOINT;
         default:
@@ -735,6 +743,8 @@ GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
             return GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA);
         case GNE_TAG_OBSTACLE:
             return GUIIconSubSys::getIcon(GUIIcon::OBSTACLE);
+        case GNE_TAG_WAITINGAREA:
+            return GUIIconSubSys::getIcon(GUIIcon::WAITINGAREA);
         case GNE_TAG_POIWAYPOINT:
             return GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT);
         default:
