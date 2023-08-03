@@ -690,7 +690,7 @@ GNEAdditional::getJuPedSimColor(SumoXMLTag tag) {
         case GNE_TAG_JPS_OBSTACLE:
             return RGBColor(255,204,204);
         case GNE_TAG_JPS_WAITINGAREA:
-            return RGBColor(0, 255, 0);
+            return RGBColor(50, 200, 50);
         case GNE_TAG_JPS_WAYPOINT:
             return RGBColor(0, 255, 255);
         default:
