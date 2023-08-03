@@ -103,6 +103,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"poi",                     GLO_POI},
     {"walkableArea",            GLO_WALKABLEAREA},
     {"obstacle",                GLO_OBSTACLE},
+    {"waitingArea",             GLO_WAITINGAREA},
     {"poiWaypoint",             GLO_POIWAYPOINT},
     //
     {"routeElement",            GLO_ROUTEELEMENT},

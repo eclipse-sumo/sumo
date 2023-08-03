@@ -149,8 +149,10 @@ enum GUIGlObjectType {
     GLO_WALKABLEAREA = 203,
     /// @brief obstacles
     GLO_OBSTACLE = 204,
+    /// @brief waiting areas
+    GLO_WAITINGAREA = 205,
     /// @brief poi waypoints
-    GLO_POIWAYPOINT = 205,
+    GLO_POIWAYPOINT = 206,
 
     /// @}
 

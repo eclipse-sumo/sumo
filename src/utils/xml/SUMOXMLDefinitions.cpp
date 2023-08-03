@@ -262,6 +262,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "walkableArea",                   GNE_TAG_WALKABLEAREA },
     { "poiWaypoint",                    GNE_TAG_POIWAYPOINT },
     { "obstacle",                       GNE_TAG_OBSTACLE },
+    { "waitingArea",                    GNE_TAG_WAITINGAREA },
     { "rerouterSymbol",                 GNE_TAG_REROUTER_SYMBOL },
     { "variableSpeedSignSymbol",        GNE_TAG_VSS_SYMBOL },
     { "flowRoute",                      GNE_TAG_FLOW_ROUTE },

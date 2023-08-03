@@ -423,6 +423,8 @@ enum SumoXMLTag {
     GNE_TAG_WALKABLEAREA,
     /// @brief polygon used for draw obstacles (used in JuPedSim)
     GNE_TAG_OBSTACLE,
+    /// @brief polygon used for draw waiting areas (used in JuPedSim)
+    GNE_TAG_WAITINGAREA,
     /// @brief POI used in walkable areas (used in JuPedSim)
     GNE_TAG_POIWAYPOINT,
     /// @brief Rerouter Symbol
