@@ -456,6 +456,9 @@ enum class GUIIcon {
     JPS_WALKABLEAREA,
     JPS_OBSTACLE,
     JPS_WAITINGAREA,
+    JPS_SOURCE,
+    JPS_SINK,
+
     JPS_WAYPOINT,
     /// @}
 
