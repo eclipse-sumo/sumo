@@ -575,9 +575,9 @@ public:
 
     /**@brief Builds a walkable area using the given values
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] id The name of the polygon
-     * @param[in] shape The shape of the polygon
-     * @param[in] name polygon name
+     * @param[in] id The name of the walkable area
+     * @param[in] shape The shape of the walkable area
+     * @param[in] name walkable area name
      * @param[in] parameters generic parameters
      */
     void buildWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
@@ -585,17 +585,27 @@ public:
 
     /**@brief Builds a obstacle using the given values
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] id The name of the polygon
-     * @param[in] shape The shape of the polygon
-     * @param[in] name polygon name
+     * @param[in] id The name of the obstacle
+     * @param[in] shape The shape of the obstacle
+     * @param[in] name obstacle name
      * @param[in] parameters generic parameters
      */
     void buildObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                       const std::string& name, const Parameterised::Map& parameters);
 
+    /**@brief Builds a waitingArea using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the waitingArea
+     * @param[in] shape The shape of the waitingArea
+     * @param[in] name waitingArea name
+     * @param[in] parameters generic parameters
+     */
+    void buildWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                          const std::string& name, const Parameterised::Map& parameters);
+
     /**@brief Builds a POIWaypoint using the given values
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] id The name of the POI
+     * @param[in] id The name of the POIWaypoint
      * @param[in] x POI's x position
      * @param[in] y POI's y position
      * @param[in] name POIWaypoint name
