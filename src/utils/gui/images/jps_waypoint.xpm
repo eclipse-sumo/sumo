@@ -1,5 +1,5 @@
 /* XPM */
-static const char * poiwaypoint_xpm[] = {
+static const char *jps_waypoint_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 6 1",
 "  c gray50",

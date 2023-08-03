@@ -1,5 +1,5 @@
 /* XPM */
-static const char *waitingarea_xpm[] = {
+static const char *jps_waitingarea_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 1 1",
 "U c None",

@@ -326,13 +326,13 @@
 #include "overheadwire_clamp.xpm"
 
 #include "poly.xpm"
-#include "walkablearea.xpm"
-#include "obstacle.xpm"
-#include "waitingarea.xpm"
 #include "poi.xpm"
 #include "poilane.xpm"
 #include "poigeo.xpm"
-#include "poiwaypoint.xpm"
+#include "jps_walkablearea.xpm"
+#include "jps_obstacle.xpm"
+#include "jps_waitingarea.xpm"
+#include "jps_waypoint.xpm"
 
 #include "taz.xpm"
 #include "tazedge.xpm"
@@ -811,10 +811,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::POI] = new FXXPMIcon(a, poi_xpm);
     myIcons[GUIIcon::POILANE] = new FXXPMIcon(a, poilane_xpm);
     myIcons[GUIIcon::POIGEO] = new FXXPMIcon(a, poigeo_xpm);
-    myIcons[GUIIcon::WALKABLEAREA] = new FXXPMIcon(a, walkablearea_xpm);
-    myIcons[GUIIcon::OBSTACLE] = new FXXPMIcon(a, obstacle_xpm);
-    myIcons[GUIIcon::WAITINGAREA] = new FXXPMIcon(a, waitingarea_xpm);
-    myIcons[GUIIcon::POIWAYPOINT] = new FXXPMIcon(a, poiwaypoint_xpm);
+    myIcons[GUIIcon::JPS_WALKABLEAREA] = new FXXPMIcon(a, jps_walkablearea_xpm);
+    myIcons[GUIIcon::JPS_OBSTACLE] = new FXXPMIcon(a, jps_obstacle_xpm);
+    myIcons[GUIIcon::JPS_WAITINGAREA] = new FXXPMIcon(a, jps_waitingarea_xpm);
+    myIcons[GUIIcon::JPS_WAYPOINT] = new FXXPMIcon(a, jps_waypoint_xpm);
 
     myIcons[GUIIcon::TAZ] = new FXXPMIcon(a, taz_xpm);
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);

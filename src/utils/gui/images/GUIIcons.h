@@ -453,10 +453,10 @@ enum class GUIIcon {
     POI,
     POILANE,
     POIGEO,
-    WALKABLEAREA,
-    OBSTACLE,
-    WAITINGAREA,
-    POIWAYPOINT,
+    JPS_WALKABLEAREA,
+    JPS_OBSTACLE,
+    JPS_WAITINGAREA,
+    JPS_WAYPOINT,
     /// @}
 
     /// @name TAZ elements icons

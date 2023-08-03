@@ -3338,7 +3338,7 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::WALKABLEAREA, SUMO_TAG_POLY, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::JPS_WALKABLEAREA, SUMO_TAG_POLY, {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3362,7 +3362,7 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::OBSTACLE, SUMO_TAG_POLY, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::JPS_OBSTACLE, SUMO_TAG_POLY, {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3386,7 +3386,7 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::WAITINGAREA, SUMO_TAG_POLY, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::JPS_WAITINGAREA, SUMO_TAG_POLY, {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3410,7 +3410,7 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::POIWAYPOINT, SUMO_TAG_POI, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::JPS_WAYPOINT, SUMO_TAG_POI, {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,

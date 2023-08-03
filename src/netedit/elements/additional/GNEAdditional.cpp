@@ -740,13 +740,13 @@ GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
     // continue depending of tag
     switch (tag) {
         case GNE_TAG_WALKABLEAREA:
-            return GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA);
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_WALKABLEAREA);
         case GNE_TAG_OBSTACLE:
-            return GUIIconSubSys::getIcon(GUIIcon::OBSTACLE);
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_OBSTACLE);
         case GNE_TAG_WAITINGAREA:
-            return GUIIconSubSys::getIcon(GUIIcon::WAITINGAREA);
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_WAITINGAREA);
         case GNE_TAG_POIWAYPOINT:
-            return GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT);
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_WAYPOINT);
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }

@@ -1,5 +1,5 @@
 /* XPM */
-static const char *obstacle_xpm[] = {
+static const char *jps_obstacle_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 6 1",
 "  c black",

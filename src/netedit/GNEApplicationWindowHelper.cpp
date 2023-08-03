@@ -1362,22 +1362,22 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
 
     menuCheckLockWalkableAreas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                                  TL("WalkableAreas"), "", "",
-                                 GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA),
+                                 GUIIconSubSys::getIcon(GUIIcon::JPS_WALKABLEAREA),
                                  myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockObstacles = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                              TL("Obstacles"), "", "",
-                             GUIIconSubSys::getIcon(GUIIcon::OBSTACLE),
+                             GUIIconSubSys::getIcon(GUIIcon::JPS_OBSTACLE),
                              myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockWaitingAreas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                                 TL("WaitingAreas"), "", "",
-                                GUIIconSubSys::getIcon(GUIIcon::WAITINGAREA),
+                                GUIIconSubSys::getIcon(GUIIcon::JPS_WAITINGAREA),
                                 myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockPOIWaypoints = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                                 TL("POIWaypoints"), "", "",
-                                GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
+                                GUIIconSubSys::getIcon(GUIIcon::JPS_WAYPOINT),
                                 myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     // demand
