@@ -396,7 +396,10 @@ struct GNENetHelper {
 
         /// @brief get number of selected obstacles 
         int getNumberOfSelectedObstacles() const;
-
+        
+        /// @brief get number of selected waiting areas 
+        int getNumberOfSelectedWaitingAreas() const;
+        
         /// @brief get number of selected POIWaypoints 
         int getNumberOfSelectedPOIWaypoints() const;
 
