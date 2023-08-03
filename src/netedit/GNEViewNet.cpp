@@ -2427,7 +2427,8 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
                     (selectedShape->getTagProperty().getTag() == GNE_TAG_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_OBSTACLE)) {
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_OBSTACLE) ||
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_WAITINGAREA)) {
                     // simplify shape
                     dynamic_cast<GNEPoly*>(selectedShape)->simplifyShape();
                 }
@@ -2471,7 +2472,8 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
                     (selectedShape->getTagProperty().getTag() == GNE_TAG_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_OBSTACLE)) {
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_OBSTACLE) ||
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_WAITINGAREA)) {
                     // close polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->closePolygon();
                 }
@@ -2504,7 +2506,8 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
                     (selectedShape->getTagProperty().getTag() == GNE_TAG_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_OBSTACLE)) {
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_OBSTACLE) ||
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_WAITINGAREA)) {
                     // open polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->openPolygon();
                 }

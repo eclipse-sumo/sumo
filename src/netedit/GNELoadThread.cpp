@@ -396,6 +396,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("obstacle-prefix", new Option_String("jps.obstacle"));
     neteditOptions.addDescription("obstacle-prefix", "Netedit", TL("Prefix for obstacle naming"));
 
+    neteditOptions.doRegister("waitingArea-prefix", new Option_String("jps.waiting_area"));
+    neteditOptions.addDescription("waitingArea-prefix", "Netedit", TL("Prefix for waiting area naming"));
+
     neteditOptions.doRegister("poiWaypoint-prefix", new Option_String("jps.waypoint"));
     neteditOptions.addDescription("poiWaypoint-prefix", "Netedit", TL("Prefix for poi waypoints naming"));
 

@@ -717,6 +717,9 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_OBSTACLE)) {
                     ACsToLocate.push_back(obstacle);
                 }
+                for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_WAITINGAREA)) {
+                    ACsToLocate.push_back(obstacle);
+                }
                 break;
             default:
                 throw ProcessError("Unknown Message ID in onCmdLocate");

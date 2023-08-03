@@ -70,6 +70,7 @@ GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
     myLockedElements[GLO_POI] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_WALKABLEAREA] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_OBSTACLE] = OperationLocked(Supermode::NETWORK);
+    myLockedElements[GLO_WAITINGAREA] = OperationLocked(Supermode::NETWORK);
     myLockedElements[GLO_POIWAYPOINT] = OperationLocked(Supermode::NETWORK);
     // fill myLockedElements objects
     myLockedElements[GLO_ROUTE] = OperationLocked(Supermode::DEMAND);
@@ -138,6 +139,7 @@ GNEViewNetHelper::LockManager::updateFlags() {
     myLockedElements[GLO_POI].lock = lockMenuCommands.menuCheckLockPOIs->getCheck() == TRUE;
     myLockedElements[GLO_WALKABLEAREA].lock = lockMenuCommands.menuCheckLockWalkableAreas->getCheck() == TRUE;
     myLockedElements[GLO_OBSTACLE].lock = lockMenuCommands.menuCheckLockObstacles->getCheck() == TRUE;
+    myLockedElements[GLO_WAITINGAREA].lock = lockMenuCommands.menuCheckLockWaitingAreas->getCheck() == TRUE;
     myLockedElements[GLO_POIWAYPOINT].lock = lockMenuCommands.menuCheckLockPOIWaypoints->getCheck() == TRUE;
     // demand
     myLockedElements[GLO_ROUTE].lock = lockMenuCommands.menuCheckLockRoutes->getCheck() == TRUE;
@@ -175,6 +177,7 @@ GNEViewNetHelper::LockManager::updateLockMenuBar() {
     lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedElements[GLO_POI].lock);
     lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedElements[GLO_WALKABLEAREA].lock);
     lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedElements[GLO_OBSTACLE].lock);
+    lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedElements[GLO_WAITINGAREA].lock);
     lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedElements[GLO_POIWAYPOINT].lock);
     // demand
     lockMenuCommands.menuCheckLockRoutes->setCheck(myLockedElements[GLO_ROUTE].lock);
@@ -949,7 +952,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
                 container.POIs.push_back(POI);
             }
         }
-    } else if ((type == GLO_POLYGON) || (type == GLO_WALKABLEAREA) || (type == GLO_OBSTACLE)) {
+    } else if ((type == GLO_POLYGON) || (type == GLO_WALKABLEAREA) || (type == GLO_OBSTACLE) || (type == GLO_WAITINGAREA)) {
         // cast poly
         GNEPoly* poly = dynamic_cast<GNEPoly*>(AC);
         if (poly) {
