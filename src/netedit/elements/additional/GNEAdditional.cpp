@@ -663,6 +663,86 @@ GNEAdditional::getMoveOperationMultiLane(const double startPos, const double end
 }
 
 
+std::string
+GNEAdditional::getJuPedSimType(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_WALKABLEAREA:
+            return "jupedsim.walkable_area";
+        case GNE_TAG_OBSTACLE:
+            return "jupedsim.obstacle";
+        case GNE_TAG_POIWAYPOINT:
+            return "jupedsim.waypoint";
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+RGBColor
+GNEAdditional::getJuPedSimColor(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_WALKABLEAREA:
+            return RGBColor(179,217,255);
+        case GNE_TAG_OBSTACLE:
+            return RGBColor(255,204,204);
+        case GNE_TAG_POIWAYPOINT:
+            return RGBColor::CYAN;
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+double
+GNEAdditional::getJuPedSimLayer(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_WALKABLEAREA:
+            return 1;
+        case GNE_TAG_OBSTACLE:
+            return 2;
+        case GNE_TAG_POIWAYPOINT:
+            return 3;
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+GUIGlObjectType
+GNEAdditional::getJuPedSimGLO(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_WALKABLEAREA:
+            return GLO_WALKABLEAREA;
+        case GNE_TAG_OBSTACLE:
+            return GLO_OBSTACLE;
+        case GNE_TAG_POIWAYPOINT:
+            return GLO_POIWAYPOINT;
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+FXIcon*
+GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_WALKABLEAREA:
+            return GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA);
+        case GNE_TAG_OBSTACLE:
+            return GUIIconSubSys::getIcon(GUIIcon::OBSTACLE);
+        case GNE_TAG_POIWAYPOINT:
+            return GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT);
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
 GNELane*
 GNEAdditional::getFirstPathLane() const {
     return getParentLanes().front();

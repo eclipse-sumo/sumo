@@ -85,9 +85,10 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, double x, const double y, const std::string& name, const Parameterised::Map& parameters) :
-    PointOfInterest(id, "jupedsim.waypoint", RGBColor::CYAN, Position(x, y), false, "", 0, false, 0, 2, 0, "", false, 0, 0, name, parameters),
-    GNEAdditional(id, net, GLO_POIWAYPOINT, GNE_TAG_POIWAYPOINT, GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
-                  "", {}, {}, {}, {}, {}, {}) {
+    PointOfInterest(id, getJuPedSimType(GNE_TAG_POIWAYPOINT), getJuPedSimColor(GNE_TAG_POIWAYPOINT), Position(x, y),
+                    false, "", 0, false, 0, getJuPedSimLayer(GNE_TAG_POIWAYPOINT), 0, "", false, 0, 0, name, parameters),
+    GNEAdditional(id, net, getJuPedSimGLO(GNE_TAG_POIWAYPOINT), GNE_TAG_POIWAYPOINT, getJuPedSimIcon(GNE_TAG_POIWAYPOINT), "",
+                  {}, {}, {}, {}, {}, {}) {
     // update geometry (needed for adjust myShapeWidth and myShapeHeight)
     updateGeometry();
     // update centering boundary without updating grid

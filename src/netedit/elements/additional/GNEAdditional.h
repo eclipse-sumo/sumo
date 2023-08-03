@@ -394,6 +394,26 @@ protected:
     /// @brief get moveOperation for an element over multi lane
     GNEMoveOperation* getMoveOperationMultiLane(const double startPos, const double endPos);
 
+    /// @name JuPedSim values
+    /// @{
+
+    /// @brief get JuPedSim type
+    static std::string getJuPedSimType(SumoXMLTag tag);
+
+    /// @brief get JuPedSim color
+    static RGBColor getJuPedSimColor(SumoXMLTag tag);
+
+    /// @brief get JuPedSim color
+    static double getJuPedSimLayer(SumoXMLTag tag);
+
+    /// @brief get GLO color
+    static GUIGlObjectType getJuPedSimGLO(SumoXMLTag tag);
+
+    /// @brief get JuPedSim icon
+    static FXIcon* getJuPedSimIcon(SumoXMLTag tag);
+
+    /// @}
+
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if is called without be reimplemented in child class

@@ -79,17 +79,9 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, const std::string& name,
                  const Parameterised::Map& parameters) :
-    TesselatedPolygon(id, 
-                      (tag == GNE_TAG_WALKABLEAREA)? "jupedsim.walkable_area" : "jupedsim.obstacle", 
-                      (tag == GNE_TAG_WALKABLEAREA)? RGBColor(179,217,255) : RGBColor(255,204,204), 
-                      shape, false, true, 1, 
-                      (tag == GNE_TAG_WALKABLEAREA)? 1 : 2,
-                      0, "", false, name, parameters),
-    GNEAdditional(id, net,
-        (tag == GNE_TAG_WALKABLEAREA)? GLO_WALKABLEAREA : GLO_OBSTACLE,
-        tag,
-        (tag == GNE_TAG_WALKABLEAREA)? GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA) : GUIIconSubSys::getIcon(GUIIcon::OBSTACLE), 
-        "", {}, {}, {}, {}, {}, {}),
+    TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, false, true, 1, 
+                      getJuPedSimLayer(tag), 0, "", false, name, parameters),
+    GNEAdditional(id, net, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), "", {}, {}, {}, {}, {}, {}),
     mySimplifiedShape(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
