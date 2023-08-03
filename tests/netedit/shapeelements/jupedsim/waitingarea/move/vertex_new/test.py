@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to additional mode
-netedit.changeElement("walkableArea")
+netedit.changeElement("jps.waitingArea")
 
 # create Shape
 netedit.createSquaredShape(referencePosition, 500, 331, 600, True)

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("poiWaypoint")
+netedit.changeElement("jps.waypoint")
 
 # create poi with default values
 netedit.leftClick(referencePosition, 292, 117)

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("walkableArea")
+netedit.changeElement("jps.waitingArea")
 
 # create one-point polygon (area 0)
 netedit.createRectangledShape(referencePosition, 210, 136, 0, 0, True)

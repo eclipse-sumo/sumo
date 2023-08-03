@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to poly mode and select poly
-netedit.changeElement("walkableArea")
+netedit.changeElement("jps.waitingArea")
 
 # create first polygon
 netedit.createSquaredShape(referencePosition, 116, 139, 200, True)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 116, 139)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.walkableArea.inspect.id, "jps.walkable_area_0", False)
+netedit.modifyAttribute(netedit.attrs.waitingArea.inspect.id, "jps.walkable_area_0", False)
 
 # Change parameter 0 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.walkableArea.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.waitingArea.inspect.id, "", False)
 
 # Change parameter 0 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.walkableArea.inspect.id, "ID with spaces", False)
+netedit.modifyAttribute(netedit.attrs.waitingArea.inspect.id, "ID with spaces", False)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.walkableArea.inspect.id, "newID", False)
+netedit.modifyAttribute(netedit.attrs.waitingArea.inspect.id, "newID", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

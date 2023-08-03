@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("walkableArea")
+netedit.changeElement("jps.waitingArea")
 
 # create polygon with default values
 netedit.createSquaredShape(referencePosition, 210, 136, 200, True)

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("walkableArea")
+netedit.changeElement("jps.walkableArea")
 
 # change layer (invalid)
 netedit.changeDefaultValue(netedit.attrs.walkableArea.create.name, "%%%%%%$$$$")

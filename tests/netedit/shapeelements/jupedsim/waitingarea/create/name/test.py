@@ -32,16 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("walkableArea")
+netedit.changeElement("jps.waitingArea")
 
 # change layer (invalid)
-netedit.changeDefaultValue(netedit.attrs.walkableArea.create.name, "%%%%%%$$$$")
+netedit.changeDefaultValue(netedit.attrs.waitingArea.create.name, "%%%%%%$$$$")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # change layer (valid, negative)
-netedit.changeDefaultValue(netedit.attrs.walkableArea.create.name, "customName")
+netedit.changeDefaultValue(netedit.attrs.waitingArea.create.name, "customName")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, 592, 136, 200, True)

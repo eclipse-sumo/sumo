@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("walkableArea")
+netedit.changeElement("jps.walkableArea")
 
 # create open line polygon (area 0)
 netedit.createLineShape(referencePosition, 210, 136, 200, 200, False)
