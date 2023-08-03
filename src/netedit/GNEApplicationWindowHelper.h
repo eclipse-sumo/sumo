@@ -817,7 +817,10 @@ struct GNEApplicationWindowHelper {
 
         /// @brief menu check to lock obstacles
         MFXMenuCheckIcon* menuCheckLockObstacles = nullptr;
-
+        
+        /// @brief menu check to lock waiting areas
+        MFXMenuCheckIcon* menuCheckLockWaitingAreas = nullptr;
+        
         /// @brief menu check to lock POI Waypoints
         MFXMenuCheckIcon* menuCheckLockPOIWaypoints = nullptr;
 

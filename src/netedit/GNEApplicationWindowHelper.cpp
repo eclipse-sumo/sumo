@@ -1361,19 +1361,24 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                         myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockWalkableAreas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                            TL("WalkableAreas"), "", "",
-                            GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA),
-                            myGNEApp, MID_GNE_LOCK_ELEMENT);
+                                 TL("WalkableAreas"), "", "",
+                                 GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA),
+                                 myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockObstacles = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                            TL("Obstacles"), "", "",
-                            GUIIconSubSys::getIcon(GUIIcon::OBSTACLE),
-                            myGNEApp, MID_GNE_LOCK_ELEMENT);
+                             TL("Obstacles"), "", "",
+                             GUIIconSubSys::getIcon(GUIIcon::OBSTACLE),
+                             myGNEApp, MID_GNE_LOCK_ELEMENT);
+
+    menuCheckLockWaitingAreas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                                TL("WaitingAreas"), "", "",
+                                GUIIconSubSys::getIcon(GUIIcon::WAITINGAREA),
+                                myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockPOIWaypoints = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                            TL("POIWaypoints"), "", "",
-                            GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
-                            myGNEApp, MID_GNE_LOCK_ELEMENT);
+                                TL("POIWaypoints"), "", "",
+                                GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
+                                myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     // demand
     menuCheckLockRoutes = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
@@ -1477,6 +1482,7 @@ GNEApplicationWindowHelper::LockMenuCommands::removeHotkeys() {
     menuCheckLockPOIs->remHotKey(parseHotKey('o'));
     menuCheckLockWalkableAreas->remHotKey(parseHotKey('n'));
     menuCheckLockObstacles->remHotKey(parseHotKey('b'));
+    menuCheckLockWaitingAreas->remHotKey(parseHotKey('k'));
     menuCheckLockPOIWaypoints->remHotKey(parseHotKey('m'));
     // demand
     menuCheckLockRoutes->remHotKey(parseHotKey('r'));
@@ -1511,6 +1517,7 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockPOIs->enable();
     menuCheckLockWalkableAreas->enable();
     menuCheckLockObstacles->enable();
+    menuCheckLockWaitingAreas->enable();
     menuCheckLockPOIWaypoints->enable();
     // set accels
     menuCheckLockJunction->addHotKey(parseHotKey('j'));
@@ -1524,9 +1531,10 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockWires->addHotKey(parseHotKey('w'));
     menuCheckLockPolygons->addHotKey(parseHotKey('p'));
     menuCheckLockPOIs->addHotKey(parseHotKey('o'));
-    menuCheckLockWalkableAreas->remHotKey(parseHotKey('n'));
-    menuCheckLockObstacles->remHotKey(parseHotKey('b'));
-    menuCheckLockPOIWaypoints->remHotKey(parseHotKey('m'));
+    menuCheckLockWalkableAreas->addHotKey(parseHotKey('n'));
+    menuCheckLockObstacles->addHotKey(parseHotKey('b'));
+    menuCheckLockWaitingAreas->addHotKey(parseHotKey('k'));
+    menuCheckLockPOIWaypoints->addHotKey(parseHotKey('m'));
     // now show it
     menuCheckLockJunction->show();
     menuCheckLockEdges->show();
@@ -1541,6 +1549,7 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockPOIs->show();
     menuCheckLockWalkableAreas->show();
     menuCheckLockObstacles->show();
+    menuCheckLockWaitingAreas->show();
     menuCheckLockPOIWaypoints->show();
 }
 
@@ -1560,6 +1569,7 @@ GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     menuCheckLockPOIs->disable();
     menuCheckLockWalkableAreas->disable();
     menuCheckLockObstacles->disable();
+    menuCheckLockWaitingAreas->disable();
     menuCheckLockPOIWaypoints->disable();
     // now hide it
     menuCheckLockJunction->hide();
@@ -1575,6 +1585,7 @@ GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     menuCheckLockPOIs->hide();
     menuCheckLockWalkableAreas->hide();
     menuCheckLockObstacles->hide();
+    menuCheckLockWaitingAreas->hide();
     menuCheckLockPOIWaypoints->hide();
 }
 
@@ -1689,6 +1700,7 @@ GNEApplicationWindowHelper::LockMenuCommands::lockAll() {
     menuCheckLockPOIs->setCheck(TRUE);
     menuCheckLockWalkableAreas->setCheck(TRUE);
     menuCheckLockObstacles->setCheck(TRUE);
+    menuCheckLockWaitingAreas->setCheck(TRUE);
     menuCheckLockPOIWaypoints->setCheck(TRUE);
     menuCheckLockRoutes->setCheck(TRUE);
     menuCheckLockVehicles->setCheck(TRUE);
@@ -1721,6 +1733,7 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
     menuCheckLockPOIs->setCheck(FALSE);
     menuCheckLockWalkableAreas->setCheck(FALSE);
     menuCheckLockObstacles->setCheck(FALSE);
+    menuCheckLockWaitingAreas->setCheck(FALSE);
     menuCheckLockPOIWaypoints->setCheck(FALSE);
     menuCheckLockRoutes->setCheck(FALSE);
     menuCheckLockVehicles->setCheck(FALSE);
@@ -1763,6 +1776,8 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockPolygons->setCheck(value);
     } else if (AC->getTagProperty().getTag() == GNE_TAG_WALKABLEAREA) {
         menuCheckLockWalkableAreas->setCheck(value);
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_WAITINGAREA) {
+        menuCheckLockWaitingAreas->setCheck(value);
     } else if (AC->getTagProperty().getTag() == GNE_TAG_OBSTACLE) {
         menuCheckLockObstacles->setCheck(value);
     } else if (AC->getTagProperty().getTag() == GNE_TAG_POIWAYPOINT) {

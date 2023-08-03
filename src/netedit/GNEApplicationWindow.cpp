@@ -2635,6 +2635,8 @@ GNEApplicationWindow::onUpdSaveJuPedSimElementsAs(FXObject* sender, FXSelector, 
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_OBSTACLE).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_WAITINGAREA).size() > 0) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIWAYPOINT).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
