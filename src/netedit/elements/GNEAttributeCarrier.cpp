@@ -3342,18 +3342,18 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                                              TL("The id of the polygon"));
+                                              TL("The id of the walkable area"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SHAPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
-                                              TL("The shape of the polygon"));
+                                              TL("The shape of the walkable area"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Polygon's name"));
+                                              TL("Walkable area's name"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_OBSTACLE;
@@ -3366,18 +3366,42 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                                              TL("The id of the polygon"));
+                                              TL("The id of the obstacle"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SHAPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
-                                              TL("The shape of the polygon"));
+                                              TL("The shape of the obstacle"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Polygon's name"));
+                                              TL("Obstacle's name"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = GNE_TAG_WAITINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
+                                      GNETagProperties::TagProperty::RTREE,
+                                      GUIIcon::WAITINGAREA, SUMO_TAG_POLY, {}, FXRGBA(0, 255, 0, 255));
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
+                                              TL("The id of the waiting area"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SHAPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
+                                              TL("The shape of the waiting area"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("waiting area's name"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_POIWAYPOINT;
