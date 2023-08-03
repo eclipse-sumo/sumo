@@ -455,6 +455,7 @@ enum class GUIIcon {
     POIGEO,
     WALKABLEAREA,
     OBSTACLE,
+    WAITINGAREA,
     POIWAYPOINT,
     /// @}
 

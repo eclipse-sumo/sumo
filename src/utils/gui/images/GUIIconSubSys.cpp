@@ -328,6 +328,7 @@
 #include "poly.xpm"
 #include "walkablearea.xpm"
 #include "obstacle.xpm"
+#include "waitingarea.xpm"
 #include "poi.xpm"
 #include "poilane.xpm"
 #include "poigeo.xpm"
@@ -812,6 +813,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::POIGEO] = new FXXPMIcon(a, poigeo_xpm);
     myIcons[GUIIcon::WALKABLEAREA] = new FXXPMIcon(a, walkablearea_xpm);
     myIcons[GUIIcon::OBSTACLE] = new FXXPMIcon(a, obstacle_xpm);
+    myIcons[GUIIcon::WAITINGAREA] = new FXXPMIcon(a, waitingarea_xpm);
     myIcons[GUIIcon::POIWAYPOINT] = new FXXPMIcon(a, poiwaypoint_xpm);
 
     myIcons[GUIIcon::TAZ] = new FXXPMIcon(a, taz_xpm);
