@@ -329,12 +329,15 @@
 #include "poi.xpm"
 #include "poilane.xpm"
 #include "poigeo.xpm"
+
+#include "jps.xpm"
 #include "jps_walkablearea.xpm"
 #include "jps_obstacle.xpm"
 #include "jps_waitingarea.xpm"
 #include "jps_source.xpm"
 #include "jps_sink.xpm"
 #include "jps_waypoint.xpm"
+
 #include "taz.xpm"
 #include "tazedge.xpm"
 
@@ -812,6 +815,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::POI] = new FXXPMIcon(a, poi_xpm);
     myIcons[GUIIcon::POILANE] = new FXXPMIcon(a, poilane_xpm);
     myIcons[GUIIcon::POIGEO] = new FXXPMIcon(a, poigeo_xpm);
+
+    myIcons[GUIIcon::JPS] = new FXXPMIcon(a, jps_xpm);
     myIcons[GUIIcon::JPS_WALKABLEAREA] = new FXXPMIcon(a, jps_walkablearea_xpm);
     myIcons[GUIIcon::JPS_OBSTACLE] = new FXXPMIcon(a, jps_obstacle_xpm);
     myIcons[GUIIcon::JPS_WAITINGAREA] = new FXXPMIcon(a, jps_waitingarea_xpm);
