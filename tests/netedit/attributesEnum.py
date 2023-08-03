@@ -1431,10 +1431,10 @@ class jpsWaitingArea:
         name = 1
         parameters = 4
 
-# POI
+# jps waypoint
 
 
-class poiWaypoint:
+class jpsWaypoint:
     class create:
         id = 5
         name = 6
