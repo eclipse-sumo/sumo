@@ -40,6 +40,15 @@ public:
     /// @brief destructor
     ~GNENamespaces();
 
+    /// @brief busStops namespace
+    const std::vector<SumoXMLTag> busStops;
+
+    /// @brief lane area detectors namespace
+    const std::vector<SumoXMLTag> laneAreaDetectors;
+
+    /// @brief calibrators namespace
+    const std::vector<SumoXMLTag> calibrators;
+
     /// @brief polygon namespace
     const std::vector<SumoXMLTag> polygons;
 
@@ -50,7 +59,10 @@ public:
     const std::vector<SumoXMLTag> vehicles;
 
     /// @brief persons namespace
-    const std::vector<SumoXMLTag> person;
+    const std::vector<SumoXMLTag> persons;
+
+    /// @brief containers namespace
+    const std::vector<SumoXMLTag> containers;
 };
 
 /****************************************************************************/

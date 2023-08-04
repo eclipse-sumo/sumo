@@ -31,14 +31,17 @@
 // ===========================================================================
 
 GNENamespaces::GNENamespaces() :
+    busStops({SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP}),
+    laneAreaDetectors({SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR}),
+    calibrators({SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE}),
     polygons({SUMO_TAG_POLY, SUMO_TAG_TAZ, GNE_TAG_JPS_WALKABLEAREA, GNE_TAG_JPS_OBSTACLE, GNE_TAG_JPS_WAITINGAREA, GNE_TAG_JPS_SOURCE, GNE_TAG_JPS_SINK}),
     POIs({SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO, GNE_TAG_JPS_WAYPOINT}),
     vehicles({}),
-    person({}) {
+    persons({}),
+    containers({}) {
 }
 
 
 GNENamespaces::~GNENamespaces() {}
-
 
 /****************************************************************************/
