@@ -33,6 +33,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNETAZ.h"
 
@@ -553,7 +554,7 @@ bool
 GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(Namespaces.polygons, value);
+            return isValidAdditionalID(NamespaceIDs::polygons, value);
         case SUMO_ATTR_SHAPE:
             if (value.empty()) {
                 return false;

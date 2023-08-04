@@ -53,6 +53,7 @@
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"
@@ -546,7 +547,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserVehicles;
                 locateTitle = TL("Vehicle Chooser");
                 // fill ACsToLocate with all vehicles
-                for (const auto &vehicleTag : GNEAttributeCarrier::Namespaces.vehicles) {
+                for (const auto &vehicleTag : NamespaceIDs::vehicles) {
                     for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(vehicleTag)) {
                         ACsToLocate.push_back(flowTAZ);
                     }
@@ -557,7 +558,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserPersons;
                 locateTitle = TL("Person Chooser");
                 // fill ACsToLocate with all vehicles
-                for (const auto &personTag : GNEAttributeCarrier::Namespaces.persons) {
+                for (const auto &personTag : NamespaceIDs::persons) {
                     for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(personTag)) {
                         ACsToLocate.push_back(flowTAZ);
                     }
@@ -574,7 +575,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserStops;
                 locateTitle = TL("Stop Chooser");
                 // fill ACsToLocate with all vehicles
-                for (const auto &stopTag : GNEAttributeCarrier::Namespaces.stops) {
+                for (const auto &stopTag : NamespaceIDs::stops) {
                     for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(stopTag)) {
                         ACsToLocate.push_back(flowTAZ);
                     }
@@ -608,7 +609,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserPOI;
                 locateTitle = TL("POI Chooser");
                 // fill ACsToLocate with all POIs
-                for (const auto &POITag : GNEAttributeCarrier::Namespaces.POIs) {
+                for (const auto &POITag : NamespaceIDs::POIs) {
                     for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(POITag)) {
                         ACsToLocate.push_back(flowTAZ);
                     }
@@ -618,7 +619,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserPolygon;
                 locateTitle = TL("Poly Chooser");
                 // fill ACsToLocate with all polygons
-                for (const auto &polygonTag : GNEAttributeCarrier::Namespaces.polygons) {
+                for (const auto &polygonTag : NamespaceIDs::polygons) {
                     for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(polygonTag)) {
                         ACsToLocate.push_back(flowTAZ);
                     }

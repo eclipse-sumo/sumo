@@ -35,6 +35,7 @@
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEPOI.h"
 #include "GNEAdditionalHandler.h"
@@ -541,7 +542,7 @@ bool
 GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(Namespaces.POIs, value);
+            return isValidAdditionalID(NamespaceIDs::POIs, value);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:

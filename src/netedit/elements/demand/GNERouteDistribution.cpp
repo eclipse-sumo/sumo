@@ -21,6 +21,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNERouteDistribution.h"
 
@@ -257,7 +258,7 @@ bool
 GNERouteDistribution::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidDemandElementID(Namespaces.routes, value);
+            return isValidDemandElementID(NamespaceIDs::routes, value);
         case SUMO_ATTR_DETERMINISTIC:
             if (value == "-1" || value.empty()) {
                 return true;

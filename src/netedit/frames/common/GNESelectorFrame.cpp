@@ -29,6 +29,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNESelectorFrame.h"
 #include "GNEElementSet.h"
@@ -827,7 +828,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     }
     // invert vehicles
     if (ignoreLocking || !locks.isObjectLocked(GLO_VEHICLE, false)) {
-        for (const auto& vehicleTag : GNEAttributeCarrier::Namespaces.vehicles) {
+        for (const auto& vehicleTag : NamespaceIDs::vehicles) {
             for (const auto& vehicle : demandElements.at(vehicleTag)) {
                 if (onlyCount) {
                     return true;
@@ -844,7 +845,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     }
     // invert persons
     if (ignoreLocking || !locks.isObjectLocked(GLO_PERSON, false)) {
-        for (const auto& personTag : GNEAttributeCarrier::Namespaces.persons) {
+        for (const auto& personTag : NamespaceIDs::persons) {
             for (const auto& person : demandElements.at(personTag)) {
                 if (onlyCount) {
                     return true;
@@ -981,7 +982,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     }
     // invert container
     if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSPORT, false)) {
-        for (const auto& containerTag : GNEAttributeCarrier::Namespaces.containers) {
+        for (const auto& containerTag : NamespaceIDs::containers) {
             for (const auto& container : demandElements.at(containerTag)) {
                 if (onlyCount) {
                     return true;

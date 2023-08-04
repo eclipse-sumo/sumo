@@ -25,6 +25,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNECalibrator.h"
 
@@ -359,7 +360,7 @@ bool
 GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(Namespaces.calibrators, value);
+            return isValidAdditionalID(NamespaceIDs::calibrators, value);
         case SUMO_ATTR_EDGE:
             if (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) {
                 return true;

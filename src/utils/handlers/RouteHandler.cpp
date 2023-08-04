@@ -28,6 +28,7 @@
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "RouteHandler.h"
 
@@ -659,8 +660,8 @@ RouteHandler::parseStop(const SUMOSAXAttributes& attrs) {
     SUMOVehicleParameter::Stop stop;
     // get parents
     std::vector<SumoXMLTag> stopParents;
-    stopParents.insert(stopParents.end(), GNEAttributeCarrier::Namespaces.vehicles.begin(), GNEAttributeCarrier::Namespaces.vehicles.end());
-    stopParents.insert(stopParents.end(), GNEAttributeCarrier::Namespaces.routes.begin(), GNEAttributeCarrier::Namespaces.routes.end());
+    stopParents.insert(stopParents.end(), NamespaceIDs::vehicles.begin(), NamespaceIDs::vehicles.end());
+    stopParents.insert(stopParents.end(), NamespaceIDs::routes.begin(), NamespaceIDs::routes.end());
     //  check parents
     checkParent(SUMO_TAG_STOP, stopParents, parsedOk);
     // parse stop

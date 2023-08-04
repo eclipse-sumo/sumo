@@ -29,6 +29,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNELaneAreaDetector.h"
 #include "GNEAdditionalHandler.h"
@@ -646,7 +647,7 @@ bool
 GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidDetectorID(Namespaces.laneAreaDetectors, value);
+            return isValidDetectorID(NamespaceIDs::laneAreaDetectors, value);
         case SUMO_ATTR_LANE:
             if (value.empty()) {
                 return false;

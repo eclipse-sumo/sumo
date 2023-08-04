@@ -28,6 +28,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEBusStop.h"
 
@@ -297,7 +298,7 @@ bool
 GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(Namespaces.busStops, value);
+            return isValidAdditionalID(NamespaceIDs::busStops, value);
         case SUMO_ATTR_LANE:
             if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
                 return true;

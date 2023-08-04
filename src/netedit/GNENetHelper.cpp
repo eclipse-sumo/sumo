@@ -44,6 +44,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNENetHelper.h"
 
@@ -1154,8 +1155,6 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
 
 std::string
 GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
-    // get GNENamespaces
-    const auto &namepaces = GNEAttributeCarrier::Namespaces;
     // obtain option container
     const auto& neteditOptions = OptionsCont::getOptions();
     // get prefix
@@ -1211,24 +1210,24 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
     }
     int counter = 0;
     // check namespaces
-    if (std::find(namepaces.busStops.begin(), namepaces.busStops.end(), tag) != namepaces.busStops.end()) {
-        while (retrieveAdditionals(namepaces.busStops, prefix + "_" + toString(counter), false) != nullptr) {
+    if (std::find(NamespaceIDs::busStops.begin(), NamespaceIDs::busStops.end(), tag) != NamespaceIDs::busStops.end()) {
+        while (retrieveAdditionals(NamespaceIDs::busStops, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if (std::find(namepaces.calibrators.begin(), namepaces.calibrators.end(), tag) != namepaces.calibrators.end()) {
-        while (retrieveAdditionals(namepaces.calibrators, prefix + "_" + toString(counter), false) != nullptr) {
+    } else if (std::find(NamespaceIDs::calibrators.begin(), NamespaceIDs::calibrators.end(), tag) != NamespaceIDs::calibrators.end()) {
+        while (retrieveAdditionals(NamespaceIDs::calibrators, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if (std::find(namepaces.polygons.begin(), namepaces.polygons.end(), tag) != namepaces.polygons.end()) {
-        while (retrieveAdditionals(namepaces.polygons, prefix + "_" + toString(counter), false) != nullptr) {
+    } else if (std::find(NamespaceIDs::polygons.begin(), NamespaceIDs::polygons.end(), tag) != NamespaceIDs::polygons.end()) {
+        while (retrieveAdditionals(NamespaceIDs::polygons, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if (std::find(namepaces.POIs.begin(), namepaces.POIs.end(), tag) != namepaces.POIs.end()) {
-        while (retrieveAdditionals(namepaces.POIs, prefix + "_" + toString(counter), false) != nullptr) {
+    } else if (std::find(NamespaceIDs::POIs.begin(), NamespaceIDs::POIs.end(), tag) != NamespaceIDs::POIs.end()) {
+        while (retrieveAdditionals(NamespaceIDs::POIs, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if (std::find(namepaces.laneAreaDetectors.begin(), namepaces.laneAreaDetectors.end(), tag) != namepaces.laneAreaDetectors.end()) {
-        while (retrieveAdditionals(namepaces.laneAreaDetectors, prefix + "_" + toString(counter), false) != nullptr) {
+    } else if (std::find(NamespaceIDs::laneAreaDetectors.begin(), NamespaceIDs::laneAreaDetectors.end(), tag) != NamespaceIDs::laneAreaDetectors.end()) {
+        while (retrieveAdditionals(NamespaceIDs::laneAreaDetectors, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
     } else {
@@ -1532,8 +1531,6 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     const auto& neteditOptions = OptionsCont::getOptions();
     // get tag property
     const auto tagProperty = GNEAttributeCarrier::getTagProperty(tag);
-    // get GNENamespaces
-    const auto &namepaces = GNEAttributeCarrier::Namespaces;
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_ROUTE) {
@@ -1565,24 +1562,24 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     }
     // declare counter
     int counter = 0;
-    if (std::find(namepaces.types.begin(), namepaces.types.end(), tag) != namepaces.types.end()) {
-        while (retrieveDemandElements(namepaces.types, prefix + "_" + toString(counter), false) != nullptr) {
+    if (std::find(NamespaceIDs::types.begin(), NamespaceIDs::types.end(), tag) != NamespaceIDs::types.end()) {
+        while (retrieveDemandElements(NamespaceIDs::types, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if (std::find(namepaces.routes.begin(), namepaces.routes.end(), tag) != namepaces.routes.end()) {
-        while (retrieveDemandElements(namepaces.routes, prefix + "_" + toString(counter), false) != nullptr) {
+    } else if (std::find(NamespaceIDs::routes.begin(), NamespaceIDs::routes.end(), tag) != NamespaceIDs::routes.end()) {
+        while (retrieveDemandElements(NamespaceIDs::routes, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if (std::find(namepaces.persons.begin(), namepaces.persons.end(), tag) != namepaces.persons.end()) {
-        while (retrieveDemandElements(namepaces.persons, prefix + "_" + toString(counter), false) != nullptr) {
+    } else if (std::find(NamespaceIDs::persons.begin(), NamespaceIDs::persons.end(), tag) != NamespaceIDs::persons.end()) {
+        while (retrieveDemandElements(NamespaceIDs::persons, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if (std::find(namepaces.containers.begin(), namepaces.containers.end(), tag) != namepaces.containers.end()) {
-        while (retrieveDemandElements(namepaces.containers, prefix + "_" + toString(counter), false) != nullptr) {
+    } else if (std::find(NamespaceIDs::containers.begin(), NamespaceIDs::containers.end(), tag) != NamespaceIDs::containers.end()) {
+        while (retrieveDemandElements(NamespaceIDs::containers, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if (std::find(namepaces.vehicles.begin(), namepaces.vehicles.end(), tag) != namepaces.vehicles.end()) {
-        while (retrieveDemandElements(namepaces.vehicles, prefix + "_" + toString(counter), false) != nullptr) {
+    } else if (std::find(NamespaceIDs::vehicles.begin(), NamespaceIDs::vehicles.end(), tag) != NamespaceIDs::vehicles.end()) {
+        while (retrieveDemandElements(NamespaceIDs::vehicles, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
     } else {

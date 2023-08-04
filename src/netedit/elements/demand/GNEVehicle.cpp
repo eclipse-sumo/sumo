@@ -35,6 +35,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEVehicle.h"
 #include "GNERouteHandler.h"
@@ -1596,9 +1597,9 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidDemandElementID(Namespaces.vehicles, value);
+            return isValidDemandElementID(NamespaceIDs::vehicles, value);
         case SUMO_ATTR_TYPE:
-            return (myNet->getAttributeCarriers()->retrieveDemandElements(Namespaces.types, value, false) == nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) == nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTLANE: {

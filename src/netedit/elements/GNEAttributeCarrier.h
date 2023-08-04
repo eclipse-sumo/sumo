@@ -24,7 +24,6 @@
 #include <netedit/GNEReferenceCounter.h>
 
 #include "GNETagProperties.h"
-#include "GNENamespaces.h"
 
 
 // ===========================================================================
@@ -287,9 +286,6 @@ public:
 
     /// @brief true value in string format(used for comparing boolean values in getAttribute(...))
     static const std::string False;
-
-    /// @brief namespaces
-    static const GNENamespaces Namespaces;
 
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier

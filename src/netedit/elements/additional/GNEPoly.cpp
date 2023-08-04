@@ -32,6 +32,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEPoly.h"
 
@@ -690,7 +691,7 @@ bool
 GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(Namespaces.polygons, value);
+            return isValidAdditionalID(NamespaceIDs::polygons, value);
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_GEOSHAPE:
             // empty shapes AREN'T allowed

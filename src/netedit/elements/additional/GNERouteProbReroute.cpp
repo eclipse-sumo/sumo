@@ -22,6 +22,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNERouteProbReroute.h"
 
@@ -187,7 +188,7 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_ROUTE:
-            return (myNet->getAttributeCarriers()->retrieveDemandElements(Namespaces.routes, value, false) == nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::routes, value, false) == nullptr);
         case SUMO_ATTR_PROB:
             return canParse<double>(value);
         case GNE_ATTR_SELECTED:

@@ -18,10 +18,12 @@
 // Builds trigger objects for netedit
 /****************************************************************************/
 #include <config.h>
+
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEAdditionalHandler.h"
 #include "GNEAccess.h"
@@ -1298,7 +1300,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
     // check TAZ
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TAZ, id);
-    } else if (!checkDuplicatedID(GNEAttributeCarrier::Namespaces.polygons, id)) {
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
         writeErrorDuplicated(SUMO_TAG_TAZ, id);
     } else if (TAZShape.size() == 0) {
         writeError(TLF("Could not build TAZ with ID '%' in netedit; Invalid Shape.", id));
@@ -1597,7 +1599,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
         buildJpsSink(sumoBaseObject, id, shape, name, parameters);
     } else if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
-    } else if (!checkDuplicatedID(GNEAttributeCarrier::Namespaces.polygons, id)) {
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
         writeErrorDuplicated(SUMO_TAG_POLY, id);
     } else if (lineWidth < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POLY, id, SUMO_ATTR_LINEWIDTH);
@@ -1636,7 +1638,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
-    } else if (checkDuplicatedID(GNEAttributeCarrier::Namespaces.POIs, id)) {
+    } else if (checkDuplicatedID(NamespaceIDs::POIs, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POI
@@ -1671,7 +1673,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
-    } else if (checkDuplicatedID(GNEAttributeCarrier::Namespaces.POIs, id)) {
+    } else if (checkDuplicatedID(NamespaceIDs::POIs, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -1718,7 +1720,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
     } else if (GeoConvHelper::getFinal().getProjString() == "!") {
         writeError(TLF("Could not build POI with ID '%' in netedit", id) + std::string("; ") + TL("Network requires a geo projection."));
-    } else if (checkDuplicatedID(GNEAttributeCarrier::Namespaces.POIs, id)) {
+    } else if (checkDuplicatedID(NamespaceIDs::POIs, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POIGEO
@@ -1746,7 +1748,7 @@ GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObj
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(GNE_TAG_JPS_WALKABLEAREA, id);
-    } else if (!checkDuplicatedID(GNEAttributeCarrier::Namespaces.polygons, id)) {
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
         writeErrorDuplicated(GNE_TAG_JPS_WALKABLEAREA, id);
     } else {
         // get netedit parameters
@@ -1774,7 +1776,7 @@ GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject*
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);
-    } else if (!checkDuplicatedID(GNEAttributeCarrier::Namespaces.polygons, id)) {
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
         writeErrorDuplicated(GNE_TAG_JPS_OBSTACLE, id);
     } else {
         // get netedit parameters
@@ -1802,7 +1804,7 @@ GNEAdditionalHandler::buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObje
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);
-    } else if (!checkDuplicatedID(GNEAttributeCarrier::Namespaces.polygons, id)) {
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
         writeErrorDuplicated(GNE_TAG_JPS_WAITINGAREA, id);
     } else {
         // get netedit parameters
@@ -1830,7 +1832,7 @@ GNEAdditionalHandler::buildJpsSource(const CommonXMLStructure::SumoBaseObject* s
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);
-    } else if (!checkDuplicatedID(GNEAttributeCarrier::Namespaces.polygons, id)) {
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
         writeErrorDuplicated(GNE_TAG_JPS_WAITINGAREA, id);
     } else {
         // get netedit parameters
@@ -1858,7 +1860,7 @@ GNEAdditionalHandler::buildJpsSink(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);
-    } else if (!checkDuplicatedID(GNEAttributeCarrier::Namespaces.polygons, id)) {
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
         writeErrorDuplicated(GNE_TAG_JPS_WAITINGAREA, id);
     } else {
         // get netedit parameters
@@ -1886,7 +1888,7 @@ GNEAdditionalHandler::buildJpsWaypoint(const CommonXMLStructure::SumoBaseObject*
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(GNE_TAG_JPS_WAYPOINT, id);
-    } else if (checkDuplicatedID(GNEAttributeCarrier::Namespaces.POIs, id)) {
+    } else if (checkDuplicatedID(NamespaceIDs::POIs, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POI

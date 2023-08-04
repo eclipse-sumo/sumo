@@ -24,6 +24,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNECalibratorFlow.h"
 
@@ -371,9 +372,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_TYPE:
-            return (myNet->getAttributeCarriers()->retrieveDemandElements(Namespaces.types, value, false) == nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) == nullptr);
         case SUMO_ATTR_ROUTE:
-            return (myNet->getAttributeCarriers()->retrieveDemandElements(Namespaces.routes, value, false) == nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::routes, value, false) == nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
             if (value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
