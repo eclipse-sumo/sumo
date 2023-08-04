@@ -390,17 +390,23 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("poi-prefix", new Option_String("poi"));
     neteditOptions.addDescription("poi-prefix", "Netedit", TL("Prefix for poi naming"));
 
-    neteditOptions.doRegister("walkableArea-prefix", new Option_String("jps.walkable_area"));
-    neteditOptions.addDescription("walkableArea-prefix", "Netedit", TL("Prefix for walkable area naming"));
+    neteditOptions.doRegister("jps.walkableArea-prefix", new Option_String("jps.walkable_area"));
+    neteditOptions.addDescription("jps.walkableArea-prefix", "Netedit", TL("Prefix for jps walkable area naming"));
 
-    neteditOptions.doRegister("obstacle-prefix", new Option_String("jps.obstacle"));
-    neteditOptions.addDescription("obstacle-prefix", "Netedit", TL("Prefix for obstacle naming"));
+    neteditOptions.doRegister("jps.obstacle-prefix", new Option_String("jps.obstacle"));
+    neteditOptions.addDescription("jps.obstacle-prefix", "Netedit", TL("Prefix for jps obstacle naming"));
 
-    neteditOptions.doRegister("waitingArea-prefix", new Option_String("jps.waiting_area"));
-    neteditOptions.addDescription("waitingArea-prefix", "Netedit", TL("Prefix for waiting area naming"));
+    neteditOptions.doRegister("jps.waitingArea-prefix", new Option_String("jps.waiting_area"));
+    neteditOptions.addDescription("jps.waitingArea-prefix", "Netedit", TL("Prefix for jps waiting area naming"));
 
-    neteditOptions.doRegister("poiWaypoint-prefix", new Option_String("jps.waypoint"));
-    neteditOptions.addDescription("poiWaypoint-prefix", "Netedit", TL("Prefix for poi waypoints naming"));
+    neteditOptions.doRegister("jps.source-prefix", new Option_String("jps.source"));
+    neteditOptions.addDescription("jps.source-prefix", "Netedit", TL("Prefix for jps source naming"));
+
+    neteditOptions.doRegister("jps.sink-prefix", new Option_String("jps.sink"));
+    neteditOptions.addDescription("jps.sink-prefix", "Netedit", TL("Prefix for jps sink naming"));
+
+    neteditOptions.doRegister("jps.waypoint-prefix", new Option_String("jps.waypoint"));
+    neteditOptions.addDescription("jps.waypoint-prefix", "Netedit", TL("Prefix for jps waypoints naming"));
 
     // demand prefixes
 
