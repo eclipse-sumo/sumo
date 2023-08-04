@@ -646,14 +646,7 @@ bool
 GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (value == getID()) {
-                return true;
-            } else if (isValidDetectorID(value)) {
-                return (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_MULTI_LANE_AREA_DETECTOR, value, false) == nullptr) &&
-                       (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_LANE_AREA_DETECTOR, value, false) == nullptr);
-            } else {
-                return false;
-            }
+            return isValidDetectorID(Namespaces.laneAreaDetectors, value);
         case SUMO_ATTR_LANE:
             if (value.empty()) {
                 return false;

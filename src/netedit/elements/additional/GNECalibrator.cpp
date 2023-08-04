@@ -359,7 +359,7 @@ bool
 GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
+            return isValidAdditionalID(Namespaces.calibrators, value);
         case SUMO_ATTR_EDGE:
             if (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) {
                 return true;
