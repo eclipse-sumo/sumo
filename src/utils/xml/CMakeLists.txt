@@ -6,8 +6,8 @@ set(utils_xml_STAT_SRCS
    GenericSAXHandler.cpp
    GenericSAXHandler.h
    IStreamInputSource.h
-   NamespaceID.cpp
-   NamespaceID.h
+   NamespaceIDs.cpp
+   NamespaceIDs.h
    SAXWeightsHandler.cpp
    SAXWeightsHandler.h
    SUMOSAXAttributes.cpp
