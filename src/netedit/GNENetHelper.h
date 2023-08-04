@@ -392,16 +392,22 @@ struct GNENetHelper {
         int getNumberOfSelectedPolygons() const;
 
         /// @brief get number of selected walkable areas
-        int getNumberOfSelectedWalkableAreas() const;
+        int getNumberOfSelectedJpsWalkableAreas() const;
 
         /// @brief get number of selected obstacles 
-        int getNumberOfSelectedObstacles() const;
+        int getNumberOfSelectedJpsObstacles() const;
         
         /// @brief get number of selected waiting areas 
-        int getNumberOfSelectedWaitingAreas() const;
+        int getNumberOfSelectedJpsWaitingAreas() const;
+
+        /// @brief get number of selected sources
+        int getNumberOfSelectedJpsSources() const;
         
+        /// @brief get number of selected sinks
+        int getNumberOfSelectedJpsSinks() const;
+
         /// @brief get number of selected POIWaypoints 
-        int getNumberOfSelectedPOIWaypoints() const;
+        int getNumberOfSelectedJpsWaypoints() const;
 
         /// @brief get number of selected POIs
         int getNumberOfSelectedPOIs() const;

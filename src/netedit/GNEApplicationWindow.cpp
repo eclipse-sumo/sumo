@@ -2637,6 +2637,10 @@ GNEApplicationWindow::onUpdSaveJuPedSimElementsAs(FXObject* sender, FXSelector, 
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAITINGAREA).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_SOURCE).size() > 0) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_SINK).size() > 0) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAYPOINT).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
