@@ -524,7 +524,6 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_SHIFT_J_LOCATEJUNCTION:
                 chooserLoc = &myACChoosers.ACChooserJunction;
                 locateTitle = TL("Junction Chooser");
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
                     ACsToLocate.push_back(junction.second);
                 }
@@ -532,7 +531,6 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
                 chooserLoc = &myACChoosers.ACChooserEdges;
                 locateTitle = TL("Edge Chooser");
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getEdges().size());
                 for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
                     ACsToLocate.push_back(edge.second);
                 }
@@ -540,7 +538,6 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA:
                 chooserLoc = &myACChoosers.ACChooserWalkingAreas;
                 locateTitle = TL("WalkingArea Chooser");
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getWalkingAreas().size());
                 for (const auto& walkingArea : viewNet->getNet()->getAttributeCarriers()->getWalkingAreas()) {
                     ACsToLocate.push_back(walkingArea);
                 }
@@ -548,78 +545,27 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_SHIFT_V_LOCATEVEHICLE: {
                 chooserLoc = &myACChoosers.ACChooserVehicles;
                 locateTitle = TL("Vehicle Chooser");
-                const auto demandElements = viewNet->getNet()->getAttributeCarriers()->getDemandElements();
-                // reserve memory
-                ACsToLocate.reserve(demandElements.at(SUMO_TAG_VEHICLE).size() +
-                                    demandElements.at(SUMO_TAG_TRIP).size() +
-                                    demandElements.at(GNE_TAG_VEHICLE_WITHROUTE).size() +
-                                    demandElements.at(GNE_TAG_TRIP_JUNCTIONS).size() +
-                                    demandElements.at(GNE_TAG_TRIP_TAZS).size() +
-                                    demandElements.at(SUMO_TAG_FLOW).size() +
-                                    demandElements.at(GNE_TAG_FLOW_ROUTE).size() +
-                                    demandElements.at(GNE_TAG_FLOW_WITHROUTE).size() +
-                                    demandElements.at(GNE_TAG_FLOW_JUNCTIONS).size() + 
-                                    demandElements.at(GNE_TAG_FLOW_TAZS).size());
-                // fill ACsToLocate with vehicles,...
-                for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {
-                    ACsToLocate.push_back(vehicle);
-                }
-                // ...trips,...
-                for (const auto& trip : demandElements.at(SUMO_TAG_TRIP)) {
-                    ACsToLocate.push_back(trip);
-                }
-                // ...vehicles with embedded routes,...
-                for (const auto& tripEmbedded : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
-                    ACsToLocate.push_back(tripEmbedded);
-                }
-                // ...trips over junctions,...
-                for (const auto& tripJunction : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
-                    ACsToLocate.push_back(tripJunction);
-                }
-                // ...trips over TAZs,...
-                for (const auto& tripTAZ : demandElements.at(GNE_TAG_TRIP_TAZS)) {
-                    ACsToLocate.push_back(tripTAZ);
-                }
-                // ...flows,...
-                for (const auto& flow : demandElements.at(SUMO_TAG_FLOW)) {
-                    ACsToLocate.push_back(flow);
-                }
-                // ...flows over routes,...
-                for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_ROUTE)) {
-                    ACsToLocate.push_back(flowRoute);
-                }
-                // ...flows with embedded routes...
-                for (const auto& flowRouteEmbedded : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
-                    ACsToLocate.push_back(flowRouteEmbedded);
-                }
-                // ... and flows over junctions.
-                for (const auto& flowJunction : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
-                    ACsToLocate.push_back(flowJunction);
-                }
-                // ... and flows over TAZs.
-                for (const auto& flowTAZ : demandElements.at(GNE_TAG_FLOW_TAZS)) {
-                    ACsToLocate.push_back(flowTAZ);
+                // fill ACsToLocate with all vehicles
+                for (const auto &vehicleTag : GNEAttributeCarrier::Namespaces.vehicles) {
+                    for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(vehicleTag)) {
+                        ACsToLocate.push_back(flowTAZ);
+                    }
                 }
                 break;
             }
             case MID_HOTKEY_SHIFT_P_LOCATEPERSON:
                 chooserLoc = &myACChoosers.ACChooserPersons;
                 locateTitle = TL("Person Chooser");
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() +
-                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW).size());
-                // fill ACsToLocate with persons
-                for (const auto& person : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON)) {
-                    ACsToLocate.push_back(person);
-                }
-                // fill ACsToLocate with personFlows
-                for (const auto& personFlow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW)) {
-                    ACsToLocate.push_back(personFlow);
+                // fill ACsToLocate with all vehicles
+                for (const auto &personTag : GNEAttributeCarrier::Namespaces.persons) {
+                    for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(personTag)) {
+                        ACsToLocate.push_back(flowTAZ);
+                    }
                 }
                 break;
             case MID_HOTKEY_SHIFT_R_LOCATEROUTE:
                 chooserLoc = &myACChoosers.ACChooserRoutes;
                 locateTitle = TL("Route Chooser");
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
                 for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
                     ACsToLocate.push_back(route);
                 }
@@ -627,36 +573,11 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_SHIFT_S_LOCATESTOP: {
                 chooserLoc = &myACChoosers.ACChooserStops;
                 locateTitle = TL("Stop Chooser");
-                // reserve memory
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_LANE).size() +
-                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_BUSSTOP).size() +
-                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_TRAINSTOP).size() +
-                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_CONTAINERSTOP).size() +
-                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_CHARGINGSTATION).size() +
-                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_PARKINGAREA).size());
-                // fill ACsToLocate with stop over lanes
-                for (const auto& stopLane : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_LANE)) {
-                    ACsToLocate.push_back(stopLane);
-                }
-                // fill ACsToLocate with stop over bus stops
-                for (const auto& stopBusStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_BUSSTOP)) {
-                    ACsToLocate.push_back(stopBusStop);
-                }
-                // fill ACsToLocate with stop over train stops
-                for (const auto& stopTrainStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_TRAINSTOP)) {
-                    ACsToLocate.push_back(stopTrainStop);
-                }
-                // fill ACsToLocate with stop over container stops
-                for (const auto& stopContainerStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_CONTAINERSTOP)) {
-                    ACsToLocate.push_back(stopContainerStop);
-                }
-                // fill ACsToLocate with stop over charging stations
-                for (const auto& stopChargingStation : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_CHARGINGSTATION)) {
-                    ACsToLocate.push_back(stopChargingStation);
-                }
-                // fill ACsToLocate with stop over parking areas
-                for (const auto& stopParkingArea : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOP_PARKINGAREA)) {
-                    ACsToLocate.push_back(stopParkingArea);
+                // fill ACsToLocate with all vehicles
+                for (const auto &stopTag : GNEAttributeCarrier::Namespaces.stops) {
+                    for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(stopTag)) {
+                        ACsToLocate.push_back(flowTAZ);
+                    }
                 }
                 break;
             }
@@ -664,7 +585,6 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserTLS;
                 locateTitle = TL("TLS Chooser");
                 // fill ACsToLocate with junctions that haven TLS
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
                     if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
                         ACsToLocate.push_back(junction.second);
@@ -687,44 +607,21 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_SHIFT_O_LOCATEPOI:
                 chooserLoc = &myACChoosers.ACChooserPOI;
                 locateTitle = TL("POI Chooser");
-                // fill ACsToLocate with POIs
-                for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POI)) {
-                    ACsToLocate.push_back(POI);
-                }
-                for (const auto& POILane : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POILANE)) {
-                    ACsToLocate.push_back(POILane);
-                }
-                for (const auto& POIGeo : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIGEO)) {
-                    ACsToLocate.push_back(POIGeo);
-                }
-                for (const auto& POIWayPoint : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAYPOINT)) {
-                    ACsToLocate.push_back(POIWayPoint);
+                // fill ACsToLocate with all POIs
+                for (const auto &POITag : GNEAttributeCarrier::Namespaces.POIs) {
+                    for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(POITag)) {
+                        ACsToLocate.push_back(flowTAZ);
+                    }
                 }
                 break;
             case MID_HOTKEY_SHIFT_L_LOCATEPOLY:
                 chooserLoc = &myACChoosers.ACChooserPolygon;
                 locateTitle = TL("Poly Chooser");
-                // fill ACsToLocate with polys, TAZs, walkableAreas and obstacles (because share namespae)
-                for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POLY)) {
-                    ACsToLocate.push_back(polygon);
-                }
-                for (const auto& taz : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
-                    ACsToLocate.push_back(taz);
-                }
-                for (const auto& walkableArea : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WALKABLEAREA)) {
-                    ACsToLocate.push_back(walkableArea);
-                }
-                for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_OBSTACLE)) {
-                    ACsToLocate.push_back(obstacle);
-                }
-                for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAITINGAREA)) {
-                    ACsToLocate.push_back(obstacle);
-                }
-                for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_SOURCE)) {
-                    ACsToLocate.push_back(obstacle);
-                }
-                for (const auto& obstacle : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_SINK)) {
-                    ACsToLocate.push_back(obstacle);
+                // fill ACsToLocate with all polygons
+                for (const auto &polygonTag : GNEAttributeCarrier::Namespaces.polygons) {
+                    for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(polygonTag)) {
+                        ACsToLocate.push_back(flowTAZ);
+                    }
                 }
                 break;
             default:
