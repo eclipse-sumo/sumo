@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNENamespaces.h
+/// @file    NamespaceIDs.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2023
 ///
-// Class for unify namespaces in netedit
+// Class for unify namespace IDs (elements that share the same namespace ID)
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -25,53 +25,47 @@
 // included modules
 // ===========================================================================
 
-#include <utils/xml/SUMOSAXAttributes.h>
+#include "SUMOSAXAttributes.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNENamespaces {
+class NamespaceIDs {
 
-public:
-    /// @brief default constructor
-    GNENamespaces();
-
-    /// @brief destructor
-    ~GNENamespaces();
-
+public: 
     /// @brief busStops namespace
-    const std::vector<SumoXMLTag> busStops;
+    static const std::vector<SumoXMLTag> busStops;
 
     /// @brief lane area detectors namespace
-    const std::vector<SumoXMLTag> laneAreaDetectors;
+    static const std::vector<SumoXMLTag> laneAreaDetectors;
 
     /// @brief calibrators namespace
-    const std::vector<SumoXMLTag> calibrators;
+    static const std::vector<SumoXMLTag> calibrators;
 
     /// @brief polygon namespace
-    const std::vector<SumoXMLTag> polygons;
+    static const std::vector<SumoXMLTag> polygons;
 
     /// @brief POIs namespace
-    const std::vector<SumoXMLTag> POIs;
+    static const std::vector<SumoXMLTag> POIs;
 
     /// @brief type namespace
-    const std::vector<SumoXMLTag> types;
+    static const std::vector<SumoXMLTag> types;
 
     /// @brief route namespace
-    const std::vector<SumoXMLTag> routes;
+    static const std::vector<SumoXMLTag> routes;
 
     /// @brief vehicles namespace
-    const std::vector<SumoXMLTag> vehicles;
+    static const std::vector<SumoXMLTag> vehicles;
 
     /// @brief persons namespace
-    const std::vector<SumoXMLTag> persons;
+    static const std::vector<SumoXMLTag> persons;
 
     /// @brief containers namespace
-    const std::vector<SumoXMLTag> containers;
+    static const std::vector<SumoXMLTag> containers;
 
     /// @brief vehicle stops namespace
-    const std::vector<SumoXMLTag> stops;
+    static const std::vector<SumoXMLTag> stops;
 };
 
 /****************************************************************************/
