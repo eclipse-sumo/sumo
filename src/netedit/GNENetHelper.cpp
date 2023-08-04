@@ -1038,6 +1038,23 @@ GNENetHelper::AttributeCarriers::retrieveAdditional(SumoXMLTag type, const std::
 
 
 GNEAdditional*
+GNENetHelper::AttributeCarriers::retrieveAdditionals(const std::vector<SumoXMLTag> types, const std::string& id, bool hardFail) const {
+    for (const auto &type : types) {
+        for (const auto& additional : myAdditionals.at(type)) {
+            if (additional->getID() == id) {
+                return additional;
+            }
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant additional (string)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional*
 GNENetHelper::AttributeCarriers::retrieveAdditional(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast additional
     GNEAdditional* additional = dynamic_cast<GNEAdditional*>(AC);
@@ -1193,40 +1210,25 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = neteditOptions.getString("jps.waypoint-prefix");
     }
     int counter = 0;
-    // check special cases
-    if ((tag == SUMO_TAG_BUS_STOP) || (tag == SUMO_TAG_TRAIN_STOP)) {
-        // BusStops and trainStops share namespace
-        while ((retrieveAdditional(SUMO_TAG_BUS_STOP, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(SUMO_TAG_TRAIN_STOP, prefix + "_" + toString(counter), false) != nullptr)) {
+    // check namespaces
+    if (std::find(namepaces.busStops.begin(), namepaces.busStops.end(), tag) != namepaces.busStops.end()) {
+        while (retrieveAdditionals(namepaces.busStops, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_CALIBRATOR) || (tag == GNE_TAG_CALIBRATOR_LANE)) {
-        // Calibrators over edge/lane share namespace
-        while ((retrieveAdditional(SUMO_TAG_CALIBRATOR, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_CALIBRATOR_LANE, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(namepaces.calibrators.begin(), namepaces.calibrators.end(), tag) != namepaces.calibrators.end()) {
+        while (retrieveAdditionals(namepaces.calibrators, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if (std::find(namepaces.polygons.begin(), namepaces.polygons.end(), tag) == namepaces.polygons.end()) {
-        // Polys and TAZs share namespace
-        while ((retrieveAdditional(SUMO_TAG_POLY, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_JPS_WALKABLEAREA, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_JPS_OBSTACLE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_JPS_WAITINGAREA, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_JPS_SOURCE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_JPS_SINK, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(namepaces.polygons.begin(), namepaces.polygons.end(), tag) != namepaces.polygons.end()) {
+        while (retrieveAdditionals(namepaces.polygons, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if (std::find(namepaces.POIs.begin(), namepaces.POIs.end(), tag) == namepaces.POIs.end()) {
-        while ((retrieveAdditional(SUMO_TAG_POI, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_JPS_WAYPOINT, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(namepaces.POIs.begin(), namepaces.POIs.end(), tag) != namepaces.POIs.end()) {
+        while (retrieveAdditionals(namepaces.POIs, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_MULTI_LANE_AREA_DETECTOR)) {
-        while ((retrieveAdditional(SUMO_TAG_LANE_AREA_DETECTOR, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_MULTI_LANE_AREA_DETECTOR, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(namepaces.laneAreaDetectors.begin(), namepaces.laneAreaDetectors.end(), tag) != namepaces.laneAreaDetectors.end()) {
+        while (retrieveAdditionals(namepaces.laneAreaDetectors, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
     } else {
@@ -1427,6 +1429,23 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(SumoXMLTag type, const st
     for (const auto& demandElement : myDemandElements.at(type)) {
         if (demandElement->getID() == id) {
             return demandElement;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant demand element (string)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEDemandElement*
+GNENetHelper::AttributeCarriers::retrieveDemandElements(std::vector<SumoXMLTag> types, const std::string& id, bool hardFail) const {
+    for (const auto &type : types) {
+        for (const auto& demandElement : myDemandElements.at(type)) {
+            if (demandElement->getID() == id) {
+                return demandElement;
+            }
         }
     }
     if (hardFail) {

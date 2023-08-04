@@ -353,6 +353,14 @@ struct GNENetHelper {
 
         /**@brief Returns the named additional
          * @param[in] id The attribute carrier related with the additional element
+         * @param[in] types tags with the type of additional
+         * @param[in] id The id of the additional to return.
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting additional should result in an exception
+         */
+        GNEAdditional* retrieveAdditionals(const std::vector<SumoXMLTag> types, const std::string& id, bool hardFail = true) const;
+
+        /**@brief Returns the named additional
+         * @param[in] id The attribute carrier related with the additional element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting additional should result in an exception
          */
         GNEAdditional* retrieveAdditional(GNEAttributeCarrier* AC, bool hardFail = true) const;
@@ -434,6 +442,13 @@ struct GNENetHelper {
          * @param[in] hardFail Whether attempts to retrieve a nonexisting demand element should result in an exception
          */
         GNEDemandElement* retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+        /**@brief Returns the named demand element
+         * @param[in] types tag with the type of demand element
+         * @param[in] id The id of the demand element to return.
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting demand element should result in an exception
+         */
+        GNEDemandElement* retrieveDemandElements(const std::vector<SumoXMLTag> types, const std::string& id, bool hardFail = true) const;
 
         /**@brief Returns the named demand element
          * @param[in] id The attribute carrier related with the demand element
