@@ -1236,6 +1236,7 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
             counter++;
         }
     }
+    // return new element ID
     return (prefix + "_" + toString(counter));
 }
 
@@ -1531,10 +1532,14 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     const auto& neteditOptions = OptionsCont::getOptions();
     // get tag property
     const auto tagProperty = GNEAttributeCarrier::getTagProperty(tag);
+    // get GNENamespaces
+    const auto &namepaces = GNEAttributeCarrier::Namespaces;
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_ROUTE) {
         prefix = neteditOptions.getString("route-prefix");
+    } else if (tag == SUMO_TAG_ROUTE_DISTRIBUTION) {
+        prefix = neteditOptions.getString("routeDistribution-prefix");
     } else if (tag == SUMO_TAG_VTYPE) {
         prefix = neteditOptions.getString("vType-prefix");
     } else if (tag == SUMO_TAG_VTYPE_DISTRIBUTION) {
@@ -1560,53 +1565,34 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     }
     // declare counter
     int counter = 0;
-    if (tagProperty.isType()) {
-        // special case for persons (person and personFlows share nameSpaces)
-        while ((retrieveDemandElement(SUMO_TAG_VTYPE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, prefix + "_" + toString(counter), false) != nullptr)) {
+    if (std::find(namepaces.types.begin(), namepaces.types.end(), tag) != namepaces.types.end()) {
+        while (retrieveDemandElements(namepaces.types, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-        // return new person ID
-        return (prefix + "_" + toString(counter));
-    } else if (tagProperty.isPerson()) {
-        // special case for persons (person and personFlows share nameSpaces)
-        while ((retrieveDemandElement(SUMO_TAG_PERSON, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_PERSONFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(namepaces.routes.begin(), namepaces.routes.end(), tag) != namepaces.routes.end()) {
+        while (retrieveDemandElements(namepaces.routes, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-        // return new person ID
-        return (prefix + "_" + toString(counter));
-    } else if (tagProperty.isContainer()) {
-        // special case for containers (container and containerFlows share nameSpaces)
-        while ((retrieveDemandElement(SUMO_TAG_CONTAINER, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(namepaces.persons.begin(), namepaces.persons.end(), tag) != namepaces.persons.end()) {
+        while (retrieveDemandElements(namepaces.persons, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-        // return new container ID
-        return (prefix + "_" + toString(counter));
-    } else if (tagProperty.isVehicle() || tagProperty.isFlow()) {
-        // check all vehicles, because share nameSpaces
-        while ((retrieveDemandElement(SUMO_TAG_VEHICLE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_TRIP, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_TRIP_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_TRIP_TAZS, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_FLOW, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_TAZS, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(namepaces.containers.begin(), namepaces.containers.end(), tag) != namepaces.containers.end()) {
+        while (retrieveDemandElements(namepaces.containers, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-        // return new vehicle ID
-        return (prefix + "_" + toString(counter));
+    } else if (std::find(namepaces.vehicles.begin(), namepaces.vehicles.end(), tag) != namepaces.vehicles.end()) {
+        while (retrieveDemandElements(namepaces.vehicles, prefix + "_" + toString(counter), false) != nullptr) {
+            counter++;
+        }
     } else {
         while (retrieveDemandElement(tag, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-        // return new element ID
-        return (prefix + "_" + toString(counter));
     }
+    // return new element ID
+    return (prefix + "_" + toString(counter));
+
 }
 
 
