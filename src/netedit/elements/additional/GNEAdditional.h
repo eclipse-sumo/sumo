@@ -403,6 +403,9 @@ protected:
     /// @brief get JuPedSim color
     static RGBColor getJuPedSimColor(SumoXMLTag tag);
 
+    /// @brief get JuPedSim fill
+    static bool getJuPedSimFill(SumoXMLTag tag);
+
     /// @brief get JuPedSim color
     static double getJuPedSimLayer(SumoXMLTag tag);
 

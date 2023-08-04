@@ -79,7 +79,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, const std::string& name,
                  const Parameterised::Map& parameters) :
-    TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, false, true, 1, 
+    TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, false, getJuPedSimFill(tag), 1, 
                       getJuPedSimLayer(tag), 0, "", false, name, parameters),
     GNEAdditional(id, net, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), "", {}, {}, {}, {}, {}, {}),
     mySimplifiedShape(false) {
@@ -100,14 +100,21 @@ GNEPoly::getMoveOperation() {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
-        // check if maintain shape closed
-        const bool maintainShapeClosed = (getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-            (getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) ||
-            (getTagProperty().getTag() == GNE_TAG_JPS_WAITINGAREA);
-        // calculate move shape operation
-        return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(),
-                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius,
-                                           true, maintainShapeClosed);
+        // get geometry point radius
+        const auto radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
+        // continue depending of tag
+        switch (getTagProperty().getTag()) {
+            case GNE_TAG_JPS_WALKABLEAREA:
+            case GNE_TAG_JPS_OBSTACLE:
+            case GNE_TAG_JPS_WAITINGAREA:
+            case GNE_TAG_JPS_SOURCE:
+            case GNE_TAG_JPS_SINK:
+                // calculate move shape operation maintain shape closed
+                return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), radius, true, true);
+            default:
+                // calculate move shape operation maintain shape closed
+                return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), radius, true, false);
+        }
     }
 }
 
