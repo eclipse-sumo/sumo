@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -656,8 +657,12 @@ RouteHandler::parseStop(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // declare stop
     SUMOVehicleParameter::Stop stop;
+    // get parents
+    std::vector<SumoXMLTag> stopParents;
+    stopParents.insert(stopParents.end(), GNEAttributeCarrier::Namespaces.vehicles.begin(), GNEAttributeCarrier::Namespaces.vehicles.end());
+    stopParents.insert(stopParents.end(), GNEAttributeCarrier::Namespaces.routes.begin(), GNEAttributeCarrier::Namespaces.routes.end());
     //  check parents
-    checkParent(SUMO_TAG_STOP, {SUMO_TAG_VEHICLE, SUMO_TAG_TRIP, SUMO_TAG_FLOW, SUMO_TAG_ROUTE, SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW, SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, parsedOk);
+    checkParent(SUMO_TAG_STOP, stopParents, parsedOk);
     // parse stop
     if (parsedOk && parseStopParameters(stop, attrs)) {
         // set tag
