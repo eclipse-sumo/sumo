@@ -187,7 +187,7 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_ROUTE:
-            return (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(Namespaces.routes, value, false) == nullptr);
         case SUMO_ATTR_PROB:
             return canParse<double>(value);
         case GNE_ATTR_SELECTED:
