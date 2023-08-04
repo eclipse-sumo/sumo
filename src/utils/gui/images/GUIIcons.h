@@ -453,9 +453,17 @@ enum class GUIIcon {
     POI,
     POILANE,
     POIGEO,
-    WALKABLEAREA,
-    OBSTACLE,
-    POIWAYPOINT,
+    /// @}
+
+    /// @name juPedSim elements
+    /// @{
+    JPS,
+    JPS_WALKABLEAREA,
+    JPS_OBSTACLE,
+    JPS_WAITINGAREA,
+    JPS_SOURCE,
+    JPS_SINK,
+    JPS_WAYPOINT,
     /// @}
 
     /// @name TAZ elements icons

@@ -35,6 +35,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEVehicle.h"
 #include "GNERouteHandler.h"
@@ -442,7 +443,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_VEHICLE, tag, GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementFlow(myTagProperty) {
+    GNEDemandElementFlow(this) {
     // reset default values
     resetDefaultValues();
     // set end and vehPerHours as default flow values
@@ -455,7 +456,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
     GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
                      (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType, route}, {}),
-    GNEDemandElementFlow(myTagProperty) {
+    GNEDemandElementFlow(this) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -467,7 +468,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
                      (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType, route}, {}),
-    GNEDemandElementFlow(myTagProperty, vehicleParameters) {
+    GNEDemandElementFlow(this, vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
@@ -479,7 +480,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, tag,
                      (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType}, {}),
-    GNEDemandElementFlow(myTagProperty, vehicleParameters) {
+    GNEDemandElementFlow(this, vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // reset routeid
@@ -494,7 +495,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
     GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == SUMO_TAG_FLOW) ? GUIIconSubSys::getIcon(GUIIcon::FLOW) : GUIIconSubSys::getIcon(GUIIcon::TRIP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {vehicleType}, {}),
-    GNEDemandElementFlow(myTagProperty) {
+    GNEDemandElementFlow(this) {
 }
 
 
@@ -503,7 +504,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == SUMO_TAG_FLOW) ? GUIIconSubSys::getIcon(GUIIcon::FLOW) : GUIIconSubSys::getIcon(GUIIcon::TRIP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {vehicleType}, {}),
-    GNEDemandElementFlow(myTagProperty, vehicleParameters) {
+    GNEDemandElementFlow(this, vehicleParameters) {
 }
 
 
@@ -511,7 +512,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
     GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_JUNCTIONS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {vehicleType}, {}),
-    GNEDemandElementFlow(myTagProperty) {
+    GNEDemandElementFlow(this) {
 }
 
 
@@ -519,7 +520,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_JUNCTIONS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {vehicleType}, {}),
-    GNEDemandElementFlow(myTagProperty, vehicleParameters) {
+    GNEDemandElementFlow(this, vehicleParameters) {
 }
 
 
@@ -527,7 +528,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_TAZS) ? GLO_FLOW : GLO_TRIP, tag,
                      (tag == GNE_TAG_FLOW_TAZS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_TAZS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_TAZS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {vehicleType}, {}),
-    GNEDemandElementFlow(myTagProperty, vehicleParameters) {
+    GNEDemandElementFlow(this, vehicleParameters) {
     // mark taz parameters as set
     parametersSet |= VEHPARS_FROM_TAZ_SET;
     parametersSet |= VEHPARS_TO_TAZ_SET;
@@ -579,12 +580,12 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().front()->getID());
     }
     // write specific attribute depending of tag property
-    if (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) {
+    if (myTagProperty.overRoute()) {
         // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getRouteParent()->getID());
     }
     // write from, to and edge vias
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+    if (myTagProperty.overFromToEdges()) {
         // write manually from/to edges (it correspond to front and back parent edges)
         device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
@@ -594,7 +595,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         }
     }
     // write from and to junctions
-    if ((myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
+    if (myTagProperty.overFromToJunctions()) {
         // write manually from/to junctions (it correspond to front and back parent junctions)
         device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
         device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
@@ -628,10 +629,10 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
 GNEDemandElement::Problem
 GNEVehicle::isDemandElementValid() const {
     // check conditions
-    if ((myTagProperty.getTag() == GNE_TAG_TRIP_TAZS) || (myTagProperty.getTag() == GNE_TAG_FLOW_TAZS)) {
+    if (myTagProperty.overFromToTAZs()) {
         // vehicles and flows over tazs are always valid
         return Problem::OK;
-    } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+    } else if (myTagProperty.overFromToEdges()) {
         // check vehicles and flows paths
         if (getParentEdges().front() == getParentEdges().back()) {
             return Problem::OK;
@@ -640,7 +641,7 @@ GNEVehicle::isDemandElementValid() const {
         } else {
             return Problem::INVALID_PATH;
         }
-    } else if ((myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
+    } else if (myTagProperty.overFromToJunctions()) {
         // check vehicles and flows paths
         if (getParentJunctions().front() == getParentJunctions().back()) {
             return Problem::OK;
@@ -649,14 +650,14 @@ GNEVehicle::isDemandElementValid() const {
         } else {
             return Problem::INVALID_PATH;
         }
-    } else if (getParentDemandElements().size() == 2) {
+    } else if (myTagProperty.overRoute()) {
         // check if exist a valid path using route parent edges
         if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getTypeParent()->getVClass(), getRouteParent()->getParentEdges()).size() > 0) {
             return Problem::OK;
         } else {
             return Problem::INVALID_PATH;
         }
-    } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
+    } else if (myTagProperty.overEmbeddedRoute()) {
         // check if exist a valid path using route child edges
         if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getTypeParent()->getVClass(), getChildDemandElements().at(0)->getParentEdges()).size() > 0) {
             return Problem::OK;
@@ -672,7 +673,7 @@ GNEVehicle::isDemandElementValid() const {
 std::string
 GNEVehicle::getDemandElementProblem() const {
     // only trips or flows can have problems
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+    if (myTagProperty.overFromToEdges()) {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
             if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getTypeParent()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
@@ -681,9 +682,9 @@ GNEVehicle::getDemandElementProblem() const {
         }
         // if there are connections between all edges, then all is ok
         return "";
-    } else if ((myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
+    } else if (myTagProperty.overFromToJunctions()) {
         return ("No path between junction '" + getParentJunctions().front()->getID() + "' and '" + getParentJunctions().back()->getID() + "'");
-    } else if (getParentDemandElements().size() == 2) {
+    } else if (myTagProperty.overRoute()) {
         // get route parent edges
         const std::vector<GNEEdge*>& routeEdges = getRouteParent()->getParentEdges();
         // check if exist at least a connection between every edge
@@ -694,7 +695,7 @@ GNEVehicle::getDemandElementProblem() const {
         }
         // if there are connections between all edges, then all is ok
         return "";
-    } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
+    } else if (myTagProperty.overEmbeddedRoute()) {
         // get route parent edges
         const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().at(0)->getParentEdges();
         // check if exist at least a connection between every edge
@@ -798,10 +799,14 @@ GNEVehicle::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 std::string
 GNEVehicle::getParentName() const {
-    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
+    if (myTagProperty.overRoute()) {
         return getRouteParent()->getID();
-    } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+    } else if (myTagProperty.overFromToEdges()) {
         return getParentEdges().front()->getID();
+    } else if (myTagProperty.overFromToJunctions()) {
+        return getParentJunctions().front()->getID();
+    } else if (myTagProperty.overFromToTAZs()) {
+        return getParentAdditionals().front()->getID();
     } else {
         throw ProcessError(TL("Invalid vehicle tag"));
     }
@@ -975,10 +980,10 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
 void
 GNEVehicle::computePathElement() {
     // calculate path (only for flows and trips)
-    if (getParentJunctions().size() > 0) {
+    if (myTagProperty.overFromToJunctions()) {
         // calculate path
         myNet->getPathManager()->calculatePathJunctions(this, getVClass(), getParentJunctions());
-    } else if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
+    } else if (myTagProperty.overFromToEdges()) {
         // declare lane stops
         std::vector<GNELane*> laneStopWaypoints;
         // iterate over child demand elements
@@ -1592,26 +1597,15 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            if (value == getID()) {
-                return true;
-            } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
-                return (demandElementExist(value, {SUMO_TAG_VEHICLE, GNE_TAG_VEHICLE_WITHROUTE, SUMO_TAG_TRIP, GNE_TAG_TRIP_TAZS,
-                    GNE_TAG_FLOW_ROUTE, GNE_TAG_FLOW_WITHROUTE, SUMO_TAG_FLOW, SUMO_TAG_FLOW, SUMO_TAG_FLOW, GNE_TAG_FLOW_JUNCTIONS}) == false);
-            } else {
-                return false;
-            }
+            return isValidDemandElementID(NamespaceIDs::vehicles, value);
         case SUMO_ATTR_TYPE:
-            if (SUMOXMLDefinitions::isValidVehicleID(value)) {
-                return demandElementExist(value, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION});
-            } else {
-                return false;
-            }
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) == nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTLANE: {
             int dummyDepartLane;
             DepartLaneDefinition dummyDepartLaneProcedure;
-            parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartLane, dummyDepartLaneProcedure, error);
+            parseDepartLane(value, myTagProperty.getTagStr(), id, dummyDepartLane, dummyDepartLaneProcedure, error);
             // if error is empty, check if depart lane is correct
             if (error.empty()) {
                 if (dummyDepartLaneProcedure != DepartLaneDefinition::GIVEN) {
@@ -1632,14 +1626,14 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DEPARTPOS: {
             double dummyDepartPos;
             DepartPosDefinition dummyDepartPosProcedure;
-            parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartPos, dummyDepartPosProcedure, error);
+            parseDepartPos(value, myTagProperty.getTagStr(), id, dummyDepartPos, dummyDepartPosProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
         case SUMO_ATTR_DEPARTSPEED: {
             double dummyDepartSpeed;
             DepartSpeedDefinition dummyDepartSpeedProcedure;
-            parseDepartSpeed(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartSpeed, dummyDepartSpeedProcedure, error);
+            parseDepartSpeed(value, myTagProperty.getTagStr(), id, dummyDepartSpeed, dummyDepartSpeedProcedure, error);
             // if error is empty, check if depart speed is correct
             if (error.empty()) {
                 if (dummyDepartSpeedProcedure != DepartSpeedDefinition::GIVEN) {
@@ -1656,7 +1650,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ARRIVALLANE: {
             int dummyArrivalLane;
             ArrivalLaneDefinition dummyArrivalLaneProcedure;
-            parseArrivalLane(value, toString(SUMO_TAG_VEHICLE), id, dummyArrivalLane, dummyArrivalLaneProcedure, error);
+            parseArrivalLane(value, myTagProperty.getTagStr(), id, dummyArrivalLane, dummyArrivalLaneProcedure, error);
             // if error is empty, given value is valid
             if (error.empty()) {
                 if (dummyArrivalLaneProcedure != ArrivalLaneDefinition::GIVEN) {
@@ -1677,14 +1671,14 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ARRIVALPOS: {
             double dummyArrivalPos;
             ArrivalPosDefinition dummyArrivalPosProcedure;
-            parseArrivalPos(value, toString(SUMO_TAG_VEHICLE), id, dummyArrivalPos, dummyArrivalPosProcedure, error);
+            parseArrivalPos(value, myTagProperty.getTagStr(), id, dummyArrivalPos, dummyArrivalPosProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
         case SUMO_ATTR_ARRIVALSPEED: {
             double dummyArrivalSpeed;
             ArrivalSpeedDefinition dummyArrivalSpeedProcedure;
-            parseArrivalSpeed(value, toString(SUMO_TAG_VEHICLE), id, dummyArrivalSpeed, dummyArrivalSpeedProcedure, error);
+            parseArrivalSpeed(value, myTagProperty.getTagStr(), id, dummyArrivalSpeed, dummyArrivalSpeedProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
@@ -1699,14 +1693,14 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DEPARTPOS_LAT: {
             double dummyDepartPosLat;
             DepartPosLatDefinition dummyDepartPosLatProcedure;
-            parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartPosLat, dummyDepartPosLatProcedure, error);
+            parseDepartPosLat(value, myTagProperty.getTagStr(), id, dummyDepartPosLat, dummyDepartPosLatProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
         case SUMO_ATTR_ARRIVALPOS_LAT: {
             double dummyArrivalPosLat;
             ArrivalPosLatDefinition dummyArrivalPosLatProcedure;
-            parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, dummyArrivalPosLat, dummyArrivalPosLatProcedure, error);
+            parseArrivalPosLat(value, myTagProperty.getTagStr(), id, dummyArrivalPosLat, dummyArrivalPosLatProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
@@ -1722,7 +1716,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         // Specific of from-to edges
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (ACs->retrieveEdge(value, false) != nullptr);
+            return (ACs->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_DEPARTEDGE:
         case SUMO_ATTR_ARRIVALEDGE: {
             if (value.empty()) {
@@ -1733,7 +1727,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 // check conditions
                 if (index < 0) {
                     return false;
-                } else if (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) {
+                } else if (myTagProperty.overRoute()) {
                     // check parent route
                     return (index < (int)getRouteParent()->getParentEdges().size());
                 } else {
@@ -1753,7 +1747,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         // Specific of from-to junctions
         case SUMO_ATTR_FROMJUNCTION:
         case SUMO_ATTR_TOJUNCTION:
-            return SUMOXMLDefinitions::isValidNetID(value) && (ACs->retrieveJunction(value, false) != nullptr);
+            return (ACs->retrieveJunction(value, false) != nullptr);
         // Specific of from-to taz
         case SUMO_ATTR_FROM_TAZ:
         case SUMO_ATTR_TO_TAZ:
@@ -1764,7 +1758,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
-            return isValidFlowAttribute(key, value);
+            return isValidFlowAttribute(this, key, value);
     }
 }
 
@@ -1796,7 +1790,7 @@ GNEVehicle::getPopUpID() const {
 std::string
 GNEVehicle::getHierarchyName() const {
     // special case for Trips and flow
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+    if (myTagProperty.overFromToEdges()) {
         // check if we're inspecting a Edge
         if (!myNet->getViewNet()->getInspectedAttributeCarriers().empty() &&
                 myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
@@ -2029,24 +2023,24 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_DEPARTLANE:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error);
+                parseDepartLane(value, myTagProperty.getTagStr(), id, departLane, departLaneProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTLANE_SET;
             } else {
                 // set default value
-                parseDepartLane(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error);
+                parseDepartLane(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, departLane, departLaneProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTLANE_SET;
             }
             break;
         case SUMO_ATTR_DEPARTPOS:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                parseDepartPos(value, myTagProperty.getTagStr(), id, departPos, departPosProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTPOS_SET;
             } else {
                 // set default value
-                parseDepartPos(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                parseDepartPos(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, departPos, departPosProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOS_SET;
             }
@@ -2057,36 +2051,36 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_DEPARTSPEED:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseDepartSpeed(value, toString(SUMO_TAG_VEHICLE), id, departSpeed, departSpeedProcedure, error);
+                parseDepartSpeed(value, myTagProperty.getTagStr(), id, departSpeed, departSpeedProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTSPEED_SET;
             } else {
                 // set default value
-                parseDepartSpeed(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departSpeed, departSpeedProcedure, error);
+                parseDepartSpeed(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, departSpeed, departSpeedProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTSPEED_SET;
             }
             break;
         case SUMO_ATTR_ARRIVALLANE:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseArrivalLane(value, toString(SUMO_TAG_VEHICLE), id, arrivalLane, arrivalLaneProcedure, error);
+                parseArrivalLane(value, myTagProperty.getTagStr(), id, arrivalLane, arrivalLaneProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALLANE_SET;
             } else {
                 // set default value
-                parseArrivalLane(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalLane, arrivalLaneProcedure, error);
+                parseArrivalLane(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, arrivalLane, arrivalLaneProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALLANE_SET;
             }
             break;
         case SUMO_ATTR_ARRIVALPOS:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseArrivalPos(value, toString(SUMO_TAG_VEHICLE), id, arrivalPos, arrivalPosProcedure, error);
+                parseArrivalPos(value, myTagProperty.getTagStr(), id, arrivalPos, arrivalPosProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALPOS_SET;
             } else {
                 // set default value
-                parseArrivalPos(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalPos, arrivalPosProcedure, error);
+                parseArrivalPos(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, arrivalPos, arrivalPosProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALPOS_SET;
             }
@@ -2097,12 +2091,12 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ARRIVALSPEED:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseArrivalSpeed(value, toString(SUMO_TAG_VEHICLE), id, arrivalSpeed, arrivalSpeedProcedure, error);
+                parseArrivalSpeed(value, myTagProperty.getTagStr(), id, arrivalSpeed, arrivalSpeedProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALSPEED_SET;
             } else {
                 // set default value
-                parseArrivalSpeed(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalSpeed, arrivalSpeedProcedure, error);
+                parseArrivalSpeed(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, arrivalSpeed, arrivalSpeedProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALSPEED_SET;
             }
@@ -2154,28 +2148,28 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_DEPARTPOS_LAT:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
+                parseDepartPosLat(value, myTagProperty.getTagStr(), id, departPosLat, departPosLatProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTPOSLAT_SET;
             } else {
                 // set default value
-                parseDepartPosLat(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
+                parseDepartPosLat(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, departPosLat, departPosLatProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOSLAT_SET;
             }
             break;
         case SUMO_ATTR_ARRIVALPOS_LAT:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+                parseArrivalPosLat(value, myTagProperty.getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALPOSLAT_SET;
             } else {
                 // set default value
-                parseArrivalPosLat(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+                parseArrivalPosLat(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALPOSLAT_SET;
             }
-            parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+            parseArrivalPosLat(value, myTagProperty.getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
             break;
         case SUMO_ATTR_INSERTIONCHECKS:
             parseInsertionChecks(value);
@@ -2312,18 +2306,18 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             setParametersStr(value);
             break;
         default:
-            setFlowAttribute(key, value);
+            setFlowAttribute(this, key, value);
             break;
     }
     // check if stack label has to be updated
     if (updateSpreadStackGeometry) {
-        if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+        if (myTagProperty.overFromToEdges()) {
             getParentEdges().front()->updateVehicleStackLabels();
             getParentEdges().front()->updateVehicleSpreadGeometries();
-        } else if (getParentDemandElements().size() == 2) {
+        } else if (myTagProperty.overRoute()) {
             getRouteParent()->getParentEdges().front()->updateVehicleStackLabels();
             getRouteParent()->getParentEdges().front()->updateVehicleSpreadGeometries();
-        } else if (getChildDemandElements().size() > 0) {
+        } else if (myTagProperty.overEmbeddedRoute()) {
             getChildDemandElements().front()->getParentEdges().front()->updateVehicleStackLabels();
             getChildDemandElements().front()->getParentEdges().front()->updateVehicleSpreadGeometries();
         }

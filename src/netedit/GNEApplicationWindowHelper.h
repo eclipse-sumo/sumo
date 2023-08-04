@@ -812,66 +812,75 @@ struct GNEApplicationWindowHelper {
         /// @brief menu check to lock POIs
         MFXMenuCheckIcon* menuCheckLockPOIs = nullptr;
 
-        /// @brief menu check to lock walkableareas
-        MFXMenuCheckIcon* menuCheckLockWalkableAreas = nullptr;
+        /// @brief menu check to lock jps walkableareas
+        MFXMenuCheckIcon* menuCheckLockJpsWalkableAreas = nullptr;
 
-        /// @brief menu check to lock obstacles
-        MFXMenuCheckIcon* menuCheckLockObstacles = nullptr;
+        /// @brief menu check to lock jps obstacles
+        MFXMenuCheckIcon* menuCheckLockJpsObstacles = nullptr;
+        
+        /// @brief menu check to lock jps waiting areas
+        MFXMenuCheckIcon* menuCheckLockJpsWaitingAreas = nullptr;
 
-        /// @brief menu check to lock POI Waypoints
-        MFXMenuCheckIcon* menuCheckLockPOIWaypoints = nullptr;
+        /// @brief menu check to lock jps sources
+        MFXMenuCheckIcon* menuCheckLockJpsSources = nullptr;
+
+        /// @brief menu check to lock jps sinks
+        MFXMenuCheckIcon* menuCheckLockJpsSinks = nullptr;
+        
+        /// @brief menu check to lock jps waypoints
+        MFXMenuCheckIcon* menuCheckLockJpsWaypoints = nullptr;
 
         /// @}
 
         /// @name Processing FXMenuCommands for Demand mode
         /// @{
         /// @brief menu check to lock routes
-        MFXMenuCheckIcon* menuCheckLockRoutes;
+        MFXMenuCheckIcon* menuCheckLockRoutes = nullptr;
 
         /// @brief menu check to lock vehicles
-        MFXMenuCheckIcon* menuCheckLockVehicles;
+        MFXMenuCheckIcon* menuCheckLockVehicles = nullptr;
 
         /// @brief menu check to lock persons
-        MFXMenuCheckIcon* menuCheckLockPersons;
+        MFXMenuCheckIcon* menuCheckLockPersons = nullptr;
 
         /// @brief menu check to lock personTrips
-        MFXMenuCheckIcon* menuCheckLockPersonTrip;
+        MFXMenuCheckIcon* menuCheckLockPersonTrip = nullptr;
 
         /// @brief menu check to lock walks
-        MFXMenuCheckIcon* menuCheckLockWalk;
+        MFXMenuCheckIcon* menuCheckLockWalk = nullptr;
 
         /// @brief menu check to lock rides
-        MFXMenuCheckIcon* menuCheckLockRides;
+        MFXMenuCheckIcon* menuCheckLockRides = nullptr;
 
         /// @brief menu check to lock containers
-        MFXMenuCheckIcon* menuCheckLockContainers;
+        MFXMenuCheckIcon* menuCheckLockContainers = nullptr;
 
         /// @brief menu check to lock transports
-        MFXMenuCheckIcon* menuCheckLockTransports;
+        MFXMenuCheckIcon* menuCheckLockTransports = nullptr;
 
         /// @brief menu check to lock tranships
-        MFXMenuCheckIcon* menuCheckLockTranships;
+        MFXMenuCheckIcon* menuCheckLockTranships = nullptr;
 
         /// @brief menu check to lock stops
-        MFXMenuCheckIcon* menuCheckLockStops;
+        MFXMenuCheckIcon* menuCheckLockStops = nullptr;
 
         /// @}
 
         /// @name Processing FXMenuCommands for Data mode
         /// @{
         /// @brief menu check to lock edge datas
-        MFXMenuCheckIcon* menuCheckLockEdgeDatas;
+        MFXMenuCheckIcon* menuCheckLockEdgeDatas = nullptr;
 
         /// @brief menu check to lock edgeRelDatas
-        MFXMenuCheckIcon* menuCheckLockEdgeRelDatas;
+        MFXMenuCheckIcon* menuCheckLockEdgeRelDatas = nullptr;
 
         /// @brief menu check to lock edgeTAZRels
-        MFXMenuCheckIcon* menuCheckLockEdgeTAZRels;
+        MFXMenuCheckIcon* menuCheckLockEdgeTAZRels = nullptr;
 
         /// @}
 
         /// @brief menu check for lock selected elements
-        MFXMenuCheckIcon* menuCheckLockSelectedElements;
+        MFXMenuCheckIcon* menuCheckLockSelectedElements = nullptr;
 
     protected:
         /// @brief Parse hot key from string

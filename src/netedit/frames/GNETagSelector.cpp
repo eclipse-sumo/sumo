@@ -399,13 +399,14 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             myAC = nullptr; // TMP
             break;
         // JuPedSim elements
-        case GNE_TAG_WALKABLEAREA:
+        case GNE_TAG_JPS_WALKABLEAREA:
+        case GNE_TAG_JPS_OBSTACLE:
+        case GNE_TAG_JPS_WAITINGAREA:
+        case GNE_TAG_JPS_SOURCE:
+        case GNE_TAG_JPS_SINK:
             myAC = new GNEPoly(tagProperty.getTag(), net);
             break;
-        case GNE_TAG_OBSTACLE:
-            myAC = new GNEPoly(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_POIWAYPOINT:
+        case GNE_TAG_JPS_WAYPOINT:
             myAC = new GNEPOI(tagProperty.getTag(), net);
             break;
         // Demand elements

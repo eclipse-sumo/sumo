@@ -36,16 +36,16 @@
 // GNEDemandElement - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElementFlow::GNEDemandElementFlow(const GNETagProperties& tagProperty) {
+GNEDemandElementFlow::GNEDemandElementFlow(const GNEDemandElement* flowElement) {
     // set default flow attributes
-    setDefaultFlowAttributes(tagProperty);
+    setDefaultFlowAttributes(flowElement);
 }
 
 
-GNEDemandElementFlow::GNEDemandElementFlow(const GNETagProperties& tagProperty, const SUMOVehicleParameter& vehicleParameters) :
+GNEDemandElementFlow::GNEDemandElementFlow(const GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters) :
     SUMOVehicleParameter(vehicleParameters) {
     // set default flow attributes
-    setDefaultFlowAttributes(tagProperty);
+    setDefaultFlowAttributes(flowElement);
 }
 
 
@@ -183,7 +183,7 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
 
 
 bool
-GNEDemandElementFlow::isValidFlowAttribute(SumoXMLAttr key, const std::string& value) {
+GNEDemandElementFlow::isValidFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value) {
     // declare string error
     std::string error;
     switch (key) {
@@ -191,7 +191,7 @@ GNEDemandElementFlow::isValidFlowAttribute(SumoXMLAttr key, const std::string& v
         case SUMO_ATTR_BEGIN: {
             SUMOTime dummyDepart;
             DepartDefinition dummyDepartProcedure;
-            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, dummyDepart, dummyDepartProcedure, error);
+            parseDepart(value, flowElement->getTagProperty().getTagStr(), id, dummyDepart, dummyDepartProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
@@ -292,13 +292,13 @@ GNEDemandElementFlow::isFlowAttributeEnabled(SumoXMLAttr key) const {
 
 
 void
-GNEDemandElementFlow::setFlowAttribute(SumoXMLAttr key, const std::string& value) {
+GNEDemandElementFlow::setFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value) {
     // declare string error
     std::string error;
     switch (key) {
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN: {
-            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
+            parseDepart(value, flowElement->getTagProperty().getTagStr(), id, depart, departProcedure, error);
             break;
         }
         case SUMO_ATTR_END:
@@ -385,32 +385,32 @@ GNEDemandElementFlow::toggleFlowAttribute(const SumoXMLAttr attribute, const boo
 
 
 void
-GNEDemandElementFlow::setDefaultFlowAttributes(const GNETagProperties& tagProperty) {
+GNEDemandElementFlow::setDefaultFlowAttributes(const GNEDemandElement* flowElement) {
     // first check that this demand element is a flow
-    if (tagProperty.isFlow()) {
+    if (flowElement->getTagProperty().isFlow()) {
         // end
         if ((parametersSet & VEHPARS_END_SET) == 0) {
-            setFlowAttribute(SUMO_ATTR_END, tagProperty.getDefaultValue(SUMO_ATTR_END));
+            setFlowAttribute(flowElement, SUMO_ATTR_END, flowElement->getTagProperty().getDefaultValue(SUMO_ATTR_END));
         }
         // number
         if ((parametersSet & VEHPARS_NUMBER_SET) == 0) {
-            setFlowAttribute(SUMO_ATTR_NUMBER, tagProperty.getDefaultValue(SUMO_ATTR_NUMBER));
+            setFlowAttribute(flowElement, SUMO_ATTR_NUMBER, flowElement->getTagProperty().getDefaultValue(SUMO_ATTR_NUMBER));
         }
         // vehicles/person/container per hour
         if (((parametersSet & VEHPARS_PERIOD_SET) == 0) &&
                 ((parametersSet & VEHPARS_POISSON_SET) == 0) &&
                 ((parametersSet & VEHPARS_VPH_SET) == 0)) {
-            setFlowAttribute(SUMO_ATTR_PERIOD, tagProperty.getDefaultValue(SUMO_ATTR_PERIOD));
+            setFlowAttribute(flowElement, SUMO_ATTR_PERIOD, flowElement->getTagProperty().getDefaultValue(SUMO_ATTR_PERIOD));
         }
         // probability
         if ((parametersSet & VEHPARS_PROB_SET) == 0) {
-            setFlowAttribute(SUMO_ATTR_PROB, tagProperty.getDefaultValue(SUMO_ATTR_PROB));
+            setFlowAttribute(flowElement, SUMO_ATTR_PROB, flowElement->getTagProperty().getDefaultValue(SUMO_ATTR_PROB));
         }
         // poisson
         if (repetitionOffset < 0) {
             toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
             toggleFlowAttribute(GNE_ATTR_POISSON, true);
-            setFlowAttribute(GNE_ATTR_POISSON, time2string(repetitionOffset * -1, false));
+            setFlowAttribute(flowElement, GNE_ATTR_POISSON, time2string(repetitionOffset * -1, false));
         }
     }
 }

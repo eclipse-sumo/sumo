@@ -24,6 +24,7 @@
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEVType.h"
 #include "GNEVTypeDistribution.h"
@@ -709,13 +710,7 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            if (value == getID()) {
-                return true;
-            } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
-                return (demandElementExist(value, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}) == false);
-            } else {
-                return false;
-            }
+            return isValidDemandElementID(NamespaceIDs::types, value);
         // CFM Attributes
         case SUMO_ATTR_SIGMA:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);

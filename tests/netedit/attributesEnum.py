@@ -1377,10 +1377,10 @@ class poiLane:
         angle = 12
         parameters = 15
 
-# walkableArea
+# jps walkableArea
 
 
-class walkableArea:
+class jpsWalkableArea:
     class create:
         id = 5
         name = 6
@@ -1395,10 +1395,10 @@ class walkableArea:
         name = 1
         parameters = 4
 
-# obstacle
+# jps obstacle
 
 
-class obstacle:
+class jpsObstacle:
     class create:
         id = 5
         name = 6
@@ -1413,10 +1413,28 @@ class obstacle:
         name = 1
         parameters = 4
 
-# POI
+# jps waitingArea
 
 
-class poiWaypoint:
+class jpsWaitingArea:
+    class create:
+        id = 5
+        name = 6
+
+    class inspect:
+        id = 1
+        shape = 2
+        name = 3
+        parameters = 6
+
+    class inspectSelection:
+        name = 1
+        parameters = 4
+
+# jps waypoint
+
+
+class jpsWaypoint:
     class create:
         id = 5
         name = 6
@@ -1430,6 +1448,7 @@ class poiWaypoint:
     class inspectSelection:
         name = 1
         parameters = 4
+
 # --------------------------------
 # TAZ ELEMENTS
 # --------------------------------

@@ -32,6 +32,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEPoly.h"
 
@@ -79,17 +80,9 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, const std::string& name,
                  const Parameterised::Map& parameters) :
-    TesselatedPolygon(id, 
-                      (tag == GNE_TAG_WALKABLEAREA)? "jupedsim.walkable_area" : "jupedsim.obstacle", 
-                      (tag == GNE_TAG_WALKABLEAREA)? RGBColor(179,217,255) : RGBColor(255,204,204), 
-                      shape, false, true, 1, 
-                      (tag == GNE_TAG_WALKABLEAREA)? 1 : 2,
-                      0, "", false, name, parameters),
-    GNEAdditional(id, net,
-        (tag == GNE_TAG_WALKABLEAREA)? GLO_WALKABLEAREA : GLO_OBSTACLE,
-        tag,
-        (tag == GNE_TAG_WALKABLEAREA)? GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA) : GUIIconSubSys::getIcon(GUIIcon::OBSTACLE), 
-        "", {}, {}, {}, {}, {}, {}),
+    TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, false, getJuPedSimFill(tag), 1, 
+                      getJuPedSimLayer(tag), 0, "", false, name, parameters),
+    GNEAdditional(id, net, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), "", {}, {}, {}, {}, {}, {}),
     mySimplifiedShape(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -108,12 +101,19 @@ GNEPoly::getMoveOperation() {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
-        // check if maintain shape closed
-        const bool maintainShapeClosed = (getTagProperty().getTag() == GNE_TAG_WALKABLEAREA) || (getTagProperty().getTag() == GNE_TAG_OBSTACLE);
-        // calculate move shape operation
-        return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(),
-                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius,
-                                           true, maintainShapeClosed);
+        // get geometry point radius
+        const auto radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
+        // continue depending of tag
+        switch (getTagProperty().getTag()) {
+            case GNE_TAG_JPS_WALKABLEAREA:
+            case GNE_TAG_JPS_OBSTACLE:
+            case GNE_TAG_JPS_WAITINGAREA:
+                // calculate move shape operation maintain shape closed
+                return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), radius, true, true);
+            default:
+                // calculate move shape operation maintain shape closed
+                return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), radius, true, false);
+        }
     }
 }
 
@@ -691,9 +691,7 @@ bool
 GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidAdditionalID(value) &&
-                   (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, value, false) == nullptr) &&
-                   (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POLY, value, false) == nullptr);
+            return isValidAdditionalID(NamespaceIDs::polygons, value);
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_GEOSHAPE:
             // empty shapes AREN'T allowed

@@ -39,10 +39,10 @@ class GNEDemandElementFlow : public SUMOVehicleParameter {
 
 protected:
     /// @brief constructor
-    GNEDemandElementFlow(const GNETagProperties& tagProperty);
+    GNEDemandElementFlow(const GNEDemandElement* flowElement);
 
     /// @brief constructor with parameters
-    GNEDemandElementFlow(const GNETagProperties& tagProperty, const SUMOVehicleParameter& vehicleParameters);
+    GNEDemandElementFlow(const GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNEDemandElementFlow();
@@ -80,7 +80,7 @@ protected:
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
-    bool isValidFlowAttribute(SumoXMLAttr key, const std::string& value);
+    bool isValidFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value);
 
     /* @brief method for enable attribute
      * @param[in] key The attribute key
@@ -102,14 +102,14 @@ protected:
     bool isFlowAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief method for setting the attribute and nothing else
-    void setFlowAttribute(SumoXMLAttr key, const std::string& value);
+    void setFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value);
 
     /// @brief toggle flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
     void toggleFlowAttribute(const SumoXMLAttr attribute, const bool value);
 
 private:
     /// @brief set flow default attributes
-    void setDefaultFlowAttributes(const GNETagProperties& tagProperty);
+    void setDefaultFlowAttributes(const GNEDemandElement* flowElement);
 
     /// @brief adjust decimal value
     std::string adjustDecimalValue(const double value) const;

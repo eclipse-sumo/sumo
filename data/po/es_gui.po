@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 17:04+0200\n"
-"PO-Revision-Date: 2023-08-02 14:56+0000\n"
+"PO-Revision-Date: 2023-08-02 16:50+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1704,7 +1704,7 @@ msgstr "Cerrar arista"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:991
 msgid "Add rerouter"
-msgstr ""
+msgstr "Agregar rerouter"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:996
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2049
@@ -6618,7 +6618,7 @@ msgstr "Agrupar por categorías"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:90
 msgid "Blue options are mandatory"
-msgstr ""
+msgstr "Las opciones azules son obligatorias"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:93
 msgid "run python tool"
@@ -13751,7 +13751,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp:170
 msgid "Object must be a lane"
-msgstr ""
+msgstr "El objeto debe ser un carril"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:288
 msgid "Copy name to clipboard"
@@ -13767,15 +13767,15 @@ msgstr "Remover de la selección"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:301
 msgid "Add To Selected"
-msgstr ""
+msgstr "Agregar a la selección"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:311
 msgid "Show Parameter"
-msgstr ""
+msgstr "Mostrar parámetros"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:320
 msgid "Show Type Parameter"
-msgstr ""
+msgstr "Mostrar parámetros del tipo"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:329
 msgid "Copy cursor position to clipboard"
@@ -13787,16 +13787,16 @@ msgstr "Copiar posición geográfica del cursor al portapapeles"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:335
 msgid "Show cursor geo-position in "
-msgstr ""
+msgstr "Mostrar posición geográfica del cursor en "
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:353
 msgid "Open Manipulator..."
-msgstr ""
+msgstr "Abrir manipulador..."
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:392
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:415
 msgid "type: %"
-msgstr ""
+msgstr "tipo: %"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:87
 msgid "&Save changes"
@@ -13812,27 +13812,29 @@ msgstr "&Cancelar"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIShapeContainer.cpp:56
 msgid "Replacing POI '%'"
-msgstr ""
+msgstr "Reemplazando punto de interés '%'"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIShapeContainer.cpp:81
 msgid "Replacing polygon '%'"
-msgstr ""
+msgstr "Reemplazando polígono '%'"
 
 #: C:\Repos\sumo/src\utils\gui\images\GUIIconSubSys.cpp:1007
 msgid "Instance was previously created"
-msgstr ""
+msgstr "La instancia fue creada previamente"
 
 #: C:\Repos\sumo/src\utils\gui\images\GUITextureSubSys.cpp:223
 msgid "Undefined texture"
-msgstr ""
+msgstr "Textura indefinida"
 
 #: C:\Repos\sumo/src\utils\gui\images\VClassIcons.cpp:91
 msgid "Invalid vClass"
-msgstr ""
+msgstr "Clase de vehículo (vClass) inválida"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:77
 msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr ""
+"El atributo 'value' está obsoleto para los puntos de interrupción. Por favor "
+"utilice 'time'."
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:383
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
@@ -13842,7 +13844,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:559
 msgid " Could not decode breakpoint '%'"
-msgstr " No se puede decodificar el punto de ruptura '%'"
+msgstr " No se puede decodificar el punto de interrupción '%'"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:643
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:890
@@ -13866,22 +13868,22 @@ msgstr " No se puede decodificar el punto de ruptura '%'"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1689
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1690
 msgid "uniform"
-msgstr ""
+msgstr "uniforme"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:643
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1516
 msgid "road"
-msgstr ""
+msgstr "vía"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:644
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1517
 msgid "sidewalk"
-msgstr ""
+msgstr "acera"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:645
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1518
 msgid "bike lane"
-msgstr ""
+msgstr "carril de bicicleta"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:646
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1519
@@ -13892,39 +13894,39 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1162
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1520
 msgid "waterway"
-msgstr ""
+msgstr "vía fluvial"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:648
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1163
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1521
 msgid "railway"
-msgstr ""
+msgstr "ferrocarril"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:649
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1522
 msgid "rails on road"
-msgstr ""
+msgstr "rieles en la vía"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:650
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1523
 msgid "no passenger"
-msgstr ""
+msgstr "sin pasajero"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:651
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1524
 msgid "closed"
-msgstr ""
+msgstr "cerrado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:652
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1305
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1525
 msgid "connector"
-msgstr ""
+msgstr "conector"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:653
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1526
 msgid "forbidden"
-msgstr ""
+msgstr "prohibido"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:655
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1000
@@ -13943,7 +13945,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1663
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1677
 msgid "unselected"
-msgstr ""
+msgstr "no seleccionado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:656
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1001
@@ -13962,68 +13964,68 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1664
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1678
 msgid "selected"
-msgstr ""
+msgstr "seleccionado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:672
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1215
 msgid "by allowed speed (lanewise)"
-msgstr ""
+msgstr "por velocidad permitida (por carril)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:679
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1218
 msgid "by current occupancy (lanewise, brutto)"
-msgstr ""
+msgstr "por ocupación actual (por carril, bruto)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:685
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1221
 msgid "by current occupancy (lanewise, netto)"
-msgstr ""
+msgstr "por ocupación actual (por carril, neto)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:691
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1224
 msgid "by first vehicle waiting time (lanewise)"
-msgstr ""
+msgstr "por tiempo de espera del primer vehículo (por carril)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:697
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1227
 msgid "by lane number (streetwise)"
-msgstr ""
+msgstr "por número de carril (por calle)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:701
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:940
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1231
 msgid "by CO2 emissions"
-msgstr ""
+msgstr "por emisiones de CO2"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:709
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:948
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1234
 msgid "by CO emissions"
-msgstr ""
+msgstr "por emisiones de CO"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:717
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:956
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1237
 msgid "by PMx emissions"
-msgstr ""
+msgstr "por emisiones de PMx"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:725
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:964
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1240
 msgid "by NOx emissions"
-msgstr ""
+msgstr "por emisiones de NOx"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:733
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:972
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1243
 msgid "by HC emissions"
-msgstr ""
+msgstr "por emisiones de HC"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:741
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:980
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1246
 msgid "by fuel consumption"
-msgstr ""
+msgstr "por consumo de combustible"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:749
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1249
@@ -14710,7 +14712,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1679
 msgid "Breakpoints"
-msgstr "Puntos de ruptura"
+msgstr "Puntos de interrupción"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1698
 msgid "Decals:"

@@ -385,9 +385,23 @@ GNEDemandElement::getPathElementArrivalPos() const {
 // ---------------------------------------------------------------------------
 
 bool
-GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidVehicleID(newID) && (myNet->getAttributeCarriers()->retrieveDemandElement(myTagProperty.getTag(), newID, false) == nullptr)) {
+GNEDemandElement::isValidDemandElementID(const std::string& value) const {
+    if (value == getID()) {
         return true;
+    } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveDemandElement(myTagProperty.getTag(), value, false) == nullptr);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEDemandElement::isValidDemandElementID(const std::vector<SumoXMLTag> &tags, const std::string& value) const {
+    if (value == getID()) {
+        return true;
+    } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveDemandElements(tags, value, false) == nullptr);
     } else {
         return false;
     }
@@ -1077,18 +1091,6 @@ GNEDemandElement::setVTypeDistributionParent(const std::string& value) {
         parents.push_back(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value));
     }
     replaceParentElements(this, parents);
-}
-
-
-bool
-GNEDemandElement::demandElementExist(const std::string &id, const std::vector<SumoXMLTag> tags) const {
-    // check if there is a demand element with the given tags and id
-    for (const auto& tag : tags) {
-        if (myNet->getAttributeCarriers()->retrieveDemandElement(tag, id, false) != nullptr) {
-            return true;
-        }
-    }
-    return false;
 }
 
 
