@@ -106,10 +106,12 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel("TAZSinks", ACs->getNumberOfSelectedTAZSinks());
         updateInformationLabel("Polygons", ACs->getNumberOfSelectedPolygons());
         updateInformationLabel("POIs", ACs->getNumberOfSelectedPOIs());
-        updateInformationLabel("JuPedSims", ACs->getNumberOfSelectedWalkableAreas() + 
-            ACs->getNumberOfSelectedObstacles() +
-            ACs->getNumberOfSelectedWaitingAreas() +
-            ACs->getNumberOfSelectedPOIWaypoints());
+        updateInformationLabel("JuPedSims", ACs->getNumberOfSelectedJpsWalkableAreas() + 
+            ACs->getNumberOfSelectedJpsObstacles() +
+            ACs->getNumberOfSelectedJpsWaitingAreas() +
+            ACs->getNumberOfSelectedJpsWaypoints() +
+            ACs->getNumberOfSelectedJpsSources() +
+            ACs->getNumberOfSelectedJpsSinks());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         updateInformationLabel("Routes", ACs->getNumberOfSelectedRoutes());
         updateInformationLabel("Vehicles", ACs->getNumberOfSelectedVehicles());
