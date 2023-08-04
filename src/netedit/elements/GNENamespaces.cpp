@@ -30,7 +30,12 @@
 // method definitions
 // ===========================================================================
 
-GNENamespaces::GNENamespaces() {}
+GNENamespaces::GNENamespaces() :
+    polygons({SUMO_TAG_POLY, SUMO_TAG_TAZ, GNE_TAG_JPS_WALKABLEAREA, GNE_TAG_JPS_OBSTACLE, GNE_TAG_JPS_WAITINGAREA, GNE_TAG_JPS_SOURCE, GNE_TAG_JPS_SINK}),
+    POIs({SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO, GNE_TAG_JPS_WAYPOINT}),
+    vehicles({}),
+    person({}) {
+}
 
 
 GNENamespaces::~GNENamespaces() {}

@@ -1137,6 +1137,8 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
 
 std::string
 GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
+    // get GNENamespaces
+    const auto &namepaces = GNEAttributeCarrier::Namespaces;
     // obtain option container
     const auto& neteditOptions = OptionsCont::getOptions();
     // get prefix
@@ -1204,9 +1206,7 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
                 (retrieveAdditional(GNE_TAG_CALIBRATOR_LANE, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_POLY) || (tag == SUMO_TAG_TAZ) || (tag == GNE_TAG_JPS_WALKABLEAREA) ||
-               (tag == GNE_TAG_JPS_OBSTACLE) || (tag == GNE_TAG_JPS_WAITINGAREA) || (tag == GNE_TAG_JPS_SOURCE) ||
-               (tag == GNE_TAG_JPS_SINK)) {
+    } else if (std::find(namepaces.polygons.begin(), namepaces.polygons.end(), tag) == namepaces.polygons.end()) {
         // Polys and TAZs share namespace
         while ((retrieveAdditional(SUMO_TAG_POLY, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr) ||
@@ -1217,7 +1217,7 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
                 (retrieveAdditional(GNE_TAG_JPS_SINK, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_POI) || (tag == GNE_TAG_POILANE) || (tag == GNE_TAG_POIGEO) || (tag == GNE_TAG_JPS_WAYPOINT)) {
+    } else if (std::find(namepaces.POIs.begin(), namepaces.POIs.end(), tag) == namepaces.POIs.end()) {
         while ((retrieveAdditional(SUMO_TAG_POI, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr) ||

@@ -39,6 +39,18 @@ public:
 
     /// @brief destructor
     ~GNENamespaces();
+
+    /// @brief polygon namespace
+    const std::vector<SumoXMLTag> polygons;
+
+    /// @brief POIs namespace
+    const std::vector<SumoXMLTag> POIs;
+
+    /// @brief vehicles namespace
+    const std::vector<SumoXMLTag> vehicles;
+
+    /// @brief persons namespace
+    const std::vector<SumoXMLTag> person;
 };
 
 /****************************************************************************/

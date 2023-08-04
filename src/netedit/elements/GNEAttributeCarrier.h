@@ -24,6 +24,7 @@
 #include <netedit/GNEReferenceCounter.h>
 
 #include "GNETagProperties.h"
+#include "GNENamespaces.h"
 
 
 // ===========================================================================
@@ -260,6 +261,7 @@ public:
 
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{
+
     /// @brief feature is still unchanged after being loaded (implies approval)
     static const std::string FEATURE_LOADED;
 
@@ -271,6 +273,7 @@ public:
 
     /// @brief feature has been approved but not changed (i.e. after being reguessed)
     static const std::string FEATURE_APPROVED;
+
     /// @}
 
     /// @brief max number of attributes allowed for every tag
@@ -284,6 +287,9 @@ public:
 
     /// @brief true value in string format(used for comparing boolean values in getAttribute(...))
     static const std::string False;
+
+    /// @brief namespaces
+    static const GNENamespaces Namespaces;
 
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier
