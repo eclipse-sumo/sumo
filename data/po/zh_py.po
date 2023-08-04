@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-21 15:19+0200\n"
-"PO-Revision-Date: 2023-05-25 07:25+0000\n"
-"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
+"PO-Revision-Date: 2023-08-05 10:05+0000\n"
+"Last-Translator: hongsheng cui <glychs@126.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/python-tools/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: C:\Repos\sumo/tools/game\runner.py:63
 msgid "Interactive Traffic Light"
@@ -101,23 +101,23 @@ msgstr "英语"
 
 #: C:\Repos\sumo/tools/game\runner.py:83
 msgid "Italian"
-msgstr ""
+msgstr "意大利语"
 
 #: C:\Repos\sumo/tools/game\runner.py:84
 msgid "Spanish"
-msgstr ""
+msgstr "西班牙语"
 
 #: C:\Repos\sumo/tools/game\runner.py:85
 msgid "French"
-msgstr ""
+msgstr "法语"
 
 #: C:\Repos\sumo/tools/game\runner.py:86
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "中文（简体）"
 
 #: C:\Repos\sumo/tools/game\runner.py:87
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "中文（繁体）"
 
 #: C:\Repos\sumo/tools/game\runner.py:88
 msgid "Quit"
