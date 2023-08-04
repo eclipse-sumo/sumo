@@ -55,6 +55,12 @@ public:
     /// @brief POIs namespace
     const std::vector<SumoXMLTag> POIs;
 
+    /// @brief type namespace
+    const std::vector<SumoXMLTag> types;
+
+    /// @brief route namespace
+    const std::vector<SumoXMLTag> routes;
+
     /// @brief vehicles namespace
     const std::vector<SumoXMLTag> vehicles;
 
@@ -63,6 +69,9 @@ public:
 
     /// @brief containers namespace
     const std::vector<SumoXMLTag> containers;
+
+    /// @brief vehicle stops namespace
+    const std::vector<SumoXMLTag> stops;
 };
 
 /****************************************************************************/
