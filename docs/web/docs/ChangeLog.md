@@ -32,7 +32,7 @@ title: ChangeLog
   - Now if a network element ID is modified, flag for save children is enabled. #13619
   - Avoid mixing edges and lanes in overlapping module when inspecting edges or lanes. #13093
   - Fixed crash opening undo-redo dialog after setting a simple attribute. #13673
-  - Fixed invalid checks setting IDs #13690
+  - Fixed invalid checks setting IDs. #13690
   
 - netconvert
   - Fixed unequal length of bidi edge. #13569
@@ -45,13 +45,13 @@ title: ChangeLog
   - plotXMLAttributes.py: now works if one of multiple data files contains no data. #13524
   - plotXMLAttributes.py: now uses file name for legend if no id attribute is set. #13534
   - plotXMLAttributes.py: fixed crash when parsing heterogeneous content. #13556
-  - traceExporter.py kepler-JSON now generates correct timestamps. #13522, #13550
+  - traceExporter.py: kepler-JSON now generates correct timestamps. #13522, #13550
   
 ### Enhancements
 
 - sumo-gui
   - Added tooltip in scale traffic label. #13545
-  - Now current sumoconfig can be loaded directly in netedit (edit / open sumo config in netedit) #13588
+  - Now current sumoconfig can be loaded directly in netedit (edit / open sumo config in netedit). #13588
 
 - netedit
   - Now supports Human Readable Time (HH:MM:SS). #11022
@@ -63,7 +63,7 @@ title: ChangeLog
   - Added option "ignore-supermode-question" for disabling question dialog during undo-redo. #13620
   - Add checkbox in Move Frame for forcing draw edge start/end geometry points. #13426
   - Add tooltip in GroupBox expand button. #12236
-  - Added JuPedSim elements #13667 and  #13687
+  - Added JuPedSim elements. #13667, #13687
     - Walkable area
     - Obstacle
     - Waypoint
