@@ -1431,6 +1431,42 @@ class jpsWaitingArea:
         name = 1
         parameters = 4
 
+# jps source
+
+
+class jpsSource:
+    class create:
+        id = 5
+        name = 6
+
+    class inspect:
+        id = 1
+        shape = 2
+        name = 3
+        parameters = 6
+
+    class inspectSelection:
+        name = 1
+        parameters = 4
+
+# jps sink
+
+
+class jpsSink:
+    class create:
+        id = 5
+        name = 6
+
+    class inspect:
+        id = 1
+        shape = 2
+        name = 3
+        parameters = 6
+
+    class inspectSelection:
+        name = 1
+        parameters = 4
+
 # jps waypoint
 
 
