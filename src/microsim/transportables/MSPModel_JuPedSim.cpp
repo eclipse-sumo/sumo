@@ -382,7 +382,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
             if (lane != nullptr) {
                 if (edge->isNormal()) {
                     const Position& anchor = getAnchor(lane, junction);
-                    geos::geom::Geometry* dilatedLaneLine = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_SQUARE);
+                    geos::geom::Geometry* dilatedLaneLine = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_ROUND);
                     dilatedPedestrianLanes.push_back(dilatedLaneLine);
 
                     for (const MSEdge* const nextEdge : adjacent) {
@@ -399,7 +399,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
                     }
                 }
                 if (edge->isCrossing()) {
-                    geos::geom::Geometry* dilatedCrossingLane = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_SQUARE);
+                    geos::geom::Geometry* dilatedCrossingLane = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_ROUND);
                     dilatedPedestrianLanes.push_back(dilatedCrossingLane);
                     
                     for (MSEdge* nextEdge : getAdjacentEdgesOfEdge(edge)) {
@@ -626,9 +626,11 @@ MSPModel_JuPedSim::initialize() {
         WRITE_WARNINGF(TL("Error creating the pedestrian model: %"), JPS_ErrorMessage_GetMessage(message));
     }
 
-	myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
-    if (myJPSSimulation == nullptr) {
-        WRITE_WARNINGF(TL("Error creating the simulation: %"), JPS_ErrorMessage_GetMessage(message));
+    if ((myJPSModel != nullptr) && (myJPSGeometry != nullptr)) {
+        myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
+        if (myJPSSimulation == nullptr) {
+            WRITE_WARNINGF(TL("Error creating the simulation: %"), JPS_ErrorMessage_GetMessage(message));
+        }
     }
 
     JPS_ErrorMessage_Free(message);
