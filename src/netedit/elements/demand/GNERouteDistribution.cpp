@@ -257,13 +257,7 @@ bool
 GNERouteDistribution::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (value == getID()) {
-                return true;
-            } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
-                return (demandElementExist(value, {SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}) == false);
-            } else {
-                return false;
-            }
+            return isValidDemandElementID(Namespaces.routes, value);
         case SUMO_ATTR_DETERMINISTIC:
             if (value == "-1" || value.empty()) {
                 return true;

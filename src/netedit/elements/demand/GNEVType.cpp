@@ -709,13 +709,7 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            if (value == getID()) {
-                return true;
-            } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
-                return (demandElementExist(value, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}) == false);
-            } else {
-                return false;
-            }
+            return isValidDemandElementID(Namespaces.types, value);
         // CFM Attributes
         case SUMO_ATTR_SIGMA:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);

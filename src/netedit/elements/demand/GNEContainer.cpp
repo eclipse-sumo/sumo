@@ -164,7 +164,7 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_CONTAINER, tag, GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementFlow(myTagProperty) {
+    GNEDemandElementFlow(this) {
     // reset default values
     resetDefaultValues();
     // set end and container per hours as default flow values
@@ -177,7 +177,7 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType,
     GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
                      (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW) : GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
-    GNEDemandElementFlow(myTagProperty, containerparameters) {
+    GNEDemandElementFlow(this, containerparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
@@ -588,25 +588,15 @@ GNEContainer::isValid(SumoXMLAttr key, const std::string& value) {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            if (value == getID()) {
-                return true;
-            } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
-                return (demandElementExist(value, {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}) == false);
-            } else {
-                return false;
-            }
+            return isValidDemandElementID(Namespaces.containers, value);
         case SUMO_ATTR_TYPE:
-            if (SUMOXMLDefinitions::isValidVehicleID(value)) {
-                return demandElementExist(value, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION});
-            } else {
-                return false;
-            }
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(Namespaces.types, value, false) == nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTPOS: {
             double dummyDepartPos;
             DepartPosDefinition dummyDepartPosProcedure;
-            parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartPos, dummyDepartPosProcedure, error);
+            parseDepartPos(value, myTagProperty.getTagStr(), id, dummyDepartPos, dummyDepartPosProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
@@ -616,7 +606,7 @@ GNEContainer::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
-            return isValidFlowAttribute(key, value);
+            return isValidFlowAttribute(this, key, value);
     }
 }
 
@@ -778,12 +768,12 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_DEPARTPOS:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                parseDepartPos(value, myTagProperty.getTagStr(), id, departPos, departPosProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTPOS_SET;
             } else {
                 // set default value
-                parseDepartPos(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                parseDepartPos(myTagProperty.getDefaultValue(key), myTagProperty.getTagStr(), id, departPos, departPosProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOS_SET;
             }
@@ -802,7 +792,7 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
             setParametersStr(value);
             break;
         default:
-            setFlowAttribute(key, value);
+            setFlowAttribute(this, key, value);
             break;
     }
 }

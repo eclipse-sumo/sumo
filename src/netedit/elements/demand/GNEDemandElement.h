@@ -336,7 +336,10 @@ protected:
     int myStackedLabelNumber;
 
     /// @brief check if a new demand element ID is valid
-    bool isValidDemandElementID(const std::string& newID) const;
+    bool isValidDemandElementID(const std::string& value) const;
+
+    /// @brief check if a new demand element ID is valid
+    bool isValidDemandElementID(const std::vector<SumoXMLTag> &tags, const std::string& value) const;
 
     /// @brief set demand element id
     void setDemandElementID(const std::string& newID);
@@ -414,9 +417,6 @@ protected:
     void setVTypeDistributionParent(const std::string& value);
 
     /// @}
-
-    /// @brief check if the given demand element exist
-    bool demandElementExist(const std::string &id, const std::vector<SumoXMLTag> tags) const;
 
     /// @brief auxiliar struct used for calculate pathStopIndex
     struct EdgeStopIndex {

@@ -257,13 +257,7 @@ bool
 GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (value == getID()) {
-                return true;
-            } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
-                return (demandElementExist(value, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}) == false);
-            } else {
-                return false;
-            }
+            return isValidDemandElementID(Namespaces.types, value);
         case SUMO_ATTR_DETERMINISTIC:
             if (value == "-1" || value.empty()) {
                 return true;

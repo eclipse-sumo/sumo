@@ -556,13 +556,13 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
             if (myTagProperty.getTag() != GNE_TAG_WALK_ROUTE) {
-                return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
+                return (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
             } else {
                 return false;
             }
         case SUMO_ATTR_FROMJUNCTION:
         case SUMO_ATTR_TOJUNCTION:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case GNE_ATTR_TO_BUSSTOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case GNE_ATTR_TO_TRAINSTOP:
