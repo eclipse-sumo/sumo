@@ -73,6 +73,7 @@ FXDEFMAP(GNEViewParent) GNEViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA,   GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,       GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_P_LOCATEPERSON,        GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_C_LOCATECONTAINER,     GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_R_LOCATEROUTE,         GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_S_LOCATESTOP,          GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_T_LOCATETLS,           GNEViewParent::onCmdLocate),
@@ -416,6 +417,8 @@ GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
         myACChoosers.ACChooserVehicles = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserPersons) {
         myACChoosers.ACChooserPersons = nullptr;
+    } else if (chooserDialog == myACChoosers.ACChooserContainers) {
+        myACChoosers.ACChooserContainers = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserRoutes) {
         myACChoosers.ACChooserRoutes = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserStops) {
@@ -548,8 +551,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 locateTitle = TL("Vehicle Chooser");
                 // fill ACsToLocate with all vehicles
                 for (const auto &vehicleTag : NamespaceIDs::vehicles) {
-                    for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(vehicleTag)) {
-                        ACsToLocate.push_back(flowTAZ);
+                    for (const auto& vehicle : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(vehicleTag)) {
+                        ACsToLocate.push_back(vehicle);
                     }
                 }
                 break;
@@ -557,10 +560,20 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_SHIFT_P_LOCATEPERSON:
                 chooserLoc = &myACChoosers.ACChooserPersons;
                 locateTitle = TL("Person Chooser");
-                // fill ACsToLocate with all vehicles
+                // fill ACsToLocate with all persons
                 for (const auto &personTag : NamespaceIDs::persons) {
-                    for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(personTag)) {
-                        ACsToLocate.push_back(flowTAZ);
+                    for (const auto& person : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(personTag)) {
+                        ACsToLocate.push_back(person);
+                    }
+                }
+                break;
+            case MID_HOTKEY_SHIFT_C_LOCATECONTAINER:
+                chooserLoc = &myACChoosers.ACChooserContainers;
+                locateTitle = TL("Container Chooser");
+                // fill ACsToLocate with all containers
+                for (const auto &containerTag : NamespaceIDs::containers) {
+                    for (const auto& container : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(containerTag)) {
+                        ACsToLocate.push_back(container);
                     }
                 }
                 break;
@@ -1061,6 +1074,9 @@ GNEViewParent::ACChoosers::~ACChoosers() {
     }
     if (ACChooserPersons) {
         delete ACChooserPersons;
+    }
+    if (ACChooserContainers) {
+        delete ACChooserContainers;
     }
     if (ACChooserTLS) {
         delete ACChooserTLS;
