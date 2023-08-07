@@ -544,6 +544,9 @@ private:
     /// @brief write demand element by type and sorted by ID
     void writeDemandByType(OutputDevice& device, SumoXMLTag tag) const;
 
+    /// @brief write route distributions sorted by ID
+    void writeRouteDistributions(OutputDevice& device, const bool additionalFile) const;
+
     /// @brief write route sorted by ID
     void writeRoutes(OutputDevice& device, const bool additionalFile) const;
 

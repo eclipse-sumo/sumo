@@ -2221,6 +2221,7 @@ GNENet::saveAdditionalsConfirmed() {
     writeVTypes(device, true);
     // write routes with additional children (due route prob reroutes)
     writeRouteComment(device, true);
+    writeRouteDistributions(device, true);
     writeRoutes(device, true);
     // routeProbes
     writeRouteProbeComment(device);
@@ -2370,6 +2371,24 @@ GNENet::writeDemandByType(OutputDevice& device, SumoXMLTag tag) const {
     for (const auto& demandElement : sortedDemandElements) {
         demandElement.second->writeDemandElement(device);
     }
+}
+
+
+void
+GNENet::writeRouteDistributions(OutputDevice& device, const bool additionalFile) const {
+    std::map<std::string, GNEDemandElement*> sortedElements;
+    // first write route Distributions
+    for (const auto& routeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE_DISTRIBUTION)) {
+        // get number of additional children
+        const auto numChildren = routeDistribution->getAttributeDouble(GNE_ATTR_ADDITIONALCHILDREN);
+        if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
+            sortedElements[routeDistribution->getID()] = routeDistribution;
+        }
+    }
+    for (const auto& element : sortedElements) {
+        element.second->writeDemandElement(device);
+    }
+    sortedElements.clear();
 }
 
 
