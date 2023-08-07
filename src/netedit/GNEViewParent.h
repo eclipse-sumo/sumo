@@ -457,6 +457,9 @@ protected:
         /// @brief pointer to ACChooser dialog used for locate persons
         GNEDialogACChooser* ACChooserPersons = nullptr;
 
+        /// @brief pointer to ACChooser dialog used for locate containers
+        GNEDialogACChooser* ACChooserContainers = nullptr;
+
         /// @brief pointer to ACChooser dialog used for locate routes
         GNEDialogACChooser* ACChooserRoutes = nullptr;
 

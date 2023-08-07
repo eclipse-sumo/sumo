@@ -63,6 +63,7 @@ title: ChangeLog
   - Added option "ignore-supermode-question" for disabling question dialog during undo-redo. #13620
   - Add checkbox in Move Frame for forcing draw edge start/end geometry points. #13426
   - Add tooltip in GroupBox expand button. #12236
+  - Add locate containers dialog. #13692
   - Added JuPedSim elements. #13667, #13687
     - Walkable area
     - Obstacle

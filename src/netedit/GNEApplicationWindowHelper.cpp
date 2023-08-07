@@ -2046,6 +2046,9 @@ GNEApplicationWindowHelper::LocateMenuCommands::buildLocateMenuCommands(FXMenuPa
                                            TL("&Persons"), "Shift+P", TL("Open a dialog for locating a Person."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), myGNEApp, MID_HOTKEY_SHIFT_P_LOCATEPERSON);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
+                                           TL("&Containers"), "Shift+P", TL("Open a dialog for locating a Container."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), myGNEApp, MID_HOTKEY_SHIFT_C_LOCATECONTAINER);
+    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Route"), "Shift+R", TL("Open a dialog for locating a Route."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), myGNEApp, MID_HOTKEY_SHIFT_R_LOCATEROUTE);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
