@@ -19,7 +19,7 @@ title: Projects
   developing additional car following models
 - [Urban Mobility](https://www.urmo.info/) Intermodal routing and
   modeling of transfer between vehicles in SUMO
-- [Mobility Inside](https://www.mobilityinside.de/) Using SUMO's
+- [Mobility Inside](https://www.mobility-inside.de/) Using SUMO's
   intermodal routing engine
 - [HubChain (german)](https://komob.de/projekte/hub-chain/) simulating
   autonomous public transport in rural areas
