@@ -75,9 +75,9 @@ GNERouteDistributionFrame::RouteDistributionEditor::RouteDistributionEditor(GNER
     MFXGroupBoxModule(typeDistributionFrameParent, TL("Route Editor")),
     myRouteDistributionFrameParent(typeDistributionFrameParent) {
     // Create new route
-    myCreateRouteButton = new FXButton(getCollapsableFrame(), TL("Create type distribution"), GUIIconSubSys::getIcon(GUIIcon::ROUTEDISTRIBUTION), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateRouteButton = new FXButton(getCollapsableFrame(), TL("Create route dist."), GUIIconSubSys::getIcon(GUIIcon::ROUTEDISTRIBUTION), this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete/reset route
-    myDeleteRouteButton = new FXButton(getCollapsableFrame(), TL("Delete type distribution"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
+    myDeleteRouteButton = new FXButton(getCollapsableFrame(), TL("Delete route dist."), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
     // show type editor
     show();
 }
@@ -97,6 +97,8 @@ GNERouteDistributionFrame::RouteDistributionEditor::onCmdCreateRoute(FXObject*, 
     viewNet->getUndoList()->begin(routeDistribution, "create route distribution");
     viewNet->getUndoList()->add(new GNEChange_DemandElement(routeDistribution, true), true);
     viewNet->getUndoList()->end();
+    // refresh route distribution
+    myRouteDistributionFrameParent->myRouteDistributionSelector->refreshRouteDistributionSelector();
     return 1;
 }
 
@@ -111,6 +113,8 @@ GNERouteDistributionFrame::RouteDistributionEditor::onCmdDeleteRoute(FXObject*, 
     viewNet->getNet()->deleteDemandElement(currentRouteDistribution, viewNet->getUndoList());
     // end undo list operation
     viewNet->getUndoList()->end();
+    // refresh route distribution
+    myRouteDistributionFrameParent->myRouteDistributionSelector->refreshRouteDistributionSelector();
     return 1;
 }
 
@@ -130,7 +134,7 @@ GNERouteDistributionFrame::RouteDistributionEditor::onUpdDeleteRoute(FXObject* s
 // ---------------------------------------------------------------------------
 
 GNERouteDistributionFrame::RouteDistributionSelector::RouteDistributionSelector(GNERouteDistributionFrame* typeFrameParent) :
-    MFXGroupBoxModule(typeFrameParent, TL("Current Route")),
+    MFXGroupBoxModule(typeFrameParent, TL("Current route dist.")),
     myRouteDistributionFrameParent(typeFrameParent) {
     // Create FXComboBox
     myRouteComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
