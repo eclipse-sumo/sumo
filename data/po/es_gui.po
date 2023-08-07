@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 17:04+0200\n"
-"PO-Revision-Date: 2023-08-07 11:50+0000\n"
+"PO-Revision-Date: 2023-08-07 12:35+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -159,13 +159,13 @@ msgstr "Abrir ventana para editar la lista de elementos seleccionados."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:495
 msgid "Select lanes which allow..."
-msgstr "Seleccionar carriles (lanes) que permitan..."
+msgstr "Seleccionar carriles que permitan..."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:495
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
 msgstr ""
 "Abre un menú para escoger una clase de vehículo (vclass) que seleccionará "
-"los carriles (lanes) permitidos."
+"los carriles permitidos."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:499
 msgid "Edit Breakpoints"
@@ -3305,7 +3305,7 @@ msgstr "&Conexión"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:622
 msgid "Modes connections between lanes."
-msgstr "Modo para conexión entre carriles (lanes)."
+msgstr "Modo para conexión entre carriles."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:626
 msgid "Pro&hibition"
@@ -3500,7 +3500,7 @@ msgstr "Mostrar elementos de demanda"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:845
 msgid "Clicking should target lanes"
-msgstr "Hacer click debe referirse a carriles (lanes)"
+msgstr "Cliquear debe referirse a carriles"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:850
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2388
@@ -3668,7 +3668,7 @@ msgstr "Abre la aplicación sumo-gui con la actual red (network)."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1319
 msgid "&Lanes"
-msgstr "&Carriles (lanes)"
+msgstr "&Carriles"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1324
 msgid "&Connections"
@@ -4452,11 +4452,11 @@ msgstr "Prefijo para el nombre de los meanDataEdge"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:442
 msgid "Prefix for meanDataLane naming"
-msgstr "Prefijo para el nombre de los meanDatas sobre carriles (lanes)"
+msgstr "Prefijo para el nombre de los meanDatas sobre carriles"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:449
 msgid "Disable icons of special lanes"
-msgstr "Desactivar iconos sobre carriles (lanes)"
+msgstr "Desactivar iconos sobre carriles"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:452
 msgid "Disable textures"
@@ -4970,7 +4970,7 @@ msgstr "seleccionar dentro del area del polígono"
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2595
 #, c-format
 msgid "No lanes around % to attach it"
-msgstr "No hay carriles (lanes) alrededor de % para adjuntar"
+msgstr "No hay carriles alrededor de % para adjuntar"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2618
 msgid "attach POI into lane"
@@ -5336,7 +5336,7 @@ msgstr "Alternar mostrar elementos de demanda."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2381
 msgid "Clicks target lanes"
-msgstr "Clicks seleccionan carriles (lanes)"
+msgstr "Clics seleccionan carriles"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2381
 msgid ""
@@ -5555,7 +5555,7 @@ msgstr "Ir al modo de conexiones"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3556
 msgid "Mode for edit connections between lanes. (C)"
-msgstr "Modo para editar conexiones entre carriles (lanes). (C)"
+msgstr "Modo para editar conexiones entre carriles. (C)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3562
 msgid "Set prohibition mode"
@@ -6158,13 +6158,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:325
 msgid "Build connections between lanes"
-msgstr "Crear conexiones entre carriles (lanes)"
+msgstr "Crear conexiones entre carriles"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:325
 msgid "New connections will be created between non-connected lanes"
-msgstr ""
-"Se crearán nuevas conexiones (connections) entre carriles (lanes) no "
-"conectados"
+msgstr "Se crearán nuevas conexiones entre carriles no conectados"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:327
 msgid "Remove invalid E2 detectors"
@@ -6172,7 +6170,7 @@ msgstr "Eliminar detectores E2 inválidos"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:327
 msgid "Remove Multilane E2 Detectors with non-connected lanes"
-msgstr "Eliminar detectores multicarril E2 con carriles (lanes) desconectados"
+msgstr "Eliminar detectores multicarril E2 con carriles desconectados"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:202
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:189
@@ -7951,7 +7949,7 @@ msgstr "Subestación conectada al circuito"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3266
 msgid "List of consecutive lanes of the circuit"
-msgstr "Lista de carriles (lanes) consecutivos del circuito"
+msgstr "Lista de carriles consecutivos del circuito"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3271
 msgid "Starting position in the specified lane"
@@ -7964,8 +7962,8 @@ msgstr "Posición final en el carril (lane) especificado"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3291
 msgid "Inner lanes, where placing of overhead wire is restricted"
 msgstr ""
-"Carriles (lanes) internos, en los que situar una catenaria (overhead wire) "
-"está restringido"
+"Carriles internos, en los que situar una catenaria (overhead wire) está "
+"restringido"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3304
 msgid "Overhead wire clamp ID"
@@ -9190,11 +9188,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6029
 msgid "The ID of the edge the edgeRel starts at"
-msgstr ""
+msgstr "El ID de la arista en la cual inicia la edgeRel"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6034
 msgid "The ID of the edge the edgeRel ends at"
-msgstr ""
+msgstr "El ID de la arista en la cual termina la edgeRel"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6048
 msgid "The name of the TAZ the TAZRel starts at"
@@ -10083,8 +10081,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:557
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:597
 msgid "Invalid % used in % '%'. % is greater than number of lanes"
-msgstr ""
-"% usado en % '%' no válido. % es mayor que el número de carriles (lanes)"
+msgstr "% usado en % '%' no válido. % es mayor que el número de carriles"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:205
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:316
@@ -10663,12 +10660,12 @@ msgstr "ID de elemento adicional no soportado"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:55
 msgid "Consecutive lane selector"
-msgstr "Selector de carriles (lanes) consecutivos"
+msgstr "Selector de carriles consecutivos"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:59
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:411
 msgid "No lanes selected"
-msgstr "No hay carriles (lanes) seleccionados"
+msgstr "No hay carriles seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:61
 msgid "Finish path creation"
@@ -10684,7 +10681,7 @@ msgstr "Eliminar el último carril"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:70
 msgid "Show candidate lanes"
-msgstr "Mostrar carriles (lanes) candidatos"
+msgstr "Mostrar carriles candidatos"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:73
 msgid "-BACKSPACE: undo click"
@@ -10700,7 +10697,7 @@ msgstr "Carril (lane) inválido"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:151
 msgid "Lane path needs at least two lanes"
-msgstr "Un camino de carriles (lanes) necesita al menos dos carriles"
+msgstr "Un camino de carriles necesita al menos dos carriles"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:171
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:412
@@ -10711,7 +10708,7 @@ msgstr "creación de ruta"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:406
 msgid "- Selected lanes: "
-msgstr "- Carriles (lanes) seleccionados: "
+msgstr "- Carriles seleccionados: "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:407
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:1027
@@ -10875,7 +10872,7 @@ msgstr " aristas..."
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:674
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:756
 msgid " lanes..."
-msgstr " carriles (lanes)..."
+msgstr " carriles..."
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:569
 msgid " TAZElements..."
@@ -10903,7 +10900,7 @@ msgstr "Aristas"
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:890
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:71
 msgid "Lanes"
-msgstr "Carriles (lanes)"
+msgstr "Carriles"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:51
 msgid "Flow attributes"
@@ -12379,7 +12376,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:445
 msgid "List of lanes cannot be empty"
-msgstr "La lista de carriles (lanes) no puede estar vacia"
+msgstr "La lista de carriles no puede estar vacía"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:545
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:232
@@ -13735,7 +13732,7 @@ msgstr "¡No se pudo asignar el paquete de video!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:175
 msgid "Error sending final frame!"
-msgstr "¡Error al enviar el cuadro final!"
+msgstr "¡Error al enviar el fotograma final!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:183
 msgid "Error during final encoding step!"
@@ -13743,11 +13740,11 @@ msgstr "¡Error durante el paso final de codificación!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:214
 msgid "Error sending frame for encoding!"
-msgstr ""
+msgstr "¡Error al enviar el fotograma para la codificación!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:222
 msgid "Error during encoding!"
-msgstr ""
+msgstr "¡Error durante la codificación!"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp:170
 msgid "Object must be a lane"
@@ -13888,7 +13885,7 @@ msgstr "carril de bicicleta"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:646
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1519
 msgid "green verge"
-msgstr ""
+msgstr "franja verde"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:647
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1162
@@ -14030,12 +14027,12 @@ msgstr "por consumo de combustible"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:749
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1249
 msgid "by noise emissions (Harmonoise)"
-msgstr ""
+msgstr "por emisiones de ruido (Harmonoise)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:758
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1253
 msgid "by global travel time"
-msgstr ""
+msgstr "por tiempo de viaje"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:762
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1257
@@ -14045,7 +14042,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:767
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1261
 msgid "by given length/geometrical length"
-msgstr ""
+msgstr "por longitud dada/longitud geométrica"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:775
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1094
@@ -14054,45 +14051,45 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1342
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1566
 msgid "by angle"
-msgstr ""
+msgstr "por ángulo"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:776
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1264
 msgid "by loaded weight"
-msgstr ""
+msgstr "por peso cargado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:780
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1269
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1568
 msgid "by priority"
-msgstr ""
+msgstr "por prioridad"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:785
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1573
 msgid "by height at start"
-msgstr ""
+msgstr "por altura inicial"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:793
 msgid "by height at geometry-segment start"
-msgstr ""
+msgstr "por altura al inicio del segmento geométrico"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:801
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1587
 msgid "by inclination"
-msgstr ""
+msgstr "por inclinación"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:808
 msgid "by geometry-segment inclination"
-msgstr ""
+msgstr "por inclinación del segmento geométrico"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:815
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1274
 msgid "by average speed"
-msgstr ""
+msgstr "por velocidad media"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:822
 msgid "by average relative speed "
-msgstr ""
+msgstr "por velocidad relativa media "
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:829
 msgid "by routing device assumed speed "
