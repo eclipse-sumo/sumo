@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-26 16:01+0200\n"
-"PO-Revision-Date: 2023-04-26 09:39+0000\n"
+"PO-Revision-Date: 2023-08-07 12:35+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hant/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -58,7 +58,7 @@ msgstr "配置車輛位置"
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:174
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:181
 msgid "Invalid % value of edge % is treated as zero."
-msgstr ""
+msgstr "無效值 % (位於路段 %)被視為零。"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:186
 #, c-format
@@ -1380,7 +1380,7 @@ msgstr "車輛 '%' 將無法以給定的速度抵達!"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:901
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
-msgstr ""
+msgstr "忽略departEdge % (被用於車輛 '%' 及位於 % 路徑路段)。"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.h:919
 msgid "getLeader not yet implemented for meso"
