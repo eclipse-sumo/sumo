@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 17:04+0200\n"
-"PO-Revision-Date: 2023-08-05 10:05+0000\n"
+"PO-Revision-Date: 2023-08-07 13:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1710,61 +1710,61 @@ msgstr "Erreichbare Fahrstreifen auswählen"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1009
 msgid "allowed speed [m/s]"
-msgstr ""
+msgstr "erlaubte Geschwindigkeit [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1017
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:222
 msgid "width [m]"
-msgstr ""
+msgstr "Breite [m]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1019
 msgid "stored travel time [s]"
-msgstr ""
+msgstr "akkumulierte Reisezeit [s]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1020
 msgid "loaded weight"
-msgstr ""
+msgstr "geladenes Gewicht"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1022
 msgid "lane friction coefficient [%]"
-msgstr ""
+msgstr "Reibungskoeeffizient des Fahrstreifens [%]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1025
 msgid "netto occupancy [%]"
-msgstr ""
+msgstr "Nettobelegungsgrad [%]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1027
 msgid "edge type"
-msgstr ""
+msgstr "Kantentyp"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1029
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:257
 msgid "priority"
-msgstr ""
+msgstr "Priorität"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1030
 msgid "distance [km]"
-msgstr ""
+msgstr "Entfernung [km]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1031
 msgid "allowed vehicle class"
-msgstr ""
+msgstr "erlaubte Fahrzeugklassen"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1032
 msgid "disallowed vehicle class"
-msgstr ""
+msgstr "verbotene Fahrzeugklassen"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1033
 msgid "permission code"
-msgstr ""
+msgstr "Zufahrterlaubniswert"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1034
 msgid "color value"
-msgstr ""
+msgstr "Farbwert"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1036
 msgid "bidi-lane"
-msgstr ""
+msgstr "Zweirichtungsfahrstreifen"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
@@ -1772,91 +1772,91 @@ msgstr "Netz größer als ein Lichtjahr. Bitte die Eingabedaten prüfen.\n"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:481
 msgid "loaded vehicles [#]"
-msgstr ""
+msgstr "geladene Fahrzeuge [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:483
 msgid "insertion-backlogged vehicles [#]"
-msgstr ""
+msgstr "auf Einsatz wartende Fahrzeuge [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:485
 msgid "departed vehicles [#]"
-msgstr ""
+msgstr "abgefahrene Fahrzeuge [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:487
 msgid "running vehicles [#]"
-msgstr ""
+msgstr "Fahrzeuge unterwegs [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:489
 msgid "arrived vehicles [#]"
-msgstr ""
+msgstr "angekommene Fahrzeuge [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:491
 msgid "discarded vehicles [#]"
-msgstr ""
+msgstr "verworfene Fahrzeuge [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:493
 msgid "collisions [#]"
-msgstr ""
+msgstr "Kollisionen [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:495
 msgid "teleports [#]"
-msgstr ""
+msgstr "Teleports [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:497
 msgid "halting [#]"
-msgstr ""
+msgstr "stillstehende Fahrzeuge [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:499
 msgid "stopped [#]"
-msgstr ""
+msgstr "haltende Fahrzeuge [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:501
 msgid "avg. speed [m/s]"
-msgstr ""
+msgstr "mittlere Geschwindigkeit [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:503
 msgid "avg. relative speed"
-msgstr ""
+msgstr "mittlere relative Geschwindigkeit"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:506
 msgid "loaded persons [#]"
-msgstr ""
+msgstr "geladene Personen [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:508
 msgid "running persons [#]"
-msgstr ""
+msgstr "Personen in Bewegung [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:510
 msgid "jammed persons [#]"
-msgstr ""
+msgstr "blockierte Personen [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:513
 msgid "end time [s]"
-msgstr ""
+msgstr "Ende [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:514
 msgid "begin time [s]"
-msgstr ""
+msgstr "Beginn [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:517
 msgid "step duration [ms]"
-msgstr ""
+msgstr "Schrittdauer [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:518
 msgid "FPS"
-msgstr ""
+msgstr "FPS"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:519
 msgid "simulation duration [ms]"
-msgstr ""
+msgstr "Simulationsdauer [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:525
 msgid "idle duration [ms]"
-msgstr ""
+msgstr "Leerlauf [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:526
 msgid "duration factor"
-msgstr ""
+msgstr "Dauerfaktor"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:532
 msgid "updates per second"
