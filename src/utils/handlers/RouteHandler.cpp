@@ -662,6 +662,8 @@ RouteHandler::parseStop(const SUMOSAXAttributes& attrs) {
     std::vector<SumoXMLTag> stopParents;
     stopParents.insert(stopParents.end(), NamespaceIDs::vehicles.begin(), NamespaceIDs::vehicles.end());
     stopParents.insert(stopParents.end(), NamespaceIDs::routes.begin(), NamespaceIDs::routes.end());
+    stopParents.insert(stopParents.end(), NamespaceIDs::persons.begin(), NamespaceIDs::persons.end());
+    stopParents.insert(stopParents.end(), NamespaceIDs::containers.begin(), NamespaceIDs::containers.end());
     //  check parents
     checkParent(SUMO_TAG_STOP, stopParents, parsedOk);
     // parse stop
