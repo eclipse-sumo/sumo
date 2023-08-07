@@ -1,0 +1,4 @@
+Error: trip definition needs either 'from/to' or 'fromJunction/toJunction' or 'fromTaz/toTaz'
+Error: Attribute 'fromJunction' in definition of trip 'trip_1' is empty.
+Error: Could not build trip in netedit; junction doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_07Aug075829.73460/netedit.gui/demandelements/trip_junctions/load/from/routes.rou.xml failed.

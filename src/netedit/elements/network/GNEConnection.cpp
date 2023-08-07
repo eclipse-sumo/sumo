@@ -75,9 +75,9 @@ GNEConnection::getConnectionShape() const {
 
 void
 GNEConnection::updateGeometry() {
-    // Get shape of from and to lanes
-    const NBEdge::Connection& nbCon = getNBEdgeConnection();
-    if (myShapeDeprecated) {
+    if (myShapeDeprecated && existNBEdgeConnection()) {
+        // Get shape of from and to lanes
+        const NBEdge::Connection& nbCon = getNBEdgeConnection();
         // obtain lane shape from
         PositionVector laneShapeFrom;
         if ((int)getEdgeFrom()->getNBEdge()->getLanes().size() > nbCon.fromLane) {
@@ -500,21 +500,28 @@ GNEConnection::setSpecialColor(const RGBColor* color) {
 
 std::string
 GNEConnection::getAttribute(SumoXMLAttr key) const {
-    if (key == SUMO_ATTR_ID) {
-        // used by GNEReferenceCounter
-        // @note: may be called for connections without a valid nbCon reference
-        return getMicrosimID();
+    // first get attributes in which nbConnection reference can be invalid
+    switch (key) {
+        case SUMO_ATTR_ID:
+            return getMicrosimID();
+        case SUMO_ATTR_FROM:
+            return myFromLane->getParentEdge()->getID();
+        case SUMO_ATTR_TO:
+            return myToLane->getParentEdge()->getID();
+        case SUMO_ATTR_FROM_LANE:
+            return myFromLane->getAttribute(SUMO_ATTR_INDEX);
+        case SUMO_ATTR_TO_LANE:
+            return myToLane->getAttribute(SUMO_ATTR_INDEX);
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
+        case GNE_ATTR_PARENT:
+            return getEdgeFrom()->getToJunction()->getID();
+        default:
+            break;
     }
+    // now continue with attributes that needs a nbConnection reference
     const NBEdge::Connection& nbCon = getNBEdgeConnection();
     switch (key) {
-        case SUMO_ATTR_FROM:
-            return getEdgeFrom()->getID();
-        case SUMO_ATTR_TO:
-            return nbCon.toEdge->getID();
-        case SUMO_ATTR_FROM_LANE:
-            return toString(nbCon.fromLane);
-        case SUMO_ATTR_TO_LANE:
-            return toString(nbCon.toLane);
         case SUMO_ATTR_PASS:
             return toString(nbCon.mayDefinitelyPass);
         case SUMO_ATTR_INDIRECT:
@@ -573,12 +580,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
                                 getEdgeFrom()->getNBEdge(), nbCon.toEdge, nbCon.fromLane, nbCon.toLane, nbCon.mayDefinitelyPass, nbCon.tlID));
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(nbCon.customShape);
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return nbCon.getParametersStr();
-        case GNE_ATTR_PARENT:
-            return getEdgeFrom()->getToJunction()->getID();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -683,6 +686,11 @@ GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndo
     undoList->end();
 }
 
+
+bool
+GNEConnection::existNBEdgeConnection() const {
+    return getEdgeFrom()->getNBEdge()->getConnectionsFromLane(getFromLaneIndex(), getEdgeTo()->getNBEdge(), getToLaneIndex()).size() > 0;
+}
 
 void
 GNEConnection::drawConnectionArrows(const GUIVisualizationSettings& s) const {

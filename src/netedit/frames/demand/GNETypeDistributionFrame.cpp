@@ -77,9 +77,9 @@ GNETypeDistributionFrame::TypeDistributionEditor::TypeDistributionEditor(GNEType
     MFXGroupBoxModule(typeDistributionFrameParent, TL("Type Editor")),
     myTypeDistributionFrameParent(typeDistributionFrameParent) {
     // Create new vehicle type
-    myCreateTypeButton = new FXButton(getCollapsableFrame(), TL("Create type distribution"), GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateTypeButton = new FXButton(getCollapsableFrame(), TL("Create type dist."), GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION), this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete/reset vehicle type
-    myDeleteTypeButton = new FXButton(getCollapsableFrame(), TL("Delete type distribution"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
+    myDeleteTypeButton = new FXButton(getCollapsableFrame(), TL("Delete type dist."), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
     // show type editor
     show();
 }
@@ -99,6 +99,8 @@ GNETypeDistributionFrame::TypeDistributionEditor::onCmdCreateType(FXObject*, FXS
     viewNet->getUndoList()->begin(GUIIcon::VTYPEDISTRIBUTION, "create vehicle type distribution");
     viewNet->getUndoList()->add(new GNEChange_DemandElement(type, true), true);
     viewNet->getUndoList()->end();
+    // refresh type distribution
+    myTypeDistributionFrameParent->myTypeDistributionSelector->refreshTypeDistributionSelector();
     return 1;
 }
 
@@ -112,6 +114,8 @@ GNETypeDistributionFrame::TypeDistributionEditor::onCmdDeleteType(FXObject*, FXS
     viewNet->getNet()->deleteDemandElement(myTypeDistributionFrameParent->myTypeDistributionSelector->getCurrentTypeDistribution(), viewNet->getUndoList());
     // end undo list operation
     viewNet->getUndoList()->end();
+    // refresh type distribution
+    myTypeDistributionFrameParent->myTypeDistributionSelector->refreshTypeDistributionSelector();
     return 1;
 }
 
@@ -131,7 +135,7 @@ GNETypeDistributionFrame::TypeDistributionEditor::onUpdDeleteType(FXObject* send
 // ---------------------------------------------------------------------------
 
 GNETypeDistributionFrame::TypeDistributionSelector::TypeDistributionSelector(GNETypeDistributionFrame* typeFrameParent) :
-    MFXGroupBoxModule(typeFrameParent, TL("Current Type")),
+    MFXGroupBoxModule(typeFrameParent, TL("Current type dist.")),
     myTypeDistributionFrameParent(typeFrameParent) {
     // Create FXComboBox
     myTypeComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
