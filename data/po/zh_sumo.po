@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-26 16:01+0200\n"
-"PO-Revision-Date: 2023-08-05 10:05+0000\n"
-"Last-Translator: hongsheng cui <glychs@126.com>\n"
+"PO-Revision-Date: 2023-08-07 09:29+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
@@ -1830,7 +1830,7 @@ msgstr "在执行碰撞动作前让车辆停顿一段时间（除了动作 \"无
 msgid ""
 "Let vehicle stop for TIME before performing intermodal-collision.action "
 "(except for action 'none')"
-msgstr "在执行联运碰撞操作前，让车辆停留一段时间（\"无 \"操作除外）"
+msgstr "在执行联运碰撞操作前，让车辆停留一段时间（'无 '操作除外）"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:392
 msgid "Enables collisions checks on junctions"
@@ -2529,12 +2529,12 @@ msgstr "传送车辆'%'后"
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2119
 #, c-format
 msgid "Removing vehicle '%' after"
-msgstr "删除车辆后的\"%\""
+msgstr "删除车辆后的'%'"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2123
 #, c-format
 msgid "Keeping remote-controlled vehicle '%' after"
-msgstr "保持远程遥控车\"%\"后"
+msgstr "保持远程遥控车'%'后"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2136
 msgid " collision with person '%', lane='%', gap=%, time=%, stage=%."
@@ -3403,9 +3403,9 @@ msgid ""
 "numerical valid conflict type code). An empty value will log all and "
 "'ego'/'foe' refer to a certain conflict type subset."
 msgstr ""
-"根据冲突类型（\"ego\"（自我）、\"foe\"（敌人）、\"''（任何有效冲突类型代码）"
-"中的值组合），哪些冲突将从日志中排除。空值将记录所有冲突，而 \"ego\"/\"foe "
-"\"指的是某个冲突类型子集。"
+"根据冲突类型（'ego'（自我）、'foe'（敌人）、''（任何有效冲突类型代码）中的值"
+"组合），哪些冲突将从日志中排除。空值将记录所有冲突，而 'ego'/'foe "
+"'指的是某个冲突类型子集。"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:265
 msgid "Could not load names of edges for filtering SSM device output from '%'."
@@ -3502,14 +3502,13 @@ msgstr "车辆参数 'ssm.conflict-order' 的值 '%' 无效。"
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3823
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.conflict-order'."
-msgstr "vType 参数 \"ssm.conflict-order \"的值\"%\"无效。"
+msgstr "vType 参数 'ssm.conflict-order '的值'%'无效。"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3828
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.exclude-conflict-"
 "types'. Using default of '%'."
-msgstr "车辆 '%' 不提供车辆参数 'device.ssm.exclude-conflict-types'。使用默认的\"%\""
-"。"
+msgstr "车辆 '%' 不提供车辆参数 'device.ssm.exclude-conflict-types'。使用默认的'%'。"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3846
 msgid ""
@@ -3536,18 +3535,18 @@ msgstr "车辆'%'不提供车辆参数'device.sm.range'。使用默认的'%'。"
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3890
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.mdrac.prt'."
-msgstr "车辆参数 \"ssm.mdrac.prt \"的值\"%\"无效。"
+msgstr "车辆参数 'ssm.mdrac.prt '的值'%'无效。"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3896
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.mdrac.prt'."
-msgstr "vType 参数 \"ssm.mdrac.prt \"的值\"%\"无效。"
+msgstr "vType 参数 'ssm.mdrac.prt '的值'%'无效。"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3901
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.mdrac.prt'. Using "
 "default of '%'."
-msgstr "车辆'%'不提供车辆参数'device.ssm.mdrac.prt'。使用默认的\"%\"。"
+msgstr "车辆'%'不提供车辆参数'device.ssm.mdrac.prt'。使用默认的'%'。"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3919
 #, c-format
@@ -4209,8 +4208,8 @@ msgstr ""
 "tlLogic '%' 上的程序 '%' 与交界处 '%' 上的逻辑不兼容（链接索引 %,% tl 索引 "
 "%,% 相位 % 之间相互冲突）。\n"
 "  为避免死锁/冲突，要么：使用更新版本的 netconvert/netedit 重建信号计划\n"
-"  或使用选项\"--tls.ignore-internal-junction-jam \"重建网络"
-"，或在构建时包含该程序。"
+"  或使用选项'--tls.ignore-internal-junction-jam "
+"'重建网络，或在构建时包含该程序。"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:468
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
@@ -7271,7 +7270,7 @@ msgstr "无法找到 '%' 的 fromEdge 表示法 (位于连接线 '%'內)。"
 msgid ""
 "Controlling multiple junctions by the same controller '%' is currently not "
 "implemented."
-msgstr "目前尚未实现由同一个控制器\"%\"控制多个路口。"
+msgstr "目前尚未实现由同一个控制器'%'控制多个路口。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:787
 #, c-format
@@ -7296,8 +7295,7 @@ msgstr "无法找路段 '%' (交通信号为 '%')。"
 msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten signal '%' and with controller '%'."
-msgstr "从\"%\"到\"%\"（控制器\"%\"）的连接信号不明确，因为它被信号\"%\"和控制器\"%"
-"\"覆盖。"
+msgstr "从'%'到'%'（控制器'%'）的连接信号不明确，因为它被信号'%'和控制器'%'覆盖。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:890
 msgid "Found a traffic light signal on an unknown edge (original edge id='%')."
@@ -7307,8 +7305,7 @@ msgstr "在未知路段(原始路段识别名(id)='%')上发现交通信号。"
 msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten with signal '%' and controller '%'."
-msgstr "从\"%\"到\"%\"（控制器\"%\"）的连接信号不明确，因为它被信号\"%\"和控制器\"%"
-"\"覆盖。"
+msgstr "从'%'到'%'（控制器'%'）的连接信号不明确，因为它被信号'%'和控制器'%'覆盖。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1361
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1393
@@ -7357,7 +7354,7 @@ msgstr "忽略无效的 pRange 值 '%' (在道路 '%')。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2470
 msgid "Ignoring missing signal '%' in controller '%'."
-msgstr "忽略控制器\"%\"中缺少的信号\"%\"。"
+msgstr "忽略控制器'%'中缺少的信号'%'。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2508
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2704
@@ -8695,7 +8692,7 @@ msgstr "无法建立交通信号。"
 #, c-format
 msgid ""
 "% edges of the primary network did not occur in the alternative-net-file"
-msgstr "主网络中 % 的边未出现在备选网络文件中"
+msgstr "主网络中 % 的路段未出现在备选网络文件中"
 
 #: C:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:75
 msgid "Vaporizers are deprecated. Use rerouters instead."
@@ -10515,18 +10512,18 @@ msgstr "周期时间(cycleTime) % 必须大于或等于 0"
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:595
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
-msgstr "属性 \"from\"、\"fromJunction \"和 \"fromTaz \"不能一起定义"
+msgstr "属性 'from'、'fromJunction '和 'fromTaz '不能一起定义"
 
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:517
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:597
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
-msgstr "属性 \"to\"、\"toJunction \"和 \"toTaz \"不能一起定义"
+msgstr "属性 'to'、'toJunction '和 'toTaz '不能一起定义"
 
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:561
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
-msgstr "旅程定义需要 \"from/to \"或 \"fromJunction/toJunction \"或 \"fromTaz/toTaz"
+msgstr "旅程定义需要 'from/to '或 'fromJunction/toJunction '或 'fromTaz/toTaz"
 
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:909
 msgid "Parameters must be defined within an object"
