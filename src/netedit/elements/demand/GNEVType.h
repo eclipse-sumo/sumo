@@ -213,12 +213,6 @@ private:
     /// @brief function called after set new VClass
     void updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues);
 
-    /// @brief check vType distribution
-    bool checkVTypeDistribution(const std::string& value) const;
-
-    /// @brief set vType distribution
-    void setVTypeDistribution(const std::string& value, GNEUndoList* undoList);
-
     /// @brief Invalidated copy constructor.
     GNEVType(GNEVType*) = delete;
 
