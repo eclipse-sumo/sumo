@@ -44,7 +44,13 @@ GNEDemandElementDistribution::getAttributeDistribution() const {
 
 
 void
-GNEDemandElementDistribution::setAttributeDistribution(const std::string& key, const std::string& value, GNEUndoList* undoList) {
+GNEDemandElementDistribution::addDistribution(const std::string& key, const std::string& value, GNEUndoList* undoList) {
+
+}
+
+
+void
+GNEDemandElementDistribution::removeDistribution(const std::string& key, GNEUndoList* undoList) {
 
 }
 
@@ -57,7 +63,13 @@ GNEDemandElementDistribution::isValidDistribution(const std::string& key, const 
 
 
 void
-GNEDemandElementDistribution::setAttributeDistribution(const std::string& key, const std::string& value) {
+GNEDemandElementDistribution::addDistribution(const std::string& key, const std::string& value) {
+
+}
+
+
+void
+GNEDemandElementDistribution::removeDistribution(const std::string& key) {
 
 }
 

@@ -39,23 +39,25 @@ class GNEUndoList;
 class GNEDemandElementDistribution {
 
 public:
-
-    /**@brief Constructor
-     */
+    /// @brief Constructor
     GNEDemandElementDistribution();
 
-    /// @name inherited from GNEAttributeCarrier
-    /// @{
-    /* @brief get attribute distribution (only keys)
-     */
+    /// @brief get attribute distribution (only keys)
     std::string getAttributeDistribution() const;
 
-    /**@brief method for setting the attribute and letting the object perform demand element changes
+    /**@brief add distribution
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
-    void setAttributeDistribution(const std::string& key, const std::string& value, GNEUndoList* undoList);
+    void addDistribution(const std::string& key, const std::string& value, GNEUndoList* undoList);
+
+    /**@brief remove distribution
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void removeDistribution(const std::string& key, GNEUndoList* undoList);
 
     /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
@@ -68,9 +70,14 @@ public:
 
 protected:
 
+    
+
 private:
-    /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
-    void setAttributeDistribution(const std::string& key, const std::string& value);
+    /// @brief add distribution (used in GNEChange_Attribute)
+    void addDistribution(const std::string& key, const std::string& value);
+
+    /// @brief remove distribution
+    void removeDistribution(const std::string& key);
 
     /// @brief Invalidated copy constructor.
     GNEDemandElementDistribution(const GNEDemandElementDistribution&) = delete;
