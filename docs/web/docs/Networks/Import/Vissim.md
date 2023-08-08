@@ -34,6 +34,21 @@ As of **SVN revision \[18592\]** the import parser used by netconvert
 was extended to accomodate for the new XML input file format (`*.inpx`)
 of VISSIM version \>= 6 (which makes a lot of things a lot easier)...
 
+# Advice on VISSIM network structure
+
+In order to enhance the quality of the imported network, the VISSIM network structure 
+should follow some general guidelines. Although VISSIM has no problems with using links instead of 
+connectors and the other way round, it is best to stick to the following rule for the net to be imported 
+with netconvert:
+
+ - use links mostly outside of intersections
+ - use one connector to connect a set of inbound and outbound lanes of an intersection
+ - avoid using a sequence of links and connectors inside the intersection if possible
+ - refrain from creating overlapping link shapes when adding turn lanes at approaches
+
+The overall goal in mind is to make it as easy as possible for netconvert to detect the actual 
+intersection size and all its turning relations.
+
 # Converted VISSIM net elements
 
 - links (`STRECKEN`)
@@ -59,6 +74,7 @@ which include the conversion of following elements:
 - All actuated traffic lights are mapped onto the same type of traffic
   light (MSActuatedTrafficLight)
 - Additional source and sink links are built
+- Intersections mixing a lot of links and connectors will not be converted correctly
 
 ## For input files (`*.inp`) from **before VISSIM version 6**
 
