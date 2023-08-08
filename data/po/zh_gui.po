@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 17:04+0200\n"
-"PO-Revision-Date: 2023-06-06 13:40+0000\n"
-"Last-Translator: Xiaoxu Bei <Xiaoxu.bei@dlr.de>\n"
+"PO-Revision-Date: 2023-08-09 06:52+0000\n"
+"Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -193,27 +193,27 @@ msgstr "打开对话窗来编辑观看区域，放大和旋转。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit"
-msgstr ""
+msgstr "从netedit导入附加文件"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit."
-msgstr ""
+msgstr "请从netedit导入附加文件。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit"
-msgstr ""
+msgstr "从netedit导入需求文件"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit."
-msgstr ""
+msgstr "请从netedit导入需求文件。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Open in netedit"
-msgstr ""
+msgstr "在netedit中打开"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Opens current simulation in NETEDIT."
-msgstr ""
+msgstr "在NETEDIT中打开当前仿真。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:522
 msgid "&Settings"
@@ -623,7 +623,7 @@ msgstr "依比例增減交通："
 msgid ""
 "Scale traffic volume from running flows and from vehicles that are loaded "
 "incrementally from route files."
-msgstr ""
+msgstr "通过正在运行的交通流和从路径文件增量加载的车辆来缩放交通量。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:756
 msgid "Open a new microscopic view."
@@ -729,11 +729,11 @@ msgstr "打开EdgeData档案"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1151
 msgid "Auto-Reloading."
-msgstr ""
+msgstr "自动重新加载。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1151
 msgid "TraCI-Loading."
-msgstr ""
+msgstr "加载（触发TraCI）。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1153
 msgid "Reloading."
@@ -788,11 +788,11 @@ msgstr "无法从%' (%)载入仿真状态(state) 。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1464
 msgid "Scale number of vehicles in simulation"
-msgstr ""
+msgstr "缩放仿真中的交通实体数"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1481
 msgid "Open sumo config in netedit"
-msgstr ""
+msgstr "在netedit中打开sumo配置文件"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1485
 msgid "Open network in netedit"
@@ -810,7 +810,7 @@ msgstr "已载入。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2028
 msgid "Simulation ended at time: %. (%)"
-msgstr ""
+msgstr "仿真于此时刻结束：%.(%)"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2034
 msgid "Simulation ended"
@@ -825,7 +825,7 @@ msgstr "'%'载入中。"
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2288
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2289
 msgid "seconds"
-msgstr ""
+msgstr "秒"
 
 #: C:\Repos\sumo/src\gui\GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
@@ -1155,7 +1155,7 @@ msgstr "名称"
 #: C:\Repos\sumo/src\guisim\GUIOverheadWire.cpp:107
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:108
 msgid "begin position [m]"
-msgstr ""
+msgstr "开始位置 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:136
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:95
@@ -1163,126 +1163,126 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIOverheadWire.cpp:108
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:109
 msgid "end position [m]"
-msgstr ""
+msgstr "终止位置 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:137
 msgid "lines"
-msgstr ""
+msgstr "线路"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:138
 msgid "parking length [m]"
-msgstr ""
+msgstr "停车泊位长度 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:142
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:96
 msgid "stopped vehicles [#]"
-msgstr ""
+msgstr "停止的车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:143
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:97
 msgid "last free pos [m]"
-msgstr ""
+msgstr "上一个空位的位置 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:157
 msgid "waiting for:"
-msgstr ""
+msgstr "当前等待数："
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:316
 msgid "interval start"
-msgstr ""
+msgstr "间隔起始于"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:317
 msgid "interval end"
-msgstr ""
+msgstr "间隔结束于"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:318
 msgid "aspired flow [veh/h]"
-msgstr ""
+msgstr "期望流量 [veh/h]"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:319
 msgid "aspired speed"
-msgstr ""
+msgstr "期望速度"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:320
 msgid "current flow [veh/h]"
-msgstr ""
+msgstr "当前流量 [veh/h]"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:321
 msgid "current speed"
-msgstr ""
+msgstr "当前速度"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:322
 msgid "default speed"
-msgstr ""
+msgstr "默认速度"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:323
 msgid "required vehicles"
-msgstr ""
+msgstr "需要的车辆数"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:324
 msgid "passed vehicles"
-msgstr ""
+msgstr "经过的车辆数"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:325
 msgid "inserted vehicles"
-msgstr ""
+msgstr "插入的车辆数"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:326
 msgid "removed vehicles"
-msgstr ""
+msgstr "移除的车辆数"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:327
 msgid "cleared in jam"
-msgstr ""
+msgstr "堵塞时清除"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:334
 msgid "inactive until"
-msgstr ""
+msgstr "不起作用直到"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:98
 msgid "charging power [W]"
-msgstr ""
+msgstr "充电功率 [W]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:99
 msgid "charging efficiency [#]"
-msgstr ""
+msgstr "充电效率 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:100
 msgid "charge in transit [true/false]"
-msgstr ""
+msgstr "为公交充电 [是/否]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:101
 msgid "charge delay [s]"
-msgstr ""
+msgstr "充电延迟 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:164
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:228
 msgid "stage"
-msgstr ""
+msgstr "阶段"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:166
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:230
 msgid "stage index"
-msgstr ""
+msgstr "阶段编号"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:167
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:231
 msgid "start edge [id]"
-msgstr ""
+msgstr "起始路段 [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:168
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:232
 msgid "dest edge [id]"
-msgstr ""
+msgstr "目标路段 [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:169
 msgid "arrivalPos [m]"
-msgstr ""
+msgstr "到达位置 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:170
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:235
 msgid "edge [id]"
-msgstr ""
+msgstr "路段 [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:171
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:131
@@ -1291,7 +1291,7 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:236
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:114
 msgid "position [m]"
-msgstr ""
+msgstr "位置 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:172
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:152
@@ -1299,7 +1299,7 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:237
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:118
 msgid "speed [m/s]"
-msgstr ""
+msgstr "速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:173
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:238
