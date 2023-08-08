@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 17:04+0200\n"
-"PO-Revision-Date: 2023-08-08 11:30+0000\n"
+"PO-Revision-Date: 2023-08-08 12:13+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -3357,7 +3357,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:650
 msgid "Create decals."
-msgstr ""
+msgstr "Crear imágenes de fondo."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:703
 msgid "Create Routes."
@@ -5607,11 +5607,11 @@ msgstr "Modo para crear polígonos y puntos de interés (POI). (P)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3598
 msgid "Set decal mode"
-msgstr ""
+msgstr "Ir al modo de imágenes de fondo"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3598
 msgid "Mode for editing decals. (U)"
-msgstr ""
+msgstr "Modo para establecer imágenes de fondo. (U)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3689
 msgid "Create route mode"
@@ -12777,7 +12777,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\network\GNEDecalFrame.cpp:43
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1678
 msgid "Decals"
-msgstr "Pegatinas"
+msgstr "Imágenes de fondo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:55
 msgid "Selected connection"
@@ -13836,8 +13836,8 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:383
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
 msgstr ""
-"El atributo 'filename' está obsoleto para las pegatinas. Por favor usa "
-"'file'."
+"El atributo 'filename' está obsoleto para las imágenes de fondo. Por favor "
+"usar 'file'."
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:559
 msgid " Could not decode breakpoint '%'"
@@ -14121,72 +14121,72 @@ msgstr "por zona de análisis de tráfico (por calle)"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1616
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1682
 msgid "missing data"
-msgstr ""
+msgstr "faltan datos"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:860
 msgid "by distance (kilometrage)"
-msgstr ""
+msgstr "por distancia (kilometraje)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:867
 msgid "by abs distance (kilometrage)"
-msgstr ""
+msgstr "por distancia absoluta (kilometraje)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:871
 msgid "by reachability (traveltime)"
-msgstr ""
+msgstr "por accesibilidad (tiempo de viaje)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:875
 msgid "by thread index"
-msgstr ""
+msgstr "por thread index"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:878
 msgid "free parking spaces"
-msgstr ""
+msgstr "espacios de estacionamiento disponibles"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:889
 msgid "given vehicle/type/route color"
-msgstr ""
+msgstr "color de vehículo/tipo/ruta dado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:891
 msgid "given/assigned vehicle color"
-msgstr ""
+msgstr "color de vehículo dado/asignado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:892
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1100
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1135
 msgid "given/assigned type color"
-msgstr ""
+msgstr "color del tipo dado/asignado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:893
 msgid "given/assigned route color"
-msgstr ""
+msgstr "color de ruta dado/asignado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:894
 msgid "depart position as HSV"
-msgstr ""
+msgstr "posición de salida como HSV"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:895
 msgid "arrival position as HSV"
-msgstr ""
+msgstr "posición de llegada como HSV"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:896
 msgid "direction/distance as HSV"
-msgstr ""
+msgstr "dirección/distancia como HSV"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:897
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1101
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1136
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1426
 msgid "by speed"
-msgstr ""
+msgstr "por velocidad"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:907
 msgid "by action step"
-msgstr ""
+msgstr "por paso de acción"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:907
 msgid "no action"
-msgstr ""
+msgstr "sin acción"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:908
 msgid "action in next step"
@@ -14620,11 +14620,11 @@ msgstr "Importar configuración de la vista"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1138
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1155
 msgid "Load Decals"
-msgstr ""
+msgstr "Cargar imágenes de fondo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1172
 msgid "Save Decals"
-msgstr ""
+msgstr "Guardar imágenes de fondo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1244
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1309
@@ -14713,19 +14713,19 @@ msgstr "Puntos de interrupción"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1698
 msgid "Decals:"
-msgstr "Pegatinas:"
+msgstr "Imágenes de fondo:"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1701
 msgid "&Load XML Decals"
-msgstr ""
+msgstr "Cargar definiciones de fondo en XML"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1702
 msgid "&Save XML Decals"
-msgstr ""
+msgstr "Guardar definiciones de fondo en XML"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1703
 msgid "&Clear Decals"
-msgstr ""
+msgstr "Borrar imágenes"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1708
 msgid "Toggle grid"
