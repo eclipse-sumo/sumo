@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 17:04+0200\n"
-"PO-Revision-Date: 2023-08-07 12:35+0000\n"
+"PO-Revision-Date: 2023-08-08 11:30+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -14099,7 +14099,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1032
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1282
 msgid "by electricity consumption"
-msgstr ""
+msgstr "por consumo de energía eléctrica"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:844
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1285
@@ -14111,7 +14111,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:849
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1375
 msgid "by TAZ (streetwise)"
-msgstr ""
+msgstr "por zona de análisis de tráfico (por calle)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:857
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:884
