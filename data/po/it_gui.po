@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 17:04+0200\n"
-"PO-Revision-Date: 2023-07-21 13:13+0000\n"
+"PO-Revision-Date: 2023-08-08 13:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -162,7 +162,9 @@ msgstr "Scegli corsie che permettono..."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:495
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
-msgstr "Apre un menu per scegliere una classe di veicoli "
+msgstr ""
+"Apre un menu per scegliere la classe di veicoli per la quale le corsie "
+"accessibili devono essere selezionate."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:499
 msgid "Edit Breakpoints"
@@ -180,7 +182,7 @@ msgstr "Modifica visualizzazione"
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:502
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1263
 msgid "Opens a dialog for editing visualization settings."
-msgstr "Apre un dialogo per "
+msgstr "Apre un dialogo per modificare la configurazione di visualizzazione."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:505
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1266
@@ -194,27 +196,27 @@ msgstr "Apre un dialogo per modificare la veduta, zoom e rotazione inclusi."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit"
-msgstr ""
+msgstr "Carica elementi addizionali in netedit"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit."
-msgstr ""
+msgstr "Carica elementi addizionali in netedit."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit"
-msgstr ""
+msgstr "Carica domanda di traffico in netedit"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit."
-msgstr ""
+msgstr "Carica domanda di traffico in netedit."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Open in netedit"
-msgstr ""
+msgstr "Apri in netedit"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Opens current simulation in NETEDIT."
-msgstr ""
+msgstr "Apre la simulazione attuale in netedit."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:522
 msgid "&Settings"
@@ -804,7 +806,7 @@ msgstr "Moltiplica il numero di veicoli nella simulazione"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1481
 msgid "Open sumo config in netedit"
-msgstr ""
+msgstr "Apri configurazione sumo in netedit"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1485
 msgid "Open network in netedit"
@@ -1250,11 +1252,11 @@ msgstr "veicoli rimossi"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:327
 msgid "cleared in jam"
-msgstr ""
+msgstr "rimosso dalla congestione"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:334
 msgid "inactive until"
-msgstr ""
+msgstr "disattivato fino a"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:98
 msgid "charging power [W]"
