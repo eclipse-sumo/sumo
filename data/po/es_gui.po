@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 17:04+0200\n"
-"PO-Revision-Date: 2023-08-08 12:13+0000\n"
+"PO-Revision-Date: 2023-08-08 13:10+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -12493,11 +12493,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:171
 msgid "Reset Selected"
-msgstr ""
+msgstr "Restablecer selección"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:171
 msgid "Recomputes connections at all selected junctions"
-msgstr ""
+msgstr "Vuelve a calcular las conexiones en todos los cruces seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:263
 msgid "clear connections from selected lanes, edges and junctions"
