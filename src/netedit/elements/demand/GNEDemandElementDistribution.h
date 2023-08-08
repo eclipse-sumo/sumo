@@ -20,27 +20,13 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEMoveElement.h>
-#include <netedit/GNEPathManager.h>
-#include <netedit/elements/GNEHierarchicalElement.h>
-#include <utils/common/Parameterised.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/div/GUIGeometry.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
-// class declarations
+// class declaration
 // ===========================================================================
 
-class GNENet;
-class GNEAdditional;
-class GNEDemandElementDistribution;
-class GNENetworkElement;
-class GNEGenericData;
-class GNEEdge;
-class GNELane;
-class GNEJunction;
+class GNEUndoList;
 
 // ===========================================================================
 // class definitions
@@ -48,7 +34,7 @@ class GNEJunction;
 
 /**
  * @class GNEDemandElementDistribution
- * @brief An Element which don't belong to GNENet but has influence in the simulation
+ * @brief A
  */
 class GNEDemandElementDistribution {
 
@@ -58,7 +44,33 @@ public:
      */
     GNEDemandElementDistribution();
 
+    /// @name inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief get attribute distribution (only keys)
+     */
+    std::string getAttributeDistribution() const;
+
+    /**@brief method for setting the attribute and letting the object perform demand element changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setAttributeDistribution(const std::string& key, const std::string& value, GNEUndoList* undoList);
+
+    /**@brief method for checking if the key and their conrrespond attribute are valids
+     * @param[in] key The attribute key
+     * @param[in] value The value associated to key key
+     * @return true if the value is valid, false in other case
+     */
+    bool isValidDistribution(const std::string& key, const std::string& value);
+
+    /// @}
+
+protected:
+
 private:
+    /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
+    void setAttributeDistribution(const std::string& key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
     GNEDemandElementDistribution(const GNEDemandElementDistribution&) = delete;

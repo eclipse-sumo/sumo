@@ -19,9 +19,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/GNEUndoList.h>
 
 #include "GNEDemandElementDistribution.h"
-
 
 // ===========================================================================
 // member method definitions
@@ -32,6 +32,33 @@
 // ---------------------------------------------------------------------------
 
 GNEDemandElementDistribution::GNEDemandElementDistribution() {
+
+}
+
+
+std::string
+GNEDemandElementDistribution::getAttributeDistribution() const {
+
+    return "";
+}
+
+
+void
+GNEDemandElementDistribution::setAttributeDistribution(const std::string& key, const std::string& value, GNEUndoList* undoList) {
+
+}
+
+
+bool
+GNEDemandElementDistribution::isValidDistribution(const std::string& key, const std::string& value) {
+
+    return false;
+}
+
+
+void
+GNEDemandElementDistribution::setAttributeDistribution(const std::string& key, const std::string& value) {
+
 }
 
 /****************************************************************************/
