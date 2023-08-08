@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 17:04+0200\n"
-"PO-Revision-Date: 2023-08-07 13:23+0000\n"
+"PO-Revision-Date: 2023-08-08 13:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1583,7 +1583,7 @@ msgstr "mittlere Fahrzeugfolgezeit im Segment [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:208
 msgid "segment entry block time [s]"
-msgstr ""
+msgstr "Segmenteinfahrt blockiert seit [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:226
 msgid "Type Information:"
@@ -1860,67 +1860,67 @@ msgstr "Dauerfaktor"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:532
 msgid "updates per second"
-msgstr ""
+msgstr "Aktualisierungen pro Sekunde"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:533
 msgid "avg. updates per second"
-msgstr ""
+msgstr "mittl. Anzahl an Aktualisierungen pro Sekunde"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:536
 msgid "avg. trip length [m]"
-msgstr ""
+msgstr "mittl. Fahrtlänge [m]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:537
 msgid "avg. trip duration [s]"
-msgstr ""
+msgstr "mittl. Fahrtdauer [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:538
 msgid "avg. trip waiting time [s]"
-msgstr ""
+msgstr "mittl. Wartezeit auf einer Fahrt [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:539
 msgid "avg. trip time loss [s]"
-msgstr ""
+msgstr "mittl. Verlustzeit auf einer Fahrt [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:540
 msgid "avg. trip depart delay [s]"
-msgstr ""
+msgstr "mittl. Abfahrtsverzögerung [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:541
 msgid "avg. trip speed [m/s]"
-msgstr ""
+msgstr "mittl. Geschwindigkeit auf einer Fahrt [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:543
 msgid "avg. walk length [m]"
-msgstr ""
+msgstr "mittl. Fußweglänge [m]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:544
 msgid "avg. walk duration [s]"
-msgstr ""
+msgstr "mittl. Fußwegdauer [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:545
 msgid "avg. walk time loss [s]"
-msgstr ""
+msgstr "mittl. Verlustzeit auf einem Fußweg [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:548
 msgid "nodes [#]"
-msgstr ""
+msgstr "Knotenpunkte [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:549
 msgid "edges [#]"
-msgstr ""
+msgstr "Kanten [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:550
 msgid "total edge length [km]"
-msgstr ""
+msgstr "Gesamte Kantenlänge [km]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:551
 msgid "total lane length [km]"
-msgstr ""
+msgstr "Gesamte Fahrstreifenlänge [km]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:552
 msgid "network version "
-msgstr ""
+msgstr "Netzversion "
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:667
 msgid "Trying to set data value for the unknown edge '%'."
@@ -1939,83 +1939,83 @@ msgstr "Keine Daten mit Zeitbezug nach dem Simulationsbeginn definiert."
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:110
 msgid "occupancy [#]"
-msgstr ""
+msgstr "Belegung [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:111
 msgid "capacity [#]"
-msgstr ""
+msgstr "Kapazität [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:112
 msgid "alternatives [#]"
-msgstr ""
+msgstr "Alternativen [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:233
 msgid "dest stop [id]"
-msgstr ""
+msgstr "Zielhaltepunkt [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:234
 msgid "arrival position [m]"
-msgstr ""
+msgstr "Ankunftsposition [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:241
 msgid "vehicle [id]"
-msgstr ""
+msgstr "Fahrzeug [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:242
 msgid "stop duration [s]"
-msgstr ""
+msgstr "Haltedauer [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:258
 msgid "desired max speed [m/s]"
-msgstr ""
+msgstr "Wunschhöchstgeschwindigkeit [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:240
 msgid "tlLogic [id]"
-msgstr ""
+msgstr "tlLogic [id]"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:242
 msgid "program"
-msgstr ""
+msgstr "Programm"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:243
 msgid "phase"
-msgstr ""
+msgstr "Phase"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:244
 msgid "phase name"
-msgstr ""
+msgstr "Phasenname"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:245
 msgid "duration"
-msgstr ""
+msgstr "Dauer"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:246
 msgid "minDur"
-msgstr ""
+msgstr "Mindestdauer"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:247
 msgid "maxDur"
-msgstr ""
+msgstr "Maximaldauer"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:248
 msgid "running duration"
-msgstr ""
+msgstr "bisherige Dauer"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:249
 msgid "earliestEnd"
-msgstr ""
+msgstr "frühestes Ende"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:250
 msgid "latestEnd"
-msgstr ""
+msgstr "spätestes Ende"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:251
 msgid "time in cycle"
-msgstr ""
+msgstr "Zeitpunkt im Umlauf"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:252
 msgid "cycle time"
-msgstr ""
+msgstr "Umlaufzeit"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:255
 msgid "blocking"
