@@ -56,22 +56,22 @@ GNEVTypeDistribution::getMoveOperation() {
 
 void
 GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
-    // get vtypes that has this vType distribution
-    std::vector<std::string> vTypes;
-    std::vector<std::string> probabilities;
-    // first obtain vTypes sorted by ID
-    std::map<std::string, GNEDemandElement*> vTypesSorted;
-    for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        vTypesSorted[vType->getID()] = vType;
-    }
-
-
-
     // only save if there is vTypes to save
-    if (vTypes.size() > 0) {
+    if (myVTypes.size() > 0) {
+        // get vtypes that has this vType distribution
+        std::map<std::string, std::string> vTypesSorted;
+        for (const auto &vTypes : myVTypes) {
+            vTypesSorted[vTypes.first->getID()] = toString(vTypes.second);
+        }
+        std::vector<std::string> vTypeIDs, probabilities;
+        for (const auto &vTypes : vTypesSorted) {
+            vTypeIDs.push_back(vTypes.first);
+            probabilities.push_back(vTypes.second);
+        }
+        // now write attributes
         device.openTag(getTagProperty().getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
-        device.writeAttr(SUMO_ATTR_VTYPES, vTypes);
+        device.writeAttr(SUMO_ATTR_VTYPES, vTypeIDs);
         device.writeAttr(SUMO_ATTR_PROBS, probabilities);
         device.closeTag();
     }
@@ -240,6 +240,14 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case SUMO_ATTR_DETERMINISTIC:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
+        case GNE_ATTR_ADD_DISTRIBUTION: {
+            auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value);
+            GNEChange_Attribute::changeAttribute(this, key, value + " " + toString(myVTypes[vType]), undoList);
+            break;
+        }
+        case GNE_ATTR_REMOVE_DISTRIBUTION:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -251,6 +259,9 @@ GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(NamespaceIDs::types, value);
+        case GNE_ATTR_ADD_DISTRIBUTION:
+        case GNE_ATTR_REMOVE_DISTRIBUTION:
+            return true;
         case SUMO_ATTR_DETERMINISTIC:
             if (value == "-1" || value.empty()) {
                 return true;
@@ -289,6 +300,15 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             setDemandElementID(value);
+            break;
+        case GNE_ATTR_ADD_DISTRIBUTION: {
+            const auto typeProbability = StringTokenizer(value).getVector();
+            auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, typeProbability[0]);
+            myVTypes[vType] = parse<double>(typeProbability[1]);
+            break;
+        }
+        case GNE_ATTR_REMOVE_DISTRIBUTION:
+            myVTypes.erase(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value));
             break;
         case SUMO_ATTR_DETERMINISTIC:
             if (value.empty()) {

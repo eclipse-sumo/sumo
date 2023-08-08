@@ -1934,7 +1934,7 @@ GNEVType::setVTypeDistribution(const std::string& value, GNEUndoList* undoList) 
         // now add new typeDistributions
         for (const auto &typeDistributionID : newTypeDistributionIDs) {
             auto distribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, typeDistributionID);
-            distribution->setAttribute(GNE_ATTR_ADD_DISTRIBUTION, getID(), undoList);
+            distribution->setAttribute(GNE_ATTR_ADD_DISTRIBUTION, getID() + " 1.0", undoList);
         }
         // now remove new typeDistributions
         for (const auto &typeDistributionID : typeDistributionIDs) {

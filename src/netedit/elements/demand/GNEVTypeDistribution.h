@@ -179,6 +179,9 @@ protected:
     /// @brief deterministic attribute
     int myDeterministic = -1;
 
+    /// @brief types and their probability
+    std::map<GNEDemandElement*, double> myVTypes;
+
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
