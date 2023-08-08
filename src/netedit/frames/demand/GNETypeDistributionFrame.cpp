@@ -166,6 +166,8 @@ GNETypeDistributionFrame::TypeDistributionSelector::getCurrentTypeDistribution()
 void
 GNETypeDistributionFrame::TypeDistributionSelector::setCurrentTypeDistribution(const GNEDemandElement* vTypeDistribution) {
     myCurrentTypeDistribution = vTypeDistribution->getID();
+    // save original values
+    //myOriginalValues.first = vTypeDistribution->getAttribute(
     refreshTypeDistributionSelector();
 }
 
