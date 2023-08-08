@@ -1450,6 +1450,10 @@ enum SumoXMLAttr {
     GNE_ATTR_PATHSTOPINDEX,
     /// @brief check number of additional children (used in vTypeDistribution)
     GNE_ATTR_ADDITIONALCHILDREN,
+    /// @brief add distribution
+    GNE_ATTR_ADD_DISTRIBUTION,
+    /// @brief remove distribution
+    GNE_ATTR_REMOVE_DISTRIBUTION,
 
     // @}
 
