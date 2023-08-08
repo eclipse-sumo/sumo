@@ -197,6 +197,9 @@ protected:
     /// @brief flag to check if this default GNEVType was modified
     bool myDefaultVehicleTypeModified;
 
+    /// @brief type distribution in which this vType is included
+    std::set<GNEDemandElement*> myTypeDistributions;
+
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -209,6 +212,12 @@ private:
 
     /// @brief function called after set new VClass
     void updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues);
+
+    /// @brief check vType distribution
+    bool checkVTypeDistribution(const std::string& value) const;
+
+    /// @brief set vType distribution
+    void setVTypeDistribution(const std::string& value, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEVType(GNEVType*) = delete;

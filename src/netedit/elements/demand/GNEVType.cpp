@@ -490,6 +490,8 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return False;
             }
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            return toString(myTypeDistributions);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -662,7 +664,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
         case SUMO_ATTR_CARRIAGE_GAP:
         case GNE_ATTR_SELECTED:
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
@@ -673,6 +674,8 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             GNEChange_Attribute::changeAttribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true", undoList, true);
             break;
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            setVTypeDistribution(value, undoList);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -874,20 +877,6 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_CARRIAGE_GAP:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            if (value.empty()) {
-                return true;
-            } else {
-                auto typeDistributionIDs = StringTokenizer(value).getVector();
-                // check every id
-                for (const auto &typeDistributionID : typeDistributionIDs) {
-                    if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, typeDistributionID, false) == nullptr) {
-                        return false;
-                    }
-                }
-                // all ids OK
-                return true;
-            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -898,6 +887,8 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            return checkVTypeDistribution(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1825,6 +1816,16 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             myDefaultVehicleTypeModified = parse<bool>(value);
             break;
+        case GNE_ATTR_VTYPE_DISTRIBUTION: {
+                myTypeDistributions.clear();
+                // obtain list of IDs
+                const auto typeDistributionIDs = StringTokenizer(value).getVector();
+                // check every id
+                for (const auto &typeDistributionID : typeDistributionIDs) {
+                    myTypeDistributions.insert(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, typeDistributionID));
+                }
+            }
+            break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1890,6 +1891,56 @@ GNEVType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues
     }
     if (!wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET)) {
         locomotiveLength = defaultValues.locomotiveLength;
+    }
+}
+
+
+bool
+GNEVType::checkVTypeDistribution(const std::string& value) const {
+    // obtain list of IDs
+    const auto typeDistributionIDs = StringTokenizer(value).getVector();
+    // check every id
+    for (const auto &typeDistributionID : typeDistributionIDs) {
+        if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, typeDistributionID, false) == nullptr) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void
+GNEVType::setVTypeDistribution(const std::string& value, GNEUndoList* undoList) {
+    // obtain list of IDs
+    const auto newIDs = StringTokenizer(value).getVector();
+    // declare two sets and fill
+    std::set<std::string> newTypeDistributionIDs;
+    std::set<std::string> typeDistributionIDs;
+    for (const auto &newtypeDistribution : newIDs) {
+        newTypeDistributionIDs.insert(newtypeDistribution);
+    }
+    for (const auto &typeDistribution : myTypeDistributions) {
+        typeDistributionIDs.insert(typeDistribution->getID());
+    }
+    // only continue if sets are differents
+    if (newTypeDistributionIDs != typeDistributionIDs) {
+        // first remove common IDs
+        for (const auto &ID : newIDs) {
+            if ((newTypeDistributionIDs.count(ID) > 0) && (typeDistributionIDs.count(ID) > 0)) {
+                newTypeDistributionIDs.erase(ID);
+                typeDistributionIDs.erase(ID);
+            }
+        }
+        // now add new typeDistributions
+        for (const auto &typeDistributionID : newTypeDistributionIDs) {
+            auto distribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, typeDistributionID);
+            distribution->setAttribute(GNE_ATTR_ADD_DISTRIBUTION, getID(), undoList);
+        }
+        // now remove new typeDistributions
+        for (const auto &typeDistributionID : typeDistributionIDs) {
+            auto distribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, typeDistributionID);
+            distribution->setAttribute(GNE_ATTR_REMOVE_DISTRIBUTION, getID(), undoList);
+        }
     }
 }
 
