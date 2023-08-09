@@ -37,6 +37,28 @@ GNEDemandElementDistribution::GNEDemandElementDistribution(GNEDemandElement* dem
 }
 
 
+bool
+GNEDemandElementDistribution::isDistributionEmpty() const {
+    return myDistributionValues.empty();
+}
+
+
+bool
+GNEDemandElementDistribution::keyExists(const GNEDemandElement* key) const {
+    return (myDistributionValues.count(key) > 0);
+}
+
+
+bool
+GNEDemandElementDistribution::isValueValid(const GNEDemandElement* key, const double value) const {
+    if (myDistributionValues.count(key) > 0) {
+        return ((value >= 0) && (value <= 1));
+    } else {
+        return false;
+    }
+}
+
+
 std::string
 GNEDemandElementDistribution::getAttributeDistributionKeys() const {
     // first sort all keys by ID
@@ -84,22 +106,6 @@ GNEDemandElementDistribution::addDistributionKey(const GNEDemandElement* key, co
 void
 GNEDemandElementDistribution::removeDistributionKey(const GNEDemandElement* key, GNEUndoList* undoList) {
     GNEChange_Distribution::removeKey(myDemandElement, key, undoList);
-}
-
-
-bool
-GNEDemandElementDistribution::keyExists(const GNEDemandElement* key) const {
-    return (myDistributionValues.count(key) > 0);
-}
-
-
-bool
-GNEDemandElementDistribution::isValueValid(const GNEDemandElement* key, const double value) const {
-    if (myDistributionValues.count(key) > 0) {
-        return ((value >= 0) && (value <= 1));
-    } else {
-        return false;
-    }
 }
 
 

@@ -1202,6 +1202,27 @@ GNEDemandElement::getEdgeStopIndex() const {
 }
 
 
+std::string
+GNEDemandElement::getDistributionParents() const {
+    SumoXMLTag tagDistribution = SUMO_TAG_NOTHING;
+    if (myTagProperty.getTag() == SUMO_TAG_VTYPE) {
+        tagDistribution == SUMO_TAG_VTYPE_DISTRIBUTION;
+    } else if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+        tagDistribution == SUMO_TAG_ROUTE_DISTRIBUTION;
+    } else {
+        return "";
+    }
+    // check if the current element is in the distributions
+    std::vector<std::string> distributionParents;
+    for (const auto &distribution : myNet->getAttributeCarriers()->getDemandElements().at(tagDistribution)) {
+        if (distribution->keyExists(this)) {
+            distributionParents.push_back(distribution->getID());
+        }
+    }
+    return toString(distributionParents);
+}
+
+
 void
 GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
     std::vector<GNEEdge*> edges;

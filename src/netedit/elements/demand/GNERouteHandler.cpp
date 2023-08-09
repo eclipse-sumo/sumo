@@ -261,24 +261,10 @@ GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject
                 myNet->getViewNet()->getUndoList()->begin(routeDistribution, TL("add ") + routeDistribution->getTagStr() + " '" + id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(routeDistribution, true), true);
-                // iterate over all children and set attributes
-                for (int i = 0; i < (int)routes.size(); i++) {
-                    routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
-                    if (probabilities.size() > 0) {
-                       routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY, toString(probabilities.at(i)), myNet->getViewNet()->getUndoList()); 
-                    }
-                }
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(routeDistribution);
                 routeDistribution->incRef("buildRoute");
-                // iterate over all children and set attributes
-                for (int i = 0; i < (int)routes.size(); i++) {
-                    routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION, id);
-                    if (probabilities.size() > 0) {
-                       routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY, toString(probabilities.at(i))); 
-                    }
-                }
             }
         }
     }

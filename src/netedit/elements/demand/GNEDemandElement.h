@@ -445,6 +445,9 @@ protected:
     /// @brief get edgeStopIndex
     std::vector<EdgeStopIndex> getEdgeStopIndex() const;
 
+    /// @brief get distribution in which the given element is part
+    std::string getDistributionParents() const;
+
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;
     

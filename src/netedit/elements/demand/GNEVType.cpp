@@ -491,11 +491,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
                 return False;
             }
         case GNE_ATTR_VTYPE_DISTRIBUTION: {
-            std::vector<std::string> vTypeDistributions;
-            for (const auto &vTypeDistribution : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-                ;
-            }
-            return toString(myTypeDistributions);
+            return getDistributionParents();
         }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -884,8 +880,6 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            return false;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
                 return canParse<bool>(value);
@@ -933,6 +927,8 @@ GNEVType::isAttributeEnabled(SumoXMLAttr key) const {
             return wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET);
         case SUMO_ATTR_CARRIAGE_GAP:
             return wasSet(VTYPEPARS_CARRIAGE_GAP_SET);
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            return false;
         default:
             return true;
     }

@@ -56,23 +56,13 @@ GNEVTypeDistribution::getMoveOperation() {
 
 void
 GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
-    // only save if there is vTypes to save
-    if (myVTypes.size() > 0) {
-        // get vtypes that has this vType distribution
-        std::map<std::string, std::string> vTypesSorted;
-        for (const auto &vTypes : myVTypes) {
-            vTypesSorted[vTypes.first->getID()] = toString(vTypes.second);
-        }
-        std::vector<std::string> vTypeIDs, probabilities;
-        for (const auto &vTypes : vTypesSorted) {
-            vTypeIDs.push_back(vTypes.first);
-            probabilities.push_back(vTypes.second);
-        }
+    // only save if there is distribution elements to save
+    if (!isDistributionEmpty()) {
         // now write attributes
         device.openTag(getTagProperty().getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
-        device.writeAttr(SUMO_ATTR_VTYPES, vTypeIDs);
-        device.writeAttr(SUMO_ATTR_PROBS, probabilities);
+        device.writeAttr(SUMO_ATTR_VTYPES, getAttributeDistributionKeys());
+        device.writeAttr(SUMO_ATTR_PROBS, getAttributeDistributionValues());
         device.closeTag();
     }
 }

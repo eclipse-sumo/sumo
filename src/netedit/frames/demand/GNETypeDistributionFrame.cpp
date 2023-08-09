@@ -435,24 +435,7 @@ GNETypeDistributionFrame::TypeDistributionAttributesEditor::showAttributeEditorM
     auto currentDistribution = myTypeDistributionFrameParent->getTypeDistributionSelector()->getCurrentTypeDistribution();
     // continue if we have a distribution to edit
     if (currentDistribution) {
-        // get ID
-        const auto distributionID = currentDistribution->getAttribute(SUMO_ATTR_ID);
-        // first add ID
-        myTypeDistributionAttributesEditorRows[0] = new TypeDistributionAttributesEditorRow(this,
-                currentDistribution->getTagProperty().getAttributeProperties(SUMO_ATTR_ID), distributionID);
-        // get all vTypes with the given current sorted by ID
-        std::map<std::string, GNEDemandElement*> vTypes;
-        for (const auto &vType : myTypeDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-            if (vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == distributionID) {
-                vTypes[vType->getID()] = vType;
-            }
-        }
-        int index = 1;
-        for (const auto &vType : vTypes) {
-            myTypeDistributionAttributesEditorRows[index] = new TypeDistributionAttributesEditorRow(this,
-                vType.first, vType.second->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY));
-            index++;
-        }
+
         // show TypeDistributionAttributesEditor
         show();
     }

@@ -642,21 +642,13 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             }
             return distributionIDs;
         }
-        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY: {
-            std::string distributionProbabilities;
-            for (const auto &distribution : myDistributions) {
-                distributionProbabilities.append(toString(distribution.second) + " ");
-            }
-            // remove last space
-            if (distributionProbabilities.size() > 0) {
-                distributionProbabilities.pop_back();
-            }
-            return distributionProbabilities;
-        }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_VTYPE_DISTRIBUTION: {
+            return getDistributionParents();
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -700,7 +692,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_REPEAT:
         case SUMO_ATTR_CYCLETIME:
         case GNE_ATTR_ROUTE_DISTRIBUTION:
-        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
@@ -780,27 +771,6 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
                 // all ids OK
                 return true;
             }
-        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY: {
-            auto typeDistributionProbs = StringTokenizer(value).getVector();
-            // first check that we have the same number of distributions and probabilities
-            if (typeDistributionProbs.size() != myDistributions.size()) {
-                return false;
-            } else {
-                // check every probability
-                for (const auto &typeDistributionProb : typeDistributionProbs) {
-                    if (canParse<double>(typeDistributionProb)) {
-                        const auto prob = parse<double>(typeDistributionProb);
-                        if ((prob < 0) || (prob > 1)) {
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
-                }
-                // all probabilities ok
-                return true;
-            }
-        }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -814,8 +784,8 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
 bool
 GNERoute::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
-        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY:
-            return (myDistributions.size() > 0);
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            return false;
         default:
             return true;
     }
@@ -938,17 +908,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
                 } else {
                     myDistributions[typeDistributionID] = 1.0;
                 }
-            }
-            break;
-        }
-        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY: {
-            // obtain probabilities
-            const auto typeDistributionProbs = StringTokenizer(value).getVector();
-            int index = 0;
-            // add every probability to their distribution
-            for (auto &distribution : myDistributions) {
-                distribution.second = parse<double>(typeDistributionProbs.at(index));
-                index++;
             }
             break;
         }

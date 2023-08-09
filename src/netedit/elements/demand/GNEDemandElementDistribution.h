@@ -45,6 +45,15 @@ public:
     /// @brief Constructor
     GNEDemandElementDistribution(GNEDemandElement* demandElement);
 
+    /// @brief check if distribution is empty
+    bool isDistributionEmpty() const;
+
+    /// @brief check if the given key can be added in distribution
+    bool keyExists(const GNEDemandElement* key) const;
+
+    /// @brief check if the given key-value can be added in distribution
+    bool isValueValid(const GNEDemandElement* key, const double value) const;
+
     /// @brief get attribute distribution keys in string format sorted by ID
     std::string getAttributeDistributionKeys() const;
 
@@ -59,12 +68,6 @@ public:
 
     /// @brief remove distribution key
     void removeDistributionKey(const GNEDemandElement* key, GNEUndoList* undoList);
-
-    /// @brief check if the given key can be added in distribution
-    bool keyExists(const GNEDemandElement* key) const;
-
-    /// @brief check if the given key-value can be added in distribution
-    bool isValueValid(const GNEDemandElement* key, const double value) const;
 
 private:
     /// @brief demand element

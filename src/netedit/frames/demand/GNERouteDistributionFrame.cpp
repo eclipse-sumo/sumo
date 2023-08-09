@@ -434,22 +434,6 @@ GNERouteDistributionFrame::RouteDistributionAttributesEditor::showAttributeEdito
     if (currentDistribution) {
         // get ID
         const auto distributionID = currentDistribution->getAttribute(SUMO_ATTR_ID);
-        // first add ID
-        myRouteDistributionAttributesEditorRows[0] = new RouteDistributionAttributesEditorRow(this,
-                currentDistribution->getTagProperty().getAttributeProperties(SUMO_ATTR_ID), distributionID);
-        // get all routes with the given current sorted by ID
-        std::map<std::string, GNEDemandElement*> routes;
-        for (const auto &route : myRouteDistributionFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
-            if (route->getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION) == distributionID) {
-                routes[route->getID()] = route;
-            }
-        }
-        int index = 1;
-        for (const auto &route : routes) {
-            myRouteDistributionAttributesEditorRows[index] = new RouteDistributionAttributesEditorRow(this,
-                route.first, route.second->getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY));
-            index++;
-        }
         // show RouteDistributionAttributesEditor
         show();
     }
