@@ -25,6 +25,7 @@ set(PROJECT_NAME "SUMO" CACHE STRING "Project/Solution name")
 
 # disable warnings
 option(DISABLEWARNING_C5264 "'const' variable is not used" ON)
+option(DISABLEWARNING_C5267 "definition of implicit operator/constructor/destructor is deprecated" ON)
 option(DISABLEWARNING_C4355 "'this' : used in base member initializer list" ON)
 option(DISABLEWARNING_C4266 "'function' : no override available for virtual member function from base 'type'" ON)
 option(DISABLEWARNING_C4127 "conditional expression is constant" ON)
@@ -129,6 +130,9 @@ elseif (MSVC)
     # check if disable warnings
     if (DISABLEWARNING_C5264)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5264")
+    endif ()
+    if (DISABLEWARNING_C5267)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5267")
     endif ()
     if (DISABLEWARNING_C4355)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4355")

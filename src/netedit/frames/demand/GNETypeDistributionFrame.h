@@ -128,6 +128,9 @@ public:
 
         /// @brief current type distribution
         std::string myCurrentTypeDistribution;
+
+        /// @brief map with the original vTypeDistribution attributes
+        std::pair<std::string, std::string> myOriginalValues;
     };
 
     // ===========================================================================

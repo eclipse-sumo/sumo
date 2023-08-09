@@ -29,6 +29,8 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
+#include "GNEDemandElementDistribution.h"
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -50,7 +52,7 @@ class GNEJunction;
  * @class GNEDemandElement
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement {
+class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
 
 public:
     /// @brief friend declaration (needed for vTypes)

@@ -477,28 +477,6 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_CARRIAGE_GAP);
             }
-        case GNE_ATTR_VTYPE_DISTRIBUTION: {
-            std::string distributionIDs;
-            for (const auto &distribution : myDistributions) {
-                distributionIDs.append(distribution.first + " ");
-            }
-            // remove last space
-            if (distributionIDs.size() > 0) {
-                distributionIDs.pop_back();
-            }
-            return distributionIDs;
-        }
-        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY: {
-            std::string distributionProbabilities;
-            for (const auto &distribution : myDistributions) {
-                distributionProbabilities.append(toString(distribution.second) + " ");
-            }
-            // remove last space
-            if (distributionProbabilities.size() > 0) {
-                distributionProbabilities.pop_back();
-            }
-            return distributionProbabilities;
-        }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -512,6 +490,13 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return False;
             }
+        case GNE_ATTR_VTYPE_DISTRIBUTION: {
+            std::vector<std::string> vTypeDistributions;
+            for (const auto &vTypeDistribution : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
+                ;
+            }
+            return toString(myTypeDistributions);
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -684,8 +669,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
         case SUMO_ATTR_CARRIAGE_GAP:
         case GNE_ATTR_SELECTED:
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY:
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
@@ -897,45 +880,12 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_CARRIAGE_GAP:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            if (value.empty()) {
-                return true;
-            } else {
-                auto typeDistributionIDs = StringTokenizer(value).getVector();
-                // check every id
-                for (const auto &typeDistributionID : typeDistributionIDs) {
-                    if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, typeDistributionID, false) == nullptr) {
-                        return false;
-                    }
-                }
-                // all ids OK
-                return true;
-            }
-        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY: {
-            auto typeDistributionProbs = StringTokenizer(value).getVector();
-            // first check that we have the same number of distributions and probabilities
-            if (typeDistributionProbs.size() != myDistributions.size()) {
-                return false;
-            } else {
-                // check every probability
-                for (const auto &typeDistributionProb : typeDistributionProbs) {
-                    if (canParse<double>(typeDistributionProb)) {
-                        const auto prob = parse<double>(typeDistributionProb);
-                        if ((prob < 0) || (prob > 1)) {
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
-                }
-                // all probabilities ok
-                return true;
-            }
-        }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            return false;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
                 return canParse<bool>(value);
@@ -983,8 +933,6 @@ GNEVType::isAttributeEnabled(SumoXMLAttr key) const {
             return wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET);
         case SUMO_ATTR_CARRIAGE_GAP:
             return wasSet(VTYPEPARS_CARRIAGE_GAP_SET);
-        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY:
-            return (myDistributions.size() > 0);
         default:
             return true;
     }
@@ -1858,34 +1806,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 SUMOVTypeParameter::unsetParameter(toString(key));
             }
             break;
-        case GNE_ATTR_VTYPE_DISTRIBUTION: {
-            // make a copy of distributions
-            const auto copyDistributions = myDistributions;
-            // clear distributions
-            myDistributions.clear();
-            // obtain IDS
-            const auto typeDistributionIDs = StringTokenizer(value).getVector();
-            // iterate over IDs, add into map, and check if previously there is a probability defined
-            for (const auto &typeDistributionID : typeDistributionIDs) {
-                if (copyDistributions.count(typeDistributionID) > 0) {
-                    myDistributions[typeDistributionID] = copyDistributions.at(typeDistributionID);
-                } else {
-                    myDistributions[typeDistributionID] = defaultProbability;
-                }
-            }
-            break;
-        }
-        case GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY: {
-            // obtain probabilities
-            const auto typeDistributionProbs = StringTokenizer(value).getVector();
-            int index = 0;
-            // add every probability to their distribution
-            for (auto &distribution : myDistributions) {
-                distribution.second = parse<double>(typeDistributionProbs.at(index));
-                index++;
-            }
-            break;
-        }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

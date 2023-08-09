@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-07-26 16:01+0200\n"
-"PO-Revision-Date: 2023-04-26 09:39+0000\n"
+"PO-Revision-Date: 2023-08-07 13:23+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hant/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -58,7 +58,7 @@ msgstr "配置車輛位置"
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:174
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:181
 msgid "Invalid % value of edge % is treated as zero."
-msgstr ""
+msgstr "無效值 % (位於路段 %)被視為零。"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:186
 #, c-format
@@ -1380,7 +1380,7 @@ msgstr "車輛 '%' 將無法以給定的速度抵達!"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:901
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
-msgstr ""
+msgstr "忽略departEdge % (被用於車輛 '%' 及位於 % 路徑路段)。"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.h:919
 msgid "getLeader not yet implemented for meso"
@@ -1854,7 +1854,7 @@ msgstr "如何處理碰撞: [無(none),警告(warn),移送(teleport),移除(remo
 msgid ""
 "How to deal with collisions between vehicle and pedestrian: [none,warn,"
 "teleport,remove]"
-msgstr ""
+msgstr "如何處理車輛與行人碰撞: [無, 警告, 遞送(teleport) , 移除]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:386
 msgid ""
@@ -1867,7 +1867,8 @@ msgstr ""
 msgid ""
 "Let vehicle stop for TIME before performing intermodal-collision.action "
 "(except for action 'none')"
-msgstr ""
+msgstr "在執行 intermodal-collision.action 之前（ '無(none)' 除外）, 讓車輛停止 TIME "
+"時間"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:392
 msgid "Enables collisions checks on junctions"
@@ -2576,30 +2577,30 @@ msgstr "車輛 '%' 將無法使用給定速度出發(前方有慢車道)!"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2085
 msgid "Vehicle '%'"
-msgstr ""
+msgstr "車輛 '%'"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2114
 #, c-format
 msgid "Teleporting vehicle '%' after"
-msgstr ""
+msgstr "在...後, 傳送車輛 '%'"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2119
 #, c-format
 msgid "Removing vehicle '%' after"
-msgstr ""
+msgstr "在...後,移除車輛 '%'"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2123
 #, c-format
 msgid "Keeping remote-controlled vehicle '%' after"
-msgstr ""
+msgstr "在...後,保有遠程控制的車輛 '%'"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2136
 msgid " collision with person '%', lane='%', gap=%, time=%, stage=%."
-msgstr ""
+msgstr " 與行人'%'發生碰種, 車道='%', 間隔(gap)=%, 時間=%, 階段(stage)=%."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2139
 msgid " collision with person '%', lane='%', time=%, stage=%."
-msgstr ""
+msgstr " 與行人 '%' 發生碰撞, 車道='%', 時間=%, 階段(stage)=%."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2205
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
@@ -2621,7 +2622,7 @@ msgstr "車道 '%' 從路段 '%' 多次被接近。這可能會導致碰撞。"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:4315
 msgid "Invalid % '%'."
-msgstr ""
+msgstr "無效 % '%'."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:4452
 msgid ""
@@ -2704,13 +2705,13 @@ msgstr "路徑的屬性 '期間(period)' 已不適用。 請改用 '週期時間
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:338
 msgid " for vehicle '%' with vClass %."
-msgstr ""
+msgstr " 對於車輛'%' , 其車輛類別(vClass)為 %."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:342
 msgid ""
 "Disconnected route % when repeating. Last edge '%' is not connected to first "
 "edge '%'%"
-msgstr ""
+msgstr "當重複時, 未連接路徑% . 最後路段 '%' 未連接到第一個路段' %'%"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:349
 msgid "Invalid cost for route '%'."
@@ -2822,7 +2823,8 @@ msgstr "無效的停靠點定義%。"
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane"
-msgstr ""
+msgstr "一個停靠站必須設置於一個公車站(busStop), 充電站, 架空線段, 集裝箱站, 停車場, "
+"路段或是車道上"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1332
 msgid "Stop edge '%' missing in attribute 'via' for % '%'"
@@ -2973,7 +2975,7 @@ msgstr "拆分出來的車輛 '%' (從車輛 '%' 中)是未知的。 時間=%。
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:1959
 msgid ""
 "Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%."
-msgstr ""
+msgstr "由於路線不兼容,無法結合(join)車輛 '%'及車輛'%'. 時間=%."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:2779
 msgid "Suspicious right_before_left junction '%'."
@@ -3012,11 +3014,11 @@ msgstr "錯誤：狀態中的無效車輛 （可能是中觀(meso)狀態）！"
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:7496
 msgid "Action steps are out of sync for loaded vehicle '%'."
-msgstr ""
+msgstr "已載入的車輛'%'的操作步驟(action steps)不同步調."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleControl.cpp:499
 msgid "Vehicle '%' aborted waiting %."
-msgstr ""
+msgstr "車輛 '%' 已中止等待 %."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleTransfer.cpp:170
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
@@ -3413,7 +3415,8 @@ msgstr "將路徑搜尋的線程(threads)數調整為模擬的線程(threads)數
 msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
 "sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"
-msgstr ""
+msgstr "指定記錄哪些測量值 (為 ('TTC', 'DRAC', 'PET', 'PPET','MDRAC') "
+"中以空格或逗號分隔的 ID 序列)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:236
 msgid ""
@@ -3447,7 +3450,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:244
 msgid "Specifies the perception reaction time for MDRAC computation."
-msgstr ""
+msgstr "指定 MDRAC 計算的感知反應時間。"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:246
 msgid "Give a global default filename for the SSM output"

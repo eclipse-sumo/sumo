@@ -56,30 +56,22 @@ GNEVTypeDistribution::getMoveOperation() {
 
 void
 GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
-    // get vtypes that has this vType distribution
-    std::vector<std::string> vTypes;
-    std::vector<std::string> probabilities;
-    // first obtain vTypes sorted by ID
-    std::map<std::string, GNEDemandElement*> vTypesSorted;
-    for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        vTypesSorted[vType->getID()] = vType;
-    }
-    // nowe get type distributions and probabilities
-    for (const auto& vType : vTypesSorted) {
-        const auto typeDistributionIDs = StringTokenizer(vType.second->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)).getVector();
-        const auto distributionProbabilities = StringTokenizer(vType.second->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY)).getVector();
-        for (int i = 0; i < (int)typeDistributionIDs.size(); i++) {
-            if (typeDistributionIDs.at(i) == getID()) {
-                vTypes.push_back(vType.second->getID());
-                probabilities.push_back(distributionProbabilities.at(i));
-            }
-        }
-    }
     // only save if there is vTypes to save
-    if (vTypes.size() > 0) {
+    if (myVTypes.size() > 0) {
+        // get vtypes that has this vType distribution
+        std::map<std::string, std::string> vTypesSorted;
+        for (const auto &vTypes : myVTypes) {
+            vTypesSorted[vTypes.first->getID()] = toString(vTypes.second);
+        }
+        std::vector<std::string> vTypeIDs, probabilities;
+        for (const auto &vTypes : vTypesSorted) {
+            vTypeIDs.push_back(vTypes.first);
+            probabilities.push_back(vTypes.second);
+        }
+        // now write attributes
         device.openTag(getTagProperty().getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
-        device.writeAttr(SUMO_ATTR_VTYPES, vTypes);
+        device.writeAttr(SUMO_ATTR_VTYPES, vTypeIDs);
         device.writeAttr(SUMO_ATTR_PROBS, probabilities);
         device.closeTag();
     }

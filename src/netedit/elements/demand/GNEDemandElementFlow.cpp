@@ -21,7 +21,7 @@
 
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_EnableAttribute.h>
+#include <netedit/changes/GNEChange_ToggleAttribute.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
 
@@ -241,7 +241,7 @@ GNEDemandElementFlow::enableFlowAttribute(GNEDemandElement* flowElement, SumoXML
         case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
-            undoList->add(new GNEChange_EnableAttribute(flowElement, key, true, parametersSet), true);
+            undoList->add(new GNEChange_ToggleAttribute(flowElement, key, true, parametersSet), true);
             return;
         default:
             throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -260,7 +260,7 @@ GNEDemandElementFlow::disableFlowAttribute(GNEDemandElement* flowElement, SumoXM
         case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
-            undoList->add(new GNEChange_EnableAttribute(flowElement, key, false, parametersSet), true);
+            undoList->add(new GNEChange_ToggleAttribute(flowElement, key, false, parametersSet), true);
             return;
         default:
             throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

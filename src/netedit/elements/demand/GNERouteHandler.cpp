@@ -131,24 +131,10 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
                 myNet->getViewNet()->getUndoList()->begin(vTypeDistribution, TL("add ") + vTypeDistribution->getTagStr() + " '" + id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
-                // iterate over all children and set attributes
-                for (int i = 0; i < (int)vTypes.size(); i++) {
-                    vTypes.at(i)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
-                    if (probabilities.size() > 0) {
-                       vTypes.at(i)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY, toString(probabilities.at(i)), myNet->getViewNet()->getUndoList()); 
-                    }
-                }
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
                 vTypeDistribution->incRef("buildVType");
-                // iterate over all children and set attributes
-                for (int i = 0; i < (int)vTypes.size(); i++) {
-                    vTypes.at(i)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id);
-                    if (probabilities.size() > 0) {
-                       vTypes.at(i)->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY, toString(probabilities.at(i))); 
-                    }
-                }
             }
         }
     }
