@@ -80,8 +80,8 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake -DCMAKE_CONFIG=Release -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=%CD%/../../jpscore-install ..
-        cmake --build . -j4
+        cmake -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=%CD%/../../jpscore-install ..
+        cmake --build . -j4 --config Release
 
     - name: Building Examples and Tests
       run: |
