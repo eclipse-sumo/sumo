@@ -1848,17 +1848,20 @@ GUISUMOAbstractView::openPopupDialog() {
     int x, y;
     FXuint b;
     myApp->getCursorPosition(x, y, b);
-    int popX = x + myApp->getX();
+    int appX = myApp->getX();
+    int popX = x + appX;
     int popY = y + myApp->getY();
     myPopup->setX(popX);
     myPopup->setY(popY);
     myPopup->create();
     myPopup->show();
-    int rootX = getApp()->getRootWindow()->getX();
-    // TODO: try to stay on screen even in multi-monitor setup
-    const int maxX = getApp()->getRootWindow()->getX() + getApp()->getRootWindow()->getWidth();
+    // TODO: try to stay on screen even on a right secondary screen in multi-monitor setup
+    const int rootWidth = getApp()->getRootWindow()->getWidth();
     const int rootHeight = getApp()->getRootWindow()->getHeight();
-    popX = MIN2(popX, maxX - myPopup->getWidth() - 10);
+    if (popX <= rootWidth) {
+        const int maxX = (appX < 0) ? 0 : rootWidth;
+        popX = MIN2(popX, maxX - myPopup->getWidth() - 10);
+    }
     popY = MIN2(popY, rootHeight - myPopup->getHeight() - 50);
     myPopup->move(popX, popY);
     myPopupPosition = getPositionInformation();
