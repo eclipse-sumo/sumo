@@ -47,9 +47,9 @@ jobs:
         mkdir jpscore-build-debug
         mkdir jpscore-install-debug
         cd jpscore-build-debug
-        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install-debug -DBUILD_JPSVIS=OFF ../jpscore
-        cmake --build . -j4
-        cmake --install .
+        cmake -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install-debug -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build . -j4 --config Debug
+        cmake --install . --config Debug
 
     - name: Uploading debug artifacts
       uses: actions/upload-artifact@v3
