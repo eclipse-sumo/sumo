@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 17:04+0200\n"
-"PO-Revision-Date: 2023-08-09 09:06+0000\n"
+"PO-Revision-Date: 2023-08-09 11:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2183,31 +2183,31 @@ msgstr "am weitesten links liegender Kantenteilfahrstreifen [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:189
 msgid "lane change maneuver distance [m]"
-msgstr ""
+msgstr "Ausdehnung des Fahrstreifenwechsels [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:192
 msgid "present state of charge [Wh]"
-msgstr ""
+msgstr "aktueller Ladestand [Wh]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:196
 msgid "relative state of charge (SoC) [-]"
-msgstr ""
+msgstr "relativer Ladestand [-]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:198
 msgid "currently charging [Wh]"
-msgstr ""
+msgstr "aktuell geladene Energie [Wh]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:202
 msgid "present electric current [A]"
-msgstr ""
+msgstr "anliegender elektrischer Strom [A]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:207
 msgid "speed mode"
-msgstr ""
+msgstr "Geschwindigkeitsmodus"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:210
 msgid "lane change mode"
-msgstr ""
+msgstr "Fahrstreifenwechselmodus"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:223
 msgid "height [m]"
@@ -2215,31 +2215,31 @@ msgstr "Höhe [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:224
 msgid "minGap [m]"
-msgstr ""
+msgstr "Mindestabstand [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:225
 msgid "vehicle class"
-msgstr ""
+msgstr "Fahrzeugklasse"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:226
 msgid "emission class"
-msgstr ""
+msgstr "Emissionsklasse"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:228
 msgid "car-following model"
-msgstr ""
+msgstr "Fahrzeugfolgemodell"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:229
 msgid "lane-change model"
-msgstr ""
+msgstr "Fahrstreifenwechselmodell"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:230
 msgid "guiShape"
-msgstr ""
+msgstr "GUI-Shape"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:232
 msgid "desired maximum speed [m/s]"
-msgstr ""
+msgstr "Wunschhöchstgeschwindigkeit [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:233
 msgid "maximum acceleration [m/s^2]"
