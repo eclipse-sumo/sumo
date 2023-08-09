@@ -31,9 +31,9 @@ jobs:
         mkdir jpscore-build
         mkdir jpscore-install
         cd jpscore-build
-        cmake -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
-        cmake --build . -j4 --config Release
-        cmake --install . --config Release
+        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build . -j4
+        cmake --install .
 
     - name: Uploading release artifacts
       uses: actions/upload-artifact@v3
@@ -47,9 +47,9 @@ jobs:
         mkdir jpscore-build-debug
         mkdir jpscore-install-debug
         cd jpscore-build-debug
-        cmake -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install-debug -DBUILD_JPSVIS=OFF ../jpscore
-        cmake --build . -j4 --config Debug
-        cmake --install . --config Debug
+        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install-debug -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build . -j4
+        cmake --install .
 
     - name: Uploading debug artifacts
       uses: actions/upload-artifact@v3
@@ -80,8 +80,8 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=%CD%/../../jpscore-install ..
-        cmake --build . -j4 --config Release
+        cmake -DCMAKE_CONFIG=Release -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=%CD%/../../jpscore-install ..
+        cmake --build . -j4
 
     - name: Building Examples and Tests
       run: |
