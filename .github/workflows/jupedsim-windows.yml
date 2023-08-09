@@ -22,21 +22,8 @@ jobs:
     - name: Cloning jpscore
       uses: actions/checkout@v3
       with:
-        repository: jupedsim/jpscore
+        repository: PedestrianDynamics/jupedsim
         path: jpscore
-
-    - name: Building jpscore dependencies
-      run:  |
-        mkdir jpscore-deps
-        cd jpscore
-        vcpkg.exe --x-install-root=../jpscore-deps --triplet=x64-windows install
-        Compress-Archive -Path ../jpscore-deps -DestinationPath ../jpscore-deps.zip
-
-    - name: Uploading dependency artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: deps
-        path: jpscore-deps.zip
 
     - name: Building jpscore
       shell: cmd
@@ -44,9 +31,9 @@ jobs:
         mkdir jpscore-build
         mkdir jpscore-install
         cd jpscore-build
-        cmake -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
-        cmake --build . --config Release
-        cmake --install . --config Release
+        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build . -j4
+        cmake --install .
 
     - name: Uploading release artifacts
       uses: actions/upload-artifact@v3
@@ -60,9 +47,9 @@ jobs:
         mkdir jpscore-build-debug
         mkdir jpscore-install-debug
         cd jpscore-build-debug
-        cmake -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install-debug -DBUILD_JPSVIS=OFF ../jpscore
-        cmake --build . --config Debug
-        cmake --install . --config Debug
+        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install-debug -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build . -j4
+        cmake --install .
 
     - name: Uploading debug artifacts
       uses: actions/upload-artifact@v3
@@ -93,8 +80,8 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake -DJUPEDSIM_DIR=%CD%/../../jpscore-install ..
-        cmake --build . --config Release
+        cmake -DCMAKE_CONFIG=Release -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=%CD%/../../jpscore-install ..
+        cmake --build . -j4
 
     - name: Building Examples and Tests
       run: |
