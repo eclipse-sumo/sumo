@@ -1,7 +1,6 @@
 name: jupedsim-linux
 
 on:
-  workflow_dispatch:
   push:            # run on push events
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
@@ -39,18 +38,6 @@ jobs:
         cd jpscore-build
         cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
         cmake --build . -j4
-        cmake --install .
-
-    - name: Building GEOS
-      run: |
-        wget https://download.osgeo.org/geos/geos-3.11.2.tar.bz2
-        tar xjf geos-3.11.2.tar.bz2
-        cd geos-3.11.2
-        mkdir build
-        cd build
-        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PWD/../../jpscore-install ..
-        cmake --build . -j4
-        ctest --output-on-failure .
         cmake --install .
 
     - name: Cloning SUMO
