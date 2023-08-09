@@ -512,7 +512,7 @@ if (CHECK_OPTIONAL_LIBS)
             message(STATUS "Could NOT find GEOS! JuPedSim requires GEOS.")
         endif (GEOS_FOUND)
     else (jupedsim_FOUND)
-        message(STATUS "Could NOT find JuPedSim! Skipping JuPedSim integration targets.")
+        message(STATUS "Could NOT find JuPedSim! Skipping JuPedSim integration.")
     endif (jupedsim_FOUND)
 
     # add optional libraries

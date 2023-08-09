@@ -23,12 +23,9 @@
 /****************************************************************************/
 
 #include <algorithm>
+#include <unordered_set>
 #include <fstream>
-#define USE_UNSTABLE_GEOS_CPP_API 1
-#include <geos/geom/GeometryFactory.h>
-#include <geos/geom/CoordinateArraySequence.h>
-#include <geos/operation/buffer/BufferOp.h>
-#include <geos/io/WKTWriter.h>
+#include <geos_c.h>
 #include <jupedsim/jupedsim.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -47,7 +44,17 @@
 
 
 const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
-const double MSPModel_JuPedSim::GEOS_MIN_AREA = 10;
+const double MSPModel_JuPedSim::GEOS_MITRE_LIMIT= 5.0;
+const double MSPModel_JuPedSim::GEOS_MIN_AREA = 10.0;
+
+
+unsigned int toUINT(size_t bigInteger)
+{
+    if (bigInteger > UINT_MAX) {
+       throw std::bad_cast();
+    }
+    return static_cast<unsigned int>(bigInteger);
+}
 
 
 MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
@@ -67,25 +74,8 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
     JPS_Geometry_Free(myJPSGeometry);
     JPS_GeometryBuilder_Free(myJPSGeometryBuilder);
 
-    myGEOSGeometryFactory->destroyGeometry(myGEOSPedestrianNetwork);
-    for (geos::geom::Geometry* geometry : myGEOSConvertedLinearRingsDump) {
-        myGEOSGeometryFactory->destroyGeometry(geometry);
-    }
-    for (geos::geom::Geometry* geometry : myGEOSConvexHullsDump) {
-        myGEOSGeometryFactory->destroyGeometry(geometry);
-    }
-    for (geos::geom::Geometry* geometry : myGEOSGeometryCollectionsDump) {
-        myGEOSGeometryFactory->destroyGeometry(geometry);
-    }
-    for (geos::geom::Geometry* geometry : myGEOSBufferedGeometriesDump) {
-        myGEOSGeometryFactory->destroyGeometry(geometry);
-    }
-    for (geos::geom::Geometry* geometry : myGEOSPointsDump) {
-        myGEOSGeometryFactory->destroyGeometry(geometry);
-    }
-    for (geos::geom::Geometry* geometry : myGEOSLineStringsDump) {
-        myGEOSGeometryFactory->destroyGeometry(geometry);
-    }
+    GEOSGeom_destroy(myGEOSPedestrianNetwork);
+    finishGEOS();
 }
 
 
@@ -312,65 +302,49 @@ MSPModel_JuPedSim::hasWalkingAreasInbetween(const MSEdge* const edge, const MSEd
 }
 
 
-geos::geom::Geometry*
+GEOSGeometry*
 MSPModel_JuPedSim::createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle) {
-    geos::geom::CoordinateArraySequence* coordinateArraySequence = new geos::geom::CoordinateArraySequence();
-    for (Position p : centerLine) {
-        coordinateArraySequence->add(geos::geom::Coordinate(p.x(), p.y()));
+    unsigned int size = toUINT(centerLine.size());
+    GEOSCoordSequence* coordinateSequence = GEOSCoordSeq_create(size, 2);
+    for (unsigned int i = 0; i < size; i++) {
+        GEOSCoordSeq_setXY(coordinateSequence, i, centerLine[i].x(), centerLine[i].y());
     }
-
-    // In the new C++ API, the parent class CoordinateSequence has an add method and this conversion won't
-    // be necessary anymore. The underlying sequence will be destroyed at the end of scope.
-    std::unique_ptr<geos::geom::CoordinateSequence> coordinateSequence(coordinateArraySequence);
-
-    // Create a line string. The line string will hold the coordinates because of the move semantics.
-    // Need to release the above unique pointer because it would be destroyed at the end of the scope otherwise,
-    // but the dilated (buffered) line string holds a pointer to it unfortunately, and a clone of the buffer 
-    // doesn't seem to perform a deep copy as advertised.
-    geos::geom::Geometry* lineString = myGEOSGeometryFactory->createLineString(std::move(coordinateSequence)).release();
-    
-    // Keep the pointer in store for ulterior destruction. Keeping the unique pointer isn't possible because it 
-    // would require the use of move semantics, which would then invalidate the code inside buildPedestrianNetwork.
-    myGEOSLineStringsDump.push_back(lineString);
-
-    geos::geom::Geometry* dilatedLineString = lineString->buffer(width, GEOS_QUADRANT_SEGMENTS, capStyle).release();
-    myGEOSBufferedGeometriesDump.push_back(dilatedLineString); 
+    GEOSGeometry* lineString = GEOSGeom_createLineString(coordinateSequence);
+    GEOSGeometry* dilatedLineString = GEOSBufferWithStyle(lineString, width, GEOS_QUADRANT_SEGMENTS, capStyle, GEOSBUF_JOIN_ROUND, GEOS_MITRE_LIMIT);
+    GEOSGeom_destroy(lineString);
     return dilatedLineString;
 }
 
 
-geos::geom::Geometry*
+GEOSGeometry*
 MSPModel_JuPedSim::createShapeFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane) {
-    geos::geom::Geometry* shape;
+    GEOSGeometry* shape;
     if (lane->getWidth() == otherLane->getWidth()) {
         PositionVector anchors = { anchor, otherAnchor };
-        shape = createShapeFromCenterLine(anchors, lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_ROUND);
+        shape = createShapeFromCenterLine(anchors, lane->getWidth() / 2.0, GEOSBUF_CAP_ROUND);
     }
     else {
-        geos::geom::Point* anchorPoint = myGEOSGeometryFactory->createPoint(geos::geom::Coordinate(anchor.x(), anchor.y()));
-        myGEOSPointsDump.push_back(anchorPoint);
-        geos::geom::Geometry* dilatedAnchorPoint = anchorPoint->buffer(lane->getWidth() / 2.0, GEOS_QUADRANT_SEGMENTS, geos::operation::buffer::BufferOp::CAP_ROUND).release();
-        myGEOSBufferedGeometriesDump.push_back(dilatedAnchorPoint);
-
-        geos::geom::Point* otherAnchorPoint = myGEOSGeometryFactory->createPoint(geos::geom::Coordinate(otherAnchor.x(), otherAnchor.y()));
-        myGEOSPointsDump.push_back(otherAnchorPoint);
-        geos::geom::Geometry* dilatedOtherAnchorPoint = otherAnchorPoint->buffer(otherLane->getWidth() / 2.0, GEOS_QUADRANT_SEGMENTS, geos::operation::buffer::BufferOp::CAP_ROUND).release();
-        myGEOSBufferedGeometriesDump.push_back(dilatedOtherAnchorPoint);
-
-        std::vector<const geos::geom::Geometry*> polygons = { dilatedAnchorPoint, dilatedOtherAnchorPoint };
-        geos::geom::Geometry* multiPolygon = myGEOSGeometryFactory->createGeometryCollection(polygons);
-        myGEOSGeometryCollectionsDump.push_back(multiPolygon);
-        shape = multiPolygon->convexHull().release();
-        myGEOSConvexHullsDump.push_back(shape);
+        GEOSGeometry* anchorPoint = GEOSGeom_createPointFromXY(anchor.x(), anchor.y());
+        GEOSGeometry* dilatedAnchorPoint = GEOSBufferWithStyle(anchorPoint, lane->getWidth() / 2.0, 
+            GEOS_QUADRANT_SEGMENTS, GEOSBUF_CAP_ROUND, GEOSBUF_JOIN_ROUND , GEOS_MITRE_LIMIT);
+        GEOSGeom_destroy(anchorPoint);
+        GEOSGeometry* otherAnchorPoint = GEOSGeom_createPointFromXY(otherAnchor.x(), otherAnchor.y());
+        GEOSGeometry* dilatedOtherAnchorPoint = GEOSBufferWithStyle(otherAnchorPoint, otherLane->getWidth() / 2.0, 
+            GEOS_QUADRANT_SEGMENTS, GEOSBUF_CAP_ROUND, GEOSBUF_JOIN_ROUND, GEOS_MITRE_LIMIT);
+        GEOSGeom_destroy(otherAnchorPoint);
+        GEOSGeometry* polygons[2] = { dilatedAnchorPoint, dilatedOtherAnchorPoint };
+        GEOSGeometry* multiPolygon = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, polygons, 2);
+        shape = GEOSConvexHull(multiPolygon);
+        GEOSGeom_destroy(multiPolygon);
     }
 
     return shape;
 }
 
 
-geos::geom::Geometry*
+GEOSGeometry*
 MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
-    std::vector<const geos::geom::Geometry*> dilatedPedestrianLanes;
+    std::vector<GEOSGeometry*> dilatedPedestrianLanes;
     for (const auto& junctionWithID : network->getJunctionControl()) {
         const MSJunction* const junction = junctionWithID.second;
         const ConstMSEdgeVector& incoming = junction->getIncoming();
@@ -382,26 +356,24 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
             if (lane != nullptr) {
                 if (edge->isNormal()) {
                     const Position& anchor = getAnchor(lane, junction);
-                    geos::geom::Geometry* dilatedLaneLine = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_ROUND);
-                    dilatedPedestrianLanes.push_back(dilatedLaneLine);
-
+                    GEOSGeometry* dilatedLane = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, GEOSBUF_CAP_ROUND);
+                    dilatedPedestrianLanes.push_back(dilatedLane);
                     for (const MSEdge* const nextEdge : adjacent) {
                         if (nextEdge != edge && nextEdge->isNormal()) {
                             if (hasWalkingAreasInbetween(edge, nextEdge)) {
                                 const MSLane* const nextLane = getSidewalk<MSEdge, MSLane>(nextEdge);
                                 if (nextLane != nullptr) {
                                     const Position& nextAnchor = getAnchor(nextLane, junction);
-                                    geos::geom::Geometry* dilatedLaneLine = createShapeFromAnchors(anchor, lane, nextAnchor, nextLane);
-                                    dilatedPedestrianLanes.push_back(dilatedLaneLine);
+                                    GEOSGeometry* dilatedConnectionToNextLane = createShapeFromAnchors(anchor, lane, nextAnchor, nextLane);
+                                    dilatedPedestrianLanes.push_back(dilatedConnectionToNextLane);
                                 }
                             }
                         }
                     }
                 }
                 if (edge->isCrossing()) {
-                    geos::geom::Geometry* dilatedCrossingLane = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_ROUND);
+                    GEOSGeometry* dilatedCrossingLane = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, GEOSBUF_CAP_ROUND);
                     dilatedPedestrianLanes.push_back(dilatedCrossingLane);
-                    
                     for (MSEdge* nextEdge : getAdjacentEdgesOfEdge(edge)) {
                         // Checked std::count(adjacent.begin(), adjacent.end(), nextEdge) at the beginning but
                         // does not seem to be useful anymore.
@@ -414,8 +386,8 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
                                         MSEdgeVector nextEdgeIncoming = nextEdge->getPredecessors();
                                         const Position& anchor = getAnchor(lane, edge, nextEdgeIncoming);
                                         const Position& nextAnchor = getAnchor(nextLane, nextNextEdge, nextEdgeIncoming);
-                                        geos::geom::Geometry* dilatedLaneLine = createShapeFromAnchors(anchor, lane, nextAnchor, nextLane);
-                                        dilatedPedestrianLanes.push_back(dilatedLaneLine);
+                                        GEOSGeometry* dilatedConnectionToNextLane = createShapeFromAnchors(anchor, lane, nextAnchor, nextLane);
+                                        dilatedPedestrianLanes.push_back(dilatedConnectionToNextLane);
                                     }
                                 }
                             }
@@ -426,86 +398,102 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
         }
     }
 
-    geos::geom::Geometry* disjointDilatedPedestrianLanes = myGEOSGeometryFactory->createGeometryCollection(dilatedPedestrianLanes);
-    myGEOSGeometryCollectionsDump.push_back(disjointDilatedPedestrianLanes);
-    geos::geom::Geometry* pedestrianNetwork = disjointDilatedPedestrianLanes->Union().release();
+    GEOSGeometry* disjointDilatedPedestrianLanes = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, dilatedPedestrianLanes.data(), toUINT(dilatedPedestrianLanes.size()));
+    GEOSGeometry* pedestrianNetwork = GEOSUnaryUnion(disjointDilatedPedestrianLanes);
+    GEOSGeom_destroy(disjointDilatedPedestrianLanes);
     return pedestrianNetwork;
 }
 
 
 PositionVector 
-MSPModel_JuPedSim::getCoordinates(const geos::geom::Geometry* geometry) {
-    PositionVector coordinates;
-    std::unique_ptr<geos::geom::CoordinateSequence> coordsSeq = geometry->getCoordinates();
-    for (size_t i = 0; i < coordsSeq->getSize(); i++) {
-        geos::geom::Coordinate c = coordsSeq->getAt(i);
-        coordinates.push_back(Position(c.x, c.y));
+MSPModel_JuPedSim::getCoordinates(const GEOSGeometry* geometry) {
+    PositionVector coordinateVector;
+    const GEOSCoordSequence* coordinateSequence = GEOSGeom_getCoordSeq(geometry);
+    unsigned int coordinateSequenceSize;
+    GEOSCoordSeq_getSize(coordinateSequence, &coordinateSequenceSize);
+    double x;
+    double y;
+    for (unsigned int i = 0; i < coordinateSequenceSize; i++) {
+        GEOSCoordSeq_getX(coordinateSequence, i, &x);
+        GEOSCoordSeq_getY(coordinateSequence, i, &y);
+        coordinateVector.push_back(Position(x, y));
     }
-    return coordinates;
+    return coordinateVector;
 }
 
 
 std::vector<JPS_Point> 
 MSPModel_JuPedSim::convertToJPSPoints(const PositionVector& coordinates) {
-    std::vector<JPS_Point> polygon;
+    std::vector<JPS_Point> pointVector;
     // Remove the last point so that CGAL doesn't complain of the simplicity of the polygon downstream.
-    for (size_t i = 0; i < coordinates.size() - 1; i++) {
+    for (unsigned int i = 0; i < toUINT(coordinates.size()) - 1; i++) {
         Position c = coordinates[i];
-        polygon.push_back({c.x(), c.y()});
+        pointVector.push_back({c.x(), c.y()});
     }
-    return polygon;
+    return pointVector;
 }
 
 
 std::vector<JPS_Point>
-MSPModel_JuPedSim::convertToJPSPoints(const geos::geom::Geometry* geometry) {
-    std::vector<JPS_Point> polygon;
-    std::unique_ptr<geos::geom::CoordinateSequence> coordsSeq = geometry->getCoordinates();
+MSPModel_JuPedSim::convertToJPSPoints(const GEOSGeometry* geometry) {
+    std::vector<JPS_Point> pointVector;
+    const GEOSCoordSequence* coordinateSequence = GEOSGeom_getCoordSeq(geometry);
+    unsigned int coordinateSequenceSize;
+    GEOSCoordSeq_getSize(coordinateSequence, &coordinateSequenceSize);
+    double x;
+    double y;
     // Remove the last point so that CGAL doesn't complain of the simplicity of the polygon downstream.
-    for (size_t i = 0; i < coordsSeq->getSize() - 1; i++) {
-        geos::geom::Coordinate c = coordsSeq->getAt(i);
-        polygon.push_back({ c.x, c.y });
+    for (unsigned int i = 0; i < coordinateSequenceSize - 1; i++) {
+        GEOSCoordSeq_getX(coordinateSequence, i, &x);
+        GEOSCoordSeq_getY(coordinateSequence, i, &y);
+        pointVector.push_back({x, y});
     }
-    return polygon;
+    return pointVector;
 }
 
 
-geos::geom::Polygon* 
-MSPModel_JuPedSim::toPolygon(const geos::geom::LinearRing* linearRing) {
-    geos::geom::Polygon* polygon = myGEOSGeometryFactory->createPolygon(*linearRing, {});
-    myGEOSConvertedLinearRingsDump.push_back(polygon);
-    return polygon;
+double
+MSPModel_JuPedSim::getHoleArea(const GEOSGeometry* hole) {
+    double area;
+    GEOSGeometry* linearRingAsPolygon = GEOSGeom_createPolygon(GEOSGeom_clone(hole), nullptr, 0);
+    GEOSArea(linearRingAsPolygon, &area);
+    GEOSGeom_destroy(linearRingAsPolygon);
+    return area;
 }
 
 
 void 
-MSPModel_JuPedSim::renderPolygon(const geos::geom::Polygon* polygon, const std::string& polygonId) {
-    const geos::geom::LinearRing* exterior = polygon->getExteriorRing();
+MSPModel_JuPedSim::renderPolygon(const GEOSGeometry* polygon, const std::string& polygonId) {
+    const GEOSGeometry* exterior = GEOSGetExteriorRing(polygon);
     PositionVector shape = getCoordinates(exterior);
     
     std::vector<PositionVector> holes;
-    for (size_t k = 0; k < polygon->getNumInteriorRing(); k++) {
-        const geos::geom::LinearRing* interior = polygon->getInteriorRingN(k);
-        if (toPolygon(interior)->getArea() > GEOS_MIN_AREA) {
-            PositionVector hole = getCoordinates(interior);
-            holes.push_back(hole);
+    int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
+    if (nbrInteriorRings != -1) {
+        for (unsigned int k = 0; k < (unsigned int)nbrInteriorRings; k++) {
+            const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
+            double area = getHoleArea(linearRing);
+            if (area > GEOS_MIN_AREA) {
+                PositionVector hole = getCoordinates(linearRing);
+                holes.push_back(hole);
+            }
         }
-    }
 
-    ShapeContainer& shapeContainer = myNetwork->getShapeContainer();
-    shapeContainer.addPolygon(polygonId, std::string("pedestrian_network"), RGBColor(255, 0, 0, 255), 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
-    shapeContainer.getPolygons().get(polygonId)->setHoles(holes);
+        ShapeContainer& shapeContainer = myNetwork->getShapeContainer();
+        shapeContainer.addPolygon(polygonId, std::string("pedestrian_network"), RGBColor(255, 0, 0, 255), 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
+        shapeContainer.getPolygons().get(polygonId)->setHoles(holes);
+    }
 }
 
 
 void 
-MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon, const std::string& polygonId) {
+MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, const std::string& polygonId) {
     std::ofstream dumpFile;
     dumpFile.open(polygonId + std::string(".txt"));
     int maxPrecision = std::numeric_limits<double>::max_digits10 + 2;
 
     // Handle the exterior polygon.
-    const geos::geom::LinearRing* exterior = polygon->getExteriorRing();
+    const GEOSGeometry* exterior =  GEOSGetExteriorRing(polygon);
     std::vector<JPS_Point> exteriorCoordinates = convertToJPSPoints(exterior);
     JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size());
 
@@ -516,17 +504,21 @@ MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon, cons
     dumpFile << std::endl;
 
     // Handle the interior polygons (holes).
-    for (size_t k = 0; k < polygon->getNumInteriorRing(); k++) {
-        const geos::geom::LinearRing* interior = polygon->getInteriorRingN(k);
-        if (toPolygon(interior)->getArea() > GEOS_MIN_AREA) {
-            std::vector<JPS_Point> holeCoordinates = convertToJPSPoints(interior);
-            JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, holeCoordinates.data(), holeCoordinates.size());
+    int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
+    if (nbrInteriorRings != -1) {
+        for (unsigned int k = 0; k < (unsigned int)nbrInteriorRings; k++) {
+            const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
+            double area = getHoleArea(linearRing);
+            if (area > GEOS_MIN_AREA) {
+                std::vector<JPS_Point> holeCoordinates = convertToJPSPoints(linearRing);
+                JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, holeCoordinates.data(), holeCoordinates.size());
 
-            for (const auto& c : holeCoordinates) {
-                dumpFile << std::setprecision(maxPrecision) << c.x << std::endl;
-                dumpFile << std::setprecision(maxPrecision) << c.y << std::endl;
+                for (const auto& c : holeCoordinates) {
+                    dumpFile << std::setprecision(maxPrecision) << c.x << std::endl;
+                    dumpFile << std::setprecision(maxPrecision) << c.y << std::endl;
+                }
+                dumpFile << std::endl;
             }
-            dumpFile << std::endl;
         }
     }
 
@@ -550,13 +542,21 @@ void MSPModel_JuPedSim::prepareAdditionalPolygonsForJPS(void) {
 }
 
 
+static void
+geos_msg_handler(const char* fmt, ...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    vprintf (fmt, ap);
+    va_end(ap);
+}
+
+
 void
 MSPModel_JuPedSim::initialize() {
-    myGEOSGeometryFactory = geos::geom::GeometryFactory::create();
+    initGEOS(geos_msg_handler, geos_msg_handler);
     myGEOSPedestrianNetwork = buildPedestrianNetwork(myNetwork);
-    myIsPedestrianNetworkConnected = !myGEOSPedestrianNetwork->isCollection();
-
-    myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
+    myIsPedestrianNetworkConnected = GEOSGetNumGeometries(myGEOSPedestrianNetwork) == 1 ? true : false; 
 
     /*
     for (size_t i = 0; i < myGEOSPedestrianNetwork->getNumGeometries(); i++) {
@@ -567,15 +567,16 @@ MSPModel_JuPedSim::initialize() {
         preparePolygonForJPS(connectedComponentPolygon, polygonId);
     }
     */
-
+    
     // For the moment, JuPedSim only supports one connected component.
-    const geos::geom::Polygon* maxAreaConnectedComponentPolygon = nullptr;
+    const GEOSGeometry* maxAreaConnectedComponentPolygon = nullptr;
     std::string maxAreaPolygonId;
     double maxArea = 0.0;
-    for (size_t i = 0; i < myGEOSPedestrianNetwork->getNumGeometries(); i++) {
-        const geos::geom::Polygon* connectedComponentPolygon = dynamic_cast<const geos::geom::Polygon*>(myGEOSPedestrianNetwork->getGeometryN(i));
+    for (unsigned int i = 0; i < (unsigned int)GEOSGetNumGeometries(myGEOSPedestrianNetwork); i++) {
+        const GEOSGeometry* connectedComponentPolygon = GEOSGetGeometryN(myGEOSPedestrianNetwork, i);
         std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
-        double area = connectedComponentPolygon->getArea();
+        double area;
+        GEOSArea(connectedComponentPolygon, &area);
         if (area > maxArea) {
             maxArea = area;
             maxAreaConnectedComponentPolygon = connectedComponentPolygon;
@@ -583,15 +584,18 @@ MSPModel_JuPedSim::initialize() {
         }
     }
     renderPolygon(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
+    myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
     preparePolygonForJPS(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
     prepareAdditionalPolygonsForJPS();
 
     std::ofstream GEOSGeometryDumpFile;
     GEOSGeometryDumpFile.open("pedestrianNetwork.wkt");
-    geos::io::WKTWriter writer;
-    std::string wkt = writer.write(maxAreaConnectedComponentPolygon); // Change to myGEOSPedestrianNetwork when multiple components have been implemented.
+    GEOSWKTWriter* writer = GEOSWKTWriter_create();
+    char* wkt = GEOSWKTWriter_write(writer, maxAreaConnectedComponentPolygon); // Change to myGEOSPedestrianNetwork when multiple components have been implemented.
     GEOSGeometryDumpFile << wkt << std::endl;
     GEOSGeometryDumpFile.close();
+    GEOSFree(wkt);
+    GEOSWKTWriter_destroy(writer);
 
     JPS_ErrorMessage message = nullptr; 
     
