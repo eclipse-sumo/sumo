@@ -33,20 +33,14 @@ class GNEChange_Distribution : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_Distribution)
 
 public:
-    /**@brief constructor
-     * @param[in] ac The attribute-carrier to be modified
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     */
-    GNEChange_Distribution(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value);
+    /// @brief add new key
+    static void addKey(GNEDemandElement* distribution, const std::string &key, const double value, GNEUndoList* undoList);
 
-    /**@brief constructor
-     * @param[in] ac The attribute-carrier to be modified
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] previousParameters previous values (used by flows)
-     */
-    GNEChange_Distribution(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int previousParameters);
+    /// @brief remove key
+    static void removeKey(GNEDemandElement* distribution, const std::string &key, GNEUndoList* undoList);
+
+    /// @brief edit value
+    static void editValue(GNEDemandElement* distribution, const std::string &key, const double newValue, GNEUndoList* undoList);
 
     /// @brief Destructor
     ~GNEChange_Distribution();
@@ -67,17 +61,30 @@ public:
     /// @}
 
 private:
-    /**@brief the net to which all operations shall be applied
+    /**@brief the distribution to which all operations shall be applied
      * @note we are not responsible for the pointer
      */
-    GNEAttributeCarrier* myAC;
+    GNEDemandElement* myDistribution;
 
-    /// @brief The attribute name
-    const SumoXMLAttr myKey;
+    /// @brief the original key
+    const std::string myOrigKey;
+
+    /// @brief the new key (empty means remove)
+    const std::string myNewKey;
 
     /// @brief the original value
-    const bool myOrigValue;
+    const double myOrigValue;
 
     /// @brief the new value
-    const bool myNewValue;
+    const double myNewValue;
+
+    /**@brief constructor for add/modify key
+     * @param[in] distribution The distribution to be modified
+     * @param[in] originalKey The original distribution key
+     * @param[in] newKey The new distribution key
+     * @param[in] originalValue The original distribution value
+     * @param[in] newValue The new distribution value
+     */
+    GNEChange_Distribution(GNEDemandElement* distribution, const std::string &originalKey, const std::string &newKey,
+                           const double originalValue, const double newValue);
 };

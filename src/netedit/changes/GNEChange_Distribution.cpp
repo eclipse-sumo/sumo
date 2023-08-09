@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 
 #include "GNEChange_Distribution.h"
 
@@ -32,35 +33,48 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Distribution, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Distribution::GNEChange_Distribution(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value) :
-    GNEChange(ac->getTagProperty().getSupermode(), true, false),
-    myAC(ac),
-    myKey(key),
-    myOrigValue(ac->isAttributeEnabled(key)),
-    myNewValue(value) {
-    myAC->incRef("GNEChange_Distribution " + myAC->getTagProperty().getTagStr());
+void
+GNEChange_Distribution::addKey(GNEDemandElement* distribution, const std::string &key, const double value, GNEUndoList* undoList) {
+    // create change
+    auto change = new GNEChange_Distribution(distribution, "", key, 0, value);
+    // add into undoList
+    undoList->begin(distribution, TLF("add '%' key in % '%'", key, distribution->getTagStr(), distribution->getID()));
+    undoList->add(change, true);
+    undoList->end();
 }
 
 
-GNEChange_Distribution::GNEChange_Distribution(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int /* previousParameters */) :
-    GNEChange(ac->getTagProperty().getSupermode(), true, false),
-    myAC(ac),
-    myKey(key),
-    myOrigValue(ac->isAttributeEnabled(key)),
-    myNewValue(value) {
-    myAC->incRef("GNEChange_Distribution " + myAC->getTagProperty().getTagStr());
+void
+GNEChange_Distribution::removeKey(GNEDemandElement* distribution, const std::string &key, GNEUndoList* undoList) {
+    // create change
+    auto change = new GNEChange_Distribution(distribution, key, "", 0, 0);
+    // add into undoList
+    undoList->begin(distribution, TLF("remove '%' key from % '%'", key, distribution->getTagStr(), distribution->getID()));
+    undoList->add(change, true);
+    undoList->end();
+}
+
+
+void
+GNEChange_Distribution::editValue(GNEDemandElement* distribution, const std::string &key, const double newValue, GNEUndoList* undoList) {
+    // create change
+    auto change = new GNEChange_Distribution(distribution, key, key, distribution->getAttributeDistributionValue(key), newValue);
+    // add into undoList
+    undoList->begin(distribution, TLF("change '%' key value from % to %", key, newValue, newValue));
+    undoList->add(change, true);
+    undoList->end();
 }
 
 
 GNEChange_Distribution::~GNEChange_Distribution() {
     // decrease reference
-    myAC->decRef("GNEChange_Distribution " + myAC->getTagProperty().getTagStr());
+    myDistribution->decRef("GNEChange_Distribution " + myDistribution->getTagProperty().getTagStr());
     // remove if is unreferenced
-    if (myAC->unreferenced()) {
+    if (myDistribution->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " '" + myAC->getID() + "' in GNEChange_Distribution");
-        // delete AC
-        delete myAC;
+        WRITE_DEBUG("Deleting unreferenced " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "' in GNEChange_Distribution");
+        // delete distribution
+        delete myDistribution;
     }
 }
 
@@ -68,62 +82,59 @@ GNEChange_Distribution::~GNEChange_Distribution() {
 void
 GNEChange_Distribution::undo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting previous attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-    // set original value
-    myAC->toggleAttribute(myKey, myOrigValue);
-    // check if networkElements, additional or shapes has to be saved
-    if (myAC->getTagProperty().isNetworkElement()) {
-        myAC->getNet()->getSavingStatus()->requireSaveNetwork();
-    } else if (myAC->getTagProperty().isAdditionalElement()) {
-        myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
-    } else if (myAC->getTagProperty().isDemandElement()) {
-        myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
-    } else if (myAC->getTagProperty().isDataElement()) {
-        myAC->getNet()->getSavingStatus()->requireSaveDataElements();
-    } else if (myAC->getTagProperty().isMeanData()) {
-        myAC->getNet()->getSavingStatus()->requireSaveMeanDatas();
+    WRITE_DEBUG("Setting previous distribution into " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "'");
+    // continue depending of key
+    if (myOrigKey.empty()) {
+        myDistribution->removeDistributionKey(myNewKey);
+    } else if (myNewKey.empty()) {
+        myDistribution->addDistributionKey(myOrigKey, myOrigValue);
+
+    } else {
+        myDistribution->editDistributionValue(myOrigKey, myNewValue);
     }
+    // mark demand elements as unsaved
+    myDistribution->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 
 void
 GNEChange_Distribution::redo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting new attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-    // set new attributes
-    myAC->toggleAttribute(myKey, myNewValue);
-    // check if networkElements, additional or shapes has to be saved
-    if (myAC->getTagProperty().isNetworkElement()) {
-        myAC->getNet()->getSavingStatus()->requireSaveNetwork();
-    } else if (myAC->getTagProperty().isAdditionalElement()) {
-        myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
-    } else if (myAC->getTagProperty().isDemandElement()) {
-        myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
-    } else if (myAC->getTagProperty().isDataElement()) {
-        myAC->getNet()->getSavingStatus()->requireSaveDataElements();
-    } else if (myAC->getTagProperty().isMeanData()) {
-        myAC->getNet()->getSavingStatus()->requireSaveMeanDatas();
+    WRITE_DEBUG("Setting new distribution into " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "'");
+    // continue depending of key
+    if (myOrigKey.empty()) {
+        myDistribution->addDistributionKey(myNewKey, myNewValue);
+    } else if (myNewKey.empty()) {
+        myDistribution->removeDistributionKey(myNewKey);
+    } else {
+        myDistribution->editDistributionValue(myOrigKey, myNewValue);
     }
+    // mark demand elements as unsaved
+    myDistribution->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 
 std::string
 GNEChange_Distribution::undoName() const {
-    if (myNewValue) {
-        return (TLF("Undo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
-    } else {
-        return (TLF("Undo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
-    }
+    return TLF("Undo edit distribution in '%'", myDistribution->getID());
 }
 
 
 std::string
 GNEChange_Distribution::redoName() const {
-    if (myNewValue) {
-        return (TLF("Redo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
-    } else {
-        return (TLF("Redo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
-    }
+    return TLF("Redo edit distribution in '%'", myDistribution->getID());
+}
+
+
+GNEChange_Distribution::GNEChange_Distribution(GNEDemandElement* distribution, const std::string &originalKey, const std::string &newKey,
+        const double originalValue, const double newValue) :
+    GNEChange(Supermode::DEMAND, true, false),
+    myDistribution(distribution),
+    myOrigKey(originalKey),
+    myNewKey(newKey),
+    myOrigValue(originalValue),
+    myNewValue(newValue) {
+    myDistribution->incRef("GNEChange_Distribution " + myDistribution->getTagProperty().getTagStr());
 }
 
 /****************************************************************************/
