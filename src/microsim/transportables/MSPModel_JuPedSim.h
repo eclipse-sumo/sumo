@@ -23,11 +23,9 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-
-#include <memory>
-#include <unordered_set>
-#define USE_UNSTABLE_GEOS_CPP_API 1
-#include <geos/geom/GeometryFactory.h>
+#include <vector>
+#include <map>
+#include <geos_c.h>
 #include <jupedsim/jupedsim.h>
 #include "microsim/MSNet.h"
 #include "MSPModel.h"
@@ -134,14 +132,7 @@ private:
     int myNumActivePedestrians = 0;
     std::vector<PState*> myPedestrianStates;
 
-    geos::geom::GeometryFactory::Ptr myGEOSGeometryFactory;
-    std::vector<geos::geom::Geometry*> myGEOSLineStringsDump;
-    std::vector<geos::geom::Geometry*> myGEOSPointsDump;
-    std::vector<geos::geom::Geometry*> myGEOSBufferedGeometriesDump;
-    std::vector<geos::geom::Geometry*> myGEOSGeometryCollectionsDump;
-    std::vector<geos::geom::Geometry*> myGEOSConvexHullsDump;
-    std::vector<geos::geom::Geometry*> myGEOSConvertedLinearRingsDump;
-    geos::geom::Geometry* myGEOSPedestrianNetwork;
+    GEOSGeometry* myGEOSPedestrianNetwork;
     bool myIsPedestrianNetworkConnected;
 
     JPS_GeometryBuilder myJPSGeometryBuilder;
@@ -152,25 +143,24 @@ private:
     JPS_Simulation myJPSSimulation;
 
     static const int GEOS_QUADRANT_SEGMENTS;
+    static const double GEOS_MITRE_LIMIT;
     static const double GEOS_MIN_AREA;
 
     void initialize();
     void tryInsertion(PState* state);
-
     static MSLane* getNextPedestrianLane(const MSLane* const currentLane);
-    
     static const Position& getAnchor(const MSLane* const lane, const MSJunction* const junction);
     static const Position& getAnchor(const MSLane* const lane, const MSEdge* const edge, MSEdgeVector incoming);
     static const MSEdgeVector getAdjacentEdgesOfEdge(const MSEdge* const edge);
     static bool hasWalkingAreasInbetween(const MSEdge* const edge, const MSEdge* const otherEdge);
-    geos::geom::Geometry* createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle);
-    geos::geom::Geometry* createShapeFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane);
-    geos::geom::Geometry* buildPedestrianNetwork(MSNet* network);
-    static PositionVector getCoordinates(const geos::geom::Geometry* geometry);
-    static std::vector<JPS_Point> convertToJPSPoints(const geos::geom::Geometry* geometry);
+    GEOSGeometry* createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle);
+    GEOSGeometry* createShapeFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane);
+    GEOSGeometry* buildPedestrianNetwork(MSNet* network);
+    static PositionVector getCoordinates(const GEOSGeometry* geometry);
+    static std::vector<JPS_Point> convertToJPSPoints(const GEOSGeometry* geometry);
     static std::vector<JPS_Point> convertToJPSPoints(const PositionVector& coordinates);
-    geos::geom::Polygon* toPolygon(const geos::geom::LinearRing* linearRing);
-    void renderPolygon(const geos::geom::Polygon* polygon, const std::string& polygonId);
-    void preparePolygonForJPS(const geos::geom::Polygon* polygon, const std::string& polygonId = std::string());
+    static double getHoleArea(const GEOSGeometry* hole);
+    void renderPolygon(const GEOSGeometry* polygon, const std::string& polygonId);
+    void preparePolygonForJPS(const GEOSGeometry* polygon, const std::string& polygonId = std::string());
     void prepareAdditionalPolygonsForJPS(void);
 };
