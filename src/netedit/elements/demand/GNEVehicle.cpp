@@ -24,7 +24,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_EnableAttribute.h>
+#include <netedit/changes/GNEChange_ToggleAttribute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>

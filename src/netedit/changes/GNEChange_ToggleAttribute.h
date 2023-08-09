@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEChange_EnableAttribute.h
+/// @file    GNEChange_ToggleAttribute.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
 ///
@@ -26,11 +26,11 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GNEChange_EnableAttribute
+ * @class GNEChange_ToggleAttribute
  * @brief the function-object for an editing operation (abstract base)
  */
-class GNEChange_EnableAttribute : public GNEChange {
-    FXDECLARE_ABSTRACT(GNEChange_EnableAttribute)
+class GNEChange_ToggleAttribute : public GNEChange {
+    FXDECLARE_ABSTRACT(GNEChange_ToggleAttribute)
 
 public:
     /**@brief constructor
@@ -38,7 +38,7 @@ public:
      * @param[in] key The attribute key
      * @param[in] value The new value
      */
-    GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value);
+    GNEChange_ToggleAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value);
 
     /**@brief constructor
      * @param[in] ac The attribute-carrier to be modified
@@ -46,10 +46,10 @@ public:
      * @param[in] value The new value
      * @param[in] previousParameters previous values (used by flows)
      */
-    GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int previousParameters);
+    GNEChange_ToggleAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int previousParameters);
 
     /// @brief Destructor
-    ~GNEChange_EnableAttribute();
+    ~GNEChange_ToggleAttribute();
 
     /// @name inherited from GNEChange
     /// @{

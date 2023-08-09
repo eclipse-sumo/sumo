@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEChange_EnableAttribute.cpp
+/// @file    GNEChange_ToggleAttribute.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
 ///
@@ -21,44 +21,44 @@
 
 #include <netedit/GNENet.h>
 
-#include "GNEChange_EnableAttribute.h"
+#include "GNEChange_ToggleAttribute.h"
 
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_EnableAttribute, GNEChange, nullptr, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange_ToggleAttribute, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value) :
+GNEChange_ToggleAttribute::GNEChange_ToggleAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value) :
     GNEChange(ac->getTagProperty().getSupermode(), true, false),
     myAC(ac),
     myKey(key),
     myOrigValue(ac->isAttributeEnabled(key)),
     myNewValue(value) {
-    myAC->incRef("GNEChange_EnableAttribute " + myAC->getTagProperty().getTagStr());
+    myAC->incRef("GNEChange_ToggleAttribute " + myAC->getTagProperty().getTagStr());
 }
 
 
-GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int /* previousParameters */) :
+GNEChange_ToggleAttribute::GNEChange_ToggleAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int /* previousParameters */) :
     GNEChange(ac->getTagProperty().getSupermode(), true, false),
     myAC(ac),
     myKey(key),
     myOrigValue(ac->isAttributeEnabled(key)),
     myNewValue(value) {
-    myAC->incRef("GNEChange_EnableAttribute " + myAC->getTagProperty().getTagStr());
+    myAC->incRef("GNEChange_ToggleAttribute " + myAC->getTagProperty().getTagStr());
 }
 
 
-GNEChange_EnableAttribute::~GNEChange_EnableAttribute() {
+GNEChange_ToggleAttribute::~GNEChange_ToggleAttribute() {
     // decrease reference
-    myAC->decRef("GNEChange_EnableAttribute " + myAC->getTagProperty().getTagStr());
+    myAC->decRef("GNEChange_ToggleAttribute " + myAC->getTagProperty().getTagStr());
     // remove if is unreferenced
     if (myAC->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " '" + myAC->getID() + "' in GNEChange_EnableAttribute");
+        WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " '" + myAC->getID() + "' in GNEChange_ToggleAttribute");
         // delete AC
         delete myAC;
     }
@@ -66,7 +66,7 @@ GNEChange_EnableAttribute::~GNEChange_EnableAttribute() {
 
 
 void
-GNEChange_EnableAttribute::undo() {
+GNEChange_ToggleAttribute::undo() {
     // show extra information for tests
     WRITE_DEBUG("Setting previous attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set original value
@@ -87,7 +87,7 @@ GNEChange_EnableAttribute::undo() {
 
 
 void
-GNEChange_EnableAttribute::redo() {
+GNEChange_ToggleAttribute::redo() {
     // show extra information for tests
     WRITE_DEBUG("Setting new attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set new attributes
@@ -108,7 +108,7 @@ GNEChange_EnableAttribute::redo() {
 
 
 std::string
-GNEChange_EnableAttribute::undoName() const {
+GNEChange_ToggleAttribute::undoName() const {
     if (myNewValue) {
         return (TLF("Undo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
     } else {
@@ -118,7 +118,7 @@ GNEChange_EnableAttribute::undoName() const {
 
 
 std::string
-GNEChange_EnableAttribute::redoName() const {
+GNEChange_ToggleAttribute::redoName() const {
     if (myNewValue) {
         return (TLF("Redo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
     } else {

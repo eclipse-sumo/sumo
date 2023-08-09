@@ -49,7 +49,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
 
     /// @brief declare friend class
     friend class GNEChange_Attribute;
-    friend class GNEChange_EnableAttribute;
+    friend class GNEChange_ToggleAttribute;
     friend class GNEFrameAttributeModules;
     friend class GNEAttributesCreatorRow;
     friend class GNEFlowEditor;
@@ -300,7 +300,7 @@ protected:
     /// @brief whether the current object is a template object (not drawn in the view)
     bool myIsTemplate;
 
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     virtual void toggleAttribute(SumoXMLAttr key, const bool value);
 
 private:

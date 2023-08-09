@@ -23,7 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_EnableAttribute.h>
+#include <netedit/changes/GNEChange_ToggleAttribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/GNEDemandSelector.h>
@@ -1048,7 +1048,7 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_EXPECTED:
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-            undoList->add(new GNEChange_EnableAttribute(this, key, true), true);
+            undoList->add(new GNEChange_ToggleAttribute(this, key, true), true);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1064,7 +1064,7 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_EXPECTED:
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-            undoList->add(new GNEChange_EnableAttribute(this, key, false), true);
+            undoList->add(new GNEChange_ToggleAttribute(this, key, false), true);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
