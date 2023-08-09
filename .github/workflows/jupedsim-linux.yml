@@ -1,6 +1,7 @@
-name: jupedsim
+name: jupedsim-linux
 
-on: 
+on:
+  workflow_dispatch:
   push:            # run on push events
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
@@ -22,7 +23,7 @@ jobs:
     - name: Cloning jpscore
       uses: actions/checkout@v3
       with:
-        repository: jupedsim/jpscore
+        repository: PedestrianDynamics/jupedsim
         path: jpscore
 
     - name: Preparing Build System
@@ -32,15 +33,12 @@ jobs:
         sudo apt-get install wget unzip ninja-build clang clang-format-14 libglm-dev qtbase5-dev libvtk9-dev libvtk9-qt-dev libopengl-dev
         sudo pip3 install texttest
 
-    - name: Building jpscore dependencies
-      run: jpscore/scripts/setup-deps.sh --install-path ./jpscore-deps
-
     - name: Building jpscore
       run: |
         mkdir jpscore-build jpscore-install
         cd jpscore-build
-        cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/../jpscore-deps -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
-        cmake --build .
+        cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build . -j4
         cmake --install .
 
     - name: Building GEOS
@@ -51,7 +49,7 @@ jobs:
         mkdir build
         cd build
         cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PWD/../../jpscore-install ..
-        cmake --build .
+        cmake --build . -j4
         ctest --output-on-failure .
         cmake --install .
 
@@ -74,8 +72,8 @@ jobs:
       run: |
         mkdir -p sumo/cmake-build 
         cd sumo/cmake-build 
-        cmake -DJUPEDSIM_DIR=$PWD/../../jpscore-install ..
-        make -j4
+        cmake -DCMAKE_BUILD_TYPE=Release -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=$PWD/../../jpscore-install ..
+        cmake --build . -j4
         make traas
         sudo make install
 
