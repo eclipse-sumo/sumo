@@ -30,6 +30,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev gettext
         sudo apt-get install wget unzip ninja-build clang clang-format-14 libglm-dev qtbase5-dev libvtk9-dev libvtk9-qt-dev libopengl-dev
+        sudo apt-get install libgeos-c1v5 libgeos-dev
         sudo pip3 install texttest
 
     - name: Building jpscore
