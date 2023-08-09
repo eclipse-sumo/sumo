@@ -68,7 +68,7 @@ GNEChange_ToggleAttribute::~GNEChange_ToggleAttribute() {
 void
 GNEChange_ToggleAttribute::undo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting previous attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
+    WRITE_DEBUG("Toggle attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set original value
     myAC->toggleAttribute(myKey, myOrigValue);
     // check if networkElements, additional or shapes has to be saved
@@ -89,7 +89,7 @@ GNEChange_ToggleAttribute::undo() {
 void
 GNEChange_ToggleAttribute::redo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting new attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
+    WRITE_DEBUG("Toggle attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set new attributes
     myAC->toggleAttribute(myKey, myNewValue);
     // check if networkElements, additional or shapes has to be saved
@@ -109,21 +109,13 @@ GNEChange_ToggleAttribute::redo() {
 
 std::string
 GNEChange_ToggleAttribute::undoName() const {
-    if (myNewValue) {
-        return (TLF("Undo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
-    } else {
-        return (TLF("Undo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
-    }
+    return (TLF("Undo toggle % attribute in '%'", myAC->getTagStr(), myAC->getID()));
 }
 
 
 std::string
 GNEChange_ToggleAttribute::redoName() const {
-    if (myNewValue) {
-        return (TLF("Redo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
-    } else {
-        return (TLF("Redo enable % attribute in '%'", myAC->getTagStr(), myAC->getID()));
-    }
+    return (TLF("Redo toggle % attribute in '%'", myAC->getTagStr(), myAC->getID()));
 }
 
 /****************************************************************************/
