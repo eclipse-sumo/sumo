@@ -34,13 +34,13 @@ class GNEChange_Distribution : public GNEChange {
 
 public:
     /// @brief add new key
-    static void addKey(GNEDemandElement* distribution, const std::string &key, const double value, GNEUndoList* undoList);
+    static void addKey(GNEDemandElement* distribution, const GNEDemandElement* key, const double value, GNEUndoList* undoList);
 
     /// @brief remove key
-    static void removeKey(GNEDemandElement* distribution, const std::string &key, GNEUndoList* undoList);
+    static void removeKey(GNEDemandElement* distribution, const GNEDemandElement* key, GNEUndoList* undoList);
 
     /// @brief edit value
-    static void editValue(GNEDemandElement* distribution, const std::string &key, const double newValue, GNEUndoList* undoList);
+    static void editValue(GNEDemandElement* distribution, const GNEDemandElement* key, const double newValue, GNEUndoList* undoList);
 
     /// @brief Destructor
     ~GNEChange_Distribution();
@@ -67,10 +67,10 @@ private:
     GNEDemandElement* myDistribution;
 
     /// @brief the original key
-    const std::string myOrigKey;
+    const GNEDemandElement* myOrigKey;
 
     /// @brief the new key (empty means remove)
-    const std::string myNewKey;
+    const GNEDemandElement* myNewKey;
 
     /// @brief the original value
     const double myOrigValue;
@@ -85,6 +85,6 @@ private:
      * @param[in] originalValue The original distribution value
      * @param[in] newValue The new distribution value
      */
-    GNEChange_Distribution(GNEDemandElement* distribution, const std::string &originalKey, const std::string &newKey,
+    GNEChange_Distribution(GNEDemandElement* distribution, const GNEDemandElement* originalKey, const GNEDemandElement* newKey,
                            const double originalValue, const double newValue);
 };

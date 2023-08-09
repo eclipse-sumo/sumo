@@ -34,9 +34,9 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Distribution, GNEChange, nullptr, 0)
 // ===========================================================================
 
 void
-GNEChange_Distribution::addKey(GNEDemandElement* distribution, const std::string &key, const double value, GNEUndoList* undoList) {
+GNEChange_Distribution::addKey(GNEDemandElement* distribution, const GNEDemandElement* key, const double value, GNEUndoList* undoList) {
     // create change
-    auto change = new GNEChange_Distribution(distribution, "", key, 0, value);
+    auto change = new GNEChange_Distribution(distribution, nullptr, key, 0, value);
     // add into undoList
     undoList->begin(distribution, TLF("add '%' key in % '%'", key, distribution->getTagStr(), distribution->getID()));
     undoList->add(change, true);
@@ -45,9 +45,9 @@ GNEChange_Distribution::addKey(GNEDemandElement* distribution, const std::string
 
 
 void
-GNEChange_Distribution::removeKey(GNEDemandElement* distribution, const std::string &key, GNEUndoList* undoList) {
+GNEChange_Distribution::removeKey(GNEDemandElement* distribution, const GNEDemandElement* key, GNEUndoList* undoList) {
     // create change
-    auto change = new GNEChange_Distribution(distribution, key, "", 0, 0);
+    auto change = new GNEChange_Distribution(distribution, key, nullptr, 0, 0);
     // add into undoList
     undoList->begin(distribution, TLF("remove '%' key from % '%'", key, distribution->getTagStr(), distribution->getID()));
     undoList->add(change, true);
@@ -56,7 +56,7 @@ GNEChange_Distribution::removeKey(GNEDemandElement* distribution, const std::str
 
 
 void
-GNEChange_Distribution::editValue(GNEDemandElement* distribution, const std::string &key, const double newValue, GNEUndoList* undoList) {
+GNEChange_Distribution::editValue(GNEDemandElement* distribution, const GNEDemandElement* key, const double newValue, GNEUndoList* undoList) {
     // create change
     auto change = new GNEChange_Distribution(distribution, key, key, distribution->getAttributeDistributionValue(key), newValue);
     // add into undoList
@@ -84,9 +84,9 @@ GNEChange_Distribution::undo() {
     // show extra information for tests
     WRITE_DEBUG("Setting previous distribution into " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "'");
     // continue depending of key
-    if (myOrigKey.empty()) {
+    if (myOrigKey == nullptr) {
         myDistribution->removeDistributionKey(myNewKey);
-    } else if (myNewKey.empty()) {
+    } else if (myNewKey == nullptr) {
         myDistribution->addDistributionKey(myOrigKey, myOrigValue);
 
     } else {
@@ -102,9 +102,9 @@ GNEChange_Distribution::redo() {
     // show extra information for tests
     WRITE_DEBUG("Setting new distribution into " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "'");
     // continue depending of key
-    if (myOrigKey.empty()) {
+    if (myOrigKey == nullptr) {
         myDistribution->addDistributionKey(myNewKey, myNewValue);
-    } else if (myNewKey.empty()) {
+    } else if (myNewKey == nullptr) {
         myDistribution->removeDistributionKey(myNewKey);
     } else {
         myDistribution->editDistributionValue(myOrigKey, myNewValue);
@@ -126,7 +126,7 @@ GNEChange_Distribution::redoName() const {
 }
 
 
-GNEChange_Distribution::GNEChange_Distribution(GNEDemandElement* distribution, const std::string &originalKey, const std::string &newKey,
+GNEChange_Distribution::GNEChange_Distribution(GNEDemandElement* distribution, const GNEDemandElement* originalKey, const GNEDemandElement* newKey,
         const double originalValue, const double newValue) :
     GNEChange(Supermode::DEMAND, true, false),
     myDistribution(distribution),
