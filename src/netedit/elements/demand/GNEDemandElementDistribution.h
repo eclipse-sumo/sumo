@@ -34,50 +34,48 @@ class GNEUndoList;
 
 /**
  * @class GNEDemandElementDistribution
- * @brief A
+ * @brief Module used for represent attribute distributions
  */
 class GNEDemandElementDistribution {
+
+    /// @brief friend declaration
+    friend class GNEChange_Distribution;
 
 public:
     /// @brief Constructor
     GNEDemandElementDistribution();
 
-    /// @brief get attribute distribution (only keys)
-    std::string getAttributeDistribution() const;
+    /// @brief get attribute distribution keys
+    std::string getAttributeDistributionKeys() const;
 
-    /**@brief add distribution
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void addDistribution(const std::string& key, const std::string& value, GNEUndoList* undoList);
+    /// @brief get attribute distribution value
+    double getAttributeDistributionValue(const std::string& key);
 
-    /**@brief remove distribution
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void removeDistribution(const std::string& key, GNEUndoList* undoList);
+    /// @brief add distribution key
+    void addDistributionKey(const std::string& key, const double value, GNEUndoList* undoList);
 
-    /**@brief method for checking if the key and their conrrespond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value associated to key key
-     * @return true if the value is valid, false in other case
-     */
-    bool isValidDistribution(const std::string& key, const std::string& value);
+    /// @brief remove distribution key
+    void removeDistributionKey(const std::string& key, GNEUndoList* undoList);
 
-    /// @}
+    /// @brief check if the given key can be added in distribution
+    bool isValidDistributionNewKey(const std::string& key) const;
+
+    /// @brief check if the given key-value can be added in distribution
+    bool isValidDistributionNewValue(const std::string& key, const double value) const;
 
 protected:
 
     
 
 private:
-    /// @brief add distribution (used in GNEChange_Attribute)
-    void addDistribution(const std::string& key, const std::string& value);
+    /// @brief add distribution (used in GNEDemandElementDistribution)
+    void addDistributionKey(const std::string& key, const double value);
 
-    /// @brief remove distribution
-    void removeDistribution(const std::string& key);
+    /// @brief remove distribution (used in GNEDemandElementDistribution)
+    void removeDistributionKey(const std::string& key);
+
+    /// @brief remove distribution (used in GNEDemandElementDistribution)
+    void editDistributionValue(const std::string& key, const double newValue);
 
     /// @brief Invalidated copy constructor.
     GNEDemandElementDistribution(const GNEDemandElementDistribution&) = delete;

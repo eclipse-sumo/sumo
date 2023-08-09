@@ -37,39 +37,55 @@ GNEDemandElementDistribution::GNEDemandElementDistribution() {
 
 
 std::string
-GNEDemandElementDistribution::getAttributeDistribution() const {
-
+GNEDemandElementDistribution::getAttributeDistributionKeys() const {
     return "";
 }
 
 
+double
+GNEDemandElementDistribution::getAttributeDistributionValue(const std::string& key) {
+    return 0;
+}
+
+
 void
-GNEDemandElementDistribution::addDistribution(const std::string& key, const std::string& value, GNEUndoList* undoList) {
+GNEDemandElementDistribution::addDistributionKey(const std::string& key, const double value, GNEUndoList* undoList) {
 
 }
 
 
 void
-GNEDemandElementDistribution::removeDistribution(const std::string& key, GNEUndoList* undoList) {
+GNEDemandElementDistribution::removeDistributionKey(const std::string& key, GNEUndoList* undoList) {
 
 }
 
 
 bool
-GNEDemandElementDistribution::isValidDistribution(const std::string& key, const std::string& value) {
+GNEDemandElementDistribution::isValidDistributionNewKey(const std::string& key) const {
+    return false;
+}
 
+
+bool
+GNEDemandElementDistribution::isValidDistributionNewValue(const std::string& key, const double value) const {
     return false;
 }
 
 
 void
-GNEDemandElementDistribution::addDistribution(const std::string& key, const std::string& value) {
+GNEDemandElementDistribution::addDistributionKey(const std::string& key, const double value) {
 
 }
 
 
 void
-GNEDemandElementDistribution::removeDistribution(const std::string& key) {
+GNEDemandElementDistribution::removeDistributionKey(const std::string& key) {
+
+}
+
+
+void
+GNEDemandElementDistribution::editDistributionValue(const std::string& key, const double newValue) {
 
 }
 
