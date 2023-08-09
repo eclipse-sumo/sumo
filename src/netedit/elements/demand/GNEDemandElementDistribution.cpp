@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNEUndoList.h>
+#include <netedit/changes/GNEChange_Distribution.h>
 
 #include "GNEDemandElementDistribution.h"
 
@@ -31,62 +32,100 @@
 // GNEDemandElementDistribution - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElementDistribution::GNEDemandElementDistribution() {
-
+GNEDemandElementDistribution::GNEDemandElementDistribution(GNEDemandElement* demandElement) :
+    myDemandElement(demandElement) {
 }
 
 
 std::string
 GNEDemandElementDistribution::getAttributeDistributionKeys() const {
-    return "";
+    // first sort all keys by ID
+    std::set<std::string> sortedKeys;
+    for (const auto &values : myDistributionValues) {
+        sortedKeys.insert(values.first->getID());
+    }
+    // return keySortd
+    return toString(sortedKeys);
+}
+
+
+std::string
+GNEDemandElementDistribution::getAttributeDistributionValues() const {
+    // first sort all keys by ID
+    std::map<std::string, const GNEDemandElement*> sortedKeys;
+    for (const auto &values : myDistributionValues) {
+        sortedKeys[values.first->getID()] = values.first;
+    }
+    // now obtain values sorted by ID
+    std::vector<double> values;
+    for (const auto &sortedKey : sortedKeys) {
+        values.push_back(myDistributionValues.at(sortedKey.second));
+    }
+    return toString(values);
 }
 
 
 double
-GNEDemandElementDistribution::getAttributeDistributionValue(const std::string& key) {
-    return 0;
+GNEDemandElementDistribution::getAttributeDistributionValue(const GNEDemandElement* key) {
+    if (myDistributionValues.count(key) > 0) {
+        return myDistributionValues.at(key);
+    } else {
+        throw ProcessError("Key doesn't exist");
+    }
 }
 
 
 void
-GNEDemandElementDistribution::addDistributionKey(const std::string& key, const double value, GNEUndoList* undoList) {
-
+GNEDemandElementDistribution::addDistributionKey(const GNEDemandElement* key, const double value, GNEUndoList* undoList) {
+    GNEChange_Distribution::addKey(myDemandElement, key, value, undoList);
 }
 
 
 void
-GNEDemandElementDistribution::removeDistributionKey(const std::string& key, GNEUndoList* undoList) {
-
+GNEDemandElementDistribution::removeDistributionKey(const GNEDemandElement* key, GNEUndoList* undoList) {
+    GNEChange_Distribution::removeKey(myDemandElement, key, undoList);
 }
 
 
 bool
-GNEDemandElementDistribution::isValidDistributionNewKey(const std::string& key) const {
-    return false;
+GNEDemandElementDistribution::keyExists(const GNEDemandElement* key) const {
+    return (myDistributionValues.count(key) > 0);
 }
 
 
 bool
-GNEDemandElementDistribution::isValidDistributionNewValue(const std::string& key, const double value) const {
-    return false;
+GNEDemandElementDistribution::isValueValid(const GNEDemandElement* key, const double value) const {
+    if (myDistributionValues.count(key) > 0) {
+        return ((value >= 0) && (value <= 1));
+    } else {
+        return false;
+    }
 }
 
 
 void
-GNEDemandElementDistribution::addDistributionKey(const std::string& key, const double value) {
-
+GNEDemandElementDistribution::addDistributionKey(const GNEDemandElement* key, const double value) {
+    if (myDistributionValues.count(key) == 0) {
+        myDistributionValues[key] = value;
+    } else {
+        throw ProcessError("Key already exist");
+    }
 }
 
 
 void
-GNEDemandElementDistribution::removeDistributionKey(const std::string& key) {
-
+GNEDemandElementDistribution::removeDistributionKey(const GNEDemandElement* key) {
+    if (myDistributionValues.count(key) > 0) {
+        myDistributionValues.erase(key);
+    } else {
+        throw ProcessError("Key doesn't exist");
+    }
 }
 
 
 void
-GNEDemandElementDistribution::editDistributionValue(const std::string& key, const double newValue) {
-
+GNEDemandElementDistribution::editDistributionValue(const GNEDemandElement* key, const double newValue) {
+    myDistributionValues[key] = newValue;
 }
 
 /****************************************************************************/
