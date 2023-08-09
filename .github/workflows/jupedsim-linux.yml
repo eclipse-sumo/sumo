@@ -1,6 +1,7 @@
 name: jupedsim-linux
 
 on:
+  workflow_dispatch:
   push:            # run on push events
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
@@ -37,9 +38,21 @@ jobs:
       run: |
         mkdir jpscore-build jpscore-install
         cd jpscore-build
-        cmake -GNinja -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
-        cmake --build . -j4 --config Release
-        cmake --install . --config Release
+        cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build . -j4
+        cmake --install .
+
+    - name: Building GEOS
+      run: |
+        wget https://download.osgeo.org/geos/geos-3.11.2.tar.bz2
+        tar xjf geos-3.11.2.tar.bz2
+        cd geos-3.11.2
+        mkdir build
+        cd build
+        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PWD/../../jpscore-install ..
+        cmake --build . -j4
+        ctest --output-on-failure .
+        cmake --install .
 
     - name: Cloning SUMO
       uses: actions/checkout@v3
@@ -58,10 +71,10 @@ jobs:
 
     - name: Configuring and building SUMO
       run: |
-        mkdir -p sumo/sumo-build 
-        cd sumo/sumo-build 
-        cmake -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=$PWD/../../jpscore-install ..
-        cmake --build . -j4 --config Release
+        mkdir -p sumo/cmake-build 
+        cd sumo/cmake-build 
+        cmake -DCMAKE_BUILD_TYPE=Release -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=$PWD/../../jpscore-install ..
+        cmake --build . -j4
         make traas
         sudo cmake --install . --config Release
 
