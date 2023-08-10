@@ -64,6 +64,8 @@ title: ChangeLog
   - Add checkbox in Move Frame for forcing draw edge start/end geometry points. #13426
   - Add tooltip in GroupBox expand button. #12236
   - Add locate containers dialog. #13692
+  - Added support for vTypesDistributions #12845 #12845
+  - Added support for route #12660
   - Added JuPedSim elements. #13667, #13687
     - Walkable area
     - Obstacle
