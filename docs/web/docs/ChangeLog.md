@@ -80,7 +80,8 @@ title: ChangeLog
   - Game from downloaded zip no longer requires SUMO_HOME. #13583
 
 - Other
-  - Now JuPedSim can be enabled in CMake GUI with a checkbox. #13646 
+  - Now JuPedSim can be enabled in CMake GUI with a checkbox. #13646
+  - Improved integration of JuPedSim in sumo #13307 #13491 #13308
 
 ## Version 1.18.0 (29.06.2023)
 
