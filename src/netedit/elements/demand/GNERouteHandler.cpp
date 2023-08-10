@@ -2768,7 +2768,7 @@ GNERouteHandler::getDistributionElements(const CommonXMLStructure::SumoBaseObjec
     }
     // check probabilities
     for (const auto &probability : probabilities) {
-        if ((probability < 0) || (probability > 1)) {
+        if (probability < 0) {
             writeError(TLF("invalid probability % in % '%'", toString(probability), distributionTag, distributionID));
             return false;
         }
