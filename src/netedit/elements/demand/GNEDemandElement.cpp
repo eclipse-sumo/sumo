@@ -1206,9 +1206,9 @@ std::string
 GNEDemandElement::getDistributionParents() const {
     SumoXMLTag tagDistribution = SUMO_TAG_NOTHING;
     if (myTagProperty.getTag() == SUMO_TAG_VTYPE) {
-        tagDistribution == SUMO_TAG_VTYPE_DISTRIBUTION;
+        tagDistribution = SUMO_TAG_VTYPE_DISTRIBUTION;
     } else if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
-        tagDistribution == SUMO_TAG_ROUTE_DISTRIBUTION;
+        tagDistribution = SUMO_TAG_ROUTE_DISTRIBUTION;
     } else {
         return "";
     }
