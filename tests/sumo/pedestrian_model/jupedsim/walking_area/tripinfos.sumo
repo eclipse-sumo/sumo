@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-13 11:14:43 by Eclipse SUMO sumo Version v1_17_0+1622-fed144ac49f
+<!-- generated on 2023-08-10 16:20:45 by Eclipse SUMO sumo Version v1_17_0+2283-0f8f20d25f6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -70,6 +70,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <walk depart="8.00" departPos="0.00" arrival="173.00" arrivalPos="69.85" duration="165.00" routeLength="231.00" timeLoss="-1.32" maxSpeed="1.39"/>
     </personinfo>
     <personinfo id="4" depart="4.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
-        <walk depart="4.00" departPos="0.00" arrival="180.00" arrivalPos="74.33" duration="176.00" routeLength="243.60" timeLoss="0.61" maxSpeed="1.39"/>
+        <walk depart="4.00" departPos="0.00" arrival="179.00" arrivalPos="74.33" duration="175.00" routeLength="243.60" timeLoss="-0.39" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

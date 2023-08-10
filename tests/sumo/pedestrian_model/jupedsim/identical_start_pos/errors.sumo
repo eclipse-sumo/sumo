@@ -1,6 +1,6 @@
-Warning: Error while adding an agent: Model constraint violation: Agent 2 too close to agent 1
-Warning: Error while adding an agent: Model constraint violation: Agent 3 too close to agent 1
-Warning: Error while adding an agent: Model constraint violation: Agent 4 too close to agent 1
-Warning: Error while adding an agent: Model constraint violation: Agent 6 too close to agent 5
-Warning: Error while adding an agent: Model constraint violation: Agent 7 too close to agent 5
-Warning: Error while adding an agent: Model constraint violation: Agent 9 too close to agent 8
+Warning: Error while adding an agent: Model constraint violation: Agent (0, -1.6) too close to agent (0, -1.6): distance 0
+Warning: Error while adding an agent: Model constraint violation: Agent (0, -1.6) too close to agent (0, -1.6): distance 0
+Warning: Error while adding an agent: Model constraint violation: Agent (0, -1.6) too close to agent (0, -1.6): distance 0
+Warning: Error while adding an agent: Model constraint violation: Agent (0, -1.6) too close to agent (0, -1.6): distance 0
+Warning: Error while adding an agent: Model constraint violation: Agent (0, -1.6) too close to agent (0, -1.6): distance 0
+Warning: Error while adding an agent: Model constraint violation: Agent (0, -1.6) too close to agent (0, -1.6): distance 0
