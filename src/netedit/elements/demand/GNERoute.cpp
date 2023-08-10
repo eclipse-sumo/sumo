@@ -631,24 +631,13 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return toString(myRepeat);
         case SUMO_ATTR_CYCLETIME:
             return time2string(myCycleTime);
-        case GNE_ATTR_ROUTE_DISTRIBUTION: {
-            std::string distributionIDs;
-            for (const auto &distribution : myDistributions) {
-                distributionIDs.append(distribution.first + " ");
-            }
-            // remove last space
-            if (distributionIDs.size() > 0) {
-                distributionIDs.pop_back();
-            }
-            return distributionIDs;
-        }
+
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
-        case GNE_ATTR_VTYPE_DISTRIBUTION: {
+        case GNE_ATTR_ROUTE_DISTRIBUTION:
             return getDistributionParents();
-        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -681,6 +670,17 @@ GNERoute::getAttributePosition(SumoXMLAttr key) const {
 }
 
 
+bool
+GNERoute::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case GNE_ATTR_ROUTE_DISTRIBUTION:
+            return false;
+        default:
+            return true;
+    }
+}
+
+
 void
 GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -691,7 +691,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_REPEAT:
         case SUMO_ATTR_CYCLETIME:
-        case GNE_ATTR_ROUTE_DISTRIBUTION:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
@@ -757,37 +756,12 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case GNE_ATTR_ROUTE_DISTRIBUTION:
-            if (value.empty()) {
-                return true;
-            } else {
-                auto typeDistributionIDs = StringTokenizer(value).getVector();
-                // check every id
-                for (const auto &typeDistributionID : typeDistributionIDs) {
-                    if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, typeDistributionID, false) == nullptr) {
-                        return false;
-                    }
-                }
-                // all ids OK
-                return true;
-            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
-
-bool
-GNERoute::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
-            return false;
-        default:
-            return true;
     }
 }
 
@@ -894,23 +868,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CYCLETIME:
             myCycleTime = string2time(value);
             break;
-        case GNE_ATTR_ROUTE_DISTRIBUTION: {
-            // make a copy of distributions
-            const auto copyDistributions = myDistributions;
-            // clear distributions
-            myDistributions.clear();
-            // obtain IDS
-            const auto typeDistributionIDs = StringTokenizer(value).getVector();
-            // iterate over IDs, add into map, and check if previously there is a probability defined
-            for (const auto &typeDistributionID : typeDistributionIDs) {
-                if (copyDistributions.count(typeDistributionID) > 0) {
-                    myDistributions[typeDistributionID] = copyDistributions.at(typeDistributionID);
-                } else {
-                    myDistributions[typeDistributionID] = 1.0;
-                }
-            }
-            break;
-        }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
