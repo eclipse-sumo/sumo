@@ -40,6 +40,7 @@ class GNEDemandElementDistribution {
 
     /// @brief friend declaration
     friend class GNEChange_Distribution;
+    friend class GNERouteHandler;
 
 public:
     /// @brief Constructor

@@ -264,8 +264,13 @@ protected:
     /// @brief get previos person/container plan edge
     GNEEdge* getPreviousPlanEdge(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const;
 
-    /// @brief get previos person/container plan junction
+    /// @brief get previous person/container plan junction
     GNEJunction* getPreviousPlanJunction(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const;
+
+    /// @brief get distribution elements
+    bool getDistributionElements(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag distributionElementTag,
+                                 const std::vector<std::string>& distributionElementIDs, const std::vector<double>& probabilities,
+                                 std::vector<const GNEDemandElement*> &elements);
 
     /// @brief check if given ID correspond to a duplicated demand element
     bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string& id);

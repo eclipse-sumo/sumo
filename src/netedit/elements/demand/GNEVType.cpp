@@ -534,6 +534,12 @@ GNEVType::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return defaultValues.maxSpeed;
             }
+        case SUMO_ATTR_PROB:
+            if (wasSet(VTYPEPARS_PROBABILITY_SET)) {
+                return defaultProbability;
+            } else {
+                return parse<double>(myTagProperty.getDefaultValue(SUMO_ATTR_PROB));
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
