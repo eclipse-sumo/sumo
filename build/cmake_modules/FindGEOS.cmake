@@ -1,8 +1,8 @@
-FIND_PATH(GEOS_INCLUDE_DIR NAMES geos.h)
+FIND_PATH(GEOS_INCLUDE_DIR NAMES geos.h PATHS /usr/include /usr/local/include)
 IF (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    FIND_LIBRARY(GEOS_LIBRARY NAMES geos_cd)
+    FIND_LIBRARY(GEOS_LIBRARY NAMES geos_cd /usr/lib /usr/lib64 /usr/local/lib)
 ELSE ()
-    FIND_LIBRARY(GEOS_LIBRARY NAMES geos_c) 
+    FIND_LIBRARY(GEOS_LIBRARY NAMES geos_c /usr/lib /usr/lib64 /usr/local/lib) 
 ENDIF (CMAKE_BUILD_TYPE STREQUAL "Debug")
 
 IF (GEOS_INCLUDE_DIR AND GEOS_LIBRARY)
