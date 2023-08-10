@@ -2766,6 +2766,13 @@ GNERouteHandler::getDistributionElements(const CommonXMLStructure::SumoBaseObjec
 
         }
     }
+    // check probabilities
+    for (const auto &probability : probabilities) {
+        if ((probability < 0) || (probability > 1)) {
+            writeError(TLF("invalid probability % in % '%'", toString(probability), distributionTag, distributionID));
+            return false;
+        }
+    }
     // check that number of elements and probabilities is the same
     if (elements.size() != probabilities.size()) {
         writeError(TLF("Invalid type distribution probabilities in % '%'. Must have the same number of elements", distributionTag, distributionID));
