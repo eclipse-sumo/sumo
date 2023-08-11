@@ -126,54 +126,6 @@ public:
     };
 
     // ===========================================================================
-    // class AttributeRow
-    // ===========================================================================
-
-    class AttributeRow : protected FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEDistributionFrame::AttributeRow)
-
-    public:
-        /// @brief constructor for ID attribute
-        AttributeRow(AttributesEditor* attributeEditorParent,
-            const GNEAttributeProperties& ACAttr, const std::string& attribute);
-
-        /// @brief destroy GNEAttributesCreatorRow (but don't delete)
-        void destroy();
-
-        /// @brief refresh current row
-        void refreshAttributeRow(const std::string& value);
-
-        /// @brief check if current attribute of TextField/ComboBox is valid
-        bool isAttributeRowValid() const;
-
-        /// @name FOX-callbacks
-        /// @{
-
-        /// @brief try to set new attribute value
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief default constructor
-        AttributeRow();
-
-    private:
-        /// @brief pointer to AttributesEditor parent
-        AttributesEditor* myAttributesEditorParent;
-
-        /// @brief pointer to attribute label
-        MFXLabelTooltip* myAttributeLabel = nullptr;
-
-        /// @brief textField to modify the value of string attributes
-        MFXTextFieldTooltip* myValueTextField = nullptr;
-
-        /// @brief ACAttribute
-        GNEAttributeProperties myACAttr;
-    };
-
-    // ===========================================================================
     // class DistributionRow
     // ===========================================================================
 
@@ -281,9 +233,6 @@ public:
 
         /// @brief distribution
         GNEDemandElement* myDistribution = nullptr;
-
-        /// @brief attribute 
-        AttributeRow* myIDAttributeRow = nullptr;
 
         /// @brief list of Attribute editor rows
         std::vector<DistributionRow*> myDistributionRows;

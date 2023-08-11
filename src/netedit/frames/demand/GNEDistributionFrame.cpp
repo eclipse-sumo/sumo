@@ -49,9 +49,6 @@ FXDEFMAP(GNEDistributionFrame::DistributionSelector) DistributionSelectorMap[] =
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SET_TYPE,   GNEDistributionFrame::DistributionSelector::onCmdUpdateTypeDistribution)
 };
 
-FXDEFMAP(GNEDistributionFrame::AttributeRow) AttributeRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionFrame::AttributeRow::onCmdSetAttribute),
-};
 
 FXDEFMAP(GNEDistributionFrame::DistributionRow) DistributionRowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionFrame::DistributionRow::onCmdSetAttribute),
@@ -65,7 +62,6 @@ FXDEFMAP(GNEDistributionFrame::AttributesEditor) AttributesEditorMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEDistributionFrame::DistributionEditor,   MFXGroupBoxModule,  DistributionEditorMap,      ARRAYNUMBER(DistributionEditorMap))
 FXIMPLEMENT(GNEDistributionFrame::DistributionSelector, MFXGroupBoxModule,  DistributionSelectorMap,    ARRAYNUMBER(DistributionSelectorMap))
-FXIMPLEMENT(GNEDistributionFrame::AttributeRow,         FXHorizontalFrame,  AttributeRowMap,            ARRAYNUMBER(AttributeRowMap))
 FXIMPLEMENT(GNEDistributionFrame::DistributionRow,      FXHorizontalFrame,  DistributionRowMap,         ARRAYNUMBER(DistributionRowMap))
 FXIMPLEMENT(GNEDistributionFrame::AttributesEditor,     MFXGroupBoxModule,  AttributesEditorMap,        ARRAYNUMBER(AttributesEditorMap))
 
@@ -267,104 +263,6 @@ GNEDistributionFrame::DistributionSelector::onCmdUpdateTypeDistribution(FXObject
 }
 
 // ---------------------------------------------------------------------------
-// GNEDistributionFrame::AttributeRow - methods
-// ---------------------------------------------------------------------------
-
-GNEDistributionFrame::AttributeRow::AttributeRow(
-        GNEDistributionFrame::AttributesEditor* attributeEditorParent,
-        const GNEAttributeProperties& ACAttr, const std::string& attribute) :
-    FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
-    myAttributesEditorParent(attributeEditorParent),
-    myACAttr(ACAttr) {
-    // get staticTooltip menu
-    auto staticTooltipMenu = attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
-    // Create attribute label (usually used only for ID)
-    myAttributeLabel = new MFXLabelTooltip(this, staticTooltipMenu,
-        ACAttr.getAttrStr().c_str(), nullptr, GUIDesignLabelThickedFixed(GUIDesignHeight));
-    // Create and hide MFXTextFieldTooltip for string attributes
-    myValueTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
-        GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // only create if parent was created
-    if (getParent()->id()) {
-        // create AttributeRow
-        FXHorizontalFrame::create();
-        // Show attribute ACAttr.getAttrStr().c_str());
-        myAttributeLabel->setTipText(ACAttr.getDefinition().c_str());
-        // show value
-        myValueTextField->setText(attribute.c_str());
-        myValueTextField->setTextColor(FXRGB(0, 0, 0));
-        myValueTextField->killFocus();
-        // Show AttributeRow
-        show();
-    }
-}
-
-
-void
-GNEDistributionFrame::AttributeRow::destroy() {
-    // only destroy if parent was created
-    if (getParent()->id()) {
-        FXHorizontalFrame::destroy();
-    }
-}
-
-
-void
-GNEDistributionFrame::AttributeRow::refreshAttributeRow(const std::string& value) {
-    // set last valid value and restore color if onlyValid is disabled
-    myValueTextField->setText(value.c_str());
-    // set blue color if is an computed value
-    myValueTextField->setTextColor(FXRGB(0, 0, 0));
-    myValueTextField->killFocus();
-}
-
-
-bool
-GNEDistributionFrame::AttributeRow::isAttributeRowValid() const {
-    return (myValueTextField->getTextColor() == FXRGB(0, 0, 0));
-}
-
-
-long
-GNEDistributionFrame::AttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
-    // Declare changed value
-    std::string newVal;
-    // obtain value of myValueTextField
-    newVal = myValueTextField->getText().text();
-    // get current distribution
-    auto currentDistribution = myAttributesEditorParent->getDistribution();
-    // continue if we have a distribution to edit
-    if (currentDistribution) {
-        // Check if attribute must be changed
-        if (currentDistribution->isValid(myACAttr.getAttr(), newVal)) {
-            // set attribute
-            currentDistribution->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
-            // update text field
-            myValueTextField->setTextColor(FXRGB(0, 0, 0));
-            myValueTextField->setBackColor(FXRGB(255, 255, 255));
-            myValueTextField->killFocus();
-            // in this case, we need to refresh the other values (For example, allow/Disallow objects)
-            myAttributesEditorParent->refreshAttributeEditor();
-            // update frame parent after attribute successfully set
-            myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
-        } else {
-            myValueTextField->setTextColor(FXRGB(255, 0, 0));
-            if (newVal.empty()) {
-                myValueTextField->setBackColor(FXRGBA(255, 213, 213, 255));
-            }
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG("Value '" + newVal + "' for attribute " + myACAttr.getAttrStr() + " of Distribution isn't valid");
-        }
-    }
-    return 1;
-}
-
-
-GNEDistributionFrame::AttributeRow::AttributeRow() :
-    myAttributesEditorParent(nullptr) {
-}
-
-// ---------------------------------------------------------------------------
 // GNEDistributionFrame::DistributionRow - methods
 // ---------------------------------------------------------------------------
 
@@ -534,15 +432,8 @@ GNEDistributionFrame::AttributesEditor::showAttributeEditorModule() {
             row = nullptr;
         }
     }
-    // also destroy ID
-    if (myIDAttributeRow) {
-        myIDAttributeRow->destroy();
-        delete myIDAttributeRow;
-    }
     // continue if we have a distribution to edit
     if (myDistribution) {
-        // create ID row
-        myIDAttributeRow = new AttributeRow(this, myDistribution->getTagProperty().getAttributeProperties(SUMO_ATTR_ID), myDistribution->getAttribute(SUMO_ATTR_ID));
         // refresh attribute editor
         refreshAttributeEditor();
         // show AttributesEditor
