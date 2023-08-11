@@ -55,6 +55,12 @@ public:
     /// @brief check if the given key-value can be added in distribution
     bool isValueValid(const GNEDemandElement* key, const double value) const;
 
+    /// @brief get map with distribution keys and values
+    const std::map<const GNEDemandElement*, double> &getDistributionKeyValues() const;
+
+    /// @brief get list of possible keys
+    std::vector<GNEDemandElement*> getPossibleDistributionKeys(SumoXMLTag type) const;
+
     /// @brief get attribute distribution keys in string format sorted by ID
     std::string getAttributeDistributionKeys() const;
 
@@ -69,6 +75,9 @@ public:
 
     /// @brief remove distribution key
     void removeDistributionKey(const GNEDemandElement* key, GNEUndoList* undoList);
+
+    /// @brief remove distribution (used in GNEDemandElementDistribution)
+    void editDistributionValue(const GNEDemandElement* key, const double newValue, GNEUndoList* undoList);
 
 private:
     /// @brief demand element

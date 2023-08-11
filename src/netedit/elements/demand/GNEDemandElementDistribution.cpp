@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Distribution.h>
 
 #include "GNEDemandElementDistribution.h"
@@ -56,6 +57,27 @@ GNEDemandElementDistribution::isValueValid(const GNEDemandElement* key, const do
     } else {
         return false;
     }
+}
+
+
+const std::map<const GNEDemandElement*, double>&
+GNEDemandElementDistribution::getDistributionKeyValues() const {
+    return myDistributionValues;
+}
+
+
+std::vector<GNEDemandElement*>
+GNEDemandElementDistribution::getPossibleDistributionKeys(SumoXMLTag type) const {
+    std::vector<GNEDemandElement*> possibleKeys;
+    // get list of possible keys
+    auto allKeys = myDemandElement->getNet()->getAttributeCarriers()->getDemandElements().at(type);
+    // fill possible keys with non used keys
+    for (const auto &key : allKeys) {
+        if (!keyExists(key)) {
+            possibleKeys.push_back(key);
+        }
+    }
+    return possibleKeys;
 }
 
 
@@ -106,6 +128,12 @@ GNEDemandElementDistribution::addDistributionKey(const GNEDemandElement* key, co
 void
 GNEDemandElementDistribution::removeDistributionKey(const GNEDemandElement* key, GNEUndoList* undoList) {
     GNEChange_Distribution::removeKey(myDemandElement, key, undoList);
+}
+
+
+void
+GNEDemandElementDistribution::editDistributionValue(const GNEDemandElement* key, const double newValue, GNEUndoList* undoList) {
+    GNEChange_Distribution::editValue(myDemandElement, key, newValue, undoList); 
 }
 
 
