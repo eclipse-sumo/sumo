@@ -154,6 +154,9 @@ private:
     /// @brief type distribution selector
     TypeDistributionSelector* myTypeDistributionSelector = nullptr;
 
+    /// @brief distribution attributes editor
+    GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor = nullptr;
+
     /// @brief editor for distribution editor
-    GNEDistributionEditor::AttributesEditor* myAttributesEditor = nullptr;
+    GNEDistributionEditor::AttributesEditor* myDistributionEditor = nullptr;
 };
