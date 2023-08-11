@@ -22,6 +22,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEFrameAttributeModules.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class definitions
@@ -50,7 +51,7 @@ public:
 
     public:
         /// @brief constructor
-        DistributionEditor(GNEFrame* frameParent);
+        DistributionEditor(GNEFrame* frameParent, GUIIcon icon);
 
         /// @brief destructor
         ~DistributionEditor();
@@ -100,10 +101,13 @@ public:
 
     public:
         /// @brief constructor
-        DistributionSelector(GNEFrame* frameParent);
+        DistributionSelector(GNEFrame* frameParent, SumoXMLTag distributionTag);
 
         /// @brief destructor
         ~DistributionSelector();
+
+        /// @brief get distribution tag
+        SumoXMLTag getDistributionTag() const;
 
         /// @brief current type distribution
         GNEDemandElement *getCurrentDistribution() const;
@@ -129,6 +133,9 @@ public:
     private:
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
+
+        /// @brief distribution tag
+        SumoXMLTag myDistributionTag;
 
         /// @brief pointer to distribution editor
         DistributionEditor* myDistributionEditor = nullptr;
@@ -224,7 +231,8 @@ public:
         /// @brief constructor
         DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
                                  DistributionSelector* distributionSelector,
-                                 GNEFrameAttributeModules::AttributesEditor* attributesEditor);
+                                 GNEFrameAttributeModules::AttributesEditor* attributesEditor,
+                                 SumoXMLTag distributionValueTag);
 
         /// @brief show attributes of multiple ACs
         void showAttributeEditorModule();
@@ -262,6 +270,9 @@ public:
         
         /// @brief attributes editor
         GNEFrameAttributeModules::AttributesEditor* myAttributesEditor;
+
+        /// @brief distribution value tag
+        SumoXMLTag myDistributionValueTag;
 
         /// @brief list of Attribute editor rows
         std::vector<DistributionRow*> myDistributionRows;

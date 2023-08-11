@@ -42,16 +42,16 @@ GNETypeDistributionFrame::GNETypeDistributionFrame(GNEViewParent* viewParent, GN
     GNEFrame(viewParent, viewNet, "Type Distributions") {
 
     /// @brief type editor
-    myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this);
+    myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this, GUIIcon::VTYPEDISTRIBUTION);
 
     /// @brief type distribution selector
-    myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this);
+    myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this, SUMO_TAG_VTYPE_DISTRIBUTION);
 
     /// @brief distribution attributes editor
     myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
 
     // Create type distribution attributes editor
-    myDistributionValuesEditor = new GNEDistributionFrame::DistributionValuesEditor(this, myDistributionEditor, myDistributionSelector, myAttributesEditor);
+    myDistributionValuesEditor = new GNEDistributionFrame::DistributionValuesEditor(this, myDistributionEditor, myDistributionSelector, myAttributesEditor, SUMO_TAG_VTYPE);
 }
 
 
