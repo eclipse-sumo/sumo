@@ -1867,7 +1867,8 @@ msgstr ""
 msgid ""
 "Let vehicle stop for TIME before performing intermodal-collision.action "
 "(except for action 'none')"
-msgstr "在執行 intermodal-collision.action 之前（ '無(none)' 除外）, 讓車輛停止 TIME "
+msgstr ""
+"在執行 intermodal-collision.action 之前（ '無(none)' 除外）, 讓車輛停止 TIME "
 "時間"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:392
@@ -2823,7 +2824,8 @@ msgstr "無效的停靠點定義%。"
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane"
-msgstr "一個停靠站必須設置於一個公車站(busStop), 充電站, 架空線段, 集裝箱站, 停車場, "
+msgstr ""
+"一個停靠站必須設置於一個公車站(busStop), 充電站, 架空線段, 集裝箱站, 停車場, "
 "路段或是車道上"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1332
@@ -3415,8 +3417,9 @@ msgstr "將路徑搜尋的線程(threads)數調整為模擬的線程(threads)數
 msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
 "sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"
-msgstr "指定記錄哪些測量值 (為 ('TTC', 'DRAC', 'PET', 'PPET','MDRAC') "
-"中以空格或逗號分隔的 ID 序列)"
+msgstr ""
+"指定記錄哪些測量值 (為 ('TTC', 'DRAC', 'PET', 'PPET','MDRAC') 中以空格或逗號"
+"分隔的 ID 序列)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:236
 msgid ""
