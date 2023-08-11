@@ -167,7 +167,7 @@ public:
     /// @brief Destructor
     ~GNEProhibitionFrame();
 
-    /**@brief handle prohibitions and set the relative colouring
+    /**@brief handle prohibitions and set the relative coloring
      * @param objectsUnderCursor collection of objects under cursor after click over view
      */
     void handleProhibitionClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
@@ -178,7 +178,7 @@ public:
     /// @brief hide prohibition frame
     void hide();
 
-    /// @brief get selection modul
+    /// @brief get selection module
     GNEProhibitionFrame::Selection* getSelectionModul() const;
 
 protected:

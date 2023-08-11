@@ -1047,7 +1047,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
             }
             makeNonCurrent();
             if (id != 0) {
-                // possibly, the selection-colouring is used,
+                // possibly, the selection-coloring is used,
                 //  so we should update the screen again...
                 update();
             }

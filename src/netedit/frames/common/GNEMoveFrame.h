@@ -315,7 +315,7 @@ public:
     /// @brief Destructor
     ~GNEMoveFrame();
 
-    /**@brief handle processClick and set the relative colouring
+    /**@brief handle processClick and set the relative coloring
      * @param[in] clickedPosition clicked position over ViewNet
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param objectsUnderGrippedCursor collection of objects under gripped cursor after click over view
