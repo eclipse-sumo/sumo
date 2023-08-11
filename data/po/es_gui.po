@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-02 17:04+0200\n"
-"PO-Revision-Date: 2023-08-08 13:10+0000\n"
+"PO-Revision-Date: 2023-08-11 11:58+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -11043,7 +11043,7 @@ msgstr "Editar atributos"
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1177
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1186
 msgid "Parameters"
-msgstr "Parametros"
+msgstr "Parámetros"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:50
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:93
@@ -12104,7 +12104,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:279
 msgid "Invalid container parameters."
-msgstr "Parametros del contenedor inválidos."
+msgstr "Parámetros del contenedor inválidos."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:140
