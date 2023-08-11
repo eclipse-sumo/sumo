@@ -4,10 +4,10 @@ ego_left_foe_right_major
 # Both vehicles make a turn and merge into the same lane. Ego turns right, foe turns left. Both approach on major road.
 ego_right_foe_left_major
 
-# Both vehicles make a turn and merge into the same lane. Ego turns left, foe turns right. Both approach on minor road.
+# Both vehicles make a turn and merge into the same lane. Ego turns left, foe turns right. Both approach on minor road. No critical conflict is expected, since both do not enter the conflict zone simultenously by the EstimatedConflictEntryTime.
 ego_left_foe_right_minor
 
-# Both vehicles make a turn and merge into the same lane. Ego turns right, foe turns left. Both approach on minor road.
+# Both vehicles make a turn and merge into the same lane. Ego turns right, foe turns left. Both approach on minor road. No critical conflict is expected, since both do not enter the conflict zone simultenously by the EstimatedConflictEntryTime.
 ego_right_foe_left_minor
 
 # Ego approaches on major, turns right to minor, foe goes straight on minor.

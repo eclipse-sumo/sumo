@@ -2,14 +2,21 @@
    <vType id="1" sigma="0" maxSpeed="20"/>
 
     <vehicle id="foe1" type="1" depart="0" departPos="0" arrivalPos="70" departSpeed="max">
-        <route edges="EC CS"/>
+      <route edges="EC CS"/>
+        <param key="has.ssm.device" value="true"/>
+        <param key="device.ssm.measures" value="TTC DRAC MDRAC PET"/>
+        <param key="device.ssm.thresholds" value="10 0 0 10"/> 
+        <param key="device.ssm.frequency" value="10" /> 
+        <param key="device.ssm.range" value="20" />
+        <param key="device.ssm.file" value="ssm.xml" />
+        <param key="device.ssm.trajectories" value="false" />      
     </vehicle>
     
     <vehicle id="ego1" type="1" depart="1" departPos="0" arrivalPos="70" departSpeed="max" color="1,0,0">
         <route edges="WC CS"/>
         <param key="has.ssm.device" value="true"/>
-        <param key="device.ssm.measures" value="TTC DRAC PET BR SGAP TGAP"/>
-        <param key="device.ssm.thresholds" value="10 0 10 0 100 100"/> 
+        <param key="device.ssm.measures" value="TTC DRAC MDRAC PET"/>
+        <param key="device.ssm.thresholds" value="10 0 0 10"/> 
         <param key="device.ssm.frequency" value="10" /> 
         <param key="device.ssm.range" value="20" />
         <param key="device.ssm.file" value="ssm.xml" />
