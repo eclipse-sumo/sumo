@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEFrameAttributeModules.h>
 
 // ===========================================================================
 // class definitions
@@ -44,15 +45,15 @@ public:
         /// @brief FOX-declaration
         FXDECLARE(GNEDistributionFrame::DistributionEditor)
 
+        /// @brief declare friend class
+        friend class DistributionValuesEditor;
+
     public:
         /// @brief constructor
         DistributionEditor(GNEFrame* frameParent);
 
         /// @brief destructor
         ~DistributionEditor();
-
-        /// @brief set distributor selector
-        void setDistributionSelector(DistributionSelector* distributionSelector);
 
         /// @name FOX-callbacks
         /// @{
@@ -94,9 +95,12 @@ public:
         /// @brief FOX-declaration
         FXDECLARE(GNEDistributionFrame::DistributionSelector)
 
+        /// @brief declare friend class
+        friend class DistributionValuesEditor;
+
     public:
         /// @brief constructor
-        DistributionSelector(GNEFrame* frameParent, DistributionEditor* distributionEditor);
+        DistributionSelector(GNEFrame* frameParent);
 
         /// @brief destructor
         ~DistributionSelector();
@@ -127,7 +131,13 @@ public:
         GNEFrame* myFrameParent;
 
         /// @brief pointer to distribution editor
-        DistributionEditor* myDistributionEditor;
+        DistributionEditor* myDistributionEditor = nullptr;
+
+        /// @brief attributes editor
+        GNEFrameAttributeModules::AttributesEditor* myAttributesEditor = nullptr;
+
+        /// @brief distribution values editor
+        DistributionValuesEditor* myDistributionValuesEditor = nullptr;
 
         /// @brief comboBox with the list of type distributions
         FXComboBox* myTypeComboBox = nullptr;
@@ -207,9 +217,14 @@ public:
         /// @brief FOX-declaration
         FXDECLARE(GNEDistributionFrame::DistributionValuesEditor)
 
+        /// @brief declare friend class
+        friend class DistributionRow;
+
     public:
         /// @brief constructor
-        DistributionValuesEditor(GNEFrame* frameParent);
+        DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
+                                 DistributionSelector* distributionSelector,
+                                 GNEFrameAttributeModules::AttributesEditor* attributesEditor);
 
         /// @brief show attributes of multiple ACs
         void showAttributeEditorModule();
@@ -222,12 +237,6 @@ public:
 
         /// @brief pointer to GNEFrame parent
         GNEFrame* getFrameParent() const;
-
-        /// @brief getdistribution
-        GNEDemandElement* getDistribution() const;
-
-        /// @brief distribution
-        void setDistribution(GNEDemandElement* distribution);
 
         /// @name FOX-callbacks
         /// @{
@@ -245,8 +254,14 @@ public:
         /// @brief pointer to type distribution frame parent
         GNEFrame* myFrameParent;
 
-        /// @brief distribution
-        GNEDemandElement* myDistribution = nullptr;
+        /// @brief distribution editor
+        DistributionEditor* myDistributionEditor;
+        
+        /// @brief distribution selector
+        DistributionSelector* myDistributionSelector;
+        
+        /// @brief attributes editor
+        GNEFrameAttributeModules::AttributesEditor* myAttributesEditor;
 
         /// @brief list of Attribute editor rows
         std::vector<DistributionRow*> myDistributionRows;

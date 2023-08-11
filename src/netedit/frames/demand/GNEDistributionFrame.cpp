@@ -92,12 +92,6 @@ GNEDistributionFrame::DistributionEditor::DistributionEditor(GNEFrame* framePare
 GNEDistributionFrame::DistributionEditor::~DistributionEditor() {}
 
 
-void
-GNEDistributionFrame::DistributionEditor::setDistributionSelector(DistributionSelector* distributionSelector) {
-    myDistributionSelector = distributionSelector;
-}
-
-
 long
 GNEDistributionFrame::DistributionEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     auto undoList = myFrameParent->getViewNet()->getUndoList();
@@ -144,12 +138,9 @@ GNEDistributionFrame::DistributionEditor::onUpdDeleteType(FXObject* sender, FXSe
 // GNETypeFrame::DistributionSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frameParent, DistributionEditor* distributionEditor) :
+GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Current type dist.")),
-    myFrameParent(frameParent),
-    myDistributionEditor(distributionEditor) {
-    // set selector in distributionEditor
-    myDistributionEditor->setDistributionSelector(this);
+    myFrameParent(frameParent) {
     // Create FXComboBox
     myTypeComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Types (always first)
@@ -217,13 +208,15 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
         // set myCurrentType as inspected element
         myFrameParent->getViewNet()->setInspectedAttributeCarriers({vTypeDistribution});
         // show modules
-        myFrameParent->myDistributionEditor->showAttributeEditorModule();
+        myAttributesEditor->showAttributeEditorModule(true);
+        myDistributionValuesEditor->showAttributeEditorModule();
     } else {
         myCurrentTypeDistribution.clear();
         // set myCurrentType as inspected element
         myFrameParent->getViewNet()->setInspectedAttributeCarriers({});
         // hide modules
-        myFrameParent->myDistributionEditor->hideDistributionValuesEditorModule();
+        myAttributesEditor->hideAttributesEditorModule();
+        myDistributionValuesEditor->hideDistributionValuesEditorModule();
     }
 }
 
@@ -241,8 +234,9 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectTypeDistribution(FXObject
             myTypeComboBox->setTextColor(FXRGB(0, 0, 0));
             // set myCurrentType as inspected element
             viewNet->setInspectedAttributeCarriers({vTypeDistribution});
-            // show modules if selected item is valid
-            myFrameParent->myDistributionEditor->showAttributeEditorModule();
+            // show modules
+            myAttributesEditor->showAttributeEditorModule(true);
+            myDistributionValuesEditor->showAttributeEditorModule();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in DistributionSelector").text());
             // update viewNet
@@ -251,8 +245,9 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectTypeDistribution(FXObject
         }
     }
     myCurrentTypeDistribution.clear();
-    // hide all modules if selected item isn't valid
-    myFrameParent->myDistributionEditor->hideDistributionValuesEditorModule();
+    // hide modules
+    myAttributesEditor->hideAttributesEditorModule();
+    myDistributionValuesEditor->hideDistributionValuesEditorModule();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -277,8 +272,7 @@ GNEDistributionFrame::DistributionSelector::onCmdUpdateTypeDistribution(FXObject
 // GNEDistributionFrame::DistributionRow - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionFrame::DistributionRow::DistributionRow(
-        DistributionValuesEditor* attributeEditorParent, const GNEDemandElement* key, const double probability) :
+GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor* attributeEditorParent, const GNEDemandElement* key, const double probability) :
     FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myDistributionValuesEditorParent(attributeEditorParent),
     myKey(key),
@@ -294,11 +288,11 @@ GNEDistributionFrame::DistributionRow::DistributionRow(
     myProbabilityTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
         GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
     // only create if parent was created
-    if (getParent()->id()) {
+    if (getParent()->id() && attributeEditorParent->myDistributionSelector->getCurrentDistribution()) {
         // create DistributionRow
         FXHorizontalFrame::create();
         // fill comboBox with all possible keys
-        const auto possibleKeys = attributeEditorParent->getDistribution()->getPossibleDistributionKeys(SUMO_TAG_VTYPE);
+        const auto possibleKeys = attributeEditorParent->myDistributionSelector->getCurrentDistribution()->getPossibleDistributionKeys(SUMO_TAG_VTYPE);
         for (int i = 0; i < (int)possibleKeys.size(); i++) {
             myComboBoxKeys->appendIconItem(possibleKeys[i]->getID().c_str(), possibleKeys[i]->getFXIcon());
             if (possibleKeys[i] == myKey) {
@@ -350,7 +344,7 @@ GNEDistributionFrame::DistributionRow::onCmdSetAttribute(FXObject* obj, FXSelect
     // get Undo list
     GNEUndoList* undoList = myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getUndoList();
     // get current distribution
-    auto currentDistribution = myDistributionValuesEditorParent->getDistribution();
+    auto currentDistribution = myDistributionValuesEditorParent->myDistributionSelector->getCurrentDistribution();
     // continue if we have a distribution to edit
     if (currentDistribution == nullptr) {
         return 1;
@@ -400,11 +394,6 @@ GNEDistributionFrame::DistributionRow::onCmdRemoveRow(FXObject*, FXSelector, voi
 }
 
 
-GNEDistributionFrame::DistributionRow::DistributionRow() :
-    myDistributionValuesEditorParent(nullptr) {
-}
-
-
 bool
 GNEDistributionFrame::DistributionRow::isValidKey() const {
     // get element associated with key
@@ -422,9 +411,18 @@ GNEDistributionFrame::DistributionRow::isValidKey() const {
 // GNEDistributionFrame::DistributionValuesEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFrame* frameParent) :
+GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
+        DistributionSelector* distributionSelector, GNEFrameAttributeModules::AttributesEditor* attributesEditor) :
     MFXGroupBoxModule(frameParent, TL("Internal attributes")),
-    myFrameParent(frameParent) {
+    myFrameParent(frameParent),
+    myDistributionEditor(distributionEditor),
+    myDistributionSelector(distributionSelector),
+    myAttributesEditor(attributesEditor) {
+    // set relations
+    myDistributionEditor->myDistributionSelector = myDistributionSelector;
+    myDistributionSelector->myDistributionEditor = myDistributionEditor;
+    myDistributionSelector->myAttributesEditor = myAttributesEditor;
+    myDistributionSelector->myDistributionValuesEditor = this;
     // resize myDistributionRows
     myDistributionRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // Create help button
@@ -444,7 +442,7 @@ GNEDistributionFrame::DistributionValuesEditor::showAttributeEditorModule() {
         }
     }
     // continue if we have a distribution to edit
-    if (myDistribution) {
+    if (myDistributionSelector->getCurrentDistribution()) {
         // refresh attribute editor
         refreshAttributeEditor();
         // show DistributionValuesEditor
@@ -465,7 +463,7 @@ GNEDistributionFrame::DistributionValuesEditor::hideDistributionValuesEditorModu
 void
 GNEDistributionFrame::DistributionValuesEditor::refreshAttributeEditor() {
     // continue if we have a distribution to edit
-    if (myDistribution) {
+    if (myDistributionSelector->getCurrentDistribution()) {
         // first remove all rows
         for (auto& row : myDistributionRows) {
             // destroy and delete all rows
@@ -476,7 +474,7 @@ GNEDistributionFrame::DistributionValuesEditor::refreshAttributeEditor() {
             }
         }
         // Iterate over distribution key-values
-        for (const auto& keyValue : myDistribution->getDistributionKeyValues()) {
+        for (const auto& keyValue : myDistributionSelector->getCurrentDistribution()->getDistributionKeyValues()) {
             // create distribution row
             auto distributionRow = new DistributionRow(this, keyValue.first, keyValue.second);
             // add into distribution rows
@@ -489,18 +487,6 @@ GNEDistributionFrame::DistributionValuesEditor::refreshAttributeEditor() {
 GNEFrame*
 GNEDistributionFrame::DistributionValuesEditor::getFrameParent() const {
     return myFrameParent;
-}
-
-
-GNEDemandElement*
-GNEDistributionFrame::DistributionValuesEditor::getDistribution() const {
-    return myDistribution;
-}
-
-
-void
-GNEDistributionFrame::DistributionValuesEditor::setDistribution(GNEDemandElement* distribution) {
-    myDistribution = distribution;
 }
 
 
