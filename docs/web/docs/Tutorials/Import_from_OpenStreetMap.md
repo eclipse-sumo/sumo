@@ -44,7 +44,7 @@ simulation though. For a good simulation, the map must usually be
 enhanced. The following steps are recommended for the same:
 
 1.  Complete the map directly in OpenStreetMap. Follow the guidelines on
-    the [OpenStreetMap wiki](http://wiki.openstreetmap.org) in the area
+    the [OpenStreetMap wiki](https://wiki.openstreetmap.org) in the area
     *Map Making*. They give valuable hints what software to use and how
     to encode all attributes of the map. You should ensure that the map
     contains all data related to traffic simulation. (At this stage,

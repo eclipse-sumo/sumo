@@ -6,8 +6,8 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, containers and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
-        <tranship from="gneE2" to="gneE2"/>
-        <transport to="gneE5" arrivalPos="7.00" lines="Line1"/>
+        <tranship from="Edge0" to="Edge0"/>
+        <transport to="Edge2" arrivalPos="7.00" lines="Line1"/>
         <transport to="gneE8" arrivalPos="9.00" lines="Line2"/>
     </container>
 </routes>

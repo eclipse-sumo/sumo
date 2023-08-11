@@ -28,7 +28,7 @@ which complicates import.
 
 # Frida-project
 
-- *URL*: <http://frida.intevation.org/>
+- *URL*: <https://frida.intevation.org/>
 - *Area*: city of Osnabrück
 - *Demand data*: not available
 - *Extraction*: **netconvert --shapefile strassen -o frida2.net.xml

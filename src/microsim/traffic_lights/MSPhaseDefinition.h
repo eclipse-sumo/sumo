@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -191,6 +191,17 @@ public:
             return false;
         }
         return true;
+    }
+
+
+    /** @brief Returns whether this phase is an "all red" phase
+     *
+     * "all red " means in this case that at all streams have red
+     *  and no stream has yellow.
+     * @return Whether this phase is an "all red" phase
+     */
+    bool isAllRedPhase() const {
+        return (int)myState.size() == (int)std::count(myState.begin(), myState.end(), 'r');
     }
 
 

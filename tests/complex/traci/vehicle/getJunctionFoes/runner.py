@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -36,14 +36,14 @@ for step in range(30):
     try:
         traci.simulationStep()
         print('='*100)
-        print(f"Time: {traci.simulation.getTime():.2f}")
+        print("Time: %.2f" % traci.simulation.getTime())
         for foe in traci.vehicle.getJunctionFoes(egoID, monitoringDistance):
             print(foe[0])
             for item in foe[1:]:
                 if isinstance(item, float):
-                    print(f"\t{item:.2f}")
+                    print("\t%.2f" % item)
                 else:
-                    print(f"\t{item}")
+                    print("\t%s" % item)
     except traci.TraCIException as e:
         print(traci.simulation.getTime(), "Error:", e)
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -75,10 +75,24 @@ void
 GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
     // first clear myOverlappedACs
     myOverlappedACs.clear();
+    // get cliked ACs
+    auto clickedACs = objectsUnderCursor.getClickedAttributeCarriers();
+    // check if filter edges
+    if ((clickedACs.size() > 0) && (clickedACs.front()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+        // iterate over clickedAcs and remove edges
+        auto it = clickedACs.begin();
+        while (it != clickedACs.end()) {
+            if ((*it)->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                it = clickedACs.erase(it);
+            } else {
+                it++;
+            }
+        }
+    }
     // reserve
-    myOverlappedACs.reserve(objectsUnderCursor.getClickedAttributeCarriers().size());
+    myOverlappedACs.reserve(clickedACs.size());
     // iterate over objects under cursor
-    for (const auto& AC : objectsUnderCursor.getClickedAttributeCarriers()) {
+    for (const auto& AC : clickedACs) {
         bool insert = true;
         // check supermode demand
         if (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
@@ -108,7 +122,7 @@ GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::Object
         // clear and fill list again
         myOverlappedElementList->clearItems();
         for (int i = 0; i < (int)myOverlappedACs.size(); i++) {
-            myOverlappedElementList->insertItem(i, myOverlappedACs.at(i)->getID().c_str(), myOverlappedACs.at(i)->getACIcon());
+            myOverlappedElementList->insertItem(i, myOverlappedACs.at(i)->getID().c_str(), myOverlappedACs.at(i)->getFXIcon());
         }
         // set first element as selected element
         myOverlappedElementList->getItem(0)->setSelected(TRUE);

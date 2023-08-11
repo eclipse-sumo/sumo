@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -87,7 +87,7 @@ void
 GNEVTypeDistributionsDialog::ParametersValues::setParameters(const std::vector<std::pair<std::string, std::string> >& newParameters) {
     // clear rows
     clearParameters();
-    // iterate over parameteres
+    // iterate over parameters
     for (const auto& newParameter : newParameters) {
         addParameter(newParameter);
     }
@@ -128,7 +128,7 @@ GNEVTypeDistributionsDialog::ParametersValues::getParameterRows() const {
 
 bool
 GNEVTypeDistributionsDialog::ParametersValues::keyExist(const std::string& key) const {
-    // just interate over myParameterRows and compare key
+    // just iterate over myParameterRows and compare key
     for (const auto& row : myParameterRows) {
         if (row->keyField->getText().text() == key) {
             return true;

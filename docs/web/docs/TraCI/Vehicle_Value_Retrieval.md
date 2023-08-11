@@ -221,7 +221,7 @@ value is also shown in the table.
 </tr>
 <tr class="even">
 <td><p>stop state (id 0xb5)</p></td>
-<td><p>ubyte</p></td>
+<td><p>int</p></td>
 <td><p>value = 1 * stopped + 2 * parking + 4 * triggered + 8 * containerTriggered + 16 * atBusStop + 32 * atContainerStop + 64 * atChargingStation + 128 * atParkingArea</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStopState">getStopState</a><br />
 <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-isAtBusStop">isAtBusStop</a><br />
@@ -416,6 +416,18 @@ value is also shown in the table.
 <td><p>Returns the maximum lateral speed in m/s of this vehicle.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getMaxSpeedLat">getMaxSpeedLat</a></p></td>
 </tr>
+<tr class="odd">
+<td><p>boarding duration (0x2f)</p></td>
+<td><p>double</p></td>
+<td><p>Returns the boarding duration of the vehicle in s</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getBoardingDuration">getBoarding</a></p></td>
+</tr>
+<tr class="even">
+<td><p>current impatience (0x26)</p></td>
+<td><p>double</p></td>
+<td><p>Returns the current [dynamic impatience](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#impatience) of this vehicle.</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getImpatience">getImpatience</a></p></td>
+</tr>  
 <tr class="odd">
 <td><p>lateral gap (0xbb)</p></td>
 <td><p>double</p></td>

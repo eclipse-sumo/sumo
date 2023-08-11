@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,10 +35,10 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredTAZ(referencePosition, 116, 139, 200, True)
+netedit.createSquaredShape(referencePosition, 116, 139, 200, True)
 
 # create second polygon
-netedit.createSquaredTAZ(referencePosition, 401, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 401, 136, 200, True)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -47,20 +47,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 116, 139)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.id, "poly_1", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.id, "poly_1", False)
 
 # Change parameter 0 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.id, "", False)
 
 # Change parameter 0 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.id, "ID with spaces", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.id, "ID with spaces", False)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.id, "newID", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.id, "newID", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

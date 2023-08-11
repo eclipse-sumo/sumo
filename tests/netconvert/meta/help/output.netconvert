@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_17_0+0676-2c0a9e8
+Eclipse SUMO netconvert Version v1_17_0+1169-1d29275
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -250,9 +250,9 @@ Building Defaults Options:
                                         'edgePriority')
 
 TLS Building Options:
-  --tls.discard-loaded                 Does not instatiate traffic lights
+  --tls.discard-loaded                 Does not instantiate traffic lights
                                         loaded from other formats than plain-XML
-  --tls.discard-simple                 Does not instatiate traffic lights at
+  --tls.discard-simple                 Does not instantiate traffic lights at
                                         geometry-like nodes loaded from other
                                         formats than plain-XML
   --tls.set STR[]                      Interprets STR[] as list of junctions to
@@ -267,6 +267,8 @@ TLS Building Options:
   --tls.join                           Tries to cluster tls-controlled nodes
   --tls.join-dist FLOAT                Determines the maximal distance for
                                         joining traffic lights (defaults to 20)
+  --tls.join-exclude STR[]             Interprets STR[] as list of tls ids to
+                                        exclude from joining
   --tls.uncontrolled-within            Do not control edges that lie fully
                                         within a joined traffic light. This may
                                         cause collisions but allows old traffic
@@ -306,7 +308,7 @@ TLS Building Options:
   --tls.nema.vehExt INT                Set INT as fixed time for intermediate
                                         vehext phase after every switch
   --tls.nema.yellow INT                Set INT as fixed time for intermediate
-                                        NEMA yelow phase after every switch
+                                        NEMA yellow phase after every switch
   --tls.nema.red INT                   Set INT as fixed time for intermediate
                                         NEMA red phase after every switch
   --tls.crossing-min.time INT          Use INT as minimum green duration for
@@ -466,6 +468,8 @@ Junctions Options:
   --junctions.higher-speed             Use maximum value of incoming and
                                         outgoing edge speed on junction instead
                                         of average
+  --junctions.minimal-shape            Build junctions with minimal shapes
+                                        (ignoring edge overlap)
   --internal-junctions.vehicle-width FLOAT  Assumed vehicle width for computing
                                         internal junction positions
   --rectangular-lane-cut               Forces rectangular cuts between lanes

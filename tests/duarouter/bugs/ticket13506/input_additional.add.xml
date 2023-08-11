@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-27 09:54:35 by Eclipse SUMO netedit Version v1_17_0+1278-f9149b5
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="6898405712" name="曹杨路" lane="584100104#10_0" startPos="38.36" endPos="238.36" friendlyPos="true" lines="14"/>
+    <busStop id="6898405748" name="陆家嘴" lane="584100104#14_0" startPos="2921.22" endPos="3121.22" friendlyPos="true" lines="14"/>
+    <busStop id="6898405751" name="真如" lane="584100104#8_0" startPos="139.78" endPos="339.78" friendlyPos="true" lines="14"/>
+    <busStop id="7116961500" name="浦东足球场" lane="761728394_0" startPos="9841.40" endPos="10041.40" friendlyPos="true" lines="14"/>
+    <busStop id="7116961518" name="蓝天路" lane="761728394_0" startPos="5485.25" endPos="5685.25" friendlyPos="true" lines="14">
+        <access lane="182669299#4_0" pos="91.79" length="10.56" friendlyPos="1"/>
+    </busStop>
+    <busStop id="7116961521" name="龙居路" lane="761728394_0" startPos="2378.96" endPos="2578.96" friendlyPos="true" lines="14"/>
+    <busStop id="7116961549" name="源深路" lane="584100104#15_0" startPos="17.66" endPos="217.66" friendlyPos="true" lines="14"/>
+    <busStop id="7116961552" name="浦东大道" lane="584100104#14_0" startPos="4681.34" endPos="4881.34" friendlyPos="true" lines="14"/>
+    <busStop id="7116961619" name="一大会址·黄陂南路" lane="584100104#13_0" startPos="42.91" endPos="242.91" friendlyPos="true" lines="14"/>
+    <busStop id="7116961652" name="浦东南路" lane="584100104#14_0" startPos="3959.33" endPos="4159.33" friendlyPos="true" lines="14"/>
+    <busStop id="9381121729" name="昌邑路" lane="761728394_0" startPos="0.00" endPos="199.39" friendlyPos="true" lines="14"/>
+    <busStop id="9381681215" name="乐秀路" lane="584100104#0_0" startPos="1770.41" endPos="1970.41" friendlyPos="true" lines="14"/>
+    <busStop id="9381740117" name="封浜" lane="584100104#0_0" startPos="160.93" endPos="360.93" friendlyPos="true"/>
+    <busStop id="9381749214" name="真光路" lane="584100104#6_0" startPos="1186.77" endPos="1386.77" friendlyPos="true" lines="14"/>
+    <busStop id="9381794202" name="定边路" lane="584100104#2_0" startPos="2794.96" endPos="2994.96" friendlyPos="true" lines="14"/>
+    <busStop id="9381799809" name="嘉怡路" lane="584100104#2_0" startPos="1098.19" endPos="1298.19" friendlyPos="true" lines="14"/>
+    <busStop id="9381801900" name="铜川路" lane="584100104#6_0" startPos="2425.09" endPos="2625.09" friendlyPos="true" lines="14"/>
+    <busStop id="9381805999" name="真新新村" lane="584100104#6_0" startPos="0.00" endPos="193.71" friendlyPos="true" lines="14"/>
+    <busStop id="9381817047" name="临洮路" lane="584100104#0_0" startPos="3416.73" endPos="3616.73" friendlyPos="true" lines="14"/>
+    <busStop id="9381856641" name="中宁路" lane="584100104#8_0" startPos="1221.80" endPos="1421.80" friendlyPos="true" lines="14"/>
+    <busStop id="9381916528" name="武宁路" lane="584100104#12_0" startPos="942.79" endPos="1142.79" friendlyPos="true" lines="14"/>
+    <busStop id="9381931090" name="武定路" lane="584100104#12_0" startPos="1685.98" endPos="1885.98" friendlyPos="true" lines="14"/>
+    <busStop id="9381941588" name="豫园" lane="584100104#14_0" startPos="1453.50" endPos="1653.50" friendlyPos="true" lines="14"/>
+    <busStop id="9381946297" name="静安寺" lane="584100104#12_0" startPos="2876.33" endPos="3076.33" friendlyPos="true" lines="14"/>
+    <busStop id="9381954261" name="大世界" lane="584100104#14_0" startPos="527.13" endPos="727.13" friendlyPos="true" lines="14"/>
+    <busStop id="9382067083" name="黄杨路" lane="761728394_0" startPos="7358.52" endPos="7558.52" friendlyPos="true" lines="14"/>
+    <busStop id="9382076274" name="歇浦路" lane="761728394_0" startPos="1325.83" endPos="1525.83" friendlyPos="true" lines="14"/>
+    <busStop id="9382078475" name="云顺路" lane="761728394_0" startPos="8393.00" endPos="8593.00" friendlyPos="true" lines="14"/>
+    <busStop id="9382082433" name="云山路" lane="761728394_0" startPos="4165.22" endPos="4365.22" friendlyPos="true" lines="14"/>
+    <busStop id="9382102245" name="金粤路" lane="761728394_0" startPos="11179.20" endPos="11379.20" friendlyPos="true" lines="14"/>
+    <busStop id="9382111955" name="桂桥路" lane="761728394_0" startPos="12548.15" endPos="12716.08" friendlyPos="true"/>
+</additional>

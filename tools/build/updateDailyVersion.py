@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -23,7 +23,7 @@ import sys
 import zipfile
 import shutil
 
-# first check platform (currently only avaliable in Windows)
+# first check platform (currently only available in Windows)
 if sys.platform != "win32":
     print("This script only works in Windows")
     sys.exit()

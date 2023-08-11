@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -81,7 +81,7 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
             case GNE_TAG_WAYPOINT_CONTAINERSTOP:
                 information
                         << "- " << TL("Shift+Click to select parent") << "\n"
-                        << "- " << TL("Click over a container stop  to create a stop.");
+                        << "- " << TL("Click over a container stop to create a stop.");
                 break;
             case GNE_TAG_STOP_CHARGINGSTATION:
             case GNE_TAG_WAYPOINT_CHARGINGSTATION:

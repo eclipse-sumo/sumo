@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -141,10 +141,22 @@ enum GUIGlObjectType {
 
     /// @brief reserved GLO type to pack shapes
     GLO_SHAPE = 200,
-    /// @brief a polygon
+    /// @brief polygon
     GLO_POLYGON = 201,
-    /// @brief a poi
+    /// @brief poi (over view, geo and lane)
     GLO_POI = 202,
+    /// @brief walkable area
+    GLO_JPS_WALKABLEAREA = 203,
+    /// @brief obstacles
+    GLO_JPS_OBSTACLE = 204,
+    /// @brief waiting areas
+    GLO_JPS_WAITINGAREA = 205,
+    /// @brief waiting areas
+    GLO_JPS_SOURCE = 206,
+    /// @brief waiting areas
+    GLO_JPS_SINK = 207,
+    /// @brief poi waypoints
+    GLO_JPS_WAYPOINT = 208,
 
     /// @}
 

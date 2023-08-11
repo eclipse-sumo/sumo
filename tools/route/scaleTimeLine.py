@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -48,25 +48,24 @@ class SimObject:
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser()
-    optParser.add_option("-r", "--route-files", dest="routefiles",
-                         help="define the route file separated by comma (mandatory)")
-    optParser.add_option("-o", "--output-file", dest="outfile",
-                         help="define the output filename")
-    optParser.add_option("--timeline-list", dest="timelinelist", type=str,
-                         default="3600,200,200,200,200,200,200,200,200,200,200,200,200",
-                         help="Define the interval duration and then the scaled percentage for each interval; "
-                              "e.g. 200% of the current demand")
-    optParser.add_option("--timeline-pair", dest="timelinepair", type=str,
-                         default="7200,200;7200,200;7200,200;7200,200;7200,200;7200,200",
-                         help="Define the timeline pairs (duration, scacled percentage)")
-    optParser.add_option("--random", action="store_true", dest="random",
-                         default=False, help="use a random seed to initialize the random number generator")
-    optParser.add_option("-s", "--seed", type=int, dest="seed", default=42, help="random seed")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
-
-    options, args = optParser.parse_known_args(args=args)
+    ap = sumolib.options.ArgumentParser()
+    ap.add_argument("-r", "--route-files", dest="routefiles", category="input", type=ap.file_list,
+                    required=True, help="define the route file separated by comma (mandatory)")
+    ap.add_argument("-o", "--output-file", dest="outfile", category="output", type=ap.file,
+                    help="define the output filename")
+    ap.add_argument("--timeline-list", dest="timelinelist", type=str,
+                    default="3600,200,200,200,200,200,200,200,200,200,200,200,200",
+                    help="Define the interval duration and then the scaled percentage for each interval; "
+                    "e.g. 200% of the current demand")
+    ap.add_argument("--timeline-pair", dest="timelinepair", type=str,
+                    default="7200,200;7200,200;7200,200;7200,200;7200,200;7200,200",
+                    help="Define the timeline pairs (duration, scacled percentage)")
+    ap.add_argument("--random", action="store_true", dest="random", category="random",
+                    default=False, help="use a random seed to initialize the random number generator")
+    ap.add_argument("-s", "--seed", type=int, dest="seed", category="random", default=42, help="random seed")
+    ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
+                    default=False, help="tell me what you are doing")
+    options = ap.parse_args(args=args)
 
     if options.timelinelist:
         duration = float(options.timelinelist.split(",")[0])
@@ -79,14 +78,9 @@ def get_options(args=None):
             options.timelinelist.append([float(x) for x in data])
         # options.timelinelist = list(map(float, templist))
 
-    if not options.routefiles:
-        optParser.print_help()
-        sys.exit("--route-files missing")
-    else:
-        options.routefiles = options.routefiles.split(',')
-        if not options.outfile:
-            options.outfile = options.routefiles[0][:-4] + "_scaled.rou.xml"
-
+    options.routefiles = options.routefiles.split(',')
+    if not options.outfile:
+        options.outfile = options.routefiles[0][:-4] + "_scaled.rou.xml"
     return options
 
 
@@ -206,4 +200,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    main(get_options(sys.argv))
+    main(get_options(sys.argv[1:]))

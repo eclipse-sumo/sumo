@@ -17,9 +17,9 @@ following properties:
   classes for results which can be linked directly to the client code
 - Function signatures similar to [TraCI](TraCI.md)
 - Pre-built language bindings for Java and Python (using
-  [SWIG](http://www.swig.org/))
+  [SWIG](https://www.swig.org/))
 - Support for other programming languages via
-  [SWIG](http://www.swig.org/)
+  [SWIG](https://www.swig.org/)
   
 # Limitations
 

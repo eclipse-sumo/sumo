@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -44,7 +44,7 @@ public:
     enum class Result {
         ACCEPT,     // load elements
         CANCEL,     // cancel load
-        OVERWRITE   // load elements, overwritting elements with the same ID
+        OVERWRITE   // load elements, overwriting elements with the same ID
     };
 
     /// @brief Constructor
@@ -76,7 +76,7 @@ protected:
     /// @brief button for cancel
     FXButton* myCancelButton = nullptr;
 
-    /// @brief button for overwritte
+    /// @brief button for overwrite
     FXButton* myOverwriteButton = nullptr;
 
     /// @brief result (by default cancel)

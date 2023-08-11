@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -99,8 +99,7 @@ time2string(SUMOTime t, bool humanReadable) {
             oss << std::setw(MIN2(3, gPrecision));
             oss << t;
         }
-    }
-    else {
+    } else {
         oss << t / second << ".";
         oss << std::setfill('0') << std::setw(MIN2(3, gPrecision));
         oss << t % second;
@@ -134,10 +133,10 @@ bool checkStepLengthMultiple(const SUMOTime t, const std::string& error, SUMOTim
         if (t % deltaT != 0) {
             WRITE_WARNING("The given time value " + time2string(t) + " is not a multiple of the step length " + time2string(deltaT) + error + ".")
         }
-    } else{
+    } else {
         if ((t - begin) % deltaT != 0) {
             WRITE_WARNING("The given time value " + time2string(t) + " is not reached with step length " + time2string(deltaT)
-                    + " and begin time " + time2string(begin) + error + ".")
+                          + " and begin time " + time2string(begin) + error + ".")
         }
     }
     // next line used to fix build

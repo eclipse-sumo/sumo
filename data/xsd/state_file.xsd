@@ -57,7 +57,7 @@
         <xsd:attribute name="number" type="xsd:int" use="required"/>
         <xsd:attribute name="begin" type="xsd:integer" use="required"/>
         <xsd:attribute name="end" type="xsd:integer" use="required"/>
-        <xsd:attribute name="depart" type="xsd:float" use="required"/>
+        <xsd:attribute name="depart" type="floatType" use="required"/>
         <xsd:attribute name="time" type="nonNegativeFloatType" use="required"/>
     </xsd:complexType>
 
@@ -114,9 +114,9 @@
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="pos" type="xsd:string"/>
-        <xsd:attribute name="posLat" type="xsd:float"/>
+        <xsd:attribute name="posLat" type="floatType"/>
         <xsd:attribute name="speed" type="xsd:string"/>
-        <xsd:attribute name="angle" type="xsd:float"/>
+        <xsd:attribute name="angle" type="floatType"/>
         <xsd:attribute name="speedFactor" type="nonNegativeFloatType"/>
         <xsd:attribute name="waitingTime" type="xsd:string"/>
         <xsd:attribute name="distance" type="xsd:string" use="required"/>
@@ -190,14 +190,14 @@
     <xsd:complexType name="approachingType">
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="arrivalTime" type="xsd:integer" use="required"/>
-        <xsd:attribute name="arrivalSpeed" type="xsd:float" use="required"/>
-        <xsd:attribute name="departSpeed" type="xsd:float" use="required"/>
+        <xsd:attribute name="arrivalSpeed" type="floatType" use="required"/>
+        <xsd:attribute name="departSpeed" type="floatType" use="required"/>
         <xsd:attribute name="request" type="boolType" use="required"/>
         <xsd:attribute name="arrivalTimeBraking" type="xsd:integer" use="optional"/>
-        <xsd:attribute name="arrivalSpeedBraking" type="xsd:float" use="required"/>
+        <xsd:attribute name="arrivalSpeedBraking" type="floatType" use="required"/>
         <xsd:attribute name="waitingTime" type="xsd:integer" use="required"/>
-        <xsd:attribute name="distance" type="xsd:float" use="required"/>
-        <xsd:attribute name="posLat" type="xsd:float" use="optional"/>
+        <xsd:attribute name="distance" type="floatType" use="required"/>
+        <xsd:attribute name="posLat" type="floatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="segmentStateType">

@@ -48,6 +48,9 @@ no_valid_intermediate_edges_fail
 # use binomially distributed arrivals
 binomial
 
+# use binomially distributed arrivals
+binomial_low
+
 # generate validated trips
 validate
 validate_intermediate

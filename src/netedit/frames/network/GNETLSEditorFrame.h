@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -68,9 +68,6 @@ public:
         /// @brief update junction description
         void updateJunctionDescription();
 
-        /// @brief disable joining junction mode
-        void disableJoiningJunctionMode();
-
         /// @brief is joining junctions
         bool isJoiningJunctions() const;
 
@@ -109,6 +106,12 @@ public:
         /// @brief Called when update join TLS
         long onUpdDisjoinTLS(FXObject*, FXSelector, void*);
 
+        /// @brief accept join
+        long onCmdAcceptJoin(FXObject*, FXSelector, void*);
+
+        /// @brief cancel join
+        long onCmdCancelJoin(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -137,11 +140,17 @@ public:
         /// @brief button for disjoin TLS
         MFXButtonTooltip* myDisjoinTLSButton = nullptr;
 
+        /// @brief frame for accept/cancel buttons
+        FXHorizontalFrame* myJoinControlButtons = nullptr;
+
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction = nullptr;
 
         /// @brief selected junction (used for join)
         std::vector<std::string> mySelectedJunctionIDs;
+
+        /// @brief original selected junction (used for join)
+        std::vector<std::string> myOriginalSelectedJunctionIDs;
     };
 
     // ===========================================================================
@@ -473,7 +482,7 @@ public:
         bool setState(const int col, const int row, const std::string& value);
 
         /// @brief set next
-        bool setNext(const int col, const int row, const std::string& value);
+        bool setNext(const int row, const std::string &value);
 
         /// @brief set name
         bool setName(const int row, const std::string& value);

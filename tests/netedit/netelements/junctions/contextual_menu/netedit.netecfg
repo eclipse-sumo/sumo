@@ -38,6 +38,10 @@
         <gui-testing.setting-output value="guisettingsoutput.xml"/>
     </visualisation>
 
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
     <report>
         <no-warnings value="true"/>
         <error-log value="log.txt"/>

@@ -4,4 +4,3 @@
 --stop-output stopinfos.xml
 --tripinfo-output.write-unfinished
 --stop-output.write-unfinished
--e 1000

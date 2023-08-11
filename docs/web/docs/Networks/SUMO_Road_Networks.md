@@ -11,7 +11,7 @@ Screenshot of a SUMO net file opened in sumo-gui. It shows the map of the German
 | Type of content    | Map          |
 | Open format?       | Yes          |
 | SUMO specific?     | Yes          |
-| XML Schema         | [net_file.xsd](http://sumo.dlr.de/xsd/net_file.xsd) |
+| XML Schema         | [net_file.xsd](https://sumo.dlr.de/xsd/net_file.xsd) |
 
 A **SUMO network file** describes the traffic-related part of a map, the
 roads and intersections the simulated vehicles run along or across. At a
@@ -302,7 +302,7 @@ The junction itself is described by the following attributes:
 
 | Name         | Type              | Description              |
 | ------------ | ----------------- | ------------------------ |
-| **id**       | id (string)       | The id of the junction; please note, that a traffic light definition must use the same ID when controlling this intersection.                                          |
+| **id**       | id (string)       | The id of the junction; By default, a traffic light controlling this junction will have the same id but this may changed by the user or when joining traffic lights.   |
 | **x**        | x-position (real) | The x-coordinate of the intersection                                                                                                                                   |
 | **y**        | y-position (real) | The y-coordinate of the intersection                                                                                                                                   |
 | z            | z-position (real) | The (optional) z-coordinate of the intersection                                                                                                                        |
@@ -399,7 +399,7 @@ internal junction are:
 
 | Name         | Type              | Description               |
 | ------------ | ----------------- | ------------------------- |
-| **id**       | id (string)       | The id of the junction; please note, that a traffic light definition must use the same ID when controlling this intersection.         |
+| **id**       | id (string)       | The id of the internal junction; It always starts with `:` followed by the id of the parent junction, then an `_`and finally a unique index.  |
 | **x**        | x-position (real) | The x-coordinate of the intersection   |
 | **y**        | y-position (real) | The y-coordinate of the intersection   |
 | z            | z-position (real) | The (optional) z-coordinate of the intersection    |

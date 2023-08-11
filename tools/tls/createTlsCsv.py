@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -23,18 +23,27 @@ You have to edit the link number field (preset with g).
 """
 from __future__ import absolute_import
 from __future__ import print_function
-
-import argparse
+import os
+import sys
 from lxml import etree
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(THIS_DIR, '..'))
+import sumolib  # noqa
 
-parser = argparse.ArgumentParser(
+op = sumolib.options.ArgumentParser(
     description='Create tls links from sumo net as needed by tls_csv2SUMO.py. You have to edit the link number ' +
     'field (preset with g). The comment gives the link number shown on demand in SUMO-GUI')
-parser.add_argument('net', help='Input file name')
 
-args = parser.parse_args()
+op.add_argument("-n", "--net-file", category="input", type=op.net_file,
+                dest="net", required=True, help='Input file name')
 
-doc = etree.parse(args.net)
+try:
+    options = op.parse_args()
+except (NotImplementedError, ValueError) as e:
+    print(e, file=sys.stderr)
+    sys.exit(1)
+
+doc = etree.parse(options.net)
 
 connections = {}
 

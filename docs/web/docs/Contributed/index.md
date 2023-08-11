@@ -48,13 +48,13 @@ The following extensions are managed and supported by other parties.
 
 ## Demand Generators
 
-- [Citymob for Roadmaps](https://web.archive.org/web/20190910115452/http://www.grc.upv.es/Software/c4r.html)
+- [Citymob for Roadmaps](https://web.archive.org/web/20190910115452/https://www.grc.upv.es/Software/c4r.html)
 
     mobility pattern generator for vehicular networks (VANet focus)
 
 ## Scenario and Network Editors
 
-- [eWorld](https://web.archive.org/web/20161205050209/http://eworld.sourceforge.net/)
+- [eWorld](https://web.archive.org/web/20161205050209/https://eworld.sourceforge.net/)
 
     an application that allows to convert and enrich roads networks
 
@@ -73,21 +73,21 @@ The following extensions are managed and supported by other parties.
 
     connects SUMO to ns-3
 
-- [TraNS](http://trans.epfl.ch/)
+- [TraNS](https://trans.epfl.ch/)
 
     connects SUMO to ns-2
 
-- [MOVE](https://web.archive.org/web/20111210235800/http://lens1.csie.ncku.edu.tw/wiki/doku.php?id=%E2%80%A7realistic_mobility_generator_for_vehicular_networks)
+- [MOVE](https://web.archive.org/web/20111210235800/https://lens1.csie.ncku.edu.tw/wiki/doku.php?id=%E2%80%A7realistic_mobility_generator_for_vehicular_networks)
 
     connects SUMO to ns-2
 
-- [VSimRTI](http://www.dcaiti.tu-berlin.de/research/simulation/)
+- [VSimRTI](https://www.dcaiti.tu-berlin.de/research/simulation/)
 
     C2X environment connecting SUMO to different network and application simulators (OMNeT++ and JiST/SWANS)
 
 ## Other
 
-- [TraCI4Matlab](http://de.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab)
+- [TraCI4Matlab](https://de.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab)
   
     A Matlab interface for connecting and extending information via [TraCI](../TraCI.md)
 

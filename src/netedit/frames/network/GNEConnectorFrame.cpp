@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -128,7 +128,7 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
                 if (i->isDemandElementValid() != GNEDemandElement::Problem::OK) {
                     FXMessageBox::warning(getApp(), MBOX_OK,
                                           TL("Error saving connection operations"), "%s",
-                                          (TL("Connection edition  cannot be saved because route '") + i->getID() + TL("' is broken.")).c_str());
+                                          (TLF("Connection edition cannot be saved because route '%' is broken.", i->getID()).c_str()));
                     return 1;
                 }
             }

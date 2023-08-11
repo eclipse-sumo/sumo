@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-21 11:35:39 by Eclipse SUMO sumo Version v1_15_0+1188-e721eef
+<!-- generated on 2023-06-11 08:16:54 by Eclipse SUMO sumo Version v1_17_0+0912-9ddcf46
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,6 +57,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <vehicle id="trip_1" type="taxi" depart="0.00" arrival="508.00">
         <routeDistribution>
+            <route replacedOnEdge="A2B2" reason="taxi:prepare_dispatch" replacedAtTime="0.00" probability="0" edges="A2B2 B2C2"/>
             <route replacedOnEdge="A2B2" reason="taxi:dispatch" replacedAtTime="0.00" probability="0" edges="A2B2 B2C2 A0B0"/>
             <route edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0"/>
         </routeDistribution>

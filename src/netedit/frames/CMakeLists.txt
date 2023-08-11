@@ -24,8 +24,6 @@ set(netedit_frames_SRCS
    GNEPathCreator.h
    GNEPathLegendModule.cpp
    GNEPathLegendModule.h
-   GNEE2DetectorLegendModule.cpp
-   GNEE2DetectorLegendModule.h
    GNESelectorParent.cpp
    GNESelectorParent.h
    GNETagSelector.cpp
@@ -40,6 +38,8 @@ set(netedit_frames_SRCS
    GNENeteditAttributes.cpp
    GNETLSTable.h
    GNETLSTable.cpp
+   GNEDistributionEditor.h
+   GNEDistributionEditor.cpp
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})

@@ -1,3 +1,6 @@
+# create personTrips between stops
+betweenStops
+
 # generate vType with the given vehicle_class and extra attributes
 vehicle_class_persontrips
 

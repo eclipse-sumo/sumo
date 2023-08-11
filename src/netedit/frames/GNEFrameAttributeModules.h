@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -149,7 +149,7 @@ public:
         AttributesEditor(GNEFrame* inspectorFrameParent);
 
         /// @brief show attributes of multiple ACs
-        void showAttributeEditorModule(bool includeExtended, bool forceAttributeEnabled);
+        void showAttributeEditorModule(bool includeExtended);
 
         /// @brief hide attribute editor
         void hideAttributesEditorModule();
@@ -301,10 +301,10 @@ public:
     public:
         /// @brief constructor for inspector frame
         ParametersEditor(GNEInspectorFrame* inspectorFrameParent);
-        
+
         /// @brief constructor for type frame
         ParametersEditor(GNETypeFrame* typeFrameParent);
-        
+
         /// @brief destructor
         ~ParametersEditor();
 

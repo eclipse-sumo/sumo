@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,23 +44,22 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 360, 99)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.POIGEO.inspect.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.poiGeo.inspect.colorButton, 5, False)
 
 # Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.color, "dummyColor", False)
 
 # Change parameter 4 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.color, "255,255,500", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.color, "255,255,500", False)
 
 # Change parameter 4 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.color, "blue", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.color, "blue", False)
 
 # Change parameter 4 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.color, "125,60,200", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.color, "125,60,200", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

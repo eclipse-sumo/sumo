@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,7 @@
 """
 apply runSeeds to a list of tests and compute statistics
 use case: tweaking the lane change model and then seeing the result of a
-gazilliion tests with reduced noise
+gazillion tests with reduced noise
 """
 
 import os

@@ -47,9 +47,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <maxMDRAC time="13.10" position="95.00,48.35" type="3" value="14.81"/>
     </conflict>
     <conflict begin="6.80" end="35.90" ego="ego1" foe="foe1">
-        <minTTC time="13.30" position="95.00,48.35" type="2" value="1.16"/>
-        <maxDRAC time="13.10" position="95.00,48.35" type="2" value="2.09"/>
-        <PET time="NA" position="NA" type="NA" value="NA"/>
-        <maxMDRAC time="13.10" position="95.00,48.35" type="2" value="14.81"/>
+        <minTTC time="13.30" position="95.00,48.35" type="2" value="1.16" speed="4.13"/>
+        <maxDRAC time="13.10" position="95.00,48.35" type="2" value="2.09" speed="4.88"/>
+        <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+        <maxMDRAC time="13.10" position="95.00,48.35" type="2" value="14.81" speed="4.88"/>
     </conflict>
 </SSMLog>

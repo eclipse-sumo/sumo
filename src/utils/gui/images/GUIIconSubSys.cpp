@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -63,6 +63,7 @@
 #include "save_multiple.xpm"
 #include "save_networkelements.xpm"
 #include "save_aditionalelements.xpm"
+#include "save_jupedsimelements.xpm"
 #include "save_demandelements.xpm"
 #include "save_dataelements.xpm"
 #include "save_meandataelements.xpm"
@@ -248,15 +249,18 @@
 #include "modeshape.xpm"
 #include "modeprohibition.xpm"
 #include "modewire.xpm"
+#include "modedecal.xpm"
 
 #include "modecontainer.xpm"
 #include "modecontainerplan.xpm"
 #include "modeperson.xpm"
 #include "modepersonplan.xpm"
 #include "moderoute.xpm"
+#include "moderoutedistribution.xpm"
 #include "modestop.xpm"
 #include "modevehicle.xpm"
 #include "modetype.xpm"
+#include "modetypedistribution.xpm"
 
 #include "modeedgedata.xpm"
 #include "modeedgereldata.xpm"
@@ -326,17 +330,28 @@
 #include "poilane.xpm"
 #include "poigeo.xpm"
 
+#include "jps.xpm"
+#include "jps_walkablearea.xpm"
+#include "jps_obstacle.xpm"
+#include "jps_waitingarea.xpm"
+#include "jps_source.xpm"
+#include "jps_sink.xpm"
+#include "jps_waypoint.xpm"
+
 #include "taz.xpm"
 #include "tazedge.xpm"
 
 #include "route.xpm"
+#include "routedistribution.xpm"
 #include "vtype.xpm"
 #include "vtypedistribution.xpm"
 #include "vehicle.xpm"
 #include "trip.xpm"
 #include "tripjunctions.xpm"
+#include "triptazs.xpm"
 #include "flow.xpm"
 #include "flowjunctions.xpm"
+#include "flowtazs.xpm"
 #include "routeflow.xpm"
 #include "stopelement.xpm"
 #include "waypoint.xpm"
@@ -474,7 +489,7 @@
 #include "grid3.xpm"
 
 #include "geohack.xpm"
-#include "googlesat.xpm"
+#include "googlemaps.xpm"
 #include "osm.xpm"
 
 #include "languages/de.xpm"
@@ -546,6 +561,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SAVE_MULTIPLE] = new FXXPMIcon(a, save_multiple_xpm);
     myIcons[GUIIcon::SAVE_NETWORKELEMENTS] = new FXXPMIcon(a, save_networkelements_xpm);
     myIcons[GUIIcon::SAVE_ADDITIONALELEMENTS] = new FXXPMIcon(a, save_additionalelements_xpm);
+    myIcons[GUIIcon::SAVE_JUPEDSIMELEMENTS] = new FXXPMIcon(a, save_jupedsimelements_xpm);
     myIcons[GUIIcon::SAVE_DEMANDELEMENTS] = new FXXPMIcon(a, save_demandelements_xpm);
     myIcons[GUIIcon::SAVE_DATAELEMENTS] = new FXXPMIcon(a, save_dataelements_xpm);
     myIcons[GUIIcon::SAVE_MEANDATAELEMENTS] = new FXXPMIcon(a, save_meandataelements_xpm);
@@ -725,10 +741,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::MODESHAPE] = new FXXPMIcon(a, modeshape_xpm);
     myIcons[GUIIcon::MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
     myIcons[GUIIcon::MODEWIRE] = new FXXPMIcon(a, modewire_xpm);
+    myIcons[GUIIcon::MODEDECAL] = new FXXPMIcon(a, modedecal_xpm);
 
     myIcons[GUIIcon::MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
+    myIcons[GUIIcon::MODEROUTEDISTRIBUTION] = new FXXPMIcon(a, moderoutedistribution_xpm);
     myIcons[GUIIcon::MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
     myIcons[GUIIcon::MODETYPE] = new FXXPMIcon(a, modetype_xpm);
+    myIcons[GUIIcon::MODETYPEDISTRIBUTION] = new FXXPMIcon(a, modetypedistribution_xpm);
     myIcons[GUIIcon::MODESTOP] = new FXXPMIcon(a, modestop_xpm);
     myIcons[GUIIcon::MODEPERSON] = new FXXPMIcon(a, modeperson_xpm);
     myIcons[GUIIcon::MODEPERSONPLAN] = new FXXPMIcon(a, modepersonplan_xpm);
@@ -797,17 +816,28 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::POILANE] = new FXXPMIcon(a, poilane_xpm);
     myIcons[GUIIcon::POIGEO] = new FXXPMIcon(a, poigeo_xpm);
 
+    myIcons[GUIIcon::JPS] = new FXXPMIcon(a, jps_xpm);
+    myIcons[GUIIcon::JPS_WALKABLEAREA] = new FXXPMIcon(a, jps_walkablearea_xpm);
+    myIcons[GUIIcon::JPS_OBSTACLE] = new FXXPMIcon(a, jps_obstacle_xpm);
+    myIcons[GUIIcon::JPS_WAITINGAREA] = new FXXPMIcon(a, jps_waitingarea_xpm);
+    myIcons[GUIIcon::JPS_SOURCE] = new FXXPMIcon(a, jps_source_xpm);
+    myIcons[GUIIcon::JPS_SINK] = new FXXPMIcon(a, jps_sink_xpm);
+    myIcons[GUIIcon::JPS_WAYPOINT] = new FXXPMIcon(a, jps_waypoint_xpm);
+
     myIcons[GUIIcon::TAZ] = new FXXPMIcon(a, taz_xpm);
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
 
     myIcons[GUIIcon::ROUTE] = new FXXPMIcon(a, route_xpm);
+    myIcons[GUIIcon::ROUTEDISTRIBUTION] = new FXXPMIcon(a, routedistribution_xpm);
     myIcons[GUIIcon::VTYPE] = new FXXPMIcon(a, vtype_xpm);
     myIcons[GUIIcon::VTYPEDISTRIBUTION] = new FXXPMIcon(a, vtypedistribution_xpm);
     myIcons[GUIIcon::VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
     myIcons[GUIIcon::TRIP] = new FXXPMIcon(a, trip_xpm);
     myIcons[GUIIcon::TRIP_JUNCTIONS] = new FXXPMIcon(a, tripjunctions_xpm);
+    myIcons[GUIIcon::TRIP_TAZS] = new FXXPMIcon(a, triptazs_xpm);
     myIcons[GUIIcon::FLOW] = new FXXPMIcon(a, flow_xpm);
     myIcons[GUIIcon::FLOW_JUNCTIONS] = new FXXPMIcon(a, flowjunctions_xpm);
+    myIcons[GUIIcon::FLOW_TAZS] = new FXXPMIcon(a, flowtazs_xpm);
     myIcons[GUIIcon::ROUTEFLOW] = new FXXPMIcon(a, routeflow_xpm);
     myIcons[GUIIcon::STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
     myIcons[GUIIcon::WAYPOINT] = new FXXPMIcon(a, waypoint_xpm);
@@ -953,7 +983,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::GRID3] = new FXXPMIcon(a, grid3_xpm);
 
     myIcons[GUIIcon::GEOHACK] = new FXXPMIcon(a, geohack_xpm);
-    myIcons[GUIIcon::GOOGLESAT] = new FXXPMIcon(a, googlesat_xpm);
+    myIcons[GUIIcon::GOOGLEMAPS] = new FXXPMIcon(a, googlemaps_xpm);
     myIcons[GUIIcon::OSM] = new FXXPMIcon(a, osm_xpm);
 
     myIcons[GUIIcon::LANGUAGE_EN] = new FXXPMIcon(a, language_en_xpm);

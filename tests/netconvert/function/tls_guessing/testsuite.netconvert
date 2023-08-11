@@ -32,6 +32,12 @@ guess.joining_join
 # (important for big junction shapes)
 edge_length
 
+# exlude tls from being joined
+joinExclude
+
+# exlude unknown tls from being joined
+joinExclude_unknown
+
 # test explit specification of joined tls in plain xml input
 specified
 

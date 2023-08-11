@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -55,12 +55,12 @@ MFXTextFieldSearch::onKeyPress(FXObject* obj, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXTextFieldSearch::onPaint(FXObject* obj, FXSelector sel, void* ptr) {
     if (hasFocus() || (contents.count() > 0)) {
         return FXTextField::onPaint(obj, sel, ptr);
     } else {
-        FXEvent *ev = (FXEvent*)ptr;
+        FXEvent* ev = (FXEvent*)ptr;
         FXDCWindow dc(this, ev);
         // declare text to search
         std::string searchString = TL("Type to search...");
@@ -76,12 +76,12 @@ MFXTextFieldSearch::onPaint(FXObject* obj, FXSelector sel, void* ptr) {
         dc.fillRectangle(border, border, width - (border << 1), height - (border << 1));
         // Draw text,  clipped against frame interior
         dc.setClipRectangle(border, border, width - (border << 1), height - (border << 1));
-        drawSearchTextRange(searchString.c_str(), dc, 0, searchString.length());
+        drawSearchTextRange(searchString.c_str(), dc);
         // Draw caret
         if (flags & FLAG_CARET) {
             int xx = coord(cursor) - 1;
             dc.setForeground(cursorColor);
-            dc.fillRectangle(xx, padtop + border, 1, height - padbottom-padtop - (border << 1));
+            dc.fillRectangle(xx, padtop + border, 1, height - padbottom - padtop - (border << 1));
             dc.fillRectangle(xx - 2, padtop + border, 5, 1);
             dc.fillRectangle(xx - 2, height - border - padbottom - 1, 5, 1);
         }
@@ -118,12 +118,14 @@ MFXTextFieldSearch::MFXTextFieldSearch() :
 }
 
 
-void 
-MFXTextFieldSearch::drawSearchTextRange(const FXString &searchString, FXDCWindow& dc,FXint fm,FXint to) {
-    register FXint xx, yy, cw, hh, ww, si, ei, lx, rx, t;
-    register FXint rr = width - border - padright;
-    register FXint ll = border + padleft;
-    register FXint mm = (ll + rr)/2;
+void
+MFXTextFieldSearch::drawSearchTextRange(const FXString& searchString, FXDCWindow& dc) {
+    FXint xx, yy, cw, hh, ww, si, ei, lx, rx, t;
+    FXint rr = width - border - padright;
+    FXint ll = border + padleft;
+    FXint mm = (ll + rr) / 2;
+    FXint fm = 0;
+    FXint to = (int)searchString.length();
     if (to <= fm) {
         return;
     }
@@ -138,9 +140,9 @@ MFXTextFieldSearch::drawSearchTextRange(const FXString &searchString, FXDCWindow
     } else if (options & JUSTIFY_BOTTOM) {
         // Text sticks to bottom of field
         yy = height - padbottom - border - hh;
-    } else{ 
+    } else {
         // Text centered in y
-        yy = border + padtop + (height - padbottom - padtop - (border << 1) - hh)/2;
+        yy = border + padtop + (height - padbottom - padtop - (border << 1) - hh) / 2;
     }
     if (anchor < cursor) {
         si = anchor;
@@ -159,7 +161,7 @@ MFXTextFieldSearch::drawSearchTextRange(const FXString &searchString, FXDCWindow
         xx = shift + ll;
     } else {
         // Text centered in field
-        xx = shift + mm - ww/2;
+        xx = shift + mm - ww / 2;
     }
 
     // Reduce to avoid drawing excessive amounts of text

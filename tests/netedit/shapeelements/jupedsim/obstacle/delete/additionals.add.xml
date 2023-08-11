@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-20 15:16:33 by Eclipse SUMO netedit Version v1_16_0+2228-9f242c35b76
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poly id="obstacle_1" type="jupedsim.obstacle" shape="10.000000,10.000000 10.000000,20.000000 0.000000,20.000000 0.000000,10.000000 10.000000,10.000000"/>
+    <poly id="obstacle_2" type="jupedsim.obstacle" shape="40.000000,10.000000 40.000000,20.000000 20.000000,20.000000 20.000000,10.000000"/>
+</additional>

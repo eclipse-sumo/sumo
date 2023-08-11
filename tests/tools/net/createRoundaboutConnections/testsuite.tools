@@ -1,0 +1,10 @@
+save_template
+
+# trying to save a template iwth an unknown additional option
+save_template_unknown
+
+# trying to save a config with an unknown option
+save_config_unknown
+
+# trying to load a config with an unknown option
+load_config_unknown

@@ -22,20 +22,20 @@ title: Screenshots
 ## From 'TraNS'
 
 [<font color="#0174DF">Tra</font><font color="#FF0000">NS</font>
-website](http://trans.epfl.ch/)
+website](https://trans.epfl.ch/)
 
 ![](../images/Trans.gif)Main TraNS v1.2 screen
 
 ## From 'eWorld'
 
-[eWorld website](https://web.archive.org/web/20140115034358/http://sourceforge.net/projects/eworld/)
+[eWorld website](https://web.archive.org/web/20140115034358/https://sourceforge.net/projects/eworld/)
 
 ![](../images/Scr_eworld.jpg "eWorld Main Screen") eWorld Main Screen
 
 ## From 'SUMO Traffic Modeler'
 
 [SUMO Traffic Modeler
-website](http://sourceforge.net/projects/trafficmodeler/)
+website](https://sourceforge.net/projects/trafficmodeler/)
 
 ![](../images/Trafficmodeller.gif "Plain Bologna import")Plain Bologna import
 

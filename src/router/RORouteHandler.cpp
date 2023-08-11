@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -266,12 +266,22 @@ RORouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
             int probIndex = 0;
             while (st.hasNext()) {
                 const std::string typeID = st.next();
-                SUMOVTypeParameter* const type = myNet.getVehicleTypeSecure(typeID);
-                if (type == nullptr) {
-                    myErrorOutput->inform("Unknown vehicle type '" + typeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
+                const RandomDistributor<SUMOVTypeParameter*>* const dist = myNet.getVTypeDistribution(typeID);
+                if (dist != nullptr) {
+                    const double distProb = (int)probs.size() > probIndex ? probs[probIndex] : 1.;
+                    std::vector<double>::const_iterator probIt = dist->getProbs().begin();
+                    for (SUMOVTypeParameter* const type : dist->getVals()) {
+                        myCurrentVTypeDistribution->add(type, distProb * *probIt);
+                        probIt++;
+                    }
                 } else {
-                    const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->defaultProbability);
-                    myCurrentVTypeDistribution->add(type, prob);
+                    SUMOVTypeParameter* const type = myNet.getVehicleTypeSecure(typeID);
+                    if (type == nullptr) {
+                        myErrorOutput->inform("Unknown vehicle type '" + typeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
+                    } else {
+                        const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->defaultProbability);
+                        myCurrentVTypeDistribution->add(type, prob);
+                    }
                 }
                 probIndex++;
             }
@@ -1252,7 +1262,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
     const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, id, ok, -1);
     if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-        throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
+        throw ProcessError(TLF("Non-positive walking duration for '%'.", myVehicleParameter->id));
     }
 
     double departPos = 0;
@@ -1309,11 +1319,11 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         const char* const objId = myVehicleParameter->id.c_str();
         const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, objId, ok, -1);
         if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-            throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
+            throw ProcessError(TLF("Non-positive walking duration for '%'.", myVehicleParameter->id));
         }
         const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, objId, ok, -1.);
         if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
-            throw ProcessError(TLF("Non-positive walking speed for  '%'.", myVehicleParameter->id));
+            throw ProcessError(TLF("Non-positive walking speed for '%'.", myVehicleParameter->id));
         }
         double departPos = 0.;
         double arrivalPos = std::numeric_limits<double>::infinity();

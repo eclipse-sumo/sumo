@@ -36,6 +36,6 @@
          <!-- valid generic parameter (valid) -->
          <param key="keyFinal" value="valueFinal"/>
  
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </personFlow>
 </routes>

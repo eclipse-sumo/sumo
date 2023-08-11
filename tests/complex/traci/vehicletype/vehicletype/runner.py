@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -57,6 +57,7 @@ print("latAlign", traci.vehicletype.getLateralAlignment(typeID))
 print("minGapLat", traci.vehicletype.getMinGapLat(typeID))
 print("personCapacity", traci.vehicletype.getPersonCapacity(typeID))
 print("boardingDuration", traci.vehicletype.getBoardingDuration(typeID))
+print("impatience", traci.vehicletype.getImpatience(typeID))
 traci.vehicletype.subscribe(typeID)
 print(traci.vehicletype.getSubscriptionResults(typeID))
 for step in range(3, 6):
@@ -105,6 +106,10 @@ traci.vehicletype.setWidth(typeID, 1.1)
 print("width", traci.vehicletype.getWidth(typeID))
 traci.vehicletype.setHeight(typeID, 1.9)
 print("height", traci.vehicletype.getHeight(typeID))
+traci.vehicletype.setBoardingDuration(typeID, 42)
+print("boardingDuration", traci.vehicletype.getBoardingDuration(typeID))
+traci.vehicletype.setImpatience(typeID, 0.5)
+print("impatience", traci.vehicletype.getImpatience(typeID))
 traci.vehicletype.setColor(typeID, (255, 0, 0, 255))
 print("color", traci.vehicletype.getColor(typeID))
 copyID = typeID + "_copy"
@@ -115,6 +120,29 @@ print("vehicletype count", traci.vehicletype.getIDCount())
 traci.vehicletype.setAccel(copyID, 100.)
 print("accel (original)", traci.vehicletype.getAccel(typeID))
 print("accel (copied)", traci.vehicletype.getAccel(copyID))
+
+
+print("param", traci.vehicletype.getParameter(typeID, "foo"))
+traci.vehicletype.setParameter(typeID, "foo", "42")
+print("param2", traci.vehicletype.getParameter(typeID, "foo"))
+
+print("jmParam", traci.vehicletype.getParameter(typeID, "junctionModel.jmTimegapMinor"))
+traci.vehicletype.setParameter(typeID, "junctionModel.jmTimegapMinor", "2")
+print("jmParam", traci.vehicletype.getParameter(typeID, "junctionModel.jmTimegapMinor"))
+
+try:
+    traci.vehicletype.setParameter(typeID, "junctionModel.dummy", "2")
+except traci.TraCIException:
+    pass
+try:
+    traci.vehicletype.setParameter(typeID, "junctionModel.speed", "2")
+except traci.TraCIException:
+    pass
+try:
+    traci.vehicletype.setParameter(typeID, "junctionModel.jmTimegapMinor", "notANumber")
+except traci.TraCIException:
+    pass
+
 
 traci.simulationStep()
 traci.close()

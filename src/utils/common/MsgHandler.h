@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2003-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -281,9 +281,13 @@ private:
 #define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};
 #define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
 #ifdef HAVE_INTL
+// basic translation
 #define TL(string) gettext(string)
+// complex translation ("This % an %", "is", "example")
 #define TLF(string, ...) StringUtils::format(gettext(string), __VA_ARGS__)
 #else
+// basic translation
 #define TL(string) (string)
+// complex translation ("This % an %", "is", "example")
 #define TLF(string, ...) StringUtils::format(string, __VA_ARGS__)
 #endif

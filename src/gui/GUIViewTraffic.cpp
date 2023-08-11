@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -459,13 +459,19 @@ GUIViewTraffic::onGamingClick(Position pos) {
             }
             const int ci = minTll->getCurrentPhaseIndex();
             const int n = minTll->getPhaseNumber();
+            int greenCount = 0;
+            for (auto& phase : minTll->getPhases()) {
+                if (phase->isGreenPhase()) {
+                    greenCount++;
+                }
+            }
             int nextPhase = (ci + 1) % n;
             SUMOTime nextDuration = 0;
-            if (minTll->getCurrentPhaseDef().isGreenPhase()) {
+            if (minTll->getCurrentPhaseDef().isGreenPhase() || (greenCount == 1 && minTll->getCurrentPhaseDef().isAllRedPhase())) {
                 nextDuration = minTll->getPhase(nextPhase).duration;
             } else {
                 // we are in transition to a green phase
-                // -> skip forward to the transtion into the next green phase
+                // -> skip forward to the transition into the next green phase
                 // but ensure that the total transition time is maintained
                 // taking into account how much time was already spent
                 SUMOTime spentTransition = minTll->getSpentDuration();
@@ -490,12 +496,11 @@ GUIViewTraffic::onGamingClick(Position pos) {
                     }
                     // transition after the next green
                     if (numGreen == 1) {
-                        int transitionIndex = (i - 2 + n) % n;
-                        SUMOTime dur = minTll->getPhase(transitionIndex).duration;
+                        SUMOTime dur = minTll->getPhase(i).duration;
                         if (dur <= spentTransition) {
                             spentTransition -= dur;
                         } else {
-                            nextPhase = transitionIndex;
+                            nextPhase = i;
                             nextDuration = dur - spentTransition;
                             break;
                         }

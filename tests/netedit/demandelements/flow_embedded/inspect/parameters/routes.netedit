@@ -9,6 +9,6 @@
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
-        <route edges="gneE2 gneE4 gneE5"/>
+        <route edges="Edge0 Edge1 Edge2"/>
     </flow>
 </routes>

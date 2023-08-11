@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -46,6 +46,7 @@
 #include <foreign/fontstash/fontstash.h>
 #include <utils/geom/GeomHelper.h>
 #include <guisim/GUIBusStop.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 
@@ -130,16 +131,16 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("name", false, getMyName());
-    ret->mkItem("begin position [m]", false, myBegPos);
-    ret->mkItem("end position [m]", false, myEndPos);
-    ret->mkItem("lines", false, joinToString(myLines, " "));
-    ret->mkItem("parking length [m]", false, (myEndPos - myBegPos) / myParkingFactor);
+    ret->mkItem(TL("name"), false, getMyName());
+    ret->mkItem(TL("begin position [m]"), false, myBegPos);
+    ret->mkItem(TL("end position [m]"), false, myEndPos);
+    ret->mkItem(TL("lines"), false, joinToString(myLines, " "));
+    ret->mkItem(TL("parking length [m]"), false, (myEndPos - myBegPos) / myParkingFactor);
     const std::string transportable = (myElement == SUMO_TAG_CONTAINER_STOP ? "container" : "person");
     ret->mkItem((transportable + " capacity [#]").c_str(), false, myTransportableCapacity);
     ret->mkItem((transportable + " number [#]").c_str(), true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getTransportableNumber));
-    ret->mkItem("stopped vehicles[#]", true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
-    ret->mkItem("last free pos[m]", true, new FunctionBinding<GUIBusStop, double>(this, &MSStoppingPlace::getLastFreePos));
+    ret->mkItem(TL("stopped vehicles [#]"), true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
+    ret->mkItem(TL("last free pos [m]"), true, new FunctionBinding<GUIBusStop, double>(this, &MSStoppingPlace::getLastFreePos));
     // rides-being-waited-on statistic
     std::map<std::string, int> stats;
     for (const MSTransportable* t : getTransportables()) {
@@ -153,7 +154,7 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
         }
     }
     if (stats.size() > 0) {
-        ret->mkItem("waiting for:", false, "[#]");
+        ret->mkItem(TL("waiting for:"), false, "[#]");
         for (auto item : stats) {
             ret->mkItem(item.first.c_str(), false, toString(item.second));
         }

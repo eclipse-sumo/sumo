@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -22,7 +22,6 @@
 
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
-#include <netedit/frames/GNEE2DetectorLegendModule.h>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNENeteditAttributes.h>
 #include <netedit/frames/GNENetworkSelector.h>
@@ -40,6 +39,56 @@
 class GNEAdditionalFrame : public GNEFrame {
 
 public:
+    // ===========================================================================
+    // class EdgeTypeSelector
+    // ===========================================================================
+
+    class E2MultilaneLegendModule : public MFXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        E2MultilaneLegendModule(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~E2MultilaneLegendModule();
+
+        /// @brief show Legend modul
+        void showE2MultilaneLegend();
+
+        /// @brief hide Legend modul
+        void hideE2MultilaneLegend();
+    };
+
+    // ===========================================================================
+    // class HelpCreationModule
+    // ===========================================================================
+
+    class HelpCreationModule : public MFXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        HelpCreationModule(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~HelpCreationModule();
+
+        /// @brief show Legend modul
+        void showHelpCreationModule(SumoXMLTag XMLTag);
+
+        /// @brief hide Legend modul
+        void hideHelpCreationModule();
+
+    private:
+        /// @brief add translated string
+        std::string addTLString(const std::string &str);
+
+        /// @brief help label
+        FXLabel* myHelpLabel = nullptr;
+
+        /// @brief map with tags and their associated help
+        std::map<SumoXMLTag, std::string> myHelpMap;
+    };
+
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -114,6 +163,9 @@ private:
     /// @brief Module for select consecutive lanes
     GNEConsecutiveSelector* myConsecutiveLaneSelector = nullptr;
 
+    /// @brief Module for show additional help legend
+    HelpCreationModule* myHelpCreationModule = nullptr;
+
     /// @brief Module for show E2 Detector legend
-    GNEE2DetectorLegendModule* myE2DetectorLegendModule = nullptr;
+    E2MultilaneLegendModule* myE2MultilaneLegendModule = nullptr;
 };

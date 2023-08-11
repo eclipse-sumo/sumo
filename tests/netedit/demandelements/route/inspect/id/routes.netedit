@@ -5,6 +5,6 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
-    <route id="custom_route" edges="gneE2 gneE4"/>
-    <route id="r_1" edges="gneE5"/>
+    <route id="custom_route" edges="Edge0 Edge1"/>
+    <route id="r_1" edges="Edge2"/>
 </routes>

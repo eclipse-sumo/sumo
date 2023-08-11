@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-05 14:40:13 by Eclipse SUMO sumo Version v1_17_0+0716-331573c
+<!-- generated on 2023-07-20 16:45:00 by Eclipse SUMO sumo Version v1_18_0+0436-f0eaeb5034c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -456,7 +456,7 @@
         <!-- Select default car following model (Krauss, IDM, ...) -->
         <default.carfollowmodel value="Krauss" synonymes="carfollow.model" type="STR"/>
 
-        <!-- Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class -->
+        <!-- Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class) -->
         <default.speeddev value="-1" type="FLOAT"/>
 
         <!-- Select default emergencyDecel value among (&apos;decel&apos;, &apos;default&apos;, FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2 -->

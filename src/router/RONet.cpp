@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -225,7 +225,7 @@ RONet::addJunctionTaz(ROAbstractEdgeBuilder& eb) {
         }
         const std::string sourceID = tazID + "-source";
         const std::string sinkID = tazID + "-sink";
-        // sink must be addd before source
+        // sink must be added before source
         ROEdge* sink = eb.buildEdge(sinkID, nullptr, nullptr, 0);
         ROEdge* source = eb.buildEdge(sourceID, nullptr, nullptr, 0);
         sink->setOtherTazConnector(source);
@@ -565,7 +565,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                     }
                     pars->repetitionsDone++;
                     // try to build the vehicle
-                    SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                    const SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
                     if (type == nullptr) {
                         type = getVehicleTypeSecure(DEFAULT_VTYPE_ID);
                     } else if (!myKeepVTypeDist) {
@@ -604,7 +604,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                 }
                 pars->incrementFlow(1);
                 // try to build the vehicle
-                SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                const SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
                 if (type == nullptr) {
                     type = getVehicleTypeSecure(DEFAULT_VTYPE_ID);
                 } else {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-25 08:45:37 by Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
+<!-- generated on 2023-06-26 16:16:15 by Eclipse SUMO netconvert Version v1_17_0+1272-c705dc1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -163,8 +163,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="joinedS_7" type="static" programID="0" offset="0">
-        <phase duration="37" state="GGGGgggrrrGGGGrrrrr"/>
-        <phase duration="3"  state="yyyyyyyrrryyyyrrrrr"/>
+        <phase duration="32" state="GGGGrrrrrrgGGgrGrGr"/>
+        <phase duration="5"  state="GGGGrrrrrrgGGgrrrrr"/>
+        <phase duration="3"  state="yyyyrrrrrryyyyrrrrr"/>
         <phase duration="32" state="GGGGGgggGgrrrrrrGrG"/>
         <phase duration="5"  state="GGGGGgggGgrrrrrrrrr"/>
         <phase duration="3"  state="yyyyyyyyyyrrrrrrrrr"/>
@@ -188,8 +189,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="4"  response="01011110000000" foes="01011110000110" cont="0"/>
         <request index="5"  response="01000001000001" foes="01000001000001" cont="1"/>
         <request index="6"  response="11000000000000" foes="11000000100001" cont="1"/>
-        <request index="7"  response="10100000001000" foes="10100000011011" cont="0"/>
-        <request index="8"  response="10100000001000" foes="10100000011011" cont="0"/>
+        <request index="7"  response="10100000001010" foes="10100000011011" cont="0"/>
+        <request index="8"  response="10100000001010" foes="10100000011011" cont="0"/>
         <request index="9"  response="10010000000010" foes="10010000010111" cont="0"/>
         <request index="10" response="00000000000000" foes="00001000010111" cont="0"/>
         <request index="11" response="00000000000000" foes="00000110001010" cont="0"/>
@@ -202,7 +203,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="cluster_2531313425_2531313439" type="dead_end" x="45.74" y="224.07" incLanes="" intLanes="" shape="44.04,223.17 35.74,218.77"/>
 
-    <junction id=":29215077_10_0" type="internal" x="96.79" y="97.45" incLanes=":29215077_1_0 194962398#2_1 246044848#1_1 246044848#1_2" intLanes=":29215077_3_0 :29215077_4_0 :29215077_7_0 :29215077_7_1 :29215077_9_0 :29215077_c0_0 :29215077_c1_0"/>
+    <junction id=":29215077_10_0" type="internal" x="96.79" y="97.45" incLanes=":29215077_1_0 194962398#2_1" intLanes=":29215077_3_0 :29215077_4_0 :29215077_7_0 :29215077_7_1 :29215077_9_0 :29215077_c0_0 :29215077_c1_0"/>
     <junction id=":29215077_11_0" type="internal" x="97.51" y="97.78" incLanes=":29215077_2_0 194962398#2_1 246044848#1_2" intLanes=":29215077_4_0 :29215077_9_0 :29215077_c0_0 :29215077_c0_0"/>
     <junction id=":29215077_12_0" type="internal" x="91.90" y="88.75" incLanes=":29215077_3_0" intLanes=":29215077_1_0 :29215077_7_0 :29215077_7_1 :29215077_c1_0 :29215077_c2_0"/>
     <junction id=":29215077_13_0" type="internal" x="86.79" y="89.25" incLanes=":29215077_5_0 -4615548_1 246044848#1_1" intLanes=":29215077_0_0 :29215077_6_0 :29215077_c2_0 :29215077_c2_0"/>

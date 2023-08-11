@@ -222,8 +222,8 @@ XML](../Networks/PlainXML.md#type_descriptions)
 - **XML**:
 "e**X**tensible **M**arkup **L**anguage is a universal format
 for structured documents and data" as the w3c says. Further
-information may be found at <http://www.w3c.org/XML/> or
-<http://en.wikipedia.org/wiki/XML>. Most of the data read and
+information may be found at <https://www.w3c.org/XML/> or
+<https://en.wikipedia.org/wiki/XML>. Most of the data read and
 written by SUMO is stored as XML, see also the page on [file
 types](../Other/File_Extensions.md).
   
@@ -231,7 +231,7 @@ types](../Other/File_Extensions.md).
 **X**ML **S**chema **D**efinitions "... provide a means for
 defining the structure, content and semantics of XML documents" as
 the w3c says. Further information may be found at
-<http://www.w3.org/XML/Schema> or
-<http://en.wikipedia.org/wiki/XML_Schema_%28W3C%29>. A part of the
+<https://www.w3.org/XML/Schema> or
+<https://en.wikipedia.org/wiki/XML_Schema_%28W3C%29>. A part of the
 XML data formats used by SUMO is covered by xsd, see the page on
 [file types](../Other/File_Extensions.md).

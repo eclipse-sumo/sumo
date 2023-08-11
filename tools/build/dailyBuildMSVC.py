@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -112,7 +112,7 @@ def generateCMake(generator, platform, checkOptionalLibs, python):
             shutil.rmtree(buildDir)
         os.makedirs(buildDir)
     except Exception as e:
-        status.printLog("Error occured on build dir cleanup: %s." % e)
+        status.printLog("Error occurred on build dir cleanup: %s." % e)
     status.printLog("Creating solution for %s." % generator)
     status.log_subprocess(["cmake", "../..", "-G", generator, "-A", platform] + cmakeOpt, cwd=buildDir)
     return buildDir

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-25 18:36:53 by Eclipse SUMO netedit Version v1_15_0+1949-962673d476a
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-06-28 10:12:23 by Eclipse SUMO netedit Version v1_17_0+1318-85f891f765f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.25Jan182728.9776/netedit.daily.bugs/bugs/grid/ticket3271/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.25Jan182728.9776/netedit.daily.bugs/bugs/grid/ticket3271/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.25Jan182728.9776/netedit.daily.bugs/bugs/grid/ticket3271/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.25Jan182728.9776/netedit.daily.bugs/bugs/grid/ticket3271/net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Jun101132.11708\netedit.gui\bugs\grid\ticket3271\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Jun101132.11708\netedit.gui\bugs\grid\ticket3271\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Jun101132.11708\netedit.gui\bugs\grid\ticket3271\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Jun101132.11708\netedit.gui\bugs\grid\ticket3271\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.25Jan182728.9776/netedit.daily.bugs/bugs/grid/ticket3271/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Jun101132.11708\netedit.gui\bugs\grid\ticket3271\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,18 +33,16 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.25Jan182728.9776/netedit.daily.bugs/bugs/grid/ticket3271/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Jun101132.11708\netedit.gui\bugs\grid\ticket3271\gui-settings.xml"/>
         <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.25Jan182728.9776/netedit.daily.bugs/bugs/grid/ticket3271/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Jun101132.11708\netedit.gui\bugs\grid\ticket3271\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.25Jan182728.9776/netedit.daily.bugs/bugs/grid/ticket3271/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Jun101132.11708\netedit.gui\bugs\grid\ticket3271\log.txt"/>
     </report>
 
 </configuration>
@@ -99,7 +97,7 @@
         <lane id=":Center_4_0" index="0" speed="3.65" length="4.67" shape="62.62,14.89 62.34,13.47 62.62,12.62 63.47,12.34 64.89,12.62"/>
     </edge>
     <edge id=":Center_5" function="internal">
-        <lane id=":Center_5_0" index="0" speed="13.90" length="33.11" shape="69.45,4.80 61.04,5.57 53.27,7.89 46.13,11.75 39.64,17.15"/>
+        <lane id=":Center_5_0" index="0" speed="13.90" length="32.92" shape="69.45,4.80 61.57,5.74 53.45,8.32 45.87,12.24 39.64,17.15"/>
     </edge>
     <edge id=":Center_6" function="internal">
         <lane id=":Center_6_0" index="0" speed="13.90" length="38.90" shape="69.45,4.80 30.55,4.80"/>

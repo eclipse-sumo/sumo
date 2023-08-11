@@ -88,9 +88,9 @@ The two methods which are implemented are called
 The input for each of the methods is a weight or cost function \(w\) on
 the edges of the net, coming from the simulation or default costs (in
 the first step or for edges which have not been traveled yet), and a set
-of routes <img src="http://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/> where each route <img src="http://latex.codecogs.com/gif.latex?r" border="0" style="margin:0;"/> has an old cost <img src="http://latex.codecogs.com/gif.latex?c_r" border="0" style="margin:0;"/> and an
-old probability <img src="http://latex.codecogs.com/gif.latex?p_r" border="0" style="margin:0;"/> (from the last iteration) and needs a new cost
-<img src="http://latex.codecogs.com/gif.latex?c_r'" border="0" style="margin:0;"/> and a new probability <img src="http://latex.codecogs.com/gif.latex?p_r'" border="0" style="margin:0;"/>.
+of routes <img src="https://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/> where each route <img src="https://latex.codecogs.com/gif.latex?r" border="0" style="margin:0;"/> has an old cost <img src="https://latex.codecogs.com/gif.latex?c_r" border="0" style="margin:0;"/> and an
+old probability <img src="https://latex.codecogs.com/gif.latex?p_r" border="0" style="margin:0;"/> (from the last iteration) and needs a new cost
+<img src="https://latex.codecogs.com/gif.latex?c_r'" border="0" style="margin:0;"/> and a new probability <img src="https://latex.codecogs.com/gif.latex?p_r'" border="0" style="margin:0;"/>.
 
 ### Gawron (default)
 
@@ -121,12 +121,12 @@ the new probability. It ignores old costs and old probabilities and
 takes the route cost directly as the sum of the edge costs from the last
 simulation.
 
-<img src="http://latex.codecogs.com/gif.latex?c_r' = \sum_{e\in r}w(e)" border="0" style="margin:0;"/>
+<img src="https://latex.codecogs.com/gif.latex?c_r' = \sum_{e\in r}w(e)" border="0" style="margin:0;"/>
 
 The probabilities are calculated from an exponential function with
-parameter <img src="http://latex.codecogs.com/gif.latex?\theta" border="0" style="margin:0;"/> scaled by the sum over all route values:
+parameter <img src="https://latex.codecogs.com/gif.latex?\theta" border="0" style="margin:0;"/> scaled by the sum over all route values:
 
-<img src="http://latex.codecogs.com/gif.latex?p_r' = \frac{\exp(\theta c_r')}{\sum_{s\in R}\exp(\theta c_s')}" border="0" style="margin:0;"/>
+<img src="https://latex.codecogs.com/gif.latex?p_r' = \frac{\exp(\theta c_r')}{\sum_{s\in R}\exp(\theta c_s')}" border="0" style="margin:0;"/>
 
 !!! caution
     It is recommended to set option **--convergence-steps** (i.e. to the same number as **-last-step**) to ensure convergence. Otherwise Logit route choice may keep oscillating, especially with higher values of **--logittheta**.

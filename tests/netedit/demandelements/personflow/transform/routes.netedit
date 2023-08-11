@@ -6,6 +6,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="pf_0" depart="0.00">
-        <personTrip from="gneE2" to="gneE5" lines="ANY"/>
+        <personTrip from="Edge0" to="Edge2" lines="ANY"/>
     </person>
 </routes>

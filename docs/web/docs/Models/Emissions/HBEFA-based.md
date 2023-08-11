@@ -3,10 +3,10 @@ title: HBEFA-based
 ---
 
 *"The [Handbook Emission Factors for Road Transport
-(HBEFA)](http://www.hbefa.net/) provides emission factors for all
+(HBEFA)](https://www.hbefa.net/) provides emission factors for all
 current vehicle categories (PC, LDV, HDV and motor cycles), each divided
 into different categories, for a wide variety of traffic situations."*
-(from <http://www.hbefa.net/>, 30.01.2008). Since version 0.10.2, SUMO
+(from <https://www.hbefa.net/>, 30.01.2008). Since version 0.10.2, SUMO
 is able to simulate vehicular pollutant emissions based on this database
 application. Though HBEFA contains information about other pollutants,
 we decided to implement only the following, major ones:
@@ -18,20 +18,20 @@ we decided to implement only the following, major ones:
 - PM<sub>x</sub>
 - fuel consumption
 
-We have remodeled [HBEFA](http://www.hbefa.net/) data for the following
+We have remodeled [HBEFA](https://www.hbefa.net/) data for the following
 reasons:
 
 1.  The goal was to have an emission model be directly embedded in SUMO,
-    [HBEFA](http://www.hbefa.net/) is a database application for itself
+    [HBEFA](https://www.hbefa.net/) is a database application for itself
 2.  To allow computation of vehicular emissions on a continuous range as
-    the original [HBEFA](http://www.hbefa.net/) data cover certain
+    the original [HBEFA](https://www.hbefa.net/) data cover certain
     speeds only
 3.  To avoid having the need to deal with all of
-    [HBEFA](http://www.hbefa.net/)'s emission classes
+    [HBEFA](https://www.hbefa.net/)'s emission classes
 
 # Vehicle Emission Classes
 
-The original vehicle classes supplied by [HBEFA](http://www.hbefa.net/)
+The original vehicle classes supplied by [HBEFA](https://www.hbefa.net/)
 have been clustered. In order to improve the quality, passengers and
 light delivery vehicles have been clustered independent to heavy duty
 vehicles. For the first set (passenger and light delivery vehicles), two

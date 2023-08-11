@@ -5,10 +5,10 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
-    <route id="route_0" edges="gneE0 gneE1" color="yellow">
-        <stop busStop="busStop"/>
+    <route id="route_0" edges="Edge0 Edge1 Edge2" color="yellow">
+        <stop busStop="busStopA"/>
     </route>
-    <route id="route_1" edges="gneE0 gneE1" color="yellow">
-        <stop busStop="busStop" onDemand="1"/>
+    <route id="route_1" edges="Edge0 Edge1 Edge2" color="yellow">
+        <stop busStop="busStopA" onDemand="1"/>
     </route>
 </routes>

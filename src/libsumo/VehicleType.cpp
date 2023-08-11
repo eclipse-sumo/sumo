@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -186,7 +186,23 @@ VehicleType::getLateralAlignment(const std::string& typeID) {
 
 std::string
 VehicleType::getParameter(const std::string& typeID, const std::string& key) {
-    return getVType(typeID)->getParameter().getParameter(key, "");
+    if (StringUtils::startsWith(key, "junctionModel.")) {
+        const std::string attrName = key.substr(14);
+        if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
+            throw TraCIException("Invalid junctionModel parameter '" + key + "' for type '" + typeID + "'");
+        }
+        SumoXMLAttr attr = (SumoXMLAttr)SUMOXMLDefinitions::Attrs.get(attrName);
+        if (SUMOVTypeParameter::AllowedJMAttrs.count(attr) == 0) {
+            throw TraCIException("Invalid junctionModel parameter '" + key + "' for type '" + typeID + "'");
+        }
+        if (getVType(typeID)->getParameter().jmParameter.count(attr) != 0) {
+            return getVType(typeID)->getParameter().jmParameter.find(attr)->second;
+        } else {
+            return "";
+        }
+    } else {
+        return getVType(typeID)->getParameter().getParameter(key, "");
+    }
 }
 
 LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(VehicleType)
@@ -206,6 +222,11 @@ VehicleType::getBoardingDuration(const std::string& typeID) {
     return STEPS2TIME(getVType(typeID)->getBoardingDuration(true));
 }
 
+double
+VehicleType::getImpatience(const std::string& typeID) {
+    return getVType(typeID)->getImpatience();
+}
+
 void
 VehicleType::setLength(const std::string& typeID, double length)  {
     getVType(typeID)->setLength(length);
@@ -221,6 +242,18 @@ VehicleType::setMaxSpeed(const std::string& typeID, double speed)  {
 void
 VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset)  {
     getVType(typeID)->setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength), resetActionOffset);
+}
+
+
+void
+VehicleType::setBoardingDuration(const std::string& typeID, double boardingDuration)  {
+    getVType(typeID)->setBoardingDuration(TIME2STEPS(boardingDuration), true);
+}
+
+
+void
+VehicleType::setImpatience(const std::string& typeID, double impatience)  {
+    getVType(typeID)->setImpatience(impatience);
 }
 
 
@@ -363,7 +396,24 @@ VehicleType::copy(const std::string& origTypeID, const std::string& newTypeID)  
 
 void
 VehicleType::setParameter(const std::string& typeID, const std::string& name, const std::string& value) {
-    ((SUMOVTypeParameter&)getVType(typeID)->getParameter()).setParameter(name, value);
+    if (StringUtils::startsWith(name, "junctionModel.")) {
+        const std::string attrName = name.substr(14);
+        if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
+            throw TraCIException("Invalid junctionModel parameter '" + name + "' for type '" + typeID + "'");
+        }
+        SumoXMLAttr attr = (SumoXMLAttr)SUMOXMLDefinitions::Attrs.get(attrName);
+        if (SUMOVTypeParameter::AllowedJMAttrs.count(attr) == 0) {
+            throw TraCIException("Invalid junctionModel parameter '" + name + "' for type '" + typeID + "'");
+        }
+        try {
+            StringUtils::toDouble(value); // check number format
+            ((SUMOVTypeParameter&)getVType(typeID)->getParameter()).jmParameter[attr] = value;
+        } catch (NumberFormatException&) {
+            throw TraCIException("Invalid junctionModel parameter value '" + value + "' for type '" + typeID + " (should be numeric)'");
+        }
+    } else {
+        ((SUMOVTypeParameter&)getVType(typeID)->getParameter()).setParameter(name, value);
+    }
 }
 
 
@@ -445,6 +495,8 @@ VehicleType::handleVariableWithID(const std::string& objID, const std::string& t
             return wrapper->wrapInt(objID, variable, getPersonCapacity(typeID));
         case VAR_BOARDING_DURATION:
             return wrapper->wrapDouble(objID, variable, getBoardingDuration(typeID));
+        case VAR_IMPATIENCE:
+            return wrapper->wrapDouble(objID, variable, getImpatience(typeID));
         case VAR_SCALE:
             return wrapper->wrapDouble(objID, variable, getScale(typeID));
         case libsumo::VAR_PARAMETER:

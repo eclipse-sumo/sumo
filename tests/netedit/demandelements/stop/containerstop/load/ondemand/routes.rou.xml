@@ -38,12 +38,12 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <trip depart="0.00" from="gneE0" to="gneE1" id="trip_0">
-        <stop containerStop="containerStop" onDemand=""/>
+    <trip depart="0.00" from="Edge0" to="Edge2" id="trip_0">
+        <stop containerStop="containerStopA" onDemand=""/>
     </trip>
 
-    <trip depart="0.00" from="gneE0" to="gneE1" id="trip_1">
-        <stop containerStop="containerStop" onDemand="true"/>
+    <trip depart="0.00" from="Edge0" to="Edge2" id="trip_1">
+        <stop containerStop="containerStopA" onDemand="true"/>
     </trip>
 
 </routes>

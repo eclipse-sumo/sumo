@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: [3.6, 3.7, 3.8, 3.9, '3.10', 3.11]
+        python_version: [3.7, 3.8, 3.9, '3.10', 3.11]
     runs-on: macos-11
     env:
       CCACHE_COMPILERTYPE: clang
@@ -52,6 +52,7 @@ jobs:
 
     - name: Building SUMO / Libsumo wheels
       run: |
+        python3 -m pip install --upgrade pip
         python3 -m pip install build
         cp build/pyproject.toml .
         python3 tools/build/version.py tools/build/setup-sumo.py ./setup.py
@@ -75,7 +76,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-11, macos-12]
-        python_version: [3.6, 3.7, 3.8, 3.9, '3.10', 3.11]
+        python_version: [3.7, 3.8, 3.9, '3.10', 3.11]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -102,6 +103,7 @@ jobs:
 
     - name: Preparing Python environment
       run: |
+        python3 -m pip install --upgrade pip
         python3 -m pip install wheel  # need to do this separately because the texttest install wants it
         python3 -m pip install texttest
         python3 -m pip install python-wheels/eclipse_sumo*

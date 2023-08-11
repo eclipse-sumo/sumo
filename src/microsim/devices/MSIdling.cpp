@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -187,7 +187,7 @@ MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
     }
     MSStop* lastStop = nullptr;
     if (veh.hasStops()) {
-        lastStop = &veh.getStop(veh.getStops().size() - 1);
+        lastStop = &veh.getStop((int)veh.getStops().size() - 1);
     }
     if (lastStop == nullptr || lastStop->parkingarea == nullptr) {
         const MSParkingArea* pa = rerouteDef->parkProbs.getVals().front().first;
@@ -204,7 +204,7 @@ MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
         stop.actType = "idling";
         stop.parkingarea = pa->getID();
         stop.parking = ParkingType::OFFROAD;
-        int nextStopIndex = veh.getStops().size();
+        const int nextStopIndex = (int)veh.getStops().size();
         std::string error;
         if (!veh.insertStop(nextStopIndex, stop, "taxi:taxistand", false, error)) {
             WRITE_WARNING("Stop insertion failed for idling taxi '" + veh.getID() + "' (" + error + ").");

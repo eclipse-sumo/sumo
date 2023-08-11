@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -42,6 +42,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <guisim/GUICalibrator.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GUICalibrator.h"
@@ -312,25 +313,25 @@ GUICalibrator::getParameterWindow(GUIMainWindow& app,
     if (myCalibrator->isActive()) {
         ret = new GUIParameterTableWindow(app, *this);
         // add items
-        ret->mkItem("interval start", false, STEPS2TIME(myCurrentStateInterval->begin));
-        ret->mkItem("interval end", false, STEPS2TIME(myCurrentStateInterval->end));
-        ret->mkItem("aspired flow [veh/h]", false, myCurrentStateInterval->q);
-        ret->mkItem("aspired speed", false, myCurrentStateInterval->v);
-        ret->mkItem("current flow [veh/h]", true, new FunctionBinding<MSCalibrator, double>(myCalibrator, &MSCalibrator::currentFlow));
-        ret->mkItem("current speed", true, new FunctionBinding<MSCalibrator, double>(myCalibrator, &MSCalibrator::currentSpeed));
-        ret->mkItem("default speed", false, myCalibrator->myDefaultSpeed);
-        ret->mkItem("required vehicles", true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::totalWished));
-        ret->mkItem("passed vehicles", true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::passed));
-        ret->mkItem("inserted vehicles", true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::inserted));
-        ret->mkItem("removed vehicles", true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::removed));
-        ret->mkItem("cleared in jam", true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::clearedInJam));
+        ret->mkItem(TL("interval start"), false, STEPS2TIME(myCurrentStateInterval->begin));
+        ret->mkItem(TL("interval end"), false, STEPS2TIME(myCurrentStateInterval->end));
+        ret->mkItem(TL("aspired flow [veh/h]"), false, myCurrentStateInterval->q);
+        ret->mkItem(TL("aspired speed"), false, myCurrentStateInterval->v);
+        ret->mkItem(TL("current flow [veh/h]"), true, new FunctionBinding<MSCalibrator, double>(myCalibrator, &MSCalibrator::currentFlow));
+        ret->mkItem(TL("current speed"), true, new FunctionBinding<MSCalibrator, double>(myCalibrator, &MSCalibrator::currentSpeed));
+        ret->mkItem(TL("default speed"), false, myCalibrator->myDefaultSpeed);
+        ret->mkItem(TL("required vehicles"), true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::totalWished));
+        ret->mkItem(TL("passed vehicles"), true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::passed));
+        ret->mkItem(TL("inserted vehicles"), true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::inserted));
+        ret->mkItem(TL("removed vehicles"), true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::removed));
+        ret->mkItem(TL("cleared in jam"), true, new FunctionBinding<MSCalibrator, int>(myCalibrator, &MSCalibrator::clearedInJam));
     } else {
         ret = new GUIParameterTableWindow(app, *this);
         const std::string nextStart =
             (myCurrentStateInterval != myCalibrator->myIntervals.end() ?
              time2string(myCurrentStateInterval->begin) :
              "simulation end");
-        ret->mkItem("inactive until", false, nextStart);
+        ret->mkItem(TL("inactive until"), false, nextStart);
     }
     // close building
     ret->closeBuilding();

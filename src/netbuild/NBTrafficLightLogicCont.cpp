@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -145,10 +145,10 @@ NBTrafficLightLogicCont::extract(NBTrafficLightDefinition* definition) {
 
 
 bool
-NBTrafficLightLogicCont::exist(const std::string& newID) const {
+NBTrafficLightLogicCont::exist(const std::string& newID, bool requireComputed) const {
     const auto itD = myDefinitions.find(newID);
     const auto itC = myComputed.find(newID);
-    if ((itD != myDefinitions.end()) && (itC != myComputed.end())) {
+    if ((itD != myDefinitions.end()) && (itC != myComputed.end() || !requireComputed)) {
         return true;
     } else {
         return false;
@@ -421,7 +421,7 @@ NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
     for (NBTrafficLightLogic* computed : getComputed()) {
         const std::string computedID = computed->getID();
         if (defsToGroup.find(computedID) != defsToGroup.end()) {
-            // remember corresponding tl indices and check if they can be joined            
+            // remember corresponding tl indices and check if they can be joined
             // execute tl index joins if possible
             const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = computed->getPhases();
             std::vector<int> major2minor;
@@ -438,7 +438,7 @@ NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
                     }
                     it++;
                     for (; it != indexSet.second.end(); it++) {
-                        char compareChar = (phase.state[*it] != LINKSTATE_TL_GREEN_MAJOR) ? phase.state[*it] : LINKSTATE_TL_GREEN_MINOR;
+                        const char compareChar = (phase.state[*it] != LINKSTATE_TL_GREEN_MAJOR) ? phase.state[*it] : (char)LINKSTATE_TL_GREEN_MINOR;
                         if (compareChar != firstChar) {
                             same = false;
                             break;
@@ -460,7 +460,7 @@ NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
                     lDef = new NBLoadedSUMOTLDef(*defsToGroup[computedID], *computed);
                     lDef->setParticipantsInformation();
                     for (int index : major2minor) { // update the signal states (G -> g where needed)
-                        for (int i = 0; i < phases.size(); i++) {
+                        for (int i = 0; i < (int)phases.size(); i++) {
                             if (phases[i].state[index] == LINKSTATE_TL_GREEN_MAJOR) {
                                 lDef->getLogic()->setPhaseState(i, index, LINKSTATE_TL_GREEN_MINOR);
                             }
@@ -469,7 +469,7 @@ NBTrafficLightLogicCont::applyOpenDriveControllers(OptionsCont& oc) {
                     // join signal groups, update the connections
                     std::vector<int> indexToRemove;
                     for (const auto& indexSet : controllerID2tlIndex[computedID]) {
-                        int minIndex = *indexSet.second.begin();                      
+                        int minIndex = *indexSet.second.begin();
                         for (int index : indexSet.second) {
                             if (index != minIndex) {
                                 lDef->replaceIndex(index, minIndex);

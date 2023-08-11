@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -67,10 +67,10 @@ def readLines(lines):
                 int(flowDef[1]), int(flowDef[2]), float(flowDef[3]), float(flowDef[4]))
 
 
-parser = sumolib.options.ArgumentParser(usage="usage: %prog [options] [flow.txt|flows.zip]+")
+parser = sumolib.options.ArgumentParser(usage="usage: %(prog)s [options] [flow.txt|flows.zip]+")
 parser.add_option("-d", "--det-file", dest="detfile", category="input", type=parser.file,
                   help="read detectors of interest from FILE", metavar="FILE")
-parser.add_option("flow-files", dest="flowFiles", category="input", nargs="+", type=parser.file,
+parser.add_option("flowFiles", category="input", nargs="+", type=parser.file,
                   help="one or more flow input files", metavar="FILE")
 options = parser.parse_args()
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -87,6 +87,7 @@ enum class GUIIcon {
     SAVE_MULTIPLE,
     SAVE_NETWORKELEMENTS,
     SAVE_ADDITIONALELEMENTS,
+    SAVE_JUPEDSIMELEMENTS,
     SAVE_DEMANDELEMENTS,
     SAVE_DATAELEMENTS,
     SAVE_MEANDATAELEMENTS,
@@ -360,13 +361,16 @@ enum class GUIIcon {
     MODESHAPE,
     MODEPROHIBITION,
     MODEWIRE,
+    MODEDECAL,
     /// @}
 
     /// @name Netedit Demand modes icons
     /// @{
     MODEROUTE,
+    MODEROUTEDISTRIBUTION,
     MODEVEHICLE,
     MODETYPE,
+    MODETYPEDISTRIBUTION,
     MODESTOP,
     MODEPERSON,
     MODEPERSONPLAN,
@@ -443,12 +447,23 @@ enum class GUIIcon {
     OVERHEADWIRE_CLAMP,
     /// @}
 
-    /// @name poly elements icons
+    /// @name shape elements icons
     /// @{
     POLY,
     POI,
     POILANE,
     POIGEO,
+    /// @}
+
+    /// @name juPedSim elements
+    /// @{
+    JPS,
+    JPS_WALKABLEAREA,
+    JPS_OBSTACLE,
+    JPS_WAITINGAREA,
+    JPS_SOURCE,
+    JPS_SINK,
+    JPS_WAYPOINT,
     /// @}
 
     /// @name TAZ elements icons
@@ -461,13 +476,16 @@ enum class GUIIcon {
     /// @name Netedit Demand elements icons
     /// @{
     ROUTE,
+    ROUTEDISTRIBUTION,
     VTYPE,
     VTYPEDISTRIBUTION,
     VEHICLE,
     TRIP,
     TRIP_JUNCTIONS,
+    TRIP_TAZS,
     FLOW,
     FLOW_JUNCTIONS,
+    FLOW_TAZS,
     ROUTEFLOW,
     STOPELEMENT,
     WAYPOINT,
@@ -638,7 +656,7 @@ enum class GUIIcon {
     /// @brief icons for geo tools
     /// @{
     GEOHACK,
-    GOOGLESAT,
+    GOOGLEMAPS,
     OSM,
     /// @}
 

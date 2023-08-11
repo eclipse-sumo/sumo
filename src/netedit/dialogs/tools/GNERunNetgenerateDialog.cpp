@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -196,11 +196,12 @@ GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // close run dialog and call postprocessing
     onCmdCancel(nullptr, 0, nullptr);
     myText->setText("", 0);
-    myError = false;
     // call postprocessing dialog
     if (myError) {
         return 1;
     } else {
+        // don't run this again
+        myError = true;
         return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
     }
 }
@@ -210,7 +211,8 @@ long
 GNERunNetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // abort tool
     myRunNetgenerate->abort();
-    // hide dialog
+    // workaround race conditionat that prevents hiding
+    show();
     hide();
     return 1;
 }
@@ -250,7 +252,7 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         delete e;
         updateDialog();
     }
-    
+
     if (toolFinished) {
         // check if close dialog immediately after running
         if (myText->getText().find("Error") != -1) {

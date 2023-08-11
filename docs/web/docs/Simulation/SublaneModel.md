@@ -28,7 +28,7 @@ in parallel on 2 lanes)
 This model is activated using the option **--lateral-resolution** {{DT_FLOAT}}. The model is described in
 *Simulation framework for testing ADAS in Chinese traffic situations*
 [in proceedings of
-SUMO2016](http://elib.dlr.de/106342/1/SUMOconference_proceedings_2016.pdf)
+SUMO2016](https://elib.dlr.de/106342/1/SUMOconference_proceedings_2016.pdf)
 
 
 ## Lateral Resolution and Vehicle Position

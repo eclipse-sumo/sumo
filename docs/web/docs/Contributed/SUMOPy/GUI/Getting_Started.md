@@ -226,7 +226,7 @@ choosing the menu
 `Network>Edit with netedit`
 
 netedit| will be fired up with the network ready to be edited. The use
-of netedit| is documented here: <http://sumo.dlr.de/docs/netedit.html>. After
+of netedit| is documented here: <https://sumo.dlr.de/docs/netedit.html>. After
 editing, the network must be saved within netedit| be pressing <CTRL>-s
 or with File\>save|. Then netedit| can be closed and the modified
 network will be reimported into SUMOPy.

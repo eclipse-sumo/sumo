@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -45,7 +45,6 @@
 
 SUMOVehicleParserHelper::CFAttrMap SUMOVehicleParserHelper::allowedCFModelAttrs;
 SUMOVehicleParserHelper::LCAttrMap SUMOVehicleParserHelper::allowedLCModelAttrs;
-std::set<SumoXMLAttr> SUMOVehicleParserHelper::allowedJMAttrs;
 
 
 // ===========================================================================
@@ -1560,21 +1559,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
 
 bool
 SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAttributes& attrs) {
-    if (allowedJMAttrs.size() == 0) {
-        // init static set (there is only one model)
-        allowedJMAttrs.insert(SUMO_ATTR_JM_CROSSING_GAP);
-        allowedJMAttrs.insert(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME);
-        allowedJMAttrs.insert(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME);
-        allowedJMAttrs.insert(SUMO_ATTR_JM_DRIVE_RED_SPEED);
-        allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME);
-        allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_FOE_SPEED);
-        allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_FOE_PROB);
-        allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB);
-        allowedJMAttrs.insert(SUMO_ATTR_JM_SIGMA_MINOR);
-        allowedJMAttrs.insert(SUMO_ATTR_JM_STOPLINE_GAP);
-        allowedJMAttrs.insert(SUMO_ATTR_JM_TIMEGAP_MINOR);
-    }
-    for (const auto& it : allowedJMAttrs) {
+    for (const auto& it : SUMOVTypeParameter::AllowedJMAttrs) {
         if (attrs.hasAttribute(it)) {
             // first obtain  CFM attribute in string format
             bool ok = true;

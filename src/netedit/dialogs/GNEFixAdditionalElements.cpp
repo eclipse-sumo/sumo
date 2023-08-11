@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -94,7 +94,7 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
     // first check options from single lane additionals
     if (myAdditionalList->myInvalidSingleLaneAdditionals.size() > 0) {
         if (myPositionOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front()->getTagProperty().getGUIIcon(),
+            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
             // iterate over invalid single lane elements to enable friendly position
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
@@ -102,7 +102,7 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
             }
             myViewNet->getUndoList()->end();
         } else if (myPositionOptions->fixPositionsAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front()->getTagProperty().getGUIIcon(),
+            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "fix positions of invalid additionals");
             // iterate over invalid single lane elements to fix positions
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
@@ -110,7 +110,7 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
             }
             myViewNet->getUndoList()->end();
         } else if (myPositionOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front()->getTagProperty().getGUIIcon(),
+            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "select invalid additionals");
             // iterate over invalid single lane elements to select all elements
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
@@ -123,7 +123,7 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
     }
     // now check options from multi lane additionals
     if (myAdditionalList->myInvalidMultiLaneAdditionals.size() > 0) {
-        myViewNet->getUndoList()->begin(myAdditionalList->myInvalidMultiLaneAdditionals.front()->getTagProperty().getGUIIcon(),
+        myViewNet->getUndoList()->begin(myAdditionalList->myInvalidMultiLaneAdditionals.front(),
                                         "fix multilane additionals problems");
         // fix problems of consecutive lanes
         if (myConsecutiveLaneOptions->buildConnectionBetweenLanes->getCheck() == TRUE) {
@@ -211,7 +211,7 @@ GNEFixAdditionalElements::AdditionalList::AdditionalList(GNEFixAdditionalElement
     // iterate over single lane additionals
     for (auto i : myInvalidSingleLaneAdditionals) {
         // Set icon
-        item = new FXTableItem("", i->getACIcon());
+        item = new FXTableItem("", i->getFXIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
         myTable->setItem(indexRow, 0, item);
         // Set ID
@@ -228,7 +228,7 @@ GNEFixAdditionalElements::AdditionalList::AdditionalList(GNEFixAdditionalElement
     // iterate over multi lane additionals
     for (auto i : myInvalidMultiLaneAdditionals) {
         // Set icon
-        item = new FXTableItem("", i->getACIcon());
+        item = new FXTableItem("", i->getFXIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
         myTable->setItem(indexRow, 0, item);
         // Set ID

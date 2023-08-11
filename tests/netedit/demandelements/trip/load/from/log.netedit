@@ -1,4 +1,4 @@
-Error: trip definition needs either 'from/to' or 'fromJunction/toJunction'
+Error: trip definition needs either 'from/to' or 'fromJunction/toJunction' or 'fromTaz/toTaz'
 Error: Attribute 'from' in definition of trip 'trip_1' is empty.
 Error: Could not build trip in netedit; edge doesn't exist.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\trip\load\from\routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun112305.41333/netedit.gui/demandelements/trip/load/from/routes.rou.xml failed.

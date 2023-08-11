@@ -33,7 +33,7 @@ described at [sumo#mesoscopic](../sumo.md#mesoscopic)
 
 # Model Description
 
-The simulation model is based on the work of [Eissfeldt, Vehicle-based modelling of traffic](http://kups.ub.uni-koeln.de/1274/). The original
+The simulation model is based on the work of [Eissfeldt, Vehicle-based modelling of traffic](https://kups.ub.uni-koeln.de/1274/). The original
 model was focused on motorway traffic. The current implementation
 contains significant extensions to support the simulation of
 heterogeneous urban traffic as well.

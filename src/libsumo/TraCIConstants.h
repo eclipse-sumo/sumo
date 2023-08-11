@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -1142,6 +1142,9 @@ TRACI_CONST int VAR_DEPART_DELAY = 0x3b;
 
 // boarding time (get: vehicle type, vehicle, person)
 TRACI_CONST int VAR_BOARDING_DURATION = 0x2f;
+
+// impatience (get,set: vehicle type, vehicle, person)
+TRACI_CONST int VAR_IMPATIENCE = 0x26;
 
 TRACI_CONST int VAR_BUS_STOP_ID_LIST = 0x9f;
 

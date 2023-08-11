@@ -19,7 +19,7 @@
       "pattern": "https://github.com/eclipse/sumo/blob/main/"
     },
     {
-      "pattern": "https://elib.dlr.de/94006/1/Proceeding_SUMO2014_15%2B16May2014_Berlin-Adlershof.pdf"
+      "pattern": "^https://elib.dlr.de/"
     },
     {
       "pattern": "https://doi.org/10.3141/2623-01"

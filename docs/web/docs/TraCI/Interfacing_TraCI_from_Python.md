@@ -195,7 +195,7 @@ The following filter types are available:
 - VClass: Only return vehicles of the specified vClasses
 
 See the [pydoc
-documentation](http://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterCFManeuver)
+documentation](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterCFManeuver)
 for detailed specifications.
 
 !!! caution
@@ -374,7 +374,7 @@ gdb --args sumoD -c debug.sumocfg
 mode](../Installing/Linux_Build.md#building_the_sumo_binaries_with_cmake_recommended))
 
 ### Generating a log of all traci commands
-To share a traci scenario (i.e. in a bug report) it may be useful to seperate the logic of the traci script from the actual commands.
+To share a traci scenario (i.e. in a bug report) it may be useful to separate the logic of the traci script from the actual commands.
 For this, the function `traci.start` accepts the optional arguments `traceFile` and `traceGetters`.
 When calling `traci.start([<commands>], traceFile=<LOG_FILE_PATH>)` all traci commands that were sent to sumo will be written to the given LOG_FILE_PATH.
 This allows re-running the scenario without the original runner script.

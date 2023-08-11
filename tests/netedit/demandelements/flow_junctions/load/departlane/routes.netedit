@@ -5,10 +5,10 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_2" begin="20.00" departLane="0" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
-    <flow id="flow_4" begin="20.00" departLane="random" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
-    <flow id="flow_5" begin="20.00" departLane="free" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
-    <flow id="flow_6" begin="20.00" departLane="allowed" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
-    <flow id="flow_7" begin="20.00" departLane="best" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
-    <flow id="flow_8" begin="20.00" departLane="first" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
+    <flow id="flow_2" begin="20.00" departLane="0" fromJunction="Junction0" toJunction="Junction3" end="50.00" number="100"/>
+    <flow id="flow_4" begin="20.00" departLane="random" fromJunction="Junction0" toJunction="Junction3" end="50.00" number="100"/>
+    <flow id="flow_5" begin="20.00" departLane="free" fromJunction="Junction0" toJunction="Junction3" end="50.00" number="100"/>
+    <flow id="flow_6" begin="20.00" departLane="allowed" fromJunction="Junction0" toJunction="Junction3" end="50.00" number="100"/>
+    <flow id="flow_7" begin="20.00" departLane="best" fromJunction="Junction0" toJunction="Junction3" end="50.00" number="100"/>
+    <flow id="flow_8" begin="20.00" departLane="first" fromJunction="Junction0" toJunction="Junction3" end="50.00" number="100"/>
 </routes>

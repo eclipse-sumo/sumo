@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -530,6 +530,12 @@ public:
      * @param[in] shape The new shape of this type
      */
     void setShape(SUMOVehicleShape shape);
+
+    /** @brief Set a new value for this type's boardingDuration
+     * @param[in] boardingDuration The new boardingDuration of this type
+     * @param[in] isPerson Whether to set boardingDuration or loadingDuration
+     */
+    void setBoardingDuration(SUMOTime duration, bool isPerson = true);
 
     /** @brief Set a new value for this type's impatience
      * @param[in] impatience The new impatience of this type

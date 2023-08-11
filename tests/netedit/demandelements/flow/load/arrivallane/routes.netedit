@@ -5,7 +5,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_2" begin="20.00" arrivalLane="0" from="gneE2" to="gneE5" end="500.00" number="100"/>
-    <flow id="flow_3" begin="20.00" arrivalLane="500" from="gneE2" to="gneE5" end="500.00" number="100"/>
-    <flow id="flow_4" begin="20.00" arrivalLane="current" from="gneE2" to="gneE5" end="500.00" number="100"/>
+    <flow id="flow_2" begin="20.00" arrivalLane="0" from="Edge0" to="Edge2" end="500.00" number="100"/>
+    <flow id="flow_3" begin="20.00" arrivalLane="500" from="Edge0" to="Edge2" end="500.00" number="100"/>
+    <flow id="flow_4" begin="20.00" arrivalLane="current" from="Edge0" to="Edge2" end="500.00" number="100"/>
 </routes>

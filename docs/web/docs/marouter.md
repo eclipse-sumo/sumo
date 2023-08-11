@@ -35,14 +35,22 @@ assignment method (using option **assignment-method**):
 
 - **SUE**: stochastic user equilibrium
 
+marouter reads OD matrices and creates route files. These route files
+contain route distributions between traffic assignment zones. Each route
+in the distribution is a fully specified list of network edges.
+
+## Capacity-constraint (volume-delay) function
+
 marouter uses a hard-coded capacity-constraint function based on speed
 limit, lane number and edge priority to compute traveltimes and flows
 based on density. For details, see functions
 *capacityConstraintFunction* and *getCapacity* in [{{SUMO}}/src/marouter/ROMAAssignments.cpp]({{Source}}src/marouter/ROMAAssignments.cpp).
 
-marouter reads OD matrices and creates route files. These route files
-contain route distributions between traffic assignment zones. Each route
-in the distribution is a fully specified list of network edges.
+By setting option **--capacities.default**, the following constraint function is used:
+```
+capacity = edge->getNumLanes() * 800;
+travelTime = edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 0.9)) * 3.);
+```
 
 ## Microscopic Outputs
 
@@ -76,7 +84,7 @@ understand how the different traffic measures change over time.
 
 You may use a XML schema definition file for setting up a marouter
 configuration:
-[marouterConfiguration.xsd](http://sumo.dlr.de/xsd/marouterConfiguration.xsd).
+[marouterConfiguration.xsd](https://sumo.dlr.de/xsd/marouterConfiguration.xsd).
 
 ### Configuration
 

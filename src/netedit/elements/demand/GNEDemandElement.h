@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -29,6 +29,8 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
+#include "GNEDemandElementDistribution.h"
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -50,11 +52,12 @@ class GNEJunction;
  * @class GNEDemandElement
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement {
+class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
 
 public:
     /// @brief friend declaration (needed for vTypes)
     friend class GNERouteHandler;
+    friend class GNEDemandElementFlow;
 
     /// @brief enum class for demandElement problems
     enum class Problem {
@@ -172,12 +175,6 @@ public:
      * @throw invalid argument if demand element doesn't have an demand element Dialog
      */
     virtual void openDemandElementDialog();
-
-    /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
-     * @throw invalid argument if demand element doesn't has a begin time
-     */
-    virtual std::string getBegin() const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -341,7 +338,19 @@ protected:
     int myStackedLabelNumber;
 
     /// @brief check if a new demand element ID is valid
-    bool isValidDemandElementID(const std::string& newID) const;
+    bool isValidDemandElementID(const std::string& value) const;
+
+    /// @brief check if a new demand element ID is valid
+    bool isValidDemandElementID(const std::vector<SumoXMLTag> &tags, const std::string& value) const;
+
+    /// @brief set demand element id
+    void setDemandElementID(const std::string& newID);
+
+    /// @brief get type parent (needed because first parent can be either type or typeDistribution)
+    GNEDemandElement* getTypeParent() const;
+
+    /// @brief get route parent (always the second parent demand element)
+    GNEDemandElement* getRouteParent() const;
 
     /// @name Only for person plans
     /// @{
@@ -374,10 +383,7 @@ protected:
     void drawJunctionLine(const GNEDemandElement* element) const;
 
     /// @brief draw stack label
-    void drawStackLabel(const std::string& element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
-
-    /// @brief draw flow label
-    void drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
+    void drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
 
     /// @name replace parent elements
     /// @{
@@ -400,8 +406,11 @@ protected:
     /// @brief replace the last parent edge
     void replaceLastParentEdge(const std::string& value);
 
-    /// @brief replace additional parent
-    void replaceAdditionalParent(SumoXMLTag tag, const std::string& value);
+    /// @brief replace the first parent additional
+    void replaceFirstParentAdditional(SumoXMLTag tag, const std::string& value);
+
+    /// @brief replace the last parent additional
+    void replaceLastParentAdditional(SumoXMLTag tag, const std::string& value);
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
@@ -436,14 +445,14 @@ protected:
     /// @brief get edgeStopIndex
     std::vector<EdgeStopIndex> getEdgeStopIndex() const;
 
-    /// @brief set flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
-    void setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value);
-
-    /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
-    void adjustDefaultFlowAttributes(SUMOVehicleParameter* vehicleParameters);
+    /// @brief get distribution in which the given element is part
+    std::string getDistributionParents() const;
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;
+    
+    /// @brief build menu command route length
+    void buildMenuAddReverse(GUIGLObjectPopupMenu* ret) const;
 
 private:
     /**@brief check restriction with the number of children

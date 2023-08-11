@@ -1,0 +1,5 @@
+<meandata>
+    <interval begin="0" end="100:00:00:00">
+        <edge id="SC" jammed="5"/>
+    </interval>
+</meandata>

@@ -3442,6 +3442,7 @@
     <Compile Include="tazelements\taz\move\vertex_existent\test.py" />
     <Compile Include="tazelements\taz\move\vertex_new\test.py" />
     <Compile Include="tazelements\taz\volatilerecomputing\test.py" />
+    <Compile Include="testPositions.py" />
     <Compile Include="volatilerecomputing\abort-recomputing\test.py" />
     <Compile Include="volatilerecomputing\crossings.guess\test.py" />
     <Compile Include="volatilerecomputing\sidewalks-and-crossings.guess\test.py" />

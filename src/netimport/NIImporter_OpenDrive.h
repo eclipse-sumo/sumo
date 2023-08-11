@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -111,7 +111,8 @@ protected:
         OPENDRIVE_TAG_GEOREFERENCE,
         OPENDRIVE_TAG_OFFSET,
         OPENDRIVE_TAG_OBJECT,
-        OPENDRIVE_TAG_REPEAT
+        OPENDRIVE_TAG_REPEAT,
+        OPENDRIVE_TAG_INCLUDE
     };
 
 
@@ -174,7 +175,8 @@ protected:
         OPENDRIVE_ATTR_RESTRICTION,
         OPENDRIVE_ATTR_NAME,
         OPENDRIVE_ATTR_UNIT,    // xodr v1.4
-        OPENDRIVE_ATTR_SIGNALID
+        OPENDRIVE_ATTR_SIGNALID,
+        OPENDRIVE_ATTR_FILE
     };
 
 
@@ -654,7 +656,7 @@ protected:
         }
         std::sort(junctionControllers.begin(), junctionControllers.end());
         auto it = std::find(junctionControllers.begin(), junctionControllers.end(), controllerID);
-        return it - junctionControllers.begin();
+        return (int)(it - junctionControllers.begin());
     }
 
 
@@ -687,6 +689,7 @@ private:
     std::map<std::string, OpenDriveController> myControllers;
     std::map<std::string, std::vector<std::string>> myJunctions2Controllers;
     Position myOffset;
+    bool myUseCurrentNode;
 
     static bool myImportAllTypes;
     static bool myImportWidths;
@@ -763,7 +766,7 @@ protected:
     static void recomputeWidths(OpenDriveLaneSection& sec, double start, double end, double sectionStart, double sectionEnd);
     static void recomputeWidths(std::vector<OpenDriveLane>& lanes, double start, double end, double sectionStart, double sectionEnd);
     static void setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& sumoLane, const OpenDriveLane& odLane, bool saveOrigIDs, const NBTypeCont& tc);
-    static void writeRoadObjects(const OpenDriveEdge* e); 
+    static void writeRoadObjects(const OpenDriveEdge* e);
 
     /// The names of openDrive-XML elements (for passing to GenericSAXHandler)
     static StringBijection<int>::Entry openDriveTags[];

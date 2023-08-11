@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-20 17:23:28 by Eclipse SUMO od2trips Version v1_17_0+0647-2bbbfe918d9
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
+
+    <input>
+        <taz-files value="input_taz.taz.xml"/>
+        <od-matrix-files value="input_od_o_peak.fma"/>
+    </input>
+
+    <output>
+        <output-file value="od_normal_scale0.5_public_peak_trips.xml"/>
+        <persontrips value="true"/>
+        <persontrips.modes value="public"/>
+    </output>
+
+    <processing>
+        <scale value="0.5"/>
+        <timeline value="0,0,0,0,0,0.05,0.23,0.45,0.27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+        <timeline.day-in-hours value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="9585" depart="0">
+        <personTrip from="584100104#6" to="182669299#3" modes="public"/>
+    </person>
+</routes>

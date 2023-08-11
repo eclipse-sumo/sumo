@@ -177,24 +177,24 @@ To separate columns, just use a pipe `|`.
 In order to insert Mathematical expressions (symbols or equations), you should write them in [LaTeX format](https://en.wikibooks.org/wiki/LaTeX/Mathematics). Math elements are being displayed as images, using a html `<img>` element.
 Just replace `<HERE>` with your math expression in the following html element:
 
-`<img src="http://latex.codecogs.com/gif.latex?<HERE>" border="0" style="margin:0;"/>`
+`<img src="https://latex.codecogs.com/gif.latex?<HERE>" border="0" style="margin:0;"/>`
 
 
 ## Example
 ```
-<img src="http://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/>
+<img src="https://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/>
 ```
 ***will display:***
 
-<img src="http://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/>
+<img src="https://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/>
 
 <hr>
 ```
-<img src="http://latex.codecogs.com/gif.latex?F(x)=\int^a_b\frac{1}{3}x^3" border="0" style="margin:0;"/>
+<img src="https://latex.codecogs.com/gif.latex?F(x)=\int^a_b\frac{1}{3}x^3" border="0" style="margin:0;"/>
 ```
 ***will display:***
 
-<img src="http://latex.codecogs.com/gif.latex?F(x)=\int^a_b\frac{1}{3}x^3" border="0" style="margin:0;"/>
+<img src="https://latex.codecogs.com/gif.latex?F(x)=\int^a_b\frac{1}{3}x^3" border="0" style="margin:0;"/>
 
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -141,7 +141,7 @@ def computeScoreFromTimeLoss(gamename):
     completed = False
 
     for line in open(gamename + ".log"):
-        if "Simulation ended at time" in line:
+        if "Reason: The final simulation step has been reached." in line:
             completed = True
         m = re.search('Inserted: ([0-9]*)', line)
         if m:
@@ -235,6 +235,7 @@ def computeScoreSquare(gamename):
 _SCORING_FUNCTION = defaultdict(lambda: computeScoreFromWaitingTime)
 _SCORING_FUNCTION.update({
     'A10KW': computeScoreFromTimeLoss,
+    'highway': computeScoreFromTimeLoss,
     'DRT': computeScoreDRT,
     'DRT2': computeScoreDRT,
     'DRT_demo': computeScoreDRT,
@@ -419,13 +420,16 @@ class StartDialog(Tkinter.Frame):
                 self.high.update(pickle.load(sf))
 
     def start_cfg(self, cfg):
-        # remember which which cfg was launched
+        # remember which cfg was launched
         self.category = self.category_name(cfg)
         if _DEBUG:
             print("starting", cfg)
         self.gametime = parseEndTime(cfg)
+        binary = sumolib.checkBinary("sumo-gui", BASE)
+        if binary == "sumo-gui": # fallback in case SUMO_HOME env is not defined
+            binary = sumolib.checkBinary("sumo-gui", os.path.join(SUMO_HOME, "bin"))
         self.ret = subprocess.call(
-            [sumolib.checkBinary("sumo-gui", BASE), "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
+            [binary, "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
                 '--output-prefix', "%s." % self.category, '--language', self._langCode,
                 '--duration-log.statistics', '--statistic-output', 'stats.xml',
                 '--tripinfo-output.write-unfinished'], stderr=sys.stderr)
@@ -470,7 +474,7 @@ class ScoreDialog:
         self.switch = switch
         self.score = score
         self.category = category
-        self.root.title(lang["Highscore"])
+        self.root.title("%s%s" % (lang["Highscore"], ": " + lang[self.category] if self.category in lang else ""))
         self.root.minsize(250, 50)
         self.high = high
 
@@ -568,6 +572,7 @@ def main():
                          help=("Defines the stereo mode to use for 3D output; unique prefix of %s" % (
                                ", ".join(stereoModes))))
     optParser.add_option("add", nargs="*", help="additional flags: {debug|noupload}")
+
     addLanguageOption(optParser)
     options = optParser.parse_args()
     setLanguage(options.language)

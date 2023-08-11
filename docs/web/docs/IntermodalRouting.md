@@ -48,7 +48,7 @@ with a [public transport schedule](Simulation/Public_Transport.md#public_transpo
 An example for a bus line and a person that may uses this line are given below:
 
 ```xml
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <flow id="bus" from = "beg" to ="end" line="bus" begin="0" end="1000" period="300">
                 <stop busStop="busStopA" until="10"/>
                 <stop busStop="busStopB" until="110"/>

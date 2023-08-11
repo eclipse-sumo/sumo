@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -27,6 +27,7 @@
 #include "MSEdge.h"
 #include "MSNet.h"
 #include "MSRouteHandler.h"
+#include "MSStop.h"
 #include <microsim/devices/MSVehicleDevice.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <utils/common/FileHelpers.h>
@@ -454,20 +455,48 @@ MSVehicleControl::getVTypeDistributionMembership(const std::string& id) const {
 
 const RandomDistributor<MSVehicleType*>*
 MSVehicleControl::getVTypeDistribution(const std::string& typeDistID) const {
-    auto it = myVTypeDistDict.find(typeDistID);
+    const auto it = myVTypeDistDict.find(typeDistID);
     if (it != myVTypeDistDict.end()) {
         return it->second;
-    } else {
-        return nullptr;
     }
+    return nullptr;
 }
 
 
 void
 MSVehicleControl::abortWaiting() {
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        WRITE_WARNINGF(TL("Vehicle '%' aborted waiting for a % that will never come."), i->first,
-                       i->second->getParameter().departProcedure == DepartDefinition::SPLIT ? "split" : "person or container")
+        SUMOVehicle* veh = i->second;
+        std::string waitReason;
+        if (veh->isStoppedTriggered()) {
+            const MSStop& stop = veh->getNextStop();
+            if (stop.triggered) {
+                waitReason = "for a person that will never come";
+            } else if (stop.containerTriggered) {
+                waitReason = "for a container that will never come";
+            } else if (stop.joinTriggered) {
+                if (stop.pars.join != "") {
+                    waitReason = "to be joined to vehicle '" + stop.pars.join + "'";
+                } else {
+                    waitReason = "for a joining vehicle that will never come";
+                }
+            } else {
+                waitReason = "for an unknown trigger";
+            }
+        } else if (!veh->hasDeparted()) {
+            if (veh->getParameter().departProcedure == DepartDefinition::SPLIT) {
+                waitReason = "for a train from which to split";
+            } else if (veh->getParameter().departProcedure == DepartDefinition::TRIGGERED) {
+                waitReason = "at insertion for a person that will never come";
+            } else if (veh->getParameter().departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
+                waitReason = "at insertion for a container that will never come";
+            } else {
+                waitReason = "for an unknown departure trigger";
+            }
+        } else {
+            waitReason = "for an unknown reason";
+        }
+        WRITE_WARNINGF(TL("Vehicle '%' aborted waiting %."), i->first, waitReason);
     }
 }
 

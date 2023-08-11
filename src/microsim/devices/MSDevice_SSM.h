@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -196,9 +196,11 @@ private:
             EncounterType type;
             /// @brief value of the corresponding SSM
             double value;
+            /// @brief speed of the reporting vehicle at the given time/position
+            double speed;
 
-            ConflictPointInfo(double time, Position x, EncounterType type, double ssmValue) :
-                time(time), pos(x), type(type), value(ssmValue) {};
+            ConflictPointInfo(double time, Position x, EncounterType type, double ssmValue, double speed) :
+                time(time), pos(x), type(type), value(ssmValue), speed(speed) {};
         };
 
     public:
@@ -277,7 +279,7 @@ private:
         /// @brief All values for DRAC
         std::vector<double> DRACspan;
         /// @brief All values for MDRAC
-        std::vector<double> MDRACspan;        
+        std::vector<double> MDRACspan;
         /// @brief All values for PPET
         std::vector<double> PPETspan;
 
@@ -289,7 +291,7 @@ private:
         /// @{
         ConflictPointInfo minTTC;
         ConflictPointInfo maxDRAC;
-        ConflictPointInfo maxMDRAC;        
+        ConflictPointInfo maxMDRAC;
         ConflictPointInfo PET;
         ConflictPointInfo minPPET;
         /// @}
@@ -520,8 +522,8 @@ private:
      * @param conflictOrder Vector of order keywords ego/foe to be considered
      */
     MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
-        bool trajectories, double range, double extraTime, bool useGeoCoords, bool writePositions, bool writeLanesPositions, 
-        std::vector<int> conflictOrder);
+                 bool trajectories, double range, double extraTime, bool useGeoCoords, bool writePositions, bool writeLanesPositions,
+                 std::vector<int> conflictOrder);
 
     /** @brief Finds encounters for which the foe vehicle has disappeared from range.
      *         remainingExtraTime is decreased until it reaches zero, which triggers closing the encounter.
@@ -674,12 +676,12 @@ private:
      *         Returns 0.0 if no deceleration is required by the follower to avoid a crash, INVALID if collision is detected.
      */
     static double computeDRAC(double gap, double followerSpeed, double leaderSpeed);
-    
+
     /** @brief Computes the MDRAC (deceleration to avoid a collision) for a lead/follow situation as defined considering a reaction time of follower,
      *         e.g., in Fazekas et al. (2017, A Novel Surrogate Indicator Based on Constant Initial Acceleration and Reaction Time Assumption)
      *         for two vehicles with a given gap.
      *         Returns 0.0 if no deceleration is required by the follower to avoid a crash, INVALID if collision is detected.
-     */    
+     */
     static double computeMDRAC(double gap, double followerSpeed, double leaderSpeed, double prt);
 
     /** @brief Computes the DRAC a crossing situation, determining the minimal constant deceleration needed
@@ -754,7 +756,7 @@ private:
     std::vector<int> myDroppedConflictTypes;
 
     /// Flags for switching on / off comutation of different SSMs, derived from myMeasures
-    bool myComputeTTC, myComputeDRAC, myComputePET, myComputeBR, myComputeSGAP, myComputeTGAP, myComputePPET,myComputeMDRAC;
+    bool myComputeTTC, myComputeDRAC, myComputePET, myComputeBR, myComputeSGAP, myComputeTGAP, myComputePPET, myComputeMDRAC;
     MSVehicle* myHolderMS;
     /// @}
 

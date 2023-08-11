@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -109,7 +109,7 @@ public:
     void extract(NBTrafficLightDefinition* definition);
 
     /// @brief check if exists a definition with the given ID
-    bool exist(const std::string& newID) const;
+    bool exist(const std::string& newID, bool requireComputed = true) const;
 
     /// @brief rename traffic light
     void rename(NBTrafficLightDefinition* tlDef, const std::string& newID);

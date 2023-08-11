@@ -1,0 +1,31 @@
+/* XPM */
+static const char *modetypedistribution_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 9 1",
+"  c gray22",
+". c gray25",
+"X c gray39",
+"o c gray46",
+"O c #02BDFF",
+"+ c #50B2C9",
+"@ c #F7ECB6",
+"# c #FAAFC1",
+"$ c none",
+/* pixels */
+"$$$$OOOO$$$$$$$$",
+"$$$$OOOO$$$$$$$$",
+"$$$$OOOO####$$$$",
+"++++OOOO####$$$$",
+"+++        #@@@@",
+"++++XXXXXX##@@@@",
+"+++       ##@@@@",
+" + oooooo   @@ @",
+" + o...oooo    X",
+" X o.X.ooooooo X",
+" X o......oooo X",
+" + oooo.X.oooo X",
+" +  ooo...o    X",
+"+++  ooooo  @@ @",
+"++++       #@@@@",
+"++++OOOO####@@@@"
+};

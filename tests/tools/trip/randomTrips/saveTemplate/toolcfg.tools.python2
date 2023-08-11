@@ -16,8 +16,9 @@
     <fringe-speed-exponent value="None" type="string" help="weight fringe edge probability by speed^'FLOAT' (default: speed exponent)" category="processing"/>
     <fringe-threshold value="0.0" type="float" help="only consider edges with speed above 'FLOAT' as fringe edges (default 0)" category="processing"/>
     <fringe-start-attributes value="" type="string" help="additional trip attributes when starting on a fringe." category="processing"/>
-    <insertion-density value="None" type="string" help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option)." category="flow"/>
-    <insertion-rate value="None" type="string" help="How much vehicles arrive in the simulation per hour (alternative to the period option)." category="flow"/>
+    <from-stops value="None" type="string" help="Create trips that start at stopping places of the indicated type(s). i.e. 'busStop'" category="processing"/>
+    <insertion-density value="None" type="string" help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option)." category="flow" listSeparator=" "/>
+    <insertion-rate value="None" type="string" help="How much vehicles arrive in the simulation per hour (alternative to the period option)." category="flow" listSeparator=" "/>
     <intermediate value="0" type="int" help="generates the given number of intermediate way points" category="processing"/>
     <jtrrouter value="False" type="bool" help="Create flows without destination as input for jtrrouter" category="processing"/>
     <junction-taz value="False" type="bool" help="Write trips with fromJunction and toJunction" category="processing"/>
@@ -29,7 +30,7 @@
     <min-distance value="0.0" type="float" help="require start and end edges for each trip to be at least 'FLOAT' m apart" category="processing"/>
     <net-file value="None" type="net_file" help="define the net file (mandatory)" category="input" required="true"/>
     <pedestrians value="False" type="bool" help="create a person file with pedestrian trips instead of vehicle trips" category="processing"/>
-    <period value="None" type="string" help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period." category="flow"/>
+    <period value="None" type="string" help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period." category="flow" listSeparator=" "/>
     <personrides value="None" type="string" help="create a person file with rides using STR as lines attribute" category="processing"/>
     <persontrips value="False" type="bool" help="create a person file with person trips instead of vehicle trips" category="processing"/>
     <random value="False" type="bool" help="use a random seed to initialize the random number generator" category="seed"/>
@@ -42,6 +43,7 @@
     <route-file value="None" type="route_file" help="generates route file with duarouter" category="output"/>
     <seed value="42" type="int" help="random seed" category="seed"/>
     <speed-exponent value="0.0" type="float" help="weight edge probability by speed^'FLOAT' (default 0)" category="processing"/>
+    <to-stops value="None" type="string" help="Create trips that end at stopping places of the indicated type(s). i.e. 'busStop'" category="processing"/>
     <trip-attributes value="" type="string" help="additional trip attributes. When generating pedestrians, attributes for 'person' and 'walk' are supported." category="processing"/>
     <output-trip-file value="trips.trips.xml" type="route_file" help="define the output trip filename" category="output"/>
     <prefix value="" type="string" help="prefix for the trip ids" category="processing"/>

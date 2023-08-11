@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -31,6 +31,7 @@
 #include "GNEPersonTrip.h"
 #include "GNERide.h"
 #include "GNERoute.h"
+#include "GNERouteDistribution.h"
 #include "GNERouteHandler.h"
 #include "GNEStop.h"
 #include "GNETranship.h"
@@ -61,8 +62,6 @@ GNERouteHandler::~GNERouteHandler() {
 
 void
 GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter) {
-    // check vTypeDistribution
-    const bool vTypeDistribution = sumoBaseObject->getParentSumoBaseObject() && (sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION);
     // check if loaded type is a default type
     if (DEFAULT_VTYPES.count(vTypeParameter.id) > 0) {
         // overwrite default vehicle type
@@ -72,19 +71,23 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
     } else {
         // create vType/pType using myCurrentVType
         GNEDemandElement* vType = new GNEVType(myNet, vTypeParameter);
+        // check if add this vType to a distribution
+        GNEDemandElement* vTypeDistribution = nullptr;
+        if (sumoBaseObject->getParentSumoBaseObject() && sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {
+            vTypeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+        }
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, TL("add ") + vType->getTagStr() + " '" + vTypeParameter.id + "'");
+            myNet->getViewNet()->getUndoList()->begin(vType, TL("add ") + vType->getTagStr() + " '" + vTypeParameter.id + "'");
             overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
-            // check if place this vType within a vTypeDistribution
             if (vTypeDistribution) {
-                vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), myNet->getViewNet()->getUndoList());
+                vTypeDistribution->addDistributionKey(vType, vType->getAttributeDouble(SUMO_ATTR_PROB), myNet->getViewNet()->getUndoList());
             }
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(vType);
             if (vTypeDistribution) {
-                vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
+                vTypeDistribution->addDistributionKey(vType, vType->getAttributeDouble(SUMO_ATTR_PROB));
             }
             vType->incRef("buildVType");
         }
@@ -93,62 +96,41 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
 
 
 void
-GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                                        const int deterministic, const std::vector<std::string>& vTypes) {
+GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+                                        const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) {
+    // declare vector with vType and their probabilities
+    std::vector<const GNEDemandElement*> vTypes;
     // first check conditions
     if (!checkDuplicatedDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, id)) {
         writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VTYPE)));
-    } else if (vTypes.empty() && sumoBaseObject->getSumoBaseObjectChildren().empty()) {
-        writeError(TLF("% needs at least one %", toString(SUMO_TAG_VTYPE_DISTRIBUTION), toString(SUMO_TAG_VTYPE)));
-    } else {
-        bool checkVTypesOK = true;
-        // check vTypes
-        for (const auto& vType : vTypes) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vType, false) == nullptr) {
-                writeError(TLF("% with id '%' doesn't exist in % '%'", toString(SUMO_TAG_VTYPE), vType, toString(SUMO_TAG_VTYPE_DISTRIBUTION), id));
-                checkVTypesOK = false;
+    } else if (getDistributionElements(sumoBaseObject, SUMO_TAG_VTYPE, vTypeIDs, probabilities, vTypes)) {
+        // create distributions
+        GNEVTypeDistribution* vTypeDistribution = new GNEVTypeDistribution(myNet, id, deterministic);
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(vTypeDistribution, TL("add ") + vTypeDistribution->getTagStr() + " '" + id + "'");
+            overwriteDemandElement();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
+            // add all distributions
+            for (int i = 0; i < (int)vTypes.size(); i++) {
+                vTypeDistribution->addDistributionKey(vTypes.at(i), probabilities.at(i), myNet->getViewNet()->getUndoList());
             }
-        }
-        // now check childrens
-        for (const auto& child : sumoBaseObject->getSumoBaseObjectChildren()) {
-            if (child->hasStringAttribute(SUMO_ATTR_ID) == false) {
-                writeError(TLF("Invalid definition for % in % '%'", toString(SUMO_TAG_VTYPE), toString(SUMO_TAG_VTYPE_DISTRIBUTION), id));
-                checkVTypesOK = false;
-            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, child->getStringAttribute(SUMO_ATTR_ID), false) != nullptr) {
-                writeError(TLF("% with id '%' cannot be created in % '%'", toString(SUMO_TAG_VTYPE), child->getStringAttribute(SUMO_ATTR_ID), toString(SUMO_TAG_VTYPE_DISTRIBUTION), id));
-                checkVTypesOK = false;
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
+            // add all distributions directly
+            for (int i = 0; i < (int)vTypes.size(); i++) {
+                vTypeDistribution->addDistributionKey(vTypes.at(i), probabilities.at(i));
             }
-        }
-        // if all ok, then create vTypeDistribution
-        if (checkVTypesOK) {
-            GNEVTypeDistribution* vTypeDistribution = new GNEVTypeDistribution(myNet, id, deterministic);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPEDISTRIBUTION, TL("add ") + vTypeDistribution->getTagStr() + " '" + id + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
-                // set this vTypeDistribution as parent of the other vTypes
-                for (const auto& vTypeID : vTypes) {
-                    auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID);
-                    vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
-                }
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
-                vTypeDistribution->incRef("buildVType");
-                for (const auto& vTypeID : vTypes) {
-                    auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID);
-                    vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id);
-                }
-            }
+            vTypeDistribution->incRef("buildVTypeDistribution");
         }
     }
 }
 
 
 void
-GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, SUMOVehicleClass vClass,
+GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                            const Parameterised::Map& routeParameters) {
+                            const double probability, const Parameterised::Map& routeParameters) {
     // parse edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
     // check conditions
@@ -157,15 +139,26 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBase
     } else if (edges.size() > 0) {
         // create GNERoute
         GNEDemandElement* route = new GNERoute(myNet, id, vClass, edges, color, repeat, cycleTime, routeParameters);
+        // check if add this route to a distribution
+        GNEDemandElement* routeDistribution = nullptr;
+        if (sumoBaseObject->getParentSumoBaseObject() && sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION) {
+            routeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+        }
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::ROUTE, TL("add ") + route->getTagStr() + " '" + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(route, TL("add ") + route->getTagStr() + " '" + id + "'");
             overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
+            if (routeDistribution) {
+                routeDistribution->addDistributionKey(route, probability, myNet->getViewNet()->getUndoList());
+            }
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(route);
             for (const auto& edge : edges) {
                 edge->addChildElement(route);
+            }
+            if (routeDistribution) {
+                routeDistribution->addDistributionKey(route, probability);
             }
             route->incRef("buildRoute");
         }
@@ -185,25 +178,21 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
     // check if ID is duplicated
     if ((edges.size() > 0) && !isVehicleIdDuplicated(vehicleParameters.id)) {
-        // obtain routes and vtypes
-        GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
-        if (vType == nullptr) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vehicleParameters.vtypeid, false)) {
-                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
-            } else {
-                writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
-            }
+        // obtain  type
+        GNEDemandElement* type = getType(vehicleParameters.vtypeid);
+        if (type == nullptr) {
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && ((int)edges.front()->getLanes().size() < vehicleParameters.departLane)) {
             writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
-            writeError(TLF("Invalid % used in % '%'. % is greater than vType %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
         } else {
             // create vehicle using vehicleParameters
-            GNEDemandElement* vehicle = new GNEVehicle(vehicleTag, myNet, vType, vehicleParameters);
+            GNEDemandElement* vehicle = new GNEVehicle(vehicleTag, myNet, type, vehicleParameters);
             // create embedded route
             GNEDemandElement* route = new GNERoute(myNet, vehicle, edges, color, repeat, cycleTime, routeParameters);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::ROUTE, TL("add ") + route->getTagStr() + " in '" + vehicle->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(route, TL("add ") + route->getTagStr() + " in '" + vehicle->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
@@ -211,7 +200,7 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vehicle);
                 myNet->getAttributeCarriers()->insertDemandElement(route);
-                vType->addChildElement(vehicle);
+                type->addChildElement(vehicle);
                 vehicle->addChildElement(route);
                 for (const auto& edge : edges) {
                     edge->addChildElement(route);
@@ -227,9 +216,34 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
 
 
 void
-GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& /*id*/) {
-    // unsupported
-    writeError(TL("netedit doesn't support route distributions"));
+GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+                                        const std::vector<std::string>& routeIDs, const std::vector<double>& probabilities) {
+    // declare vector with route and their probabilities
+    std::vector<const GNEDemandElement*> routes;
+    // first check conditions
+    if (!checkDuplicatedDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, id)) {
+        writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_ROUTE)));
+    } else if (getDistributionElements(sumoBaseObject, SUMO_TAG_ROUTE, routeIDs, probabilities, routes)) {
+        // create distributions
+        GNERouteDistribution* routeDistribution = new GNERouteDistribution(myNet, id, deterministic);
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(routeDistribution, TL("add ") + routeDistribution->getTagStr() + " '" + id + "'");
+            overwriteDemandElement();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(routeDistribution, true), true);
+            // add all distributions
+            for (int i = 0; i < (int)routes.size(); i++) {
+                routeDistribution->addDistributionKey(routes.at(i), probabilities.at(i), myNet->getViewNet()->getUndoList());
+            }
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(routeDistribution);
+            // add all distributions directly
+            for (int i = 0; i < (int)routes.size(); i++) {
+                routeDistribution->addDistributionKey(routes.at(i), probabilities.at(i));
+            }
+            routeDistribution->incRef("buildRouteDistribution");
+        }
+    }
 }
 
 
@@ -238,32 +252,28 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
     // first check if ID is duplicated
     if (!isVehicleIdDuplicated(vehicleParameters.id)) {
         // obtain routes and vtypes
-        GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
+        GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, vehicleParameters.routeid, false);
-        if (vType == nullptr) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vehicleParameters.vtypeid, false)) {
-                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
-            } else {
-                writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
-            }
+        if (type == nullptr) {
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
         } else if (route == nullptr) {
             writeError(TLF("Invalid route '%' used in % '%'.", vehicleParameters.routeid, toString(vehicleParameters.tag), vehicleParameters.id));
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && ((int)route->getParentEdges().front()->getLanes().size() < vehicleParameters.departLane)) {
             writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
-            writeError(TLF("Invalid % used in % '%'. % is greater than vType %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
         } else {
             // create vehicle using vehicleParameters
-            GNEDemandElement* vehicle = new GNEVehicle(SUMO_TAG_VEHICLE, myNet, vType, route, vehicleParameters);
+            GNEDemandElement* vehicle = new GNEVehicle(SUMO_TAG_VEHICLE, myNet, type, route, vehicleParameters);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(vehicle->getTagProperty().getGUIIcon(), TL("add ") + vehicle->getTagStr() + " '" + vehicleParameters.id + "'");
+                myNet->getViewNet()->getUndoList()->begin(vehicle, TL("add ") + vehicle->getTagStr() + " '" + vehicleParameters.id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vehicle);
-                // set vehicle as child of vType and Route
-                vType->addChildElement(vehicle);
+                // set vehicle as child of type and Route
+                type->addChildElement(vehicle);
                 route->addChildElement(vehicle);
                 vehicle->incRef("buildVehicleOverRoute");
             }
@@ -279,32 +289,28 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
     // first check if ID is duplicated
     if (!isVehicleIdDuplicated(vehicleParameters.id)) {
         // obtain routes and vtypes
-        GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
+        GNEDemandElement* type = getType(vehicleParameters.vtypeid);
         GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, vehicleParameters.routeid, false);
-        if (vType == nullptr) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vehicleParameters.vtypeid, false)) {
-                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
-            } else {
-                writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
-            }
+        if (type == nullptr) {
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
         } else if (route == nullptr) {
             writeError(TLF("Invalid route '%' used in % '%'.", vehicleParameters.routeid, toString(vehicleParameters.tag), vehicleParameters.id));
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && ((int)route->getParentEdges().front()->getLanes().size() < vehicleParameters.departLane)) {
             writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
-            writeError(TLF("Invalid % used in % '%'. % is greater than vType %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
         } else {
             // create flow or trips using vehicleParameters
-            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_ROUTE, myNet, vType, route, vehicleParameters);
+            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_ROUTE, myNet, type, route, vehicleParameters);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(flow->getTagProperty().getGUIIcon(), TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(flow);
-                // set flow as child of vType and Route
-                vType->addChildElement(flow);
+                // set flow as child of type and Route
+                type->addChildElement(flow);
                 route->addChildElement(flow);
                 flow->incRef("buildFlowOverRoute");
             }
@@ -327,30 +333,26 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     }
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
     if (fromEdge && toEdge && !isVehicleIdDuplicated(vehicleParameters.id) && isViaAttributeValid(vehicleParameters.via)) {
-        // obtain  vtypes
-        GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
-        if (vType == nullptr) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vehicleParameters.vtypeid, false)) {
-                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
-            } else {
-                writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
-            }
+        // obtain  type
+        GNEDemandElement* type = getType(vehicleParameters.vtypeid);
+        if (type == nullptr) {
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && ((vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN)) && ((int)fromEdge->getLanes().size() < vehicleParameters.departLane)) {
             writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
-            writeError(TLF("Invalid % used in % '%'. % is greater than vType %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
         } else {
             // create trip or flow using tripParameters
-            GNEDemandElement* trip = new GNEVehicle(SUMO_TAG_TRIP, myNet, vType, fromEdge, toEdge, vehicleParameters);
+            GNEDemandElement* trip = new GNEVehicle(SUMO_TAG_TRIP, myNet, type, fromEdge, toEdge, vehicleParameters);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(trip->getTagProperty().getGUIIcon(), TL("add ") + trip->getTagStr() + " '" + vehicleParameters.id + "'");
+                myNet->getViewNet()->getUndoList()->begin(trip, TL("add ") + trip->getTagStr() + " '" + vehicleParameters.id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(trip, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(trip);
-                // set vehicle as child of vType
-                vType->addChildElement(trip);
+                // set vehicle as child of type
+                type->addChildElement(trip);
                 trip->incRef("buildTrip");
                 // add reference in all edges
                 fromEdge->addChildElement(trip);
@@ -371,30 +373,26 @@ GNERouteHandler::buildTripJunctions(const CommonXMLStructure::SumoBaseObject* /*
     const auto toJunction = parseJunction(SUMO_TAG_TRIP, toJunctionID);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
     if (fromJunction && toJunction && !isVehicleIdDuplicated(vehicleParameters.id)) {
-        // obtain  vtypes
-        GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
-        if (vType == nullptr) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vehicleParameters.vtypeid, false)) {
-                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
-            } else {
-                writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
-            }
+        // obtain  type
+        GNEDemandElement* type = getType(vehicleParameters.vtypeid);
+        if (type == nullptr) {
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && ((vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN)) && (vehicleParameters.departLane > 0)) {
             writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
-            writeError(TLF("Invalid % used in % '%'. % is greater than vType %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
         } else {
             // create trip using vehicleParameters
-            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_TRIP_JUNCTIONS, myNet, vType, fromJunction, toJunction, vehicleParameters);
+            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_TRIP_JUNCTIONS, myNet, type, fromJunction, toJunction, vehicleParameters);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(flow->getTagProperty().getGUIIcon(), TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(flow);
-                // set vehicle as child of vType
-                vType->addChildElement(flow);
+                // set vehicle as child of type
+                type->addChildElement(flow);
                 flow->incRef("buildFlow");
                 // add reference in all junctions
                 fromJunction->addChildElement(flow);
@@ -405,6 +403,47 @@ GNERouteHandler::buildTripJunctions(const CommonXMLStructure::SumoBaseObject* /*
         }
     }
 }
+
+
+void
+GNERouteHandler::buildTripTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
+                                    const std::string& fromTAZID, const std::string& toTAZID) {
+    // parse TAZs
+    const auto fromTAZ = parseTAZ(SUMO_TAG_TRIP, fromTAZID);
+    const auto toTAZ = parseTAZ(SUMO_TAG_TRIP, toTAZID);
+    // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
+    if (fromTAZ && toTAZ && !isVehicleIdDuplicated(vehicleParameters.id)) {
+        // obtain  type
+        GNEDemandElement* type = getType(vehicleParameters.vtypeid);
+        if (type == nullptr) {
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && ((vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN)) && (vehicleParameters.departLane > 0)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
+        } else {
+            // create trip using vehicleParameters
+            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_TRIP_TAZS, myNet, type, fromTAZ, toTAZ, vehicleParameters);
+            if (myAllowUndoRedo) {
+                myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                overwriteDemandElement();
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
+                myNet->getViewNet()->getUndoList()->end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(flow);
+                // set vehicle as child of type
+                type->addChildElement(flow);
+                flow->incRef("buildFlow");
+                // add reference in all TAZs
+                fromTAZ->addChildElement(flow);
+                toTAZ->addChildElement(flow);
+            }
+            // compute path
+            flow->computePathElement();
+        }
+    }
+}
+
 
 void
 GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
@@ -418,30 +457,26 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     }
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
     if (fromEdge && toEdge && !isVehicleIdDuplicated(vehicleParameters.id) && isViaAttributeValid(vehicleParameters.via)) {
-        // obtain  vtypes
-        GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
-        if (vType == nullptr) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vehicleParameters.vtypeid, false)) {
-                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
-            } else {
-                writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
-            }
+        // obtain  type
+        GNEDemandElement* type = getType(vehicleParameters.vtypeid);
+        if (type == nullptr) {
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && ((int)fromEdge->getLanes().size() < vehicleParameters.departLane)) {
             writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
-            writeError(TLF("Invalid % used in % '%'. % is greater than vType %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
         } else {
             // create trip or flow using tripParameters
-            GNEDemandElement* flow = new GNEVehicle(SUMO_TAG_FLOW, myNet, vType, fromEdge, toEdge, vehicleParameters);
+            GNEDemandElement* flow = new GNEVehicle(SUMO_TAG_FLOW, myNet, type, fromEdge, toEdge, vehicleParameters);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(flow->getTagProperty().getGUIIcon(), TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(flow);
-                // set vehicle as child of vType
-                vType->addChildElement(flow);
+                // set vehicle as child of type
+                type->addChildElement(flow);
                 flow->incRef("buildFlow");
                 // add reference in all edges
                 fromEdge->addChildElement(flow);
@@ -462,30 +497,26 @@ GNERouteHandler::buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* /*
     const auto toJunction = parseJunction(SUMO_TAG_TRIP, toJunctionID);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
     if (fromJunction && toJunction && !isVehicleIdDuplicated(vehicleParameters.id)) {
-        // obtain  vtypes
-        GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
-        if (vType == nullptr) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vehicleParameters.vtypeid, false)) {
-                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
-            } else {
-                writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
-            }
+        // obtain  type
+        GNEDemandElement* type = getType(vehicleParameters.vtypeid);
+        if (type == nullptr) {
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && ((vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN)) && (vehicleParameters.departLane > 0)) {
             writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
-        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
-            writeError(TLF("Invalid % used in % '%'. % is greater than vType %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
         } else {
             // create flow using vehicleParameters
-            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_JUNCTIONS, myNet, vType, fromJunction, toJunction, vehicleParameters);
+            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_JUNCTIONS, myNet, type, fromJunction, toJunction, vehicleParameters);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(flow->getTagProperty().getGUIIcon(), TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(flow);
-                // set vehicle as child of vType
-                vType->addChildElement(flow);
+                // set vehicle as child of type
+                type->addChildElement(flow);
                 flow->incRef("buildFlow");
                 // add reference in all junctions
                 fromJunction->addChildElement(flow);
@@ -499,22 +530,58 @@ GNERouteHandler::buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* /*
 
 
 void
+GNERouteHandler::buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
+                                    const std::string& fromTAZID, const std::string& toTAZID) {
+    // parse TAZs
+    const auto fromTAZ = parseTAZ(SUMO_TAG_TRIP, fromTAZID);
+    const auto toTAZ = parseTAZ(SUMO_TAG_TRIP, toTAZID);
+    // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
+    if (fromTAZ && toTAZ && !isVehicleIdDuplicated(vehicleParameters.id)) {
+        // obtain  type
+        GNEDemandElement* type = getType(vehicleParameters.vtypeid);
+        if (type == nullptr) {
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", vehicleParameters.vtypeid, toString(vehicleParameters.tag), vehicleParameters.id));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && ((vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN)) && (vehicleParameters.departLane > 0)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than number of lanes", toString(SUMO_ATTR_DEPARTLANE), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departLane)));
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (type->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            writeError(TLF("Invalid % used in % '%'. % is greater than type %", toString(SUMO_ATTR_DEPARTSPEED), toString(vehicleParameters.tag), vehicleParameters.id, toString(vehicleParameters.departSpeed), toString(SUMO_ATTR_MAXSPEED)));
+        } else {
+            // create flow using vehicleParameters
+            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_TAZS, myNet, type, fromTAZ, toTAZ, vehicleParameters);
+            if (myAllowUndoRedo) {
+                myNet->getViewNet()->getUndoList()->begin(flow, TL("add ") + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                overwriteDemandElement();
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
+                myNet->getViewNet()->getUndoList()->end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(flow);
+                // set vehicle as child of type
+                type->addChildElement(flow);
+                flow->incRef("buildFlow");
+                // add reference in all TAZs
+                fromTAZ->addChildElement(flow);
+                toTAZ->addChildElement(flow);
+            }
+            // compute path
+            flow->computePathElement();
+        }
+    }
+}
+
+
+void
 GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personParameters) {
     // first check if ID is duplicated
     if (!isPersonIdDuplicated(personParameters.id)) {
-        // obtain type
-        GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, personParameters.vtypeid, false);
+        // obtain  type
+        GNEDemandElement* type = getType(personParameters.vtypeid);
         if (type == nullptr) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, personParameters.vtypeid, false)) {
-                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
-            } else {
-                writeError(TLF("Invalid person type '%' used in % '%'.", personParameters.vtypeid, toString(personParameters.tag), personParameters.id));
-            }
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", personParameters.vtypeid, toString(personParameters.tag), personParameters.id));
         } else {
             // create person using personParameters
             GNEDemandElement* person = new GNEPerson(SUMO_TAG_PERSON, myNet, type, personParameters);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(person->getTagProperty().getGUIIcon(), TL("add ") + person->getTagStr() + " '" + personParameters.id + "'");
+                myNet->getViewNet()->getUndoList()->begin(person, TL("add ") + person->getTagStr() + " '" + personParameters.id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(person, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -533,19 +600,15 @@ void
 GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personFlowParameters) {
     // first check if ID is duplicated
     if (!isPersonIdDuplicated(personFlowParameters.id)) {
-        // obtain type
-        GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, personFlowParameters.vtypeid, false);
+        // obtain  type
+        GNEDemandElement* type = getType(personFlowParameters.vtypeid);
         if (type == nullptr) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, personFlowParameters.vtypeid, false)) {
-                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
-            } else {
-                writeError(TLF("Invalid personFlow type '%' used in % '%'.", personFlowParameters.vtypeid, toString(personFlowParameters.tag), personFlowParameters.id));
-            }
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", personFlowParameters.vtypeid, toString(personFlowParameters.tag), personFlowParameters.id));
         } else {
             // create personFlow using personFlowParameters
             GNEDemandElement* personFlow = new GNEPerson(SUMO_TAG_PERSONFLOW, myNet, type, personFlowParameters);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(personFlow->getTagProperty().getGUIIcon(), TL("add ") + personFlow->getTagStr() + " '" + personFlowParameters.id + "'");
+                myNet->getViewNet()->getUndoList()->begin(personFlow, TL("add ") + personFlow->getTagStr() + " '" + personFlowParameters.id + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personFlow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -597,7 +660,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             // create personTrip from->to (edges)
             GNEDemandElement* personTrip = new GNEPersonTrip(myNet, personParent, fromEdge, toEdge, arrivalPos, types, modes, lines);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(personTrip->getTagProperty().getGUIIcon(), TL("add ") + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(personTrip, TL("add ") + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -613,7 +676,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             // create personTrip from->busStop
             GNEDemandElement* personTrip = new GNEPersonTrip(false, myNet, personParent, fromEdge, toBusStop, arrivalPos, types, modes, lines);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(personTrip->getTagProperty().getGUIIcon(), TL("add ") + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(personTrip, TL("add ") + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -629,7 +692,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             // create personTrip from->trainStop
             GNEDemandElement* personTrip = new GNEPersonTrip(true, myNet, personParent, fromEdge, toTrainStop, arrivalPos, types, modes, lines);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(personTrip->getTagProperty().getGUIIcon(), TL("add ") + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(personTrip, TL("add ") + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -645,7 +708,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             // create personTrip from->to (junctions)
             GNEDemandElement* personTrip = new GNEPersonTrip(myNet, personParent, fromJunction, toJunction, arrivalPos, types, modes, lines);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(personTrip->getTagProperty().getGUIIcon(), TL("add ") + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(personTrip, TL("add ") + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -703,7 +766,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             // create walk edges
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, edges, arrivalPos);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), TL("add ") + walk->getTagStr() + " '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -720,7 +783,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             // create walk over route
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, route, arrivalPos);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -735,7 +798,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             // create walk from->to (edges)
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, fromEdge, toEdge, arrivalPos);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -751,7 +814,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             // create walk from->busStop
             GNEDemandElement* walk = new GNEWalk(false, myNet, personParent, fromEdge, toBusStop, arrivalPos);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -767,7 +830,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             // create walk from->trainStop
             GNEDemandElement* walk = new GNEWalk(true, myNet, personParent, fromEdge, toTrainStop, arrivalPos);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -783,7 +846,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             // create walk from->to (junction)
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, fromJunction, toJunction, arrivalPos);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -826,7 +889,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             // create ride from->to
             GNEDemandElement* ride = new GNERide(myNet, personParent, fromEdge, toEdge, arrivalPos, lines);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(ride->getTagProperty().getGUIIcon(), TL("add ") + ride->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(ride, TL("add ") + ride->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -842,7 +905,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             // create ride from->busStop
             GNEDemandElement* ride = new GNERide(false, myNet, personParent, fromEdge, toBusStop, arrivalPos, lines);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(ride->getTagProperty().getGUIIcon(), TL("add ") + ride->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(ride, TL("add ") + ride->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -858,7 +921,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             // create ride from->trainStop
             GNEDemandElement* ride = new GNERide(true, myNet, personParent, fromEdge, toTrainStop, arrivalPos, lines);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(ride->getTagProperty().getGUIIcon(), TL("add ") + ride->getTagStr() + " in '" + personParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(ride, TL("add ") + ride->getTagStr() + " in '" + personParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -879,19 +942,15 @@ void
 GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerParameters) {
     // first check if ID is duplicated
     if (!isContainerIdDuplicated(containerParameters.id)) {
-        // obtain type
-        GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, containerParameters.vtypeid, false);
+        // obtain  type
+        GNEDemandElement* type = getType(containerParameters.vtypeid);
         if (type == nullptr) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, containerParameters.vtypeid, false)) {
-                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
-            } else {
-                writeError(TLF("Invalid container type '%' used in % '%'.", containerParameters.vtypeid, toString(containerParameters.tag), containerParameters.id));
-            }
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", containerParameters.vtypeid, toString(containerParameters.tag), containerParameters.id));
         } else {
             // create container using containerParameters
             GNEDemandElement* container = new GNEContainer(SUMO_TAG_CONTAINER, myNet, type, containerParameters);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::CONTAINER, TL("add ") + container->getTagStr() + " '" + container->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(container, TL("add ") + container->getTagStr() + " '" + container->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(container, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -910,19 +969,15 @@ void
 GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerFlowParameters) {
     // first check if ID is duplicated
     if (!isContainerIdDuplicated(containerFlowParameters.id)) {
-        // obtain type
-        GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, containerFlowParameters.vtypeid, false);
+        // obtain  type
+        GNEDemandElement* type = getType(containerFlowParameters.vtypeid);
         if (type == nullptr) {
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, containerFlowParameters.vtypeid, false)) {
-                WRITE_WARNING(TL("VType distributions currently unsupported in netedit"));
-            } else {
-                writeError(TLF("Invalid containerFlow type '%' used in % '%'.", containerFlowParameters.vtypeid, toString(containerFlowParameters.tag), containerFlowParameters.id));
-            }
+            writeError(TLF("Invalid vehicle type '%' used in % '%'.", containerFlowParameters.vtypeid, toString(containerFlowParameters.tag), containerFlowParameters.id));
         } else {
             // create containerFlow using containerFlowParameters
             GNEDemandElement* containerFlow = new GNEContainer(SUMO_TAG_CONTAINERFLOW, myNet, type, containerFlowParameters);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::CONTAINERFLOW, TL("add ") + containerFlow->getTagStr() + " '" + containerFlow->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(containerFlow, TL("add ") + containerFlow->getTagStr() + " '" + containerFlow->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(containerFlow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -957,7 +1012,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
             // create transport from->to
             GNEDemandElement* transport = new GNETransport(myNet, containerParent, fromEdge, toEdge, lines, arrivalPos);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(transport->getTagProperty().getGUIIcon(), TL("add ") + transport->getTagStr() + " in '" + containerParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(transport, TL("add ") + transport->getTagStr() + " in '" + containerParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -973,7 +1028,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
             // create transport from->containerStop
             GNEDemandElement* transport = new GNETransport(myNet, containerParent, fromEdge, toContainerStop, lines, arrivalPos);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(transport->getTagProperty().getGUIIcon(), TL("add ") + transport->getTagStr() + " in '" + containerParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(transport, TL("add ") + transport->getTagStr() + " in '" + containerParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -1013,7 +1068,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
             // create tranship edges
             GNEDemandElement* tranship = new GNETranship(myNet, containerParent, edges, speed, departPosition, arrivalPosition);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(tranship->getTagProperty().getGUIIcon(), TL("add ") + tranship->getTagStr() + " in '" + containerParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(tranship, TL("add ") + tranship->getTagStr() + " in '" + containerParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -1030,7 +1085,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
             // create tranship from->to
             GNEDemandElement* tranship = new GNETranship(myNet, containerParent, fromEdge, toEdge, speed, departPosition, arrivalPosition);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(tranship->getTagProperty().getGUIIcon(), TL("add ") + tranship->getTagStr() + " in '" + containerParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(tranship, TL("add ") + tranship->getTagStr() + " in '" + containerParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -1046,7 +1101,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
             // create tranship from->containerStop
             GNEDemandElement* tranship = new GNETranship(myNet, containerParent, fromEdge, toContainerStop, speed, departPosition, arrivalPosition);
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(tranship->getTagProperty().getGUIIcon(), TL("add ") + tranship->getTagStr() + " '" + containerParent->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(tranship, TL("add ") + tranship->getTagStr() + " '" + containerParent->getID() + "'");
                 overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -1180,7 +1235,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 }
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(stop->getTagProperty().getGUIIcon(), TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
+                    myNet->getViewNet()->getUndoList()->begin(stop, TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
                     overwriteDemandElement();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
                     myNet->getViewNet()->getUndoList()->end();
@@ -1195,7 +1250,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 GNEDemandElement* stop = new GNEStop(stopTagType, myNet, stopParent, lane, stopParameters);
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(stop->getTagProperty().getGUIIcon(), TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
+                    myNet->getViewNet()->getUndoList()->begin(stop, TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
                     overwriteDemandElement();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
                     myNet->getViewNet()->getUndoList()->end();
@@ -1215,7 +1270,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 }
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(stop->getTagProperty().getGUIIcon(), TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
+                    myNet->getViewNet()->getUndoList()->begin(stop, TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
                     overwriteDemandElement();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
                     myNet->getViewNet()->getUndoList()->end();
@@ -1611,7 +1666,8 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
 bool
 GNERouteHandler::isVehicleIdDuplicated(const std::string& id) {
     // declare vehicle tags vector
-    std::vector<SumoXMLTag> vehicleTags = {SUMO_TAG_VEHICLE, GNE_TAG_VEHICLE_WITHROUTE, SUMO_TAG_TRIP, GNE_TAG_FLOW_ROUTE, GNE_TAG_FLOW_WITHROUTE, SUMO_TAG_FLOW};
+    const std::vector<SumoXMLTag> vehicleTags = {SUMO_TAG_VEHICLE, GNE_TAG_VEHICLE_WITHROUTE, SUMO_TAG_TRIP, GNE_TAG_TRIP_TAZS,
+        GNE_TAG_FLOW_ROUTE, GNE_TAG_FLOW_WITHROUTE, SUMO_TAG_FLOW, SUMO_TAG_FLOW, SUMO_TAG_FLOW, GNE_TAG_FLOW_JUNCTIONS};
     for (const auto& vehicleTag : vehicleTags) {
         if (!checkDuplicatedDemandElement(vehicleTag, id)) {
             writeError(TLF("There is another % with the same ID='%'.", toString(vehicleTag), id));
@@ -1660,8 +1716,6 @@ GNERouteHandler::isContainerIdDuplicated(const std::string& id) {
 
 void
 GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbeddedRoute) {
-    // get original vehicle tag
-    SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
     // check if transform after creation
@@ -1677,15 +1731,15 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     // declare edges
     std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
-    if ((tag == GNE_TAG_FLOW_ROUTE) || (tag == SUMO_TAG_VEHICLE)) {
+    if (originalVehicle->getTagProperty().overRoute()) {
         // get route edges
-        routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
+        routeEdges = originalVehicle->getParentDemandElements().at(1)->getParentEdges();
         // get original route color
         routeColor = originalVehicle->getParentDemandElements().back()->getColor();
-    } else if (originalVehicle->getTagProperty().hasEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
+    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
         // calculate path using from-via-to edges
         routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
@@ -1708,7 +1762,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // begin undo-redo operation
-        net->getViewNet()->getUndoList()->begin(originalVehicle->getTagProperty().getGUIIcon(), "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
+        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
         // first delete vehicle
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // check if new vehicle must have an embedded route
@@ -1732,7 +1786,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             // generate route ID
             const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
-            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, false, 0, {});
+            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, false, 0, 1.0, {});
             // set route ID in vehicle parameters
             vehicleParameters.routeid = routeID;
             // create vehicle
@@ -1753,8 +1807,6 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
 
 void
 GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEmbeddedRoute) {
-    // get original vehicle tag
-    SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
     // check if transform after creation
@@ -1770,15 +1822,15 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     // declare edges
     std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
-    if ((tag == GNE_TAG_FLOW_ROUTE) || (tag == SUMO_TAG_VEHICLE)) {
+    if (originalVehicle->getTagProperty().overRoute()) {
         // get route edges
         routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
         // get original route color
         routeColor = originalVehicle->getParentDemandElements().back()->getColor();
-    } else if (originalVehicle->getTagProperty().hasEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
+    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
         // calculate path using from-via-to edges
         routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
@@ -1801,11 +1853,11 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // begin undo-redo operation
-        net->getViewNet()->getUndoList()->begin(originalVehicle->getTagProperty().getGUIIcon(), "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
+        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
         // first delete vehicle
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // change depart
-        if ((vehicleParameters.tag == SUMO_TAG_TRIP) || (vehicleParameters.tag == SUMO_TAG_VEHICLE) || (vehicleParameters.tag == GNE_TAG_VEHICLE_WITHROUTE)) {
+        if (!GNEAttributeCarrier::getTagProperty(vehicleParameters.tag).isFlow()) {
             // get template flow
             const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
             // set flow parameters
@@ -1837,7 +1889,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // generate a new route id
             const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
-            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, false, 0, {});
+            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, false, 0, 1.0, {});
             // set route ID in vehicle parameters
             vehicleParameters.routeid = routeID;
             // create vehicle
@@ -1858,8 +1910,6 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
 
 void
 GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
-    // get original vehicle tag
-    SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
     // check if transform after creation
@@ -1873,15 +1923,15 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     // declare edges
     std::vector<GNEEdge*> edges;
     // obtain edges depending of tag
-    if ((tag == SUMO_TAG_VEHICLE) || (tag == GNE_TAG_FLOW_ROUTE)) {
+    if (originalVehicle->getTagProperty().overRoute()) {
         // set route
         route = originalVehicle->getParentDemandElements().back();
         // get route edges
         edges = route->getParentEdges();
-    } else if (originalVehicle->getTagProperty().hasEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
+    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
         // just take parent edges (from and to)
         edges = originalVehicle->getParentEdges();
     }
@@ -1899,7 +1949,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // begin undo-redo operation
-        net->getViewNet()->getUndoList()->begin(originalVehicle->getTagProperty().getGUIIcon(), "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_TRIP));
+        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_TRIP));
         // first delete vehicle
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // check if route has to be deleted
@@ -1925,8 +1975,6 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
 
 void
 GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
-    // get original vehicle tag
-    SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
     // check if transform after creation
@@ -1940,15 +1988,15 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
     // declare edges
     std::vector<GNEEdge*> edges;
     // obtain edges depending of tag
-    if ((tag == SUMO_TAG_VEHICLE) || (tag == GNE_TAG_FLOW_ROUTE)) {
+    if (originalVehicle->getTagProperty().overRoute()) {
         // set route
         route = originalVehicle->getParentDemandElements().back();
         // get route edges
         edges = route->getParentEdges();
-    } else if (originalVehicle->getTagProperty().hasEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
+    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
         // just take parent edges (from and to)
         edges = originalVehicle->getParentEdges();
     }
@@ -1966,7 +2014,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         WRITE_DEBUG("Closed FXMessageBox " + header);
     } else {
         // begin undo-redo operation
-        net->getViewNet()->getUndoList()->begin(originalVehicle->getTagProperty().getGUIIcon(), "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
+        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
         // first delete vehicle
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // check if route has to be deleted
@@ -1974,7 +2022,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
             net->deleteDemandElement(route, net->getViewNet()->getUndoList());
         }
         // change depart
-        if ((vehicleParameters.tag == SUMO_TAG_TRIP) || (vehicleParameters.tag == SUMO_TAG_VEHICLE) || (vehicleParameters.tag == GNE_TAG_VEHICLE_WITHROUTE)) {
+        if (!GNEAttributeCarrier::getTagProperty(vehicleParameters.tag).isFlow()) {
             // get template flow
             const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
             // set flow parameters
@@ -1989,6 +2037,200 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         vehicleParameters.tag = SUMO_TAG_FLOW;
         // create flow
         routeHandler.buildFlow(nullptr, vehicleParameters, edges.front()->getID(), edges.back()->getID());
+        // end undo-redo operation
+        net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
+    }
+}
+
+
+void
+GNERouteHandler::transformToTripJunctions(GNEVehicle* originalVehicle) {
+    // only continue if number of junctions are valid
+    if (originalVehicle->getParentJunctions().empty()) {
+        // declare header
+        const std::string header = "Problem transforming to trip over junctions";
+        // declare message
+        const std::string message = "Vehicle cannot be transformed. Invalid number of junctions";
+        // write warning
+        WRITE_DEBUG("Opened FXMessageBox " + header);
+        // open message box
+        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox " + header);
+    } else {
+        // get pointer to net
+        GNENet* net = originalVehicle->getNet();
+        // check if transform after creation
+        const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
+        // declare route handler
+        GNERouteHandler routeHandler("", net, true, false);
+        // obtain vehicle parameters
+        SUMOVehicleParameter vehicleParameters = *originalVehicle;
+        // begin undo-redo operation
+        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_TRIP_JUNCTIONS));
+        // first delete vehicle
+        net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
+        // change tag in vehicle parameters
+        vehicleParameters.tag = GNE_TAG_TRIP_JUNCTIONS;
+        // create trip
+        routeHandler.buildTripJunctions(nullptr, vehicleParameters, originalVehicle->getParentJunctions().front()->getID(), originalVehicle->getParentJunctions().back()->getID());
+        // end undo-redo operation
+        net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
+    }
+}
+
+
+void
+GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
+    // only continue if number of junctions are valid
+    if (originalVehicle->getParentJunctions().empty()) {
+        // declare header
+        const std::string header = "Problem transforming to flow over junctions";
+        // declare message
+        const std::string message = "Vehicle cannot be transformed. Invalid number of junctions";
+        // write warning
+        WRITE_DEBUG("Opened FXMessageBox " + header);
+        // open message box
+        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox " + header);
+    } else {
+        // get pointer to net
+        GNENet* net = originalVehicle->getNet();
+        // check if transform after creation
+        const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
+        // declare route handler
+        GNERouteHandler routeHandler("", net, true, false);
+        // obtain vehicle parameters
+        SUMOVehicleParameter vehicleParameters = *originalVehicle;
+        // begin undo-redo operation
+        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_FLOW_JUNCTIONS));
+        // first delete vehicle
+        net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
+        // get template flow
+        const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_JUNCTIONS);
+        // set flow parameters
+        vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
+        vehicleParameters.repetitionNumber = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(SUMO_ATTR_NUMBER));
+        vehicleParameters.repetitionOffset = string2time(templateFlow->getAttribute(SUMO_ATTR_PERIOD));
+        vehicleParameters.repetitionProbability = GNEAttributeCarrier::parse<double>(templateFlow->getAttribute(SUMO_ATTR_PROB));
+        // by default, number and end enabled
+        vehicleParameters.parametersSet = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
+        // change tag in vehicle parameters
+        vehicleParameters.tag = GNE_TAG_FLOW_JUNCTIONS;
+        // create flow
+        routeHandler.buildFlowJunctions(nullptr, vehicleParameters, originalVehicle->getParentJunctions().front()->getID(), originalVehicle->getParentJunctions().back()->getID());
+        // end undo-redo operation
+        net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
+    }
+}
+
+
+void
+GNERouteHandler::transformToTripTAZs(GNEVehicle* originalVehicle) {
+    // only continue if number of junctions are valid
+    if (originalVehicle->getParentAdditionals().empty()) {
+        // declare header
+        const std::string header = "Problem transforming to trip over TAZs";
+        // declare message
+        const std::string message = "Vehicle cannot be transformed. Invalid number of TAZs";
+        // write warning
+        WRITE_DEBUG("Opened FXMessageBox " + header);
+        // open message box
+        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox " + header);
+    } else {
+        // get pointer to net
+        GNENet* net = originalVehicle->getNet();
+        // check if transform after creation
+        const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
+        // declare route handler
+        GNERouteHandler routeHandler("", net, true, false);
+        // obtain vehicle parameters
+        SUMOVehicleParameter vehicleParameters = *originalVehicle;
+        // begin undo-redo operation
+        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_TRIP_TAZS));
+        // first delete vehicle
+        net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
+        // change tag in vehicle parameters
+        vehicleParameters.tag = GNE_TAG_TRIP_TAZS;
+        // create trip
+        routeHandler.buildTripTAZs(nullptr, vehicleParameters, originalVehicle->getParentAdditionals().front()->getID(), originalVehicle->getParentAdditionals().back()->getID());
+        // end undo-redo operation
+        net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
+    }
+}
+
+
+void
+GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
+    // only continue if number of junctions are valid
+    if (originalVehicle->getParentAdditionals().empty()) {
+        // declare header
+        const std::string header = "Problem transforming to flow over TAZs";
+        // declare message
+        const std::string message = "Vehicle cannot be transformed. Invalid number of TAZs";
+        // write warning
+        WRITE_DEBUG("Opened FXMessageBox " + header);
+        // open message box
+        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox " + header);
+    } else {
+        // get pointer to net
+        GNENet* net = originalVehicle->getNet();
+        // check if transform after creation
+        const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
+        // declare route handler
+        GNERouteHandler routeHandler("", net, true, false);
+        // obtain vehicle parameters
+        SUMOVehicleParameter vehicleParameters = *originalVehicle;
+        // begin undo-redo operation
+        net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_FLOW_TAZS));
+        // first delete vehicle
+        net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
+        // get template flow
+        const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_TAZS);
+        // set flow parameters
+        vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
+        vehicleParameters.repetitionNumber = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(SUMO_ATTR_NUMBER));
+        vehicleParameters.repetitionOffset = string2time(templateFlow->getAttribute(SUMO_ATTR_PERIOD));
+        vehicleParameters.repetitionProbability = GNEAttributeCarrier::parse<double>(templateFlow->getAttribute(SUMO_ATTR_PROB));
+        // by default, number and end enabled
+        vehicleParameters.parametersSet = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
+        // change tag in vehicle parameters
+        vehicleParameters.tag = GNE_TAG_FLOW_TAZS;
+        // create flow
+        routeHandler.buildFlowTAZs(nullptr, vehicleParameters, originalVehicle->getParentAdditionals().front()->getID(), originalVehicle->getParentAdditionals().back()->getID());
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
         // check if inspect
@@ -2019,7 +2261,7 @@ GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
     // set dummy ID
     personParameters.id = "%dummyID%";
     // begin undo-redo operation
-    net->getViewNet()->getUndoList()->begin(originalPerson->getTagProperty().getGUIIcon(), "transform " + originalPerson->getTagStr() + " to " + toString(SUMO_TAG_PERSON));
+    net->getViewNet()->getUndoList()->begin(originalPerson, "transform " + originalPerson->getTagStr() + " to " + toString(SUMO_TAG_PERSON));
     // create personFlow
     routeHandler.buildPerson(nullptr, personParameters);
     // move all person plans to new person
@@ -2060,7 +2302,7 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     // set dummy ID
     personParameters.id = "%dummyID%";
     // begin undo-redo operation
-    net->getViewNet()->getUndoList()->begin(originalPerson->getTagProperty().getGUIIcon(), "transform " + originalPerson->getTagStr() + " to " + toString(SUMO_TAG_PERSONFLOW));
+    net->getViewNet()->getUndoList()->begin(originalPerson, "transform " + originalPerson->getTagStr() + " to " + toString(SUMO_TAG_PERSONFLOW));
     // create personFlow
     routeHandler.buildPersonFlow(nullptr, personParameters);
     // move all person plans to new person
@@ -2104,7 +2346,7 @@ GNERouteHandler::transformToContainer(GNEContainer* originalContainer) {
     // set dummy ID
     containerParameters.id = "%dummyID%";
     // begin undo-redo operation
-    net->getViewNet()->getUndoList()->begin(originalContainer->getTagProperty().getGUIIcon(), "transform " + originalContainer->getTagStr() + " to " + toString(SUMO_TAG_CONTAINER));
+    net->getViewNet()->getUndoList()->begin(originalContainer, "transform " + originalContainer->getTagStr() + " to " + toString(SUMO_TAG_CONTAINER));
     // create containerFlow
     routeHandler.buildContainer(nullptr, containerParameters);
     // move all container plans to new container
@@ -2145,7 +2387,7 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
     // set dummy ID
     containerParameters.id = "%dummyID%";
     // begin undo-redo operation
-    net->getViewNet()->getUndoList()->begin(originalContainer->getTagProperty().getGUIIcon(), "transform " + originalContainer->getTagStr() + " to " + toString(SUMO_TAG_CONTAINERFLOW));
+    net->getViewNet()->getUndoList()->begin(originalContainer, "transform " + originalContainer->getTagStr() + " to " + toString(SUMO_TAG_CONTAINERFLOW));
     // create containerFlow
     routeHandler.buildContainerFlow(nullptr, containerParameters);
     // move all container plans to new container
@@ -2171,6 +2413,116 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
     }
 }
 
+
+bool
+GNERouteHandler::canReverse(const GNEDemandElement* element) {
+    // continue depending of element
+    if (element->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+        return canReverse(element->getNet(), SVC_PEDESTRIAN, element->getParentEdges());
+    } else if (element->getTagProperty().overRoute()) {
+        return canReverse(element->getNet(), element->getVClass(), element->getParentDemandElements().at(1)->getParentEdges());
+    } else if (element->getTagProperty().overEmbeddedRoute()) {
+        return canReverse(element->getNet(), element->getVClass(), element->getChildDemandElements().front()->getParentEdges());
+    } else if (element->getTagProperty().overFromToEdges()) {
+        return canReverse(element->getNet(), element->getVClass(), element->getParentEdges());
+    } else if (element->getTagProperty().overFromToJunctions()) {
+        return (element->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(element->getVClass(),
+            element->getParentJunctions().back(), element->getParentJunctions().front()).size() > 0);
+    } else if (element->getTagProperty().overFromToTAZs()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNERouteHandler::canReverse(GNENet* net, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) {
+    if (edges.empty()) {
+        return false;
+    } else {
+        // obtain opposite edges
+        std::vector<GNEEdge*> reverseEdges;
+        for (const auto &edge : edges) {
+            const auto oppositeEdges = edge->getOppositeEdges();
+            // stop if there isn't opposite edges for the current edge
+            if (oppositeEdges.empty()) {
+                return false;
+            } else {
+                reverseEdges.push_back(oppositeEdges.front());
+            }
+        }
+        // reverse edges
+        std::reverse(reverseEdges.begin(), reverseEdges.end());
+        // now check if exist a path 
+        return (net->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, edges).size() > 0);
+    }
+}
+
+
+void
+GNERouteHandler::reverse(GNEDemandElement* element) {
+    // get undo list
+    auto undoList = element->getNet()->getViewNet()->getUndoList();
+    // continue depending of element
+    if (element->getTagProperty().overRoute()) {
+        // reverse parent route
+        reverse(element->getParentDemandElements().at(1));
+    } else if (element->getTagProperty().overEmbeddedRoute()) {
+        // reverse embedded route
+        reverse(element->getChildDemandElements().front());
+    } else if (element->getTagProperty().overFromToJunctions()) {
+        // get from to junctions
+        const auto fromJunction = element->getAttribute(SUMO_ATTR_FROMJUNCTION);
+        const auto toJunction = element->getAttribute(SUMO_ATTR_TOJUNCTION);
+        // swap both attributes
+        element->setAttribute(SUMO_ATTR_FROMJUNCTION, toJunction, undoList);
+        element->setAttribute(SUMO_ATTR_TOJUNCTION, fromJunction, undoList);
+    } else if (element->getTagProperty().overFromToTAZs()) {
+        // get from to TAZs
+        const auto fromTAZ = element->getAttribute(SUMO_ATTR_FROM_TAZ);
+        const auto toTAZ = element->getAttribute(SUMO_ATTR_TO_TAZ);
+        // swap both attributes
+        element->setAttribute(SUMO_ATTR_FROM_TAZ, toTAZ, undoList);
+        element->setAttribute(SUMO_ATTR_TO_TAZ, fromTAZ, undoList);
+    } else {
+        // extract and reverse opposite edges
+        std::vector<GNEEdge*> oppositeEdges;
+        for (const auto & edge : element->getParentEdges()) {
+            oppositeEdges.push_back(edge->getOppositeEdges().front());
+        }
+        std::reverse(oppositeEdges.begin(), oppositeEdges.end());
+        if (element->isRoute()) {
+            element->setAttribute(SUMO_ATTR_EDGES, GNEAttributeCarrier::parseIDs(oppositeEdges), undoList);
+        } else {
+            // set from and to
+            element->setAttribute(SUMO_ATTR_FROM, oppositeEdges.front()->getID(), undoList);
+            element->setAttribute(SUMO_ATTR_TO, oppositeEdges.back()->getID(), undoList);
+            // check if add via attribute
+            oppositeEdges.erase(oppositeEdges.begin());
+            oppositeEdges.pop_back();
+            if (oppositeEdges.size() > 0) {
+                element->setAttribute(SUMO_ATTR_VIA, GNEAttributeCarrier::parseIDs(oppositeEdges), undoList);
+            }
+        }
+    }
+}
+
+
+void
+GNERouteHandler::addReverse(GNEDemandElement* element) {
+    GNEDemandElement* elementCopy = nullptr;
+    if (element->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+        // make a copy of the route and reverse
+        elementCopy = GNERoute::copyRoute(dynamic_cast<GNERoute*>(element));
+    } else if (element->getTagProperty().isVehicle()) {
+        // make a copy of the vehicle
+        elementCopy = GNEVehicle::copyVehicle(dynamic_cast<GNEVehicle*>(element));
+    }
+    // reverse copied element
+    reverse(elementCopy);
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================
@@ -2183,6 +2535,17 @@ GNERouteHandler::parseJunction(const SumoXMLTag tag, const std::string& junction
         writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(SUMO_TAG_JUNCTION)));
     }
     return junction;
+}
+
+
+GNEAdditional*
+GNERouteHandler::parseTAZ(const SumoXMLTag tag, const std::string& TAZID) {
+    GNEAdditional* TAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, TAZID, false);
+    // empty TAZs aren't allowed. If TAZ is empty, write error, clear TAZs and stop
+    if (TAZ == nullptr) {
+        writeError(TLF("Could not build % in netedit", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(SUMO_TAG_TAZ)));
+    }
+    return TAZ;
 }
 
 
@@ -2212,6 +2575,17 @@ GNERouteHandler::parseEdges(const SumoXMLTag tag, const std::vector<std::string>
         }
     }
     return edges;
+}
+
+
+GNEDemandElement*
+GNERouteHandler::getType(const std::string &id) const {
+    GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, id, false);
+    if (type == nullptr) {
+        return myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, id, false);
+    } else {
+        return type;
+    }
 }
 
 
@@ -2265,11 +2639,12 @@ GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure
     }
     // get parent object
     const CommonXMLStructure::SumoBaseObject* parentObject = obj->getParentSumoBaseObject();
-    // check person/container conditions
+    // check person conditions
     if (person && (parentObject->getTag() != SUMO_TAG_PERSON) && (parentObject->getTag() != SUMO_TAG_PERSONFLOW)) {
         // invalid parent
         return nullptr;
     }
+    // check container conditions
     if (!person && (parentObject->getTag() != SUMO_TAG_CONTAINER) && (parentObject->getTag() != SUMO_TAG_CONTAINERFLOW)) {
         // invalid parent
         return nullptr;
@@ -2281,13 +2656,15 @@ GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure
     }
     // get last children
     const CommonXMLStructure::SumoBaseObject* previousPlan = *(it - 1);
-    // check conditions
+    // check person conditions
     if (person && (previousPlan->getTag() != SUMO_TAG_WALK) && (previousPlan->getTag() != SUMO_TAG_RIDE) &&
             (previousPlan->getTag() != SUMO_TAG_PERSONTRIP) && (previousPlan->getTag() != SUMO_TAG_STOP)) {
         // invalid last child
         return nullptr;
     }
-    if (!person && (previousPlan->getTag() != SUMO_TAG_TRANSPORT) && (previousPlan->getTag() != SUMO_TAG_TRANSHIP)) {
+    // check container conditions
+    if (!person && (previousPlan->getTag() != SUMO_TAG_TRANSPORT) && (previousPlan->getTag() != SUMO_TAG_TRANSHIP) &&
+            (previousPlan->getTag() != SUMO_TAG_STOP)) {
         // invalid last child
         return nullptr;
     }
@@ -2368,6 +2745,41 @@ GNERouteHandler::getPreviousPlanJunction(const bool /* person */, const CommonXM
         return myNet->getAttributeCarriers()->retrieveJunction(previousPersonPlan->getStringAttribute(SUMO_ATTR_TOJUNCTION), false);
     }
     return nullptr;
+}
+
+
+bool
+GNERouteHandler::getDistributionElements(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag distributionElementTag,
+        const std::vector<std::string>& distributionElementIDs, const std::vector<double>& probabilities,
+        std::vector<const GNEDemandElement*> &elements) {
+    // get distribution tag and ID
+    std::string distributionTag = toString(sumoBaseObject->getTag());
+    std::string distributionID = sumoBaseObject->getStringAttribute(SUMO_ATTR_ID);
+    // first parse vType IDs
+    for (const auto& distributionElementID : distributionElementIDs) {
+        auto distributionElement = myNet->getAttributeCarriers()->retrieveDemandElement(distributionElementTag, distributionElementID, false);
+        if (distributionElement) {
+            elements.push_back(distributionElement);
+        } else {
+            writeError(TLF("% with id '%' doesn't exist in % '%'", toString(distributionElementTag), distributionElementID, distributionTag, distributionID));
+            return false;
+
+        }
+    }
+    // check probabilities
+    for (const auto &probability : probabilities) {
+        if (probability < 0) {
+            writeError(TLF("invalid probability % in % '%'", toString(probability), distributionTag, distributionID));
+            return false;
+        }
+    }
+    // check that number of elements and probabilities is the same
+    if (elements.size() != probabilities.size()) {
+        writeError(TLF("Invalid type distribution probabilities in % '%'. Must have the same number of elements", distributionTag, distributionID));
+        return false;
+    } else {
+        return true;
+    }
 }
 
 

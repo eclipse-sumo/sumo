@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-05 19:54:02 by Eclipse SUMO netconvert Version v1_13_0+1391-e3705e540b5
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-07-26 13:19:34 by Eclipse SUMO netedit Version v1_14_1+8770-d8469bdc8ac
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="highway.net.xml"/>
+        <sumo-net-file value="D:\Repos\sumo\tools\game\highway\highway.net.xml"/>
     </input>
+
+    <output>
+        <output-file value="D:\Repos\sumo\tools\game\highway\highway.net.xml"/>
+    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
-        <junctions.limit-turn-speed value="-1"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
 </configuration>
 -->
 
-<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-498221.06,-5876450.52" convBoundary="272.55,0.00,2986.43,1606.94" origBoundary="8.973461,53.037575,9.019344,53.059235" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -39,9 +43,9 @@
         <lane id=":1285390101_1_0" index="0" speed="27.77" length="9.33" shape="604.51,509.06 606.55,507.22 608.19,506.23 609.84,505.25 611.89,503.42"/>
     </edge>
     <edge id=":1658939360_0" function="internal">
-        <lane id=":1658939360_0_0" index="0" speed="44.44" length="0.33" shape="2123.42,1334.52 2123.61,1334.63"/>
-        <lane id=":1658939360_0_1" index="1" speed="44.44" length="0.33" shape="2121.73,1337.23 2122.01,1337.40"/>
-        <lane id=":1658939360_0_2" index="2" speed="44.44" length="0.33" shape="2120.04,1339.95 2120.41,1340.17"/>
+        <lane id=":1658939360_0_0" index="0" speed="44.44" length="4.81" shape="2125.95,1330.44 2123.68,1334.67"/>
+        <lane id=":1658939360_0_1" index="1" speed="44.44" length="4.81" shape="2124.26,1333.16 2122.08,1337.44"/>
+        <lane id=":1658939360_0_2" index="2" speed="44.44" length="4.81" shape="2122.57,1335.87 2120.48,1340.21"/>
     </edge>
     <edge id=":1658939377_0" function="internal">
         <lane id=":1658939377_0_0" index="0" speed="44.44" length="0.33" shape="2134.43,1340.89 2134.63,1341.00"/>
@@ -63,29 +67,19 @@
         <lane id=":1658965297_0_1" index="1" speed="33.33" length="0.30" shape="726.86,432.87 726.64,433.09"/>
     </edge>
     <edge id=":1658965305_0" function="internal">
-        <lane id=":1658965305_0_0" index="0" speed="33.33" length="5.80" shape="778.64,476.39 780.12,477.18 781.26,477.45 782.48,477.41 784.20,477.30"/>
+        <lane id=":1658965305_0_0" index="0" speed="33.33" length="14.32" shape="778.64,476.39 782.66,478.39 785.96,479.26 788.97,479.83 792.13,480.94"/>
     </edge>
     <edge id=":1658965305_1" function="internal">
-        <lane id=":1658965305_1_0" index="0" speed="33.33" length="6.63" shape="776.94,479.10 778.69,479.91 780.06,480.11 781.43,480.31 783.19,481.11"/>
+        <lane id=":1658965305_1_0" index="0" speed="26.38" length="15.27" shape="776.94,479.10 781.29,481.23 784.90,482.19 788.11,482.88 791.23,484.22"/>
     </edge>
     <edge id=":1658965310_0" function="internal">
         <lane id=":1658965310_0_0" index="0" speed="33.33" length="8.21" shape="656.89,511.56 655.09,513.16 653.61,513.97 652.11,514.77 650.28,516.35"/>
     </edge>
     <edge id=":1658965317_0" function="internal">
-        <lane id=":1658965317_0_0" index="0" speed="33.33" length="10.28" shape="1091.04,669.23 1099.11,675.60"/>
+        <lane id=":1658965317_0_0" index="0" speed="19.44" length="5.64" shape="1089.72,673.98 1090.94,675.13 1091.77,675.92 1092.67,676.63 1094.07,677.55"/>
     </edge>
     <edge id=":1658965317_1" function="internal">
-        <lane id=":1658965317_1_0" index="0" speed="33.33" length="10.36" shape="1089.08,671.98 1091.55,673.67 1093.18,675.02 1094.82,676.42 1097.31,678.25"/>
-    </edge>
-    <edge id=":1658965318_0" function="internal">
-        <lane id=":1658965318_0_0" index="0" speed="38.88" length="42.90" shape="1217.58,755.89 1223.82,760.67 1230.60,766.78 1238.96,773.88 1249.96,781.66"/>
-        <lane id=":1658965318_0_1" index="1" speed="38.88" length="42.90" shape="1214.22,757.51 1248.25,784.37"/>
-        <lane id=":1658965318_0_2" index="2" speed="38.88" length="42.90" shape="1214.22,757.51 1220.38,762.99 1227.14,770.39 1235.52,778.73 1246.54,787.07"/>
-    </edge>
-    <edge id=":1658965318_3" function="internal">
-        <lane id=":1658965318_3_0" index="0" speed="44.44" length="44.08" shape="1211.68,759.72 1248.25,784.37"/>
-        <lane id=":1658965318_3_1" index="1" speed="44.44" length="44.08" shape="1209.98,762.43 1246.54,787.07"/>
-        <lane id=":1658965318_3_2" index="2" speed="44.44" length="44.08" shape="1208.29,765.15 1244.83,789.78"/>
+        <lane id=":1658965317_1_0" index="0" speed="19.44" length="5.97" shape="1087.61,676.69 1092.39,680.27"/>
     </edge>
     <edge id=":1659040788_0" function="internal">
         <lane id=":1659040788_0_0" index="0" speed="33.33" length="6.57" shape="716.54,389.13 717.77,387.67 718.39,386.49 718.78,385.18 719.34,383.30"/>
@@ -108,14 +102,14 @@
         <lane id=":1659040835_1_0" index="0" speed="33.33" length="7.46" shape="666.66,406.38 668.34,407.78 669.24,409.03 670.15,410.29 671.83,411.69"/>
     </edge>
     <edge id=":2001841184_0" function="internal">
-        <lane id=":2001841184_0_0" index="0" speed="44.44" length="0.29" shape="1003.03,627.74 1003.31,627.92"/>
-        <lane id=":2001841184_0_1" index="1" speed="44.44" length="0.29" shape="1001.34,630.45 1001.58,630.61"/>
-        <lane id=":2001841184_0_2" index="2" speed="44.44" length="0.29" shape="999.64,633.17 999.85,633.30"/>
+        <lane id=":2001841184_0_0" index="0" speed="44.44" length="0.27" shape="1000.20,627.34 1000.36,627.45"/>
+        <lane id=":2001841184_0_1" index="1" speed="44.44" length="0.27" shape="998.39,629.98 998.62,630.13"/>
+        <lane id=":2001841184_0_2" index="2" speed="44.44" length="0.27" shape="996.58,632.62 996.87,632.81"/>
     </edge>
     <edge id=":2024041878_0" function="internal">
-        <lane id=":2024041878_0_0" index="0" speed="44.44" length="8.20" shape="1492.70,935.60 1494.59,937.10 1495.64,938.42 1496.70,939.73 1498.59,941.21"/>
-        <lane id=":2024041878_0_1" index="1" speed="44.44" length="8.20" shape="1490.99,938.30 1492.87,939.80 1493.93,941.12 1494.99,942.44 1496.89,943.92"/>
-        <lane id=":2024041878_0_2" index="2" speed="44.44" length="8.20" shape="1489.27,941.00 1491.16,942.50 1492.22,943.83 1493.29,945.15 1495.19,946.64"/>
+        <lane id=":2024041878_0_0" index="0" speed="44.44" length="8.00" shape="1416.80,888.63 1423.58,892.81"/>
+        <lane id=":2024041878_0_1" index="1" speed="44.44" length="8.00" shape="1415.11,891.35 1421.92,895.55"/>
+        <lane id=":2024041878_0_2" index="2" speed="44.44" length="8.00" shape="1413.41,894.06 1420.25,898.28"/>
     </edge>
     <edge id=":2112411742_0" function="internal">
         <lane id=":2112411742_0_0" index="0" speed="33.33" length="0.30" shape="651.85,456.54 652.06,456.32"/>
@@ -137,22 +131,38 @@
         <lane id=":30397945_0_0" index="0" speed="33.33" length="0.30" shape="663.45,462.94 663.65,462.74"/>
         <lane id=":30397945_0_1" index="1" speed="33.33" length="0.30" shape="665.76,465.15 665.98,464.93"/>
     </edge>
+    <edge id=":J1_0" function="internal">
+        <lane id=":J1_0_0" index="0" speed="38.88" length="3.92" shape="1235.40,770.90 1236.24,771.67 1236.63,772.40 1237.02,773.13 1237.87,773.88"/>
+    </edge>
+    <edge id=":J1_1" function="internal">
+        <lane id=":J1_1_0" index="0" speed="44.44" length="4.48" shape="1232.55,774.07 1236.18,776.59"/>
+        <lane id=":J1_1_1" index="1" speed="44.44" length="4.48" shape="1230.81,776.75 1234.49,779.31"/>
+        <lane id=":J1_1_2" index="2" speed="44.44" length="4.48" shape="1229.07,779.44 1232.80,782.03"/>
+    </edge>
+    <edge id=":J2_0" function="internal">
+        <lane id=":J2_0_0" index="0" speed="26.38" length="0.30" shape="1190.87,737.81 1191.11,737.97"/>
+        <lane id=":J2_0_1" index="1" speed="26.38" length="0.30" shape="1189.10,740.47 1189.35,740.64"/>
+    </edge>
+    <edge id=":J3_0" function="internal">
+        <lane id=":J3_0_0" index="0" speed="33.33" length="8.40" shape="1201.27,744.64 1203.06,746.41 1203.74,748.18 1204.42,749.94 1206.20,751.71"/>
+        <lane id=":J3_0_1" index="1" speed="33.33" length="8.40" shape="1199.52,747.32 1206.20,751.71"/>
+    </edge>
 
-    <edge id="145354574" from="1658965281" to="2001841184" priority="13" type="highway.motorway" spreadType="center" shape="535.71,337.09 599.05,377.18 750.89,473.31 876.19,552.22 1001.46,630.53">
-        <lane id="145354574_0" index="0" speed="44.44" length="550.34" shape="537.42,334.39 600.76,374.48 752.60,470.60 877.89,549.51 1003.03,627.74"/>
-        <lane id="145354574_1" index="1" speed="44.44" length="550.34" shape="535.71,337.09 599.05,377.18 750.89,473.31 876.19,552.22 1001.34,630.45"/>
-        <lane id="145354574_2" index="2" speed="44.44" length="550.34" shape="534.00,339.79 597.34,379.88 749.18,476.02 874.49,554.93 999.64,633.17"/>
+    <edge id="145354574" from="1658965281" to="2001841184" priority="13" type="highway.motorway" shape="535.71,337.09 599.05,377.18 750.89,473.31 876.19,552.22 995.84,634.05">
+        <lane id="145354574_0" index="0" speed="44.44" length="547.68" shape="539.99,330.33 603.33,370.42 755.16,466.55 880.58,545.53 1000.20,627.34"/>
+        <lane id="145354574_1" index="1" speed="44.44" length="547.68" shape="538.28,333.03 601.62,373.12 753.45,469.25 878.82,548.21 998.39,629.98"/>
+        <lane id="145354574_2" index="2" speed="44.44" length="547.68" shape="536.57,335.74 599.91,375.83 751.74,471.96 877.07,550.88 996.58,632.62"/>
     </edge>
     <edge id="145354802" from="1658965271" to="1658965289" priority="12" type="highway.motorway_link" spreadType="center">
-        <lane id="145354802_0" index="0" speed="33.33" length="353.04" shape="1020.87,144.46 769.44,392.30"/>
+        <lane id="145354802_0" index="0" speed="33.33" length="364.00" shape="1028.67,136.77 769.44,392.30"/>
     </edge>
     <edge id="145354804" from="1659040839" to="1285389396" priority="12" type="highway.motorway_link" spreadType="center" shape="599.99,412.07 550.12,381.92 272.55,199.05">
         <lane id="145354804_0" index="0" speed="33.33" length="379.18" shape="590.16,406.13 550.12,381.92 272.55,199.05"/>
     </edge>
     <edge id="153177809" from="1658939360" to="1658939377" priority="13" type="highway.motorway" spreadType="center">
-        <lane id="153177809_0" index="0" speed="44.44" length="12.49" shape="2123.61,1334.63 2134.43,1340.89"/>
-        <lane id="153177809_1" index="1" speed="44.44" length="12.49" shape="2122.01,1337.40 2132.83,1343.66"/>
-        <lane id="153177809_2" index="2" speed="44.44" length="12.49" shape="2120.41,1340.17 2131.23,1346.43"/>
+        <lane id="153177809_0" index="0" speed="44.44" length="12.42" shape="2123.68,1334.67 2134.43,1340.89"/>
+        <lane id="153177809_1" index="1" speed="44.44" length="12.42" shape="2122.08,1337.44 2132.83,1343.66"/>
+        <lane id="153177809_2" index="2" speed="44.44" length="12.42" shape="2120.48,1340.21 2131.23,1346.43"/>
     </edge>
     <edge id="153177820" from="1658939377" to="2055321499" priority="13" type="highway.motorway" spreadType="center" shape="2132.97,1343.74 2209.03,1384.59 2271.89,1416.10 2339.86,1446.94 2408.36,1475.43 2481.49,1501.95 2542.83,1522.08 2604.11,1540.19 2650.55,1552.62 2675.69,1558.85 2756.06,1576.34 2845.85,1591.79 2933.16,1602.29 2966.77,1605.57 2986.43,1606.94">
         <lane id="153177820_0" index="0" speed="44.44" length="900.32" shape="2134.63,1341.00 2210.50,1381.75 2273.27,1413.21 2341.14,1444.00 2409.52,1472.45 2482.53,1498.92 2543.78,1519.02 2604.98,1537.11 2651.35,1549.52 2676.42,1555.73 2756.67,1573.20 2846.31,1588.62 2933.51,1599.11 2967.04,1602.38 2986.65,1603.75"/>
@@ -163,11 +173,11 @@
         <lane id="153180750_0" index="0" speed="33.33" length="593.85" shape="1143.88,13.84 1098.20,54.76 1014.45,134.97 864.30,280.24 719.00,428.43"/>
         <lane id="153180750_1" index="1" speed="33.33" length="593.85" shape="1141.74,11.46 1096.02,52.42 1012.23,132.67 862.04,277.96 716.71,426.19"/>
     </edge>
-    <edge id="153180751" from="1658965271" to="1658965317" priority="12" type="highway.motorway_link" spreadType="center" shape="1037.46,128.11 965.03,224.17 941.35,263.90 925.74,298.96 910.98,349.55 910.07,392.27 916.75,455.63 946.82,534.64 977.38,573.14 1016.15,608.50 1112.35,686.51">
-        <lane id="153180751_0" index="0" speed="33.33" length="623.36" shape="1023.43,146.71 965.03,224.17 941.35,263.90 925.74,298.96 910.98,349.55 910.07,392.27 916.75,455.63 946.82,534.64 977.38,573.14 1016.15,608.50 1091.04,669.23"/>
+    <edge id="153180751" from="1658965271" to="1658965317" priority="12" type="highway.motorway_link" shape="1037.46,128.11 965.03,224.17 941.35,263.90 925.74,298.96 910.98,349.55 910.07,392.27 916.75,455.63 946.82,534.64 977.38,573.14 1016.15,608.50 1104.12,689.39">
+        <lane id="153180751_0" index="0" speed="19.44" length="633.89" shape="1031.24,139.02 966.36,225.06 942.77,264.64 927.25,299.51 912.58,349.80 911.67,392.20 918.32,455.26 948.23,533.84 978.55,572.04 1017.23,607.32 1089.72,673.98"/>
     </edge>
-    <edge id="153180753" from="1658965305" to="1658965317" priority="12" type="highway.motorway_link" spreadType="center" shape="777.49,477.56 830.38,510.46 1112.35,686.51">
-        <lane id="153180753_0" index="0" speed="33.33" length="360.55" shape="783.19,481.11 830.38,510.46 1089.08,671.98"/>
+    <edge id="153180753" from="1658965305" to="1658965317" priority="12" type="highway.motorway_link" shape="777.49,477.56 830.38,510.46 1104.12,689.39">
+        <lane id="153180753_0" index="0" speed="19.44" length="353.40" shape="791.23,484.22 831.24,509.11 1087.61,676.69"/>
     </edge>
     <edge id="153180754" from="1658965297" to="2112411743" priority="12" type="highway.motorway_link" spreadType="center">
         <lane id="153180754_0" index="0" speed="33.33" length="59.39" shape="728.93,435.32 687.47,477.84"/>
@@ -178,7 +188,7 @@
         <lane id="153180756_1" index="1" speed="33.33" length="124.85" shape="671.83,411.69 724.47,446.20 776.94,479.10"/>
     </edge>
     <edge id="153180757" from="1658965305" to="1658965289" priority="12" type="highway.motorway_link" spreadType="center" shape="777.49,477.56 784.65,477.28 805.00,487.24 825.60,493.27 840.03,493.92 852.42,491.35 865.54,486.48 875.27,479.23 883.42,471.24 889.33,463.14 893.21,454.53 897.55,439.76 898.53,424.41 896.34,411.07 891.73,398.56 884.86,386.61 874.23,375.80 863.01,369.20 847.75,364.88 833.34,362.62 821.02,364.20 808.48,368.83 790.06,378.08 770.03,396.16 763.50,398.15">
-        <lane id="153180757_0" index="0" speed="33.33" length="330.59" shape="784.20,477.30 784.65,477.28 805.00,487.24 825.60,493.27 840.03,493.92 852.42,491.35 865.54,486.48 875.27,479.23 883.42,471.24 889.33,463.14 893.21,454.53 897.55,439.76 898.53,424.41 896.34,411.07 891.73,398.56 884.86,386.61 874.23,375.80 863.01,369.20 847.75,364.88 833.34,362.62 821.02,364.20 808.48,368.83 790.06,378.08 771.15,395.15"/>
+        <lane id="153180757_0" index="0" speed="33.33" length="321.81" shape="792.13,480.94 805.00,487.24 825.60,493.27 840.03,493.92 852.42,491.35 865.54,486.48 875.27,479.23 883.42,471.24 889.33,463.14 893.21,454.53 897.55,439.76 898.53,424.41 896.34,411.07 891.73,398.56 884.86,386.61 874.23,375.80 863.01,369.20 847.75,364.88 833.34,362.62 821.02,364.20 808.48,368.83 790.06,378.08 771.15,395.15"/>
     </edge>
     <edge id="153189949" from="1659040831" to="1659040645" priority="13" type="highway.motorway" spreadType="center" shape="706.23,420.11 849.92,272.10 999.52,126.84 1133.59,0.00">
         <lane id="153189949_0" index="0" speed="33.33" length="599.22" shape="705.19,418.89 848.79,270.97 998.41,125.68 1132.49,-1.16"/>
@@ -214,25 +224,26 @@
         <lane id="17098081_0" index="0" speed="33.33" length="60.08" shape="663.65,462.74 696.98,427.31 704.98,419.10"/>
         <lane id="17098081_1" index="1" speed="33.33" length="60.08" shape="665.98,464.93 699.30,429.53 707.27,421.33"/>
     </edge>
-    <edge id="189597495" from="2001841184" to="1658965318" priority="13" type="highway.motorway" spreadType="center" shape="1001.46,630.53 1067.28,672.77 1158.30,730.24 1249.25,786.89">
-        <lane id="189597495_0" index="0" speed="44.44" length="246.60" shape="1003.31,627.92 1069.00,670.07 1160.00,727.53 1211.68,759.72"/>
-        <lane id="189597495_1" index="1" speed="44.44" length="246.60" shape="1001.58,630.61 1067.28,672.77 1158.30,730.24 1209.98,762.43"/>
-        <lane id="189597495_2" index="2" speed="44.44" length="246.60" shape="999.85,633.30 1065.56,675.47 1156.60,732.95 1208.29,765.15"/>
+    <edge id="189597495" from="2001841184" to="J1" priority="13" type="highway.motorway" shape="995.84,634.05 1059.87,675.65 1156.04,734.15 1239.57,788.13">
+        <lane id="189597495_0" index="0" speed="44.44" length="274.64" shape="1000.36,627.45 1064.13,668.88 1160.29,727.37 1232.55,774.07"/>
+        <lane id="189597495_1" index="1" speed="44.44" length="274.64" shape="998.62,630.13 1062.43,671.59 1158.59,730.08 1230.81,776.75"/>
+        <lane id="189597495_2" index="2" speed="44.44" length="274.64" shape="996.87,632.81 1060.72,674.30 1156.89,732.79 1229.07,779.44"/>
     </edge>
-    <edge id="189604289" from="1658965318" to="2024041878" priority="13" type="highway.motorway" spreadType="center" shape="1249.25,786.89 1371.59,864.21 1493.50,941.80">
-        <lane id="189604289_0" index="0" speed="44.44" length="287.43" shape="1249.96,781.66 1374.16,860.16 1492.70,935.60"/>
-        <lane id="189604289_1" index="1" speed="44.44" length="287.43" shape="1248.25,784.37 1372.45,862.86 1490.99,938.30"/>
-        <lane id="189604289_2" index="2" speed="44.44" length="287.43" shape="1246.54,787.07 1370.73,865.56 1489.27,941.00"/>
-        <lane id="189604289_3" index="3" speed="44.44" length="287.43" shape="1244.83,789.78 1369.02,868.26 1487.55,943.70"/>
+    <edge id="191842213" from="2024041878" to="1658939360" priority="13" type="highway.motorway" shape="1415.98,897.55 1661.41,1047.05 1848.14,1161.33 2012.58,1269.41 2121.87,1337.32">
+        <lane id="191842213_0" index="0" speed="44.44" length="827.60" shape="1423.58,892.81 1665.58,1040.22 1852.43,1154.57 2016.89,1262.67 2125.95,1330.44"/>
+        <lane id="191842213_1" index="1" speed="44.44" length="827.60" shape="1421.92,895.55 1663.91,1042.95 1850.71,1157.28 2015.17,1265.37 2124.26,1333.16"/>
+        <lane id="191842213_2" index="2" speed="44.44" length="827.60" shape="1420.25,898.28 1662.24,1045.68 1849.00,1159.98 2013.44,1268.06 2122.57,1335.87"/>
     </edge>
-    <edge id="191842213" from="2024041878" to="1658939360" priority="13" type="highway.motorway" spreadType="center" shape="1493.50,941.80 1661.41,1047.05 1848.14,1161.33 2012.58,1269.41 2121.87,1337.32">
-        <lane id="191842213_0" index="0" speed="44.44" length="738.38" shape="1498.59,941.21 1663.10,1044.33 1849.85,1158.63 2014.30,1266.71 2123.42,1334.52"/>
-        <lane id="191842213_1" index="1" speed="44.44" length="738.38" shape="1496.89,943.92 1661.41,1047.05 1848.14,1161.33 2012.58,1269.41 2121.73,1337.23"/>
-        <lane id="191842213_2" index="2" speed="44.44" length="738.38" shape="1495.19,946.64 1659.72,1049.77 1846.43,1164.03 2010.86,1272.11 2120.04,1339.95"/>
+    <edge id="201283198" from="1658965317" to="J2" priority="12" type="highway.motorway_link" shape="1104.12,689.39 1178.07,735.02 1188.34,741.89">
+        <lane id="201283198_0" index="0" speed="19.44" length="113.98" acceleration="1" shape="1094.07,677.55 1180.67,730.98 1190.87,737.81"/>
+        <lane id="201283198_1" index="1" speed="19.44" length="113.98" shape="1092.39,680.27 1178.94,733.67 1189.10,740.47"/>
     </edge>
-    <edge id="201283198" from="1658965317" to="1658965318" priority="12" type="highway.motorway_link" spreadType="center" shape="1112.35,686.51 1216.00,756.78 1243.89,774.48 1249.25,786.89">
-        <lane id="201283198_0" index="0" speed="33.33" length="142.18" acceleration="1" shape="1099.11,675.60 1216.88,755.44 1217.58,755.89"/>
-        <lane id="201283198_1" index="1" speed="33.33" length="142.18" shape="1097.31,678.25 1214.22,757.51"/>
+    <edge id="201283198.145" from="J2" to="J3" priority="12" type="highway.motorway_link">
+        <lane id="201283198.145_0" index="0" speed="33.33" length="12.16" shape="1191.11,737.97 1201.27,744.64"/>
+        <lane id="201283198.145_1" index="1" speed="33.33" length="12.16" shape="1189.35,740.64 1199.52,747.32"/>
+    </edge>
+    <edge id="201283198.145.16" from="J3" to="J1" priority="12" type="highway.motorway_link" shape="1201.98,750.85 1234.16,772.00 1239.57,788.13">
+        <lane id="201283198.145.16_0" index="0" speed="33.33" length="34.94" shape="1206.20,751.71 1235.40,770.90"/>
     </edge>
     <edge id="201285010" from="2112411743" to="1658965310" priority="12" type="highway.motorway_link" spreadType="center">
         <lane id="201285010_0" index="0" speed="33.33" length="45.34" shape="687.35,477.97 656.89,511.56"/>
@@ -262,12 +273,18 @@
         <lane id="4086685_0" index="0" speed="33.33" length="60.41" shape="718.84,428.59 710.91,437.11 676.90,472.11"/>
         <lane id="4086685_1" index="1" speed="33.33" length="60.41" shape="716.50,426.41 708.59,434.91 674.60,469.88"/>
     </edge>
+    <edge id="E0" from="J1" to="2024041878" priority="-1" shape="1239.57,788.13 1325.17,841.44 1341.46,851.10 1415.98,897.55">
+        <lane id="E0_0" index="0" speed="44.44" length="212.55" acceleration="1" shape="1237.87,773.88 1330.99,831.87 1347.28,841.53 1418.49,885.92"/>
+        <lane id="E0_1" index="1" speed="44.44" length="212.55" acceleration="1" shape="1236.18,776.59 1329.33,834.60 1345.62,844.26 1416.80,888.63"/>
+        <lane id="E0_2" index="2" speed="44.44" length="212.55" shape="1234.49,779.31 1327.66,837.34 1343.95,847.00 1415.11,891.35"/>
+        <lane id="E0_3" index="3" speed="44.44" length="212.55" shape="1232.80,782.03 1326.00,840.07 1342.29,849.73 1413.41,894.06"/>
+    </edge>
 
-    <tlLogic id="1658965318" type="static" programID="0" offset="0">
-        <phase duration="2"  state="yyy"/>
-        <phase duration="10000" state="rrr"/>
-        <phase duration="2"  state="yyy"/>
-        <phase duration="10000" state="ggg"/>
+    <tlLogic id="J2" type="static" programID="0" offset="0">
+        <phase duration="2"  state="yy"/>
+        <phase duration="10000" state="rr"/>
+        <phase duration="2"  state="yy"/>
+        <phase duration="10000" state="gg"/>
     </tlLogic>
 
     <junction id="1285389396" type="dead_end" x="272.55" y="199.05" incLanes="145354804_0" intLanes="" shape="271.67,200.39 273.43,197.71"/>
@@ -275,7 +292,7 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="1658939360" type="priority" x="2121.87" y="1337.32" incLanes="191842213_0 191842213_1 191842213_2" intLanes=":1658939360_0_0 :1658939360_0_1 :1658939360_0_2" shape="2119.61,1341.56 2124.42,1333.25 2124.26,1333.16 2119.20,1341.31">
+    <junction id="1658939360" type="priority" x="2121.87" y="1337.32" incLanes="191842213_0 191842213_1 191842213_2" intLanes=":1658939360_0_0 :1658939360_0_1 :1658939360_0_2" shape="2119.68,1341.60 2124.48,1333.29 2126.80,1329.08 2121.73,1337.23">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -286,8 +303,8 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
     <junction id="1658965247" type="dead_end" x="1142.81" y="12.65" incLanes="" intLanes="" shape="1140.67,10.27 1144.95,15.03"/>
-    <junction id="1658965271" type="dead_end" x="1037.46" y="128.11" incLanes="" intLanes="" shape="1019.74,143.33 1021.99,145.60 1022.16,145.75 1024.71,147.68"/>
-    <junction id="1658965281" type="dead_end" x="535.71" y="337.09" incLanes="" intLanes="" shape="533.14,341.15 538.28,333.03"/>
+    <junction id="1658965271" type="dead_end" x="1037.46" y="128.11" incLanes="" intLanes="" shape="1027.55,135.63 1029.79,137.91 1029.96,138.06 1032.52,139.98"/>
+    <junction id="1658965281" type="dead_end" x="535.71" y="337.09" incLanes="" intLanes="" shape="535.71,337.09 540.84,328.98"/>
     <junction id="1658965289" type="priority" x="763.50" y="398.15" incLanes="153180757_0 145354802_0" intLanes=":1658965289_0_0 :1658965289_1_0" shape="771.69,396.81 770.61,393.48 768.32,391.16 761.98,395.14 766.52,399.65">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
@@ -300,24 +317,16 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="1658965305" type="priority" x="777.49" y="477.56" incLanes="153180756_0 153180756_1" intLanes=":1658965305_0_0 :1658965305_1_0" shape="782.35,482.46 784.04,479.75 784.26,478.90 784.14,475.70 779.49,475.03 776.09,480.46">
+    <junction id="1658965305" type="priority" x="777.49" y="477.56" incLanes="153180756_0 153180756_1" intLanes=":1658965305_0_0 :1658965305_1_0" shape="790.39,485.58 792.08,482.87 792.15,482.73 792.11,479.15 779.49,475.03 776.09,480.46">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="1658965310" type="priority" x="653.02" y="513.44" incLanes="201285010_0 201285010_1" intLanes=":1658965310_0_0" shape="658.07,512.63 653.33,508.33 649.12,515.25 651.45,517.44">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="1658965317" type="priority" x="1112.35" y="686.51" incLanes="153180751_0 153180753_0" intLanes=":1658965317_0_0 :1658965317_1_0" shape="1096.42,679.57 1100.01,674.28 1092.05,667.99 1090.03,670.47 1089.92,670.62 1088.23,673.34">
+    <junction id="1658965317" type="priority" x="1104.12" y="689.39" incLanes="153180751_0 153180753_0" intLanes=":1658965317_0_0 :1658965317_1_0" shape="1091.55,681.63 1094.91,676.18 1090.80,672.80 1088.64,675.15 1088.49,675.35 1086.73,678.03">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
-    </junction>
-    <junction id="1658965318" type="traffic_light" x="1249.25" y="786.89" incLanes="201283198_0 201283198_1 189597495_0 189597495_1 189597495_2" intLanes=":1658965318_0_0 :1658965318_0_1 :1658965318_0_2 :1658965318_3_0 :1658965318_3_1 :1658965318_3_2" shape="1243.98,791.13 1250.81,780.31 1219.28,755.07 1212.55,758.31 1207.45,766.51">
-        <request index="0" response="000000" foes="111000" cont="0"/>
-        <request index="1" response="000000" foes="111000" cont="0"/>
-        <request index="2" response="000000" foes="111000" cont="0"/>
-        <request index="3" response="000111" foes="000111" cont="0"/>
-        <request index="4" response="000111" foes="000111" cont="0"/>
-        <request index="5" response="000111" foes="000111" cont="0"/>
     </junction>
     <junction id="1659040550" type="dead_end" x="280.05" y="878.87" incLanes="" intLanes="" shape="282.34,881.10 277.76,876.64"/>
     <junction id="1659040645" type="dead_end" x="1133.59" y="0.00" incLanes="153189949_0 153189949_1" intLanes="" shape="1131.39,-2.32 1135.79,2.32"/>
@@ -343,12 +352,12 @@
     <junction id="1659041102" type="dead_end" x="403.13" y="783.73" incLanes="153190030_0" intLanes="" shape="404.30,784.82 401.96,782.64"/>
     <junction id="1659041103" type="dead_end" x="353.52" y="779.32" incLanes="" intLanes="" shape="354.69,780.41 352.35,778.23"/>
     <junction id="1659041110" type="dead_end" x="296.74" y="890.50" incLanes="4086683_0 4086683_1" intLanes="" shape="299.18,892.57 294.30,888.43"/>
-    <junction id="2001841184" type="priority" x="1001.46" y="630.53" incLanes="145354574_0 145354574_1 145354574_2" intLanes=":2001841184_0_0 :2001841184_0_1 :2001841184_0_2" shape="998.99,634.65 1004.18,626.57 1003.88,626.38 998.79,634.52">
+    <junction id="2001841184" type="priority" x="995.84" y="634.05" incLanes="145354574_0 145354574_1 145354574_2" intLanes=":2001841184_0_0 :2001841184_0_1 :2001841184_0_2" shape="996.00,634.16 1001.23,626.10 1001.10,626.02 995.68,633.94">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="2024041878" type="priority" x="1493.50" y="941.80" incLanes="189604289_0 189604289_1 189604289_2 189604289_3" intLanes=":2024041878_0_0 :2024041878_0_1 :2024041878_0_2" shape="1494.34,947.99 1499.44,939.86 1493.56,934.25 1486.69,945.05">
+    <junction id="2024041878" type="priority" x="1415.98" y="897.55" incLanes="E0_0 E0_1 E0_2 E0_3" intLanes=":2024041878_0_0 :2024041878_0_1 :2024041878_0_2" shape="1419.42,899.65 1424.42,891.45 1419.34,884.56 1412.57,895.42">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -373,6 +382,20 @@
     <junction id="30397945" type="priority" x="664.71" y="463.94" incLanes="35136848_0 35136848_1" intLanes=":30397945_0_0 :30397945_0_1" shape="667.14,466.03 662.48,461.64 662.30,461.83 666.92,466.26">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="J1" type="priority" x="1239.57" y="788.13" incLanes="201283198.145.16_0 189597495_0 189597495_1 189597495_2" intLanes=":J1_0_0 :J1_1_0 :J1_1_1 :J1_1_2" shape="1231.95,783.38 1238.72,772.52 1236.97,770.30 1233.56,771.61 1233.42,772.72 1228.21,780.79">
+        <request index="0" response="0000" foes="0000" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
+    </junction>
+    <junction id="J2" type="traffic_light" x="1188.34" y="741.89" incLanes="201283198_0 201283198_1" intLanes=":J2_0_0 :J2_0_1" shape="1188.48,741.98 1191.99,736.63 1191.76,736.48 1188.21,741.80">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="J3" type="zipper" x="1201.98" y="750.85" incLanes="201283198.145_0 201283198.145_1" intLanes=":J3_0_0 :J3_0_1" shape="1205.32,753.05 1207.08,750.37 1202.15,743.30 1198.64,748.65">
+        <request index="0" response="10" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
     </junction>
 
     <connection from="145354574" to="189597495" fromLane="0" toLane="0" via=":2001841184_0_0" dir="s" state="M"/>
@@ -401,18 +424,17 @@
     <connection from="153190017" to="153180756" fromLane="0" toLane="1" pass="1" via=":1659040835_1_0" dir="s" state="M"/>
     <connection from="17098081" to="153189949" fromLane="0" toLane="0" via=":1659040831_0_0" dir="s" state="M"/>
     <connection from="17098081" to="153189949" fromLane="1" toLane="1" via=":1659040831_0_1" dir="s" state="M"/>
-    <connection from="189597495" to="189604289" fromLane="0" toLane="1" uncontrolled="1" via=":1658965318_3_0" dir="s" state="m"/>
-    <connection from="189597495" to="189604289" fromLane="1" toLane="2" uncontrolled="1" via=":1658965318_3_1" dir="s" state="m"/>
-    <connection from="189597495" to="189604289" fromLane="2" toLane="3" uncontrolled="1" via=":1658965318_3_2" dir="s" state="m"/>
-    <connection from="189604289" to="191842213" fromLane="0" toLane="0" via=":2024041878_0_0" dir="s" state="M"/>
-    <connection from="189604289" to="191842213" fromLane="1" toLane="1" via=":2024041878_0_1" dir="s" state="M"/>
-    <connection from="189604289" to="191842213" fromLane="2" toLane="2" via=":2024041878_0_2" dir="s" state="M"/>
+    <connection from="189597495" to="E0" fromLane="0" toLane="1" via=":J1_1_0" dir="s" state="M"/>
+    <connection from="189597495" to="E0" fromLane="1" toLane="2" via=":J1_1_1" dir="s" state="M"/>
+    <connection from="189597495" to="E0" fromLane="2" toLane="3" via=":J1_1_2" dir="s" state="M"/>
     <connection from="191842213" to="153177809" fromLane="0" toLane="0" via=":1658939360_0_0" dir="s" state="M"/>
     <connection from="191842213" to="153177809" fromLane="1" toLane="1" via=":1658939360_0_1" dir="s" state="M"/>
     <connection from="191842213" to="153177809" fromLane="2" toLane="2" via=":1658939360_0_2" dir="s" state="M"/>
-    <connection from="201283198" to="189604289" fromLane="0" toLane="0" via=":1658965318_0_0" tl="1658965318" linkIndex="0" dir="s" state="O"/>
-    <connection from="201283198" to="189604289" fromLane="1" toLane="1" via=":1658965318_0_1" tl="1658965318" linkIndex="1" dir="s" state="O"/>
-    <connection from="201283198" to="189604289" fromLane="1" toLane="2" via=":1658965318_0_2" tl="1658965318" linkIndex="2" dir="s" state="O"/>
+    <connection from="201283198" to="201283198.145" fromLane="0" toLane="0" via=":J2_0_0" tl="J2" linkIndex="0" dir="s" state="O"/>
+    <connection from="201283198" to="201283198.145" fromLane="1" toLane="1" via=":J2_0_1" tl="J2" linkIndex="1" dir="s" state="O"/>
+    <connection from="201283198.145" to="201283198.145.16" fromLane="0" toLane="0" pass="1" keepClear="0" via=":J3_0_0" dir="s" state="M"/>
+    <connection from="201283198.145" to="201283198.145.16" fromLane="1" toLane="0" via=":J3_0_1" dir="s" state="Z"/>
+    <connection from="201283198.145.16" to="E0" fromLane="0" toLane="0" pass="1" via=":J1_0_0" dir="s" state="M"/>
     <connection from="201285010" to="153190030" fromLane="0" toLane="0" via=":1658965310_0_0" dir="s" state="M"/>
     <connection from="201285011" to="153189984" fromLane="0" toLane="0" via=":1659040809_0_0" dir="s" state="M"/>
     <connection from="201285011" to="153189984" fromLane="1" toLane="1" via=":1659040809_0_1" dir="s" state="M"/>
@@ -424,6 +446,9 @@
     <connection from="35136848" to="17098081" fromLane="1" toLane="1" via=":30397945_0_1" dir="s" state="M"/>
     <connection from="4086685" to="4086683" fromLane="0" toLane="0" via=":21721178_0_0" dir="s" state="M"/>
     <connection from="4086685" to="4086683" fromLane="1" toLane="1" via=":21721178_0_1" dir="s" state="M"/>
+    <connection from="E0" to="191842213" fromLane="1" toLane="0" via=":2024041878_0_0" dir="s" state="M"/>
+    <connection from="E0" to="191842213" fromLane="2" toLane="1" via=":2024041878_0_1" dir="s" state="M"/>
+    <connection from="E0" to="191842213" fromLane="3" toLane="2" via=":2024041878_0_2" dir="s" state="M"/>
 
     <connection from=":1285390101_0" to="153189987" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1285390101_1" to="153189987" fromLane="0" toLane="1" dir="s" state="M"/>
@@ -444,12 +469,6 @@
     <connection from=":1658965310_0" to="153190030" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1658965317_0" to="201283198" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1658965317_1" to="201283198" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":1658965318_0" to="189604289" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":1658965318_0" to="189604289" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":1658965318_0" to="189604289" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from=":1658965318_3" to="189604289" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":1658965318_3" to="189604289" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from=":1658965318_3" to="189604289" fromLane="2" toLane="3" dir="s" state="M"/>
     <connection from=":1659040788_0" to="153189955" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":1659040788_1" to="153190025" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1659040809_0" to="153189984" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -474,5 +493,13 @@
     <connection from=":21721178_0" to="4086683" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":30397945_0" to="17098081" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":30397945_0" to="17098081" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":J1_0" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J1_1" to="E0" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":J1_1" to="E0" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from=":J1_1" to="E0" fromLane="2" toLane="3" dir="s" state="M"/>
+    <connection from=":J2_0" to="201283198.145" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J2_0" to="201283198.145" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":J3_0" to="201283198.145.16" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J3_0" to="201283198.145.16" fromLane="1" toLane="0" dir="s" state="M"/>
 
 </net>

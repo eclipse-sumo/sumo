@@ -56,3 +56,6 @@ ticket8995
 
 # transport without container
 ticket9008
+
+# invalid ride in output (should reject input)
+ticket13506

@@ -1,4 +1,4 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
@@ -40,7 +40,7 @@ class BaseTool(am.ArrayObjman):
     This is a base tool class for Agilecanvas.
     It must handle all mouse or keyboard events,
     must create and draw helplines and finally
-    modify the state of client which are grafically
+    modify the state of client which are graphically
     represented on the canvas.
     """
 
@@ -49,7 +49,7 @@ class BaseTool(am.ArrayObjman):
         To be overridden by specific tool.
         """
         self.init_common('select', parent, 'Selection tool',
-                         info='Select objects in cancvas',
+                         info='Select objects in canvas',
                          is_textbutton=True,
                          )
 
@@ -203,7 +203,7 @@ class DelTool(BaseTool):
         """
         To be overridden by specific tool.
         """
-        self.init_common('delete', parent, 'Delete', info='Delete objects in cancvas')
+        self.init_common('delete', parent, 'Delete', info='Delete objects in canvas')
 
     def set_button_info(self, bsize=(32, 32)):
         # print 'set_button_info select tool'

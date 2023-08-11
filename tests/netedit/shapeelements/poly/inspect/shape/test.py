@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredTAZ(referencePosition, 116, 139, 200, True)
+netedit.createSquaredShape(referencePosition, 116, 139, 200, True)
 # go to inspect mode
 netedit.inspectMode()
 
@@ -43,21 +43,20 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 116, 139)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.shape, "dummyShape", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "dummyShape", False)
 
 # Change parameter 1 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.shape, "", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "", False)
 
 # Change parameter 1 with a valid value (single point)
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.shape, "12.00,8.00", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "12.00,8.00", False)
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(netedit.attrs.Poly.inspect.shape, "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 " +
+netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 " +
                         "5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

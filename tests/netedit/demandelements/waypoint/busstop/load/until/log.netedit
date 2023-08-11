@@ -1,5 +1,5 @@
 Error: Attribute 'until' in definition of a stop is not a valid time value.
-Error: Invalid duration or end time is given for a stop at 'busStop'
+Error: Invalid duration or end time is given for a stop at 'busStopA'
 Error: Attribute 'until' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop at 'busStop'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypointBusStop.busstop.08Apr202456.3590/netedit.daily.demand.waypointBusStop.busstop/demandelements/waypoint/busstop/load/until/routes.rou.xml failed.
+Error: Invalid duration or end time is given for a stop at 'busStopA'
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoints.14Jul182757.2658/netedit.daily.demand.waypoints/demandelements/waypoint/busstop/load/until/routes.rou.xml failed.

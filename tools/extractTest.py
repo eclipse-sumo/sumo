@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -129,7 +129,8 @@ def main(options):
         if not os.path.exists(os.path.dirname(options.python_script)):
             os.makedirs(os.path.dirname(options.python_script))
         pyBatch = open(options.python_script, 'w')
-        pyBatch.write('''import subprocess, sys, os
+        pyBatch.write('''#!/usr/bin/env python
+import subprocess, sys, os
 from os.path import abspath, dirname, join
 THIS_DIR = abspath(dirname(__file__))
 SUMO_HOME = os.environ.get("SUMO_HOME", dirname(dirname(THIS_DIR)))
@@ -328,8 +329,9 @@ for d, p in [
                           (testPath, " ".join(appOptions)))
                 cmd = [ao if " " not in ao else "'%s'" % ao for ao in appOptions]
                 with open(nameBase + ".sh", "w") as sh:
+                    sh.write("#!/bin/bash\n")
                     sh.write(" ".join(cmd))
-                os.chmod(nameBase + ".sh", os.stat(nameBase + ".sh").st_mode | stat.S_IXUSR)
+                os.chmod(sh.name, os.stat(sh.name).st_mode | stat.S_IXUSR)
                 cmd = [o.replace("$SUMO_HOME", "%SUMO_HOME%") if " " not in o else '"%s"' % o for o in appOptions]
                 with open(nameBase + ".bat", "w") as bat:
                     bat.write(" ".join(cmd))
@@ -341,6 +343,8 @@ for d, p in [
     if p.wait() != 0:
         print("Error: '%s' failed for '%s'!" % (" ".join(getattr(p, "args", [str(p.pid)])), d))
         sys.exit(1)\n""")
+        pyBatch.close()
+        os.chmod(pyBatch.name, os.stat(pyBatch.name).st_mode | stat.S_IXUSR)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,17 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 336, 210)
 
 # Change parameter lane with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.lane, "dummyLane", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspect.lane, "dummyLane", True)
 
 # Change parameter lane with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.lane, "", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspect.lane, "", True)
 
 # Change parameter lane with a valid value
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.lane, "bot_0", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspect.lane, "bot_0", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -120,13 +120,13 @@ void
 GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, bool disableSelectionColor) {
     const GUIColorer& c = s.poiColorer;
     const int active = c.getActive();
-    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POI, o->getGlID()) && disableSelectionColor) {
+    if (s.netedit && active != 1 && gSelected.isSelected(o->getType(), o->getGlID()) && disableSelectionColor) {
         // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(RGBColor(0, 0, 204));
     } else if (active == 0) {
         GLHelper::setColor(POI->getShapeColor());
     } else if (active == 1) {
-        GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(GLO_POI, o->getGlID())));
+        GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(o->getType(), o->getGlID())));
     } else {
         GLHelper::setColor(c.getScheme().getColor(0));
     }

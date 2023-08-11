@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -292,7 +292,7 @@ GNETagSelector::ACTemplate::getAC() const {
 
 GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagProperty) :
     myAC(nullptr) {
-    // create attribute carrier depending of
+    // create attribute carrier depending of tag
     switch (tagProperty.getTag()) {
         // additional elements
         case SUMO_TAG_BUS_STOP:
@@ -373,7 +373,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         // shapes
         case SUMO_TAG_POLY:
-            myAC = new GNEPoly(net);
+            myAC = new GNEPoly(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_POI:
         case GNE_TAG_POILANE:
@@ -398,6 +398,17 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
             myAC = nullptr; // TMP
             break;
+        // JuPedSim elements
+        case GNE_TAG_JPS_WALKABLEAREA:
+        case GNE_TAG_JPS_OBSTACLE:
+        case GNE_TAG_JPS_WAITINGAREA:
+        case GNE_TAG_JPS_SOURCE:
+        case GNE_TAG_JPS_SINK:
+            myAC = new GNEPoly(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_JPS_WAYPOINT:
+            myAC = new GNEPOI(tagProperty.getTag(), net);
+            break;
         // Demand elements
         case SUMO_TAG_ROUTE:
         case GNE_TAG_ROUTE_EMBEDDED:
@@ -409,14 +420,16 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             myAC = new GNEVTypeDistribution(net);
             break;
+            case SUMO_TAG_TRIP:
         case SUMO_TAG_VEHICLE:
         case GNE_TAG_VEHICLE_WITHROUTE:
+        case GNE_TAG_TRIP_JUNCTIONS:
+        case GNE_TAG_TRIP_TAZS:
+        case SUMO_TAG_FLOW:
         case GNE_TAG_FLOW_ROUTE:
         case GNE_TAG_FLOW_WITHROUTE:
-        case SUMO_TAG_TRIP:
-        case GNE_TAG_TRIP_JUNCTIONS:
-        case SUMO_TAG_FLOW:
         case GNE_TAG_FLOW_JUNCTIONS:
+        case GNE_TAG_FLOW_TAZS:
             myAC = new GNEVehicle(tagProperty.getTag(), net);
             break;
         // stops

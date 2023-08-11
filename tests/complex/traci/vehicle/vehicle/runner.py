@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -117,6 +117,7 @@ def check(vehID):
     print("person IDs", traci.vehicle.getPersonIDList(vehID))
     print("personCapacity", traci.vehicle.getPersonCapacity(vehID))
     print("boardingDuration", traci.vehicle.getBoardingDuration(vehID))
+    print("impatience", traci.vehicle.getImpatience(vehID))
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))
@@ -187,6 +188,8 @@ traci.vehicle.setShapeClass(vehID, "bicycle")
 traci.vehicle.setMinGap(vehID, 1.1)
 traci.vehicle.setWidth(vehID, 1.1)
 traci.vehicle.setHeight(vehID, 1.6)
+traci.vehicle.setImpatience(vehID, 0.8)
+traci.vehicle.setBoardingDuration(vehID, 26)
 traci.vehicle.setMinGapLat(vehID, 0.5)
 traci.vehicle.setMaxSpeedLat(vehID, 1.5)
 traci.vehicle.setColor(vehID, (255, 0, 0, 255))
@@ -343,6 +346,10 @@ for i in range(14):
           "lane", traci.vehicle.getLaneID(routeTestVeh),
           "lanePos", traci.vehicle.getLanePosition(routeTestVeh),
           "stopped", traci.vehicle.isStopped(routeTestVeh))
+traci.vehicle.setImpatience(routeTestVeh, 0.3)
+print("waitingTime=%s dynamicImpatience=%s" % (
+    traci.vehicle.getWaitingTime(routeTestVeh),
+    traci.vehicle.getImpatience(routeTestVeh)))
 # test for adding a veh and a busstop
 busVeh = "bus"
 traci.vehicle.addLegacy(busVeh, "horizontal")
@@ -405,6 +412,7 @@ traci.vehicle.setLength("block_2si", 200)
 # cause collision on insertion
 traci.vehicle.addLegacy(tele, "horizontal")
 traci.vehicle.moveTo(tele, "2fi_0", 3)
+traci.vehicle.setImpatience(routeTestVeh, 0.4)
 for i in range(5):
     checkOffRoad(tele)
     print("step", step())
@@ -427,6 +435,11 @@ print("tazVeh edges", traci.vehicle.getRoute("tazVeh"))
 print("step", step())
 print("tazVeh pos=%s edges=%s" % (traci.vehicle.getLanePosition(
     "tazVeh"), traci.vehicle.getRoute("tazVeh")))
+# check dynamic impatience
+print("waitingTime=%s dynamicImpatience=%s" % (
+    traci.vehicle.getWaitingTime(routeTestVeh),
+    traci.vehicle.getImpatience(routeTestVeh)))
+
 # add vehicle and attempt to route between disconnected edges
 traci.vehicle.addLegacy("failVeh", "failRoute")
 print("failVeh edges", traci.vehicle.getRoute("failVeh"))
@@ -457,6 +470,8 @@ for i in range(18):
 
 electricVeh = "elVeh"
 traci.vehicle.addLegacy(electricVeh, "horizontal", typeID="electric")
+print("device.battery.maximumBatteryCapacity from vehicle definition: %s" % (
+        traci.vehicle.getParameter(electricVeh, "device.battery.maximumBatteryCapacity")))
 traci.vehicle.setParameter(electricVeh, "device.battery.maximumBatteryCapacity", "40000")
 traci.vehicle.setParameter(electricVeh, "device.battery.vehicleMass", "1024")
 print("has battery device: %s" % traci.vehicle.getParameter(electricVeh, "has.battery.device"))
@@ -512,6 +527,9 @@ for i in range(10):
         traci.vehicle.getElectricityConsumption(electricVeh),
     ))
     print(sorted(traci.vehicle.getSubscriptionResults(electricVeh).items()))
+print("waitingTime=%s dynamicImpatience=%s" % (
+    traci.vehicle.getWaitingTime(routeTestVeh),
+    traci.vehicle.getImpatience(routeTestVeh)))
 # test for adding a trip
 traci.route.add("trip2", ["3si", "4si"])
 traci.vehicle.addLegacy("triptest2", "trip2", typeID="reroutingType")

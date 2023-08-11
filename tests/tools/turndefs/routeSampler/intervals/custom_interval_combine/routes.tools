@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:09:34.994280 by routeSampler.py v1_13_0+1343-240e5d48340
+<!-- generated on 2023-06-29 15:04:02.647811 by routeSampler.py v1_17_0+1318-85f891f765f
 <configuration>
-    <edgedata-attribute value="count"/>
-    <edgedata-files value="input_edgedata.xml"/>
-    <interval value="3600"/>
     <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <edgedata-attribute value="count"/>
     <write-flows value="number"/>
     <write-route-ids value="True"/>
+    <interval value="3600"/>
 </configuration>
 -->
 
@@ -17,7 +17,7 @@
     <route id="1" edges="-3 -3.180.00 15"/> <!-- 18 (route_1) -->
     <route id="2" edges="-3 -3.180.00 5"/> <!-- 82 (route_0) -->
 
-    <flow id="2" begin="0.00" end="3533.33" number="82" route="2"/>
-    <flow id="1" begin="100.00" end="3566.67" number="18" route="1"/>
-    <flow id="0" begin="166.67" end="3466.67" number="8" route="0"/>
+    <flow id="2" begin="10.63" end="3600.00" number="82" route="2"/>
+    <flow id="1" begin="197.13" end="3600.00" number="18" route="1"/>
+    <flow id="0" begin="220.25" end="3600.00" number="8" route="0"/>
 </routes>

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2003-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -101,6 +101,8 @@ public:
          * (onLeaveLane sets amOnNet=false if reason>=NOTIFICATION_TELEPORT) */
         /// @brief The vehicle is being teleported
         NOTIFICATION_TELEPORT,
+        /// @brief The vehicle continues being teleported past an edge
+        NOTIFICATION_TELEPORT_CONTINUATION,
         /// @brief The vehicle starts or ends parking
         NOTIFICATION_PARKING,
         /// @brief The vehicle needs another parking area
@@ -256,6 +258,11 @@ public:
 
     const std::string& getDescription() const {
         return myDescription;
+    }
+
+    // @brief return whether this moveReminder triggers parking reroute
+    virtual bool isParkingRerouter() const {
+        return false;
     }
 
 protected:

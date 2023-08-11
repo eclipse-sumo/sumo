@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -77,4 +77,9 @@ public:
     static bool divergentRoute(const MSVehicle& v1, const MSVehicle& v2);
 
     static double getSpeedPreservingSecureGap(const MSVehicle& leader, const MSVehicle& follower, double currentGap, double leaderPlannedSpeed);
+
+    static bool isBidiLeader(const MSVehicle* leader, const std::vector<MSLane*>& cont);
+
+    static bool isBidiFollower(const MSVehicle* ego, const MSVehicle* follower);
+
 };

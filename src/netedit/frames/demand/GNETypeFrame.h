@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -67,8 +67,10 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+
         /// @brief Called when the user select another element in ComboBox
         long onCmdSelectItem(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -144,51 +146,6 @@ public:
         FXButton* myCopyTypeButton;
     };
 
-    // ===========================================================================
-    // class VTypeDistributions
-    // ===========================================================================
-
-    class VTypeDistributions  : public MFXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNETypeFrame::VTypeDistributions)
-
-    public:
-        /// @brief constructor
-        VTypeDistributions(GNETypeFrame* typeFrameParent);
-
-        /// @brief destructor
-        ~VTypeDistributions();
-
-        /// @brief get pointer to type frame Parent
-        GNETypeFrame* getTypeFrameParent() const;
-
-        /// @brief show VTypeDistributions  modul
-        void showVTypeDistributionsModule();
-
-        /// @brief hide group box
-        void hideVTypeDistributionsModule();
-
-        /// @brief get vType distribution dialog
-        GNEVTypeDistributionsDialog* getVTypeDistributionsDialog() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when open dialog button is clicked
-        long onCmdOpenDialog(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(VTypeDistributions)
-
-    private:
-        /// @brief pointer to type frame Parent
-        GNETypeFrame* myTypeFrameParent = nullptr;
-
-        /// @brief VType distribution dialog
-        GNEVTypeDistributionsDialog* myVTypeDistributionsDialog = nullptr;
-    };
-
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -226,7 +183,4 @@ private:
 
     /// @brief Parameters editor inspector
     GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
-
-    /// @brief modul for open vType distributions dialog
-    VTypeDistributions* myVTypeDistributions = nullptr;
 };

@@ -17,6 +17,9 @@ from_additional
 # test supplying additional parameters
 parameters
 
+# test supplying additional parameters
+param_vTypes
+
 # test using custom detectors
 custom_detector
 
@@ -25,6 +28,9 @@ custom_detector_staticPhase
 
 # set custom max-gap value for a single detector
 custom_detector_maxGap
+
+# set custom max-gap from params inside the .net.xml
+custom_detector_net
 
 # check that the initialization can handle different begin times
 simstart_at_100

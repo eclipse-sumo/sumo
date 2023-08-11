@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -559,6 +559,12 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
     return false;
 }
 
+
+double
+MSPerson::getImpatience() const {
+    return MAX2(0., MIN2(1., getVehicleType().getImpatience()
+                         + STEPS2TIME((*myStep)->getWaitingTime(SIMSTEP)) / MSPModel_Striping::MAX_WAIT_TOLERANCE));
+}
 
 const std::string&
 MSPerson::getNextEdge() const {

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -216,6 +216,12 @@ Vehicle::getBoardingDuration(const std::string& vehID) {
 }
 
 
+double
+Vehicle::getImpatience(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_IMPATIENCE, vehID);
+}
+
+
 std::vector<std::string>
 Vehicle::getPersonIDList(const std::string& vehID) {
     return Dom::getStringVector(libsumo::LAST_STEP_PERSON_ID_LIST, vehID);
@@ -402,7 +408,6 @@ Vehicle::getNextLinks(const std::string& vehID) {
     ret.readInt(); // components
     // number of items
     ret.readUnsignedByte();
-    ret.readInt();
 
     const int linkNo = ret.readInt();
     for (int i = 0; i < linkNo; ++i) {
@@ -1282,6 +1287,17 @@ Vehicle::setMaxSpeedLat(const std::string& vehID, double speed) {
 void
 Vehicle::setLateralAlignment(const std::string& vehID, const std::string& latAlignment) {
     Dom::setString(libsumo::VAR_LATALIGNMENT, vehID, latAlignment);
+}
+
+
+void
+Vehicle::setImpatience(const std::string& vehID, double impatience) {
+    Dom::setDouble(libsumo::VAR_IMPATIENCE, vehID, impatience);
+}
+
+void
+Vehicle::setBoardingDuration(const std::string& vehID, double boardingDuration) {
+    Dom::setDouble(libsumo::VAR_BOARDING_DURATION, vehID, boardingDuration);
 }
 
 

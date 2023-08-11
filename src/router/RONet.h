@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -269,15 +269,28 @@ public:
     bool addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypeParameter*>* vehTypeDistribution);
 
 
+    /** @brief Retrieves the named vehicle type distribution
+     *
+     * If the named vehicle type distribution was not added to the net before
+     * nullptr is returned
+     *
+     * @param[in] id The id of the vehicle type distribution to return
+     * @return The named vehicle type distribution
+     */
+    const RandomDistributor<SUMOVTypeParameter*>* getVTypeDistribution(const std::string& id) {
+        const auto it = myVTypeDistDict.find(id);
+        return it != myVTypeDistDict.end() ? it ->second : nullptr;
+    }
+
+
     /** @brief Retrieves the named vehicle type
      *
      * If the name is "" the default type is returned.
      * If the named vehicle type (or typeDistribution) was not added to the net before
-     * 0 is returned
+     * nullptr is returned
      *
      * @param[in] id The id of the vehicle type to return
      * @return The named vehicle type
-     * @todo Check whether a const pointer may be returned
      */
     SUMOVTypeParameter* getVehicleTypeSecure(const std::string& id);
 

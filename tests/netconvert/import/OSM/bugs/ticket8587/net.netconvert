@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-11 09:00:19 by Eclipse SUMO netconvert Version v1_17_0+0224-416c3f6
+<!-- generated on 2023-06-27 18:48:32 by Eclipse SUMO netconvert Version v1_17_0+1311-68c84bc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -801,7 +801,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="K 6160"/>
     </edge>
     <edge id="240042197#1" from="cluster_1643085172_2289508711" to="1643085234" priority="1" type="highway.service" spreadType="center" shape="664.53,221.23 671.05,234.42 677.33,247.25 679.19,258.71 678.98,266.56 675.30,276.30 673.36,278.78 672.28,279.85 667.41,284.65 660.20,290.08 654.48,296.95 647.60,308.47">
-        <lane id="240042197#1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="101.19" shape="665.19,222.57 671.05,234.42 677.33,247.25 679.19,258.71 678.98,266.56 675.30,276.30 673.36,278.78 672.28,279.85 667.41,284.65 660.20,290.08 654.48,296.95 653.45,298.67"/>
+        <lane id="240042197#1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="103.89" shape="662.56,217.24 671.05,234.42 677.33,247.25 679.19,258.71 678.98,266.56 675.30,276.30 673.36,278.78 672.28,279.85 667.41,284.65 660.20,290.08 654.48,296.95 653.45,298.67"/>
     </edge>
     <edge id="240042205#0" from="1643085234" to="1643085241" priority="1" type="highway.service" spreadType="center">
         <lane id="240042205#0_0" index="0" allow="pedestrian bus delivery bicycle" speed="5.56" length="20.11" shape="650.29,308.44 642.37,314.45"/>
@@ -2323,7 +2323,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="9"  response="00000000000" foes="00000111100"/>
         <request index="10" response="00000100011" foes="00000100011"/>
     </junction>
-    <junction id="cluster_1643085172_2289508711" type="right_before_left" x="665.96" y="215.58" incLanes="156775052#8_0 782661618#0_0 344555667#2_0" intLanes="" shape="667.87,214.84 670.78,213.52 670.59,212.69 670.66,212.33 670.83,212.02 671.12,211.74 671.52,211.50 668.76,205.73 667.52,206.14 666.99,206.17 666.52,206.09 666.10,205.88 665.75,205.56 656.93,209.43 663.76,223.28 666.63,221.86">
+    <junction id="cluster_1643085172_2289508711" type="right_before_left" x="665.96" y="215.58" incLanes="156775052#8_0 782661618#0_0 344555667#2_0" intLanes="" shape="661.10,217.90 670.78,213.52 670.59,212.69 670.66,212.33 670.83,212.02 671.12,211.74 671.52,211.50 668.76,205.73 667.52,206.14 666.99,206.17 666.52,206.09 666.10,205.88 665.75,205.56 656.93,209.43">
         <request index="0" response="0000000" foes="0010000"/>
         <request index="1" response="0000000" foes="1110000"/>
         <request index="2" response="0001000" foes="0001000"/>

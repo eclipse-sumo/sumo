@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-03 22:29:21 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
+<!-- generated on 2023-06-15 14:12:50 by Eclipse SUMO netconvert Version v1_17_0+0949-cba0d01c7a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <busStop id="-4589475946" name="Stansfield Road" lane="-266550338#3_0" startPos="15.70" endPos="30.70" friendlyPos="true" lines="322 2 345 333 N2 196">
         <access lane="-12344177_0" pos="71.51" length="121.38" friendlyPos="1"/>
         <access lane="12344177_0" pos="42.94" length="126.18" friendlyPos="1"/>
-        <access lane="155062255#0_0" pos="0.00" length="131.45" friendlyPos="1"/>
+        <access lane="155062255#0_0" pos="0.00" length="131.40" friendlyPos="1"/>
         <access lane="155062261_0" pos="0.00" length="43.85" friendlyPos="1"/>
         <access lane="634044342_0" pos="0.30" length="126.52" friendlyPos="1"/>
     </busStop>
@@ -60,7 +60,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="26627464_0" pos="0.00" length="33.00" friendlyPos="1"/>
         <access lane="529616561_0" pos="67.69" length="66.99" friendlyPos="1"/>
         <access lane="743127578#0_0" pos="0.00" length="61.34" friendlyPos="1"/>
-        <access lane="743127578#1_0" pos="0.00" length="68.89" friendlyPos="1"/>
+        <access lane="743127578#1_0" pos="0.00" length="69.70" friendlyPos="1"/>
     </busStop>
     <busStop id="-469786435" name="Brixton Station Road" lane="-639169633#0_0" startPos="78.45" endPos="93.45" friendlyPos="true" lines="35 45 345 P4"/>
     <busStop id="-4701534125" name="Brixton Road / Brixton Police Station" lane="-253362216#2_0" startPos="5.43" endPos="20.43" friendlyPos="true" lines="159 3 N3 N109 59">
@@ -89,8 +89,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <busStop id="-4703199266" name="Hillyard Street" lane="-66924592#0_0" startPos="66.83" endPos="81.83" friendlyPos="true" lines="159 3 N3 N109 133 N133 415 59"/>
     <busStop id="4589475947" name="Stansfield Road" lane="266550338#4_0" startPos="0.00" endPos="0.20" friendlyPos="true" lines="333 345 2 N2 196 322">
         <access lane="-12344177_0" pos="41.19" length="108.36" friendlyPos="1"/>
-        <access lane="155062255#0_0" pos="0.00" length="84.83" friendlyPos="1"/>
-        <access lane="155062255#1_0" pos="0.00" length="85.14" friendlyPos="1"/>
+        <access lane="155062255#0_0" pos="0.00" length="84.72" friendlyPos="1"/>
+        <access lane="155062255#1_0" pos="0.00" length="85.25" friendlyPos="1"/>
         <access lane="155062261_0" pos="0.00" length="11.62" friendlyPos="1"/>
         <access lane="634044342_0" pos="0.30" length="79.88" friendlyPos="1"/>
     </busStop>

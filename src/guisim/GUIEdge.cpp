@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -26,6 +26,7 @@
 #include <cmath>
 #include <string>
 #include <algorithm>
+#include <utils/common/MsgHandler.h>
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -180,31 +181,31 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = nullptr;
     ret = new GUIParameterTableWindow(app, *this);
     // add edge items
-    ret->mkItem("maxspeed [m/s]", false, getAllowedSpeed());
-    ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
-    ret->mkItem("street name", false, getStreetName());
-    ret->mkItem("pending insertions [#]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getPendingEmits));
-    ret->mkItem("mean friction [%]", true, new FunctionBinding<GUIEdge, double>(this, &MSEdge::getMeanFriction, 100.));
-    ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getMeanSpeed));
-    ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getRoutingSpeed));
-    ret->mkItem("time penalty [s]", true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getTimePenalty));
-    ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getBruttoOccupancy, 100.));
-    ret->mkItem("flow [veh/h/lane]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
-    ret->mkItem("#vehicles", true, new CastingFunctionBinding<GUIEdge, int, int>(this, &MSEdge::getVehicleNumber));
+    ret->mkItem(TL("max speed [m/s]"), false, getAllowedSpeed());
+    ret->mkItem(TL("length [m]"), false, (*myLanes)[0]->getLength());
+    ret->mkItem(TL("street name"), false, getStreetName());
+    ret->mkItem(TL("pending insertions [#]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getPendingEmits));
+    ret->mkItem(TL("mean friction [%]"), true, new FunctionBinding<GUIEdge, double>(this, &MSEdge::getMeanFriction, 100.));
+    ret->mkItem(TL("mean vehicle speed [m/s]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getMeanSpeed));
+    ret->mkItem(TL("routing speed [m/s]"), true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getRoutingSpeed));
+    ret->mkItem(TL("time penalty [s]"), true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getTimePenalty));
+    ret->mkItem(TL("brutto occupancy [%]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getBruttoOccupancy, 100.));
+    ret->mkItem(TL("flow [veh/h/lane]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
+    ret->mkItem(TL("vehicles [#]"), true, new CastingFunctionBinding<GUIEdge, int, int>(this, &MSEdge::getVehicleNumber));
     // add segment items
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
-    ret->mkItem("segment index", false, segment->getIndex());
-    ret->mkItem("segment queues", false, segment->numQueues());
-    ret->mkItem("segment length [m]", false, segment->getLength());
-    ret->mkItem("segment allowed speed [m/s]", false, segment->getEdge().getSpeedLimit());
-    ret->mkItem("segment jam threshold [%]", false, segment->getRelativeJamThreshold() * 100);
-    ret->mkItem("segment brutto occupancy [%]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getRelativeOccupancy, 100));
-    ret->mkItem("segment mean vehicle speed [m/s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getMeanSpeed));
-    ret->mkItem("segment flow [veh/h/lane]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getFlow));
-    ret->mkItem("segment #vehicles", true, new CastingFunctionBinding<MESegment, int, int>(segment, &MESegment::getCarNumber));
-    ret->mkItem("segment leader leave time", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEventTimeSeconds));
-    ret->mkItem("segment headway [s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getLastHeadwaySeconds));
-    ret->mkItem("segment entry blocktime [s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEntryBlockTimeSeconds));
+    ret->mkItem(TL("segment index"), false, segment->getIndex());
+    ret->mkItem(TL("segment queues"), false, segment->numQueues());
+    ret->mkItem(TL("segment length [m]"), false, segment->getLength());
+    ret->mkItem(TL("segment allowed speed [m/s]"), false, segment->getEdge().getSpeedLimit());
+    ret->mkItem(TL("segment jam threshold [%]"), false, segment->getRelativeJamThreshold() * 100);
+    ret->mkItem(TL("segment brutto occupancy [%]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getRelativeOccupancy, 100));
+    ret->mkItem(TL("segment mean vehicle speed [m/s]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getMeanSpeed));
+    ret->mkItem(TL("segment flow [veh/h/lane]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getFlow));
+    ret->mkItem(TL("segment vehicles [#]"), true, new CastingFunctionBinding<MESegment, int, int>(segment, &MESegment::getCarNumber));
+    ret->mkItem(TL("segment leader leave time"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEventTimeSeconds));
+    ret->mkItem(TL("segment headway [s]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getLastHeadwaySeconds));
+    ret->mkItem(TL("segment entry block time [s]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEntryBlockTimeSeconds));
     // lane params
     for (MSLane* lane : *myLanes) {
         for (const auto& kv : lane->getParametersMap()) {
@@ -222,18 +223,18 @@ GUIEdge::getTypeParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(getEdgeType());
     // add items
-    ret->mkItem("Type Information:", false, "");
-    ret->mkItem("type [id]", false, getEdgeType());
-    ret->mkItem("tauff", false, STEPS2TIME(edgeType.tauff));
-    ret->mkItem("taufj", false, STEPS2TIME(edgeType.taufj));
-    ret->mkItem("taujf", false, STEPS2TIME(edgeType.taujf));
-    ret->mkItem("taujj", false, STEPS2TIME(edgeType.taujj));
-    ret->mkItem("jam threshold", false, edgeType.jamThreshold);
-    ret->mkItem("junction control", false, edgeType.junctionControl);
-    ret->mkItem("tls penalty", false, edgeType.tlsPenalty);
-    ret->mkItem("tls flow penalty", false, edgeType.tlsFlowPenalty);
-    ret->mkItem("minor penalty", false, STEPS2TIME(edgeType.minorPenalty));
-    ret->mkItem("overtaking", false, edgeType.overtaking);
+    ret->mkItem(TL("Type Information:"), false, "");
+    ret->mkItem(TL("type [id]"), false, getEdgeType());
+    ret->mkItem(TL("tauff"), false, STEPS2TIME(edgeType.tauff));
+    ret->mkItem(TL("taufj"), false, STEPS2TIME(edgeType.taufj));
+    ret->mkItem(TL("taujf"), false, STEPS2TIME(edgeType.taujf));
+    ret->mkItem(TL("taujj"), false, STEPS2TIME(edgeType.taujj));
+    ret->mkItem(TL("jam threshold"), false, edgeType.jamThreshold);
+    ret->mkItem(TL("junction control"), false, edgeType.junctionControl);
+    ret->mkItem(TL("tls penalty"), false, edgeType.tlsPenalty);
+    ret->mkItem(TL("tls flow penalty"), false, edgeType.tlsFlowPenalty);
+    ret->mkItem(TL("minor penalty"), false, STEPS2TIME(edgeType.minorPenalty));
+    ret->mkItem(TL("overtaking"), false, edgeType.overtaking);
     // close building
     ret->closeBuilding();
     return ret;

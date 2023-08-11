@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -49,6 +49,7 @@ static double getActionStepLength(const std::string& typeID); \
 \
 static double getSpeedDeviation(const std::string& typeID); \
 static double getBoardingDuration(const std::string& typeID); \
+static double getImpatience(const std::string& typeID); \
 
 
 #define LIBSUMO_VEHICLE_TYPE_SETTER \
@@ -72,6 +73,8 @@ static void setMinGapLat(const std::string& typeID, double minGapLat); \
 static void setMaxSpeedLat(const std::string& typeID, double speed); \
 static void setLateralAlignment(const std::string& typeID, const std::string& latAlignment); \
 static void setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset=true); \
+static void setBoardingDuration(const std::string& typeID, double boardingDuration); \
+static void setImpatience(const std::string& typeID, double impatience); \
 
 // ===========================================================================
 // class declarations

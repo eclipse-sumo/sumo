@@ -8,13 +8,16 @@ Tools can be found in the SUMO-distribution under {{SUMO}}/tools. Most of
 them are tiny - they were written for a certain purpose and worked well
 under certain input, but may be not verified for other cases.
 
-All tools should work with Python 3.7 or later on Windows, Linux and MacOS.
-We try to keep them compatible with Python 3.5 and 2.7 as well.
+All tools should work with Python 3.7 or later on Windows, Linux and macOS.
+We try to keep them compatible with Python 3.5 and 2.7 as well. Some of them
+depend on external libraries, which can be installed using
+`pip install -r tools/requirements.txt`. For details on installation
+and required versions see also the [Linux installation instructions](../Installing/Linux_Build.md#installing_python_packages_for_the_tools).
 
 # How to use python tools
 
-Python tools must be called from the [command
-line](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line)
+Python tools are usually called from the [command
+line](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
 In the documentation linked below, the tools are described with a command like
 
 ```
@@ -23,13 +26,13 @@ python tools/xml/xml2csv.py input.xml
 
 This works only, if the current working directory is {{SUMO}}.
 
-For the Windows OS, to run the tool from any directory, you can use use
+For the Windows OS, to run the tool from any directory, you can use
 
 ```
 python %SUMO_HOME%\tools\xml\xml2csv.py input.xml
 ```
 
-The equivalent command For Linux is
+The equivalent command for Linux is
 
 ```
 $SUMO_HOME/tools/xml/xml2csv.py input.xml

@@ -15,7 +15,7 @@ in the sumo-gui.
 # Requirements
 
 - [SUMO](../Installing/index.md) installation
-- [Python](http://www.python.org) (\>= 2.7) installation
+- [Python](https://www.python.org) (\>= 2.7) installation
 
 # Getting started
 

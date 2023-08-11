@@ -24,6 +24,7 @@ set(PROJECT_NAME "SUMO" CACHE STRING "Project/Solution name")
 
 # disable warnings
 option(DISABLEWARNING_C5264 "'const' variable is not used" ON)
+option(DISABLEWARNING_C5267 "definition of implicit operator/constructor/destructor is deprecated" ON)
 option(DISABLEWARNING_C4355 "'this' : used in base member initializer list" ON)
 option(DISABLEWARNING_C4266 "'function' : no override available for virtual member function from base 'type'" ON)
 option(DISABLEWARNING_C4127 "conditional expression is constant" ON)
@@ -125,22 +126,25 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Coverage")
     endif ()
 elseif (MSVC)
-	# check if disable warnings
-	if (DISABLEWARNING_C5264)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5264")
-	endif ()
-	if (DISABLEWARNING_C4355)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4355")
-	endif ()
-	if (DISABLEWARNING_C4266)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4266")
-	endif ()
-	if (DISABLEWARNING_C4127)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127")
-	endif ()
-	if (DISABLEWARNING_C26495)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd26495")
-	endif ()
+    # check if disable warnings
+    if (DISABLEWARNING_C5264)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5264")
+    endif ()
+    if (DISABLEWARNING_C5267)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5267")
+    endif ()
+    if (DISABLEWARNING_C4355)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4355")
+    endif ()
+    if (DISABLEWARNING_C4266)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4266")
+    endif ()
+    if (DISABLEWARNING_C4127)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127")
+    endif ()
+    if (DISABLEWARNING_C26495)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd26495")
+    endif ()
     # enabling /WX is not possible due to warnings in external headers
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019
@@ -252,6 +256,7 @@ endif()
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIABLE PYTHON_SETUPTOOLS_MISSING ERROR_QUIET)
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import build; import pip; build.__version__" RESULT_VARIABLE PYTHON_BUILD_MISSING ERROR_QUIET)
 
+# exclusive from Apple
 if (APPLE)
     # we know that openGL is deprecated for newer MacOS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGL_SILENCE_DEPRECATION")
@@ -277,19 +282,41 @@ if (APPLE)
     endif ()
 endif (APPLE)
 
-#  Specifically define variable WIN32 for compilations under windows (due an error in Shawn)
+# Specifically define variable WIN32 for compilations under windows (due an error in Shawn)
 if (GNU_COMPILER AND WIN32)
     option(USE_MINGW_64BITS "Use 64 bits libraries for the compilation with MinGW" true)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32 -D_WIN32_WINNT=0x0501")
     set(MINGW32 1)
 endif ()
 
+# JuPedSim
+option(JUPEDSIM_ENABLE "Enable JuPedSim)" OFF)
+# set JuPedSim directory if JuPedSim is enabled
+if (JUPEDSIM_ENABLE)
+#     check if set JuPedSim directory from SUMOLibraries
+    if (SUMO_LIBRARIES AND WIN32)
+        file(GLOB JUPEDSIM_DIR_SUMOLIBRARIES "${SUMO_LIBRARIES}/JuPedSim-*")
+        set(JUPEDSIM_DIR "${JUPEDSIM_DIR_SUMOLIBRARIES}" CACHE PATH "Location of JuPedSim directory")
+    else()
+        set(JUPEDSIM_DIR "" CACHE PATH "Location of JuPedSim directory")
+    endif ()
+    # avoid empty JuPedSim directory
+    if ("${JUPEDSIM_DIR}" EQUAL "")
+        message(FATAL_ERROR "if JuPedSim is enabled, folder cannot be empty")
+    else()
+        message(STATUS "Using JuPedSim from ${JUPEDSIM_DIR}")
+    endif ()
+else(JUPEDSIM_ENABLE)
+    # unset JuPedSim directory
+    unset(JUPEDSIM_DIR CACHE)
+endif (JUPEDSIM_ENABLE)
+
 # check if SUMOLibraries was found (Only in Windows)
 if (SUMO_LIBRARIES AND WIN32)
     # set option for install debug and release runtime dlls
     option(INSTALL_DLL_RUNTIMES "Copy debug and release runtimes for MSVC" true)
     # Special option for MinGW32
-	message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
+    message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
     file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-3.?.?")
     file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??")
     file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj-?.?.?")
@@ -316,6 +343,11 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libxml2-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libiconv-*/bin/*.dll"
                                  )
+    # check if add JuPedSim dlls
+    if (JUPEDSIM_ENABLE)
+        file(GLOB JUPEDSIM_DLLS "${JUPEDSIM_DIR_SUMOLIBRARIES}/bin/*.dll")
+        list(APPEND SUMO_LIBRARIES_DLL ${JUPEDSIM_DLLS})
+    endif(JUPEDSIM_ENABLE)
     # check if MSVC dll runtimes have to be copied
     if (INSTALL_DLL_RUNTIMES)
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}/runtimes/*.dll")
@@ -626,7 +658,7 @@ if (MVN_EXECUTABLE AND Java_FOUND)
         get_filename_component(JAVA_BIN ${Java_JAVAC_EXECUTABLE} DIRECTORY)
         get_filename_component(JAVA_HOME ${JAVA_BIN} DIRECTORY)
         set(MVN_COMMAND_PREFIX ${CMAKE_COMMAND} -E env JAVA_HOME=${JAVA_HOME})
-        set(MVN_REPO "-Dmaven.repo.local=${CMAKE_BINARY_DIR}/m2")
+#        set(MVN_REPO "-Dmaven.repo.local=${CMAKE_BINARY_DIR}/m2")
     endif ()
     add_custom_target(traas
         COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode -f tools/contributed/traas/pom.xml clean install

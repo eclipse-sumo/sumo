@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -164,6 +164,18 @@ Option::isData() const {
 
 bool
 Option::isSumoConfig() const {
+    return false;
+}
+
+
+bool
+Option::isEdge() const {
+    return false;
+}
+
+
+bool
+Option::isEdgeVector() const {
     return false;
 }
 
@@ -575,4 +587,33 @@ bool
 Option_SumoConfig::isSumoConfig() const {
     return true;
 }
+
+// -------------------------------------------------------------------------
+// Option_Data - methods
+// -------------------------------------------------------------------------
+
+Option_Edge::Option_Edge(const std::string& value) :
+    Option_String(value, "EDGE") {
+}
+
+
+bool
+Option_Edge::isEdge() const {
+    return true;
+}
+
+// -------------------------------------------------------------------------
+// Option_Data - methods
+// -------------------------------------------------------------------------
+
+Option_EdgeVector::Option_EdgeVector(const std::string& value) :
+    Option_String(value, "EDGE[]") {
+}
+
+
+bool
+Option_EdgeVector::isEdgeVector() const {
+    return true;
+}
+
 /****************************************************************************/

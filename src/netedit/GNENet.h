@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -422,6 +422,9 @@ public:
     /// @brief save additional elements
     void saveAdditionals();
 
+    /// @brief save JuPedSim elements
+    void saveJuPedSimElements(const std::string &file);
+
     /// @brief save demand element elements of the network
     void saveDemandElements();
 
@@ -541,8 +544,14 @@ private:
     /// @brief write demand element by type and sorted by ID
     void writeDemandByType(OutputDevice& device, SumoXMLTag tag) const;
 
+    /// @brief write route distributions sorted by ID
+    void writeRouteDistributions(OutputDevice& device, const bool additionalFile) const;
+
     /// @brief write route sorted by ID
     void writeRoutes(OutputDevice& device, const bool additionalFile) const;
+
+    /// @brief write vTypeDistributions sorted by ID
+    void writeVTypeDistributions(OutputDevice& device, const bool additionalFile) const;
 
     /// @brief write vTypes sorted by ID
     void writeVTypes(OutputDevice& device, const bool additionalFile) const;
@@ -573,6 +582,9 @@ private:
 
     /// @brief write shape comment
     bool writeShapesComment(OutputDevice& device) const;
+
+    /// @brief write JuPedSim comment
+    bool writeJuPedSimComment(OutputDevice& device) const;
 
     /// @brief write TAZ comment
     bool writeTAZComment(OutputDevice& device) const;

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -28,38 +28,35 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-from optparse import OptionParser
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(THIS_DIR, '..'))
+from sumolib.options import ArgumentParser  # noqa
 import sumolib.net  # noqa
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <net> <options>"
-    optParser = OptionParser()
-    optParser.add_option("-s", "--source",
-                         default=False, help="List edges reachable from the source")
-    optParser.add_option("-d", "--destination",
-                         default=False, help="List edges which can reach the destination")
-    optParser.add_option("-o", "--selection-output",
-                         help="Write output to file(s) as a loadable selection")
-    optParser.add_option("--ignore-connections", action="store_true",
-                         default=False,
-                         help="Assume full connectivity at each node when computing all connected components")
-    optParser.add_option("-l", "--vclass", help="Include only edges allowing VCLASS")
-    optParser.add_option("-c", "--component-output",
-                         default=None, help="Write components of disconnected network to file - not compatible " +
-                                            "with --source or --destination options")
-    optParser.add_option("-r", "--results-output",
-                         default=None, help="Write results summary of disconnected network to file - not compatible " +
-                         "with --source or --destination options")
-    optParser.add_option("-t", "--print-types", action="store_true",
-                         default=False,
-                         help="Print edge types used in the component")
+    op = ArgumentParser()
+    op.add_argument("net", category="input", type=op.net_file,
+                    help="The network file to be checked")
+    op.add_argument("-s", "--source", category="input", default=False, type=op.edge_list,
+                    help="List edges reachable from the source")
+    op.add_argument("-d", "--destination", category="input", type=op.edge, default=False,
+                    help="List edges which can reach the destination")
+    op.add_argument("-o", "--selection-output", category="output", type=op.file,
+                    help="Write output to file(s) as a loadable selection")
+    op.add_argument("--ignore-connections", action="store_true", default=False,
+                    help="Assume full connectivity at each node when computing all connected components")
+    op.add_argument("-l", "--vclass", help="Include only edges allowing vClass")
+    op.add_argument("--component-output", type=op.file, default=None,
+                    help=("Write components of disconnected network to file - not compatible " +
+                          "with --source or --destination options"))
+    op.add_argument("-r", "--results-output", type=op.file, default=None,
+                    help=("Write results summary of disconnected network to file - not compatible " +
+                          "with --source or --destination options"))
+    op.add_argument("-t", "--print-types", action="store_true", default=False,
+                    help="Print edge types used in the component")
 
-    options, args = optParser.parse_args()
-    if len(args) != 1:
-        sys.exit(USAGE)
-    options.net = args[0]
+    options = op.parse_args()
     return options
 
 
@@ -123,7 +120,6 @@ def getReachable(net, source_id, options, useIncoming=False):
 
 if __name__ == "__main__":
     options = parse_args()
-
     net = sumolib.net.readNet(options.net,
                               withInternal=(options.vclass == "pedestrian"),
                               withPedestrianConnections=(options.vclass == "pedestrian"))
@@ -146,7 +142,7 @@ if __name__ == "__main__":
         output_str_list = []
         dist_str_list = []
 
-        # Iterate through components to output and summarise
+        # Iterate through components to output and summarize
         for idx, comp in enumerate(sorted(components, key=lambda c: next(iter(c)))):
             if options.selection_output:
                 with open("{}comp{}.txt".format(options.selection_output, idx), 'w') as f:

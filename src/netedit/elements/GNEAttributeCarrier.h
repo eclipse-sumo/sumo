@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -49,7 +49,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
 
     /// @brief declare friend class
     friend class GNEChange_Attribute;
-    friend class GNEChange_EnableAttribute;
+    friend class GNEChange_ToggleAttribute;
     friend class GNEFrameAttributeModules;
     friend class GNEAttributesCreatorRow;
     friend class GNEFlowEditor;
@@ -197,7 +197,7 @@ public:
     const std::string& getTagStr() const;
 
     /// @brief get FXIcon associated to this AC
-    FXIcon* getACIcon() const;
+    FXIcon* getFXIcon() const;
 
     /// @brief check if this AC is template
     bool isTemplate() const;
@@ -260,6 +260,7 @@ public:
 
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{
+
     /// @brief feature is still unchanged after being loaded (implies approval)
     static const std::string FEATURE_LOADED;
 
@@ -271,6 +272,7 @@ public:
 
     /// @brief feature has been approved but not changed (i.e. after being reguessed)
     static const std::string FEATURE_APPROVED;
+
     /// @}
 
     /// @brief max number of attributes allowed for every tag
@@ -298,7 +300,7 @@ protected:
     /// @brief whether the current object is a template object (not drawn in the view)
     bool myIsTemplate;
 
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     virtual void toggleAttribute(SumoXMLAttr key, const bool value);
 
 private:
@@ -325,6 +327,9 @@ private:
 
     /// @brief fill Wire elements
     static void fillWireElements();
+
+    /// @brief fill JuPedSim elements
+    static void fillJuPedSimElements();
 
     /// @brief fill demand elements
     static void fillDemandElements();

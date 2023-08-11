@@ -59,7 +59,7 @@ sudo apt-get install sumo sumo-tools sumo-doc
 ```
 
 Precompiled binaries for different distributions like openSUSE and
-Fedora can be found at these [repositories for binary Linux versions](http://download.opensuse.org/repositories/home:/behrisch/).
+Fedora can be found at these [repositories for binary Linux versions](https://download.opensuse.org/repositories/home:/behrisch/).
 These repositories contain nightly builds as well. In the case your
 system is not listed here or you need to modify the sources, [you have to build SUMO from sources](Linux_Build.md).
 
@@ -79,7 +79,7 @@ Send bug reports regarding SUMO packaged as Flatpak [here](https://github.com/fl
 
 # macOS
 
-SUMO can be easily installed on macOS by using [Homebrew](http://brew.sh). If you did not already install homebrew, you can do so by invoking te following command in a macOS Terminal:
+SUMO can be easily installed on macOS by using [Homebrew](https://brew.sh). If you did not already install homebrew, you can do so by invoking te following command in a macOS Terminal:
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -48,13 +48,21 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
-                           double& simDelay, MFXSynchQue<GUIEvent*>& eq,
-                           FXEX::MFXThreadEvent& ev) :
+GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent, double& simDelay,
+        MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
     MFXSingleEventThread(app, parent),
-    myNet(nullptr), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
-    mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev),
-    myLastEndMillis(-1), myLastBreakMillis(0), myAmLibsumo(false) {
+    myNet(nullptr),
+    myHalting(true),
+    myQuit(false),
+    mySimulationInProgress(false),
+    myOk(true),
+    myHaveSignaledEnd(false),
+    mySimDelay(simDelay),
+    myEventQue(eq),
+    myEventThrow(ev),
+    myLastEndMillis(-1),
+    myLastBreakMillis(0),
+    myAmLibsumo(false) {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_WARNING);
@@ -163,7 +171,7 @@ GUIRunThread::tryStep() {
             sleep(wait);
 #ifndef WIN32
         } else if (myLastEndMillis - myLastBreakMillis > 1000) {
-            // ensure redraw event is successfull at least once per second (#9028)
+            // ensure redraw event is successful at least once per second (#9028)
             sleep(100);
             myLastBreakMillis = myLastEndMillis;
 #endif
@@ -178,7 +186,7 @@ GUIRunThread::tryStep() {
 void
 GUIRunThread::makeStep() {
     GUIEvent* e = nullptr;
-    // simulation is being perfomed
+    // simulation is being performed
     mySimulationInProgress = true;
     // execute a single step
     try {
@@ -275,7 +283,7 @@ GUIRunThread::stop() {
 
 
 bool
-GUIRunThread::simulationAvailable() const {
+GUIRunThread::networkAvailable() const {
     return myNet != nullptr;
 }
 

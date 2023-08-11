@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
 // PHEMlight module
 // Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/

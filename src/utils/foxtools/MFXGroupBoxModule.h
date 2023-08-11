@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -27,6 +27,7 @@
 
 /// @brief class declaration
 class GNEFrame;
+class MFXButtonTooltip;
 
 /// @brief MFXGroupBoxModule (based on FXGroupBox)
 class MFXGroupBoxModule : protected FXVerticalFrame {
@@ -108,7 +109,7 @@ private:
     FXButton* myCollapseButton = nullptr;
 
     /// @brief button for extend elements
-    FXButton* myExtendButton = nullptr;
+    MFXButtonTooltip* myExtendButton = nullptr;
 
     /// @brief button for reset frame width
     FXButton* myResetWidthButton = nullptr;

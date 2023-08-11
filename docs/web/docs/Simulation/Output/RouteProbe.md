@@ -6,7 +6,7 @@ RouteProbe detectors are meant to determine the route distribution for
 all vehicles that passed an edge in a given interval. Their real-world
 equivalent would be a police stop with questionnaire or a look into the
 database of navigation providers such as
-[TomTom](http://www.tomtom.com/).
+[TomTom](https://www.tomtom.com/).
 
 ## Instantiating within the Simulation
 

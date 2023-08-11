@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -33,7 +33,7 @@ else:
 
 
 def get_options():
-    USAGE = """Usage %prog <emitters.xml> [<routes.xml>]"""
+    USAGE = """Usage %(prog)s <emitters.xml> [<routes.xml>]"""
     parser = sumolib.options.ArgumentParser(usage=USAGE)
     parser.add_argument("-v", "--verbose", action="store_true",
                         default=False, help="Give more output")
@@ -43,9 +43,9 @@ def get_options():
                         help="Output route ids that are used less than the threshold value to file")
     parser.add_argument("-r", "--flow-restrictions", dest="restrictionfile", category="output", type=parser.file,
                         help="Output route ids that are used more often than the threshold value given in file")
-    parser.add_argument("emitters", dest="emitters", type=parser.file,
+    parser.add_argument("emitters", type=parser.file,
                         help="file path to emitter file", metavar="FILE")
-    parser.add_argument("routes", dest="routes", nargs="?", type=parser.file,
+    parser.add_argument("routes", nargs="?", type=parser.file,
                         help="file path to route file", metavar="FILE")
     options = parser.parse_args()
 

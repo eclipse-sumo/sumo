@@ -140,6 +140,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Safety](Simulation/Safety.md)
 - [Mesoscopic model](Simulation/Meso.md)
 - [Lengths and Distances](Simulation/Distances.md)
+- [Friction](Simulation/Friction.md)
 
 ## Common Problems
 

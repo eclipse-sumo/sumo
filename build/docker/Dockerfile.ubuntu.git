@@ -7,13 +7,9 @@
 # This Dockerfile installs everything for a full fledged SUMO with all tools runnable.
 # If you don't need certain features and rather have a smaller container you can comment the unneeded parts below
 
-
 FROM ubuntu:jammy
 
-#ENV SUMO_HOME=/opt/sumo
 ENV SUMO_HOME=/usr/share/sumo
-#ENV PATH=/opt/sumo/bin:$PATH
-#ENV LD_LIBRARY_PATH=/opt/sumo/bin
 
 RUN apt-get -y update
 # basic build dependencies
@@ -31,7 +27,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python3-ezdxf python3-pand
 # packages needed for the docs (some are also listed in docs/web/requirements.txt but we prefer the ubuntu packages)
 RUN apt-get -y install mkdocs hugo doxygen plantuml graphviz
 
-RUN cd /opt; git clone --recursive https://github.com/eclipse/sumo
+RUN cd /opt; git clone --shallow-submodules --single-branch --recursive https://github.com/eclipse/sumo
 # python packages needed for the tools (the ones where we do not have ubuntu packages)
 RUN pip3 install -r /opt/sumo/tools/requirements.txt
 # python packages needed for the docs (the ones where we do not have ubuntu packages)

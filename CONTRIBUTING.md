@@ -12,7 +12,7 @@ tasks like route finding, visualization, network import and emission
 calculation. SUMO can be enhanced with custom models and it provides various
 APIs to remotely control and influence the simulation.
 
-* https://eclipse.org/sumo
+* https://eclipse.dev/sumo
 
 ## Developer resources
 

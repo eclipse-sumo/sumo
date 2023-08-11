@@ -55,14 +55,14 @@
 
     <vType id="custom_vType"/>
 
-    <trip id="trip_0" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
+    <trip id="trip_0" fromJunction="Junction0" toJunction="Junction3" depart="20.00"/>
 
-    <trip id="trip_1" type="dummy_Type" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
+    <trip id="trip_1" type="dummy_Type" fromJunction="Junction0" toJunction="Junction3" depart="20.00"/>
 
-    <trip id="trip_2" type="" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
+    <trip id="trip_2" type="" fromJunction="Junction0" toJunction="Junction3" depart="20.00"/>
 
-    <trip id="trip_3" type="id with invalid characters" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
+    <trip id="trip_3" type="id with invalid characters" fromJunction="Junction0" toJunction="Junction3" depart="20.00"/>
 
-    <trip id="trip_4" type="custom_vType" fromJunction="gneJ4" toJunction="gneJ7" depart="20.00"/>
+    <trip id="trip_4" type="custom_vType" fromJunction="Junction0" toJunction="Junction3" depart="20.00"/>
 
 </routes>

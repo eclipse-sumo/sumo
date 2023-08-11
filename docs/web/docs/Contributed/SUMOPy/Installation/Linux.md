@@ -25,7 +25,7 @@ example Ubuntu-16.04. In this case, do the following safe operation to
 install `python-wxgtk2.8`:
 
 ```sh
-echo "deb http://archive.ubuntu.com/ubuntu wily main universe"| sudo tee /etc/apt/sources.list.d/wily-copies.list
+echo "deb https://archive.ubuntu.com/ubuntu wily main universe"| sudo tee /etc/apt/sources.list.d/wily-copies.list
 
 sudo apt install python-wxgtk2.8
 

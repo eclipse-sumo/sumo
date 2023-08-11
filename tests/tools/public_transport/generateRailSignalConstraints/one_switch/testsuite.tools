@@ -40,6 +40,9 @@ skipParking
 # a single train with a looped route that approaches the same switch twice from different edges
 loop
 
+# handle portion working
+departSplit
+
 # one train has an intermediate stop between the merging switch and the common stop
 intermediate_stop
 

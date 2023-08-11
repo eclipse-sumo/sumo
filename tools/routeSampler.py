@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -39,6 +39,7 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.miscutils import parseTime, humanReadableTime  # noqa
+from sumolib.statistics import setPrecision  # noqa
 
 PRESERVE_INPUT_COUNT = 'input'
 
@@ -66,90 +67,102 @@ def multi_process(cpu_num, interval_list, func, outf, mismatchf, **kwargs):
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Sample routes to match counts")
+    # input
     op.add_argument("-r", "--route-files", category="input", dest="routeFiles", type=op.route_file_list,
                     help="Input route file")
     op.add_argument("-t", "--turn-files", category="input", dest="turnFiles", type=op.file_list,
                     help="Input turn-count file")
+    op.add_argument("-T", "--turn-ratio-files", category="input", dest="turnRatioFiles", type=op.file_list,
+                    help="Input turn-ratio file")
     op.add_argument("-d", "--edgedata-files", category="input", dest="edgeDataFiles", type=op.file_list,
                     help="Input edgeData file (for counts)")
     op.add_argument("-O", "--od-files", category="input", dest="odFiles", type=op.file_list,
                     help="Input edgeRelation and tazRelation files for origin-destination counts")
     op.add_argument("--taz-files", category="input", dest="tazFiles", type=op.file_list,
                     help="Input TAZ (district) definitions for interpreting tazRelation files")
-    op.add_argument("--edgedata-attribute", category="attribute", dest="edgeDataAttr", default="entered",
+    op.add_argument("--edgedata-attribute", category="input", dest="edgeDataAttr", default="entered",
                     help="Read edgeData counts from the given attribute")
-    op.add_argument("--arrival-attribute", category="attribute", dest="arrivalAttr",
+    op.add_argument("--arrival-attribute", category="input", dest="arrivalAttr",
                     help="Read arrival counts from the given edgeData file attribute")
-    op.add_argument("--depart-attribute", category="attribute", dest="departAttr",
+    op.add_argument("--depart-attribute", category="input", dest="departAttr",
                     help="Read departure counts from the given edgeData file attribute")
-    op.add_argument("--turn-attribute", category="turn-ratio", dest="turnAttr", default="count",
+    op.add_argument("--turn-attribute", category="input", dest="turnAttr", default="count",
                     help="Read turning counts and origin-destination counts from the given attribute")
-    op.add_argument("--turn-ratio-attribute", category="turn-ratio", dest="turnRatioAttr",
+    op.add_argument("--turn-ratio-attribute", category="input", dest="turnRatioAttr", default="probability",
                     help="Read turning ratios from the given attribute")
-    op.add_argument("--turn-ratio-total", category="turn-ratio", dest="turnRatioTotal", type=float, default=1,
-                    help="Set value for normalizing turning ratios (default 1)")
-    op.add_argument("--turn-ratio-tolerance", category="turn-ratio", dest="turnRatioTolerance", type=float,
-                    help="Set tolerance for error in resulting ratios (relative to turn-ratio-total)")
-    op.add_argument("--turn-ratio-abs-tolerance", category="turn-ratio", dest="turnRatioAbsTolerance", type=int,
-                    default=1, help="Set tolerance for error in resulting turning ratios as absolute count")
-    op.add_argument("--turn-max-gap", category="turn-ratio", type=int, dest="turnMaxGap", default=0,
-                    help="Allow at most a gap of INT edges between from-edge and to-edge")
-    op.add_argument("--total-count", category="processing", dest="totalCount",
-                    help="Set a total count that should be reached (either as single value that is split " +
-                    " proportionally among all intervals or as a list of counts per interval)." +
-                    " Setting the value 'input' preserves input vehicle counts in each interval.")
-    op.add_argument("--extra-od", category="processing", dest="extraOD", action="store_true", default=False,
-                    help="Permit traffic between OD-pairs that did not occur in the input")
+    # output
     op.add_argument("-o", "--output-file", category="output", dest="out", default="out.rou.xml", type=op.route_file,
                     help="Output route file")
-    op.add_argument("--prefix", category="processing", dest="prefix", default="",
-                    help="prefix for the vehicle ids")
-    op.add_argument("-a", "--attributes", category="processing", dest="vehattrs", default="",
-                    help="additional vehicle attributes")
-    op.add_argument("-s", "--seed", category="seed", type=int, default=42,
-                    help="random seed")
-    op.add_argument("--mismatch-output", category="processing", dest="mismatchOut",
+    op.add_argument("--mismatch-output", category="output", dest="mismatchOut",
                     help="write cout-data with overflow/underflow information to FILE")
-    op.add_argument("--weighted", category="processing", dest="weighted", action="store_true", default=False,
-                    help="Sample routes according to their probability (or count)")
-    op.add_argument("--keep-stops", category="outut", dest="keepStops", action="store_true", default=False,
+    op.add_argument("--precision", category="output", type=int, dest="precision", default=2,
+                    help="Number of decimal digits in output")
+    op.add_argument("--keep-stops", category="output", dest="keepStops", action="store_true", default=False,
                     help="Preserve stops from the input routes")
-    op.add_argument("--optimize", category="processing",
-                    help="set optimization method level (full, INT boundary)")
-    op.add_argument("--optimize-input", category="processing", dest="optimizeInput", action="store_true", default=False,
-                    help="Skip resampling and run optimize directly on the input routes")
-    op.add_argument("--min-count",  category="processing", dest="minCount", type=int, default=1,
-                    help="Set minimum number of counting locations that a route must visit")
-    op.add_argument("--minimize-vehicles", category="processing", dest="minimizeVehs", type=float, default=0,
-                    help="Set optimization factor from [0, 1[ for reducing the number of vehicles" +
-                    "(prefer routes that pass multiple counting locations over routes that pass fewer)")
-    op.add_argument("--geh-ok", category="processing", dest="gehOk", type=float, default=5,
-                    help="threshold for acceptable GEH values")
-    op.add_argument("-f", "--write-flows", category="output", dest="writeFlows",
+    op.add_argument("-v", "--verbose", category="output", action="store_true", default=False,
+                    help="tell me what you are doing")
+    op.add_argument("-V", "--verbose.histograms", category="output", dest="verboseHistogram", action="store_true",
+                    default=False, help="print histograms of edge numbers and detector passing count")
+    # attributes
+    op.add_argument("--prefix", category="attributes", dest="prefix", default="",
+                    help="prefix for the vehicle ids")
+    op.add_argument("-a", "--attributes", category="attributes", dest="vehattrs", default="",
+                    help="additional vehicle attributes")
+    op.add_argument("-f", "--write-flows", category="attributes", dest="writeFlows",
                     help="write flows with the give style instead of vehicles [number|probability|poisson]")
-    op.add_argument("-I", "--write-route-ids", category="output", dest="writeRouteIDs", action="store_true",
+    op.add_argument("-I", "--write-route-ids", category="attributes", dest="writeRouteIDs", action="store_true",
                     default=False, help="write routes with ids")
-    op.add_argument("-u", "--write-route-distribution", category="output", dest="writeRouteDist",
+    op.add_argument("-u", "--write-route-distribution", category="attributes", dest="writeRouteDist",
                     help="write routeDistribution with the given ID instead of individual routes")
-    op.add_argument("--pedestrians", category="output", action="store_true", default=False,
+    op.add_argument("--pedestrians", category="attributes", action="store_true", default=False,
                     help="write person walks instead of vehicle routes")
+    # time
     op.add_argument("-b", "--begin", category="time",
                     help="custom begin time (seconds or H:M:S)")
     op.add_argument("-e", "--end", category="time",
                     help="custom end time (seconds or H:M:S)")
     op.add_argument("-i", "--interval", category="time",
                     help="custom aggregation interval (seconds or H:M:S)")
-    op.add_argument("-v", "--verbose", action="store_true", default=False,
-                    help="tell me what you are doing")
-    op.add_argument("-V", "--verbose.histograms", dest="verboseHistogram", action="store_true", default=False,
-                    help="print histograms of edge numbers and detector passing count")
-    op.add_argument("--threads", category="processing", dest="threads", type=int, default=1,
+    # processing
+    op.add_argument("--turn-max-gap", type=int, dest="turnMaxGap", default=0,
+                    help="Allow at most a gap of INT edges between from-edge and to-edge")
+    op.add_argument("--total-count", dest="totalCount",
+                    help="Set a total count that should be reached (either as single value that is split " +
+                    " proportionally among all intervals or as a list of counts per interval)." +
+                    " Setting the value 'input' preserves input vehicle counts in each interval.")
+    op.add_argument("--extra-od", dest="extraOD", action="store_true", default=False,
+                    help="Permit traffic between OD-pairs that did not occur in the input")
+    op.add_argument("-s", "--seed", type=int, default=42,
+                    help="random seed")
+    op.add_argument("--weighted", dest="weighted", action="store_true", default=False,
+                    help="Sample routes according to their probability (or count)")
+    op.add_argument("--optimize",
+                    help="set optimization method level (full, INT boundary)")
+    op.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
+                    help="Skip resampling and run optimize directly on the input routes")
+    op.add_argument("--min-count", dest="minCount", type=int, default=1,
+                    help="Set minimum number of counting locations that a route must visit")
+    op.add_argument("--minimize-vehicles", dest="minimizeVehs", type=float, default=0,
+                    help="Set optimization factor from [0, 1[ for reducing the number of vehicles" +
+                    "(prefer routes that pass multiple counting locations over routes that pass fewer)")
+    op.add_argument("--geh-ok", dest="gehOk", type=float, default=5,
+                    help="threshold for acceptable GEH values")
+    op.add_argument("--turn-ratio-total", dest="turnRatioTotal", type=float, default=1,
+                    help="Set value for normalizing turning ratios (default 1)")
+    op.add_argument("--turn-ratio-tolerance", dest="turnRatioTolerance", type=float,
+                    help="Set tolerance for error in resulting ratios (relative to turn-ratio-total)")
+    op.add_argument("--turn-ratio-abs-tolerance", dest="turnRatioAbsTolerance", type=int,
+                    default=1, help="Set tolerance for error in resulting turning ratios as absolute count")
+    op.add_argument("--threads", dest="threads", type=int, default=1,
                     help="If parallelization is desired, enter the number of CPUs to use. Set to a value >> then " +
                     "your machines CPUs if you want to utilize all CPUs (Default is 1)")
 
     options = op.parse_args(args=args)
     if (options.routeFiles is None or
-            (options.turnFiles is None and options.edgeDataFiles is None and options.odFiles is None)):
+            (options.turnFiles is None
+             and options.turnRatioFiles is None
+             and options.edgeDataFiles is None
+             and options.odFiles is None)):
         op.print_help()
         sys.exit()
     if options.writeRouteIDs and options.writeRouteDist:
@@ -161,6 +174,7 @@ def get_options(args=None):
 
     options.routeFiles = options.routeFiles.split(',')
     options.turnFiles = options.turnFiles.split(',') if options.turnFiles is not None else []
+    options.turnRatioFiles = options.turnRatioFiles.split(',') if options.turnRatioFiles is not None else []
     options.edgeDataFiles = options.edgeDataFiles.split(',') if options.edgeDataFiles is not None else []
     options.odFiles = options.odFiles.split(',') if options.odFiles is not None else []
     options.tazFiles = options.tazFiles.split(',') if options.tazFiles is not None else []
@@ -212,8 +226,6 @@ class CountData:
         for routeIndex, edges in enumerate(allRoutes.unique):
             if self.routePasses(edges) is not None:
                 self.routeSet.add(routeIndex)
-        if isRatio:
-            self.count = options.turnRatioAbsTolerance
 
     def routePasses(self, edges):
         if self.isTaz:
@@ -265,7 +277,7 @@ class CountData:
 
     def updateTurnRatioCounts(self, openRoutes, openCounts, updateSiblings=False):
         if self.isRatio:
-            total = sum([cd2.assignedCount for cd2 in self.ratioSiblings])
+            total = self.getSiblingCount()
             permitted = total * self.origCount + self.options.turnRatioAbsTolerance
             if permitted > self.assignedCount:
                 self.count = permitted - self.assignedCount
@@ -278,6 +290,17 @@ class CountData:
                 for cd2 in self.ratioSiblings:
                     if cd2 != self:
                         cd2.updateTurnRatioCounts(openRoutes, openCounts)
+
+    def getSiblingCount(self):
+        if not self.isRatio:
+            return None
+        return sum([cd2.assignedCount for cd2 in self.ratioSiblings])
+
+    def assignedProbability(self):
+        if not self.isRatio:
+            return None
+        sibCount = self.getSiblingCount()
+        return 0 if sibCount == 0 else self.assignedCount / sibCount
 
     def __repr__(self):
         return "CountData(edges=%s, count=%s, origCount=%s%s%s%s%s)\n" % (
@@ -309,7 +332,8 @@ def inTaz(options, edge, tazID, isOrigin):
 
 
 def getIntervals(options):
-    begin, end, interval = parseTimeRange(options.turnFiles + options.edgeDataFiles + options.odFiles)
+    begin, end, interval = parseTimeRange(options.turnFiles + options.turnRatioFiles
+                                          + options.edgeDataFiles + options.odFiles)
     if options.begin is not None:
         begin = parseTime(options.begin)
     if options.end is not None:
@@ -611,7 +635,7 @@ class Routes:
             outf.write('%s</route>\n' % indent)
 
 
-def initTurnRatioSiblings(routes, countData):
+def initTurnRatioSiblings(routes, countData, turnTotal):
     ratioIndices = set()
     # todo: use routes to complete incomplete sibling lists
     ratioOrigins = defaultdict(list)
@@ -619,6 +643,7 @@ def initTurnRatioSiblings(routes, countData):
         if cd.isRatio:
             ratioOrigins[cd.edgeTuple[0]].append(cd)
             ratioIndices.add(cd.index)
+            cd.origCount /= turnTotal
 
     for edge, cDs in ratioOrigins.items():
         for cd in cDs:
@@ -760,6 +785,7 @@ def main(options):
     underflowSummary = sumolib.miscutils.Statistics("avg interval underflow")
     overflowSummary = sumolib.miscutils.Statistics("avg interval overflow")
     gehSummary = sumolib.miscutils.Statistics("avg interval GEH%")
+    ratioSummary = sumolib.miscutils.Statistics("avg interval ratio mismatch%")
     inputCountSummary = sumolib.miscutils.Statistics("avg interval input count")
     usedRoutesSummary = sumolib.miscutils.Statistics("avg interval written vehs")
 
@@ -775,18 +801,21 @@ def main(options):
                     underflowSummary.add(result[1][i], begin)
                     overflowSummary.add(result[2][i], begin)
                     gehSummary.add(result[3][i], begin)
-                    inputCountSummary.add(result[4][i], begin)
-                    usedRoutesSummary.add(result[5][i], begin)
+                    if result[4][i] is not None:
+                        ratioSummary.add(result[4][i], begin)
+                    inputCountSummary.add(result[5][i], begin)
+                    usedRoutesSummary.add(result[6][i], begin)
         else:
             for i, (begin, end) in enumerate(intervals):
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
                 intervalCount = options.totalCount[i] if options.totalCount else None
-                uFlow, oFlow, gehOK, inputCount, usedRoutes, _ = solveInterval(options, routes, begin, end,
-                                                                               intervalPrefix, outf, mismatchf, rng,
-                                                                               intervalCount)
+                uFlow, oFlow, gehOK, ratioPerc, inputCount, usedRoutes, _ = solveInterval(
+                    options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount)
                 underflowSummary.add(uFlow, begin)
                 overflowSummary.add(oFlow, begin)
                 gehSummary.add(gehOK, begin)
+                if ratioPerc is not None:
+                    ratioSummary.add(ratioPerc, begin)
                 inputCountSummary.add(inputCount, begin)
                 usedRoutesSummary.add(usedRoutes, begin)
         outf.write('</routes>\n')
@@ -801,6 +830,8 @@ def main(options):
         print(underflowSummary)
         print(overflowSummary)
         print(gehSummary)
+        if ratioSummary.count() > 0:
+            print(ratioSummary)
 
 
 def _sample_skewed(sampleSet, rng, probabilityMap):
@@ -824,10 +855,10 @@ def _solveIntervalMP(options, routes, interval, cpuIndex):
         local_mismatch_outf = StringIO() if options.mismatchOut else None
         intervalPrefix = "%s_" % int(begin)
         intervalCount = options.totalCount[i] if options.totalCount else None
-        uFlow, oFlow, gehOKNum, inputCount, usedRoutes, local_outf = solveInterval(
+        uFlow, oFlow, gehOKPerc, ratioPerc, inputCount, usedRoutes, local_outf = solveInterval(
             options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng, intervalCount)
 
-        output_list.append([begin, uFlow, oFlow, gehOKNum, inputCount, usedRoutes, local_outf.getvalue(),
+        output_list.append([begin, uFlow, oFlow, gehOKPerc, ratioPerc, inputCount, usedRoutes, local_outf.getvalue(),
                             local_mismatch_outf.getvalue() if options.mismatchOut else None])
     output_lst = list(zip(*output_list))
     return output_lst
@@ -836,7 +867,7 @@ def _solveIntervalMP(options, routes, interval, cpuIndex):
 def parseCounts(options, routes, b, e, warn=False):
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
                                     routes, options.turnAttr, options=options, warn=warn)
-                 + parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
+                 + parseDataIntervals(parseTurnCounts, options.turnRatioFiles, b, e,
                                       routes, options.turnRatioAttr, options=options, isRatio=True, warn=warn)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
                                       routes, options.edgeDataAttr, options=options, warn=warn)
@@ -869,8 +900,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     countData = parseCounts(options, routes, begin, end)
 
     ratioIndices = None
-    if options.turnFiles and options.turnRatioAttr:
-        ratioIndices = initTurnRatioSiblings(routes, countData)
+    if options.turnRatioFiles:
+        ratioIndices = initTurnRatioSiblings(routes, countData, options.turnRatioTotal)
 
     routeUsage = getRouteUsage(routes, countData)
     unrestricted_list = [r for r, usage in enumerate(routeUsage) if len(usage) < options.minCount]
@@ -905,9 +936,10 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             if ratioIndices and intervalCount is None:
                 realCounts = [cdi for cdi in openCounts if cdi not in ratioIndices]
                 if not realCounts:
-                    print("Stopped sampling routes because only ratios are still open."
-                          + " Set option --total-count to sample ratios without local counts",
-                          file=sys.stderr)
+                    if numSampled == 0:
+                        print("Stopped sampling routes because only ratios are still open."
+                              + " Set option --total-count to sample ratios without local counts",
+                              file=sys.stderr)
                     break
 
             if options.weighted:
@@ -989,8 +1021,6 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     if usedRoutes:
         outf.write('<!-- begin="%s" end="%s" -->\n' % (begin, end))
-        period = (end - begin) / len(usedRoutes)
-        depart = begin
         routeCounts = getRouteCounts(routes, usedRoutes)
         if options.writeRouteIDs:
             for routeIndex in sorted(set(usedRoutes)):
@@ -1005,11 +1035,15 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             outf.write('    </routeDistribution>\n\n')
 
         routeID = options.writeRouteDist
+
         if options.writeFlows is None:
+            departs = [rng.uniform(begin, end) for ri in usedRoutes]
+            departs.sort()
             for i, routeIndex in enumerate(usedRoutes):
                 if options.writeRouteIDs:
                     routeID = routeIndex
                 vehID = options.prefix + intervalPrefix + str(i)
+                depart = departs[i]
                 if routeID is not None:
                     if options.pedestrians:
                         outf.write('    <person id="%s" depart="%.2f"%s>\n' % (
@@ -1030,15 +1064,14 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                             vehID, depart, options.vehattrs))
                         routes.write(outf, None, None, routeIndex, None)
                         outf.write('    </vehicle>\n')
-                depart += period
         else:
-            routeDeparts = defaultdict(list)
-            for routeIndex in usedRoutes:
-                routeDeparts[routeIndex].append(depart)
-                depart += period
             if options.writeRouteDist:
                 totalCount = sum(routeCounts)
                 probability = totalCount / (end - begin)
+                fBegin = begin
+                if options.writeFlows == "number":
+                    # don't always start at the interval begin
+                    fBegin += rng.uniform(0, 1 / probability)
                 flowID = options.prefix + intervalPrefix + options.writeRouteDist
                 if options.writeFlows == "poisson":
                     repeat = 'period="exp(%.4f)"' % probability
@@ -1050,16 +1083,19 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 else:
                     repeat = 'probability="%.4f"' % probability
                 outf.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s"%s/>\n' % (
-                    flowID, begin, end, repeat,
+                    flowID, fBegin, end, repeat,
                     options.writeRouteDist, options.vehattrs))
             else:
                 # ensure flows are sorted
                 flows = []
                 for routeIndex in sorted(set(usedRoutes)):
                     outf2 = StringIO()
-                    fBegin = min(routeDeparts[routeIndex])
-                    fEnd = max(routeDeparts[routeIndex] + [fBegin + 1.0])
-                    probability = routeCounts[routeIndex] / (fEnd - fBegin)
+                    probability = routeCounts[routeIndex] / (end - begin)
+                    fBegin = begin
+                    fEnd = end
+                    if options.writeFlows == "number":
+                        # don't always start at the interval begin
+                        fBegin += rng.uniform(0, 1 / probability)
                     flowID = "%s%s%s" % (options.prefix, intervalPrefix, routeIndex)
                     if options.writeFlows == "poisson":
                         repeat = 'period="exp(%.4f)"' % probability
@@ -1092,20 +1128,29 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                                 flowID, fBegin, fEnd, repeat, options.vehattrs))
                             routes.write(outf2, None, None, routeIndex, None)
                             outf2.write('    </flow>\n')
-                    flows.append((fBegin, outf2))
+                    # secondary sort by routeIndex so we don't have to compare stringIO
+                    flows.append((fBegin, routeIndex, outf2))
                 flows.sort()
-                for fBegin, outf2 in flows:
+                for fBegin, index, outf2 in flows:
                     outf.write(outf2.getvalue())
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
     overflow = sumolib.miscutils.Statistics("overflow locations")
     gehStats = sumolib.miscutils.Statistics("GEH")
+    ratioStats = sumolib.miscutils.Statistics("turnRatio")
     numGehOK = 0.0
+    gehOKPerc = 100
+    ratioPerc = None
     hourFraction = (end - begin) / 3600.0
     totalCount = 0
     totalOrigCount = 0
+    totalRatioCount = 0
     for cd in countData:
         if cd.isRatio:
+            aProb = setPrecision("%.2f", options.precision) % cd.assignedProbability()
+            cdID = "[%s] %s %s" % (' '.join(cd.edgeTuple), cd.origCount, aProb)
+            ratioStats.add(cd.assignedProbability() - cd.origCount, cdID)
+            totalRatioCount += cd.assignedCount
             continue
         localCount = cd.origCount - cd.count
         totalCount += localCount
@@ -1119,18 +1164,33 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         geh = sumolib.miscutils.geh(origHourly, localHourly)
         if geh < options.gehOk:
             numGehOK += 1
-        gehStats.add(geh, "[%s] %s %s" % (
-            ' '.join(cd.edgeTuple), int(origHourly), int(localHourly)))
+        cdID = "[%s] %s %s" % (' '.join(cd.edgeTuple), int(origHourly), int(localHourly))
+        gehStats.add(geh, cdID)
+
+    gehInfo = ""
+    ratioInfo = ""
+    if gehStats.count() > 0:
+        countPercentage = "%.2f%%" % (100 * totalCount / float(totalOrigCount)) if totalOrigCount else "-"
+        gehOKPerc = 100 * numGehOK / float(gehStats.count()) if countData else 100
+        gehOK = "%.2f%%" % gehOKPerc if countData else "-"
+        gehInfo = "total count %s (%s) at %s locations. GEH<%s for %s" % (
+            totalCount, countPercentage,
+            gehStats.count(),
+            options.gehOk, gehOK)
+
+    if ratioStats.count() > 0:
+        if gehStats.count() > 0:
+            ratioInfo = " and "
+        ratioPerc = ratioStats.avg_abs() * 100
+        ratioInfo += setPrecision("avg ratio mismatch %.2f%% at %s ratio locations (count %s)", options.precision) % (
+            ratioPerc, ratioStats.count(), totalRatioCount)
 
     outputIntervalPrefix = "" if intervalPrefix == "" else "%s: " % int(begin)
-    countPercentage = "%.2f%%" % (100 * totalCount / float(totalOrigCount)) if totalOrigCount else "-"
-    gehOKNum = 100 * numGehOK / float(len(countData)) if countData else 100
-    gehOK = "%.2f%%" % gehOKNum if countData else "-"
-    print("%sWrote %s routes (%s distinct) achieving total count %s (%s) at %s locations. GEH<%s for %s" % (
+    print("%sWrote %s routes (%s distinct) %s%s%s" % (
         outputIntervalPrefix,
         len(usedRoutes), len(set(usedRoutes)),
-        totalCount, countPercentage, len(countData),
-        options.gehOk, gehOK))
+        ("achieving " if countData else "no data"),
+        gehInfo, ratioInfo))
 
     if options.verboseHistogram:
         edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
@@ -1155,14 +1215,19 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s"/>\n' % (
                     cd.edgeTuple[0], cd.origCount, cd.count))
             elif len(cd.edgeTuple) == 2:
-                mismatchf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
-                    cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
+                if cd.isRatio:
+                    deficit = setPrecision("%.2f",  options.precision) % (cd.assignedProbability() - cd.origCount)
+                    mismatchf.write('        <edgeRelation from="%s" to="%s" measuredProbability="%s" deficit="%s" totalAssignedFromCount="%s"/>\n' % (  # noqa
+                        cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, deficit, cd.getSiblingCount()))
+                else:
+                    mismatchf.write('        <edgeRelation from="%s" to="%s" measuredCount="%s" deficit="%s"/>\n' % (
+                        cd.edgeTuple[0], cd.edgeTuple[1], cd.origCount, cd.count))
             else:
                 print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple,
                       file=sys.stderr)
         mismatchf.write('    </interval>\n')
 
-    return sum(underflow.values), sum(overflow.values), gehOKNum, totalOrigCount, len(usedRoutes), outf
+    return sum(underflow.values), sum(overflow.values), gehOKPerc, ratioPerc, totalOrigCount, len(usedRoutes), outf
 
 
 if __name__ == "__main__":

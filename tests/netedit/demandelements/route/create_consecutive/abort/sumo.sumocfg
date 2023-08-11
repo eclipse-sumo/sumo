@@ -4,6 +4,8 @@
 
     <input>
         <net-file value="net.netedit"/>
+        <additional-files value="additionals.netedit"/>
+		<junction-taz value="true"/>
     </input>
 
 </configuration>

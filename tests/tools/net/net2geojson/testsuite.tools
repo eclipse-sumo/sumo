@@ -15,3 +15,5 @@ boundaries
 
 # test importing a network without geo reference
 no_geo
+
+save_template

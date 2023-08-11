@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt  # noqa
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
 
-parser = sumolib.options.ArgumentParser(usage="usage: %prog [options] <input_flows.csv>")
+parser = sumolib.options.ArgumentParser(usage="usage: %(prog)s [options] <input_flows.csv>")
 parser.add_argument(
     "-d", "--detectorfile", type=parser.file, help="read detector list from file")
 parser.add_argument(
@@ -39,7 +39,7 @@ parser.add_argument("-i", "--interval", default=15, type=parser.time,
                     help="aggregation interval in minutes (default: %default)")
 parser.add_argument("-l", "--legacy", action="store_true", default=False,
                     help="legacy style, input file is whitespace separated, detector_definition")
-parser.add_argument("input-flows", dest="inputFlows", category="input", nargs=1, type=parser.file,
+parser.add_argument("inputFlows", category="input", nargs=1, type=parser.file,
                     help="csv file with flow input", metavar="FILE")
 options = parser.parse_args()
 

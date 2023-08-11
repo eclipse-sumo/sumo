@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2004-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -17,6 +17,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    2004-11-23
 ///
 // An unextended detector measuring at a fixed position on a fixed lane.
@@ -290,9 +291,11 @@ public:
          * @param[in] vehLength The length of the vehicle
          * @param[in] entryTimestep The time at which the vehicle entered the detector
          * @param[in] leaveTimestep The time at which the vehicle left the detector
+         * @param[in] leftEarly Whether the vehicle left the detector with a lane change / teleport etc.
+         * @param[in] detLength The length of the detector in meters
          */
         VehicleData(const SUMOTrafficObject& v, double entryTimestep,
-                    double leaveTimestep, const bool leftEarly);
+                    double leaveTimestep, const bool leftEarly, const double detLength = 0);
 
         /// @brief The id of the vehicle
         std::string idM;

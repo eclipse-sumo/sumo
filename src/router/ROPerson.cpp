@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -76,7 +76,7 @@ ROPerson::addTrip(std::vector<PlanItem*>& plan, const std::string& id,
     for (StringTokenizer st(vTypes); st.hasNext();) {
         pars.vtypeid = st.next();
         pars.parametersSet |= VEHPARS_VTYPE_SET;
-        SUMOVTypeParameter* type = net->getVehicleTypeSecure(pars.vtypeid);
+        const SUMOVTypeParameter* type = net->getVehicleTypeSecure(pars.vtypeid);
         if (type == nullptr) {
             delete trip;
             throw InvalidArgument("The vehicle type '" + pars.vtypeid + "' in a trip for person '" + id + "' is not known.");
@@ -363,15 +363,22 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                     trip->addTripItem(new Walk(start, item.edges, item.cost, item.exitTimes, depPos, arrPos, item.destStop));
                 }
             } else if (veh != nullptr && item.line == veh->getID()) {
-                trip->addTripItem(new Ride(start, item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop));
+                double cost = item.cost;
                 if (veh->getVClass() != SVC_TAXI) {
                     RORoute* route = new RORoute(veh->getID() + "_RouteDef", item.edges);
                     route->setProbability(1);
                     veh->getRouteDefinition()->addLoadedAlternative(route);
                     carUsed = true;
+                } else if (trip->needsRouting()) {
+                    // if this is the first plan item the initial taxi waiting time wasn't added yet
+                    const double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
+                    cost += taxiWait;
                 }
+                trip->addTripItem(new Ride(start, item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), cost, item.arrivalPos, item.length, item.destStop));
             } else {
-                trip->addTripItem(new Ride(start, nullptr, nullptr, item.line, trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop, item.intended, TIME2STEPS(item.depart)));
+                // write origin for first element of the plan
+                const ROEdge* origin = trip == myPlan.front() && trip->needsRouting() ? trip->getOrigin() : nullptr;
+                trip->addTripItem(new Ride(start, origin, nullptr, item.line, trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop, item.intended, TIME2STEPS(item.depart)));
             }
         }
         start += TIME2STEPS(item.cost);
@@ -396,14 +403,30 @@ ROPerson::computeRoute(const RORouterProvider& provider,
             if (vehicles.empty()) {
                 computeIntermodal(time, provider, trip, nullptr, errorHandler);
             } else {
+                double bestCost = std::numeric_limits<double>::infinity();
+                PersonTrip* best = nullptr;
+                ROVehicle* bestVeh = nullptr;
                 for (std::vector<ROVehicle*>::iterator v = vehicles.begin(); v != vehicles.end();) {
                     if (!computeIntermodal(time, provider, trip, *v, errorHandler)) {
                         delete (*v)->getRouteDefinition();
                         delete *v;
                         v = vehicles.erase(v);
                     } else {
+                        const double cost = trip->getCost();
+                        if (cost < bestCost) {
+                            bestCost = cost;
+                            if (best != nullptr) {
+                                delete best;
+                            }
+                            best = static_cast<PersonTrip*>(trip->clone());
+                            bestVeh = *v;
+                        }
+                        trip->clearItems();
                         ++v;
                     }
+                }
+                if (best != nullptr) {
+                    trip->copyItems(best, bestVeh);
                 }
             }
         }

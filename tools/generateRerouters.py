@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -31,11 +31,11 @@ import sumolib  # noqa
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Generate rerouter definition for closed edges",)
-    op.add_option("-n", "--net-file", category="input", dest="netfile",
-                  help="define the net file (mandatory)")
-    op.add_option("-o", "--output-file", category="output", dest="outfile", default="rerouters.xml",
-                  help="define the output rerouter filename")
-    op.add_option("-x", "--closed-edges", category="input", dest="closedEdges",
+    op.add_option("-n", "--net-file", category="input", dest="netfile", type=op.net_file,
+                  help="define the net file (mandatory)", required=True)
+    op.add_option("-o", "--output-file", category="output", dest="outfile", type=op.additional_file,
+                  help="define the output rerouter filename", default="rerouters.xml")
+    op.add_option("-x", "--closed-edges", category="input", dest="closedEdges", type=op.edge_list,
                   help="provide a comma-separated list of edges to close")
     op.add_option("-i", "--id-prefix", category="processing", dest="idPrefix", default="rr",
                   help="id prefix for generated rerouters")

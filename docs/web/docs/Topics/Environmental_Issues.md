@@ -55,7 +55,7 @@ passenger vehicle are used, otherwise those of a heavy duty vehicle.
 SUMO includes the following emission models:
 
 - [HBEFA v2.1-based](../Models/Emissions/HBEFA-based.md): A
-  continuous reformulation of the [HBEFA](http://www.hbefa.net/) [\[1\]](#references)
+  continuous reformulation of the [HBEFA](https://www.hbefa.net/) [\[1\]](#references)
   v2.1 emissions data base;
 - [PHEMlight](../Models/Emissions/PHEMlight.md), a derivation of
   the original
@@ -121,7 +121,7 @@ existing models and data bases. The first steps including an overview of
 fifteen reviewed models as well as the derivation of the [HBEFA
 v2.1-based](../Models/Emissions/HBEFA-based.md) model are given in
 the deliverable "*D3.1 – Traffic Modelling: Environmental Factors*"[\[3\]](#references)
-of the [iTETRIS](http://www.ict-itetris.eu/)[\[4\]](#references) project. The
+of the [iTETRIS](https://www.ict-itetris.eu/)[\[4\]](#references) project. The
 development of [PHEMlight](../Models/Emissions/PHEMlight.md) is
 described in the deliverable "*Deliverable 4.1 - Extended Simulation
 Tool PHEM coupled to SUMO with User Guide* (Draft)"[\[5\]](#references) of the
@@ -133,7 +133,7 @@ Usually, route computation is performed using travel times as weights
 for the edges of a road network. But what if one would use the emitted
 pollutants instead? Would their emission be reduced? The first
 investigations on this topic were performed using a real-world network
-within the [iTETRIS](http://www.ict-itetris.eu/)[\[7\]](#references) project and were
+within the [iTETRIS](https://www.ict-itetris.eu/)[\[7\]](#references) project and were
 reported in its deliverable D3.1[\[3\]](#references). Further steps using real-world
 scenarios are given in [\[7\]](#references), [\[8\]](#references) and [\[9\]](#references). To gain deeper
 knowledge about the dynamics of the processes, later investigations
@@ -147,7 +147,7 @@ European Parliament and of the Council"[\[12\]](#references) to assure certain a
 quality. Traffic management, usually operated by local authorities, has
 the duty to perform corrective actions that reduce road traffic's
 impact, if needed.
-[MARLIS](https://web.archive.org/web/20070123154331/http://www.bast.de/nn_42544/DE/Publikationen/Datenbanken/MARLIS/MARLIS.html)[\[13\]](#references)
+[MARLIS](https://web.archive.org/web/20070123154331/https://www.bast.de/nn_42544/DE/Publikationen/Datenbanken/MARLIS/MARLIS.html)[\[13\]](#references)
 is a database that lists such actions performed by traffic management
 authorities. A proof-of-concept for simulating such actions using SUMO
 is presented in [\[14\]](#references). Tomàs Josep Vergés used this approach to
@@ -179,7 +179,7 @@ simulate and evaluate some of such actions in his Master thesis[\[15\]](#referen
 <references />
 
 1.  [*HBEFA* - Handbook emission factors for road
-    transport](http://www.hbefa.net/) (German). INFRAS. Last visited on
+    transport](https://www.hbefa.net/) (German). INFRAS. Last visited on
     8th of January 2014.
 
 2.  [*Emissionen und Energieverbrauch von
@@ -193,7 +193,7 @@ simulate and evaluate some of such actions in his Master thesis[\[15\]](#referen
 
 4.  [*iTETRIS* - An Integrated Wireless and Traffic Platform for
     Real-Time Road Traffic Management
-    Solutions](http://www.ict-itetris.eu/). iTETRIS web site. iTETRIS
+    Solutions](https://www.ict-itetris.eu/). iTETRIS web site. iTETRIS
     consortium. Last visited on 8th of January 2014.
 
 5.  N. Furian, S. Hausberger and D. Krajzewicz *Deliverable 4.1 -
@@ -230,7 +230,7 @@ simulate and evaluate some of such actions in his Master thesis[\[15\]](#referen
 
 13. [*MARLIS* - Datenbank mit Maßnahmen zur Reinhaltung der Luft in
     Bezug auf Immissionen an Straßen, Version
-    3.1](https://web.archive.org/web/20070123154331/http://www.bast.de/nn_42544/DE/Publikationen/Datenbanken/MARLIS/MARLIS.html)
+    3.1](https://web.archive.org/web/20070123154331/https://www.bast.de/nn_42544/DE/Publikationen/Datenbanken/MARLIS/MARLIS.html)
     (German). BASt database index. Last visited on 8th of January 2014.
 
 14. D. Krajzewicz and Y.-P. Flötteröd. *Simulative Untersuchung

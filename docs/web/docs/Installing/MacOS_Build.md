@@ -10,7 +10,7 @@ You may use one of two ways to build and install SUMO on macOS: **Homebrew** (re
 
 ## Prerequisites
 
-The installation requires [Homebrew](http://brew.sh). If you did not already install homebrew, do so by invoking
+The installation requires [Homebrew](https://brew.sh). If you did not already install homebrew, do so by invoking
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```

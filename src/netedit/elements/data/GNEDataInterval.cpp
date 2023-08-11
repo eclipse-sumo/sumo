@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -214,8 +214,22 @@ GNEDataInterval::getGenericDataChildren() const {
 
 
 bool
+GNEDataInterval::edgeRelExists(const GNEEdge* fromEdge, const GNEEdge* toEdge) const {
+    // interate over all edgeRels and check edge parents
+    for (const auto& genericData : myGenericDataChildren) {
+        if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) &&
+                (genericData->getParentEdges().front() == fromEdge) &&
+                (genericData->getParentEdges().back() == toEdge)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
 GNEDataInterval::TAZRelExists(const GNEAdditional* TAZ) const {
-    // interate over all generic datas and check TAZ parents
+    // interate over all TAZRels and check TAZ parents
     for (const auto& genericData : myGenericDataChildren) {
         if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
                 (genericData->getParentAdditionals().size() == 1) &&
@@ -229,7 +243,7 @@ GNEDataInterval::TAZRelExists(const GNEAdditional* TAZ) const {
 
 bool
 GNEDataInterval::TAZRelExists(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const {
-    // interate over all generic datas and check TAZ parents
+    // interate over all TAZRels and check TAZ parents
     for (const auto& genericData : myGenericDataChildren) {
         if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
                 (genericData->getParentAdditionals().size() == 2) &&
@@ -275,7 +289,7 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
     switch (key) {
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

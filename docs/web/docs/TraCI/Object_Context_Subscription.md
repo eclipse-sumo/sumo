@@ -139,10 +139,10 @@ Consequently, a combination of, e.g., the field-of-vision and lateral distance f
 - In the [python
   library](../TraCI/Interfacing_TraCI_from_Python.md#context_subscriptions),
   all domains support the methods [*subscribeContext* and
-  *unsubscribeContext*](http://sumo.dlr.de/daily/pydoc/traci.domain.html#Domain)
+  *unsubscribeContext*](https://sumo.dlr.de/daily/pydoc/traci.domain.html#Domain)
 - For the python client several [methods for adding context filters
   for vehicle-to-vehicle context
-  subscriptions](http://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterCFManeuver)
+  subscriptions](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterCFManeuver)
   are included.
 - In the [C++ library](../TraCI/C++TraCIAPI.md), the method
   *simulation.subscribeContext* takes an additional argument that

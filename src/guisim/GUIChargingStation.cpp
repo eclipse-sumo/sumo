@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -90,15 +90,15 @@ GUIChargingStation::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&)
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
 
     // add items
-    ret->mkItem("name", false, getMyName());
-    ret->mkItem("begin position [m]", false, myBegPos);
-    ret->mkItem("end position [m]", false, myEndPos);
-    ret->mkItem("stopped vehicles[#]", true, new FunctionBinding<GUIChargingStation, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
-    ret->mkItem("last free pos[m]", true, new FunctionBinding<GUIChargingStation, double>(this, &MSStoppingPlace::getLastFreePos));
-    ret->mkItem("charging power [W]", false, myChargingPower);
-    ret->mkItem("charging myEfficiency []", false, myEfficiency);
-    ret->mkItem("charge in transit [true/false]", false, myChargeInTransit);
-    ret->mkItem("charge delay [s]", false, myChargeDelay);
+    ret->mkItem(TL("name"), false, getMyName());
+    ret->mkItem(TL("begin position [m]"), false, myBegPos);
+    ret->mkItem(TL("end position [m]"), false, myEndPos);
+    ret->mkItem(TL("stopped vehicles [#]"), true, new FunctionBinding<GUIChargingStation, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
+    ret->mkItem(TL("last free pos [m]"), true, new FunctionBinding<GUIChargingStation, double>(this, &MSStoppingPlace::getLastFreePos));
+    ret->mkItem(TL("charging power [W]"), false, myChargingPower);
+    ret->mkItem(TL("charging efficiency [#]"), false, myEfficiency);
+    ret->mkItem(TL("charge in transit [true/false]"), false, myChargeInTransit);
+    ret->mkItem(TL("charge delay [s]"), false, myChargeDelay);
 
     // close building
     ret->closeBuilding();

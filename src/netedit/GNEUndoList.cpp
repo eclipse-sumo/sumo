@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -215,6 +215,12 @@ GNEUndoList::begin(GUIIcon icon, const std::string& description) {
 
 
 void
+GNEUndoList::begin(const GNEAttributeCarrier *AC, const std::string& description) {
+    begin(AC->getTagProperty().getGUIIcon(), description);
+}
+
+
+void
 GNEUndoList::begin(Supermode supermode, GUIIcon icon, const std::string& description) {
     myChangeGroups.push(new GNEChangeGroup(supermode, icon, description));
     // get this reference
@@ -356,16 +362,6 @@ GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
         changeGroup->undoList = change;
     }
     myWorking = false;
-}
-
-
-void
-GNEUndoList::changeAttribute(GNEChange_Attribute* change) {
-    if (change->trueChange()) {
-        add(change, true);
-    } else {
-        delete change;
-    }
 }
 
 

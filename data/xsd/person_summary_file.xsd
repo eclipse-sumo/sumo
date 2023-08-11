@@ -23,7 +23,7 @@
             <xsd:attribute name="ended" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="arrived" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="teleports" type="xsd:nonNegativeInteger" use="required"/>
-            <xsd:attribute name="duration" type="xsd:float" use="optional"/>
+            <xsd:attribute name="duration" type="floatType" use="optional"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

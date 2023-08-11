@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -46,15 +46,9 @@ FXDEFMAP(GNETypeFrame::TypeEditor) typeEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_COPY,      GNETypeFrame::TypeEditor::onCmdCopyType)
 };
 
-FXDEFMAP(GNETypeFrame::VTypeDistributions) VTypeDistributionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNETypeFrame::VTypeDistributions::onCmdOpenDialog)
-};
-
 // Object implementation
 FXIMPLEMENT(GNETypeFrame::TypeSelector,         MFXGroupBoxModule,  typeSelectorMap,        ARRAYNUMBER(typeSelectorMap))
 FXIMPLEMENT(GNETypeFrame::TypeEditor,           MFXGroupBoxModule,  typeEditorMap,          ARRAYNUMBER(typeEditorMap))
-FXIMPLEMENT(GNETypeFrame::VTypeDistributions,   MFXGroupBoxModule,  VTypeDistributionsMap,  ARRAYNUMBER(VTypeDistributionsMap))
-
 
 // ===========================================================================
 // method definitions
@@ -73,13 +67,13 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
     // add default Types (always first)
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType->getID()) != 0) {
-            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon(), FXRGB(255, 255, 200));
+            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon(), FXRGB(255, 255, 200));
         }
     }
     // fill myTypeMatchBox with list of VTypes IDs
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
-            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon());
         }
     }
     // set DEFAULT_VEHTYPE as default VType
@@ -119,7 +113,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
     // add default Vehicle an Bike types in the first and second positions
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType->getID()) != 0) {
-            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon(), FXRGB(255, 255, 200));
+            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getFXIcon(), FXRGB(255, 255, 200));
         }
     }
     // fill myTypeMatchBox with list of VTypes IDs sorted by ID
@@ -130,7 +124,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
         }
     }
     for (const auto& vType : types) {
-        myTypeComboBox->appendIconItem(vType.first.c_str(), vType.second->getACIcon());
+        myTypeComboBox->appendIconItem(vType.first.c_str(), vType.second->getFXIcon());
     }
     // Set visible items
     if (myTypeComboBox->getNumItems() <= 20) {
@@ -163,17 +157,16 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
     // set myCurrentType as inspected element
     myTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentType});
     // show modules
-    myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
+    myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false);
     myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
     myTypeFrameParent->myParametersEditor->refreshParametersEditor();
-    myTypeFrameParent->myVTypeDistributions->showVTypeDistributionsModule();
 }
 
 
 void
 GNETypeFrame::TypeSelector::refreshTypeSelectorIDs() {
     if (myCurrentType) {
-        myTypeComboBox->setIconItem(myTypeComboBox->getCurrentItem(), myCurrentType->getID().c_str(), myCurrentType->getACIcon());
+        myTypeComboBox->setIconItem(myTypeComboBox->getCurrentItem(), myCurrentType->getID().c_str(), myCurrentType->getFXIcon());
     }
 }
 
@@ -192,10 +185,9 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // set myCurrentType as inspected element
             myTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentType});
             // show modules if selected item is valid
-            myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
+            myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false);
             myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
             myTypeFrameParent->myParametersEditor->refreshParametersEditor();
-            myTypeFrameParent->myVTypeDistributions->showVTypeDistributionsModule();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeSelector").text());
             // update viewNet
@@ -209,7 +201,6 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // hide all modules if selected item isn't valid
     myTypeFrameParent->myTypeAttributesEditor->hideAttributesEditorModule();
     myTypeFrameParent->myAttributesEditorExtended->hideAttributesEditorExtendedModule();
-    myTypeFrameParent->myVTypeDistributions->hideVTypeDistributionsModule();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -290,13 +281,11 @@ GNETypeFrame::TypeEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     // create new vehicle type
     GNEDemandElement* type = new GNEVType(myTypeFrameParent->myViewNet->getNet(), typeID);
     // add it using undoList (to allow undo-redo)
-    myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "create vehicle type");
+    myTypeFrameParent->myViewNet->getUndoList()->begin(type, TL("create vehicle type"));
     myTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(type, true), true);
     myTypeFrameParent->myViewNet->getUndoList()->end();
     // set created vehicle type in selector
     myTypeFrameParent->myTypeSelector->setCurrentType(type);
-    // refresh Type Editor Module
-    myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     return 1;
 }
 
@@ -324,17 +313,13 @@ GNETypeFrame::TypeEditor::onCmdCopyType(FXObject*, FXSelector, void*) {
         // create a new Type based on the current selected vehicle type
         GNEDemandElement* typeCopy = new GNEVType(myTypeFrameParent->myViewNet->getNet(), typeID, vType);
         // begin undo list operation
-        myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "copy vehicle type");
+        myTypeFrameParent->myViewNet->getUndoList()->begin(typeCopy, TL("copy vehicle type"));
         // add it using undoList (to allow undo-redo)
         myTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(typeCopy, true), true);
         // end undo list operation
         myTypeFrameParent->myViewNet->getUndoList()->end();
-        // refresh Type Selector (to show the new VType)
-        myTypeFrameParent->myTypeSelector->refreshTypeSelector();
         // set created vehicle type in selector
         myTypeFrameParent->myTypeSelector->setCurrentType(typeCopy);
-        // refresh Type Editor Module
-        myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     }
     return 1;
 }
@@ -343,7 +328,7 @@ GNETypeFrame::TypeEditor::onCmdCopyType(FXObject*, FXSelector, void*) {
 void
 GNETypeFrame::TypeEditor::resetType() {
     // begin reset default vehicle type values
-    myTypeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, "reset default vehicle type values");
+    myTypeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, TL("reset default vehicle type values"));
     // reset all values of default vehicle type
     for (const auto& attrProperty : GNEAttributeCarrier::getTagProperty(SUMO_TAG_VTYPE)) {
         // change all attributes with "" to reset it (except ID and vClass)
@@ -396,7 +381,7 @@ GNETypeFrame::TypeEditor::deleteType() {
             }
         } else {
             // begin undo list operation
-            myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "delete vehicle type");
+            myTypeFrameParent->myViewNet->getUndoList()->begin(myTypeFrameParent->myTypeSelector->getCurrentType(), ("delete vehicle type"));
             // remove vehicle type (and all of their children)
             myTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myTypeFrameParent->myTypeSelector->getCurrentType(),
                     myTypeFrameParent->myViewNet->getUndoList());
@@ -405,63 +390,13 @@ GNETypeFrame::TypeEditor::deleteType() {
         }
     } else {
         // begin undo list operation
-        myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "delete vehicle type");
+        myTypeFrameParent->myViewNet->getUndoList()->begin(myTypeFrameParent->myTypeSelector->getCurrentType(), ("delete vehicle type"));
         // remove vehicle type (and all of their children)
         myTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myTypeFrameParent->myTypeSelector->getCurrentType(),
                 myTypeFrameParent->myViewNet->getUndoList());
         // end undo list operation
         myTypeFrameParent->myViewNet->getUndoList()->end();
     }
-}
-
-// ---------------------------------------------------------------------------
-// GNEFrameAttributeModules::VTypeDistributions - methods
-// ---------------------------------------------------------------------------
-
-GNETypeFrame::VTypeDistributions::VTypeDistributions(GNETypeFrame* typeFrameParent) :
-    MFXGroupBoxModule(typeFrameParent, TL("VType Distributions")),
-    myTypeFrameParent(typeFrameParent) {
-    // Create open dialog button
-    new FXButton(getCollapsableFrame(), TL("Show VType Distributions"), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
-    // create vType distribution dialog
-    myVTypeDistributionsDialog = new GNEVTypeDistributionsDialog(typeFrameParent);
-}
-
-
-GNETypeFrame::VTypeDistributions::~VTypeDistributions() {}
-
-
-GNETypeFrame*
-GNETypeFrame::VTypeDistributions::getTypeFrameParent() const {
-    return myTypeFrameParent;
-}
-
-
-void
-GNETypeFrame::VTypeDistributions::showVTypeDistributionsModule() {
-    show();
-}
-
-
-void
-GNETypeFrame::VTypeDistributions::hideVTypeDistributionsModule() {
-    // always close dialog
-    myVTypeDistributionsDialog->close();
-    hide();
-}
-
-
-GNEVTypeDistributionsDialog*
-GNETypeFrame::VTypeDistributions::getVTypeDistributionsDialog() const {
-    return myVTypeDistributionsDialog;
-}
-
-
-long
-GNETypeFrame::VTypeDistributions::onCmdOpenDialog(FXObject*, FXSelector, void*) {
-    // open VTypeDistributions Dialog
-    myVTypeDistributionsDialog->openDialog();
-    return 1;
 }
 
 // ---------------------------------------------------------------------------
@@ -486,9 +421,6 @@ GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     /// create module for edit parameteres
     myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);
 
-    // create module for open vType distribution dialog
-    myVTypeDistributions = new VTypeDistributions(this);
-
     // set "VTYPE_DEFAULT" as default vehicle Type
     myTypeSelector->setCurrentType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
 }
@@ -504,9 +436,8 @@ GNETypeFrame::show() {
     // set myCurrentType as inspected element
     myTypeAttributesEditor->getFrameParent()->getViewNet()->setInspectedAttributeCarriers({myTypeSelector->getCurrentType()});
     // show modules
-    myTypeAttributesEditor->showAttributeEditorModule(false, true);
+    myTypeAttributesEditor->showAttributeEditorModule(false);
     myAttributesEditorExtended->showAttributesEditorExtendedModule();
-    myVTypeDistributions->showVTypeDistributionsModule();
     // show frame
     GNEFrame::show();
 }
@@ -535,7 +466,8 @@ GNETypeFrame::attributesEditorExtendedDialogOpened() {
         // set myCurrentType as inspected element
         myTypeAttributesEditor->getFrameParent()->getViewNet()->setInspectedAttributeCarriers({myTypeSelector->getCurrentType()});
         // call "showAttributeEditorModule" to refresh attribute list
-        myTypeAttributesEditor->showAttributeEditorModule(false, true);
+        myTypeAttributesEditor->showAttributeEditorModule(false);
+        myParametersEditor->refreshParametersEditor();
     }
 }
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -34,11 +34,11 @@ import sumolib  # noqa
 
 def get_options(args=None):
     op = ArgumentParser()
-    op.add_option("-n", "--net-file", category='input', dest="netfile",
+    op.add_option("-n", "--net-file", category='input', dest="netfile", type=op.net_file,
                   help="define the net filename (mandatory)")
-    op.add_option("-r", "--route-files", category='input', dest="routefiles",
+    op.add_option("-r", "--route-files", category='input', dest="routefiles", type=op.route_file,
                   help="define the route file separated by comma (mandatory)")
-    op.add_option("-o", "--output-file", category='output', dest="outfile",
+    op.add_option("-o", "--output-file", category='output', dest="outfile", type=op.route_file,
                   help="define the output filename")
     op.add_option("-t", "--typesfile", category='input', dest="typesfile",
                   help="Give a typesfile")
@@ -56,7 +56,7 @@ def get_options(args=None):
                   help="relative stopping position along the route [0,1] or 'random' (1 indicates the last edge)")
     op.add_option("--probability", type=float, default=1,
                   help="app stop with the given probability ]0, 1]")
-    op.add_option("--parking-areas", dest="parkingareas", default=False,
+    op.add_option("--parking-areas", dest="parkingareas", default=False, type=op.additional_file,
                   help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
     op.add_option("--start-at-stop", dest="startAtStop", action="store_true",
                   default=False, help="shorten route so it starts at stop")

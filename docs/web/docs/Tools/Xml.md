@@ -6,7 +6,7 @@ title: Xml
 
 This converts any of the sumo xml files into a flat csv (character
 separated values) representation. CSV-Files are easy to parse and can be
-opened in [LibreOffice](http://www.libreoffice.org/) or Microsoft Excel.
+opened in [LibreOffice](https://www.libreoffice.org/) or Microsoft Excel.
 Usage:
 
 ```
@@ -19,7 +19,7 @@ used to quote all fields. Furthermore you can supply an xsd schema file
 using **--xsd** {{DT_FILE}} to aid the parsing and get headings also for attributes which may
 be not in the current file. If you give the additional **--validation** option the input
 file will be validated against the schema. This requires
-[lxml](http://lxml.de/) to be installed.
+[lxml](https://lxml.de/) to be installed.
 
 If you do not use the **--xsd** option
 the script will determine the attributes to parse from the first line (or block) it parses.
@@ -84,9 +84,9 @@ The options have the same meaning as above.
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
-<a href="http://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
+<a href="https://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project 
-<a href="http://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+<a href="https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
 
 
 ## changeAttribute.py

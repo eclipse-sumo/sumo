@@ -6,12 +6,12 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <containerFlow id="p_0" begin="0.00" end="23.00" containersPerHour="1200.00">
-        <tranship from="gneE2" to="gneE5"/>
+        <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
     <containerFlow id="p_4" begin="0.00" end="12.50" containersPerHour="1200.00">
-        <tranship from="gneE2" to="gneE5"/>
+        <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
     <containerFlow id="p_5" begin="0.00" end="30.00" containersPerHour="1200.00">
-        <tranship from="gneE2" to="gneE5"/>
+        <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 </routes>

@@ -1,6 +1,3 @@
-# test retrieval of upcoming links
-getNextLinks
-
 # test accessing the ssm device
 ssm
 
@@ -58,6 +55,9 @@ distance_after_reroute
 
 # test retrieval of upcoming traffic lights
 nextTLS
+
+# test retrieval of upcoming links
+getNextLinks
 
 # test retrieval of function joes
 getJunctionFoes

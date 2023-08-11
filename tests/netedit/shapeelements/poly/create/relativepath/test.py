@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,23 +35,22 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # change color manually
-netedit.changeDefaultValue(netedit.attrs.Poly.create.color, "white")
+netedit.changeDefaultValue(netedit.attrs.poly.create.color, "white")
 
 # change fill
-netedit.changeDefaultBoolValue(netedit.attrs.Poly.create.fill)
+netedit.changeDefaultBoolValue(netedit.attrs.poly.create.fill)
 
 # change imgfile (valid)
-netedit.changeDefaultValue(netedit.attrs.Poly.create.imgFile, "berlin_icon.ico")
+netedit.changeDefaultValue(netedit.attrs.poly.create.imgFile, "berlin_icon.ico")
 
 # change relativePos
-netedit.changeDefaultBoolValue(netedit.attrs.Poly.create.reativePath)
+netedit.changeDefaultBoolValue(netedit.attrs.poly.create.reativePath)
 
 # create polygon
-netedit.createSquaredTAZ(referencePosition, 210, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

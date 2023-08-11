@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -16,6 +16,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Yun-Pang Floetteroed
+/// @author  Mirko Barthauer
 /// @date    05 Apr. 2006
 ///
 // An O/D (origin/destination) matrix
@@ -252,6 +253,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
     std::string personArrivalPos = oc.isSet("arrivalpos") ? oc.getString("arrivalpos") : "random";
     SumoXMLAttr fromAttr = oc.getBool("junctions") ? SUMO_ATTR_FROMJUNCTION : SUMO_ATTR_FROM;
     SumoXMLAttr toAttr = oc.getBool("junctions") ? SUMO_ATTR_TOJUNCTION : SUMO_ATTR_TO;
+    const std::string vType = oc.isSet("vtype") ? oc.getString("vtype") : "";
 
     // go through the time steps
     for (SUMOTime t = begin; t < end;) {
@@ -289,6 +291,9 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                 if (pedestrians) {
                     dev.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
                     dev.writeAttr(SUMO_ATTR_DEPARTPOS, personDepartPos);
+                    if (!noVtype && vType.size() > 0) {
+                        dev.writeAttr(SUMO_ATTR_TYPE, vType);
+                    }
                     dev.openTag(SUMO_TAG_WALK);
                     dev.writeAttr(fromAttr, (*i).from);
                     dev.writeAttr(toAttr, (*i).to);

@@ -1,0 +1,3 @@
+Warning: Cannot join vehicle 't0' to vehicle 't1' due to incompatible routes. time=124.00.
+Warning: Vehicle 't0' aborted waiting to be joined to vehicle 't1'.
+Warning: Vehicle 't1' aborted waiting for a joining vehicle that will never come.

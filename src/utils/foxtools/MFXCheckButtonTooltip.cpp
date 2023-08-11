@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -32,7 +32,7 @@ FXDEFMAP(MFXCheckButtonTooltip) MFXCheckButtonTooltipMap[] = {
 FXIMPLEMENT(MFXCheckButtonTooltip, FXCheckButton, MFXCheckButtonTooltipMap, ARRAYNUMBER(MFXCheckButtonTooltipMap))
 
 
-MFXCheckButtonTooltip::MFXCheckButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXObject* tgt, 
+MFXCheckButtonTooltip::MFXCheckButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXObject* tgt,
         FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     FXCheckButton(p, text, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
     myStaticToolTip(staticToolTip) {

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -680,6 +680,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                   << " mc=" << mergeConflict(from, queryCon, *i, connected[k], false)
                                   << " oltc=" << oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
                                   << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
+                                  << " bc=" <<  bidiConflict(from, queryCon, *i, connected[k], false)
                                   << " rorc=" << myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                                   << " tlscc=" << myJunction->tlsContConflict(from, c, *i, connected[k])
                                   << "\n";
@@ -871,7 +872,7 @@ NBRequest::indirectLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
 
 bool
 NBRequest::bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
-                                    const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+                        const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     if (from == prohibitorFrom) {
         return false;
     }
@@ -882,16 +883,16 @@ NBRequest::bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
     if ((foes && (from->getBidiEdge() == prohibitorCon.toEdge))
             || prohibitorFrom->getBidiEdge() == con.toEdge) {
         const bool fromBidi = from->getLaneShape(con.fromLane).reverse().almostSame(
-                prohibitorCon.toEdge->getLaneShape(prohibitorCon.toLane), POSITION_EPS);
+                                  prohibitorCon.toEdge->getLaneShape(prohibitorCon.toLane), POSITION_EPS);
         const bool prohibitorFromBidi = prohibitorFrom->getLaneShape(prohibitorCon.fromLane).reverse().almostSame(
-                con.toEdge->getLaneShape(con.toLane), POSITION_EPS);
+                                            con.toEdge->getLaneShape(con.toLane), POSITION_EPS);
         if (!foes && fromBidi && prohibitorFromBidi) {
             // do not create a symmetrical conflict
             return false;
         }
         if (prohibitorFromBidi &&
                 prohibitorFrom->getLaneShape(prohibitorCon.fromLane).reverse().almostSame(
-                prohibitorCon.toEdge->getLaneShape(prohibitorCon.toLane), POSITION_EPS)) {
+                    prohibitorCon.toEdge->getLaneShape(prohibitorCon.toLane), POSITION_EPS)) {
             // prohibitor has a bidi-turnaround
             return false;
         }

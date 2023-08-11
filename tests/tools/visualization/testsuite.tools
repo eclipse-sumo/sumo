@@ -8,3 +8,4 @@ plot_summary
 # test plotTrajectories.py
 plot_trajectories
 plotXMLAttributes
+plot_net_selection

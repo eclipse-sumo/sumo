@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -145,6 +145,18 @@ GNEContainerFrame::getPathCreator() const {
     return myPathCreator;
 }
 
+
+DemandElementSelector*
+GNEContainerFrame::getTypeSelector() const {
+    return myTypeSelector;
+}
+
+
+GNEAttributesCreator*
+GNEContainerFrame::getContainerAttributes() const {
+    return myContainerAttributes;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================
@@ -269,7 +281,7 @@ GNEContainerFrame::createPath(const bool /* useLastRoute */) {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // begin undo-redo operation
-        myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getGUIIcon(), "create " +
+        myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC(), "create " +
                                         myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
                                         myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
         // create person
@@ -345,8 +357,8 @@ GNEContainerFrame::buildContainer() {
             myContainerBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
         }
         // adjust poisson value
-        if (myContainerBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
-            myContainerBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myContainerBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
+        if (myContainerBaseObject->hasTimeAttribute(GNE_ATTR_POISSON)) {
+            myContainerBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + time2string(myContainerBaseObject->getTimeAttribute(GNE_ATTR_POISSON), false) + ")");
         }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myContainerBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(containerTag));

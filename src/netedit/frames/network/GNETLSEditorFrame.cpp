@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -55,7 +55,9 @@ FXDEFMAP(GNETLSEditorFrame::TLSJunction) TLSJunctionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN,    GNETLSEditorFrame::TLSJunction::onCmdToggleJoinTLS),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN,    GNETLSEditorFrame::TLSJunction::onUpdJoinTLS),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN,       GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN,       GNETLSEditorFrame::TLSJunction::onUpdDisjoinTLS)
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN,       GNETLSEditorFrame::TLSJunction::onUpdDisjoinTLS),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,                      GNETLSEditorFrame::TLSJunction::onCmdAcceptJoin),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,                      GNETLSEditorFrame::TLSJunction::onCmdCancelJoin)
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
@@ -915,6 +917,14 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
             TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
             TL("Disjoin") + std::string("\t") + TL("Disjoin current TLS") + std::string("\t") + TL("Disjoin current TLS."),
             GUIIconSubSys::getIcon(GUIIcon::DISJOIN), this, MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN, GUIDesignButton);
+    // create frame for join control buttons
+    myJoinControlButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
+    // create create tlDef button
+    new FXButton(myJoinControlButtons, (TL("Accept") + std::string("\t\t") + TL("Finish join.")).c_str(),
+                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButton);
+    new FXButton(myJoinControlButtons, (TL("Cancel") + std::string("\t\t") + TL("Cancel Join.")).c_str(),
+                 GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButton);
+    myJoinControlButtons->hide();
     // update junction description after creation
     updateJunctionDescription();
     // show TLS Junction
@@ -945,8 +955,8 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() {
     myJunctionIDLabel->setText(TL("Junction ID"));
     // clear selected junctions
     mySelectedJunctionIDs.clear();
-    // disable joining junction mode
-    disableJoiningJunctionMode();
+    // cancel joining junction mode
+    onCmdCancelJoin(nullptr, 0, nullptr);
     // continue depending of current junction
     if (myCurrentJunction == nullptr) {
         myJunctionIDTextField->setText(TL("no junction selected"));
@@ -980,13 +990,6 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() {
         }
     }
 }
-
-
-void
-GNETLSEditorFrame::TLSJunction::disableJoiningJunctionMode() {
-    myJoinTLSToggleButton->setState(FALSE, TRUE);
-}
-
 
 bool
 GNETLSEditorFrame::TLSJunction::isJoiningJunctions() const {
@@ -1193,7 +1196,15 @@ GNETLSEditorFrame::TLSJunction::onCmdToggleJoinTLS(FXObject*, FXSelector, void*)
         for (const auto& TLNode : TLNodes) {
             mySelectedJunctionIDs.push_back(TLNode->getID());
         }
+        // make a copy of selected junctions
+        myOriginalSelectedJunctionIDs = mySelectedJunctionIDs;
+        // show control buttons
+        myJoinControlButtons->show();
+        getCollapsableFrame()->recalc();
     } else {
+        // hide control buttons
+        myJoinControlButtons->hide();
+        getCollapsableFrame()->recalc();
         // make a copy of current junction
         const auto currentJunction = myCurrentJunction;
         // declare vectors for junctions
@@ -1331,6 +1342,23 @@ GNETLSEditorFrame::TLSJunction::onUpdDisjoinTLS(FXObject* sender, FXSelector, vo
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
+
+
+long
+GNETLSEditorFrame::TLSJunction::onCmdAcceptJoin(FXObject*, FXSelector, void*) {
+    myJoinTLSToggleButton->setState(FALSE, TRUE);
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSJunction::onCmdCancelJoin(FXObject*, FXSelector, void*) {
+    // restore selected junction
+    mySelectedJunctionIDs = myOriginalSelectedJunctionIDs;
+    myJoinTLSToggleButton->setState(FALSE, TRUE);
+    return 1;
+}
+
 
 // ---------------------------------------------------------------------------
 // GNETLSEditorFrame::TLSDefinition - methods
@@ -2018,7 +2046,7 @@ GNETLSEditorFrame::TLSPhases::changePhaseValue(const int col, const int row, con
     } else if (col == colState) {
         return setState(col, row, value);
     } else if (col == colNext) {
-        return setNext(col, row, value);
+        return setNext(row, value);
     } else if (col == colName) {
         return setName(row, value);
     } else if (col == colMinDur) {
@@ -2614,28 +2642,21 @@ GNETLSEditorFrame::TLSPhases::setState(const int col, const int row, const std::
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setNext(const int col, const int row, const std::string& value) {
-    // check value
-    if (value.empty()) {
-        // input empty, reset value
-        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).next));
+GNETLSEditorFrame::TLSPhases::setNext(const int row, const std::string &value) {
+    // check next
+    if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
+        const auto nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
+        for (const auto nextPhase : nextEdited) {
+            if ((nextPhase < 0) || (nextPhase >= myPhaseTable->getNumRows())) {
+                return false;
+            }
+        }
+        // set new next
+        myTLSEditorParent->myEditedDef->getLogic()->setPhaseNext(row, nextEdited);
+        myTLSEditorParent->myTLSDefinition->markAsModified();
         return true;
     } else {
-        // check next
-        if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
-            const auto nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
-            for (const auto nextPhase : nextEdited) {
-                if ((nextPhase < 0) || (nextPhase >= myPhaseTable->getNumRows())) {
-                    return false;
-                }
-            }
-            // set new next
-            myTLSEditorParent->myEditedDef->getLogic()->setPhaseNext(row, nextEdited);
-            myTLSEditorParent->myTLSDefinition->markAsModified();
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 }
 

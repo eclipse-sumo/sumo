@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -18,9 +18,9 @@
 
 import os
 import sys
-import getopt
 from collections import OrderedDict
-sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools")]
+if "SUMO_HOME" in os.environ:
+    sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools")]
 import sumolib  # noqa
 
 
@@ -46,7 +46,7 @@ def parseTimeSteps(inputFile):
     return result
 
 
-def writeTimeSteps(result):
+def writeTimeSteps(result, outputFile):
     with open(outputFile, "w") as f:
         sumolib.xml.writeHeader(f)
         f.write("<battery-export>\n")
@@ -137,32 +137,16 @@ def processMatrix(matrix, timeToSplit):
     return result
 
 
-"""
-@brief main
-"""
+def main():
+    op = sumolib.options.ArgumentParser()
+    op.add_argument("-i", "--input", type=op.file, category="input", help="battery input file")
+    op.add_argument("-o", "--output", type=op.file, category="output", help="battery merged output file")
+    op.add_argument("-t", "--time", type=op.time, help="time to merge")
+    opts = op.parse_args()
+    matrix = parseTimeSteps(opts.input)
+    matrix = processMatrix(matrix, int(opts.time))
+    writeTimeSteps(matrix, opts.output)
 
-# parse input
-opts, args = getopt.getopt(sys.argv[1:], "i:o:t:v:", ["input=", "output=", "time="])
 
-# check arguments
-if len(opts) == 0:
-    print('usage: aggregateBatteryOutput.py -i <battery input file> '
-          '-o <battery merged output file> -t <time to merge>')
-    sys.exit()
-
-# parse arguments
-for opt, arg in opts:
-    if opt in ("-i", "--input"):
-        inputFile = arg
-    elif opt in ("-o", "--output"):
-        outputFile = arg
-    elif opt in ("-t", "--time"):
-        timeToSplit = int(arg)
-
-# create matrix with timeSteps
-matrix = parseTimeSteps(inputFile)
-
-matrix = processMatrix(matrix, timeToSplit)
-
-# write matrix
-writeTimeSteps(matrix)
+if __name__ == "__main__":
+    main()

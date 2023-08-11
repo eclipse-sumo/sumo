@@ -52,4 +52,3 @@ a second call to netconvert. You can sometimes to avoid this second step (see th
 explanations to netdiff) but in the following situations it is probably unavoidable:
 
 - correction of merged tram and road edges together with analysis of railway topology (ptline-output)
-- 

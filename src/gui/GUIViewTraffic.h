@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -124,7 +124,7 @@ public:
 
     long onDoubleClicked(FXObject*, FXSelector, void*);
 
-    /** @brief Adds a frame to a video snapshot which will be initialized if neccessary
+    /** @brief Adds a frame to a video snapshot which will be initialized if necessary
      */
     void saveFrame(const std::string& destFile, FXColor* buf);
 

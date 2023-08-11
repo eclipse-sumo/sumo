@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 
 # @file    generateParkingAreas.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2021-11-25
 
 
@@ -28,9 +29,11 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser(description="Generate trips between random locations")
+    optParser = sumolib.options.ArgumentParser(description="Generate parking areas along the edges")
     optParser.add_argument("-n", "--net-file", category="input", dest="netfile",
                            help="define the net file (mandatory)")
+    optParser.add_argument("--selection-file", category="input", dest="selectionfile",
+                           help="optionally restrict the parking area to the selected net part")
     optParser.add_argument("-o", "--output-file", category="output", dest="outfile",
                            default="parkingareas.add.xml", help="define the output filename")
     optParser.add_argument("-p", "--probability", category="processing", type=float, default=1,
@@ -57,6 +60,10 @@ def get_options(args=None):
                            help="whether to place parkingareas on the left of the road")
     optParser.add_argument("-a", "--angle", category="processing", type=float,
                            help="parking area angle")
+    optParser.add_argument("--on-road", category="processing", action="store_true", default=False, dest="onRoad",
+                           help="whether to place parkingareas directly on the road")
+    optParser.add_argument("--on-road.lane-offset", category="processing", type=int, default=0, dest="onRoadLaneOffset",
+                           help="lane index to place on-road parking spaces on (use negative value to use all lanes)")
     optParser.add_argument("--prefix", category="processing", default="pa", help="prefix for the parkingArea ids")
     optParser.add_argument("-s", "--seed", category="processing", type=int, default=42, help="random seed")
     optParser.add_argument("--random", category="processing", action="store_true", default=False,
@@ -79,12 +86,22 @@ def get_options(args=None):
     return options
 
 
+def hasOppositeEdge(edge):
+    toNode = edge.getToNode()
+    fromNode = edge.getFromNode()
+    return fromNode in [e.getToNode() for e in toNode.getOutgoing()]
+
+
 def main(options):
     if not options.random:
         random.seed(options.seed)
 
     net = sumolib.net.readNet(options.netfile)
-
+    checkSelection = False
+    if options.selectionfile is not None:
+        net.loadSelection(options.selectionfile)
+        checkSelection = True
+    
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)  # noqa
         for edge in net.getEdges():
@@ -92,24 +109,39 @@ def main(options):
                 continue
             if options.edgeTypeRemove and edge.getType() in options.edgeTypeRemove:
                 continue
+            if checkSelection and not edge.isSelected():
+                continue
             lanes = edge.getLanes()
             if options.lefthand:
                 lanes = reversed(lanes)
             for lane in lanes:
+                if options.lefthand and lane.getNeigh() is not None:
+                    break
+                laneIndex = lane.getIndex()
+                if options.onRoad and options.onRoadLaneOffset > -1:
+                    if options.onRoadLaneOffset > laneIndex:
+                        continue
+                    elif options.onRoadLaneOffset < laneIndex:
+                        break
                 if lane.allows(options.vclass):
                     if random.random() < options.probability:
                         capacity = lane.getLength() / options.length
                         if options.randCapacity:
                             capacity *= random.random()
+                        if options.verbose and options.min > capacity:
+                            print("ParkingArea on edge '%s' exceeds the available space by %.2f spaces due to minimum capacity %d." % (edge.getID(), options.min - capacity, options.min))
                         capacity = min(options.max, max(options.min, int(capacity)))
                         if capacity > 0 or capacity == options.max or options.keepAll:
                             angle = '' if options.angle is None else ' angle="%s"' % options.angle
                             length = '' if options.spaceLength <= 0 else ' length="%s"' % options.spaceLength
                             width = '' if options.width is None else ' width="%s"' % options.width
+                            onRoad = '' if not options.onRoad else ' onRoad="true"'
                             lefthand = '' if not options.lefthand else ' lefthand="true"'
-                            outf.write('    <parkingArea id="%s%s" lane="%s" roadsideCapacity="%s"%s%s%s%s/>\n' % (
-                                options.prefix, edge.getID(), lane.getID(),
-                                capacity, length, width, angle, lefthand))
+                            idSuffix = '' if not options.onRoad else '_%s' % laneIndex
+                            outf.write('    <parkingArea id="%s%s%s" lane="%s" roadsideCapacity="%s"%s%s%s%s%s/>\n' % (
+                                options.prefix, edge.getID(), idSuffix, lane.getID(),
+                                capacity, length, width, angle, lefthand, onRoad))
+                if not options.onRoad:
                     break
         outf.write("</additional>\n")
 

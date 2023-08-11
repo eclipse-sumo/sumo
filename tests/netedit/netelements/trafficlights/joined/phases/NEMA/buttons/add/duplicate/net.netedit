@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 13:02:46 by Eclipse SUMO netedit Version v1_15_0+1963-12923ba0e0a
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-07-06 12:36:18 by Eclipse SUMO netedit Version v1_18_0+0135-de86dee393d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.26Jan095536.11298/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.26Jan095536.11298/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.26Jan095536.11298/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.26Jan095536.11298/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.26Jan095536.11298/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/net.net.xml"/>
     </output>
 
     <processing>
@@ -33,18 +33,16 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.26Jan095536.11298/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/gui-settings.xml"/>
         <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.26Jan095536.11298/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.26Jan095536.11298/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/NEMA/buttons/add/duplicate/log.txt"/>
     </report>
 
 </configuration>
@@ -56,7 +54,7 @@
 
     <edge id=":J0_0" function="internal">
         <lane id=":J0_0_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="35.20,51.10 34.81,48.34 33.62,46.38 31.66,45.19 28.90,44.80"/>
-        <lane id=":J0_0_1" index="1" disallow="pedestrian" speed="8.29" length="15.32" shape="38.40,51.10 37.81,46.94 36.02,43.97 33.06,42.19 28.90,41.60"/>
+        <lane id=":J0_0_1" index="1" disallow="pedestrian" speed="8.29" length="15.32" shape="38.40,51.10 37.81,46.94 36.02,43.98 33.06,42.19 28.90,41.60"/>
     </edge>
     <edge id=":J0_2" function="internal">
         <lane id=":J0_2_0" index="0" disallow="pedestrian" speed="13.89" length="22.20" shape="38.40,51.10 38.40,28.90"/>
@@ -68,17 +66,17 @@
         <lane id=":J0_16_0" index="0" disallow="pedestrian" speed="9.51" length="4.93" shape="46.22,39.10 51.10,38.40"/>
     </edge>
     <edge id=":J0_4" function="internal">
-        <lane id=":J0_4_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="51.10,44.80 48.34,45.19 46.38,46.37 45.19,48.34 44.80,51.10"/>
-        <lane id=":J0_4_1" index="1" disallow="pedestrian" speed="8.29" length="15.32" shape="51.10,41.60 46.94,42.19 43.97,43.98 42.19,46.94 41.60,51.10"/>
+        <lane id=":J0_4_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="51.10,44.80 48.34,45.19 46.37,46.37 45.19,48.34 44.80,51.10"/>
+        <lane id=":J0_4_1" index="1" disallow="pedestrian" speed="8.29" length="15.32" shape="51.10,41.60 46.94,42.19 43.98,43.98 42.19,46.94 41.60,51.10"/>
     </edge>
     <edge id=":J0_6" function="internal">
         <lane id=":J0_6_0" index="0" disallow="pedestrian" speed="13.89" length="22.20" shape="51.10,41.60 28.90,41.60"/>
     </edge>
     <edge id=":J0_7" function="internal">
-        <lane id=":J0_7_0" index="0" disallow="pedestrian" speed="9.51" length="15.55" shape="51.10,41.60 45.54,40.81 41.58,38.43 39.19,34.46 39.10,33.78"/>
+        <lane id=":J0_7_0" index="0" disallow="pedestrian" speed="9.51" length="2.51" shape="51.10,41.60 48.61,41.24"/>
     </edge>
     <edge id=":J0_17" function="internal">
-        <lane id=":J0_17_0" index="0" disallow="pedestrian" speed="9.51" length="4.93" shape="39.10,33.78 38.40,28.90"/>
+        <lane id=":J0_17_0" index="0" disallow="pedestrian" speed="9.51" length="17.97" shape="48.61,41.24 45.54,40.81 41.58,38.43 39.19,34.46 38.40,28.90"/>
     </edge>
     <edge id=":J0_8" function="internal">
         <lane id=":J0_8_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="44.80,28.90 45.19,31.66 46.37,33.62 48.34,34.81 51.10,35.20"/>
@@ -101,10 +99,10 @@
         <lane id=":J0_14_0" index="0" disallow="pedestrian" speed="13.89" length="22.20" shape="28.90,38.40 51.10,38.40"/>
     </edge>
     <edge id=":J0_15" function="internal">
-        <lane id=":J0_15_0" index="0" disallow="pedestrian" speed="9.51" length="15.55" shape="28.90,38.40 34.46,39.19 38.42,41.57 40.81,45.54 40.90,46.22"/>
+        <lane id=":J0_15_0" index="0" disallow="pedestrian" speed="9.51" length="2.51" shape="28.90,38.40 31.39,38.76"/>
     </edge>
     <edge id=":J0_19" function="internal">
-        <lane id=":J0_19_0" index="0" disallow="pedestrian" speed="9.51" length="4.93" shape="40.90,46.22 41.60,51.10"/>
+        <lane id=":J0_19_0" index="0" disallow="pedestrian" speed="9.51" length="17.97" shape="31.39,38.76 34.46,39.19 38.42,41.57 40.81,45.54 41.60,51.10"/>
     </edge>
     <edge id=":J1_0" function="internal">
         <lane id=":J1_0_0" index="0" disallow="pedestrian" speed="7.25" length="7.40" shape="16.09,44.80 14.58,45.08 13.18,45.93 11.89,47.35 10.70,49.33"/>
@@ -281,7 +279,7 @@
         <request index="0"  response="0000000000000000" foes="0000100001000000" cont="0"/>
         <request index="1"  response="0000000000000000" foes="0000100001000000" cont="0"/>
         <request index="2"  response="1000100010000000" foes="1111100011000000" cont="0"/>
-        <request index="3"  response="1000011110000000" foes="1100011111000000" cont="1"/>
+        <request index="3"  response="0000011100000000" foes="1100011111000000" cont="1"/>
         <request index="4"  response="0000010000000000" foes="1000010000000000" cont="0"/>
         <request index="5"  response="0000010000000000" foes="1000010000000000" cont="0"/>
         <request index="6"  response="1000110000001111" foes="1000110000001111" cont="0"/>
@@ -289,7 +287,7 @@
         <request index="8"  response="0000000000000000" foes="0100000000001000" cont="0"/>
         <request index="9"  response="0000000000000000" foes="0100000000001000" cont="0"/>
         <request index="10" response="1000000010001000" foes="1100000011111000" cont="0"/>
-        <request index="11" response="1000000010000111" foes="1100000011000111" cont="1"/>
+        <request index="11" response="0000000000000111" foes="1100000011000111" cont="1"/>
         <request index="12" response="0000000000000100" foes="0000000010000100" cont="0"/>
         <request index="13" response="0000000000000100" foes="0000000010000100" cont="0"/>
         <request index="14" response="0000111110001100" foes="0000111110001100" cont="0"/>
@@ -337,9 +335,9 @@
     <junction id="J9" type="dead_end" x="0.00" y="60.00" incLanes="E4_0 E4_1 E4_2" intLanes="" shape="7.51,63.76 0.00,60.00"/>
 
     <junction id=":J0_16_0" type="internal" x="46.22" y="39.10" incLanes=":J0_3_0 -E3_1 -E3_2" intLanes=":J0_6_0 :J0_7_0 :J0_8_0 :J0_8_1 :J0_10_0 :J0_14_0 :J0_15_0"/>
-    <junction id=":J0_17_0" type="internal" x="39.10" y="33.78" incLanes=":J0_7_0 -E0_1 -E0_2" intLanes=":J0_2_0 :J0_3_0 :J0_10_0 :J0_11_0 :J0_12_0 :J0_12_1 :J0_14_0"/>
+    <junction id=":J0_17_0" type="internal" x="48.61" y="41.24" incLanes=":J0_7_0 -E0_1 -E0_2 -E2_2 -E3_2" intLanes=":J0_2_0 :J0_3_0 :J0_10_0 :J0_11_0 :J0_12_0 :J0_12_1 :J0_14_0"/>
     <junction id=":J0_18_0" type="internal" x="33.78" y="40.90" incLanes=":J0_11_0 -E2_1 -E2_2" intLanes=":J0_0_0 :J0_0_1 :J0_2_0 :J0_6_0 :J0_7_0 :J0_14_0 :J0_15_0"/>
-    <junction id=":J0_19_0" type="internal" x="40.90" y="46.22" incLanes=":J0_15_0 -E1_1 -E1_2" intLanes=":J0_2_0 :J0_3_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_10_0 :J0_11_0"/>
+    <junction id=":J0_19_0" type="internal" x="31.39" y="38.76" incLanes=":J0_15_0 -E1_1 -E1_2 -E2_2 -E3_2" intLanes=":J0_2_0 :J0_3_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_10_0 :J0_11_0"/>
     <junction id=":J1_6_0" type="internal" x="15.86" y="38.55" incLanes=":J1_2_0 -E4_1" intLanes=":J1_3_0 :J1_3_1"/>
     <junction id=":J1_7_0" type="internal" x="9.54" y="42.23" incLanes=":J1_5_0 E0_1 E0_2" intLanes=":J1_0_0 :J1_0_1"/>
     <junction id=":J2_6_0" type="internal" x="70.46" y="37.77" incLanes=":J2_2_0 E1_1 E1_2" intLanes=":J2_3_0 :J2_3_1"/>

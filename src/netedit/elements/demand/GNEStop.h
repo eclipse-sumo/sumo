@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -50,12 +50,6 @@ public:
      * @note returned GNEMoveOperation can be nullptr
      */
     GNEMoveOperation* getMoveOperation();
-
-    /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
-     * @throw invalid argument if demand element doesn't has a begin time
-     */
-    std::string getBegin() const;
 
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
@@ -254,7 +248,7 @@ private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     void toggleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief set move shape
@@ -268,6 +262,9 @@ private:
 
     /// @brief get pathStopIndex
     int getPathStopIndex() const;
+
+    /// @brief set stop microsim ID
+    void setStopMicrosimID();
 
     /// @brief Invalidated copy constructor.
     GNEStop(const GNEStop&) = delete;

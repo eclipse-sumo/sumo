@@ -1,4 +1,4 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -36,11 +36,12 @@ def makeFeature(vehId, coords):
     }
 
 
-def fcd2keplerjson(inpFCD, outStream, ignored):
+def fcd2keplerjson(inpFCD, outStream, further):
     tracks = defaultdict(list)
+    baseDate = further['base-date'].timestamp()
     for timestep in inpFCD:
         for v in timestep.vehicle:
-            tracks[v.id].append([v.x, v.y, v.z, timestep.time])
+            tracks[v.id].append([v.x, v.y, v.z, timestep.time + baseDate])
     jsonRoot = {
         "type": "FeatureCollection",
         "features": [makeFeature(*veh) for veh in tracks.items()]

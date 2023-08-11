@@ -35,7 +35,7 @@ These values have the following meanings (the defaults are from the Kia below):
 | vehicleMass             | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>*                          |
 | frontSurfaceArea        | float      | 2.6 (m<sup>2</sup>)      | Front surface area *A<sub>veh</sub>*                    |
 | airDragCoefficient      | float      | 0.35              | Air drag coefficient *c<sub>w</sub>*                    |
-| internalMomentOfInertia | float      | 0.01 (kg·m<sup>2</sup>)  | Mom. of inertia of int. rot. elements *J<sub>int</sub>* |
+| internalMomentOfInertia | float      | 0.01 (kg)  | Not a *moment*, but the (equivalent) mass of internal rotating elements |
 | radialDragCoefficient   | float      | 0.1               | Radial drag coefficient c<sub>rad</sub>                 |
 | rollDragCoefficient     | float      | 0.01              | Rolling resistance coefficient *c<sub>roll</sub>*       |
 | constantPowerIntake     | float      | 100 (W)           | Avg. (constant) power of consumers *P<sub>const</sub>*  |
@@ -297,7 +297,7 @@ Energy Model and a Charging Infrastructure in SUMO. In: Behrisch,
 M., Krajzewicz, D., Weber, M. (eds.) Simulation of Urban Mobility.
 Lecture Notes in Computer Science, vol. 8594 , pp. 33--43. Springer,
 Heidelberg
-(2014)](http://elib.dlr.de/93885/1/Proceeding_SUMO2013_15-17May%202013_Berlin-Adlershof.pdf)
+(2014)](https://elib.dlr.de/93885/1/Proceeding_SUMO2013_15-17May%202013_Berlin-Adlershof.pdf)
 
 # Example Configurations
 

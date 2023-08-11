@@ -57,6 +57,9 @@ save_rail_signal_constraint_include
 save_rail_signal_approach_steplength
 save_rng
 save_routeDistribution
+
+# input contains routeDistribution embedded within a vehicle. See #13449
+save_routeDistribution2
 save_stopped
 save_stopped_until
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -353,6 +353,14 @@ struct GNENetHelper {
 
         /**@brief Returns the named additional
          * @param[in] id The attribute carrier related with the additional element
+         * @param[in] types tags with the type of additional
+         * @param[in] id The id of the additional to return.
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting additional should result in an exception
+         */
+        GNEAdditional* retrieveAdditionals(const std::vector<SumoXMLTag> types, const std::string& id, bool hardFail = true) const;
+
+        /**@brief Returns the named additional
+         * @param[in] id The attribute carrier related with the additional element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting additional should result in an exception
          */
         GNEAdditional* retrieveAdditional(GNEAttributeCarrier* AC, bool hardFail = true) const;
@@ -391,6 +399,24 @@ struct GNENetHelper {
         /// @brief get number of selected polygons
         int getNumberOfSelectedPolygons() const;
 
+        /// @brief get number of selected walkable areas
+        int getNumberOfSelectedJpsWalkableAreas() const;
+
+        /// @brief get number of selected obstacles 
+        int getNumberOfSelectedJpsObstacles() const;
+        
+        /// @brief get number of selected waiting areas 
+        int getNumberOfSelectedJpsWaitingAreas() const;
+
+        /// @brief get number of selected sources
+        int getNumberOfSelectedJpsSources() const;
+        
+        /// @brief get number of selected sinks
+        int getNumberOfSelectedJpsSinks() const;
+
+        /// @brief get number of selected POIWaypoints 
+        int getNumberOfSelectedJpsWaypoints() const;
+
         /// @brief get number of selected POIs
         int getNumberOfSelectedPOIs() const;
 
@@ -418,10 +444,22 @@ struct GNENetHelper {
         GNEDemandElement* retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
         /**@brief Returns the named demand element
+         * @param[in] types tag with the type of demand element
+         * @param[in] id The id of the demand element to return.
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting demand element should result in an exception
+         */
+        GNEDemandElement* retrieveDemandElements(const std::vector<SumoXMLTag> types, const std::string& id, bool hardFail = true) const;
+
+        /**@brief Returns the named demand element
          * @param[in] id The attribute carrier related with the demand element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting demand element should result in an exception
          */
         GNEDemandElement* retrieveDemandElement(GNEAttributeCarrier* AC, bool hardFail = true) const;
+
+        /**@brief Returns the first demand element sorted by ID (or null if type is empty)
+         * @param[in] type tag with the type of demand element
+         */
+        GNEDemandElement* retrieveFirstDemandElement(SumoXMLTag type) const;
 
         /// @brief get selected demand elements
         std::vector<GNEDemandElement*> getSelectedDemandElements() const;
@@ -664,7 +702,7 @@ struct GNENetHelper {
         /**@brief delete demand element element of GNENet container
          * @throw processError if demand element wasn't previously inserted
          */
-        void deleteDemandElement(GNEDemandElement* demandElement);
+        void deleteDemandElement(GNEDemandElement* demandElement, const bool updateFrames);
 
         /// @}
 
@@ -703,6 +741,9 @@ struct GNENetHelper {
         void deleteMeanData(GNEMeanData* meanData);
 
         /// @}
+
+        /// @brief update demand element frames (called after insert/delete demand element)
+        void updateDemandElementFrames(const GNETagProperties& tagProperty);
 
     private:
         /// @brief pointer to net

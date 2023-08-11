@@ -4,14 +4,14 @@ title: Opposite Direction Driving
 
 # Opposite-Direction-Driving
 
-This page describes simulations which are enabled for for overtaking
+This page describes simulations which are enabled for overtaking
 through the opposite-direction edge. To enable this feature, the network
 must contain additional information regarding the adjacency of
 opposite-direction edges.
 
 # Building a Network for opposite-direction-driving
 
-The enable overtaking through the opposite direction lane, the
+To enable overtaking through the opposite direction lane, the
 *.net.xml* file must contain `<neigh>` elements that specify adjacency. The
 options for including this information are described below.
 
@@ -59,4 +59,4 @@ Vehicles may also stop on the opposite side by defining a `<stop>` with a lane i
   custom value (which may be different from the geometrical length).
   This can be automated by setting the option **--opposites.guess.fix-lengths**.
 - Opposite-direction-driving is not compatible with the [sublane
-  model](../Simulation/SublaneModel.md). before version 1.9.0
+  model](../Simulation/SublaneModel.md) before version 1.9.0.

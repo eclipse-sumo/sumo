@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -57,7 +57,7 @@ public:
     /// @brief Fills the given combobox with the names of available colorings
     void fill(MFXComboBoxIcon& cb) {
         for (const auto& scheme : mySchemes) {
-            cb.appendIconItem(scheme.getName().c_str(),
+            cb.appendIconItem(scheme.getTranslatedName().c_str(),
                               scheme.getIcon() == GUIIcon::EMPTY ? nullptr : GUIIconSubSys::getIcon(scheme.getIcon()),
                               MFXUtils::getFXColor(scheme.getBackgroundColor()));
         }

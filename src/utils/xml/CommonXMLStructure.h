@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -53,6 +53,7 @@ public:
 
         /// @name get functions
         /// @{
+
         /// @brief get XML myTag
         SumoXMLTag getTag() const;
 
@@ -89,6 +90,9 @@ public:
         /// @brief get string list attribute
         const std::vector<std::string>& getStringListAttribute(const SumoXMLAttr attr) const;
 
+        /// @brief get double list attribute
+        const std::vector<double>& getDoubleListAttribute(const SumoXMLAttr attr) const;
+
         /// @brief get PositionVector attribute
         const PositionVector& getPositionVectorAttribute(const SumoXMLAttr attr) const;
 
@@ -109,6 +113,7 @@ public:
 
         /// @brief get SumoBaseObject children
         const std::vector<SumoBaseObject*>& getSumoBaseObjectChildren() const;
+
         /// @}
 
         /// @brief has function
@@ -138,6 +143,9 @@ public:
         /// @brief check if current SumoBaseObject has the given string list attribute
         bool hasStringListAttribute(const SumoXMLAttr attr) const;
 
+        /// @brief check if current SumoBaseObject has the given double list attribute
+        bool hasDoubleListAttribute(const SumoXMLAttr attr) const;
+
         /// @brief check if current SumoBaseObject has the given positionVector attribute
         bool hasPositionVectorAttribute(const SumoXMLAttr attr) const;
 
@@ -145,6 +153,7 @@ public:
 
         /// @name add functions
         /// @{
+
         /// @brief add string attribute into current SumoBaseObject node
         void addStringAttribute(const SumoXMLAttr attr, const std::string& value);
 
@@ -169,6 +178,9 @@ public:
         /// @brief add string list attribute into current SumoBaseObject node
         void addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string>& value);
 
+        /// @brief add double list attribute into current SumoBaseObject node
+        void addDoubleListAttribute(const SumoXMLAttr attr, const std::vector<double>& value);
+
         /// @brief add PositionVector attribute into current SumoBaseObject node
         void addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value);
 
@@ -186,6 +198,7 @@ public:
 
         /// @brief add parameter into current SumoBaseObject node
         void addParameter(const std::string& key, const std::string& value);
+
         /// @}
 
     protected:
@@ -218,6 +231,9 @@ public:
 
         /// @brief stringList attributes
         std::map<const SumoXMLAttr, std::vector<std::string> > myStringListAttributes;
+
+        /// @brief stringList attributes
+        std::map<const SumoXMLAttr, std::vector<double> > myDoubleListAttributes;
 
         /// @brief PositionVector attributes
         std::map<const SumoXMLAttr, PositionVector> myPositionVectorAttributes;

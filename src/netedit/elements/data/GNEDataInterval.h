@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -108,6 +108,9 @@ public:
 
     /// @brief get generic data children
     const std::vector<GNEGenericData*>& getGenericDataChildren() const;
+
+    /// @brief check if there is already a edgeRel defined between two edges
+    bool edgeRelExists(const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
 
     /// @brief check if there is already a TAZRel defined in one TAZ
     bool TAZRelExists(const GNEAdditional* TAZ) const;

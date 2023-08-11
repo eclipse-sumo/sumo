@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-02 07:30:52 by Eclipse SUMO netedit Version v1_17_0+0647-2bbbfe9
+<!-- generated on 2023-06-28 19:12:06 by Eclipse SUMO netedit Version v1_17_0+1334-7429cff45dd
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -198,6 +198,7 @@
             <xsd:element name="tls.guess.joining" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.join-exclude" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tls.uncontrolled-within" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.ignore-internal-junction-jam" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.guess-signals" type="boolOptionType" minOccurs="0"/>
@@ -300,6 +301,7 @@
             <xsd:element name="junctions.limit-turn-speed.warn.turn" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.small-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.higher-speed" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.minimal-shape" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="internal-junctions.vehicle-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rectangular-lane-cut" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>
@@ -412,6 +414,7 @@
             <xsd:element name="opendrive.internal-shapes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.position-ids" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.lane-shapes" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="opendrive.signal-groups" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -441,6 +444,7 @@
             <xsd:element name="poi-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="route-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="vType-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="vTypeDistribution-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="vehicle-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="trip-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="flow-prefix" type="strOptionType" minOccurs="0"/>
@@ -450,6 +454,7 @@
             <xsd:element name="containerflow-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="meanDataEdge-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="meanDataLane-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-supermode-question" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -63,7 +63,7 @@ FXIMPLEMENT_ABSTRACT(GNEOptionsDialogElements::InputFilename,   GNEOptionsDialog
 // GNEOptionsDialogElements::InputOption - methods
 // ---------------------------------------------------------------------------
 
-GNEOptionsDialogElements::InputOption::InputOption(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic, 
+GNEOptionsDialogElements::InputOption::InputOption(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
         const std::string& name, const std::string& description, const std::string& defaultValue) :
     FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
     myGUIDialogOptions(GUIDialogOptions),
@@ -99,17 +99,13 @@ GNEOptionsDialogElements::InputOption::getTopic() const {
 
 const std::string
 GNEOptionsDialogElements::InputOption::getNameLower() const {
-    std::string lowerName = myName;
-    std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
-    return lowerName;
+    return StringUtils::to_lower_case(myName);
 }
 
 
 const std::string
 GNEOptionsDialogElements::InputOption::getDescriptionLower() const {
-    std::string lowerDescription = myDescription;
-    std::transform(lowerDescription.begin(), lowerDescription.end(), lowerDescription.begin(), ::tolower);
-    return lowerDescription;
+    return StringUtils::to_lower_case(myDescription);
 }
 
 
@@ -284,7 +280,7 @@ GNEOptionsDialogElements::InputBool::onCmdResetOption(FXObject*, FXSelector, voi
 
 std::string
 GNEOptionsDialogElements::InputBool::getValue() const {
-    return myCheckButton->getCheck()? "true" : "false";
+    return myCheckButton->getCheck() ? "true" : "false";
 }
 
 // ---------------------------------------------------------------------------
@@ -444,7 +440,7 @@ GNEOptionsDialogElements::InputFloat::getValue() const {
 
 
 std::string
-GNEOptionsDialogElements::InputFloat::parseFloat(const std::string &value) const {
+GNEOptionsDialogElements::InputFloat::parseFloat(const std::string& value) const {
     try {
         return toString(StringUtils::toDouble(value));
     } catch (...) {
@@ -460,7 +456,7 @@ GNEOptionsDialogElements::InputFilename::InputFilename(GNEOptionsDialog* GUIDial
         const std::string& name, const std::string& description, const std::string& defaultValue) :
     InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myOpenFilenameButton = new FXButton(myContentFrame, (std::string("\t\t") + TL("Select filename")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonIcon);
+                                        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonIcon);
     myFilenameTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     updateOption();
 }

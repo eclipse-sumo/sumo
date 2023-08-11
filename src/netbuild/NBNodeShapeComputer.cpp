@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -32,6 +32,7 @@
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "NBNode.h"
+#include "NBAlgorithms.h"
 #include "NBNodeShapeComputer.h"
 
 //#define DEBUG_NODE_SHAPE
@@ -40,7 +41,6 @@
 #define DEBUGCOND (myNode.getID() == "C")
 
 
-#define EXT 100.0
 #define EXT2 10.0
 
 // foot and bicycle paths as well as pure service roads should not get large junctions
@@ -53,7 +53,13 @@ const SVCPermissions NBNodeShapeComputer::SVC_LARGE_TURN(
 // ===========================================================================
 NBNodeShapeComputer::NBNodeShapeComputer(const NBNode& node) :
     myNode(node),
-    myRadius(node.getRadius()) {
+    myRadius(node.getRadius()) 
+{
+    if (node.getEdges().size() > 4 && !NBNodeTypeComputer::isRailwayNode(&node)) {
+        EXT = 50;
+    } else {
+        EXT = 100;
+    }
 }
 
 
@@ -61,7 +67,7 @@ NBNodeShapeComputer::~NBNodeShapeComputer() {}
 
 
 const PositionVector
-NBNodeShapeComputer::compute() {
+NBNodeShapeComputer::compute(bool forceSmall) {
 #ifdef DEBUG_NODE_SHAPE
     if (DEBUGCOND) {
         // annotate edges edges to make their ordering visible
@@ -74,7 +80,7 @@ NBNodeShapeComputer::compute() {
 #endif
     // check whether the node is a dead end node or a node where only turning is possible
     //  in this case, we will use "computeNodeShapeSmall"
-    if (myNode.getEdges().size() == 1) {
+    if (myNode.getEdges().size() == 1 || forceSmall) {
         return computeNodeShapeSmall();
     }
     if (myNode.getEdges().size() == 2 && myNode.getIncomingEdges().size() == 1) {
@@ -93,7 +99,7 @@ NBNodeShapeComputer::compute() {
 
 
 void
-computeSameEnd(PositionVector& l1, PositionVector& l2) {
+NBNodeShapeComputer::computeSameEnd(PositionVector& l1, PositionVector& l2) {
     assert(l1[0].distanceTo2D(l1[1]) >= EXT);
     assert(l2[0].distanceTo2D(l2[1]) >= EXT);
     PositionVector tmp;

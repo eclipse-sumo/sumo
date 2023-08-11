@@ -4,5 +4,5 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="flow_3" begin="20.00" from="gneE2" to="gneE5" end="50.00" number="100"/>
+    <flow id="flow_3" begin="20.00" from="Edge0" to="Edge2" end="50.00" number="100"/>
 </routes>

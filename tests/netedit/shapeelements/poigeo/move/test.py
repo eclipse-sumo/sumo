@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -38,16 +38,16 @@ netedit.changeElement("poiGeo")
 netedit.leftClick(referencePosition, 336, 136)
 
 # change color to white (To see icon)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.color, "white")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.color, "white")
 
 # Change parameter width with a valid value (To see icon)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.width, "10")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.width, "10")
 
 # Change parameter height with a valid value (To see icon)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.height, "10")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.height, "10")
 
 # change imgfile (valid)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.imgFile, "berlin_icon.ico")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.imgFile, "berlin_icon.ico")
 
 # create poi
 netedit.leftClick(referencePosition, 336, 345)
@@ -62,8 +62,7 @@ netedit.moveElement(referencePosition, 336, 136, 634, 188)
 netedit.moveElement(referencePosition, 336, 345, 634, 277)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

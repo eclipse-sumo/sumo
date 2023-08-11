@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -153,7 +153,7 @@ void
 GNEFlowEditor::getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject) {
     // case end-number
     if (myTerminateLabel->getText().text() == toString(SUMO_ATTR_END)) {
-        baseObject->addDoubleAttribute(SUMO_ATTR_END, GNEAttributeCarrier::parse<double>(myTerminateTextField->getText().text()));
+        baseObject->addTimeAttribute(SUMO_ATTR_END, GNEAttributeCarrier::parse<SUMOTime>(myTerminateTextField->getText().text()));
     }
     if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_NUMBER)) {
         baseObject->addIntAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<int>(mySpacingTextField->getText().text()));
@@ -163,13 +163,13 @@ GNEFlowEditor::getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject)
         baseObject->addIntAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<int>(myTerminateTextField->getText().text()));
     }
     if (mySpacingLabel->getText().text() == toString(myPerHourAttr)) {
-        baseObject->addDoubleAttribute(myPerHourAttr, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
+        baseObject->addTimeAttribute(myPerHourAttr, GNEAttributeCarrier::parse<SUMOTime>(mySpacingTextField->getText().text()));
     }
     if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_PERIOD)) {
-        baseObject->addDoubleAttribute(SUMO_ATTR_PERIOD, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
+        baseObject->addTimeAttribute(SUMO_ATTR_PERIOD, GNEAttributeCarrier::parse<SUMOTime>(mySpacingTextField->getText().text()));
     }
     if (mySpacingLabel->getText() == TL("rate")) {
-        baseObject->addDoubleAttribute(GNE_ATTR_POISSON, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
+        baseObject->addTimeAttribute(GNE_ATTR_POISSON, GNEAttributeCarrier::parse<SUMOTime>(mySpacingTextField->getText().text()));
     }
     if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_PROB)) {
         baseObject->addDoubleAttribute(SUMO_ATTR_PROB, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
@@ -315,7 +315,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                     myEditedFlows.front()->setAttribute(terminateAttribute, myTerminateTextField->getText().text(), myViewNet->getUndoList());
                 } else {
                     // change all flows using undoList
-                    myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "change multiple flow attributes");
+                    myViewNet->getUndoList()->begin(myEditedFlows.front(), "change multiple flow attributes");
                     for (const auto& flow : myEditedFlows) {
                         flow->setAttribute(terminateAttribute, myTerminateTextField->getText().text(), myViewNet->getUndoList());
                     }
@@ -341,7 +341,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                     myEditedFlows.front()->setAttribute(spacingAttribute, mySpacingTextField->getText().text(), myViewNet->getUndoList());
                 } else {
                     // change all flows using undoList
-                    myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), TL("change multiple flow attributes"));
+                    myViewNet->getUndoList()->begin(myEditedFlows.front(), TL("change multiple flow attributes"));
                     for (const auto& flow : myEditedFlows) {
                         flow->setAttribute(spacingAttribute, mySpacingTextField->getText().text(), myViewNet->getUndoList());
                     }
@@ -367,7 +367,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                 myEditedFlows.front()->enableAttribute(attr, myViewNet->getUndoList());
             } else {
                 // enable in all flow using undoList
-                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), TL("enable multiple flow attributes"));
+                myViewNet->getUndoList()->begin(myEditedFlows.front(), TL("enable multiple flow attributes"));
                 for (const auto& flow : myEditedFlows) {
                     flow->enableAttribute(attr, myViewNet->getUndoList());
                 }
@@ -383,7 +383,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                 myEditedFlows.front()->disableAttribute(attr, myViewNet->getUndoList());
             } else {
                 // disable in all flow using undoList
-                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), TL("disable multiple flow attributes"));
+                myViewNet->getUndoList()->begin(myEditedFlows.front(), TL("disable multiple flow attributes"));
                 for (const auto& flow : myEditedFlows) {
                     flow->disableAttribute(attr, myViewNet->getUndoList());
                 }

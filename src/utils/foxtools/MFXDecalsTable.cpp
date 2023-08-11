@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -30,7 +30,7 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 
 
-#define EXTRAMARGING 4
+#define EXTRAMARGIN 4
 
 #define MAXROWS 100
 
@@ -111,11 +111,11 @@ MFXDecalsTable::fillTable() {
         myColumns.push_back(new Column(this, i, columnsType.at(i)));
     }
     // get num decals
-    const int numDecals = decals.size() < MAXROWS? (int)decals.size() : MAXROWS;
+    const int numDecals = decals.size() < MAXROWS ? (int)decals.size() : MAXROWS;
     // create rows
     for (int i = 0; i < numDecals; i++) {
         // get decal
-        const auto &decal = decals.at(i);
+        const auto& decal = decals.at(i);
         // create row
         auto row = new Row(this);
         // fill cells
@@ -716,7 +716,7 @@ MFXDecalsTable::Column::adjustColumnWidth() {
         // adjust depending of label
         if ((myType == 's') || (myType == 'p') || (myType == 'c')) {
             // calculate top label width
-            columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
+            columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGIN);
         }
         // adjust width in all rows
         for (const auto& row : myTable->myRows) {

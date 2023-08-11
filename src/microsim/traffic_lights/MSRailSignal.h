@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -222,7 +222,7 @@ public:
     /// @brief write rail signal block output for all links and driveways
     void writeBlocks(OutputDevice& od) const;
 
-    /// @brief register contraint for signal switching
+    /// @brief register constraint for signal switching
     void addConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
 
     /// @name TraCI access to constraints
@@ -231,7 +231,7 @@ public:
         return myConstraints;
     }
 
-    /// @brief remove contraint for signal switching
+    /// @brief remove constraint for signal switching
     bool removeConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
     void removeConstraints();
     /// @}

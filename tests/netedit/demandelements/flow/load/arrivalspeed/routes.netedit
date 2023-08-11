@@ -5,11 +5,11 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_1" begin="20.00" arrivalPosLat="-12.00" from="gneE2" to="gneE5" end="500.00" number="100"/>
-    <flow id="flow_2" begin="20.00" arrivalPosLat="0.00" from="gneE2" to="gneE5" end="500.00" number="100"/>
-    <flow id="flow_3" begin="20.00" arrivalPosLat="500.00" from="gneE2" to="gneE5" end="500.00" number="100"/>
-    <flow id="flow_4" begin="20.00" arrivalPosLat="1.00" from="gneE2" to="gneE5" end="500.00" number="100"/>
-    <flow id="flow_5" begin="20.00" arrivalPosLat="left" from="gneE2" to="gneE5" end="500.00" number="100"/>
-    <flow id="flow_6" begin="20.00" arrivalPosLat="right" from="gneE2" to="gneE5" end="500.00" number="100"/>
-    <flow id="flow_7" begin="20.00" arrivalPosLat="center" from="gneE2" to="gneE5" end="500.00" number="100"/>
+    <flow id="flow_1" begin="20.00" arrivalPosLat="-12.00" from="Edge0" to="Edge2" end="500.00" number="100"/>
+    <flow id="flow_2" begin="20.00" arrivalPosLat="0.00" from="Edge0" to="Edge2" end="500.00" number="100"/>
+    <flow id="flow_3" begin="20.00" arrivalPosLat="500.00" from="Edge0" to="Edge2" end="500.00" number="100"/>
+    <flow id="flow_4" begin="20.00" arrivalPosLat="1.00" from="Edge0" to="Edge2" end="500.00" number="100"/>
+    <flow id="flow_5" begin="20.00" arrivalPosLat="left" from="Edge0" to="Edge2" end="500.00" number="100"/>
+    <flow id="flow_6" begin="20.00" arrivalPosLat="right" from="Edge0" to="Edge2" end="500.00" number="100"/>
+    <flow id="flow_7" begin="20.00" arrivalPosLat="center" from="Edge0" to="Edge2" end="500.00" number="100"/>
 </routes>

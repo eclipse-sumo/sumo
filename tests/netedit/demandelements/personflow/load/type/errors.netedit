@@ -1,3 +1,3 @@
 Error: Attribute 'type' in definition of personFlow 'p_1' is empty.
-Error: Invalid personFlow type 'dummyType' used in personFlow 'p_2'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.25Jan182728.9838/netedit.daily.demand.personflow/demandelements/personflow/load/type/routes.rou.xml failed.
+Error: Invalid vehicle type 'dummyType' used in personFlow 'p_2'.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Jun085352.18736\netedit.gui\demandelements\personflow\load\type\routes.rou.xml failed.
