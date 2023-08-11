@@ -61,6 +61,6 @@ private:
     /// @brief distribution attributes editor
     GNEFrameAttributeModules::AttributesEditor* myAttributesEditor = nullptr;
 
-    /// @brief editor for distribution editor
-    GNEDistributionFrame::AttributesEditor* myDistributionAttributesEditor = nullptr;
+    /// @brief editor for distribution values
+    GNEDistributionFrame::DistributionValuesEditor* myDistributionValuesEditor = nullptr;
 };

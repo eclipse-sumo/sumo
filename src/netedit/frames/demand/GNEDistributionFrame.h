@@ -33,7 +33,8 @@ public:
     // class declaration
     // ===========================================================================
 
-    class AttributesEditor;
+    class DistributionValuesEditor;
+    class DistributionSelector;
 
     // ===========================================================================
     // class DistributionEditor
@@ -49,6 +50,9 @@ public:
 
         /// @brief destructor
         ~DistributionEditor();
+
+        /// @brief set distributor selector
+        void setDistributionSelector(DistributionSelector* distributionSelector);
 
         /// @name FOX-callbacks
         /// @{
@@ -72,6 +76,9 @@ public:
         /// @brief pointer to type distribution frame parent
         GNEFrame* myFrameParent;
 
+        /// @brief distribution selector
+        DistributionSelector* myDistributionSelector = nullptr;
+
         /// @brief "create vehicle type" button
         FXButton* myCreateTypeButton = nullptr;
 
@@ -89,10 +96,13 @@ public:
 
     public:
         /// @brief constructor
-        DistributionSelector(GNEFrame* frameParent);
+        DistributionSelector(GNEFrame* frameParent, DistributionEditor* distributionEditor);
 
         /// @brief destructor
         ~DistributionSelector();
+
+        /// @brief current type distribution
+        GNEDemandElement *getCurrentDistribution() const;
 
         /// @brief refresh modul
         void refreshDistributionSelector();
@@ -109,11 +119,15 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(DistributionSelector)
 
     private:
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
+
+        /// @brief pointer to distribution editor
+        DistributionEditor* myDistributionEditor;
 
         /// @brief comboBox with the list of type distributions
         FXComboBox* myTypeComboBox = nullptr;
@@ -135,7 +149,7 @@ public:
 
     public:
         /// @brief constructor for type-probability attributes
-        DistributionRow(AttributesEditor* attributeEditorParent,
+        DistributionRow(DistributionValuesEditor* attributeEditorParent,
             const GNEDemandElement* key, const double probability);
 
         /// @brief destroy GNEAttributesCreatorRow (but don't delete)
@@ -159,15 +173,15 @@ public:
         /// @}
 
     protected:
-        /// @brief default constructor
-        DistributionRow();
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(DistributionRow)
 
         /// @brief check if the given ID is valid
         bool isValidKey() const;
 
     private:
-        /// @brief pointer to AttributesEditor parent
-        AttributesEditor* myAttributesEditorParent;
+        /// @brief pointer to DistributionValuesEditor parent
+        DistributionValuesEditor* myDistributionValuesEditorParent;
 
         /// @brief delete row button
         MFXButtonTooltip* myDeleteRowButton = nullptr;
@@ -186,22 +200,22 @@ public:
     };
 
     // ===========================================================================
-    // class AttributesEditor
+    // class DistributionValuesEditor
     // ===========================================================================
 
-    class AttributesEditor : public MFXGroupBoxModule {
+    class DistributionValuesEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEDistributionFrame::AttributesEditor)
+        FXDECLARE(GNEDistributionFrame::DistributionValuesEditor)
 
     public:
         /// @brief constructor
-        AttributesEditor(GNEFrame* frameParent);
+        DistributionValuesEditor(GNEFrame* frameParent);
 
         /// @brief show attributes of multiple ACs
         void showAttributeEditorModule();
 
         /// @brief hide attribute editor
-        void hideAttributesEditorModule();
+        void hideDistributionValuesEditorModule();
 
         /// @brief refresh attribute editor (only the valid values will be refresh)
         void refreshAttributeEditor();
@@ -224,8 +238,8 @@ public:
         /// @}
 
     protected:
-        /// @brief fox need this
-        FOX_CONSTRUCTOR(AttributesEditor)
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(DistributionValuesEditor)
 
     private:
         /// @brief pointer to type distribution frame parent
