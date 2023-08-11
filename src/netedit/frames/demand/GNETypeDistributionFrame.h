@@ -99,14 +99,14 @@ protected:
 
 private:
     /// @brief type editor
-    GNEDistributionEditor::TypeDistributionEditor* myTypeDistributionEditor = nullptr;
+    GNEDistributionFrame::DistributionEditor* myDistributionEditor = nullptr;
 
     /// @brief type distribution selector
     TypeDistributionSelector* myTypeDistributionSelector = nullptr;
 
     /// @brief distribution attributes editor
-    GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor = nullptr;
+    GNEFrameAttributeModules::AttributesEditor* myAttributesEditor = nullptr;
 
     /// @brief editor for distribution editor
-    GNEDistributionEditor::AttributesEditor* myDistributionEditor = nullptr;
+    GNEDistributionFrame::AttributesEditor* myDistributionAttributesEditor = nullptr;
 };

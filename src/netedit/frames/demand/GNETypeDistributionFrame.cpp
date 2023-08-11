@@ -187,14 +187,17 @@ GNETypeDistributionFrame::TypeDistributionSelector::onCmdUpdateTypeDistribution(
 GNETypeDistributionFrame::GNETypeDistributionFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Type Distributions") {
 
-    // create type editor
-    myTypeDistributionEditor = new GNEDistributionEditor::DistributionEditor(this);
+    /// @brief type editor
+    myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this);
 
-    // create type selector
+    /// @brief type distribution selector
     myTypeDistributionSelector = new TypeDistributionSelector(this);
 
+    /// @brief distribution attributes editor
+    myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
+
     // Create type distribution attributes editor
-    myDistributionEditor = new GNEDistributionEditor::AttributesEditor(this);
+    myDistributionAttributesEditor = new GNEDistributionFrame::AttributesEditor(this);
 }
 
 
