@@ -174,15 +174,14 @@ double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double g
     double desSpacing = myHeadwayTime * speed;
     double spacingErr = gap2pred - desSpacing;
     double deltaVel = predSpeed - speed;
-    double L = veh->getLength();
 
 // see dynamic gap margin definition from (Xiao et. al, 2018)[3]
     if (speed < 10.8) {
-        spacingErr = spacingErr - L - 2;
+        spacingErr = spacingErr - 2;
     } else if (speed <= 15.0 && speed >= 10.8) {
-        spacingErr = spacingErr - L - (75 / speed - 5);
+        spacingErr = spacingErr - (75 / speed);
     } else {
-        spacingErr = spacingErr - L;
+        spacingErr = spacingErr;
     }
 
 
@@ -227,7 +226,7 @@ MSCFModel_ACC::_v(const MSVehicle* const veh, const double gap2pred, const doubl
     if (DEBUG_COND) {
         std::cout << SIMTIME << " MSCFModel_ACC::_v() for veh '" << veh->getID() << "'\n"
                   << "        gap=" << gap2pred << " speed="  << speed << " predSpeed=" << predSpeed
-                  << " desSpeed=" << desSpeed << std::endl;
+                  << " desSpeed=" << desSpeed << " tau=" << myHeadwayTime << std::endl;
     }
 #endif
 
