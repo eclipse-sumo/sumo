@@ -17,19 +17,7 @@
 ///
 // The Widget for edit type distribution elements
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/elements/demand/GNEVTypeDistribution.h>
-#include <netedit/dialogs/GNEVehicleTypeDialog.h>
-#include <netedit/dialogs/GNEVTypeDistributionsDialog.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNETypeDistributionFrame.h"
 
