@@ -21,6 +21,7 @@ option(TCMALLOC "Use tcmalloc if installed" ON)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(JUPEDSIM_DIR "" CACHE PATH "Install location of jupedsim")
+set(GEOS_DIR "" CACHE PATH "Install location of geos")
 set(PROJECT_NAME "SUMO" CACHE STRING "Project/Solution name")
 
 # disable warnings
