@@ -26,7 +26,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEDistributionEditor {
+class GNEDistributionFrame {
 
 public:
     // ===========================================================================
@@ -41,7 +41,7 @@ public:
 
     class DistributionEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEDistributionEditor::DistributionEditor)
+        FXDECLARE(GNEDistributionFrame::DistributionEditor)
 
     public:
         /// @brief constructor
@@ -85,7 +85,7 @@ public:
 
     class AttributeRow : protected FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEDistributionEditor::AttributeRow)
+        FXDECLARE(GNEDistributionFrame::AttributeRow)
 
     public:
         /// @brief constructor for ID attribute
@@ -133,7 +133,7 @@ public:
 
     class DistributionRow : protected FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEDistributionEditor::DistributionRow)
+        FXDECLARE(GNEDistributionFrame::DistributionRow)
 
     public:
         /// @brief constructor for type-probability attributes
@@ -193,7 +193,7 @@ public:
 
     class AttributesEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEDistributionEditor::AttributesEditor)
+        FXDECLARE(GNEDistributionFrame::AttributesEditor)
 
     public:
         /// @brief constructor

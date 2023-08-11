@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDistributionEditor.cpp
+/// @file    GNEDistributionFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2023
 ///
@@ -38,30 +38,30 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEDistributionEditor::DistributionEditor) DistributionEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,    GNEDistributionEditor::DistributionEditor::onCmdCreateType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_DELETE,    GNEDistributionEditor::DistributionEditor::onCmdDeleteType),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_DELETE,    GNEDistributionEditor::DistributionEditor::onUpdDeleteType),
+FXDEFMAP(GNEDistributionFrame::DistributionEditor) DistributionEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,    GNEDistributionFrame::DistributionEditor::onCmdCreateType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_DELETE,    GNEDistributionFrame::DistributionEditor::onCmdDeleteType),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_DELETE,    GNEDistributionFrame::DistributionEditor::onUpdDeleteType),
 };
 
-FXDEFMAP(GNEDistributionEditor::AttributeRow) AttributeRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionEditor::AttributeRow::onCmdSetAttribute),
+FXDEFMAP(GNEDistributionFrame::AttributeRow) AttributeRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionFrame::AttributeRow::onCmdSetAttribute),
 };
 
-FXDEFMAP(GNEDistributionEditor::DistributionRow) DistributionRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionEditor::DistributionRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_REMOVE,  GNEDistributionEditor::DistributionRow::onCmdRemoveRow)
+FXDEFMAP(GNEDistributionFrame::DistributionRow) DistributionRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionFrame::DistributionRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_REMOVE,  GNEDistributionFrame::DistributionRow::onCmdRemoveRow)
 };
 
-FXDEFMAP(GNEDistributionEditor::AttributesEditor) AttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADD,   GNEDistributionEditor::AttributesEditor::onCmdAddRow)
+FXDEFMAP(GNEDistributionFrame::AttributesEditor) AttributesEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADD,   GNEDistributionFrame::AttributesEditor::onCmdAddRow)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDistributionEditor::DistributionEditor,  MFXGroupBoxModule,  DistributionEditorMap,  ARRAYNUMBER(DistributionEditorMap))
-FXIMPLEMENT(GNEDistributionEditor::AttributeRow,        FXHorizontalFrame,  AttributeRowMap,        ARRAYNUMBER(AttributeRowMap))
-FXIMPLEMENT(GNEDistributionEditor::DistributionRow,     FXHorizontalFrame,  DistributionRowMap,     ARRAYNUMBER(DistributionRowMap))
-FXIMPLEMENT(GNEDistributionEditor::AttributesEditor,    MFXGroupBoxModule,  AttributesEditorMap,    ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEDistributionFrame::DistributionEditor,   MFXGroupBoxModule,  DistributionEditorMap,  ARRAYNUMBER(DistributionEditorMap))
+FXIMPLEMENT(GNEDistributionFrame::AttributeRow,         FXHorizontalFrame,  AttributeRowMap,        ARRAYNUMBER(AttributeRowMap))
+FXIMPLEMENT(GNEDistributionFrame::DistributionRow,      FXHorizontalFrame,  DistributionRowMap,     ARRAYNUMBER(DistributionRowMap))
+FXIMPLEMENT(GNEDistributionFrame::AttributesEditor,     MFXGroupBoxModule,  AttributesEditorMap,    ARRAYNUMBER(AttributesEditorMap))
 
 
 // ===========================================================================
@@ -69,10 +69,10 @@ FXIMPLEMENT(GNEDistributionEditor::AttributesEditor,    MFXGroupBoxModule,  Attr
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEDistributionEditor::DistributionEditor - methods
+// GNEDistributionFrame::DistributionEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionEditor::DistributionEditor::DistributionEditor(GNEFrame* frameParent) :
+GNEDistributionFrame::DistributionEditor::DistributionEditor(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Distribution Editor")),
     myFrameParent(frameParent) {
     // Create new vehicle type
@@ -87,11 +87,11 @@ GNEDistributionEditor::DistributionEditor::DistributionEditor(GNEFrame* framePar
 }
 
 
-GNEDistributionEditor::DistributionEditor::~DistributionEditor() {}
+GNEDistributionFrame::DistributionEditor::~DistributionEditor() {}
 
 
 long
-GNEDistributionEditor::DistributionEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
+GNEDistributionFrame::DistributionEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     auto undoList = myFrameParent->getViewNet()->getUndoList();
     // obtain a new valid Type ID
     const std::string typeDistributionID = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE_DISTRIBUTION);
@@ -108,7 +108,7 @@ GNEDistributionEditor::DistributionEditor::onCmdCreateType(FXObject*, FXSelector
 
 
 long
-GNEDistributionEditor::DistributionEditor::onCmdDeleteType(FXObject*, FXSelector, void*) {
+GNEDistributionFrame::DistributionEditor::onCmdDeleteType(FXObject*, FXSelector, void*) {
     auto undoList = myFrameParent->getViewNet()->getUndoList();
     // begin undo list operation
     undoList->begin(GUIIcon::VTYPE, "delete vehicle type distribution");
@@ -123,7 +123,7 @@ GNEDistributionEditor::DistributionEditor::onCmdDeleteType(FXObject*, FXSelector
 
 
 long
-GNEDistributionEditor::DistributionEditor::onUpdDeleteType(FXObject* sender, FXSelector, void*) {
+GNEDistributionFrame::DistributionEditor::onUpdDeleteType(FXObject* sender, FXSelector, void*) {
     // first check if selected VType is valid
     if (myFrameParent->myDistributionEditor->getDistribution()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -133,11 +133,11 @@ GNEDistributionEditor::DistributionEditor::onUpdDeleteType(FXObject* sender, FXS
 }
 
 // ---------------------------------------------------------------------------
-// GNEDistributionEditor::AttributeRow - methods
+// GNEDistributionFrame::AttributeRow - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionEditor::AttributeRow::AttributeRow(
-        GNEDistributionEditor::AttributesEditor* attributeEditorParent,
+GNEDistributionFrame::AttributeRow::AttributeRow(
+        GNEDistributionFrame::AttributesEditor* attributeEditorParent,
         const GNEAttributeProperties& ACAttr, const std::string& attribute) :
     FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
@@ -167,7 +167,7 @@ GNEDistributionEditor::AttributeRow::AttributeRow(
 
 
 void
-GNEDistributionEditor::AttributeRow::destroy() {
+GNEDistributionFrame::AttributeRow::destroy() {
     // only destroy if parent was created
     if (getParent()->id()) {
         FXHorizontalFrame::destroy();
@@ -176,7 +176,7 @@ GNEDistributionEditor::AttributeRow::destroy() {
 
 
 void
-GNEDistributionEditor::AttributeRow::refreshAttributeRow(const std::string& value) {
+GNEDistributionFrame::AttributeRow::refreshAttributeRow(const std::string& value) {
     // set last valid value and restore color if onlyValid is disabled
     myValueTextField->setText(value.c_str());
     // set blue color if is an computed value
@@ -186,13 +186,13 @@ GNEDistributionEditor::AttributeRow::refreshAttributeRow(const std::string& valu
 
 
 bool
-GNEDistributionEditor::AttributeRow::isAttributeRowValid() const {
+GNEDistributionFrame::AttributeRow::isAttributeRowValid() const {
     return (myValueTextField->getTextColor() == FXRGB(0, 0, 0));
 }
 
 
 long
-GNEDistributionEditor::AttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNEDistributionFrame::AttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
     // obtain value of myValueTextField
@@ -226,15 +226,15 @@ GNEDistributionEditor::AttributeRow::onCmdSetAttribute(FXObject*, FXSelector, vo
 }
 
 
-GNEDistributionEditor::AttributeRow::AttributeRow() :
+GNEDistributionFrame::AttributeRow::AttributeRow() :
     myAttributesEditorParent(nullptr) {
 }
 
 // ---------------------------------------------------------------------------
-// GNEDistributionEditor::DistributionRow - methods
+// GNEDistributionFrame::DistributionRow - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionEditor::DistributionRow::DistributionRow(
+GNEDistributionFrame::DistributionRow::DistributionRow(
         AttributesEditor* attributeEditorParent, const GNEDemandElement* key, const double probability) :
     FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
@@ -277,7 +277,7 @@ GNEDistributionEditor::DistributionRow::DistributionRow(
 
 
 void
-GNEDistributionEditor::DistributionRow::destroy() {
+GNEDistributionFrame::DistributionRow::destroy() {
     // only destroy if parent was created
     if (getParent()->id()) {
         FXHorizontalFrame::destroy();
@@ -286,7 +286,7 @@ GNEDistributionEditor::DistributionRow::destroy() {
 
 
 void
-GNEDistributionEditor::DistributionRow::refreshDistributionRow(const GNEDemandElement* key, const double value) {
+GNEDistributionFrame::DistributionRow::refreshDistributionRow(const GNEDemandElement* key, const double value) {
     // set key
     myComboBoxKeys->setText(key->getID().c_str());
     // set probability
@@ -297,13 +297,13 @@ GNEDistributionEditor::DistributionRow::refreshDistributionRow(const GNEDemandEl
 
 
 bool
-GNEDistributionEditor::DistributionRow::isDistributionRowValid() const {
+GNEDistributionFrame::DistributionRow::isDistributionRowValid() const {
     return (myComboBoxKeys->getTextColor() == FXRGB(0, 0, 0));
 }
 
 
 long
-GNEDistributionEditor::DistributionRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+GNEDistributionFrame::DistributionRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // get Undo list
     GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList();
     // get current distribution
@@ -351,19 +351,19 @@ GNEDistributionEditor::DistributionRow::onCmdSetAttribute(FXObject* obj, FXSelec
 
 
 long
-GNEDistributionEditor::DistributionRow::onCmdRemoveRow(FXObject*, FXSelector, void*) {
+GNEDistributionFrame::DistributionRow::onCmdRemoveRow(FXObject*, FXSelector, void*) {
 
     return 1;
 }
 
 
-GNEDistributionEditor::DistributionRow::DistributionRow() :
+GNEDistributionFrame::DistributionRow::DistributionRow() :
     myAttributesEditorParent(nullptr) {
 }
 
 
 bool
-GNEDistributionEditor::DistributionRow::isValidKey() const {
+GNEDistributionFrame::DistributionRow::isValidKey() const {
     // get element associated with key
     const auto element = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, myComboBoxKeys->getText().text(), false);
     // first check if element exists
@@ -376,10 +376,10 @@ GNEDistributionEditor::DistributionRow::isValidKey() const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEDistributionEditor::AttributesEditor - methods
+// GNEDistributionFrame::AttributesEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionEditor::AttributesEditor::AttributesEditor(GNEFrame* frameParent) :
+GNEDistributionFrame::AttributesEditor::AttributesEditor(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Internal attributes")),
     myFrameParent(frameParent) {
     // resize myDistributionRows
@@ -390,7 +390,7 @@ GNEDistributionEditor::AttributesEditor::AttributesEditor(GNEFrame* frameParent)
 
 
 void
-GNEDistributionEditor::AttributesEditor::showAttributeEditorModule() {
+GNEDistributionFrame::AttributesEditor::showAttributeEditorModule() {
     // first remove all rows
     for (auto& row : myDistributionRows) {
         // destroy and delete all rows
@@ -420,14 +420,14 @@ GNEDistributionEditor::AttributesEditor::showAttributeEditorModule() {
 
 
 void
-GNEDistributionEditor::AttributesEditor::hideAttributesEditorModule() {
+GNEDistributionFrame::AttributesEditor::hideAttributesEditorModule() {
     // hide also AttributesEditor
     hide();
 }
 
 
 void
-GNEDistributionEditor::AttributesEditor::refreshAttributeEditor() {
+GNEDistributionFrame::AttributesEditor::refreshAttributeEditor() {
     // continue if we have a distribution to edit
     if (myDistribution) {
         // first remove all rows
@@ -451,25 +451,25 @@ GNEDistributionEditor::AttributesEditor::refreshAttributeEditor() {
 
 
 GNEFrame*
-GNEDistributionEditor::AttributesEditor::getFrameParent() const {
+GNEDistributionFrame::AttributesEditor::getFrameParent() const {
     return myFrameParent;
 }
 
 
 GNEDemandElement*
-GNEDistributionEditor::AttributesEditor::getDistribution() const {
+GNEDistributionFrame::AttributesEditor::getDistribution() const {
     return myDistribution;
 }
 
 
 void
-GNEDistributionEditor::AttributesEditor::setDistribution(GNEDemandElement* distribution) {
+GNEDistributionFrame::AttributesEditor::setDistribution(GNEDemandElement* distribution) {
     myDistribution = distribution;
 }
 
 
 long
-GNEDistributionEditor::AttributesEditor::onCmdAddRow(FXObject*, FXSelector, void*) {
+GNEDistributionFrame::AttributesEditor::onCmdAddRow(FXObject*, FXSelector, void*) {
     return 1;
 }
 
