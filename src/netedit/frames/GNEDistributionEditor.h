@@ -36,6 +36,50 @@ public:
     class AttributesEditor;
 
     // ===========================================================================
+    // class DistributionEditor
+    // ===========================================================================
+
+    class DistributionEditor : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEDistributionEditor::DistributionEditor)
+
+    public:
+        /// @brief constructor
+        DistributionEditor(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~DistributionEditor();
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when "create type distribution" button is clicked
+        long onCmdCreateType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when "Delete type distribution" button is clicked
+        long onCmdDeleteType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when "Delete type distribution" button is updated
+        long onUpdDeleteType(FXObject* sender, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(DistributionEditor)
+
+    private:
+        /// @brief pointer to type distribution frame parent
+        GNEFrame* myFrameParent;
+
+        /// @brief "create vehicle type" button
+        FXButton* myCreateTypeButton = nullptr;
+
+        /// @brief "delete vehicle type" button
+        FXButton* myDeleteTypeButton = nullptr;
+    };
+
+    // ===========================================================================
     // class AttributeRow
     // ===========================================================================
 

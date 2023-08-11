@@ -33,56 +33,6 @@ class GNETypeDistributionFrame : public GNEFrame {
 
 public:
     // ===========================================================================
-    // class declaration
-    // ===========================================================================
-
-    class TypeDistributionAttributesEditor;
-
-    // ===========================================================================
-    // class TypeDistributionEditor
-    // ===========================================================================
-
-    class TypeDistributionEditor : public MFXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNETypeDistributionFrame::TypeDistributionEditor)
-
-    public:
-        /// @brief constructor
-        TypeDistributionEditor(GNETypeDistributionFrame* typeDistributionFrameParent);
-
-        /// @brief destructor
-        ~TypeDistributionEditor();
-
-        /// @name FOX-callbacks
-        /// @{
-
-        /// @brief Called when "create type distribution" button is clicked
-        long onCmdCreateType(FXObject*, FXSelector, void*);
-
-        /// @brief Called when "Delete type distribution" button is clicked
-        long onCmdDeleteType(FXObject*, FXSelector, void*);
-
-        /// @brief Called when "Delete type distribution" button is updated
-        long onUpdDeleteType(FXObject* sender, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(TypeDistributionEditor)
-
-    private:
-        /// @brief pointer to type distribution frame parent
-        GNETypeDistributionFrame* myTypeDistributionFrameParent;
-
-        /// @brief "create vehicle type" button
-        FXButton* myCreateTypeButton = nullptr;
-
-        /// @brief "delete vehicle type" button
-        FXButton* myDeleteTypeButton = nullptr;
-    };
-
-    // ===========================================================================
     // class TypeDistributionSelector
     // ===========================================================================
 
@@ -149,7 +99,7 @@ protected:
 
 private:
     /// @brief type editor
-    TypeDistributionEditor* myTypeDistributionEditor = nullptr;
+    GNEDistributionEditor::TypeDistributionEditor* myTypeDistributionEditor = nullptr;
 
     /// @brief type distribution selector
     TypeDistributionSelector* myTypeDistributionSelector = nullptr;

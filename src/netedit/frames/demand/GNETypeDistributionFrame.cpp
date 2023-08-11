@@ -38,19 +38,12 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNETypeDistributionFrame::TypeDistributionEditor) typeDistributionEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,    GNETypeDistributionFrame::TypeDistributionEditor::onCmdCreateType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_DELETE,    GNETypeDistributionFrame::TypeDistributionEditor::onCmdDeleteType),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_DELETE,    GNETypeDistributionFrame::TypeDistributionEditor::onUpdDeleteType),
-};
-
 FXDEFMAP(GNETypeDistributionFrame::TypeDistributionSelector) typeDistributionSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeDistributionSelector::onCmdSelectTypeDistribution),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SET_TYPE,   GNETypeDistributionFrame::TypeDistributionSelector::onCmdUpdateTypeDistribution)
 };
 
 // Object implementation
-FXIMPLEMENT(GNETypeDistributionFrame::TypeDistributionEditor,   MFXGroupBoxModule,  typeDistributionEditorMap,      ARRAYNUMBER(typeDistributionEditorMap))
 FXIMPLEMENT(GNETypeDistributionFrame::TypeDistributionSelector, MFXGroupBoxModule,  typeDistributionSelectorMap,    ARRAYNUMBER(typeDistributionSelectorMap))
 
 
@@ -58,69 +51,6 @@ FXIMPLEMENT(GNETypeDistributionFrame::TypeDistributionSelector, MFXGroupBoxModul
 // method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNETypeFrame::TypeDistributionEditor - methods
-// ---------------------------------------------------------------------------
-
-GNETypeDistributionFrame::TypeDistributionEditor::TypeDistributionEditor(GNETypeDistributionFrame* typeDistributionFrameParent) :
-    MFXGroupBoxModule(typeDistributionFrameParent, TL("Type Editor")),
-    myTypeDistributionFrameParent(typeDistributionFrameParent) {
-    // Create new vehicle type
-    myCreateTypeButton = new FXButton(getCollapsableFrame(), TL("New"), GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION), this, MID_GNE_CREATE, GUIDesignButton);
-    
-    // Añadir TOOLTIP
-
-    // Create delete/reset vehicle type
-    myDeleteTypeButton = new FXButton(getCollapsableFrame(), TL("Delete"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
-    // show type editor
-    show();
-}
-
-
-GNETypeDistributionFrame::TypeDistributionEditor::~TypeDistributionEditor() {}
-
-
-long
-GNETypeDistributionFrame::TypeDistributionEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
-    auto viewNet = myTypeDistributionFrameParent->myViewNet;
-    // obtain a new valid Type ID
-    const std::string typeDistributionID = viewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE_DISTRIBUTION);
-    // create new vehicle type
-    GNEDemandElement* type = new GNEVTypeDistribution(viewNet->getNet(), typeDistributionID);
-    // add it using undoList (to allow undo-redo)
-    viewNet->getUndoList()->begin(GUIIcon::VTYPEDISTRIBUTION, "create vehicle type distribution");
-    viewNet->getUndoList()->add(new GNEChange_DemandElement(type, true), true);
-    viewNet->getUndoList()->end();
-    // refresh type distribution
-    myTypeDistributionFrameParent->myTypeDistributionSelector->refreshTypeDistributionSelector();
-    return 1;
-}
-
-
-long
-GNETypeDistributionFrame::TypeDistributionEditor::onCmdDeleteType(FXObject*, FXSelector, void*) {
-    auto viewNet = myTypeDistributionFrameParent->myViewNet;
-    // begin undo list operation
-    viewNet->getUndoList()->begin(GUIIcon::VTYPE, "delete vehicle type distribution");
-    // remove vehicle type (and all of their children)
-    viewNet->getNet()->deleteDemandElement(myTypeDistributionFrameParent->myDistributionEditor->getDistribution(), viewNet->getUndoList());
-    // end undo list operation
-    viewNet->getUndoList()->end();
-    // refresh type distribution
-    myTypeDistributionFrameParent->myTypeDistributionSelector->refreshTypeDistributionSelector();
-    return 1;
-}
-
-
-long
-GNETypeDistributionFrame::TypeDistributionEditor::onUpdDeleteType(FXObject* sender, FXSelector, void*) {
-    // first check if selected VType is valid
-    if (myTypeDistributionFrameParent->myDistributionEditor->getDistribution()) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    }
-}
 
 // ---------------------------------------------------------------------------
 // GNETypeFrame::TypeDistributionSelector - methods
