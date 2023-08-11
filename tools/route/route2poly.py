@@ -101,7 +101,7 @@ def getSpread(lanes):
         else:
             pass
             # print(i, [l.getID() for l in lanes])
-    assert(False)
+    assert False
 
 
 def generate_poly(options, net, id, color, edges, outf, type="route", lineWidth=None, params=None):

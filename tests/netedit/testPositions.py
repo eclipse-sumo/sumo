@@ -24,7 +24,7 @@ class demandElements:
     class edge0:
         x = 450
         y = 440
-    
+
     class edge1:
         x = 885
         y = 225

@@ -37,29 +37,29 @@ SUMO_LIBRARIES = os.environ.get("SUMO_LIBRARIES", os.path.join(os.path.dirname(S
 def getOptions(args=None):
     ap = ArgumentParser()
     ap.add_argument("-l", "--lang", nargs='*', help="languages to process (using the gettext short codes like en, fr, de)")
-    ap.add_argument("--replace", nargs='*', 
+    ap.add_argument("--replace", nargs='*',
                     help="search/replace commands to apply automatically, giving the search string on the uneven \
                     position and the replace string on the even position; cannot be used together with \
                     --numbered-placeholders")
-    ap.add_argument("--numbered-placeholders", dest="numberedPlaceholders", default=False, action="store_true", 
+    ap.add_argument("--numbered-placeholders", dest="numberedPlaceholders", default=False, action="store_true",
                     help="add a running number to every placeholder in a msgid, starting with 0; cannot be \
                     used together with --replace")
     ap.add_argument("--placeholder", default='%', help="string used for unnumbered placeholders")
-    ap.add_argument("--search-prefix", dest="searchPrefix", default=' ', type=str, 
+    ap.add_argument("--search-prefix", dest="searchPrefix", default=' ', type=str,
                     help="characters which can precede the actual search string in --replace (ignored with --strict)")
-    ap.add_argument("--search-suffix", dest="searchSuffix", default=' .?!', type=str, 
+    ap.add_argument("--search-suffix", dest="searchSuffix", default=' .?!', type=str,
                     help="characters which can succeed the actual search string in --replace (ignored with --strict)")
-    ap.add_argument("--strict", default=False, action="store_true", 
+    ap.add_argument("--strict", default=False, action="store_true",
                     help="compare the entire msgid to the search string")
-    ap.add_argument("--start", default=False, action="store_true", 
+    ap.add_argument("--start", default=False, action="store_true",
                     help="create the English to English po file to edit manually")
-    ap.add_argument("--apply", default=False, action="store_true", 
+    ap.add_argument("--apply", default=False, action="store_true",
                     help="apply changes to source files and to msgid values in po files of languages to process")
-    ap.add_argument("--remove-obsolete", dest="removeObsolete", default=False, action="store_true", 
+    ap.add_argument("--remove-obsolete", dest="removeObsolete", default=False, action="store_true",
                     help="remove obsolete msgid entries which have been superseded by replace strings")
-    ap.add_argument("--mark-fuzzy", dest="markFuzzy", default=False, action="store_true", 
+    ap.add_argument("--mark-fuzzy", dest="markFuzzy", default=False, action="store_true",
                     help="mark kept translations of changed msgid as fuzzy")
-    ap.add_argument("--process-languages", dest="processLanguages", default=False, action="store_true", 
+    ap.add_argument("--process-languages", dest="processLanguages", default=False, action="store_true",
                     help="process msgstr values of language po files with the same rules as the original message")
     ap.add_argument("--sumo-home", default=SUMO_HOME, help="SUMO root directory to use")
     return ap.parse_args(args)
@@ -96,7 +96,7 @@ def main(args=None):
                     suffixes.append('')
                 for prefix in prefixes:
                     for suffix in suffixes:
-                        replaceRules.append((prefix + options.replace[i] + suffix, 
+                        replaceRules.append((prefix + options.replace[i] + suffix,
                             prefix + options.replace[i+1] + suffix, None, False, False))
                     replaceRules.append((options.replace[i] + suffix, options.replace[i+1] + suffix, None, True, False))
                     replaceRules.append((prefix + options.replace[i], prefix + options.replace[i+1], None, False, True))
@@ -163,10 +163,10 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
                 print("Missing po translation file %s to update" % translatedPoFile)
                 continue
             patchPoFile(translatedPoFile, replaceIDs, fuzzy=options.markFuzzy)
-            
+
             # optionally process the translated messages as well
             if options.processLanguages:
-                processRules(translatedPoFile, replaceRules, options, translated=True, 
+                processRules(translatedPoFile, replaceRules, options, translated=True,
                              filterIDs=[entry.msgstr for entry in replaceIDs])
     if options.apply:
         os.remove(uniLangPoFile)

@@ -72,9 +72,9 @@ def fileNeedsRebuild(filePath, app):
 def split_by_proportions(total, proportions, mininum_values):
     """splits the given total by the given proportions but ensures that each value in
     the result has at least the given minimum value"""
-    assert(len(proportions) == len(mininum_values))
-    assert(total >= sum(mininum_values))
-    assert(min(proportions) > 0)
+    assert len(proportions) == len(mininum_values)
+    assert total >= sum(mininum_values)
+    assert min(proportions) > 0
     num = len(proportions)
     sumProportions = float(sum(proportions))
     fractions = [p / sumProportions for p in proportions]
@@ -89,7 +89,7 @@ def split_by_proportions(total, proportions, mininum_values):
             delta += correct
         i = (i + 1) % num
 
-    assert(sum(result) == total)
+    assert sum(result) == total
     return result
 
 

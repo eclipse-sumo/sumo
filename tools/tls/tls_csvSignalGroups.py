@@ -504,10 +504,10 @@ def writeInputTemplates(net, outputDir, delimiter):
 
 
 def toTll(options):
-    # read general and signal groub based information from input file(s)
+    # read general and signal group based information from input file(s)
     sections = ["general", "links", "signal groups"]
     signalColumns = ["id", "on1", "off1", "on2", "off2", "transOn", "transOff"]
-    if(len(options.input) == 0):
+    if len(options.input) == 0:
         inputFiles = []
     else:
         inputFiles = options.input.split(',')
@@ -521,7 +521,7 @@ def toTll(options):
                                   withPedestrianConnections=True)
 
         if len(options.make_input_dir) > 0:  # check input template directory
-            if(os.path.isdir(options.make_input_dir)):
+            if os.path.isdir(options.make_input_dir):
                 writeInputTemplates(net, options.make_input_dir, options.delimiter)
             else:
                 sys.stderr.write("The input template directory %s does not exist.\n" % options.make_input_dir)
@@ -598,8 +598,8 @@ def toTll(options):
                                              transTimeOff=int(line[colIndices["transOff"]]),
                                              debug=options.debug)
                             sg.addFreeTime(int(line[colIndices["on1"]]), int(line[colIndices["off1"]]))
-                            if(secondFreeTime):
-                                if(line[colIndices["on2"]] != "" and line[colIndices["off2"]] != ""):
+                            if secondFreeTime:
+                                if line[colIndices["on2"]] != "" and line[colIndices["off2"]] != "":
                                     sg.addFreeTime(int(line[colIndices["on2"]]), int(line[colIndices["off2"]]))
                             signalGroups[sgID] = sg
                             signalGroupOrder.append(sgID)

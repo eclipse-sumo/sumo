@@ -180,7 +180,7 @@ def computePairOffsets(TLSPList, verbose):
 
     print("operations: newSet=%s addToSet=%s addToSet2=%s addHalfCoordinated=%s mergeSets=%s" % (
         c1, c2, c3, c4, c5))
-    return(sets)
+    return sets
 
 
 def merge(sets, list1, list2, dt):

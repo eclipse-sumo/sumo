@@ -101,7 +101,7 @@ def main(options):
     if options.selectionfile is not None:
         net.loadSelection(options.selectionfile)
         checkSelection = True
-    
+
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)  # noqa
         for edge in net.getEdges():

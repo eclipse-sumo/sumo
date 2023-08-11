@@ -146,7 +146,7 @@ class Stage(object):
 
 def _readStage(result):
     # compound size and type
-    assert(result.read("!i")[0] == 13)
+    assert result.read("!i")[0] == 13
     stageType = result.readTypedInt()
     vType = result.readTypedString()
     line = result.readTypedString()
