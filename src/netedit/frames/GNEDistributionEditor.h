@@ -36,35 +36,80 @@ public:
     class AttributesEditor;
 
     // ===========================================================================
-    // class AttributesEditorRow
+    // class AttributeRow
     // ===========================================================================
-    class AttributesEditorRow : protected FXHorizontalFrame {
+
+    class AttributeRow : protected FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEDistributionEditor::AttributesEditorRow)
+        FXDECLARE(GNEDistributionEditor::AttributeRow)
 
     public:
         /// @brief constructor for ID attribute
-        AttributesEditorRow(AttributesEditor* attributeEditorParent,
-            const GNEAttributeProperties& ACAttr, const std::string& id);
-
-        /// @brief constructor for type-probability attributes
-        AttributesEditorRow(AttributesEditor* attributeEditorParent,
-            const std::string& type, const std::string& probability);
+        AttributeRow(AttributesEditor* attributeEditorParent,
+            const GNEAttributeProperties& ACAttr, const std::string& attribute);
 
         /// @brief destroy GNEAttributesCreatorRow (but don't delete)
         void destroy();
 
         /// @brief refresh current row
-        void refreshAttributesEditorRow(const std::string& value);
+        void refreshAttributeRow(const std::string& value);
 
         /// @brief check if current attribute of TextField/ComboBox is valid
-        bool isAttributesEditorRowValid() const;
+        bool isAttributeRowValid() const;
 
         /// @name FOX-callbacks
         /// @{
 
         /// @brief try to set new attribute value
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief default constructor
+        AttributeRow();
+
+    private:
+        /// @brief pointer to AttributesEditor parent
+        AttributesEditor* myAttributesEditorParent;
+
+        /// @brief pointer to attribute label
+        MFXLabelTooltip* myAttributeLabel = nullptr;
+
+        /// @brief textField to modify the value of string attributes
+        MFXTextFieldTooltip* myValueTextField = nullptr;
+
+        /// @brief ACAttribute
+        GNEAttributeProperties myACAttr;
+    };
+
+    // ===========================================================================
+    // class DistributionRow
+    // ===========================================================================
+
+    class DistributionRow : protected FXHorizontalFrame {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEDistributionEditor::DistributionRow)
+
+    public:
+        /// @brief constructor for type-probability attributes
+        DistributionRow(AttributesEditor* attributeEditorParent,
+            const GNEDemandElement* key, const double probability);
+
+        /// @brief destroy GNEAttributesCreatorRow (but don't delete)
+        void destroy();
+
+        /// @brief refresh current row
+        void refreshDistributionRow(const GNEDemandElement* key, const double value);
+
+        /// @brief check if current attribute of TextField/ComboBox is valid
+        bool isDistributionRowValid() const;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief try to set new attribute value
+        long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
 
         /// @brief remove row
         long onCmdRemoveRow(FXObject*, FXSelector, void*);
@@ -73,23 +118,29 @@ public:
 
     protected:
         /// @brief default constructor
-        AttributesEditorRow();
+        DistributionRow();
+
+        /// @brief check if the given ID is valid
+        bool isValidKey() const;
 
     private:
         /// @brief pointer to AttributesEditor parent
         AttributesEditor* myAttributesEditorParent;
 
-        /// @brief pointer to attribute label
-        MFXLabelTooltip* myIDLabel = nullptr;
-
         /// @brief delete row button
         MFXButtonTooltip* myDeleteRowButton = nullptr;
 
         /// @brief textField to modify the value of string attributes
-        MFXTextFieldTooltip* myValueTextField = nullptr;
+        MFXComboBoxIcon* myComboBoxKeys = nullptr;
 
         /// @brief textField to modify the probability attribute
         MFXTextFieldTooltip* myProbabilityTextField = nullptr;
+
+        /// @brief current Key
+        const GNEDemandElement* myKey = nullptr;
+
+        /// @brief probability
+        double myProbability = 0;
     };
 
     // ===========================================================================
@@ -141,8 +192,11 @@ public:
         /// @brief distribution
         GNEDemandElement* myDistribution = nullptr;
 
+        /// @brief attribute 
+        AttributeRow* myIDAttributeRow = nullptr;
+
         /// @brief list of Attribute editor rows
-        std::vector<AttributesEditorRow*> myAttributesEditorRows;
+        std::vector<DistributionRow*> myDistributionRows;
 
         /// @brief button for add new row
         FXButton* myAddButton = nullptr;

@@ -38,9 +38,13 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEDistributionEditor::AttributesEditorRow) AttributesEditorRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionEditor::AttributesEditorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_REMOVE,  GNEDistributionEditor::AttributesEditorRow::onCmdRemoveRow)
+FXDEFMAP(GNEDistributionEditor::AttributeRow) AttributeRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionEditor::AttributeRow::onCmdSetAttribute),
+};
+
+FXDEFMAP(GNEDistributionEditor::DistributionRow) DistributionRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionEditor::DistributionRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_REMOVE,  GNEDistributionEditor::DistributionRow::onCmdRemoveRow)
 };
 
 FXDEFMAP(GNEDistributionEditor::AttributesEditor) AttributesEditorMap[] = {
@@ -48,8 +52,9 @@ FXDEFMAP(GNEDistributionEditor::AttributesEditor) AttributesEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDistributionEditor::AttributesEditorRow,  FXHorizontalFrame,  AttributesEditorRowMap, ARRAYNUMBER(AttributesEditorRowMap))
-FXIMPLEMENT(GNEDistributionEditor::AttributesEditor,     MFXGroupBoxModule,  AttributesEditorMap,    ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEDistributionEditor::AttributeRow,        FXHorizontalFrame,  AttributeRowMap,        ARRAYNUMBER(AttributeRowMap))
+FXIMPLEMENT(GNEDistributionEditor::DistributionRow,     FXHorizontalFrame,  DistributionRowMap,     ARRAYNUMBER(DistributionRowMap))
+FXIMPLEMENT(GNEDistributionEditor::AttributesEditor,    MFXGroupBoxModule,  AttributesEditorMap,    ARRAYNUMBER(AttributesEditorMap))
 
 
 // ===========================================================================
@@ -57,73 +62,41 @@ FXIMPLEMENT(GNEDistributionEditor::AttributesEditor,     MFXGroupBoxModule,  Att
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEDistributionEditor::AttributesEditorRow - methods
+// GNEDistributionEditor::AttributeRow - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionEditor::AttributesEditorRow::AttributesEditorRow(
+GNEDistributionEditor::AttributeRow::AttributeRow(
         GNEDistributionEditor::AttributesEditor* attributeEditorParent,
-        const GNEAttributeProperties& ACAttr, const std::string& id) :
+        const GNEAttributeProperties& ACAttr, const std::string& attribute) :
     FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
-    myAttributesEditorParent(attributeEditorParent) {
+    myAttributesEditorParent(attributeEditorParent),
+    myACAttr(ACAttr) {
     // get staticTooltip menu
     auto staticTooltipMenu = attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // Create attribute label (usually used only for ID)
-    myIDLabel = new MFXLabelTooltip(this, staticTooltipMenu,
+    myAttributeLabel = new MFXLabelTooltip(this, staticTooltipMenu,
         ACAttr.getAttrStr().c_str(), nullptr, GUIDesignLabelThickedFixed(GUIDesignHeight));
     // Create and hide MFXTextFieldTooltip for string attributes
     myValueTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
         GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // only create if parent was created
     if (getParent()->id()) {
-        // create AttributesEditorRow
+        // create AttributeRow
         FXHorizontalFrame::create();
         // Show attribute ACAttr.getAttrStr().c_str());
-        myIDLabel->setTipText(ACAttr.getDefinition().c_str());
-        // In any other case (String, list, etc.), show value as String
-        myValueTextField->setText(id.c_str());
+        myAttributeLabel->setTipText(ACAttr.getDefinition().c_str());
+        // show value
+        myValueTextField->setText(attribute.c_str());
         myValueTextField->setTextColor(FXRGB(0, 0, 0));
         myValueTextField->killFocus();
-        // Show AttributesEditorRow
-        show();
-    }
-}
-
-
-GNEDistributionEditor::AttributesEditorRow::AttributesEditorRow(
-        AttributesEditor* attributeEditorParent, const std::string& type, const std::string& probability) :
-    FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
-    myAttributesEditorParent(attributeEditorParent) {
-    // get staticTooltip menu
-    auto staticTooltipMenu = attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
-    // create and hide color editor
-    myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu,
-        "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_BUTTON_REMOVE, GUIDesignButtonIcon);
-    // Create and hide MFXTextFieldTooltip for string attributes
-    myValueTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
-        GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // Create and hide MFXTextFieldTooltip for string attributes
-    myProbabilityTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
-        GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
-    // only create if parent was created
-    if (getParent()->id()) {
-        // create AttributesEditorRow
-        FXHorizontalFrame::create();
-        // set type
-        myValueTextField->setText(type.c_str());
-        myValueTextField->setTextColor(FXRGB(0, 0, 0));
-        myValueTextField->killFocus();
-        // set probability
-        myProbabilityTextField->setText(probability.c_str());
-        myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
-        myProbabilityTextField->killFocus();
-        // Show AttributesEditorRow
+        // Show AttributeRow
         show();
     }
 }
 
 
 void
-GNEDistributionEditor::AttributesEditorRow::destroy() {
+GNEDistributionEditor::AttributeRow::destroy() {
     // only destroy if parent was created
     if (getParent()->id()) {
         FXHorizontalFrame::destroy();
@@ -132,7 +105,7 @@ GNEDistributionEditor::AttributesEditorRow::destroy() {
 
 
 void
-GNEDistributionEditor::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value) {
+GNEDistributionEditor::AttributeRow::refreshAttributeRow(const std::string& value) {
     // set last valid value and restore color if onlyValid is disabled
     myValueTextField->setText(value.c_str());
     // set blue color if is an computed value
@@ -142,13 +115,13 @@ GNEDistributionEditor::AttributesEditorRow::refreshAttributesEditorRow(const std
 
 
 bool
-GNEDistributionEditor::AttributesEditorRow::isAttributesEditorRowValid() const {
+GNEDistributionEditor::AttributeRow::isAttributeRowValid() const {
     return (myValueTextField->getTextColor() == FXRGB(0, 0, 0));
 }
 
 
 long
-GNEDistributionEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNEDistributionEditor::AttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
     // obtain value of myValueTextField
@@ -158,9 +131,9 @@ GNEDistributionEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelec
     // continue if we have a distribution to edit
     if (currentDistribution) {
         // Check if attribute must be changed
-        if (currentDistribution->isValid(SUMO_ATTR_ID, newVal)) {
+        if (currentDistribution->isValid(myACAttr.getAttr(), newVal)) {
             // set attribute
-            currentDistribution->setAttribute(SUMO_ATTR_ID, newVal, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+            currentDistribution->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
             // update text field
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->setBackColor(FXRGB(255, 255, 255));
@@ -168,14 +141,138 @@ GNEDistributionEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelec
             // in this case, we need to refresh the other values (For example, allow/Disallow objects)
             myAttributesEditorParent->refreshAttributeEditor();
             // update frame parent after attribute successfully set
-            myAttributesEditorParent->getFrameParent()->attributeUpdated(SUMO_ATTR_ID);
+            myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
         } else {
             myValueTextField->setTextColor(FXRGB(255, 0, 0));
             if (newVal.empty()) {
                 myValueTextField->setBackColor(FXRGBA(255, 213, 213, 255));
             }
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(TL("Value '") + newVal + TL("' for attribute ID of Distribution isn't valid"));
+            WRITE_DEBUG("Value '" + newVal + "' for attribute " + myACAttr.getAttrStr() + " of Distribution isn't valid");
+        }
+    }
+    return 1;
+}
+
+
+GNEDistributionEditor::AttributeRow::AttributeRow() :
+    myAttributesEditorParent(nullptr) {
+}
+
+// ---------------------------------------------------------------------------
+// GNEDistributionEditor::DistributionRow - methods
+// ---------------------------------------------------------------------------
+
+GNEDistributionEditor::DistributionRow::DistributionRow(
+        AttributesEditor* attributeEditorParent, const GNEDemandElement* key, const double probability) :
+    FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
+    myAttributesEditorParent(attributeEditorParent),
+    myKey(key),
+    myProbability(probability) {
+    // get staticTooltip menu
+    auto staticTooltipMenu = attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
+    // create and hide color editor
+    myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu,
+        "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_BUTTON_REMOVE, GUIDesignButtonIcon);
+    // Create and hide MFXTextFieldTooltip for string attributes
+    myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBoxAttribute);
+    // Create and hide MFXTextFieldTooltip for string attributes
+    myProbabilityTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
+        GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
+    // only create if parent was created
+    if (getParent()->id()) {
+        // create DistributionRow
+        FXHorizontalFrame::create();
+        // fill comboBox with all possible keys
+        const auto possibleKeys = attributeEditorParent->getDistribution()->getPossibleDistributionKeys(SUMO_TAG_VTYPE);
+        for (int i = 0; i < (int)possibleKeys.size(); i++) {
+            myComboBoxKeys->appendIconItem(possibleKeys[i]->getID().c_str(), possibleKeys[i]->getFXIcon());
+            if (possibleKeys[i] == myKey) {
+                myComboBoxKeys->setCurrentItem(i);
+            }
+        }
+        // adjust combo Box
+        myComboBoxKeys->setNumVisible(myComboBoxKeys->getNumItems() <= 10? myComboBoxKeys->getNumItems() : 10);
+        myComboBoxKeys->setTextColor(FXRGB(0, 0, 0));
+        myComboBoxKeys->killFocus();
+        // set probability
+        myProbabilityTextField->setText(toString(myProbability).c_str());
+        myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+        myProbabilityTextField->killFocus();
+        // Show DistributionRow
+        show();
+    }
+}
+
+
+void
+GNEDistributionEditor::DistributionRow::destroy() {
+    // only destroy if parent was created
+    if (getParent()->id()) {
+        FXHorizontalFrame::destroy();
+    }
+}
+
+
+void
+GNEDistributionEditor::DistributionRow::refreshDistributionRow(const GNEDemandElement* key, const double value) {
+    // set key
+    myComboBoxKeys->setText(key->getID().c_str());
+    // set probability
+    myProbabilityTextField->setText(toString(value).c_str());
+    myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+    myProbabilityTextField->killFocus();
+}
+
+
+bool
+GNEDistributionEditor::DistributionRow::isDistributionRowValid() const {
+    return (myComboBoxKeys->getTextColor() == FXRGB(0, 0, 0));
+}
+
+
+long
+GNEDistributionEditor::DistributionRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+    // get Undo list
+    GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList();
+    // get current distribution
+    auto currentDistribution = myAttributesEditorParent->getDistribution();
+    // continue if we have a distribution to edit
+    if (currentDistribution == nullptr) {
+        return 1;
+    }
+    // continue depending of calle dobj
+    if (obj == myComboBoxKeys) {
+        if (isValidKey()) {
+            myComboBoxKeys->setTextColor(FXRGB(0, 0, 0));
+            // get new key
+            const auto newKey = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, myComboBoxKeys->getText().text());
+            // only change if is different of current key
+            if (myKey != newKey) {
+                // change distribution key removing and adding it
+                undoList->begin(myKey, "edit distribution key");
+                currentDistribution->removeDistributionKey(myKey, undoList);
+                myKey = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, myComboBoxKeys->getText().text());
+                currentDistribution->addDistributionKey(myKey, myProbability, undoList);
+                undoList->end();
+            }
+            // refresh rows
+            myAttributesEditorParent->refreshAttributeEditor();
+        } else {
+            myComboBoxKeys->setBackColor(FXRGB(255, 255, 255));
+            myComboBoxKeys->killFocus();
+        }
+    } else if (obj == myProbabilityTextField) {
+        // get probability
+        const std::string probabilityStr = myProbabilityTextField->getText().text();
+        const double probability = GNEAttributeCarrier::canParse<double>(probabilityStr)? GNEAttributeCarrier::parse<double>(probabilityStr) : -1;
+        // Check if set new probability
+        if (probability >= 0) {
+            myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+            currentDistribution->editDistributionValue(myKey, probability, undoList);
+        } else {
+            myProbabilityTextField->setBackColor(FXRGB(255, 255, 255));
+            myProbabilityTextField->killFocus();
         }
     }
     return 1;
@@ -183,14 +280,28 @@ GNEDistributionEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelec
 
 
 long
-GNEDistributionEditor::AttributesEditorRow::onCmdRemoveRow(FXObject*, FXSelector, void*) {
+GNEDistributionEditor::DistributionRow::onCmdRemoveRow(FXObject*, FXSelector, void*) {
 
     return 1;
 }
 
 
-GNEDistributionEditor::AttributesEditorRow::AttributesEditorRow() :
+GNEDistributionEditor::DistributionRow::DistributionRow() :
     myAttributesEditorParent(nullptr) {
+}
+
+
+bool
+GNEDistributionEditor::DistributionRow::isValidKey() const {
+    // get element associated with key
+    const auto element = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, myComboBoxKeys->getText().text(), false);
+    // first check if element exists
+    if (element) {
+        // avoid duplicated keys
+        return !myKey->keyExists(element);
+    } else {
+        return false;
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -200,8 +311,8 @@ GNEDistributionEditor::AttributesEditorRow::AttributesEditorRow() :
 GNEDistributionEditor::AttributesEditor::AttributesEditor(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Internal attributes")),
     myFrameParent(frameParent) {
-    // resize myAttributesEditorRows
-    myAttributesEditorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
+    // resize myDistributionRows
+    myDistributionRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // Create help button
     myAddButton = new FXButton(getCollapsableFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_BUTTON_ADD, GUIDesignButtonIcon);
 }
@@ -210,7 +321,7 @@ GNEDistributionEditor::AttributesEditor::AttributesEditor(GNEFrame* frameParent)
 void
 GNEDistributionEditor::AttributesEditor::showAttributeEditorModule() {
     // first remove all rows
-    for (auto& row : myAttributesEditorRows) {
+    for (auto& row : myDistributionRows) {
         // destroy and delete all rows
         if (row != nullptr) {
             row->destroy();
@@ -218,9 +329,17 @@ GNEDistributionEditor::AttributesEditor::showAttributeEditorModule() {
             row = nullptr;
         }
     }
+    // also destroy ID
+    if (myIDAttributeRow) {
+        myIDAttributeRow->destroy();
+        delete myIDAttributeRow;
+    }
     // continue if we have a distribution to edit
     if (myDistribution) {
-
+        // create ID row
+        myIDAttributeRow = new AttributeRow(this, myDistribution->getTagProperty().getAttributeProperties(SUMO_ATTR_ID), myDistribution->getAttribute(SUMO_ATTR_ID));
+        // refresh attribute editor
+        refreshAttributeEditor();
         // show AttributesEditor
         show();
     }
@@ -240,10 +359,21 @@ void
 GNEDistributionEditor::AttributesEditor::refreshAttributeEditor() {
     // continue if we have a distribution to edit
     if (myDistribution) {
-        // Iterate over inspected attribute carriers
-        for (const auto& attrProperty : myDistribution->getTagProperty()) {
-            // Refresh attributes
-            myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(myDistribution->getAttribute(attrProperty.getAttr()));
+        // first remove all rows
+        for (auto& row : myDistributionRows) {
+            // destroy and delete all rows
+            if (row != nullptr) {
+                row->destroy();
+                delete row;
+                row = nullptr;
+            }
+        }
+        // Iterate over distribution key-values
+        for (const auto& keyValue : myDistribution->getDistributionKeyValues()) {
+            // create distribution row
+            auto distributionRow = new DistributionRow(this, keyValue.first, keyValue.second);
+            // add into distribution rows
+            myDistributionRows.push_back(distributionRow);
         }
     }
 }
