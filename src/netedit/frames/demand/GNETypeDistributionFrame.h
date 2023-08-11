@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEDistributionEditor.h>
+#include "GNEDistributionFrame.h"
+
 
 // ===========================================================================
 // class definitions

@@ -31,7 +31,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEDistributionEditor.h"
+#include "GNEDistributionFrame.h"
 
 
 // ===========================================================================

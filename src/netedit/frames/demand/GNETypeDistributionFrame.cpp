@@ -188,7 +188,7 @@ GNETypeDistributionFrame::GNETypeDistributionFrame(GNEViewParent* viewParent, GN
     GNEFrame(viewParent, viewNet, "Type Distributions") {
 
     // create type editor
-    myTypeDistributionEditor = new TypeDistributionEditor(this);
+    myTypeDistributionEditor = new GNEDistributionEditor::DistributionEditor(this);
 
     // create type selector
     myTypeDistributionSelector = new TypeDistributionSelector(this);
