@@ -44,6 +44,11 @@ FXDEFMAP(GNEDistributionFrame::DistributionEditor) DistributionEditorMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_DELETE,    GNEDistributionFrame::DistributionEditor::onUpdDeleteType),
 };
 
+FXDEFMAP(GNEDistributionFrame::DistributionSelector) DistributionSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNEDistributionFrame::DistributionSelector::onCmdSelectTypeDistribution),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SET_TYPE,   GNEDistributionFrame::DistributionSelector::onCmdUpdateTypeDistribution)
+};
+
 FXDEFMAP(GNEDistributionFrame::AttributeRow) AttributeRowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionFrame::AttributeRow::onCmdSetAttribute),
 };
@@ -58,10 +63,11 @@ FXDEFMAP(GNEDistributionFrame::AttributesEditor) AttributesEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDistributionFrame::DistributionEditor,   MFXGroupBoxModule,  DistributionEditorMap,  ARRAYNUMBER(DistributionEditorMap))
-FXIMPLEMENT(GNEDistributionFrame::AttributeRow,         FXHorizontalFrame,  AttributeRowMap,        ARRAYNUMBER(AttributeRowMap))
-FXIMPLEMENT(GNEDistributionFrame::DistributionRow,      FXHorizontalFrame,  DistributionRowMap,     ARRAYNUMBER(DistributionRowMap))
-FXIMPLEMENT(GNEDistributionFrame::AttributesEditor,     MFXGroupBoxModule,  AttributesEditorMap,    ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEDistributionFrame::DistributionEditor,   MFXGroupBoxModule,  DistributionEditorMap,      ARRAYNUMBER(DistributionEditorMap))
+FXIMPLEMENT(GNEDistributionFrame::DistributionSelector, MFXGroupBoxModule,  DistributionSelectorMap,    ARRAYNUMBER(DistributionSelectorMap))
+FXIMPLEMENT(GNEDistributionFrame::AttributeRow,         FXHorizontalFrame,  AttributeRowMap,            ARRAYNUMBER(AttributeRowMap))
+FXIMPLEMENT(GNEDistributionFrame::DistributionRow,      FXHorizontalFrame,  DistributionRowMap,         ARRAYNUMBER(DistributionRowMap))
+FXIMPLEMENT(GNEDistributionFrame::AttributesEditor,     MFXGroupBoxModule,  AttributesEditorMap,        ARRAYNUMBER(AttributesEditorMap))
 
 
 // ===========================================================================
@@ -102,7 +108,7 @@ GNEDistributionFrame::DistributionEditor::onCmdCreateType(FXObject*, FXSelector,
     undoList->add(new GNEChange_DemandElement(type, true), true);
     undoList->end();
     // refresh type distribution
-    myFrameParent->myTypeDistributionSelector->refreshTypeDistributionSelector();
+    myFrameParent->myDistributionSelector->refreshDistributionSelector();
     return 1;
 }
 
@@ -117,7 +123,7 @@ GNEDistributionFrame::DistributionEditor::onCmdDeleteType(FXObject*, FXSelector,
     // end undo list operation
     undoList->end();
     // refresh type distribution
-    myFrameParent->myTypeDistributionSelector->refreshTypeDistributionSelector();
+    myFrameParent->myDistributionSelector->refreshDistributionSelector();
     return 1;
 }
 
@@ -126,6 +132,134 @@ long
 GNEDistributionFrame::DistributionEditor::onUpdDeleteType(FXObject* sender, FXSelector, void*) {
     // first check if selected VType is valid
     if (myFrameParent->myDistributionEditor->getDistribution()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNETypeFrame::DistributionSelector - methods
+// ---------------------------------------------------------------------------
+
+GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frameParent) :
+    MFXGroupBoxModule(frameParent, TL("Current type dist.")),
+    myFrameParent(frameParent) {
+    // Create FXComboBox
+    myTypeComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // add default Types (always first)
+    for (const auto& vType : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
+        myTypeComboBox->appendItem(vType->getID().c_str(), vType->getFXIcon());
+    }
+    // Set visible items
+    if (myTypeComboBox->getNumItems() <= 20) {
+        myTypeComboBox->setNumVisible((int)myTypeComboBox->getNumItems());
+    } else {
+        myTypeComboBox->setNumVisible(20);
+    }
+    // DistributionSelector is always shown
+    show();
+}
+
+
+GNEDistributionFrame::DistributionSelector::~DistributionSelector() {}
+
+
+void
+GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
+    // get ACs
+    const auto& ACs = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
+    // clear items
+    myTypeComboBox->clearItems();
+    // fill myTypeMatchBox with list of type distributions sorted by ID
+    std::map<std::string, GNEDemandElement*> typeDistributions;
+    for (const auto& vTypeDistribution : ACs->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
+        typeDistributions[vTypeDistribution->getID()] = vTypeDistribution;
+    }
+    for (const auto& vTypeDistribution : typeDistributions) {
+        myTypeComboBox->appendItem(vTypeDistribution.first.c_str(), vTypeDistribution.second->getFXIcon());
+    }
+    // Set visible items
+    if (myTypeComboBox->getNumItems() <= 20) {
+        myTypeComboBox->setNumVisible((int)myTypeComboBox->getNumItems());
+    } else {
+        myTypeComboBox->setNumVisible(20);
+    }
+    // check current type
+    bool validCurrentTypeDistribution = false;
+    for (int i = 0; i < (int)myTypeComboBox->getNumItems(); i++) {
+        if (myTypeComboBox->getItem(i).text() == myCurrentTypeDistribution) {
+            myTypeComboBox->setCurrentItem(i);
+            validCurrentTypeDistribution = true;
+        }
+    }
+    // Check that give vType type is valid
+    GNEDemandElement* vTypeDistribution = nullptr;
+    if (validCurrentTypeDistribution) {
+        vTypeDistribution = ACs->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, myCurrentTypeDistribution);
+    } else {
+        vTypeDistribution = ACs->retrieveFirstDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION);
+    }
+    // Check that give vType type is valid
+    if (vTypeDistribution) {
+        myCurrentTypeDistribution = vTypeDistribution->getID();
+        myFrameParent->myDistributionEditor->setDistribution(vTypeDistribution);
+        // set myCurrentType as inspected element
+        myFrameParent->getViewNet()->setInspectedAttributeCarriers({vTypeDistribution});
+        // show modules
+        myFrameParent->myDistributionEditor->showAttributeEditorModule();
+    } else {
+        myCurrentTypeDistribution.clear();
+        myFrameParent->myDistributionEditor->setDistribution(nullptr);
+        // set myCurrentType as inspected element
+        myFrameParent->getViewNet()->setInspectedAttributeCarriers({});
+        // hide modules
+        myFrameParent->myDistributionEditor->hideAttributesEditorModule();
+    }
+}
+
+
+long
+GNEDistributionFrame::DistributionSelector::onCmdSelectTypeDistribution(FXObject*, FXSelector, void*) {
+    const auto viewNet = myFrameParent->getViewNet();
+    const auto& vTypeDistributions = viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION);
+    // Check if value of myTypeMatchBox correspond of an allowed additional tags
+    for (const auto& vTypeDistribution : vTypeDistributions) {
+        if (vTypeDistribution->getID() == myTypeComboBox->getText().text()) {
+            // set pointer
+            myCurrentTypeDistribution = vTypeDistribution->getID();
+            myFrameParent->myDistributionEditor->setDistribution(vTypeDistribution);
+            // set color of myTypeMatchBox to black (valid)
+            myTypeComboBox->setTextColor(FXRGB(0, 0, 0));
+            // set myCurrentType as inspected element
+            viewNet->setInspectedAttributeCarriers({vTypeDistribution});
+            // show modules if selected item is valid
+            myFrameParent->myDistributionEditor->showAttributeEditorModule();
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in DistributionSelector").text());
+            // update viewNet
+            viewNet->updateViewNet();
+            return 1;
+        }
+    }
+    myCurrentTypeDistribution.clear();
+    myFrameParent->myDistributionEditor->setDistribution(nullptr);
+    // hide all modules if selected item isn't valid
+    myFrameParent->myDistributionEditor->hideAttributesEditorModule();
+    // set color of myTypeMatchBox to red (invalid)
+    myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Selected invalid item in DistributionSelector");
+    // update viewNet
+    viewNet->updateViewNet();
+    return 1;
+}
+
+
+long
+GNEDistributionFrame::DistributionSelector::onCmdUpdateTypeDistribution(FXObject* sender, FXSelector, void*) {
+    const auto& demandElements = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
+    if (demandElements.at(SUMO_TAG_VTYPE_DISTRIBUTION).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);

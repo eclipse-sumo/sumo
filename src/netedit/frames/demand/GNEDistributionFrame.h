@@ -80,6 +80,52 @@ public:
     };
 
     // ===========================================================================
+    // class DistributionSelector
+    // ===========================================================================
+
+    class DistributionSelector : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEDistributionFrame::DistributionSelector)
+
+    public:
+        /// @brief constructor
+        DistributionSelector(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~DistributionSelector();
+
+        /// @brief refresh modul
+        void refreshDistributionSelector();
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when the user select type distribution in ComboBox
+        long onCmdSelectTypeDistribution(FXObject*, FXSelector, void*);
+
+        /// @brief update type distribution comboBox
+        long onCmdUpdateTypeDistribution(FXObject* sender, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(DistributionSelector)
+
+    private:
+        /// @brief pointer to Frame Parent
+        GNEFrame* myFrameParent;
+
+        /// @brief comboBox with the list of type distributions
+        FXComboBox* myTypeComboBox = nullptr;
+
+        /// @brief current type distribution
+        std::string myCurrentTypeDistribution;
+
+        /// @brief map with the original vTypeDistribution attributes
+        std::pair<std::string, std::string> myOriginalValues;
+    };
+
+    // ===========================================================================
     // class AttributeRow
     // ===========================================================================
 
