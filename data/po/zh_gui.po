@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-11 14:41+0200\n"
-"PO-Revision-Date: 2023-08-09 06:52+0000\n"
+"PO-Revision-Date: 2023-08-14 08:41+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -1306,30 +1306,30 @@ msgstr "速度 [m/s]"
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:238
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:128
 msgid "speed factor"
-msgstr ""
+msgstr "速度因子"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:174
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:239
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:124
 msgid "angle [degree]"
-msgstr ""
+msgstr "角度 [度]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:175
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:240
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:132
 msgid "waiting time [s]"
-msgstr ""
+msgstr "等待时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:176
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:243
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:144
 msgid "desired depart [s]"
-msgstr ""
+msgstr "预期出发时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:186
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:253
 msgid "length"
-msgstr ""
+msgstr "长度"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:187
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:254
@@ -1340,417 +1340,417 @@ msgstr "宽度"
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:188
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:255
 msgid "height"
-msgstr ""
+msgstr "高度"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:189
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:256
 msgid "minGap"
-msgstr ""
+msgstr "最小间隔 （minGap）"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:190
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:257
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:227
 msgid "mass [kg]"
-msgstr ""
+msgstr "质量 [kg]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:191
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:259
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:231
 msgid "maximum speed [m/s]"
-msgstr ""
+msgstr "最大速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:130
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:185
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1016
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:221
 msgid "length [m]"
-msgstr ""
+msgstr "长度 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:132
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:145
 #: C:\Repos\sumo/src\guisim\GUIInstantInductLoop.cpp:98
 msgid "lane"
-msgstr ""
+msgstr "车道"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:134
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:82
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:147
 #: C:\Repos\sumo/src\guisim\GUIInstantInductLoop.cpp:100
 msgid "vTypes"
-msgstr ""
+msgstr "交通实体类型（vTypes）"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:137
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:194
 msgid "vehicles [#]"
-msgstr ""
+msgstr "车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:139
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:154
 msgid "occupancy [%]"
-msgstr ""
+msgstr "占有率 [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:141
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:86
 msgid "mean speed [m/s]"
-msgstr ""
+msgstr "平均速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:143
 msgid "mean vehicle length [m]"
-msgstr ""
+msgstr "平均车辆长度 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:145
 msgid "jam number [#]"
-msgstr ""
+msgstr "堵塞车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:147
 msgid "max jam length [veh]"
-msgstr ""
+msgstr "最大排队长度 [veh]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:149
 msgid "max jam length [m]"
-msgstr ""
+msgstr "最大排队距离 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:151
 msgid "jam length sum [veh]"
-msgstr ""
+msgstr "排队长度累计 [veh]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:153
 msgid "jam length sum [m]"
-msgstr ""
+msgstr "排队距离累计 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:155
 msgid "started halts [#]"
-msgstr ""
+msgstr "已起动车辆的停车次数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:157
 msgid "interval seen vehicles [#]"
-msgstr ""
+msgstr "区间内检测到的车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:159
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:164
 msgid "interval speed [m/s]"
-msgstr ""
+msgstr "区间速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:161
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:166
 msgid "interval occupancy [%]"
-msgstr ""
+msgstr "区间占有率 [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:163
 msgid "interval max jam length [m]"
-msgstr ""
+msgstr "区间最大排队距离 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:165
 msgid "last interval seen vehicles [#]"
-msgstr ""
+msgstr "上一区间内检测到的车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:167
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:170
 msgid "last interval speed [m/s]"
-msgstr ""
+msgstr "上一区间的区间速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:169
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:172
 msgid "last interval occupancy [%]"
-msgstr ""
+msgstr "上一区间的区间占有率 [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:171
 msgid "last interval max jam length [m]"
-msgstr ""
+msgstr "上一区间的区间最长排队距离 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:84
 msgid "vehicles within [#]"
-msgstr ""
+msgstr "区域内部车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:88
 msgid "haltings [#]"
-msgstr ""
+msgstr "停车次数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:90
 msgid "last interval mean travel time [s]"
-msgstr ""
+msgstr "上一区间的平均行程时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:92
 msgid "last interval mean haltings [#]"
-msgstr ""
+msgstr "上一区间的平均停车次数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:94
 msgid "last interval mean time loss [s]"
-msgstr ""
+msgstr "上一区间的平均损失时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:96
 msgid "last interval mean vehicle count [#]"
-msgstr ""
+msgstr "上一区间的平均车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:184
 msgid "max speed [m/s]"
-msgstr ""
+msgstr "最大速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:186
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1018
 msgid "street name"
-msgstr ""
+msgstr "街道名称"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:187
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1026
 msgid "pending insertions [#]"
-msgstr ""
+msgstr "挂起的插入数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:188
 msgid "mean friction [%]"
-msgstr ""
+msgstr "平均摩擦系数 [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:189
 msgid "mean vehicle speed [m/s]"
-msgstr ""
+msgstr "平均车速 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:190
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1021
 msgid "routing speed [m/s]"
-msgstr ""
+msgstr "路由速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:191
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1023
 msgid "time penalty [s]"
-msgstr ""
+msgstr "时间处罚 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:192
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1024
 msgid "brutto occupancy [%]"
-msgstr ""
+msgstr "总占用率 [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:193
 msgid "flow [veh/h/lane]"
-msgstr ""
+msgstr "流率 [veh/h/lane]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:197
 msgid "segment index"
-msgstr ""
+msgstr "路段索引"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:198
 msgid "segment queues"
-msgstr ""
+msgstr "路段队列"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:199
 msgid "segment length [m]"
-msgstr ""
+msgstr "路段长度 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:200
 msgid "segment allowed speed [m/s]"
-msgstr ""
+msgstr "路段限速 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:201
 msgid "segment jam threshold [%]"
-msgstr ""
+msgstr "路段拥堵阈值 [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:202
 msgid "segment brutto occupancy [%]"
-msgstr ""
+msgstr "路段总占用率 [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:203
 msgid "segment mean vehicle speed [m/s]"
-msgstr ""
+msgstr "路段平均车速 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:204
 msgid "segment flow [veh/h/lane]"
-msgstr ""
+msgstr "路段流率 [veh/h/lane]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:205
 msgid "segment vehicles [#]"
-msgstr ""
+msgstr "路段车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:206
 msgid "segment leader leave time"
-msgstr ""
+msgstr "路段头车离去时间"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:207
 msgid "segment headway [s]"
-msgstr ""
+msgstr "路段车头时距"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:208
 msgid "segment entry block time [s]"
-msgstr ""
+msgstr "路段进入区域时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:226
 msgid "Type Information:"
-msgstr ""
+msgstr "类型信息："
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:227
 msgid "type [id]"
-msgstr ""
+msgstr "类型 [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:228
 msgid "tauff"
-msgstr ""
+msgstr "tauff（自由流路段间的最大间距）"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:229
 msgid "taufj"
-msgstr ""
+msgstr "taufj（自由流路段到阻塞流路段的最大间距）"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:230
 msgid "taujf"
-msgstr ""
+msgstr "taujf（阻塞流路段到自由流路段的最大间距）"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:231
 msgid "taujj"
-msgstr ""
+msgstr "taujj（阻塞流路段间的最大间距）"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:232
 msgid "jam threshold"
-msgstr ""
+msgstr "阻塞阈值"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:233
 msgid "junction control"
-msgstr ""
+msgstr "连接点控制"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:234
 msgid "tls penalty"
-msgstr ""
+msgstr "交通信号灯惩罚"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:235
 msgid "tls flow penalty"
-msgstr ""
+msgstr "交通信号灯流量惩罚"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:236
 msgid "minor penalty"
-msgstr ""
+msgstr "轻微惩罚"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:237
 msgid "overtaking"
-msgstr ""
+msgstr "超越"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:150
 msgid "entered vehicles [-]"
-msgstr ""
+msgstr "进入的车辆数 [-]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:156
 msgid "vehicle length [m]"
-msgstr ""
+msgstr "车辆长度 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:158
 msgid "empty time [s]"
-msgstr ""
+msgstr "空闲时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:160
 msgid "occupied time [s]"
-msgstr ""
+msgstr "占用时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:162
 msgid "interval entered vehicles [#]"
-msgstr ""
+msgstr "区间内进入的车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:168
 msgid "last interval entered vehicles [#]"
-msgstr ""
+msgstr "上一区间内进入的车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIJunctionWrapper.cpp:114
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1028
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:241
 msgid "type"
-msgstr ""
+msgstr "类型"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:964
 msgid "Copy edge name to clipboard"
-msgstr ""
+msgstr "复制道路名称到剪贴板"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:972
 msgid "pos: "
-msgstr ""
+msgstr "位置： "
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:972
 msgid "height: "
-msgstr ""
+msgstr "高度： "
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:981
 msgid "Reopen lane"
-msgstr ""
+msgstr "重启车道"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:982
 msgid "Reopen edge"
-msgstr ""
+msgstr "重启道路"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:984
 msgid "Reopen lane (override rerouter)"
-msgstr ""
+msgstr "重启车道（优先于重路由器）"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:985
 msgid "Reopen edge (override rerouter)"
-msgstr ""
+msgstr "重启道路（优先于重路由器）"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:988
 msgid "Close lane"
-msgstr ""
+msgstr "关闭车道"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:989
 msgid "Close edge"
-msgstr ""
+msgstr "关闭道路"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:991
 msgid "Add rerouter"
-msgstr ""
+msgstr "添加重路由器"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:996
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2049
 msgid "Select reachable"
-msgstr ""
+msgstr "选择可达部分"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1009
 msgid "allowed speed [m/s]"
-msgstr ""
+msgstr "限速 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1017
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:222
 msgid "width [m]"
-msgstr ""
+msgstr "宽度 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1019
 msgid "stored travel time [s]"
-msgstr ""
+msgstr "存储的行程时间"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1020
 msgid "loaded weight"
-msgstr ""
+msgstr "加载的权重"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1022
 msgid "lane friction coefficient [%]"
-msgstr ""
+msgstr "车道摩擦系数 [%]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1025
 msgid "netto occupancy [%]"
-msgstr ""
+msgstr "净占有率 [%]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1027
 msgid "edge type"
-msgstr ""
+msgstr "道路类型"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1029
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:257
 msgid "priority"
-msgstr ""
+msgstr "优化级"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1030
 msgid "distance [km]"
-msgstr ""
+msgstr "距离 [km]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1031
 msgid "allowed vehicle class"
-msgstr ""
+msgstr "允许的交通实体类型"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1032
 msgid "disallowed vehicle class"
-msgstr ""
+msgstr "禁止的交通实体类型"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1033
 msgid "permission code"
-msgstr ""
+msgstr "权限代码"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1034
 msgid "color value"
-msgstr ""
+msgstr "色值"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1036
 msgid "bidi-lane"
-msgstr ""
+msgstr "双向车道"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
@@ -1758,155 +1758,155 @@ msgstr "路网规模超过1光年。请重新考虑您的输入。\n"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:481
 msgid "loaded vehicles [#]"
-msgstr ""
+msgstr "已加载的车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:483
 msgid "insertion-backlogged vehicles [#]"
-msgstr ""
+msgstr "插入被积压的车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:485
 msgid "departed vehicles [#]"
-msgstr ""
+msgstr "已出发的车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:487
 msgid "running vehicles [#]"
-msgstr ""
+msgstr "运行中的车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:489
 msgid "arrived vehicles [#]"
-msgstr ""
+msgstr "已到达的车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:491
 msgid "discarded vehicles [#]"
-msgstr ""
+msgstr "报废的车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:493
 msgid "collisions [#]"
-msgstr ""
+msgstr "碰撞次数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:495
 msgid "teleports [#]"
-msgstr ""
+msgstr "传送次数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:497
 msgid "halting [#]"
-msgstr ""
+msgstr "停止次数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:499
 msgid "stopped [#]"
-msgstr ""
+msgstr "驻留次数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:501
 msgid "avg. speed [m/s]"
-msgstr ""
+msgstr "平均速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:503
 msgid "avg. relative speed"
-msgstr ""
+msgstr "平均相对速度"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:506
 msgid "loaded persons [#]"
-msgstr ""
+msgstr "已加载的行人数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:508
 msgid "running persons [#]"
-msgstr ""
+msgstr "运行中的行人数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:510
 msgid "jammed persons [#]"
-msgstr ""
+msgstr "被堵塞的行人数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:513
 msgid "end time [s]"
-msgstr ""
+msgstr "结束时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:514
 msgid "begin time [s]"
-msgstr ""
+msgstr "起始时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:517
 msgid "step duration [ms]"
-msgstr ""
+msgstr "仿真步长 [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:518
 msgid "FPS"
-msgstr ""
+msgstr "FPS"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:519
 msgid "simulation duration [ms]"
-msgstr ""
+msgstr "仿真持续时间 [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:525
 msgid "idle duration [ms]"
-msgstr ""
+msgstr "闲置时间 [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:526
 msgid "duration factor"
-msgstr ""
+msgstr "持续时间因子"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:532
 msgid "updates per second"
-msgstr ""
+msgstr "每秒更新次数"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:533
 msgid "avg. updates per second"
-msgstr ""
+msgstr "平均每秒更新次数"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:536
 msgid "avg. trip length [m]"
-msgstr ""
+msgstr "平均行程长度 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:537
 msgid "avg. trip duration [s]"
-msgstr ""
+msgstr "平均行程持续时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:538
 msgid "avg. trip waiting time [s]"
-msgstr ""
+msgstr "平均行程等待时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:539
 msgid "avg. trip time loss [s]"
-msgstr ""
+msgstr "平均行程损失时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:540
 msgid "avg. trip depart delay [s]"
-msgstr ""
+msgstr "平均行程出发延误 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:541
 msgid "avg. trip speed [m/s]"
-msgstr ""
+msgstr "平均行程速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:543
 msgid "avg. walk length [m]"
-msgstr ""
+msgstr "平均步行距离 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:544
 msgid "avg. walk duration [s]"
-msgstr ""
+msgstr "平均步行持续时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:545
 msgid "avg. walk time loss [s]"
-msgstr ""
+msgstr "平均步行损失时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:548
 msgid "nodes [#]"
-msgstr ""
+msgstr "节点数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:549
 msgid "edges [#]"
-msgstr ""
+msgstr "道路数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:550
 msgid "total edge length [km]"
-msgstr ""
+msgstr "道路总长度 [km]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:551
 msgid "total lane length [km]"
-msgstr ""
+msgstr "道路总长度 [km]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:552
 msgid "network version "
-msgstr ""
+msgstr "路网版本 "
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:667
 msgid "Trying to set data value for the unknown edge '%'."
@@ -1923,147 +1923,147 @@ msgstr "仿真开始时间后没有资料被定义。"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:110
 msgid "occupancy [#]"
-msgstr ""
+msgstr "占有率 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:111
 msgid "capacity [#]"
-msgstr ""
+msgstr "容量 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:112
 msgid "alternatives [#]"
-msgstr ""
+msgstr "备选数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:233
 msgid "dest stop [id]"
-msgstr ""
+msgstr "目标停靠点 [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:234
 msgid "arrival position [m]"
-msgstr ""
+msgstr "到达位置 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:241
 msgid "vehicle [id]"
-msgstr ""
+msgstr "交通实体 [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:242
 msgid "stop duration [s]"
-msgstr ""
+msgstr "驻留持续时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:258
 msgid "desired max speed [m/s]"
-msgstr ""
+msgstr "期望最大速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:240
 msgid "tlLogic [id]"
-msgstr ""
+msgstr "交通信号灯组 [id]"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:242
 msgid "program"
-msgstr ""
+msgstr "信号方案"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:243
 msgid "phase"
-msgstr ""
+msgstr "相位"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:244
 msgid "phase name"
-msgstr ""
+msgstr "相位名称"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:245
 msgid "duration"
-msgstr ""
+msgstr "持续时间"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:246
 msgid "minDur"
-msgstr ""
+msgstr "最小持续时间"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:247
 msgid "maxDur"
-msgstr ""
+msgstr "最大持续时间"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:248
 msgid "running duration"
-msgstr ""
+msgstr "运行持续时间"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:249
 msgid "earliestEnd"
-msgstr ""
+msgstr "最早结束"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:250
 msgid "latestEnd"
-msgstr ""
+msgstr "最晚结束"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:251
 msgid "time in cycle"
-msgstr ""
+msgstr "周期内时刻"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:252
 msgid "cycle time"
-msgstr ""
+msgstr "周期时长"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:255
 msgid "blocking"
-msgstr ""
+msgstr "被阻塞的车辆"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:256
 msgid "rival"
-msgstr ""
+msgstr "竞争的车辆"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:258
 msgid "constraint"
-msgstr ""
+msgstr "限制信息"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:104
 msgid "lane [id]"
-msgstr ""
+msgstr "车道 [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:106
 msgid "shadow lane [id]"
-msgstr ""
+msgstr "影子车道 [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:109
 msgid "target lane [id]"
-msgstr ""
+msgstr "目标车道 [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:112
 msgid "back lanes [id,..]"
-msgstr ""
+msgstr "后车道 [id,...]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:116
 msgid "lateral offset [m]"
-msgstr ""
+msgstr "横向偏移 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:120
 msgid "lateral speed [m/s]"
-msgstr ""
+msgstr "横向速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:122
 msgid "acceleration [m/s^2]"
-msgstr ""
+msgstr "加速度 [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:126
 msgid "slope [degree]"
-msgstr ""
+msgstr "坡度 [degree]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:130
 msgid "time gap on lane [s]"
-msgstr ""
+msgstr "车道上的时间间隔 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:136
 msgid "time since startup [s]"
-msgstr ""
+msgstr "自启动以来的时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:138
 msgid "time loss [s]"
-msgstr ""
+msgstr "损失时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:140
 msgid "impatience"
-msgstr ""
+msgstr "不耐烦"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:142
 msgid "last lane change [s]"
-msgstr ""
+msgstr "上一次换道 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:145
 msgid "depart delay [s]"
@@ -2127,19 +2127,19 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:175
 msgid "devices"
-msgstr ""
+msgstr "设备"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:176
 msgid "persons"
-msgstr ""
+msgstr "行人"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:178
 msgid "containers"
-msgstr ""
+msgstr "载具"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:180
 msgid "lcState right"
-msgstr ""
+msgstr "换道模式为"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:181
 msgid "lcState left"
