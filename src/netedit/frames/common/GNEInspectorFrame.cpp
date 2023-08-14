@@ -124,7 +124,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
         myCheckBoxCloseShape->enable();
         // obtain tag property (only for improve code legibility)
         const auto& tagValue = ACs.front()->getTagProperty();
-        // check if item can be mark as front elmenet
+        // check if item can be mark as front element
         if (ACs.size() == 1) {
             // show NeteditAttributesEditor
             show();
@@ -159,7 +159,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
                 myCheckBoxCloseShape->setText("false");
             }
         }
-        // Check if item has another item as parent and can be reparemt
+        // Check if item has another item as parent and can be reparent
         if (tagValue.isChild() && tagValue.canBeReparent()) {
             // show NeteditAttributesEditor
             show();
@@ -276,7 +276,7 @@ GNEInspectorFrame::NeteditAttributesEditor::setNewParent(GNEAttributeCarrier* cl
                 }
                 // stop select parent
                 stopSelectParent();
-                // resfresh netedit attributes editor
+                // refresh netedit attributes editor
                 refreshNeteditAttributesEditor(true);
             }
         }
@@ -348,7 +348,7 @@ long
 GNEInspectorFrame::NeteditAttributesEditor::onCmdMarkFrontElement(FXObject*, FXSelector, void*) {
     // check number of elements
     if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-        // mark AC as front elemnet
+        // mark AC as front element
         myInspectorFrameParent->getViewNet()->setFrontAttributeCarrier(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front());
         // disable button
         myMarkFrontElementButton->disable();
@@ -517,7 +517,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
                     myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
                 }
             } else {
-                throw ProcessError("myGEOAttributeTextField must be hidden becaurse there isn't GEO Attribute to edit");
+                throw ProcessError("myGEOAttributeTextField must be hidden because there isn't GEO Attribute to edit");
             }
         } else if (obj == myUseGEOCheckButton) {
             // update GEO Attribute of entire selection
@@ -591,7 +591,7 @@ GNEInspectorFrame::TemplateEditor::showTemplateEditor() {
         }
         // update buttons
         updateButtons();
-        // show modul
+        // show module
         show();
     }
 }
@@ -763,29 +763,29 @@ GNEInspectorFrame::AdditionalDialog::showAdditionalDialog() {
             // update button
             myOpenAdditionalDialog->setText(TL("Open rerouter dialog"));
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::REROUTER));
-            // show modul
+            // show module
             show();
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_CALIBRATOR) {
             // update button
             myOpenAdditionalDialog->setText(TL("Open calibrator dialog"));
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR));
-            // show modul
+            // show module
             show();
         } else if (AC->getTagProperty().getTag() == GNE_TAG_CALIBRATOR_LANE) {
             // update button
             myOpenAdditionalDialog->setText(TL("Open calibrator lane dialog"));
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR));
-            // show modul
+            // show module
             show();
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_VSS) {
             // update button
             myOpenAdditionalDialog->setText(TL("Open VSS dialog"));
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN));
-            // show modul
+            // show module
             show();
         }
     } else {
-        // hide modul
+        // hide module
         hide();
     }
 }
@@ -834,28 +834,28 @@ GNEInspectorFrame::GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     myHeaderLeftFrame->hide();
     myBackButton->hide();
 
-    // Create Overlapped Inspection modul
+    // Create Overlapped Inspection module
     myOverlappedInspection = new GNEOverlappedInspection(this);
 
-    // Create Attributes Editor modul
+    // Create Attributes Editor module
     myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
 
-    // Create GEO Parameters Editor modul
+    // Create GEO Parameters Editor module
     myGEOAttributesEditor = new GEOAttributesEditor(this);
 
-    // create parameters Editor modul
+    // create parameters Editor module
     myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);
 
     // create additional dialog
     myAdditionalDialog = new AdditionalDialog(this);
 
-    // Create Netedit Attributes Editor modul
+    // Create Netedit Attributes Editor module
     myNeteditAttributesEditor = new NeteditAttributesEditor(this);
 
-    // Create Template editor modul
+    // Create Template editor module
     myTemplateEditor = new TemplateEditor(this);
 
-    // Create GNEElementTree modul
+    // Create GNEElementTree module
     myHierarchicalElementTree = new GNEElementTree(this);
 }
 
@@ -997,7 +997,7 @@ GNEInspectorFrame::inspectSingleElement(GNEAttributeCarrier* AC) {
             const auto selectedACs = myViewNet->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(false);
             // iterate over selected ACs
             for (const auto& selectedAC : selectedACs) {
-                // filter ACs to inspect using Tag as criterium
+                // filter ACs to inspect using Tag as criterion
                 if (selectedAC->getTagProperty().getTag() == AC->getTagProperty().getTag()) {
                     itemsToInspect.push_back(selectedAC);
                 }
@@ -1208,7 +1208,7 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCur
     if (AC) {
         // inspect front element
         inspectSingleElement(AC);
-        // show Overlapped Inspection modul
+        // show Overlapped Inspection module
         myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
     }
 }

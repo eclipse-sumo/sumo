@@ -27,7 +27,7 @@
 // ===========================================================================
 
 GNETypeDistributionFrame::GNETypeDistributionFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Type Distributions") {
+    GNEFrame(viewParent, viewNet, TL("Type Distributions")) {
 
     /// @brief type editor
     myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this, GUIIcon::VTYPEDISTRIBUTION);

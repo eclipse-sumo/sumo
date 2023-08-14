@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-14 13:33+0200\n"
+"POT-Creation-Date: 2023-08-14 14:32+0200\n"
 "PO-Revision-Date: 2023-08-14 09:46+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -10285,6 +10285,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:292
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:167
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:118
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:123
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1835
 msgid "Vehicles"
 msgstr "车辆"
@@ -10766,6 +10767,7 @@ msgid "Inspect"
 msgstr "检查"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:324
+#: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:331
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:267
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:84
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:98
@@ -11364,11 +11366,13 @@ msgstr "通讯线要素"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:170
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:126
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:119
 msgid "Stops"
 msgstr "停"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:173
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:119
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:39
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1918
 msgid "Persons"
 msgstr "人员"
@@ -11439,6 +11443,10 @@ msgstr "保护需求要素"
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:253
 msgid "Protect data elements"
 msgstr "保护数据元素"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:362
+msgid "remove selected items"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:48
 msgid "Element Set"
@@ -11784,6 +11792,10 @@ msgstr "-移动几何点"
 msgid "-Merge geometry point"
 msgstr "-合并几何点"
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:660
+msgid "Move"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:79
 msgid "Selection information"
 msgstr "选择信息"
@@ -11807,10 +11819,12 @@ msgid "WalkingAreas"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:103
+#: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:136
 msgid "Additionals"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:104
+#: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:35
 msgid "Wires"
 msgstr ""
 
@@ -11842,10 +11856,12 @@ msgid "JuPedSims"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:188
 msgid "Routes"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:123
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:39
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1958
 msgid "Containers"
 msgstr "容器"
@@ -12095,6 +12111,10 @@ msgstr "复制MeanData"
 msgid "Current MeanData"
 msgstr "当前的 MeanData"
 
+#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:451
+msgid "MeanData"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:54
 msgid "Confirm TAZRelation"
 msgstr "确认交通分区（TAZ）的关系"
@@ -12163,6 +12183,10 @@ msgstr "带有vClass != 'ignoring'的VType不是面向容器的"
 msgid "Invalid container parameters."
 msgstr "无效的容器参数。"
 
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:40
+msgid "ContainerPlans"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:76
 msgid "Distribution Editor"
 msgstr ""
@@ -12205,6 +12229,14 @@ msgstr "带有vClass != 'pedestrian'的VType不是面向人的"
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:287
 msgid "Invalid person parameters."
 msgstr "无效的人员参数。"
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:39
+msgid "PersonPlans"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:30
+msgid "Route Distributions"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:52
 msgid "Route mode"
@@ -12275,6 +12307,10 @@ msgstr "停靠必须放在路径的路段上"
 msgid "Stop must be placed over an embedded route's edge"
 msgstr "必须在嵌入路线的路段上设置停车位"
 
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:30
+msgid "Type Distributions"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:62
 msgid "Current Type"
 msgstr "当前类型"
@@ -12310,6 +12346,10 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:331
 msgid "reset default vehicle type values"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:407
+msgid "Types"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72

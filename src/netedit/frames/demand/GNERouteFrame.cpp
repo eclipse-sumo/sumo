@@ -185,17 +185,17 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
 // ---------------------------------------------------------------------------
 
 GNERouteFrame::GNERouteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Routes"),
+    GNEFrame(viewParent, viewNet, TL("Routes")),
     myRouteHandler("", myViewNet->getNet(), true, false),
     myRouteBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
-    // create route mode Selector modul
+    // create route mode Selector module
     myRouteModeSelector = new RouteModeSelector(this);
 
     // Create route parameters
     myRouteAttributes = new GNEAttributesCreator(this);
 
-    // create consecutive edges modul
+    // create consecutive edges module
     myPathCreator = new GNEPathCreator(this);
 
     // create legend label
@@ -277,7 +277,7 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         }
         // set edges in route base object
         myRouteBaseObject->addStringListAttribute(SUMO_ATTR_EDGES, edges);
-        // creare route
+        // create route
         myRouteHandler.parseSumoBaseObject(myRouteBaseObject);
         // abort path creation
         myPathCreator->abortPathCreation();

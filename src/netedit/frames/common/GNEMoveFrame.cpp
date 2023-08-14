@@ -657,20 +657,20 @@ GNEMoveFrame::Information::~Information() {}
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::GNEMoveFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Move") {
+    GNEFrame(viewParent, viewNet, TL("Move")) {
     // create common mode options
     myCommonModeOptions = new CommonModeOptions(this);
     // create network mode options
     myNetworkModeOptions = new NetworkModeOptions(this);
     // create demand mode options
     myDemandModeOptions = new DemandModeOptions(this);
-    // create shift edge geometry modul
+    // create shift edge geometry module
     myShiftEdgeSelectedGeometry = new ShiftEdgeSelectedGeometry(this);
     // create change z selection
     myChangeZInSelection = new ChangeZInSelection(this);
     // create information label
     myInformation = new Information(this);
-    // create shift shape geometry modul
+    // create shift shape geometry module
     myShiftShapeGeometry = new ShiftShapeGeometry(this);
 }
 

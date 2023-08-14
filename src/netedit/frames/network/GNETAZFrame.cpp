@@ -1445,28 +1445,28 @@ GNETAZFrame::GNETAZFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("TAZs")),
     myBaseTAZ(nullptr) {
 
-    // create current TAZ modul
+    // create current TAZ module
     myCurrentTAZ = new CurrentTAZ(this);
 
-    // Create TAZ Parameters modul
+    // Create TAZ Parameters module
     myTAZParameters = new TAZParameters(this);
 
-    // Create drawing controls modul
+    // Create drawing controls module
     myDrawingShape = new GNEDrawingShape(this);
 
-    // Create TAZ Edges Common Statistics modul
+    // Create TAZ Edges Common Statistics module
     myTAZCommonStatistics = new TAZCommonStatistics(this);
 
-    // Create save TAZ Edges modul
+    // Create save TAZ Edges module
     myTAZSaveChanges = new TAZSaveChanges(this);
 
-    // Create TAZ Edges Common Parameters modul
+    // Create TAZ Edges Common Parameters module
     myTAZChildDefaultParameters = new TAZChildDefaultParameters(this);
 
-    // Create TAZ Edges Selection Statistics modul
+    // Create TAZ Edges Selection Statistics module
     myTAZSelectionStatistics = new TAZSelectionStatistics(this);
 
-    // Create TAZ Edges Common Parameters modul
+    // Create TAZ Edges Common Parameters module
     myTAZEdgesGraphic = new TAZEdgesGraphic(this);
 
     // by default there isn't a TAZ

@@ -355,19 +355,19 @@ GNEConnectorFrame::GNEConnectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     GNEFrame(viewParent, viewNet, TL("Edit Connections")),
     myCurrentEditedLane(0),
     myNumChanges(0) {
-    // create current lane modul
+    // create current lane module
     myCurrentLane = new CurrentLane(this);
 
-    // create connection modifications modul
+    // create connection modifications module
     myConnectionModifications = new ConnectionModifications(this);
 
-    // create connection operations modul
+    // create connection operations module
     myConnectionOperations = new ConnectionOperations(this);
 
-    // create connection selection modul
+    // create connection selection module
     myConnectionSelection = new ConnectionSelection(this);
 
-    // create connection legend modul
+    // create connection legend module
     myLegend = new Legend(this);
 }
 
@@ -403,7 +403,7 @@ GNEConnectorFrame::removeConnections(GNELane* lane) {
     buildConnection(lane, false, false, true); // select as current lane
     // iterate over all potential targets
     for (const auto& potentialTarget : myPotentialTargets) {
-        // remove connections using the apropiate parameters in function "buildConnection"
+        // remove connections using the appropiate parameters in function "buildConnection"
         buildConnection(potentialTarget, false, false, false);
     }
     // save modifications
@@ -491,7 +491,7 @@ void
 GNEConnectorFrame::initTargets() {
     // gather potential targets
     NBNode* nbn = myCurrentEditedLane->getParentEdge()->getToJunction()->getNBNode();
-    // get potencial targets
+    // get potential targets
     for (const auto& NBEEdge : nbn->getOutgoingEdges()) {
         GNEEdge* edge = myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(NBEEdge->getID());
         for (const auto& lane : edge->getLanes()) {

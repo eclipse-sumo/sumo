@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-14 13:33+0200\n"
+"POT-Creation-Date: 2023-08-14 14:32+0200\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -10246,6 +10246,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:292
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:167
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:118
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:123
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1835
 msgid "Vehicles"
 msgstr ""
@@ -10727,6 +10728,7 @@ msgid "Inspect"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:324
+#: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:331
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:267
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:84
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:98
@@ -11325,11 +11327,13 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:170
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:126
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:119
 msgid "Stops"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:173
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:119
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:39
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1918
 msgid "Persons"
 msgstr ""
@@ -11399,6 +11403,10 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:253
 msgid "Protect data elements"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:362
+msgid "remove selected items"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:48
@@ -11734,6 +11742,10 @@ msgstr ""
 msgid "-Merge geometry point"
 msgstr ""
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:660
+msgid "Move"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:79
 msgid "Selection information"
 msgstr ""
@@ -11757,10 +11769,12 @@ msgid "WalkingAreas"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:103
+#: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:136
 msgid "Additionals"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:104
+#: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:35
 msgid "Wires"
 msgstr ""
 
@@ -11792,10 +11806,12 @@ msgid "JuPedSims"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:188
 msgid "Routes"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:123
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:39
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1958
 msgid "Containers"
 msgstr ""
@@ -12045,6 +12061,10 @@ msgstr ""
 msgid "Current MeanData"
 msgstr ""
 
+#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:451
+msgid "MeanData"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:54
 msgid "Confirm TAZRelation"
 msgstr ""
@@ -12113,6 +12133,10 @@ msgstr ""
 msgid "Invalid container parameters."
 msgstr ""
 
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:40
+msgid "ContainerPlans"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:76
 msgid "Distribution Editor"
 msgstr ""
@@ -12154,6 +12178,14 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:287
 msgid "Invalid person parameters."
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:39
+msgid "PersonPlans"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:30
+msgid "Route Distributions"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:52
@@ -12225,6 +12257,10 @@ msgstr ""
 msgid "Stop must be placed over an embedded route's edge"
 msgstr ""
 
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:30
+msgid "Type Distributions"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:62
 msgid "Current Type"
 msgstr ""
@@ -12260,6 +12296,10 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:331
 msgid "reset default vehicle type values"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:407
+msgid "Types"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72

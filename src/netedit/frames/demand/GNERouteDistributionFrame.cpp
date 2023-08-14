@@ -27,7 +27,7 @@
 // ===========================================================================
 
 GNERouteDistributionFrame::GNERouteDistributionFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Route Distributions") {
+    GNEFrame(viewParent, viewNet, TL("Route Distributions")) {
 
     /// @brief route editor
     myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this, GUIIcon::ROUTEDISTRIBUTION);

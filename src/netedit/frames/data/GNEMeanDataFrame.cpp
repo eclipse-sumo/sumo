@@ -448,7 +448,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
 // ---------------------------------------------------------------------------
 
 GNEMeanDataFrame::GNEMeanDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "MeanData") {
+    GNEFrame(viewParent, viewNet, TL("MeanData")) {
     // build meanData type selector
     myMeanDataTypeSelector = new MeanDataTypeSelector(this);
     // build meanData editor

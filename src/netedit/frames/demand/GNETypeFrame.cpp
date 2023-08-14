@@ -404,7 +404,7 @@ GNETypeFrame::TypeEditor::deleteType() {
 // ---------------------------------------------------------------------------
 
 GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Types") {
+    GNEFrame(viewParent, viewNet, TL("Types")) {
 
     // create module for edit vehicle types (Create, copy, etc.)
     myTypeEditor = new TypeEditor(this);
@@ -418,7 +418,7 @@ GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     // create module for open extended attributes dialog
     myAttributesEditorExtended = new GNEFrameAttributeModules::AttributesEditorExtended(this);
 
-    /// create module for edit parameteres
+    /// create module for edit parameters
     myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);
 
     // set "VTYPE_DEFAULT" as default vehicle Type

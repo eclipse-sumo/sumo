@@ -580,13 +580,13 @@ GNEGenericDataFrame::GNEGenericDataFrame(GNEViewParent* viewParent, GNEViewNet* 
     myGenericDataTag(tag) {
     // create DataSetSelector
     myDataSetSelector = new DataSetSelector(this);
-    // create IntervalSelector modul
+    // create IntervalSelector module
     myIntervalSelector = new IntervalSelector(this);
-    // create AttributeSelector modul
+    // create AttributeSelector module
     myAttributeSelector = new AttributeSelector(this, tag);
-    // create parameter editor modul
+    // create parameter editor module
     myGenericDataAttributes = new GNEFrameAttributeModules::GenericDataAttributes(this);
-    // create GNEPathCreator modul
+    // create GNEPathCreator module
     if (pathCreator) {
         myPathCreator = new GNEPathCreator(this);
     }
@@ -604,7 +604,7 @@ GNEGenericDataFrame::intervalSelected() {
 
 bool
 GNEGenericDataFrame::createPath(const bool /*useLastRoute*/) {
-    // this function has to be reimplemente in all child frames that uses a GNEPathCreator
+    // this function has to be reimplemented in all child frames that uses a GNEPathCreator
     return false;
 }
 

@@ -36,10 +36,10 @@
 // ---------------------------------------------------------------------------
 
 GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "PersonPlans"),
+    GNEFrame(viewParent, viewNet, TL("PersonPlans")),
     myRouteHandler("", viewNet->getNet(), true, false) {
 
-    // create person types selector modul
+    // create person types selector module
     myPersonSelector = new DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
 
     // Create tag selector for person plan
@@ -51,7 +51,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
     // create myPathCreator Module
     myPathCreator = new GNEPathCreator(this);
 
-    // Create GNEElementTree modul
+    // Create GNEElementTree module
     myPersonHierarchy = new GNEElementTree(this);
 
     // create legend label
@@ -67,7 +67,7 @@ GNEPersonPlanFrame::show() {
     // get persons maps
     const auto& persons = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON);
     const auto& personFlows = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW);
-    // Only show moduls if there is at least one person
+    // Only show modules if there is at least one person
     if ((persons.size() > 0) || (personFlows.size() > 0)) {
         // show person selector
         myPersonSelector->showDemandElementSelector();
@@ -96,7 +96,7 @@ GNEPersonPlanFrame::show() {
             myPersonSelector->setDemandElement(nullptr);
         }
     } else {
-        // hide all moduls
+        // hide all modules
         myPersonSelector->hideDemandElementSelector();
         myPersonPlanTagSelector->hideTagSelector();
         myPersonPlanAttributes->hideAttributesCreatorModule();
@@ -238,7 +238,7 @@ GNEPersonPlanFrame::tagSelected() {
         // show person hierarchy
         myPersonHierarchy->showHierarchicalElementTree(myPersonSelector->getCurrentDemandElement());
     } else {
-        // hide moduls if tag selecte isn't valid
+        // hide modules if tag selected isn't valid
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
@@ -264,7 +264,7 @@ GNEPersonPlanFrame::demandElementSelected() {
             myPathLegend->hidePathLegendModule();
         }
     } else {
-        // hide moduls if person selected isn't valid
+        // hide modules if person selected isn't valid
         myPersonPlanTagSelector->hideTagSelector();
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
