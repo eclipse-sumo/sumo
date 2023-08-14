@@ -58,8 +58,8 @@ public:
     /// @brief get map with distribution keys and values
     const std::map<const GNEDemandElement*, double> &getDistributionKeyValues() const;
 
-    /// @brief get list of possible keys
-    std::vector<GNEDemandElement*> getPossibleDistributionKeys(SumoXMLTag type) const;
+    /// @brief get list of possible keys sorted by ID
+    std::map<std::string, GNEDemandElement*> getPossibleDistributionKeys(SumoXMLTag type) const;
 
     /// @brief get attribute distribution keys in string format sorted by ID
     std::string getAttributeDistributionKeys() const;

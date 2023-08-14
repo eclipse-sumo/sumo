@@ -328,7 +328,7 @@ GNEDistributionFrame::DistributionRow::refreshRow() {
     myComboBoxKeys->clearItems();
     myComboBoxKeys->appendItem(myKey->getID().c_str());
     for (const auto &possibleKey : possibleKeys) {
-        myComboBoxKeys->appendItem(possibleKey->getID().c_str());
+        myComboBoxKeys->appendItem(possibleKey.first.c_str());
     }
     myComboBoxKeys->setCurrentItem(0);
     // adjust combo Box
@@ -382,7 +382,7 @@ GNEDistributionFrame::DistributionRow::onCmdSetKey(FXObject*, FXSelector, void*)
             myDistributionValuesEditorParent->refreshRows();
         }
     } else {
-        myComboBoxKeys->setBackColor(FXRGB(255, 255, 255));
+        myComboBoxKeys->setTextColor(FXRGB(255, 0, 0));
         myComboBoxKeys->killFocus();
     }
     return 1;
@@ -411,7 +411,7 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
         // update sum label
         myDistributionValuesEditorParent->updateSumLabel();
     } else {
-        myProbabilityTextField->setBackColor(FXRGB(255, 255, 255));
+        myProbabilityTextField->setTextColor(FXRGB(255, 0, 0));
         myProbabilityTextField->killFocus();
     }
     return 1;
@@ -558,9 +558,9 @@ GNEDistributionFrame::DistributionValuesEditor::onCmdAddRow(FXObject*, FXSelecto
         return 1;
     }
     // add first possible key
-    myDistributionSelector->getCurrentDistribution()->addDistributionKey(possibleKeys.front(), 0.5, myFrameParent->getViewNet()->getUndoList());
-    // create rows
-    createRows();
+    myDistributionSelector->getCurrentDistribution()->addDistributionKey(possibleKeys.begin()->second, 0.5, myFrameParent->getViewNet()->getUndoList());
+    // remake rows
+    remakeRows();
     return 1;
 }
 

@@ -66,15 +66,15 @@ GNEDemandElementDistribution::getDistributionKeyValues() const {
 }
 
 
-std::vector<GNEDemandElement*>
+std::map<std::string, GNEDemandElement*>
 GNEDemandElementDistribution::getPossibleDistributionKeys(SumoXMLTag type) const {
-    std::vector<GNEDemandElement*> possibleKeys;
+    std::map<std::string, GNEDemandElement*> possibleKeys;
     // get list of possible keys
     auto allKeys = myDemandElement->getNet()->getAttributeCarriers()->getDemandElements().at(type);
     // fill possible keys with non used keys
     for (const auto &key : allKeys) {
         if (!keyExists(key)) {
-            possibleKeys.push_back(key);
+            possibleKeys[key->getID()] = key;
         }
     }
     return possibleKeys;
