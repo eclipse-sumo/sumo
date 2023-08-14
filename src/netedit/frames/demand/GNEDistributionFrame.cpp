@@ -301,12 +301,8 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     if (getParent()->id() && attributeEditorParent->myDistributionSelector->getCurrentDistribution()) {
         // create DistributionRow
         FXHorizontalFrame::create();
-        // refresh combo Box
-        refreshComboBox();
-        // set probability
-        myProbabilityTextField->setText(toString(myProbability).c_str());
-        myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
-        myProbabilityTextField->killFocus();
+        // refresh row
+        refreshRow();
         // Show DistributionRow
         show();
     }
@@ -323,18 +319,7 @@ GNEDistributionFrame::DistributionRow::destroy() {
 
 
 void
-GNEDistributionFrame::DistributionRow::refreshDistributionRow(const GNEDemandElement* key, const double value) {
-    // set key
-    myComboBoxKeys->setText(key->getID().c_str());
-    // set probability
-    myProbabilityTextField->setText(toString(value).c_str());
-    myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
-    myProbabilityTextField->killFocus();
-}
-
-
-void
-GNEDistributionFrame::DistributionRow::refreshComboBox() {
+GNEDistributionFrame::DistributionRow::refreshRow() {
     // get distribution selector
     const auto currentDistribution = myDistributionValuesEditorParent->myDistributionSelector->getCurrentDistribution();
     // get possible keys
@@ -350,6 +335,10 @@ GNEDistributionFrame::DistributionRow::refreshComboBox() {
     myComboBoxKeys->setNumVisible(myComboBoxKeys->getNumItems() <= 10? myComboBoxKeys->getNumItems() : 10);
     myComboBoxKeys->setTextColor(FXRGB(0, 0, 0));
     myComboBoxKeys->killFocus();
+    // set probability
+    myProbabilityTextField->setText(toString(myProbability).c_str());
+    myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+    myProbabilityTextField->killFocus();
 }
 
 
@@ -390,9 +379,9 @@ GNEDistributionFrame::DistributionRow::onCmdSetKey(FXObject*, FXSelector, void*)
             myKey = ACs->retrieveDemandElement(myDistributionValuesEditorParent->myDistributionValueTag, myComboBoxKeys->getText().text());
             currentDistribution->addDistributionKey(myKey, myProbability, undoList);
             undoList->end();
+            // refresh all rows 
+            myDistributionValuesEditorParent->refreshRows();
         }
-        // refresh rows
-        myDistributionValuesEditorParent->refreshDistributionValuesEditor();
     } else {
         myComboBoxKeys->setBackColor(FXRGB(255, 255, 255));
         myComboBoxKeys->killFocus();
@@ -414,11 +403,13 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
     const double probability = GNEAttributeCarrier::canParse<double>(probabilityStr)? GNEAttributeCarrier::parse<double>(probabilityStr) : -1;
     // Check if set new probability
     if (probability >= 0) {
-        myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+        // set new probability
+        myProbability = probability;
         // edit distribution value
         currentDistribution->editDistributionValue(myKey, probability, myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getUndoList());
-        // refresh editor
-        myDistributionValuesEditorParent->refreshDistributionValuesEditor();
+        myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+        // update sum label
+        myDistributionValuesEditorParent->updateSumLabel();
     } else {
         myProbabilityTextField->setBackColor(FXRGB(255, 255, 255));
         myProbabilityTextField->killFocus();
@@ -480,24 +471,6 @@ GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFram
 
 void
 GNEDistributionFrame::DistributionValuesEditor::showDistributionValuesEditor() {
-    // refresh
-    refreshDistributionValuesEditor();
-    // show DistributionValuesEditor
-    show();
-    // reparent help button (to place it at bottom)
-    myBotFrame->reparent(getCollapsableFrame());
-}
-
-
-void
-GNEDistributionFrame::DistributionValuesEditor::hideDistributionValuesEditor() {
-    // hide also DistributionValuesEditor
-    hide();
-}
-
-
-void
-GNEDistributionFrame::DistributionValuesEditor::refreshDistributionValuesEditor() {
     // first remove all rows
     for (auto& row : myDistributionRows) {
         // destroy and delete all rows
@@ -518,12 +491,43 @@ GNEDistributionFrame::DistributionValuesEditor::refreshDistributionValuesEditor(
             myDistributionRows.push_back(distributionRow);
         }
     }
+    // reparent help button (to place it at bottom)
+    myBotFrame->reparent(getCollapsableFrame());
+    // show DistributionValuesEditor
+    show();
+}
+
+
+void
+GNEDistributionFrame::DistributionValuesEditor::hideDistributionValuesEditor() {
+    // hide also DistributionValuesEditor
+    hide();
+}
+
+
+void
+GNEDistributionFrame::DistributionValuesEditor::refreshRows() {
+    // refresh rows
+    for (const auto &row : myDistributionRows) {
+        row->refreshRow();
+    }
 }
 
 
 GNEFrame*
 GNEDistributionFrame::DistributionValuesEditor::getFrameParent() const {
     return myFrameParent;
+}
+
+
+void
+GNEDistributionFrame::DistributionValuesEditor::updateSumLabel() {
+    // update probability
+    double sumProbability = 0;
+    for (const auto &row : myDistributionRows) {
+        sumProbability += row->getProbability();
+    }
+    mySumLabel->setText(toString(sumProbability).c_str());
 }
 
 
@@ -539,12 +543,8 @@ GNEDistributionFrame::DistributionValuesEditor::onUpdAddRow(FXObject* sender, FX
         mySumLabel->setText("");
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        // update probability
-        double sumProbability = 0;
-        for (const auto &row : myDistributionRows) {
-            sumProbability += row->getProbability();
-        }
-        mySumLabel->setText(toString(sumProbability).c_str());
+        // update sum label
+        updateSumLabel();
         // enable or disable add button depending of existents distributions
         if (myDistributionSelector->getCurrentDistribution()->getPossibleDistributionKeys(myDistributionSelector->getDistributionTag()).size() > 0) {
             return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);

@@ -172,11 +172,8 @@ public:
         /// @brief destroy GNEAttributesCreatorRow (but don't delete)
         void destroy();
 
-        /// @brief refresh current row
-        void refreshDistributionRow(const GNEDemandElement* key, const double value);
-
         /// @brief refresh comboBox
-        void refreshComboBox();
+        void refreshRow();
 
         /// @brief check if current attribute of TextField/ComboBox is valid
         bool isDistributionRowValid() const;
@@ -249,11 +246,14 @@ public:
         /// @brief hide attribute editor
         void hideDistributionValuesEditor();
 
-        /// @brief refresh attribute editor (only the valid values will be refresh)
-        void refreshDistributionValuesEditor();
+        /// @brief refresh rows
+        void refreshRows();
 
         /// @brief pointer to GNEFrame parent
         GNEFrame* getFrameParent() const;
+
+        /// @brief update sum label
+        void updateSumLabel();
 
         /// @name FOX-callbacks
         /// @{
