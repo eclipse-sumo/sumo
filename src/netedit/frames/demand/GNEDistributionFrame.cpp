@@ -288,7 +288,7 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     // get staticTooltip menu
     auto staticTooltipMenu = attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // create label
-    new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
+    myIconLabel = new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
     // Create and hide MFXTextFieldTooltip for string attributes
     myComboBoxKeys = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // Create and hide MFXTextFieldTooltip for string attributes
@@ -342,12 +342,6 @@ GNEDistributionFrame::DistributionRow::refreshRow() {
 }
 
 
-bool
-GNEDistributionFrame::DistributionRow::isDistributionRowValid() const {
-    return myKey != nullptr;
-}
-
-
 double
 GNEDistributionFrame::DistributionRow::getProbability() const {
     return myProbability;
@@ -373,11 +367,16 @@ GNEDistributionFrame::DistributionRow::onCmdSetKey(FXObject*, FXSelector, void*)
         const auto newKey = ACs->retrieveDemandElement(myDistributionValuesEditorParent->myDistributionValueTag, myComboBoxKeys->getText().text());
         // only change if is different of current key
         if (myKey != newKey) {
-            // change distribution key removing and adding it
+            // begin undo list
             undoList->begin(myKey, "edit distribution key");
+            // remove distribution key
             currentDistribution->removeDistributionKey(myKey, undoList);
+            // sert key and icon
             myKey = ACs->retrieveDemandElement(myDistributionValuesEditorParent->myDistributionValueTag, myComboBoxKeys->getText().text());
+            myIconLabel->setIcon(myKey->getACIcon());
+            // add distribution key (and probability)
             currentDistribution->addDistributionKey(myKey, myProbability, undoList);
+            // end undo list
             undoList->end();
             // refresh all rows 
             myDistributionValuesEditorParent->refreshRows();
@@ -407,6 +406,7 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
         myProbability = probability;
         // edit distribution value
         currentDistribution->editDistributionValue(myKey, probability, myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+        // reset color
         myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
         // update sum label
         myDistributionValuesEditorParent->updateSumLabel();
@@ -428,8 +428,8 @@ GNEDistributionFrame::DistributionRow::onCmdRemoveRow(FXObject*, FXSelector, voi
     }
     // remove distribution key
     currentDistribution->removeDistributionKey(myKey, myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getUndoList());
-    // create rows again
-    myDistributionValuesEditorParent->createRows();
+    // remake rows
+    myDistributionValuesEditorParent->remakeRows();
     return 1;
 }
 
@@ -454,7 +454,7 @@ GNEDistributionFrame::DistributionRow::isValidNewKey() const {
 
 GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
         DistributionSelector* distributionSelector, GNEFrameAttributeModules::AttributesEditor* attributesEditor, SumoXMLTag distributionValueTag) :
-    MFXGroupBoxModule(frameParent, TL("Internal attributes")),
+    MFXGroupBoxModule(frameParent, TL("Distribution editor")),
     myFrameParent(frameParent),
     myDistributionEditor(distributionEditor),
     myDistributionSelector(distributionSelector),
@@ -480,8 +480,8 @@ GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFram
 
 void
 GNEDistributionFrame::DistributionValuesEditor::showDistributionValuesEditor() {
-    // create rows
-    createRows();
+    // remake rows
+    remakeRows();
     // show DistributionValuesEditor
     show();
 }
@@ -491,6 +491,33 @@ void
 GNEDistributionFrame::DistributionValuesEditor::hideDistributionValuesEditor() {
     // hide also DistributionValuesEditor
     hide();
+}
+
+
+void
+GNEDistributionFrame::DistributionValuesEditor::remakeRows() {
+    // first remove all rows
+    for (auto& row : myDistributionRows) {
+        // destroy and delete all rows
+        if (row != nullptr) {
+            row->destroy();
+            delete row;
+            row = nullptr;
+        }
+    }
+    myDistributionRows.clear();
+    // continue if we have a distribution to edit
+    if (myDistributionSelector->getCurrentDistribution()) {
+        // Iterate over distribution key-values
+        for (const auto& keyValue : myDistributionSelector->getCurrentDistribution()->getDistributionKeyValues()) {
+            // create distribution row
+            auto distributionRow = new DistributionRow(this, keyValue.first, keyValue.second);
+            // add into distribution rows
+            myDistributionRows.push_back(distributionRow);
+        }
+    }
+    // reparent bot frame button (to place it at bottom)
+    myBotFrame->reparent(getCollapsableFrame());
 }
 
 
@@ -553,33 +580,6 @@ GNEDistributionFrame::DistributionValuesEditor::onUpdAddRow(FXObject* sender, FX
             return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
         }
     }
-}
-
-
-void
-GNEDistributionFrame::DistributionValuesEditor::createRows() {
-    // first remove all rows
-    for (auto& row : myDistributionRows) {
-        // destroy and delete all rows
-        if (row != nullptr) {
-            row->destroy();
-            delete row;
-            row = nullptr;
-        }
-    }
-    myDistributionRows.clear();
-    // continue if we have a distribution to edit
-    if (myDistributionSelector->getCurrentDistribution()) {
-        // Iterate over distribution key-values
-        for (const auto& keyValue : myDistributionSelector->getCurrentDistribution()->getDistributionKeyValues()) {
-            // create distribution row
-            auto distributionRow = new DistributionRow(this, keyValue.first, keyValue.second);
-            // add into distribution rows
-            myDistributionRows.push_back(distributionRow);
-        }
-    }
-    // reparent help button (to place it at bottom)
-    myBotFrame->reparent(getCollapsableFrame());
 }
 
 /****************************************************************************/

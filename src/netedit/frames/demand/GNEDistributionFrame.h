@@ -169,14 +169,11 @@ public:
         DistributionRow(DistributionValuesEditor* attributeEditorParent,
             const GNEDemandElement* key, const double probability);
 
-        /// @brief destroy GNEAttributesCreatorRow (but don't delete)
+        /// @brief destroy DistributionRow (but don't delete)
         void destroy();
 
         /// @brief refresh comboBox
         void refreshRow();
-
-        /// @brief check if current attribute of TextField/ComboBox is valid
-        bool isDistributionRowValid() const;
 
         /// @brief get current probability
         double getProbability() const;
@@ -208,6 +205,9 @@ public:
 
         /// @brief delete row button
         MFXButtonTooltip* myDeleteRowButton = nullptr;
+
+        /// @brief label
+        FXLabel* myIconLabel = nullptr;
 
         /// @brief comboBox with keys
         FXComboBox* myComboBoxKeys = nullptr;
@@ -246,6 +246,9 @@ public:
         /// @brief hide attribute editor
         void hideDistributionValuesEditor();
 
+        /// @brief destroy and remake rows
+        void remakeRows();
+
         /// @brief refresh rows
         void refreshRows();
 
@@ -269,9 +272,6 @@ public:
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(DistributionValuesEditor)
-
-        /// @brief create rows
-        void createRows();
 
     private:
         /// @brief pointer to frame parent
