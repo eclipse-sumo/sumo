@@ -53,7 +53,7 @@ def get_options():
                     help="binning width of result histogram")
     op.add_argument("--hist-output", category="output",
                     help="output file for histogram (gnuplot compatible)")
-    op.add_argument("-o", "--full-output", category="inoutputput",
+    op.add_argument("-o", "--full-output", category="output",
                     help="output file for full data dump")
     op.add_argument("-x", "--xml-output", category="output", type=op.file,
                     help="output statistic to xml file")
@@ -98,7 +98,7 @@ def main():
     formatter = humanReadableTime if options.hrTime else identity
 
     if options.fast:
-        assert(len(options.element) == 1)
+        assert len(options.element) == 1
         elem = options.element[0]
 
         def elements():

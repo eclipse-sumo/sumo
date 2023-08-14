@@ -106,7 +106,7 @@ class CostMemory(handler.ContentHandler):
             sys.stderr.write(
                 "Skipped loading of costs because the weight was %s but should have been > 0\n" % weight)
             return
-        assert(weight > 0)
+        assert weight > 0
         if self.iteration is None and iteration != 0:
             print("Warning: continuing with empty memory")
         # update memory weights. memory is a weighted average across all runs

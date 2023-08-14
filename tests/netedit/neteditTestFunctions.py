@@ -1222,7 +1222,7 @@ def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     """
     # focus current frame
     focusOnFrame()
-    if(useSelectedEdges and thereIsSelectedEdges):
+    if (useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
         for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
@@ -1240,7 +1240,7 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     """
     # focus current frame
     focusOnFrame()
-    if(useSelectedEdges and thereIsSelectedEdges):
+    if (useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
         for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()

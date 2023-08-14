@@ -221,7 +221,7 @@ class ArgumentParser(argparse.ArgumentParser):
         self._fix_path_args = set()
 
     def add_argument(self, *args, **kwargs):
-        # due argparse only accept certains values (action, choices, type, help...),
+        # due argparse only accept certain values (action, choices, type, help...),
         #  we need to extract extra parameters before call add_argument
         fix_path = kwargs.get("fix_path")
         if "fix_path" in kwargs:
