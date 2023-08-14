@@ -803,7 +803,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEPerson::toggleAttribute(SumoXMLAttr key, const bool value) {
-    // toogle flow attributes
+    // toggle flow attributes
     toggleFlowAttribute(key, value);
 }
 

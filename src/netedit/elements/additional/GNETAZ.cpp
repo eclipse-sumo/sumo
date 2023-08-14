@@ -602,8 +602,8 @@ GNETAZ::getHierarchyName() const {
 
 
 void
-GNETAZ::updateTAZStadistic() {
-    // reset all stadistic variables
+GNETAZ::updateTAZStatistic() {
+    // reset all statistic variables
     myMaxWeightSource = INVALID_DOUBLE;
     myMinWeightSource = INVALID_DOUBLE;
     myAverageWeightSource = 0;

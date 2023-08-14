@@ -256,8 +256,8 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
     myMinSourceMinusSinkWeight = -1;
     // only refresh if we're editing an TAZ
     if (myEditedTAZ) {
-        // first update TAZ Stadistics
-        myEditedTAZ->updateTAZStadistic();
+        // first update TAZ Statistics
+        myEditedTAZ->updateTAZStatistic();
         myTAZFrameParent->myTAZCommonStatistics->updateStatistics();
         // iterate over child TAZElements and create TAZEdges
         for (const auto& TAZElement : myEditedTAZ->getChildAdditionals()) {
@@ -1506,8 +1506,8 @@ GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelpe
         if (objectsUnderCursor.getTAZFront()) {
             // avoid reset of Frame if user doesn't click over an TAZ
             myCurrentTAZ->setTAZ(objectsUnderCursor.getTAZFront());
-            // update TAZStadistics
-            myCurrentTAZ->getTAZ()->updateTAZStadistic();
+            // update TAZStatistics
+            myCurrentTAZ->getTAZ()->updateTAZStatistic();
             myTAZCommonStatistics->updateStatistics();
             return true;
         } else {

@@ -2327,7 +2327,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEVehicle::toggleAttribute(SumoXMLAttr key, const bool value) {
-    // toogle flow attributes
+    // toggle flow attributes
     toggleFlowAttribute(key, value);
 }
 

@@ -734,7 +734,7 @@ protected:
     /// @brief check if given ID correspond to a duplicated additionals
     bool checkDuplicatedID(const std::vector<SumoXMLTag> tags, const std::string& id);
 
-    /// @brief remove overwrited additional
+    /// @brief remove overwritten additional
     void overwriteAdditional();
 
     /// @brief struct for Netedit parameters

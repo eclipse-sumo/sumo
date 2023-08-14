@@ -79,7 +79,7 @@ public:
     */
     void writeAdditional(OutputDevice& device) const;
 
-    /// @brief check if current additional is valid to be writed into XML (must be reimplemented in all detector children)
+    /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
     bool isAdditionalValid() const;
 
     /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
@@ -165,7 +165,7 @@ public:
      */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /* @brief method for checking if the key and their conrrespond attribute are valids
+    /* @brief method for checking if the key and their corresponding attribute are valid
      * @param[in] key The attribute key
      * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
@@ -180,8 +180,8 @@ public:
 
     /// @}
 
-    /// @brief update TAZ Stadistic
-    void updateTAZStadistic();
+    /// @brief update TAZ Statistic
+    void updateTAZStatistic();
 
 protected:
     /// @brief TAZ center

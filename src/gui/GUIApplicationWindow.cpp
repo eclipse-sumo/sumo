@@ -1343,7 +1343,7 @@ GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
-    // toogle show time as HMS
+    // toggle show time as HMS
     myShowTimeAsHMS = !myShowTimeAsHMS;
     updateTimeLCDTooltip();
     if (myRunThread->networkAvailable()) {

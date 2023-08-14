@@ -82,11 +82,11 @@ public:
     };
 
     enum TagProperty {
-        NOTDRAWABLE =               1 << 0,     // Element cannot be drawed in view
+        NOTDRAWABLE =               1 << 0,     // Element cannot be drawn in view
         CLOSESHAPE =                1 << 1,     // Element can close their shape
         GEOSHAPE =                  1 << 2,     // Element's shape acn be defined using a GEO Shape
         DIALOG =                    1 << 3,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        CHILD =                     1 << 4,     // Element is child of another element and will be writed in XML without id (Example: E3Entry -> E3Detector...)
+        CHILD =                     1 << 4,     // Element is child of another element and will be written in XML without id (Example: E3Entry -> E3Detector...)
         REPARENT =                  1 << 5,     // Element can be reparent
         NOTSELECTABLE =             1 << 6,     // Element cannot be selected
         MASKSTARTENDPOS =           1 << 7,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)

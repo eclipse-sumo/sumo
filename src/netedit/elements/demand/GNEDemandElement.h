@@ -160,7 +160,7 @@ public:
      */
     virtual void writeDemandElement(OutputDevice& device) const = 0;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     virtual Problem isDemandElementValid() const = 0;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
