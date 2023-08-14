@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-14 14:32+0200\n"
-"PO-Revision-Date: 2023-08-14 13:52+0000\n"
+"PO-Revision-Date: 2023-08-14 15:11+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -5179,11 +5179,11 @@ msgstr "无效的视窗尺寸格式：% 选项视窗尺寸'"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1968
 msgid "Save Netedit Config. (Ctrl+Shift+E)"
-msgstr ""
+msgstr "存储Netedit 配置文件。 (Ctrl +Shift+E)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1974
 msgid "Save Sumo Config. (Ctrl+Shift+S)"
-msgstr ""
+msgstr "存储Sumo 配置文件。 (Ctrl+Shift+S)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1980
 msgid "Save network"
@@ -5235,7 +5235,7 @@ msgstr "存储meanData要素。(Ctrl+Shift+M)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2045
 msgid "Switch between seconds and HH:MM:SS"
-msgstr ""
+msgstr "切换“总秒数”和“时-分-秒”（HH:MM:SS）两种形式"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2098
 msgid "Network"
@@ -5492,11 +5492,11 @@ msgstr "刪除元素的模式。(D)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3496
 msgid "Set select mode"
-msgstr ""
+msgstr "设定选择模式"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3496
 msgid "Mode for select elements. (S)"
-msgstr ""
+msgstr "选择元素的模式。 (S)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3549
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3694
@@ -5582,11 +5582,11 @@ msgstr "建立多边形物件及兴趣点的模式。(P)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3609
 msgid "Set decal mode"
-msgstr ""
+msgstr "设定壁纸模式"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3609
 msgid "Mode for editing decals. (U)"
-msgstr ""
+msgstr "编辑壁纸的模式。 (U)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3700
 msgid "Create route mode"
@@ -5598,11 +5598,11 @@ msgstr "建立路径的模式。 (R)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3706
 msgid "Set route distribution mode"
-msgstr ""
+msgstr "设定路径分布模式"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3706
 msgid "Mode for creating and editing rout distributions. (W)"
-msgstr ""
+msgstr "创建和编辑路径分布的模式。 (W)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3712
 msgid "Create vehicle mode"
@@ -5622,11 +5622,11 @@ msgstr "建立类型模式(车辆, 人员(person)及容器(containers))。(T)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3724
 msgid "Create type distribution mode"
-msgstr ""
+msgstr "创建类型分布的模式"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3724
 msgid "Mode for creating and editing type distribution. (U)"
-msgstr ""
+msgstr "创建和编辑类型分布的模式。 (U)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3730
 msgid "Create stop mode"
@@ -5650,7 +5650,7 @@ msgstr "建立人员旅行计划的模式"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3742
 msgid "Mode for creating person plans. (L)"
-msgstr ""
+msgstr "创建人员计划的模式。 (L)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3748
 msgid "Create container mode"
@@ -5658,7 +5658,7 @@ msgstr "建立容器（container）模式"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3748
 msgid "Mode for creating containers. (C)"
-msgstr ""
+msgstr "创建容器的模式。 (C)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3754
 msgid "Create container plan mode"
@@ -5781,7 +5781,7 @@ msgstr "重做删除 "
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:45
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:62
 msgid "change '%' attribute in % '%' to '%'"
-msgstr ""
+msgstr "将 % '%' 中的 '%' 属性更改为 '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:154
 msgid "Undo change "
@@ -5844,23 +5844,23 @@ msgstr "重做删除路口"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:41
 msgid "add '%' key in % '%'"
-msgstr ""
+msgstr "在 % '%' 中添加 '%' 键"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:52
 msgid "remove '%' key from % '%'"
-msgstr ""
+msgstr "在 % '%' 中移除 '%' 键"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:63
 msgid "change '%' key value from % to %"
-msgstr ""
+msgstr "将 '%' 的键值由 % 改为 %"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:118
 msgid "Undo edit distribution in '%'"
-msgstr ""
+msgstr "撤消在 '%' 中的分布编辑"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:124
 msgid "Redo edit distribution in '%'"
-msgstr ""
+msgstr "重做在 '%' 中的分布编辑"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Edge.cpp:136
 msgid "Undo create edge '"
@@ -5944,11 +5944,11 @@ msgstr "重做删除交通信号 '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_ToggleAttribute.cpp:112
 msgid "Undo toggle % attribute in '%'"
-msgstr ""
+msgstr "撤消 '%' 中的 % 属性切换"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_ToggleAttribute.cpp:118
 msgid "Redo toggle % attribute in '%'"
-msgstr ""
+msgstr "重做 '%' 中的 % 属性切换"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:38
 msgid "About Eclipse SUMO netedit"
@@ -6221,7 +6221,7 @@ msgstr "保存冲突项目的清单失败"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:227
 msgid "Remove invalid edges"
-msgstr "删除无效的路段"
+msgstr "移除无效道路"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:230
 msgid "Save invalid edges"
@@ -6233,15 +6233,15 @@ msgstr "选择有冲突的路段"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:263
 msgid "delete invalid edges"
-msgstr ""
+msgstr "删除无效道路"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:272
 msgid "select invalid edges"
-msgstr ""
+msgstr "选择无效道路"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:308
 msgid "Remove invalid crossings"
-msgstr "删除无效的路口"
+msgstr "移除无效路口"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:311
 msgid "Save invalid crossings"
@@ -6249,15 +6249,15 @@ msgstr "保存无效的路口"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:314
 msgid "Select conflicted crossing"
-msgstr "选择有冲突的路口"
+msgstr "选择冲突路口"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:344
 msgid "delete invalid crossings"
-msgstr ""
+msgstr "删除无效路口"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:353
 msgid "select invalid crossings"
-msgstr ""
+msgstr "选择无效路口"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:286
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:283
@@ -6271,7 +6271,7 @@ msgstr "分类"
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:55
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:259
 msgid "Clear"
-msgstr "清理"
+msgstr "清空"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:290
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:287
@@ -6451,17 +6451,17 @@ msgstr "开启OSG档案"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:266
 msgid "Could not load configuration '"
-msgstr ""
+msgstr "无法加载配置文件 '"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:270
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:180
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:184
 msgid "Could not load tool configuration '"
-msgstr ""
+msgstr "无法加载工具配置 '"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:274
 msgid "Loaded configuration."
-msgstr ""
+msgstr "已加载配置文件。"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:294
 msgid "Save options"
@@ -6469,7 +6469,7 @@ msgstr "存储选项"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:296
 msgid "Save configuration file"
-msgstr ""
+msgstr "保存配置文件"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:297
 msgid "Load options"
@@ -6477,27 +6477,27 @@ msgstr "载入选项"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:299
 msgid "Load configuration file"
-msgstr ""
+msgstr "加载配置文件"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:300
 msgid "Default options"
-msgstr ""
+msgstr "默认选项"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:302
 msgid "Reset all options to default"
-msgstr ""
+msgstr "重置所有选项为默认"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:310
 msgid "Topics"
-msgstr ""
+msgstr "主题"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:361
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:363
 msgid "Include description in search"
-msgstr ""
+msgstr "在搜索中包含描述"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:81
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:138
@@ -6569,19 +6569,19 @@ msgstr "切换是否显示选单中的工具提示。"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:71
 msgid "Save toolcfg"
-msgstr ""
+msgstr "保存工具配置"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:73
 msgid "Save file with tool configuration"
-msgstr ""
+msgstr "保存含工具配置的文件"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:74
 msgid "Load toolcfg"
-msgstr ""
+msgstr "加载工具配置"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:76
 msgid "Load file with tool configuration"
-msgstr ""
+msgstr "加载含工具配置的文件"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:77
 msgid "Sorted by name"
@@ -6593,7 +6593,7 @@ msgstr "按类别f分组"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:90
 msgid "Blue options are mandatory"
-msgstr ""
+msgstr "蓝色标记的选项为强制选项"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:93
 msgid "run python tool"
@@ -6615,11 +6615,11 @@ msgstr "使用目前 % 文件"
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:251
 #, c-format
 msgid "Select % file"
-msgstr ""
+msgstr "选择 % 文件"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:274
 msgid "Use current selected edges"
-msgstr ""
+msgstr "使用当前选择的道路"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:349
 msgid "network"
@@ -6639,7 +6639,7 @@ msgstr "数据"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:521
 msgid "sumo config"
-msgstr ""
+msgstr "sumo 配置文件"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:70
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:71
@@ -7339,7 +7339,7 @@ msgstr "路边停车位相对于车道的角度，正值表示顺时针方向"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1895
 msgid "Enable or disable lefthand position"
-msgstr ""
+msgstr "启用或禁用左侧位置"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1915
 msgid "Name of parking space"
@@ -7493,7 +7493,7 @@ msgstr "以时间为基础的閾值, 用来定义车辆必须停等多少时间�
 msgid ""
 "Whether no warning should be issued when a vehicle arrives within the "
 "detector area."
-msgstr ""
+msgstr "当车辆到达检测器区域时，是否禁用发出警告。"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2277
 msgid "The id of Instant Induction Loop (E1Instant)"
@@ -7943,71 +7943,71 @@ msgstr "架空电线终点夹(overheadWireIDEndClamp)的架空电线区段车道
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3342
 msgid "The id of the walkable area"
-msgstr ""
+msgstr "可步行区域的编号 (id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3347
 msgid "The shape of the walkable area"
-msgstr ""
+msgstr "可步行区域的形状"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3353
 msgid "Walkable area's name"
-msgstr ""
+msgstr "可步行区域的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3366
 msgid "The id of the obstacle"
-msgstr ""
+msgstr "障碍物的编号 (id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3371
 msgid "The shape of the obstacle"
-msgstr ""
+msgstr "障碍物的形状"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3377
 msgid "Obstacle's name"
-msgstr ""
+msgstr "障碍物的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3390
 msgid "The id of the waiting area"
-msgstr ""
+msgstr "等待区域的编号 (id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3395
 msgid "The shape of the waiting area"
-msgstr ""
+msgstr "等待区域的形状"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3401
 msgid "Waiting area's name"
-msgstr ""
+msgstr "等待区域的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3414
 msgid "The id of the source"
-msgstr ""
+msgstr "源的编号 (id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3419
 msgid "The shape of the source"
-msgstr ""
+msgstr "源的形状"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3425
 msgid "Source's name"
-msgstr ""
+msgstr "源的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3438
 msgid "The id of the sink"
-msgstr ""
+msgstr "汇的编号 (id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3443
 msgid "The shape of the sink"
-msgstr ""
+msgstr "汇的形状"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3449
 msgid "Sink's name"
-msgstr ""
+msgstr "汇的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3462
 msgid "The id of the waypoint"
-msgstr ""
+msgstr "路径点的编号 (id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3472
 msgid "Waypoint's name"
-msgstr ""
+msgstr "路径点的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3495
 msgid "The id of Route"
@@ -8044,7 +8044,7 @@ msgstr "每次重复时, 时间将通过周期时间(cycleTime)向前移动"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3537
 msgid "The id of route distribution"
-msgstr ""
+msgstr "路径分布的编号 (id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3583
 msgid "The id of VehicleType distribution"
@@ -8052,11 +8052,11 @@ msgstr "车辆类型(VehicleType)分布的识别名(id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3597
 msgid "type ID"
-msgstr ""
+msgstr "类型编号 (ID)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3602
 msgid "Type distribution"
-msgstr ""
+msgstr "类型分布"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3607
 msgid "An abstract vehicle class"
@@ -8064,7 +8064,7 @@ msgstr "抽象的车辆类别"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3614
 msgid "This type's color"
-msgstr ""
+msgstr "类型的颜色"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3619
 msgid "The vehicle's netto-length (length) [m]"
@@ -8228,11 +8228,11 @@ msgstr "行程结束的路口的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3885
 msgid "The name of the TAZ the trip starts at"
-msgstr ""
+msgstr "行程起始处的交通小区 (TAZ)的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3890
 msgid "The name of the TAZ the trip ends at"
-msgstr ""
+msgstr "行程结束处的交通小区 (TAZ)的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3914
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3959
@@ -8299,11 +8299,11 @@ msgstr "流量结束的路口的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4089
 msgid "The name of the TAZ the flow starts at"
-msgstr ""
+msgstr "流 (flow)起始处的交通小区 (TAZ)的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4094
 msgid "The name of the TAZ the flow ends at"
-msgstr ""
+msgstr "流 (flow)结束处的交通小区 (TAZ)的名称"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4126
 msgid "The id of the route the flow shall drive along"
@@ -8339,7 +8339,7 @@ msgstr "与此停靠点相关的公交站"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4255
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5225
 msgid "TrainStop associated with this stop"
-msgstr ""
+msgstr "与此停靠点相关的火车站"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4271
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4747
@@ -8368,7 +8368,7 @@ msgstr "与此定位点相关的公交车定点(BusWaypoint)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4382
 msgid "TrainWaypoint associated with this waypoint"
-msgstr ""
+msgstr "与此路径点相关的火车路径点"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4398
 msgid "ContainerWaypoint associated with this waypoint"
@@ -8522,7 +8522,7 @@ msgstr "公交车终点站的识别名(id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4865
 msgid "Id of the destination trainStop"
-msgstr ""
+msgstr "火车终点站的编号 (id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4894
 msgid "The name of the junction the person trip starts at"
@@ -8548,7 +8548,7 @@ msgstr "公交车终点站的识别名(id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4983
 msgid "Id of the destination train stop"
-msgstr ""
+msgstr "火车终点站的编号 (id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5015
 msgid "The id of the route to walk"
@@ -8584,7 +8584,7 @@ msgstr "目的地公车站的识别名(ID)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5120
 msgid "ID of the destination train stop"
-msgstr ""
+msgstr "目的地火车站的编号 (ID)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5179
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5211
@@ -9067,7 +9067,7 @@ msgstr "如果设置为一个非负的时间值，那么停止时间最多可以
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5952
 msgid "Whether a person or container or both may end the stop"
-msgstr ""
+msgstr "人员、集装箱抑或两者均可结束停靠"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5959
 msgid "List of elements that must board the vehicle before it may continue"
@@ -9310,12 +9310,12 @@ msgstr " > 车道的长度"
 #: C:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:129
 #, c-format
 msgid "Copy % name to clipboard"
-msgstr ""
+msgstr "复制 % 名称到剪贴板"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:148
 #: C:\Repos\sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:147
 msgid "Copy % typed name to clipboard"
-msgstr ""
+msgstr "复制 % 类型名称到剪贴板"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:156
 msgid "Open "
@@ -9365,7 +9365,7 @@ msgstr "无法在netedit中建立访问；busStop父级已经在路段拥有一�
 #, c-format
 msgid ""
 "Could not build access in netedit; The lane '%' doesn't support pedestrians"
-msgstr ""
+msgstr "无法在 netedit 中建立权限； 车道 \"%\" 不支持行人通行"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:196
 msgid "add access in '"
@@ -9384,7 +9384,7 @@ msgstr "加装充电站'"
 msgid ""
 "Could not build parking area with ID '%' in netedit; Invalid departPos over "
 "lane."
-msgstr ""
+msgstr "无法建立编号 (ID)为 '%' 的停靠区域；车道上的出发位置无效。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:333
 msgid "add parking area '"
@@ -9422,7 +9422,8 @@ msgstr "添加感应线圈 '"
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
 "light ID."
-msgstr ""
+msgstr "无法在netedit中布设编号 (ID)为 '%' 的车道区域检测器；无效的交通信号灯编号 "
+"(ID)。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:489
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:550
@@ -9434,7 +9435,7 @@ msgstr "添加车道区域检测器 '"
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
 "consecutives."
-msgstr ""
+msgstr "无法在netedit中布设编号 (ID)为 '%' 的车道区域检测器；车道不连续。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:595
 msgid "add entry-exit detector '"
@@ -9472,7 +9473,7 @@ msgstr "添加掉头'"
 #, c-format
 msgid ""
 "Could not build interval with ID '%' in netedit; begin is greather than end."
-msgstr ""
+msgstr "无法在 netedit 中创建编号 (ID)为 \"%\" 的区间； 开始时刻大于结束时刻。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:950
 msgid "add rerouter interval in '"
@@ -9482,7 +9483,7 @@ msgstr "在''中添加掉头间隔时间"
 #, c-format
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
-msgstr ""
+msgstr "由于重叠，无法在 netedit 中创建起始时刻为 \"%\"、结束时刻为 '%' 的区间"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:981
 msgid "add closing lane reroute in '"
@@ -13002,7 +13003,7 @@ msgstr "POILane只能放置在车道上"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:153
 msgid "TAZ"
-msgstr "交通分区"
+msgstr "交通分配区"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:161
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:205
