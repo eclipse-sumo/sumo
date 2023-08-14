@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-14 17:12+0200\n"
-"PO-Revision-Date: 2023-08-14 15:11+0000\n"
+"PO-Revision-Date: 2023-08-14 16:42+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -470,7 +470,7 @@ msgstr "&Mosaico horizontal"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:605
 msgid "Tile the views horizontally."
-msgstr ""
+msgstr "Mostrar las vistas apiladas horizontalmente."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile &Vertically"
@@ -478,7 +478,7 @@ msgstr "&Mosaico vertical"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile the views vertically."
-msgstr ""
+msgstr "Mostrar las vistas verticalmente."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade"
@@ -486,7 +486,7 @@ msgstr "Cascada"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade the views."
-msgstr ""
+msgstr "Mostrar las vistas en cascada."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:100
@@ -496,7 +496,7 @@ msgstr "&Cerrar"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
 msgid "Close the selected view."
-msgstr ""
+msgstr "Cerrar la vista actual."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:625
 msgid "&Others..."
@@ -1607,27 +1607,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:226
 msgid "Type Information:"
-msgstr ""
+msgstr "Información del tipo:"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:227
 msgid "type [id]"
-msgstr ""
+msgstr "tipo [ID]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:228
 msgid "tauff"
-msgstr ""
+msgstr "tauff"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:229
 msgid "taufj"
-msgstr ""
+msgstr "taufj"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:230
 msgid "taujf"
-msgstr ""
+msgstr "taujf"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:231
 msgid "taujj"
-msgstr ""
+msgstr "taujj"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:232
 msgid "jam threshold"
@@ -1651,23 +1651,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:237
 msgid "overtaking"
-msgstr ""
+msgstr "adelantamiento"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:150
 msgid "entered vehicles [-]"
-msgstr ""
+msgstr "vehículos ingresados [-]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:156
 msgid "vehicle length [m]"
-msgstr ""
+msgstr "longitud del vehículo [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:158
 msgid "empty time [s]"
-msgstr ""
+msgstr "tiempo vacío [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:160
 msgid "occupied time [s]"
-msgstr ""
+msgstr "tiempo ocupado [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:162
 msgid "interval entered vehicles [#]"
@@ -1681,7 +1681,7 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1028
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:241
 msgid "type"
-msgstr ""
+msgstr "tipo"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:964
 msgid "Copy edge name to clipboard"
@@ -1689,15 +1689,15 @@ msgstr "Copiar el nombre de la arista al portapapeles"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:972
 msgid "pos: "
-msgstr ""
+msgstr "posición: "
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:972
 msgid "height: "
-msgstr ""
+msgstr "altura: "
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:981
 msgid "Reopen lane"
-msgstr ""
+msgstr "Reabrir carril"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:982
 msgid "Reopen edge"
@@ -1705,7 +1705,7 @@ msgstr "Reabrir arista"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:984
 msgid "Reopen lane (override rerouter)"
-msgstr ""
+msgstr "Reabrir carril (anular rerouter)"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:985
 msgid "Reopen edge (override rerouter)"
@@ -1713,7 +1713,7 @@ msgstr "Reabrir arista (anular rerouter)"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:988
 msgid "Close lane"
-msgstr ""
+msgstr "Cerrar carril"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:989
 msgid "Close edge"
@@ -1726,16 +1726,16 @@ msgstr "Agregar rerouter"
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:996
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2049
 msgid "Select reachable"
-msgstr ""
+msgstr "Seleccionar accesibilidad"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1009
 msgid "allowed speed [m/s]"
-msgstr ""
+msgstr "velocidad permitida [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1017
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:222
 msgid "width [m]"
-msgstr ""
+msgstr "ancho [m]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1019
 msgid "stored travel time [s]"
@@ -1743,15 +1743,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1020
 msgid "loaded weight"
-msgstr ""
+msgstr "peso cargado"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1022
 msgid "lane friction coefficient [%]"
-msgstr ""
+msgstr "coeficiente de fricción del carril [%]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1025
 msgid "netto occupancy [%]"
-msgstr ""
+msgstr "ocupación neta [%]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1027
 msgid "edge type"
@@ -1760,19 +1760,19 @@ msgstr "tipo de arista"
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1029
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:257
 msgid "priority"
-msgstr ""
+msgstr "prioridad"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1030
 msgid "distance [km]"
-msgstr ""
+msgstr "distancia [km]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1031
 msgid "allowed vehicle class"
-msgstr ""
+msgstr "clase de vehículo permitido"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1032
 msgid "disallowed vehicle class"
-msgstr ""
+msgstr "clase de vehículo no permitido"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1033
 msgid "permission code"
@@ -1780,11 +1780,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1034
 msgid "color value"
-msgstr ""
+msgstr "valor del color"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1036
 msgid "bidi-lane"
-msgstr ""
+msgstr "carril bidireccional"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
@@ -1794,35 +1794,35 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:481
 msgid "loaded vehicles [#]"
-msgstr ""
+msgstr "vehículos cargados [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:483
 msgid "insertion-backlogged vehicles [#]"
-msgstr ""
+msgstr "vehículos esperando inserción [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:485
 msgid "departed vehicles [#]"
-msgstr ""
+msgstr "vehículos partidos [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:487
 msgid "running vehicles [#]"
-msgstr ""
+msgstr "vehículos en marcha [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:489
 msgid "arrived vehicles [#]"
-msgstr ""
+msgstr "vehículos arribados [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:491
 msgid "discarded vehicles [#]"
-msgstr ""
+msgstr "vehículos descartados [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:493
 msgid "collisions [#]"
-msgstr ""
+msgstr "colisiones [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:495
 msgid "teleports [#]"
-msgstr ""
+msgstr "teleports [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:497
 msgid "halting [#]"
@@ -1834,99 +1834,99 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:501
 msgid "avg. speed [m/s]"
-msgstr ""
+msgstr "velocidad promedio [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:503
 msgid "avg. relative speed"
-msgstr ""
+msgstr "promedio velocidad relativa"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:506
 msgid "loaded persons [#]"
-msgstr ""
+msgstr "personas cargadas [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:508
 msgid "running persons [#]"
-msgstr ""
+msgstr "personas en movimiento [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:510
 msgid "jammed persons [#]"
-msgstr ""
+msgstr "personas bloqueadas [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:513
 msgid "end time [s]"
-msgstr ""
+msgstr "tiempo final [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:514
 msgid "begin time [s]"
-msgstr ""
+msgstr "tiempo de inicio [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:517
 msgid "step duration [ms]"
-msgstr ""
+msgstr "duración del paso [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:518
 msgid "FPS"
-msgstr ""
+msgstr "FPS"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:519
 msgid "simulation duration [ms]"
-msgstr ""
+msgstr "duración de la simulación [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:525
 msgid "idle duration [ms]"
-msgstr ""
+msgstr "duración de inactividad [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:526
 msgid "duration factor"
-msgstr ""
+msgstr "factor de duración"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:532
 msgid "updates per second"
-msgstr ""
+msgstr "actualizaciones por segundo"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:533
 msgid "avg. updates per second"
-msgstr ""
+msgstr "promedio de actualizaciones por segundo"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:536
 msgid "avg. trip length [m]"
-msgstr ""
+msgstr "promedio de longitud de viaje [m]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:537
 msgid "avg. trip duration [s]"
-msgstr ""
+msgstr "promedio de duración de viaje [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:538
 msgid "avg. trip waiting time [s]"
-msgstr ""
+msgstr "promedio de tiempo de espera de viaje [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:539
 msgid "avg. trip time loss [s]"
-msgstr ""
+msgstr "promedio de tiempo perdido de viaje [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:540
 msgid "avg. trip depart delay [s]"
-msgstr ""
+msgstr "promedio de retardo de salida de viaje [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:541
 msgid "avg. trip speed [m/s]"
-msgstr ""
+msgstr "velocidad promedio de viaje [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:543
 msgid "avg. walk length [m]"
-msgstr ""
+msgstr "longitud promedio de caminata [m]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:544
 msgid "avg. walk duration [s]"
-msgstr ""
+msgstr "duración promedio de caminata [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:545
 msgid "avg. walk time loss [s]"
-msgstr ""
+msgstr "promedio del tiempo perdido de caminata [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:548
 msgid "nodes [#]"
-msgstr ""
+msgstr "nodos [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:549
 msgid "edges [#]"
@@ -1938,11 +1938,11 @@ msgstr "longitud total de arista [km]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:551
 msgid "total lane length [km]"
-msgstr ""
+msgstr "longitud total de los carriles [km]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:552
 msgid "network version "
-msgstr ""
+msgstr "versión de la red "
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:667
 msgid "Trying to set data value for the unknown edge '%'."
@@ -1962,35 +1962,35 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:110
 msgid "occupancy [#]"
-msgstr ""
+msgstr "ocupación [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:111
 msgid "capacity [#]"
-msgstr ""
+msgstr "capacidad [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:112
 msgid "alternatives [#]"
-msgstr ""
+msgstr "alternativas [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:233
 msgid "dest stop [id]"
-msgstr ""
+msgstr "parada destino [ID]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:234
 msgid "arrival position [m]"
-msgstr ""
+msgstr "posición de llegada [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:241
 msgid "vehicle [id]"
-msgstr ""
+msgstr "vehículo [ID]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:242
 msgid "stop duration [s]"
-msgstr ""
+msgstr "duración de parada [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:258
 msgid "desired max speed [m/s]"
-msgstr ""
+msgstr "velocidad máxima deseada [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:240
 msgid "tlLogic [id]"
@@ -1998,27 +1998,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:242
 msgid "program"
-msgstr ""
+msgstr "programa"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:243
 msgid "phase"
-msgstr ""
+msgstr "fase"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:244
 msgid "phase name"
-msgstr ""
+msgstr "nombre de la fase"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:245
 msgid "duration"
-msgstr ""
+msgstr "duración"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:246
 msgid "minDur"
-msgstr ""
+msgstr "duración mínima"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:247
 msgid "maxDur"
-msgstr ""
+msgstr "duración máxima"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:248
 msgid "running duration"
@@ -2034,27 +2034,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:251
 msgid "time in cycle"
-msgstr ""
+msgstr "tiempo en el ciclo"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:252
 msgid "cycle time"
-msgstr ""
+msgstr "duración del ciclo"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:255
 msgid "blocking"
-msgstr ""
+msgstr "bloqueando"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:256
 msgid "rival"
-msgstr ""
+msgstr "rival"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:258
 msgid "constraint"
-msgstr ""
+msgstr "restricción"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:104
 msgid "lane [id]"
-msgstr ""
+msgstr "carril [ID]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:106
 msgid "shadow lane [id]"
@@ -2062,7 +2062,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:109
 msgid "target lane [id]"
-msgstr ""
+msgstr "carril destino [ID]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:112
 msgid "back lanes [id,..]"
@@ -2074,15 +2074,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:120
 msgid "lateral speed [m/s]"
-msgstr ""
+msgstr "velocidad lateral [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:122
 msgid "acceleration [m/s^2]"
-msgstr ""
+msgstr "aceleración [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:126
 msgid "slope [degree]"
-msgstr ""
+msgstr "inclinación [grado]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:130
 msgid "time gap on lane [s]"
@@ -2090,11 +2090,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:136
 msgid "time since startup [s]"
-msgstr ""
+msgstr "tiempo desde el arranque [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:138
 msgid "time loss [s]"
-msgstr ""
+msgstr "tiempo perdido [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:140
 msgid "impatience"
@@ -2106,7 +2106,7 @@ msgstr "último cambio de carril [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:145
 msgid "depart delay [s]"
-msgstr ""
+msgstr "retraso en la salida [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:146
 msgid "odometer [m]"
@@ -2214,7 +2214,7 @@ msgstr "estado de carga actual [Wh]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:196
 msgid "relative state of charge (SoC) [-]"
-msgstr ""
+msgstr "estado de carga relativo [-]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:198
 msgid "currently charging [Wh]"
@@ -2226,11 +2226,11 @@ msgstr "corriente eléctrica presente [A]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:207
 msgid "speed mode"
-msgstr ""
+msgstr "modo velocidad"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:210
 msgid "lane change mode"
-msgstr ""
+msgstr "modo cambio de carril"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:223
 msgid "height [m]"
@@ -2242,11 +2242,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:225
 msgid "vehicle class"
-msgstr ""
+msgstr "clase de vehículo"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:226
 msgid "emission class"
-msgstr ""
+msgstr "clase de emisión"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:228
 msgid "car-following model"
@@ -2258,7 +2258,7 @@ msgstr "modelo de cambio de carril"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:230
 msgid "guiShape"
-msgstr ""
+msgstr "guiShape"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:232
 msgid "desired maximum speed [m/s]"
@@ -3725,7 +3725,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1369
 msgid "Obstacles"
-msgstr ""
+msgstr "Obstáculos"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1374
 msgid "WaitingAreas"
@@ -4345,7 +4345,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:327
 msgid "Ignore route elements during loading of sumo-configs"
-msgstr ""
+msgstr "Ignorar elementos de ruta durante la carga de configuraciones de sumo"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:332
 msgid "Prefix for node naming"
@@ -4430,27 +4430,27 @@ msgstr "Prefijo para el nombre de los puntos de interés (POI)"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:394
 msgid "Prefix for jps walkable area naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las áreas transitables de JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:397
 msgid "Prefix for jps obstacle naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los obstáculos de JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:400
 msgid "Prefix for jps waiting area naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las áreas de espera de JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:403
 msgid "Prefix for jps source naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las fuentes de JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:406
 msgid "Prefix for jps sink naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los sumideros de JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:409
 msgid "Prefix for jps waypoints naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los puntos de referencia de JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:414
 msgid "Prefix for route naming"
@@ -4458,7 +4458,7 @@ msgstr "Prefijo para el nombre de las rutas"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:417
 msgid "Prefix for route distribution naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las distribuciones de ruta"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:420
 msgid "Prefix for type naming"
@@ -5868,7 +5868,7 @@ msgstr "rehacer eliminación de "
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:45
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:62
 msgid "change '%' attribute in % '%' to '%'"
-msgstr ""
+msgstr "cambiar el atributo '%' en % '%' a '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:154
 msgid "Undo change "
@@ -6331,7 +6331,7 @@ msgstr "eliminar aristas inválidas"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:272
 msgid "select invalid edges"
-msgstr ""
+msgstr "seleccionar aristas inválidas"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:308
 msgid "Remove invalid crossings"
@@ -10763,7 +10763,7 @@ msgstr "Aplicar plantilla"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2054
 msgid "Select reachable (compute junctions)"
-msgstr ""
+msgstr "Seleccionar accesibilidad (computar cruces)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:752
@@ -11921,7 +11921,7 @@ msgstr "Mover polígonos enteros"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:105
 msgid "Force draw geom. points"
-msgstr ""
+msgstr "Forzar dibujar los puntos geométricos"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:160
 msgid "Demand move options"
@@ -12062,7 +12062,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:110
 msgid "JuPedSim elements"
-msgstr ""
+msgstr "Elementos JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:188
@@ -12412,7 +12412,7 @@ msgstr "Distribución de tipo actual"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:457
 msgid "Distribution editor"
-msgstr ""
+msgstr "Editor de distribución"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:473
 msgid "Add new distribution value"
@@ -12557,11 +12557,11 @@ msgstr "crear tipo de vehículo"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:316
 msgid "copy vehicle type"
-msgstr ""
+msgstr "copiar tipo de vehículo"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:331
 msgid "reset default vehicle type values"
-msgstr ""
+msgstr "restablecer los valores predeterminados de tipo de vehículo"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:407
 msgid "Types"
@@ -13903,7 +13903,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
 msgid "Loading of shape file successfully: "
-msgstr ""
+msgstr "Archivo de forma (shape file) cargado con éxito: "
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:43
 msgid "Execute python tool '"
