@@ -420,7 +420,16 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
 
 long
 GNEDistributionFrame::DistributionRow::onCmdRemoveRow(FXObject*, FXSelector, void*) {
-
+    // get current distribution
+    auto currentDistribution = myDistributionValuesEditorParent->myDistributionSelector->getCurrentDistribution();
+    // continue if we have a distribution to edit
+    if (currentDistribution == nullptr) {
+        return 1;
+    }
+    // remove distribution key
+    currentDistribution->removeDistributionKey(myKey, myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+    // create rows again
+    myDistributionValuesEditorParent->createRows();
     return 1;
 }
 
@@ -471,28 +480,8 @@ GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFram
 
 void
 GNEDistributionFrame::DistributionValuesEditor::showDistributionValuesEditor() {
-    // first remove all rows
-    for (auto& row : myDistributionRows) {
-        // destroy and delete all rows
-        if (row != nullptr) {
-            row->destroy();
-            delete row;
-            row = nullptr;
-        }
-    }
-    myDistributionRows.clear();
-    // continue if we have a distribution to edit
-    if (myDistributionSelector->getCurrentDistribution()) {
-        // Iterate over distribution key-values
-        for (const auto& keyValue : myDistributionSelector->getCurrentDistribution()->getDistributionKeyValues()) {
-            // create distribution row
-            auto distributionRow = new DistributionRow(this, keyValue.first, keyValue.second);
-            // add into distribution rows
-            myDistributionRows.push_back(distributionRow);
-        }
-    }
-    // reparent help button (to place it at bottom)
-    myBotFrame->reparent(getCollapsableFrame());
+    // create rows
+    createRows();
     // show DistributionValuesEditor
     show();
 }
@@ -533,6 +522,18 @@ GNEDistributionFrame::DistributionValuesEditor::updateSumLabel() {
 
 long
 GNEDistributionFrame::DistributionValuesEditor::onCmdAddRow(FXObject*, FXSelector, void*) {
+    if (myDistributionSelector->getCurrentDistribution() == nullptr) {
+        return 1;
+    }
+    // get next free key
+    const auto possibleKeys = myDistributionSelector->getCurrentDistribution()->getPossibleDistributionKeys(myDistributionValueTag);
+    if (possibleKeys.empty()) {
+        return 1;
+    }
+    // add first possible key
+    myDistributionSelector->getCurrentDistribution()->addDistributionKey(possibleKeys.front(), 0.5, myFrameParent->getViewNet()->getUndoList());
+    // create rows
+    createRows();
     return 1;
 }
 
@@ -546,12 +547,39 @@ GNEDistributionFrame::DistributionValuesEditor::onUpdAddRow(FXObject* sender, FX
         // update sum label
         updateSumLabel();
         // enable or disable add button depending of existents distributions
-        if (myDistributionSelector->getCurrentDistribution()->getPossibleDistributionKeys(myDistributionSelector->getDistributionTag()).size() > 0) {
+        if (myDistributionSelector->getCurrentDistribution()->getPossibleDistributionKeys(myDistributionValueTag).size() > 0) {
             return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         } else {
             return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
         }
     }
+}
+
+
+void
+GNEDistributionFrame::DistributionValuesEditor::createRows() {
+    // first remove all rows
+    for (auto& row : myDistributionRows) {
+        // destroy and delete all rows
+        if (row != nullptr) {
+            row->destroy();
+            delete row;
+            row = nullptr;
+        }
+    }
+    myDistributionRows.clear();
+    // continue if we have a distribution to edit
+    if (myDistributionSelector->getCurrentDistribution()) {
+        // Iterate over distribution key-values
+        for (const auto& keyValue : myDistributionSelector->getCurrentDistribution()->getDistributionKeyValues()) {
+            // create distribution row
+            auto distributionRow = new DistributionRow(this, keyValue.first, keyValue.second);
+            // add into distribution rows
+            myDistributionRows.push_back(distributionRow);
+        }
+    }
+    // reparent help button (to place it at bottom)
+    myBotFrame->reparent(getCollapsableFrame());
 }
 
 /****************************************************************************/

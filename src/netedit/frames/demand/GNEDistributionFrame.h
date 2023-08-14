@@ -270,6 +270,9 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(DistributionValuesEditor)
 
+        /// @brief create rows
+        void createRows();
+
     private:
         /// @brief pointer to frame parent
         GNEFrame* myFrameParent;
