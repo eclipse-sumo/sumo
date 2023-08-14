@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-11 14:41+0200\n"
-"PO-Revision-Date: 2023-08-14 09:24+0000\n"
+"PO-Revision-Date: 2023-08-14 09:37+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -2239,56 +2239,56 @@ msgstr "紧急减速度 [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:236
 msgid "apparent deceleration [m/s^2]"
-msgstr ""
+msgstr "明显的减速度 [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:237
 msgid "imperfection (sigma)"
-msgstr ""
+msgstr "驾驶员不完美程度 (sigma)"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:238
 msgid "desired headway (tau) [s]"
-msgstr ""
+msgstr "期望车头时距 (tau) [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:239
 msgid "speedfactor"
-msgstr ""
+msgstr "速度因子"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:241
 msgid "action step length [s]"
-msgstr ""
+msgstr "决策时间步长 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:243
 msgid "person capacity"
-msgstr ""
+msgstr "人员容量"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:244
 msgid "boarding time [s]"
-msgstr ""
+msgstr "停靠时长 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:245
 msgid "container capacity"
-msgstr ""
+msgstr "载具容量"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:246
 msgid "loading time [s]"
-msgstr ""
+msgstr "加载时长 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:248
 msgid "minGapLat [m]"
-msgstr ""
+msgstr "最小横向间距 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:249
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:252
 msgid "maxSpeedLat [m/s]"
-msgstr ""
+msgstr "最大横向速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:250
 msgid "latAlignment"
-msgstr ""
+msgstr "横向对齐"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:261
 msgid "manoeuver Angle vs Times"
-msgstr ""
+msgstr "机动倾角与时间"
 
 #: C:\Repos\sumo/src\guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
@@ -2634,11 +2634,11 @@ msgstr "附加档案存储于 '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3773
 msgid "Saving additionals failed!"
-msgstr "存储附加物(additional)失败!"
+msgstr "存储附加文件(additional)失败!"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3827
 msgid "JuPedSim elements saved in '"
-msgstr ""
+msgstr "JuPedSim 元素存储于 '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3836
 msgid "Saving JuPedSim elements failed!"
