@@ -215,14 +215,14 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
         myFrameParent->getViewNet()->setInspectedAttributeCarriers({vTypeDistribution});
         // show modules
         myAttributesEditor->showAttributeEditorModule(true);
-        myDistributionValuesEditor->showAttributeEditorModule();
+        myDistributionValuesEditor->showDistributionValuesEditor();
     } else {
         myCurrentTypeDistribution.clear();
         // set myCurrentType as inspected element
         myFrameParent->getViewNet()->setInspectedAttributeCarriers({});
         // hide modules
         myAttributesEditor->hideAttributesEditorModule();
-        myDistributionValuesEditor->hideDistributionValuesEditorModule();
+        myDistributionValuesEditor->hideDistributionValuesEditor();
     }
 }
 
@@ -242,7 +242,7 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectTypeDistribution(FXObject
             viewNet->setInspectedAttributeCarriers({vTypeDistribution});
             // show modules
             myAttributesEditor->showAttributeEditorModule(true);
-            myDistributionValuesEditor->showAttributeEditorModule();
+            myDistributionValuesEditor->showDistributionValuesEditor();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in DistributionSelector").text());
             // update viewNet
@@ -253,7 +253,7 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectTypeDistribution(FXObject
     myCurrentTypeDistribution.clear();
     // hide modules
     myAttributesEditor->hideAttributesEditorModule();
-    myDistributionValuesEditor->hideDistributionValuesEditorModule();
+    myDistributionValuesEditor->hideDistributionValuesEditor();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -373,7 +373,7 @@ GNEDistributionFrame::DistributionRow::onCmdSetAttribute(FXObject* obj, FXSelect
                 undoList->end();
             }
             // refresh rows
-            myDistributionValuesEditorParent->refreshAttributeEditor();
+            myDistributionValuesEditorParent->refreshDistributionValuesEditor();
         } else {
             myComboBoxKeys->setBackColor(FXRGB(255, 255, 255));
             myComboBoxKeys->killFocus();
@@ -441,7 +441,7 @@ GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFram
 
 
 void
-GNEDistributionFrame::DistributionValuesEditor::showAttributeEditorModule() {
+GNEDistributionFrame::DistributionValuesEditor::showDistributionValuesEditor() {
     // first remove all rows
     for (auto& row : myDistributionRows) {
         // destroy and delete all rows
@@ -454,7 +454,7 @@ GNEDistributionFrame::DistributionValuesEditor::showAttributeEditorModule() {
     // continue if we have a distribution to edit
     if (myDistributionSelector->getCurrentDistribution()) {
         // refresh attribute editor
-        refreshAttributeEditor();
+        refreshDistributionValuesEditor();
         // show DistributionValuesEditor
         show();
     }
@@ -464,14 +464,14 @@ GNEDistributionFrame::DistributionValuesEditor::showAttributeEditorModule() {
 
 
 void
-GNEDistributionFrame::DistributionValuesEditor::hideDistributionValuesEditorModule() {
+GNEDistributionFrame::DistributionValuesEditor::hideDistributionValuesEditor() {
     // hide also DistributionValuesEditor
     hide();
 }
 
 
 void
-GNEDistributionFrame::DistributionValuesEditor::refreshAttributeEditor() {
+GNEDistributionFrame::DistributionValuesEditor::refreshDistributionValuesEditor() {
     // continue if we have a distribution to edit
     if (myDistributionSelector->getCurrentDistribution()) {
         // first remove all rows

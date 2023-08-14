@@ -235,13 +235,13 @@ public:
                                  SumoXMLTag distributionValueTag);
 
         /// @brief show attributes of multiple ACs
-        void showAttributeEditorModule();
+        void showDistributionValuesEditor();
 
         /// @brief hide attribute editor
-        void hideDistributionValuesEditorModule();
+        void hideDistributionValuesEditor();
 
         /// @brief refresh attribute editor (only the valid values will be refresh)
-        void refreshAttributeEditor();
+        void refreshDistributionValuesEditor();
 
         /// @brief pointer to GNEFrame parent
         GNEFrame* getFrameParent() const;
