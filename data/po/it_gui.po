@@ -1906,23 +1906,23 @@ msgstr "durata media di cammini [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:545
 msgid "avg. walk time loss [s]"
-msgstr ""
+msgstr "tempo morto medio nel corso di cammini [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:548
 msgid "nodes [#]"
-msgstr ""
+msgstr "nodi [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:549
 msgid "edges [#]"
-msgstr ""
+msgstr "archi [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:550
 msgid "total edge length [km]"
-msgstr ""
+msgstr "lunghezza totale degli archi [km]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:551
 msgid "total lane length [km]"
-msgstr ""
+msgstr "lunghezza totale delle corsie [km]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:552
 msgid "network version "
