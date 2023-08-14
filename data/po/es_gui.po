@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-14 13:33+0200\n"
-"PO-Revision-Date: 2023-08-14 10:55+0000\n"
+"PO-Revision-Date: 2023-08-14 12:29+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -3827,11 +3827,11 @@ msgstr "Unir cruces (junctions) seleccionados en un solo cruce (junction)."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1885
 msgid "Clean invalid crossings"
-msgstr "Limpiar pasos peatonales (crossings) inválidos"
+msgstr "Limpiar pasos peatonales inválidos"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1885
 msgid "Clear invalid crossings."
-msgstr "Eliminar pasos peatonales (crossings) inválidos."
+msgstr "Eliminar pasos peatonales inválidos."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1891
 msgid "Recompute Network in Data Mode"
@@ -4688,19 +4688,19 @@ msgstr "Se unirá con los otros cruces (junctions) seleccionados. ¿Continuar?"
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1585
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1595
 msgid "Clear crossings"
-msgstr "Limpiar pasos peatonales (crossings)"
+msgstr "Limpiar pasos peatonales"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1586
 msgid "There are no invalid crossings to remove."
-msgstr "No hay cruces inválidos que eliminar."
+msgstr "No hay pasos peatonales inválidos que eliminar."
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1596
 msgid "Crossings will be cleared. Continue?"
-msgstr "Los cruces serán removidos. ¿Continuar?"
+msgstr "Los pasos peatonales serán removidos. ¿Continuar?"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1607
 msgid "clear crossings"
-msgstr "Limpiar pasos peatonales (crossings)"
+msgstr "Limpiar pasos peatonales"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1620
 msgid "clear junctions"
@@ -6311,7 +6311,7 @@ msgstr "Seleccionar aristas en conflicto"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:263
 msgid "delete invalid edges"
-msgstr ""
+msgstr "eliminar aristas inválidas"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:272
 msgid "select invalid edges"
@@ -6331,11 +6331,11 @@ msgstr "Seleccionar paso peatonal (crossing) en conflicto"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:344
 msgid "delete invalid crossings"
-msgstr ""
+msgstr "eliminar pasos peatonales inválidos"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:353
 msgid "select invalid crossings"
-msgstr ""
+msgstr "seleccionar pasos peatonales inválidos"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:286
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:283
@@ -6629,7 +6629,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:92
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzado"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:92
 msgid "open advance netgenerate dialog"
@@ -10900,7 +10900,7 @@ msgstr "Cancelar dibujo"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:59
 msgid "'Start drawing' or ENTER to create a shape."
-msgstr ""
+msgstr "'Empezar a dibujar' o ENTER para crear figura."
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:60
 msgid "'Stop drawing' or ENTER to finish shape creation."
@@ -11962,7 +11962,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:643
 msgid "Click over edge to create or edit geometry point."
-msgstr ""
+msgstr "Hacer clic sobre una arista para crear o editar un punto geométrico."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:643
 msgid "Shift+click over edge to edit start or end geometry point."
@@ -11992,7 +11992,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:101
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:561
 msgid "Crossings"
-msgstr ""
+msgstr "Pasos peatonales"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:102
 msgid "WalkingAreas"
@@ -12072,7 +12072,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:160
 msgid "Selected objects are added to the previous selection"
-msgstr ""
+msgstr "Los objetos seleccionados serán agregados a la selección anterior"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:162
 msgid "remove"
@@ -12089,7 +12089,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:164
 msgid "Restrict previous selection by the current selection"
-msgstr ""
+msgstr "Restringir la selección anterior por la selección actual"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:166
 msgid "replace"
@@ -12097,7 +12097,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:166
 msgid "Replace previous selection by the current selection"
-msgstr ""
+msgstr "Reemplazar la selección anterior por la selección actual"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:221
 msgid "Visual Scaling"
@@ -12109,7 +12109,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:250
 msgid "Selection operations"
-msgstr ""
+msgstr "Operaciones de selección"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:259
 msgid "Deselect all objects (hotkey: ESC)"
@@ -12133,7 +12133,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:267
 msgid "Delete all selected objects (hotkey: DEL)"
-msgstr ""
+msgstr "Eliminar todos los objetos seleccionados (tecla: DEL)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:269
 msgid "Reduce"
@@ -12149,7 +12149,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:319
 msgid "load selection"
-msgstr ""
+msgstr "cargar selección"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:331
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:125
@@ -12164,7 +12164,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:385
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:416
 msgid "invert selection"
-msgstr ""
+msgstr "invertir selección"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:438
 msgid "simplify network"
@@ -12202,22 +12202,22 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
 msgid "Hold <SHIFT> for rectangle selection."
-msgstr ""
+msgstr "Sostener <SHIFT> para selección rectangular."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
 msgid "Press <DEL> to delete selected objects."
-msgstr ""
+msgstr "Presione <DEL> para eliminar los objetos seleccionados."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1428
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:309
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:168
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2176
 msgid "Selection"
-msgstr ""
+msgstr "Selección"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1609
 msgid "selection"
-msgstr ""
+msgstr "selección"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
 msgid "There is already a % in edge '%'"
@@ -12253,7 +12253,7 @@ msgstr "Intervalo"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:201
 msgid "Create new interval"
-msgstr ""
+msgstr "Crear un nuevo intervalo"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:219
 msgid "create interval"
@@ -12273,11 +12273,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:164
 msgid "Create MeanData"
-msgstr ""
+msgstr "Crear MeanData"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:167
 msgid "Delete MeanData"
-msgstr ""
+msgstr "Eliminar MeanData"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:170
 msgid "Copy MeanData"
@@ -12415,23 +12415,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:72
 msgid "Click over a bus stop to create a stop."
-msgstr ""
+msgstr "Hacer clic sobre una parada de bus para crear una parada."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:78
 msgid "Click over a train stop to create a stop."
-msgstr ""
+msgstr "Hacer clic sobre una parada de tren para crear una parada."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:84
 msgid "Click over a container stop to create a stop."
-msgstr ""
+msgstr "Hacer clic sobre una parada de contenedor para crear una parada."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:90
 msgid "Click over a charging station to create a stop."
-msgstr ""
+msgstr "Hacer clic sobre una estación de carga para crear una parada."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:96
 msgid "Click over a parking area to create a stop."
-msgstr ""
+msgstr "Hacer clic sobre una zona de estacionamiento para crear una parada."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:102
 msgid "Click over a lane to create a stop."
@@ -12496,7 +12496,7 @@ msgstr "Resetear tipo"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:284
 msgid "create vehicle type"
-msgstr ""
+msgstr "crear tipo de vehículo"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:316
 msgid "copy vehicle type"
@@ -12528,7 +12528,7 @@ msgstr "Seleccione dos zonas de análisis de tráfico (TAZ) para crear un viaje.
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:93
 msgid "Click over a route to create a routeFlow."
-msgstr ""
+msgstr "Hacer clic sobre una ruta para crear un flujo (routeFlow)."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:97
 msgid "Select two edges to create a flow."
@@ -12563,11 +12563,11 @@ msgstr "Leyenda"
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:91
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:93
 msgid "-Click over lane to create it"
-msgstr ""
+msgstr "-Hacer clic sobre un carril para crearlo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:95
 msgid "-Click over view to create it"
-msgstr ""
+msgstr "-Hacer clic sobre una vista para crearlo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:96
 msgid ""
@@ -12695,6 +12695,8 @@ msgid ""
 "Selects all lanes that have no outgoing connection (clears previous "
 "selection)"
 msgstr ""
+"Selecciona todos los carriles que no tienen conexión saliente (borra la "
+"selección anterior)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:159
 msgid "Select Dead Starts"
@@ -12705,6 +12707,8 @@ msgid ""
 "Selects all lanes that have no incoming connection (clears previous "
 "selection)"
 msgstr ""
+"Selecciona todos los carriles que no tienen conexión entrante (borra la "
+"selección anterior)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:162
 msgid "Select Conflicts"
@@ -12715,6 +12719,8 @@ msgid ""
 "Selects all lanes with more than one incoming connection from the same edge "
 "(clears previous selection)"
 msgstr ""
+"Selecciona todos los carriles con más de una conexión entrante desde la "
+"misma arista (borra la selección anterior)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:165
 msgid "Select Passing"
@@ -12837,7 +12843,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:98
 msgid "Delete edge type"
-msgstr ""
+msgstr "Eliminar tipo de arista"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:101
 msgid "Create from template"
@@ -12854,7 +12860,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:342
 msgid "delete edge type"
-msgstr ""
+msgstr "eliminar tipo de arista"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:407
 msgid "template: "
@@ -12870,7 +12876,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:442
 msgid "Delete lane type"
-msgstr ""
+msgstr "Eliminar tipo de carril"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:539
 msgid "add laneType"
@@ -13593,6 +13599,8 @@ msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
 msgstr ""
+"Eliminar un programa semafórico. Si se eliminan todos los programas, el "
+"cruce se convierte en un cruce prioritario."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1387
 msgid "Reset single"
@@ -13810,7 +13818,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:154
 msgid "Select deleted elements"
-msgstr ""
+msgstr "Seleccionar elementos eliminados"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:158
 msgid "Load shapes for elements"
@@ -15179,7 +15187,7 @@ msgstr "Dibujar forma para el cruce (junction)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2016
 msgid "Draw crossings/walkingareas"
-msgstr "Dibujar pasos (crossings) / áreas (WalkingArea) peatonales"
+msgstr "Dibujar pasos peatonales / áreas (WalkingArea) peatonales"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2018
 msgid "Show lane to lane connections"
