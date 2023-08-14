@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-14 14:32+0200\n"
-"PO-Revision-Date: 2023-08-14 09:46+0000\n"
+"PO-Revision-Date: 2023-08-14 13:04+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -3200,7 +3200,7 @@ msgstr "&路网"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:532
 msgid "Supermode network."
-msgstr ""
+msgstr "路网编辑模式。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:535
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2256
@@ -3209,7 +3209,7 @@ msgstr "&需求"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:535
 msgid "Supermode demand."
-msgstr ""
+msgstr "需求编辑模式。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:538
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2259
@@ -3218,7 +3218,7 @@ msgstr "&数据"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:538
 msgid "Supermode data."
-msgstr ""
+msgstr "数据编辑模式。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:555
 msgid "&Inspect"
@@ -3264,7 +3264,7 @@ msgstr "建立路口及路段。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
 msgid "&Traffic light"
-msgstr ""
+msgstr "&交通信号灯"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
 msgid "Modes traffic lights over junctions."
@@ -3316,7 +3316,7 @@ msgstr "建立交通指派分区。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
 msgid "&POI-Poly"
-msgstr ""
+msgstr "&POI多边形"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
 msgid "Create Points-Of-Interest and polygons."
