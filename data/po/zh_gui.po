@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-11 14:41+0200\n"
-"PO-Revision-Date: 2023-08-14 09:37+0000\n"
+"PO-Revision-Date: 2023-08-14 09:46+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -2642,7 +2642,7 @@ msgstr "JuPedSim 元素存储于 '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3836
 msgid "Saving JuPedSim elements failed!"
-msgstr ""
+msgstr "存储JuPedSim 元素失败！"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3875
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4825
@@ -3083,11 +3083,11 @@ msgstr "將附加要素(element)另存新档。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:437
 msgid "Save JuPedSim Elements As..."
-msgstr ""
+msgstr "将JuPedSim 元素另存为..."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:437
 msgid "Save JuPedSim elements in a separated file."
-msgstr ""
+msgstr "将JuPedSim 元素另存新档。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:443
 msgid "Reload Additionals"
