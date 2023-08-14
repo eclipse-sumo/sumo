@@ -109,7 +109,7 @@ def assign_prefixed_options(args, allowed_programs):
                         if '--' in args[arg_index+1]:
                             raise NotImplementedError()
                         option = [arg[separator_index+1:], args[arg_index+1]]
-                    except(IndexError, NotImplementedError):
+                    except (IndexError, NotImplementedError):
                         raise NotImplementedError("Please amend prefixed argument %s with a value." % arg)
                     prefixed_options.setdefault(program, []).append(option)
                     consumed = True
@@ -221,7 +221,7 @@ class ArgumentParser(argparse.ArgumentParser):
         self._fix_path_args = set()
 
     def add_argument(self, *args, **kwargs):
-        # due argparse only accept certains values (action, choices, type, help...),
+        # due argparse only accept certain values (action, choices, type, help...),
         #  we need to extract extra parameters before call add_argument
         fix_path = kwargs.get("fix_path")
         if "fix_path" in kwargs:
@@ -264,7 +264,7 @@ class ArgumentParser(argparse.ArgumentParser):
 
     def add_mutually_exclusive_group(self, required=False):
         group = argparse.ArgumentParser.add_mutually_exclusive_group(self, required=required)
-        group.add_argument = handleCatoryWrapper(group.add_argument)
+        group.add_argument = handleCategoryWrapper(group.add_argument)
         return group
 
     def _write_config_file(self, namespace, toString=False):
@@ -459,7 +459,7 @@ class ArgumentParser(argparse.ArgumentParser):
         return namespace, remaining_args
 
 
-def handleCatoryWrapper(func):
+def handleCategoryWrapper(func):
     @wraps(func)
     def inner(*args, **kwargs):
         category = kwargs.get("category")

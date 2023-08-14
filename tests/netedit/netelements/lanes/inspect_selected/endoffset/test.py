@@ -52,7 +52,7 @@ netedit.leftClick(referencePosition, 250, 95)
 # Change parameter 4 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "dummyEndOffset", True)
 
-# Change parameter 4 with a non valid value (emtpy)
+# Change parameter 4 with a non valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "", True)
 
 # Change parameter 4 with a non valid value (negative)

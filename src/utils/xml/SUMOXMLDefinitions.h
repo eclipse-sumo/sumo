@@ -1436,12 +1436,8 @@ enum SumoXMLAttr {
     GNE_ATTR_STOPOEXCEPTION,
     /// @brief route distribution
     GNE_ATTR_ROUTE_DISTRIBUTION,
-    /// @brief route distribution probability
-    GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY,
     /// @brief vehicle type distribution
     GNE_ATTR_VTYPE_DISTRIBUTION,
-    /// @brief vehicle type distribution probability
-    GNE_ATTR_VTYPE_DISTRIBUTION_PROBABILITY,
     /// @brief poisson definition (used in flow)
     GNE_ATTR_POISSON,
     /// @brief stop index (position in the parent's children

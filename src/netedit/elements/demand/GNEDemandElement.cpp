@@ -175,7 +175,7 @@ GNEDemandElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) 
     buildShowParamsPopupEntry(ret);
     // show option to open demand element dialog
     if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getFXIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
     GUIDesigns::buildFXMenuCommand(ret, "Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y()), nullptr, nullptr, 0);
@@ -1199,6 +1199,27 @@ GNEDemandElement::getEdgeStopIndex() const {
         }
     }
     return edgeStopIndex;
+}
+
+
+std::string
+GNEDemandElement::getDistributionParents() const {
+    SumoXMLTag tagDistribution = SUMO_TAG_NOTHING;
+    if (myTagProperty.getTag() == SUMO_TAG_VTYPE) {
+        tagDistribution = SUMO_TAG_VTYPE_DISTRIBUTION;
+    } else if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+        tagDistribution = SUMO_TAG_ROUTE_DISTRIBUTION;
+    } else {
+        return "";
+    }
+    // check if the current element is in the distributions
+    std::vector<std::string> distributionParents;
+    for (const auto &distribution : myNet->getAttributeCarriers()->getDemandElements().at(tagDistribution)) {
+        if (distribution->keyExists(this)) {
+            distributionParents.push_back(distribution->getID());
+        }
+    }
+    return toString(distributionParents);
 }
 
 

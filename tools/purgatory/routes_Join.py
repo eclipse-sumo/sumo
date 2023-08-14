@@ -94,7 +94,7 @@ class RoutesReader(handler.ContentHandler):
                         edges[i]] = self._continuationsSum[edges[i]] + 1
 
     def getContinuation(self, beginEdge, replacements):
-        assert(beginEdge in replacements)
+        assert beginEdge in replacements
         rEdge = replacements[beginEdge]
         if rEdge.find(",") >= 0:
             rEdge = rEdge.split(",")[0]

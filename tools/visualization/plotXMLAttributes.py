@@ -20,7 +20,7 @@
 This script plots arbitrary xml attributes from xml files
 Individual trajectories can be clicked in interactive mode to print the data Id on the console
 
-selects two attributs for x and y axis and a third (id-attribute) for grouping
+selects two attributes for x and y axis and a third (id-attribute) for grouping
 of data points into lines
 
 """
@@ -421,7 +421,7 @@ def combineValues(attrs, attr2parts, values, splitX, splitY):
                 toYield.append('|'.join(v))
 
     if needSplit:
-        assert(len(toYield) == 3)
+        assert len(toYield) == 3
         splitIndex = 0
         for i in toYield[0]:
             for ix, x in enumerate(toYield[1]):
@@ -660,7 +660,7 @@ def main(options):
         yvalues = d[ydata]
 
         if len(xvalues) == 0:
-            assert(len(yvalues) == 0)
+            assert len(yvalues) == 0
             continue
 
         minY = min(minY, min(yvalues))

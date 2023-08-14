@@ -27,7 +27,6 @@ It uses other classes from this module to represent the road network.
 
 from __future__ import print_function
 from __future__ import absolute_import
-import os
 import sys
 import math
 import heapq
@@ -185,7 +184,7 @@ class Net:
         self._location["convBoundary"] = convBoundary
         self._location["origBoundary"] = origBoundary
         self._location["projParameter"] = projParameter
-    
+
     def loadSelection(self, selectionFile):
         for edge in self._edges:
             edge.select(value=False)
@@ -202,13 +201,13 @@ class Net:
                     nodeID = line[9:]
                     if nodeID in self._id2node:
                         self.getNode(nodeID).select()
-        
+
     def resetSelection(self):
         for node in self._nodes:
             node.select(value=False)
         for edge in self._edges:
             edge.select(value=False)
-    
+
     def addNode(self, id, type=None, coord=None, incLanes=None, intLanes=None):
         if id is None:
             return None
@@ -893,7 +892,7 @@ def convertShape(shapeString):
     """ Convert xml shape string into float tuples.
 
     This method converts the 2d or 3d shape string from SUMO's xml file
-    into a list containing 3d float-tuples. Non existant z coordinates default
+    into a list containing 3d float-tuples. Non existent z coordinates default
     to zero. If shapeString is empty, an empty list will be returned.
     """
 

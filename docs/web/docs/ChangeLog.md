@@ -64,6 +64,8 @@ title: ChangeLog
   - Add checkbox in Move Frame for forcing draw edge start/end geometry points. #13426
   - Add tooltip in GroupBox expand button. #12236
   - Add locate containers dialog. #13692
+  - Added support for vTypesDistributions #12845 #12845
+  - Added support for route #12660
   - Added JuPedSim elements. #13667, #13687
     - Walkable area
     - Obstacle
@@ -80,7 +82,8 @@ title: ChangeLog
   - Game from downloaded zip no longer requires SUMO_HOME. #13583
 
 - Other
-  - Now JuPedSim can be enabled in CMake GUI with a checkbox. #13646 
+  - Now JuPedSim can be enabled in CMake GUI with a checkbox. #13646
+  - Improved integration of JuPedSim in sumo #13307 #13491 #13308
 
 ## Version 1.18.0 (29.06.2023)
 

@@ -591,7 +591,7 @@ GNEAttributeCarrier::getTagStr() const {
 
 
 FXIcon*
-GNEAttributeCarrier::getFXIcon() const {
+GNEAttributeCarrier::getACIcon() const {
     // define on first access
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
@@ -3495,20 +3495,14 @@ GNEAttributeCarrier::fillDemandElements() {
                                               TL("The id of Route"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGES,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("The edges the vehicle shall drive along, given as their ids, separated using spaces"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
         attrProperty = GNEAttributeProperties(GNE_ATTR_ROUTE_DISTRIBUTION,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::VTYPE,
                                               TL("Route distribution"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::PROBABILITY,
-                                              TL("Route distribution probability"),
-                                              "1.0");
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("The edges the vehicle shall drive along, given as their ids, separated using spaces"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,

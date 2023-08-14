@@ -74,10 +74,10 @@ def get_solution(data, manager, routing, solution, verbose):
 
 
 def set_travel_cost(data, routing, manager, verbose):
-    assert(type(data) == dict)
-    assert(type(routing) == pywrapcp.RoutingModel)
-    assert(type(manager) == pywrapcp.RoutingIndexManager)
-    assert(type(verbose) == bool)
+    assert type(data) == dict
+    assert type(routing) == pywrapcp.RoutingModel
+    assert type(manager) == pywrapcp.RoutingIndexManager
+    assert type(verbose) == bool
     # Create and register a transit callback.
 
     def distance_callback(from_index, to_index):

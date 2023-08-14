@@ -76,7 +76,7 @@ public:
     /// @name functions for reachability
     /// @{
 
-    /// @brief get current reability (traveltime)
+    /// @brief get current reachability (traveltime)
     double getReachability() const;
 
     /// @brief set current reachability (traveltime)

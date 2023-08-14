@@ -270,7 +270,7 @@ def getFlowNumber(flow):
         period = 0
         if flow.period is not None:
             if 'exp' in flow.period:
-                # use expecte value
+                # use expected value
                 period = 1 / float(flow.period[4:-2])
             else:
                 period = float(flow.period)

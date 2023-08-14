@@ -53,7 +53,7 @@ def readByte(content):
 def readInt(content, withType=False):
     if withType:
         valType = readByte(content)
-        assert(valType == INTEGER)
+        assert valType == INTEGER
     return read(content, "i")[0]
 
 

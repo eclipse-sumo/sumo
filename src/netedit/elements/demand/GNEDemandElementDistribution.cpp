@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Distribution.h>
 
 #include "GNEDemandElementDistribution.h"
@@ -34,6 +35,49 @@
 
 GNEDemandElementDistribution::GNEDemandElementDistribution(GNEDemandElement* demandElement) :
     myDemandElement(demandElement) {
+}
+
+
+bool
+GNEDemandElementDistribution::isDistributionEmpty() const {
+    return myDistributionValues.empty();
+}
+
+
+bool
+GNEDemandElementDistribution::keyExists(const GNEDemandElement* key) const {
+    return (myDistributionValues.count(key) > 0);
+}
+
+
+bool
+GNEDemandElementDistribution::isValueValid(const GNEDemandElement* key, const double value) const {
+    if (myDistributionValues.count(key) > 0) {
+        return ((value >= 0) && (value <= 1));
+    } else {
+        return false;
+    }
+}
+
+
+const std::map<const GNEDemandElement*, double>&
+GNEDemandElementDistribution::getDistributionKeyValues() const {
+    return myDistributionValues;
+}
+
+
+std::vector<GNEDemandElement*>
+GNEDemandElementDistribution::getPossibleDistributionKeys(SumoXMLTag type) const {
+    std::vector<GNEDemandElement*> possibleKeys;
+    // get list of possible keys
+    auto allKeys = myDemandElement->getNet()->getAttributeCarriers()->getDemandElements().at(type);
+    // fill possible keys with non used keys
+    for (const auto &key : allKeys) {
+        if (!keyExists(key)) {
+            possibleKeys.push_back(key);
+        }
+    }
+    return possibleKeys;
 }
 
 
@@ -87,19 +131,9 @@ GNEDemandElementDistribution::removeDistributionKey(const GNEDemandElement* key,
 }
 
 
-bool
-GNEDemandElementDistribution::keyExists(const GNEDemandElement* key) const {
-    return (myDistributionValues.count(key) > 0);
-}
-
-
-bool
-GNEDemandElementDistribution::isValueValid(const GNEDemandElement* key, const double value) const {
-    if (myDistributionValues.count(key) > 0) {
-        return ((value >= 0) && (value <= 1));
-    } else {
-        return false;
-    }
+void
+GNEDemandElementDistribution::editDistributionValue(const GNEDemandElement* key, const double newValue, GNEUndoList* undoList) {
+    GNEChange_Distribution::editValue(myDemandElement, key, newValue, undoList); 
 }
 
 

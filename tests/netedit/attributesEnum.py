@@ -1538,32 +1538,30 @@ class type:
 
     class edit:
         id = 8
-        vTypeDist = 9
-        vClass = 10
-        colorButton = 12
-        color = 13
-        length = 14
-        minGap = 15
-        maxSpeed = 16
-        desiredMaxSpeed = 17
-        accel = 18
-        decel = 19
-        sigma = 20
-        tau = 21
+        vClass = 9
+        colorButton = 11
+        color = 12
+        length = 13
+        minGap = 14
+        maxSpeed = 15
+        desiredMaxSpeed = 16
+        accel = 17
+        decel = 18
+        sigma = 19
+        tau = 20
 
     class editDefault:
-        vTypeDist = 7
-        vClass = 8
-        colorButton = 10
-        color = 11
-        length = 12
-        minGap = 13
-        maxSpeed = 14
-        desiredMaxSpeed = 15
-        accel = 16
-        decel = 17
-        sigma = 18
-        tau = 19
+        vClass = 7
+        colorButton = 9
+        color = 10
+        length = 11
+        minGap = 12
+        maxSpeed = 13
+        desiredMaxSpeed = 14
+        accel = 15
+        decel = 16
+        sigma = 17
+        tau = 18
 
     class editDialog:
         vClass = 1
@@ -1605,29 +1603,26 @@ class type:
 class route:
     class create:
         id = 7
-        routeDistribution = 8
-        colorButton = 9
-        color = 10
-        repeat = 11
-        cycletime = 12
+        colorButton = 8
+        color = 9
+        repeat = 10
+        cycletime = 11
 
     class inspect:
         id = 1
-        routeDistribution = 2
-        edges = 3
-        colorButton = 4
-        color = 5
-        repeat = 6
-        cycletime = 7
-        parameters = 10
+        edges = 2
+        colorButton = 3
+        color = 4
+        repeat = 5
+        cycletime = 6
+        parameters = 9
 
     class inspectSelection:
-        routeDistribution = 1
-        colorButton = 2
-        color = 3
-        repeat = 4
-        cycletime = 5
-        parameters = 8
+        colorButton = 1
+        color = 2
+        repeat = 3
+        cycletime = 4
+        parameters = 7
 
     class reverse:
         current = 1

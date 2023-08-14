@@ -168,12 +168,12 @@ def main(options):
 
             code = connections[edgeID]
             lanes = edge.getLanes()
-            assert(len(code) == len(lanes) * 3)
+            assert (len(code) == len(lanes) * 3)
             for laneIndex, lane in enumerate(lanes):
                 for index in [0, 1, 2]:
                     if code[3 * laneIndex + index] == 1:
                         if directionTargets[index] is not None:
-                            # target lane is not specified, we resuse the target lanes from sumo
+                            # target lane is not specified, we reuse the target lanes from sumo
                             targetLanes = directionTargetLanes[index]
                             toLane = targetLanes[0]
                             if len(targetLanes) > 1:

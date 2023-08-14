@@ -159,7 +159,7 @@ class Edge:
 
     def getBoundingBox(self, includeJunctions=True):
         xmin, ymin, xmax, ymax = sumolib.geomhelper.addToBoundingBox(self.getShape(includeJunctions))
-        assert(xmin != xmax or ymin != ymax or self._function == "internal")
+        assert xmin != xmax or ymin != ymax or self._function == "internal"
         return (xmin, ymin, xmax, ymax)
 
     def getClosestLanePosDist(self, point, perpendicular=False):
@@ -185,13 +185,13 @@ class Edge:
 
     def getLanes(self):
         return self._lanes
-    
+
     def select(self, value=True):
         self._selected = value
-    
+
     def isSelected(self):
         return self._selected
-    
+
     def rebuildShape(self):
         numLanes = len(self._lanes)
         if numLanes % 2 == 1:
@@ -249,7 +249,7 @@ class Edge:
                     self.is_fringe(self._outgoing, checkJunctions))
         else:
             if checkJunctions:
-                assert(connections is not None)
+                assert connections is not None
                 if connections == self._incoming:
                     return self.getFromNode().getFringe() is not None
                 elif connections == self._outgoing:

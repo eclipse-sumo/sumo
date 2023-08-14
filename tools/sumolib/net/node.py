@@ -176,13 +176,13 @@ class Node:
                     outgoing = all_outgoing
                 conns.extend(outgoing)
         return conns
-    
+
     def select(self, value=True):
         self._selected = value
-    
+
     def isSelected(self):
         return self._selected
-    
+
     def setParam(self, key, value):
         self._params[key] = value
 
@@ -197,12 +197,12 @@ class Node:
         if incomingNodes:
             edges = self._incoming
             for e in edges:
-                if not (e.getFromNode() in neighboring) and not(e.getFromNode().getID() == self.getID()):
+                if not (e.getFromNode() in neighboring) and not (e.getFromNode().getID() == self.getID()):
                     neighboring.append(e.getFromNode())
         if outgoingNodes:
             edges = self._outgoing
             for e in edges:
-                if not (e.getToNode() in neighboring) and not(e.getToNode().getID() == self.getID()):
+                if not (e.getToNode() in neighboring) and not (e.getToNode().getID() == self.getID()):
                     neighboring.append(e.getToNode())
         return neighboring
 

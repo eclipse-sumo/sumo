@@ -271,7 +271,7 @@ class PVehicle(object):
         '''
         self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode]
         if self._activeSpeedFactor is None:
-            assert(self._currentPlatoonMode is PlatoonMode.NONE)
+            assert self._currentPlatoonMode is PlatoonMode.NONE
             self._activeSpeedFactor = self._speedFactors[self._currentPlatoonMode]
         traci.vehicle.setSpeedFactor(self._ID, self._activeSpeedFactor)
 

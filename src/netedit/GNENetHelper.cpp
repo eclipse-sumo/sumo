@@ -2688,7 +2688,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
                 break;
             case DemandEditMode::DEMAND_TYPEDISTRIBUTION:
                 if (tagProperty.isType()) {
-                    myNet->getViewNet()->getViewParent()->getTypeDistributionFrame()->getTypeDistributionSelector()->refreshTypeDistributionSelector();
+                    myNet->getViewNet()->getViewParent()->getTypeDistributionFrame()->getDistributionSelector()->refreshDistributionSelector();
                 }
                 break;
             case DemandEditMode::DEMAND_STOP:

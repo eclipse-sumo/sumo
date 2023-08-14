@@ -242,7 +242,7 @@ public:
     /// @brief Destructor
     ~GNECreateEdgeFrame();
 
-    /**@brief handle processClick and set the relative colouring
+    /**@brief handle processClick and set the relative coloring
      * @param[in] clickedPosition clicked position over ViewNet
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param oppositeEdge automatically create an opposite edge

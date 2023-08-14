@@ -71,17 +71,24 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
     } else {
         // create vType/pType using myCurrentVType
         GNEDemandElement* vType = new GNEVType(myNet, vTypeParameter);
+        // check if add this vType to a distribution
+        GNEDemandElement* vTypeDistribution = nullptr;
+        if (sumoBaseObject->getParentSumoBaseObject() && sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {
+            vTypeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+        }
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(vType, TL("add ") + vType->getTagStr() + " '" + vTypeParameter.id + "'");
             overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
-            // check if set vType distribution
-            if (sumoBaseObject->getParentSumoBaseObject() && sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {
-                vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), myNet->getViewNet()->getUndoList());
+            if (vTypeDistribution) {
+                vTypeDistribution->addDistributionKey(vType, vType->getAttributeDouble(SUMO_ATTR_PROB), myNet->getViewNet()->getUndoList());
             }
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(vType);
+            if (vTypeDistribution) {
+                vTypeDistribution->addDistributionKey(vType, vType->getAttributeDouble(SUMO_ATTR_PROB));
+            }
             vType->incRef("buildVType");
         }
     }
@@ -91,60 +98,39 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
 void
 GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
                                         const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) {
+    // declare vector with vType and their probabilities
+    std::vector<const GNEDemandElement*> vTypes;
     // first check conditions
     if (!checkDuplicatedDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, id)) {
         writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_VTYPE)));
-    } else if (vTypeIDs.empty() && sumoBaseObject->getSumoBaseObjectChildren().empty()) {
-        writeError(TLF("% needs at least one %", toString(SUMO_TAG_VTYPE_DISTRIBUTION), toString(SUMO_TAG_VTYPE)));
-    } else {
-        bool checkVTypesOK = true;
-        std::vector<GNEDemandElement*> vTypes;
-        // check vTypes
-        for (const auto& vTypeID : vTypeIDs) {
-            auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID, false);
-            if (vType == nullptr) {
-                writeError(TLF("% with id '%' doesn't exist in % '%'", toString(SUMO_TAG_VTYPE), vType, toString(SUMO_TAG_VTYPE_DISTRIBUTION), id));
-                checkVTypesOK = false;
-            } else {
-                vTypes.push_back(vType);
+    } else if (getDistributionElements(sumoBaseObject, SUMO_TAG_VTYPE, vTypeIDs, probabilities, vTypes)) {
+        // create distributions
+        GNEVTypeDistribution* vTypeDistribution = new GNEVTypeDistribution(myNet, id, deterministic);
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(vTypeDistribution, TL("add ") + vTypeDistribution->getTagStr() + " '" + id + "'");
+            overwriteDemandElement();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
+            // add all distributions
+            for (int i = 0; i < (int)vTypes.size(); i++) {
+                vTypeDistribution->addDistributionKey(vTypes.at(i), probabilities.at(i), myNet->getViewNet()->getUndoList());
             }
-        }
-        // now check childrens
-        for (const auto& child : sumoBaseObject->getSumoBaseObjectChildren()) {
-            if (child->hasStringAttribute(SUMO_ATTR_ID) == false) {
-                writeError(TLF("Invalid definition for % in % '%'", toString(SUMO_TAG_VTYPE), toString(SUMO_TAG_VTYPE_DISTRIBUTION), id));
-                checkVTypesOK = false;
-            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, child->getStringAttribute(SUMO_ATTR_ID), false) != nullptr) {
-                writeError(TLF("% with id '%' cannot be created in % '%'", toString(SUMO_TAG_VTYPE), child->getStringAttribute(SUMO_ATTR_ID), toString(SUMO_TAG_VTYPE_DISTRIBUTION), id));
-                checkVTypesOK = false;
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
+            // add all distributions directly
+            for (int i = 0; i < (int)vTypes.size(); i++) {
+                vTypeDistribution->addDistributionKey(vTypes.at(i), probabilities.at(i));
             }
-        }
-        // now check probabilities
-        if ((probabilities.size() > 0) && (probabilities.size() != vTypes.size())) {
-            writeError(TL("Invalid type distribution probabilities. Must have the same number of vTypes"));
-            checkVTypesOK = false;
-        }
-        // if all ok, then create vTypeDistribution
-        if (checkVTypesOK) {
-            GNEVTypeDistribution* vTypeDistribution = new GNEVTypeDistribution(myNet, id, deterministic);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(vTypeDistribution, TL("add ") + vTypeDistribution->getTagStr() + " '" + id + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
-                vTypeDistribution->incRef("buildVType");
-            }
+            vTypeDistribution->incRef("buildVTypeDistribution");
         }
     }
 }
 
 
 void
-GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, SUMOVehicleClass vClass,
+GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                            const Parameterised::Map& routeParameters) {
+                            const double probability, const Parameterised::Map& routeParameters) {
     // parse edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
     // check conditions
@@ -153,15 +139,26 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBase
     } else if (edges.size() > 0) {
         // create GNERoute
         GNEDemandElement* route = new GNERoute(myNet, id, vClass, edges, color, repeat, cycleTime, routeParameters);
+        // check if add this route to a distribution
+        GNEDemandElement* routeDistribution = nullptr;
+        if (sumoBaseObject->getParentSumoBaseObject() && sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION) {
+            routeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+        }
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(route, TL("add ") + route->getTagStr() + " '" + id + "'");
             overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
+            if (routeDistribution) {
+                routeDistribution->addDistributionKey(route, probability, myNet->getViewNet()->getUndoList());
+            }
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(route);
             for (const auto& edge : edges) {
                 edge->addChildElement(route);
+            }
+            if (routeDistribution) {
+                routeDistribution->addDistributionKey(route, probability);
             }
             route->incRef("buildRoute");
         }
@@ -221,65 +218,30 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
 void
 GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
                                         const std::vector<std::string>& routeIDs, const std::vector<double>& probabilities) {
+    // declare vector with route and their probabilities
+    std::vector<const GNEDemandElement*> routes;
     // first check conditions
     if (!checkDuplicatedDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, id)) {
         writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_ROUTE)));
-    } else if (routeIDs.empty() && sumoBaseObject->getSumoBaseObjectChildren().empty()) {
-        writeError(TLF("% needs at least one %", toString(SUMO_TAG_ROUTE_DISTRIBUTION), toString(SUMO_TAG_ROUTE)));
-    } else {
-        bool checkRoutesOK = true;
-        std::vector<GNEDemandElement*> routes;
-        // check routes
-        for (const auto& routeID : routeIDs) {
-            auto route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
-            if (route == nullptr) {
-                writeError(TLF("% with id '%' doesn't exist in % '%'", toString(SUMO_TAG_ROUTE), route, toString(SUMO_TAG_ROUTE_DISTRIBUTION), id));
-                checkRoutesOK = false;
-            } else {
-                routes.push_back(route);
+    } else if (getDistributionElements(sumoBaseObject, SUMO_TAG_ROUTE, routeIDs, probabilities, routes)) {
+        // create distributions
+        GNERouteDistribution* routeDistribution = new GNERouteDistribution(myNet, id, deterministic);
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(routeDistribution, TL("add ") + routeDistribution->getTagStr() + " '" + id + "'");
+            overwriteDemandElement();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(routeDistribution, true), true);
+            // add all distributions
+            for (int i = 0; i < (int)routes.size(); i++) {
+                routeDistribution->addDistributionKey(routes.at(i), probabilities.at(i), myNet->getViewNet()->getUndoList());
             }
-        }
-        // now check childrens
-        for (const auto& child : sumoBaseObject->getSumoBaseObjectChildren()) {
-            if (child->hasStringAttribute(SUMO_ATTR_ID) == false) {
-                writeError(TLF("Invalid definition for % in % '%'", toString(SUMO_TAG_ROUTE), toString(SUMO_TAG_ROUTE_DISTRIBUTION), id));
-                checkRoutesOK = false;
-            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, child->getStringAttribute(SUMO_ATTR_ID), false) != nullptr) {
-                writeError(TLF("% with id '%' cannot be created in % '%'", toString(SUMO_TAG_ROUTE), child->getStringAttribute(SUMO_ATTR_ID), toString(SUMO_TAG_ROUTE_DISTRIBUTION), id));
-                checkRoutesOK = false;
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(routeDistribution);
+            // add all distributions directly
+            for (int i = 0; i < (int)routes.size(); i++) {
+                routeDistribution->addDistributionKey(routes.at(i), probabilities.at(i));
             }
-        }
-        // now check probabilities
-        if ((probabilities.size() > 0) && (probabilities.size() != routes.size())) {
-            writeError(TL("Invalid type distribution probabilities. Must have the same number of routes"));
-            checkRoutesOK = false;
-        }
-        // if all ok, then create routeDistribution
-        if (checkRoutesOK) {
-            GNERouteDistribution* routeDistribution = new GNERouteDistribution(myNet, id, deterministic);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(routeDistribution, TL("add ") + routeDistribution->getTagStr() + " '" + id + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(routeDistribution, true), true);
-                // iterate over all children and set attributes
-                for (int i = 0; i < (int)routes.size(); i++) {
-                    routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
-                    if (probabilities.size() > 0) {
-                       routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY, toString(probabilities.at(i)), myNet->getViewNet()->getUndoList()); 
-                    }
-                }
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(routeDistribution);
-                routeDistribution->incRef("buildRoute");
-                // iterate over all children and set attributes
-                for (int i = 0; i < (int)routes.size(); i++) {
-                    routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION, id);
-                    if (probabilities.size() > 0) {
-                       routes.at(i)->setAttribute(GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY, toString(probabilities.at(i))); 
-                    }
-                }
-            }
+            routeDistribution->incRef("buildRouteDistribution");
         }
     }
 }
@@ -1824,7 +1786,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             // generate route ID
             const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
-            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, false, 0, {});
+            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, false, 0, 1.0, {});
             // set route ID in vehicle parameters
             vehicleParameters.routeid = routeID;
             // create vehicle
@@ -1927,7 +1889,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // generate a new route id
             const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
-            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, false, 0, {});
+            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, false, 0, 1.0, {});
             // set route ID in vehicle parameters
             vehicleParameters.routeid = routeID;
             // create vehicle
@@ -2783,6 +2745,41 @@ GNERouteHandler::getPreviousPlanJunction(const bool /* person */, const CommonXM
         return myNet->getAttributeCarriers()->retrieveJunction(previousPersonPlan->getStringAttribute(SUMO_ATTR_TOJUNCTION), false);
     }
     return nullptr;
+}
+
+
+bool
+GNERouteHandler::getDistributionElements(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag distributionElementTag,
+        const std::vector<std::string>& distributionElementIDs, const std::vector<double>& probabilities,
+        std::vector<const GNEDemandElement*> &elements) {
+    // get distribution tag and ID
+    std::string distributionTag = toString(sumoBaseObject->getTag());
+    std::string distributionID = sumoBaseObject->getStringAttribute(SUMO_ATTR_ID);
+    // first parse vType IDs
+    for (const auto& distributionElementID : distributionElementIDs) {
+        auto distributionElement = myNet->getAttributeCarriers()->retrieveDemandElement(distributionElementTag, distributionElementID, false);
+        if (distributionElement) {
+            elements.push_back(distributionElement);
+        } else {
+            writeError(TLF("% with id '%' doesn't exist in % '%'", toString(distributionElementTag), distributionElementID, distributionTag, distributionID));
+            return false;
+
+        }
+    }
+    // check probabilities
+    for (const auto &probability : probabilities) {
+        if (probability < 0) {
+            writeError(TLF("invalid probability % in % '%'", toString(probability), distributionTag, distributionID));
+            return false;
+        }
+    }
+    // check that number of elements and probabilities is the same
+    if (elements.size() != probabilities.size()) {
+        writeError(TLF("Invalid type distribution probabilities in % '%'. Must have the same number of elements", distributionTag, distributionID));
+        return false;
+    } else {
+        return true;
+    }
 }
 
 

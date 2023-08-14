@@ -1047,7 +1047,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
             }
             makeNonCurrent();
             if (id != 0) {
-                // possibly, the selection-colouring is used,
+                // possibly, the selection-coloring is used,
                 //  so we should update the screen again...
                 update();
             }
@@ -1848,21 +1848,21 @@ GUISUMOAbstractView::openPopupDialog() {
     int x, y;
     FXuint b;
     myApp->getCursorPosition(x, y, b);
-    int popX = x + myApp->getX();
+    int appX = myApp->getX();
+    int popX = x + appX;
     int popY = y + myApp->getY();
     myPopup->setX(popX);
     myPopup->setY(popY);
     myPopup->create();
     myPopup->show();
-    // try to stay on screen unless click appears to come from a multi-screen setup
+    // TODO: try to stay on screen even on a right secondary screen in multi-monitor setup
     const int rootWidth = getApp()->getRootWindow()->getWidth();
     const int rootHeight = getApp()->getRootWindow()->getHeight();
     if (popX <= rootWidth) {
-        popX = MAX2(0, MIN2(popX, rootWidth - myPopup->getWidth() - 10));
+        const int maxX = (appX < 0) ? 0 : rootWidth;
+        popX = MIN2(popX, maxX - myPopup->getWidth() - 10);
     }
-    if (popY <= rootHeight) {
-        popY = MAX2(0, MIN2(popY, rootHeight - myPopup->getHeight() - 50));
-    }
+    popY = MIN2(popY, rootHeight - myPopup->getHeight() - 50);
     myPopup->move(popX, popY);
     myPopupPosition = getPositionInformation();
     myChanger->onRightBtnRelease(nullptr);

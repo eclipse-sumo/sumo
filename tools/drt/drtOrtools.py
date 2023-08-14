@@ -150,7 +150,7 @@ def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, 
         person_id = res.persons[0]
         stage = traci.person.getStage(person_id, 0)
         # stage type 3 is defined as 'driving'
-        assert(stage.type == 3)
+        assert stage.type == 3
         # print("travel time: ", stage.travelTime)
         # print("travel length: ", stage.length)
         # print("travel cost: ", stage.cost)

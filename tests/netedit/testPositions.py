@@ -24,10 +24,11 @@ class demandElements:
     class edge0:
         x = 450
         y = 440
-    
+
     class edge1:
         x = 885
         y = 225
+
     class edge2:
         x = 375
         y = 30
@@ -151,7 +152,7 @@ class demandElements:
         x = 280
         y = 315
 
-     # click over plan that ends in junction
+    # click over plan that ends in junction
     class planJunction:
         x = 134
         y = 52

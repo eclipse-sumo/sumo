@@ -1080,7 +1080,6 @@ def checkUndoRedo(referencePosition):
     redo(referencePosition, 9)
 
 
-
 def checkParameters(referencePosition, attributeNumber, overlapped):
     """
     @brief Check generic parameters
@@ -1222,7 +1221,7 @@ def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     """
     # focus current frame
     focusOnFrame()
-    if(useSelectedEdges and thereIsSelectedEdges):
+    if (useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
         for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
@@ -1240,7 +1239,7 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     """
     # focus current frame
     focusOnFrame()
-    if(useSelectedEdges and thereIsSelectedEdges):
+    if (useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
         for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
@@ -1674,6 +1673,7 @@ def changePersonPlanMode(personPlan):
     pasteIntoTextField(personPlan)
     # type enter to save change
     typeEnter()
+
 
 def selectPerson(person):
     """

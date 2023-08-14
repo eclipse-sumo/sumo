@@ -95,8 +95,8 @@ def checkPotFile(potFile, options):
                             entriesToRemove.append(translatedEntry)
                             print("Patched '%s' for %s" % (options.patch[i], langCode))
                         else:
-                            print("Has already been translated again: '%s' > '%s'"\
-                            % (options.patch[i+1], updatedEntry.msgstr))
+                            print("Has already been translated again: '%s' > '%s'"
+                                  % (options.patch[i+1], updatedEntry.msgstr))
             for entry in entriesToRemove:
                 po.remove(entry)
         # optionally overwrite obsolete entries completely

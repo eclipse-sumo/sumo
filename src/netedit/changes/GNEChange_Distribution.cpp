@@ -36,7 +36,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Distribution, GNEChange, nullptr, 0)
 void
 GNEChange_Distribution::addKey(GNEDemandElement* distribution, const GNEDemandElement* key, const double value, GNEUndoList* undoList) {
     // create change
-    auto change = new GNEChange_Distribution(distribution, nullptr, key, 0, value);
+    auto change = new GNEChange_Distribution(distribution, key, value, true);
     // add into undoList
     undoList->begin(distribution, TLF("add '%' key in % '%'", key, distribution->getTagStr(), distribution->getID()));
     undoList->add(change, true);
@@ -47,7 +47,7 @@ GNEChange_Distribution::addKey(GNEDemandElement* distribution, const GNEDemandEl
 void
 GNEChange_Distribution::removeKey(GNEDemandElement* distribution, const GNEDemandElement* key, GNEUndoList* undoList) {
     // create change
-    auto change = new GNEChange_Distribution(distribution, key, nullptr, 0, 0);
+    auto change = new GNEChange_Distribution(distribution, key, 0, false);
     // add into undoList
     undoList->begin(distribution, TLF("remove '%' key from % '%'", key, distribution->getTagStr(), distribution->getID()));
     undoList->add(change, true);
@@ -58,7 +58,7 @@ GNEChange_Distribution::removeKey(GNEDemandElement* distribution, const GNEDeman
 void
 GNEChange_Distribution::editValue(GNEDemandElement* distribution, const GNEDemandElement* key, const double newValue, GNEUndoList* undoList) {
     // create change
-    auto change = new GNEChange_Distribution(distribution, key, key, distribution->getAttributeDistributionValue(key), newValue);
+    auto change = new GNEChange_Distribution(distribution, key, distribution->getAttributeDistributionValue(key), newValue);
     // add into undoList
     undoList->begin(distribution, TLF("change '%' key value from % to %", key, newValue, newValue));
     undoList->add(change, true);
@@ -83,14 +83,13 @@ void
 GNEChange_Distribution::undo() {
     // show extra information for tests
     WRITE_DEBUG("Setting previous distribution into " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "'");
-    // continue depending of key
-    if (myOrigKey == nullptr) {
-        myDistribution->removeDistributionKey(myNewKey);
-    } else if (myNewKey == nullptr) {
-        myDistribution->addDistributionKey(myOrigKey, myOrigValue);
-
+    // continue depending of flags
+    if (myEditingProbability) {
+        myDistribution->editDistributionValue(myKey, myOriginalProbability);
+    } else if (myAddKey) {
+        myDistribution->removeDistributionKey(myKey);
     } else {
-        myDistribution->editDistributionValue(myOrigKey, myNewValue);
+        myDistribution->addDistributionKey(myKey, myNewProbability);
     }
     // mark demand elements as unsaved
     myDistribution->getNet()->getSavingStatus()->requireSaveDemandElements();
@@ -101,13 +100,13 @@ void
 GNEChange_Distribution::redo() {
     // show extra information for tests
     WRITE_DEBUG("Setting new distribution into " + myDistribution->getTagStr() + " '" + myDistribution->getID() + "'");
-    // continue depending of key
-    if (myOrigKey == nullptr) {
-        myDistribution->addDistributionKey(myNewKey, myNewValue);
-    } else if (myNewKey == nullptr) {
-        myDistribution->removeDistributionKey(myNewKey);
+    // continue depending of flags
+    if (myEditingProbability) {
+        myDistribution->editDistributionValue(myKey, myNewProbability);
+    } else if (myAddKey) {
+        myDistribution->addDistributionKey(myKey, myNewProbability);
     } else {
-        myDistribution->editDistributionValue(myOrigKey, myNewValue);
+        myDistribution->removeDistributionKey(myKey);
     }
     // mark demand elements as unsaved
     myDistribution->getNet()->getSavingStatus()->requireSaveDemandElements();
@@ -126,14 +125,26 @@ GNEChange_Distribution::redoName() const {
 }
 
 
-GNEChange_Distribution::GNEChange_Distribution(GNEDemandElement* distribution, const GNEDemandElement* originalKey, const GNEDemandElement* newKey,
-        const double originalValue, const double newValue) :
+GNEChange_Distribution::GNEChange_Distribution(GNEDemandElement* distribution, const GNEDemandElement* key, const double value, const bool addKey) :
     GNEChange(Supermode::DEMAND, true, false),
     myDistribution(distribution),
-    myOrigKey(originalKey),
-    myNewKey(newKey),
-    myOrigValue(originalValue),
-    myNewValue(newValue) {
+    myKey(key),
+    myOriginalProbability(-1),
+    myNewProbability(value),
+    myAddKey(addKey),
+    myEditingProbability(false) {
+    myDistribution->incRef("GNEChange_Distribution " + myDistribution->getTagProperty().getTagStr());
+}
+
+
+GNEChange_Distribution::GNEChange_Distribution(GNEDemandElement* distribution, const GNEDemandElement* key, const double originalValue, const double newValue) :
+    GNEChange(Supermode::DEMAND, true, false),
+    myDistribution(distribution),
+    myKey(key),
+    myOriginalProbability(originalValue),
+    myNewProbability(newValue),
+    myAddKey(false),
+    myEditingProbability(true) {
     myDistribution->incRef("GNEChange_Distribution " + myDistribution->getTagProperty().getTagStr());
 }
 

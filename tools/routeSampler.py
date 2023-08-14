@@ -16,7 +16,7 @@
 # @date    2020-02-07
 
 """
-Samples routes from a given set to fullfill specified counting data (edge counts or turn counts)
+Samples routes from a given set to fulfill specified counting data (edge counts or turn counts)
 """
 
 from __future__ import absolute_import
@@ -694,7 +694,7 @@ def initTotalCounts(options, routes, intervals, b, e):
                     iIndex = int((depart - b) / interval)
                     if depart == e:
                         iIndex -= 1
-                    assert(iIndex) < len(options.totalCount)
+                    assert iIndex < len(options.totalCount)
                     options.totalCount[iIndex] += 1
                 else:
                     numExcluded += 1
@@ -1010,7 +1010,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 else:
                     routeIndex = rng.choice(unrestricted_list)
                 usedRoutes.append(routeIndex)
-                assert(len(routeUsage[routeIndex]) == 0)
+                assert len(routeUsage[routeIndex]) == 0
                 numSampled += 1
         else:
             print("Cannot fulfill total interval count of %s due to lack of unrestricted routes" % intervalCount,

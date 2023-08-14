@@ -146,8 +146,10 @@ RouteHandler::endParseAttributes() {
         switch (obj->getTag()) {
             // specia case for route (because can be embedded)
             case SUMO_TAG_ROUTE:
-                // only parse non-embedded routes
-                if (!obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
+                // only parse non-embedded and without distributionsroutes
+                if ((obj->getStringAttribute(SUMO_ATTR_ID).size() > 0) &&
+                    obj->getParentSumoBaseObject() &&
+                    (obj->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROUTE_DISTRIBUTION)) {
                     // parse route and all their childrens
                     parseSumoBaseObject(obj);
                     // delete object (and all of their childrens)
@@ -166,6 +168,7 @@ RouteHandler::endParseAttributes() {
                 }
                 break;
             case SUMO_TAG_VTYPE_DISTRIBUTION:
+            case SUMO_TAG_ROUTE_DISTRIBUTION:
             case SUMO_TAG_TRIP:
             case SUMO_TAG_VEHICLE:
             case SUMO_TAG_FLOW:
@@ -218,11 +221,12 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                            obj->getColorAttribute(SUMO_ATTR_COLOR),
                            obj->getIntAttribute(SUMO_ATTR_REPEAT),
                            obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
+                           obj->getDoubleAttribute(SUMO_ATTR_PROB),
                            obj->getParameters());
             }
             break;
         case SUMO_TAG_ROUTE_DISTRIBUTION:
-            buildVTypeDistribution(obj,
+            buildRouteDistribution(obj,
                                    obj->getStringAttribute(SUMO_ATTR_ID),
                                    obj->getIntAttribute(SUMO_ATTR_DETERMINISTIC),
                                    obj->getStringListAttribute(SUMO_ATTR_ROUTES),
@@ -458,6 +462,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
         const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::INVISIBLE);
         const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, id.c_str(), parsedOk, 0);
         const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, id.c_str(), parsedOk, 0);
+        const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, id.c_str(), parsedOk, 0);
         if (parsedOk) {
             if (!id.empty() && !SUMOXMLDefinitions::isValidVehicleID(id)) {
                 writeErrorInvalidID(SUMO_TAG_ROUTE, id);
@@ -473,6 +478,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_REPEAT, repeat);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CYCLETIME, cycleTime);
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);
             }
         }
     }

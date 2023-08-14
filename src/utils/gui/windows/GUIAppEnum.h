@@ -414,7 +414,7 @@ enum {
     /// @{
 
     /// @brief Change coloring scheme - combo
-    MID_COLOURSCHEMECHANGE,
+    MID_COLORSCHEMECHANGE,
 
     /// @}
 

@@ -45,6 +45,7 @@
 #include "cfmodels/MSCFModel_W99.h"
 #include "cfmodels/MSCFModel_ACC.h"
 #include "cfmodels/MSCFModel_CACC.h"
+#include "MSInsertionControl.h"
 #include "MSVehicleControl.h"
 #include "cfmodels/MSCFModel_CC.h"
 #include "MSVehicleType.h"
@@ -174,6 +175,8 @@ MSVehicleType::setPreferredLateralAlignment(const LatAlignmentDefinition& latAli
 void
 MSVehicleType::setScale(double value) {
     myParameter.scale = value;
+    MSInsertionControl& insertControl = MSNet::getInstance()->getInsertionControl();
+    insertControl.updateScale(getID());
 }
 
 void

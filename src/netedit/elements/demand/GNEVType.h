@@ -197,9 +197,6 @@ protected:
     /// @brief flag to check if this default GNEVType was modified
     bool myDefaultVehicleTypeModified;
 
-    /// @brief type distribution in which this vType is included
-    std::set<GNEDemandElement*> myTypeDistributions;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
