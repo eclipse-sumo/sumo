@@ -175,14 +175,23 @@ public:
         /// @brief refresh current row
         void refreshDistributionRow(const GNEDemandElement* key, const double value);
 
+        /// @brief refresh comboBox
+        void refreshComboBox();
+
         /// @brief check if current attribute of TextField/ComboBox is valid
         bool isDistributionRowValid() const;
+
+        /// @brief get current probability
+        double getProbability() const;
 
         /// @name FOX-callbacks
         /// @{
 
-        /// @brief try to set new attribute value
-        long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
+        /// @brief try to set new key
+        long onCmdSetKey(FXObject*, FXSelector, void*);
+
+        /// @brief try to set new probability
+        long onCmdSetProbability(FXObject*, FXSelector, void*);
 
         /// @brief remove row
         long onCmdRemoveRow(FXObject*, FXSelector, void*);
@@ -194,7 +203,7 @@ public:
         FOX_CONSTRUCTOR(DistributionRow)
 
         /// @brief check if the given ID is valid
-        bool isValidKey() const;
+        bool isValidNewKey() const;
 
     private:
         /// @brief pointer to DistributionValuesEditor parent
@@ -203,8 +212,8 @@ public:
         /// @brief delete row button
         MFXButtonTooltip* myDeleteRowButton = nullptr;
 
-        /// @brief textField to modify the value of string attributes
-        MFXComboBoxIcon* myComboBoxKeys = nullptr;
+        /// @brief comboBox with keys
+        FXComboBox* myComboBoxKeys = nullptr;
 
         /// @brief textField to modify the probability attribute
         MFXTextFieldTooltip* myProbabilityTextField = nullptr;
@@ -212,7 +221,7 @@ public:
         /// @brief current Key
         const GNEDemandElement* myKey = nullptr;
 
-        /// @brief probability
+        /// @brief current probability
         double myProbability = 0;
     };
 
@@ -252,6 +261,9 @@ public:
         /// @brief Called when user press the add button
         long onCmdAddRow(FXObject*, FXSelector, void*);
 
+        /// @brief Called when sum button button is updated
+        long onUpdAddRow(FXObject* sender, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -277,7 +289,10 @@ public:
         /// @brief list of Attribute editor rows
         std::vector<DistributionRow*> myDistributionRows;
 
-        /// @brief button for add new row
-        FXButton* myAddButton = nullptr;
+        /// @brief bot frame
+        FXHorizontalFrame* myBotFrame = nullptr;
+
+        /// @brief sum label
+        FXLabel* mySumLabel = nullptr;
     };
 };
