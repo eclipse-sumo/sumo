@@ -264,7 +264,7 @@ class ArgumentParser(argparse.ArgumentParser):
 
     def add_mutually_exclusive_group(self, required=False):
         group = argparse.ArgumentParser.add_mutually_exclusive_group(self, required=required)
-        group.add_argument = handleCatoryWrapper(group.add_argument)
+        group.add_argument = handleCategoryWrapper(group.add_argument)
         return group
 
     def _write_config_file(self, namespace, toString=False):
@@ -459,7 +459,7 @@ class ArgumentParser(argparse.ArgumentParser):
         return namespace, remaining_args
 
 
-def handleCatoryWrapper(func):
+def handleCategoryWrapper(func):
     @wraps(func)
     def inner(*args, **kwargs):
         category = kwargs.get("category")
