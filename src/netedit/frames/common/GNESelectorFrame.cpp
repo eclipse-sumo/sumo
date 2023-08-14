@@ -107,7 +107,7 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel(TL("TAZSinks"), ACs->getNumberOfSelectedTAZSinks());
         updateInformationLabel(TL("Polygons"), ACs->getNumberOfSelectedPolygons());
         updateInformationLabel(TL("POIs"), ACs->getNumberOfSelectedPOIs());
-        updateInformationLabel(TL("JuPedSims"), ACs->getNumberOfSelectedJpsWalkableAreas() + 
+        updateInformationLabel(TL("JuPedSim elements"), ACs->getNumberOfSelectedJpsWalkableAreas() + 
             ACs->getNumberOfSelectedJpsObstacles() +
             ACs->getNumberOfSelectedJpsWaitingAreas() +
             ACs->getNumberOfSelectedJpsWaypoints() +
