@@ -426,7 +426,7 @@ class StartDialog(Tkinter.Frame):
             print("starting", cfg)
         self.gametime = parseEndTime(cfg)
         binary = sumolib.checkBinary("sumo-gui", BASE)
-        if binary == "sumo-gui": # fallback in case SUMO_HOME env is not defined
+        if binary == "sumo-gui":  # fallback in case SUMO_HOME env is not defined
             binary = sumolib.checkBinary("sumo-gui", os.path.join(SUMO_HOME, "bin"))
         self.ret = subprocess.call(
             [binary, "-S", "-G", "-Q", "-c", cfg, '-l', 'log',

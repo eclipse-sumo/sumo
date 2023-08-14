@@ -36,7 +36,8 @@ SUMO_LIBRARIES = os.environ.get("SUMO_LIBRARIES", os.path.join(os.path.dirname(S
 
 def getOptions(args=None):
     ap = ArgumentParser()
-    ap.add_argument("-l", "--lang", nargs='*', help="languages to process (using the gettext short codes like en, fr, de)")
+    ap.add_argument("-l", "--lang", nargs='*',
+                    help="languages to process (using the gettext short codes like en, fr, de)")
     ap.add_argument("--replace", nargs='*',
                     help="search/replace commands to apply automatically, giving the search string on the uneven \
                     position and the replace string on the even position; cannot be used together with \
@@ -130,7 +131,7 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
         replaceIDs = []
         po = polib.pofile(uniLangPoFile)
         for entry in po:
-            if entry.msgid != entry.msgstr: # changes in msgid
+            if entry.msgid != entry.msgstr:  # changes in msgid
                 for occurrence, lineNr in entry.occurrences:
                     if occurrence not in fileReplaceCommands:
                         fileReplaceCommands[occurrence] = []
@@ -157,7 +158,7 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
 
         # change the msgid in other language files accordingly
         for langCode in options.lang:
-            translatedPoFile = os.path.join(os.path.dirname(potFile), "%s_" % langCode +\
+            translatedPoFile = os.path.join(os.path.dirname(potFile), "%s_" % langCode +
                 os.path.basename(potFile)[:-4] + ".po")
             if not os.path.exists(translatedPoFile):
                 print("Missing po translation file %s to update" % translatedPoFile)
@@ -184,7 +185,7 @@ def processRules(poFilePath, replaceRules, options, markObsolete=False, filterID
     checkFilter = filterIDs is not None
     toRemove = []
     for entry in poFile:
-        if checkFilter and entry.msgid not in filterIDs: # only process the wanted entries
+        if checkFilter and entry.msgid not in filterIDs:  # only process the wanted entries
             continue
         replaced = None
         if options.numberedPlaceholders:
@@ -194,16 +195,16 @@ def processRules(poFilePath, replaceRules, options, markObsolete=False, filterID
                 replaced = entry.msgstr
             while placeholderIndex > -1:
                 replaced = replaced[:placeholderIndex + len(options.placeholder)] + str(i) +\
-                    replaced[placeholderIndex  + len(options.placeholder):]
-                placeholderIndex = replaced.find(options.placeholder, placeholderIndex +\
+                    replaced[placeholderIndex + len(options.placeholder):]
+                placeholderIndex = replaced.find(options.placeholder, placeholderIndex +
                     len(options.placeholder) + len(str(i)))
                 i += 1
         for replaceRule in replaceRules:
             if options.strict and replaceRule[0] == entry.msgstr:
                 replaced = replaceRule[0]
-            elif replaceRule[3] and not replaceRule[4] and entry.msgstr.startswith(replaceRule[0]): # starts with ...
+            elif replaceRule[3] and not replaceRule[4] and entry.msgstr.startswith(replaceRule[0]):  # starts with ...
                 replaced = replaceRule[1] + entry.msgstr[len(replaceRule[0]):]
-            elif not replaceRule[3] and replaceRule[4] and entry.msgstr.endswith(replaceRule[0]): # ends with ...
+            elif not replaceRule[3] and replaceRule[4] and entry.msgstr.endswith(replaceRule[0]):  # ends with ...
                 replaced = entry.msgstr[:-len(replaceRule[0])] + replaceRule[1]
             elif replaceRule[0] in entry.msgstr:
                 replaced = entry.msgstr.replace(replaceRule[0], replaceRule[1])
@@ -229,7 +230,7 @@ def patchPoFile(filePath, replaceIDs, fuzzy=False):
     for entry in replaceIDs:
         search = entry.msgid
         replace = entry.msgstr
-        searchEntry = po.find(search) # add context filter here
+        searchEntry = po.find(search)  # add context filter here
         replaceEntry = po.find(replace)
         if searchEntry is not None:
             if replaceEntry is not None:

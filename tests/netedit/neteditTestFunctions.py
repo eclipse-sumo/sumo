@@ -1080,7 +1080,6 @@ def checkUndoRedo(referencePosition):
     redo(referencePosition, 9)
 
 
-
 def checkParameters(referencePosition, attributeNumber, overlapped):
     """
     @brief Check generic parameters
@@ -1674,6 +1673,7 @@ def changePersonPlanMode(personPlan):
     pasteIntoTextField(personPlan)
     # type enter to save change
     typeEnter()
+
 
 def selectPerson(person):
     """

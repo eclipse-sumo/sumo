@@ -892,7 +892,7 @@ def convertShape(shapeString):
     """ Convert xml shape string into float tuples.
 
     This method converts the 2d or 3d shape string from SUMO's xml file
-    into a list containing 3d float-tuples. Non existant z coordinates default
+    into a list containing 3d float-tuples. Non existent z coordinates default
     to zero. If shapeString is empty, an empty list will be returned.
     """
 
