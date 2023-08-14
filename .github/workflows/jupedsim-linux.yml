@@ -41,19 +41,6 @@ jobs:
         cmake --build . -j4 --config Release
         cmake --install . --config Release
 
-    - name: Building GEOS
-      run: |
-        cd ../..
-        wget https://download.osgeo.org/geos/geos-3.11.2.tar.bz2
-        tar xjf geos-3.11.2.tar.bz2
-        cd geos-3.11.2
-        mkdir geos-build geos-install
-        cd geos-build
-        cmake -DCMAKE_INSTALL_PREFIX=$PWD/../geos-install ..
-        cmake --build . --config Release
-        ctest --output-on-failure .
-        cmake --install . --config Release
-
     - name: Cloning SUMO
       uses: actions/checkout@v3
       with:
@@ -73,7 +60,7 @@ jobs:
       run: |
         mkdir -p sumo/sumo-build 
         cd sumo/sumo-build 
-        cmake -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=$PWD/../../jpscore-install -DGEOS_DIR=$PWD/../../geos-install ..
+        cmake -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=$PWD/../../jpscore-install ..
         cmake --build . -j4 --config Release
         make traas
         sudo cmake --install . --config Release
