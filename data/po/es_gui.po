@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-11 14:41+0200\n"
-"PO-Revision-Date: 2023-08-11 11:58+0000\n"
+"PO-Revision-Date: 2023-08-14 10:55+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1447,38 +1447,38 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:159
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:164
 msgid "interval speed [m/s]"
-msgstr ""
+msgstr "velocidad en el intervalo [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:161
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:166
 msgid "interval occupancy [%]"
-msgstr ""
+msgstr "ocupación en el intervalo [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:163
 msgid "interval max jam length [m]"
-msgstr ""
+msgstr "longitud máxima de atasco en el intervalo [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:165
 msgid "last interval seen vehicles [#]"
-msgstr ""
+msgstr "número de vehículos en el intervalo anterior [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:167
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:170
 msgid "last interval speed [m/s]"
-msgstr ""
+msgstr "velocidad en el intervalo anterior [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:169
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:172
 msgid "last interval occupancy [%]"
-msgstr ""
+msgstr "ocupación en el intervalo anterior [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:171
 msgid "last interval max jam length [m]"
-msgstr ""
+msgstr "longitud máxima de atasco en el intervalo anterior [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:84
 msgid "vehicles within [#]"
-msgstr ""
+msgstr "vehículos dentro [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:88
 msgid "haltings [#]"
@@ -1486,19 +1486,19 @@ msgstr "paradas [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:90
 msgid "last interval mean travel time [s]"
-msgstr ""
+msgstr "tiempo medio de viaje en el intervalo anterior [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:92
 msgid "last interval mean haltings [#]"
-msgstr ""
+msgstr "número medio de paradas en el intervalo anterior [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:94
 msgid "last interval mean time loss [s]"
-msgstr ""
+msgstr "media del tiempo perdido en el intervalo anterior [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:96
 msgid "last interval mean vehicle count [#]"
-msgstr ""
+msgstr "número de vehículos medio en el intervalo anterior [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:184
 msgid "max speed [m/s]"
@@ -1525,7 +1525,7 @@ msgstr "velocidad media del vehículo [m/s]"
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:190
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1021
 msgid "routing speed [m/s]"
-msgstr ""
+msgstr "velocidad de enrutamiento [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:191
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1023
@@ -1543,11 +1543,11 @@ msgstr "flujo [veh/h/carril]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:197
 msgid "segment index"
-msgstr ""
+msgstr "índice de segmento"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:198
 msgid "segment queues"
-msgstr ""
+msgstr "colas de segmento"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:199
 msgid "segment length [m]"
@@ -1559,7 +1559,7 @@ msgstr "velocidad permitida del segmento [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:201
 msgid "segment jam threshold [%]"
-msgstr ""
+msgstr "umbral de atasco de segmento [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:202
 msgid "segment brutto occupancy [%]"
@@ -11914,7 +11914,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:279
 msgid "Change Z in selection"
-msgstr ""
+msgstr "Cambiar Z en la selección"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:288
 msgid "Absolute value"
@@ -11971,7 +11971,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:79
 msgid "Selection information"
-msgstr ""
+msgstr "Información de la selección"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:157
 msgid "Modification Mode"
@@ -12024,11 +12024,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:261
 msgid "Invert"
-msgstr ""
+msgstr "Invertir"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:261
 msgid "Invert selection status of all objects"
-msgstr ""
+msgstr "Invertir el estado de selección de todos los objetos"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:263
 msgid "Save ids of currently selected objects to a file."
@@ -12044,11 +12044,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:269
 msgid "Reduce"
-msgstr ""
+msgstr "Reducir"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:269
 msgid "Reduce network to current selection."
-msgstr ""
+msgstr "Reducir la red a la selección actual."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:282
 msgid "Could not open '%'."
@@ -12603,7 +12603,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:168
 msgid "Clear Selected"
-msgstr ""
+msgstr "Anular selección"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:168
 msgid "Clears all connections of all selected objects"
@@ -12846,7 +12846,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:109
 msgid "Invert edges"
-msgstr ""
+msgstr "Invertir aristas"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:197
 msgid "Crossing parameters"
