@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-14 14:32+0200\n"
-"PO-Revision-Date: 2023-08-14 13:04+0000\n"
+"PO-Revision-Date: 2023-08-14 13:52+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -3260,7 +3260,7 @@ msgstr "＆路段"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
 msgid "Create junction and edges."
-msgstr "建立路口及路段。"
+msgstr "创建节点和道路。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
 msgid "&Traffic light"
@@ -3292,11 +3292,11 @@ msgstr "跨越"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:630
 msgid "Create crossings between edges."
-msgstr "在路段之间建立人行穿越道。"
+msgstr "在道路之间创建人行横道。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:634
 msgid "Create additional elements."
-msgstr "建立附加要素。"
+msgstr "创建附加元素。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:638
 msgid "&Wire"
@@ -3304,7 +3304,7 @@ msgstr "&通讯线(Wire)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:638
 msgid "Create wires."
-msgstr "建立通讯线。"
+msgstr "创建通讯线。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:642
 msgid "TA&Z"
@@ -3320,28 +3320,28 @@ msgstr "&POI多边形"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
 msgid "Create Points-Of-Interest and polygons."
-msgstr "建立兴趣点及多边形物件。"
+msgstr "创建兴趣点（POI）及多边形。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:650
 msgid "Deca&ls"
-msgstr ""
+msgstr "壁纸"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:650
 msgid "Create decals."
-msgstr ""
+msgstr "创建壁纸。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:703
 msgid "Create Routes."
-msgstr "建立路径。"
+msgstr "创建路径。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3500
 msgid "Route distribution"
-msgstr ""
+msgstr "路径分配"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
 msgid "Create and edit route distributions."
-msgstr ""
+msgstr "创建和编辑路径分配。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:710
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:125
@@ -3362,11 +3362,11 @@ msgstr "建立类型（车辆, 人和容器）。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:716
 msgid "TypeDistribution"
-msgstr ""
+msgstr "类型分布"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:716
 msgid "Create and edit type distributions."
-msgstr ""
+msgstr "创建和编辑类型分布。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:719
 msgid "Stop"
@@ -3672,27 +3672,27 @@ msgstr "兴趣点"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1364
 msgid "WalkableAreas"
-msgstr ""
+msgstr "可步行区域"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1369
 msgid "Obstacles"
-msgstr ""
+msgstr "障碍物"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1374
 msgid "WaitingAreas"
-msgstr ""
+msgstr "等待区域"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1379
 msgid "Sources"
-msgstr ""
+msgstr "源"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1384
 msgid "Sinks"
-msgstr ""
+msgstr "汇"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1389
 msgid "Waypoints"
-msgstr ""
+msgstr "路径点"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1395
 msgid "&Routes"
@@ -3883,7 +3883,7 @@ msgstr "开启对话框以进行人员定位。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2049
 msgid "Open a dialog for locating a Container."
-msgstr ""
+msgstr "打开用于查找载具的对话框。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2052
 msgid "&Route"
@@ -4085,7 +4085,7 @@ msgstr "將netedit的设定档案存储为"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2867
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2871
 msgid "Netedit Config files (*.netecfg)"
-msgstr ""
+msgstr "Netedit路网配置文件 (*.netecfg)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2870
 msgid "Open netedit Config file"
@@ -4281,15 +4281,15 @@ msgstr "将属性帮助写入文件"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:321
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
-msgstr ""
+msgstr "在“撤消-重做”中的编辑模式之间更改时，忽略问题对话框"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:324
 msgid "Ignore additional elements during loading of sumo-configs"
-msgstr ""
+msgstr "在加载sumo配置文件时忽略附加元素"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:327
 msgid "Ignore route elements during loading of sumo-configs"
-msgstr ""
+msgstr "在加载sumo配置文件时忽略路由元素"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:332
 msgid "Prefix for node naming"
@@ -4313,7 +4313,7 @@ msgstr "火车站的命名前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:349
 msgid "Prefix for containerStop naming"
-msgstr "容器停靠站(containerStop)的命名前缀"
+msgstr "货运车辆停靠站(containerStop)的命名前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:352
 msgid "Prefix for chargingStation naming"
@@ -4373,27 +4373,27 @@ msgstr "兴趣点的命名前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:394
 msgid "Prefix for jps walkable area naming"
-msgstr ""
+msgstr "jps （JuPedSim）中可步行区域命名的前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:397
 msgid "Prefix for jps obstacle naming"
-msgstr ""
+msgstr "jps （JuPedSim）中障碍物命名的前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:400
 msgid "Prefix for jps waiting area naming"
-msgstr ""
+msgstr "jps （JuPedSim）中等待区域的命名前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:403
 msgid "Prefix for jps source naming"
-msgstr ""
+msgstr "jps （JuPedSim）中源的命名前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:406
 msgid "Prefix for jps sink naming"
-msgstr ""
+msgstr "jps （JuPedSim）中汇的命名前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:409
 msgid "Prefix for jps waypoints naming"
-msgstr ""
+msgstr "jps （JuPedSim）中路径点的命名前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:414
 msgid "Prefix for route naming"
@@ -4401,15 +4401,15 @@ msgstr "路径的命名前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:417
 msgid "Prefix for route distribution naming"
-msgstr ""
+msgstr "路径分布的命名前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:420
 msgid "Prefix for type naming"
-msgstr ""
+msgstr "类型的命名前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:423
 msgid "Prefix for type distribution naming"
-msgstr ""
+msgstr "类型分布的命名前缀"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:426
 msgid "Prefix for vehicle naming"
@@ -4765,11 +4765,11 @@ msgstr "在路网內定位人员。(Shift+P)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:360
 msgid "Locate Containers"
-msgstr ""
+msgstr "定位容器"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:360
 msgid "Locate a container within the network. (Shift+C)"
-msgstr ""
+msgstr "在路网内定位容器。 (Shift+C)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:364
 msgid "Locate Route"
@@ -4966,7 +4966,7 @@ msgstr "在 % t的\\周围沒有车道附接它"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2631
 msgid "attach POI into lane"
-msgstr "將兴趣点附接到車道"
+msgstr "将兴趣点附接到车道"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2644
 msgid "release POI from lane"
@@ -4974,11 +4974,11 @@ msgstr "从车道上释放兴趣点"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2663
 msgid "reverse % '%'"
-msgstr ""
+msgstr "反转 % '%'"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2677
 msgid "add reverse '%'"
-msgstr ""
+msgstr "添加反向 '%'"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2706
 msgid "change edge Geometry Point position"
