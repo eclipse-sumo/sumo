@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-11 14:41+0200\n"
+"POT-Creation-Date: 2023-08-14 13:02+0200\n"
 "PO-Revision-Date: 2023-08-14 09:46+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -10573,9 +10573,8 @@ msgid "Select reachable (compute junctions)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
-#: C:\Repos\sumo/src\netedit\frames\GNEDistributionEditor.cpp:312
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:752
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:411
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:457
 msgid "Internal attributes"
 msgstr "内部属性"
 
@@ -10767,6 +10766,7 @@ msgstr "检查"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:324
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:267
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:84
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:98
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:442
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1384
@@ -10937,7 +10937,6 @@ msgid " attribute"
 msgstr " 属性"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:678
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:388
 msgid "Value '"
 msgstr "价值'"
 
@@ -11876,6 +11875,10 @@ msgstr "保存所选项目的清单"
 msgid "Hierarchy operations"
 msgstr "层次结构操作"
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1138
+msgid "Select parents"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1144
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1154
 msgid "Select"
@@ -11885,6 +11888,14 @@ msgstr "选择"
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1156
 msgid "Unselect"
 msgstr "未选择"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1148
+msgid "Select children"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1265
+msgid "select parents"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
 msgid "There is already a % in edge '%'"
@@ -12022,6 +12033,22 @@ msgstr "带有vClass != 'ignoring'的VType不是面向容器的"
 msgid "Invalid container parameters."
 msgstr "无效的容器参数。"
 
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:76
+msgid "Distribution Editor"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:79
+msgid "New"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:143
+msgid "Current type dist."
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:473
+msgid "Add new distribution value"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:140
 msgid "Current selected person isn't valid."
@@ -12048,26 +12075,6 @@ msgstr "带有vClass != 'pedestrian'的VType不是面向人的"
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:287
 msgid "Invalid person parameters."
 msgstr "无效的人员参数。"
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:75
-msgid "Route Editor"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:78
-msgid "Create route dist."
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:80
-msgid "Delete route dist."
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:137
-msgid "Current route dist."
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:388
-msgid "' for attribute ID of Distribution isn't valid"
-msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:52
 msgid "Route mode"
@@ -12138,26 +12145,13 @@ msgstr "停靠必须放在路径的路段上"
 msgid "Stop must be placed over an embedded route's edge"
 msgstr "必须在嵌入路线的路段上设置停车位"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:66
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:218
-msgid "Type Editor"
-msgstr "类型编辑"
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:69
-msgid "Create type dist."
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:71
-msgid "Delete type dist."
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:127
-msgid "Current type dist."
-msgstr ""
-
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:62
 msgid "Current Type"
 msgstr "当前类型"
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:218
+msgid "Type Editor"
+msgstr "类型编辑"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:221
 msgid "Create Type"
