@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-11 14:41+0200\n"
-"PO-Revision-Date: 2023-08-14 08:50+0000\n"
+"PO-Revision-Date: 2023-08-14 09:12+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -2067,63 +2067,63 @@ msgstr "上一次换道 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:145
 msgid "depart delay [s]"
-msgstr ""
+msgstr "出发延迟 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:146
 msgid "odometer [m]"
-msgstr ""
+msgstr "里程表 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:149
 msgid "remaining [#]"
-msgstr ""
+msgstr "剩余车辆数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:152
 msgid "insertion period [s]"
-msgstr ""
+msgstr "插入间隔 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:155
 msgid "insertion probability"
-msgstr ""
+msgstr "插入概率"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:157
 msgid "stop info"
-msgstr ""
+msgstr "驻留信息"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:158
 msgid "line"
-msgstr ""
+msgstr "线路"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:159
 msgid "CO2 [mg/s]"
-msgstr ""
+msgstr "CO2 [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:161
 msgid "CO [mg/s]"
-msgstr ""
+msgstr "CO [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:163
 msgid "HC [mg/s]"
-msgstr ""
+msgstr "HC [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:165
 msgid "NOx [mg/s]"
-msgstr ""
+msgstr "NOx [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:167
 msgid "PMx [mg/s]"
-msgstr ""
+msgstr "PMx [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:169
 msgid "fuel [mg/s]"
-msgstr ""
+msgstr "燃料消耗速率 [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:171
 msgid "electricity [Wh/s]"
-msgstr ""
+msgstr "电量消耗速率 [Wh/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:173
 msgid "noise (Harmonoise) [dB]"
-msgstr ""
+msgstr "声音强度（噪声强度） [dB]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:175
 msgid "devices"
@@ -2179,51 +2179,51 @@ msgstr "相对剩余电量 (SoC) [-]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:198
 msgid "currently charging [Wh]"
-msgstr ""
+msgstr "当前充电能量 [Wh]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:202
 msgid "present electric current [A]"
-msgstr ""
+msgstr "当前电流 [A]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:207
 msgid "speed mode"
-msgstr ""
+msgstr "速度模式"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:210
 msgid "lane change mode"
-msgstr ""
+msgstr "换道模式"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:223
 msgid "height [m]"
-msgstr ""
+msgstr "高度 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:224
 msgid "minGap [m]"
-msgstr ""
+msgstr "最小间距 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:225
 msgid "vehicle class"
-msgstr ""
+msgstr "交通实体类型"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:226
 msgid "emission class"
-msgstr ""
+msgstr "排放类型"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:228
 msgid "car-following model"
-msgstr ""
+msgstr "跟驰模型"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:229
 msgid "lane-change model"
-msgstr ""
+msgstr "换道模型"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:230
 msgid "guiShape"
-msgstr ""
+msgstr "可视化形状"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:232
 msgid "desired maximum speed [m/s]"
-msgstr ""
+msgstr "期望最大速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:233
 msgid "maximum acceleration [m/s^2]"
