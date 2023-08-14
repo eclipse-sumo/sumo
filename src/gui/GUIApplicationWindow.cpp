@@ -597,22 +597,22 @@ GUIApplicationWindow::fillMenuBar() {
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Window"), nullptr, myWindowMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu, TL("Open new view"), "", "", GUIIconSubSys::getIcon(GUIIcon::MICROVIEW), this, MID_NEW_MICROVIEW);
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu, TL("Open new view"), "", TL("Open a new microscopic view."), GUIIconSubSys::getIcon(GUIIcon::MICROVIEW), this, MID_NEW_MICROVIEW);
 #ifdef HAVE_OSG
-    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu, TL("Open new 3D view"), "", "", GUIIconSubSys::getIcon(GUIIcon::OSGVIEW), this, MID_NEW_OSGVIEW);
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu, TL("Open new 3D view"), "", TL("Open a new 3D view."), GUIIconSubSys::getIcon(GUIIcon::OSGVIEW), this, MID_NEW_OSGVIEW);
 #endif
     GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
-                                           TL("Tile &Horizontally"), "", "",
+                                           TL("Tile &Horizontally"), "", TL("Tile the views horizontally."),
                                            GUIIconSubSys::getIcon(GUIIcon::WINDOWS_TILE_HORI), myMDIClient, FXMDIClient::ID_MDI_TILEHORIZONTAL);
     GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
-                                           TL("Tile &Vertically"), "", "",
+                                           TL("Tile &Vertically"), "", TL("Tile the views vertically."),
                                            GUIIconSubSys::getIcon(GUIIcon::WINDOWS_TILE_VERT), myMDIClient, FXMDIClient::ID_MDI_TILEVERTICAL);
     GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
-                                           TL("Cascade"), "", "",
+                                           TL("Cascade"), "", TL("Cascade the views."),
                                            GUIIconSubSys::getIcon(GUIIcon::WINDOWS_CASCADE),
                                            myMDIClient, FXMDIClient::ID_MDI_CASCADE);
     GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
-                                           TL("&Close"), "", "",
+                                           TL("&Close"), "", TL("Close the selected view."),
                                            nullptr, myMDIClient, FXMDIClient::ID_MDI_CLOSE);
     FXMenuSeparator* sep2 = new FXMenuSeparator(myWindowMenu);
     sep2->setTarget(myMDIClient);
