@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-14 13:33+0200\n"
-"PO-Revision-Date: 2023-08-09 06:52+0000\n"
+"PO-Revision-Date: 2023-08-14 12:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -1894,15 +1894,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:541
 msgid "avg. trip speed [m/s]"
-msgstr ""
+msgstr "velocità media della corsa [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:543
 msgid "avg. walk length [m]"
-msgstr ""
+msgstr "lunghezza media di cammini [m]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:544
 msgid "avg. walk duration [s]"
-msgstr ""
+msgstr "durata media di cammini [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:545
 msgid "avg. walk time loss [s]"
