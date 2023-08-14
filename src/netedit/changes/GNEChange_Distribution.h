@@ -66,25 +66,34 @@ private:
      */
     GNEDemandElement* myDistribution;
 
-    /// @brief the original key
-    const GNEDemandElement* myOrigKey;
-
-    /// @brief the new key (empty means remove)
-    const GNEDemandElement* myNewKey;
+    /// @brief the key
+    const GNEDemandElement* myKey;
 
     /// @brief the original value
-    const double myOrigValue;
+    const double myOriginalProbability;
 
     /// @brief the new value
-    const double myNewValue;
+    const double myNewProbability;
+
+    /// @brief flag for check if we're adding or removing key
+    const bool myAddKey;
+
+    /// @brief flag for check if we're editing value
+    const bool myEditingProbability;
 
     /**@brief constructor for add/modify key
      * @param[in] distribution The distribution to be modified
-     * @param[in] originalKey The original distribution key
-     * @param[in] newKey The new distribution key
+     * @param[in] key to add/remove
+     * @param[in] value key value
+     * @param[in] addKey flag to check if we're adding or removing key
+     */
+    GNEChange_Distribution(GNEDemandElement* distribution, const GNEDemandElement* key, const double value, const bool addKey);
+
+    /**@brief constructor for add/modify key
+     * @param[in] distribution The distribution to be modified
+     * @param[in] key to add/remove
      * @param[in] originalValue The original distribution value
      * @param[in] newValue The new distribution value
      */
-    GNEChange_Distribution(GNEDemandElement* distribution, const GNEDemandElement* originalKey, const GNEDemandElement* newKey,
-                           const double originalValue, const double newValue);
+    GNEChange_Distribution(GNEDemandElement* distribution, const GNEDemandElement* key, const double originalValue, const double newValue);
 };
