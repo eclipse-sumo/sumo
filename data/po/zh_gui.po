@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-14 14:32+0200\n"
+"POT-Creation-Date: 2023-08-14 17:12+0200\n"
 "PO-Revision-Date: 2023-08-14 15:11+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -443,28 +443,54 @@ msgstr "&视窗"
 msgid "Open new view"
 msgstr "打开新视窗"
 
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:600
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:756
+msgid "Open a new microscopic view."
+msgstr "打开新的微观仿真视窗。"
+
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:602
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:759
 msgid "Open new 3D view"
 msgstr "打开新的三维视窗"
 
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:602
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:759
+msgid "Open a new 3D view."
+msgstr "打开新的三维视窗。"
+
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:605
 msgid "Tile &Horizontally"
 msgstr "图砖&水平方向"
+
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:605
+msgid "Tile the views horizontally."
+msgstr ""
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile &Vertically"
 msgstr "图砖&垂直方向"
 
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
+msgid "Tile the views vertically."
+msgstr ""
+
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade"
 msgstr "级联 (Cascade)"
+
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
+msgid "Cascade the views."
+msgstr ""
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:100
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:100
 msgid "&Close"
 msgstr "&关闭"
+
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
+msgid "Close the selected view."
+msgstr ""
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:625
 msgid "&Others..."
@@ -624,14 +650,6 @@ msgid ""
 "Scale traffic volume from running flows and from vehicles that are loaded "
 "incrementally from route files."
 msgstr "通过正在运行的交通流和从路径文件增量加载的车辆来缩放交通量。"
-
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:756
-msgid "Open a new microscopic view."
-msgstr "打开新的微观仿真视窗。"
-
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:759
-msgid "Open a new 3D view."
-msgstr "打开新的三维视窗。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:769
 msgid "Waiting Time:"
@@ -9422,7 +9440,8 @@ msgstr "添加感应线圈 '"
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
 "light ID."
-msgstr "无法在netedit中布设编号 (ID)为 '%' 的车道区域检测器；无效的交通信号灯编号 "
+msgstr ""
+"无法在netedit中布设编号 (ID)为 '%' 的车道区域检测器；无效的交通信号灯编号 "
 "(ID)。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:489
@@ -10577,7 +10596,6 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:752
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:457
 msgid "Internal attributes"
 msgstr "内部属性"
 
@@ -11853,7 +11871,7 @@ msgid "POIs"
 msgstr "兴趣点"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:110
-msgid "JuPedSims"
+msgid "JuPedSim elements"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
@@ -12198,6 +12216,10 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:143
 msgid "Current type dist."
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:457
+msgid "Distribution editor"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:473

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-14 14:32+0200\n"
+"POT-Creation-Date: 2023-08-14 17:12+0200\n"
 "PO-Revision-Date: 2023-03-28 15:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
@@ -448,28 +448,54 @@ msgstr "&Fenêtre"
 msgid "Open new view"
 msgstr "Ouvrir nouvelle vue"
 
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:600
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:756
+msgid "Open a new microscopic view."
+msgstr "Ouvrir une nouvelle vue microscopique."
+
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:602
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:759
 msgid "Open new 3D view"
 msgstr "Ouvrir nouvelle vue 3D"
 
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:602
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:759
+msgid "Open a new 3D view."
+msgstr "Ouvrir une nouvelle vue 3D."
+
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:605
 msgid "Tile &Horizontally"
 msgstr "Partager &Horizontalement"
+
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:605
+msgid "Tile the views horizontally."
+msgstr ""
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile &Vertically"
 msgstr "Partager &Verticalement"
 
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
+msgid "Tile the views vertically."
+msgstr ""
+
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade"
 msgstr "Cascade"
+
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
+msgid "Cascade the views."
+msgstr ""
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:100
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:100
 msgid "&Close"
 msgstr "&Fermer"
+
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
+msgid "Close the selected view."
+msgstr ""
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:625
 msgid "&Others..."
@@ -632,14 +658,6 @@ msgid ""
 "Scale traffic volume from running flows and from vehicles that are loaded "
 "incrementally from route files."
 msgstr ""
-
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:756
-msgid "Open a new microscopic view."
-msgstr "Ouvrir une nouvelle vue microscopique."
-
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:759
-msgid "Open a new 3D view."
-msgstr "Ouvrir une nouvelle vue 3D."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:769
 msgid "Waiting Time:"
@@ -10578,7 +10596,6 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:752
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:457
 msgid "Internal attributes"
 msgstr ""
 
@@ -11843,7 +11860,7 @@ msgid "POIs"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:110
-msgid "JuPedSims"
+msgid "JuPedSim elements"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
@@ -12188,6 +12205,10 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:143
 msgid "Current type dist."
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:457
+msgid "Distribution editor"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:473
