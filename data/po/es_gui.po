@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-14 14:32+0200\n"
-"PO-Revision-Date: 2023-08-14 12:29+0000\n"
+"PO-Revision-Date: 2023-08-14 15:11+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -340,9 +340,7 @@ msgstr "Mostrar estructuras internas"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:564
 msgid "Show internal junctions and streets in locator dialog."
-msgstr ""
-"Mostrar cruces (junctions) y calles (edges) internos en la ventana de "
-"localización."
+msgstr "Mostrar cruces y aristas internas en la ventana de localización."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:567
 msgid "Show Parking Vehicles"
@@ -2495,7 +2493,7 @@ msgstr "Creando red nueva."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1648
 msgid "Trying to load an empty network"
-msgstr "No hay calles (edges) ni cruces (junctions) en la red"
+msgstr "Intentando cargar una red vacía"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1664
 msgid "Loading network file '"
@@ -3717,15 +3715,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1379
 msgid "Sources"
-msgstr ""
+msgstr "Fuentes"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1384
 msgid "Sinks"
-msgstr ""
+msgstr "Sumideros"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1389
 msgid "Waypoints"
-msgstr ""
+msgstr "Puntos de referencia"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1395
 msgid "&Routes"
@@ -3921,7 +3919,7 @@ msgstr "Abrir una ventana para localizar personas."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2049
 msgid "Open a dialog for locating a Container."
-msgstr ""
+msgstr "Abrir una ventana para localizar contenedores."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2052
 msgid "&Route"
@@ -4815,11 +4813,11 @@ msgstr "Localizar personas dentro de la red. (Shift+P)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:360
 msgid "Locate Containers"
-msgstr ""
+msgstr "Localizar contenedores"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:360
 msgid "Locate a container within the network. (Shift+C)"
-msgstr ""
+msgstr "Localizar contenedores dentro de la red. (Shift+C)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:364
 msgid "Locate Route"
@@ -5915,23 +5913,23 @@ msgstr "Rehacer crear paso peatonal (crossing)"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:41
 msgid "add '%' key in % '%'"
-msgstr ""
+msgstr "agregar la clave '%' en % '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:52
 msgid "remove '%' key from % '%'"
-msgstr ""
+msgstr "eliminar la clave '%' de % '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:63
 msgid "change '%' key value from % to %"
-msgstr ""
+msgstr "cambiar el valor de la clave '%' de % a %"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:118
 msgid "Undo edit distribution in '%'"
-msgstr ""
+msgstr "Deshacer editar distribución en '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:124
 msgid "Redo edit distribution in '%'"
-msgstr ""
+msgstr "Rehacer editar distribución en '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Edge.cpp:136
 msgid "Undo create edge '"
@@ -6015,11 +6013,11 @@ msgstr "Rehacer eliminar TLS '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_ToggleAttribute.cpp:112
 msgid "Undo toggle % attribute in '%'"
-msgstr ""
+msgstr "Deshacer alternar atributo % en '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_ToggleAttribute.cpp:118
 msgid "Redo toggle % attribute in '%'"
-msgstr ""
+msgstr "Rehacer alternar atributo % en '%'"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:38
 msgid "About Eclipse SUMO netedit"
@@ -8048,71 +8046,71 @@ msgstr "ID del segmento de la catenaria (overheadWireIDEndClamp)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3342
 msgid "The id of the walkable area"
-msgstr ""
+msgstr "El ID del área transitable"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3347
 msgid "The shape of the walkable area"
-msgstr ""
+msgstr "La forma del área transitable"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3353
 msgid "Walkable area's name"
-msgstr ""
+msgstr "Nombre del área transitable"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3366
 msgid "The id of the obstacle"
-msgstr ""
+msgstr "El ID del obstáculo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3371
 msgid "The shape of the obstacle"
-msgstr ""
+msgstr "La forma del obstáculo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3377
 msgid "Obstacle's name"
-msgstr ""
+msgstr "Nombre del obstáculo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3390
 msgid "The id of the waiting area"
-msgstr ""
+msgstr "El ID del área de espera"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3395
 msgid "The shape of the waiting area"
-msgstr ""
+msgstr "La forma del área de espera"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3401
 msgid "Waiting area's name"
-msgstr ""
+msgstr "Nombre del área de espera"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3414
 msgid "The id of the source"
-msgstr ""
+msgstr "El ID de la fuente"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3419
 msgid "The shape of the source"
-msgstr ""
+msgstr "La forma de la fuente"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3425
 msgid "Source's name"
-msgstr ""
+msgstr "Nombre de la fuente"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3438
 msgid "The id of the sink"
-msgstr ""
+msgstr "El ID del sumidero"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3443
 msgid "The shape of the sink"
-msgstr ""
+msgstr "La forma del sumidero"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3449
 msgid "Sink's name"
-msgstr ""
+msgstr "Nombre del sumidero"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3462
 msgid "The id of the waypoint"
-msgstr ""
+msgstr "El ID del punto de referencia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3472
 msgid "Waypoint's name"
-msgstr ""
+msgstr "Nombre del punto de referencia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3495
 msgid "The id of Route"
@@ -9759,27 +9757,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1760
 msgid "add jps walkable area '"
-msgstr ""
+msgstr "agregar área transitable JuPedSim '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1788
 msgid "add jps obstacle '"
-msgstr ""
+msgstr "agregar obstáculo JuPedSim '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1816
 msgid "add jps waiting area '"
-msgstr ""
+msgstr "agregar área de espera JuPedSim '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1844
 msgid "add jps source '"
-msgstr ""
+msgstr "agregar fuente JuPedSim '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1872
 msgid "add jps sink '"
-msgstr ""
+msgstr "agregar sumidero JuPedSim '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1898
 msgid "add jps waypoint '"
-msgstr ""
+msgstr "agregar punto de referencia JuPedSim '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2086
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2092
@@ -10335,13 +10333,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
 msgid "invalid probability % in % '%'"
-msgstr ""
+msgstr "probabilidad no válida % en % '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2778
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
 msgstr ""
+"Probabilidades de distribución de tipo no válidas en % '%'. Debe tener el "
+"mismo número de elementos"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:448
 msgid "Invalid Stop parent"
@@ -11636,7 +11636,7 @@ msgstr "Proteger elementos de datos"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:362
 msgid "remove selected items"
-msgstr ""
+msgstr "remover ítems seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:48
 msgid "Element Set"
@@ -11986,7 +11986,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:660
 msgid "Move"
-msgstr ""
+msgstr "Mover"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:79
 msgid "Selection information"
@@ -11999,7 +11999,7 @@ msgstr "Cruces (junctions)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:100
 msgid "Connections"
-msgstr ""
+msgstr "Conexiones"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:101
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:561
@@ -12008,17 +12008,17 @@ msgstr "Pasos peatonales"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:102
 msgid "WalkingAreas"
-msgstr ""
+msgstr "Áreas peatonales"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:103
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:136
 msgid "Additionals"
-msgstr ""
+msgstr "Elementos adicionales"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:104
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:35
 msgid "Wires"
-msgstr ""
+msgstr "Catenarias"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:105
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1445
@@ -12050,7 +12050,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:188
 msgid "Routes"
-msgstr ""
+msgstr "Rutas"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:123
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:39
@@ -12064,7 +12064,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:125
 msgid "Tranships"
-msgstr ""
+msgstr "Transbordos"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:128
 msgid "EdgeDatas"
@@ -12121,7 +12121,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:230
 msgid "Enlarge selected objects"
-msgstr ""
+msgstr "Agrandar objetos seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:250
 msgid "Selection operations"
@@ -12184,7 +12184,7 @@ msgstr "invertir selección"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:438
 msgid "simplify network"
-msgstr ""
+msgstr "simplificar red"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1133
 msgid "Hierarchy operations"
@@ -12192,7 +12192,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1138
 msgid "Select parents"
-msgstr ""
+msgstr "Seleccionar elementos padre"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1144
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1154
@@ -12206,15 +12206,15 @@ msgstr "Deseleccionar"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1148
 msgid "Select children"
-msgstr ""
+msgstr "Seleccionar elementos hijo"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1265
 msgid "select parents"
-msgstr ""
+msgstr "seleccionar elementos padre"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1389
 msgid "select children"
-msgstr ""
+msgstr "seleccionar elementos hijo"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
 msgid "Hold <SHIFT> for rectangle selection."
@@ -12305,7 +12305,7 @@ msgstr "MeanData actual"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:451
 msgid "MeanData"
-msgstr ""
+msgstr "MeanData"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:54
 msgid "Confirm TAZRelation"
@@ -12379,23 +12379,23 @@ msgstr "Parámetros del contenedor inválidos."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:40
 msgid "ContainerPlans"
-msgstr ""
+msgstr "ContainerPlans"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:76
 msgid "Distribution Editor"
-msgstr ""
+msgstr "Editor de distribución"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:79
 msgid "New"
-msgstr ""
+msgstr "Nuevo"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:143
 msgid "Current type dist."
-msgstr ""
+msgstr "Distribución de tipo actual"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:473
 msgid "Add new distribution value"
-msgstr ""
+msgstr "Agregar nuevo valor de distribución"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:140
@@ -12426,11 +12426,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:39
 msgid "PersonPlans"
-msgstr ""
+msgstr "PersonPlans"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:30
 msgid "Route Distributions"
-msgstr ""
+msgstr "Distribuciones de ruta"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:52
 msgid "Route mode"
@@ -12503,7 +12503,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:30
 msgid "Type Distributions"
-msgstr ""
+msgstr "Distribuciones de tipo"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:62
 msgid "Current Type"
@@ -12544,7 +12544,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:407
 msgid "Types"
-msgstr ""
+msgstr "Tipos"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72
 msgid "Click over a route to create a vehicle."
