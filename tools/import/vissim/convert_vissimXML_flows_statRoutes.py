@@ -286,7 +286,7 @@ def parse_routes(xmldoc, edge_id_list, verbinder_d):
 
 
 def calc_route_probability(routes_by_start_d, flow_d):
-    """computes the route probabilies
+    """computes the route probabilities
     :param routes_by_start_d:   map by start link id with route dicts as values
     :type routes_by_start_d:    dict
     :param flow_d:      vissim vehicle in-flow data

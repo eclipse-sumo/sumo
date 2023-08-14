@@ -40,7 +40,7 @@ netedit.leftClick(referencePosition, 250, 180)
 # Change parameter 17 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.endOffset, "dummyEndOffset", False)
 
-# Change parameter 17 with a non valid value (emtpy)
+# Change parameter 17 with a non valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.endOffset, "", False)
 
 # Change parameter 17 with a non valid value (negative)
