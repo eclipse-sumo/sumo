@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2023
 ///
-// The Widget for edit type distribution elements
+// The Widget for edit distribution elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -59,14 +59,14 @@ public:
         /// @name FOX-callbacks
         /// @{
 
-        /// @brief Called when "create type distribution" button is clicked
-        long onCmdCreateType(FXObject*, FXSelector, void*);
+        /// @brief Called when "create distribution" button is clicked
+        long onCmdCreateDistribution(FXObject*, FXSelector, void*);
 
-        /// @brief Called when "Delete type distribution" button is clicked
-        long onCmdDeleteType(FXObject*, FXSelector, void*);
+        /// @brief Called when "Delete distribution" button is clicked
+        long onCmdDeleteDistribution(FXObject*, FXSelector, void*);
 
-        /// @brief Called when "Delete type distribution" button is updated
-        long onUpdDeleteType(FXObject* sender, FXSelector, void*);
+        /// @brief Called when "Delete distribution" button is updated
+        long onUpdDeleteDistribution(FXObject* sender, FXSelector, void*);
 
         /// @}
 
@@ -75,17 +75,17 @@ public:
         FOX_CONSTRUCTOR(DistributionEditor)
 
     private:
-        /// @brief pointer to type distribution frame parent
+        /// @brief pointer to frame parent
         GNEFrame* myFrameParent;
 
         /// @brief distribution selector
         DistributionSelector* myDistributionSelector = nullptr;
 
-        /// @brief "create vehicle type" button
-        FXButton* myCreateTypeButton = nullptr;
+        /// @brief "create Distribution" button
+        FXButton* myCreateDistributionButton = nullptr;
 
-        /// @brief "delete vehicle type" button
-        FXButton* myDeleteTypeButton = nullptr;
+        /// @brief "delete Distribution" button
+        FXButton* myDeleteDistributionButton = nullptr;
     };
 
     // ===========================================================================
@@ -109,7 +109,7 @@ public:
         /// @brief get distribution tag
         SumoXMLTag getDistributionTag() const;
 
-        /// @brief current type distribution
+        /// @brief current distribution
         GNEDemandElement *getCurrentDistribution() const;
 
         /// @brief refresh modul
@@ -118,11 +118,11 @@ public:
         /// @name FOX-callbacks
         /// @{
 
-        /// @brief Called when the user select type distribution in ComboBox
-        long onCmdSelectTypeDistribution(FXObject*, FXSelector, void*);
+        /// @brief Called when the user select distribution in ComboBox
+        long onCmdSelectDistribution(FXObject*, FXSelector, void*);
 
-        /// @brief update type distribution comboBox
-        long onCmdUpdateTypeDistribution(FXObject* sender, FXSelector, void*);
+        /// @brief update distribution comboBox
+        long onCmdUpdateDistribution(FXObject* sender, FXSelector, void*);
 
         /// @}
 
@@ -146,11 +146,11 @@ public:
         /// @brief distribution values editor
         DistributionValuesEditor* myDistributionValuesEditor = nullptr;
 
-        /// @brief comboBox with the list of type distributions
-        FXComboBox* myTypeComboBox = nullptr;
+        /// @brief comboBox with the list of distributions
+        FXComboBox* myDistributionsComboBox = nullptr;
 
-        /// @brief current type distribution
-        std::string myCurrentTypeDistribution;
+        /// @brief current distribution
+        std::string myCurrentDistribution;
 
         /// @brief map with the original vTypeDistribution attributes
         std::pair<std::string, std::string> myOriginalValues;
@@ -165,7 +165,7 @@ public:
         FXDECLARE(GNEDistributionFrame::DistributionRow)
 
     public:
-        /// @brief constructor for type-probability attributes
+        /// @brief constructor for key-probability attributes
         DistributionRow(DistributionValuesEditor* attributeEditorParent,
             const GNEDemandElement* key, const double probability);
 
@@ -259,7 +259,7 @@ public:
         FOX_CONSTRUCTOR(DistributionValuesEditor)
 
     private:
-        /// @brief pointer to type distribution frame parent
+        /// @brief pointer to frame parent
         GNEFrame* myFrameParent;
 
         /// @brief distribution editor
