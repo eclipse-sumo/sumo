@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-11 14:41+0200\n"
-"PO-Revision-Date: 2023-08-14 09:12+0000\n"
+"PO-Revision-Date: 2023-08-14 09:24+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -2227,15 +2227,15 @@ msgstr "期望最大速度 [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:233
 msgid "maximum acceleration [m/s^2]"
-msgstr ""
+msgstr "最大加速度 [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:234
 msgid "maximum deceleration [m/s^2]"
-msgstr ""
+msgstr "最大减速度 [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:235
 msgid "emergency deceleration [m/s^2]"
-msgstr ""
+msgstr "紧急减速度 [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:236
 msgid "apparent deceleration [m/s^2]"
