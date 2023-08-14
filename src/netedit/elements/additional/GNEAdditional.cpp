@@ -153,7 +153,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPositionCopyEntry(ret, app);
     // show option to open additional dialog
     if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, TL("Open ") + getTagStr() + TL(" Dialog"), getFXIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Open ") + getTagStr() + TL(" Dialog"), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
     // Show position parameters

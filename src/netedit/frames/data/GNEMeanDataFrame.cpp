@@ -282,7 +282,7 @@ GNEMeanDataFrame::MeanDataSelector::MeanDataSelector(GNEMeanDataFrame* typeFrame
     myMeanDataComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add meanDatas
     for (const auto& vMeanData : myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag)) {
-        myMeanDataComboBox->appendIconItem(vMeanData->getID().c_str(), vMeanData->getFXIcon());
+        myMeanDataComboBox->appendIconItem(vMeanData->getID().c_str(), vMeanData->getACIcon());
     }
     if (myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag).size() > 0) {
         myCurrentMeanData = *myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag).begin();
@@ -347,7 +347,7 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
     myMeanDataComboBox->clearItems();
     // fill myMeanDataMatchBox with meanDatas
     for (const auto& sortedMeanData : sortedMeanDatas) {
-        myMeanDataComboBox->appendIconItem(sortedMeanData.first.c_str(), sortedMeanData.second->getFXIcon());
+        myMeanDataComboBox->appendIconItem(sortedMeanData.first.c_str(), sortedMeanData.second->getACIcon());
     }
     // Set visible items
     if (myMeanDataComboBox->getNumItems() <= 20) {
@@ -400,7 +400,7 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
 void
 GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelectorIDs() {
     if (myCurrentMeanData) {
-        myMeanDataComboBox->setIconItem(myMeanDataComboBox->getCurrentItem(), myCurrentMeanData->getID().c_str(), myCurrentMeanData->getFXIcon());
+        myMeanDataComboBox->setIconItem(myMeanDataComboBox->getCurrentItem(), myCurrentMeanData->getID().c_str(), myCurrentMeanData->getACIcon());
     }
 }
 

@@ -160,7 +160,7 @@ GNEFixNetworkElements::FixOptions::setInvalidElements(const std::vector<GNENetwo
     // iterate over invalid edges
     for (int i = 0; i < (int)myInvalidElements.size(); i++) {
         // Set icon
-        item = new FXTableItem("", myInvalidElements.at(i)->getFXIcon());
+        item = new FXTableItem("", myInvalidElements.at(i)->getACIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
         myTable->setItem(i, 0, item);
         // Set ID

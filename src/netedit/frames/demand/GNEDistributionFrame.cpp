@@ -145,7 +145,7 @@ GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frame
     myDistributionsComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Types (always first)
     for (const auto& vType : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(myDistributionTag)) {
-        myDistributionsComboBox->appendItem(vType->getID().c_str(), vType->getFXIcon());
+        myDistributionsComboBox->appendItem(vType->getID().c_str(), vType->getACIcon());
     }
     // Set visible items
     if (myDistributionsComboBox->getNumItems() <= 20) {
@@ -185,7 +185,7 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
         typeDistributions[vTypeDistribution->getID()] = vTypeDistribution;
     }
     for (const auto& vTypeDistribution : typeDistributions) {
-        myDistributionsComboBox->appendItem(vTypeDistribution.first.c_str(), vTypeDistribution.second->getFXIcon());
+        myDistributionsComboBox->appendItem(vTypeDistribution.first.c_str(), vTypeDistribution.second->getACIcon());
     }
     // Set visible items
     if (myDistributionsComboBox->getNumItems() <= 20) {
@@ -285,14 +285,16 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     myProbability(probability) {
     // get staticTooltip menu
     auto staticTooltipMenu = attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
-    // create and hide color editor
-    myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu,
-        "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_BUTTON_REMOVE, GUIDesignButtonIcon);
+    // create label
+    new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
     // Create and hide MFXTextFieldTooltip for string attributes
     myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBoxAttribute);
     // Create and hide MFXTextFieldTooltip for string attributes
     myProbabilityTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
         GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
+    // create delete buton
+    myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu,
+        "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_BUTTON_REMOVE, GUIDesignButtonIcon);
     // only create if parent was created
     if (getParent()->id() && attributeEditorParent->myDistributionSelector->getCurrentDistribution()) {
         // create DistributionRow
@@ -300,7 +302,7 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
         // fill comboBox with all possible keys
         const auto possibleKeys = attributeEditorParent->myDistributionSelector->getCurrentDistribution()->getPossibleDistributionKeys(myDistributionValuesEditorParent->myDistributionValueTag);
         for (int i = 0; i < (int)possibleKeys.size(); i++) {
-            myComboBoxKeys->appendIconItem(possibleKeys[i]->getID().c_str(), possibleKeys[i]->getFXIcon());
+            myComboBoxKeys->appendIconItem(possibleKeys[i]->getID().c_str(), possibleKeys[i]->getACIcon());
             if (possibleKeys[i] == myKey) {
                 myComboBoxKeys->setCurrentItem(i);
             }
