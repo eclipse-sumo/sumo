@@ -128,7 +128,7 @@ When these quantities are meant to change over time, the routing algorithm needs
 - the **effort** that shall be minimized
 - the **travel time** for the edge.
 
-The travel time is needed to compute at which time a certain edge is reached so that effors which change over time can be used correctly.
+The travel time is needed to compute at which time a certain edge is reached so that efforts which change over time can be used correctly.
 
 !!! note
     When the effort values do not change over time, routing by effort can be achieved by loading weight-files with a modified `traveltime` attribute (the effort value is written into the traveltime attribute) and the option **--weight-attribute** can be omitted.
