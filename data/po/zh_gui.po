@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-14 13:02+0200\n"
+"POT-Creation-Date: 2023-08-14 13:33+0200\n"
 "PO-Revision-Date: 2023-08-14 09:46+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -5854,11 +5854,11 @@ msgstr ""
 msgid "change '%' key value from % to %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:119
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:118
 msgid "Undo edit distribution in '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:125
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:124
 msgid "Redo edit distribution in '%'"
 msgstr ""
 
@@ -10284,6 +10284,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:292
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:167
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:118
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1835
 msgid "Vehicles"
 msgstr "车辆"
@@ -10831,12 +10832,14 @@ msgstr "支出"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:890
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:65
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:98
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1322
 msgid "Edges"
 msgstr "路段"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:890
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:71
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:99
 msgid "Lanes"
 msgstr "车道"
 
@@ -11360,10 +11363,12 @@ msgid "Wire elements"
 msgstr "通讯线要素"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:170
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:126
 msgid "Stops"
 msgstr "停"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:173
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:119
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1918
 msgid "Persons"
 msgstr "人员"
@@ -11377,14 +11382,17 @@ msgid "Container plans"
 msgstr "货箱计划"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:185
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:120
 msgid "Person trips"
 msgstr "人员行程"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:188
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:121
 msgid "Walks"
 msgstr "步行"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:191
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:122
 msgid "Rides"
 msgstr "骑行"
 
@@ -11780,6 +11788,88 @@ msgstr "-合并几何点"
 msgid "Selection information"
 msgstr "选择信息"
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:97
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1997
+msgid "Junctions"
+msgstr "交叉口"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:100
+msgid "Connections"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:101
+#: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:561
+msgid "Crossings"
+msgstr "交叉"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:102
+msgid "WalkingAreas"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:103
+msgid "Additionals"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:104
+msgid "Wires"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:105
+#: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1445
+msgid "TAZs"
+msgstr "交通分区"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:106
+msgid "TAZSources"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:107
+msgid "TAZSinks"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:108
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2151
+msgid "Polygons"
+msgstr "多边形"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:109
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2116
+msgid "POIs"
+msgstr "兴趣点"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:110
+msgid "JuPedSims"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
+msgid "Routes"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:123
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1958
+msgid "Containers"
+msgstr "容器"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:124
+msgid "Transport"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:125
+msgid "Tranships"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:128
+msgid "EdgeDatas"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:129
+msgid "EdgeRelDatas"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:130
+msgid "EdgeTAZRel"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:157
 msgid "Modification Mode"
 msgstr "修改模式"
@@ -11821,6 +11911,10 @@ msgstr "用当前的选择取代之前的选择"
 msgid "Visual Scaling"
 msgstr "视觉缩放"
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:230
+msgid "Enlarge selected objects"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:250
 msgid "Selection operations"
 msgstr "选择操作"
@@ -11861,6 +11955,10 @@ msgstr "将网络减少到当前的选择。"
 msgid "Could not open '%'."
 msgstr "无法打开'%'。"
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:319
+msgid "load selection"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:331
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:125
 msgid "Open List of Selected Items"
@@ -11870,6 +11968,15 @@ msgstr "打开所选项目的清单"
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:148
 msgid "Save List of selected Items"
 msgstr "保存所选项目的清单"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:385
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:416
+msgid "invert selection"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:438
+msgid "simplify network"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1133
 msgid "Hierarchy operations"
@@ -11895,6 +12002,29 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1265
 msgid "select parents"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1389
+msgid "select children"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
+msgid "Hold <SHIFT> for rectangle selection."
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
+msgid "Press <DEL> to delete selected objects."
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1428
+#: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:309
+#: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:168
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2176
+msgid "Selection"
+msgstr "选择"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1609
+msgid "selection"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
@@ -12422,12 +12552,6 @@ msgstr "从选定的车道、路段和路口明确连接"
 msgid "reset connections from selected lanes"
 msgstr "从选定的车道重置连接"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:309
-#: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:168
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2176
-msgid "Selection"
-msgstr "选择"
-
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:311
 msgid ""
 "Hold <SHIFT> while clicking to create unyielding connections (pass=true)."
@@ -12684,10 +12808,6 @@ msgstr " 选定的"
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:548
 msgid " Invalid"
 msgstr " 无效的"
-
-#: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:561
-msgid "Crossings"
-msgstr "交叉"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEDecalFrame.cpp:43
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1678
@@ -13107,10 +13227,6 @@ msgstr "颜色由来源+汇决定"
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1342
 msgid "Color by Source - Sink"
 msgstr "颜色由来源-汇决定"
-
-#: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1445
-msgid "TAZs"
-msgstr "交通分区"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1611
 msgid "TAZ shape needs at least three points"
@@ -14855,17 +14971,9 @@ msgstr "显示个人ID"
 msgid "Show person color value"
 msgstr "显示人的颜色值"
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1958
-msgid "Containers"
-msgstr "容器"
-
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1986
 msgid "Show container id"
 msgstr "显示容器ID"
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1997
-msgid "Junctions"
-msgstr "交叉口"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2014
 msgid "Draw junction shape"
@@ -14947,10 +15055,6 @@ msgstr "要素"
 msgid "color"
 msgstr "颜色"
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2116
-msgid "POIs"
-msgstr "兴趣点"
-
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2132
 msgid "POI detail"
 msgstr "兴趣点详情"
@@ -14966,10 +15070,6 @@ msgstr "显示兴趣点类型"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2139
 msgid "Show poi text param"
 msgstr "显示兴趣点文本参数"
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2151
-msgid "Polygons"
-msgstr "多边形"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2166
 msgid "Show polygon id"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-14 13:02+0200\n"
+"POT-Creation-Date: 2023-08-14 13:33+0200\n"
 "PO-Revision-Date: 2023-03-15 09:30+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -5891,11 +5891,11 @@ msgstr ""
 msgid "change '%' key value from % to %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:119
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:118
 msgid "Undo edit distribution in '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:125
+#: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:124
 msgid "Redo edit distribution in '%'"
 msgstr ""
 
@@ -10519,6 +10519,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:292
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:167
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:118
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1835
 msgid "Vehicles"
 msgstr "Araçlar"
@@ -11066,12 +11067,14 @@ msgstr "Gidenler"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:890
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:65
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:98
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1322
 msgid "Edges"
 msgstr "Kesimler"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:890
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:71
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:99
 msgid "Lanes"
 msgstr "Şeritler"
 
@@ -11605,10 +11608,12 @@ msgid "Wire elements"
 msgstr "Enerji Hattı Elemanları"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:170
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:126
 msgid "Stops"
 msgstr "Duraklar"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:173
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:119
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1918
 msgid "Persons"
 msgstr "Yolcular"
@@ -11622,14 +11627,17 @@ msgid "Container plans"
 msgstr "Konteyner Planları"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:185
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:120
 msgid "Person trips"
 msgstr "Yolcu Seyahatleri"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:188
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:121
 msgid "Walks"
 msgstr "Yürümeler"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:191
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:122
 msgid "Rides"
 msgstr "Binişler"
 
@@ -12045,6 +12053,88 @@ msgstr "-Geometri noktasını birleştir"
 msgid "Selection information"
 msgstr "Seçim bilgileri"
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:97
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1997
+msgid "Junctions"
+msgstr "Kavşaklar"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:100
+msgid "Connections"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:101
+#: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:561
+msgid "Crossings"
+msgstr "Geçitler"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:102
+msgid "WalkingAreas"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:103
+msgid "Additionals"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:104
+msgid "Wires"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:105
+#: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1445
+msgid "TAZs"
+msgstr "TABlar"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:106
+msgid "TAZSources"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:107
+msgid "TAZSinks"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:108
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2151
+msgid "Polygons"
+msgstr "Çokgenler"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:109
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2116
+msgid "POIs"
+msgstr "EN'ler"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:110
+msgid "JuPedSims"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
+msgid "Routes"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:123
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1958
+msgid "Containers"
+msgstr "Konteynerler"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:124
+msgid "Transport"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:125
+msgid "Tranships"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:128
+msgid "EdgeDatas"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:129
+msgid "EdgeRelDatas"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:130
+msgid "EdgeTAZRel"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:157
 msgid "Modification Mode"
 msgstr "Değişiklik Modu"
@@ -12086,6 +12176,10 @@ msgstr "Önceki seçimi geçerli seçimle değiştir"
 msgid "Visual Scaling"
 msgstr "Görsel Ölçeklendirme"
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:230
+msgid "Enlarge selected objects"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:250
 msgid "Selection operations"
 msgstr "Seçim işlemleri"
@@ -12126,6 +12220,10 @@ msgstr "Ağı mevcut seçime indirgeyin."
 msgid "Could not open '%'."
 msgstr "'%' açılamadı."
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:319
+msgid "load selection"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:331
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:125
 msgid "Open List of Selected Items"
@@ -12135,6 +12233,15 @@ msgstr "Seçili Öğelerin Listesini Aç"
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:148
 msgid "Save List of selected Items"
 msgstr "Seçilen Öğelerin Listesini Kaydet"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:385
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:416
+msgid "invert selection"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:438
+msgid "simplify network"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1133
 msgid "Hierarchy operations"
@@ -12160,6 +12267,29 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1265
 msgid "select parents"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1389
+msgid "select children"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
+msgid "Hold <SHIFT> for rectangle selection."
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
+msgid "Press <DEL> to delete selected objects."
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1428
+#: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:309
+#: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:168
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2176
+msgid "Selection"
+msgstr "Seçim"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1609
+msgid "selection"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
@@ -12700,12 +12830,6 @@ msgstr "seçilen şeritlerden, kenarlardan ve kavşaklardan bağlantıları sıf
 msgid "reset connections from selected lanes"
 msgstr "seçilen şeritlerden bağlantıları sıfırla"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:309
-#: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:168
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2176
-msgid "Selection"
-msgstr "Seçim"
-
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:311
 msgid ""
 "Hold <SHIFT> while clicking to create unyielding connections (pass=true)."
@@ -12964,10 +13088,6 @@ msgstr " Seçilmiş"
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:548
 msgid " Invalid"
 msgstr " Geçersiz"
-
-#: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:561
-msgid "Crossings"
-msgstr "Geçitler"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEDecalFrame.cpp:43
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1678
@@ -13387,10 +13507,6 @@ msgstr "Kaynak + Alıcıya göre renk"
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1342
 msgid "Color by Source - Sink"
 msgstr "Kaynak - Alıcıya göre renk"
-
-#: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1445
-msgid "TAZs"
-msgstr "TABlar"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1611
 msgid "TAZ shape needs at least three points"
@@ -15151,17 +15267,9 @@ msgstr "Yolcu kimliğini göster"
 msgid "Show person color value"
 msgstr "Yolcu renk değerini göster"
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1958
-msgid "Containers"
-msgstr "Konteynerler"
-
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1986
 msgid "Show container id"
 msgstr "Konteyner kimliğini göster"
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1997
-msgid "Junctions"
-msgstr "Kavşaklar"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2014
 msgid "Draw junction shape"
@@ -15243,10 +15351,6 @@ msgstr "eleman"
 msgid "color"
 msgstr "renk"
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2116
-msgid "POIs"
-msgstr "EN'ler"
-
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2132
 msgid "POI detail"
 msgstr "EN Detayı"
@@ -15262,10 +15366,6 @@ msgstr "EN tipini göster"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2139
 msgid "Show poi text param"
 msgstr "EN metin parametresini göster"
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2151
-msgid "Polygons"
-msgstr "Çokgenler"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2166
 msgid "Show polygon id"
