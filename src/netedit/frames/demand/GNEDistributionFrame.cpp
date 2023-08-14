@@ -76,7 +76,7 @@ GNEDistributionFrame::DistributionEditor::DistributionEditor(GNEFrame* framePare
     // Create new vehicle type
     myCreateTypeButton = new FXButton(getCollapsableFrame(), TL("New"), GUIIconSubSys::getIcon(icon), this, MID_GNE_CREATE, GUIDesignButton);
     
-    // Añadir TOOLTIP
+    // Aï¿½adir TOOLTIP
 
     // Create delete/reset vehicle type
     myDeleteTypeButton = new FXButton(getCollapsableFrame(), TL("Delete"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
