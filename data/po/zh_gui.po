@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-11 14:41+0200\n"
-"PO-Revision-Date: 2023-08-14 08:41+0000\n"
+"PO-Revision-Date: 2023-08-14 08:50+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -2139,43 +2139,43 @@ msgstr "载具"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:180
 msgid "lcState right"
-msgstr "换道模式为"
+msgstr "换道状态为向右"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:181
 msgid "lcState left"
-msgstr ""
+msgstr "换道状态为向左"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:184
 msgid "lcState center"
-msgstr ""
+msgstr "换道状态为居中/不变道"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:185
 msgid "right side on edge [m]"
-msgstr ""
+msgstr "距道路右侧边缘 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:186
 msgid "left side on edge [m]"
-msgstr ""
+msgstr "距道路左侧边缘 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:187
 msgid "rightmost edge sublane [#]"
-msgstr ""
+msgstr "道路最右侧子车道"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:188
 msgid "leftmost edge sublane [#]"
-msgstr ""
+msgstr "道路最左侧子车道"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:189
 msgid "lane change maneuver distance [m]"
-msgstr ""
+msgstr "换道机动距离 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:192
 msgid "present state of charge [Wh]"
-msgstr ""
+msgstr "当前剩余电量 [Wh]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:196
 msgid "relative state of charge (SoC) [-]"
-msgstr ""
+msgstr "相对剩余电量 (SoC) [-]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:198
 msgid "currently charging [Wh]"
