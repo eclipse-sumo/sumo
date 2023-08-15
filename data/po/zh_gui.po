@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-14 17:12+0200\n"
-"PO-Revision-Date: 2023-08-14 15:11+0000\n"
+"PO-Revision-Date: 2023-08-15 09:30+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -464,7 +464,7 @@ msgstr "图砖&水平方向"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:605
 msgid "Tile the views horizontally."
-msgstr ""
+msgstr "水平平铺视窗。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile &Vertically"
@@ -472,7 +472,7 @@ msgstr "图砖&垂直方向"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile the views vertically."
-msgstr ""
+msgstr "垂直平铺视窗。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade"
@@ -480,7 +480,7 @@ msgstr "级联 (Cascade)"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade the views."
-msgstr ""
+msgstr "级联视窗。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:100
@@ -490,7 +490,7 @@ msgstr "&关闭"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
 msgid "Close the selected view."
-msgstr ""
+msgstr "关闭选中的视窗。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:625
 msgid "&Others..."
@@ -3278,7 +3278,7 @@ msgstr "＆路段"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:614
 msgid "Create junction and edges."
-msgstr "创建节点和道路。"
+msgstr "创建交叉口和道路。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
 msgid "&Traffic light"
@@ -9502,7 +9502,7 @@ msgstr "在''中添加掉头间隔时间"
 #, c-format
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
-msgstr "由于重叠，无法在 netedit 中创建起始时刻为 \"%\"、结束时刻为 '%' 的区间"
+msgstr "由于重叠，无法在 netedit 中创建起始时刻为 \"%\"、结束时刻为 '%' 的区间。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:981
 msgid "add closing lane reroute in '"
@@ -9540,7 +9540,7 @@ msgstr "在''中添加VSS步骤"
 #, c-format
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greather than end."
-msgstr ""
+msgstr "无法在netedit中创建编号 (ID)为 '%' 的蒸发器；开始时间大于结束时间。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1253
 msgid "add vaporizer in '"
@@ -9549,7 +9549,7 @@ msgstr "在''添加汽化器"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1306
 #, c-format
 msgid "Could not build TAZ with ID '%' in netedit; Invalid Shape."
-msgstr ""
+msgstr "无法在 netedit 中创建编号 (ID) 为 \"%\" 的交通小区 (TAZ)； 形状无效。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1317
 msgid "add TAZ '"
@@ -9582,7 +9582,7 @@ msgstr "添加行动分站 '"
 msgid ""
 "Could not build overhead wire with ID '%' in netedit; Lanes aren't "
 "consecutives."
-msgstr ""
+msgstr "无法在 netedit 中创建编号 (ID) 为 \"%\" 的架空电线；车道不是连续的。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1556
 msgid "add overhead wire '"
@@ -9601,35 +9601,35 @@ msgstr "添加兴趣点'"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1722
 #, c-format
 msgid "Could not build POI with ID '%' in netedit"
-msgstr ""
+msgstr "无法在 netedit 中创建编号 (ID)为 '%' 的兴趣点 (POI)"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1722
 msgid "Network requires a geo projection."
-msgstr ""
+msgstr "路网需要地理投影。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1760
 msgid "add jps walkable area '"
-msgstr ""
+msgstr "添加 jps (JuPedSim) 可步行区域 '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1788
 msgid "add jps obstacle '"
-msgstr ""
+msgstr "添加 jps (JuPedSim) 障碍物 '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1816
 msgid "add jps waiting area '"
-msgstr ""
+msgstr "添加 jps (JuPedSim) 等待区域 '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1844
 msgid "add jps source '"
-msgstr ""
+msgstr "添加 jps (JuPedSim) 的源 '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1872
 msgid "add jps sink '"
-msgstr ""
+msgstr "添加 jps (JuPedSim) 的汇 '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1898
 msgid "add jps waypoint '"
-msgstr ""
+msgstr "添加 jps (JuPedSim) 的路径点 '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2086
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2092
@@ -9639,23 +9639,23 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2133
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2139
 msgid "Could not build % with ID '%' in netedit"
-msgstr ""
+msgstr "无法在 netedit 中创建编号 (ID) 为 '%' 的 %"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2086
 msgid "ID contains invalid characters."
-msgstr ""
+msgstr "编号 (ID) 中包含无效字符。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2092
 msgid "Invalid position over lane."
-msgstr ""
+msgstr "车道上的位置无效。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2098
 msgid "Declared twice."
-msgstr ""
+msgstr "重复声明。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2106
 msgid "Could not build % '%' in netedit"
-msgstr ""
+msgstr "无法在 netedit 中创建 % '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2108
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2194
@@ -9668,12 +9668,12 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2570
 #, c-format
 msgid "Could not build % in netedit"
-msgstr ""
+msgstr "无法在 netedit 中创建 %"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2111
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:264
 msgid "% '%' doesn't exist."
-msgstr ""
+msgstr "% '%' 不存在。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2113
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2194
@@ -9685,24 +9685,24 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2570
 #, c-format
 msgid "% doesn't exist."
-msgstr ""
+msgstr "% 不存在。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2121
 #, c-format
 msgid "Attribute % cannot be negative."
-msgstr ""
+msgstr "属性 % 不能为负值。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2127
 msgid "List of VTypes isn't valid."
-msgstr ""
+msgstr "交通实体类型 (VTypes) 的列表无效。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2133
 msgid "Filename is invalid."
-msgstr ""
+msgstr "文件名无效。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2139
 msgid "List of lanes isn't valid."
-msgstr ""
+msgstr "车道列表无效。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNECalibrator.cpp:195
 msgid "Both edges and lanes aren't defined"
@@ -9719,6 +9719,8 @@ msgid ""
 "calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
 msgstr ""
+"校准器 \"%\" 的校准器流量 (calibratorFlow) 无法写入。 "
+"必须启用类型（type）、小时车辆数（vehsPerHour）或速度（speed）"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:180
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:125
@@ -9845,15 +9847,15 @@ msgstr "添加路段的关联（rel）"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:171
 msgid "There is already a edgeRel defined between '%' and '%'."
-msgstr ""
+msgstr "'%' 和 '%' 之间的道路关系 (edgeRel) 已有定义。"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:214
 msgid "There is already a TAZ rel defined between '%' and '%'."
-msgstr ""
+msgstr "'%' 和 '%' 之间的交通小区关系 (TAZ rel) 已有定义。"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:216
 msgid "There is already a TAZ rel defined in '%'."
-msgstr ""
+msgstr "在 '%' 中已有交通小区关系 (TAZ rel) 定义。"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:220
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:231
@@ -9862,16 +9864,16 @@ msgstr "添加交通分区关联（ TAZ rel）"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:252
 msgid "Could not build % with ID '%'"
-msgstr ""
+msgstr "无法以编号 (ID) '%' 创建 %"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:252
 msgid "declared twice."
-msgstr ""
+msgstr "重复声明。"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:264
 msgid "Could not build %"
-msgstr ""
+msgstr "无法创建 %"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataInterval.cpp:173
 msgid "GenericData was already inserted"
@@ -9892,7 +9894,7 @@ msgstr "数据区间（DataInterval）之前没有插入过"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:136
 msgid "Open % Dialog"
-msgstr ""
+msgstr "在对话框中打开 %"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:316
 #: C:\Repos\sumo/src\netedit\elements\network\GNEEdgeType.cpp:155
@@ -9907,7 +9909,7 @@ msgstr "无法建立meanData路段; "
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:93
 #, c-format
 msgid "% already exists"
-msgstr ""
+msgstr "% 已经存在"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:70
 msgid "add meanDataEdge"
@@ -9923,28 +9925,28 @@ msgstr "添加 meanData车道"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 msgid "Edge doesn't exist."
-msgstr ""
+msgstr "道路不存在。"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
 #, c-format
 msgid "Attribute '%' doesn't exist."
-msgstr ""
+msgstr "属性 '%' 不存在。"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:1249
 msgid "Route length: "
-msgstr ""
+msgstr "路径长度: "
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:1259
 msgid "reverse"
-msgstr ""
+msgstr "反向"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:1261
 msgid "reverse current %"
-msgstr ""
+msgstr "反向流量 %"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:1262
 msgid "Add reverse %"
-msgstr ""
+msgstr "添加反向 %"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:312
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:323
@@ -9954,7 +9956,7 @@ msgstr "这个人的行程中使用的路口"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:828
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1867
 msgid "copy % '%'"
-msgstr ""
+msgstr "复制 % '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:70
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:105
@@ -9964,7 +9966,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1697
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1709
 msgid "There is another % with the same ID='%'."
-msgstr ""
+msgstr "存在另外的 % 使用相同的编号 ID='%'。"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:80
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:110
@@ -10021,7 +10023,7 @@ msgstr "添加 "
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:948
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:975
 msgid "Invalid vehicle type '%' used in % '%'."
-msgstr ""
+msgstr "在 % '%' 中使用了无效的车辆类型 '%'。"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:186
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:262
@@ -10033,7 +10035,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:505
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:545
 msgid "Invalid % used in % '%'. % is greater than number of lanes"
-msgstr ""
+msgstr "在 % '%' 中使用了无效的 %。% 大于车道的数量"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:188
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:264
@@ -10045,16 +10047,16 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:507
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:547
 msgid "Invalid % used in % '%'. % is greater than type %"
-msgstr ""
+msgstr "在 % '%' 中使用了无效的 %。 % 大于类型 %"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:260
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:297
 msgid "Invalid route '%' used in % '%'."
-msgstr ""
+msgstr "在 % '%' 中使用了无效的路径 '%'。"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1166
 msgid "Containers don't support stops at busStops or trainStops"
-msgstr ""
+msgstr "集装箱不支持在公交站或火车站停靠"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1174
 msgid "Persons don't support stops at containerStops"
@@ -10098,7 +10100,7 @@ msgstr "一个人从路段到公共汽车站的行程需要一个路段和一个
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1366
 msgid "A person trip from edge to trainStop needs one edge and one trainStop"
-msgstr ""
+msgstr "人员从道路到火车站的行程需要一条道路和一个火车站"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1376
 msgid "A person trip from junction to junction needs two junctions junction"
@@ -10106,23 +10108,23 @@ msgstr "一个人从一个路口到另一个路口的行程需要两个路口"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1387
 msgid "A walk to edge needs a busStop and an edge"
-msgstr ""
+msgstr "步行到道路需要一个公交站和一条道路"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1397
 msgid "A walk to busStop needs two busStops"
-msgstr ""
+msgstr "步行到公交车站需要两个公交站"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1407
 msgid "A walk to trainStop needs two trainStops"
-msgstr ""
+msgstr "步行到火车站需要两个火车站"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1417
 msgid "A walk with edges needs a list of edges"
-msgstr ""
+msgstr "在道路上步行需要一个道路列表"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1427
 msgid "A route walk needs a route"
-msgstr ""
+msgstr "基于路径的步行需要一条路径"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1437
 msgid "A ride from busStop to junction needs a busStop and an junction"
@@ -10138,7 +10140,7 @@ msgstr "从路段到公共汽车站的行程需要一个路段和一个公共汽
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1468
 msgid "A ride from edge to trainStop needs one edge and one trainStop"
-msgstr ""
+msgstr "从道路到火车站的骑行需要一条道路和一个火车站"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1482
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1632
@@ -10152,7 +10154,7 @@ msgstr "一个停止器必须放置在一个公共汽车站之上"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1504
 msgid "A stop has to be placed over a trainStop"
-msgstr ""
+msgstr "必须在火车站上方放置一个停靠站"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1577
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1598
@@ -10174,21 +10176,21 @@ msgstr "一个带有路段属性的转换需要一个路段列表"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1685
 #, c-format
 msgid "Via edge '%' doesn't exist."
-msgstr ""
+msgstr "通过道路 '%' 不存在。"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2764
 msgid "% with id '%' doesn't exist in % '%'"
-msgstr ""
+msgstr "编号 (id) 为 '%' 的 % 在 % '%' 中不存在"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
 msgid "invalid probability % in % '%'"
-msgstr ""
+msgstr "在% '%' 的概率 % 无效"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2778
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
-msgstr ""
+msgstr "% '%' 中的类型分布概率无效。必须具有相同数量的元素"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:448
 msgid "Invalid Stop parent"
@@ -10202,105 +10204,105 @@ msgstr "无效的母体"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:108
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:122
 msgid "transform to"
-msgstr ""
+msgstr "转换为"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:97
 msgid "Trip (over junctions)"
-msgstr ""
+msgstr "出行（在交叉口之间）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:101
 msgid "Flow (over junctions)"
-msgstr ""
+msgstr "流（在交叉口之间）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:111
 msgid "Trip (over TAZs)"
-msgstr ""
+msgstr "出行（在交通小区TAZs之间）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:115
 msgid "Flow (over TAZs)"
-msgstr ""
+msgstr "流（在交通小区TAZs之间）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:129
 msgid "Vehicle (embedded route)"
-msgstr ""
+msgstr "交通实体（嵌入路径的）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:133
 msgid "RouteFlow"
-msgstr ""
+msgstr "路径流"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:137
 msgid "RouteFlow (embedded route)"
-msgstr ""
+msgstr "路径流（嵌入路径的）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:141
 msgid "Trip"
-msgstr ""
+msgstr "出行"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:145
 msgid "Flow"
-msgstr ""
+msgstr "流 (Flow)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:226
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:247
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:268
 msgid "transform selected to"
-msgstr ""
+msgstr "将选择转换为"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:229
 msgid "Trips (over junctions) (only %)"
-msgstr ""
+msgstr "出行（在交叉口之间） (仅 %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:232
 msgid "Flows (over junctions) (only %)"
-msgstr ""
+msgstr "流（在交叉口之间） (仅 %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:238
 msgid "Trips (over junctions)"
-msgstr ""
+msgstr "出行（在交叉口之间）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:241
 msgid "Flows (over junctions)"
-msgstr ""
+msgstr "流（在交叉口之间）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:250
 msgid "Trips (over TAZs) (only %)"
-msgstr ""
+msgstr "出行（在交通小区TAZs之间） (仅 %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:253
 msgid "Flows (over TAZs) (only %)"
-msgstr ""
+msgstr "流（在交通小区TAZs之间） (仅 %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:259
 msgid "Trips (over TAZs)"
-msgstr ""
+msgstr "出行（在交通小区 TAZs之间）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:262
 msgid "Flows (over TAZs)"
-msgstr ""
+msgstr "流（在交通小区 TAZs之间）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:271
 msgid "Vehicles (only %)"
-msgstr ""
+msgstr "交通实体 (仅 %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:274
 msgid "Vehicles (embedded route) (only %)"
-msgstr ""
+msgstr "交通实体（嵌入路径的） (仅 %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:277
 msgid "RouteFlows (only %)"
-msgstr ""
+msgstr "路径流 (仅 %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:280
 msgid "RouteFlows (embedded route) (only %)"
-msgstr ""
+msgstr "路径流（嵌入路径的） (仅 %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:283
 msgid "Trips (only %)"
-msgstr ""
+msgstr "出行（仅 %）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:286
 msgid "Flows (only %)"
-msgstr ""
+msgstr "流 （仅 %）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:292
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:167
@@ -10312,23 +10314,23 @@ msgstr "车辆"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:295
 msgid "Vehicles (embedded route)"
-msgstr ""
+msgstr "交通实体（嵌入路径的）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:298
 msgid "RouteFlows"
-msgstr ""
+msgstr "路径流"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:301
 msgid "RouteFlows (embedded route)"
-msgstr ""
+msgstr "路径流（嵌入路径的）"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:304
 msgid "Trips"
-msgstr ""
+msgstr "出行"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:307
 msgid "Flows"
-msgstr ""
+msgstr "流 (Flows)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:811
 msgid "Invalid vehicle tag"
@@ -10361,11 +10363,11 @@ msgstr "重置路口形状"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1117
 msgid "change junction position"
-msgstr ""
+msgstr "改变交叉口位置"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1138
 msgid "change keepClear for whole junction"
-msgstr ""
+msgstr "改变整个交叉口的“保持畅通” (keepClear) 状态"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:472
 msgid "Unexpected LinkState '%'"
@@ -10373,31 +10375,31 @@ msgstr "未预计到的链接状态'%'"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:673
 msgid "Copy parent edge name to clipboard"
-msgstr ""
+msgstr "将父边 (edge) 的名称复制到剪贴板"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:682
 msgid "Remove Lane From Selected"
-msgstr ""
+msgstr "从选择中移除车道"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:684
 msgid "Add Lane To Selected"
-msgstr ""
+msgstr "添加车道到选择"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:688
 msgid "Remove Edge From Selected"
-msgstr ""
+msgstr "从选择中移除道路"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:690
 msgid "Add Edge To Selected"
-msgstr ""
+msgstr "添加道路到选择"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:707
 msgid "Reset edge end points"
-msgstr ""
+msgstr "重置道路的端点"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:734
 msgid "Select state for all links from this edge:"
-msgstr ""
+msgstr "选择该道路的所有连接的状态："
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:744
 msgid "Additional options available in 'Inspect Mode'"
