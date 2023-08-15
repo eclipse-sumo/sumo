@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-26 16:01+0200\n"
+"POT-Creation-Date: 2023-08-15 11:32+0200\n"
 "PO-Revision-Date: 2022-10-09 17:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -2424,7 +2424,7 @@ msgid ""
 "length was specified."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\MSInsertionControl.cpp:276
+#: C:\Repos\sumo/src\microsim\MSInsertionControl.cpp:287
 #: C:\Repos\sumo/src\router\RONet.cpp:481
 #, c-format
 msgid "Another vehicle with the id '%' exists."
@@ -2906,26 +2906,26 @@ msgstr ""
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:318
+#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:321
 msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:321
+#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:324
 msgid ""
 "Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType "
 "'%' may cause collisions."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:443
+#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:446
 #, c-format
 msgid ""
 "Value of tau=% in vehicle type '%' lower than simulation step size may cause "
 "collisions."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:449
+#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:452
 #, c-format
 msgid ""
 "Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-"
@@ -6789,7 +6789,7 @@ msgid "Could not find geo coordinate system, assuming WGS84."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:277
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1562
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1564
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:600
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimAbstractEdge.cpp:44
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:171
@@ -6893,10 +6893,10 @@ msgid "Could not add add node '%'"
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:267
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:386
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:481
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1424
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:269
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:388
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:483
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1426
 msgid "Could not add node '%'."
 msgstr ""
 
@@ -6925,8 +6925,8 @@ msgid "Non-numerical value for the number of lanes of link '%'."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:420
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:545
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:603
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:547
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:605
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:766
 msgid "Could not add edge '%'."
 msgstr ""
@@ -7048,160 +7048,160 @@ msgstr ""
 msgid "Could not add intermediate node to split loop edge '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:217
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:219
 msgid "Could not find signal reference '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:281
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:319
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:283
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:321
 msgid "Could not build node '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:418
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:420
 msgid "Ignoring road '%' without geometry."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:442
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:444
 msgid "Could not apply laneOffsets for edge '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:633
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:635
 #, c-format
 msgid "Edge '%' has no lanes."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:674
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:676
 #, c-format
 msgid "While setting connections: from-edge '%' is not known."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:684
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:686
 #, c-format
 msgid "While setting connections: to-edge '%' is not known."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:710
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:713
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:712
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:715
 msgid "Could not find fromEdge representation of '%' in connection '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:766
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:768
 #, c-format
 msgid ""
 "Controlling multiple junctions by the same controller '%' is currently not "
 "implemented."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:787
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:789
 #, c-format
 msgid "Edge '%' has signals but no lane sections."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:809
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:811
 msgid "Ambiguous start of connection."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:826
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:828
 msgid "Ambiguous end of connection."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:839
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:854
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:901
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:841
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:856
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:903
 msgid "Could not find edge '%' for signal '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:875
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:877
 msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten signal '%' and with controller '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:890
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:892
 msgid "Found a traffic light signal on an unknown edge (original edge id='%')."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:921
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:923
 msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten with signal '%' and controller '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1361
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1393
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1363
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1395
 #, c-format
 msgid "While setting connections: incoming road '%' is not known."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1436
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1438
 msgid "Could not find node '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1529
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1531
 msgid "Mismatched geometry for edge '%' between geometry segments % and %."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1710
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1712
 #, c-format
 msgid "The sections of edge '%' are not sorted properly."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1722
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1724
 msgid ""
 "Almost duplicate s-value '%' for lane sections occurred at edge '%'; second "
 "entry was removed."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1765
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1767
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1814
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1816
 msgid "Could not compute spiral geometry for edge '%' (%)."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2086
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2088
 msgid ""
 "Will discard access settings as both denied and allowed classes have been "
 "specified."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2392
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2400
 msgid "Ignoring invalid pRange value '%' for road '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2470
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2479
 msgid "Ignoring missing signal '%' in controller '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2508
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2704
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2517
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2724
 #, c-format
 msgid "In laneLink-element: incoming road '%' is not known."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2603
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2612
 msgid "Ignoring object without id at edge '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2621
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2630
 msgid "Repeat without object at edge '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2675
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2695
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2679
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2699
 #, c-format
 msgid "geoReference format '%' currently not supported"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2752
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2772
 msgid "Mismatching parenthesis in geometry definition for road '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2756
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2776
 msgid "Double geometry information for road '%'"
 msgstr ""
 
@@ -10178,63 +10178,63 @@ msgstr ""
 msgid "Trying to subtract PositionVectors of different lengths."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:964
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1040
 msgid "'lane' and 'length' must be defined together in a lane area detector."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:969
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1045
 msgid "'lanes' and 'endPos' must be defined together in a lane area detector."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1248
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1324
 msgid "Calibrators need either an edge or a lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1295
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1371
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1434
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1460
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1485
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1510
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1536
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1561
 #, c-format
 msgid "Probability of % must be equal or greater than 0"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1671
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1747
 msgid "X and Y must be be defined together in POIs"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1677
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1753
 msgid "lane and position must be be defined together in POIs"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1683
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1759
 msgid "lon and lat must be be defined together in POIs"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1749
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1954
 msgid "Parameters must be defined within an object."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1751
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:911
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1956
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:933
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1753
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:913
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1958
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:935
 msgid "Parameters cannot be defined within another parameter."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1761
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1966
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1763
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1968
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters."
@@ -10248,76 +10248,82 @@ msgstr ""
 msgid "MeanData elements cannot load attributes as params"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:394
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:399
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:446
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:406
+msgid ""
+"Could not build % with ID '%' in netedit; Distinct number of distribution "
+"values and probabilities."
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:460
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:463
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:478
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:515
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:595
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:531
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:611
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:517
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:597
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:533
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:613
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:561
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:577
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:909
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:931
 msgid "Parameters must be defined within an object"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:921
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:943
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:923
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:945
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:939
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:961
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:225
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:947
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:949
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:969
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:971
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:228
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:230
 msgid "Invalid parsing embedded VType"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1033
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1055
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1049
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1071
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1052
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1074
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 

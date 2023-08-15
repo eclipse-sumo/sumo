@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-26 16:01+0200\n"
+"POT-Creation-Date: 2023-08-15 11:32+0200\n"
 "PO-Revision-Date: 2023-08-07 09:29+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -2472,7 +2472,7 @@ msgid ""
 "length was specified."
 msgstr "集成方法被设置为 \"弹道\"，因为指定了一个默认的动作步长。"
 
-#: C:\Repos\sumo/src\microsim\MSInsertionControl.cpp:276
+#: C:\Repos\sumo/src\microsim\MSInsertionControl.cpp:287
 #: C:\Repos\sumo/src\router\RONet.cpp:481
 #, c-format
 msgid "Another vehicle with the id '%' exists."
@@ -2959,13 +2959,13 @@ msgstr "车辆 '%' 中止等待 %。"
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
 msgstr "车辆'%'在路段'%'结束传送，时间=%。"
 
-#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:318
+#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:321
 msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
 msgstr "对于vType'%'，'紧急emergencyDecel'（%）的值应该高于'decel'（%）。"
 
-#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:321
+#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:324
 msgid ""
 "Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType "
 "'%' may cause collisions."
@@ -2973,14 +2973,14 @@ msgstr ""
 "对于vType'%'，'紧急emergencyDecel'(%)的值低于'apparentDecel'(%)，可能会导致碰"
 "撞。"
 
-#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:443
+#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:446
 #, c-format
 msgid ""
 "Value of tau=% in vehicle type '%' lower than simulation step size may cause "
 "collisions."
 msgstr "车辆类型'%'中的tau=%的值低于仿真步长，可能导致碰撞。"
 
-#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:449
+#: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:452
 #, c-format
 msgid ""
 "Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-"
@@ -6971,7 +6971,7 @@ msgid "Could not find geo coordinate system, assuming WGS84."
 msgstr "无法找到地理坐标系统,假设为 WGS84。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:277
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1562
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1564
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:600
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimAbstractEdge.cpp:44
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:171
@@ -7075,10 +7075,10 @@ msgid "Could not add add node '%'"
 msgstr "无法增加节点'%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:267
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:386
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:481
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1424
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:269
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:388
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:483
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1426
 msgid "Could not add node '%'."
 msgstr "无法增加节点 '%'。"
 
@@ -7107,8 +7107,8 @@ msgid "Non-numerical value for the number of lanes of link '%'."
 msgstr "路段 '%' 的车道数为非数字值。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:420
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:545
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:603
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:547
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:605
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:766
 msgid "Could not add edge '%'."
 msgstr "无法增加路段 '%'。"
@@ -7230,107 +7230,107 @@ msgstr "无法发现路段 '%' 的到达节点(to-node)。"
 msgid "Could not add intermediate node to split loop edge '%'."
 msgstr "无法增加中间节点去分割(split)线圈(loop)路段 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:217
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:219
 msgid "Could not find signal reference '%'."
 msgstr "无法发现信号参考(reference) '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:281
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:319
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:283
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:321
 msgid "Could not build node '%'."
 msgstr "无法建立节点 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:418
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:420
 msgid "Ignoring road '%' without geometry."
 msgstr "忽略沒有几何形狀的道路 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:442
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:444
 msgid "Could not apply laneOffsets for edge '%'"
 msgstr "无法在路段 '%' 使用车道偏移量(laneOffsets)"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:633
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:635
 #, c-format
 msgid "Edge '%' has no lanes."
 msgstr "路段 '%' 沒有车道。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:674
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:676
 #, c-format
 msgid "While setting connections: from-edge '%' is not known."
 msgstr "当设定连接线时: 起始路段(from-edge) '%' 未知。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:684
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:686
 #, c-format
 msgid "While setting connections: to-edge '%' is not known."
 msgstr "当设定连接线时: 起始路段(from-edge) '%' 未知。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:710
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:713
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:712
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:715
 msgid "Could not find fromEdge representation of '%' in connection '%'."
 msgstr "无法找到 '%' 的 fromEdge 表示法 (位于连接线 '%'內)。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:766
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:768
 #, c-format
 msgid ""
 "Controlling multiple junctions by the same controller '%' is currently not "
 "implemented."
 msgstr "目前尚未实现由同一个控制器'%'控制多个路口。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:787
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:789
 #, c-format
 msgid "Edge '%' has signals but no lane sections."
 msgstr "路段 '%' 有交通信号,但沒有车道部分。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:809
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:811
 msgid "Ambiguous start of connection."
 msgstr "不明确的连接线开始。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:826
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:828
 msgid "Ambiguous end of connection."
 msgstr "不明确的连接线末端。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:839
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:854
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:901
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:841
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:856
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:903
 msgid "Could not find edge '%' for signal '%'."
 msgstr "无法找路段 '%' (交通信号为 '%')。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:875
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:877
 msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten signal '%' and with controller '%'."
 msgstr ""
 "从'%'到'%'（控制器'%'）的连接信号不明确，因为它被信号'%'和控制器'%'覆盖。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:890
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:892
 msgid "Found a traffic light signal on an unknown edge (original edge id='%')."
 msgstr "在未知路段(原始路段识别名(id)='%')上发现交通信号。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:921
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:923
 msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten with signal '%' and controller '%'."
 msgstr ""
 "从'%'到'%'（控制器'%'）的连接信号不明确，因为它被信号'%'和控制器'%'覆盖。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1361
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1393
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1363
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1395
 #, c-format
 msgid "While setting connections: incoming road '%' is not known."
 msgstr "设定连接线时: 进入道路 '%' 未知。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1436
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1438
 msgid "Could not find node '%'."
 msgstr "无法发现节点 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1529
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1531
 msgid "Mismatched geometry for edge '%' between geometry segments % and %."
 msgstr "路段 '%' 在 % 和 % 几何区间之间的几何形状失配。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1710
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1712
 #, c-format
 msgid "The sections of edge '%' are not sorted properly."
 msgstr "路段 '%' 的章节部分(sections)未正确排序。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1722
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1724
 msgid ""
 "Almost duplicate s-value '%' for lane sections occurred at edge '%'; second "
 "entry was removed."
@@ -7338,56 +7338,56 @@ msgstr ""
 "车道章节部分(sections)有几乎重复的 s 值 '%' 出现在路段 '%';第二个输入项"
 "(entry)被删除。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1765
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1767
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
 msgstr "无法计算路段 '%' 的螺旋几何形状 (cDot=% 长度=%)。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1814
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1816
 msgid "Could not compute spiral geometry for edge '%' (%)."
 msgstr "无法计算路段 '%' 的螺旋几何形状 (%)。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2086
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2088
 msgid ""
 "Will discard access settings as both denied and allowed classes have been "
 "specified."
 msgstr "将废弃连通通道设定access settings)，因为已指定拒绝和允许的类别。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2392
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2400
 msgid "Ignoring invalid pRange value '%' for road '%'."
 msgstr "忽略无效的 pRange 值 '%' (在道路 '%')。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2470
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2479
 msgid "Ignoring missing signal '%' in controller '%'."
 msgstr "忽略控制器'%'中缺少的信号'%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2508
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2704
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2517
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2724
 #, c-format
 msgid "In laneLink-element: incoming road '%' is not known."
 msgstr "在 laneLink 元素中: 进入(incoming)道路 '%' 未知。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2603
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2612
 msgid "Ignoring object without id at edge '%'."
 msgstr "忽略路段 '%' 处沒有识别名(id)的物件。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2621
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2630
 msgid "Repeat without object at edge '%'."
 msgstr "重复,不包含在路段 '%' 处的物件。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2675
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2695
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
 msgstr "无法设定投影 (%)。 这可以用 --ignore-errors 忽略。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2679
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2699
 #, c-format
 msgid "geoReference format '%' currently not supported"
 msgstr "目前不支持地理參考(geoReference)格式 '%'"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2752
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2772
 msgid "Mismatching parenthesis in geometry definition for road '%'"
 msgstr "道路 '%' 的几何定义中的括号不配对"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2756
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2776
 msgid "Double geometry information for road '%'"
 msgstr "道路 '% 有双重几何信息"
 
@@ -10424,21 +10424,21 @@ msgstr "分割(splitting)的向量接近末端 (位置: %, 长度: %)"
 msgid "Trying to subtract PositionVectors of different lengths."
 msgstr "尝试減去不同长度的 PositionVectors。"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:964
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1040
 msgid "'lane' and 'length' must be defined together in a lane area detector."
 msgstr ""
 "'lane' 和 'length' 必须在车道区域探测器(lane area detector)中一起定义。"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:969
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1045
 msgid "'lanes' and 'endPos' must be defined together in a lane area detector."
 msgstr ""
 "'lane' 和 'endPos' 必须在车道区域探测器(lane area detector)中一起定义。"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1248
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1324
 msgid "Calibrators need either an edge or a lane"
 msgstr "校估器需要一个路段或一个车道"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1295
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1371
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
@@ -10446,45 +10446,45 @@ msgstr ""
 "校估流量(CalibratorFlows)需要属性 每小时车辆数(vehsPerHour) 或 速度(speed)或"
 "类型(type) (或这些属性的任意組合)"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1434
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1460
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1485
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1510
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1536
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1561
 #, c-format
 msgid "Probability of % must be equal or greater than 0"
 msgstr "机率 % 必须大于或等于 0"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1671
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1747
 msgid "X and Y must be be defined together in POIs"
 msgstr "X 和 Y 必须一起定义于兴趣点(POIs)內"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1677
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1753
 msgid "lane and position must be be defined together in POIs"
 msgstr "车道和位置必须一起定义于兴趣点(POIs)內"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1683
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1759
 msgid "lon and lat must be be defined together in POIs"
 msgstr "经度(lon)和纬度(lat)必须一起定义于兴趣点(POIs)內"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1749
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1954
 msgid "Parameters must be defined within an object."
 msgstr "参数必须定义于一个物件(object)內。"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1751
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:911
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1956
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:933
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr "参数无法定义于附加文件(additional file)的根(root)中內。"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1753
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:913
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1958
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:935
 msgid "Parameters cannot be defined within another parameter."
 msgstr "参数无法定义于其它参数內。"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1761
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1966
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty."
 msgstr "解析 % 通用参数的密键(key)发生错误。 密键(key)不可以是空的。"
 
-#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1763
+#: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1968
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters."
@@ -10498,54 +10498,60 @@ msgstr "数据元素(data elements)无法载入属性作为参数（params)"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "平均数据(MeanData)无法载入属性作为参数(params)"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:394
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:399
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr "无法在 netedit 中构建 % (其识别名(ID)为 '%'); ID 含有无效字元。"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:446
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:406
+msgid ""
+"Could not build % with ID '%' in netedit; Distinct number of distribution "
+"values and probabilities."
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:460
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr "路径必须定义于一个车辆/流量內, 或是用一个识别名(ID)属性"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:463
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:478
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr "周期时间(cycleTime) % 必须大于或等于 0"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:515
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:595
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:531
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:611
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr "属性 'from'、'fromJunction '和 'fromTaz '不能一起定义"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:517
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:597
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:533
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:613
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr "属性 'to'、'toJunction '和 'toTaz '不能一起定义"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:561
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:577
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr "旅程定义需要 'from/to '或 'fromJunction/toJunction '或 'fromTaz/toTaz"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:909
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:931
 msgid "Parameters must be defined within an object"
 msgstr "参数必须定义在一个物件(object)內"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:921
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:943
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr "解析 % 通用参数的密键(key)发生错误。 密键(key)不可以是空的"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:923
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:945
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr "解析 % 通用参数的密键(key)发生错误。 密键(key)含有无效的字元"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:939
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:961
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:225
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
@@ -10554,22 +10560,22 @@ msgstr ""
 "在车辆类型(vType) '%' 的鸟巢状元素(nested element)內定义的跟车参数已不适用改"
 "用属性(attributes)!"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:947
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:949
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:969
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:971
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:228
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:230
 msgid "Invalid parsing embedded VType"
 msgstr "解析嵌入的(embedded)车辆类型(vType)无效"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1033
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1055
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr "停靠站必要须定义在一个路段或是一个车道, 而不是用两者来定义"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1049
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1071
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "停靠站只能定义在一个可停下的地方(StoppingPlace)"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1052
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1074
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "停靠站必须要定义在一个路段, 一个车道或是一个可停下的地方(StoppingPlace)"

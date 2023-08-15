@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-14 17:12+0200\n"
+"POT-Creation-Date: 2023-08-15 11:32+0200\n"
 "PO-Revision-Date: 2023-08-14 15:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -2578,12 +2578,14 @@ msgstr "Opzioni netgenerate"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2412
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1248
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:107
+#: C:\Repos\sumo/src\netedit\changes\GNEChangeGroup.cpp:100
 msgid "Undo"
 msgstr "Annulla"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2444
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1251
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:110
+#: C:\Repos\sumo/src\netedit\changes\GNEChangeGroup.cpp:106
 msgid "Redo"
 msgstr "Reimposta"
 
@@ -4772,12 +4774,12 @@ msgstr "rimuovi elementi di dati"
 msgid "clear meanData elements"
 msgstr "rimuovi elementi meanData"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2355
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2452
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2356
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2453
 msgid "Duplicated ID"
 msgstr "ID duplicata"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2742
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2743
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr "La rete è più larga di un anno luce. Riconsidera gli dati di ingresso."
 
@@ -6498,6 +6500,10 @@ msgstr "Non ci sono archi nella rete"
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:398
 msgid "There are no parking areas in the network"
 msgstr "Non ci sono parcheggi nella rete"
+
+#: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:46
+msgid "Undo/Redo history"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:58
 msgid "OK\tclose dialog"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-14 17:12+0200\n"
+"POT-Creation-Date: 2023-08-15 11:32+0200\n"
 "PO-Revision-Date: 2023-08-15 09:30+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -2555,12 +2555,14 @@ msgstr "Netedit 选项"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2412
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1248
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:107
+#: C:\Repos\sumo/src\netedit\changes\GNEChangeGroup.cpp:100
 msgid "Undo"
 msgstr "还原"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2444
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1251
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:110
+#: C:\Repos\sumo/src\netedit\changes\GNEChangeGroup.cpp:106
 msgid "Redo"
 msgstr "重做"
 
@@ -4732,12 +4734,12 @@ msgstr "清除数据要素"
 msgid "clear meanData elements"
 msgstr "清除meanData要素"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2355
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2452
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2356
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2453
 msgid "Duplicated ID"
 msgstr "复制的ID"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2742
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2743
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr "路网規模超过 1 光年。 请重新考虑您的输入。"
 
@@ -6432,6 +6434,10 @@ msgstr "路网內沒有路段"
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:398
 msgid "There are no parking areas in the network"
 msgstr "路网內沒有停车区域"
+
+#: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:46
+msgid "Undo/Redo history"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:58
 msgid "OK\tclose dialog"
@@ -9502,7 +9508,8 @@ msgstr "在''中添加掉头间隔时间"
 #, c-format
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
-msgstr "由于重叠，无法在 netedit 中创建起始时刻为 \"%\"、结束时刻为 '%' 的区间。"
+msgstr ""
+"由于重叠，无法在 netedit 中创建起始时刻为 \"%\"、结束时刻为 '%' 的区间。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:981
 msgid "add closing lane reroute in '"
@@ -9719,8 +9726,8 @@ msgid ""
 "calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
 msgstr ""
-"校准器 \"%\" 的校准器流量 (calibratorFlow) 无法写入。 "
-"必须启用类型（type）、小时车辆数（vehsPerHour）或速度（speed）"
+"校准器 \"%\" 的校准器流量 (calibratorFlow) 无法写入。 必须启用类型（type）、"
+"小时车辆数（vehsPerHour）或速度（speed）"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:180
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:125
