@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-15 11:32+0200\n"
-"PO-Revision-Date: 2023-08-15 09:30+0000\n"
+"PO-Revision-Date: 2023-08-15 14:46+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -3943,7 +3943,7 @@ msgstr "Abrir una ventana para localizar contenedores."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2052
 msgid "&Route"
-msgstr "&Route (Ruta)"
+msgstr "&Ruta"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2052
 msgid "Open a dialog for locating a Route."
@@ -7370,15 +7370,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1771
 msgid "Begin position in the specified lane"
-msgstr ""
+msgstr "Posición inicial en el carril especificado"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1776
 msgid "End position in the specified lane"
-msgstr ""
+msgstr "Posición final en el carril especificado"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1781
 msgid "Name of chargingStation"
-msgstr ""
+msgstr "Nombre de la estación de carga"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1794
 msgid "Charging power in W"
@@ -7404,11 +7404,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1827
 msgid "The id of ParkingArea"
-msgstr ""
+msgstr "El ID de la zona de estacionamiento"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1832
 msgid "The name of the lane the Parking Area shall be located at"
-msgstr ""
+msgstr "El nombre del carril en el que se ubicará la zona de estacionamiento"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1847
 msgid "Lane position in that vehicle must depart when leaves parkingArea"
@@ -7416,7 +7416,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1852
 msgid "Name of parkingArea"
-msgstr ""
+msgstr "Nombre de la zona de estacionamiento"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1857
 msgid " The number of parking spaces for road-side parking"
@@ -7453,7 +7453,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1915
 msgid "Name of parking space"
-msgstr ""
+msgstr "Nombre del espacio de estacionamiento"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1925
 msgid "The length of the road-side parking spaces"
@@ -7465,7 +7465,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1950
 msgid "The id of E1"
-msgstr ""
+msgstr "El ID del E1"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1955
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2007
@@ -7476,6 +7476,8 @@ msgid ""
 "The id of the lane the detector shall be laid on. The lane must be a part of "
 "the network used"
 msgstr ""
+"El ID del carril en el que se colocará el detector. El carril debe ser parte "
+"de la red utilizada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1960
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2287
@@ -7483,6 +7485,9 @@ msgid ""
 "The position on the lane the detector shall be laid on in meters. The "
 "position must be a value between -1*lane's length and the lane's length"
 msgstr ""
+"La posición en el carril en la que se colocará el detector (en metros). La "
+"posición debe tener un valor entre -1*la longitud del carril y la longitud "
+"del carril"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1965
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2023
@@ -7495,7 +7500,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1971
 msgid "Name of induction loop"
-msgstr ""
+msgstr "Nombre del bucle de inducción"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1976
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2039
@@ -7503,7 +7508,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2186
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2297
 msgid "The path to the output file"
-msgstr ""
+msgstr "La ruta para el archivo de salida"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1981
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2044
@@ -7512,21 +7517,22 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2302
 msgid "Space separated list of vehicle type ids to consider"
 msgstr ""
+"Lista separada por espacios de los ID's de tipos de vehículos a considerar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2002
 msgid "The id of E2"
-msgstr ""
+msgstr "El ID del E2"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2012
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2093
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2228
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2255
 msgid "The position on the lane the detector shall be laid on in meters"
-msgstr ""
+msgstr "La posición en el carril donde se colocará el detector (en metros)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2017
 msgid "The length of the detector in meters"
-msgstr ""
+msgstr "La longitud del detector en metros"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2029
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2109
@@ -7535,7 +7541,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2034
 msgid "Name of lane area detector"
-msgstr ""
+msgstr "Nombre del detector de área de carril"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2049
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2129
@@ -13914,7 +13920,7 @@ msgstr "Archivo de forma (shape file) cargado con éxito: "
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:43
 msgid "Execute python tool '"
-msgstr ""
+msgstr "Ejecutar la herramienta de python '"
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:188
 #, c-format
