@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-08-11 12:46:50 by Eclipse SUMO sumo Version 5b0c0772ff
+<!-- generated on 2023-08-15 14:29:35 by Eclipse SUMO sumo Version 208fea19859
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,15 +41,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <SSMLog>
     <conflict begin="8.10" end="14.50" ego="foe1" foe="ego1">
-        <minTTC time="NA" position="NA" type="NA" value="NA"/>
-        <maxDRAC time="9.00" position="98.35,45.25" type="6" value="0.00"/>
-        <PET time="NA" position="NA" type="NA" value="NA"/>
-        <maxMDRAC time="9.00" position="98.35,45.25" type="6" value="0.00"/>
+        <minTTC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+        <maxDRAC time="9.00" position="98.35,45.25" type="6" value="0.00" speed="8.87"/>
+        <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+        <maxMDRAC time="9.00" position="98.35,45.25" type="6" value="0.00" speed="8.87"/>
     </conflict>
     <conflict begin="8.10" end="14.50" ego="ego1" foe="foe1">
-        <minTTC time="NA" position="NA" type="NA" value="NA"/>
-        <maxDRAC time="9.00" position="98.35,45.25" type="7" value="0.00"/>
-        <PET time="NA" position="NA" type="NA" value="NA"/>
-        <maxMDRAC time="9.00" position="98.35,45.25" type="7" value="0.00"/>
+        <minTTC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+        <maxDRAC time="9.00" position="98.35,45.25" type="7" value="0.00" speed="0.26"/>
+        <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+        <maxMDRAC time="9.00" position="98.35,45.25" type="7" value="0.00" speed="0.26"/>
     </conflict>
 </SSMLog>
