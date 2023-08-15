@@ -61,11 +61,11 @@
 // ===========================================================================
 
 //#define DEBUG_CONTINUE_CHANGE
-//#define DEBUG_CHECK_CHANGE
+#define DEBUG_CHECK_CHANGE
 //#define DEBUG_SURROUNDING_VEHICLES // debug getRealFollower() and getRealLeader()
-//#define DEBUG_CHANGE_OPPOSITE
-//#define DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
-//#define DEBUG_CHANGE_OPPOSITE_DEADLOCK
+#define DEBUG_CHANGE_OPPOSITE
+#define DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+#define DEBUG_CHANGE_OPPOSITE_DEADLOCK
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_STATE
 //#define DEBUG_CANDIDATE
@@ -1593,7 +1593,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             neighLead.first = nullptr;
         }
     } else {
-        if (leader.first != nullptr && leader.first->getWaitingSeconds() >= OPPOSITE_OVERTAKING_DEADLOCK_WAIT
+        if (leader.first != nullptr && neighLead.first != nullptr && leader.first->getWaitingSeconds() >= OPPOSITE_OVERTAKING_DEADLOCK_WAIT
                 && vehicle->getVehicleType().getVehicleClass() != SVC_EMERGENCY) {
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
