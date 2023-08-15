@@ -96,7 +96,7 @@ GNEDistributionFrame::DistributionEditor::onCmdCreateDistribution(FXObject*, FXS
     // obtain a new valid Type ID
     const std::string typeDistributionID = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->generateDemandElementID(myDistributionSelector->getDistributionTag());
     // create new vehicle type
-    GNEDemandElement* type = new GNEVTypeDistribution(myFrameParent->getViewNet()->getNet(), typeDistributionID);
+    GNEDemandElement* type = new GNEVTypeDistribution(myFrameParent->getViewNet()->getNet(), typeDistributionID, -1);
     // add it using undoList (to allow undo-redo)
     undoList->begin(type->getTagProperty().getGUIIcon(), "create vehicle type distribution");
     undoList->add(new GNEChange_DemandElement(type, true), true);
