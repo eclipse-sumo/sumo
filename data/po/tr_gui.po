@@ -9714,7 +9714,7 @@ msgstr "yeniden yönlendirici ekle '"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:942
 #, c-format
 msgid ""
-"Could not build interval with ID '%' in netedit; begin is greather than end."
+"Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:950
@@ -9762,7 +9762,7 @@ msgstr "' içine VSS Adımı ekle"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1247
 #, c-format
 msgid ""
-"Could not build Vaporizer with ID '%' in netedit; begin is greather than end."
+"Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1253
@@ -15812,7 +15812,7 @@ msgstr "Koordinatlar % cinsinden dönüştürülemedi."
 #~ msgid "Could not build interval with ID '"
 #~ msgstr "' Kimlik (ID) ile aralık oluşturulamadı"
 
-#~ msgid "' in netedit; begin is greather than end."
+#~ msgid "' in netedit; begin is greater than end."
 #~ msgstr "' netedit'te; başlangıç bitişten daha büyüktür."
 
 #~ msgid "Could not build interval with begin '"

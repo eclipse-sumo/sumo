@@ -9503,7 +9503,7 @@ msgstr "新增改道裝置 '"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:942
 #, c-format
 msgid ""
-"Could not build interval with ID '%' in netedit; begin is greather than end."
+"Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:950
@@ -9551,7 +9551,7 @@ msgstr "新增可變速度標誌(VSS)時間步長於 '"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1247
 #, c-format
 msgid ""
-"Could not build Vaporizer with ID '%' in netedit; begin is greather than end."
+"Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1253
@@ -15532,7 +15532,7 @@ msgstr "無法將座標轉換為%單位。"
 #~ msgid "Could not build interval with ID '"
 #~ msgstr "無法建立區間,其識別名(ID)為"
 
-#~ msgid "' in netedit; begin is greather than end."
+#~ msgid "' in netedit; begin is greater than end."
 #~ msgstr "' 在netedit中； 開始時間大於結束時間。"
 
 #~ msgid "Could not build interval with begin '"

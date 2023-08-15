@@ -56,10 +56,10 @@ netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "dummy position", True
 # Change parameter pos with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "", True)
 
-# Change parameter pos with a valid value (negativ)
+# Change parameter pos with a valid value (negative)
 netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "-1000", True)
 
-# Change parameter pos with a valid value (greather than lane length)
+# Change parameter pos with a valid value (greater than lane length)
 netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "1000", True)
 
 # Change parameter pos with a valid value (middle lane)

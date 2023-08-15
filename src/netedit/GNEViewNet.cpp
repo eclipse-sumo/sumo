@@ -2929,7 +2929,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
         const SUMOVehicleClass vClass = SumoVehicleClassStrings.get(dynamic_cast<FXMenuCommand*>(menu)->getText().text());
         // calculate reachability
         myNet->getPathManager()->getPathCalculator()->calculateReachability(vClass, laneAtPopupPosition->getParentEdge());
-        // select all lanes with reachability greather than 0
+        // select all lanes with reachability greater than 0
         myUndoList->begin(laneAtPopupPosition, TL("select lane reachability"));
         for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {
             for (const auto& lane : edge.second->getLanes()) {

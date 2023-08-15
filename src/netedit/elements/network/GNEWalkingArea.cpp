@@ -106,7 +106,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
     const double walkingAreaExaggeration = getExaggeration(s);
     // get walking area shape
     const auto& walkingAreaShape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
-    // only continue if exaggeration is greather than 0 and junction's shape is greather than 4
+    // only continue if exaggeration is greater than 0 and junction's shape is greater than 4
     if ((myParentJunction->getNBNode()->getShape().area() > 4) && (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
         // push junction name
         GLHelper::pushName(getGlID());

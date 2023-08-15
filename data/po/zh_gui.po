@@ -9497,7 +9497,7 @@ msgstr "添加掉头'"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:942
 #, c-format
 msgid ""
-"Could not build interval with ID '%' in netedit; begin is greather than end."
+"Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr "无法在 netedit 中创建编号 (ID)为 \"%\" 的区间； 开始时刻大于结束时刻。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:950
@@ -9546,7 +9546,7 @@ msgstr "在''中添加VSS步骤"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1247
 #, c-format
 msgid ""
-"Could not build Vaporizer with ID '%' in netedit; begin is greather than end."
+"Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr "无法在netedit中创建编号 (ID)为 '%' 的蒸发器；开始时间大于结束时间。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1253
@@ -15517,7 +15517,7 @@ msgstr "无法转换以%为单位的坐标。"
 #~ msgid "Could not build interval with ID '"
 #~ msgstr "无法用ID' 建立时间间隔"
 
-#~ msgid "' in netedit; begin is greather than end."
+#~ msgid "' in netedit; begin is greater than end."
 #~ msgstr "netedit中的'；开始（begin）比结束（end）要大。"
 
 #~ msgid "Could not build interval with begin '"

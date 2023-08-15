@@ -9866,7 +9866,7 @@ msgstr "Rerouter hinzufügen '"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:942
 #, c-format
 msgid ""
-"Could not build interval with ID '%' in netedit; begin is greather than end."
+"Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:950
@@ -9917,7 +9917,7 @@ msgstr "VSS-Schritt hinzufügen in '"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1247
 #, c-format
 msgid ""
-"Could not build Vaporizer with ID '%' in netedit; begin is greather than end."
+"Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1253
@@ -16109,7 +16109,7 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ msgid "Could not build interval with ID '"
 #~ msgstr "Konnte kein Intervall mit der ID ' erstellen"
 
-#~ msgid "' in netedit; begin is greather than end."
+#~ msgid "' in netedit; begin is greater than end."
 #~ msgstr "' in netedit; Beginn ist größer als das Ende."
 
 #~ msgid "Could not build interval with begin '"

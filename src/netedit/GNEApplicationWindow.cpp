@@ -2282,7 +2282,7 @@ GNEApplicationWindow::onCmdToggleEditOptions(FXObject* sender, FXSelector sel, v
         myViewNet->getNetworkViewOptions().getVisibleNetworkMenuCommands(visibleMenuCommands);
         myViewNet->getDemandViewOptions().getVisibleDemandMenuCommands(visibleMenuCommands);
         myViewNet->getDataViewOptions().getVisibleDataMenuCommands(visibleMenuCommands);
-        // now check that numericalKeyPressed isn't greather than visible view options
+        // now check that numericalKeyPressed isn't greater than visible view options
         if (numericalKeyPressed >= (int)visibleMenuCommands.size()) {
             return 1;
         }

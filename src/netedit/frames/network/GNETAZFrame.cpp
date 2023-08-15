@@ -677,7 +677,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldDefaultValueTAZSources->getText().text())) {
             myDefaultTAZSourceWeight = GNEAttributeCarrier::parse<double>(myTextFieldDefaultValueTAZSources->getText().text());
-            // check if myDefaultTAZSourceWeight is greather than 0
+            // check if myDefaultTAZSourceWeight is greater than 0
             if (myDefaultTAZSourceWeight >= 0) {
                 // set valid color
                 myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(0, 0, 0));
@@ -695,7 +695,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldDefaultValueTAZSinks->getText().text())) {
             myDefaultTAZSinkWeight = GNEAttributeCarrier::parse<double>(myTextFieldDefaultValueTAZSinks->getText().text());
-            // check if myDefaultTAZSinkWeight is greather than 0
+            // check if myDefaultTAZSinkWeight is greater than 0
             if (myDefaultTAZSinkWeight >= 0) {
                 // set valid color
                 myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(0, 0, 0));
@@ -990,7 +990,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldTAZSourceWeight->getText().text())) {
             double newTAZSourceWeight = GNEAttributeCarrier::parse<double>(myTextFieldTAZSourceWeight->getText().text());
-            // check if myDefaultTAZSourceWeight is greather than 0
+            // check if myDefaultTAZSourceWeight is greater than 0
             if (newTAZSourceWeight >= 0) {
                 // set valid color in TextField
                 myTextFieldTAZSourceWeight->setTextColor(FXRGB(0, 0, 0));
@@ -1014,7 +1014,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldTAZSinkWeight->getText().text())) {
             double newTAZSinkWeight = GNEAttributeCarrier::parse<double>(myTextFieldTAZSinkWeight->getText().text());
-            // check if myDefaultTAZSinkWeight is greather than 0
+            // check if myDefaultTAZSinkWeight is greater than 0
             if (newTAZSinkWeight >= 0) {
                 // set valid color in TextField
                 myTextFieldTAZSinkWeight->setTextColor(FXRGB(0, 0, 0));
