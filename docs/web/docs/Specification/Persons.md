@@ -55,7 +55,7 @@ below. Each person must have at least one stage in its plan.
 | vClass            | class (enum) |        |          | "pedestrian" | Should either be "pedestrian" or "ignoring" (to allow walking anywhere) |
 
 !!! note
-    Up to version 1.14.1, speed distributions for walking persons (pedestrians) worked differently from those for vehicles. Whereas the individual speed factor of vehicles is multiplied with the road speed limit to arrive at the desired speed, the individual speed factor of persons was multiplied with the maxSpeed of their vType (since road speed limits do not apply to persons). In later versions, person use [desiredMaxSpeed and maxSpeed](../Simulation/VehicleSpeed.md#desiredmaxspeed) in the exact same manner as vehicles. For backward compatibility reasons, if `maxSpeed` is configured and `desiredMaxSpeed` is not given in the vType, the `desiredMaxSpeed` is initialied from the given `maxSpeed` value.
+    Up to version 1.14.1, speed distributions for walking persons (pedestrians) worked differently from those for vehicles. Whereas the individual speed factor of vehicles is multiplied with the road speed limit to arrive at the desired speed, the individual speed factor of persons was multiplied with the maxSpeed of their vType (since road speed limits do not apply to persons). In later versions, person use [desiredMaxSpeed and maxSpeed](../Simulation/VehicleSpeed.md#desiredmaxspeed) in the exact same manner as vehicles. For backward compatibility reasons, if `maxSpeed` is configured and `desiredMaxSpeed` is not given in the vType, the `desiredMaxSpeed` is initialized from the given `maxSpeed` value.
 
 When specifying a `type`, the set of
 attributes which are in effect during simulation depend on the selected
@@ -177,7 +177,7 @@ They are child elements of plan definitions.
 
 You can define either a `route`-id, or a list of `edges` to travel or a `from` and a `to` edge.
 In the first and second case the route edges are traveled in the listed
-order. They do not need to be joined in the net. If travelling between
+order. They do not need to be joined in the net. If traveling between
 stops on the same edge then only include the edge once. In the latter
 case a shortest path calculation is performed and it is an error if
 there is no path connecting `from` and `to`.
@@ -245,7 +245,7 @@ The person stops for the maximum of `currentTime` + `duration` and `until`.
 Whenever a person starts or ends a walk at a busStop or trainStop (collectively called *stoppingPlace*), an access stage inserted into the person plan under the following conditions:
 
 - the walk ends on an edge that is different from the stoppingPlace edge and the stoppingPlace has an `<access>` definition that connects it with the final edge of the walk
-- the walk starts on an edge that is differnt from the stoppingPlace edge and the stoppingPlce has an `<access>` definition that connects it with the first edge of the walk
+- the walk starts on an edge that is different from the stoppingPlace edge and the stoppingPlace has an `<access>` definition that connects it with the first edge of the walk
 
 The time spent in an access stage is equal to the "length" attribute of the access divided by the walking speed of the person. No interaction between persons on the same access element takes place.
 
