@@ -30,10 +30,10 @@ GNETypeDistributionFrame::GNETypeDistributionFrame(GNEViewParent* viewParent, GN
     GNEFrame(viewParent, viewNet, TL("Type Distributions")) {
 
     /// @brief type editor
-    myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::VTYPEDISTRIBUTION);
+    myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIcon::VTYPEDISTRIBUTION);
 
     /// @brief type distribution selector
-    myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this, SUMO_TAG_VTYPE_DISTRIBUTION);
+    myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this);
 
     /// @brief distribution attributes editor
     myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);

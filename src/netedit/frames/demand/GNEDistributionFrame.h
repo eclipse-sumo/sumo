@@ -56,6 +56,9 @@ public:
         /// @brief destructor
         ~DistributionEditor();
 
+        /// @brief get distribution tag
+        SumoXMLTag getDistributionTag() const;
+
         /// @name FOX-callbacks
         /// @{
 
@@ -77,6 +80,9 @@ public:
     private:
         /// @brief pointer to frame parent
         GNEFrame* myFrameParent;
+
+        /// @briuef distribution tag
+        SumoXMLTag myDistributionTag;
 
         /// @brief distribution selector
         DistributionSelector* myDistributionSelector = nullptr;
@@ -101,13 +107,13 @@ public:
 
     public:
         /// @brief constructor
-        DistributionSelector(GNEFrame* frameParent, SumoXMLTag distributionTag);
+        DistributionSelector(GNEFrame* frameParent);
 
         /// @brief destructor
         ~DistributionSelector();
 
-        /// @brief get distribution tag
-        SumoXMLTag getDistributionTag() const;
+        /// @brief refresh modul
+        void setDistribution(GNEDemandElement* distribution);
 
         /// @brief current distribution
         GNEDemandElement *getCurrentDistribution() const;
@@ -139,9 +145,6 @@ public:
     private:
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
-
-        /// @brief distribution tag
-        SumoXMLTag myDistributionTag;
 
         /// @brief pointer to distribution editor
         DistributionEditor* myDistributionEditor = nullptr;

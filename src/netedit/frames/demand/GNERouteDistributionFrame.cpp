@@ -33,7 +33,7 @@ GNERouteDistributionFrame::GNERouteDistributionFrame(GNEViewParent* viewParent, 
     myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::ROUTEDISTRIBUTION);
 
     /// @brief route distribution selector
-    myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this, SUMO_TAG_ROUTE_DISTRIBUTION);
+    myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this);
 
     /// @brief distribution attributes editor
     myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);

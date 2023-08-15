@@ -25,6 +25,7 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/elements/demand/GNEVTypeDistribution.h>
+#include <netedit/elements/demand/GNERouteDistribution.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEDistributionFrame.h"
@@ -74,17 +75,18 @@ FXIMPLEMENT(GNEDistributionFrame::DistributionValuesEditor, MFXGroupBoxModule,  
 
 GNEDistributionFrame::DistributionEditor::DistributionEditor(GNEFrame* frameParent, SumoXMLTag distributionTag, GUIIcon icon) :
     MFXGroupBoxModule(frameParent, TL("Distribution Editor")),
-    myFrameParent(frameParent) {
+    myFrameParent(frameParent),
+    myDistributionTag(distributionTag) {
     // get staticTooltip menu
     auto staticTooltipMenu = myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // Create new distribution
     myCreateDistributionButton = new MFXButtonTooltip(getCollapsableFrame(), staticTooltipMenu, TL("New"),
         GUIIconSubSys::getIcon(icon), this, MID_GNE_CREATE, GUIDesignButton);
-    myCreateDistributionButton->setTipText(TLF("Create new %", toString(distributionTag)).c_str()), 
+    myCreateDistributionButton->setTipText(TLF("Create new %", toString(myDistributionTag)).c_str()), 
     // Delete distribution
     myDeleteDistributionButton = new MFXButtonTooltip(getCollapsableFrame(), staticTooltipMenu, TL("Delete"),
         GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
-    myDeleteDistributionButton->setTipText(TLF("Delete current edited %", toString(distributionTag)).c_str()), 
+    myDeleteDistributionButton->setTipText(TLF("Delete current edited %", toString(myDistributionTag)).c_str()), 
     // show editor
     show();
 }
@@ -93,19 +95,32 @@ GNEDistributionFrame::DistributionEditor::DistributionEditor(GNEFrame* framePare
 GNEDistributionFrame::DistributionEditor::~DistributionEditor() {}
 
 
+SumoXMLTag
+GNEDistributionFrame::DistributionEditor::getDistributionTag() const {
+    return myDistributionTag;
+}
+
+
 long
 GNEDistributionFrame::DistributionEditor::onCmdCreateDistribution(FXObject*, FXSelector, void*) {
     auto undoList = myFrameParent->getViewNet()->getUndoList();
     // obtain a new valid ID
-    const auto distributionID = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->generateDemandElementID(myDistributionSelector->getDistributionTag());
-    // create new vehicle
-    GNEDemandElement* distribution = new GNEVTypeDistribution(myFrameParent->getViewNet()->getNet(), distributionID, -1);
+    const auto distributionID = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->generateDemandElementID(myDistributionTag);
+    // create new distribution
+    GNEDemandElement* distribution = nullptr;
+    if (myDistributionTag == SUMO_TAG_VTYPE_DISTRIBUTION) {
+        distribution = new GNEVTypeDistribution(myFrameParent->getViewNet()->getNet(), distributionID, -1);
+    } else if (myDistributionTag == SUMO_TAG_ROUTE_DISTRIBUTION) {
+        distribution = new GNERouteDistribution(myFrameParent->getViewNet()->getNet(), distributionID);
+    } else {
+        throw ProcessError("Invalid distribution");
+    }
     // add it using undoList (to allow undo-redo)
     undoList->begin(distribution->getTagProperty().getGUIIcon(), "create distribution");
     undoList->add(new GNEChange_DemandElement(distribution, true), true);
     undoList->end();
-    // refresh selector
-    myDistributionSelector->refreshDistributionSelector();
+    // refresh selector using created distribution
+    myDistributionSelector->setDistribution(distribution);
     return 1;
 }
 
@@ -142,10 +157,9 @@ GNEDistributionFrame::DistributionEditor::onUpdDeleteDistribution(FXObject* send
 // GNETypeFrame::DistributionSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frameParent, SumoXMLTag distributionTag) :
+GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Distribution selector")),
-    myFrameParent(frameParent),
-    myDistributionTag(distributionTag) {
+    myFrameParent(frameParent) {
     // Create FXComboBox
     myDistributionsComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // DistributionSelector is always shown
@@ -156,15 +170,17 @@ GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frame
 GNEDistributionFrame::DistributionSelector::~DistributionSelector() {}
 
 
-SumoXMLTag
-GNEDistributionFrame::DistributionSelector::getDistributionTag() const {
-    return myDistributionTag;
+void
+GNEDistributionFrame::DistributionSelector::setDistribution(GNEDemandElement* distribution) {
+    myCurrentDistribution = distribution;
+    refreshDistributionSelector();
 }
 
 
 GNEDemandElement*
 GNEDistributionFrame::DistributionSelector::getCurrentDistribution() const {
     return myCurrentDistribution;
+
 }
 
 
@@ -218,7 +234,7 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
 long
 GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, FXSelector, void*) {
     const auto viewNet = myFrameParent->getViewNet();
-    const auto& distributions = viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(myDistributionTag);
+    const auto& distributions = viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(myDistributionEditor->getDistributionTag());
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& distribution : distributions) {
         if (distribution->getID() == myDistributionsComboBox->getText().text()) {
@@ -256,7 +272,7 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
 long
 GNEDistributionFrame::DistributionSelector::onCmdUpdateDistribution(FXObject* sender, FXSelector, void*) {
     const auto& demandElements = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
-    if (demandElements.at(myDistributionTag).size() > 0) {
+    if (demandElements.at(myDistributionEditor->getDistributionTag()).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -272,7 +288,7 @@ GNEDistributionFrame::DistributionSelector::fillDistributionComboBox() {
     myDistributionsComboBox->clearItems();
     // fill with distributions sorted by ID
     std::map<std::string, GNEDemandElement*> distributions;
-    for (const auto& distribution : ACs->getDemandElements().at(myDistributionTag)) {
+    for (const auto& distribution : ACs->getDemandElements().at(myDistributionEditor->getDistributionTag())) {
         distributions[distribution->getID()] = distribution;
     }
     for (const auto& distribution : distributions) {
