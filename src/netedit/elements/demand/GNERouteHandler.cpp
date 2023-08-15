@@ -216,7 +216,7 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
 
 
 void
-GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                                         const std::vector<std::string>& routeIDs, const std::vector<double>& probabilities) {
     // declare vector with route and their probabilities
     std::vector<const GNEDemandElement*> routes;
@@ -225,7 +225,7 @@ GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject
         writeError(TLF("There is another % with the same ID='%'.", toString(SUMO_TAG_ROUTE)));
     } else if (getDistributionElements(sumoBaseObject, SUMO_TAG_ROUTE, routeIDs, probabilities, routes)) {
         // create distributions
-        GNERouteDistribution* routeDistribution = new GNERouteDistribution(myNet, id, deterministic);
+        GNERouteDistribution* routeDistribution = new GNERouteDistribution(myNet, id);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(routeDistribution, TL("add ") + routeDistribution->getTagStr() + " '" + id + "'");
             overwriteDemandElement();
