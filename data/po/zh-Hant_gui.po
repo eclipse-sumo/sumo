@@ -9559,7 +9559,7 @@ msgid "update TAZ Sink in '"
 msgstr "更新交通分區迄點於 '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1512
-msgid "add taction substation '"
+msgid "add traction substation '"
 msgstr "新增牽引變電站 '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1544

@@ -9854,7 +9854,7 @@ msgstr ""
 msgid "add entry-exit detector '"
 msgstr "Eingangs-Ausgangs-Detektor hinzufügen '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:630
+#: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:630
 msgid "add entry detector in '"
 msgstr "Eintrittsdetektor hinzufügen in '"
 
@@ -9862,7 +9862,7 @@ msgstr "Eintrittsdetektor hinzufügen in '"
 msgid "add exit detector in '"
 msgstr "Ausgangsdetektor hinzufügen in '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:702
+#: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:702
 msgid "add instant induction loop '"
 msgstr "Instantane Induktionsschleife hinzufügen '"
 
@@ -9898,7 +9898,7 @@ msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:981
+#: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:981
 msgid "add closing lane reroute in '"
 msgstr "Rerouter für Fahrstreifensperrung hinzufügen in '"
 
@@ -9906,7 +9906,7 @@ msgstr "Rerouter für Fahrstreifensperrung hinzufügen in '"
 msgid "add closing reroute in '"
 msgstr "Geschlossene Umleitung hinzufügen in '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1036
+#: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1036
 msgid "add dest prob reroute in '"
 msgstr "Probabilistischen Rerouter für Fahrtziel hinzufügen in '"
 
@@ -9914,7 +9914,7 @@ msgstr "Probabilistischen Rerouter für Fahrtziel hinzufügen in '"
 msgid "add parking area reroute in '"
 msgstr "Parkplatz-Umleitung hinzufügen in '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1092
+#: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1092
 msgid "add route prob reroute in '"
 msgstr "Probabilistischen Rerouter für Route hinzufügen in '"
 
@@ -9967,8 +9967,8 @@ msgstr "Verkehrsumlegungszonen-Quelle aktualisieren in '"
 msgid "update TAZ Sink in '"
 msgstr "Verkehrsumlegungszonen-Ziel aktualisieren in '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1512
-msgid "add taction substation '"
+#: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1512
+msgid "add traction substation '"
 msgstr "Unterwerk hinzufügen '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1544
@@ -10253,8 +10253,8 @@ msgstr ""
 msgid "There is already a TAZ rel defined in '%'."
 msgstr "Es wurde bereits eine Quelle-Ziel-Beziehung in '%' definiert."
 
-#: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:220
-#: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:231
+#: D:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:220
+#: D:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:231
 msgid "add TAZ rel"
 msgstr "Quelle-Ziel-Beziehung hinzufügen"
 
@@ -11920,8 +11920,8 @@ msgstr "Ungültiger Supermodus"
 msgid "Mark as front element"
 msgstr "Als Frontelement markieren"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:177
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:306
+#: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:177
+#: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:306
 msgid "Set new parent"
 msgstr "Neues Elternteil setzen"
 
@@ -12609,11 +12609,11 @@ msgstr "Aktuelle meanData"
 msgid "MeanData"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:54
+#: D:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:54
 msgid "Confirm TAZRelation"
 msgstr "Quelle-Ziel-Beziehung bestätigen"
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
+#: D:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 msgid "Create TAZRelation"
 msgstr "Quelle-Ziel-Beziehung erstellen"
 
@@ -13486,7 +13486,7 @@ msgstr "Verbindung abwählen (Esc)"
 msgid "Prohibitions"
 msgstr "Verbote"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:57
+#: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:57
 msgid "GEO POI Creator"
 msgstr "Geo-Pol-Ersteller"
 

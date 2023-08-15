@@ -9782,7 +9782,7 @@ msgid "update TAZ Sink in '"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1512
-msgid "add taction substation '"
+msgid "add traction substation '"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1544

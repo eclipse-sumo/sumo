@@ -1509,7 +1509,7 @@ GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBase
         GNEAdditional* tractionSubstation = new GNETractionSubstation(id, myNet, pos, voltage, currentLimit, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(tractionSubstation, TL("add taction substation '") + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(tractionSubstation, TL("add traction substation '") + id + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(tractionSubstation, true), true);
             myNet->getViewNet()->getUndoList()->end();

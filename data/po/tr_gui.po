@@ -9812,7 +9812,7 @@ msgid "update TAZ Sink in '"
 msgstr "' içinde TAB alıcısını güncelle"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1512
-msgid "add taction substation '"
+msgid "add traction substation '"
 msgstr "cer trafo merkezi̇ ekle '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1544

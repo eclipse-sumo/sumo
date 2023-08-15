@@ -9555,7 +9555,7 @@ msgid "update TAZ Sink in '"
 msgstr "更新交通分区（TAZ）沉入其中''"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1512
-msgid "add taction substation '"
+msgid "add traction substation '"
 msgstr "添加行动分站 '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1544
