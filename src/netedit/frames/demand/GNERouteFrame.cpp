@@ -263,6 +263,8 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         if (!myRouteBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
             myRouteBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE));
         }
+        // add probability (needed for distributions)
+        myRouteBaseObject->addDoubleAttribute(SUMO_ATTR_PROB, 0.5);
         // declare edge vector
         std::vector<std::string> edges;
         for (const auto& path : myPathCreator->getPath()) {
