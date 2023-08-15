@@ -46,9 +46,11 @@ below. Each person must have at least one stage in its plan.
 | maxSpeed            | float (s) | ≥0                 | 10,44           | The person's absolute maximum velocity (in m/s)             |
 | desiredMaxSpeed     | float (s) | ≥0                 | 1,39            | The person's desired maximum velocity (in m/s)             |
 | speedFactor         | float or [distribution spec](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#defining_a_normal_distribution_for_vehicle_speeds) | >0 | 1.0 | The persons expected multiplier for desiredMaxSpeed   |
-| speedDev          | float                 | >=0      | 0.1      | The deviation of the speedFactor distribution |
+| speedDev          | float                 | ≥0      | 0.1      | The deviation of the speedFactor distribution |
 | color             | [RGB-color](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#colors)  |          | "1,1,0" (yellow)    | This person type's color       |
 | jmDriveAfterRedTime | float (s)           | ≥0       | -1       | This value causes persons to violate a red light if the duration of the red phase is lower than the given threshold. When set to 0, persons will always walk at yellow but will try to stop at red. If this behavior causes a person to walk so fast that stopping is not possible any more it will not attempt to stop. |
+| jmIgnoreFoeProb        | float | \[0,1\]             | 0          | This value causes vehicles and pedestrians to ignore foe vehicles that have right-of-way with the given probability. The check is performed anew every simulation step.|
+| jmIgnoreFoeSpeed       | float (m/s) | ≥0            | 0          | This value is used in conjunction with *jmIgnoreFoeProb*. Only vehicles with a speed below or equal to the given value may be ignored. |
 | impatience         | float or 'off'       | <= 1     | 0.0      | Willingness of persons to walk across the street at an unprioritized crossing when there are vehicles that would have to brake  |
 | vClass            | class (enum) |        |          | "pedestrian" | Should either be "pedestrian" or "ignoring" (to allow walking anywhere) |
 
