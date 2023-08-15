@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-15 11:32+0200\n"
-"PO-Revision-Date: 2023-08-09 14:00+0000\n"
+"PO-Revision-Date: 2023-08-15 14:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -470,7 +470,7 @@ msgstr "&Übereinander anordnen"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:605
 msgid "Tile the views horizontally."
-msgstr ""
+msgstr "Ordne die Ansichten übereinander an."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile &Vertically"
@@ -478,7 +478,7 @@ msgstr "&Nebeneinander anordnen"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile the views vertically."
-msgstr ""
+msgstr "Ordne die Ansichten nebeneinander an."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade"
@@ -486,7 +486,7 @@ msgstr "&Versetzt anordnen"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade the views."
-msgstr ""
+msgstr "Ordne die Ansichten versetzt an."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:100
@@ -496,7 +496,7 @@ msgstr "&Schließen"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
 msgid "Close the selected view."
-msgstr ""
+msgstr "Schließe die ausgewählte Ansicht."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:625
 msgid "&Others..."
@@ -2278,11 +2278,11 @@ msgstr "ersichtliche Verzögerung [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:237
 msgid "imperfection (sigma)"
-msgstr ""
+msgstr "Imperfektion (sigma)"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:238
 msgid "desired headway (tau) [s]"
-msgstr ""
+msgstr "gewünschte Fahrzeugfolgezeit (tau) [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:239
 msgid "speedfactor"
@@ -2290,36 +2290,36 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:241
 msgid "action step length [s]"
-msgstr ""
+msgstr "Aktionsschrittweite [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:243
 msgid "person capacity"
-msgstr ""
+msgstr "Personenkapazität"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:244
 msgid "boarding time [s]"
-msgstr ""
+msgstr "Einstiegszeit [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:245
 msgid "container capacity"
-msgstr ""
+msgstr "Container-Kapazität"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:246
 msgid "loading time [s]"
-msgstr ""
+msgstr "Beladezeit [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:248
 msgid "minGapLat [m]"
-msgstr ""
+msgstr "Mindestabstand in Querrichtung [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:249
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:252
 msgid "maxSpeedLat [m/s]"
-msgstr ""
+msgstr "Höchstgeschwindigkeit in Querrichtung [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:250
 msgid "latAlignment"
-msgstr ""
+msgstr "seitliche Ausrichtung"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:261
 msgid "manoeuver Angle vs Times"
@@ -3363,7 +3363,7 @@ msgstr "Erstelle Verkehrsumlegungszonen."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
 msgid "&POI-Poly"
-msgstr ""
+msgstr "&PoI und Polygone"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
 msgid "Create Points-Of-Interest and polygons."
@@ -3384,11 +3384,11 @@ msgstr "Erstelle Routen."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3500
 msgid "Route distribution"
-msgstr ""
+msgstr "Routenverteilung"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
 msgid "Create and edit route distributions."
-msgstr ""
+msgstr "Erstelle und bearbeite Routenverteilungen."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:710
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:125
@@ -3413,7 +3413,7 @@ msgstr "Typenverteilung"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:716
 msgid "Create and edit type distributions."
-msgstr ""
+msgstr "Erstelle und bearbeite Typenverteilungen."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:719
 msgid "Stop"
@@ -9834,18 +9834,16 @@ msgid "add entry-exit detector '"
 msgstr "Eingangs-Ausgangs-Detektor hinzufügen '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:630
-#, fuzzy
 msgid "add entry detector in '"
-msgstr "Eintrittsdetektor in ' hinzufügen"
+msgstr "Eintrittsdetektor hinzufügen in '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:665
 msgid "add exit detector in '"
 msgstr "Ausgangsdetektor hinzufügen in '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:702
-#, fuzzy
 msgid "add instant induction loop '"
-msgstr "Induktionsschleife sofort hinzufügen '"
+msgstr "Instantane Induktionsschleife hinzufügen '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:752
 msgid "add lane calibrator '"
@@ -9880,27 +9878,24 @@ msgid ""
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:981
-#, fuzzy
 msgid "add closing lane reroute in '"
-msgstr "Geschlossene Fahrstreifenumleitung hinzufügen in '"
+msgstr "Rerouter für Fahrstreifensperrung hinzufügen in '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1009
 msgid "add closing reroute in '"
 msgstr "Geschlossene Umleitung hinzufügen in '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1036
-#, fuzzy
 msgid "add dest prob reroute in '"
-msgstr "Zielwahrscheinlichkeit Umleitung hinzufügen in '"
+msgstr "Probabilistischen Rerouter für Fahrtziel hinzufügen in '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1064
 msgid "add parking area reroute in '"
 msgstr "Parkplatz-Umleitung hinzufügen in '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1092
-#, fuzzy
 msgid "add route prob reroute in '"
-msgstr "Routenwahrscheinlichkeit Umleitung hinzufügen in '"
+msgstr "Probabilistischen Rerouter für Route hinzufügen in '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1129
 msgid "add route probe '"
@@ -9952,9 +9947,8 @@ msgid "update TAZ Sink in '"
 msgstr "Verkehrsumlegungszonen-Ziel aktualisieren in '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1512
-#, fuzzy
 msgid "add taction substation '"
-msgstr "Transport-Unterstation hinzufügen '"
+msgstr "Unterwerk hinzufügen '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1544
 #, c-format
@@ -10240,9 +10234,8 @@ msgstr "Es wurde bereits eine Quelle-Ziel-Beziehung in '%' definiert."
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:220
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:231
-#, fuzzy
 msgid "add TAZ rel"
-msgstr "Verkehrsumlegungszonen-Beziehung hinzufügen"
+msgstr "Quelle-Ziel-Beziehung hinzufügen"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:252
 msgid "Could not build % with ID '%'"
@@ -11903,7 +11896,6 @@ msgstr "Als Frontelement markieren"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:177
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:306
-#, fuzzy
 msgid "Set new parent"
 msgstr "Neues Elternteil setzen"
 
@@ -12592,14 +12584,12 @@ msgid "MeanData"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:54
-#, fuzzy
 msgid "Confirm TAZRelation"
-msgstr "Verkehrsumlegungszonen-Beziehung bestätigen"
+msgstr "Quelle-Ziel-Beziehung bestätigen"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
-#, fuzzy
 msgid "Create TAZRelation"
-msgstr "Verkehrsumlegungszonen-Beziehung erstellen"
+msgstr "Quelle-Ziel-Beziehung erstellen"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 msgid "Click fromTaz and toTaz (confirm hotkey <ENTER>)"
@@ -13459,7 +13449,6 @@ msgid "Prohibitions"
 msgstr "Verbote"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:57
-#, fuzzy
 msgid "GEO POI Creator"
 msgstr "Geo-Pol-Ersteller"
 
