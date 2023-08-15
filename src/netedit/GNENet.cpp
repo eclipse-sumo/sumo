@@ -2286,6 +2286,7 @@ GNENet::saveDemandElementsConfirmed() {
     // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
     writeRouteComment(device, false);
     writeRoutes(device, false);
+    writeRouteDistributions(device, false);
     // sort vehicles/persons by depart
     std::map<double, std::map<std::pair<SumoXMLTag, std::string>, GNEDemandElement*> > vehiclesSortedByDepart;
     for (const auto& demandElementTag : myAttributeCarriers->getDemandElements()) {
