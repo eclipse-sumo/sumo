@@ -85,7 +85,7 @@ title: ChangeLog
 
 - Other
   - Now JuPedSim can be enabled in CMake GUI with a checkbox. #13646
-  - Improved integration of JuPedSim in sumo #13307 #13491 #13308
+  - Improved integration of JuPedSim in sumo. #13307, #13491, #13308
 
 ## Version 1.18.0 (29.06.2023)
 
