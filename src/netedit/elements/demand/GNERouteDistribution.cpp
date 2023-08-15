@@ -17,11 +17,6 @@
 ///
 // Route distribution used in netedit
 /****************************************************************************/
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/xml/NamespaceIDs.h>
 
 #include "GNERouteDistribution.h"
 
@@ -31,12 +26,12 @@
 // ===========================================================================
 
 GNERouteDistribution::GNERouteDistribution(GNENet* net) :
-    GNEDistribution(net, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::ROUTEDISTRIBUTION, SUMO_TAG_ROUTE) {
+    GNEDistribution(net, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::ROUTEDISTRIBUTION) {
 }
 
 
 GNERouteDistribution::GNERouteDistribution(GNENet* net, const std::string& ID) :
-    GNEDistribution(net, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::ROUTEDISTRIBUTION, SUMO_TAG_ROUTE, ID, -1) {
+    GNEDistribution(net, GLO_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::ROUTEDISTRIBUTION, ID, -1) {
 }
 
 
@@ -50,7 +45,7 @@ GNERouteDistribution::writeDemandElement(OutputDevice& device) const {
         // now write attributes
         device.openTag(getTagProperty().getTag());
         device.writeAttr(SUMO_ATTR_ID, getID());
-        device.writeAttr(SUMO_ATTR_VTYPES, getAttributeDistributionKeys());
+        device.writeAttr(SUMO_ATTR_ROUTES, getAttributeDistributionKeys());
         device.writeAttr(SUMO_ATTR_PROBS, getAttributeDistributionValues());
         device.closeTag();
     }

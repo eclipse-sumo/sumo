@@ -13,7 +13,7 @@
 /****************************************************************************/
 /// @file    GNEDistribution.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jan 2022
+/// @date    Aug 2023
 ///
 // abstract distribution used in netedit
 /****************************************************************************/
@@ -31,10 +31,10 @@ class GNEDistribution : public GNEDemandElement {
 
 public:
     /// @brief default constructor
-    GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon, SumoXMLTag childTag);
+    GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon);
 
     /// @brief parameter constructor
-    GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon, SumoXMLTag childTag,
+    GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon,
                     const std::string& ID, const int deterministic);
 
     /// @brief destructor

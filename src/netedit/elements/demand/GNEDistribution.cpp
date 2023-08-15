@@ -13,14 +13,12 @@
 /****************************************************************************/
 /// @file    GNEDistribution.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Jan 2022
+/// @date    Aug 2023
 ///
 // abstract distribution used in netedit
 /****************************************************************************/
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEDistribution.h"
@@ -30,7 +28,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon, SumoXMLTag childTag) :
+GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon) :
     GNEDemandElement("", net, type, elementTag, GUIIconSubSys::getIcon(icon),
         GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
     // reset default values
@@ -38,7 +36,7 @@ GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag e
 }
 
 
-GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon, SumoXMLTag childTag,
+GNEDistribution::GNEDistribution(GNENet* net, GUIGlObjectType type, SumoXMLTag elementTag, GUIIcon icon,
         const std::string& ID, const int deterministic) :
     GNEDemandElement(ID, net, type, elementTag,  GUIIconSubSys::getIcon(icon),
         GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
@@ -51,13 +49,14 @@ GNEDistribution::~GNEDistribution() {}
 
 GNEMoveOperation*
 GNEDistribution::getMoveOperation() {
+    // distributions cannot be moved
     return nullptr;
 }
 
 
 GNEDemandElement::Problem
 GNEDistribution::isDemandElementValid() const {
-    // currently vTypeDistributions don't have problems
+    // currently distributions don't have problems
     return GNEDemandElement::Problem::OK;
 }
 
@@ -76,13 +75,21 @@ GNEDistribution::fixDemandElementProblem() {
 
 SUMOVehicleClass
 GNEDistribution::getVClass() const {
-    return SVC_IGNORING;
+    if (getDistributionKeyValues().size() > 0) {
+        return getDistributionKeyValues().begin()->first->getVClass();
+    } else {
+        return SVC_IGNORING;
+    }
 }
 
 
 const RGBColor&
 GNEDistribution::getColor() const {
-    return RGBColor::BLACK;
+    if (getDistributionKeyValues().size() > 0) {
+        return getDistributionKeyValues().begin()->first->getColor();
+    } else {
+        return RGBColor::BLACK;
+    }
 }
 
 
@@ -94,7 +101,11 @@ GNEDistribution::updateGeometry() {
 
 Position
 GNEDistribution::getPositionInView() const {
-    return Position();
+    if (getDistributionKeyValues().size() > 0) {
+        return getDistributionKeyValues().begin()->first->getPositionInView();
+    } else {
+        return Position();
+    }
 }
 
 
@@ -106,8 +117,11 @@ GNEDistribution::getParentName() const {
 
 Boundary
 GNEDistribution::getCenteringBoundary() const {
-    // Route distribution doesn't have boundaries
-    return Boundary(-0.1, -0.1, 0.1, 0.1);
+    if (getDistributionKeyValues().size() > 0) {
+        return getDistributionKeyValues().begin()->first->getCenteringBoundary();
+    } else {
+        return Boundary(-0.1, -0.1, 0.1, 0.1);
+    }
 }
 
 
@@ -143,15 +157,21 @@ GNEDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEL
 
 GNELane*
 GNEDistribution::getFirstPathLane() const {
-    // vehicle types don't use lanes
-    return nullptr;
+    if (getDistributionKeyValues().size() > 0) {
+        return getDistributionKeyValues().begin()->first->getFirstPathLane();
+    } else {
+        return nullptr;
+    }
 }
 
 
 GNELane*
 GNEDistribution::getLastPathLane() const {
-    // vehicle types don't use lanes
-    return nullptr;
+    if (getDistributionKeyValues().size() > 0) {
+        return getDistributionKeyValues().begin()->first->getLastPathLane();
+    } else {
+        return nullptr;
+    }
 }
 
 
@@ -174,29 +194,21 @@ GNEDistribution::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEDistribution::getAttributeDouble(SumoXMLAttr key) const {
-    if (key == GNE_ATTR_ADDITIONALCHILDREN) {
-        double counter = 0;
-        for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
-            // only write if appear in this distribution
-            if (vType->getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION) == getID() && vType->getChildAdditionals().size() > 0) {
-                counter++;
+    switch (key) {
+        case GNE_ATTR_ADDITIONALCHILDREN: {
+            // count number of additional placed in distribution keys (needed for save distribution either in route or in additional file)
+            double counter = 0;
+            for (const auto& distributionKey : getDistributionKeyValues()) {
+                counter += (double)distributionKey.first->getChildAdditionals().size();
             }
+            return counter;
         }
-        return counter;
-    } else {
-        // obtain all types with the given typeDistribution sorted by ID
-        std::map<std::string, GNEDemandElement*> sortedTypes;
-        for (const auto &type : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
-            if (type->getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION) == getID()) {
-                sortedTypes[type->getID()] = type;
+        default:
+            if (getDistributionKeyValues().size() > 0) {
+                return getDistributionKeyValues().begin()->first->getAttributeDouble(key);
+            } else {
+                return 0;
             }
-        }
-        // return first type, or default vType
-        if (sortedTypes.size() > 0) {
-            return sortedTypes.begin()->second->getAttributeDouble(key);
-        } else {
-            return 0;
-        }
     }
 }
 
@@ -229,7 +241,7 @@ GNEDistribution::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(NamespaceIDs::routes, value);
         case SUMO_ATTR_DETERMINISTIC:
-            if (value == "-1" || value.empty()) {
+            if ((value == "-1") || value.empty()) {
                 return true;
             } else {
                 return canParse<int>(value) && (parse<int>(value) >= 0);
@@ -282,13 +294,13 @@ GNEDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEDistribution::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // route distributions cannot be moved
+    // distributions cannot be moved
 }
 
 
 void
 GNEDistribution::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // route distributions cannot be moved
+    // distributions cannot be moved
 }
 
 /****************************************************************************/

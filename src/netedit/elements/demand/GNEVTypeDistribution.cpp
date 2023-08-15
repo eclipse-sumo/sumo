@@ -17,11 +17,6 @@
 ///
 // VehicleType distribution used in netedit
 /****************************************************************************/
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEVTypeDistribution.h"
 
@@ -31,12 +26,12 @@
 // ===========================================================================
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
-    GNEDistribution(net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIcon::VTYPEDISTRIBUTION, SUMO_TAG_VTYPE) {
+    GNEDistribution(net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIcon::VTYPEDISTRIBUTION) {
 }
 
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& ID, const int deterministic) :
-    GNEDistribution(net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIcon::VTYPEDISTRIBUTION, SUMO_TAG_VTYPE, ID, deterministic) {
+    GNEDistribution(net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIcon::VTYPEDISTRIBUTION, ID, deterministic) {
 }
 
 
