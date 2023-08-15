@@ -30,7 +30,7 @@ GNETypeDistributionFrame::GNETypeDistributionFrame(GNEViewParent* viewParent, GN
     GNEFrame(viewParent, viewNet, TL("Type Distributions")) {
 
     /// @brief type editor
-    myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this, GUIIcon::VTYPEDISTRIBUTION);
+    myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::VTYPEDISTRIBUTION);
 
     /// @brief type distribution selector
     myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this, SUMO_TAG_VTYPE_DISTRIBUTION);
@@ -62,8 +62,11 @@ GNETypeDistributionFrame::getDistributionSelector() const {
 
 
 void
-GNETypeDistributionFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
-
+GNETypeDistributionFrame::attributeUpdated(SumoXMLAttr attribute) {
+    if (attribute == SUMO_ATTR_ID) {
+        // refresh distribution selector IDs
+        myDistributionSelector->refreshDistributionIDs();
+    }
 }
 
 /****************************************************************************/

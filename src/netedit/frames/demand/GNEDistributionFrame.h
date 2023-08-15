@@ -51,7 +51,7 @@ public:
 
     public:
         /// @brief constructor
-        DistributionEditor(GNEFrame* frameParent, GUIIcon icon);
+        DistributionEditor(GNEFrame* frameParent, SumoXMLTag distributionTag, GUIIcon icon);
 
         /// @brief destructor
         ~DistributionEditor();
@@ -82,10 +82,10 @@ public:
         DistributionSelector* myDistributionSelector = nullptr;
 
         /// @brief "create Distribution" button
-        FXButton* myCreateDistributionButton = nullptr;
+        MFXButtonTooltip* myCreateDistributionButton = nullptr;
 
         /// @brief "delete Distribution" button
-        FXButton* myDeleteDistributionButton = nullptr;
+        MFXButtonTooltip* myDeleteDistributionButton = nullptr;
     };
 
     // ===========================================================================
@@ -111,7 +111,10 @@ public:
 
         /// @brief current distribution
         GNEDemandElement *getCurrentDistribution() const;
-
+        
+        /// @brief refresh distribution IDs (only call when user change ID in internal attributes)
+        void refreshDistributionIDs();
+        
         /// @brief refresh modul
         void refreshDistributionSelector();
 
@@ -129,6 +132,9 @@ public:
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(DistributionSelector)
+
+        /// @brief fill distribution comboBox
+        std::map<std::string, GNEDemandElement*> fillDistributionComboBox();
 
     private:
         /// @brief pointer to Frame Parent
@@ -149,11 +155,8 @@ public:
         /// @brief comboBox with the list of distributions
         FXComboBox* myDistributionsComboBox = nullptr;
 
-        /// @brief current distribution
-        std::string myCurrentDistribution;
-
-        /// @brief map with the original vTypeDistribution attributes
-        std::pair<std::string, std::string> myOriginalValues;
+        /// @brief current distribution element
+        GNEDemandElement* myCurrentDistribution = nullptr;
     };
 
     // ===========================================================================
