@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-14 17:12+0200\n"
-"PO-Revision-Date: 2023-08-14 16:42+0000\n"
+"PO-Revision-Date: 2023-08-15 09:30+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -3370,7 +3370,7 @@ msgstr "Crear puntos de interés (POI) y polígonos."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:650
 msgid "Deca&ls"
-msgstr ""
+msgstr "Imágenes de fondo"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:650
 msgid "Create decals."
@@ -10110,7 +10110,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:1262
 msgid "Add reverse %"
-msgstr ""
+msgstr "Agregar % inverso"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:312
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:323
@@ -10120,7 +10120,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:828
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1867
 msgid "copy % '%'"
-msgstr ""
+msgstr "copiar % '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:70
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:105
@@ -10211,7 +10211,7 @@ msgstr "% usado en % '%' no válido. % es mayor que el número de carriles"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:507
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:547
 msgid "Invalid % used in % '%'. % is greater than type %"
-msgstr ""
+msgstr "% no válido usado en % '%'. % es mayor que el tipo %"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:260
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:297
@@ -10536,7 +10536,7 @@ msgstr "cambiar la posición del cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1138
 msgid "change keepClear for whole junction"
-msgstr ""
+msgstr "cambiar keepClear para todo el cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:472
 msgid "Unexpected LinkState '%'"
@@ -11348,11 +11348,11 @@ msgstr "Solo dos cruces (junctions) están permitidos"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:440
 msgid "Double TAZs aren't allowed"
-msgstr ""
+msgstr "No se permiten zonas de análisis de tráfico (TAZ) dobles"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:448
 msgid "Only two TAZs are allowed"
-msgstr ""
+msgstr "Solo se permiten dos zonas de análisis de tráfico (TAZ)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:483
 msgid "Double edges aren't allowed"
@@ -12738,6 +12738,7 @@ msgstr "Error guardando las operaciones de las conexiones"
 #, c-format
 msgid "Connection edition cannot be saved because route '%' is broken."
 msgstr ""
+"No se puede guardar la edición de la conexión porque la ruta '%' está rota."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:139
 msgid "Changes accepted"
@@ -13965,15 +13966,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:76
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:77
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:78
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinámico"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUISelectedStorage.cpp:116
 msgid "Unknown object in GUISelectedStorage::select (id=%)."
@@ -14498,21 +14499,21 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1148
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1432
 msgid "by waiting time"
-msgstr ""
+msgstr "por tiempo de espera"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:917
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1438
 msgid "by accumulated waiting time"
-msgstr ""
+msgstr "por tiempo de espera acumulado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:923
 msgid "by time since lane change"
-msgstr ""
+msgstr "por tiempo desde el cambio de carril"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:932
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1441
 msgid "by max speed"
-msgstr ""
+msgstr "por velocidad máxima"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:996
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1448
@@ -14527,12 +14528,12 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1004
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1453
 msgid "opposite lane"
-msgstr ""
+msgstr "carril opuesto"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1011
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1460
 msgid "by acceleration"
-msgstr ""
+msgstr "por aceleración"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1020
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1469
@@ -14542,7 +14543,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1026
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1475
 msgid "by depart delay"
-msgstr ""
+msgstr "por retraso en la salida"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1040
 msgid "by relative battery charge"
@@ -14555,21 +14556,21 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1058
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1481
 msgid "by time loss"
-msgstr ""
+msgstr "por tiempo perdido"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1064
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1487
 msgid "by stop delay"
-msgstr ""
+msgstr "por retraso de parada"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1073
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1496
 msgid "by stop arrival delay"
-msgstr ""
+msgstr "por retraso de llegada a la parada"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1083
 msgid "by lateral speed"
-msgstr ""
+msgstr "por velocidad lateral"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1093
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1129
@@ -14577,34 +14578,34 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1205
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1667
 msgid "random"
-msgstr ""
+msgstr "aleatorio"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1097
 msgid "given person/type color"
-msgstr ""
+msgstr "color de persona/tipo dado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1099
 msgid "given/assigned person color"
-msgstr ""
+msgstr "color de persona dado/asignado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1109
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1141
 msgid "by mode"
-msgstr ""
+msgstr "por modo"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1109
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1141
 msgid "waiting for insertion"
-msgstr ""
+msgstr "esperando inserción"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1110
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1142
 msgid "stopped"
-msgstr ""
+msgstr "detenido"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1111
 msgid "walking"
-msgstr ""
+msgstr "caminando"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1112
 msgid "riding"
