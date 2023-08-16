@@ -133,9 +133,9 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     
     const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().back());
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
-
+    const auto waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, nullptr);
     JPS_JourneyDescription journey = JPS_JourneyDescription_Create();
-    JPS_JourneyDescription_AddWaypoint(journey, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, NULL, NULL);
+    JPS_JourneyDescription_AddStage(journey, waypointId);
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, nullptr);
 
     PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, arrivalPosition);
