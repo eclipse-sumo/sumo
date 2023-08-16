@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-16 10:53+0200\n"
-"PO-Revision-Date: 2023-08-16 08:40+0000\n"
+"PO-Revision-Date: 2023-08-16 10:39+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -3427,7 +3427,7 @@ msgstr "Crear y editar distribuciones de tipo."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:719
 msgid "Stop"
-msgstr "Parar"
+msgstr "Paradas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:719
 msgid "Create stops."
@@ -3882,7 +3882,7 @@ msgstr "Eliminar rutas sin vehículos."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1903
 msgid "Join routes"
-msgstr "Unir rutas"
+msgstr "Combinar rutas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1903
 msgid "Joins routes with the same edges."
@@ -10535,7 +10535,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:673
 msgid "Copy parent edge name to clipboard"
-msgstr ""
+msgstr "Copiar el nombre de la arista padre al portapapeles"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:682
 msgid "Remove Lane From Selected"
@@ -10547,11 +10547,11 @@ msgstr "Agregar carril a la selección"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:688
 msgid "Remove Edge From Selected"
-msgstr ""
+msgstr "Remover arista de la selección"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:690
 msgid "Add Edge To Selected"
-msgstr ""
+msgstr "Agregar arista a la selección"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:707
 msgid "Reset edge end points"
@@ -10746,7 +10746,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
 msgid "Use edge as template"
-msgstr ""
+msgstr "Usar arista como plantilla"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2034
 msgid "Apply template"
@@ -10764,7 +10764,7 @@ msgstr "Atributos internos"
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:176
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:178
 msgid "Invalid input parameter of "
-msgstr ""
+msgstr "Parámetro de entrada no válido de "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:65
 msgid "button"
@@ -10913,11 +10913,11 @@ msgstr "'Empezar a dibujar' o ENTER para crear figura."
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:60
 msgid "'Stop drawing' or ENTER to finish shape creation."
-msgstr ""
+msgstr "'Terminar de dibujar' o ENTER para finalizar la creación de la forma."
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:61
 msgid "'Abort drawing' or ESC to abort shape creation."
-msgstr ""
+msgstr "'Cancelar dibujo' o ESC para cancelar la creación de la forma."
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:62
 msgid "'Shift + Click' to remove the last inserted point."
@@ -11612,19 +11612,19 @@ msgstr "Proteger elementos"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:240
 msgid "Protect all"
-msgstr ""
+msgstr "Proteger todo"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:240
 msgid "Protect all elements"
-msgstr ""
+msgstr "Proteger todos los elementos"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:242
 msgid "Unprotect all"
-msgstr ""
+msgstr "Desproteger todo"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:242
 msgid "Unprotect all elements"
-msgstr ""
+msgstr "Desproteger todos los elementos"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:244
 msgid "Protect additional elements"
@@ -11860,7 +11860,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:286
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:475
 msgid "- Examples:\n"
-msgstr ""
+msgstr "- Ejemplos:\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:287
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:476
@@ -11892,11 +11892,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:70
 msgid "Common move options"
-msgstr ""
+msgstr "Opciones comunes"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:72
 msgid "Allow change lanes"
-msgstr ""
+msgstr "Permitir cambiar de carril"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:75
 msgid "Merge geometry points"
@@ -11904,7 +11904,7 @@ msgstr "Combinar puntos geométricos"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:99
 msgid "Network move options"
-msgstr ""
+msgstr "Opciones de movimiento de red"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:102
 msgid "Move whole polygons"
@@ -11916,7 +11916,7 @@ msgstr "Forzar dibujar los puntos geométricos"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:160
 msgid "Demand move options"
-msgstr ""
+msgstr "Opciones de movimiento de demanda"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:163
 msgid "Leave stopPersons connected"
@@ -11924,16 +11924,18 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:199
 msgid "Shift selected edges geometry"
-msgstr ""
+msgstr "Desplazar geometrías de aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:208
 msgid "Apply shift value"
-msgstr ""
+msgstr "Aplicar valor de desplazamiento"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:208
 msgid ""
 "Shift edge geometry orthogonally to driving direction for all selected edges"
 msgstr ""
+"Desplazar geometría de arista ortogonalmente a la dirección de conducción "
+"para todas las aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:279
 msgid "Change Z in selection"
@@ -11982,15 +11984,15 @@ msgstr "Hacer clic sobre una arista para crear o editar un punto geométrico."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:643
 msgid "Shift+click over edge to edit start or end geometry point."
-msgstr ""
+msgstr "Shift+clic sobre arista para editar punto geométrico inicial o final."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:645
 msgid "-Move geometry point"
-msgstr ""
+msgstr "-Mover punto geométrico"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:648
 msgid "-Merge geometry point"
-msgstr ""
+msgstr "-Combinar punto geométrico"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:660
 msgid "Move"
@@ -12049,7 +12051,7 @@ msgstr "Polígonos"
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:109
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2116
 msgid "POIs"
-msgstr ""
+msgstr "Puntos de interés"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:110
 msgid "JuPedSim elements"
@@ -12088,11 +12090,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:157
 msgid "Modification Mode"
-msgstr ""
+msgstr "Modo de modificación"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:160
 msgid "add"
-msgstr ""
+msgstr "añadir"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:160
 msgid "Selected objects are added to the previous selection"
@@ -12109,7 +12111,7 @@ msgstr "Los elementos seleccionados serán eliminados de la selección previa"
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:164
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:661
 msgid "keep"
-msgstr ""
+msgstr "mantener"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:164
 msgid "Restrict previous selection by the current selection"
@@ -12117,7 +12119,7 @@ msgstr "Restringir la selección anterior por la selección actual"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:166
 msgid "replace"
-msgstr ""
+msgstr "reemplazar"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:166
 msgid "Replace previous selection by the current selection"
@@ -12125,7 +12127,7 @@ msgstr "Reemplazar la selección anterior por la selección actual"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:221
 msgid "Visual Scaling"
-msgstr ""
+msgstr "Escalamiento visual"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:230
 msgid "Enlarge selected objects"
@@ -12137,7 +12139,7 @@ msgstr "Operaciones de selección"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:259
 msgid "Deselect all objects (hotkey: ESC)"
-msgstr ""
+msgstr "Deseleccionar todos los objetos (tecla: ESC)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:261
 msgid "Invert"
@@ -12149,11 +12151,12 @@ msgstr "Invertir el estado de selección de todos los objetos"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:263
 msgid "Save ids of currently selected objects to a file."
-msgstr ""
+msgstr "Guardar los IDs de los objetos seleccionados actualmente en un archivo."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:265
 msgid "Load ids from a file according to the current modification mode."
 msgstr ""
+"Cargar IDs desde un archivo de acuerdo con el modo de modificación actual."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:267
 msgid "Delete all selected objects (hotkey: DEL)"
@@ -12169,7 +12172,7 @@ msgstr "Reducir la red a la selección actual."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:282
 msgid "Could not open '%'."
-msgstr ""
+msgstr "No se pudo abrir '%'."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:319
 msgid "load selection"
@@ -12178,12 +12181,12 @@ msgstr "cargar selección"
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:331
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:125
 msgid "Open List of Selected Items"
-msgstr ""
+msgstr "Abrir lista de elementos seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:349
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:148
 msgid "Save List of selected Items"
-msgstr ""
+msgstr "Guardar lista de elementos seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:385
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:416
@@ -12196,7 +12199,7 @@ msgstr "simplificar red"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1133
 msgid "Hierarchy operations"
-msgstr ""
+msgstr "Operaciones de jerarquía"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1138
 msgid "Select parents"
@@ -12289,11 +12292,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:68
 msgid "MeanData Type"
-msgstr ""
+msgstr "Tipo de MeanData"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:161
 msgid "MeanData Editor"
-msgstr ""
+msgstr "Editor de MeanData"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:164
 msgid "Create MeanData"
@@ -12333,7 +12336,7 @@ msgstr "Limpiar selección"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:58
 msgid "Clear selected TAZs (hotkey <ESC>)"
-msgstr ""
+msgstr "Limpiar selección de zonas de análisis de tráfico (tecla ESC)"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:122
 msgid "From TAZ"
@@ -12359,11 +12362,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:114
 msgid "Current selected container isn't valid."
-msgstr ""
+msgstr "El contenedor seleccionado actualmente no es válido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:122
 msgid "Current selected container type isn't valid."
-msgstr ""
+msgstr "El tipo de contenedor seleccionado actualmente no es válido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:127
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:119
@@ -12399,23 +12402,23 @@ msgstr "Nuevo"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:85
 msgid "Create new %"
-msgstr ""
+msgstr "Crear nuevo %"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:89
 msgid "Delete current edited %"
-msgstr ""
+msgstr "Eliminar el % editado actualmente"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:161
 msgid "Distribution selector"
-msgstr ""
+msgstr "Selector de distribución"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:328
 msgid "Delete distribution value"
-msgstr ""
+msgstr "Eliminar valor de distribución"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:486
 msgid "Distribution values"
-msgstr ""
+msgstr "Valores de distribución"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:502
 msgid "Add new distribution value"
@@ -12428,7 +12431,7 @@ msgstr "La persna actual seleccionada no es válida."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:122
 msgid "Current selected person type isn't valid."
-msgstr ""
+msgstr "El tipo de persona seleccionado actualmente no es válido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:127
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:146
@@ -12446,7 +12449,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:287
 msgid "Invalid person parameters."
-msgstr ""
+msgstr "Parámetros de persona no válidos."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:39
 msgid "PersonPlans"
@@ -12467,7 +12470,7 @@ msgstr "Modo rutas"
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:95
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:101
 msgid "Shift+Click to select parent"
-msgstr ""
+msgstr "Shift+Clic para seleccionar elemento padre"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:72
 msgid "Click over a bus stop to create a stop."
@@ -12499,7 +12502,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:189
 msgid "Selected Stop type isn't valid."
-msgstr ""
+msgstr "El tipo de parada seleccionado actualmente no es válido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:197
 msgid "Selected % '%' as stop parent."
@@ -12678,7 +12681,7 @@ msgstr "' no puede ser mas grande que el atributo '"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:435
 msgid "List of edges cannot be empty"
-msgstr ""
+msgstr "La lista de aristas no puede estar vacía"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:445
 msgid "List of lanes cannot be empty"
@@ -12688,10 +12691,12 @@ msgstr "La lista de carriles no puede estar vacía"
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:232
 msgid "Currently unsupported. Create rerouter elements using rerouter dialog"
 msgstr ""
+"No soportado actualmente. Usar el diálogo rerouter para crear elementos "
+"rerouter"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:550
 msgid "Currently unsupported. Create VSS steps using VSS dialog"
-msgstr ""
+msgstr "No soportado actualmente. Usar el diálogo VSS para crear VSS steps"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:555
 msgid "Currently unsupported. Create calibratorFlows using calibrator dialog"
@@ -12833,23 +12838,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:326
 msgid "Possible Target"
-msgstr ""
+msgstr "Posible destino"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:331
 msgid "Source lane"
-msgstr ""
+msgstr "Carril de origen"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:335
 msgid "Target lane"
-msgstr ""
+msgstr "Carril destino"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:339
 msgid "Target (pass)"
-msgstr ""
+msgstr "Destino (sin conflicto)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:343
 msgid "Conflict"
-msgstr ""
+msgstr "Conflicto"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:355
 msgid "Edit Connections"
@@ -12857,27 +12862,27 @@ msgstr "Editar conexiones"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:421
 msgid "modify connections"
-msgstr ""
+msgstr "modificar conexiones"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:472
 msgid "Pedestrian connections are generated automatically"
-msgstr ""
+msgstr "Las conexiones peatonales son generadas automáticamente"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:474
 msgid "Incompatible vehicle class permissions"
-msgstr ""
+msgstr "Permisos de clase de vehículo incompatibles"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:476
 msgid "Another lane from the same edge already connects to that lane"
-msgstr ""
+msgstr "Otro carril de la misma arista ya se conecta a este carril"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:484
 msgid "Invalid target for connection"
-msgstr ""
+msgstr "Destino no válido para la conexión"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:74
 msgid "Template selector"
-msgstr ""
+msgstr "Selector de plantilla"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:79
 msgid "Create default edge"
@@ -12893,18 +12898,18 @@ msgstr "Añadir acera"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:87
 msgid "Use edgeType/template"
-msgstr ""
+msgstr "Usar tipo de arista/plantilla"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:95
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:439
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1247
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1312
 msgid "Add"
-msgstr ""
+msgstr "Añadir"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:95
 msgid "Add edge type"
-msgstr ""
+msgstr "Agregar tipo de arista"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:98
 msgid "Delete edge type"
@@ -12912,16 +12917,16 @@ msgstr "Eliminar tipo de arista"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:101
 msgid "Create from template"
-msgstr ""
+msgstr "Crear desde plantilla"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:101
 msgid "Create edgeType from template"
-msgstr ""
+msgstr "Crear tipo de arista desde plantilla"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:320
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:369
 msgid "create new edge type"
-msgstr ""
+msgstr "Crear nuevo tipo de arista"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:342
 msgid "delete edge type"
@@ -12929,15 +12934,15 @@ msgstr "eliminar tipo de arista"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:407
 msgid "template: "
-msgstr ""
+msgstr "plantilla: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:431
 msgid "LaneType selector"
-msgstr ""
+msgstr "Selector de tipo de carril"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:439
 msgid "Add lane type"
-msgstr ""
+msgstr "Agregar un tipo de carril"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:442
 msgid "Delete lane type"
@@ -12945,7 +12950,7 @@ msgstr "Eliminar tipo de carril"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:539
 msgid "add laneType"
-msgstr ""
+msgstr "Agregar un tipo de carril"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:576
 msgid "remove laneType"
@@ -12953,35 +12958,35 @@ msgstr "remover tipo de carril"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
 msgid "ESC:"
-msgstr ""
+msgstr "ESC:"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:626
 msgid "Deselect origin"
-msgstr ""
+msgstr "Deseleccionar origen"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:627
 msgid "Control+Click:"
-msgstr ""
+msgstr "Control+Clic:"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:628
 msgid "Move view"
-msgstr ""
+msgstr "Mover vista"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:629
 msgid "Shift+Click:"
-msgstr ""
+msgstr "Shift+Clic:"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:630
 msgid "Splits edge in both directions"
-msgstr ""
+msgstr "Dividir arista en ambas direcciones"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:631
 msgid "Alt+Shift+Click:"
-msgstr ""
+msgstr "Alt+Shift+Clic:"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:632
 msgid "Splits edge in one direction"
-msgstr ""
+msgstr "Dividir arista en una dirección"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:645
 msgid "Create Edge"
