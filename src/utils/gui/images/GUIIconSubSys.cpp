@@ -170,7 +170,9 @@
 #include "current.xpm"
 
 #include "arrowup.xpm"
+#include "arrowupticked.xpm"
 #include "arrowdown.xpm"
+#include "arrowdownticked.xpm"
 #include "arrowleft.xpm"
 #include "arrowright.xpm"
 
@@ -711,7 +713,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYTO] = new FXXPMIcon(a, checkbox_tazrelonlyto_xpm);
 
     myIcons[GUIIcon::ARROW_UP] = new FXXPMIcon(a, arrowup_xpm);
+    myIcons[GUIIcon::ARROW_UP_TICKED] = new FXXPMIcon(a, arrowupticked_xpm);
     myIcons[GUIIcon::ARROW_DOWN] = new FXXPMIcon(a, arrowdown_xpm);
+    myIcons[GUIIcon::ARROW_DOWN_TICKED] = new FXXPMIcon(a, arrowdownticked_xpm);
     myIcons[GUIIcon::ARROW_LEFT] = new FXXPMIcon(a, arrowleft_xpm);
     myIcons[GUIIcon::ARROW_RIGHT] = new FXXPMIcon(a, arrowright_xpm);
 

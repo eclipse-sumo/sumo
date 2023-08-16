@@ -326,7 +326,9 @@ enum class GUIIcon {
     /// @name arrows
     /// @{
     ARROW_UP,
+    ARROW_UP_TICKED,
     ARROW_DOWN,
+    ARROW_DOWN_TICKED,
     ARROW_LEFT,
     ARROW_RIGHT,
     /// @}
