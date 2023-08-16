@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-16 13:04+0200\n"
-"PO-Revision-Date: 2023-08-16 10:39+0000\n"
+"PO-Revision-Date: 2023-08-16 12:25+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10596,11 +10596,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1848
 #, c-format
 msgid "Edge operations (% selected)"
-msgstr ""
+msgstr "Operaciones de arista (% seleccionado)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1850
 msgid "Edge operations"
-msgstr ""
+msgstr "Operaciones de arista"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1853
 msgid "Split edge here"
@@ -10738,11 +10738,11 @@ msgstr "Transformar en % restringido"
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2028
 #, c-format
 msgid "Template operations (% selected)"
-msgstr ""
+msgstr "Operaciones de plantilla (% seleccionado)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2030
 msgid "Template operations"
-msgstr ""
+msgstr "Operaciones de plantilla"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
 msgid "Use edge as template"
@@ -11485,7 +11485,7 @@ msgstr "Añadir una fase roja."
 
 #: C:\Repos\sumo/src\netedit\frames\GNETLSTable.cpp:699
 msgid "Yellow phase"
-msgstr "Añadir fase amarilla"
+msgstr "Fase amarilla"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETLSTable.cpp:699
 msgid "Add yellow phase."
