@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-15 11:32+0200\n"
-"PO-Revision-Date: 2023-08-14 16:42+0000\n"
+"PO-Revision-Date: 2023-08-16 10:39+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -8966,7 +8966,7 @@ msgstr ""
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:652
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:154
 msgid "Could not open '%'."
-msgstr ""
+msgstr "No se pudo abrir '%'."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:663 C:\Repos\sumo/src\od\ODMatrix.cpp:669
 #, c-format
