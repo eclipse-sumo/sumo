@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-16 13:04+0200\n"
+"POT-Creation-Date: 2023-08-16 14:26+0200\n"
 "PO-Revision-Date: 2023-03-28 15:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
@@ -11751,6 +11751,22 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:293
 msgid "Apply Z value to all selected junctions"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:531
+msgid "- Num geometry points: "
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:532
+msgid "- Selection minimum Z: "
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:533
+msgid "- Selection maximum Z: "
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:534
+msgid "- Selection average Z: "
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:545

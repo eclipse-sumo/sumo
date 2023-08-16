@@ -255,7 +255,7 @@ GNEMoveFrame::ShiftEdgeSelectedGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSel
         // get first and last position
         const Position shapeStart = edgeShape.front();
         const Position shapeEnd = edgeShape.back();
-        // set innen geometry
+        // set inner geometry
         edgeShape.pop_front();
         edgeShape.pop_back();
         // set new shape again
@@ -435,16 +435,16 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
     const auto selectedEdges = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedEdges();
     // check if there is edges or junctions
     if ((selectedJunctions.size() > 0) || (selectedEdges.size() > 0)) {
-        // declare minimum and maximun
+        // declare minimum and maximum
         double selectionMinimum = 0;
-        double selectionMaximun = 0;
+        double selectionMaximum = 0;
         // set first values
         if (selectedJunctions.size() > 0) {
             selectionMinimum = selectedJunctions.front()->getNBNode()->getPosition().z();
-            selectionMaximun = selectedJunctions.front()->getNBNode()->getPosition().z();
+            selectionMaximum = selectedJunctions.front()->getNBNode()->getPosition().z();
         } else {
             selectionMinimum = selectedEdges.front()->getNBEdge()->getGeometry().front().z();
-            selectionMaximun = selectedEdges.front()->getNBEdge()->getGeometry().front().z();
+            selectionMaximum = selectedEdges.front()->getNBEdge()->getGeometry().front().z();
         }
         // declare average
         double selectionAverage = 0;
@@ -459,8 +459,8 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
                 selectionMinimum = z;
             }
             // check max
-            if (z > selectionMaximun) {
-                selectionMaximun = z;
+            if (z > selectionMaximum) {
+                selectionMaximum = z;
             }
             // update average
             selectionAverage += z;
@@ -469,17 +469,17 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
         }
         // iterate over edges
         for (const auto& edge : selectedEdges) {
-            // get innnen geometry
-            const PositionVector innenGeometry = edge->getNBEdge()->getInnerGeometry();
-            // iterate over innenGeometry
-            for (const auto& geometryPoint : innenGeometry) {
+            // get inner geometry
+            const PositionVector innerGeometry = edge->getNBEdge()->getInnerGeometry();
+            // iterate over innerGeometry
+            for (const auto& geometryPoint : innerGeometry) {
                 // check min
                 if (geometryPoint.z() < selectionMinimum) {
                     selectionMinimum = geometryPoint.z();
                 }
                 // check max
-                if (geometryPoint.z() > selectionMaximun) {
-                    selectionMaximun = geometryPoint.z();
+                if (geometryPoint.z() > selectionMaximum) {
+                    selectionMaximum = geometryPoint.z();
                 }
                 // update average
                 selectionAverage += geometryPoint.z();
@@ -495,8 +495,8 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
                     selectionMinimum = z;
                 }
                 // check max
-                if (z > selectionMaximun) {
-                    selectionMaximun = z;
+                if (z > selectionMaximum) {
+                    selectionMaximum = z;
                 }
                 // update average
                 selectionAverage += z;
@@ -512,8 +512,8 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
                     selectionMinimum = z;
                 }
                 // check max
-                if (z > selectionMaximun) {
-                    selectionMaximun = z;
+                if (z > selectionMaximum) {
+                    selectionMaximum = z;
                 }
                 // update average
                 selectionAverage += z;
@@ -528,10 +528,10 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
         selectionAverage *= 0.01;
         // set label string
         const std::string labelStr =
-            "- Num geometry points: " + toString(numPoints) + "\n" +
-            "- Selection minimum Z: " + toString(selectionMinimum) + "\n" +
-            "- Selection maximum Z: " + toString(selectionMaximun) + "\n" +
-            "- Selection average Z: " + toString(selectionAverage);
+            TL("- Num geometry points: ") + toString(numPoints) + "\n" +
+            TL("- Selection minimum Z: ") + toString(selectionMinimum) + "\n" +
+            TL("- Selection maximum Z: ") + toString(selectionMaximum) + "\n" +
+            TL("- Selection average Z: ") + toString(selectionAverage);
         // update info label
         myInfoLabel->setText(labelStr.c_str());
     }
@@ -568,14 +568,14 @@ GNEMoveFrame::ShiftShapeGeometry::~ShiftShapeGeometry() {}
 
 void
 GNEMoveFrame::ShiftShapeGeometry::showShiftShapeGeometry() {
-    // show modul
+    // show module
     show();
 }
 
 
 void
 GNEMoveFrame::ShiftShapeGeometry::hideShiftShapeGeometry() {
-    // hide modul
+    // hide module
     hide();
 }
 
