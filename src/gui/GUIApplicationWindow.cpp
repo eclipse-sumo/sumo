@@ -533,31 +533,31 @@ GUIApplicationWindow::fillMenuBar() {
     myLocatorMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Locate"), nullptr, myLocatorMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           TL("&Junctions"), "Shift+J", TL("Open a Dialog for Locating a Junction."),
+                                           TL("&Junctions"), "Shift+J", TL("Open a dialog for locating a Junction."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), this, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           TL("&Edges"), "Shift+E", TL("Open a Dialog for Locating an Edge."),
+                                           TL("&Edges"), "Shift+E", TL("Open a dialog for locating an Edge."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), this, MID_HOTKEY_SHIFT_E_LOCATEEDGE);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           TL("&Vehicles"), "Shift+V", TL("Open a Dialog for Locating a Vehicle."),
+                                           TL("&Vehicles"), "Shift+V", TL("Open a dialog for locating a Vehicle."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), this, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           TL("&Persons"), "Shift+P", TL("Open a Dialog for Locating a Person."),
+                                           TL("&Persons"), "Shift+P", TL("Open a dialog for locating a Person."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), this, MID_HOTKEY_SHIFT_P_LOCATEPERSON);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           TL("&Container"), "Shift+C", TL("Open a Dialog for Locating a Container."),
+                                           TL("&Container"), "Shift+C", TL("Open a dialog for locating a Container."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), this, MID_HOTKEY_SHIFT_C_LOCATECONTAINER);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           TL("&TLS"), "Shift+T", TL("Open a Dialog for Locating a Traffic Light."),
+                                           TL("&TLS"), "Shift+T", TL("Open a dialog for locating a Traffic Light."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), this, MID_HOTKEY_SHIFT_T_LOCATETLS);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           TL("&Additional"), "Shift+A", TL("Open a Dialog for Locating an Additional Structure."),
+                                           TL("&Additional"), "Shift+A", TL("Open a dialog for locating an Additional Structure."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), this, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           TL("P&oI"), "Shift+O", TL("Open a Dialog for Locating a Point of Interest."),
+                                           TL("P&oI"), "Shift+O", TL("Open a dialog for locating a Point of Interest."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), this, MID_HOTKEY_SHIFT_O_LOCATEPOI);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           TL("Po&lygon"), "Shift+L", TL("Open a Dialog for Locating a Polygon."),
+                                           TL("Po&lygon"), "Shift+L", TL("Open a dialog for locating a Polygon."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), this, MID_HOTKEY_SHIFT_L_LOCATEPOLY);
     new FXMenuSeparator(myLocatorMenu);
     new FXMenuCheck(myLocatorMenu,
