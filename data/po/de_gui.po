@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-16 14:26+0200\n"
+"POT-Creation-Date: 2023-08-16 14:48+0200\n"
 "PO-Revision-Date: 2023-08-16 11:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
@@ -4845,6 +4845,7 @@ msgid "Remove from Selected"
 msgstr "Aus Auswahl entfernen"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:467
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:305
 msgid "Add to Selected"
 msgstr "Zur Auswahl hinzufügen"
 
@@ -14370,10 +14371,6 @@ msgstr "Typisierten Namen in Zwischenablage"
 msgid "Remove From Selected"
 msgstr "Aus Auswahl entfernen"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:305
-msgid "Add To Selected"
-msgstr "Zu Auswahl hinzufügen"
-
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:315
 msgid "Show Parameter"
 msgstr "Parameter anzeigen"
@@ -15929,6 +15926,9 @@ msgstr " (Keine Projektion definiert)"
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1747
 msgid "Could not convert coordinates in %."
 msgstr "Konnte Koordinaten nicht in % konvertieren."
+
+#~ msgid "Add To Selected"
+#~ msgstr "Zu Auswahl hinzufügen"
 
 #~ msgid "Inspect vehicle "
 #~ msgstr "Fahrzeug prüfen "

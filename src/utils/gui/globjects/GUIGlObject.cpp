@@ -156,7 +156,7 @@ StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(GUIGlObjectTypeNamesInit
 const GUIGlID GUIGlObject::INVALID_ID = 0;
 
 // ===========================================================================
-// method definitionsas
+// method definitions
 // ===========================================================================
 
 GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon) :
@@ -302,7 +302,7 @@ GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparat
     if (gSelected.isSelected(getType(), getGlID())) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Remove From Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, TL("Add To Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Add to Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
     }
     if (addSeparator) {
         new FXMenuSeparator(ret);

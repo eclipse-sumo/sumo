@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-16 14:26+0200\n"
+"POT-Creation-Date: 2023-08-16 14:48+0200\n"
 "PO-Revision-Date: 2023-08-16 08:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -4841,6 +4841,7 @@ msgid "Remove from Selected"
 msgstr "Deselezioni"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:467
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:305
 msgid "Add to Selected"
 msgstr "Selezioni"
 
@@ -14055,10 +14056,6 @@ msgstr "Copia nome tipizzato negli appunti"
 msgid "Remove From Selected"
 msgstr "Rimuovi dalla selezione"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:305
-msgid "Add To Selected"
-msgstr "Aggiungi alla selezione"
-
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:315
 msgid "Show Parameter"
 msgstr "Mostri parametri"
@@ -15604,6 +15601,9 @@ msgstr " (nessuna proiezione definita)"
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1747
 msgid "Could not convert coordinates in %."
 msgstr "Non è stato possibile convertire le coordinate in %."
+
+#~ msgid "Add To Selected"
+#~ msgstr "Aggiungi alla selezione"
 
 #~ msgid "Open a Dialog for Locating a Junction."
 #~ msgstr "Apre un dialogo per localizzare un nodo."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-16 14:26+0200\n"
+"POT-Creation-Date: 2023-08-16 14:48+0200\n"
 "PO-Revision-Date: 2023-08-15 09:30+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -4801,6 +4801,7 @@ msgid "Remove from Selected"
 msgstr "从选定项中删除"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:467
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:305
 msgid "Add to Selected"
 msgstr "新增到选定项內"
 
@@ -13868,10 +13869,6 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:303
 msgid "Remove From Selected"
-msgstr ""
-
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:305
-msgid "Add To Selected"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:315
