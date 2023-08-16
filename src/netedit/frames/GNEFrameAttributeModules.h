@@ -153,6 +153,9 @@ public:
         /// @brief build value elements();
         void refreshValueElements(const bool attributeEnabled, const bool computed, const bool forceRefreshAttribute, const std::string &value);
 
+        /// @brief fill comboBox with discrete values
+        void fillComboBox();
+
         /// @brief Invalidated copy constructor.
         AttributesEditorRow(AttributesEditorRow*) = delete;
 
