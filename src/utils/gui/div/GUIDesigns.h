@@ -79,6 +79,9 @@ class MFXMenuCheckIcon;
 /// @brief button only with icon
 #define GUIDesignButtonIcon                     (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief button only with icon, special case for ticked arrows
+#define GUIDesignButtonIconTickedArrow          (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 0, 0, 0, 0
+
 /// @brief little rectangular button used in frames (For example, in "help" buttons)
 #define GUIDesignButtonRectangular              (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, (GUIDesignHeight + GUIDesignHeight), GUIDesignHeight, 2, 2, 2, 2
 
