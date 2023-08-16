@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-16 10:53+0200\n"
+"POT-Creation-Date: 2023-08-16 13:04+0200\n"
 "PO-Revision-Date: 2023-04-26 09:39+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -6270,7 +6270,7 @@ msgstr "清除"
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:287
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:282
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:60
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:762
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:703
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:74
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:332
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:109
@@ -6422,8 +6422,8 @@ msgid "Key '%' already exists"
 msgstr "鍵(key) '%' 已經存在"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:446
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1181
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1190
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1122
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1131
 msgid "Edit parameters"
 msgstr "編輯變數"
 
@@ -6433,7 +6433,7 @@ msgstr "無效的列類型"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:635
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:426
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:469
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:199
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1249
 msgid "Color Dialog"
 msgstr "顏色對話框"
@@ -10581,7 +10581,7 @@ msgid "Select reachable (compute junctions)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:752
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:693
 msgid "Internal attributes"
 msgstr "內部屬性"
 
@@ -10915,79 +10915,80 @@ msgstr "正在關閉標記..的幫助屬性(HelpAttributes)對話窗 '"
 msgid "Scale: Min -> Max"
 msgstr "比例: 最小 -> 最大"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:167
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:168
-msgid "Inspect vehicle "
-msgstr "檢視車輛 "
-
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:179
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:180
-msgid "Open dialog for editing color"
-msgstr "開啟編輯顏色的對話窗"
-
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:184
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:185
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:256
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:257
-msgid "Open dialog for editing allowed vClasses"
-msgstr "開啟編輯允許車輛類別的對話窗"
-
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:486
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:505
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:621
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:216
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:235
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:351
 msgid "change multiple attributes"
 msgstr "更改多個屬性"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:624
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:354
 msgid "change "
 msgstr "更改 "
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:624
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:354
 msgid " attribute"
 msgstr " 屬性"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:678
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:398
 msgid "Value '"
 msgstr "值 '"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:678
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:398
 msgid "' for attribute "
 msgstr "' 對於屬性 "
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:678
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:398
 msgid " of "
 msgstr " 的 "
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:678
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:398
 msgid " isn't valid"
 msgstr " 無效"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:695
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:415
 msgid "enable attribute '"
 msgstr "啟用屬性 '"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:703
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:423
 msgid "disable attribute '"
 msgstr "禁用屬性 '"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:993
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:480
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:481
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:578
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:579
+#, c-format
+msgid "Inspect % parent"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:497
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:498
+msgid "Open dialog for editing allowed vClasses"
+msgstr "開啟編輯允許車輛類別的對話窗"
+
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:508
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:509
+msgid "Open dialog for editing color"
+msgstr "開啟編輯顏色的對話窗"
+
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:934
 msgid "Extended attributes"
 msgstr "延伸屬性"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:996
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:937
 msgid "Open attributes editor"
 msgstr "開啟屬性編輯器"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1027
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:968
 msgid "Attributes"
 msgstr "屬性"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1031
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:972
 msgid "Edit attributes"
 msgstr "編輯屬性"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1177
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1186
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1118
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1127
 msgid "Parameters"
 msgstr "參數"
 
@@ -15415,6 +15416,9 @@ msgstr " 投影方式未定義"
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1747
 msgid "Could not convert coordinates in %."
 msgstr "無法將座標轉換為%單位。"
+
+#~ msgid "Inspect vehicle "
+#~ msgstr "檢視車輛 "
 
 #~ msgid "Open a Dialog for Locating a Junction."
 #~ msgstr "開啟對話窗以進行路口定位。"

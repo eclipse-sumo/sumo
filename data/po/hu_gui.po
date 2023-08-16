@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-16 10:53+0200\n"
+"POT-Creation-Date: 2023-08-16 13:04+0200\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -6255,7 +6255,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:287
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:282
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:60
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:762
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:703
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:74
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:332
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:109
@@ -6405,8 +6405,8 @@ msgid "Key '%' already exists"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:446
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1181
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1190
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1122
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1131
 msgid "Edit parameters"
 msgstr ""
 
@@ -6416,7 +6416,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:635
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:426
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:469
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:199
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1249
 msgid "Color Dialog"
 msgstr ""
@@ -10533,7 +10533,7 @@ msgid "Select reachable (compute junctions)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:752
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:693
 msgid "Internal attributes"
 msgstr ""
 
@@ -10867,79 +10867,80 @@ msgstr ""
 msgid "Scale: Min -> Max"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:167
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:168
-msgid "Inspect vehicle "
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:179
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:180
-msgid "Open dialog for editing color"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:184
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:185
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:256
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:257
-msgid "Open dialog for editing allowed vClasses"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:486
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:505
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:621
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:216
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:235
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:351
 msgid "change multiple attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:624
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:354
 msgid "change "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:624
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:354
 msgid " attribute"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:678
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:398
 msgid "Value '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:678
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:398
 msgid "' for attribute "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:678
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:398
 msgid " of "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:678
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:398
 msgid " isn't valid"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:695
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:415
 msgid "enable attribute '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:703
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:423
 msgid "disable attribute '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:993
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:480
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:481
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:578
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:579
+#, c-format
+msgid "Inspect % parent"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:497
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:498
+msgid "Open dialog for editing allowed vClasses"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:508
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:509
+msgid "Open dialog for editing color"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:934
 msgid "Extended attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:996
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:937
 msgid "Open attributes editor"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1027
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:968
 msgid "Attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1031
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:972
 msgid "Edit attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1177
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1186
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1118
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1127
 msgid "Parameters"
 msgstr ""
 
