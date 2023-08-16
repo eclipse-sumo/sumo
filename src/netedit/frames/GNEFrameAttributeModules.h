@@ -140,6 +140,18 @@ public:
 
         /// @brief pointer to AC Parent
         GNEAttributeCarrier* myACParent = nullptr;
+
+        /// @brief build Attribute elements
+        void buildAttributeElements(const bool attributeEnabled, const bool computed);
+
+        /// @brief build value elements();
+        void buildValueElements(const bool attributeEnabled, const bool computed);
+
+        /// @brief Invalidated copy constructor.
+        AttributesEditorRow(AttributesEditorRow*) = delete;
+
+        /// @brief Invalidated assignment operator.
+        AttributesEditorRow& operator=(AttributesEditorRow*) = delete;
     };
 
     // ===========================================================================

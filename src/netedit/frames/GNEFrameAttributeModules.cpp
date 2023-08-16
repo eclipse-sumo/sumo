@@ -89,90 +89,14 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     myAttributesEditorParent(attributeEditorParent),
     myACAttr(ACAttr),
     myACParent(ACParent) {
-    // Create and hide check button
-    if (myACAttr.isActivatable()) {
-        myAttributeCheckButton = new FXCheckButton(this, myACAttr.getAttrStr().c_str(), this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
-        // set color text depending of computed
-        myAttributeCheckButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
-        // check or uncheck depending of attributeEnabled
-        myAttributeCheckButton->setCheck(attributeEnabled? TRUE : FALSE);
-    } else if (myACAttr.getAttr() == SUMO_ATTR_ALLOW) {
-        myAttributeAllowButton = new MFXButtonTooltip(this,
-                attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                myACAttr.getAttrStr().c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
-        // set tip text
-        myAttributeAllowButton->setTipText(TL("Open dialog for editing allowed vClasses"));
-        myAttributeAllowButton->setHelpText(TL("Open dialog for editing allowed vClasses"));
-    } else if (myACAttr.isColor()) {
-        myAttributeColorButton = new MFXButtonTooltip(this,
-                attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                myACAttr.getAttrStr().c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
-        // set color text depending of computed
-        myAttributeColorButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
-        // set tip text
-        myAttributeColorButton->setTipText(TL("Open dialog for editing color"));
-        myAttributeColorButton->setHelpText(TL("Open dialog for editing color"));
-    } else if (myACParent) {
-		myAttributeVTypeButton = new MFXButtonTooltip(this,
-				attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-				myACAttr.getAttrStr().c_str(), myACParent ? myACParent->getACIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
-        // set color text depending of computed
-        myAttributeVTypeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
-        // set tip text
-        myAttributeVTypeButton->setTipText((TL("Inspect vehicle ") + myACAttr.getAttrStr() + " parent").c_str());
-        myAttributeVTypeButton->setHelpText((TL("Inspect vehicle ") + myACAttr.getAttrStr() + " parent").c_str());
-	} else {
-        // Create label
-        myAttributeLabel = new MFXLabelTooltip(this,
-                                               attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                               myACAttr.getAttrStr().c_str(), nullptr, GUIDesignLabelThickedFixed(100));
-        // set tip text
-        myAttributeLabel->setTipText(myACAttr.getDefinition().c_str());
-        myAttributeLabel->setHelpText(myACAttr.getDefinition().c_str());
-    }
-    // Create and hide MFXTextFieldTooltip for string attributes
-    myValueTextField = new MFXTextFieldTooltip(this,
-            attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-            GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myValueTextField->hide();
-    // Create and hide ComboBox
-    myValueChoicesComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, (ACAttr.getAttr() == SUMO_ATTR_VCLASS), this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
-    myValueChoicesComboBox->hide();
-    // Create and hide checkButton
-    myValueCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myValueCheckButton->hide();
+    // build attribute elements
+    buildAttributeElements(attributeEnabled, computed);
+    // build value elements
+    buildValueElements(attributeEnabled, computed);
     // only create if parent was created
     if (getParent()->id()) {
         // create AttributesEditorRow
         FXHorizontalFrame::create();
-        // start enabling all elements, depending if attribute is enabled
-        if (attributeEnabled == false) {
-            myValueTextField->disable();
-            myValueChoicesComboBox->disable();
-            myValueCheckButton->disable();
-        } else {
-            myValueTextField->enable();
-            myValueChoicesComboBox->enable();
-            myValueCheckButton->enable();
-        }
-        // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-        if ((myACAttr.getAttr() != SUMO_ATTR_NOTHING) && !isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr)) {
-            if (myAttributeCheckButton) {
-                myAttributeCheckButton->disable();
-            }
-            if (myAttributeAllowButton) {
-                myAttributeAllowButton->disable();
-            }
-            if (myAttributeColorButton) {
-                myAttributeColorButton->disable();
-            }
-            if (myAttributeVTypeButton) {
-                myAttributeVTypeButton->disable();
-            }
-            myValueTextField->disable();
-            myValueChoicesComboBox->disable();
-            myValueCheckButton->disable();
-        }
         // Set field depending of the type of value
         if (myACAttr.isBool()) {
             // first we need to check if all boolean values are equal
@@ -204,13 +128,6 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             } else {
                 // show list of bools (0 1)
                 myValueTextField->setText(value.c_str());
-                // set text depending of computed
-                if (computed) {
-                    myValueTextField->setTextColor(FXRGB(0, 0, 255));
-                } else {
-                    myValueTextField->setTextColor(FXRGB(0, 0, 0));
-                    myValueTextField->killFocus();
-                }
                 myValueTextField->show();
             }
         } else if (myACAttr.isDiscrete()) {
@@ -218,13 +135,6 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             if (myAttributeAllowButton) {
                 // Show string with the values
                 myValueTextField->setText(value.c_str());
-                // set color depending of computed
-                if (computed) {
-                    myValueTextField->setTextColor(FXRGB(0, 0, 255));
-                } else {
-                    myValueTextField->setTextColor(FXRGB(0, 0, 0));
-                    myValueTextField->killFocus();
-                }
                 myValueTextField->show();
             } else {
                 // fill comboBox
@@ -252,13 +162,6 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 } else {
                     myValueChoicesComboBox->setCurrentItem(itemIndex);
                 }
-                // set color depending of computed
-                if (computed) {
-                    myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 255));
-                } else {
-                    myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 0));
-                    myValueChoicesComboBox->killFocus();
-                }
                 myValueChoicesComboBox->show();
             }
         } else if (ACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
@@ -278,24 +181,10 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             } else {
                 myValueChoicesComboBox->setCurrentItem(itemIndex);
             }
-            // set color depending of computed
-            if (computed) {
-                myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 255));
-            } else {
-                myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 0));
-                myValueChoicesComboBox->killFocus();
-            }
             myValueChoicesComboBox->show();
         } else {
             // In any other case (String, list, etc.), show value as String
             myValueTextField->setText(value.c_str());
-            // set color depending of computed
-            if (computed) {
-                myValueTextField->setTextColor(FXRGB(0, 0, 255));
-            } else {
-                myValueTextField->setTextColor(FXRGB(0, 0, 0));
-                myValueTextField->killFocus();
-            }
             myValueTextField->show();
         }
         // Show AttributesEditorRow
@@ -702,6 +591,107 @@ GNEFrameAttributeModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
     }
     // nothing to merge
     return false;
+}
+
+void
+GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool attributeEnabled, const bool computed) {
+    // get static tooltip menu
+    const auto tooltipMenu = myAttributesEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
+    // check if disable element
+    const bool disableElement = !attributeEnabled || !isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr);
+    // continue depending of attribute
+    if (myACParent) {
+		myAttributeVTypeButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(),
+            myACParent ? myACParent->getACIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
+        // set color text depending of computed
+        myAttributeVTypeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        // set tip text
+        myAttributeVTypeButton->setTipText((TL("Inspect vehicle ") + myACAttr.getAttrStr() + " parent").c_str());
+        myAttributeVTypeButton->setHelpText((TL("Inspect vehicle ") + myACAttr.getAttrStr() + " parent").c_str());
+        // check if disable
+        if (disableElement) {
+            myAttributeVTypeButton->disable();
+        }
+    } else if (myACAttr.isActivatable()) {
+        myAttributeCheckButton = new FXCheckButton(this, myACAttr.getAttrStr().c_str(), this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+        // set color text depending of computed
+        myAttributeCheckButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        // check if disable
+        if (disableElement) {
+            myAttributeCheckButton->disable();
+        }
+    } else if (myACAttr.getAttr() == SUMO_ATTR_ALLOW) {
+        myAttributeAllowButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+        // set tip text
+        myAttributeAllowButton->setTipText(TL("Open dialog for editing allowed vClasses"));
+        myAttributeAllowButton->setHelpText(TL("Open dialog for editing allowed vClasses"));
+        // check if disable
+        if (disableElement) {
+            myAttributeAllowButton->disable();
+        }
+    } else if (myACAttr.isColor()) {
+        myAttributeColorButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+        // set color text depending of computed
+        myAttributeColorButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        // set tip text
+        myAttributeColorButton->setTipText(TL("Open dialog for editing color"));
+        myAttributeColorButton->setHelpText(TL("Open dialog for editing color"));
+        // check if disable
+        if (disableElement) {
+            myAttributeColorButton->disable();
+        }
+    } else if (myACParent) {
+		myAttributeVTypeButton = new MFXButtonTooltip(this, tooltipMenu,
+				myACAttr.getAttrStr().c_str(), myACParent ? myACParent->getACIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
+        // set color text depending of computed
+        myAttributeVTypeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        // set tip text
+        myAttributeVTypeButton->setTipText((TL("Inspect vehicle ") + myACAttr.getAttrStr() + " parent").c_str());
+        myAttributeVTypeButton->setHelpText((TL("Inspect vehicle ") + myACAttr.getAttrStr() + " parent").c_str());
+        // check if disable
+        if (disableElement) {
+            myAttributeVTypeButton->disable();
+        }
+	} else {
+        // Create label
+        myAttributeLabel = new MFXLabelTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, GUIDesignLabelThickedFixed(100));
+        // set tip text
+        myAttributeLabel->setTipText(myACAttr.getDefinition().c_str());
+        myAttributeLabel->setHelpText(myACAttr.getDefinition().c_str());
+    }
+}
+
+
+void
+GNEFrameAttributeModules::AttributesEditorRow::buildValueElements(const bool attributeEnabled, const bool computed) {
+    // Create and hide MFXTextFieldTooltip for string attributes
+    myValueTextField = new MFXTextFieldTooltip(this,
+            myAttributesEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // buy default hidden
+    myValueTextField->hide();
+    // set color text depending of computed
+    myValueTextField->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+    // Create and hide ComboBox
+    myValueChoicesComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, (myACAttr.getAttr() == SUMO_ATTR_VCLASS), this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    myValueChoicesComboBox->hide();
+    // buy default hidden
+    myValueChoicesComboBox->hide();
+    // set color text depending of computed
+    myValueChoicesComboBox->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+    // Create and hide checkButton
+    myValueCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myValueCheckButton->hide();
+    // buy default hidden
+    myValueCheckButton->hide();
+    // set color text depending of computed
+    myValueCheckButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+    // check if disable
+    if (!attributeEnabled || !isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr)) {
+        myValueTextField->disable();
+        myValueChoicesComboBox->disable();
+        myValueCheckButton->disable();
+    }
 }
 
 // ---------------------------------------------------------------------------
