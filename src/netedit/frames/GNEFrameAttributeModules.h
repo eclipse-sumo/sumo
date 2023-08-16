@@ -123,6 +123,12 @@ public:
         /// @brief Button for inspect Vtype/VtypeDistribution parent
         MFXButtonTooltip* myAttributeVTypeButton = nullptr;
 
+		/// @brief Button for move up lane
+        MFXButtonTooltip* myMoveUpLane = nullptr;
+
+		/// @brief Button for move down lane
+        MFXButtonTooltip* myMoveDownLane = nullptr;
+
         /// @brief textField to modify the value of string attributes
         MFXTextFieldTooltip* myValueTextField = nullptr;
 
