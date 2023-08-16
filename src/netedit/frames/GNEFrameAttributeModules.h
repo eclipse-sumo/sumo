@@ -87,8 +87,15 @@ public:
         /// @brief open model dialog for more comfortable attribute editing
         long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
 
+        /// @brief inspect parent
+        long onCmdInspectParent(FXObject*, FXSelector, void*);
+
         /// @brief inspect vType/VTypeDistribution parent
-        long onCmdInspectVTypeParent(FXObject*, FXSelector, void*);
+        long onCmdMoveElementLaneUp(FXObject*, FXSelector, void*);
+
+        /// @brief inspect vType/VTypeDistribution parent
+        long onCmdMoveElementLaneDown(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:

@@ -43,10 +43,12 @@
 // ===========================================================================
 
 FXDEFMAP(GNEFrameAttributeModules::AttributesEditorRow) AttributesEditorRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_VTYPE,    GNEFrameAttributeModules::AttributesEditorRow::onCmdInspectVTypeParent),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                  GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,             GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,           GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_INSPECTPARENT,    GNEFrameAttributeModules::AttributesEditorRow::onCmdInspectParent),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MOVEUP,                         GNEFrameAttributeModules::AttributesEditorRow::onCmdMoveElementLaneUp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MOVEDOWN,                       GNEFrameAttributeModules::AttributesEditorRow::onCmdMoveElementLaneDown)
 };
 
 FXDEFMAP(GNEFrameAttributeModules::AttributesEditor) AttributesEditorMap[] = {
@@ -264,9 +266,41 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
 
 
 long
-GNEFrameAttributeModules::AttributesEditorRow::onCmdInspectVTypeParent(FXObject*, FXSelector, void*) {
+GNEFrameAttributeModules::AttributesEditorRow::onCmdInspectParent(FXObject*, FXSelector, void*) {
     auto viewnet = myAttributesEditorParent->getFrameParent()->getViewNet();
     viewnet->getViewParent()->getInspectorFrame()->inspectChild(myACParent, viewnet->getInspectedAttributeCarriers().front());
+    return 1;
+}
+
+
+long
+GNEFrameAttributeModules::AttributesEditorRow::onCmdMoveElementLaneUp(FXObject*, FXSelector, void*) {
+    // get view net
+    auto viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
+    // get inspected ACs (for code cleaning)
+    auto AC = viewNet->getInspectedAttributeCarriers().front();
+    // extract lane
+    auto lane = viewNet->getNet()->getAttributeCarriers()->retrieveLane(AC->getAttribute(SUMO_ATTR_LANE));
+    // set next lane
+    AC->setAttribute(SUMO_ATTR_LANE, lane->getParentEdge()->getID() + "_" + toString(lane->getIndex() + 1), viewNet->getUndoList());
+    // update frame parent after attribute successfully set
+    myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
+    return 1;
+}
+
+
+long
+GNEFrameAttributeModules::AttributesEditorRow::onCmdMoveElementLaneDown(FXObject*, FXSelector, void*) {
+    // get view net
+    auto viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
+    // get inspected ACs (for code cleaning)
+    auto AC = viewNet->getInspectedAttributeCarriers().front();
+    // extract lane
+    auto lane = viewNet->getNet()->getAttributeCarriers()->retrieveLane(AC->getAttribute(SUMO_ATTR_LANE));
+    // set next lane
+    AC->setAttribute(SUMO_ATTR_LANE, lane->getParentEdge()->getID() + "_" + toString(lane->getIndex() - 1), viewNet->getUndoList());
+    // update frame parent after attribute successfully set
+    myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
     return 1;
 }
 
@@ -477,7 +511,7 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
     // continue depending of attribute
     if (myACParent) {
 		myAttributeParentButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(),
-            myACParent->getACIcon(), this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
+            myACParent->getACIcon(), this, MID_GNE_SET_ATTRIBUTE_INSPECTPARENT, GUIDesignButtonAttribute);
         // set color text depending of computed
         myAttributeParentButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // set tip text
