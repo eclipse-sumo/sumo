@@ -34,6 +34,7 @@ title: ChangeLog
   - Fixed crash opening undo-redo dialog after setting a simple attribute. #13673
   - Fixed invalid checks setting IDs. #13690
   - Now vType is a combobox when a selection of vehicles is inspected. #12719
+  - Fixed error with FXIconComboBox size. #12623
   
 - netconvert
   - Fixed unequal length of bidi edge. #13569
