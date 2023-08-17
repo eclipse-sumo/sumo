@@ -51,7 +51,7 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag d
     myDemandElementTags({demandElementTag}),
 mySelectingMultipleElements(false) {
     // Create MFXComboBoxIcon
-    myDemandElementsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDemandElementsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // create info label
     myInfoLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
     // refresh demand element MatchBox
@@ -74,7 +74,7 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::v
         }
     }
     // Create MFXComboBoxIcon
-    myDemandElementsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDemandElementsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // create info label
     myInfoLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
     // refresh demand element MatchBox

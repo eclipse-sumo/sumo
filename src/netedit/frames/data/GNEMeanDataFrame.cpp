@@ -68,7 +68,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::MeanDataTypeSelector(GNEMeanDataFrame* m
     MFXGroupBoxModule(meanDataFrameParent, TL("MeanData Type")),
     myMeanDataFrameParent(meanDataFrameParent) {
     // Create FXComboBox
-    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, false, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add mean data types
     const auto meanDataTypes = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::MEANDATA);
     for (const auto& meanDataType : meanDataTypes) {
@@ -279,7 +279,7 @@ GNEMeanDataFrame::MeanDataSelector::MeanDataSelector(GNEMeanDataFrame* typeFrame
     // get current meanData type
     SumoXMLTag meanDataTag = myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag();
     // Create FXComboBox
-    myMeanDataComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myMeanDataComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, false, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add meanDatas
     for (const auto& vMeanData : myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag)) {
         myMeanDataComboBox->appendIconItem(vMeanData->getID().c_str(), vMeanData->getACIcon());

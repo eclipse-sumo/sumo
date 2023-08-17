@@ -40,7 +40,10 @@ public:
     };
 
     /// @brief Construct a Combo Box widget with room to display cols columns of text
-    MFXComboBoxIcon(FXComposite* p, FXint cols, const bool haveIcons, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = COMBOBOX_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+    MFXComboBoxIcon(FXComposite* p, FXint cols, const bool haveIcons, const bool canSearch,
+                    FXObject* tgt = nullptr, FXSelector sel = 0, FXuint opts = COMBOBOX_NORMAL,
+                    FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+                    FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief Destructor
     virtual ~MFXComboBoxIcon();

@@ -559,7 +559,7 @@ GNEFrameAttributeModules::AttributesEditorRow::buildValueElements(const bool att
     // set color text depending of computed
     myValueTextField->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
     // Create and hide ComboBox
-    myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, (myACAttr.getAttr() == SUMO_ATTR_VCLASS), this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, (myACAttr.getAttr() == SUMO_ATTR_VCLASS), true, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBox->hide();
     // set color text depending of computed
     myValueComboBox->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
