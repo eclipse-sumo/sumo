@@ -3487,13 +3487,13 @@ GNEViewNetHelper::CommonCheckableButtons::buildCommonCheckableButtons() {
     // delete button
     deleteButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
                                           myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                          std::string("\t") + TL("Set delete mode") + std::string("\t") + TL("Mode for delete elements. (D)"),
+                                          std::string("\t") + TL("Set delete mode") + std::string("\t") + TL("Mode for deleting elements. (D)"),
                                           GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myViewNet, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE, GUIDesignMFXCheckableButtonSquare);
     deleteButton->create();
     // select button
     selectButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
                                           myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                          std::string("\t") + TL("Set select mode") + std::string("\t") + TL("Mode for select elements. (S)"),
+                                          std::string("\t") + TL("Set select mode") + std::string("\t") + TL("Mode for selecting elements. (S)"),
                                           GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myViewNet, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT, GUIDesignMFXCheckableButtonSquare);
     selectButton->create();
     // always recalc menu bar after creating new elements
@@ -3546,7 +3546,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     // move button
     moveNetworkElementsButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        std::string("\t") + TL("Set move mode") + std::string("\t") + TL("Mode for move elements. (M)"),
+        std::string("\t") + TL("Set move mode") + std::string("\t") + TL("Mode for moving elements. (M)"),
         GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myViewNet, MID_HOTKEY_M_MODE_MOVE_MEANDATA, GUIDesignMFXCheckableButtonSquare);
     moveNetworkElementsButton->create();
     // create edge
@@ -3558,7 +3558,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     // traffic light mode
     trafficLightButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        std::string("\t") + TL("Set traffic light mode") + std::string("\t") + TL("Mode for edit traffic lights over junctions. (T)"),
+        std::string("\t") + TL("Set traffic light mode") + std::string("\t") + TL("Mode for editing traffic lights over junctions. (T)"),
         GUIIconSubSys::getIcon(GUIIcon::MODETLS), myViewNet, MID_HOTKEY_T_MODE_TLS_TYPE, GUIDesignMFXCheckableButtonSquare);
     trafficLightButton->create();
     // connection mode
@@ -3691,7 +3691,7 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     // move button
     moveDemandElementsButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        std::string("\t") + TL("Set move mode") + std::string("\t") + TL("Mode for move elements. (M)"),
+        std::string("\t") + TL("Set move mode") + std::string("\t") + TL("Mode for moving elements. (M)"),
         GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myViewNet, MID_HOTKEY_M_MODE_MOVE_MEANDATA, GUIDesignMFXCheckableButtonSquare);
     moveDemandElementsButton->create();
     // route mode
