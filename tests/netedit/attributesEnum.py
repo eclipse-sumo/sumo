@@ -1690,22 +1690,22 @@ class trip:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        insertionChecks = 15
-        depart = 16
-        parameters = 19
+        colorButton = 3
+        color = 4
+        departLane = 5
+        departPos = 6
+        departSpeed = 7
+        arrivalLane = 8
+        arrivalPos = 9
+        arrivalSpeed = 10
+        line = 11
+        personNumber = 12
+        containerNumber = 13
+        departPosLat = 14
+        arrivalPosLat = 15
+        insertionChecks = 16
+        depart = 17
+        parameters = 20
 
     class transform:
         vehicle = 1
@@ -1769,22 +1769,22 @@ class tripJunction:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        insertionChecks = 15
-        depart = 16
-        parameters = 19
+        colorButton = 3
+        color = 4
+        departLane = 5
+        departPos = 6
+        departSpeed = 7
+        arrivalLane = 8
+        arrivalPos = 9
+        arrivalSpeed = 10
+        line = 11
+        personNumber = 12
+        containerNumber = 13
+        departPosLat = 14
+        arrivalPosLat = 15
+        insertionChecks = 16
+        depart = 17
+        parameters = 20
 
     class transform:
         vehicle = 1
@@ -1849,22 +1849,22 @@ class tripTAZ:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        insertionChecks = 15
-        depart = 16
-        parameters = 19
+        colorButton = 3
+        color = 4
+        departLane = 5
+        departPos = 6
+        departSpeed = 7
+        arrivalLane = 8
+        arrivalPos = 9
+        arrivalSpeed = 10
+        line = 11
+        personNumber = 12
+        containerNumber = 13
+        departPosLat = 14
+        arrivalPosLat = 15
+        insertionChecks = 16
+        depart = 17
+        parameters = 20
 
     class transform:
         flow = 1
@@ -1925,22 +1925,22 @@ class vehicle:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        insertionChecks = 15
-        depart = 16
-        parameters = 19
+        colorButton = 3
+        color = 4
+        departLane = 5
+        departPos = 6
+        departSpeed = 7
+        arrivalLane = 8
+        arrivalPos = 9
+        arrivalSpeed = 10
+        line = 11
+        personNumber = 12
+        containerNumber = 13
+        departPosLat = 14
+        arrivalPosLat = 15
+        insertionChecks = 16
+        depart = 17
+        parameters = 20
 
     class transform:
         vehicleEmbedded = 1
@@ -2004,22 +2004,22 @@ class vehicleEmbedded:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        insertionChecks = 15
-        depart = 16
-        parameters = 19
+        colorButton = 3
+        color = 4
+        departLane = 5
+        departPos = 6
+        departSpeed = 7
+        arrivalLane = 8
+        arrivalPos = 9
+        arrivalSpeed = 10
+        line = 11
+        personNumber = 12
+        containerNumber = 13
+        departPosLat = 14
+        arrivalPosLat = 15
+        insertionChecks = 16
+        depart = 17
+        parameters = 20
 
     class transform:
         vehicle = 1
@@ -2095,26 +2095,26 @@ class flow:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        insertionChecks = 15
-        begin = 16
-        terminate = 19
-        spacing = 21
-        terminateOption = 23
-        spacingOption = 24
-        parameters = 24
+        colorButton = 3
+        color = 4
+        departLane = 5
+        departPos = 6
+        departSpeed = 7
+        arrivalLane = 8
+        arrivalPos = 9
+        arrivalSpeed = 10
+        line = 11
+        personNumber = 12
+        containerNumber = 13
+        departPosLat = 14
+        arrivalPosLat = 15
+        insertionChecks = 16
+        begin = 17
+        terminate = 20
+        spacing = 22
+        terminateOption = 24
+        spacingOption = 25
+        parameters = 25
 
     class transform:
         vehicle = 1
@@ -2189,26 +2189,26 @@ class flowJunction:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        insertionChecks = 15
-        begin = 16
-        terminate = 19
-        spacing = 21
-        terminateOption = 23
-        spacingOption = 24
-        parameters = 24
+        colorButton = 3
+        color = 4
+        departLane = 5
+        departPos = 6
+        departSpeed = 7
+        arrivalLane = 8
+        arrivalPos = 9
+        arrivalSpeed = 10
+        line = 11
+        personNumber = 12
+        containerNumber = 13
+        departPosLat = 14
+        arrivalPosLat = 15
+        insertionChecks = 16
+        begin = 17
+        terminate = 20
+        spacing = 22
+        terminateOption = 24
+        spacingOption = 25
+        parameters = 25
 
     class transform:
         vehicle = 1
@@ -2284,26 +2284,26 @@ class flowTAZ:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        insertionChecks = 15
-        begin = 16
-        terminate = 19
-        spacing = 21
-        terminateOption = 23
-        spacingOption = 24
-        parameters = 24
+        colorButton = 3
+        color = 4
+        departLane = 5
+        departPos = 6
+        departSpeed = 7
+        arrivalLane = 8
+        arrivalPos = 9
+        arrivalSpeed = 10
+        line = 11
+        personNumber = 12
+        containerNumber = 13
+        departPosLat = 14
+        arrivalPosLat = 15
+        insertionChecks = 16
+        begin = 17
+        terminate = 20
+        spacing = 22
+        terminateOption = 24
+        spacingOption = 25
+        parameters = 25
 
     class transform:
         trip = 1
@@ -2375,26 +2375,26 @@ class routeFlow:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        insertionChecks = 15
-        begin = 16
-        terminate = 19
-        spacing = 21
-        terminateOption = 23
-        spacingOption = 24
-        parameters = 24
+        colorButton = 3
+        color = 4
+        departLane = 5
+        departPos = 6
+        departSpeed = 7
+        arrivalLane = 8
+        arrivalPos = 9
+        arrivalSpeed = 10
+        line = 11
+        personNumber = 12
+        containerNumber = 13
+        departPosLat = 14
+        arrivalPosLat = 15
+        insertionChecks = 16
+        begin = 17
+        terminate = 20
+        spacing = 22
+        terminateOption = 24
+        spacingOption = 25
+        parameters = 25
 
     class transform:
         vehicle = 1
@@ -2469,26 +2469,26 @@ class flowEmbedded:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        insertionChecks = 15
-        begin = 16
-        terminate = 19
-        spacing = 21
-        terminateOption = 23
-        spacingOption = 24
-        parameters = 24
+        colorButton = 3
+        color = 4
+        departLane = 5
+        departPos = 6
+        departSpeed = 7
+        arrivalLane = 8
+        arrivalPos = 9
+        arrivalSpeed = 10
+        line = 11
+        personNumber = 12
+        containerNumber = 13
+        departPosLat = 14
+        arrivalPosLat = 15
+        insertionChecks = 16
+        begin = 17
+        terminate = 20
+        spacing = 22
+        terminateOption = 24
+        spacingOption = 25
+        parameters = 25
 
     class transform:
         vehicle = 1
@@ -3129,11 +3129,11 @@ class person:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departPos = 4
-        depart = 5
-        parameters = 8
+        colorButton = 3
+        color = 4
+        departPos = 5
+        depart = 6
+        parameters = 9
 
     transformTo = 8
 
@@ -3169,15 +3169,15 @@ class personFlow:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        departPos = 4
-        begin = 5
-        terminate = 8
-        spacing = 10
-        terminateOption = 12
-        spacingOption = 13
-        parameters = 15
+        colorButton = 3
+        color = 4
+        departPos = 5
+        begin = 6
+        terminate = 9
+        spacing = 11
+        terminateOption = 13
+        spacingOption = 14
+        parameters = 16
 
     transformTo = 8
 
@@ -3385,10 +3385,10 @@ class container:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        depart = 4
-        parameters = 7
+        colorButton = 3
+        color = 4
+        depart = 5
+        parameters = 8
 
     transformTo = 8
 
@@ -3422,14 +3422,14 @@ class containerFlow:
 
     class inspectSelection:
         type = 1
-        colorButton = 2
-        color = 3
-        begin = 4
-        terminate = 7
-        spacing = 9
-        terminateOption = 11
-        spacingOption = 12
-        parameters = 14
+        colorButton = 3
+        color = 4
+        begin = 5
+        terminate = 8
+        spacing = 10
+        terminateOption = 12
+        spacingOption = 13
+        parameters = 15
 
     transformTo = 8
 
